@@ -414,7 +414,9 @@ that enabling the gate does not delete content by itself. Its checkbox also stay
 checked after saving because the reactive settings publication returns the stored
 value. Below that: regression coverage keeps the menu order, pane rendering, URL,
 setting handler and publication together, with the corresponding Admin Panel
-documentation and English source strings.
+documentation and English source strings. **Board Archive** removes permanent
+delete from individual board icons and offers it as one confirmed red action on
+a multi-selection, with the same gate enforced again on the server.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -427,7 +429,9 @@ documentation and English source strings.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release adds the following Admin Panel feature:
+This release adds the following features:
+
+**The Admin Panel** - server-wide safety settings.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ab3161b4">The Delete settings pane appears above Notifications</a>. Thanks to xet7.</summary>
@@ -437,6 +441,26 @@ The removed Features page left no place to operate the existing
 whose checkbox exposes that default-off setting to Global Admins. Turning the
 gate on does not delete anything by itself; it only permits an explicit purge.
 Menu-order, pane-rendering, URL and setting-handler tests cover the addition.
+
+</details>
+
+**Board Archive** - restoring or permanently removing archived boards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3034d81e">Permanent delete acts on selected archived boards</a>. Thanks to xet7.</summary>
+
+Board icons no longer carry a trashcan that can permanently delete one board by
+accident. With Multi-Selection active, a Global Admin who enabled Admin Panel →
+Problems → Delete sees one red Delete button in the Archive's right sidebar. It
+shows the existing irreversible board-and-content warning before sending the
+whole selection to one server method.
+
+The server trusts none of those display conditions: it independently requires a
+Global Admin, the enabled feature flag, a bounded string-id selection and only
+archived boards. It validates every selected board before deleting the first, so
+an invalid or live-board id cannot leave a half-applied batch. Positive and
+negative tests cover the missing per-board control, both UI gates, confirmation,
+successful reset, retained selection on failure and every server-side gate.
 
 </details>
 
