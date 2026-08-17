@@ -417,7 +417,8 @@ setting handler and publication together, with the corresponding Admin Panel
 documentation and English source strings. Permanent-delete setting changes and
 board-purge attempts, including unauthorized and failed ones, are audited in
 **Recovery** with Boolean status, acting user, proxy-aware IP address, board IDs
-and titles; coloured icons distinguish success, failure and deleted data.
+and titles; coloured icons distinguish success, failure and deleted data, and a
+dropdown filters the audit to All, Done, Failed or Deleted events.
 **Board Archive** removes permanent delete from individual board icons and
 offers it as one confirmed red action on a multi-selection, with the same gate
 enforced again on the server. When that gate is disabled, the sidebar explains
@@ -496,6 +497,17 @@ column: success is a green check, failure a red warning, and a successful
 physical deletion adds a yellow trashcan. Partial batches show both the boards
 already deleted and the failed whole-batch attempt. Tests cover storage,
 address classification, negative paths, icon rendering and colours.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f1d42211">Recovery can filter events by outcome</a>. Thanks to xet7.</summary>
+
+The shared controls row now offers All, Done, Failed and Deleted filters above
+the Recovery table. The server applies the selected outcome together with search
+before counting and pagination, so page totals and rows stay consistent. Legacy
+events without the newer Boolean field remain under Done. Positive, combined and
+negative selector tests cover the filter and its UI wiring.
 
 </details>
 

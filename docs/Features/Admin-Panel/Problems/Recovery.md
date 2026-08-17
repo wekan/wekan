@@ -116,6 +116,12 @@ adds a yellow trashcan. A batch that partly completes therefore shows yellow
 successful rows for the boards already removed and a red failed-attempt row for
 the whole requested batch.
 
+The filter dropdown above the table selects **All**, **Done**, **Failed** or
+**Deleted** events. Filtering is applied by the server before counting and
+pagination, and combines with the search term. Older events written before the
+`done` field existed count as Done because those event types represented completed
+recovery actions.
+
 ## Manual recovery
 
 To force a restore on the next start, set `WEKAN_FORCE_RESTORE=backup` (or `prev`, or
@@ -130,8 +136,8 @@ Recovery report.
   → manual, non-destructive).
 - `tests/recoveryEventsJsonl.test.cjs` — the JSONL parser (skips junk, normalizes
   severity, bounds line size; never throws).
-- `tests/recoveryReportQuery.test.cjs` — the report search selector (escapes regex
-  metacharacters).
+- `tests/recoveryReportQuery.test.cjs` — the report search and outcome selectors
+  (including combined filters, legacy Done rows and escaped regex metacharacters).
 - `tests/recoveryReportWiring.test.cjs` — the Recovery report is wired and the
   publication/count/method are admin-gated.
 - `tests/permanentDeleteRecoveryAudit.test.cjs` — permanent-delete setting
