@@ -422,7 +422,8 @@ page scroller in mobile-view mode, and make the standalone E2E browser selection
 architecture-safe. **Translations** reuse 3,838 unambiguous same-language
 values, and the new reports are complete in Finnish. **Regression coverage**
 now exercises inline minicard title editing in the browser and guards the
-Finnish Office and API report vocabulary directly.
+Finnish Office and API report vocabulary directly. **Requested By and Assigned
+By** say Edit when their free-text value already exists and Add when it is empty.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -570,6 +571,21 @@ its popup explicitly with the surrounding date template's Card and stops the
 click before the opened-card handler can create a second popup. Source-level
 positive and negative tests cover all four ordinary card dates, and the browser
 suite adds a saved start date, reopens it, changes it and verifies the new date.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf4c00459">Populated Requested By and Assigned By text fields say Edit instead of Add</a>. Thanks to xet7.</summary>
+
+The free-text control previously said Add regardless of whether the field was
+empty or already displayed a value. Both opened-card fields now use the existing
+translated Edit label when text exists and retain Add only for an empty value;
+their separate plus button continues to open the board-member selector.
+
+The source guard checks both branches for both fields, including the empty-value
+negative case. Browser coverage seeds populated Requested By text beside an
+empty Assigned By field and verifies that the two controls render Edit and Add
+respectively.
 
 </details>
 
