@@ -427,10 +427,11 @@ action-looking archive glyph at their lower-left corner.
 The same themed controls now cover **Remaining, Starred, Home and Templates**,
 always following the visible section and search result. While that mode is on,
 its action sidebar now stays visible until Multi-Selection is turned off, and
-its actions remain available before the first board is checked. Setting a Home
-board now requires exactly one checked board, and the Home section offers only
-the actions that make sense for its current board. Dragging a selection onto
-Home follows the same one-board rule. Remaining can now drag boards onto
+its actions remain available before the first board is checked. Closing that
+sidebar with its X also turns Multi-Selection off. Setting a Home board now
+requires exactly one checked board, and the Home section offers only the actions
+that make sense for its current board. Dragging a selection onto Home follows
+the same one-board rule. Remaining can now drag boards onto
 Starred or Archive as green targets. Home's empty state also states its
 one-board limit before dragging begins. **All Boards and board loading** now
 publish only dashboard board fields, keep templates separate, omit empty share
@@ -590,6 +591,18 @@ the pane that operates selected boards. Every sidebar state change resolves
 back to the visible Multi-Selection view until the mode is turned off; its off
 controls then unlock and close the pane in that order. Positive and negative
 tests cover both sides of the transition.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/782200a0d">The sidebar X turns Multi-Selection off and closes it</a>. Thanks to xet7.</summary>
+
+The right-sidebar X previously called the guarded close operation while
+Multi-Selection was active, so the guard immediately kept the sidebar open.
+The X now disables selection mode first and then closes the unlocked sidebar,
+matching the explicit Multi-Selection Off action in one click. Other sidebar
+views retain their ordinary close behavior, and regression coverage pins the
+required operation order.
 
 </details>
 
