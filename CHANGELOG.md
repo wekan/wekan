@@ -416,10 +416,13 @@ vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
 **Helm containers** size the Node.js heap from their memory limit, and the
 official chart supplies enough memory for startup plus native allocations.
 **Minicard titles** save again from their inline editor, and **card dates** can
-be changed or deleted again after they have been saved. **Translations** reuse
-3,838 unambiguous same-language values, and the new reports are complete in
-Finnish. **Regression coverage** now exercises inline minicard title editing in
-the browser and guards the Finnish Office and API report vocabulary directly.
+be changed or deleted again after they have been saved. **Full-suite repairs**
+keep the shared date form registered before its events, preserve the one mobile
+page scroller in mobile-view mode, and make the standalone E2E browser selection
+architecture-safe. **Translations** reuse 3,838 unambiguous same-language
+values, and the new reports are complete in Finnish. **Regression coverage**
+now exercises inline minicard title editing in the browser and guards the
+Finnish Office and API report vocabulary directly.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -550,6 +553,31 @@ The common form now owns its common event handlers and receives the parent
 popup's state and field-specific callbacks explicitly. Received, start, due,
 end, vote, planning-poker and custom-field dates retain one shared form, and a
 browser regression test changes a previously stored due date.
+
+</details>
+
+**The full test run** - client startup, mobile scrolling and portable test
+execution.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2ba64c0f">The newest full-suite regressions are repaired and diagnosed at their source</a>. Thanks to xet7.</summary>
+
+The shared date form registered its Blaze event map before its Jade template
+existed, throwing on client startup and leaving Node E2E and every browser test
+on a blank page. The forms feature now creates `editDateForm` before the
+datepicker library attaches its events, with an import-order regression guard.
+
+On phone-sized All Boards pages, the more-specific `.board-list.mobile-view`
+rule overrode the new natural-height list and restored a nested vertical
+scroller. The phone rule now covers both selectors, so `#content` remains the
+one swipe owner in either view.
+
+The standalone E2E runner now discovers current Playwright cache revisions and
+rejects a Chromium binary for the wrong CPU architecture. Failed page renders
+also report browser exceptions and failed requests instead of only an empty
+body. The remaining completed failures were stale guards updated for the shared
+export document, server-supplied download names, reorganized LDAP documentation,
+the translation-memory helper and explicit bundle-smoke Node binary.
 
 </details>
 
