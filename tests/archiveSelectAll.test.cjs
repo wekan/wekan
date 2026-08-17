@@ -24,7 +24,8 @@ test('the two buttons are above the archive board icons', () => {
   assert.ok(title < controls && controls < icons,
     'the controls belong between the pane title and board icons');
   assert.ok(/button\.primary\.js-archive-select-all[^\n]*\{\{_ 'select-all'\}\}/.test(jade));
-  assert.ok(/button\.js-archive-select-none[^\n]*\{\{_ 'select-none'\}\}/.test(jade));
+  assert.ok(/button\.primary\.js-archive-select-none[^\n]*\{\{_ 'select-none'\}\}/.test(jade),
+    'Select None uses the same theme-primary style as Select All');
   assert.strictEqual(en['select-all'], 'Select all');
   assert.strictEqual(en['select-none'], 'Select none');
 });
