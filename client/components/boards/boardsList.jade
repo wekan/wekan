@@ -242,9 +242,7 @@ template(name="boardList")
                             client/components/boards/boardsList.js
                           if isSelectedMenu 'archive'
                             p.board-list-item-archived-at
-                              span.emoji-icon
-                                i.fa.fa-archive
-                              |  {{_ 'archived-at'}}
+                              | {{_ 'archived-at'}}
                               = ' '
                               = archivedAtText
                           if hasSpentTimeCards
@@ -311,9 +309,7 @@ template(name="boardList")
                             client/components/boards/boardsList.js
                           if isSelectedMenu 'archive'
                             p.board-list-item-archived-at
-                              span.emoji-icon
-                                i.fa.fa-archive
-                              |  {{_ 'archived-at'}}
+                              | {{_ 'archived-at'}}
                               = ' '
                               = archivedAtText
                           if hasSpentTimeCards

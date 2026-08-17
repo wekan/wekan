@@ -52,7 +52,9 @@ It keeps what made it worth having:
   with a long archive stays fast. The page size is the app's one
   `TABLE_PAGE_ROWS_PER_PAGE`.
 - **Restore** remains available without putting a destructive control on every
-  board icon. There is no per-board trashcan.
+  board icon. There is no per-board trashcan, archive glyph or delete-looking
+  hover control at the lower-left of an archived tile; its archived date
+  remains plain text inside the tile.
 - **Permanent delete** is a multi-selection action in the right sidebar. It is
   visible only to a Global Admin while Admin Panel → Problems → Delete is
   enabled, is drawn as a red **Delete** button, and confirms that the selected

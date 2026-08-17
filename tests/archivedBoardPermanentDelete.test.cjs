@@ -13,6 +13,7 @@ const legacyJade = read('client/components/boards/boardArchive.jade');
 const legacyJs = read('client/components/boards/boardArchive.js');
 const sidebar = read('client/components/boards/allBoardsSidebar.jade');
 const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
+const allBoardsJade = read('client/components/boards/boardsList.jade');
 const server = read('server/models/boards.js');
 
 let passed = 0;
@@ -25,6 +26,18 @@ test('board rows have no trashcan or per-board delete action (negative)', () => 
     'the legacy archive rows must not offer permanent deletion');
   assert.ok(!/js-delete-board|Boards\.removeAsync\(this\._id\)/.test(legacyJs),
     'and no old client-side row deletion handler remains');
+});
+
+test('archived board tiles have no lower-left archive action icon', () => {
+  const archivedMetadata =
+    /if isSelectedMenu 'archive'\s+p\.board-list-item-archived-at([\s\S]*?)(?=\n\s+if |\n\s+(?:span|a)\.)/g;
+  const blocks = [...allBoardsJade.matchAll(archivedMetadata)].map(match => match[1]);
+
+  assert.strictEqual(blocks.length, 2, 'both board tile variants show archived metadata');
+  for (const block of blocks) {
+    assert.ok(!/fa-archive/.test(block), 'archived metadata must not look like an action');
+    assert.ok(/'archived-at'/.test(block), 'the useful archived date label remains');
+  }
 });
 
 test('Archive multi-selection shows one red Delete button behind both UI gates', () => {
