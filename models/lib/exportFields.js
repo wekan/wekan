@@ -53,7 +53,15 @@ const BOARD_EXPORT_FIELDS = [
 ];
 
 const CARD_EXPORT_FIELD_KEYS = CARD_EXPORT_FIELDS.map(entry => entry.field);
-const BOARD_EXPORT_FIELD_KEYS = BOARD_EXPORT_FIELDS.map(entry => entry.field);
+// `card-details` selects the card-style Excel renderer rather than the legacy
+// streaming table. It is a layout choice drawn separately in the popup, but it
+// still travels in `?fields=` and therefore MUST survive the route's allowlist.
+// Leaving it out made validation silently strip it and routed every board,
+// swimlane and list Excel export to the old table renderer.
+const BOARD_EXPORT_FIELD_KEYS = [
+  'card-details',
+  ...BOARD_EXPORT_FIELDS.map(entry => entry.field),
+];
 
 // `?fields=a,b,c` -> the keys of it that exist, or null for "everything".
 // Null rather than the full list, so a caller can tell "no selection" from "one

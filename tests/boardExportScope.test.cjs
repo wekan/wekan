@@ -63,6 +63,26 @@ test('the board Excel draws each card with the card export block', () => {
   assert.ok(/ExporterExcelCard/.test(excelBoard), 'and it is the card exporter, not a copy');
 });
 
+test('the board route keeps the card-layout selector sent by the popup', () => {
+  assert.ok(
+    /const BOARD_EXPORT_FIELD_KEYS = \[\s*'card-details',/.test(fields),
+    'field validation must not strip card-details before choosing an exporter',
+  );
+  assert.ok(
+    /fields && !fields\.includes\('card-details'\)/.test(excelRoute),
+    'the validated selector chooses between the detailed and streaming layouts',
+  );
+});
+
+test('the detailed board export passes attachment images to the card renderer', () => {
+  assert.ok(/attachmentsByCard: group\(attachments, 'meta\.cardId'\)/.test(excelBoard),
+    'board attachments are grouped by card');
+  assert.ok(/attachments: data\.attachmentsByCard\[card\._id\] \|\| \[\]/.test(excelBoard),
+    'each card block receives its attachments');
+  assert.ok(/imageAttachments\.push\(\{/.test(excelCard),
+    'the reused card renderer embeds image attachment bytes');
+});
+
 test('the card block is given its data, never left to fetch per card', () => {
   // The card export reads one card's checklists, comments and attachments per
   // card. Done per card on a board of three hundred, that is fifteen hundred
