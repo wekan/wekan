@@ -97,6 +97,13 @@ Event types include `backup-created`, `corruption-detected`, `restore-backup`,
 `restore-prev`, `remigrate`, `bloat-repaired`, `integrity-ok`, `manual-required`, each
 with a severity (info / warning / error).
 
+Recovery also keeps the audit trail for irreversible board deletion. Changing
+Admin Panel → Problems → Delete records `permanent-delete-setting-changed` with
+the Global Admin username, user ID and whether the setting was enabled or
+disabled. Every successfully purged archived board records
+`board-permanently-deleted` with that actor, the board ID and its title. No-op,
+unauthorized and failed operations are not logged as successful actions.
+
 ## Manual recovery
 
 To force a restore on the next start, set `WEKAN_FORCE_RESTORE=backup` (or `prev`, or
@@ -115,6 +122,9 @@ Recovery report.
   metacharacters).
 - `tests/recoveryReportWiring.test.cjs` — the Recovery report is wired and the
   publication/count/method are admin-gated.
+- `tests/permanentDeleteRecoveryAudit.test.cjs` — permanent-delete setting
+  changes and successful board purges record their actor and affected board,
+  while no-op and failed operations cannot produce success records.
 - `tests/ferretdbTextDataBackup.test.cjs` — the backup/restore scripts (critical
   negatives: never delete the live text data or a backup copy, never copy
   attachments/avatars).

@@ -414,13 +414,15 @@ that enabling the gate does not delete content by itself. Its checkbox also stay
 checked after saving because the reactive settings publication returns the stored
 value. Below that: regression coverage keeps the menu order, pane rendering, URL,
 setting handler and publication together, with the corresponding Admin Panel
-documentation and English source strings. **Board Archive** removes permanent
-delete from individual board icons and offers it as one confirmed red action on
-a multi-selection, with the same gate enforced again on the server. When that
-gate is disabled, the sidebar explains where to enable it instead of showing an
-inapplicable selection instruction. Its enabled Delete button and server method
-both require the site-wide Global Admin flag. Select All and Select None above
-the icons make that selection explicit and quick.
+documentation and English source strings. Permanent-delete setting changes and
+successful board purges are audited in **Recovery** with the acting username,
+board ID and title. **Board Archive** removes permanent delete from individual
+board icons and offers it as one confirmed red action on a multi-selection, with
+the same gate enforced again on the server. When that gate is disabled, the
+sidebar explains where to enable it instead of showing an inapplicable selection
+instruction. Its enabled Delete button and server method both require the
+site-wide Global Admin flag. Select All and Select None above the icons make that
+selection explicit and quick.
 Dragging that archived selection now highlights only Remaining and existing
 Workspaces as valid restore targets. Archived tiles no longer show an
 action-looking archive glyph at their lower-left corner.
@@ -465,6 +467,19 @@ The removed Features page left no place to operate the existing
 whose checkbox exposes that default-off setting to Global Admins. Turning the
 gate on does not delete anything by itself; it only permits an explicit purge.
 Menu-order, pane-rendering, URL and setting-handler tests cover the addition.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/134bd48de">Recovery audits permanent-delete changes and board purges</a>. Thanks to xet7.</summary>
+
+Enabling or disabling Admin Panel → Problems → Delete now goes through a strict
+Global Admin server method and records the actual changed state in Recovery with
+the actor's username and user ID. Each successfully and permanently removed
+archived board records its ID and JSON-quoted title with the same actor. No-op
+setting writes, unauthorized calls and failed removals cannot create misleading
+success records. Tests pin the ordering of write before audit, stable event
+types and every required detail.
 
 </details>
 
