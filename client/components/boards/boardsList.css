@@ -1898,21 +1898,6 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
        list scroll; forcing it 100vh tall would defeat that (see #6488). */
   }
 
-  /* Ensure only one scrollbar is visible */
-  /* The page is exactly the visible viewport, and nothing scrolls but the two
-     inner scrollers. `100dvh` is what is on screen right now; the `vh` line is
-     the fallback where `dvh` is unknown. Without a definite height here the
-     `height: 100%` chain below has nothing to resolve against. */
-  body {
-    overflow: hidden;
-    height: 100vh;
-    height: 100dvh;
-  }
-
-  #content {
-    overflow: hidden;
-  }
-
   /* Hide archive and clone board buttons in mobile view */
   .board-list .js-archive-board,
   .board-list .js-clone-board {

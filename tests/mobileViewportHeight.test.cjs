@@ -70,7 +70,7 @@ test('the containers the issue is about no longer do viewport arithmetic', () =>
     assert.deepStrictEqual(sized.map(r => r.selector), [],
       `${selector} must be sized by its parent, not by the viewport`);
   }
-  const page = viewportRules(boards).filter(r => r.selector === 'body');
+  const page = viewportRules(layouts).filter(r => r.selector === 'body');
   assert.ok(page.length, 'the page itself is still measured against the viewport');
   assert.ok(page.some(r => /(?<![-\w])height:[^;]*dvh/.test(r.body)),
     'in dvh, so it is what is on screen right now');
@@ -108,6 +108,19 @@ test('a vertical swipe has one owner: the content page, not nested board panes',
     assert.ok(!/touch-action: pan-y;/.test(body),
       `${selector}: it must not claim the page's vertical gesture`);
   }
+});
+
+test('#content scrolls on a phone in both mobile and desktop UI modes', () => {
+  const mobile = layouts.slice(layouts.indexOf('/* Mobile devices (up to 800px)'));
+  const at = mobile.indexOf('\n  #content {');
+  assert.notStrictEqual(at, -1, 'the shared device-width block must define the page scroller');
+  const body = mobile.slice(mobile.indexOf('{', at) + 1, mobile.indexOf('}', at))
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(/overflow-y:\s*auto;/.test(body),
+    'the shared device-width rule must make #content scroll without depending ' +
+    'on body.mobile-mode; desktop mode on a smartphone must reach every page');
+  assert.ok(!/overflow:\s*hidden;/.test(body),
+    'a hidden #content clips the bottom of pages when desktop mode is selected');
 });
 
 test('the mobile body is exactly one viewport, stated in dvh as well as vh', () => {

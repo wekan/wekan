@@ -91,6 +91,23 @@ test.describe('All Boards – phone viewport (#6488)', () => {
 
       await page.locator('#content').evaluate(el => { el.scrollTop = el.scrollHeight; });
       await expect(tiles.last()).toBeVisible();
+
+      // A phone can explicitly use the desktop UI mode. This used to remove
+      // body.mobile-mode's overflow override while the device-width CSS still
+      // set #content to overflow:hidden, so Remaining, Starred and every other
+      // section sharing this page lost its last rows. Toggle to desktop mode
+      // and verify the same independent page scroller still owns the swipe.
+      await page.locator('.js-mobile-mode-toggle').click();
+      await expect(page.locator('body')).toHaveClass(/desktop-mode/);
+      const desktopContent = await page.locator('#content').evaluate(el => ({
+        overflowY: getComputedStyle(el).overflowY,
+        clientHeight: el.clientHeight,
+        scrollHeight: el.scrollHeight,
+      }));
+      expect(['auto', 'scroll']).toContain(desktopContent.overflowY);
+      expect(desktopContent.scrollHeight).toBeGreaterThan(desktopContent.clientHeight + 4);
+      await page.locator('#content').evaluate(el => { el.scrollTop = el.scrollHeight; });
+      await expect(tiles.last()).toBeVisible();
     } finally {
       boards.forEach(b => db.cleanup({ boardIds: [b.boardId] }));
     }

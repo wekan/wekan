@@ -32,6 +32,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const css = read('client/components/boards/boardsList.css');
+const layouts = read('client/components/main/layouts.css');
 
 // The phone block: "Fix multiple scrollbars issue on mobile" through the rules
 // that follow it in the same media query.
@@ -54,8 +55,11 @@ const has = (body, decl) => !!body && new RegExp(decl).test(body);
 console.log('boardListScrollChain:');
 
 test('the page itself is exactly the visible viewport', () => {
-  const body = ruleFor('body');
-  assert.ok(body, 'the phone block must size the body');
+  const globalPhone = layouts.slice(layouts.indexOf('/* Mobile devices (up to 800px)'));
+  const bodyAt = globalPhone.indexOf('\n  body {');
+  assert.notStrictEqual(bodyAt, -1, 'the shared phone layout must size the body');
+  const body = globalPhone.slice(globalPhone.indexOf('{', bodyAt) + 1,
+    globalPhone.indexOf('}', bodyAt));
   assert.ok(has(body, 'height: 100vh;'), 'the fallback');
   assert.ok(has(body, 'height: 100dvh;'), 'and the viewport as it is right now');
   assert.ok(body.indexOf('100vh') < body.indexOf('100dvh'),
@@ -130,6 +134,15 @@ test('both modes use the same mechanism', () => {
     'mobile mode also leaves vertical scrolling to #content');
   assert.ok(has(mv, 'flex: 0 0 auto;'), 'it grows with the same natural-height contract');
   assert.ok(!/calc\(100[dv]+h/.test(mv), 'and not from the viewport');
+
+  const globalPhone = layouts.slice(layouts.indexOf('/* Mobile devices (up to 800px)'));
+  const contentAt = globalPhone.indexOf('\n  #content {');
+  const content = globalPhone.slice(globalPhone.indexOf('{', contentAt) + 1,
+    globalPhone.indexOf('}', contentAt));
+  assert.ok(contentAt !== -1 && has(content, 'overflow-y: auto;'),
+    'the shared device-width rule must make every page scroll in desktop mode too');
+  assert.ok(!/overflow:\s*hidden;/.test(content),
+    'desktop mode must not clip the shared Starred/Remaining/etc. page');
 });
 
 test('neither child traps a vertical swipe (negative)', () => {

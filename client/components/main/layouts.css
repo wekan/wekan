@@ -726,11 +726,25 @@ a:not(.disabled).is-active i.fa {
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+  /* Keep the header and page content as independent areas in BOTH UI modes.
+     body.mobile-mode already made #content scroll above, but a phone whose user
+     explicitly selected desktop mode did not match that selector. With the body
+     bounded to the viewport, the page was then clipped instead of reaching its
+     final controls or rows. This shared layout rule covers every route; pages
+     with an intentional alternate scroll owner override it more specifically. */
+  body {
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+  }
+
   #content {
     margin: 1px 0px 0px 0px;
     height: calc(100% - 0px);
-    /* Improve touch scrolling */
+    overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   #content > .wrapper {
     margin-top: 0px;
