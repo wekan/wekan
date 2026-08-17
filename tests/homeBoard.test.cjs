@@ -127,13 +127,18 @@ test('a board is dragged ONTO Home to set it, and the drop replaces', () => {
   const drop = stripComments(listJs.slice(listJs.indexOf("  'drop .js-home-menu'(evt) {"),
     listJs.indexOf("  'drop .js-select-menu'(evt) {")));
   assert.ok(/Meteor\.call\('setDefaultBoard', boardIds\[0\]/.test(drop),
-    'it sets, unconditionally');
+    'one board is set');
   assert.ok(!/toggleDefaultBoard/.test(drop),
     'it does NOT toggle: a drop that sometimes cleared would depend on state '
     + 'the reader cannot see while dragging');
-  assert.ok(/BoardMultiSelection\.reset\(\)/.test(drop),
-    'and a multi-selection is cleared, so it cannot look as though all of them '
-    + 'went somewhere');
+  assert.ok(/if \(boardIds\.length !== 1\)/.test(drop)
+    && /alert\(TAPi18n\.__\('select-only-one-board'\)\)/.test(drop),
+  'zero or several dragged boards ask for exactly one');
+  assert.ok(drop.indexOf('boardIds.length !== 1')
+      < drop.indexOf("Meteor.call('setDefaultBoard'"),
+  'the invalid multi-drag stops before changing Home');
+  assert.ok(drop.indexOf('return;') < drop.indexOf('BoardMultiSelection.reset()'),
+    'a rejected multi-selection remains selected so it can be narrowed');
 
   // The row says it is a target while a board is in the air, like Remaining.
   assert.ok(/'dragover \.js-home-menu'/.test(listJs) && /'dragleave \.js-home-menu'/.test(listJs),

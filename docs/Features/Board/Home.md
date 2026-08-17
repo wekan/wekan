@@ -58,9 +58,9 @@ see while dragging — you would have to remember what was already at Home to kn
 what your own drop was about to do. The Multi-Selection row still toggles,
 because there you clicked a board you can see the state of.
 
-Dropping a **multi-selection** sets the first of them, the same one the
-Multi-Selection sidebar's Home row sets, and then clears the selection so it
-cannot look as though all of them went somewhere.
+Dropping a **multi-selection** does not silently choose its first board. It
+reports "Please select only one board", changes nothing and keeps the selection
+so it can be narrowed. A one-board drag continues to set Home normally.
 
 ### Taking a board off Home — the launcher's Remove bar
 

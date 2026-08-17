@@ -2304,13 +2304,14 @@ Template.boardList.events({
         return;
       }
     }
-    if (!boardIds.length) return;
+    if (boardIds.length !== 1) {
+      alert(TAPi18n.__('select-only-one-board'));
+      return;
+    }
 
-    // One board opens after login, so a multi-selection dropped here sets the
-    // FIRST of them - the same one the Multi-Selection sidebar's own Home row
-    // sets - rather than doing nothing or silently keeping the last. The
-    // selection is dropped afterwards, so it cannot look as though all of them
-    // went somewhere.
+    // Login can open one Home board. A multi-selection therefore cannot
+    // silently choose its first id; it has to be narrowed to one before this
+    // drop can change anything.
     Meteor.call('setDefaultBoard', boardIds[0], (err) => {
       if (err) alert(err?.reason || err?.message || 'Failed to set Home board');
     });

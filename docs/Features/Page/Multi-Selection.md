@@ -50,6 +50,8 @@ visible too.
 Set as Home board is deliberately a single-board action. With zero or several
 checked boards it reports "Please select only one board" and changes nothing,
 because login can open only one Home board.
+Dragging several selected boards onto Home follows the same rule and reports
+the same message without clearing the selection or changing Home.
 
 In the Home section that action reads "Unset as Home board", because its one
 visible board is already Home. Move Board to Archive and Duplicate Board are
