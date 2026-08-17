@@ -432,6 +432,8 @@ Starred or Archive as green targets. Home's empty state also states its
 one-board limit before dragging begins. **All Boards and board loading** now
 publish only dashboard board fields, keep templates separate, omit empty share
 branches, paginate in the database and snapshot lazy card windows on FerretDB.
+Workspace boards can also be dragged additively to Starred or, after
+confirmation, moved to Archive.
 The CPU governor also observes FerretDB before acting and never slows its read
 path when its configured cap is zero or an idle WeKan sees FerretDB itself busy.
 
@@ -600,6 +602,19 @@ missing stars, so every board stays in Remaining and an already-starred board is
 not accidentally unstarred. An Archive drop keeps the existing confirmation
 and moves the whole drag into Archive. Tests cover the source marker, target
 hints, additive starring and confirmed archive path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9a0b3e9a">Workspace boards can be dragged to Starred and Archive</a>. Thanks to xet7.</summary>
+
+Dragging one or several boards from an existing Workspace now highlights
+Starred and Archive as green valid targets. A Starred drop adds only missing
+stars, leaves every board assigned to its current Workspace and makes it appear
+in Starred too. An Archive drop asks for confirmation and then archives every
+dragged board, removing it from the Workspace. Regression tests cover the
+source marker, both hints, additive stars, retained assignments, confirmation
+and batch archive calls.
 
 </details>
 
