@@ -144,7 +144,7 @@ test('a board is dragged ONTO Home to set it, and the drop replaces', () => {
   assert.ok(/'dragover \.js-home-menu'/.test(listJs) && /'dragleave \.js-home-menu'/.test(listJs),
     'the row highlights on dragover and stops on dragleave');
   const hint = listJs.slice(listJs.indexOf("document.querySelectorAll('.js-select-menu')"));
-  assert.ok(/type === 'remaining' \|\| \(type === 'home' && !archivedMulti\)/.test(hint),
+  assert.ok(/!archivedMulti && type === 'home'/.test(hint),
     'and is hinted as a valid target except for an archived multi-selection');
 });
 

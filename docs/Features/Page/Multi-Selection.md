@@ -53,6 +53,11 @@ because login can open only one Home board.
 Dragging several selected boards onto Home follows the same rule and reports
 the same message without clearing the selection or changing Home.
 
+When a board or selection is dragged from Remaining, Starred and Archive join
+the existing green targets. A Starred drop adds stars without removing the
+boards from Remaining; an Archive drop uses the normal confirmation and moves
+the boards into Archive.
+
 In the Home section that action reads "Unset as Home board", because its one
 visible board is already Home. Move Board to Archive and Duplicate Board are
 not shown there; those actions remain available in the other live-board

@@ -17,6 +17,7 @@ import {
   allBoardsPathForMenu,
   sectionTitleKey,
   SECTION_ARCHIVE,
+  SECTION_REMAINING,
   SECTION_WORKSPACES,
 } from '/models/lib/allBoardsUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
@@ -230,6 +231,7 @@ function homeBoardId() {
 // has to REFUSE the drop while it is still in the air, which means answering
 // before the drop happens. docs/Features/Board/Home.md
 const DRAG_FROM_HOME = 'application/x-board-from-home';
+const DRAG_FROM_REMAINING = 'application/x-board-from-remaining';
 const ARCHIVED_MULTI_BOARD_DRAG = 'application/x-archived-board-multi';
 
 // Reordering a bookmark carries its own type, so a bookmark and a board cannot
@@ -281,6 +283,16 @@ function isArchivedMultiBoardDrag(evt) {
     const types = evt.originalEvent.dataTransfer.types;
     if (!types) return false;
     return Array.prototype.indexOf.call(types, ARCHIVED_MULTI_BOARD_DRAG) !== -1;
+  } catch (e) {
+    return false;
+  }
+}
+
+function isDragFromRemaining(evt) {
+  try {
+    const types = evt.originalEvent.dataTransfer.types;
+    if (!types) return false;
+    return Array.prototype.indexOf.call(types, DRAG_FROM_REMAINING) !== -1;
   } catch (e) {
     return false;
   }
@@ -1642,6 +1654,12 @@ Template.boardList.events({
       return;
     }
 
+    if (tpl && tpl.selectedMenu && tpl.selectedMenu.get() === SECTION_REMAINING) {
+      try {
+        evt.originalEvent.dataTransfer.setData(DRAG_FROM_REMAINING, '1');
+      } catch (e) {}
+    }
+
     // While Multi-Selection is on in Archive, every board drag is a restore
     // gesture. Mark even an unselected tile dragged on its own, so Home cannot
     // become an accidental target merely because that tile was not checked.
@@ -1706,7 +1724,13 @@ Template.boardList.events({
       const archivedMulti =
         tpl && tpl.selectedMenu && tpl.selectedMenu.get() === SECTION_ARCHIVE
         && BoardMultiSelection.isActive();
-      if (type === 'remaining' || (type === 'home' && !archivedMulti)) {
+      const fromRemaining =
+        tpl && tpl.selectedMenu && tpl.selectedMenu.get() === SECTION_REMAINING;
+      if (
+        type === 'remaining'
+        || (!archivedMulti && type === 'home')
+        || (fromRemaining && (type === 'starred' || type === 'archive'))
+      ) {
         el.classList.add('board-drag-hint');
       }
     });
@@ -2075,9 +2099,12 @@ Template.boardList.events({
     // drop landing and quietly doing nothing. docs/Features/Board/Home.md
     if (isDragFromHome(evt)) return;
     const menuType = evt.currentTarget.getAttribute('data-type');
-    // Remaining is the only generic section target. Home has its own handler;
-    // Starred, Templates and Archive are views, not destinations.
-    if (menuType !== 'remaining') return;
+    // Remaining accepts board drags generally. Starred additionally accepts a
+    // board that came from Remaining. Home and Archive have their own handlers.
+    if (
+      menuType !== 'remaining'
+      && !(menuType === 'starred' && isDragFromRemaining(evt))
+    ) return;
     evt.preventDefault();
     evt.stopPropagation();
 
@@ -2345,6 +2372,17 @@ Template.boardList.events({
       } catch (e) {
         return;
       }
+    }
+
+    if (menuType === 'starred') {
+      if (!isDragFromRemaining(evt)) return;
+      const user = ReactiveCache.getCurrentUser();
+      boardIds.forEach((boardId) => {
+        if (!user || !user.hasStarred(boardId)) {
+          Meteor.call('toggleBoardStar', boardId);
+        }
+      });
+      return;
     }
 
     // Everything below is what a drop on REMAINING means.

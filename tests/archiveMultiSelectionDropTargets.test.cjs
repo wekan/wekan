@@ -32,7 +32,9 @@ test('an Archive multi-drag is identifiable during dragover', () => {
 });
 
 test('only Remaining and existing Workspaces receive green target hints', () => {
-  assert.match(js, /type === 'remaining' \|\| \(type === 'home' && !archivedMulti\)/);
+  assert.match(js, /type === 'remaining'/);
+  assert.match(js, /!archivedMulti && type === 'home'/);
+  assert.match(js, /fromRemaining && \(type === 'starred' \|\| type === 'archive'\)/);
   assert.match(js, /querySelectorAll\('\.workspace-node'\)[\s\S]*?classList\.add\('board-drag-hint'\)/);
   assert.match(css, /board-drag-hint[\s\S]*?#4CAF50/);
 });
@@ -66,7 +68,8 @@ test('sharing targets refuse archived selections and generic sections accept onl
     );
   }
   const generic = eventBody('dragover .js-select-menu', 'dragleave .js-select-menu');
-  assert.match(generic, /if \(menuType !== 'remaining'\) return;/);
+  assert.match(generic, /menuType !== 'remaining'/);
+  assert.match(generic, /menuType === 'starred' && isDragFromRemaining\(evt\)/);
 });
 
 test('a Workspace drop restores archived boards and assigns them', () => {
