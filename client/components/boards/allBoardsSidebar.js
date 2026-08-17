@@ -169,9 +169,8 @@ function selectedBoardIdsOrWarn() {
 }
 
 function selectedHomeBoardIdOrWarn() {
-  const ids = selectedBoardIdsOrWarn();
-  if (!ids) return null;
-  if (ids.length > 1) {
+  const ids = BoardMultiSelection.getSelectedBoardIds();
+  if (ids.length !== 1) {
     alert(TAPi18n.__('select-only-one-board'));
     return null;
   }

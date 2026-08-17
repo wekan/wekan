@@ -43,13 +43,13 @@ cannot hide it or replace it with another sidebar view.
 
 The instruction (`multi-selection-active`, "Click checkboxes to select boards")
 and every action available in the current section remain visible whether or not
-a board is checked. Clicking any action with an empty selection reports "You
-did not select any boards" and performs no action. The way out is always visible
-too.
+a board is checked. Clicking a bulk action with an empty selection reports "You
+did not select any boards" and performs no action. The way out is always
+visible too.
 
-Set as Home board is deliberately a single-board action. With several checked
-boards it reports "Please select only one board" and changes nothing, because
-login can open only one Home board.
+Set as Home board is deliberately a single-board action. With zero or several
+checked boards it reports "Please select only one board" and changes nothing,
+because login can open only one Home board.
 
 In the Home section that action reads "Unset as Home board", because its one
 visible board is already Home. Move Board to Archive and Duplicate Board are
@@ -66,7 +66,7 @@ named board section.
 | Row | Icon | What it does |
 | --- | --- | --- |
 | Star / Unstar | `fa-star` | A toggle over the whole selection — see below. |
-| Set as Home board | `fa-home` | Makes the first selected board the Home board. |
+| Set as Home board | `fa-home` | Makes the one selected board the Home board. |
 | Move Board to Archive | `fa-archive` | Archives every selected board, after a confirm. |
 | Duplicate Board | `fa-clipboard` | Copies every selected board, after a confirm. |
 | Turn Multi-Selection off | `fa-times-thin` | Ends the selection and closes the panel. |

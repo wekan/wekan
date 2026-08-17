@@ -21,23 +21,19 @@ test('the hint and selection actions are always rendered', () => {
   }
 });
 
-test('every board action rejects an empty selection with the requested message', () => {
+test('bulk board actions reject an empty selection with the requested message', () => {
   assert.equal(english['no-boards-selected'], 'You did not select any boards.');
   assert.match(events, /if \(!ids\.length\) \{\s*alert\(TAPi18n\.__\('no-boards-selected'\)\)/);
 
   for (const action of [
     'delete-selected-boards',
     'star-selected',
-    'home-selected',
     'archive-selected-boards',
     'duplicate-selected-boards',
   ]) {
     const start = events.indexOf(`'click .js-${action}'`);
     const body = events.slice(start, events.indexOf('\n  },', start));
-    const guard = action === 'home-selected'
-      ? /selectedHomeBoardIdOrWarn\(\)/
-      : /selectedBoardIdsOrWarn\(\)/;
-    assert.match(body, guard, `${action} must use its empty-selection guard`);
+    assert.match(body, /selectedBoardIdsOrWarn\(\)/, `${action} must use the guard`);
   }
 });
 
@@ -45,12 +41,8 @@ test('Home accepts exactly one selected board', () => {
   assert.equal(english['select-only-one-board'], 'Please select only one board');
   assert.match(
     events,
-    /function selectedHomeBoardIdOrWarn\(\) \{\s*const ids = selectedBoardIdsOrWarn\(\)/,
-    'the single-board guard must preserve the empty-selection message',
-  );
-  assert.match(
-    events,
-    /if \(ids\.length > 1\) \{\s*alert\(TAPi18n\.__\('select-only-one-board'\)\);\s*return null;/,
+    /function selectedHomeBoardIdOrWarn\(\) \{\s*const ids = BoardMultiSelection\.getSelectedBoardIds\(\);\s*if \(ids\.length !== 1\) \{\s*alert\(TAPi18n\.__\('select-only-one-board'\)\);\s*return null;/,
+    'zero and multiple selections must receive the same exact-one warning',
   );
 
   const start = events.indexOf("'click .js-home-selected'");
