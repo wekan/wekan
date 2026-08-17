@@ -407,7 +407,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **All Boards on phones** uses one native page scroller, so ordinary
+**In short:** **RouteBleed**, found by GitHub CodeQL, removes an incompletely
+escaped dynamic regular expression from board-export route coverage. **All
+Boards on phones** uses one native page scroller, so ordinary
 boards, invitation controls and table rows remain reachable with the same
 vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
 6 and 7 data and merge it into the live FerretDB without opening SQLite twice.
@@ -426,7 +428,34 @@ official chart supplies enough memory for startup plus native allocations.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bugs:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
+scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed4b8cd64">RouteBleed: route coverage compares exact text instead of an incompletely escaped pattern</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+
+[RouteBleed](https://wekan.fi/hall-of-fame/routebleed/) - code scanning alert
+\#434, rule `js/incomplete-sanitization` (CWE-20, CWE-80 and CWE-116), in
+`tests/boardExportScope.test.cjs`: an export path was interpolated into a
+dynamic regular expression after escaping only forward slashes. Backslashes
+and every actual regular-expression metacharacter remained active, so the test
+could match a different route, fail to match the intended one or fail to
+compile.
+
+The code was test-only, read a hardcoded route table and is never shipped in a
+WeKan bundle, so there was no runtime or user-input exposure. There is no
+denied operation to attribute in Admin Panel → Problems. The fix removes the
+pattern rather than adding another sanitizer: the test wants an exact route
+literal and now checks that exact string with `includes()`.
+
+Positive and negative cases cover backslashes and the full metacharacter set,
+and a repository-wide guard rejects the reported slash-only escape shape in
+tracked JavaScript. The same sweep removed a second partial dynamic pattern
+from release-bundle coverage.
+
+</details>
+
+and fixes the following bugs:
 
 **All Boards** - scrolling the overview on a phone.
 
