@@ -86,6 +86,7 @@ MERGE_LIMIT="${AUTOPICK_MERGE_LIMIT:-200000}"
 
 MONGOD_PID=""
 FERRET_PID=""
+MONGO_READER=""
 cleanup() {
   if [ -f "$PIDFILE" ]; then
     p="$(cat "$PIDFILE" 2>/dev/null)"
@@ -185,18 +186,47 @@ restore_mongo_mtime() {
   done < <(mongo_data_files)
 }
 
+# Start whichever bundled mongod can open the retained files. migration-control
+# has always used this compatibility ladder; the recovery commands originally
+# tried only today's mongod 7, so MongoDB 4.4/5.0 and 4.0/4.2 files were reported
+# as "unreadable" even though the same snap carried readers for them (#6583,
+# comment 5313053318). This function is used BOTH while comparing and while
+# merging, so a reader that makes the evidence visible cannot be forgotten when
+# it is time to copy the documents.
+start_mongo_reader() {
+  local label bin libs features
+  for label in "mongod 7" "mongod 5.0" "mongod 4.2"; do
+    case "$label" in
+      "mongod 7")   bin="$SNAP/bin/mongod";   libs="";                  features="x86_64=avx,aarch64=atomics" ;;
+      "mongod 5.0") bin="$SNAP/mongo50/bin/mongod"; libs="$SNAP/mongo50/lib"; features="x86_64=avx,aarch64=atomics" ;;
+      "mongod 4.2") bin="$SNAP/mongo42/bin/mongod"; libs="$SNAP/mongo42/lib"; features="" ;;
+    esac
+    [ -x "$bin" ] || continue
+    rm -f "$PIDFILE"
+    if LD_LIBRARY_PATH="${libs:+$libs:}${LD_LIBRARY_PATH:-}" \
+      bash "$SNAP/bin/cpu-exec" --features "$features" "$bin" \
+        --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$MONGO_PORT" \
+        --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" \
+        >/dev/null 2>&1; then
+      MONGO_READER="$label"
+      echo "[autopick] MongoDB reader: $label opened the retained files." >&2
+      return 0
+    fi
+    cleanup
+    echo "[autopick] MongoDB reader: $label could not open the retained files; trying the next compatible reader." >&2
+  done
+  echo "[autopick] MongoDB reader: none of the bundled 7/5.0/4.2 readers could open the files." >&2
+  echo "[autopick] MongoDB startup details are in $LOGF." >&2
+  return 1
+}
+
 evidence_from_mongodb() {
   evidence_from_live mongodb && return 0
   have_mongo_data || return 1
   # Before mongod touches anything - see restore_mongo_mtime above.
   note_mongo_mtime
-  rm -f "$PIDFILE"
-  # The same cpu-exec + fork + pidfile shape migration-control uses, so a mongod
-  # that cannot run on this CPU is emulated rather than SIGILL, and a mongod left
-  # behind cannot hold the dbpath lock against the real service.
-  bash "$SNAP/bin/cpu-exec" --features "x86_64=avx,aarch64=atomics" "$SNAP/bin/mongod" \
-    --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$MONGO_PORT" \
-    --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" >/dev/null 2>&1 \
+  # The same compatibility ladder as migration-control, not only mongod 7.
+  start_mongo_reader \
     || { restore_mongo_mtime; return 1; }
   local i=0
   while [ $i -lt 30 ]; do
@@ -277,26 +307,37 @@ log "choosing database=$CHOICE. $DETAIL"
 
 if [ -n "$MERGE_FROM" ]; then
   log "copying the documents that exist only in $MERGE_FROM into $CHOICE (inserting what is missing, overwriting nothing) ..."
-  # Both databases have to be up at once for this one, on their temporary ports.
-  if have_mongo_data; then
-    rm -f "$PIDFILE"
-    bash "$SNAP/bin/cpu-exec" --features "x86_64=avx,aarch64=atomics" "$SNAP/bin/mongod" \
-      --dbpath "$DBPATH" --bind_ip 127.0.0.1 --port "$MONGO_PORT" \
-      --logpath "$LOGF" --logappend --fork --pidfilepath "$PIDFILE" >/dev/null 2>&1 || true
+  # Both databases have to be reachable at once, but an already-running one must
+  # be REUSED. In particular SQLite has one writer: starting a second FerretDB
+  # here made database-merge fail immediately after comparison had successfully
+  # read the live FerretDB (#6583 comment 5313053318).
+  MERGE_MONGO_URL="$MONGO_URL"
+  MERGE_FERRET_URL="$FERRET_URL"
+  LIVE_KIND="$(live_is 2>/dev/null || true)"
+  if [ "$LIVE_KIND" = mongodb ]; then
+    MERGE_MONGO_URL="$LIVE_URL"
+    log "merge: using the live MongoDB source."
+  elif have_mongo_data; then
+    start_mongo_reader || true
   fi
-  DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable "$FERRETDB" --handler=sqlite \
-    --sqlite-url="file:$SQLITE_DIR/" --listen-addr="127.0.0.1:$FERRET_PORT" \
-    --telemetry=disable >>"$LOGF" 2>&1 &
-  FERRET_PID=$!
+  if [ "$LIVE_KIND" = ferretdb ]; then
+    MERGE_FERRET_URL="$LIVE_URL"
+    log "merge: using the live FerretDB destination."
+  else
+    DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable "$FERRETDB" --handler=sqlite \
+      --sqlite-url="file:$SQLITE_DIR/" --listen-addr="127.0.0.1:$FERRET_PORT" \
+      --telemetry=disable >>"$LOGF" 2>&1 &
+    FERRET_PID=$!
+  fi
   i=0
   while [ $i -lt 30 ]; do
-    bash "$SNAP/bin/db-eval" ping "$MONGO_URL" >/dev/null 2>&1 \
-      && bash "$SNAP/bin/db-eval" ping "$FERRET_URL" >/dev/null 2>&1 && break
+    bash "$SNAP/bin/db-eval" ping "$MERGE_MONGO_URL" >/dev/null 2>&1 \
+      && bash "$SNAP/bin/db-eval" ping "$MERGE_FERRET_URL" >/dev/null 2>&1 && break
     i=$((i + 1)); sleep 1
   done
   if [ $i -lt 30 ]; then
-    if [ "$MERGE_FROM" = "mongodb" ]; then SRC="$MONGO_URL"; TGT="$FERRET_URL";
-    else SRC="$FERRET_URL"; TGT="$MONGO_URL"; fi
+    if [ "$MERGE_FROM" = "mongodb" ]; then SRC="$MERGE_MONGO_URL"; TGT="$MERGE_FERRET_URL";
+    else SRC="$MERGE_FERRET_URL"; TGT="$MERGE_MONGO_URL"; fi
     MERGE_ARGS=(--limit "$MERGE_LIMIT")
     [ "$DRY_RUN" = true ] && MERGE_ARGS+=(--dry-run)
     SUMMARY="$(NODE_PATH="$SNAP/programs/server/node_modules" "$NODE" \
@@ -305,7 +346,10 @@ if [ -n "$MERGE_FROM" ]; then
   else
     log "could not start both databases at once; nothing was merged and nothing was lost - the other copy is untouched in $SNAP_COMMON."
   fi
-  bash "$SNAP/bin/db-eval" shutdown "$MONGO_URL" >/dev/null 2>&1 || true
+  # Never shut down a live service borrowed above; cleanup stops only the
+  # temporary mongod recorded in our PIDFILE and the temporary FerretDB PID.
+  [ "$MERGE_MONGO_URL" = "$MONGO_URL" ] \
+    && bash "$SNAP/bin/db-eval" shutdown "$MONGO_URL" >/dev/null 2>&1 || true
   cleanup
 fi
 

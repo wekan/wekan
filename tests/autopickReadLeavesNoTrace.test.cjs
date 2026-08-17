@@ -161,7 +161,7 @@ test('with no MongoDB data at all it does nothing and does not fail', () => with
 test('the read notes the mtimes BEFORE starting mongod, and restores after', () => {
   const fn = autopick.slice(autopick.indexOf('evidence_from_mongodb() {'));
   const body = fn.slice(0, fn.indexOf('\n}\n'));
-  assert.ok(body.indexOf('note_mongo_mtime') < body.indexOf('bin/mongod'),
+  assert.ok(body.indexOf('note_mongo_mtime') < body.indexOf('start_mongo_reader'),
     'noting after mongod has started would note the value mongod just wrote');
   assert.ok(/restore_mongo_mtime/.test(body), 'and the read must restore them');
   // Every way out after mongod may have started has to restore, or a failed read
