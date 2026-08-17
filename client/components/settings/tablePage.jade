@@ -96,6 +96,10 @@ template(name="tablePage")
               tr(class="{{cls}}")
                 each cells
                   td(class="{{cls}}" data-sev="{{data}}")
+                    if icons.length
+                      span.table-page-status-icons
+                        each icons
+                          i.fa(class="{{cls}}" title="{{title}}" aria-hidden="true")
                     //- A user cell shows INITIALS, or the avatar where the
                       account has one - the same way the board sidebar and a card
                       show a member. It takes a fraction of the width of a

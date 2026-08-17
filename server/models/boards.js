@@ -31,6 +31,7 @@ import Users from '/models/users';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -363,35 +364,60 @@ Meteor.methods({
   // Validate the whole selection before deleting the first board so one bad id
   // cannot leave a partially applied bulk action.
   async permanentlyDeleteArchivedBoards(boardIds) {
-    check(boardIds, [String]);
-    const ids = [...new Set(boardIds)];
-    if (!ids.length || ids.length > 200) {
-      throw new Meteor.Error('invalid-board-selection');
-    }
     const user = this.userId && await ReactiveCache.getUser(this.userId);
-    if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
-      throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
-    }
-    const boards = await Boards.find({ _id: { $in: ids } }).fetchAsync();
-    if (boards.length !== ids.length || boards.some(board => !board.archived)) {
-      throw new Meteor.Error(
-        'not-archived',
-        'Only archived boards can be permanently deleted.',
-      );
-    }
-    for (const board of boards) {
-      await Boards.removeAsync(board._id);
-      const username = user.username || user._id;
-      await RecoveryEvents.record(
-        RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
-        {
-          severity: 'warning',
-          source: 'admin-panel',
+    const username = user?.username || user?._id || 'unknown';
+    const attemptedIds = Array.isArray(boardIds)
+      ? [...new Set(boardIds.filter(id => typeof id === 'string'))].slice(0, 200)
+      : [];
+    let attemptedBoards = attemptedIds.map(_id => ({ _id, title: '' }));
+
+    try {
+      check(boardIds, [String]);
+      const ids = [...new Set(boardIds)];
+      if (!ids.length || ids.length > 200) {
+        throw new Meteor.Error('invalid-board-selection');
+      }
+
+      const foundBoards = await Boards.find(
+        { _id: { $in: ids } },
+        { fields: { _id: 1, title: 1, archived: 1 } },
+      ).fetchAsync();
+      const foundById = new Map(foundBoards.map(board => [board._id, board]));
+      attemptedBoards = ids.map(_id => foundById.get(_id) || { _id, title: '' });
+
+      if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
+        throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
+      }
+      if (foundBoards.length !== ids.length || foundBoards.some(board => !board.archived)) {
+        throw new Meteor.Error(
+          'not-archived',
+          'Only archived boards can be permanently deleted.',
+        );
+      }
+      for (const board of foundBoards) {
+        await Boards.removeAsync(board._id);
+        await recordRecoveryAudit({
+          type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+          user,
+          connection: this.connection,
+          done: true,
+          deletedData: true,
+          boards: [board],
           detail: `Global Admin ${username} (${user._id}) permanently deleted board ${board._id} titled ${JSON.stringify(board.title || '')}.`,
-        },
-      );
+        });
+      }
+      return { deleted: foundBoards.length };
+    } catch (error) {
+      await recordRecoveryAudit({
+        type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+        user,
+        connection: this.connection,
+        done: false,
+        boards: attemptedBoards,
+        detail: `User ${username} (${user?._id || 'not logged in'}) failed to permanently delete boards ${attemptedBoards.map(board => `${board._id} titled ${JSON.stringify(board.title || '')}`).join(', ') || '(none)'}: ${error.reason || error.message || 'unknown error'}.`,
+      });
+      throw error;
     }
-    return { deleted: boards.length };
   },
 
   async setBoardOrgs(boardOrgsArray, currBoardId) {

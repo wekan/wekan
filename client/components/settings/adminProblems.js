@@ -700,10 +700,29 @@ const REPORT_TABLES = {
     docs: () => collectionResults(RecoveryEvents, { createdAt: -1 }).fetch(),
     rowClass: d => `recovery-severity-${d.severity || 'info'}`,
     columns: [
+      {
+        labelKey: 'done',
+        nowrap: true,
+        value: () => '',
+        icons: d => [
+          {
+            cls: d.done === false
+              ? 'fa-exclamation-triangle table-page-status-failed'
+              : 'fa-check table-page-status-done',
+            title: String(d.done !== false),
+          },
+          ...(d.deletedData === true ? [{
+            cls: 'fa-trash table-page-status-deleted',
+            title: 'Deleted data',
+          }] : []),
+        ],
+      },
       { labelKey: 'date', nowrap: true, value: d => formatDate(d.createdAt) },
       { labelKey: 'recovery-event', value: d => d.type },
-      { labelKey: 'recovery-severity', value: d => d.severity, data: d => d.severity },
-      { labelKey: 'recovery-db', value: d => d.db },
+      { label: 'User ID', value: d => d.userId },
+      { labelKey: 'username', value: d => d.username },
+      { labelKey: 'event-ipv4', value: d => d.ipv4 },
+      { labelKey: 'event-ipv6', value: d => d.ipv6 },
       { labelKey: 'recovery-detail', value: d => d.detail },
     ],
   },

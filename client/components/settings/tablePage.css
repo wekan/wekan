@@ -198,6 +198,21 @@
   padding: 8px 0;
 }
 
+.table-page-status-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.table-page-status-done {
+  color: #2e7d32;
+}
+.table-page-status-failed {
+  color: #c62828;
+}
+.table-page-status-deleted {
+  color: #d6a100;
+}
+
 /* Narrow windows: the side menu goes full width on top and the table sits BELOW
    it, instead of the two being squeezed side by side. Above this width the menu
    stays on the start side with the table next to it.

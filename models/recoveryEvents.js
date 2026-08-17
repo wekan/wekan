@@ -54,6 +54,24 @@ RecoveryEvents.attachSchema(
       type: String,
       optional: true,
     },
+    done: {
+      // Database Boolean shown as the first Recovery report column.
+      type: Boolean,
+      optional: true,
+    },
+    deletedData: {
+      // Successful destructive operations add a yellow trash icon beside Done.
+      type: Boolean,
+      optional: true,
+    },
+    userId: { type: String, optional: true },
+    username: { type: String, optional: true },
+    ipv4: { type: String, optional: true },
+    ipv6: { type: String, optional: true },
+    boardIds: { type: Array, optional: true },
+    'boardIds.$': { type: String },
+    boardTitles: { type: Array, optional: true },
+    'boardTitles.$': { type: String },
     createdAt: {
       type: Date,
       optional: true,
@@ -75,6 +93,14 @@ RecoveryEvents.record = async function record(type, opts = {}) {
       detail: opts.detail,
       severity: opts.severity || 'info',
       source: opts.source || 'server',
+      done: opts.done !== false,
+      deletedData: opts.deletedData === true,
+      userId: opts.userId,
+      username: opts.username,
+      ipv4: opts.ipv4,
+      ipv6: opts.ipv6,
+      boardIds: opts.boardIds,
+      boardTitles: opts.boardTitles,
       createdAt: new Date(),
     });
   } catch (e) {

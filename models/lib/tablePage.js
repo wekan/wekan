@@ -143,6 +143,14 @@ export function buildRows(docs, columns, options = {}) {
         // A leading emoji for the cell - the country flag on an office row. Kept
         // apart from `text` so the flag is not searched or sorted as text.
         flag: typeof column.flag === 'function' ? (column.flag(doc) || '') : '',
+        // Small status icons rendered before cell text. Class names come from a
+        // fixed column function, not database content.
+        icons: typeof column.icons === 'function'
+          ? (column.icons(doc) || []).map(icon => ({
+            cls: icon.cls || '',
+            title: icon.title || '',
+          }))
+          : [],
         // A PLACE this cell stands for, when something in front of WeKan
         // resolved one: { latitude, longitude, label }. It makes the cell open
         // the map-provider popup, so an office row's "London" leads to London

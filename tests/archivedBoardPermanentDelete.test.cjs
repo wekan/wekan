@@ -87,9 +87,9 @@ test('the server independently enforces admin, flag, archive and bounded input',
   assert.ok(/!ids\.length \|\| ids\.length > 200/.test(body), 'the batch is bounded');
   assert.ok(/user\?\.isAdmin !== true \|\| !getFeatureFlags\(\)\.enablePermanentDelete/.test(body),
     'a forged call, board admin, or truthy non-Boolean flag cannot bypass either gate');
-  assert.ok(/boards\.some\(board => !board\.archived\)/.test(body),
+  assert.ok(/foundBoards\.some\(board => !board\.archived\)/.test(body),
     'a live board cannot be permanently deleted through this method');
-  assert.ok(body.indexOf('boards.some') < body.indexOf('Boards.removeAsync'),
+  assert.ok(body.indexOf('foundBoards.some') < body.indexOf('Boards.removeAsync'),
     'the whole selection is validated before deletion starts');
 });
 
