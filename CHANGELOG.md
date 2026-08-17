@@ -413,6 +413,7 @@ vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
 6 and 7 data and merge it into the live FerretDB without opening SQLite twice.
 **Helm containers** size the Node.js heap from their memory limit, and the
 official chart supplies enough memory for startup plus native allocations.
+**Card dates** can be changed or deleted again after they have been saved.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -425,7 +426,7 @@ official chart supplies enough memory for startup plus native allocations.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
 
 **All Boards** - scrolling the overview on a phone.
 
@@ -483,6 +484,23 @@ An administrator's explicit `NODE_OPTIONS` always wins. The
 [official chart](https://github.com/wekan/charts/commit/a776e70) now requests
 512 MiB and limits the WeKan pod to 2 GiB, providing a 1536 MiB heap plus 512
 MiB of native headroom by default.
+
+</details>
+
+**Opened cards** - editing dates that are already stored on a card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd41970ed">Saved card dates can be changed and deleted again</a>. Thanks to Alishara and xet7.</summary>
+
+The common date form became a child Blaze template, but its Save, Delete and
+validation event map remained on each parent popup. Blaze does not dispatch a
+child template's events to its parent's event map, so the form rendered its
+existing value while every control inside it was inert.
+
+The common form now owns its common event handlers and receives the parent
+popup's state and field-specific callbacks explicitly. Received, start, due,
+end, vote, planning-poker and custom-field dates retain one shared form, and a
+browser regression test changes a previously stored due date.
 
 </details>
 
