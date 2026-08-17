@@ -418,7 +418,8 @@ official chart supplies enough memory for startup plus native allocations.
 **Minicard titles** save again from their inline editor, and **card dates** can
 be changed or deleted again after they have been saved. **Translations** reuse
 3,838 unambiguous same-language values, and the new reports are complete in
-Finnish.
+Finnish. **Regression coverage** now exercises inline minicard title editing in
+the browser and guards the Finnish Office and API report vocabulary directly.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -549,6 +550,24 @@ The common form now owns its common event handlers and receives the parent
 popup's state and field-specific callbacks explicitly. Received, start, due,
 end, vote, planning-poker and custom-field dates retain one shared form, and a
 browser regression test changes a previously stored due date.
+
+</details>
+
+and adds the following developer-facing test coverage:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb9680f00">Upcoming minicard and Finnish translation changes have direct regression tests</a>. Thanks to xet7.</summary>
+
+The browser suite now edits a minicard title from the board and verifies that
+the card is renamed without opening its details. Its negative case submits only
+whitespace and verifies that the original title remains visible.
+
+A plain Node.js suite inventories every Office and API report translation in
+Finnish, rejects missing, empty and unintended English placeholders, and keeps
+the universal `API`, `REST API` and `WITH_API=true` terms recognizable. The
+existing Upcoming tests continue to cover RouteBleed, phone scrolling, Snap
+recovery, container heap limits, card dates and same-language translation
+memory, including their negative cases.
 
 </details>
 
