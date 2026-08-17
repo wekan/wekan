@@ -29,6 +29,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import Triggers from '/models/triggers';
 import Users from '/models/users';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { getFeatureFlags } from '/models/lib/featureFlags';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -353,6 +354,34 @@ Meteor.methods({
 
     await board.restore();
     return true;
+  },
+
+  // Permanently remove archived boards selected in All Boards / Archive.
+  // The server enforces every gate even against a forged DDP call: Global
+  // Admin, the explicit permanent-delete setting, and archived boards only.
+  // Validate the whole selection before deleting the first board so one bad id
+  // cannot leave a partially applied bulk action.
+  async permanentlyDeleteArchivedBoards(boardIds) {
+    check(boardIds, [String]);
+    const ids = [...new Set(boardIds)];
+    if (!ids.length || ids.length > 200) {
+      throw new Meteor.Error('invalid-board-selection');
+    }
+    const user = this.userId && await ReactiveCache.getUser(this.userId);
+    if (!user || !user.isAdmin || !getFeatureFlags().enablePermanentDelete) {
+      throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
+    }
+    const boards = await Boards.find({ _id: { $in: ids } }).fetchAsync();
+    if (boards.length !== ids.length || boards.some(board => !board.archived)) {
+      throw new Meteor.Error(
+        'not-archived',
+        'Only archived boards can be permanently deleted.',
+      );
+    }
+    for (const board of boards) {
+      await Boards.removeAsync(board._id);
+    }
+    return { deleted: boards.length };
   },
 
   async setBoardOrgs(boardOrgsArray, currBoardId) {

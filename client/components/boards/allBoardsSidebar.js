@@ -3,7 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
 import { TAPi18n } from '/imports/i18n';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
-import { allBoardsSearchVar } from '/client/lib/allBoardsView';
+import { allBoardsSearchVar, allBoardsMenuVar } from '/client/lib/allBoardsView';
 import {
   allBoardsSidebarView,
   isAllBoardsSidebarOpen,
@@ -143,9 +143,31 @@ Template.allBoardsMultiSelectionSidebar.helpers({
   selectedStarTitle() {
     return TAPi18n.__(selectedStarTitleKey(currentSelectedStarAction().action));
   },
+  isArchiveSelection() {
+    return allBoardsMenuVar.get() === SECTION_ARCHIVE;
+  },
+  canPermanentlyDeleteArchivedBoards() {
+    const user = ReactiveCache.getCurrentUser();
+    const setting = ReactiveCache.getCurrentSetting();
+    return allBoardsMenuVar.get() === SECTION_ARCHIVE
+      && !!(user && user.isAdmin)
+      && !!(setting && setting.enablePermanentDelete);
+  },
 });
 
 Template.allBoardsMultiSelectionSidebar.events({
+  'click .js-delete-selected-boards'(evt) {
+    evt.preventDefault();
+    const ids = BoardMultiSelection.getSelectedBoardIds();
+    if (!ids.length || !confirm(TAPi18n.__('delete-board-confirm-popup'))) return;
+    Meteor.call('permanentlyDeleteArchivedBoards', ids, (err) => {
+      if (err) {
+        alert(err.reason || err.message || 'Failed to permanently delete boards');
+        return;
+      }
+      BoardMultiSelection.reset();
+    });
+  },
   // Only the boards that must CHANGE are toggled: toggleBoardStar flips one
   // board, so calling it for an already-starred one in the mixed case would
   // un-star it.

@@ -1,5 +1,4 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Boards from '/models/boards';
 import { Utils } from '/client/lib/utils';
 import { TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
@@ -80,17 +79,4 @@ Template.archivedBoards.events({
     await board.restore();
     Utils.goBoardId(board._id);
   },
-  'click .js-delete-board': Popup.afterConfirm('boardDelete', async function() {
-    Popup.back();
-    const isSandstorm =
-      Meteor.settings &&
-      Meteor.settings.public &&
-      Meteor.settings.public.sandstorm;
-    if (isSandstorm && Utils.getCurrentBoardId()) {
-      const currentBoard = Utils.getCurrentBoard();
-      await Boards.removeAsync(currentBoard._id);
-    }
-    await Boards.removeAsync(this._id);
-    FlowRouter.go('home');
-  }),
 });

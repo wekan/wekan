@@ -51,10 +51,18 @@ It keeps what made it worth having:
   (`archivedBoards`, with a search term, a limit and a skip), so an instance
   with a long archive stays fast. The page size is the app's one
   `TABLE_PAGE_ROWS_PER_PAGE`.
-- **Restore** and **Delete** per board, delete behind a confirm.
+- **Restore** remains available without putting a destructive control on every
+  board icon. There is no per-board trashcan.
+- **Permanent delete** is a multi-selection action in the right sidebar. It is
+  visible only to a Global Admin while Admin Panel → Problems → Delete is
+  enabled, is drawn as a red **Delete** button, and confirms that the selected
+  boards and their contents cannot be recovered. The server independently
+  checks the administrator, setting, archived state and complete selection
+  before removing anything.
 
-Restoring navigates to the restored board; deleting the last one you were on
-goes home.
+Restoring navigates to the restored board. A successful permanent delete clears
+the selection; a refused one leaves it selected so the administrator can correct
+the setting or selection and retry.
 
 ## Related files
 

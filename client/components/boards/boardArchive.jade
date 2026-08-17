@@ -11,9 +11,6 @@ template(name="archivedBoards")
     each archivedBoards
       li.archived-lists-item
         div.board-header-btns
-          button.primary.board-header-btn.js-delete-board(type="submit")
-            i.fa.fa-trash
-            | {{_ 'delete-board'}}
           button.primary.board-header-btn.js-restore-board(type="submit")
             i.fa.fa-undo
             | {{_ 'restore-board'}}
@@ -21,7 +18,3 @@ template(name="archivedBoards")
         span {{ displayDate archivedAt 'LLL' }}
     else
       li.no-items-message {{_ 'no-archived-boards'}}
-
-template(name="boardDeletePopup")
-  p {{_ 'delete-board-confirm-popup'}}
-  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

@@ -84,19 +84,25 @@ template(name="allBoardsSearchSidebar")
 //- its name beside it.
 template(name="allBoardsMultiSelectionSidebar")
   if hasBoardsSelected
-    a.sidebar-btn.js-star-selected
-      i.fa.fa-star
-      span {{selectedStarTitle}}
-    a.sidebar-btn.js-home-selected
-      i.fa.fa-home
-      span {{_ 'set-selected-home'}}
-    hr
-    a.sidebar-btn.js-archive-selected-boards
-      i.fa.fa-archive
-      span {{_ 'archive-board'}}
-    a.sidebar-btn.js-duplicate-selected-boards
-      i.fa.fa-clipboard
-      span {{_ 'duplicate-board'}}
+    if isArchiveSelection
+      if canPermanentlyDeleteArchivedBoards
+        button.sidebar-btn.negate.wide.js-delete-selected-boards(type="button")
+          i.fa.fa-trash
+          span {{_ 'delete'}}
+    else
+      a.sidebar-btn.js-star-selected
+        i.fa.fa-star
+        span {{selectedStarTitle}}
+      a.sidebar-btn.js-home-selected
+        i.fa.fa-home
+        span {{_ 'set-selected-home'}}
+      hr
+      a.sidebar-btn.js-archive-selected-boards
+        i.fa.fa-archive
+        span {{_ 'archive-board'}}
+      a.sidebar-btn.js-duplicate-selected-boards
+        i.fa.fa-clipboard
+        span {{_ 'duplicate-board'}}
     hr
     a.sidebar-btn.js-multiselection-reset
       i.fa.fa-times-thin
