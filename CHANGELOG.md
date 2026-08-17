@@ -411,6 +411,8 @@ browser build to verify).
 boards, invitation controls and table rows remain reachable with the same
 vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
 6 and 7 data and merge it into the live FerretDB without opening SQLite twice.
+**Helm containers** size the Node.js heap from their memory limit, and the
+official chart supplies enough memory for startup plus native allocations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -461,6 +463,26 @@ startup log when all of them fail. Merge also reuses a running FerretDB target;
 it no longer starts a second FerretDB against the already-open SQLite database.
 Only temporary processes are stopped afterwards, so a live database borrowed
 for the operation remains running.
+
+</details>
+
+**Helm containers** - the memory available while the server starts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/794771ed8">The Node.js heap fits its container and the official pod fits the heap</a>. Thanks to titver968 and xet7.</summary>
+
+The official chart limited WeKan to 1 GiB while its own comments claimed the
+Docker image supplied a 4 GiB heap setting. It did not: Node.js 24 derived a
+roughly 640 MiB V8 ceiling from the cgroup, and the v10.96+ server bundle could
+exhaust it while linking and creating startup indexes, before ordinary
+application logging began.
+
+The container now gives V8 three quarters of its cgroup memory, from 768 MiB up
+to the documented 4 GiB ceiling, leaving one quarter for native allocations.
+An administrator's explicit `NODE_OPTIONS` always wins. The
+[official chart](https://github.com/wekan/charts/commit/a776e70) now requests
+512 MiB and limits the WeKan pod to 2 GiB, providing a 1536 MiB heap plus 512
+MiB of native headroom by default.
 
 </details>
 
