@@ -214,9 +214,13 @@ test('nothing between the body and the board list computes a height from the vie
 });
 
 test('the board grid is not a second vertical scroller', () => {
-  const at = css.indexOf('  .board-list {\n    /* One vertical scroller');
+  const marker = '/* One vertical scroller on the page: #content.';
+  const commentAt = css.indexOf(marker);
+  const at = css.lastIndexOf('{', commentAt);
   assert.notStrictEqual(at, -1, 'the phone board-list rule must document the one-scroller contract');
-  const body = css.slice(css.indexOf('{', at) + 1, css.indexOf('}', at))
+  assert.ok(css.slice(Math.max(0, at - 80), at).includes('.board-list.mobile-view'),
+    'the more-specific mobile-view rule is overridden too');
+  const body = css.slice(at + 1, css.indexOf('}', at))
     .replace(/\/\*[\s\S]*?\*\//g, '');
   assert.strictEqual(decl(body, 'overflow-y'), 'visible');
   assert.strictEqual(decl(body, 'height'), 'auto');

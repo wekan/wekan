@@ -123,4 +123,13 @@ test('the child form owns the event map and receives each popup state (#6607)', 
     'negative: no ineffective parent event map remains');
 });
 
+test('the shared template exists before its event map is registered', () => {
+  const imports = read('client/imports.js');
+  assert.ok(imports.indexOf("import '/client/features/forms'")
+    < imports.indexOf("import '/client/lib/datepicker'"),
+  'Template.editDateForm.events() must not run before datepicker.jade creates it');
+  assert.strictEqual((imports.match(/import '\/client\/lib\/datepicker'/g) || []).length, 1,
+    'the ordering fix must not load a second copy');
+});
+
 console.log(`\ndateTemplates: ${passed} tests passed`);

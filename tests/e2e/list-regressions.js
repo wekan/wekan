@@ -14,13 +14,23 @@ function findChromiumPath() {
   if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH;
 
   const home = os.homedir();
-  const userCandidates = [
-    // Common Playwright browser cache locations
-    path.join(home, '.cache/ms-playwright/chromium-1223/chrome-linux/chrome'),
-    path.join(home, '.var/app/com.visualstudio.code/cache/ms-playwright/chromium-1223/chrome-linux/chrome'),
-    // Puppeteer-managed Chrome cache
-    path.join(home, '.cache/puppeteer/chrome/linux-148.0.7778.167/chrome-linux64/chrome'),
-  ];
+  const userCandidates = [];
+
+  // Playwright revisions change regularly. Discover them instead of pinning a
+  // cache revision that may be gone, and prefer the newest one. VS Code's
+  // Flatpak cache is included because that is where its ARM64 Playwright
+  // extension installs Chromium.
+  for (const cache of [
+    path.join(home, '.cache/ms-playwright'),
+    path.join(home, '.var/app/com.visualstudio.code/cache/ms-playwright'),
+  ]) {
+    try {
+      for (const revision of fs.readdirSync(cache).sort().reverse()) {
+        if (!revision.startsWith('chromium-')) continue;
+        userCandidates.push(path.join(cache, revision, 'chrome-linux', 'chrome'));
+      }
+    } catch {}
+  }
 
   const candidates = [
     ...userCandidates,
@@ -31,8 +41,24 @@ function findChromiumPath() {
     '/Applications/Chromium.app/Contents/MacOS/Chromium',
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   ];
+  const compatible = p => {
+    try {
+      fs.accessSync(p, fs.constants.X_OK);
+      if (process.platform !== 'linux') return true;
+      const elf = Buffer.alloc(20);
+      const fd = fs.openSync(p, 'r');
+      try { fs.readSync(fd, elf, 0, elf.length, 0); } finally { fs.closeSync(fd); }
+      if (elf.toString('ascii', 0, 4) !== '\x7fELF') return true;
+      const machine = elf.readUInt16LE(18);
+      return (process.arch === 'arm64' && machine === 183)
+        || (process.arch === 'x64' && machine === 62)
+        || !['arm64', 'x64'].includes(process.arch);
+    } catch {
+      return false;
+    }
+  };
   for (const p of candidates) {
-    try { fs.accessSync(p, fs.constants.X_OK); return p; } catch {}
+    if (compatible(p)) return p;
   }
 
   // Last resort: discover from Puppeteer cache dynamically.
@@ -41,7 +67,7 @@ function findChromiumPath() {
     const versions = fs.readdirSync(cacheDir).sort().reverse();
     for (const version of versions) {
       const resolved = path.join(cacheDir, version, 'chrome-linux64', 'chrome');
-      try { fs.accessSync(resolved, fs.constants.X_OK); return resolved; } catch {}
+      if (compatible(resolved)) return resolved;
     }
   } catch {}
 
@@ -74,6 +100,7 @@ const TEST_LIST_IDS = [
 
 let browser;
 let page;
+const browserErrors = [];
 let testBoardId = TEST_BOARD_ID;
 let testSwimlaneId = TEST_SWIMLANE_ID;
 let testListIds = TEST_LIST_IDS;
@@ -394,6 +421,7 @@ async function openBoard(boardId, slug) {
     listCount: document.querySelectorAll('.js-list:not(.js-list-composer)').length,
     body: document.body.innerText.slice(0, 1000),
   }));
+  debugInfo.browserErrors = browserErrors.slice(-10);
   throw new Error(`Board lists did not render: ${JSON.stringify(debugInfo)}`);
 }
 
@@ -548,6 +576,13 @@ async function runTest() {
     defaultViewport: { width: 1600, height: 1000 },
   });
   page = await browser.newPage();
+  page.on('pageerror', error => browserErrors.push(`pageerror: ${error.stack || error.message}`));
+  page.on('console', message => {
+    if (message.type() === 'error') browserErrors.push(`console: ${message.text()}`);
+  });
+  page.on('requestfailed', request => {
+    browserErrors.push(`request: ${request.url()} - ${request.failure()?.errorText || 'failed'}`);
+  });
 
   logStep('Logging in with a generated resume token');
   await loginWithToken(page, rawToken);

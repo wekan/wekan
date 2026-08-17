@@ -49,7 +49,10 @@ function fakeBundle(dir, mainJs) {
 }
 
 function runSmoke(bundle, env = {}) {
-  return spawnSync('bash', [SMOKE, bundle], {
+  // The all-suite runner may itself be invoked with an explicit Node path while
+  // PATH contains no `node`. The smoke script accepts the exact binary for this
+  // reason; use it so this judgement tests the bundle, not the caller's PATH.
+  return spawnSync('bash', [SMOKE, bundle, process.execPath], {
     encoding: 'utf8',
     env: Object.assign({}, process.env, { WEKAN_SMOKE_TIMEOUT: '10' }, env),
   });

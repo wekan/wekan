@@ -135,8 +135,10 @@ test('both exporters ask THIS module (negative)', () => {
   const path = require('path');
   const ROOT = path.join(__dirname, '..');
   const excel = fs.readFileSync(path.join(ROOT, 'models/server/ExporterExcelCard.js'), 'utf8');
+  const adapter = fs.readFileSync(path.join(ROOT, 'models/lib/cardExportDocument.js'), 'utf8');
   const document = fs.readFileSync(path.join(ROOT, 'models/lib/cardDocument.js'), 'utf8');
-  assert.ok(/buildCardDocument\(/.test(excel)
+  assert.ok(/buildExportCardDocument\(/.test(excel)
+    && /buildCardDocument\(/.test(adapter)
     && /require\('\.\/exportMarkdown'\)/.test(document),
   'the Excel card exporter must render markdown through the shared document');
   for (const file of ['models/server/ExporterExcelCard.js']) {

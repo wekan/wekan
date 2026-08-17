@@ -271,6 +271,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      three edits CLAUDE.md requires: the data file, the languages.js entry\n'
       + '      and the flag. Run when a language is being added, with arguments a\n'
       + '      menu cannot supply',
+    'translations/fill-from-local-memory.mjs': 'a guarded translation-maintenance\n'
+      + '      helper: dry-run finds reusable same-language values and --write\n'
+      + '      changes hundreds of language files, so it is reviewed and run directly',
   };
 
   const missing = { sh: [], bat: [] };

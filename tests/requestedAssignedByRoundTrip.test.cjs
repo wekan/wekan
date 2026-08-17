@@ -71,9 +71,10 @@ test('every export carries them', () => {
   const places = {
     // The card PDF draws the shared document now, so what it must do is MAP
     // them; models/lib/cardDocument.js is what puts them on the page.
-    'the card PDF': ['models/server/ExporterCardPDF.js', /requestedBy: card\.requestedBy/],
+    'the card PDF': ['models/server/ExporterCardPDF.js', /card\.requesters[\s\S]*card\.assigners/],
+    'the export adapter': ['models/lib/cardExportDocument.js', /requestedBy: card\.requestedBy[\s\S]*assignedBy: card\.assignedBy/],
     'the shared card document': ['models/lib/cardDocument.js', /data\.requesters[\s\S]*data\.requestedBy/],
-    'the card Excel': ['models/server/ExporterExcelCard.js', /requestedBy: card\.requestedBy/],
+    'the card Excel': ['models/server/ExporterExcelCard.js', /card\.requesters[\s\S]*card\.assigners/],
     'the board CSV': ['models/exporter.js', /'requested-by','assigned-by'/],
     'the board Excel table': ['models/server/ExporterExcel.js', /jcard\.requestedBy/],
   };

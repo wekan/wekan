@@ -105,8 +105,13 @@ test('and the download link names a file, so a wrong answer gets that name', () 
   // anchor tells the browser what to call whatever comes back. It is right -
   // the answer is what has to be trustworthy.
   const jade = read('client/components/boards/exportScope.jade');
-  assert.ok(/download="\{\{filename\}\}"/.test(jade),
-    'the format links carry a download filename');
+  assert.ok(/a\(href="\{\{url\}\}" download\)/.test(jade),
+    'the format links request a download');
+  const exporters = read('models/server/ExporterCardPDF.js')
+    + read('models/server/ExporterExcelCard.js')
+    + read('models/server/ExporterExcelBoard.js');
+  assert.ok(/Content-Disposition/.test(exporters),
+    'the server supplies the localized, scope-aware filename');
 });
 
 console.log(`\nexportNeedsTheApi: ${passed} tests passed`);

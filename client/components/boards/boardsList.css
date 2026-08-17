@@ -1848,7 +1848,8 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
     max-height: none;
   }
 
-  .board-list {
+  .board-list,
+  .board-list.mobile-view {
     /* One vertical scroller on the page: #content. In particular, do not clip
        invited-board tiles whose buttons make them taller than an ordinary tile. */
     overflow-y: visible !important;
@@ -1986,8 +1987,8 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
 
    `align-content: start` keeps rows at their content height instead of dividing
    the leftover space between them, and `align-items: start` stops each tile from
-   stretching to its row. The list still scrolls: its height comes from the flex
-   column it sits in, and `overflow-y: auto` makes it the scroll container. */
+   stretching to its row. On a phone the list grows naturally and #content is
+   the one vertical scroll container; this rule changes only grid alignment. */
 .board-list.mobile-view {
   align-content: start;
   align-items: start;

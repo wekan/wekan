@@ -96,7 +96,7 @@ test('an unset or blank group base falls back to the user base', () => {
 test('the new variable is documented where the others are', () => {
   // An LDAP setting nobody can find is a setting that does not exist. Both the
   // reference docs and the compose file list the rest of them.
-  for (const [file, text] of [['docs/Login/LDAP.md', read('docs/Login/LDAP.md')],
+  for (const [file, text] of [['docs/Features/Login/LDAP.md', read('docs/Features/Login/LDAP.md')],
     ['docker-compose.yml', read('docker-compose.yml')]]) {
     assert.ok(/LDAP_GROUP_BASEDN/.test(text), `${file} must document LDAP_GROUP_BASEDN`);
     assert.ok(/LDAP_BASEDN/.test(text), `${file} still documents the user base too`);

@@ -96,7 +96,9 @@ test('the fallback comes FIRST, so an old browser keeps today’s behaviour', ()
 test('a vertical swipe has one owner: the content page, not nested board panes', () => {
   const mobile = boards.slice(boards.indexOf('/* Fix multiple scrollbars issue on mobile */'));
   for (const selector of ['.boards-left-menu', '.board-list']) {
-    const at = mobile.indexOf(`  ${selector} {`);
+    const at = selector === '.board-list'
+      ? mobile.indexOf('  .board-list,\n  .board-list.mobile-view {')
+      : mobile.indexOf(`  ${selector} {`);
     assert.ok(at !== -1, `${selector} must have a mobile rule`);
     const body = mobile.slice(at, mobile.indexOf('}', at));
     assert.ok(/overflow-y: visible(?: !important)?;/.test(body),

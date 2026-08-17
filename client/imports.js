@@ -50,7 +50,6 @@ import '/client/lib/cardSearch';
 import '/client/lib/cssEvents';
 import '/client/lib/currentCard';
 import '/client/lib/customFields';
-import '/client/lib/datepicker';
 import '/client/lib/dialogWithBoardSwimlaneList';
 import '/client/lib/dialogWithBoardSwimlaneListCard';
 import '/client/lib/dropImage';
@@ -84,6 +83,10 @@ import '/client/config/gecko-fix';
 //    Each feature entry owns its template/logic/style ordering.
 // ----------------------------------------------------------------------------
 import '/client/features/forms';
+// editDateForm must exist before datepicker registers its event map. Importing
+// the library in section 6 ran Template.editDateForm.events() before the Jade
+// template in features/forms had been created and blanked every client page.
+import '/client/lib/datepicker';
 import '/client/features/main';
 import '/client/features/settings';
 import '/client/features/sidebar';
