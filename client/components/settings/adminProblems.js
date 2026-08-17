@@ -12,7 +12,7 @@ import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { Mongo } from 'meteor/mongo';
-import { buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
+import { buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 // The flag and city an office row leads with (models/lib/geoHeaders.js).
 const { officeLabel } = require('/models/lib/geoHeaders');
 import { ReportPages } from '/client/lib/reportPages';
@@ -95,7 +95,7 @@ function reportConfig(tmpl) {
     'report-cards': { page: tmpl.cardsPage, count: tmpl.cardsCount, search: tmpl.cardsSearch, pub: 'cardsReport', countMethod: 'getCardsReportCount' },
     'report-broken': { page: tmpl.brokenPage, count: tmpl.brokenCount, search: tmpl.brokenSearch, pub: 'brokenCardsReport', countMethod: 'getBrokenCardsReportCount' },
     'report-impersonation': { page: tmpl.impersonationPage, count: tmpl.impersonationCount, search: tmpl.impersonationSearch, pub: 'impersonationReport', countMethod: 'getImpersonationReportCount' },
-    'report-recovery': { page: tmpl.recoveryPage, count: tmpl.recoveryCount, search: tmpl.recoverySearch, pub: 'recoveryReport', countMethod: 'getRecoveryReportCount' },
+    'report-recovery': { page: tmpl.recoveryPage, count: tmpl.recoveryCount, search: tmpl.recoverySearch, filter: tmpl.recoveryFilter, pub: 'recoveryReport', countMethod: 'getRecoveryReportCount' },
   };
 }
 
@@ -128,6 +128,7 @@ Template.adminProblems.onCreated(function () {
   this.brokenSearch = new ReactiveVar('');
   this.impersonationSearch = new ReactiveVar('');
   this.recoverySearch = new ReactiveVar('');
+  this.recoveryFilter = new ReactiveVar('all');
 
   // Which search term each report's total count was last computed for, so
   // paging does not recount. See loadReport().
@@ -156,11 +157,16 @@ Template.adminProblems.onCreated(function () {
       this.subscription.stop();
     }
     const searchTerm = cfg.search.get();
+    const filter = cfg.filter ? cfg.filter.get() : null;
+    const requestKey = filter === null ? searchTerm : `${searchTerm}\u0000${filter}`;
     // Same helper the controls row uses, so the window that is SUBSCRIBED and the
     // "page X / N" that is DISPLAYED can never disagree. Only this page of rows is
     // requested from the server - the publications apply the limit/skip.
     const { limit, skip } = pageInfo(cfg.count.get(), cfg.page.get(), REPORTS_PER_PAGE);
-    this.subscription = Meteor.subscribe(cfg.pub, searchTerm, limit, skip, {
+    const subscriptionArgs = filter === null
+      ? [cfg.pub, searchTerm, limit, skip]
+      : [cfg.pub, searchTerm, filter, limit, skip];
+    this.subscription = Meteor.subscribe(...subscriptionArgs, {
       onReady: () => {
         this.loading.set(false);
       },
@@ -176,15 +182,18 @@ Template.adminProblems.onCreated(function () {
         this.loading.set(false);
       },
     });
-    if (!recount && this.countedFor[reportId] === searchTerm) {
+    if (!recount && this.countedFor[reportId] === requestKey) {
       return;
     }
-    Meteor.call(cfg.countMethod, searchTerm, (error, count) => {
+    const countArgs = filter === null
+      ? [cfg.countMethod, searchTerm]
+      : [cfg.countMethod, searchTerm, filter];
+    Meteor.call(...countArgs, (error, count) => {
       if (error) {
         console.error(`Failed to load ${cfg.countMethod}:`, error);
         return;
       }
-      this.countedFor[reportId] = searchTerm;
+      this.countedFor[reportId] = requestKey;
       const total = count || 0;
       const totalPages = Math.max(1, Math.ceil(total / REPORTS_PER_PAGE));
       // If rows were removed while on a now-out-of-range page, clamp and reload.
@@ -427,6 +436,12 @@ Template.adminProblems.events({
       runSearch(tmpl, tmpl.activeReport.get(), '.js-table-page-search');
     }
   },
+  'change .js-table-page-filter'(event, tmpl) {
+    if (tmpl.activeReport.get() !== 'report-recovery') return;
+    tmpl.recoveryFilter.set($(event.currentTarget).val() || 'all');
+    tmpl.recoveryPage.set(1);
+    tmpl.loadReport('report-recovery', { recount: true });
+  },
 });
 
 function goPrevPage(event, tmpl, reportId) {
@@ -534,6 +549,7 @@ function openReportPane(tmpl, targetID) {
     } else if ('report-recovery' === targetID) {
       tmpl.recoveryPage.set(1);
       tmpl.recoverySearch.set('');
+      tmpl.recoveryFilter.set('all');
       tmpl.loadReport('report-recovery', { recount: true });
     }
   }
@@ -745,6 +761,16 @@ function reportTablePageData(tmpl) {
     descKey: spec.descKey,
     emptyKey: spec.emptyKey,
     searchTerm: cfg.search.get(),
+    filters: reportId === 'report-recovery' ? buildFilters([{
+      id: 'recovery-status',
+      label: 'Show',
+      options: [
+        { value: 'all', label: 'All' },
+        { value: 'done', label: 'Done' },
+        { value: 'failed', label: 'Failed' },
+        { value: 'deleted', label: 'Deleted' },
+      ],
+    }], cfg.filter.get()) : [],
     header: buildHeader(spec.columns),
     rows: buildRows(docs, spec.columns, { rowClass: spec.rowClass }),
     rowCount: docs.length,

@@ -70,6 +70,11 @@ test('client report is wired: config, columns, menu, rendering', () => {
   assert.ok(/emptyKey: 'recovery-no-events'/.test(js), 'empty-state key');
   assert.ok(/rowClass: d => `recovery-severity-\$\{d\.severity \|\| 'info'\}`/.test(js),
     'severity row class');
+  for (const status of ['all', 'done', 'failed', 'deleted']) {
+    assert.ok(new RegExp(`value: '${status}'`).test(js), `Recovery filter has ${status}`);
+  }
+  assert.ok(/recoveryFilter\.set\(\$\(event\.currentTarget\)\.val\(\) \|\| 'all'\)/.test(js),
+    'Recovery filter reloads from the shared dropdown');
 
   const jade = read('client/components/settings/adminProblems.jade');
   // The side menu is data now (docs/Features/Page/Left-Menu.md).

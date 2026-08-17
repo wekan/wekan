@@ -33,4 +33,22 @@ test('NEGATIVE — regex metacharacters are escaped (matched literally)', () => 
   assert.ok(!re.test('axxb'), 'the metacharacters must NOT act as a wildcard');
 });
 
+test('status filters select done, failed and deleted events', () => {
+  assert.deepStrictEqual(recoveryReportQuery('', 'failed'), { done: false });
+  assert.deepStrictEqual(recoveryReportQuery('', 'deleted'), { deletedData: true });
+  assert.deepStrictEqual(recoveryReportQuery('', 'done'), {
+    $or: [{ done: true }, { done: { $exists: false } }],
+  });
+});
+
+test('search and status are combined instead of either filter replacing the other', () => {
+  const q = recoveryReportQuery('board', 'failed');
+  assert.ok(Array.isArray(q.$and) && q.$and.length === 2);
+  assert.deepStrictEqual(q.$and[1], { done: false });
+});
+
+test('NEGATIVE — an unknown status does not constrain the report', () => {
+  assert.deepStrictEqual(recoveryReportQuery('', 'unknown'), {});
+});
+
 console.log(`\n${passed} tests passed`);

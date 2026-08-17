@@ -9,8 +9,9 @@ import { recoveryReportQuery } from '/models/lib/recoveryReportQuery';
 // pattern that keeps the Files report from hanging on FerretDB's OpLog), and the page
 // is read directly from the recoveryEvents collection so it always resolves.
 
-Meteor.publish('recoveryReport', async function recoveryReport(searchTerm = '', limit, skip = 0) {
+Meteor.publish('recoveryReport', async function recoveryReport(searchTerm = '', status = 'all', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
+  check(status, Match.Where(value => ['all', 'done', 'failed', 'deleted'].includes(value)));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
 
@@ -22,7 +23,7 @@ Meteor.publish('recoveryReport', async function recoveryReport(searchTerm = '', 
       return;
     }
 
-    const cursor = RecoveryEvents.find(recoveryReportQuery(searchTerm), {
+    const cursor = RecoveryEvents.find(recoveryReportQuery(searchTerm, status), {
       sort: { createdAt: -1 },
       limit,
       skip: skip || 0,
@@ -44,15 +45,16 @@ Meteor.publish('recoveryReport', async function recoveryReport(searchTerm = '', 
 });
 
 Meteor.methods({
-  async getRecoveryReportCount(searchTerm = '') {
+  async getRecoveryReportCount(searchTerm = '', status = 'all') {
     check(searchTerm, Match.OneOf(String, null, undefined));
+    check(status, Match.Where(value => ['all', 'done', 'failed', 'deleted'].includes(value)));
 
     const user = await Meteor.userAsync();
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
 
-    const cursor = RecoveryEvents.find(recoveryReportQuery(searchTerm));
+    const cursor = RecoveryEvents.find(recoveryReportQuery(searchTerm, status));
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });

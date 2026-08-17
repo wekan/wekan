@@ -12,13 +12,25 @@ function searchRegex(term) {
 // recoveryReportQuery returns the Mongo selector for the recovery events matching the
 // (optional) search term across the type / detail / db fields. An empty term matches
 // everything.
-function recoveryReportQuery(searchTerm) {
-  if (!searchTerm) {
-    return {};
+function recoveryReportQuery(searchTerm, status = 'all') {
+  const clauses = [];
+  if (searchTerm) {
+    const re = searchRegex(searchTerm);
+    clauses.push({ $or: [{ type: re }, { detail: re }, { db: re }] });
   }
 
-  const re = searchRegex(searchTerm);
-  return { $or: [{ type: re }, { detail: re }, { db: re }] };
+  if (status === 'done') {
+    // Events written before the outcome field was introduced were successful.
+    clauses.push({ $or: [{ done: true }, { done: { $exists: false } }] });
+  } else if (status === 'failed') {
+    clauses.push({ done: false });
+  } else if (status === 'deleted') {
+    clauses.push({ deletedData: true });
+  }
+
+  if (clauses.length === 0) return {};
+  if (clauses.length === 1) return clauses[0];
+  return { $and: clauses };
 }
 
 module.exports = { recoveryReportQuery, searchRegex };
