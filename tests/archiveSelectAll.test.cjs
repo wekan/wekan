@@ -30,8 +30,10 @@ test('the two buttons are above the board icons', () => {
   assert.strictEqual(en['select-none'], 'Select none');
 });
 
-test('they appear in every named board section only while Multi-Selection is on', () => {
-  assert.ok(/showsBoardSelectionControls\(\)[\s\S]{0,180}\['remaining', 'starred', 'home', 'templates', 'archive'\][\s\S]{0,100}BoardMultiSelection\.isActive\(\)/.test(js));
+test('they appear in every named section and Workspace only while Multi-Selection is on', () => {
+  assert.ok(/showsBoardSelectionControls\(\)[\s\S]{0,180}\['remaining', 'starred', 'home', 'templates', 'archive'\]/.test(js));
+  assert.ok(/const workspace = Boolean\(tpl\.selectedWorkspaceIdVar\.get\(\)\)/.test(js));
+  assert.ok(/return \(namedSection \|\| workspace\) && BoardMultiSelection\.isActive\(\)/.test(js));
   assert.ok(/if showsBoardSelectionControls\n\s+\.board-multiselection-controls/.test(jade));
 });
 

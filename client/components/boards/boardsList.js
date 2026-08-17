@@ -1014,8 +1014,10 @@ Template.boardList.helpers({
   },
   showsBoardSelectionControls() {
     const tpl = Template.instance();
-    return ['remaining', 'starred', 'home', 'templates', 'archive']
-      .includes(tpl.selectedMenu.get()) && BoardMultiSelection.isActive();
+    const namedSection = ['remaining', 'starred', 'home', 'templates', 'archive']
+      .includes(tpl.selectedMenu.get());
+    const workspace = Boolean(tpl.selectedWorkspaceIdVar.get());
+    return (namedSection || workspace) && BoardMultiSelection.isActive();
   },
   // #5174 / #4825: the board tiles' per-list card-count line and member avatar
   // row. Data comes from the one-shot getAllBoardsTileData method fetch in
