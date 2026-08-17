@@ -421,7 +421,8 @@ and Select None above the icons make that selection explicit and quick.
 The same themed controls now cover **Remaining, Starred, Home and Templates**,
 always following the visible section and search result. While that mode is on,
 its action sidebar now stays visible until Multi-Selection is turned off, and
-its actions remain available before the first board is checked.
+its actions remain available before the first board is checked. Setting a Home
+board now requires exactly one checked board.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -524,6 +525,17 @@ turn Multi-Selection off are now always present in the right sidebar. An action
 clicked with no checked boards reports "You did not select any boards" and
 stops before opening a confirmation or calling the server. One shared guard and
 regression tests cover star, Home, archive, duplicate and permanent delete.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ddb0ab4a2">Set as Home board accepts exactly one selected board</a>. Thanks to xet7.</summary>
+
+An empty selection keeps the existing "You did not select any boards" warning,
+while several selected boards now report "Please select only one board" instead
+of silently choosing the first. Only one selected id reaches
+`toggleDefaultBoard`, matching the fact that login can open only one Home board.
+Regression tests cover all three selection counts.
 
 </details>
 
