@@ -39,6 +39,29 @@ const globalLazyThreshold = () => {
   return Number.isFinite(n) && n >= 0 ? n : DEFAULT_LAZY_THRESHOLD;
 };
 
+// Fields needed by All Boards, rule board pickers and the Sandstorm auto-open
+// decision. The open-board `board` publication supplies the full document.
+const BOARD_LIST_FIELDS = {
+  title: 1,
+  slug: 1,
+  color: 1,
+  backgroundImageURL: 1,
+  description: 1,
+  type: 1,
+  permission: 1,
+  members: 1,
+  orgs: 1,
+  teams: 1,
+  domains: 1,
+  sort: 1,
+  archived: 1,
+  createdAt: 1,
+  modifiedAt: 1,
+  dateLastActivity: 1,
+  allowsCardCounterList: 1,
+  allowsBoardMemberList: 1,
+};
+
 publishComposite('boards', function() {
   const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
@@ -61,10 +84,7 @@ publishComposite('boards', function() {
       }
       const selector = {
         archived: false,
-        // #5850: also publish the user's template boards (template-container) so
-        // the All Boards / Templates view can list them; the client filters by
-        // type per sub-view.
-        type: { $in: ['board', 'template-container'] },
+        type: 'board',
         // GHSA-gwc4-fw7p-gw58: one builder answers "which boards may this user
         // see", everywhere. This used to be a hand-written copy of the same
         // array - and the `board` publication's copy was the one that forgot
@@ -80,53 +100,36 @@ publishComposite('boards', function() {
         selector,
         {
           sort: { sort: 1 /* boards default sorting */ },
+          fields: BOARD_LIST_FIELDS,
         },
         true,
       );
     },
-    children: [
-      {
-        async find(board) {
-          // Publish lists with extended fields for proper sync
-          // Including swimlaneId, modifiedAt, and _updatedAt for list order changes
-          return await ReactiveCache.getLists(
-            { boardId: board._id, archived: false },
-            {
-              fields: {
-                _id: 1,
-                title: 1,
-                boardId: 1,
-                swimlaneId: 1,
-                archived: 1,
-                sort: 1,
-                color: 1,
-                modifiedAt: 1,
-                _updatedAt: 1,  // Hidden field to trigger updates
-              }
-            },
-            true,
-          );
-        }
-      },
-      {
-        async find(board) {
-          return await ReactiveCache.getCards(
-            { boardId: board._id, archived: false },
-            {
-              fields: {
-                _id: 1,
-                boardId: 1,
-                listId: 1,
-                archived: 1,
-                sort: 1
-              }
-            },
-            true,
-          );
-        }
-      }
-    ]
   };
+});
+
+// Template containers are numerous on long-lived LDAP instances and are only
+// needed by All Boards / Templates. Keep this live so imports appear without a
+// reload, but do not make every page poll and decode them.
+Meteor.publish('boardTemplates', async function() {
+  const userId = this.userId;
+  if (!Match.test(userId, String) || !userId) return [];
+  const user = await ReactiveCache.getUser(userId);
+  if (!user) return [];
+  return ReactiveCache.getBoards(
+    {
+      archived: false,
+      type: 'template-container',
+      $or: boardVisibilitySelectors({
+        userId,
+        orgIds: user.orgIds(),
+        teamIds: user.teamIds(),
+        emailDomains: user.emailDomains(),
+      }),
+    },
+    { sort: { sort: 1 }, fields: BOARD_LIST_FIELDS },
+    true,
+  );
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -744,6 +744,10 @@ Template.boardList.onCreated(function () {
     this.subscribe('archivedBoards', this.boardSearchVar.get() || '',
       ARCHIVED_BOARDS_LIMIT, 0);
   });
+  this.autorun(() => {
+    if (this.selectedMenu.get() !== 'templates') return;
+    this.subscribe('boardTemplates');
+  });
   // The Table view's page. Client-side: the boards are already in minimongo for
   // the Lists view beside it, so paging them again on the server would be a round
   // trip for data the page is holding anyway.
