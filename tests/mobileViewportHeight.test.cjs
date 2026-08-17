@@ -93,16 +93,18 @@ test('the fallback comes FIRST, so an old browser keeps today’s behaviour', ()
   }
 });
 
-test('a vertical swipe in those scrollers is a scroll, and stays in them', () => {
+test('a vertical swipe has one owner: the content page, not nested board panes', () => {
   const mobile = boards.slice(boards.indexOf('/* Fix multiple scrollbars issue on mobile */'));
   for (const selector of ['.boards-left-menu', '.board-list']) {
     const at = mobile.indexOf(`  ${selector} {`);
     assert.ok(at !== -1, `${selector} must have a mobile rule`);
     const body = mobile.slice(at, mobile.indexOf('}', at));
-    assert.ok(/overscroll-behavior: contain;/.test(body),
-      `${selector}: a swipe must not turn into a page scroll behind it`);
-    assert.ok(/touch-action: pan-y;/.test(body),
-      `${selector}: a vertical swipe must be given to this scroller`);
+    assert.ok(/overflow-y: visible(?: !important)?;/.test(body),
+      `${selector}: it must grow inside #content, not capture the swipe`);
+    assert.ok(!/overscroll-behavior: contain;/.test(body),
+      `${selector}: it must not contain scrolling away from #content`);
+    assert.ok(!/touch-action: pan-y;/.test(body),
+      `${selector}: it must not claim the page's vertical gesture`);
   }
 });
 

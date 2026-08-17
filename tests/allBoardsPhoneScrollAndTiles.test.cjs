@@ -17,8 +17,10 @@
 //     guess at the header, the header is not 48px and is not any one number
 //     (Utils publishes --wekan-header-height from a ResizeObserver for exactly
 //     this reason), so on a phone whose bar wraps, #content ended below the
-//     screen and everything under it inherited that. Covered by
-//     tests/mobileViewportHeight.test.cjs.
+//     screen and everything under it inherited that. A later attempt replaced
+//     this with nested wrapper/menu/list scrollers. Those failed as soon as an
+//     invited board made one grid row taller. #content is now the only vertical
+//     scroller. Covered here and by tests/mobileViewportHeight.test.cjs.
 //
 //  2. THE TABLE VIEW. The right column has two branches - the board icons and
 //     `+tablePage` - and only the icons were given a scroller, so the other view
@@ -133,7 +135,7 @@ test('no per-tile margin adds a second, one-directional gap', () => {
 
 // ── 2. every left-menu option's right page scrolls ──────────────────────────
 
-test('the right column is a flex column with a scrolling part in BOTH views', () => {
+test('both right-column views grow inside the page scroller', () => {
   const jade = read('client/components/boards/boardsList.jade');
   // The two branches the template really has, so this test fails if a third
   // appears without a scroller.
@@ -152,15 +154,12 @@ test('the right column is a flex column with a scrolling part in BOTH views', ()
   assert.strictEqual(decl(rightGrid, 'flex-direction'), 'column');
 
   const table = rule('.boards-right-grid > .table-page');
-  assert.strictEqual(decl(table, 'flex'), '1 1 auto',
-    'the table view must take what the column has left');
+  assert.strictEqual(decl(table, 'flex'), '0 0 auto',
+    'the table view must contribute its natural height to the page');
   assert.strictEqual(decl(table, 'min-height'), '0',
-    'and be allowed to be shorter than the table, or it can never scroll');
-  assert.ok(/auto/.test(decl(table, 'overflow-y')),
-    'a table taller than the phone must scroll inside the column - #content is ' +
-    'overflow: hidden, so anything past the fold is otherwise clipped');
-  assert.ok(/auto|scroll/.test(decl(table, 'overflow-x')),
-    'a table is wider than a phone too');
+    'and not impose an intrinsic minimum on its parent');
+  assert.strictEqual(decl(table, 'overflow'), 'visible',
+    'the table page must not become a second vertical scroller');
 });
 
 test('the pane heading does not get squeezed instead of the scroller scrolling', () => {
@@ -176,15 +175,13 @@ test('the pane heading does not get squeezed instead of the scroller scrolling',
     'list below it be the flexible one');
 });
 
-test('the left menu is its own scroller, so its options are reachable too', () => {
-  // "check that scrolling down works at all left menu options" - the menu
-  // itself has to scroll when there are more workspaces than fit.
-  const menu = css.slice(css.indexOf('  .boards-left-menu {\n    overflow-y: auto;'));
-  assert.ok(menu.length, 'the phone rule making the left menu a scroller must exist');
+test('the left menu grows inside the same page scroller as the boards', () => {
+  const menu = css.slice(css.indexOf('  .boards-left-menu {\n    overflow-y: visible;'));
+  assert.ok(menu.length, 'the phone rule making the left menu part of the page must exist');
   const body = menu.slice(menu.indexOf('{') + 1, menu.indexOf('}')).replace(/\/\*[\s\S]*?\*\//g, '');
-  assert.strictEqual(decl(body, 'overflow-y'), 'auto');
+  assert.strictEqual(decl(body, 'overflow-y'), 'visible');
   assert.strictEqual(decl(body, 'min-height'), '0');
-  assert.strictEqual(decl(body, 'height'), '100%');
+  assert.strictEqual(decl(body, 'height'), 'auto');
 });
 
 // ── 1. the chain the scroll hangs from, end to end ──────────────────────────
@@ -200,10 +197,10 @@ test('nothing between the body and the board list computes a height from the vie
     'body.mobile-mode #content must be sized by flex: 1, not by 100dvh minus a ' +
     'guessed header height - that is what put the bottom of All Boards off screen');
 
-  // ...and each step below it is a definite height that can also shrink.
+  // ...and each step below it grows naturally inside that one scroller.
   for (const [selector, expect] of [
-    ['#content .wrapper', { height: '100%', 'min-height': '0' }],
-    ['#content .wrapper > .boards-layout', { flex: '1 1 auto', 'min-height': '0' }],
+    ['#content .wrapper', { height: 'auto', overflow: 'visible', 'min-height': '0' }],
+    ['#content .wrapper > .boards-layout', { flex: '0 0 auto', 'min-height': '0' }],
   ]) {
     const at = css.indexOf(`  ${selector} {`);
     assert.notStrictEqual(at, -1, `the phone rule for ${selector} must exist`);
@@ -214,6 +211,26 @@ test('nothing between the body and the board list computes a height from the vie
         `below its content stops every scroller under it from scrolling`);
     }
   }
+});
+
+test('the board grid is not a second vertical scroller', () => {
+  const at = css.indexOf('  .board-list {\n    /* One vertical scroller');
+  assert.notStrictEqual(at, -1, 'the phone board-list rule must document the one-scroller contract');
+  const body = css.slice(css.indexOf('{', at) + 1, css.indexOf('}', at))
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.strictEqual(decl(body, 'overflow-y'), 'visible');
+  assert.strictEqual(decl(body, 'height'), 'auto');
+  assert.strictEqual(decl(body, 'flex'), '0 0 auto');
+});
+
+test('invited boards render their controls inside that unclipped grid', () => {
+  const jade = read('client/components/boards/boardsList.jade');
+  const at = jade.indexOf('if isInvited');
+  const invited = jade.slice(at, jade.indexOf('if $eq type', at));
+  assert.ok(/button\.js-accept-invite/.test(invited), 'the invited tile has Accept');
+  assert.ok(/button\.js-decline-invite/.test(invited), 'the invited tile has Decline');
+  assert.strictEqual(decl(rule('.board-list.mobile-view .board-list-item'), 'overflow'), 'visible',
+    'a taller invited tile must not clip those controls');
 });
 
 console.log(`\n${passed} passed`);
