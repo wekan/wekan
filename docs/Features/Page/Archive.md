@@ -59,9 +59,11 @@ It keeps what made it worth having:
   boards and their contents cannot be recovered. The server independently
   checks the administrator, setting, archived state and complete selection
   before removing anything.
-- While Multi-Selection is active, **Select All** and **Select None** appear in
-  the right page above the board icons. They check or uncheck exactly the board
-  icons currently shown by the Archive and its search filter.
+- Like Remaining, Starred and Templates, while Multi-Selection is active the
+  Archive shows **Select All** and **Select None** in the right page above its
+  board icons. They check or uncheck exactly the icons currently shown by the
+  section and its search filter. Home has the same controls; Select All checks
+  its one visible Home board when there is one.
 
 Restoring navigates to the restored board. A successful permanent delete clears
 the selection; a refused one leaves it selected so the administrator can correct

@@ -42,6 +42,13 @@ that no longer exists.
 With nothing selected it says so (`multi-selection-active`, "Click checkboxes to
 select boards"). With a selection it is four rows and a way out:
 
+While Multi-Selection is on, **Select All** and **Select None** sit above the
+board icons in Remaining, Starred, Home, Templates and Archive. Select All uses
+the exact section/search result being drawn, so it never checks a hidden board;
+Select None clears the shared selection. Home uses the same controls even though
+it contains at most one board, keeping Multi-Selection consistent across every
+named board section.
+
 | Row | Icon | What it does |
 | --- | --- | --- |
 | Star / Unstar | `fa-star` | A toggle over the whole selection — see below. |

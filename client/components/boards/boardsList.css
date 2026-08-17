@@ -829,13 +829,13 @@
 
 /* Archive bulk-selection belongs to the board icons it changes, immediately
    above them. It is visible only while Multi-Selection is on. */
-.archive-multiselection-controls {
+.board-multiselection-controls {
   display: flex;
   gap: 8px;
   margin: 0 0 10px;
 }
 
-.archive-multiselection-controls button {
+.board-multiselection-controls button {
   margin: 0;
 }
 

@@ -62,7 +62,7 @@ Template.allBoardsSidebar.events({
 });
 
 Template.allBoardsHomeSidebar.helpers({
-  canModifyBoards() {
+  canMultiSelectBoards() {
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser && !currentUser.isCommentOnly();
   },

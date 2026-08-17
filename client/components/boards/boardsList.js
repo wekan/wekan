@@ -398,7 +398,7 @@ Template.allBoardsHeaderButtons.helpers({
   },
   // Multi-Selection archives and duplicates boards, so somebody who may only
   // comment is not offered it.
-  canModifyBoards() {
+  canMultiSelectBoards() {
     const currentUser = ReactiveCache.getCurrentUser();
     return currentUser && !currentUser.isCommentOnly();
   },
@@ -968,9 +968,10 @@ Template.boardList.helpers({
   boards() {
     return boardsForView(Template.instance());
   },
-  isArchiveMultiSelection() {
+  showsBoardSelectionControls() {
     const tpl = Template.instance();
-    return tpl.selectedMenu.get() === 'archive' && BoardMultiSelection.isActive();
+    return ['remaining', 'starred', 'home', 'templates', 'archive']
+      .includes(tpl.selectedMenu.get()) && BoardMultiSelection.isActive();
   },
   // #5174 / #4825: the board tiles' per-list card-count line and member avatar
   // row. Data comes from the one-shot getAllBoardsTileData method fetch in
@@ -1829,14 +1830,14 @@ Template.boardList.events({
     const boardId = this._id;
     BoardMultiSelection.toogle(boardId);
   },
-  'click .js-archive-select-all'(evt, tpl) {
+  'click .js-board-select-all'(evt, tpl) {
     evt.preventDefault();
-    // `boardsForView` is the exact list of icons being drawn: Archive search
-    // and the current subscription have already narrowed it. Do not select an
-    // archived board that is not visible on this page.
+    // `boardsForView` is the exact list of icons being drawn: the section and
+    // search have already narrowed it. Do not silently select a board that is
+    // not visible on this page.
     BoardMultiSelection.add(boardsForView(tpl).map(board => board._id));
   },
-  'click .js-archive-select-none'(evt) {
+  'click .js-board-select-none'(evt) {
     evt.preventDefault();
     BoardMultiSelection.reset();
   },
