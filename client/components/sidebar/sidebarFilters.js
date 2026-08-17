@@ -315,9 +315,20 @@ Template.multiselectionSidebar.events({
   'click .js-move-selection': Popup.open('moveSelection'),
   'click .js-copy-selection': Popup.open('copySelection'),
   'click .js-selection-color': Popup.open('setSelectionColor'),
-  'click .js-archive-selection'() {
-    mutateSelectedCards('archive');
-    EscapeActions.executeUpTo('multiselection');
+  async 'click .js-archive-selection'() {
+    const cards = getSelectedCardsSorted();
+    const cardIds = cards.map(card => card._id);
+    if (!cardIds.length) return;
+    try {
+      await Meteor.callAsync(
+        'archiveSelectedCards',
+        Session.get('currentBoard'),
+        cardIds,
+      );
+      EscapeActions.executeUpTo('multiselection');
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    }
   },
 });
 

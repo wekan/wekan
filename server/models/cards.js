@@ -37,6 +37,43 @@ import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
+  // #6608: archive one card selection as one acknowledged server operation.
+  // The old sidebar loop issued direct client collection updates and closed
+  // immediately, so a rejected update looked exactly like a successful action
+  // while every selected card stayed put.
+  async archiveSelectedCards(boardId, cardIds) {
+    check(boardId, String);
+    check(cardIds, [String]);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    const ids = [...new Set(cardIds)];
+    if (!ids.length || ids.length > 5000) {
+      throw new Meteor.Error('invalid-card-selection');
+    }
+
+    const board = await Boards.findOneAsync(boardId);
+    if (!board || !allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const cards = await Cards.find({
+      _id: { $in: ids },
+      boardId,
+      archived: false,
+    }).fetchAsync();
+    if (cards.length !== ids.length) {
+      throw new Meteor.Error('invalid-card-selection');
+    }
+
+    // Validate the complete selection before changing the first card. Preserve
+    // the board order used by Multi-Selection for deterministic activity order.
+    const byId = new Map(cards.map(card => [card._id, card]));
+    for (const id of ids) {
+      await byId.get(id).archive();
+    }
+    return { archived: ids.length };
+  },
+
   // Server-authoritative subtask creation. Fixes:
   //  - #3868 / #5788 / #2256 "extra swimlane / column on subtask creation" and
   //    #4782 "can not create more than one subtask": the default subtasks

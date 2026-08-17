@@ -37,6 +37,24 @@ test.describe('Cards – operations', () => {
     await expect(bp.minicard(listA, 'Alpha Card')).not.toBeVisible({ timeout: 8_000 });
   });
 
+  test('multi-selection archives every selected card', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const [listA] = board.listIds;
+
+    await bp.openAddCardTop(listA);
+    await bp.submitNewCard(listA, 'Bulk Archive One');
+    await bp.openAddCardTop(listA);
+    await bp.submitNewCard(listA, 'Bulk Archive Two');
+
+    await boardPage.locator('.js-multiselection-activate').click();
+    await bp.openListMenu(listA);
+    await bp.clickListMenuItem('.js-select-cards');
+    await boardPage.locator('.board-sidebar .js-archive-selection').click();
+
+    await expect(bp.minicard(listA, 'Bulk Archive One')).not.toBeVisible({ timeout: 10_000 });
+    await expect(bp.minicard(listA, 'Bulk Archive Two')).not.toBeVisible({ timeout: 10_000 });
+  });
+
   test('archived card can be unarchived from the archives sidebar', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
