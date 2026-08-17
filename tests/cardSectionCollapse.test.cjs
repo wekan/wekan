@@ -291,15 +291,17 @@ test('a collapsed group shows its caret, its icon and its name, and nothing else
   }
 });
 
-test('Requested By and Assigned By select a member with + or enter text with Add', () => {
-  for (const field of ['requester', 'assigner']) {
+test('Requested By and Assigned By select a member with + or edit free text', () => {
+  for (const [field, getter] of [['requester', 'getRequestedBy'], ['assigner', 'getAssignedBy']]) {
     const at = jade.indexOf(`js-card-details-${field}`);
     assert.ok(at !== -1, `${field} is there`);
-    const block = jade.slice(at, at + 700);
+    const block = jade.slice(at, at + 950);
     assert.ok(new RegExp(`js-select-${field}`).test(block), `${field} + opens its picker`);
     assert.ok(/i\.fa\.fa-plus/.test(block), 'with the plus in it');
     assert.ok(/\.card-details-person-controls[\s\S]*js-open-inlined-form/.test(block),
       `${field}: Add remains the free-text editor below +`);
+    assert.ok(new RegExp(`if ${getter}[\\s\\S]*\\{\\{_ 'edit'\\}\\}[\\s\\S]*else[\\s\\S]*\\{\\{_ 'add'\\}\\}`)
+      .test(block), `${field}: existing text says Edit; an empty field says Add`);
   }
   // And it is the class Members' button is styled by, not a new look.
   const members = jade.slice(jade.indexOf('allowsMembers'), jade.indexOf('allowsAssignee'));

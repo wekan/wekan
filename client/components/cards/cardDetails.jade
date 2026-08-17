@@ -325,7 +325,11 @@ template(name="cardDetails")
                         .card-details-person-controls
                           a.member.add-member.card-details-item-add-button.js-select-requester(title="{{_ 'requested-by'}}")
                             i.fa.fa-plus
-                          a.js-open-inlined-form {{_ 'add'}}
+                          a.js-open-inlined-form
+                            if getRequestedBy
+                              | {{_ 'edit'}}
+                            else
+                              | {{_ 'add'}}
                   else
                     each userId in getRequesters
                       +userAvatar(userId=userId noRemove=true)
@@ -351,7 +355,11 @@ template(name="cardDetails")
                         .card-details-person-controls
                           a.member.add-member.card-details-item-add-button.js-select-assigner(title="{{_ 'assigned-by'}}")
                             i.fa.fa-plus
-                          a.js-open-inlined-form {{_ 'add'}}
+                          a.js-open-inlined-form
+                            if getAssignedBy
+                              | {{_ 'edit'}}
+                            else
+                              | {{_ 'add'}}
                   else
                     each userId in getAssigners
                       +userAvatar(userId=userId noRemove=true)
