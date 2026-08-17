@@ -415,7 +415,8 @@ checked after saving because the reactive settings publication returns the store
 value. Below that: regression coverage keeps the menu order, pane rendering, URL,
 setting handler and publication together, with the corresponding Admin Panel
 documentation and English source strings. The newest All Boards and
-permanent-delete controls are also translated into ten widely used languages.
+permanent-delete controls are also translated into 69 languages and regional
+variants.
 Permanent-delete setting changes and
 board-purge attempts, including unauthorized and failed ones, are audited in
 **Recovery** with Boolean status, acting user, proxy-aware IP address, board IDs
@@ -838,6 +839,20 @@ Portuguese, Russian and Spanish. They cover the permanent-delete setting and
 disabled hint, empty and one-board selection errors, unsetting Home, and Select
 None. The guarded fill writes only English placeholders, so it preserved each
 language's existing human translation of the Home-board drag instruction.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cab5c7a4">Recent board translations expand to 69 locales</a>. Thanks to xet7.</summary>
+
+The same seven All Boards and permanent-delete strings now cover 69 locale
+files. The expansion adds Czech, Danish, Dutch, Greek, Hebrew, Hindi,
+Indonesian, Korean, Norwegian, Polish, Swedish, Turkish, Ukrainian and
+Vietnamese, plus the appropriate Arabic, Chinese, European, Japanese,
+Portuguese, Russian and other regional variants of the completed
+languages. Existing non-English values remain untouched. A regression test
+checks every string in every covered locale and distinguishes permanent deletion
+from ordinary archiving.
 
 </details>
 
