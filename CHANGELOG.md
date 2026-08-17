@@ -429,7 +429,11 @@ board now requires exactly one checked board, and the Home section offers only
 the actions that make sense for its current board. Dragging a selection onto
 Home follows the same one-board rule. Remaining can now drag boards onto
 Starred or Archive as green targets. Home's empty state also states its
-one-board limit before dragging begins.
+one-board limit before dragging begins. **All Boards and board loading** now
+publish only dashboard board fields, keep templates separate, omit empty share
+branches, paginate in the database and snapshot lazy card windows on FerretDB.
+The CPU governor also observes FerretDB before acting and never slows its read
+path when its configured cap is zero or an idle WeKan sees FerretDB itself busy.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -620,7 +624,9 @@ Home-specific label and the absent actions.
 
 </details>
 
-and fixes the following Admin Panel bug:
+and fixes the following bugs:
+
+**The Admin Panel** - server-wide safety and performance settings.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/43d592590">The permanent-delete checkbox stays checked after saving</a>. Thanks to xet7.</summary>
@@ -630,6 +636,67 @@ publication omitted the field. The next reactive render therefore read
 `undefined` and immediately replaced the optimistic checkmark with an unchecked
 box. The publication now returns the stored value, with a negative regression
 test that ties the checkbox helper, update handler and published field together.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1522ad2a">The CPU governor observes FerretDB before slowing it</a>. Thanks to xet7.</summary>
+
+A high host-CPU event used to apply the first FerretDB delay before its status
+response could say which process was busy, and a maximum delay of zero still
+applied that first delay. The first request is now status-only. A zero cap is a
+clean monitoring-only setting, and an idle WeKan does not escalate delays while
+FerretDB's own process CPU is above its threshold. The existing backoff,
+recovery logging and labelled WeKan-operation mitigation remain in place.
+
+</details>
+
+**All Boards** - loading and filtering the overview.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b52a6313">The global publication sends board summaries without cards or lists</a>. Thanks to xet7.</summary>
+
+The overview previously opened composite child cursors for every board, making
+its first paint wait for lists and cards it does not render. It now publishes a
+projected set of board documents only. Template-container boards have their own
+projected subscription, active in Templates and cross-category search, so the
+dashboard retains the appearance, access, ordering and sharing data it uses
+without turning into a second board view.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd0369b89">Empty share lists no longer add non-selective visibility branches</a>. Thanks to xet7.</summary>
+
+The shared board-visibility selector used to emit organization, team and domain
+branches even when the caller had no ids for them. Those empty branches could
+not match, but still complicated every dashboard query. They are now omitted;
+non-empty branches retain the same-element `$elemMatch` and `isActive: true`
+requirements, with negative coverage against revoked-share access.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65aec4501">Pagination runs in the database</a>. Thanks to xet7.</summary>
+
+The page method no longer fetches every visible board, filters and sorts the
+array in Node.js, and slices only at the end. Section, workspace and search
+conditions are encoded before a database count and a title/id-sorted query with
+`skip` and `limit`. Cross-category search subscribes to template summaries too,
+so moving the work into the database does not hide template results.
+
+</details>
+
+**Board views** - lazy loading of a board's cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35825c540">FerretDB card windows use bounded snapshots</a>. Thanks to xet7.</summary>
+
+The lazy window publication previously returned a limited live card cursor.
+FerretDB's polling observer could repeatedly scan and diff that moving window,
+including while a board was otherwise idle. On FerretDB the bounded card batch
+is now fetched once and published as a snapshot; MongoDB keeps its live cursor,
+and the other child publications remain reactive on both databases.
 
 </details>
 
