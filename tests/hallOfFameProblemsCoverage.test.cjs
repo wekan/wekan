@@ -46,6 +46,9 @@ const DELIBERATE = {
     + 'in what the answer CARRIED, so a log line would fire on normal use and say '
     + 'nothing about an attacker (GHSA-6qpx-x7vr-p9w6, and securityCategories.js '
     + 'records the same reason)',
+  RouteBleed: 'the incomplete regular-expression escaping existed only in a source-reading '
+    + 'test over its own hardcoded route table; no application request reaches it, so there '
+    + 'is no runtime attempt to deny, attribute or record (CodeQL alert #434)',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.

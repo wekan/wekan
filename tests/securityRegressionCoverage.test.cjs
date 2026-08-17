@@ -89,6 +89,10 @@ const GUARDED = {
   proxybleed: ['server/lib/tests/proxybleed.security.tests.js'],
   redirectbleed: ['tests/securityLog.test.cjs', 'tests/securityMeifukun.test.cjs'],
   revokebleed: ['tests/boardShareRevokeBypass.test.cjs'],
+  routebleed: [
+    'tests/boardExportScope.test.cjs',
+    'tests/noIncompleteRegExpEscaping.test.cjs',
+  ],
   sortbleed: ['server/lib/tests/boards.security.tests.js'],
   sourcebleed: ['tests/securityMeifukun.test.cjs'],
   transitbleed: ['tests/transitbleed.test.cjs'],
@@ -227,7 +231,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 58, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 59, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the four newest advisories are guarded, not recorded', () => {

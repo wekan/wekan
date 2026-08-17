@@ -432,8 +432,8 @@ test('every downloadable format carries the selection, and the server reads it',
   const unread = [...new Set(paths)].filter(p => {
     // The route that serves this path must parse `fields`. The external-tool
     // exports share one handler (serveExternalExport), which does.
-    const route = new RegExp(`'/api/boards/:boardId/${p.replace(/\//g, '\\/')}'`);
-    if (!route.test(server) && !/^export\/(trello|jira|deck|openproject|github|gitlab|gitea|forgejo|asana|zenkit)$/.test(p)) {
+    const route = `'/api/boards/:boardId/${p}'`;
+    if (!server.includes(route) && !/^export\/(trello|jira|deck|openproject|github|gitlab|gitea|forgejo|asana|zenkit)$/.test(p)) {
       return true;
     }
     return false;
@@ -450,6 +450,19 @@ test('every downloadable format carries the selection, and the server reads it',
   assert.ok(/parseExportFields\(req\.query && req\.query\.fields, BOARD_EXPORT_FIELD_KEYS\)\) \}\)/
     .test(read('models/export.js')),
     'and the external-tool exports (Trello, Jira, GitHub, ...) must read it too');
+});
+
+test('RouteBleed: route lookup treats regex metacharacters and backslashes literally (#434)', () => {
+  // This is the distinction the old dynamically-built RegExp lost. Exact text
+  // needs no sanitizer, and a near-match must not pass merely because `.`,
+  // brackets or a backslash acquired pattern meaning.
+  const pathWithMetacharacters = String.raw`export/a.b\\c[0](x)+?`;
+  const route = `'/api/boards/:boardId/${pathWithMetacharacters}'`;
+  const exactServer = `Router.route(${route}, { where: 'server' });`;
+  const nearMatch = exactServer.replace('a.b', 'aXb');
+  assert.strictEqual(exactServer.includes(route), true, 'the exact literal is found');
+  assert.strictEqual(nearMatch.includes(route), false,
+    'negative: regex-like characters cannot make a different route match');
 });
 
 console.log(`\nboardExportScope: ${passed} tests passed`);

@@ -72,7 +72,8 @@ test('win32 and mac-x64 are best-effort: they skip when their fork node is absen
   for (const [name, asset] of [['build-win32', 'node-win32.exe'], ['build-mac-x64', 'node-mac-x64']]) {
     const body = job(name);
     // A preflight that HEAD-checks the fork asset and sets skip.
-    assert.ok(new RegExp(`Preflight[\\s\\S]*${asset.replace('.', '\\.')}`).test(body),
+    const preflightAt = body.indexOf('Preflight');
+    assert.ok(preflightAt !== -1 && body.indexOf(asset, preflightAt) !== -1,
       `${name} must have a preflight that checks the fork's ${asset}`);
     assert.ok(/echo "skip=true" >> "\$GITHUB_OUTPUT"/.test(body),
       `${name} preflight must set skip=true when the fork asset is missing`);
