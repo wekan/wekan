@@ -417,9 +417,9 @@ attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. **Requested By and Assigned
 By** can select board members while retaining their free-text fields. Below
-that: twelve export fixes, two shared-checkbox fixes, two UI sizing fixes, and
-the documentation move into its feature and platform hierarchy with every local
-link checked.
+that: twelve export fixes, one people-picker fix, two shared-checkbox fixes, two
+UI sizing fixes, and the documentation move into its feature and platform
+hierarchy with every local link checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -455,6 +455,24 @@ the existing Requested By / Assigned By design document.
 </details>
 
 and fixes the following bugs:
+
+**Opened cards** - the people responsible for requesting and assigning work.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c183b5bf8">The new people pickers have titles and stay below their buttons</a>. Thanks to xet7.</summary>
+
+Requested By and Assigned By opened headerless popups because their generated
+title keys did not exist. They now reuse the fields' existing translated names,
+so every language gets a title without adding a second English placeholder to
+all translation files.
+
+The general popup geometry also chose whichever side of an opener had more
+space. That made Assigned By jump above the card while Members and Assignee
+happened to open below. All four card-people pickers now anchor directly below
+their `+` button, use the remaining space there, and retain the same member-list
+body and styling.
+
+</details>
 
 **Exporting** - choosing what goes in the file.
 
