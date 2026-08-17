@@ -947,6 +947,12 @@ Template.eventStreamReport.events({
 function toggleSettingField(field) {
   const setting = ReactiveCache.getCurrentSetting();
   if (setting) {
+    if (field === 'enablePermanentDelete') {
+      Meteor.call('setPermanentDeleteEnabled', !setting[field], (err) => {
+        if (err) alert(err.reason || err.message || 'Failed to update permanent delete');
+      });
+      return;
+    }
     Settings.update(setting._id, { $set: { [field]: !setting[field] } });
   }
 }

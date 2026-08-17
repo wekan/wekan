@@ -11,6 +11,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
+import RecoveryEvents from '/models/recoveryEvents';
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
@@ -264,6 +265,34 @@ if (isSandstorm) {
 }
 
 Meteor.methods({
+  async setPermanentDeleteEnabled(enabled) {
+    check(enabled, Boolean);
+    const user = await Meteor.userAsync();
+    if (user?.isAdmin !== true) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const setting = await Settings.findOneAsync({});
+    if (!setting) {
+      throw new Meteor.Error('settings-not-found');
+    }
+    if ((setting.enablePermanentDelete === true) === enabled) return enabled;
+
+    await Settings.updateAsync(setting._id, {
+      $set: { enablePermanentDelete: enabled },
+    });
+    const username = user.username || user._id;
+    await RecoveryEvents.record(
+      RecoveryEvents.types.PERMANENT_DELETE_SETTING_CHANGED,
+      {
+        severity: 'warning',
+        source: 'admin-panel',
+        detail: `Global Admin ${username} (${user._id}) ${enabled ? 'enabled' : 'disabled'} permanent delete.`,
+      },
+    );
+    return enabled;
+  },
+
   async sendInvitation(emails, boards) {
     let rc = 0;
     check(emails, [String]);

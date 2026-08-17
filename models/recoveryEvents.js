@@ -23,6 +23,8 @@ RecoveryEvents.types = {
   BLOAT_REPAIRED: 'bloat-repaired',
   INTEGRITY_OK: 'integrity-ok',
   MANUAL_REQUIRED: 'manual-required',
+  PERMANENT_DELETE_SETTING_CHANGED: 'permanent-delete-setting-changed',
+  BOARD_PERMANENTLY_DELETED: 'board-permanently-deleted',
 };
 
 RecoveryEvents.attachSchema(

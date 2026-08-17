@@ -30,6 +30,7 @@ import Triggers from '/models/triggers';
 import Users from '/models/users';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { getFeatureFlags } from '/models/lib/featureFlags';
+import RecoveryEvents from '/models/recoveryEvents';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -380,6 +381,15 @@ Meteor.methods({
     }
     for (const board of boards) {
       await Boards.removeAsync(board._id);
+      const username = user.username || user._id;
+      await RecoveryEvents.record(
+        RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+        {
+          severity: 'warning',
+          source: 'admin-panel',
+          detail: `Global Admin ${username} (${user._id}) permanently deleted board ${board._id} titled ${JSON.stringify(board.title || '')}.`,
+        },
+      );
     }
     return { deleted: boards.length };
   },
