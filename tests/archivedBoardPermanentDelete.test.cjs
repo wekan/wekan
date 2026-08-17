@@ -14,6 +14,7 @@ const legacyJs = read('client/components/boards/boardArchive.js');
 const sidebar = read('client/components/boards/allBoardsSidebar.jade');
 const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
 const allBoardsJade = read('client/components/boards/boardsList.jade');
+const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 const server = read('server/models/boards.js');
 
 let passed = 0;
@@ -48,6 +49,23 @@ test('Archive multi-selection shows one red Delete button behind both UI gates',
   assert.ok(/user && user\.isAdmin/.test(sidebarJs)
     && /setting && setting\.enablePermanentDelete/.test(sidebarJs),
   'the client offers it only to a Global Admin while the setting is enabled');
+});
+
+test('disabled permanent delete replaces the selection hint and Delete button', () => {
+  assert.match(
+    sidebar,
+    /if isArchiveSelection\n\s+if canPermanentlyDeleteArchivedBoards\n\s+p[^\n]*multi-selection-active[\s\S]*?js-delete-selected-boards[\s\S]*?\n\s+else\n\s+p[^\n]*archive-permanent-delete-disabled-hint/,
+    'Archive has distinct enabled and disabled content',
+  );
+  assert.match(
+    sidebar,
+    /\n    else\n      p\.sidebar-multiselection-hint \{\{_ 'archive-permanent-delete-disabled-hint'\}\}\n  else\n/,
+    'the disabled branch contains only its explanation before the non-Archive branch',
+  );
+  assert.strictEqual(
+    en['archive-permanent-delete-disabled-hint'],
+    'If at Admin Panel / Problems / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.',
+  );
 });
 
 test('the client confirms, calls one bulk method, and clears only on success', () => {

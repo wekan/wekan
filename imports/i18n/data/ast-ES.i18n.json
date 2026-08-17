@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "¿De xuru que quies eliminar esti espaciu de trabayu?",
   "allboards.delete-workspace-confirm-check": "Confirmar la eliminación del espaciu de trabayu",
   "multi-selection-active": "Calca les caxelles pa seleicionar tableros",
+  "archive-permanent-delete-disabled-hint": "If at Admin Panel / Problems / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.",
   "no-boards-selected": "You did not select any boards.",
   "select-only-one-board": "Please select only one board",
   "selected-label": "Seleicionaos:",

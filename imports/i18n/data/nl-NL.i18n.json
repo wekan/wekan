@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Weet je zeker dat je deze werkruimte wilt verwijderen?",
   "allboards.delete-workspace-confirm-check": "Bevestig werkruimte verwijdering",
   "multi-selection-active": "Vink de checkboxen om borden te selecteren",
+  "archive-permanent-delete-disabled-hint": "If at Admin Panel / Problems / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.",
   "no-boards-selected": "You did not select any boards.",
   "select-only-one-board": "Please select only one board",
   "selected-label": "Geselecteerd:",

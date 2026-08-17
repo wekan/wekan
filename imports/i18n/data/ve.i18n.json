@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Uqinisekile ukuthi ufuna ukususa le ndawo yokusebenza?",
   "allboards.delete-workspace-confirm-check": "Qinisekisa ukususwa kwendawo yokusebenza",
   "multi-selection-active": "Chofoza amabhokisi okuhlola ukuze ukhethe amabhodi",
+  "archive-permanent-delete-disabled-hint": "If at Admin Panel / Problems / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.",
   "no-boards-selected": "You did not select any boards.",
   "select-only-one-board": "Please select only one board",
   "selected-label": "Zwo nangwaho:",

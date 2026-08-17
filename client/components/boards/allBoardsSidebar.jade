@@ -83,13 +83,16 @@ template(name="allBoardsSearchSidebar")
 //- them. They were four icons crowded into the header bar; here each one has
 //- its name beside it.
 template(name="allBoardsMultiSelectionSidebar")
-  p.sidebar-multiselection-hint {{_ 'multi-selection-active'}}
   if isArchiveSelection
     if canPermanentlyDeleteArchivedBoards
+      p.sidebar-multiselection-hint {{_ 'multi-selection-active'}}
       button.sidebar-btn.negate.wide.js-delete-selected-boards(type="button")
         i.fa.fa-trash
         span {{_ 'delete'}}
+    else
+      p.sidebar-multiselection-hint {{_ 'archive-permanent-delete-disabled-hint'}}
   else
+    p.sidebar-multiselection-hint {{_ 'multi-selection-active'}}
     a.sidebar-btn.js-star-selected
       i.fa.fa-star
       span {{selectedStarTitle}}

@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
   "allboards.delete-workspace-confirm-check": "Confirmer la suppression de l'espace de travail",
   "multi-selection-active": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+  "archive-permanent-delete-disabled-hint": "If at Admin Panel / Problems / Delete is checked Enable permanent delete for Global Admin then here will become visible button for Delete.",
   "no-boards-selected": "You did not select any boards.",
   "select-only-one-board": "Please select only one board",
   "selected-label": "Tchoezi:",
