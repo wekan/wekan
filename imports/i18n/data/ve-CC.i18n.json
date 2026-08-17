@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Conferma la scancelazion de'l spazio de lavoro",
   "multi-selection-active": "Struca le casełe par selezionar le bacheche",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Selezionà:",
   "set-selected-starred": "Meti tra i preferìi le bacheche selezionà",
   "set-selected-unstarred": "Susa inkanyezi emabhodini akhethiwe",

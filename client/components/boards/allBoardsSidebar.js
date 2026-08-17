@@ -161,6 +161,16 @@ function selectedBoardIdsOrWarn() {
   return ids;
 }
 
+function selectedHomeBoardIdOrWarn() {
+  const ids = selectedBoardIdsOrWarn();
+  if (!ids) return null;
+  if (ids.length > 1) {
+    alert(TAPi18n.__('select-only-one-board'));
+    return null;
+  }
+  return ids[0];
+}
+
 Template.allBoardsMultiSelectionSidebar.events({
   'click .js-delete-selected-boards'(evt) {
     evt.preventDefault();
@@ -187,9 +197,9 @@ Template.allBoardsMultiSelectionSidebar.events({
   },
   'click .js-home-selected'(evt) {
     evt.preventDefault();
-    const ids = selectedBoardIdsOrWarn();
-    if (!ids) return;
-    Meteor.call('toggleDefaultBoard', ids[0]);
+    const boardId = selectedHomeBoardIdOrWarn();
+    if (!boardId) return;
+    Meteor.call('toggleDefaultBoard', boardId);
   },
   'click .js-archive-selected-boards'(evt) {
     evt.preventDefault();

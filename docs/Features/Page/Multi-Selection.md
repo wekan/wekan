@@ -47,6 +47,10 @@ a board is checked. Clicking any action with an empty selection reports "You
 did not select any boards" and performs no action. The way out is always visible
 too.
 
+Set as Home board is deliberately a single-board action. With several checked
+boards it reports "Please select only one board" and changes nothing, because
+login can open only one Home board.
+
 While Multi-Selection is on, **Select All** and **Select None** sit above the
 board icons in Remaining, Starred, Home, Templates and Archive. Select All uses
 the exact section/search result being drawn, so it never checks a hidden board;

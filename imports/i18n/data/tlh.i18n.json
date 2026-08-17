@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Confirmer la suppression de l'espace de travail",
   "multi-selection-active": "Wähle Kontrollkästchen um Bretter auszuwählen",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "wIvlu'pu':",
   "set-selected-starred": "wIvlu'bogh raSmey HovmoH",
   "set-selected-unstarred": "Unstar the selected boards",

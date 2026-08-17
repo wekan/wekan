@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Ish joyini o'chirishni tasdiqlang",
   "multi-selection-active": "Doskalarni tanlash uchun katakchalarni bosing",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Tanlangan:",
   "set-selected-starred": "Tanlangan kengashlarni yulduzcha bilan belgilash",
   "set-selected-unstarred": "Tanlangan doskalardan yulduzchani olib tashlash",

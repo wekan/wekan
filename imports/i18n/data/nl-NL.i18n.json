@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Bevestig werkruimte verwijdering",
   "multi-selection-active": "Vink de checkboxen om borden te selecteren",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Geselecteerd:",
   "set-selected-starred": "Markeer de geselecteerde borden met een ster",
   "set-selected-unstarred": "Verwijder de ster van de geselecteerde borden",

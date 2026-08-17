@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Confirmer la suppression de l'espace de travail",
   "multi-selection-active": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "ⵢⴻⵜⵜⵡⴰⴼⵔⴻⵏ:",
   "set-selected-starred": "ⵔⵏⵓ ⵉⵜⵔⵉ ⵉ ⵜⴼⴻⵍⵡⵉⵏ ⵢⴻⵜⵜⵡⴰⴼⴻⵔⵏⴻⵏ",
   "set-selected-unstarred": "Kkes itran seg tfelwin yettwafernen",

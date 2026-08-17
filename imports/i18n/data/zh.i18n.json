@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "确认删除工作区",
   "multi-selection-active": "点击复选框以选择看板",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "已选择：",
   "set-selected-starred": "为所选看板加星标",
   "set-selected-unstarred": "取消所选看板的星标",

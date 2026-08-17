@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Confirmar la eliminación del espacio de trabajo",
   "multi-selection-active": "Haz clic en las casillas para seleccionar tableros",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Seleccionados:",
   "set-selected-starred": "Destacar los tableros seleccionados",
   "set-selected-unstarred": "Dejar de destacar los tableros seleccionados",

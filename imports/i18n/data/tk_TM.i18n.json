@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Iş ýeriniň öçürilmegini tassyklaň",
   "multi-selection-active": "Tagtalary saýlamak üçin bellik gutusyna basyň",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Saýlanan:",
   "set-selected-starred": "Saýlanan tagtalary ýyldyzlaň",
   "set-selected-unstarred": "Unstar the selected boards",

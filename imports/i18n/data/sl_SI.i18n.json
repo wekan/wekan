@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Potrdi brisanje delovnega prostora",
   "multi-selection-active": "Штиклирајте да би изабрали списе",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Izbrano:",
   "set-selected-starred": "Označi izbrane table z zvezdico",
   "set-selected-unstarred": "Odstrani zvezdico z izbranih tabel",

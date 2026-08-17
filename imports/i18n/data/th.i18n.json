@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "ยืนยันการลบเวิร์กสเปซ",
   "multi-selection-active": "คลิกช่องทำเครื่องหมายเพื่อเลือกบอร์ด",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "เลือกแล้ว:",
   "set-selected-starred": "ติดดาวบอร์ดที่เลือก",
   "set-selected-unstarred": "เอาดาวออกจากบอร์ดที่เลือก",

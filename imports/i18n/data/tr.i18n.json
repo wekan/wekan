@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Çalışma alanı silme işlemini onayla",
   "multi-selection-active": "Panoları seçmek için onay kutularına tıklayın",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Seçilen:",
   "set-selected-starred": "Seçili panoları yıldızla",
   "set-selected-unstarred": "Seçili panoların yıldızını kaldır",

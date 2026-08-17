@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "워크스페이스 삭제 확인",
   "multi-selection-active": "체크박스를 클릭하여 보드를 선택하세요",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "선택됨:",
   "set-selected-starred": "선택한 보드에 별표 지정",
   "set-selected-unstarred": "선택한 보드의 별표 해제",

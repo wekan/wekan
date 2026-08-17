@@ -34,6 +34,29 @@ test('every board action rejects an empty selection with the requested message',
   ]) {
     const start = events.indexOf(`'click .js-${action}'`);
     const body = events.slice(start, events.indexOf('\n  },', start));
-    assert.match(body, /selectedBoardIdsOrWarn\(\)/, `${action} must use the guard`);
+    const guard = action === 'home-selected'
+      ? /selectedHomeBoardIdOrWarn\(\)/
+      : /selectedBoardIdsOrWarn\(\)/;
+    assert.match(body, guard, `${action} must use its empty-selection guard`);
   }
+});
+
+test('Home accepts exactly one selected board', () => {
+  assert.equal(english['select-only-one-board'], 'Please select only one board');
+  assert.match(
+    events,
+    /function selectedHomeBoardIdOrWarn\(\) \{\s*const ids = selectedBoardIdsOrWarn\(\)/,
+    'the single-board guard must preserve the empty-selection message',
+  );
+  assert.match(
+    events,
+    /if \(ids\.length > 1\) \{\s*alert\(TAPi18n\.__\('select-only-one-board'\)\);\s*return null;/,
+  );
+
+  const start = events.indexOf("'click .js-home-selected'");
+  const body = events.slice(start, events.indexOf('\n  },', start));
+  assert.match(body, /const boardId = selectedHomeBoardIdOrWarn\(\)/);
+  assert.match(body, /if \(!boardId\) return;/);
+  assert.match(body, /Meteor\.call\('toggleDefaultBoard', boardId\)/);
+  assert.doesNotMatch(body, /ids\[0\]/, 'many selected boards must not silently use the first');
 });

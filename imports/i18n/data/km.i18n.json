@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "បញ្ជាក់ការលុបកន្លែងធ្វើការ",
   "multi-selection-active": "ចុចប្រអប់ធីកដើម្បីជ្រើសរើសក្តារ",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "បានជ្រើសរើស៖",
   "set-selected-starred": "ដាក់ផ្កាយក្តារដែលបានជ្រើសរើស",
   "set-selected-unstarred": "ដកផ្កាយចេញពីក្តារដែលបានជ្រើសរើស",

@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Sahkan pemadaman ruang kerja",
   "multi-selection-active": "Klik kotak semak untuk pilih papan",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Dipilih:",
   "set-selected-starred": "Bintangkan papan yang dipilih",
   "set-selected-unstarred": "Buang bintang daripada papan yang dipilih",

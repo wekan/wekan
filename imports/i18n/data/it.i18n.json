@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Conferma eliminazione dello spazio di lavoro",
   "multi-selection-active": "Clicca le caselle per selezionare le bacheche",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Selezionate:",
   "set-selected-starred": "Aggiungi le bacheche selezionate ai preferiti",
   "set-selected-unstarred": "Togli le bacheche selezionate dai preferiti",

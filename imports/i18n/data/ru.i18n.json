@@ -112,6 +112,7 @@
   "allboards.delete-workspace-confirm-check": "Подтвердить удаление рабочего пространства",
   "multi-selection-active": "Установите флажки, чтобы выбрать доски",
   "no-boards-selected": "You did not select any boards.",
+  "select-only-one-board": "Please select only one board",
   "selected-label": "Выбрано:",
   "set-selected-starred": "Добавить выбранные доски в избранное",
   "set-selected-unstarred": "Убрать выбранные доски из избранного",
