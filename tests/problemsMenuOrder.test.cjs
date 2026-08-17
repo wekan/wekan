@@ -1,7 +1,8 @@
 'use strict';
 
-// Admin Panel / Problems: the menu order, the Security Report rename, and the three
-// panes that moved here from Admin Panel / Features.
+// Admin Panel / Problems: the menu order, the Security Report rename, the three
+// panes that moved here from Admin Panel / Features, and the Delete setting added
+// after that page was removed.
 //
 // Requested:
 //   * "Security" renamed to "Security Report" and moved ABOVE "Broken Cards"
@@ -71,9 +72,9 @@ test('the report is called Security Report, in the source string', () => {
 });
 
 test('the menu is two named groups: Settings, then Reports', () => {
-  // Summary, then a rule and a "Settings" title over the two panes that came from
-  // Admin Panel / Features, then a rule and a "Reports" title over everything else.
-  for (const id of ['features-security', 'features-notifications']) {
+  // Summary, then a rule and a "Settings" title over the server-wide switches,
+  // then a rule and a "Reports" title over everything else.
+  for (const id of ['features-security', 'features-delete', 'features-notifications']) {
     assert.ok(at(id) > -1, `${id} must be a Problems entry`);
     assert.ok(at(id) > at('report-summary'), `${id} must be below Summary`);
   }
@@ -83,6 +84,10 @@ test('the menu is two named groups: Settings, then Reports', () => {
     'the Settings title comes after Summary');
   assert.ok(headingAt('settings') < at('features-security'),
     'and above the settings panes it names');
+  assert.ok(at('features-security') < at('features-delete'),
+    'Delete is below Security');
+  assert.ok(at('features-delete') < at('features-notifications'),
+    'Delete is immediately above Notifications');
   assert.ok(at('features-notifications') < headingAt('reports'),
     'the Reports title comes after them');
   assert.ok(headingAt('reports') < at('report-security'),
@@ -146,13 +151,17 @@ test('no pane keeps its own ReactiveVar any more (negative)', () => {
 });
 
 
-test('each pane took its helpers and handlers with it', () => {
+test('each settings pane has its helpers and handlers', () => {
   // The half that fails silently: the pane renders, every checkbox reads as unchecked
   // and no click does anything.
   assert.ok(/const featurePaneHelpers = \{/.test(featuresJs), 'the pane helpers are their own object');
   assert.ok(/const featurePaneEvents = \{/.test(featuresJs), 'and so are the handlers');
-  assert.ok(/for \(const tpl of \[Template\.featuresPerformance, Template\.featuresSecurity,[\s\S]{0,80}tpl\.helpers\(featurePaneHelpers\);[\s\S]{0,40}tpl\.events\(featurePaneEvents\);/
-    .test(featuresJs), 'registered on all three pane templates');
+  assert.ok(/for \(const tpl of \[Template\.featuresPerformance, Template\.featuresSecurity,[\s\S]{0,140}tpl\.helpers\(featurePaneHelpers\);[\s\S]{0,40}tpl\.events\(featurePaneEvents\);/
+    .test(featuresJs), 'registered on every settings pane template');
+  assert.ok(featuresJs.includes("toggleSettingField('enablePermanentDelete')"),
+    'the Delete checkbox writes the permanent-delete setting');
+  assert.ok(/Template\.featuresDelete/.test(featuresJs),
+    'the Delete pane receives the shared helpers and handlers');
   // They must NOT be left on the page template.
   // There is no page template left to leave them on: the pane templates are the only
   // place they can be.

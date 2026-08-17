@@ -18,6 +18,8 @@ template(name="adminProblems")
             +featuresPerformance
           else if isPane 'features-security'
             +featuresSecurity
+          else if isPane 'features-delete'
+            +featuresDelete
           else if isPane 'features-notifications'
             +featuresNotifications
           else if isPane 'report-security'
@@ -114,6 +116,15 @@ template(name="featuresSecurity")
         .materialCheckBox(class="{{#if anonymizeExportUsers}}is-checked{{/if}}")
         span {{_ 'anonymize-export-users'}}
       p.description {{_ 'anonymize-export-users-description'}}
+
+//- Admin Panel / Problems / Delete.
+template(name="featuresDelete")
+  ul.setting-detail
+    li
+      a.flex.js-toggle-enable-permanent-delete
+        .materialCheckBox(class="{{#if enablePermanentDelete}}is-checked{{/if}}")
+        span {{_ 'enable-permanent-delete'}}
+      p.description {{_ 'enable-permanent-delete-description'}}
 
 //- Admin Panel / Problems / Notifications.
 template(name="featuresNotifications")

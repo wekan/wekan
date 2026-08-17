@@ -63,6 +63,7 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | --- | --- | --- |
 | `/admin/problems/summary` | Summary | `report-summary` |
 | `/admin/problems/security` | Security | `features-security` |
+| `/admin/problems/delete` | Delete | `features-delete` |
 | `/admin/problems/notifications` | Notifications | `features-notifications` |
 | `/admin/problems/security-report` | Security Report | `report-security` |
 | `/admin/problems/impersonation` | Impersonation Report | `report-impersonation` |

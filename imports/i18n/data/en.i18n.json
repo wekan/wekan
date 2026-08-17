@@ -523,6 +523,8 @@
   "decline": "Decline",
   "default-avatar": "Default avatar",
   "delete": "Delete",
+  "enable-permanent-delete": "Enable permanent delete for Global Admin",
+  "enable-permanent-delete-description": "Allow Global Admins to permanently delete soft-deleted content. Enabling this setting does not delete anything by itself.",
   "deleteCustomFieldPopup-title": "Delete Custom Field?",
   "deleteLabelPopup-title": "Delete Label?",
   "description": "Description",

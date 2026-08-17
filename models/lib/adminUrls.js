@@ -95,6 +95,7 @@ const ADMIN_PAGES = {
     panes: {
       summary: 'report-summary',
       security: 'features-security',
+      delete: 'features-delete',
       notifications: 'features-notifications',
       'security-report': 'report-security',
       impersonation: 'report-impersonation',
@@ -173,6 +174,7 @@ const ADMIN_PANE_TITLES = {
   problems: {
     summary: { titleKey: 'summary' },
     security: { titleKey: 'features-security' },
+    delete: { titleKey: 'delete' },
     notifications: { titleKey: 'features-notifications' },
     'security-report': { titleKey: 'securityReportTitle' },
     impersonation: { titleKey: 'impersonationReportTitle' },

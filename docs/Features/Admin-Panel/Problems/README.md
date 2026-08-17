@@ -29,13 +29,15 @@ Below that is the acknowledge list of the Security / Speed / Tests problem strea
 
 ## The menu, in two named groups
 
-**Settings** — the two panes that came from the removed Features tab, which are
+**Settings** — the panes that hold server-wide feature switches, which are
 settings rather than reports but are what an admin reaches for when something is
 unsafe or noisy:
 
 - **Security** — how rich text is rendered (links as plain text, all code as plain
   text) and the import / export privacy switches (disable all import / export,
   avatars, anonymize users). All enforced server-side.
+- **Delete** — allow Global Admins to permanently purge soft-deleted content.
+  The switch is off by default and enabling it deletes nothing by itself.
 - **Notifications** — disable all activities, all notifications, or watching, for
   deployments that must limit activity tracking
   ([#5820](https://github.com/wekan/wekan/issues/5820)).
@@ -93,6 +95,7 @@ the address uses: `/admin/problems/<slug>`.
 | --- | --- | --- |
 | Problems / Summary | `summary` | — |
 | Problems / Security | `security` | — |
+| Problems / Delete | `delete` | — |
 | Problems / Notifications | `notifications` | — |
 | Problems / Security Report | `security-report` | — |
 | Problems / Impersonation Report | `impersonation` | — |
@@ -111,6 +114,6 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Database problems | `database` | — |
 | Problems / Filesystem integrity | `integrity` | — |
 
-16 of these 19 panes has no page of its own yet. A dash is a
+17 of these 20 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

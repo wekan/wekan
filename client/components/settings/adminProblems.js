@@ -286,6 +286,7 @@ const PROBLEMS_MENU = [
   // sits with the reports below, beside the Speed / Tests / CPU usage streams it is
   // about.
   { id: 'features-security', icon: 'fa-shield', labelKey: 'features-security', emoji: true },
+  { id: 'features-delete', icon: 'fa-trash', labelKey: 'delete' },
   { id: 'features-notifications', icon: 'fa-bell', labelKey: 'features-notifications', emoji: true },
   { separator: true },
   { heading: true, labelKey: 'reports' },
@@ -473,7 +474,7 @@ function switchMenu(event, tmpl) {
 // nothing to fetch. Everything else falls through to loadReport().
 const SELF_LOADING_PANES = [
   'report-summary',
-  'features-performance', 'features-security', 'features-notifications',
+  'features-performance', 'features-security', 'features-delete', 'features-notifications',
   'report-security', 'report-speed', 'report-tests', 'report-cpu',
   'report-database', 'report-integrity', 'report-office', 'report-api',
 ];
@@ -950,8 +951,9 @@ function toggleSettingField(field) {
   }
 }
 
-// Performance, Security and Notifications - the three panes that were Admin Panel /
-// Features before it was removed. Blaze resolves a helper, and delivers an event,
+// Performance, Security and Notifications were Admin Panel / Features panes before
+// it was removed; Delete exposes the later soft-delete gate beside them. Blaze
+// resolves a helper, and delivers an event,
 // against the template the element is IN - never an enclosing one - so each pane needs
 // these ON it. One shared pair registered on all three: a handler whose element is not
 // in a given pane simply never fires there, so splitting them per pane would buy
@@ -990,6 +992,9 @@ const featurePaneHelpers = {
   disableWatch() {
     return (ReactiveCache.getCurrentSetting() || {}).disableWatch;
   },
+  enablePermanentDelete() {
+    return (ReactiveCache.getCurrentSetting() || {}).enablePermanentDelete;
+  },
 };
 const featurePaneEvents = {
   'click .js-toggle-render-links-as-plain-text'() {
@@ -1025,9 +1030,12 @@ const featurePaneEvents = {
   'click .js-toggle-disable-watch'() {
     toggleSettingField('disableWatch');
   },
+  'click .js-toggle-enable-permanent-delete'() {
+    toggleSettingField('enablePermanentDelete');
+  },
 };
 for (const tpl of [Template.featuresPerformance, Template.featuresSecurity,
-  Template.featuresNotifications]) {
+  Template.featuresDelete, Template.featuresNotifications]) {
   tpl.helpers(featurePaneHelpers);
   tpl.events(featurePaneEvents);
 }
