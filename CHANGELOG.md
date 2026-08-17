@@ -415,14 +415,16 @@ checked after saving because the reactive settings publication returns the store
 value. Below that: regression coverage keeps the menu order, pane rendering, URL,
 setting handler and publication together, with the corresponding Admin Panel
 documentation and English source strings. Permanent-delete setting changes and
-successful board purges are audited in **Recovery** with the acting username,
-board ID and title. **Board Archive** removes permanent delete from individual
-board icons and offers it as one confirmed red action on a multi-selection, with
-the same gate enforced again on the server. When that gate is disabled, the
-sidebar explains where to enable it instead of showing an inapplicable selection
-instruction. Its enabled Delete button and server method both require the
-site-wide Global Admin flag. Select All and Select None above the icons make that
-selection explicit and quick.
+board-purge attempts, including unauthorized and failed ones, are audited in
+**Recovery** with Boolean status, acting user, proxy-aware IP address, board IDs
+and titles; coloured icons distinguish success, failure and deleted data.
+**Board Archive** removes permanent delete from individual board icons and
+offers it as one confirmed red action on a multi-selection, with the same gate
+enforced again on the server. When that gate is disabled, the sidebar explains
+where to enable it instead of showing an inapplicable selection instruction. Its
+enabled Delete button and server method both require the site-wide Global Admin
+flag. Select All and Select None above the icons make that selection explicit
+and quick.
 Dragging that archived selection now highlights only Remaining and existing
 Workspaces as valid restore targets. Archived tiles no longer show an
 action-looking archive glyph at their lower-left corner.
@@ -480,6 +482,20 @@ archived board records its ID and JSON-quoted title with the same actor. No-op
 setting writes, unauthorized calls and failed removals cannot create misleading
 success records. Tests pin the ordering of write before audit, stable event
 types and every required detail.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a0b7b7cd">Recovery shows every permanent-delete attempt and its outcome</a>. Thanks to xet7.</summary>
+
+Unauthorized and failed setting changes or board purges are now audited beside
+successful ones, without swallowing the original error. Structured fields keep
+Boolean Done/deleted-data state, user ID, username, trusted-proxy-resolved IPv4
+or IPv6, and bounded requested board IDs and titles. Done is the report's first
+column: success is a green check, failure a red warning, and a successful
+physical deletion adds a yellow trashcan. Partial batches show both the boards
+already deleted and the failed whole-batch attempt. Tests cover storage,
+address classification, negative paths, icon rendering and colours.
 
 </details>
 

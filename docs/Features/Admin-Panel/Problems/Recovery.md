@@ -104,6 +104,18 @@ disabled. Every successfully purged archived board records
 `board-permanently-deleted` with that actor, the board ID and its title. No-op,
 unauthorized and failed operations are not logged as successful actions.
 
+Attempted setting changes and board purges are always recorded with a Boolean
+`done`, the user ID and username when known, and the proxy-aware IPv4 or IPv6
+address resolved through `HTTP_FORWARDED_COUNT`. Board attempts also keep
+bounded `boardIds` and `boardTitles` arrays; an ID that does not resolve uses an
+unknown-title marker rather than disappearing from the audit.
+
+The Recovery table begins with **Done**. `true` renders a green check, `false` a
+red warning triangle, and a successful operation that physically deleted data
+adds a yellow trashcan. A batch that partly completes therefore shows yellow
+successful rows for the boards already removed and a red failed-attempt row for
+the whole requested batch.
+
 ## Manual recovery
 
 To force a restore on the next start, set `WEKAN_FORCE_RESTORE=backup` (or `prev`, or
@@ -123,8 +135,9 @@ Recovery report.
 - `tests/recoveryReportWiring.test.cjs` — the Recovery report is wired and the
   publication/count/method are admin-gated.
 - `tests/permanentDeleteRecoveryAudit.test.cjs` — permanent-delete setting
-  changes and successful board purges record their actor and affected board,
-  while no-op and failed operations cannot produce success records.
+  changes and board-purge attempts record status, actor, address and affected
+  boards; it also pins the Done/deletion icons and proves failed operations
+  cannot produce success records.
 - `tests/ferretdbTextDataBackup.test.cjs` — the backup/restore scripts (critical
   negatives: never delete the live text data or a backup copy, never copy
   attachments/avatars).
