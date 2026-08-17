@@ -416,7 +416,8 @@ value. Below that: regression coverage keeps the menu order, pane rendering, URL
 setting handler and publication together, with the corresponding Admin Panel
 documentation and English source strings. **Board Archive** removes permanent
 delete from individual board icons and offers it as one confirmed red action on
-a multi-selection, with the same gate enforced again on the server.
+a multi-selection, with the same gate enforced again on the server. Select All
+and Select None above the icons make that selection explicit and quick.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -461,6 +462,18 @@ archived boards. It validates every selected board before deleting the first, so
 an invalid or live-board id cannot leave a half-applied batch. Positive and
 negative tests cover the missing per-board control, both UI gates, confirmation,
 successful reset, retained selection on failure and every server-side gate.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c0f3b941">Select All and Select None control the visible archived boards</a>. Thanks to xet7.</summary>
+
+When Multi-Selection is active in Board Archive, two buttons now sit in the
+right page between its heading and board icons. Select All checks every icon in
+the exact Archive list currently rendered after searching; it does not silently
+select boards outside that visible result. Select None clears the shared board
+selection. Tests pin their Archive-only visibility, placement, translated names,
+compact layout and both selection operations.
 
 </details>
 
