@@ -118,8 +118,16 @@ is unstarred, `set-selected-unstarred` once they all are. Label and click read
 ## The board multi-selection view
 
 `multiselectionSidebar`, in `client/components/sidebar/sidebarFilters.jade` —
-unchanged. Labels, members, and the board-admin actions (colour, copy, move,
-archive) for the selected cards.
+labels, members, and the board-admin actions (colour, copy, move, archive) for
+the selected cards.
+
+Archiving is one acknowledged server operation, not a fire-and-forget loop of
+client collection updates. The client sends the current board ID and the ordered
+selected card IDs to `archiveSelectedCards`, then waits. The server checks both
+arguments before asynchronous work, requires write access, scopes every live
+card to that board and validates the complete selection before archiving the
+first card. Success closes Multi-Selection; failure shows the server error and
+keeps the cards selected so the action can be retried.
 
 ## Related files
 
@@ -131,7 +139,10 @@ archive) for the selected cards.
 | `client/lib/boardMultiSelection.js` | `.js` module | The All Boards selection object. |
 | `client/lib/multiSelection.js` | `.js` module | The board's selection object. |
 | `client/components/sidebar/sidebarFilters.jade` | `.jade` template | The board's multi-selection view. |
+| `server/models/cards.js` | `.js` methods | Validates and archives a selected card batch. |
 | `tests/multiSelectionButton.test.cjs` | `.cjs` Node test | That the button is defined once and both bars include it, with their own `isActive`. |
+| `tests/cardMultiSelectionArchive.test.cjs` | `.cjs` Node test | The acknowledged client action and server validation, including negative paths. |
+| `tests/playwright/specs/03-cards-operations.e2e.js` | `.js` browser test | Selects a list, archives it and verifies two cards disappear. |
 | `tests/selectedStars.test.cjs` | `.cjs` Node test | The star toggle's three cases, and that the click and the label ask one function. |
 
 ## Related

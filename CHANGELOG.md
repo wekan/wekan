@@ -472,6 +472,8 @@ branches, paginate in the database and snapshot lazy card windows on FerretDB.
 Workspace boards can also be dragged additively to Starred or, after
 confirmation, moved to Archive, and existing Workspace views now show Select
 All and Select None while Multi-Selection is active.
+Selected cards are now archived by one acknowledged server operation, so a
+failure remains visible and leaves the selection available to retry.
 The CPU governor also observes FerretDB before acting and never slows its read
 path when its configured cap is zero or an idle WeKan sees FerretDB itself busy.
 
@@ -849,7 +851,7 @@ so moving the work into the database does not hide template results.
 
 </details>
 
-**Board Archive** - permanent deletion from a multi-selection.
+**Archive actions** - permanently deleting boards and archiving selected cards.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5a5832846">Permanent deletion checks its argument before asynchronous work</a>. Thanks to xet7.</summary>
@@ -861,6 +863,21 @@ operation even though validation appeared later in the method. Validation now
 runs before the first `await`; malformed attempts still resolve their actor in
 the failure path and are written to Recovery without masking the original
 error. Positive ordering and audit-path tests cover the regression.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c62824341">Archived boards can be deleted and selected cards can be archived reliably</a>. Thanks to Nissulya and xet7.</summary>
+
+The archived-board half of [#6608](https://github.com/wekan/wekan/issues/6608)
+is handled by the new Global-Admin-only, explicitly enabled and confirmed
+multi-selection Delete action. For cards, the sidebar previously fired direct
+client updates and closed immediately, so a refused write looked successful
+while every card stayed in place. It now sends one ordered selection to an
+awaited server method. The server validates the board, write access and every
+live card before archiving the first; a failure reports its reason and keeps the
+selection open. Unit tests cover positive and negative client/server paths, and
+a browser test selects and archives two cards from one list.
 
 </details>
 
