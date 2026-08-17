@@ -419,7 +419,8 @@ delete from individual board icons and offers it as one confirmed red action on
 a multi-selection, with the same gate enforced again on the server. Select All
 and Select None above the icons make that selection explicit and quick.
 Dragging that archived selection now highlights only Remaining and existing
-Workspaces as valid restore targets.
+Workspaces as valid restore targets. Archived tiles no longer show an
+action-looking archive glyph at their lower-left corner.
 The same themed controls now cover **Remaining, Starred, Home and Templates**,
 always following the visible section and search result. While that mode is on,
 its action sidebar now stays visible until Multi-Selection is turned off, and
@@ -503,6 +504,17 @@ Workspace rows receive the green valid-target highlight. Home, Archive, sharing
 targets and the other board sections refuse the drag before accepting an HTML5
 drop. A Workspace drop restores every archived board and assigns it there;
 regression tests cover the allowed targets, rejected targets and green styling.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb13d01bc">Archived tiles have no lower-left archive glyph</a>. Thanks to xet7.</summary>
+
+The archive glyph inside the "Archived at" metadata inherited broad board-tile
+hover styling, which moved it to the lower-left corner and made it look like a
+per-board action. Both tile variants now keep the useful archived date as plain
+text without that icon. Permanent deletion remains exclusively in the right
+sidebar, with regression coverage for the absent glyph and retained date.
 
 </details>
 
