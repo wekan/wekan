@@ -117,6 +117,7 @@
   "set-selected-starred": "પસંદ કરેલા બોર્ડને સ્ટાર કરો",
   "set-selected-unstarred": "પસંદ કરેલા બોર્ડમાંથી તારો દૂર કરો",
   "set-selected-home": "હોમ બોર્ડ તરીકે સેટ કરો (લોગિન પછી ખૂલે છે)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "હોમ બોર્ડ (લોગિન પછી ખૂલે છે)",
   "home-board-empty": "લૉગિન પછી ખોલવા માટે બોર્ડને અહીં ખેંચો",
   "home-board-remove": "હોમમાંથી દૂર કરો",

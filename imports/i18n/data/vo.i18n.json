@@ -117,6 +117,7 @@
   "set-selected-starred": "Stelön tabis pevälöl",
   "set-selected-unstarred": "Bodis peleköl steli moükön",
   "set-selected-home": "Sätön as tab-Hem (paöpenon pos ensal)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tab-Hem (paöpenon pos ensal)",
   "home-board-empty": "Tikolös bodi is ad maifükön oni pos lögod",
   "home-board-remove": "Se Dom moükön",

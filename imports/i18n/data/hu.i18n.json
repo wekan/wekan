@@ -117,6 +117,7 @@
   "set-selected-starred": "Csillagozd a kijelölt táblákat",
   "set-selected-unstarred": "Csillag eltávolítása a kijelölt tábláktól",
   "set-selected-home": "Beállítás kezdőtáblaként (bejelentkezés után nyílik meg)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Kezdőtábla (bejelentkezés után nyílik meg)",
   "home-board-empty": "Húzzon ide egy táblát, hogy bejelentkezés után nyíljon meg",
   "home-board-remove": "Eltávolítás a Kezdőlapról",

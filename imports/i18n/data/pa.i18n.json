@@ -117,6 +117,7 @@
   "set-selected-starred": "ਚੁਣੇ ਹੋਏ ਬੋਰਡਾਂ ਨੂੰ ਸਟਾਰ ਲਗਾਓ",
   "set-selected-unstarred": "ਚੁਣੇ ਬੋਰਡਾਂ ਤੋਂ ਤਾਰਾ ਹਟਾਓ",
   "set-selected-home": "ਹੋਮ ਬੋਰਡ ਵਜੋਂ ਸੈੱਟ ਕਰੋ (ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੁੱਲ੍ਹਦਾ ਹੈ)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "ਹੋਮ ਬੋਰਡ (ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੁੱਲ੍ਹਦਾ ਹੈ)",
   "home-board-empty": "ਲਾਗਇਨ ਤੋਂ ਬਾਅਦ ਖੋਲ੍ਹਣ ਲਈ ਬੋਰਡ ਨੂੰ ਇੱਥੇ ਖਿੱਚੋ",
   "home-board-remove": "ਘਰ ਤੋਂ ਹਟਾਓ",

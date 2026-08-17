@@ -117,6 +117,7 @@
   "set-selected-starred": "סימון הלוחות הנבחרים בכוכב",
   "set-selected-unstarred": "הסר כוכב מהלוחות שנבחרו",
   "set-selected-home": "הגדרה כלוח בית (נפתח אחרי הכניסה)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "לוח בית (נפתח אחרי הכניסה)",
   "home-board-empty": "גררו לכאן לוח כדי שייפתח אחרי הכניסה",
   "home-board-remove": "הסרה מהבית",

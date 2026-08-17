@@ -117,6 +117,7 @@
   "set-selected-starred": "Stjärnmärk de valda tavlorna",
   "set-selected-unstarred": "Ta bort stjärnmärkningen från de valda tavlorna",
   "set-selected-home": "Ange som hemtavla (öppnas efter inloggning)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Hemtavla (öppnas efter inloggning)",
   "home-board-empty": "Dra en tavla hit för att öppna den efter inloggning",
   "home-board-remove": "Ta bort från Hem",

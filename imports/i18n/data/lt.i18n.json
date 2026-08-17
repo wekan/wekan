@@ -117,6 +117,7 @@
   "set-selected-starred": "Pažymėti pasirinktas lentas žvaigždute",
   "set-selected-unstarred": "Pašalinti žvaigždutę iš pasirinktų lentų",
   "set-selected-home": "Nustatyti kaip pagrindinę lentą (atveriama po prisijungimo)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Pagrindinė lenta (atveriama po prisijungimo)",
   "home-board-empty": "Vilkite čia lentą, kad ji atsidarytų prisijungus",
   "home-board-remove": "Pašalinti iš Pradžios",

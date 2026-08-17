@@ -117,6 +117,7 @@
   "set-selected-starred": "Dodaj zaznaczone tablice do ulubionych",
   "set-selected-unstarred": "Usuń zaznaczone tablice z ulubionych",
   "set-selected-home": "Ustaw jako tablicę startową (otwieraną po zalogowaniu)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tablica startowa (otwierana po zalogowaniu)",
   "home-board-empty": "Przeciągnij tutaj tablicę, aby otwierać ją po zalogowaniu",
   "home-board-remove": "Usuń ze Strony głównej",

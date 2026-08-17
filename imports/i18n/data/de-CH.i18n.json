@@ -117,6 +117,7 @@
   "set-selected-starred": "Ausgewählte Boards mit Stern markieren",
   "set-selected-unstarred": "Stern von ausgewählten Boards entfernen",
   "set-selected-home": "Als Home-Board festlegen (nach Anmeldung geöffnet)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Home-Board (nach Anmeldung geöffnet)",
   "home-board-empty": "Ziehe ein Board hierher, um es nach der Anmeldung zu öffnen",
   "home-board-remove": "Von Home entfernen",

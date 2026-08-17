@@ -117,6 +117,7 @@
   "set-selected-starred": "تاللانغان تاختىلارغا يۇلتۇز قويۇش",
   "set-selected-unstarred": "تاللانغان تاختايلاردىن يۇلتۇزنى چىقىرىۋېتىش",
   "set-selected-home": "باش تاختا قىلىپ بەلگىلەش (كىرگەندىن كېيىن ئېچىلىدۇ)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "باش تاختا (كىرگەندىن كېيىن ئېچىلىدۇ)",
   "home-board-empty": "كىرگەندىن كېيىن ئېچىش ئۈچۈن بۇ يەرگە تاختا سۆرەڭ",
   "home-board-remove": "باشبەتتىن چىقىرىۋېتىش",

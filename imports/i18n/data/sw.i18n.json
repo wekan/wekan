@@ -117,6 +117,7 @@
   "set-selected-starred": "Weka nyota kwenye bodi zilizochaguliwa",
   "set-selected-unstarred": "Ondoa nyota kwenye mbao zilizochaguliwa",
   "set-selected-home": "Weka kama bodi ya Nyumbani (inafunguliwa baada ya kuingia)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Bodi ya Nyumbani (inafunguliwa baada ya kuingia)",
   "home-board-empty": "Buruta ubao hapa ili kuufungua baada ya kuingia",
   "home-board-remove": "Ondoa kutoka Mwanzo",

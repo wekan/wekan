@@ -60,3 +60,16 @@ test('Home accepts exactly one selected board', () => {
   assert.match(body, /Meteor\.call\('toggleDefaultBoard', boardId\)/);
   assert.doesNotMatch(body, /ids\[0\]/, 'many selected boards must not silently use the first');
 });
+
+test('the Home section offers unset without archive or duplicate', () => {
+  assert.equal(english['unset-selected-home'], 'Unset as Home board');
+  assert.match(events, /isHomeSelection\(\) \{\s*return allBoardsMenuVar\.get\(\) === SECTION_HOME/);
+  assert.match(
+    jade,
+    /if isHomeSelection\s+span \{\{_ 'unset-selected-home'\}\}\s+else\s+span \{\{_ 'set-selected-home'\}\}/,
+  );
+  assert.match(
+    jade,
+    /unless isHomeSelection\s+hr\s+a\.sidebar-btn\.js-archive-selected-boards[\s\S]*?a\.sidebar-btn\.js-duplicate-selected-boards/,
+  );
+});

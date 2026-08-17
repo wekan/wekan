@@ -117,6 +117,7 @@
   "set-selected-starred": "Steli la elektitajn tabulojn",
   "set-selected-unstarred": "Forigi la stelon de la elektitaj tabuloj",
   "set-selected-home": "Agordi kiel Hejma tabulo (malfermata post ensaluto)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Hejma tabulo (malfermata post ensaluto)",
   "home-board-empty": "Trenu tabulon ĉi tien por malfermi ĝin post ensaluto",
   "home-board-remove": "Forigi el Hejmo",

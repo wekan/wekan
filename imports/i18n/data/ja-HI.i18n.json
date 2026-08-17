@@ -117,6 +117,7 @@
   "set-selected-starred": "選択したボードにスターを付ける",
   "set-selected-unstarred": "選択したボードのスターを外す",
   "set-selected-home": "ホームボードに設定(ログイン後に開く)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "ホームボード(ログイン後に開く)",
   "home-board-empty": "ログイン後に開くボードをここにドラッグします",
   "home-board-remove": "ホームから削除",

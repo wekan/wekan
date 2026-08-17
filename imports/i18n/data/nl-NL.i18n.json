@@ -117,6 +117,7 @@
   "set-selected-starred": "Markeer de geselecteerde borden met een ster",
   "set-selected-unstarred": "Verwijder de ster van de geselecteerde borden",
   "set-selected-home": "Instellen als startbord (geopend na inloggen)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Startbord (geopend na inloggen)",
   "home-board-empty": "Sleep hier een bord naartoe om het na het inloggen te openen",
   "home-board-remove": "Verwijderen van start",

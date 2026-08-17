@@ -117,6 +117,7 @@
   "set-selected-starred": "Marquer les tableaux sélectionnés comme favoris",
   "set-selected-unstarred": "Retirer les tableaux sélectionnés des favoris",
   "set-selected-home": "Définir comme tableau d'accueil (ouvert après la connexion)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tableau d'accueil (ouvert après la connexion)",
   "home-board-empty": "Glissez un tableau ici pour l'ouvrir après la connexion",
   "home-board-remove": "Retirer de l'accueil",

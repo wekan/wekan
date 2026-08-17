@@ -117,6 +117,7 @@
   "set-selected-starred": "Добавить выбранные доски в избранное",
   "set-selected-unstarred": "Убрать выбранные доски из избранного",
   "set-selected-home": "Сделать домашней доской (открывается после входа)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Домашняя доска (открывается после входа)",
   "home-board-empty": "Перетащите сюда доску, чтобы она открывалась после входа",
   "home-board-remove": "Убрать с Главной",

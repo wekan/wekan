@@ -117,6 +117,7 @@
   "set-selected-starred": "ติดดาวบอร์ดที่เลือก",
   "set-selected-unstarred": "เอาดาวออกจากบอร์ดที่เลือก",
   "set-selected-home": "ตั้งเป็นบอร์ดหน้าแรก (เปิดหลังเข้าสู่ระบบ)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "บอร์ดหน้าแรก (เปิดหลังเข้าสู่ระบบ)",
   "home-board-empty": "ลากบอร์ดมาที่นี่เพื่อเปิดหลังเข้าสู่ระบบ",
   "home-board-remove": "นำออกจากหน้าหลัก",

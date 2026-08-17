@@ -117,6 +117,7 @@
   "set-selected-starred": "为所选看板加星标",
   "set-selected-unstarred": "取消所选看板的星标",
   "set-selected-home": "设为主看板（登录后打开）",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "主看板（登录后打开）",
   "home-board-empty": "将看板拖到此处，登录后即可打开",
   "home-board-remove": "从首页移除",

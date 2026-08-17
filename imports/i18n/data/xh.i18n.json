@@ -117,6 +117,7 @@
   "set-selected-starred": "Faka inkwenkwezi kwiibhodi ezikhethiweyo",
   "set-selected-unstarred": "Susa inkwenkwezi kumabhodi akhethiweyo",
   "set-selected-home": "Misela njengeBhodi yaseKhaya (evulwa emva kokungena)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Ibhodi yaseKhaya (evulwa emva kokungena)",
   "home-board-empty": "Tsala ibhodi apha ukuze uyivule emva kokungena",
   "home-board-remove": "Susa kwiKhaya",

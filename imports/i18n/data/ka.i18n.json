@@ -117,6 +117,7 @@
   "set-selected-starred": "მონიშნეთ არჩეული დაფები ვარსკვლავით",
   "set-selected-unstarred": "ვარსკვლავის მოხსნა არჩეული დაფებიდან",
   "set-selected-home": "დაყენდეს მთავარ დაფად (იხსნება შესვლის შემდეგ)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "მთავარი დაფა (იხსნება შესვლის შემდეგ)",
   "home-board-empty": "ჩამოათრიეთ დაფა აქ, რომ შესვლის შემდეგ გაიხსნას",
   "home-board-remove": "მთავარიდან მოცილება",

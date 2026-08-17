@@ -117,6 +117,7 @@
   "set-selected-starred": "Աստղանշել ընտրված տախտակները",
   "set-selected-unstarred": "Հեռացնել աստղը ընտրված տախտակներից",
   "set-selected-home": "Սահմանել որպես Գլխավոր տախտակ (բացվում է մուտքից հետո)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Գլխավոր տախտակ (բացվում է մուտքից հետո)",
   "home-board-empty": "Քաշեք տախտակն այստեղ՝ մուտքից հետո այն բացելու համար",
   "home-board-remove": "Հեռացնել Գլխավորից",

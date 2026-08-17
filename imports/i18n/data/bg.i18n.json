@@ -117,6 +117,7 @@
   "set-selected-starred": "Отбележи избраните табла със звезда",
   "set-selected-unstarred": "Премахни звездата от избраните табла",
   "set-selected-home": "Задай като начално табло (отваря се след вход)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Начално табло (отваря се след вход)",
   "home-board-empty": "Плъзнете тук табло, за да се отваря след вход",
   "home-board-remove": "Премахване от Начало",

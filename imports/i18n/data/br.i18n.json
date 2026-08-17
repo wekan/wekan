@@ -117,6 +117,7 @@
   "set-selected-starred": "Sterennañ an taolennoù diuzet",
   "set-selected-unstarred": "Lemel ar steredenn diwar an taolennoù diuzet",
   "set-selected-home": "Lakaat evel taolenn degemer (digoret goude kevreañ)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Taolenn degemer (digoret goude kevreañ)",
   "home-board-empty": "Ruzit un daolenn amañ evit he digeriñ goude kevreañ",
   "home-board-remove": "Lemel diouzh Degemer",

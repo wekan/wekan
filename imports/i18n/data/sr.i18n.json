@@ -117,6 +117,7 @@
   "set-selected-starred": "Додели им звездице",
   "set-selected-unstarred": "Уклони им звездице",
   "set-selected-home": "Нек ме дочека",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Списи добродошлице",
   "home-board-empty": "Овде сместите списе за добродошлицу",
   "home-board-remove": "Уклони са Почетне",

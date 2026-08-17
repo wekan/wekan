@@ -117,6 +117,7 @@
   "set-selected-starred": "Сонгосон самбаруудыг одтой болгох",
   "set-selected-unstarred": "Сонгосон самбаруудаас од хасах",
   "set-selected-home": "Нүүр самбар болгох (нэвтэрсний дараа нээгдэнэ)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Нүүр самбар (нэвтэрсний дараа нээгдэнэ)",
   "home-board-empty": "Нэвтэрсний дараа нээхийн тулд самбарыг энд чирнэ үү",
   "home-board-remove": "Нүүрнээс хасах",

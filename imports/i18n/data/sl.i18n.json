@@ -117,6 +117,7 @@
   "set-selected-starred": "Označi izbrane table z zvezdico",
   "set-selected-unstarred": "Odstrani zvezdico z izbranih tabel",
   "set-selected-home": "Nastavi kot domačo tablo (odpre se po prijavi)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Domača tabla (odpre se po prijavi)",
   "home-board-empty": "Povlecite sem tablo, da se odpre po prijavi",
   "home-board-remove": "Odstrani z Domov",

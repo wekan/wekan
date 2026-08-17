@@ -117,6 +117,7 @@
   "set-selected-starred": "선택한 보드에 별표 지정",
   "set-selected-unstarred": "선택한 보드의 별표 해제",
   "set-selected-home": "홈 보드로 설정 (로그인 후 열림)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "홈 보드 (로그인 후 열림)",
   "home-board-empty": "로그인 후 열 보드를 여기로 끌어다 놓으세요",
   "home-board-remove": "홈에서 제거",

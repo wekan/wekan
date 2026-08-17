@@ -117,6 +117,7 @@
   "set-selected-starred": "Marcar amb estela los tablèus seleccionats",
   "set-selected-unstarred": "Levar l'estela dels tablèus seleccionats",
   "set-selected-home": "Definir coma tablèu d'acuèlh (dobèrt aprèp la connexion)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tablèu d'acuèlh (dobèrt aprèp la connexion)",
   "home-board-empty": "Lisatz un tablèu aicí per lo dobrir aprèp la connexion",
   "home-board-remove": "Levar de l'Acuèlh",

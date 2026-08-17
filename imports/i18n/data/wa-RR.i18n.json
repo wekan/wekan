@@ -117,6 +117,7 @@
   "set-selected-starred": "Butangi hin bituon an napili nga mga board",
   "set-selected-unstarred": "Oister l' sitoele des tåvleas tchoezis",
   "set-selected-home": "Ihimo nga Home board (aabrehan pagkatapos mag-login)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Home board (aabrehan pagkatapos mag-login)",
   "home-board-empty": "Tirez on tåvlea chal po l' drovi après vos esse loyî",
   "home-board-remove": "Oister foû do Dpårt",

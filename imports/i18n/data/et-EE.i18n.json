@@ -117,6 +117,7 @@
   "set-selected-starred": "Märgi valitud tahvlid tähega",
   "set-selected-unstarred": "Eemalda tärn valitud tahvlitelt",
   "set-selected-home": "Määra avatahvliks (avatakse pärast sisselogimist)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Avatahvel (avatakse pärast sisselogimist)",
   "home-board-empty": "Lohista siia tahvel, et see pärast sisselogimist avada",
   "home-board-remove": "Eemalda avalehelt",

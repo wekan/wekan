@@ -117,6 +117,7 @@
   "set-selected-starred": "Markatu hautatutako arbelak izarrekin",
   "set-selected-unstarred": "Kendu izarra hautatutako arboletatik",
   "set-selected-home": "Ezarri Hasierako arbel gisa (saioa hasi ondoren irekitzen dena)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Hasierako arbela (saioa hasi ondoren irekitzen dena)",
   "home-board-empty": "Arrastatu arbel bat hona saioa hasi ondoren irekitzeko",
   "home-board-remove": "Kendu Hasieratik",

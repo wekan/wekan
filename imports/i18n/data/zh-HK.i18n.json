@@ -117,6 +117,7 @@
   "set-selected-starred": "將選取的看板加上星號",
   "set-selected-unstarred": "取消所選看板的星標",
   "set-selected-home": "設為首頁看板（登入後開啟）",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "首頁看板（登入後開啟）",
   "home-board-empty": "將看板拖曳到這裡，登入後即會開啟",
   "home-board-remove": "從首頁移除",

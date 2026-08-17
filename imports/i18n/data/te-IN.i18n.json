@@ -117,6 +117,7 @@
   "set-selected-starred": "ఎంచుకున్న బోర్డులను స్టార్ చేయండి",
   "set-selected-unstarred": "ఎంచుకున్న బోర్డుల నుండి నక్షత్రాన్ని తీసివేయి",
   "set-selected-home": "హోమ్ బోర్డుగా సెట్ చేయండి (లాగిన్ తర్వాత తెరవబడుతుంది)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "హోమ్ బోర్డు (లాగిన్ తర్వాత తెరవబడుతుంది)",
   "home-board-empty": "లాగిన్ తర్వాత తెరవడానికి బోర్డును ఇక్కడకు లాగండి",
   "home-board-remove": "హోమ్ నుండి తీసివేయి",

@@ -117,6 +117,7 @@
   "set-selected-starred": "Pridať hviezdičku vybraným nástenkám",
   "set-selected-unstarred": "Odobrať hviezdičku vybraným tabuliam",
   "set-selected-home": "Nastaviť ako domovskú nástenku (otvorí sa po prihlásení)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Domovská nástenka (otvorí sa po prihlásení)",
   "home-board-empty": "Presuňte sem nástenku, ktorá sa otvorí po prihlásení",
   "home-board-remove": "Odstrániť z Domov",

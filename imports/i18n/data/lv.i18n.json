@@ -117,6 +117,7 @@
   "set-selected-starred": "Atzīmēt atlasītos dēļus ar zvaigznīti",
   "set-selected-unstarred": "Noņemt zvaigzni izvēlētajiem dēļiem",
   "set-selected-home": "Iestatīt kā sākuma dēli (atver pēc pieteikšanās)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Sākuma dēlis (atver pēc pieteikšanās)",
   "home-board-empty": "Ievelciet šeit dēli, lai to atvērtu pēc pieteikšanās",
   "home-board-remove": "Noņemt no Sākuma",

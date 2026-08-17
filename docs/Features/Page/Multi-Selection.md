@@ -51,6 +51,11 @@ Set as Home board is deliberately a single-board action. With several checked
 boards it reports "Please select only one board" and changes nothing, because
 login can open only one Home board.
 
+In the Home section that action reads "Unset as Home board", because its one
+visible board is already Home. Move Board to Archive and Duplicate Board are
+not shown there; those actions remain available in the other live-board
+sections.
+
 While Multi-Selection is on, **Select All** and **Select None** sit above the
 board icons in Remaining, Starred, Home, Templates and Archive. Select All uses
 the exact section/search result being drawn, so it never checks a hidden board;

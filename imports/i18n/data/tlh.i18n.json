@@ -117,6 +117,7 @@
   "set-selected-starred": "wIvlu'bogh raSmey HovmoH",
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "juH raS moj ('elpu'DI' poSlu')",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "juH raS ('elpu'DI' poSlu')",
   "home-board-empty": "naDev 'echlet yIlan 'ej 'elDI' poSmoHlu'",
   "home-board-remove": "juHvo' yIteq",

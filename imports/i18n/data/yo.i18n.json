@@ -117,6 +117,7 @@
   "set-selected-starred": "Ṣe irawọ awọn igbimọ ti a yan",
   "set-selected-unstarred": "Yọ ìràwọ̀ kúrò lára àwọn pátákó tí a yàn",
   "set-selected-home": "Ṣeto gẹgẹ bi igbimọ Ile (ṣiṣi lẹhin iwọle)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Igbimọ Ile (ṣiṣi lẹhin iwọle)",
   "home-board-empty": "Fa ọkọ kan sí ibí láti ṣí i lẹ́yìn ìwọlé",
   "home-board-remove": "Yọ kúrò ní Ilé",

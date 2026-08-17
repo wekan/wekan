@@ -117,6 +117,7 @@
   "set-selected-starred": "Merk die gekose borde met 'n ster",
   "set-selected-unstarred": "Verwyder die ster van die gekose borde",
   "set-selected-home": "Stel as Tuisbord (word na aanmelding oopgemaak)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tuisbord (word na aanmelding oopgemaak)",
   "home-board-empty": "Sleep 'n bord hierheen om dit ná aanmelding oop te maak",
   "home-board-remove": "Verwyder van Tuis",

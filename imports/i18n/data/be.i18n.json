@@ -117,6 +117,7 @@
   "set-selected-starred": "Дадаць выбраныя дошкі ў абраныя",
   "set-selected-unstarred": "Выдаліць выбраныя дошкі з абраных",
   "set-selected-home": "Зрабіць хатняй дошкай (адкрываецца пасля ўваходу)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Хатняя дошка (адкрываецца пасля ўваходу)",
   "home-board-empty": "Перацягніце сюды дошку, каб адкрываць яе пасля ўваходу",
   "home-board-remove": "Прыбраць з галоўнай",

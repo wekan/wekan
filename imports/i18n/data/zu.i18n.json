@@ -117,6 +117,7 @@
   "set-selected-starred": "Faka inkanyezi kumabhodi akhethiwe",
   "set-selected-unstarred": "Susa inkanyezi emabhodini akhethiwe",
   "set-selected-home": "Setha njengebhodi Lasekhaya (elivulwa ngemva kokungena)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Ibhodi lasekhaya (elivulwa ngemva kokungena)",
   "home-board-empty": "Hudula ibhodi lapha ukuze livuleke ngemva kokungena",
   "home-board-remove": "Susa Ekhaya",

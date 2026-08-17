@@ -117,6 +117,7 @@
   "set-selected-starred": "تمييز اللوحات المحددة بنجمة",
   "set-selected-unstarred": "إزالة النجمة من اللوحات المحددة",
   "set-selected-home": "تعيين كلوحة رئيسية (تُفتح بعد تسجيل الدخول)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "اللوحة الرئيسية (تُفتح بعد تسجيل الدخول)",
   "home-board-empty": "اسحب لوحة إلى هنا لتُفتح بعد تسجيل الدخول",
   "home-board-remove": "إزالة من الرئيسية",

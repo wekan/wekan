@@ -117,6 +117,7 @@
   "set-selected-starred": "Saýlanan tagtalary ýyldyzlaň",
   "set-selected-unstarred": "Unstar the selected boards",
   "set-selected-home": "Öý tagtasy hökmünde belläň (girişden soň açylýar)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Öý tagtasy (girişden soň açylýar)",
   "home-board-empty": "Girenden soň açmak üçin şu ýere tagta süýşüriň",
   "home-board-remove": "Baş sahypadan aýyr",

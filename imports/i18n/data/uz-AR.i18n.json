@@ -117,6 +117,7 @@
   "set-selected-starred": "تانلنگن تختهلرنی یۉلدوزلش",
   "set-selected-unstarred": "Tanlangan doskalardan yulduzchani olib tashlash",
   "set-selected-home": "باش تخته سیفتیده اۉرناتیش (تیزیمگه کیرگندن کیین آچیلادی)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "باش تخته (تیزیمگه کیرگندن کیین آچیلادی)",
   "home-board-empty": "Kirgandan keyin ochilishi uchun kengashni shu yerga torting",
   "home-board-remove": "Bosh sahifadan olib tashlash",

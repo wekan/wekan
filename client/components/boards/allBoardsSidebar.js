@@ -1,6 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
+const {
+  allBoardsPath,
+  SECTION_HOME,
+  SECTION_ARCHIVE,
+} = require('/models/lib/allBoardsUrls');
 import { TAPi18n } from '/imports/i18n';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import { allBoardsSearchVar, allBoardsMenuVar } from '/client/lib/allBoardsView';
@@ -142,6 +146,9 @@ Template.allBoardsMultiSelectionSidebar.helpers({
   },
   isArchiveSelection() {
     return allBoardsMenuVar.get() === SECTION_ARCHIVE;
+  },
+  isHomeSelection() {
+    return allBoardsMenuVar.get() === SECTION_HOME;
   },
   canPermanentlyDeleteArchivedBoards() {
     const user = ReactiveCache.getCurrentUser();

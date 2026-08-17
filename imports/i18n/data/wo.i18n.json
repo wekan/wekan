@@ -117,6 +117,7 @@
   "set-selected-starred": "Def biddéew ci tablo yi ñu tànn",
   "set-selected-unstarred": "Dindi biddéew bi ci ëtt yi ñu tànn",
   "set-selected-home": "Def ni tablo bu Kër (di ubbeeku ginnaaw dugg)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tablo bu Kër (di ubbeeku ginnaaw dugg)",
   "home-board-empty": "Wàcc tablo fii ngir ubbi ko bu nga duggee",
   "home-board-remove": "Dindi ci Kër",

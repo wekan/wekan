@@ -117,6 +117,7 @@
   "set-selected-starred": "Marchează cu stea panourile selectate",
   "set-selected-unstarred": "Elimină steaua de pe panourile selectate",
   "set-selected-home": "Setează ca panou principal (deschis după autentificare)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Panou principal (deschis după autentificare)",
   "home-board-empty": "Trageți aici un panou pentru a se deschide după autentificare",
   "home-board-remove": "Elimină de pe pagina principală",

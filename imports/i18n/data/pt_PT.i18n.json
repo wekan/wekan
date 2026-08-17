@@ -117,6 +117,7 @@
   "set-selected-starred": "Marcar como favoritos os quadros selecionados",
   "set-selected-unstarred": "Remover os quadros selecionados dos favoritos",
   "set-selected-home": "Definir como quadro inicial (aberto após o início de sessão)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Quadro inicial (aberto após o início de sessão)",
   "home-board-empty": "Arraste um quadro para aqui para o abrir após o início de sessão",
   "home-board-remove": "Remover do Início",

@@ -117,6 +117,7 @@
   "set-selected-starred": "Aggiungi le bacheche selezionate ai preferiti",
   "set-selected-unstarred": "Togli le bacheche selezionate dai preferiti",
   "set-selected-home": "Imposta come bacheca Home (aperta dopo il login)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Bacheca Home (aperta dopo il login)",
   "home-board-empty": "Trascina qui una bacheca per aprirla dopo il login",
   "home-board-remove": "Rimuovi da Home",

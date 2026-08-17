@@ -117,6 +117,7 @@
   "set-selected-starred": "Serennu'r byrddau a ddewiswyd",
   "set-selected-unstarred": "Tynnu'r seren oddi ar y byrddau a ddewiswyd",
   "set-selected-home": "Gosod fel bwrdd Cartref (yn agor ar ôl mewngofnodi)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Bwrdd cartref (yn agor ar ôl mewngofnodi)",
   "home-board-empty": "Llusgwch fwrdd yma i'w agor ar ôl mewngofnodi",
   "home-board-remove": "Tynnu o'r Hafan",

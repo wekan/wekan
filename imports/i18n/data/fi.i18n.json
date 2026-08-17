@@ -117,6 +117,7 @@
   "set-selected-starred": "Merkitse valitut taulut tähdellä",
   "set-selected-unstarred": "Poista tähtimerkintä valituilta tauluilta",
   "set-selected-home": "Aseta kotitauluksi (avautuu kirjautumisen jälkeen)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Kotitaulu (avautuu kirjautumisen jälkeen)",
   "home-board-empty": "Vedä taulu tähän, niin se avautuu kirjautumisen jälkeen",
   "home-board-remove": "Poista Kodista",

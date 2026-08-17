@@ -117,6 +117,7 @@
   "set-selected-starred": "Destacar los tableros seleicionaos",
   "set-selected-unstarred": "Dexar de destacar los tableros seleicionaos",
   "set-selected-home": "Afitar como tablero d'aniciu (ábrese dempués d'aniciar sesión)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tablero d'aniciu (ábrese dempués d'aniciar sesión)",
   "home-board-empty": "Arrastra un tablero aquí para abrirlo después de iniciar sesión",
   "home-board-remove": "Quitar de Inicio",

@@ -117,6 +117,7 @@
   "set-selected-starred": "Tanlangan kengashlarni yulduzcha bilan belgilash",
   "set-selected-unstarred": "Tanlangan doskalardan yulduzchani olib tashlash",
   "set-selected-home": "Bosh kengash sifatida oʻrnatish (tizimga kirgandan soʻng ochiladi)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Bosh kengash (tizimga kirgandan soʻng ochiladi)",
   "home-board-empty": "Kirgandan keyin ochilishi uchun kengashni shu yerga torting",
   "home-board-remove": "Bosh sahifadan olib tashlash",

@@ -117,6 +117,7 @@
   "set-selected-starred": "ដាក់ផ្កាយក្តារដែលបានជ្រើសរើស",
   "set-selected-unstarred": "ដកផ្កាយចេញពីក្តារដែលបានជ្រើសរើស",
   "set-selected-home": "កំណត់ជាក្តារដើម (បើកបន្ទាប់ពីចូល)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "ក្តារដើម (បើកបន្ទាប់ពីចូល)",
   "home-board-empty": "អូសក្ដារមកទីនេះដើម្បីបើកវាបន្ទាប់ពីចូល",
   "home-board-remove": "លុបចេញពីទំព័រដើម",

@@ -117,6 +117,7 @@
   "set-selected-starred": "ستاره‌دار کردن بردهای انتخاب‌شده",
   "set-selected-unstarred": "ستاره را از تخته‌های انتخاب‌شده بردارید",
   "set-selected-home": "تنظیم به‌عنوان برد خانه (پس از ورود باز می‌شود)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "برد خانه (پس از ورود باز می‌شود)",
   "home-board-empty": "یک برد را به اینجا بکشید تا پس از ورود باز شود",
   "home-board-remove": "حذف از خانه",

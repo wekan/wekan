@@ -117,6 +117,7 @@
   "set-selected-starred": "Bintangi papan yang terpilih",
   "set-selected-unstarred": "Hapus bintang dari papan yang dipilih",
   "set-selected-home": "Setel sebagai papan Beranda (dibuka setelah login)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Papan beranda (dibuka setelah login)",
   "home-board-empty": "Seret papan ke sini agar dibuka setelah login",
   "home-board-remove": "Hapus dari Beranda",

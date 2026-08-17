@@ -117,6 +117,7 @@
   "set-selected-starred": "Destacar los tableros seleccionados",
   "set-selected-unstarred": "Dejar de destacar los tableros seleccionados",
   "set-selected-home": "Establecer como tablero de inicio (se abre tras iniciar sesión)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Tablero de inicio (se abre tras iniciar sesión)",
   "home-board-empty": "Arrastra aquí un tablero para abrirlo tras iniciar sesión",
   "home-board-remove": "Quitar de Inicio",

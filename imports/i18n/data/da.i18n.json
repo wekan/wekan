@@ -117,6 +117,7 @@
   "set-selected-starred": "Stjernemarkér de valgte tavler",
   "set-selected-unstarred": "Fjern stjernemarkeringen fra de valgte tavler",
   "set-selected-home": "Angiv som hjemtavle (åbnes efter login)",
+  "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Hjemtavle (åbnes efter login)",
   "home-board-empty": "Træk en tavle hertil for at åbne den efter login",
   "home-board-remove": "Fjern fra Hjem",
