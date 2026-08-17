@@ -260,6 +260,14 @@ pushed to Transifex as if it were human.
   the newest release (FerretDB uses `## Upcoming FerretDB release`; the patch repos use
   `# Upcoming <repo> release`). Do **not** hand-edit
   `package.json` or any other version reference — the release workflow bumps those.
+- **Whenever `# Upcoming WeKan ® release` is updated, audit every feature, bug fix
+  and security fix in that section for regression coverage.** If coverage does not
+  exist yet, add a positive test, a negative test and a UI test wherever that kind
+  of test is possible and relevant. Run the tests that can run in the current
+  environment; when a UI stack or another required service is unavailable, still
+  add and syntax-check/register the test and state clearly what could not be run.
+  Do not duplicate an existing test merely to satisfy the audit — extend it when
+  that keeps one behavior in one suite.
 - **CHANGELOG.md holds the CURRENT MONTH only.** It reached 2.6 MB and 51,365
   lines over 1,100 releases back to 2015 (#6580), which is slow to open and
   slower to read. Moving whole years out left 1.9 MB, still too large, because
@@ -586,10 +594,11 @@ have cost a released section its accuracy:
   - and a test that reads the source is a real test here. `tests/*.test.cjs` may
     parse a file and fail on a construct — that is what makes "and nowhere else"
     checkable at all.
-- **If somebody ATTEMPTS the attack, that has to be visible in Admin Panel →
-  Problems** — in every case where the fix DENIES an operation and the denial can be
-  attributed. That is the difference between a hole that is closed and a hole that is
-  closed and watched: an administrator should be able to see that somebody tried.
+- **If somebody ATTEMPTS the attack, and the secure default DENIES it, that denial
+  has to be visible in Admin Panel → Problems** — in every case where the denial can
+  be attributed. This applies to every security fix added to Upcoming. That is the
+  difference between a hole that is closed and a hole that is closed and watched:
+  an administrator should be able to see that somebody tried.
   - Add a key to the catalog in `models/lib/securityCategories.js` (category, the
     hall-of-fame `bleed` name, severity, CWE), and call
     `require('/server/lib/securityLog').record({ key, action: 'blocked', source, detail })`
