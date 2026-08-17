@@ -428,7 +428,8 @@ The Delete settings pane repeats that audit explanation below its existing text,
 so an administrator sees what Recovery will record before changing the gate.
 **Board Archive** removes permanent delete from individual board icons and
 offers it as one confirmed red action on a multi-selection, with the same gate
-enforced again on the server. When that gate is disabled, the sidebar explains
+enforced again on the server without Meteor argument-audit failures. When that
+gate is disabled, the sidebar explains
 where to enable it instead of showing an inapplicable selection instruction. Its
 enabled Delete button and server method both require the site-wide Global Admin
 flag. Select All and Select None above the icons make that selection explicit
@@ -825,6 +826,21 @@ array in Node.js, and slices only at the end. Section, workspace and search
 conditions are encoded before a database count and a title/id-sorted query with
 `skip` and `limit`. Cross-category search subscribes to template summaries too,
 so moving the work into the database does not hide template results.
+
+</details>
+
+**Board Archive** - permanent deletion from a multi-selection.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a5832846">Permanent deletion checks its argument before asynchronous work</a>. Thanks to xet7.</summary>
+
+The bulk-delete method looked up its caller before handing `boardIds` to
+Meteor's `check()`. With `audit-argument-checks` enabled, that asynchronous
+boundary made Meteor report “Did not check() all arguments” and reject the
+operation even though validation appeared later in the method. Validation now
+runs before the first `await`; malformed attempts still resolve their actor in
+the failure path and are written to Recovery without masking the original
+error. Positive ordering and audit-path tests cover the regression.
 
 </details>
 

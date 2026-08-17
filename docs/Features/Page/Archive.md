@@ -60,7 +60,9 @@ It keeps what made it worth having:
   enabled, is drawn as a red **Delete** button, and confirms that the selected
   boards and their contents cannot be recovered. The server independently
   checks the administrator, setting, archived state and complete selection
-  before removing anything.
+  before removing anything. It validates the DDP argument before its first
+  asynchronous lookup, as required by Meteor's argument auditor; malformed
+  attempts are still recorded in Recovery after the actor lookup.
 - Like Remaining, Starred and Templates, while Multi-Selection is active the
   Archive shows **Select All** and **Select None** in the right page above its
   board icons. They check or uncheck exactly the icons currently shown by the
