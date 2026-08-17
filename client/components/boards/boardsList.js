@@ -16,6 +16,7 @@ import {
   workspaceIdForSlugPath,
   allBoardsPathForMenu,
   sectionTitleKey,
+  SECTION_ARCHIVE,
   SECTION_WORKSPACES,
 } from '/models/lib/allBoardsUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
@@ -229,6 +230,7 @@ function homeBoardId() {
 // has to REFUSE the drop while it is still in the air, which means answering
 // before the drop happens. docs/Features/Board/Home.md
 const DRAG_FROM_HOME = 'application/x-board-from-home';
+const ARCHIVED_MULTI_BOARD_DRAG = 'application/x-archived-board-multi';
 
 // Reordering a bookmark carries its own type, so a bookmark and a board cannot
 // be dropped on each other. Readable in `dragover` for the same reason
@@ -269,6 +271,16 @@ function isDragFromHome(evt) {
     if (!types) return false;
     // A DOMStringList in older engines, an array in current ones.
     return Array.prototype.indexOf.call(types, DRAG_FROM_HOME) !== -1;
+  } catch (e) {
+    return false;
+  }
+}
+
+function isArchivedMultiBoardDrag(evt) {
+  try {
+    const types = evt.originalEvent.dataTransfer.types;
+    if (!types) return false;
+    return Array.prototype.indexOf.call(types, ARCHIVED_MULTI_BOARD_DRAG) !== -1;
   } catch (e) {
     return false;
   }
@@ -1568,6 +1580,7 @@ Template.boardList.events({
   // HTML5 DnD from boards to spaces
   // #5850: drag a (template) board onto an Org/Team/Domain target to share it.
   'dragover .js-share-target'(evt) {
+    if (isArchivedMultiBoardDrag(evt)) return;
     evt.preventDefault();
     if (evt.originalEvent.dataTransfer) {
       evt.originalEvent.dataTransfer.dropEffect = 'copy';
@@ -1578,6 +1591,7 @@ Template.boardList.events({
     evt.currentTarget.classList.remove('board-drag-hint');
   },
   'drop .js-share-target'(evt) {
+    if (isArchivedMultiBoardDrag(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     const target = evt.currentTarget;
@@ -1628,6 +1642,18 @@ Template.boardList.events({
       return;
     }
 
+    // While Multi-Selection is on in Archive, every board drag is a restore
+    // gesture. Mark even an unselected tile dragged on its own, so Home cannot
+    // become an accidental target merely because that tile was not checked.
+    if (
+      tpl && tpl.selectedMenu && tpl.selectedMenu.get() === SECTION_ARCHIVE
+      && BoardMultiSelection.isActive()
+    ) {
+      try {
+        evt.originalEvent.dataTransfer.setData(ARCHIVED_MULTI_BOARD_DRAG, '1');
+      } catch (e) {}
+    }
+
     // Support multi-drag
     if (
       BoardMultiSelection.isActive() &&
@@ -1673,11 +1699,14 @@ Template.boardList.events({
       el.classList.add('board-drag-hint');
     });
     document.querySelectorAll('.js-select-menu').forEach((el) => {
-      // Remaining takes a board out of a workspace and Home makes it the board
-      // that opens after login: both are places this drag can end, so both say
-      // so while it is in the air.
+      // An archived multi-selection may be restored to Remaining or an
+      // existing Workspace, but cannot become Home. Other live-board drags can
+      // still use both Remaining and Home.
       const type = el.getAttribute('data-type');
-      if (type === 'remaining' || type === 'home') {
+      const archivedMulti =
+        tpl && tpl.selectedMenu && tpl.selectedMenu.get() === SECTION_ARCHIVE
+        && BoardMultiSelection.isActive();
+      if (type === 'remaining' || (type === 'home' && !archivedMulti)) {
         el.classList.add('board-drag-hint');
       }
     });
@@ -2025,6 +2054,8 @@ Template.boardList.events({
       try {
         const boardIds = JSON.parse(boardData);
         boardIds.forEach((boardId) => {
+          const board = ReactiveCache.getBoard(boardId);
+          if (board && board.archived) Meteor.call('restoreBoard', boardId);
           Meteor.call('assignBoardToWorkspace', boardId, targetWorkspaceId);
         });
       } catch (e) {
@@ -2032,6 +2063,8 @@ Template.boardList.events({
       }
     } else {
       // Single board drag
+      const board = ReactiveCache.getBoard(boardData);
+      if (board && board.archived) Meteor.call('restoreBoard', boardData);
       Meteor.call('assignBoardToWorkspace', boardData, targetWorkspaceId);
     }
   },
@@ -2041,15 +2074,15 @@ Template.boardList.events({
     // so the cursor says no while the board is still in the air rather than the
     // drop landing and quietly doing nothing. docs/Features/Board/Home.md
     if (isDragFromHome(evt)) return;
+    const menuType = evt.currentTarget.getAttribute('data-type');
+    // Remaining is the only generic section target. Home has its own handler;
+    // Starred, Templates and Archive are views, not destinations.
+    if (menuType !== 'remaining') return;
     evt.preventDefault();
     evt.stopPropagation();
 
-    const menuType = evt.currentTarget.getAttribute('data-type');
-    // Only allow drop on "remaining" menu to unassign boards from spaces
-    if (menuType === 'remaining') {
-      evt.originalEvent.dataTransfer.dropEffect = 'move';
-      evt.currentTarget.classList.add('drag-over');
-    }
+    evt.originalEvent.dataTransfer.dropEffect = 'move';
+    evt.currentTarget.classList.add('drag-over');
   },
   'dragleave .js-select-menu'(evt) {
     evt.currentTarget.classList.remove('drag-over');
@@ -2065,6 +2098,7 @@ Template.boardList.events({
   // being dragged.
   'dragover .js-open-archived-board'(evt) {
     if (isDragFromHome(evt)) return;
+    if (isArchivedMultiBoardDrag(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     evt.originalEvent.dataTransfer.dropEffect = 'move';
@@ -2075,6 +2109,7 @@ Template.boardList.events({
   },
   'drop .js-open-archived-board'(evt) {
     if (isDragFromHome(evt)) return;
+    if (isArchivedMultiBoardDrag(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     evt.currentTarget.classList.remove('drag-over');
@@ -2240,6 +2275,7 @@ Template.boardList.events({
   // out of the Home section - and clicking the row's Multi-Selection toggle
   // still toggles. docs/Features/Board/Home.md
   'dragover .js-home-menu'(evt) {
+    if (isArchivedMultiBoardDrag(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     evt.originalEvent.dataTransfer.dropEffect = 'link';
@@ -2249,6 +2285,7 @@ Template.boardList.events({
     evt.currentTarget.classList.remove('drag-over');
   },
   'drop .js-home-menu'(evt) {
+    if (isArchivedMultiBoardDrag(evt)) return;
     evt.preventDefault();
     evt.stopPropagation();
     evt.currentTarget.classList.remove('drag-over');

@@ -64,6 +64,11 @@ It keeps what made it worth having:
   board icons. They check or uncheck exactly the icons currently shown by the
   section and its search filter. Home has the same controls; Select All checks
   its one visible Home board when there is one.
+- Dragging an archived multi-selection highlights only valid destinations in
+  green: **Remaining** and every existing **Workspace**. Home is neither
+  highlighted nor accepted, because an archived board cannot be the board
+  opened after login. A Workspace drop restores each board and assigns it to
+  that Workspace.
 
 Restoring navigates to the restored board. A successful permanent delete clears
 the selection; a refused one leaves it selected so the administrator can correct
