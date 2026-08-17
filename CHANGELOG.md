@@ -418,6 +418,8 @@ documentation and English source strings. **Board Archive** removes permanent
 delete from individual board icons and offers it as one confirmed red action on
 a multi-selection, with the same gate enforced again on the server. Select All
 and Select None above the icons make that selection explicit and quick.
+Dragging that archived selection now highlights only Remaining and existing
+Workspaces as valid restore targets.
 The same themed controls now cover **Remaining, Starred, Home and Templates**,
 always following the visible section and search result. While that mode is on,
 its action sidebar now stays visible until Multi-Selection is turned off, and
@@ -489,6 +491,17 @@ compact layout and both selection operations.
 Both Archive multi-selection controls now use the primary themed button style.
 The regression test requires the same class on both buttons, so one cannot fall
 back to the browser's unthemed grey while the other follows the site theme.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9be167742">Archived selections target only Remaining and existing Workspaces</a>. Thanks to xet7.</summary>
+
+While Multi-Selection is active in Archive, only Remaining and existing
+Workspace rows receive the green valid-target highlight. Home, Archive, sharing
+targets and the other board sections refuse the drag before accepting an HTML5
+drop. A Workspace drop restores every archived board and assigns it there;
+regression tests cover the allowed targets, rejected targets and green styling.
 
 </details>
 
