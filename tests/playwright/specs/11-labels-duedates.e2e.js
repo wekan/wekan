@@ -178,6 +178,32 @@ test.describe('Labels & due dates', () => {
     );
   });
 
+  test('clicking an existing start date reopens and saves its editor', async ({ boardPage, board }) => {
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { startAt: new Date('2098-01-15T09:00:00') } });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+
+    const badge = cp.root.locator('.card-details-item-start a.js-edit-date');
+    await expect(badge).toBeVisible({ timeout: 8_000 });
+    await badge.click();
+    const pop = boardPage.locator('.js-pop-over');
+    const date = pop.locator('input.js-date-field, input[type=date]').first();
+    await expect(date).toHaveValue('2098-01-15', { timeout: 5_000 });
+    await date.fill('2099-12-30');
+    await pop.locator('button.js-submit-date').click();
+
+    await expect(badge.locator('time')).toHaveAttribute(
+      'datetime',
+      /^2099-12-30T/,
+      { timeout: 8_000 },
+    );
+  });
+
   test('clearing a due date removes its badge from the card', async ({ boardPage, board }) => {
     // Seed a due date directly so we skip the "set" step
     const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);

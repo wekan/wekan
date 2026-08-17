@@ -132,4 +132,20 @@ test('the shared template exists before its event map is registered', () => {
     'the ordering fix must not load a second copy');
 });
 
+test('clicking an existing date reopens its editor with the Card context', () => {
+  const js = read('client/components/cards/cardDate.js');
+  const opener = js.slice(js.indexOf('function openDateEditor(name) {'),
+    js.indexOf('// Shared onCreated logic'));
+  assert.ok(/Popup\.open\(name\)\.call\(templateInstance\.data, event, templateInstance\)/.test(opener),
+    'the surrounding date template supplies its Card, not dateBadgeBody arguments');
+  assert.ok(/event\.stopPropagation\(\)/.test(opener),
+    'cardDetails must not open a second popup while the badge click bubbles');
+  for (const kind of ['Received', 'Start', 'Due', 'End']) {
+    assert.ok(new RegExp(`Template\\.card${kind}Date\\.events\\(\\{[\\s\\S]*?openDateEditor\\('editCard${kind}Date'\\)`)
+      .test(js), `${kind} dates reopen through the Card-aware handler`);
+  }
+  assert.ok(!/'click \.js-edit-date': Popup\.open\('editCard/.test(js),
+    'negative: no existing card date passes child display data to a popup');
+});
+
 console.log(`\ndateTemplates: ${passed} tests passed`);

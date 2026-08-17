@@ -116,6 +116,19 @@ Template.editCardEndDatePopup.helpers(datePickerHelpers());
 
 // --- Card date badge display helpers ---
 
+// dateBadgeBody is a child template whose data is only display arguments. An
+// event handled by the surrounding card/minicard date template therefore must
+// open the popup with THAT surrounding template's Card, not with the event's
+// `this`. The plus buttons do not need this because they already live directly
+// in cardDetails with the Card as their data context.
+function openDateEditor(name) {
+  return function (event, templateInstance) {
+    event.preventDefault();
+    event.stopPropagation();
+    Popup.open(name).call(templateInstance.data, event, templateInstance);
+  };
+}
+
 // Shared onCreated logic for card date badge templates
 function cardDateOnCreated(tpl) {
   tpl.date = new ReactiveVar();
@@ -188,7 +201,7 @@ Template.cardReceivedDate.helpers(cardDateHelpers({
 }));
 
 Template.cardReceivedDate.events({
-  'click .js-edit-date': Popup.open('editCardReceivedDate'),
+  'click .js-edit-date': openDateEditor('editCardReceivedDate'),
 });
 
 // cardStartDate
@@ -229,7 +242,7 @@ Template.cardStartDate.helpers(cardDateHelpers({
 }));
 
 Template.cardStartDate.events({
-  'click .js-edit-date': Popup.open('editCardStartDate'),
+  'click .js-edit-date': openDateEditor('editCardStartDate'),
 });
 
 // cardDueDate
@@ -261,7 +274,7 @@ Template.cardDueDate.helpers(cardDateHelpers({
 }));
 
 Template.cardDueDate.events({
-  'click .js-edit-date': Popup.open('editCardDueDate'),
+  'click .js-edit-date': openDateEditor('editCardDueDate'),
 });
 
 // cardEndDate
@@ -299,7 +312,7 @@ Template.cardEndDate.helpers(cardDateHelpers({
 }));
 
 Template.cardEndDate.events({
-  'click .js-edit-date': Popup.open('editCardEndDate'),
+  'click .js-edit-date': openDateEditor('editCardEndDate'),
 });
 
 // cardCustomFieldDate
@@ -380,7 +393,7 @@ Template.minicardReceivedDate.helpers(cardDateHelpers({
 }));
 
 Template.minicardReceivedDate.events({
-  'click .js-edit-date': Popup.open('editCardReceivedDate'),
+  'click .js-edit-date': openDateEditor('editCardReceivedDate'),
 });
 
 // minicardStartDate
@@ -426,7 +439,7 @@ Template.minicardStartDate.helpers(cardDateHelpers({
 }));
 
 Template.minicardStartDate.events({
-  'click .js-edit-date': Popup.open('editCardStartDate'),
+  'click .js-edit-date': openDateEditor('editCardStartDate'),
 });
 
 // minicardDueDate
@@ -463,7 +476,7 @@ Template.minicardDueDate.helpers(cardDateHelpers({
 }));
 
 Template.minicardDueDate.events({
-  'click .js-edit-date': Popup.open('editCardDueDate'),
+  'click .js-edit-date': openDateEditor('editCardDueDate'),
 });
 
 // minicardEndDate
@@ -506,7 +519,7 @@ Template.minicardEndDate.helpers(cardDateHelpers({
 }));
 
 Template.minicardEndDate.events({
-  'click .js-edit-date': Popup.open('editCardEndDate'),
+  'click .js-edit-date': openDateEditor('editCardEndDate'),
 });
 
 // minicardCustomFieldDate
@@ -563,7 +576,7 @@ Template.voteEndDate.helpers(cardDateHelpers({
 }));
 
 Template.voteEndDate.events({
-  'click .js-edit-date': Popup.open('editVoteEndDate'),
+  'click .js-edit-date': openDateEditor('editVoteEndDate'),
 });
 
 // pokerEndDate
@@ -591,5 +604,5 @@ Template.pokerEndDate.helpers(cardDateHelpers({
 }));
 
 Template.pokerEndDate.events({
-  'click .js-edit-date': Popup.open('editPokerEndDate'),
+  'click .js-edit-date': openDateEditor('editPokerEndDate'),
 });
