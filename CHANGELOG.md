@@ -428,7 +428,8 @@ its actions remain available before the first board is checked. Setting a Home
 board now requires exactly one checked board, and the Home section offers only
 the actions that make sense for its current board. Dragging a selection onto
 Home follows the same one-board rule. Remaining can now drag boards onto
-Starred or Archive as green targets.
+Starred or Archive as green targets. Home's empty state also states its
+one-board limit before dragging begins.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -595,6 +596,16 @@ missing stars, so every board stays in Remaining and an already-starred board is
 not accidentally unstarred. An Archive drop keeps the existing confirmation
 and moves the whole drag into Archive. Tests cover the source marker, target
 hints, additive starring and confirmed archive path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74c387356">The empty Home asks for only one dragged board</a>. Thanks to xet7.</summary>
+
+The empty-state instruction now reads "Drag only one board here to open it
+after login", making Home's one-board limit visible before a drag starts. The
+existing translation key remains in place, and the Home regression suite pins
+the exact English wording.
 
 </details>
 
