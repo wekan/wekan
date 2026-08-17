@@ -4,7 +4,6 @@ import {
   setupDatePicker,
   datePickerRendered,
   datePickerHelpers,
-  datePickerEvents,
 } from '/client/lib/datepicker';
 import {
   formatDateTime,
@@ -37,6 +36,12 @@ Template.editCardReceivedDatePopup.onCreated(function () {
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card.getReceived() ? card.getReceived() : undefined,
+    storeDate(date, currentCard) {
+      currentCard.setReceived(date);
+    },
+    deleteDate(currentCard) {
+      currentCard.unsetReceived();
+    },
   });
 });
 
@@ -46,21 +51,18 @@ Template.editCardReceivedDatePopup.onRendered(function () {
 
 Template.editCardReceivedDatePopup.helpers(datePickerHelpers());
 
-Template.editCardReceivedDatePopup.events(datePickerEvents({
-  storeDate(date) {
-    this.datePicker.card.setReceived(date);
-  },
-  deleteDate() {
-    this.datePicker.card.unsetReceived();
-  },
-}));
-
 // editCardStartDatePopup
 Template.editCardStartDatePopup.onCreated(function () {
   const card = Template.currentData();
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card.getStart() ? card.getStart() : undefined,
+    storeDate(date, currentCard) {
+      currentCard.setStart(date);
+    },
+    deleteDate(currentCard) {
+      currentCard.unsetStart();
+    },
   });
 });
 
@@ -70,21 +72,18 @@ Template.editCardStartDatePopup.onRendered(function () {
 
 Template.editCardStartDatePopup.helpers(datePickerHelpers());
 
-Template.editCardStartDatePopup.events(datePickerEvents({
-  storeDate(date) {
-    this.datePicker.card.setStart(date);
-  },
-  deleteDate() {
-    this.datePicker.card.unsetStart();
-  },
-}));
-
 // editCardDueDatePopup
 Template.editCardDueDatePopup.onCreated(function () {
   const card = Template.currentData();
   setupDatePicker(this, {
     defaultTime: '1970-01-01 17:00:00',
     initialDate: card.getDue() ? card.getDue() : undefined,
+    storeDate(date, currentCard) {
+      currentCard.setDue(date);
+    },
+    deleteDate(currentCard) {
+      currentCard.unsetDue();
+    },
   });
 });
 
@@ -94,21 +93,18 @@ Template.editCardDueDatePopup.onRendered(function () {
 
 Template.editCardDueDatePopup.helpers(datePickerHelpers());
 
-Template.editCardDueDatePopup.events(datePickerEvents({
-  storeDate(date) {
-    this.datePicker.card.setDue(date);
-  },
-  deleteDate() {
-    this.datePicker.card.unsetDue();
-  },
-}));
-
 // editCardEndDatePopup
 Template.editCardEndDatePopup.onCreated(function () {
   const card = Template.currentData();
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card.getEnd() ? card.getEnd() : undefined,
+    storeDate(date, currentCard) {
+      currentCard.setEnd(date);
+    },
+    deleteDate(currentCard) {
+      currentCard.unsetEnd();
+    },
   });
 });
 
@@ -117,15 +113,6 @@ Template.editCardEndDatePopup.onRendered(function () {
 });
 
 Template.editCardEndDatePopup.helpers(datePickerHelpers());
-
-Template.editCardEndDatePopup.events(datePickerEvents({
-  storeDate(date) {
-    this.datePicker.card.setEnd(date);
-  },
-  deleteDate() {
-    this.datePicker.card.unsetEnd();
-  },
-}));
 
 // --- Card date badge display helpers ---
 

@@ -159,6 +159,25 @@ test.describe('Labels & due dates', () => {
     expect(critical).toHaveLength(0);
   });
 
+  test('changing an existing due date saves the replacement (#6607)', async ({ boardPage, board }) => {
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { dueAt: new Date('2098-01-15T17:00:00') } });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+
+    await cp.setDueDate('2099-12-31');
+    await expect(cp.dueDateBadge().locator('time')).toHaveAttribute(
+      'datetime',
+      /^2099-12-31T/,
+      { timeout: 8_000 },
+    );
+  });
+
   test('clearing a due date removes its badge from the card', async ({ boardPage, board }) => {
     // Seed a due date directly so we skip the "set" step
     const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);

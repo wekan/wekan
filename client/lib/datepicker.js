@@ -34,14 +34,23 @@ function formatDate(date) {
  * @param {Object} options
  * @param {string} [options.defaultTime='1970-01-01 08:00:00'] - Default time string
  * @param {Date} [options.initialDate] - Initial date to set (if valid)
+ * @param {Function} options.storeDate - Stores a valid date for this popup
+ * @param {Function} options.deleteDate - Clears the date for this popup
  */
-export function setupDatePicker(tpl, { defaultTime = '1970-01-01 08:00:00', initialDate } = {}) {
+export function setupDatePicker(tpl, {
+  defaultTime = '1970-01-01 08:00:00',
+  initialDate,
+  storeDate,
+  deleteDate,
+} = {}) {
   const card = getCurrentCardFromContext() || Template.currentData();
   tpl.datePicker = {
     error: new ReactiveVar(''),
     card,
     date: new ReactiveVar(initialDate && isValidDate(new Date(initialDate)) ? new Date(initialDate) : new Date('invalid')),
     defaultTime,
+    storeDate,
+    deleteDate,
   };
 }
 
@@ -81,6 +90,9 @@ export function datePickerHelpers() {
     error() {
       return Template.instance().datePicker.error;
     },
+    datePicker() {
+      return Template.instance().datePicker;
+    },
     showDate() {
       const dp = Template.instance().datePicker;
       if (isValidDate(dp.date.get())) return formatDate(dp.date.get());
@@ -111,13 +123,15 @@ export function datePickerHelpers() {
 /**
  * Returns events object for datepicker templates.
  *
- * @param {Object} callbacks
- * @param {Function} callbacks.storeDate - Called with (date) when form is submitted
- * @param {Function} callbacks.deleteDate - Called when delete button is clicked
  */
-export function datePickerEvents({ storeDate, deleteDate }) {
+export function datePickerEvents() {
+  // The form is a child template of each named popup. Blaze deliberately does
+  // not send events across a template boundary, so the shared form owns these
+  // handlers and receives its popup's state as a template argument (#6607).
+  const getDatePicker = tpl => tpl.datePicker || Template.currentData()?.datePicker;
   return {
     'change .js-date-field'(evt, tpl) {
+      const datePicker = getDatePicker(tpl);
       // Native HTML date input validation. Normalize any non-Latin digits
       // (e.g. Persian/Arabic-Indic) so parsing works in those locales (#5752).
       const dateValue = normalizeDigits(tpl.find('#date').value);
@@ -125,13 +139,14 @@ export function datePickerEvents({ storeDate, deleteDate }) {
         // HTML date input format is always YYYY-MM-DD
         const dateObj = new Date(dateValue + 'T12:00:00');
         if (isValidDate(dateObj)) {
-          tpl.datePicker.error.set('');
+          datePicker.error.set('');
         } else {
-          tpl.datePicker.error.set('invalid-date');
+          datePicker.error.set('invalid-date');
         }
       }
     },
     'change .js-time-field'(evt, tpl) {
+      const datePicker = getDatePicker(tpl);
       // Native HTML time input validation. Normalize any non-Latin digits
       // (e.g. Persian/Arabic-Indic) so parsing works in those locales (#5752).
       const timeValue = normalizeDigits(tpl.find('#time').value);
@@ -139,14 +154,15 @@ export function datePickerEvents({ storeDate, deleteDate }) {
         // HTML time input format is always HH:mm
         const timeObj = new Date(`1970-01-01T${timeValue}:00`);
         if (isValidDate(timeObj)) {
-          tpl.datePicker.error.set('');
+          datePicker.error.set('');
         } else {
-          tpl.datePicker.error.set('invalid-time');
+          datePicker.error.set('invalid-time');
         }
       }
     },
     'submit .edit-date'(evt, tpl) {
       evt.preventDefault();
+      const datePicker = getDatePicker(tpl);
 
       // Normalize any non-Latin digits (e.g. Persian/Arabic-Indic) before
       // parsing so due/start/end dates work in those locales (#5752).
@@ -155,10 +171,10 @@ export function datePickerEvents({ storeDate, deleteDate }) {
       const dateValue = normalizeDigits(evt.target.date.value);
       const timeValue =
         normalizeDigits(evt.target.time.value) ||
-        fallbackSubmitTime(tpl.datePicker.defaultTime);
+        fallbackSubmitTime(datePicker.defaultTime);
 
       if (!dateValue) {
-        tpl.datePicker.error.set('invalid-date');
+        datePicker.error.set('invalid-date');
         evt.target.date.focus();
         return;
       }
@@ -168,7 +184,7 @@ export function datePickerEvents({ storeDate, deleteDate }) {
       const newCompleteDate = new Date(dateTimeString);
 
       if (!isValidDate(newCompleteDate)) {
-        tpl.datePicker.error.set('invalid');
+        datePicker.error.set('invalid');
         return;
       }
 
@@ -187,18 +203,23 @@ export function datePickerEvents({ storeDate, deleteDate }) {
       // reminders hang off. The error names the year so the fix is obvious.
       const year = newCompleteDate.getFullYear();
       if (year < MIN_PLAUSIBLE_YEAR || year > MAX_PLAUSIBLE_YEAR) {
-        tpl.datePicker.error.set('invalid-year');
+        datePicker.error.set('invalid-year');
         evt.target.date.focus();
         return;
       }
 
-      storeDate.call(tpl, newCompleteDate);
+      datePicker.storeDate(newCompleteDate, datePicker.card);
       Popup.back();
     },
     'click .js-delete-date'(evt, tpl) {
       evt.preventDefault();
-      deleteDate.call(tpl);
+      const datePicker = getDatePicker(tpl);
+      datePicker.deleteDate(datePicker.card);
       Popup.back();
     },
   };
 }
+
+// All seven date popups render this one child template, so register the event
+// map on the child that actually contains the form.
+Template.editDateForm.events(datePickerEvents());

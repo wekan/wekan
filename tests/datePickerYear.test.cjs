@@ -76,10 +76,10 @@ test('the window is wide enough for the dates WeKan really holds', () => {
 
 test('the refusal happens on submit, before the date is stored', () => {
   const check = src.indexOf('MIN_PLAUSIBLE_YEAR ||');
-  const store = src.indexOf('storeDate.call(tpl, newCompleteDate)');
+  const store = src.indexOf('datePicker.storeDate(newCompleteDate, datePicker.card)');
   assert.ok(check !== -1 && store !== -1 && check < store,
     'a year that cannot be right must never reach storeDate');
-  assert.ok(/tpl\.datePicker\.error\.set\('invalid-year'\)/.test(src),
+  assert.ok(/datePicker\.error\.set\('invalid-year'\)/.test(src),
     'and the field must say so, the same way invalid-date and invalid-time do');
   assert.ok(/evt\.target\.date\.focus\(\)/.test(src.slice(check, store)),
     'with the cursor put back in the date field, which is where the fix is');

@@ -3,7 +3,6 @@ import {
   setupDatePicker,
   datePickerRendered,
   datePickerHelpers,
-  datePickerEvents,
 } from '/client/lib/datepicker';
 import { ReactiveCache } from '/imports/reactiveCache';
 import {
@@ -213,10 +212,11 @@ Template['cardCustomField-datePopup'].onCreated(function () {
   const data = Template.currentData();
   setupDatePicker(this, {
     initialDate: data.value ? data.value : undefined,
+    storeDate: (date, card) => card.setCustomField(data._id, date),
+    deleteDate: card => card.setCustomField(data._id, ''),
   });
-  // Override card and store customFieldId for store/delete callbacks
+  // A custom-field popup's data is the field definition, not the card.
   this.datePicker.card = getCurrentCardFromContext();
-  this.customFieldId = data._id;
 });
 
 Template['cardCustomField-datePopup'].onRendered(function () {
@@ -224,15 +224,6 @@ Template['cardCustomField-datePopup'].onRendered(function () {
 });
 
 Template['cardCustomField-datePopup'].helpers(datePickerHelpers());
-
-Template['cardCustomField-datePopup'].events(datePickerEvents({
-  storeDate(date) {
-    this.datePicker.card.setCustomField(this.customFieldId, date);
-  },
-  deleteDate() {
-    this.datePicker.card.setCustomField(this.customFieldId, '');
-  },
-}));
 
 // cardCustomField-dropdown
 Template['cardCustomField-dropdown'].onCreated(function () {

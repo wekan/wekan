@@ -22,7 +22,6 @@ import {
   setupDatePicker,
   datePickerRendered,
   datePickerHelpers,
-  datePickerEvents,
 } from '/client/lib/datepicker';
 import {
   formatDateTime,
@@ -2537,6 +2536,12 @@ Template.editVoteEndDatePopup.onCreated(function () {
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getVoteEnd ? (card.getVoteEnd() || undefined) : undefined,
+    storeDate(date, currentCard) {
+      Meteor.call('cards.setVoteEnd', currentCard._id, date);
+    },
+    deleteDate(currentCard) {
+      Meteor.call('cards.unsetVoteEnd', currentCard._id);
+    },
   });
 });
 
@@ -2545,15 +2550,6 @@ Template.editVoteEndDatePopup.onRendered(function () {
 });
 
 Template.editVoteEndDatePopup.helpers(datePickerHelpers());
-
-Template.editVoteEndDatePopup.events(datePickerEvents({
-  storeDate(date) {
-    Meteor.call('cards.setVoteEnd', this.datePicker.card._id, date);
-  },
-  deleteDate() {
-    Meteor.call('cards.unsetVoteEnd', this.datePicker.card._id);
-  },
-}));
 
 Template.cardStartPlanningPokerPopup.onCreated(function () {
   const cardId = getCardId();
@@ -2612,6 +2608,12 @@ Template.editPokerEndDatePopup.onCreated(function () {
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getPokerEnd ? (card.getPokerEnd() || undefined) : undefined,
+    storeDate(date, currentCard) {
+      Meteor.call('cards.setPokerEnd', currentCard._id, date);
+    },
+    deleteDate(currentCard) {
+      Meteor.call('cards.unsetPokerEnd', currentCard._id);
+    },
   });
 });
 
@@ -2620,15 +2622,6 @@ Template.editPokerEndDatePopup.onRendered(function () {
 });
 
 Template.editPokerEndDatePopup.helpers(datePickerHelpers());
-
-Template.editPokerEndDatePopup.events(datePickerEvents({
-  storeDate(date) {
-    Meteor.call('cards.setPokerEnd', this.datePicker.card._id, date);
-  },
-  deleteDate() {
-    Meteor.call('cards.unsetPokerEnd', this.datePicker.card._id);
-  },
-}));
 
 // Close the card details pane by pressing escape
 EscapeActions.register(

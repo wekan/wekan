@@ -47,10 +47,10 @@ test('the edit form is written once', () => {
     'editPokerEndDatePopup']) {
     const at = cardDate.indexOf(`template(name="${popup}")`);
     assert.ok(at !== -1, `${popup} still exists`);
-    assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error\)/
+    assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error datePicker=datePicker\)/
       .test(cardDate.slice(at, at + 200)), `${popup} includes it`);
   }
-  assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error\)/.test(customFields),
+  assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error datePicker=datePicker\)/.test(customFields),
     'and so does the custom field date popup');
 });
 
@@ -103,17 +103,24 @@ test('the ninth copy of the form is gone, with the file that wired it', () => {
   assert.ok(/client\/lib\/datepicker\.js/.test(forms), 'and the note says where the state lives');
 });
 
-test('the state and the handlers did not move', () => {
-  // The point: only markup was shared. Each popup still sets itself up and
-  // stores its own field.
+test('the child form owns the event map and receives each popup state (#6607)', () => {
+  // Blaze event maps do not cross a child-template boundary. Registering the
+  // map on each popup made this included form look right but made Save, Delete
+  // and validation inert. The form must own the map and receive datePicker.
   const js = read('client/components/cards/cardDate.js');
+  const picker = read('client/lib/datepicker.js');
+  assert.ok(/Template\.editDateForm\.events\(datePickerEvents\(\)\)/.test(picker),
+    'the child template handles its own events');
+  assert.ok(/Template\.currentData\(\)\?\.datePicker/.test(picker),
+    'the handlers use state passed by the popup');
   for (const [popup, setter] of [['editCardReceivedDatePopup', 'setReceived'],
     ['editCardStartDatePopup', 'setStart'], ['editCardDueDatePopup', 'setDue'],
     ['editCardEndDatePopup', 'setEnd']]) {
     assert.ok(js.includes(`Template.${popup}.onCreated`), `${popup} still has its own state`);
     assert.ok(js.includes(setter), `${popup} still stores its own field`);
   }
-  assert.ok(/datePickerEvents\(/.test(js), 'from the handlers they already shared');
+  assert.ok(!/\.events\(datePickerEvents/.test(js),
+    'negative: no ineffective parent event map remains');
 });
 
 console.log(`\ndateTemplates: ${passed} tests passed`);

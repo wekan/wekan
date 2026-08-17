@@ -8,11 +8,8 @@
 //- it, and all eight popups keep their own state and handlers
 //- (client/lib/datepicker.js, which they already shared - it was only the
 //- markup that was copied). So this template has no code of its own at all;
-//- it renders three values and the buttons.
-//-
-//- The buttons are handled where the state is: `js-submit-date` and
-//- `js-delete-date` bubble to the popup that includes this, whose events come
-//- from datePickerEvents().
+//- it renders the popup's datePicker state and the buttons. Its events live on
+//- this template too: Blaze events do not cross a child-template boundary.
 template(name="editDateForm")
   .datepicker-container
     form.edit-date
