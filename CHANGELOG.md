@@ -532,11 +532,20 @@ regression tests cover star, Home, archive, duplicate and permanent delete.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ddb0ab4a2">Set as Home board accepts exactly one selected board</a>. Thanks to xet7.</summary>
 
-An empty selection keeps the existing "You did not select any boards" warning,
-while several selected boards now report "Please select only one board" instead
-of silently choosing the first. Only one selected id reaches
-`toggleDefaultBoard`, matching the fact that login can open only one Home board.
-Regression tests cover all three selection counts.
+The action no longer silently chooses the first board from a larger selection.
+Only one selected id reaches `toggleDefaultBoard`, matching the fact that login
+can open only one Home board. Regression tests cover the accepted single-board
+selection and both rejected selection counts.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cb5ef5e0">An empty Home action asks for exactly one board</a>. Thanks to xet7.</summary>
+
+Set and Unset as Home board now use the same "Please select only one board"
+message for both invalid counts: zero and several selected boards. The other
+bulk actions retain their separate empty-selection warning. The Home action
+still stops before calling the server unless exactly one board is checked.
 
 </details>
 
