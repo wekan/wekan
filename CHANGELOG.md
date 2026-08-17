@@ -418,7 +418,7 @@ JPEG and PNG attachment previews plus Unicode-plane fonts. **Admin Panel / Probl
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. **Requested By and Assigned
 By** can select board members while retaining their free-text fields. Below
-that: thirteen export fixes, one people-picker fix, two shared-checkbox fixes, two
+that: fourteen export fixes, one people-picker fix, two shared-checkbox fixes, two
 UI sizing fixes, restored subtask creation, and the documentation move into its
 feature and platform hierarchy with every local link checked.
 
@@ -493,6 +493,23 @@ really fails instead of silently clearing it.
 </details>
 
 **Exporting** - choosing what goes in the file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec9f9e76d">Board Excel exports now use the detailed card layout they request</a>. Thanks to xet7.</summary>
+
+The export popup sent the `card-details` layout choice, but the server's shared
+field allowlist omitted that key and silently removed it. Every board, swimlane
+and list Excel request therefore selected the old one-row-per-card streaming
+table even though Card details was checked.
+
+The layout key now survives validation, so the detailed exporter draws each
+card with the same renderer as Export card to Excel. Attachment metadata and
+embedded image galleries are included along with the other selected card
+fields, while the existing Board → Swimlane → List → Card order remains. The
+streaming table is still available by deliberately unticking Card details for
+very large boards.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1b0f2075e">Every PDF and detailed Excel scope carries the complete card fields</a>. Thanks to xet7.</summary>
