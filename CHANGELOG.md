@@ -418,8 +418,9 @@ documentation and English source strings. **Board Archive** removes permanent
 delete from individual board icons and offers it as one confirmed red action on
 a multi-selection, with the same gate enforced again on the server. When that
 gate is disabled, the sidebar explains where to enable it instead of showing an
-inapplicable selection instruction. Select All and Select None above the icons
-make that selection explicit and quick.
+inapplicable selection instruction. Its enabled Delete button and server method
+both require the site-wide Global Admin flag. Select All and Select None above
+the icons make that selection explicit and quick.
 Dragging that archived selection now highlights only Remaining and existing
 Workspaces as valid restore targets. Archived tiles no longer show an
 action-looking archive glyph at their lower-left corner.
@@ -496,6 +497,18 @@ button visible. When enabled for a Global Admin, the normal selection
 instruction and red Delete action return together. Positive and negative tests
 pin both branches, and the new ordered translation key is available in every
 language file without replacing human translations.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2eb3e0d4b">Only a Global Admin sees and can use Delete</a>. Thanks to xet7.</summary>
+
+The Archive Delete action now requires the site-wide `Users.isAdmin` flag to be
+exactly `true` in both its sidebar helper and server method. A board-admin role,
+a missing flag or a truthy non-Boolean value can neither expose the button nor
+authorize a forged method call. The permanent-delete setting and archived-only
+validation remain additional required gates, with regression coverage for the
+strict client and server checks.
 
 </details>
 
