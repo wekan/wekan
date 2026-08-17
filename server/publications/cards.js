@@ -364,6 +364,8 @@ Meteor.publish('dueCards', async function(allUsers = false) {
     selector.$or = [
       { members: userId },
       { assignees: userId },
+      { requesters: userId },
+      { assigners: userId },
       { userId: userId }
     ];
   }

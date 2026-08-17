@@ -231,6 +231,9 @@ class ScopedImporter {
       if (this.hasField('people')) {
         if (card.requestedBy) toCreate.requestedBy = card.requestedBy;
         if (card.assignedBy) toCreate.assignedBy = card.assignedBy;
+        const boardMemberIds = new Set((board.members || []).map(member => member.userId));
+        toCreate.requesters = (card.requesters || []).filter(userId => boardMemberIds.has(userId));
+        toCreate.assigners = (card.assigners || []).filter(userId => boardMemberIds.has(userId));
       }
       if (this.hasField('dates')) {
         for (const key of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {

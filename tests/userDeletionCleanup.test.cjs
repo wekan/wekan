@@ -131,13 +131,19 @@ const run = (async () => {
     });
   });
 
-  await test('plan pulls string-shaped card members/assignees/watchers', () => {
+  await test('plan pulls every string-shaped card people reference', () => {
     const plan = buildUserDeletionCleanupPlan(UID);
     assert.deepStrictEqual(plan.cards.selector, {
-      $or: [{ members: UID }, { assignees: UID }, { watchers: UID }],
+      $or: [
+        { members: UID }, { assignees: UID }, { requesters: UID },
+        { assigners: UID }, { watchers: UID },
+      ],
     });
     assert.deepStrictEqual(plan.cards.modifier, {
-      $pull: { members: UID, assignees: UID, watchers: UID },
+      $pull: {
+        members: UID, assignees: UID, requesters: UID,
+        assigners: UID, watchers: UID,
+      },
     });
     assert.deepStrictEqual(plan.lists.selector, { watchers: UID });
     assert.deepStrictEqual(plan.lists.modifier, { $pull: { watchers: UID } });

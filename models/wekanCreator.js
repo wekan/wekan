@@ -475,6 +475,10 @@ export class WekanCreator {
         requestedBy: card.requestedBy || '',
         assignedBy: card.assignedBy || '',
       };
+      for (const [source, target] of [['requesters', 'requesters'], ['assigners', 'assigners']]) {
+        cardToCreate[target] = [...new Set((card[source] || [])
+          .map(userId => this.members[userId]).filter(Boolean))];
+      }
       // add labels
       if (card.labelIds) {
         cardToCreate.labelIds = card.labelIds.map(wekanId => {

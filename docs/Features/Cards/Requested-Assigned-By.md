@@ -1,6 +1,6 @@
 # Design: Requested By and Assigned By become people
 
-Status: **designed, not built** · Owner: xet7 · Related:
+Status: **implemented** · Owner: xet7 · Related:
 [#6586](https://github.com/wekan/wekan/issues/6586),
 [One-Card-Layout.md](../ImportExport/Excel/One-Card-Layout.md).
 
@@ -29,20 +29,15 @@ person and a note about who asked.
 Mutations mirror the assignee ones: `assignRequester`, `unassignRequester`,
 `toggleRequester`, and the same three for assigners.
 
-## One template for all four
+## Shared picker pattern
 
-Members, Assignees, Requested By and Assigned By are the same control: a row of
-avatars, a round `+` that opens a picker, and a popup listing board members.
-They are written four times today. One template takes the list, the popup name
-and the labels:
+Members, Assignees, Requested By and Assigned By use the same interaction: a
+row of avatars, a round `+` that opens a picker, and a popup listing board
+members. Requested By and Assigned By share `cardIdentityPicker`; their
+free-text `Add` link remains directly below `+` and opens the existing editor.
 
-```jade
-  +cardPeopleField(userIds=getRequesters popup="cardRequesters"
-                   label="requested-by" icon="fa-shopping-cart" text=getRequestedBy)
-```
-
-and the free-text half sits under it, unchanged, for the two fields that have
-one.
+The selected people and free text are independent, so a card can record board
+members and also retain a name or note imported from an external tracker.
 
 ## The same avatar everywhere
 
@@ -69,11 +64,11 @@ draws `requested-by` and `assigned-by` from `data.requestedBy` /
 follow. `tests/requestedAssignedByRoundTrip.test.cjs` already checks the field
 survives a round trip and is the place to extend.
 
-## Order
+## Implementation order
 
 1. Schema + mutations (mirroring assignees).
-2. The shared `cardPeopleField` template; Members and Assignees move onto it
-   first, unchanged, then the two new fields use it.
+2. The shared member-picker pattern, with one picker template for Requested By
+   and Assigned By.
 3. The picker popups.
 4. The card document carries both lists; Excel and PDF draw initials + text.
 5. Import/export round trip, and the tests that pin it.

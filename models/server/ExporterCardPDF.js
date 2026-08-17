@@ -272,6 +272,8 @@ class PDFExporterBase {
       cardNumber: card.cardNumber,
       requestedBy: card.requestedBy || '',
       assignedBy: card.assignedBy || '',
+      requesters: names(card.requesters),
+      assigners: names(card.assigners),
       createdAt: this.date(card.createdAt),
       modifiedAt: this.date(card.dateLastActivity || card.modifiedAt),
       spentTime: card.spentTime === undefined || card.spentTime === null
@@ -398,6 +400,8 @@ class ExporterCardPDF extends PDFExporterBase {
       card.userId,
       ...(card.members || []),
       ...(card.assignees || []),
+      ...(card.requesters || []),
+      ...(card.assigners || []),
       ...comments.map(comment => comment.userId),
       ...attachments.map(attachment => attachment.userId
         || (attachment.meta && attachment.meta.userId)),
@@ -564,6 +568,8 @@ class ExporterBoardPDF extends PDFExporterBase {
       if (card.userId) userIds.add(card.userId);
       (card.members || []).forEach(id => userIds.add(id));
       (card.assignees || []).forEach(id => userIds.add(id));
+      (card.requesters || []).forEach(id => userIds.add(id));
+      (card.assigners || []).forEach(id => userIds.add(id));
       ((card.vote && card.vote.positive) || []).forEach(id => userIds.add(id));
       ((card.vote && card.vote.negative) || []).forEach(id => userIds.add(id));
     }

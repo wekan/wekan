@@ -628,6 +628,8 @@ Boards.before.update((userId, doc, fieldNames, modifier) => {
       {
         $pull: {
           members: memberId,
+          requesters: memberId,
+          assigners: memberId,
           watchers: memberId,
         },
       },

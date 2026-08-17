@@ -127,6 +127,8 @@ class ExporterExcelBoard {
       if (card.userId) userIds.add(card.userId);
       (card.members || []).forEach(id => userIds.add(id));
       (card.assignees || []).forEach(id => userIds.add(id));
+      (card.requesters || []).forEach(id => userIds.add(id));
+      (card.assigners || []).forEach(id => userIds.add(id));
       ((card.vote && card.vote.positive) || []).forEach(id => userIds.add(id));
       ((card.vote && card.vote.negative) || []).forEach(id => userIds.add(id));
     }

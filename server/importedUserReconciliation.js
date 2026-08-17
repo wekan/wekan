@@ -55,7 +55,7 @@ export async function mergeImportedUserInto(placeholderId, targetId) {
   }
 
   // Card member / assignee id arrays (dedupe in case the target was already present).
-  for (const field of ['members', 'assignees']) {
+  for (const field of ['members', 'assignees', 'requesters', 'assigners']) {
     const cards = await Cards.find({ [field]: placeholderId }).fetchAsync();
     for (const c of cards) {
       const arr = Array.from(new Set((c[field] || []).map(id => (id === placeholderId ? targetId : id))));
@@ -149,7 +149,7 @@ export async function mapImportedBoardMemberInto(boardId, placeholderId, targetI
   }
 
   // Reassign the placeholder's references, scoped to THIS board only.
-  for (const field of ['members', 'assignees']) {
+  for (const field of ['members', 'assignees', 'requesters', 'assigners']) {
     const cards = await Cards.find({ boardId, [field]: placeholderId }).fetchAsync();
     for (const c of cards) {
       const arr = Array.from(

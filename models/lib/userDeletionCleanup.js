@@ -65,10 +65,16 @@ function buildUserDeletionCleanupPlan(userId) {
     },
     cards: {
       selector: {
-        $or: [{ members: userId }, { assignees: userId }, { watchers: userId }],
+        $or: [
+          { members: userId }, { assignees: userId }, { requesters: userId },
+          { assigners: userId }, { watchers: userId },
+        ],
       },
       modifier: {
-        $pull: { members: userId, assignees: userId, watchers: userId },
+        $pull: {
+          members: userId, assignees: userId, requesters: userId,
+          assigners: userId, watchers: userId,
+        },
       },
     },
     lists: {

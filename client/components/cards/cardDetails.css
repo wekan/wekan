@@ -498,6 +498,12 @@ body.desktop-mode .card-details.card-details-collapsed {
   font-weight: bold;
   color: #4d4d4d;
 }
+.card-details .card-details-person-controls {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
 .card-details .activities {
   padding-top: 10px;
 }
@@ -1269,4 +1275,3 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-details .card-details-group-body .card-details-item {
   flex-grow: 1;
 }
-

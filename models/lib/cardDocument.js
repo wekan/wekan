@@ -92,8 +92,8 @@ function cardHeaderBlocks(card, data, fields, translate) {
     // Requested by / assigned by are people too, and they are a card's own
     // record of who asked for it - tests/requestedAssignedByRoundTrip.test.cjs
     // exists because they have been lost from an export before.
-    add('requested-by', data.requestedBy);
-    add('assigned-by', data.assignedBy);
+    add('requested-by', [...(data.requesters || []), data.requestedBy].filter(Boolean).join(', '));
+    add('assigned-by', [...(data.assigners || []), data.assignedBy].filter(Boolean).join(', '));
   }
   if (wanted(fields, 'dates')) {
     add('createdAt', data.createdAt);

@@ -8,10 +8,8 @@
 // with an assigner and no requester showed neither, and the section drew its
 // heading with nothing under it.
 //
-// The two fields are otherwise the same shape as Members and Assignee: the same
-// round + button, opening the same kind of editor. Combining them into one
-// template, with member-style avatars, is the next piece of work and is not done
-// here.
+// The two fields also carry selected board members, so read-only cards show
+// their avatars whether or not the optional free-text value is present.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -25,15 +23,15 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('requestedAssignedByVisible:');
 
-test('each field\'s read-only branch is gated by its OWN value', () => {
-  for (const [label, getter] of [['requested-by', 'getRequestedBy'],
-    ['assigned-by', 'getAssignedBy']]) {
+test('each read-only branch shows its own selected people and optional text', () => {
+  for (const [label, people, text] of [
+    ['requested-by', 'getRequesters', 'getRequestedBy'],
+    ['assigned-by', 'getAssigners', 'getAssignedBy'],
+  ]) {
     const block = jade.slice(jade.indexOf(`| {{_ '${label}'}}`));
-    const branch = /else if (get\w+)\s*\n\s*\+viewer\s*\n\s*= (get\w+)/.exec(block.slice(0, 1400));
-    assert.ok(branch, `${label} must have a read-only branch`);
-    assert.strictEqual(branch[1], branch[2],
-      `${label} is shown when ${branch[2]} has a value, not when ${branch[1]} does`);
-    assert.strictEqual(branch[2], getter, `${label} shows ${getter}`);
+    const readOnly = block.slice(block.indexOf('\n                  else\n'), 1600);
+    assert.ok(new RegExp(`each userId in ${people}`).test(readOnly), `${label} avatars`);
+    assert.ok(new RegExp(`if ${text}[\\s\\S]*= ${text}`).test(readOnly), `${label} text`);
   }
 });
 

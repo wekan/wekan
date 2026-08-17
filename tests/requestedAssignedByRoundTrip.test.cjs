@@ -37,6 +37,25 @@ test('the card sets them the way it sets Members and Assignee', () => {
     assert.ok(/a\.member\.add-member\.card-details-item-add-button/.test(block),
       `${field} has the round + button`);
   }
+  const js = read('client/components/cards/cardDetails.js');
+  assert.ok(/Popup\.open\('cardRequestedBy'\)/.test(js));
+  assert.ok(/Popup\.open\('cardAssignedBy'\)/.test(js));
+  assert.ok(/toggleRequester\(user\._id\)/.test(js));
+  assert.ok(/toggleAssigner\(user\._id\)/.test(js));
+});
+
+test('selected members use arrays matching assignees while free text remains separate', () => {
+  const cards = read('models/cards.js');
+  for (const field of ['requesters', 'assigners']) {
+    assert.ok(new RegExp(`${field}: \\{[\\s\\S]{0,180}type: Array`).test(cards),
+      `${field} is an array of user ids`);
+  }
+  for (const method of ['assignRequester', 'unassignRequester', 'toggleRequester',
+    'assignAssigner', 'unassignAssigner', 'toggleAssigner']) {
+    assert.ok(new RegExp(`${method}\\(`).test(cards), `${method} mirrors assignee mutations`);
+  }
+  assert.ok(/setRequestedBy\(requestedBy\)/.test(cards));
+  assert.ok(/setAssignedBy\(assignedBy\)/.test(cards));
 });
 
 test('Board Settings can turn each of them off', () => {
@@ -53,7 +72,7 @@ test('every export carries them', () => {
     // The card PDF draws the shared document now, so what it must do is MAP
     // them; models/lib/cardDocument.js is what puts them on the page.
     'the card PDF': ['models/server/ExporterCardPDF.js', /requestedBy: card\.requestedBy/],
-    'the shared card document': ['models/lib/cardDocument.js', /add\('requested-by', data\.requestedBy\)/],
+    'the shared card document': ['models/lib/cardDocument.js', /data\.requesters[\s\S]*data\.requestedBy/],
     'the card Excel': ['models/server/ExporterExcelCard.js', /requestedBy: card\.requestedBy/],
     'the board CSV': ['models/exporter.js', /'requested-by','assigned-by'/],
     'the board Excel table': ['models/server/ExporterExcel.js', /jcard\.requestedBy/],
@@ -69,8 +88,10 @@ test('the board Excel table carries both, header and row (negative)', () => {
   const excel = read('models/server/ExporterExcel.js');
   assert.ok(/__\('requested-by'/.test(excel) && /__\('assigned-by'/.test(excel),
     'both column headers');
-  assert.ok(/jcard\.requestedBy \|\| ''/.test(excel) && /jcard\.assignedBy \|\| ''/.test(excel),
-    'and both values, so header and row still line up');
+  assert.ok(/jcard\.requesters \|\| \[\]/.test(excel)
+    && /jcard\.assigners \|\| \[\]/.test(excel)
+    && /jcard\.requestedBy/.test(excel) && /jcard\.assignedBy/.test(excel),
+    'and selected people plus free text, so header and row still line up');
 });
 
 // ── and back in ────────────────────────────────────────────────────────────
@@ -82,6 +103,15 @@ test('the WeKan importer puts them back', () => {
   assert.ok(/assignedBy: card\.assignedBy \|\| ''/.test(creator), 'assignedBy');
   assert.ok(/A round trip that loses a field is worse/.test(creator),
     'with the reason, because an export that looks complete is the trap');
+  assert.ok(/\['requesters', 'requesters'\]/.test(creator));
+  assert.ok(/\['assigners', 'assigners'\]/.test(creator));
+});
+
+test('the WeKan export includes selected requester and assigner users', () => {
+  const exporter = read('models/exporter.js');
+  assert.ok(/card\.requesters \|\| \[\]/.test(exporter));
+  assert.ok(/card\.assigners \|\| \[\]/.test(exporter));
+  assert.ok(/requesters: 1/.test(exporter) && /assigners: 1/.test(exporter));
 });
 
 test('the per-menu scoped import puts them back too', () => {
@@ -90,6 +120,22 @@ test('the per-menu scoped import puts them back too', () => {
   assert.ok(/toCreate\.assignedBy = card\.assignedBy/.test(importer), 'assignedBy');
   assert.ok(/hasField\('people'\)/.test(importer),
     'under the People part, which is the section they belong to');
+  assert.ok(/toCreate\.requesters =/.test(importer), 'selected requesters');
+  assert.ok(/toCreate\.assigners =/.test(importer), 'selected assigners');
+  assert.ok(/boardMemberIds\.has\(userId\)/.test(importer),
+    'but only when the selected user belongs to the target board');
+});
+
+test('PDF, detailed Excel, table Excel and CSV resolve selected people beside text', () => {
+  const document = read('models/lib/cardDocument.js');
+  assert.ok(/data\.requesters \|\| \[\][\s\S]*data\.requestedBy/.test(document));
+  assert.ok(/data\.assigners \|\| \[\][\s\S]*data\.assignedBy/.test(document));
+  const excel = read('models/server/ExporterExcel.js');
+  assert.ok(/jcard\.requesters[\s\S]*jcard\.requestedBy/.test(excel));
+  assert.ok(/jcard\.assigners[\s\S]*jcard\.assignedBy/.test(excel));
+  const csv = read('models/lib/exporterCsvRow.js');
+  assert.ok(/identityNames\(card\.requesters, card\.requestedBy\)/.test(csv));
+  assert.ok(/identityNames\(card\.assigners, card\.assignedBy\)/.test(csv));
 });
 
 test("Jira's Reporter arrives as Requested By", () => {

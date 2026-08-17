@@ -291,20 +291,15 @@ test('a collapsed group shows its caret, its icon and its name, and nothing else
   }
 });
 
-test('Requested By and Assigned By have the + Members and Assignee have', () => {
-  // They were a bare "Add" link; the two fields beside them in the same group
-  // are set with a round +, and these are set the same way now.
+test('Requested By and Assigned By select a member with + or enter text with Add', () => {
   for (const field of ['requester', 'assigner']) {
     const at = jade.indexOf(`js-card-details-${field}`);
     assert.ok(at !== -1, `${field} is there`);
     const block = jade.slice(at, at + 700);
-    assert.ok(/a\.member\.add-member\.card-details-item-add-button\.js-open-inlined-form/.test(block),
-      `${field} has the + button`);
+    assert.ok(new RegExp(`js-select-${field}`).test(block), `${field} + opens its picker`);
     assert.ok(/i\.fa\.fa-plus/.test(block), 'with the plus in it');
-    // The SAME class the "Add" text uses, so both open the one editor rather
-    // than the + growing a handler of its own.
-    const opens = (block.match(/js-open-inlined-form/g) || []).length;
-    assert.ok(opens >= 2, `${field}: the + and the text both open the form`);
+    assert.ok(/\.card-details-person-controls[\s\S]*js-open-inlined-form/.test(block),
+      `${field}: Add remains the free-text editor below +`);
   }
   // And it is the class Members' button is styled by, not a new look.
   const members = jade.slice(jade.indexOf('allowsMembers'), jade.indexOf('allowsAssignee'));

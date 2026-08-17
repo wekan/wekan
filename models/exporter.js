@@ -339,6 +339,8 @@ export class Exporter {
           users[memberId] = true;
         });
       }
+      (card.requesters || []).forEach(userId => { users[userId] = true; });
+      (card.assigners || []).forEach(userId => { users[userId] = true; });
     });
     result.comments.forEach((comment) => {
       users[comment.userId] = true;
@@ -473,10 +475,16 @@ export class Exporter {
       const board0 = await ReactiveCache.getBoard(boardId, { fields: { members: 1 } });
       (board0.members || []).forEach(m => preUserIds.add(m.userId));
       const preCardIds = [];
-      for await (const d of cardsRaw.find({ boardId, linkedId: { $in: ['', null] } }, { projection: { _id: 1, userId: 1, members: 1 } })) {
+      for await (const d of cardsRaw.find({ boardId, linkedId: { $in: ['', null] } }, {
+        projection: {
+          _id: 1, userId: 1, members: 1, requesters: 1, assigners: 1,
+        },
+      })) {
         preCardIds.push(d._id);
         if (d.userId) preUserIds.add(d.userId);
         (d.members || []).forEach(id => preUserIds.add(id));
+        (d.requesters || []).forEach(id => preUserIds.add(id));
+        (d.assigners || []).forEach(id => preUserIds.add(id));
       }
       for await (const d of listsRaw.find({ boardId }, { projection: { userId: 1 } })) { if (d.userId) preUserIds.add(d.userId); }
       for await (const d of cardCommentsRaw.find({ cardId: { $in: preCardIds } }, { projection: { userId: 1 } })) { if (d.userId) preUserIds.add(d.userId); }
@@ -835,11 +843,15 @@ export class Exporter {
     // Pass 1 — collect referenced user ids (ids only, cheap).
     const userIds = new Set();
     {
-      const cursor = cardsRaw.find(cardSelector, { projection: { userId: 1, members: 1, assignees: 1, vote: 1 } });
+      const cursor = cardsRaw.find(cardSelector, { projection: {
+        userId: 1, members: 1, assignees: 1, requesters: 1, assigners: 1, vote: 1,
+      } });
       for await (const c of cursor) {
         if (c.userId) userIds.add(c.userId);
         (c.members || []).forEach(id => userIds.add(id));
         (c.assignees || []).forEach(id => userIds.add(id));
+        (c.requesters || []).forEach(id => userIds.add(id));
+        (c.assigners || []).forEach(id => userIds.add(id));
         if (c.vote) { (c.vote.positive || []).forEach(id => userIds.add(id)); (c.vote.negative || []).forEach(id => userIds.add(id)); }
       }
     }

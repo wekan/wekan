@@ -317,20 +317,21 @@ template(name="cardDetails")
                       +inlinedForm(classNames="js-card-details-requester")
                         +editCardRequesterForm
                       else
-                        //- The same round + Members and Assignee use, opening the
-                          same editor the text below it opens - a name field is
-                          set the way a person is added.
-                        a.member.add-member.card-details-item-add-button.js-open-inlined-form(title="{{_ 'requested-by'}}")
-                          i.fa.fa-plus
-                        a.js-open-inlined-form
-                          if getRequestedBy
-                            +viewer
-                              = getRequestedBy
-                          else
-                            | {{_ 'add'}}
-                  else if getRequestedBy
-                    +viewer
-                      = getRequestedBy
+                        each userId in getRequesters
+                          +userAvatar(userId=userId cardId=_id noRemove=true)
+                        if getRequestedBy
+                          +viewer
+                            = getRequestedBy
+                        .card-details-person-controls
+                          a.member.add-member.card-details-item-add-button.js-select-requester(title="{{_ 'requested-by'}}")
+                            i.fa.fa-plus
+                          a.js-open-inlined-form {{_ 'add'}}
+                  else
+                    each userId in getRequesters
+                      +userAvatar(userId=userId noRemove=true)
+                    if getRequestedBy
+                      +viewer
+                        = getRequestedBy
 
               if currentBoard.allowsAssignedBy
                 .card-details-item.card-details-item-name
@@ -342,20 +343,21 @@ template(name="cardDetails")
                       +inlinedForm(classNames="js-card-details-assigner")
                         +editCardAssignerForm
                       else
-                        //- The same round + Members and Assignee use, opening the
-                          same editor the text below it opens - a name field is
-                          set the way a person is added.
-                        a.member.add-member.card-details-item-add-button.js-open-inlined-form(title="{{_ 'assigned-by'}}")
-                          i.fa.fa-plus
-                        a.js-open-inlined-form
-                          if getAssignedBy
-                            +viewer
-                              = getAssignedBy
-                          else
-                            | {{_ 'add'}}
-                  else if getAssignedBy
-                    +viewer
-                      = getAssignedBy
+                        each userId in getAssigners
+                          +userAvatar(userId=userId cardId=_id noRemove=true)
+                        if getAssignedBy
+                          +viewer
+                            = getAssignedBy
+                        .card-details-person-controls
+                          a.member.add-member.card-details-item-add-button.js-select-assigner(title="{{_ 'assigned-by'}}")
+                            i.fa.fa-plus
+                          a.js-open-inlined-form {{_ 'add'}}
+                  else
+                    each userId in getAssigners
+                      +userAvatar(userId=userId noRemove=true)
+                    if getAssignedBy
+                      +viewer
+                        = getAssignedBy
 
         .card-details-group.card-details-group-dependencies
           hr.card-details-section-rule
@@ -1137,6 +1139,28 @@ template(name="cardMembersPopup")
             if userData.username
               | (#{userData.username})
           if isCardMember
+            i.fa.fa-check
+
+template(name="cardRequestedByPopup")
+  +cardIdentityPicker(field="requesters")
+
+template(name="cardAssignedByPopup")
+  +cardIdentityPicker(field="assigners")
+
+//- Requested/Assigned By can contain an external free-text name, but their +
+  button selects one of the board's members just like Members and Assignee.
+template(name="cardIdentityPicker")
+  input.card-identity-filter(type="text" placeholder="{{_ 'search'}}")
+  ul.pop-over-list.js-card-identity-list
+    each members
+      li.item(class="{{#if isSelected}}active{{/if}}")
+        a.name.js-select-card-identity(href="#")
+          +userAvatar(userId=userId)
+          span.full-name
+            = userData.profile.fullname
+            if userData.username
+              | (#{userData.username})
+          if isSelected
             i.fa.fa-check
 template(name="cardAssigneesPopup")
   input.card-assignees-filter(type="text" placeholder="{{_ 'search'}}")

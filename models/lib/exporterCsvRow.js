@@ -36,8 +36,12 @@ function buildCsvCardRow(card, result, customFieldMap) {
   currentRow.push(lookupProp(res.lists, card.listId, 'title'));
   currentRow.push(lookupProp(res.swimlanes, card.swimlaneId, 'title'));
   currentRow.push(lookupProp(res.users, card.userId, 'username'));
-  currentRow.push(card.requestedBy ? card.requestedBy : ' ');
-  currentRow.push(card.assignedBy ? card.assignedBy : ' ');
+  const identityNames = (ids, text) => [
+    ...(ids || []).map(id => lookupProp(res.users, id, 'username')).filter(Boolean),
+    text,
+  ].filter(Boolean).join(', ') || ' ';
+  currentRow.push(identityNames(card.requesters, card.requestedBy));
+  currentRow.push(identityNames(card.assigners, card.assignedBy));
 
   let usernames = '';
   (card.members || []).forEach((memberId) => {

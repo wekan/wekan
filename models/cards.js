@@ -237,7 +237,7 @@ Cards.attachSchema(
     },
     requestedBy: {
       /**
-       * who requested the card (ID of the user)
+       * display name entered manually or copied from the selected user
        */
       type: String,
       optional: true,
@@ -245,7 +245,7 @@ Cards.attachSchema(
     },
     assignedBy: {
       /**
-       * who assigned the card (ID of the user)
+       * display name entered manually or copied from the selected user
        */
       type: String,
       optional: true,
@@ -283,6 +283,24 @@ Cards.attachSchema(
       defaultValue: [],
     },
     'assignees.$': {
+      type: String,
+    },
+    requesters: {
+      /** board-member user IDs that requested the card */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'requesters.$': {
+      type: String,
+    },
+    assigners: {
+      /** board-member user IDs that assigned the card */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'assigners.$': {
       type: String,
     },
     receivedAt: {
@@ -1580,6 +1598,16 @@ Cards.helpers({
     }
   },
 
+  getRequesters() {
+    const card = this.isLinkedCard() ? ReactiveCache.getCard(this.linkedId) : this;
+    return card ? card.requesters || [] : null;
+  },
+
+  getAssigners() {
+    const card = this.isLinkedCard() ? ReactiveCache.getCard(this.linkedId) : this;
+    return card ? card.assigners || [] : null;
+  },
+
   assignMember(memberId) {
     let ret;
     if (this.isLinkedBoard()) {
@@ -1609,6 +1637,14 @@ Cards.helpers({
         { $addToSet: { assignees: assigneeId } },
       );
     }
+  },
+
+  assignRequester(userId) {
+    return Cards.updateAsync({ _id: this.getRealId() }, { $addToSet: { requesters: userId } });
+  },
+
+  assignAssigner(userId) {
+    return Cards.updateAsync({ _id: this.getRealId() }, { $addToSet: { assigners: userId } });
   },
 
   unassignMember(memberId) {
@@ -1642,6 +1678,14 @@ Cards.helpers({
     }
   },
 
+  unassignRequester(userId) {
+    return Cards.updateAsync({ _id: this.getRealId() }, { $pull: { requesters: userId } });
+  },
+
+  unassignAssigner(userId) {
+    return Cards.updateAsync({ _id: this.getRealId() }, { $pull: { assigners: userId } });
+  },
+
   toggleMember(memberId) {
     const members = this.getMembers();
     if (members && members.indexOf(memberId) > -1) {
@@ -1658,6 +1702,16 @@ Cards.helpers({
     } else {
       return this.assignAssignee(assigneeId);
     }
+  },
+
+  toggleRequester(userId) {
+    return (this.getRequesters() || []).includes(userId)
+      ? this.unassignRequester(userId) : this.assignRequester(userId);
+  },
+
+  toggleAssigner(userId) {
+    return (this.getAssigners() || []).includes(userId)
+      ? this.unassignAssigner(userId) : this.assignAssigner(userId);
   },
 
   // #3392: PI Program Board "Red Strings". Return this card's dependencies as
@@ -2365,6 +2419,7 @@ Cards.helpers({
     }
   },
 
+
   isTemplateCard() {
     return this.type === 'template-card';
   },
@@ -2868,12 +2923,28 @@ Cards.helpers({
     return Cards.updateAsync(this._id, { $addToSet: { assignees: assigneeId } });
   },
 
+  assignRequester(userId) {
+    return Cards.updateAsync(this._id, { $addToSet: { requesters: userId } });
+  },
+
+  assignAssigner(userId) {
+    return Cards.updateAsync(this._id, { $addToSet: { assigners: userId } });
+  },
+
   unassignMember(memberId) {
     return Cards.updateAsync(this._id, { $pull: { members: memberId } });
   },
 
   unassignAssignee(assigneeId) {
     return Cards.updateAsync(this._id, { $pull: { assignees: assigneeId } });
+  },
+
+  unassignRequester(userId) {
+    return Cards.updateAsync(this._id, { $pull: { requesters: userId } });
+  },
+
+  unassignAssigner(userId) {
+    return Cards.updateAsync(this._id, { $pull: { assigners: userId } });
   },
 
   toggleMember(memberId) {
@@ -2890,6 +2961,16 @@ Cards.helpers({
     } else {
       return this.assignAssignee(assigneeId);
     }
+  },
+
+  toggleRequester(userId) {
+    return (this.requesters || []).includes(userId)
+      ? this.unassignRequester(userId) : this.assignRequester(userId);
+  },
+
+  toggleAssigner(userId) {
+    return (this.assigners || []).includes(userId)
+      ? this.unassignAssigner(userId) : this.assignAssigner(userId);
   },
 
   assignCustomField(customFieldId) {

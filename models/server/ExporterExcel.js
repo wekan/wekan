@@ -88,12 +88,17 @@ class ExporterExcel {
     result.members.forEach(m => userIds.add(m.userId));
     lists.forEach(l => userIds.add(l.userId));
     {
-      const cursor = cardsRaw.find(cardSelector, { projection: { _id: 1, title: 1, userId: 1, members: 1, assignees: 1 } });
+      const cursor = cardsRaw.find(cardSelector, { projection: {
+        _id: 1, title: 1, userId: 1, members: 1, assignees: 1,
+        requesters: 1, assigners: 1,
+      } });
       for await (const c of cursor) {
         cardTitleById[c._id] = c.title;
         if (c.userId) userIds.add(c.userId);
         (c.members || []).forEach(id => userIds.add(id));
         (c.assignees || []).forEach(id => userIds.add(id));
+        (c.requesters || []).forEach(id => userIds.add(id));
+        (c.assigners || []).forEach(id => userIds.add(id));
       }
     }
     // Pass 1b — comment authors.
@@ -579,8 +584,10 @@ class ExporterExcel {
           jswimlane[jcard.swimlaneId],
           jcassig,
           jcmem,
-          jcard.requestedBy || '',
-          jcard.assignedBy || '',
+          [...(jcard.requesters || []).map(id => jmeml[id] || id), jcard.requestedBy]
+            .filter(Boolean).join(', '),
+          [...(jcard.assigners || []).map(id => jmeml[id] || id), jcard.assignedBy]
+            .filter(Boolean).join(', '),
           jclabel,
           jcard.isOvertime ? 'true' : 'false',
           jcard.spentTime,

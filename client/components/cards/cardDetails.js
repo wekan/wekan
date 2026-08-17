@@ -1110,6 +1110,8 @@ Template.cardDetails.events({
   },
   'click .js-member': Popup.open('cardMember'),
   'click .js-add-members': Popup.open('cardMembers'),
+  'click .js-select-requester': Popup.open('cardRequestedBy'),
+  'click .js-select-assigner': Popup.open('cardAssignedBy'),
   'click .js-assignee': Popup.open('cardAssignee'),
   'click .js-add-assignees': Popup.open('cardAssignees'),
   'click .js-add-labels': Popup.open('cardLabels'),
@@ -1669,6 +1671,48 @@ Template.cardMembersPopup.helpers({
   },
   userData() {
     return ReactiveCache.getUser(this.userId);
+  },
+});
+
+Template.cardIdentityPicker.onCreated(function () {
+  this.filterTerm = new ReactiveVar('');
+});
+
+Template.cardIdentityPicker.events({
+  'click .js-select-card-identity'(event, tpl) {
+    event.preventDefault();
+    const card = getCurrentCardFromContext();
+    const user = ReactiveCache.getUser(this.userId);
+    if (!card || !user) return;
+    if (tpl.data.field === 'requesters') card.toggleRequester(user._id);
+    if (tpl.data.field === 'assigners') card.toggleAssigner(user._id);
+  },
+  'keyup .card-identity-filter'(event) {
+    Template.instance().filterTerm.set(event.target.value);
+  },
+});
+
+Template.cardIdentityPicker.helpers({
+  members() {
+    return [...uniqBy(filterMembers(Template.instance().filterTerm.get()), 'userId')]
+      .sort((a, b) => {
+        const userA = ReactiveCache.getUser(a.userId);
+        const userB = ReactiveCache.getUser(b.userId);
+        const nameA = (userA && userA.profile && userA.profile.fullname) || '';
+        const nameB = (userB && userB.profile && userB.profile.fullname) || '';
+        return nameA.localeCompare(nameB);
+      });
+  },
+  userData() {
+    return ReactiveCache.getUser(this.userId);
+  },
+  isSelected() {
+    const card = getCurrentCardFromContext();
+    const user = ReactiveCache.getUser(this.userId);
+    if (!card || !user) return false;
+    const selected = Template.instance().data.field === 'requesters'
+      ? card.getRequesters() : card.getAssigners();
+    return (selected || []).includes(user._id);
   },
 });
 

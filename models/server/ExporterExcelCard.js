@@ -178,6 +178,8 @@ class ExporterExcelCard {
       assignees: names(card.assignees),
       requestedBy: card.requestedBy || '',
       assignedBy: card.assignedBy || '',
+      requesters: (card.requesters || []).map(id => userMap[id] || id),
+      assigners: (card.assigners || []).map(id => userMap[id] || id),
       createdAt: this.fmtDate(card.createdAt),
       modifiedAt: this.fmtDate(card.dateLastActivity || card.modifiedAt),
       receivedAt: this.fmtDate(card.receivedAt),
@@ -304,6 +306,8 @@ class ExporterExcelCard {
       if (needsPeople) {
         if (card.members)   card.members.forEach(id => userIds.add(id));
         if (card.assignees) card.assignees.forEach(id => userIds.add(id));
+        if (card.requesters) card.requesters.forEach(id => userIds.add(id));
+        if (card.assigners) card.assigners.forEach(id => userIds.add(id));
       }
       const uDocs = await ReactiveCache.getUsers(
         { _id: { $in: Array.from(userIds) } },

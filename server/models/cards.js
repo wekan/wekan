@@ -2000,7 +2000,10 @@ WebApp.handlers.get('/api/user/cards', async function(req, res) {
 
   const selector = {
     archived: false,
-    $or: [{ members: userId }, { assignees: userId }],
+    $or: [
+      { members: userId }, { assignees: userId },
+      { requesters: userId }, { assigners: userId },
+    ],
   };
 
   const url = new URL(req.url, 'http://localhost');
