@@ -416,7 +416,7 @@ vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
 **Helm containers** size the Node.js heap from their memory limit, and the
 official chart supplies enough memory for startup plus native allocations.
 **Minicard titles** save again from their inline editor, and **card dates** can
-be changed or deleted again after they have been saved. **Full-suite repairs**
+be reopened, changed or deleted again after they have been saved. **Full-suite repairs**
 keep the shared date form registered before its events, preserve the one mobile
 page scroller in mobile-view mode, and make the standalone E2E browser selection
 architecture-safe. **Translations** reuse 3,838 unambiguous same-language
@@ -553,6 +553,23 @@ The common form now owns its common event handlers and receives the parent
 popup's state and field-specific callbacks explicitly. Received, start, due,
 end, vote, planning-poker and custom-field dates retain one shared form, and a
 browser regression test changes a previously stored due date.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/14b04575b">Clicking any saved card date reopens its editor with the Card context</a>. Thanks to xet7.</summary>
+
+The first date could be added because its plus button lives directly in the
+opened card's data context. Once saved, however, the date became a shared badge
+whose child-template data contains only display arguments. Clicking that badge
+passed those arguments to the popup as though they were a Card, so calls such
+as `getStart()` and `getReceived()` threw and no editor appeared.
+
+Every received, start, due, end, vote and planning-poker date badge now opens
+its popup explicitly with the surrounding date template's Card and stops the
+click before the opened-card handler can create a second popup. Source-level
+positive and negative tests cover all four ordinary card dates, and the browser
+suite adds a saved start date, reopens it, changes it and verifies the new date.
 
 </details>
 
