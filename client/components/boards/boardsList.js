@@ -431,6 +431,7 @@ Template.allBoardsHeaderButtons.events({
     evt.preventDefault();
     evt.stopPropagation();
     BoardMultiSelection.disable();
+    closeAllBoardsSidebar();
   },
 });
 
@@ -1812,8 +1813,10 @@ Template.boardList.events({
     evt.preventDefault();
     if (BoardMultiSelection.isActive()) {
       BoardMultiSelection.disable();
+      closeAllBoardsSidebar();
     } else {
       BoardMultiSelection.activate();
+      openAllBoardsSidebar(SIDEBAR_MULTISELECTION);
     }
   },
   'click .js-multiselection-reset'(evt) {
@@ -1823,6 +1826,7 @@ Template.boardList.events({
     // would otherwise immediately re-activate what we just disabled.
     evt.stopPropagation();
     BoardMultiSelection.disable();
+    closeAllBoardsSidebar();
   },
   'click .js-toggle-board-multi-selection'(evt) {
     evt.preventDefault();

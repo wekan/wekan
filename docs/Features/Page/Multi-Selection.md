@@ -37,7 +37,9 @@ off.
 
 `allBoardsMultiSelectionSidebar`. Turning Multi-Selection on opens it; turning
 it off closes it, because its only content is a panel of actions on a selection
-that no longer exists.
+that no longer exists. While the mode is on, the panel stays visible on its
+Multi-Selection view: its close button, Escape, and the active header button
+cannot hide it or replace it with another sidebar view.
 
 With nothing selected it says so (`multi-selection-active`, "Click checkboxes to
 select boards"). With a selection it is four rows and a way out:

@@ -229,5 +229,6 @@ Template.allBoardsMultiSelectionSidebar.events({
   'click .js-multiselection-reset'(evt) {
     evt.preventDefault();
     BoardMultiSelection.disable();
+    closeAllBoardsSidebar();
   },
 });

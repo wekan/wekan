@@ -1,7 +1,9 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 const {
   DEFAULT_SIDEBAR_VIEW,
+  SIDEBAR_MULTISELECTION,
   resolveSidebarView,
 } = require('/models/lib/allBoardsSidebar');
 
@@ -38,6 +40,14 @@ export function isAllBoardsSidebarView(view) {
 // is open closes it again, so the header-bar button that opened it also shuts
 // it - which is what a pressed-looking button should do.
 export function openAllBoardsSidebar(view) {
+  // Selection mode is operated from this panel. Letting another control hide
+  // it, or replace it with Search/Home, leaves checked boards on the page with
+  // no visible way to act on them or turn the mode off.
+  if (BoardMultiSelection.isActive()) {
+    viewVar.set(SIDEBAR_MULTISELECTION);
+    openVar.set(true);
+    return;
+  }
   const next = resolveSidebarView(view);
   if (openVar.get() && allBoardsSidebarView() === next) {
     closeAllBoardsSidebar();
@@ -48,6 +58,11 @@ export function openAllBoardsSidebar(view) {
 }
 
 export function closeAllBoardsSidebar() {
+  if (BoardMultiSelection.isActive()) {
+    viewVar.set(SIDEBAR_MULTISELECTION);
+    openVar.set(true);
+    return;
+  }
   openVar.set(false);
 }
 
