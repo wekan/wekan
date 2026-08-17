@@ -68,6 +68,7 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
   if (!Match.test(limit, Number)) return;
 
   const userId = this.userId;
+  const publication = this;
   const lim = Math.max(1, Math.min(Math.floor(limit) || 1, MAX_WINDOW));
   const safe = selectorIsInjection(cardSelector, 'boardCardsWindow')
     ? { _id: { $in: [] } }
@@ -148,7 +149,16 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
       // The window's cards.
       {
         async find(board) {
-          return await ReactiveCache.getCards(windowSel(board), { sort: sortOpt, limit: lim }, true);
+          const cards = await ReactiveCache.getCards(
+            windowSel(board),
+            { sort: sortOpt, limit: lim },
+            false,
+          );
+          for (const card of cards || []) {
+            const { _id, ...fields } = card;
+            publication.added('cards', _id, fields);
+          }
+          return null;
         },
       },
       // The window's comments — one cursor for the whole window (not per card).
