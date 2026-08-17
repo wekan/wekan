@@ -427,7 +427,7 @@ This release fixes the following bug:
 **All Boards** - scrolling the overview on a phone.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0fb1e41e">One vertical swipe reaches every board and invitation control</a>. Thanks to mimZD and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ae2cfd8aa">One vertical swipe reaches every board and invitation control</a>. Thanks to mimZD and xet7.</summary>
 
 The page had nested vertical overflow panes on `#content`, its wrapper, the left
 menu, the icon grid and the table view. A swipe could be captured by the wrong
