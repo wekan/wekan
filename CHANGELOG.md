@@ -425,7 +425,8 @@ always following the visible section and search result. While that mode is on,
 its action sidebar now stays visible until Multi-Selection is turned off, and
 its actions remain available before the first board is checked. Setting a Home
 board now requires exactly one checked board, and the Home section offers only
-the actions that make sense for its current board.
+the actions that make sense for its current board. Dragging a selection onto
+Home follows the same one-board rule.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -559,6 +560,16 @@ Set and Unset as Home board now use the same "Please select only one board"
 message for both invalid counts: zero and several selected boards. The other
 bulk actions retain their separate empty-selection warning. The Home action
 still stops before calling the server unless exactly one board is checked.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aebc7d9de">Home rejects a drag containing multiple boards</a>. Thanks to xet7.</summary>
+
+Dropping several selected boards onto Home now reports "Please select only one
+board" instead of silently making the first one Home. The rejected drop changes
+nothing and keeps Multi-Selection intact so the user can narrow it. A one-board
+drag continues to set Home normally, with regression coverage for both paths.
 
 </details>
 
