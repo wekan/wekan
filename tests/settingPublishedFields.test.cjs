@@ -76,9 +76,19 @@ test('the checkboxes that were broken by this are covered by name', () => {
   // from the settings document and which could not be ticked before.
   for (const field of ['supportPageEnabled', 'supportPagePublic',
     'hideBoardActivitiesOnAllBoards', 'boardMembersFromSameOrgOnly',
-    'boardMembersFromSameTeamOnly']) {
+    'boardMembersFromSameTeamOnly', 'enablePermanentDelete']) {
     assert.ok(published.has(field), `${field} must be published`);
   }
+});
+
+test('the permanent-delete checkbox receives the value it writes (negative)', () => {
+  const js = read('client/components/settings/adminProblems.js');
+  assert.ok(/enablePermanentDelete\(\)[\s\S]{0,100}\.enablePermanentDelete/.test(js),
+    'the checkbox helper reads enablePermanentDelete');
+  assert.ok(/toggleSettingField\('enablePermanentDelete'\)/.test(js),
+    'and its handler writes that same field');
+  assert.ok(published.has('enablePermanentDelete'),
+    'the publication must return the stored value or the checkmark reverts');
 });
 
 test('the SMTP settings stay admin-only, in their own publication', () => {
