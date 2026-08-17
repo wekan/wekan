@@ -232,6 +232,7 @@ function homeBoardId() {
 // before the drop happens. docs/Features/Board/Home.md
 const DRAG_FROM_HOME = 'application/x-board-from-home';
 const DRAG_FROM_REMAINING = 'application/x-board-from-remaining';
+const DRAG_FROM_WORKSPACE = 'application/x-board-from-workspace';
 const ARCHIVED_MULTI_BOARD_DRAG = 'application/x-archived-board-multi';
 
 // Reordering a bookmark carries its own type, so a bookmark and a board cannot
@@ -296,6 +297,20 @@ function isDragFromRemaining(evt) {
   } catch (e) {
     return false;
   }
+}
+
+function isDragFromWorkspace(evt) {
+  try {
+    const types = evt.originalEvent.dataTransfer.types;
+    if (!types) return false;
+    return Array.prototype.indexOf.call(types, DRAG_FROM_WORKSPACE) !== -1;
+  } catch (e) {
+    return false;
+  }
+}
+
+function isDragFromRemainingOrWorkspace(evt) {
+  return isDragFromRemaining(evt) || isDragFromWorkspace(evt);
 }
 
 function menuItemCountOf(type) {
@@ -1663,6 +1678,14 @@ Template.boardList.events({
         evt.originalEvent.dataTransfer.setData(DRAG_FROM_REMAINING, '1');
       } catch (e) {}
     }
+    if (
+      tpl && tpl.selectedWorkspaceIdVar
+      && tpl.selectedWorkspaceIdVar.get()
+    ) {
+      try {
+        evt.originalEvent.dataTransfer.setData(DRAG_FROM_WORKSPACE, '1');
+      } catch (e) {}
+    }
 
     // While Multi-Selection is on in Archive, every board drag is a restore
     // gesture. Mark even an unselected tile dragged on its own, so Home cannot
@@ -1730,10 +1753,13 @@ Template.boardList.events({
         && BoardMultiSelection.isActive();
       const fromRemaining =
         tpl && tpl.selectedMenu && tpl.selectedMenu.get() === SECTION_REMAINING;
+      const fromWorkspace =
+        tpl && tpl.selectedWorkspaceIdVar && tpl.selectedWorkspaceIdVar.get();
       if (
         type === 'remaining'
         || (!archivedMulti && type === 'home')
-        || (fromRemaining && (type === 'starred' || type === 'archive'))
+        || ((fromRemaining || fromWorkspace) &&
+          (type === 'starred' || type === 'archive'))
       ) {
         el.classList.add('board-drag-hint');
       }
@@ -2104,10 +2130,11 @@ Template.boardList.events({
     if (isDragFromHome(evt)) return;
     const menuType = evt.currentTarget.getAttribute('data-type');
     // Remaining accepts board drags generally. Starred additionally accepts a
-    // board that came from Remaining. Home and Archive have their own handlers.
+    // board from Remaining or an existing Workspace. Home and Archive have
+    // their own handlers.
     if (
       menuType !== 'remaining'
-      && !(menuType === 'starred' && isDragFromRemaining(evt))
+      && !(menuType === 'starred' && isDragFromRemainingOrWorkspace(evt))
     ) return;
     evt.preventDefault();
     evt.stopPropagation();
@@ -2379,7 +2406,7 @@ Template.boardList.events({
     }
 
     if (menuType === 'starred') {
-      if (!isDragFromRemaining(evt)) return;
+      if (!isDragFromRemainingOrWorkspace(evt)) return;
       const user = ReactiveCache.getCurrentUser();
       boardIds.forEach((boardId) => {
         if (!user || !user.hasStarred(boardId)) {
