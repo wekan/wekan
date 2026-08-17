@@ -6,7 +6,7 @@
 //- each report, which is how the reports had drifted apart.
 //-
 //- Data context (see tablePage.js / models/lib/tablePage.js):
-//-   title / titleKey, descKey, statusTemplate + statusData,
+//-   title / titleKey, descKey, additionalDesc, statusTemplate + statusData,
 //-   header[], rows[], rowCount, searchTerm, page, totalPages, hasPrev, hasNext,
 //-   emptyKey
 template(name="tablePage")
@@ -25,6 +25,8 @@ template(name="tablePage")
       h1.table-page-title.admin-pane-title {{title}}
     if descKey
       p.quiet.table-page-desc {{_ descKey}}
+    if additionalDesc
+      p.quiet.table-page-desc {{additionalDesc}}
     if statusTemplate
       .table-page-status
         +Template.dynamic(template=statusTemplate data=statusData)

@@ -712,6 +712,7 @@ const REPORT_TABLES = {
   },
   'report-recovery': {
     descKey: 'recovery-report-desc',
+    additionalDesc: 'Recovery also logs permanent-delete setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address, and attempted board IDs and titles.',
     emptyKey: 'recovery-no-events',
     docs: () => collectionResults(RecoveryEvents, { createdAt: -1 }).fetch(),
     rowClass: d => `recovery-severity-${d.severity || 'info'}`,
@@ -759,6 +760,7 @@ function reportTablePageData(tmpl) {
     // Admin Panel pane (docs/Features/Page/Left-Menu.md) - and this report's menu
     // entry carries the very same i18n key, so both would have printed it.
     descKey: spec.descKey,
+    additionalDesc: spec.additionalDesc,
     emptyKey: spec.emptyKey,
     searchTerm: cfg.search.get(),
     filters: reportId === 'report-recovery' ? buildFilters([{

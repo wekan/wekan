@@ -68,6 +68,8 @@ test('client report is wired: config, columns, menu, rendering', () => {
   assert.ok(!/titleKey: 'recoveryReportTitle'/.test(js),
     'and the table must not repeat it');
   assert.ok(/emptyKey: 'recovery-no-events'/.test(js), 'empty-state key');
+  assert.ok(/additionalDesc: 'Recovery also logs permanent-delete setting changes[\s\S]*unauthorized permanent-delete attempt[\s\S]*board IDs and titles\.'/m.test(js),
+    'a second description explains the permanent-delete audit fields');
   assert.ok(/rowClass: d => `recovery-severity-\$\{d\.severity \|\| 'info'\}`/.test(js),
     'severity row class');
   for (const status of ['all', 'done', 'failed', 'deleted']) {
@@ -80,6 +82,9 @@ test('client report is wired: config, columns, menu, rendering', () => {
   // The side menu is data now (docs/Features/Page/Left-Menu.md).
   assert.ok(/'report-recovery'/.test(js), 'menu entry');
   assert.ok(/\+tablePage\(tablePageData\)/.test(jade), 'rendered through the shared table page');
+  const tablePage = read('client/components/settings/tablePage.jade');
+  assert.ok(/if additionalDesc\s+p\.quiet\.table-page-desc \{\{additionalDesc\}\}/.test(tablePage),
+    'the additional description renders below the current description');
 });
 
 test('i18n keys exist', () => {
