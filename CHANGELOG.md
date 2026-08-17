@@ -418,7 +418,9 @@ documentation and English source strings. Permanent-delete setting changes and
 board-purge attempts, including unauthorized and failed ones, are audited in
 **Recovery** with Boolean status, acting user, proxy-aware IP address, board IDs
 and titles; coloured icons distinguish success, failure and deleted data, and a
-dropdown filters the audit to All, Done, Failed or Deleted events.
+dropdown filters the audit to All, Done, Failed or Deleted events. A second
+description below the database-recovery explanation names the permanent-delete
+events and fields recorded here.
 **Board Archive** removes permanent delete from individual board icons and
 offers it as one confirmed red action on a multi-selection, with the same gate
 enforced again on the server. When that gate is disabled, the sidebar explains
@@ -508,6 +510,17 @@ the Recovery table. The server applies the selected outcome together with search
 before counting and pagination, so page totals and rows stay consistent. Legacy
 events without the newer Boolean field remain under Done. Positive, combined and
 negative selector tests cover the filter and its UI wiring.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b418b0df">Recovery explains its permanent-delete audit trail</a>. Thanks to xet7.</summary>
+
+A second description below the existing database-recovery explanation now tells
+admins that this report also logs permanent-delete setting changes and successful,
+failed or unauthorized purge attempts. It names the recorded Done status, user ID,
+username, trusted IPv4 or IPv6 address, and attempted board IDs and titles. A UI
+wiring test pins both the content and its position below the original paragraph.
 
 </details>
 

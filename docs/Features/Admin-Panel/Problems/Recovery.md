@@ -122,6 +122,11 @@ pagination, and combines with the search term. Older events written before the
 `done` field existed count as Done because those event types represented completed
 recovery actions.
 
+Below the existing database-recovery description, the pane has a second paragraph
+explaining that Recovery also records permanent-delete setting changes and every
+successful, failed or unauthorized purge attempt, together with its Done status,
+actor, trusted address and attempted board IDs and titles.
+
 ## Manual recovery
 
 To force a restore on the next start, set `WEKAN_FORCE_RESTORE=backup` (or `prev`, or
