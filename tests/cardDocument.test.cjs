@@ -28,7 +28,15 @@ const {
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-const CARD = { title: 'Kortti 1', description: 'Some **bold** text\n\n- one\n- two' };
+const CARD = {
+  title: 'Kortti 1', description: 'Some **bold** text\n\n- one\n- two', sort: 42,
+  stickers: [{ icon: 'flag', name: 'Urgent', color: 'red' }],
+  locations: [{
+    _id: 'loc1', name: 'Office', address: 'Main Street 1',
+    latitude: 60.1699, longitude: 24.9384,
+  }],
+  cardDependencies: [{ cardId: 'other', type: 'blocks', icon: 'link', color: '#f00' }],
+};
 const DATA = {
   boardTitle: 'Taulu', listTitle: 'Lista', createdBy: 'xet7',
   labels: ['Keltainen', 'Punainen'],
@@ -47,8 +55,27 @@ test('the sections are the Excel layout\'s sections, in its order', () => {
   // subtasks, and those sections are therefore absent: only fields that have
   // data are added.
   assert.deepStrictEqual(documentSections(buildCardDocument(CARD, DATA, [], k => k)), [
+    'stickers', 'locations', 'dependencies',
     'description', 'checklists', 'comments', 'attachments',
   ]);
+});
+
+test('every opened-card field missing from the old export is in the shared document', () => {
+  const doc = buildCardDocument(CARD, DATA, [], k => k);
+  const allText = JSON.stringify(doc);
+  for (const value of [
+    'Urgent', 'flag', 'red', 'Office', 'Main Street 1', '60.1699', '24.9384',
+    'other', 'blocks', '#f00', '42',
+  ]) assert.ok(allText.includes(value), `${value} is exported`);
+
+  const legacy = buildCardDocument({
+    locationName: 'Legacy place', locationAddress: 'Old road',
+    locationLatitude: 1.25, locationLongitude: 2.5,
+  }, {}, [], k => k);
+  const legacyText = JSON.stringify(legacy);
+  for (const value of ['Legacy place', 'Old road', '1.25', '2.5']) {
+    assert.ok(legacyText.includes(value), `legacy ${value} is exported`);
+  }
 });
 
 test('ONLY the fields that have data are added', () => {
@@ -106,7 +133,8 @@ test('the export\'s own marks are separate from the author\'s text', () => {
   // not to the card - so a renderer can style them differently and the markdown
   // that follows is not pasted into a string with them.
   const doc = buildCardDocument(CARD, DATA, [], k => k);
-  const list = doc.find(b => b.type === 'list' && b.items.length);
+  const list = doc.find(b => b.type === 'list'
+    && b.items.some(item => item.marker === '[x]' || item.marker === '[ ]'));
   assert.strictEqual(list.items[0].marker, '[x]');
   assert.strictEqual(list.items[0].done, true);
   assert.ok(!list.items[0].runs.some(r => r.text.includes('[x]')),

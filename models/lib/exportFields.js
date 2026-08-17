@@ -35,6 +35,10 @@ const CARD_EXPORT_FIELDS = [
   { field: 'attachments', label: 'attachments' },
   { field: 'voting', label: 'voting' },
   { field: 'poker', label: 'poker-question' },
+  { field: 'stickers', label: 'stickers' },
+  { field: 'locations', label: 'location' },
+  { field: 'dependencies', label: 'card-dependencies' },
+  { field: 'sort', label: 'sort' },
 ];
 
 // A board is its own header plus every card in it, so the board's list is the

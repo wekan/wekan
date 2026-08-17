@@ -93,6 +93,19 @@ test('detailed exports keep Board -> Swimlane -> List -> Card order', () => {
     'and detailed Excel follows the same scoped-header rule');
 });
 
+test('smaller exports begin at Swimlane -> List -> Card or List -> Card', () => {
+  for (const source of [pdf, excelBoard]) {
+    assert.ok(/this\._listId[\s\S]*this\._swimlaneId/.test(source),
+      'scope heading chooses List before Swimlane before Board');
+    assert.ok(/const groups = this\._listId[\s\S]*swimlane/.test(source),
+      'a list export has no extra swimlane group');
+    assert.ok(/group\.title && !this\._swimlaneId/.test(source),
+      'a swimlane export does not repeat its own heading');
+    assert.ok(/if \(!this\._listId\)/.test(source),
+      'a list export does not repeat its own list heading');
+  }
+});
+
 // ── one selection ───────────────────────────────────────────────────────────
 
 test('there is ONE field list, and everything imports it', () => {

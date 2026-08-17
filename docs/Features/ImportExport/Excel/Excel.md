@@ -39,6 +39,13 @@ export starts with that list and its cards; a card export contains that card.
 Even a board with one visible swimlane names it explicitly. PDF uses this same
 ordering.
 
+The shared card block includes the complete opened-card data: labels, stickers,
+all locations (place name, address, latitude and longitude), people, board/list/
+swimlane information, numeric sort position, dates and time tracking,
+dependencies, description, custom fields, checklists, subtasks, comments,
+attachments, voting and planning poker. Legacy single-location fields are
+rendered the same way as the current multiple-location array.
+
 The attachment section lists every file in a six-column details table: row
 number, filename, human-readable size, media type, upload date/time and
 uploader. Preview images use one worksheet column each, up to six on the same

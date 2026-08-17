@@ -60,6 +60,11 @@ cards, list then cards, or the single card. The only visible swimlane is still
 named, so the hierarchy does not change merely because a board currently has
 one. Detailed Excel exports use the same order.
 
+Because every scope uses the shared card document, PDF carries the same complete
+opened-card fields as detailed Excel, including stickers, dependencies, numeric
+sort position, and every location's place name, address, latitude and longitude.
+Legacy single-location fields remain visible too.
+
 ## Current progress
 
 Completed:

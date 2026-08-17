@@ -51,6 +51,9 @@ const FALLBACKS = {
   checklists: 'Checklists', 'export-card-subtasks': 'Subtasks',
   comments: 'Comments', attachments: 'Attachments', voting: 'Voting',
   'poker-question': 'Poker', date: 'Date', comment: 'Comment',
+  stickers: 'Stickers', location: 'Location', 'card-dependencies': 'Dependencies',
+  sort: 'Sort', 'location-name': 'Location name', 'location-address': 'Address',
+  'location-latitude': 'Latitude', 'location-longitude': 'Longitude',
 };
 
 const EMPTY_STYLE = { bold: false, italic: false, code: false, strike: false, link: '' };
@@ -63,6 +66,19 @@ const plainRuns = text => (text ? [{ text: String(text), ...EMPTY_STYLE }] : [])
 function wanted(fields, key) {
   if (!fields || !fields.length) return true;      // no selection means all of it
   return fields.includes(key);
+}
+
+function cardLocations(card = {}) {
+  if (Array.isArray(card.locations) && card.locations.length) return card.locations;
+  if (card.locationName || card.locationAddress
+      || typeof card.locationLatitude === 'number'
+      || typeof card.locationLongitude === 'number') {
+    return [{
+      name: card.locationName || '', address: card.locationAddress || '',
+      latitude: card.locationLatitude, longitude: card.locationLongitude,
+    }];
+  }
+  return [];
 }
 
 // The card's own header: the title, then the meta pairs the Excel layout puts
@@ -106,6 +122,7 @@ function cardHeaderBlocks(card, data, fields, translate) {
     add('overtime', data.overtime);
   }
   if (wanted(fields, 'labels')) add('labels', (data.labels || []).join(', '));
+  if (wanted(fields, 'sort')) add('sort', card.sort);
 
   // Three to a row, which is what the Excel layout does with A–F.
   for (let i = 0; i < pairs.length; i += 3) {
@@ -134,6 +151,8 @@ function cardHeaderBlocks(card, data, fields, translate) {
 // data for is simply absent from the document, so neither renderer needs to know
 // this rule at all.
 function hasSectionData(key, card = {}, data = {}) {
+  card = card || {};
+  data = data || {};
   const some = list => Array.isArray(list) && list.length > 0;
   switch (key) {
     case 'description':
@@ -157,6 +176,12 @@ function hasSectionData(key, card = {}, data = {}) {
       return !!data.voting && some(data.voting);
     case 'poker':
       return !!data.poker && some(data.poker);
+    case 'stickers':
+      return some(card.stickers);
+    case 'locations':
+      return cardLocations(card).length > 0;
+    case 'dependencies':
+      return some(card.cardDependencies);
     default:
       return true;
   }
@@ -166,7 +191,7 @@ function hasSectionData(key, card = {}, data = {}) {
 // and what a test can compare between the two formats.
 function sectionsWithData(card, data, fields) {
   return ['description', 'custom-fields', 'checklists', 'subtasks', 'comments',
-    'attachments', 'voting', 'poker']
+    'attachments', 'voting', 'poker', 'stickers', 'locations', 'dependencies']
     .filter(key => wanted(fields, key) && hasSectionData(key, card, data));
 }
 
@@ -183,6 +208,51 @@ function buildCardDocument(card, data, fields, translate) {
   const t = key => translator(key, FALLBACKS[key] || key) || FALLBACKS[key] || key;
   const blocks = cardHeaderBlocks(card || {}, rows, selection, t);
   const section = (key, titleKey) => blocks.push({ type: 'section', key, title: t(titleKey) });
+
+  if (wanted(selection, 'stickers') && hasSectionData('stickers', card, rows)) {
+    section('stickers', 'stickers');
+    blocks.push({
+      type: 'list',
+      items: (card.stickers || []).map(sticker => ({
+        runs: plainRuns([
+          sticker.name || '', sticker.icon || '', sticker.color || '', sticker.highlight || '',
+        ].filter(Boolean).join(' - ')),
+        marker: '-', level: 0,
+      })),
+    });
+  }
+
+  if (wanted(selection, 'locations') && hasSectionData('locations', card, rows)) {
+    section('locations', 'location');
+    cardLocations(card).forEach((location, index) => {
+      blocks.push({
+        type: 'note',
+        runs: plainRuns(`${t('location')} ${index + 1}`),
+      });
+      const pairs = [
+        [t('location-name'), location.name],
+        [t('location-address'), location.address],
+        [t('location-latitude'), location.latitude],
+        [t('location-longitude'), location.longitude],
+      ].filter(([, value]) => value !== undefined && value !== null && value !== '');
+      for (let at = 0; at < pairs.length; at += 3) {
+        blocks.push({ type: 'meta', pairs: pairs.slice(at, at + 3) });
+      }
+    });
+  }
+
+  if (wanted(selection, 'dependencies') && hasSectionData('dependencies', card, rows)) {
+    section('dependencies', 'card-dependencies');
+    blocks.push({
+      type: 'list',
+      items: (card.cardDependencies || []).map(dependency => {
+        const value = typeof dependency === 'string' ? dependency : [
+          dependency.cardId, dependency.type, dependency.icon, dependency.color,
+        ].filter(Boolean).join(' - ');
+        return { runs: plainRuns(value), marker: '-', level: 0 };
+      }),
+    });
+  }
 
   if (wanted(selection, 'description') && hasSectionData('description', card, rows)) {
     section('description', 'description');
@@ -297,5 +367,6 @@ module.exports = {
   documentSections,
   hasSectionData,
   sectionsWithData,
+  cardLocations,
   wanted,
 };

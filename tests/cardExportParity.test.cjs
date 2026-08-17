@@ -98,7 +98,9 @@ test('the new sections are selectable, and the client offers them', () => {
   // imported from models/lib/exportFields.js by both - a "must match" comment is
   // not a mechanism, and a section added on one side used to be a checkbox that
   // did nothing or a section nobody could turn off.
-  for (const field of ['custom-fields', 'voting', 'poker']) {
+  for (const field of [
+    'custom-fields', 'voting', 'poker', 'stickers', 'locations', 'dependencies', 'sort',
+  ]) {
     assert.ok(new RegExp(`field: '${field}'`).test(exportFields),
       `${field} is in the shared field list`);
   }
