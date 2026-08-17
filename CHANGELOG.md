@@ -437,11 +437,12 @@ includes locations, stickers, dependencies and sort position; PDF also embeds
 JPEG and PNG attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. **Requested By and Assigned
-By** can select board members while retaining their free-text fields. Below
-that: fourteen export fixes, one export-layout consolidation, one people-picker
-fix, two shared-checkbox fixes, two UI sizing fixes, restored subtask creation,
-and the documentation move into its feature and platform hierarchy with every
-local link checked.
+By** can select board members while retaining their free-text fields, and
+**minicard titles** save again from their inline editor. Below that: fourteen
+export fixes, one export-layout consolidation, one people-picker fix, two
+shared-checkbox fixes, two UI sizing fixes, restored subtask creation, and the
+documentation move into its feature and platform hierarchy with every local
+link checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -477,6 +478,22 @@ the existing Requested By / Assigned By design document.
 </details>
 
 and fixes the following bugs:
+
+**Minicards** - editing a card directly on the board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49c8ae6cd">Saving an inline title edit renames its minicard again</a>. Thanks to Heart1010 and xet7.</summary>
+
+The title editor is a nested `inlinedForm`, whose submit event receives the
+form arguments as `this`, not the Card document. Saving therefore called
+`getTitle()` on `{ classNames: "js-minicard-title-form" }`, threw a `TypeError`
+and restored the old title.
+
+The handler now takes the Card from its enclosing minicard template instance,
+compares and saves through that document, and never treats the nested event
+context as a Card. Empty and unchanged titles remain no-ops.
+
+</details>
 
 **Opened cards** - the people responsible for requesting and assigning work.
 
