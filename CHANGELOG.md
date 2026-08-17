@@ -415,9 +415,11 @@ card's date format, preserve multilingual text, and name downloads for the
 localized board, swimlane, list or card exported; PDF also embeds JPEG and PNG
 attachment previews plus Unicode-plane fonts. **Admin Panel / Problems** keeps
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
-placeholder tiles as tall as the boards beside them. Below that: twelve export
-fixes, two shared-checkbox fixes, two UI sizing fixes, and the documentation move
-into its feature and platform hierarchy with every local link checked.
+placeholder tiles as tall as the boards beside them. **Requested By and Assigned
+By** can select board members while retaining their free-text fields. Below
+that: twelve export fixes, two shared-checkbox fixes, two UI sizing fixes, and
+the documentation move into its feature and platform hierarchy with every local
+link checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -430,7 +432,29 @@ into its feature and platform hierarchy with every local link checked.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bugs:
+This release adds the following new feature:
+
+**Opened cards** - the people responsible for requesting and assigning work.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb5275e97">Requested By and Assigned By can select board members</a>. Thanks to xet7.</summary>
+
+Their round `+` now opens a searchable board-member picker like Members and
+Assignee. Selected people appear as avatars, while the `Add` link stays below
+the `+` and continues to open the existing free-text editor. The two forms are
+independent, so a card can retain an external name or note beside its selected
+members.
+
+Cards store selected people in `requesters` and `assigners` user-ID arrays,
+with assign, unassign and toggle operations matching assignees. WeKan JSON and
+scoped imports preserve them, whole-board imports remap their user IDs, and
+user removal cleans them up. PDF, detailed and table Excel, and CSV resolve the
+selected people beside the original text fields. The implementation completes
+the existing Requested By / Assigned By design document.
+
+</details>
+
+and fixes the following bugs:
 
 **Exporting** - choosing what goes in the file.
 
