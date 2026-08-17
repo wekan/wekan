@@ -496,22 +496,6 @@ really fails instead of silently clearing it.
 **Exporting** - choosing what goes in the file.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0885b9a10">Every PDF and Excel scope maps cards through one shared adapter</a>. Thanks to xet7.</summary>
-
-Board, swimlane, list and card hamburger menus already use one export popup,
-selection and URL builder, and the detailed board exporters reuse their card
-renderers. One duplicate layer remained: PDF and Excel separately converted
-database records into the shared card document, including separate people,
-date, checklist, comment, attachment and file-size mappings.
-
-Both formats now call one pure adapter for every card at every scope. Scope only
-selects the surrounding Board → Swimlane → List → Card hierarchy; PDF-specific
-code draws pages and Excel-specific code draws worksheet cells. The Excel and
-PDF feature documents describe this design and its format-specific boundary.
-
-</details>
-
-<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec9f9e76d">Board Excel exports now use the detailed card layout they request</a>. Thanks to xet7.</summary>
 
 The export popup sent the `card-details` layout choice, but the server's shared
@@ -893,6 +877,24 @@ list with a different set of boards in it, so they share one rule, and every
 tile variant computes to the same 114px border-box floor. A test pins that there
 is one list and that no variant sets a height of its own, so that question keeps
 having one answer instead of six.
+
+</details>
+
+and has the following developer-tooling improvement:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0885b9a10">Every PDF and Excel scope maps cards through one shared adapter</a>. Thanks to xet7.</summary>
+
+Board, swimlane, list and card hamburger menus already use one export popup,
+selection and URL builder, and the detailed board exporters reuse their card
+renderers. One duplicate layer remained: PDF and Excel separately converted
+database records into the shared card document, including separate people,
+date, checklist, comment, attachment and file-size mappings.
+
+Both formats now call one pure adapter for every card at every scope. Scope only
+selects the surrounding Board → Swimlane → List → Card hierarchy; PDF-specific
+code draws pages and Excel-specific code draws worksheet cells. The Excel and
+PDF feature documents describe this design and its format-specific boundary.
 
 </details>
 
