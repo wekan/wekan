@@ -427,7 +427,8 @@ its action sidebar now stays visible until Multi-Selection is turned off, and
 its actions remain available before the first board is checked. Setting a Home
 board now requires exactly one checked board, and the Home section offers only
 the actions that make sense for its current board. Dragging a selection onto
-Home follows the same one-board rule.
+Home follows the same one-board rule. Remaining can now drag boards onto
+Starred or Archive as green targets.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -582,6 +583,18 @@ Dropping several selected boards onto Home now reports "Please select only one
 board" instead of silently making the first one Home. The rejected drop changes
 nothing and keeps Multi-Selection intact so the user can narrow it. A one-board
 drag continues to set Home normally, with regression coverage for both paths.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3edc723f2">Remaining boards can be dragged to Starred and Archive</a>. Thanks to xet7.</summary>
+
+Dragging one or several boards from Remaining now highlights Starred and
+Archive in green alongside its existing valid targets. A Starred drop adds only
+missing stars, so every board stays in Remaining and an already-starred board is
+not accidentally unstarred. An Archive drop keeps the existing confirmation
+and moves the whole drag into Archive. Tests cover the source marker, target
+hints, additive starring and confirmed archive path.
 
 </details>
 
