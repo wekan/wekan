@@ -57,6 +57,9 @@ Template.allBoardsSidebar.helpers({
 Template.allBoardsSidebar.events({
   'click .js-close-all-boards-sidebar'(evt) {
     evt.preventDefault();
+    // Selection mode deliberately keeps this sidebar visible, so its X must
+    // turn the mode off before closeAllBoardsSidebar() will accept the close.
+    if (BoardMultiSelection.isActive()) BoardMultiSelection.disable();
     closeAllBoardsSidebar();
   },
   'click .js-all-boards-sidebar-home'(evt) {

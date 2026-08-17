@@ -41,3 +41,14 @@ test('turning multi-selection off closes the now-unlocked sidebar', () => {
     'both All Boards off controls must disable before closing',
   );
 });
+
+test('the sidebar X turns Multi-Selection off before closing it', () => {
+  const at = sidebarEvents.indexOf("'click .js-close-all-boards-sidebar'");
+  const body = sidebarEvents.slice(at, sidebarEvents.indexOf('\n  },', at));
+
+  assert.match(body, /if \(BoardMultiSelection\.isActive\(\)\) BoardMultiSelection\.disable\(\)/);
+  assert.ok(
+    body.indexOf('BoardMultiSelection.disable()') < body.indexOf('\n    closeAllBoardsSidebar();'),
+    'the selection guard must be unlocked before the sidebar is closed',
+  );
+});
