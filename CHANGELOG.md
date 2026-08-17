@@ -409,7 +409,8 @@ browser build to verify).
 
 **In short:** **All Boards on phones** uses one native page scroller, so ordinary
 boards, invitation controls and table rows remain reachable with the same
-vertical swipe.
+vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
+6 and 7 data and merge it into the live FerretDB without opening SQLite twice.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -440,6 +441,26 @@ the board grid and the table page contribute their natural height to it, so a
 gesture has one owner and invitation controls are not clipped. Regression tests
 cover ordinary tiles, invitations, table view, viewport sizing and reject a
 second nested vertical scroller.
+
+</details>
+
+**Snap database recovery** - comparing and merging the retained database copy.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cea2f796">Recovery uses the compatible MongoDB reader and the live FerretDB</a>. Thanks to waltermhl and xet7.</summary>
+
+`database-compare` and `database-merge` tried only the current MongoDB 7
+executable, although the migration carries MongoDB 5.0 and 4.2 readers for
+older WiredTiger formats. A retained MongoDB 4.x or 5.0 database was therefore
+reported as `unreadable`, and merge had no source from which to recover the
+missing work.
+
+Both recovery phases now use the same 7, 5.0 and 4.2 compatibility ladder as
+migration, safely skipping readers absent on an architecture and naming the
+startup log when all of them fail. Merge also reuses a running FerretDB target;
+it no longer starts a second FerretDB against the already-open SQLite database.
+Only temporary processes are stopped afterwards, so a live database borrowed
+for the operation remains running.
 
 </details>
 
