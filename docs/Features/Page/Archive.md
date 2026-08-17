@@ -59,6 +59,9 @@ It keeps what made it worth having:
   boards and their contents cannot be recovered. The server independently
   checks the administrator, setting, archived state and complete selection
   before removing anything.
+- While Multi-Selection is active, **Select All** and **Select None** appear in
+  the right page above the board icons. They check or uncheck exactly the board
+  icons currently shown by the Archive and its search filter.
 
 Restoring navigates to the restored board. A successful permanent delete clears
 the selection; a refused one leaves it selected so the administrator can correct

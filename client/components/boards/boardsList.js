@@ -968,6 +968,10 @@ Template.boardList.helpers({
   boards() {
     return boardsForView(Template.instance());
   },
+  isArchiveMultiSelection() {
+    const tpl = Template.instance();
+    return tpl.selectedMenu.get() === 'archive' && BoardMultiSelection.isActive();
+  },
   // #5174 / #4825: the board tiles' per-list card-count line and member avatar
   // row. Data comes from the one-shot getAllBoardsTileData method fetch in
   // onCreated (see there) — NOT from reactive getLists/getCards cursors, which
@@ -1824,6 +1828,17 @@ Template.boardList.events({
     evt.stopPropagation();
     const boardId = this._id;
     BoardMultiSelection.toogle(boardId);
+  },
+  'click .js-archive-select-all'(evt, tpl) {
+    evt.preventDefault();
+    // `boardsForView` is the exact list of icons being drawn: Archive search
+    // and the current subscription have already narrowed it. Do not select an
+    // archived board that is not visible on this page.
+    BoardMultiSelection.add(boardsForView(tpl).map(board => board._id));
+  },
+  'click .js-archive-select-none'(evt) {
+    evt.preventDefault();
+    BoardMultiSelection.reset();
   },
   'click #resetBtn'(event) {
     let allBoards = document.getElementsByClassName('js-board');

@@ -827,6 +827,18 @@
   margin: 8px 0;
 }
 
+/* Archive bulk-selection belongs to the board icons it changes, immediately
+   above them. It is visible only while Multi-Selection is on. */
+.archive-multiselection-controls {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.archive-multiselection-controls button {
+  margin: 0;
+}
+
 /* ── Where the All Boards sidebar sits, on a DESKTOP ────────────────────────
    It first inherited the board sidebar's `position: absolute`, which resolves
    against the nearest positioned ancestor. On a board that ancestor is the

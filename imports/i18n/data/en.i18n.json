@@ -705,6 +705,7 @@
   "trello-api-credentials-saved": "Trello API key and token are saved. You can list workspaces without re-entering them.",
   "trello-select-boards": "Please select at least one board to import.",
   "select-all": "Select all",
+  "select-none": "Select none",
   "unselect-all": "Unselect all",
   "trello-import-more": "Import more boards",
   "trello-import-progress": "Import progress",
