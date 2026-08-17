@@ -424,6 +424,8 @@ and titles; coloured icons distinguish success, failure and deleted data, and a
 dropdown filters the audit to All, Done, Failed or Deleted events. A second
 description below the database-recovery explanation names the permanent-delete
 events and fields recorded here.
+The Delete settings pane repeats that audit explanation below its existing text,
+so an administrator sees what Recovery will record before changing the gate.
 **Board Archive** removes permanent delete from individual board icons and
 offers it as one confirmed red action on a multi-selection, with the same gate
 enforced again on the server. When that gate is disabled, the sidebar explains
@@ -524,6 +526,17 @@ admins that this report also logs permanent-delete setting changes and successfu
 failed or unauthorized purge attempts. It names the recorded Done status, user ID,
 username, trusted IPv4 or IPv6 address, and attempted board IDs and titles. A UI
 wiring test pins both the content and its position below the original paragraph.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71abf3f48">Delete settings explain their Recovery audit trail</a>. Thanks to xet7.</summary>
+
+The Recovery audit explanation now also appears below the existing text in Admin
+Panel → Problems → Delete, so the administrator sees exactly what will be recorded
+before enabling or disabling permanent deletion. Delete and Recovery use one
+shared sentence to prevent their descriptions from diverging. Tests pin its
+placement after the current Delete guidance and its reuse in both panes.
 
 </details>
 

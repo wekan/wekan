@@ -127,6 +127,11 @@ explaining that Recovery also records permanent-delete setting changes and every
 successful, failed or unauthorized purge attempt, together with its Done status,
 actor, trusted address and attempted board IDs and titles.
 
+Admin Panel → Problems → **Delete** repeats that same paragraph immediately below
+its existing permanent-delete setting description. Both panes use one shared source
+sentence, so the explanation at the control and the explanation at its audit trail
+cannot drift apart.
+
 ## Manual recovery
 
 To force a restore on the next start, set `WEKAN_FORCE_RESTORE=backup` (or `prev`, or
