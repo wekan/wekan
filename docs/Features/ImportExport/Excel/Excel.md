@@ -3,9 +3,10 @@
 WeKan exports either a whole board or one card as an `.xlsx` workbook. The
 board export has two forms:
 
-- the default streaming table keeps memory use flat for very large boards;
-- selecting card details produces printable A4 card blocks, using the same
-  fields offered by the export popup.
+- the default detailed export produces printable A4 card blocks, using the same
+  fields offered by the export popup;
+- explicitly clearing Card details selects a streaming table whose memory use
+  stays flat for very large boards.
 
 The related [PDF export](../PDF/PDF.md) uses the same field selection and the
 same card-document model. The intended common layout is described in
@@ -21,10 +22,27 @@ same card-document model. The intended common layout is described in
   when detailed board export is selected.
 - `models/server/renderCardDocumentExcel.js` renders every block from the shared
   card document with the six-column worksheet geometry.
+- `models/lib/cardExportDocument.js` is the single adapter from board, card,
+  people, checklist, comment and attachment records to that card document. PDF
+  calls the same adapter, including for human-readable attachment sizes.
 - `models/server/createWorkbook.js` selects the safe buffered ExcelJS writer
   when the installed streaming writer cannot load.
 - `models/lib/cardDocument.js` is the medium-independent card layout shared
   with PDF.
+
+The board, swimlane, list and card hamburger menus all include the same
+`exportScopeBody` Blaze template from
+`client/components/boards/exportScope.jade`. Its format table, section
+checkboxes, URL builder, locale parameters and scope parameters are defined
+once in `client/components/boards/exportScope.js`. There are no separate Excel
+or PDF menu templates for the four scopes.
+
+On the server, scope changes only the surrounding hierarchy and the cards
+selected. Every selected card goes through `buildExportCardDocument`; detailed
+board, list and swimlane Excel then calls the same
+`ExporterExcelCard.renderCardBlock` used by a single-card export. Excel-specific
+code only converts the shared blocks into worksheet cells, fills, borders,
+progress bars and images.
 
 ExcelJS writes rich text for Markdown, embeds JPEG, PNG, GIF and BMP attachment
 previews, formats dates in the requesting browser's timezone, and prints only
@@ -76,6 +94,8 @@ Completed:
 - a shared document renderer for a single card and detailed board export,
   including six-column metadata, colored labels, checklist progress,
   attachment metadata and image placement;
+- one shared hamburger-menu template and one raw-record adapter across board,
+  swimlane, list and card PDF/Excel exports;
 - access checks that constrain a card to the authorized board and list;
 - an Excel import round trip for the board-table shape.
 

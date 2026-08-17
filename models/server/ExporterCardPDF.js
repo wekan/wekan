@@ -4,7 +4,10 @@ import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { BOARD_EXPORT_FIELD_KEYS } from '/models/lib/exportFields';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
 // The layout, described once for both formats, and what a page makes of it.
-import { buildCardDocument } from '/models/lib/cardDocument';
+import {
+  buildExportCardDocument,
+  formatExportFileSize,
+} from '/models/lib/cardExportDocument';
 import {
   documentToLines,
   wrapTextBlock,
@@ -79,14 +82,6 @@ function formatCustomFieldValue(value, timezone, dateFormat) {
   return String(value);
 }
 
-function formatFileSize(bytes) {
-  const size = Number(bytes);
-  if (!Number.isFinite(size) || size <= 0) return '';
-  if (size < 1024) return `${size} B`;
-  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
-  return `${(size / (1024 * 1024)).toFixed(1)} MB`;
-}
-
 const PDF_IMAGE_TYPES = new Set(['image/jpeg', 'image/jpg', 'image/png']);
 
 function streamToBuffer(stream) {
@@ -113,7 +108,7 @@ async function attachmentImages(attachments) {
       const data = await streamToBuffer(stream);
       if (data.length) images.push({
         name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
-        size: formatFileSize(attachment.size),
+        size: formatExportFileSize(attachment.size),
         type,
         data,
       });
@@ -246,83 +241,13 @@ class PDFExporterBase {
 
   // The card, and the rows that belong to it, as the shared document's `data`.
   cardDocumentFrom(data) {
-    const {
-      board, list, card, swimlane, checklists, checklistItemsByChecklistId,
-      comments, subtasks, attachments, customFieldsById, usersById,
-    } = data;
-    const labelsById = Object.fromEntries(
-      ((board && board.labels) || [])
-        .filter(label => label && label._id)
-        .map(label => [label._id, label]),
-    );
-    const names = ids => (ids || []).map(userId => formatUser(usersById[userId])).filter(Boolean);
-
-    const vote = card.vote || {};
-    const poker = card.poker || {};
-    return buildCardDocument(card, {
-      boardTitle: (board && board.title) || '',
-      listTitle: (list && list.title) || '',
-      swimlaneTitle: (swimlane && swimlane.title) || '',
-      labels: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean)
-        .map(label => label.name || label.color || label._id),
-      labelDetails: (card.labelIds || []).map(id => labelsById[id]).filter(Boolean),
-      createdBy: formatUser(usersById[card.userId]),
-      members: names(card.members),
-      assignees: names(card.assignees),
-      cardNumber: card.cardNumber,
-      requestedBy: card.requestedBy || '',
-      assignedBy: card.assignedBy || '',
-      requesters: names(card.requesters),
-      assigners: names(card.assigners),
-      createdAt: this.date(card.createdAt),
-      modifiedAt: this.date(card.dateLastActivity || card.modifiedAt),
-      spentTime: card.spentTime === undefined || card.spentTime === null
-        ? '' : String(card.spentTime),
-      overtime: card.spentTime ? (card.isOvertime ? this.__('yes', 'Yes') : this.__('no', 'No')) : '',
-      receivedAt: this.date(card.receivedAt),
-      startAt: this.date(card.startAt),
-      dueAt: this.date(card.dueAt),
-      endAt: this.date(card.endAt),
-      customFields: (card.customFields || [])
-        .filter(field => field && field._id)
-        .map(field => {
-          const definition = customFieldsById[field._id];
-          return {
-            name: (definition && definition.name) || field._id,
-            value: this.customFieldValue(definition, field.value),
-          };
-        }),
-      checklists: (checklists || []).map(checklist => ({
-        title: checklist.title || '',
-        items: (checklistItemsByChecklistId[checklist._id] || []),
-      })),
-      subtasks: subtasks || [],
-      comments: (comments || []).map(comment => ({
-        date: this.date(comment.createdAt),
-        author: formatUser(usersById[comment.userId]),
-        text: comment.text || '',
-      })),
-      attachments: (attachments || []).map(attachment => ({
-        name: attachment.name || (attachment.meta && attachment.meta.name) || attachment._id,
-        size: formatFileSize(attachment.size),
-        type: attachment.type || '',
-        uploaded: this.date(attachment.uploadedAt || attachment.uploadedAtOstrio
-          || attachment.createdAt),
-        uploader: formatUser(usersById[attachment.userId
-          || (attachment.meta && attachment.meta.userId)]),
-      })),
-      images: data.images || [],
-      voting: vote.question ? [
-        [this.__('vote-question', 'Vote question'), vote.question],
-        [this.__('vote-for-it', 'For'), String((vote.positive || []).length)],
-        [this.__('vote-against', 'Against'), String((vote.negative || []).length)],
-      ] : null,
-      poker: (poker.question || poker.estimation !== undefined) ? [
-        [this.__('poker-question', 'Poker'), poker.question ? 'yes' : ''],
-        [this.__('poker-estimation', 'Estimation'),
-          poker.estimation === undefined ? '' : String(poker.estimation)],
-      ] : null,
-    }, this.fields, (key, fallback) => this.__(key, fallback));
+    return buildExportCardDocument(data, {
+      fields: [...this._fields],
+      userName: id => formatUser((data.usersById || {})[id]),
+      formatDate: value => this.date(value),
+      customFieldValue: (definition, value) => this.customFieldValue(definition, value),
+      translate: (key, fallback) => this.__(key, fallback),
+    });
   }
 
 }

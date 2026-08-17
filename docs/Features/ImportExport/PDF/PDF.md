@@ -9,14 +9,29 @@ build their content from the layout in
 
 - `models/exportPDF.js` authenticates and scopes the HTTP routes.
 - `models/server/ExporterCardPDF.js` loads board/card data, resolves users and
-  custom fields, reads attachment images, and maps that data into the shared
-  card document.
+  custom fields and reads attachment images.
+- `models/lib/cardExportDocument.js` maps those records into the shared card
+  document. Excel calls exactly the same adapter, so people, dates, checklist
+  items, comments, attachment details, sizes, voting and poker cannot be mapped
+  differently by the two formats.
 - `models/lib/cardDocument.js` decides which blocks exist and omits empty or
   unselected sections.
 - `models/lib/pdfDocument.js` renders those blocks, paginates them, writes the
   fallback PDF objects and embeds images.
 - `models/server/buildUnicodePdf.js` uses PDFKit to subset and embed the bundled
   GNU Unifont fonts for the normal export path.
+
+The board, swimlane, list and card hamburger menus do not have four PDF
+templates or a second set for Excel. They all include `exportScopeBody` from
+`client/components/boards/exportScope.jade`; one table in `exportScope.js`
+defines both download formats, one URL builder adds the selected scope, and one
+checkbox selection is sent to both routes.
+
+On the server, scope changes only the hierarchy surrounding the cards. Every
+card at every scope is converted by `buildExportCardDocument`, then PDF renders
+the returned medium-independent blocks as pages. PDF-specific code is limited
+to page geometry, wrapping, pagination, embedded fonts and image encoding; the
+meaning and ordering of card fields are shared with Excel.
 
 The distributable includes GNU Unifont 17.0.05 and Unifont Upper under the SIL
 Open Font License 1.1 in `private/fonts/unifont`. PDFKit subsets and embeds both
@@ -71,6 +86,8 @@ Completed:
 
 - board, list, swimlane and single-card PDF routes;
 - the same field selection and card-document layout as Excel;
+- one shared hamburger-menu template and one raw-record adapter across board,
+  swimlane, list and card PDF/Excel exports;
 - localized labels, user-timezone dates and rendered Markdown;
 - the logged-in user's saved language, falling back to the current browser
   language when no language is saved;

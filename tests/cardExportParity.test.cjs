@@ -41,6 +41,7 @@ const cardDetails = read('client/components/cards/cardDetails.js');
 const exportLocale = read('client/lib/exportLocale.js');
 const dateUtils = read('imports/lib/dateUtils.js');
 const exportFields = read('models/lib/exportFields.js');
+const exportDocument = read('models/lib/cardExportDocument.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -65,29 +66,31 @@ test('the PDF card export carries every field', () => {
   // it. Reading only the exporter would say a field was lost when it had merely
   // moved to where BOTH formats read it from.
   const document = read('models/lib/cardDocument.js');
-  const carried = `${pdf}\n${document}`;
+  const carried = `${pdf}\n${document}\n${exportDocument}`;
   for (const key of SECTIONS) {
     assert.ok(carried.includes(`'${key}'`), `the PDF export has no ${key}`);
   }
   // The two the report named that neither export had a section for at all.
-  assert.ok(/voting: /.test(pdf) && /'voting'/.test(carried), 'and the vote');
-  assert.ok(/poker: /.test(pdf) && /'poker-question'/.test(carried), 'and the poker');
+  assert.ok(/voting: /.test(exportDocument) && /'voting'/.test(carried), 'and the vote');
+  assert.ok(/poker: /.test(exportDocument) && /'poker-question'/.test(carried), 'and the poker');
   assert.ok(/export-card-subtasks/.test(carried), 'and the subtasks');
 });
 
 test('the Excel card export carries every field', () => {
   const document = read('models/lib/cardDocument.js');
   const renderer = read('models/server/renderCardDocumentExcel.js');
-  const carried = `${excel}\n${document}\n${renderer}`;
+  const carried = `${excel}\n${document}\n${exportDocument}\n${renderer}`;
   for (const key of SECTIONS) {
     assert.ok(carried.includes(`'${key}'`), `the Excel export has no ${key}`);
   }
-  assert.ok(/voting: vote\.question/.test(excel) && /'voting'/.test(document), 'and the vote');
-  assert.ok(/poker: \(poker\.question/.test(excel) && /'poker-question'/.test(document),
+  assert.ok(/voting: vote\.question/.test(exportDocument) && /'voting'/.test(document),
+    'and the vote');
+  assert.ok(/poker: \(poker\.question/.test(exportDocument) && /'poker-question'/.test(document),
     'and the poker');
-  assert.ok(/customFields:/.test(excel) && /'custom-fields'/.test(document),
+  assert.ok(/customFields:/.test(exportDocument) && /'custom-fields'/.test(document),
     'and the custom fields');
-  assert.ok(/renderCardDocumentExcel\(/.test(excel), 'the shared document is what Excel draws');
+  assert.ok(/buildExportCardDocument\(/.test(excel), 'Excel uses the shared data adapter');
+  assert.ok(/buildExportCardDocument\(/.test(pdf), 'PDF uses the shared data adapter');
 });
 
 test('the new sections are selectable, and the client offers them', () => {

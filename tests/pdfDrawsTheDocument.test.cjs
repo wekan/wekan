@@ -18,13 +18,15 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { buildCardDocument } = require('../models/lib/cardDocument');
+const { buildExportCardDocument } = require('../models/lib/cardExportDocument');
 const {
   documentToLines, buildPdfBuffer, preparePdfImage, columnRows, paginateLines,
 } = require('../models/lib/pdfDocument');
 
 const ROOT = path.join(__dirname, '..');
 const src = fs.readFileSync(path.join(ROOT, 'models/server/ExporterCardPDF.js'), 'utf8');
+const adapterSrc = fs.readFileSync(
+  path.join(ROOT, 'models/lib/cardExportDocument.js'), 'utf8');
 const unicodeRenderer = fs.readFileSync(
   path.join(ROOT, 'models/server/buildUnicodePdf.js'), 'utf8');
 
@@ -33,18 +35,8 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('pdfDrawsTheDocument:');
 
-// The mapping, lifted out of the class and given a stand-in for `this`.
+// The mapping is a pure shared function now, used directly by PDF and Excel.
 function runMapping() {
-  const start = src.indexOf('cardDocumentFrom(data) {');
-  assert.ok(start > 0, 'the exporter must have a cardDocumentFrom');
-  const body = src.slice(start, src.indexOf('\n  }\n', start));
-  const fn = new Function('buildCardDocument', 'formatUser', 'formatFileSize',
-    'formatCustomFieldValue', 'data',
-    `const self=this;${body.replace('cardDocumentFrom(data) {', '').replace(/this\./g, 'self.')}`);
-  const self = {
-    date: d => (d ? '2026-08-16' : ''), fields: [], __: (k, f) => f || k,
-    timezone: '', dateFormat: 'YYYY-MM-DD', customFieldValue: (d, v) => String(v ?? ''),
-  };
   const data = {
     board: { title: 'Taulu', labels: [{ _id: 'l1', name: 'Keltainen' }] },
     list: { title: 'Lista' }, swimlane: { title: 'Uimarata' },
@@ -63,8 +55,13 @@ function runMapping() {
     images: [{ attachmentId: 'image-1', name: 'a.png', size: '1234 B', data: Buffer.from('x') }],
     customFieldsById: { c1: { name: 'Size' } }, usersById: { u1: { username: 'xet7' } },
   };
-  return fn.call(self, buildCardDocument, u => (u && u.username) || '',
-    b => `${b} B`, v => String(v ?? ''), data);
+  return buildExportCardDocument(data, {
+    fields: [],
+    userName: id => (data.usersById[id] && data.usersById[id].username) || '',
+    formatDate: d => (d ? '2026-08-16' : ''),
+    customFieldValue: (definition, value) => String(value ?? ''),
+    translate: (key, fallback) => fallback || key,
+  });
 }
 
 test('the exporter maps its rows onto the shared document', () => {
@@ -190,7 +187,7 @@ test('a corrupt or unsupported image never breaks the PDF (negative)', () => {
 test('the exporter reads attachment bytes into the shared document', () => {
   assert.ok(/fileStoreStrategyFactory\.getFileStrategy\(attachment, 'original'\)/.test(src));
   assert.ok(/PDF_IMAGE_TYPES\.has\(type\)/.test(src), 'only supported formats are read');
-  assert.ok(/images: data\.images \|\| \[\]/.test(src), 'the bytes reach the document');
+  assert.ok(/images,/.test(adapterSrc), 'the bytes reach the shared document');
   assert.ok(/catch \(error\)[\s\S]*could not read image/.test(src),
     'a storage failure cannot fail the export');
 });

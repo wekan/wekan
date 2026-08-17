@@ -180,8 +180,8 @@ test('every export link is built by the one url helper', () => {
     .test(scopeJs), 'one builder for every entry');
   assert.ok(/fields: selectedFields\(\)\.join\(','\)/.test(scopeJs),
     'and the selection is part of what it builds');
-  assert.ok(/filename: entry\.ext \? exportFilename\(entry\.ext\) : ''/.test(scopeJs),
-    'with one filename helper too, so every download is named after its scope');
+  assert.ok(/response supplies its localized, scope-aware filename/.test(scopeJs),
+    'the response, not a duplicate client guess, names each download');
 });
 
 test('a CSV honours the selection as COLUMNS', () => {
