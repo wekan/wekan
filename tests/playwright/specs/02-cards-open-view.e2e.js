@@ -8,6 +8,7 @@
  *  - Switching from minimized to maximized (full-screen) view
  *  - Opening a card in a new tab in full-screen view
  *  - Card title edits do not break the card
+ *  - Minicard titles save inline, while blank titles remain unchanged
  */
 
 const { test, expect } = require('../fixtures');
@@ -115,6 +116,38 @@ test.describe('Cards – open & view modes', () => {
     await cp.waitForOpen();
     const title = await cp.getTitle();
     expect(title).toContain('Renamed');
+  });
+
+  test('editing a minicard title inline saves that card (#6604)', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const [listA] = board.listIds;
+    const card = bp.minicard(listA, 'Alpha Card');
+
+    await card.locator('.minicard-title-edit-zone').click();
+    const editor = card.locator('textarea.js-edit-minicard-title');
+    await expect(editor).toBeVisible({ timeout: 5_000 });
+    await editor.fill('Alpha Card - Inline renamed');
+    await card.locator('button.js-submit-edit-minicard-title').click();
+
+    await expect(bp.minicard(listA, 'Alpha Card - Inline renamed')).toBeVisible({
+      timeout: 8_000,
+    });
+    await expect(boardPage.locator('.js-card-details')).not.toBeVisible();
+  });
+
+  test('a blank inline minicard title is rejected (negative)', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const [listA] = board.listIds;
+    const card = bp.minicard(listA, 'Alpha Card');
+
+    await card.locator('.minicard-title-edit-zone').click();
+    const editor = card.locator('textarea.js-edit-minicard-title');
+    await expect(editor).toBeVisible({ timeout: 5_000 });
+    await editor.fill('   ');
+    await card.locator('button.js-submit-edit-minicard-title').click();
+
+    await expect(bp.minicard(listA, 'Alpha Card')).toBeVisible({ timeout: 5_000 });
+    await expect(boardPage.locator('.js-card-details')).not.toBeVisible();
   });
 
   test('closing the card detail panel hides it', async ({ boardPage, board }) => {
