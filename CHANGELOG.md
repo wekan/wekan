@@ -422,7 +422,8 @@ The same themed controls now cover **Remaining, Starred, Home and Templates**,
 always following the visible section and search result. While that mode is on,
 its action sidebar now stays visible until Multi-Selection is turned off, and
 its actions remain available before the first board is checked. Setting a Home
-board now requires exactly one checked board.
+board now requires exactly one checked board, and the Home section offers only
+the actions that make sense for its current board.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -536,6 +537,17 @@ while several selected boards now report "Please select only one board" instead
 of silently choosing the first. Only one selected id reaches
 `toggleDefaultBoard`, matching the fact that login can open only one Home board.
 Regression tests cover all three selection counts.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c6febe1d">The Home section offers Unset without Archive or Duplicate</a>. Thanks to xet7.</summary>
+
+The Home section's Multi-Selection sidebar now calls its toggle "Unset as Home
+board", matching what clicking its current Home board does. Move Board to
+Archive and Duplicate Board are hidden in that section while remaining
+available for the other live-board sections. A regression test pins both the
+Home-specific label and the absent actions.
 
 </details>
 
