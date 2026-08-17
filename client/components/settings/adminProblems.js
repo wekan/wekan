@@ -46,6 +46,11 @@ function abbreviate(text) {
   return text;
 }
 
+// The same audit trail is relevant where permanent deletion is enabled and where
+// its events are reviewed. Keep one sentence so the two panes cannot drift apart.
+const PERMANENT_DELETE_RECOVERY_DESCRIPTION =
+  'Recovery also logs permanent-delete setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address, and attempted board IDs and titles.';
+
 // The report publications already send only the current page (server-side
 // search + limit/skip, sorted). Display exactly what was published, applying
 // the same sort so minimongo order matches the server page. Re-applying
@@ -712,7 +717,7 @@ const REPORT_TABLES = {
   },
   'report-recovery': {
     descKey: 'recovery-report-desc',
-    additionalDesc: 'Recovery also logs permanent-delete setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address, and attempted board IDs and titles.',
+    additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION,
     emptyKey: 'recovery-no-events',
     docs: () => collectionResults(RecoveryEvents, { createdAt: -1 }).fetch(),
     rowClass: d => `recovery-severity-${d.severity || 'info'}`,
@@ -1047,6 +1052,9 @@ const featurePaneHelpers = {
   },
   enablePermanentDelete() {
     return (ReactiveCache.getCurrentSetting() || {}).enablePermanentDelete;
+  },
+  permanentDeleteRecoveryDescription() {
+    return PERMANENT_DELETE_RECOVERY_DESCRIPTION;
   },
 };
 const featurePaneEvents = {

@@ -11,6 +11,7 @@ const settingsServer = read('server/models/settings.js');
 const settingsClient = read('client/components/settings/adminProblems.js');
 const boardsServer = read('server/models/boards.js');
 const recoveryModel = read('models/recoveryEvents.js');
+const settingsJade = read('client/components/settings/adminProblems.jade');
 
 test('Admin Panel uses an audited server method for the permanent-delete toggle', () => {
   assert.match(
@@ -20,6 +21,22 @@ test('Admin Panel uses an audited server method for the permanent-delete toggle'
   assert.match(settingsServer, /async setPermanentDeleteEnabled\(enabled\)/);
   assert.match(settingsServer, /check\(enabled, Boolean\)/);
   assert.match(settingsServer, /user\?\.isAdmin !== true/);
+});
+
+test('Delete explains the Recovery audit trail below its existing guidance', () => {
+  assert.match(
+    settingsClient,
+    /permanentDeleteRecoveryDescription\(\) \{\s*return PERMANENT_DELETE_RECOVERY_DESCRIPTION/,
+  );
+  assert.match(
+    settingsJade,
+    /p\.description \{\{_ 'enable-permanent-delete-description'\}\}\s+p\.description \{\{permanentDeleteRecoveryDescription\}\}/,
+  );
+  assert.match(
+    settingsClient,
+    /additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION/,
+    'Delete and Recovery use the same description',
+  );
 });
 
 test('a changed setting logs the username and enabled or disabled state', () => {

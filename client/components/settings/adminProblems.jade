@@ -125,6 +125,7 @@ template(name="featuresDelete")
         .materialCheckBox(class="{{#if enablePermanentDelete}}is-checked{{/if}}")
         span {{_ 'enable-permanent-delete'}}
       p.description {{_ 'enable-permanent-delete-description'}}
+      p.description {{permanentDeleteRecoveryDescription}}
 
 //- Admin Panel / Problems / Notifications.
 template(name="featuresNotifications")

@@ -68,8 +68,8 @@ test('client report is wired: config, columns, menu, rendering', () => {
   assert.ok(!/titleKey: 'recoveryReportTitle'/.test(js),
     'and the table must not repeat it');
   assert.ok(/emptyKey: 'recovery-no-events'/.test(js), 'empty-state key');
-  assert.ok(/additionalDesc: 'Recovery also logs permanent-delete setting changes[\s\S]*unauthorized permanent-delete attempt[\s\S]*board IDs and titles\.'/m.test(js),
-    'a second description explains the permanent-delete audit fields');
+  assert.ok(/additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION/.test(js),
+    'a shared second description explains the permanent-delete audit fields');
   assert.ok(/rowClass: d => `recovery-severity-\$\{d\.severity \|\| 'info'\}`/.test(js),
     'severity row class');
   for (const status of ['all', 'done', 'failed', 'deleted']) {
