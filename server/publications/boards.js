@@ -361,7 +361,9 @@ Meteor.methods({
     // Same visibility selector as the live `boards` publication.
     const selector = {
       archived: false,
-      type: { $in: ['board', 'template-container'] },
+      type: search || menu === 'templates'
+        ? { $in: ['board', 'template-container'] }
+        : 'board',
       $or: boardVisibilitySelectors({
         userId,
         orgIds: user.orgIds(),
@@ -376,48 +378,34 @@ Meteor.methods({
       );
     }
 
-    // Lightweight fetch: only the fields needed to filter/sort/paginate. The
-    // board icons themselves are rendered client-side from the live `boards`
-    // subscription, keyed by the ids returned here.
-    let boards = await ReactiveCache.getBoards(
-      selector,
-      { fields: { _id: 1, title: 1, type: 1 } },
-      true,
-    );
-    boards = typeof boards.fetchAsync === 'function'
-      ? await boards.fetchAsync()
-      : (typeof boards.fetch === 'function' ? boards.fetch() : boards);
-
-    // Menu / workspace filtering uses the user's profile maps. A search spans
-    // every category, so it skips the menu filter (matching the client).
+    // Encode the selected menu in Mongo before pagination. A search spans every
+    // category, preserving the existing behavior.
     const profile = user.profile || {};
     const assignments = profile.boardWorkspaceAssignments || {};
     const starred = profile.starredBoards || [];
     if (!search) {
       if (menu === 'starred') {
-        boards = boards.filter(b => starred.includes(b._id));
+        selector._id = { $in: starred };
       } else if (menu === 'templates') {
-        boards = boards.filter(b => b.type === 'template-container');
+        selector.type = 'template-container';
       } else if (menu === 'remaining') {
-        boards = boards.filter(
-          b => !assignments[b._id] && b.type !== 'template-container',
-        );
+        selector._id = { $nin: Object.keys(assignments) };
       } else {
-        // menu is a workspace id
-        boards = boards.filter(b => assignments[b._id] === menu);
+        selector._id = {
+          $in: Object.keys(assignments).filter(id => assignments[id] === menu),
+        };
       }
     }
 
-    boards.sort((a, b) => {
-      const cmp = (a.title || '').localeCompare(b.title || '', undefined, {
-        sensitivity: 'base',
-      });
-      return sortBy === 'title-desc' ? -cmp : cmp;
+    const total = await Boards.find(selector).countAsync();
+    const cursor = Boards.find(selector, {
+      fields: { _id: 1 },
+      sort: { title: sortBy === 'title-desc' ? -1 : 1, _id: 1 },
+      skip: (page - 1) * perPage,
+      limit: perPage,
     });
-
-    const total = boards.length;
-    const start = (page - 1) * perPage;
-    const ids = boards.slice(start, start + perPage).map(b => b._id);
+    const boards = await cursor.fetchAsync();
+    const ids = boards.map(board => board._id);
     return { ids, total };
   },
 

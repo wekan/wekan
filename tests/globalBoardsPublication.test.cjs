@@ -37,6 +37,6 @@ test('template containers have a separate live subscription only in Templates', 
   assert.match(templates, /true,\s*\);/, 'the template cursor remains live');
   assert.match(
     client,
-    /if \(this\.selectedMenu\.get\(\) !== 'templates'\) return;\s*this\.subscribe\('boardTemplates'\)/,
+    /if \(this\.selectedMenu\.get\(\) !== 'templates' && !this\.boardSearchVar\.get\(\)\) return;\s*this\.subscribe\('boardTemplates'\)/,
   );
 });

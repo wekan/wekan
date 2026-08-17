@@ -745,7 +745,7 @@ Template.boardList.onCreated(function () {
       ARCHIVED_BOARDS_LIMIT, 0);
   });
   this.autorun(() => {
-    if (this.selectedMenu.get() !== 'templates') return;
+    if (this.selectedMenu.get() !== 'templates' && !this.boardSearchVar.get()) return;
     this.subscribe('boardTemplates');
   });
   // The Table view's page. Client-side: the boards are already in minimongo for
