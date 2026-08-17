@@ -409,9 +409,10 @@ browser build to verify).
 
 **In short:** **RouteBleed**, found by GitHub CodeQL, removes an incompletely
 escaped dynamic regular expression from board-export route coverage. **All
-Boards on phones** uses one native page scroller, so ordinary
-boards, invitation controls and table rows remain reachable with the same
-vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
+Boards on phones** uses one native page scroller in mobile and desktop UI modes,
+so ordinary boards, invitation controls and table rows remain reachable with
+the same vertical swipe; the shared layout extends that behavior to every page.
+**Snap database recovery** can read retained MongoDB 4.x, 5.0,
 6 and 7 data and merge it into the live FerretDB without opening SQLite twice.
 **Helm containers** size the Node.js heap from their memory limit, and the
 official chart supplies enough memory for startup plus native allocations.
@@ -481,6 +482,25 @@ the board grid and the table page contribute their natural height to it, so a
 gesture has one owner and invitation controls are not clipped. Regression tests
 cover ordinary tiles, invitations, table view, viewport sizing and reject a
 second nested vertical scroller.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b69b63fe">Desktop mode on a phone can scroll every page to its end</a>. Thanks to xet7.</summary>
+
+The narrow-device rule made the body a viewport-sized, non-scrolling box, but
+made `#content` non-scrollable too. Mobile UI mode happened to restore its
+overflow through a more specific selector; explicitly selecting desktop UI
+mode did not, so the bottom of All Boards and other pages was clipped behind the
+browser controls.
+
+The phone viewport and content-scroller contract now lives in the shared page
+layout rather than the All Boards stylesheet. The top header stays separate
+while `#content` scrolls in both UI modes on every route. All Boards continues
+to use that one scroll owner for Starred, Remaining, Public, Archived,
+Workspaces and every other left-menu section. Source and negative tests reject
+a hidden content pane, and the phone browser test toggles to desktop mode before
+checking that its final board remains visible.
 
 </details>
 
