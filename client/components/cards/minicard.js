@@ -281,14 +281,18 @@ Template.minicard.events({
   async 'submit .js-minicard-title-form'(event, templateInstance) {
     event.preventDefault();
     event.stopPropagation();
+    // #6604: `this` is the nested inlinedForm's data context
+    // ({ classNames: 'js-minicard-title-form' }), not the Card. The enclosing
+    // minicard template instance keeps the Card it was created with.
+    const card = templateInstance.data;
     const title = templateInstance
       .$('.js-edit-minicard-title')
       .val()
       ?.trim();
     // An empty title would leave a card with nothing to click, so an empty
     // save is a no-op rather than a way to lose the card - same as a list.
-    if (title && title !== this.getTitle()) {
-      await this.setTitle(title);
+    if (card && title && title !== card.getTitle()) {
+      await card.setTitle(title);
     }
   },
   'click .js-linked-link'() {

@@ -63,14 +63,18 @@ test('saving renames the card', () => {
   const handler = minicardJs.slice(minicardJs.indexOf("'submit .js-minicard-title-form'"));
   const body = handler.slice(0, handler.indexOf('\n  },'));
   assert.ok(/\.js-edit-minicard-title/.test(body), 'reads the textarea');
-  assert.ok(/await this\.setTitle\(title\)/.test(body), 'and sets the title');
+  assert.ok(/const card = templateInstance\.data/.test(body),
+    'gets the Card from the enclosing minicard template');
+  assert.ok(/await card\.setTitle\(title\)/.test(body), 'and sets that Card title');
+  assert.ok(!/this\.(getTitle|setTitle)\(/.test(body),
+    'the nested form event context is never treated as a Card (#6604)');
 });
 
 test('an empty title is not saved (negative)', () => {
   // A card with no title has nothing to click, which would be a way to lose it.
   const handler = minicardJs.slice(minicardJs.indexOf("'submit .js-minicard-title-form'"));
   const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/if \(title && title !== this\.getTitle\(\)\)/.test(body),
+  assert.ok(/if \(card && title && title !== card\.getTitle\(\)\)/.test(body),
     'empty, and unchanged, are both no-ops');
   assert.ok(/\?\.trim\(\)/.test(body), 'and whitespace does not count as a title');
 });
