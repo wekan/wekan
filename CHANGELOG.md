@@ -418,6 +418,8 @@ documentation and English source strings. **Board Archive** removes permanent
 delete from individual board icons and offers it as one confirmed red action on
 a multi-selection, with the same gate enforced again on the server. Select All
 and Select None above the icons make that selection explicit and quick.
+The same themed controls now cover **Remaining, Starred, Home and Templates**,
+always following the visible section and search result.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -483,6 +485,21 @@ compact layout and both selection operations.
 Both Archive multi-selection controls now use the primary themed button style.
 The regression test requires the same class on both buttons, so one cannot fall
 back to the browser's unthemed grey while the other follows the site theme.
+
+</details>
+
+**All Boards** - its named sections and their shared multi-selection controls.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2547c5216">Every named section can select all or none of its visible boards</a>. Thanks to xet7.</summary>
+
+Remaining, Starred, Home, Templates and Archive now show the same themed Select
+All and Select None buttons above their board icons while Multi-Selection is on.
+Select All reads the exact section/search result used to render those icons, so
+it cannot silently include a hidden board; Select None clears the shared board
+selection. Home deliberately keeps Multi-Selection too: Select All simply checks
+its one visible Home board when present. Tests cover all five sections, both
+entry points, both operations, placement and matching theme classes.
 
 </details>
 
