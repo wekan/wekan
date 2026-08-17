@@ -1895,7 +1895,10 @@ Boards.helpers({
       { _id: defaultId },
       { $setOnInsert: this.defaultSwimlaneFields() },
     );
-    return ReactiveCache.getSwimlane({ _id: defaultId });
+    return (
+      (await ReactiveCache.getSwimlane({ _id: defaultId })) ||
+      (Meteor.isServer ? await Swimlanes.findOneAsync(defaultId) : undefined)
+    );
   },
 
   // Fields for an upsert-inserted default swimlane. archived/type must be set
@@ -1910,9 +1913,13 @@ Boards.helpers({
   async getDefaultSwimlineAsync() {
     // Issue #1971: prefer a NON-archived swimlane (see getDefaultSwimline).
     const { pickDefaultSwimlane } = require('./lib/defaultSwimlane');
-    let result = pickDefaultSwimlane(
-      await ReactiveCache.getSwimlanes({ boardId: this._id }),
-    );
+    // On the server this can run immediately after creating a helper board and
+    // its first swimlane. The reactive cache may still hold the pre-insert
+    // empty result, so use the authoritative collection in server methods.
+    const swimlanes = Meteor.isServer
+      ? await Swimlanes.find({ boardId: this._id }).fetchAsync()
+      : await ReactiveCache.getSwimlanes({ boardId: this._id });
+    let result = pickDefaultSwimlane(swimlanes);
     if (result === undefined && Meteor.isServer && this._id) {
       // Issue #6382: never auto-create swimlanes from the client (see
       // getDefaultSwimline) — only the server may insert the default one.

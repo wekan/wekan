@@ -22,7 +22,7 @@ Template.subtasks.events({
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
-    const cardId = Template.currentData().cardId;
+    const cardId = this.cardId;
 
     if (title) {
       // Subtask creation is performed server-side by the `addSubtaskCard` Meteor
@@ -32,9 +32,12 @@ Template.subtasks.events({
       // (#3868 / #5788 / #2256) and lets multiple subtasks be created reliably
       // (#4782), and the method applies the destination board's automatic
       // custom fields to the new subtask (#4037 / #3562).
-      const _id = await Meteor.callAsync('addSubtaskCard', cardId, title);
+      try {
+        const _id = await Meteor.callAsync('addSubtaskCard', cardId, title);
 
-      if (_id) {
+        if (!_id) {
+          throw new Error('The server could not create the subtask.');
+        }
         // In case the filter is active we need to add the newly inserted card in
         // the list of exceptions -- cards that are not filtered. Otherwise the
         // card will disappear instantly.
@@ -46,10 +49,13 @@ Template.subtasks.events({
             .last()
             .click();
         }, 100);
+        textarea.value = '';
+        textarea.focus();
+      } catch (error) {
+        alert(error?.reason || error?.message || 'Could not create the subtask.');
+        textarea.focus();
       }
     }
-    textarea.value = '';
-    textarea.focus();
   },
   'submit .js-edit-subtask-title'(event, tpl) {
     event.preventDefault();

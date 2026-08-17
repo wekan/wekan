@@ -55,6 +55,23 @@ test('getDefaultSubtasksListAsync creates the landing list with async APIs', () 
   assert.ok(fn.includes('Meteor.isServer'));
 });
 
+test('async swimlane lookup bypasses a stale server cache after creation', () => {
+  const fn = extract('getDefaultSwimlineAsync');
+  assert.ok(
+    fn.includes("Meteor.isServer\n      ? await Swimlanes.find({ boardId: this._id }).fetchAsync()"),
+    'server creation must read the authoritative collection, not a stale cache',
+  );
+});
+
+test('async default-swimlane self-heal returns the inserted document', () => {
+  const fn = extract('ensureDefaultSwimlaneIdAsync');
+  assert.ok(fn.includes('await Swimlanes.upsertAsync('));
+  assert.ok(
+    fn.includes('await Swimlanes.findOneAsync(defaultId)'),
+    'a cache miss immediately after upsert must fall back to the collection',
+  );
+});
+
 // --- The sync getters are pure (no creation) ---------------------------------
 
 test('sync getters no longer create anything', () => {
