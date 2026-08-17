@@ -41,7 +41,8 @@ Its address is `/allboards/home`, the same shape as the other sections
 
 There is no **Add Board** tile in Home. A board created here would not be the
 board that opens after login, so the tile would promise something it cannot do.
-An empty Home says what to drag instead of showing a blank pane.
+An empty Home says "Drag only one board here to open it after login" instead of
+showing a blank pane, making the one-board limit explicit before a drag starts.
 
 ## Dragging
 

@@ -119,7 +119,7 @@
   "set-selected-home": "Set as Home board (opened after login)",
   "unset-selected-home": "Unset as Home board",
   "home-board-badge": "Home board (opened after login)",
-  "home-board-empty": "Drag a board here to open it after login",
+  "home-board-empty": "Drag only one board here to open it after login",
   "home-board-remove": "Remove from Home",
   "home-board-remove-confirm": "Remove this board from Home? The board itself is not deleted.",
   "activity-dueDate": "edited due date to %s of %s",

@@ -313,7 +313,7 @@
    pane says what to drag rather than showing nothing at all. Sized and spaced
    like a board tile so it sits where the first tile would.
    docs/Features/Board/Home.md */
-/* Home's "Drag a board here to open it after login" placeholder.
+/* Home's "Drag only one board here to open it after login" placeholder.
    It stands where a board tile will be, so it is the SIZE of a board tile:
    114px like `.board-list .board-list-item` and `.js-add-board .label`, with
    the dashed border folded into that height rather than added outside it. It

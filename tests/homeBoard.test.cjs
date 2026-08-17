@@ -248,7 +248,9 @@ test('no Add Board tile in Home, and an empty Home says what to drag', () => {
   assert.ok(/if isSelectedMenu 'home'\n\s+unless boards\.length\n\s+li\.board-list-item-empty/
     .test(listJade), 'an empty Home draws its hint instead of a blank pane');
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  assert.ok(en['home-board-empty'], 'the hint is translated');
+  assert.strictEqual(en['home-board-empty'],
+    'Drag only one board here to open it after login',
+    'the hint states that Home accepts exactly one board');
   assert.ok(/\{\{_ 'home-board-empty'\}\}/.test(listJade), 'and named by its key');
   const css = read('client/components/boards/boardsList.css');
   assert.ok(/\.board-list-item-empty \{/.test(css), 'and styled like a tile');
