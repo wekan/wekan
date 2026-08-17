@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Möchten Sie diesen Arbeitsplatz wirklich löschen?",
   "allboards.delete-workspace-confirm-check": "Löschen des Arbeitsplatzes bestätigen",
   "multi-selection-active": "Wähle Kontrollkästchen um Boards auszuwählen",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Ausgewählt:",
   "set-selected-starred": "Ausgewählte Boards mit Stern markieren",
   "set-selected-unstarred": "Stern von ausgewählten Boards entfernen",

@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Je, una uhakika unataka kufuta nafasi hii ya kazi?",
   "allboards.delete-workspace-confirm-check": "Thibitisha ufutaji wa nafasi ya kazi",
   "multi-selection-active": "Bofya visanduku vya kuteua ili kuchagua mbao",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Imechaguliwa:",
   "set-selected-starred": "Weka nyota kwenye bodi zilizochaguliwa",
   "set-selected-unstarred": "Ondoa nyota kwenye mbao zilizochaguliwa",

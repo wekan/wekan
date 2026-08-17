@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "このワークスペースを削除してもよろしいですか?",
   "allboards.delete-workspace-confirm-check": "ワークスペースの削除を確認",
   "multi-selection-active": "チェックボックスをクリックしてボードを選択",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "選択中:",
   "set-selected-starred": "選択したボードにスターを付ける",
   "set-selected-unstarred": "選択したボードのスターを外す",

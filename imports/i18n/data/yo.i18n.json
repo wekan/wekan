@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Ṣe o da ọ loju pe o fẹ paarẹ aaye iṣẹ yii bi?",
   "allboards.delete-workspace-confirm-check": "Jẹrisi piparẹ aaye iṣẹ",
   "multi-selection-active": "Tẹ awọn apoti ayẹwo lati yan awọn igbimọ",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Ti yan:",
   "set-selected-starred": "Ṣe irawọ awọn igbimọ ti a yan",
   "set-selected-unstarred": "Yọ ìràwọ̀ kúrò lára àwọn pátákó tí a yàn",

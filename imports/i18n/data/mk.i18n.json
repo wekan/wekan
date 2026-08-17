@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Дали сте сигурни дека сакате да го избришете овој работен простор?",
   "allboards.delete-workspace-confirm-check": "Потврди го бришењето на работниот простор",
   "multi-selection-active": "Штиклирајте да би изабрали списе",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Избрано:",
   "set-selected-starred": "Означи ги избраните табли со ѕвезда",
   "set-selected-unstarred": "Отстрани ја ѕвездата од избраните табли",

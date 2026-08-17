@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Bạn có chắc chắn muốn xóa không gian làm việc này không?",
   "allboards.delete-workspace-confirm-check": "Xác nhận xóa không gian làm việc",
   "multi-selection-active": "Klik kotak semak untuk pilih papan",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Đã chọn:",
   "set-selected-starred": "Gắn sao các bảng đã chọn",
   "set-selected-unstarred": "Bỏ gắn sao các bảng đã chọn",

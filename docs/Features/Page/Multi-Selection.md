@@ -41,8 +41,11 @@ that no longer exists. While the mode is on, the panel stays visible on its
 Multi-Selection view: its close button, Escape, and the active header button
 cannot hide it or replace it with another sidebar view.
 
-With nothing selected it says so (`multi-selection-active`, "Click checkboxes to
-select boards"). With a selection it is four rows and a way out:
+The instruction (`multi-selection-active`, "Click checkboxes to select boards")
+and every action available in the current section remain visible whether or not
+a board is checked. Clicking any action with an empty selection reports "You
+did not select any boards" and performs no action. The way out is always visible
+too.
 
 While Multi-Selection is on, **Select All** and **Select None** sit above the
 board icons in Remaining, Starred, Home, Templates and Archive. Select All uses

@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Sigurado ka ba nga karuyag mo paraon ini nga workspace?",
   "allboards.delete-workspace-confirm-check": "Kumpirmaha an pagpara han workspace",
   "multi-selection-active": "I-klik an mga checkbox basi mapili an mga board",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Napili:",
   "set-selected-starred": "Butangi hin bituon an napili nga mga board",
   "set-selected-unstarred": "Oister l' sitoele des tåvleas tchoezis",

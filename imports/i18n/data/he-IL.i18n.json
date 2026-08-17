@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "למחוק את מרחב העבודה הזה?",
   "allboards.delete-workspace-confirm-check": "אישור מחיקת מרחב עבודה",
   "multi-selection-active": "יש לסמן את התיבות כדי לבחור לוחות",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "נבחר:",
   "set-selected-starred": "סימון הלוחות הנבחרים בכוכב",
   "set-selected-unstarred": "הסר כוכב מהלוחות שנבחרו",

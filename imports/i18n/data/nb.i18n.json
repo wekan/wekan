@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Er du sikker på at du vil slette dette arbeidsområdet?",
   "allboards.delete-workspace-confirm-check": "Bekreft sletting av arbeidsområde",
   "multi-selection-active": "Klikk på avmerkingsboksene for å velge tavler",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Valgt:",
   "set-selected-starred": "Stjernemerk de valgte tavlene",
   "set-selected-unstarred": "Fjern stjernemerket fra de valgte tavlene",

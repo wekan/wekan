@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Är du säker på att du vill ta bort den här arbetsytan?",
   "allboards.delete-workspace-confirm-check": "Bekräfta borttagning av arbetsyta",
   "multi-selection-active": "Klicka i kryssrutor för att välja tavlor",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Valda:",
   "set-selected-starred": "Stjärnmärk de valda tavlorna",
   "set-selected-unstarred": "Ta bort stjärnmärkningen från de valda tavlorna",

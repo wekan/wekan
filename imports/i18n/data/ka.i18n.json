@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "დარწმუნებული ხართ, რომ გსურთ ამ სამუშაო სივრცის წაშლა?",
   "allboards.delete-workspace-confirm-check": "სამუშაო სივრცის წაშლის დადასტურება",
   "multi-selection-active": "დააჭირეთ მოსანიშნ ველებს დაფების ასარჩევად",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "არჩეული:",
   "set-selected-starred": "მონიშნეთ არჩეული დაფები ვარსკვლავით",
   "set-selected-unstarred": "ვარსკვლავის მოხსნა არჩეული დაფებიდან",

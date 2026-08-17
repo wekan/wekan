@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Ị ji n'aka na ịchọrọ ihichapụ oghere ọrụ a?",
   "allboards.delete-workspace-confirm-check": "Kwenye ihichapụ oghere ọrụ",
   "multi-selection-active": "Pịa igbe nrịbama ka ịhọrọ bọọdụ",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Ahọpụtara:",
   "set-selected-starred": "Kpakwaa bọọdụ ndị ahọpụtara",
   "set-selected-unstarred": "Wepụ kpakpando na bọọdụ ndị ahọpụtara",

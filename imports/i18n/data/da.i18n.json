@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Er du sikker på, at du vil slette dette arbejdsområde?",
   "allboards.delete-workspace-confirm-check": "Bekræft sletning af arbejdsområdet",
   "multi-selection-active": "Klik på tjekboksene for at vælge tavler",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Valgt:",
   "set-selected-starred": "Stjernemarkér de valgte tavler",
   "set-selected-unstarred": "Fjern stjernemarkeringen fra de valgte tavler",

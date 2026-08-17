@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Czy na pewno chcesz usunąć tę przestrzeń roboczą?",
   "allboards.delete-workspace-confirm-check": "Potwierdź usunięcie przestrzeni roboczej",
   "multi-selection-active": "Kliknij pola wyboru, aby zaznaczyć tablice",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Zaznaczone:",
   "set-selected-starred": "Dodaj zaznaczone tablice do ulubionych",
   "set-selected-unstarred": "Usuń zaznaczone tablice z ulubionych",

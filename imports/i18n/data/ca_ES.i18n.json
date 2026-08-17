@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Segur que voleu esborrar aquest espai de treball?",
   "allboards.delete-workspace-confirm-check": "Confirmeu l'eliminació de l'espai de treball",
   "multi-selection-active": "Feu clic a les caselles per seleccionar taulers",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Seleccionats:",
   "set-selected-starred": "Destaca els taulers seleccionats",
   "set-selected-unstarred": "Deixa de destacar els taulers seleccionats",

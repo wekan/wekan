@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Biztosan törölni szeretnéd ezt a munkaterületet?",
   "allboards.delete-workspace-confirm-check": "Munkaterület törlésének megerősítése",
   "multi-selection-active": "Kattints a jelölőnégyzetekre a táblák kijelöléséhez",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Kijelölve:",
   "set-selected-starred": "Csillagozd a kijelölt táblákat",
   "set-selected-unstarred": "Csillag eltávolítása a kijelölt tábláktól",

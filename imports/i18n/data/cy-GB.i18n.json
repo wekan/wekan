@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Ydych chi'n siŵr eich bod am ddileu'r man gwaith hwn?",
   "allboards.delete-workspace-confirm-check": "Cadarnhau dileu man gwaith",
   "multi-selection-active": "Cliciwch blychau ticio i ddewis byrddau",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Wedi dewis:",
   "set-selected-starred": "Serennu'r byrddau a ddewiswyd",
   "set-selected-unstarred": "Tynnu'r seren oddi ar y byrddau a ddewiswyd",

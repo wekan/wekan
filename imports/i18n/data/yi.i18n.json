@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "זענט איר זיכער אַז איר ווילן צו ויסמעקן דעם וואָרקספּאַסע?",
   "allboards.delete-workspace-confirm-check": "באַשטעטיקן וואָרקספּאַסע ויסמעקן",
   "multi-selection-active": "דריקט טשעקקבאָקסעס צו אויסקלייַבן באָרדז",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "אויסגעקליבן:",
   "set-selected-starred": "שטערן די אויסגעקליבענע באָרדז",
   "set-selected-unstarred": "אַראָפּנעמען דעם שטערן פֿון די אויסגעקליבענע ברעטער",

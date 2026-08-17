@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "మీరు ఖచ్చితంగా ఈ కార్యస్థలాన్ని తొలగించాలనుకుంటున్నారా?",
   "allboards.delete-workspace-confirm-check": "కార్యస్థల తొలగింపును నిర్ధారించండి",
   "multi-selection-active": "బోర్డులను ఎంచుకోవడానికి చెక్‌బాక్స్‌లను క్లిక్ చేయండి",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "ఎంచుకున్నవి:",
   "set-selected-starred": "ఎంచుకున్న బోర్డులను స్టార్ చేయండి",
   "set-selected-unstarred": "ఎంచుకున్న బోర్డుల నుండి నక్షత్రాన్ని తీసివేయి",

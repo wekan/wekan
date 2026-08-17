@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Ar tikrai norite ištrinti šią darbo sritį?",
   "allboards.delete-workspace-confirm-check": "Patvirtinkite darbo srities ištrynimą",
   "multi-selection-active": "Spustelėkite žymimuosius laukelius, kad pasirinktumėte lentas",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Pasirinkta:",
   "set-selected-starred": "Pažymėti pasirinktas lentas žvaigždute",
   "set-selected-unstarred": "Pašalinti žvaigždutę iš pasirinktų lentų",

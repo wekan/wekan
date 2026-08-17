@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Ziur zaude lan-eremu hau ezabatu nahi duzula?",
   "allboards.delete-workspace-confirm-check": "Berretsi lan-eremuaren ezabatzea",
   "multi-selection-active": "Klikatu kontrol laukiak arbelak hautatzeko",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Hautatuta:",
   "set-selected-starred": "Markatu hautatutako arbelak izarrekin",
   "set-selected-unstarred": "Kendu izarra hautatutako arboletatik",

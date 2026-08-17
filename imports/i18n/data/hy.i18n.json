@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Իսկապե՞ս ուզում եք ջնջել այս աշխատանքային տարածքը:",
   "allboards.delete-workspace-confirm-check": "Հաստատեք աշխատանքային տարածքի ջնջումը",
   "multi-selection-active": "Սեղմեք վանդակները՝ տախտակները ընտրելու համար",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Ընտրված՝",
   "set-selected-starred": "Աստղանշել ընտրված տախտակները",
   "set-selected-unstarred": "Հեռացնել աստղը ընտրված տախտակներից",

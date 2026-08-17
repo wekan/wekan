@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτόν τον χώρο εργασίας;",
   "allboards.delete-workspace-confirm-check": "Επιβεβαίωση διαγραφής χώρου εργασίας",
   "multi-selection-active": "Κάντε κλικ στα πλαίσια ελέγχου για να επιλέξετε πίνακες",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Επιλεγμένα:",
   "set-selected-starred": "Προσθήκη αστεριού στους επιλεγμένους πίνακες",
   "set-selected-unstarred": "Αφαίρεση αστεριού από τους επιλεγμένους πίνακες",

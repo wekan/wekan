@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Uqinisekile ukuthi ufuna ukususa le ndawo yokusebenza?",
   "allboards.delete-workspace-confirm-check": "Qinisekisa ukususwa kwendawo yokusebenza",
   "multi-selection-active": "Chofoza amabhokisi okuhlola ukuze ukhethe amabhodi",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Okukhethiwe:",
   "set-selected-starred": "Faka inkanyezi kumabhodi akhethiwe",
   "set-selected-unstarred": "Susa inkanyezi emabhodini akhethiwe",

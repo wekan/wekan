@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Haqiqatan ham bu ish joyini oʻchirib tashlamoqchimisiz?",
   "allboards.delete-workspace-confirm-check": "Ish joyini o'chirishni tasdiqlang",
   "multi-selection-active": "Doskalarni tanlash uchun katakchalarni bosing",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "تانلنگن:",
   "set-selected-starred": "تانلنگن تختهلرنی یۉلدوزلش",
   "set-selected-unstarred": "Tanlangan doskalardan yulduzchani olib tashlash",

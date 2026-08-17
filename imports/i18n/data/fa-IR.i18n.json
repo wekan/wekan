@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "آیا مطمئن هستید که می‌خواهید این فضای کاری را حذف کنید؟",
   "allboards.delete-workspace-confirm-check": "تأیید حذف فضای کاری",
   "multi-selection-active": "برای انتخاب بردها روی کادرهای علامت کلیک کنید",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "انتخاب‌شده:",
   "set-selected-starred": "ستاره‌دار کردن بردهای انتخاب‌شده",
   "set-selected-unstarred": "ستاره را از تخته‌های انتخاب‌شده بردارید",

@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Да ли сте сигурни да желите да се потпуно иселите из овог радног простора?",
   "allboards.delete-workspace-confirm-check": "Потврдите исељење из радног простора",
   "multi-selection-active": "Припајање списа",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Ознаке:",
   "set-selected-starred": "Додели им звездице",
   "set-selected-unstarred": "Уклони им звездице",

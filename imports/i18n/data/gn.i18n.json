@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Are you sure you want to delete this workspace?",
   "allboards.delete-workspace-confirm-check": "Confirm workspace deletion",
   "multi-selection-active": "Click checkboxes to select boards",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Selected:",
   "set-selected-starred": "Star the selected boards",
   "set-selected-unstarred": "Unstar the selected boards",

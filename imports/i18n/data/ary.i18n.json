@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "هل أنت متأكد أنك تريد حذف مساحة العمل هذه؟",
   "allboards.delete-workspace-confirm-check": "تأكيد حذف مساحة العمل",
   "multi-selection-active": "انقر على مربعات الاختيار لتحديد اللوحات",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "المحدد:",
   "set-selected-starred": "تمييز اللوحات المحددة بنجمة",
   "set-selected-unstarred": "إزالة النجمة من اللوحات المحددة",

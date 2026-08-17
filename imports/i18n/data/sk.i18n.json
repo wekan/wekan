@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Naozaj chcete odstrániť tento pracovný priestor?",
   "allboards.delete-workspace-confirm-check": "Potvrdiť odstránenie pracovného priestoru",
   "multi-selection-active": "Kliknutím na zaškrtávacie políčka vyberte nástenky",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Vybrané:",
   "set-selected-starred": "Pridať hviezdičku vybraným nástenkám",
   "set-selected-unstarred": "Odobrať hviezdičku vybraným tabuliam",

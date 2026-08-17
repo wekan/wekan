@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Haluatko varmasti poistaa tämän työtilan?",
   "allboards.delete-workspace-confirm-check": "Varmista työtilan poisto",
   "multi-selection-active": "Valitse taulut napsauttamalla valintaruutuja",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Valitut:",
   "set-selected-starred": "Merkitse valitut taulut tähdellä",
   "set-selected-unstarred": "Poista tähtimerkintä valituilta tauluilta",

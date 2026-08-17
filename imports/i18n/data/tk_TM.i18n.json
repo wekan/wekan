@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Bu iş ýerini pozmak isleýändigiňize ynanýarsyňyzmy?",
   "allboards.delete-workspace-confirm-check": "Iş ýeriniň öçürilmegini tassyklaň",
   "multi-selection-active": "Tagtalary saýlamak üçin bellik gutusyna basyň",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Saýlanan:",
   "set-selected-starred": "Saýlanan tagtalary ýyldyzlaň",
   "set-selected-unstarred": "Unstar the selected boards",

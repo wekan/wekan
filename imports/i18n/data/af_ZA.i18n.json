@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Is jy seker jy wil hierdie werkspasie uitvee?",
   "allboards.delete-workspace-confirm-check": "Bevestig die uitvee van werkspasie",
   "multi-selection-active": "Klik merkblokkies om borde te kies",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Gekies:",
   "set-selected-starred": "Merk die gekose borde met 'n ster",
   "set-selected-unstarred": "Verwyder die ster van die gekose borde",

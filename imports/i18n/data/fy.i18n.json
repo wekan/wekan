@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Binne jo wis dat jo dizze wurkromte fuortsmite wolle?",
   "allboards.delete-workspace-confirm-check": "Befêstigje it wiskjen fan wurkromte",
   "multi-selection-active": "Klikje op karfakjes om boards te selektearjen",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Selektearre:",
   "set-selected-starred": "Set in stjer op de selektearre boards",
   "set-selected-unstarred": "Helje de stjer fan de selektearre boarden ôf",

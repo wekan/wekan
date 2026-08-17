@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "بۇ خىزمەت بوشلۇقىنى ئۆچۈرمەكچىمۇ؟",
   "allboards.delete-workspace-confirm-check": "خىزمەت بوشلۇقىنىڭ ئۆچۈرۈلۈشىنى جەزملەشتۈرۈڭ",
   "multi-selection-active": "تاللاش رامكىسىنى چېكىپ تاختاينى تاللاڭ",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "تاللانغان:",
   "set-selected-starred": "تاللانغان تاختىلارغا يۇلتۇز قويۇش",
   "set-selected-unstarred": "تاللانغان تاختايلاردىن يۇلتۇزنى چىقىرىۋېتىش",

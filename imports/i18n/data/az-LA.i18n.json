@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Bu iş yerini silmək istədiyinizə əminsiniz?",
   "allboards.delete-workspace-confirm-check": "İş sahəsinin silinməsini təsdiqləyin",
   "multi-selection-active": "Lövhələri seçmək üçün onay qutularına klikləyin",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Seçildi:",
   "set-selected-starred": "Seçilmiş lövhələri ulduzla işarələ",
   "set-selected-unstarred": "Seçilmiş lövhələrdən ulduzu silin",

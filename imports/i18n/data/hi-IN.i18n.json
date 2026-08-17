@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "क्या आप वाकई इस कार्यस्थान को हटाना चाहते हैं?",
   "allboards.delete-workspace-confirm-check": "कार्यस्थान हटाने की पुष्टि करें",
   "multi-selection-active": "बोर्ड चुनने के लिए चेकबॉक्स पर क्लिक करें",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "चयनित:",
   "set-selected-starred": "चयनित बोर्ड को स्टार करें",
   "set-selected-unstarred": "चयनित बोर्डों से तारा हटाएँ",

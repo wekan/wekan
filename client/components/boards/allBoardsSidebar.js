@@ -137,9 +137,6 @@ function currentSelectedStarAction() {
 }
 
 Template.allBoardsMultiSelectionSidebar.helpers({
-  hasBoardsSelected() {
-    return BoardMultiSelection.count() > 0;
-  },
   selectedStarTitle() {
     return TAPi18n.__(selectedStarTitleKey(currentSelectedStarAction().action));
   },
@@ -155,11 +152,20 @@ Template.allBoardsMultiSelectionSidebar.helpers({
   },
 });
 
+function selectedBoardIdsOrWarn() {
+  const ids = BoardMultiSelection.getSelectedBoardIds();
+  if (!ids.length) {
+    alert(TAPi18n.__('no-boards-selected'));
+    return null;
+  }
+  return ids;
+}
+
 Template.allBoardsMultiSelectionSidebar.events({
   'click .js-delete-selected-boards'(evt) {
     evt.preventDefault();
-    const ids = BoardMultiSelection.getSelectedBoardIds();
-    if (!ids.length || !confirm(TAPi18n.__('delete-board-confirm-popup'))) return;
+    const ids = selectedBoardIdsOrWarn();
+    if (!ids || !confirm(TAPi18n.__('delete-board-confirm-popup'))) return;
     Meteor.call('permanentlyDeleteArchivedBoards', ids, (err) => {
       if (err) {
         alert(err.reason || err.message || 'Failed to permanently delete boards');
@@ -173,22 +179,23 @@ Template.allBoardsMultiSelectionSidebar.events({
   // un-star it.
   'click .js-star-selected'(evt) {
     evt.preventDefault();
+    const ids = selectedBoardIdsOrWarn();
+    if (!ids) return;
     currentSelectedStarAction().boardIds.forEach((id) => {
       Meteor.call('toggleBoardStar', id);
     });
   },
   'click .js-home-selected'(evt) {
     evt.preventDefault();
-    const ids = BoardMultiSelection.getSelectedBoardIds();
-    if (ids.length) {
-      Meteor.call('toggleDefaultBoard', ids[0]);
-    }
+    const ids = selectedBoardIdsOrWarn();
+    if (!ids) return;
+    Meteor.call('toggleDefaultBoard', ids[0]);
   },
   'click .js-archive-selected-boards'(evt) {
     evt.preventDefault();
-    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
+    const selectedBoards = selectedBoardIdsOrWarn();
+    if (!selectedBoards) return;
     if (
-      selectedBoards.length > 0 &&
       confirm(TAPi18n.__('archive-board-confirm'))
     ) {
       selectedBoards.forEach((boardId) => {
@@ -201,9 +208,9 @@ Template.allBoardsMultiSelectionSidebar.events({
   },
   'click .js-duplicate-selected-boards'(evt) {
     evt.preventDefault();
-    const selectedBoards = BoardMultiSelection.getSelectedBoardIds();
+    const selectedBoards = selectedBoardIdsOrWarn();
+    if (!selectedBoards) return;
     if (
-      selectedBoards.length > 0 &&
       confirm(TAPi18n.__('duplicate-board-confirm'))
     ) {
       selectedBoards.forEach((boardId) => {

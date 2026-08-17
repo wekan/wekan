@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Kas oled kindel, et soovid selle tööruumi kustutada?",
   "allboards.delete-workspace-confirm-check": "Kinnita tööruumi kustutamine",
   "multi-selection-active": "Klõpsa märkeruutudel tahvlite valimiseks",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Valitud:",
   "set-selected-starred": "Märgi valitud tahvlid tähega",
   "set-selected-unstarred": "Eemalda tärn valitud tahvlitelt",

@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Jeste li sigurni da želite izbrisati ovaj radni prostor?",
   "allboards.delete-workspace-confirm-check": "Potvrdi brisanje radnog prostora",
   "multi-selection-active": "Штиклирајте да би изабрали списе",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Odabrano:",
   "set-selected-starred": "Dodaj oznaku zvjezdice odabranim pločama",
   "set-selected-unstarred": "Ukloni zvjezdicu s odabranih ploča",

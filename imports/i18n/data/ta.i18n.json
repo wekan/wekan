@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "இந்தப் பணியிடத்தை நிச்சயமாக நீக்க வேண்டுமா?",
   "allboards.delete-workspace-confirm-check": "பணியிட நீக்கத்தை உறுதிப்படுத்து",
   "multi-selection-active": "பலகைகளைத் தேர்ந்தெடுக்க தேர்வுப்பெட்டிகளைச் சொடுக்கவும்",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "தேர்ந்தெடுக்கப்பட்டது:",
   "set-selected-starred": "தேர்ந்தெடுத்த பலகைகளை நட்சத்திரமிடு",
   "set-selected-unstarred": "தேர்ந்தெடுத்த பலகைகளிலிருந்து நட்சத்திரத்தை நீக்கு",

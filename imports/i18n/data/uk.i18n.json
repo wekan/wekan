@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Ви впевнені, що хочете видалити цей робочий простір?",
   "allboards.delete-workspace-confirm-check": "Підтвердити видалення робочого простору",
   "multi-selection-active": "Натисніть прапорці, щоб вибрати дошки",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Вибрано:",
   "set-selected-starred": "Додати вибрані дошки до обраних",
   "set-selected-unstarred": "Видалити вибрані дошки з обраних",

@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Энэ ажлын талбарыг устгахдаа итгэлтэй байна уу?",
   "allboards.delete-workspace-confirm-check": "Ажлын талбар устгахыг баталгаажуулах",
   "multi-selection-active": "Самбар сонгохын тулд чагтлах нүдийг дарна уу",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Сонгосон:",
   "set-selected-starred": "Сонгосон самбаруудыг одтой болгох",
   "set-selected-unstarred": "Сонгосон самбаруудаас од хасах",

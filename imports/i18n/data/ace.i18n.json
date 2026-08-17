@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "Pasti droeneueh keuneuk hapus ruang kerja nyoe?",
   "allboards.delete-workspace-confirm-check": "Peusahih hapus ruang kerja",
   "multi-selection-active": "Klik kotak semak untuk pilih papan",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "Nyang geupileh:",
   "set-selected-starred": "Bri bintang bak papan nyang geupileh",
   "set-selected-unstarred": "Buang bintang daripada papan yang dipilih",

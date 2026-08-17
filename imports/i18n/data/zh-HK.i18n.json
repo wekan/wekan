@@ -111,6 +111,7 @@
   "allboards.delete-workspace-confirm": "您確定要刪除此工作空間嗎？",
   "allboards.delete-workspace-confirm-check": "確認刪除工作空間",
   "multi-selection-active": "點選核取方塊以選取看板",
+  "no-boards-selected": "You did not select any boards.",
   "selected-label": "已選取：",
   "set-selected-starred": "將選取的看板加上星號",
   "set-selected-unstarred": "取消所選看板的星標",
