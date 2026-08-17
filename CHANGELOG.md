@@ -416,7 +416,9 @@ vertical swipe. **Snap database recovery** can read retained MongoDB 4.x, 5.0,
 **Helm containers** size the Node.js heap from their memory limit, and the
 official chart supplies enough memory for startup plus native allocations.
 **Minicard titles** save again from their inline editor, and **card dates** can
-be changed or deleted again after they have been saved.
+be changed or deleted again after they have been saved. **Translations** reuse
+3,838 unambiguous same-language values, and the new reports are complete in
+Finnish.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -547,6 +549,36 @@ The common form now owns its common event handlers and receives the parent
 popup's state and field-specific callbacks explicitly. Received, start, due,
 end, vote, planning-poker and custom-field dates retain one shared form, and a
 browser regression test changes a previously stored due date.
+
+</details>
+
+and improves translations:
+
+**Translation completeness** - filling only English placeholders, without an
+external translation service.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f94d5cbda">Repeated source text reuses unambiguous translation memory from the same language</a>. Thanks to xet7.</summary>
+
+WeKan has many keys with identical English text. When a language already has
+exactly one non-English translation for that source, the same value can safely
+fill its still-English copies without guessing or crossing a language boundary.
+This filled 3,838 placeholders across 227 language files.
+
+The reusable pass is dry-run by default, writes only when explicitly asked,
+never replaces an existing target translation, and leaves a source untouched
+when its translations disagree. Tests pin all four constraints; the
+human-preference and wrong-script checks remain clean.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73c6bc059">The Office and API reports are translated into Finnish</a>. Thanks to xet7.</summary>
+
+All fourteen translatable strings added by the two Admin Panel → Problems
+reports now have Finnish labels, descriptions and empty-state messages.
+Product names, protocol acronyms, numbers and symbols remain unchanged because
+those values are already the same in Finnish.
 
 </details>
 
