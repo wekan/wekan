@@ -420,7 +420,8 @@ a multi-selection, with the same gate enforced again on the server. Select All
 and Select None above the icons make that selection explicit and quick.
 The same themed controls now cover **Remaining, Starred, Home and Templates**,
 always following the visible section and search result. While that mode is on,
-its action sidebar now stays visible until Multi-Selection is turned off.
+its action sidebar now stays visible until Multi-Selection is turned off, and
+its actions remain available before the first board is checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -512,6 +513,17 @@ the pane that operates selected boards. Every sidebar state change resolves
 back to the visible Multi-Selection view until the mode is turned off; its off
 controls then unlock and close the pane in that order. Positive and negative
 tests cover both sides of the transition.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c704b65cc">Selection actions remain visible before a board is checked</a>. Thanks to xet7.</summary>
+
+The instruction, every action applicable to the current section and the way to
+turn Multi-Selection off are now always present in the right sidebar. An action
+clicked with no checked boards reports "You did not select any boards" and
+stops before opening a confirmation or calling the server. One shared guard and
+regression tests cover star, Home, archive, duplicate and permanent delete.
 
 </details>
 
