@@ -418,9 +418,10 @@ JPEG and PNG attachment previews plus Unicode-plane fonts. **Admin Panel / Probl
 avatars at avatar size, and **All Boards** keeps its Add Board and Home
 placeholder tiles as tall as the boards beside them. **Requested By and Assigned
 By** can select board members while retaining their free-text fields. Below
-that: fourteen export fixes, one people-picker fix, two shared-checkbox fixes, two
-UI sizing fixes, restored subtask creation, and the documentation move into its
-feature and platform hierarchy with every local link checked.
+that: fourteen export fixes, one export-layout consolidation, one people-picker
+fix, two shared-checkbox fixes, two UI sizing fixes, restored subtask creation,
+and the documentation move into its feature and platform hierarchy with every
+local link checked.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -493,6 +494,22 @@ really fails instead of silently clearing it.
 </details>
 
 **Exporting** - choosing what goes in the file.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0885b9a10">Every PDF and Excel scope maps cards through one shared adapter</a>. Thanks to xet7.</summary>
+
+Board, swimlane, list and card hamburger menus already use one export popup,
+selection and URL builder, and the detailed board exporters reuse their card
+renderers. One duplicate layer remained: PDF and Excel separately converted
+database records into the shared card document, including separate people,
+date, checklist, comment, attachment and file-size mappings.
+
+Both formats now call one pure adapter for every card at every scope. Scope only
+selects the surrounding Board → Swimlane → List → Card hierarchy; PDF-specific
+code draws pages and Excel-specific code draws worksheet cells. The Excel and
+PDF feature documents describe this design and its format-specific boundary.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec9f9e76d">Board Excel exports now use the detailed card layout they request</a>. Thanks to xet7.</summary>
