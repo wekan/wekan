@@ -81,6 +81,21 @@ test('opener in the upper half opens below and stays visible', () => {
   assertFullyVisible(result, 0, 'upper-half');
 });
 
+test('all four card people pickers open immediately below their + button', () => {
+  for (const popupName of [
+    'cardMembersPopup', 'cardAssigneesPopup',
+    'cardRequestedByPopup', 'cardAssignedByPopup',
+  ]) {
+    const result = computePopupOffset({
+      viewportWidth: VW, viewportHeight: VH,
+      opener: { top: 500, left: 300, height: 24 }, popupName,
+    });
+    assert.strictEqual(result.top, 524, `${popupName} stays below its opener`);
+    assert.strictEqual(result.maxHeight, VH - 524 - PAD,
+      `${popupName} uses the remaining space below`);
+  }
+});
+
 test('scrollLeft keeps the popup within the viewport horizontally', () => {
   const result = computePopupOffset({
     viewportWidth: VW,

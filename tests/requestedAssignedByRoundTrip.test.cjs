@@ -38,8 +38,8 @@ test('the card sets them the way it sets Members and Assignee', () => {
       `${field} has the round + button`);
   }
   const js = read('client/components/cards/cardDetails.js');
-  assert.ok(/Popup\.open\('cardRequestedBy'\)/.test(js));
-  assert.ok(/Popup\.open\('cardAssignedBy'\)/.test(js));
+  assert.ok(/Popup\.open\('cardRequestedBy', \{ titleKey: 'requested-by' \}\)/.test(js));
+  assert.ok(/Popup\.open\('cardAssignedBy', \{ titleKey: 'assigned-by' \}\)/.test(js));
   assert.ok(/toggleRequester\(user\._id\)/.test(js));
   assert.ok(/toggleAssigner\(user\._id\)/.test(js));
 });

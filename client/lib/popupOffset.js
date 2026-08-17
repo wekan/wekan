@@ -141,7 +141,15 @@ function computePopupOffset(params) {
 
   const spaceBelow = viewportHeight - openerBottomVp - viewportPadding;
   const spaceAbove = openerTopVp - viewportPadding;
-  const preferBelow = spaceBelow >= spaceAbove;
+  // People pickers belong directly under the + they edit. Choosing the larger
+  // side made Requested/Assigned By jump to the top of the card while Members
+  // and Assignee happened to stay below, despite being the same control.
+  const BELOW_OPENER_POPUPS = [
+    'cardMembersPopup', 'cardAssigneesPopup',
+    'cardRequestedByPopup', 'cardAssignedByPopup',
+  ];
+  const preferBelow = BELOW_OPENER_POPUPS.includes(popupName)
+    || spaceBelow >= spaceAbove;
 
   // Language popup: fixed-ish height below the opener, capped at 50% viewport.
   if (isLanguagePopup) {

@@ -98,6 +98,13 @@ test('an explicit titleKey names a phrase that exists (negative)', () => {
   }
 });
 
+test('Requested By and Assigned By reuse their existing translated titles', () => {
+  assert.strictEqual(explicitTitleKeys.get('cardRequestedBy'), 'requested-by');
+  assert.strictEqual(explicitTitleKeys.get('cardAssignedBy'), 'assigned-by');
+  assert.strictEqual(en['requested-by'], 'Requested By');
+  assert.strictEqual(en['assigned-by'], 'Assigned By');
+});
+
 test('the confirmations that had no header now have one', () => {
   // The ones this came from. A question about deleting something is the worst
   // place for a pop-over you can only leave by pressing Escape.
