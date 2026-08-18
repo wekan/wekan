@@ -2065,6 +2065,37 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   min-height: 4rem;
 }
 
+/* #6488 follow-up: an invitation is not an ordinary one-line board tile. It
+   also contains "You are just invited to this board" and two touch-size action
+   buttons. The phone equal-tile rule above forced that whole control to 4rem;
+   `.js-board { overflow: hidden }` then clipped everything below the title.
+   Keep the 4rem floor, but let this explicitly marked tile grow around its
+   message and actions. This applies both to mobile mode (`.mobile-view`) and to
+   a narrow desktop-mode viewport (the media query below). */
+.board-list.mobile-view li.js-board.is-invited .board-list-item {
+  height: auto;
+  min-height: 4rem;
+}
+
+.board-list li.js-board.is-invited .board-list-item-desc {
+  margin: 4px 0 8px;
+}
+
+@media screen and (max-width: 800px),
+       screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
+  .board-list li.js-board.is-invited .board-list-item,
+  .board-list.mobile-view li.js-board.is-invited .board-list-item {
+    height: auto;
+    min-height: 4rem;
+  }
+
+  .board-list li.js-board.is-invited button {
+    display: block;
+    width: 100%;
+    margin: 4px 0 0;
+  }
+}
+
 
 /* With drag handles OFF there is no handle on a board tile, so the title should
    use the width that was reserved for it. `:has()` keeps this to one rule

@@ -196,7 +196,7 @@ template(name="boardList")
                   a.js-unstar-bookmark.bookmark-unstar(href="#", title="{{_ 'click-to-unstar-page'}}")
                     i.fa.fa-times
             each boards
-              li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
+              li.js-board.nodragscroll(class="{{_id}} {{#if isStarred}}starred{{/if}} {{colorClass}} {{#if isInvited}}is-invited{{/if}} {{#if BoardMultiSelection.isSelected _id}}is-checked{{/if}}", draggable="true")
                 if isInvited
                   .board-list-item
                     if BoardMultiSelection.isActive

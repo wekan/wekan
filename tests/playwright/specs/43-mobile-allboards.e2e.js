@@ -24,6 +24,14 @@ test.describe('All Boards – phone viewport (#6488)', () => {
     for (let i = 0; i < 12; i++) {
       boards.push(await db.seedBoard({ ownerId: adminUser.id, title: `MobileBoard ${i}` }));
     }
+    const invitedBoard = await db.seedBoard({
+      ownerId: adminUser.id,
+      title: 'Phone invitation board',
+    });
+    boards.push(invitedBoard);
+    db.updateOne('users', { _id: adminUser.id }, {
+      $set: { 'profile.invitedBoards': [invitedBoard.boardId] },
+    });
     try {
       await loginWithToken(page, adminUser.id, adminUser.token);
       await page.goto(BASE_URL, { waitUntil: 'networkidle' });
@@ -36,6 +44,29 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       const tiles = page.locator('ul.board-list li.js-board');
       await expect(tiles.first()).toBeVisible({ timeout: 15_000 });
       expect(await tiles.count()).toBeGreaterThanOrEqual(4);
+
+      // The invitation row contains more than a normal 4rem board icon. The
+      // fixed phone tile height used to clip its message and both actions while
+      // leaving only the title visible (#6488 comments 9 and 10).
+      const invitation = page.locator(`li.js-board.${invitedBoard.boardId}`);
+      await expect(invitation).toHaveClass(/is-invited/);
+      await expect(invitation.getByText('You are just invited to this board')).toBeVisible();
+      await expect(invitation.locator('.js-accept-invite')).toBeVisible();
+      await expect(invitation.locator('.js-decline-invite')).toBeVisible();
+      const invitationBox = await invitation.boundingBox();
+      expect(invitationBox).toBeTruthy();
+      for (const control of [
+        invitation.getByText('You are just invited to this board'),
+        invitation.locator('.js-accept-invite'),
+        invitation.locator('.js-decline-invite'),
+      ]) {
+        const box = await control.boundingBox();
+        expect(box).toBeTruthy();
+        expect(box.y).toBeGreaterThanOrEqual(invitationBox.y);
+        expect(box.y + box.height).toBeLessThanOrEqual(
+          invitationBox.y + invitationBox.height + 1,
+        );
+      }
 
       // At least 2 per row. Measure EVERY tile in the list (including the leading
       // "+ Add board" tile, which occupies the first grid cell and offsets the
@@ -109,6 +140,9 @@ test.describe('All Boards – phone viewport (#6488)', () => {
       await page.locator('#content').evaluate(el => { el.scrollTop = el.scrollHeight; });
       await expect(tiles.last()).toBeVisible();
     } finally {
+      db.updateOne('users', { _id: adminUser.id }, {
+        $unset: { 'profile.invitedBoards': '' },
+      });
       boards.forEach(b => db.cleanup({ boardIds: [b.boardId] }));
     }
   });

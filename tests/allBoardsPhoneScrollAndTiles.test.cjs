@@ -233,8 +233,17 @@ test('invited boards render their controls inside that unclipped grid', () => {
   const invited = jade.slice(at, jade.indexOf('if $eq type', at));
   assert.ok(/button\.js-accept-invite/.test(invited), 'the invited tile has Accept');
   assert.ok(/button\.js-decline-invite/.test(invited), 'the invited tile has Decline');
+  assert.ok(/\{\{#if isInvited\}\}is-invited\{\{\/if\}\}/.test(jade),
+    'the invited tile must carry a stable class for its taller phone layout');
   assert.strictEqual(decl(rule('.board-list.mobile-view .board-list-item'), 'overflow'), 'visible',
     'a taller invited tile must not clip those controls');
+  const invitedRule = rule(
+    '.board-list.mobile-view li.js-board.is-invited .board-list-item',
+  );
+  assert.strictEqual(decl(invitedRule, 'height'), 'auto',
+    'an invitation must grow beyond the ordinary fixed 4rem tile');
+  assert.strictEqual(decl(invitedRule, 'min-height'), '4rem',
+    'an invitation still keeps the ordinary tile height as its floor');
 });
 
 console.log(`\n${passed} passed`);
