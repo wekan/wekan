@@ -119,8 +119,15 @@ function sanitizeUploadFileName(name, mimeType) {
     return truncateFilenameChars(baseNameForMime(mimeType) + wantExt);
   }
   if (wantExt) {
+    const dot = n.lastIndexOf('.');
+    const curExt = dot > 0 ? n.slice(dot).toLowerCase() : '';
     const curMime = mime.lookup(n); // false when there is no recognized extension
-    if (curMime === wantMime) {
+    // JFIF is JPEG content, but many desktop file associations (and the
+    // mime-types database used here) do not recognize .jfif. Use the portable
+    // canonical extension instead of producing "photo.jfif.jpeg".
+    if (wantMime === 'image/jpeg' && curExt === '.jfif') {
+      n = n.slice(0, dot) + wantExt;
+    } else if (curMime === wantMime) {
       // extension already matches the type (handles .jpg vs .jpeg) — keep it
     } else if (curMime) {
       // recognized but WRONG extension -> replace it

@@ -71,6 +71,13 @@ check('sanitizeUploadFileName replaces a WRONG extension', () => {
 
 check('sanitizeUploadFileName keeps a correct extension (jpg vs jpeg)', () => {
   assert.strictEqual(sanitizeUploadFileName('photo.jpg', 'image/jpeg'), 'photo.jpg');
+  assert.strictEqual(sanitizeUploadFileName('photo.jpeg', 'image/jpeg'), 'photo.jpeg');
+});
+
+check('sanitizeUploadFileName replaces JFIF with a portable JPEG extension', () => {
+  assert.strictEqual(sanitizeUploadFileName('images (1).jfif', 'image/jpeg'), 'images (1).jpeg');
+  assert.ok(!sanitizeUploadFileName('photo.jfif', 'image/jpeg').includes('.jfif.jpeg'),
+    'the corrected extension replaces JFIF instead of being appended to it');
 });
 
 check('sanitizeUploadFileName generates a name from the type when empty', () => {
@@ -113,6 +120,8 @@ check('sanitizationReasons explains WHY a name was sanitized (for the Problems l
     ['invisible characters']);
   assert.deepStrictEqual(sanitizationReasons('report.txt', 'application/pdf', 'report.pdf'),
     ['wrong file type (.txt → .pdf)']);
+  assert.deepStrictEqual(sanitizationReasons('photo.jfif', 'image/jpeg', 'photo.jpeg'),
+    ['wrong file type (.jfif → .jpeg)']);
   assert.deepStrictEqual(sanitizationReasons('pаypal.exe', 'application/octet-stream', 'paypal.exe'),
     ['typosquatting (look-alike characters)']);
   assert.deepStrictEqual(sanitizationReasons('x'.repeat(40) + '.pdf', 'application/pdf', 'x'.repeat(25) + '.pdf'),
