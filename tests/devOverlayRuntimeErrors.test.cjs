@@ -101,8 +101,40 @@ test('the overlay config is dev-server only', () => {
     'devServer belongs to the client config only');
 });
 
+test('long-running development watchers do not retain the persistent cache', () => {
+  assert.strictEqual(clientConfig.cache, false,
+    'the JavaScript-side cache must not grow across client rebuilds');
+  assert.strictEqual(clientConfig.experiments.cache, false,
+    'the experimental persistent client cache must be disabled');
+
+  const server = factory({ isServer: true, isRun: true, isDevelopment: true });
+  assert.strictEqual(server.cache, false,
+    'the JavaScript-side cache must not grow across server rebuilds');
+  assert.strictEqual(server.experiments.cache, false,
+    'the experimental persistent server cache must be disabled');
+
+  const production = factory({ isClient: true, isRun: false, isProduction: true });
+  assert.strictEqual(production.cache, undefined,
+    'production builds must keep Meteor Rspack caching defaults');
+  assert.strictEqual(production.experiments.cache, undefined,
+    'production builds must keep the persistent cache available');
+
+  const { mergeSplitOverlap } = require(
+    path.join(root, 'node_modules/@meteorjs/rspack/lib/mergeRulesSplitOverlap.js'));
+  const merged = mergeSplitOverlap({
+    cache: true,
+    experiments: { cache: { type: 'persistent' }, incremental: true },
+  }, clientConfig);
+  assert.strictEqual(merged.cache, false,
+    'the run config must override the integration cache default');
+  assert.strictEqual(merged.experiments.cache, false,
+    'the run config must override the integration persistent cache');
+  assert.strictEqual(merged.experiments.incremental, true,
+    'unrelated integration experiments must survive the merge');
+});
+
 test('merging keeps the remote dev-server WebSocket config', () => {
-  // On a remote ROOT_URL (e.g. https://testi.wekan.fi) the Meteor rspack base config
+  // On a remote ROOT_URL the Meteor rspack base config
   // sets devServer.client.webSocketURL so HMR can reach the host. Our overlay setting
   // lives under the same devServer.client key, so it must DEEP merge — replacing
   // `client` wholesale would drop the WebSocket URL and break the dev server.
@@ -110,14 +142,14 @@ test('merging keeps the remote dev-server WebSocket config', () => {
     path.join(root, 'node_modules/@meteorjs/rspack/lib/mergeRulesSplitOverlap.js'));
   const base = {
     devServer: {
-      client: { webSocketURL: { hostname: 'testi.wekan.fi', port: 443, protocol: 'wss' } },
+      client: { webSocketURL: { hostname: 'boards.example', port: 443, protocol: 'wss' } },
       hot: true,
       port: 8080,
     },
   };
   const merged = mergeSplitOverlap(base, clientConfig);
   assert.deepStrictEqual(merged.devServer.client.webSocketURL,
-    { hostname: 'testi.wekan.fi', port: 443, protocol: 'wss' },
+    { hostname: 'boards.example', port: 443, protocol: 'wss' },
     'the remote webSocketURL must survive the merge');
   assert.strictEqual(typeof merged.devServer.client.overlay.runtimeErrors, 'function',
     'the overlay filter must survive the merge');

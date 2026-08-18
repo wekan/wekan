@@ -7,6 +7,18 @@ module.exports = defineConfig(Meteor => ({
       css: false,
     },
   }),
+  // A development watcher lives for hours and rebuilds the same large Blaze graph
+  // repeatedly. Rspack 1.x's experimental persistent cache retains JavaScript-side
+  // serialization state across those rebuilds; on WeKan this can eventually fill a
+  // 16 GB V8 heap. Production builds are short-lived and still benefit from the
+  // persistent cache, so disable it only for `meteor run`.
+  ...(Meteor.isRun && {
+    cache: false,
+    experiments: {
+      ...(Meteor.isClient && { css: false }),
+      cache: false,
+    },
+  }),
   // Dev server only (`meteor run`; a production build has no devServer and no overlay
   // at all). webpack-dev-server's overlay catches every window 'error' event and covers
   // the whole app with a modal "Uncaught runtime errors:" panel. Browsers sanitise an
