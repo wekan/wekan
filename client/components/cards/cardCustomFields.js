@@ -31,6 +31,10 @@ import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { formatNumberValue } from '/imports/lib/customNumberFormat';
 
 Template.cardCustomFieldsPopup.helpers({
+  board() {
+    const card = getCurrentCardFromContext();
+    return card?.getRealBoard ? card.getRealBoard() : card?.board?.();
+  },
   hasCustomField() {
     const card = getCurrentCardFromContext();
     if (!card) return false;
@@ -48,7 +52,7 @@ Template.cardCustomFieldsPopup.events({
     const assigned = card.customFieldIndex(customFieldId) < 0;
     try {
       await Meteor.callAsync(
-        'setCardCustomFieldAssigned', card._id, customFieldId, assigned);
+        'setCardCustomFieldAssigned', card.getRealId(), customFieldId, assigned);
     } catch (error) {
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
@@ -132,7 +136,7 @@ Template['cardCustomField-checkbox'].events({
     const value = !Template.currentData().value;
     try {
       await Meteor.callAsync(
-        'setCardCustomFieldCheckbox', tpl.card._id, tpl.customFieldId, value);
+        'setCardCustomFieldCheckbox', tpl.card.getRealId(), tpl.customFieldId, value);
     } catch (error) {
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }

@@ -150,7 +150,9 @@ Blaze.registerHelper('displayDate', (...args) => {
   return format(new Date(date), formatStr ?? 'LLLL');
 });
 
-Blaze.registerHelper('canModifyCard', () => Utils.canModifyCard());
+Blaze.registerHelper('canModifyCard', function canModifyCard() {
+  return Utils.canModifyCard(this);
+});
 
 Blaze.registerHelper('canMoveCard', () => Utils.canMoveCard());
 

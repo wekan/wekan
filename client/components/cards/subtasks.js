@@ -22,7 +22,8 @@ Template.subtasks.events({
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
-    const cardId = this.cardId;
+    const contextCard = ReactiveCache.getCard(this.cardId);
+    const cardId = contextCard?.getRealId ? contextCard.getRealId() : this.cardId;
 
     if (title) {
       // Subtask creation is performed server-side by the `addSubtaskCard` Meteor

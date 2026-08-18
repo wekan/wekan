@@ -36,7 +36,7 @@ test('server validates actor, board field definition and checkbox type', () => {
     const body = server.slice(at, server.indexOf('\n  },', at));
     assert.ok(at >= 0, `${method} exists`);
     assert.ok(body.indexOf('check(') < body.indexOf('await '), `${method} checks before await`);
-    assert.match(body, /allowIsBoardMemberWithWriteAccess\(this\.userId, board\)/);
+    assert.match(body, /canEditCardOrLinkedCard\(this\.userId, card, board\)/);
     assert.match(body, /boardIds: card\.boardId/);
   }
   const checkbox = server.slice(server.indexOf('async setCardCustomFieldCheckbox'));

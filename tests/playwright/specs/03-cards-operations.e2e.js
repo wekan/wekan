@@ -282,6 +282,7 @@ test.describe('Cards – operations', () => {
 
   test('#6613 links a card from another board and closes the popup', async ({ boardPage, board, user }) => {
     const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
     const source = db.seedBoard({
       ownerId: user.id,
@@ -359,6 +360,28 @@ test.describe('Cards – operations', () => {
       await expect(boardPage.locator('.card-details .card-sticker .fa-rocket')).toBeVisible();
       await expect(boardPage.locator('.card-details')).toContainText('Source Location');
       await expect(boardPage.locator('.card-details')).toContainText('Source Value');
+
+      // Editing the opened linked representation updates the source and the
+      // linked minicard title snapshot, so both boards retain the same card.
+      await cp.editTitle('Edited through linked card');
+      await expect.poll(() => db.findOne('cards', { _id: sourceCard._id })?.title)
+        .toBe('Edited through linked card');
+      await expect.poll(() => db.findOne('cards', {
+        boardId: board.boardId,
+        linkedId: sourceCard._id,
+      })?.title).toBe('Edited through linked card');
+
+      // The ordinary source-board editor remains available and writes the
+      // same document in the opposite direction.
+      await boardPage.goto(`/b/${source.boardId}/${source.slug}`);
+      await boardPage.locator('.board-canvas').waitFor({ timeout: 15_000 });
+      await boardPage.locator('.minicard').filter({
+        hasText: 'Edited through linked card',
+      }).click();
+      await cp.waitForOpen();
+      await cp.editTitle('Edited from source board');
+      await expect.poll(() => db.findOne('cards', { _id: sourceCard._id })?.title)
+        .toBe('Edited from source board');
     } finally {
       db.cleanup({ boardIds: [source.boardId] });
     }

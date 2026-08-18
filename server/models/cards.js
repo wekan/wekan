@@ -35,6 +35,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 
 Meteor.methods({
   // #6613: create cross-board card links as an acknowledged, authoritative
@@ -142,7 +143,7 @@ Meteor.methods({
     const card = await Cards.findOneAsync(cardId);
     if (!card) throw new Meteor.Error('not-found');
     const board = await Boards.findOneAsync(card.boardId);
-    if (!board || !allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
       throw new Meteor.Error('not-authorized');
     }
     const definition = await CustomFields.findOneAsync({
@@ -172,7 +173,7 @@ Meteor.methods({
     const card = await Cards.findOneAsync(cardId);
     if (!card) throw new Meteor.Error('not-found');
     const board = await Boards.findOneAsync(card.boardId);
-    if (!board || !allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
       throw new Meteor.Error('not-authorized');
     }
     const definition = await CustomFields.findOneAsync({
@@ -212,7 +213,7 @@ Meteor.methods({
     const parentBoard = await Boards.findOneAsync(parentCard.boardId);
     if (!parentBoard) throw new Meteor.Error('not-found');
     // The author must have write access to the parent card's board.
-    if (!allowIsBoardMemberWithWriteAccess(this.userId, parentBoard))
+    if (!(await canEditCardOrLinkedCard(this.userId, parentCard, parentBoard)))
       throw new Meteor.Error('not-authorized');
 
     // Resolve (and, on the server, lazily create ONCE) the default subtasks
@@ -318,7 +319,8 @@ Meteor.methods({
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
     if (!board) throw new Meteor.Error('not-found');
 
-    const isMember = allowIsBoardMember(this.userId, board);
+    const isMember = allowIsBoardMember(this.userId, board) ||
+      await canEditCardOrLinkedCard(this.userId, card, board);
     const allowNBM = !!(card.poker && card.poker.allowNonBoardMembers);
     if (!(isMember || allowNBM)) {
       throw new Meteor.Error('not-authorized');
@@ -342,7 +344,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     const modifier = {
       $set: {
@@ -375,7 +377,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -396,7 +398,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -414,7 +416,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -433,7 +435,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -454,7 +456,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -472,7 +474,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -506,7 +508,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -534,7 +536,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -555,7 +557,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -573,7 +575,7 @@ Meteor.methods({
     const card = (await ReactiveCache.getCard(cardId)) || (await Cards.findOneAsync(cardId));
     if (!card) throw new Meteor.Error('not-found');
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
-    if (!allowIsBoardMember(this.userId, board)) throw new Meteor.Error('not-authorized');
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) throw new Meteor.Error('not-authorized');
 
     return await Cards.updateAsync(
       { _id: cardId },
@@ -594,7 +596,8 @@ Meteor.methods({
     const board = (await ReactiveCache.getBoard(card.boardId)) || (await Boards.findOneAsync(card.boardId));
     if (!board) throw new Meteor.Error('not-found');
 
-    const isMember = allowIsBoardMember(this.userId, board);
+    const isMember = allowIsBoardMember(this.userId, board) ||
+      await canEditCardOrLinkedCard(this.userId, card, board);
     const allowNBM = !!(card.vote && card.vote.allowNonBoardMembers);
     if (!(isMember || allowNBM)) {
       throw new Meteor.Error('not-authorized');

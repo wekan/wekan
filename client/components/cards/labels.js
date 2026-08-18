@@ -111,8 +111,13 @@ Template.cardLabelsPopup.onRendered(function () {
 });
 
 Template.cardLabelsPopup.helpers({
+  board() {
+    const card = Template.currentData();
+    return card?.getRealBoard ? card.getRealBoard() : card?.board?.();
+  },
   isLabelSelected(cardId) {
-    return (ReactiveCache.getCard(cardId).labelIds || []).includes(this._id);
+    const card = ReactiveCache.getCard(cardId);
+    return (card?.getRealCard().labelIds || []).includes(this._id);
   },
 });
 

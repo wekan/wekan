@@ -464,7 +464,7 @@ export async function handleFileUpload(card, files) {
       );
 
       // Add to progress manager for tracking
-      const uploadId = uploadProgressManager.addUpload(card._id, uploader, file);
+      const uploadId = uploadProgressManager.addUpload(card.getRealId(), uploader, file);
 
       uploader.on('uploaded', (error, fileRef) => {
         if (!error) {

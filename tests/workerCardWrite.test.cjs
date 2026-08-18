@@ -143,10 +143,10 @@ test('the server reads the modifier, and only reaches the policy for a Worker', 
     'including at the call site Meteor invokes');
   const body = permissions.slice(permissions.indexOf('export const canUpdateCard'),
     permissions.indexOf('Cards.allow('));
-  const writeAt = body.indexOf('allowIsBoardMemberWithWriteAccess');
+  const writeAt = body.indexOf('canEditCardOrLinkedCard');
   const workerAt = body.indexOf('workerMayUpdateCard');
   assert.ok(writeAt !== -1 && workerAt > writeAt,
-    'write access is still the first question; the Worker policy only answers '
+    'direct or delegated write access is still the first question; the Worker policy only answers '
     + 'for somebody who does NOT have it');
   assert.ok(/hasWorker\(userId\)/.test(body),
     'and only for an actual Worker on THAT board');

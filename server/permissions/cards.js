@@ -3,6 +3,7 @@ import Boards from '/models/boards';
 import { allowIsBoardMemberWithWriteAccess, denyCrossBoardMove } from '/server/lib/utils';
 import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary, tripCanaryDeny } from '/server/lib/canary';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const { workerMayUpdateCard } = require('/models/lib/workerCardWrite');
 
 // GHSA-jvv9-498p-hxrg: may this user name that card as a parent? Only if they
@@ -50,7 +51,7 @@ export const canUpdateCard = async function(userId, doc, fields, modifier) {
   }
   // ReadOnly users cannot edit cards
   const board = await Boards.findOneAsync(doc.boardId);
-  if (allowIsBoardMemberWithWriteAccess(userId, board)) return true;
+  if (await canEditCardOrLinkedCard(userId, doc, board)) return true;
   // #3189: a Worker, doing one of the two things a Worker is for. The client
   // already offers it - the assignee popup shows a Worker their own name and
   // nobody else's - and the write was being thrown away here, so the card sprang

@@ -230,13 +230,15 @@ export const Utils = {
   // `isCommentAssignedOnly`. Every disagreement was a button offered to somebody
   // whose write the server then refused, which reads as a bug to the person
   // clicking it. Reading the one table is what keeps them honest.
-  currentUserCan(capability) {
-    const board = Utils.getCurrentBoard();
+  currentUserCan(capability, board = Utils.getCurrentBoard()) {
     const userId = Meteor.userId();
     return !!(board && memberCan(board.members, userId, capability));
   },
-  canModifyCard() {
-    return Utils.currentUserCan('write');
+  canModifyCard(card = Utils.getCurrentCard()) {
+    const board = card && typeof card.board === 'function'
+      ? card.board()
+      : Utils.getCurrentBoard();
+    return Utils.currentUserCan('write', board);
   },
   // A move is a card update on the server, but it is NOT the same capability: a
   // Worker may move a card and assign themselves to it while writing nothing else

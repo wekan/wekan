@@ -1113,6 +1113,11 @@ Cards.helpers({
     return ReactiveCache.getCard(this.linkedId) || this;
   },
 
+  getRealBoard() {
+    const card = this.getRealCard();
+    return ReactiveCache.getBoard(card.boardId);
+  },
+
   getList() {
     const list = this.list();
     if (!list) {
@@ -1734,11 +1739,12 @@ Cards.helpers({
   // Guards against self-links and cross-board targets. When the dependency
   // already exists its type/color/icon are updated.
   addDependency(targetCardId, options = {}) {
-    if (!targetCardId || targetCardId === this._id) {
+    const realCard = this.getRealCard();
+    if (!targetCardId || targetCardId === realCard._id) {
       return undefined;
     }
     const target = ReactiveCache.getCard(targetCardId);
-    if (!target || target.boardId !== this.boardId) {
+    if (!target || target.boardId !== realCard.boardId) {
       return undefined;
     }
     const deps = this.getDependencies();
@@ -1754,7 +1760,7 @@ Cards.helpers({
     const next = existing
       ? deps.map(dep => (dep.cardId === targetCardId ? entry : dep))
       : [...deps, entry];
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: { cardDependencies: next },
     });
   },
@@ -1780,7 +1786,7 @@ Cards.helpers({
     if (!changed) {
       return undefined;
     }
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: { cardDependencies: next },
     });
   },
@@ -1791,7 +1797,7 @@ Cards.helpers({
     const next = this.getDependencies().filter(
       dep => dep.cardId !== targetCardId,
     );
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: { cardDependencies: next },
     });
   },
@@ -2933,43 +2939,43 @@ Cards.helpers({
     if (newColor === 'white') {
       newColor = null;
     }
-    return Cards.updateAsync(this._id, { $set: { color: newColor } });
+    return Cards.updateAsync(this.getRealId(), { $set: { color: newColor } });
   },
 
   assignMember(memberId) {
-    return Cards.updateAsync(this._id, { $addToSet: { members: memberId } });
+    return Cards.updateAsync(this.getRealId(), { $addToSet: { members: memberId } });
   },
 
   assignAssignee(assigneeId) {
-    return Cards.updateAsync(this._id, { $addToSet: { assignees: assigneeId } });
+    return Cards.updateAsync(this.getRealId(), { $addToSet: { assignees: assigneeId } });
   },
 
   assignRequester(userId) {
-    return Cards.updateAsync(this._id, { $addToSet: { requesters: userId } });
+    return Cards.updateAsync(this.getRealId(), { $addToSet: { requesters: userId } });
   },
 
   assignAssigner(userId) {
-    return Cards.updateAsync(this._id, { $addToSet: { assigners: userId } });
+    return Cards.updateAsync(this.getRealId(), { $addToSet: { assigners: userId } });
   },
 
   unassignMember(memberId) {
-    return Cards.updateAsync(this._id, { $pull: { members: memberId } });
+    return Cards.updateAsync(this.getRealId(), { $pull: { members: memberId } });
   },
 
   unassignAssignee(assigneeId) {
-    return Cards.updateAsync(this._id, { $pull: { assignees: assigneeId } });
+    return Cards.updateAsync(this.getRealId(), { $pull: { assignees: assigneeId } });
   },
 
   unassignRequester(userId) {
-    return Cards.updateAsync(this._id, { $pull: { requesters: userId } });
+    return Cards.updateAsync(this.getRealId(), { $pull: { requesters: userId } });
   },
 
   unassignAssigner(userId) {
-    return Cards.updateAsync(this._id, { $pull: { assigners: userId } });
+    return Cards.updateAsync(this.getRealId(), { $pull: { assigners: userId } });
   },
 
   toggleMember(memberId) {
-    if (this.members && this.members.indexOf(memberId) > -1) {
+    if ((this.getMembers() || []).includes(memberId)) {
       return this.unassignMember(memberId);
     } else {
       return this.assignMember(memberId);
@@ -2977,7 +2983,7 @@ Cards.helpers({
   },
 
   toggleAssignee(assigneeId) {
-    if (this.assignees && this.assignees.indexOf(assigneeId) > -1) {
+    if ((this.getAssignees() || []).includes(assigneeId)) {
       return this.unassignAssignee(assigneeId);
     } else {
       return this.assignAssignee(assigneeId);
@@ -2995,13 +3001,13 @@ Cards.helpers({
   },
 
   assignCustomField(customFieldId) {
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $addToSet: { customFields: { _id: customFieldId, value: null } },
     });
   },
 
   unassignCustomField(customFieldId) {
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $pull: { customFields: { _id: customFieldId } },
     });
   },
@@ -3015,22 +3021,22 @@ Cards.helpers({
   },
 
   toggleShowActivities() {
-    return Cards.updateAsync(this._id, {
-      $set: { showActivities: !this.showActivities },
+    return Cards.updateAsync(this.getRealId(), {
+      $set: { showActivities: !this.getRealCard().showActivities },
     });
   },
 
   toggleShowChecklistAtMinicard() {
-    return Cards.updateAsync(this._id, {
-      $set: { showChecklistAtMinicard: !this.showChecklistAtMinicard },
+    return Cards.updateAsync(this.getRealId(), {
+      $set: { showChecklistAtMinicard: !this.getRealCard().showChecklistAtMinicard },
     });
   },
 
   toggleHideFinishedChecklist() {
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: {
         hideFinishedChecklistIfItemsAreHidden:
-          !this.hideFinishedChecklistIfItemsAreHidden,
+          !this.getRealCard().hideFinishedChecklistIfItemsAreHidden,
       },
     });
   },
@@ -3040,17 +3046,17 @@ Cards.helpers({
     if (index > -1) {
       const update = { $set: {} };
       update.$set[`customFields.${index}.value`] = value;
-      return Cards.updateAsync(this._id, update);
+      return Cards.updateAsync(this.getRealId(), update);
     }
     return null;
   },
 
   setCover(coverId) {
-    return Cards.updateAsync(this._id, { $set: { coverId } });
+    return Cards.updateAsync(this.getRealId(), { $set: { coverId } });
   },
 
   unsetCover() {
-    return Cards.updateAsync(this._id, { $unset: { coverId: '' } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { coverId: '' } });
   },
 
   // #4561: on a linked card these must target the REAL underlying card
@@ -3073,15 +3079,15 @@ Cards.helpers({
   },
 
   setOvertime(isOvertime) {
-    return Cards.updateAsync(this._id, { $set: { isOvertime } });
+    return Cards.updateAsync(this.getRealId(), { $set: { isOvertime } });
   },
 
   setSpentTime(spentTime) {
-    return Cards.updateAsync(this._id, { $set: { spentTime } });
+    return Cards.updateAsync(this.getRealId(), { $set: { spentTime } });
   },
 
   unsetSpentTime() {
-    return Cards.updateAsync(this._id, { $unset: { spentTime: '', isOvertime: false } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { spentTime: '', isOvertime: false } });
   },
 
   setParentId(parentId) {
@@ -3105,18 +3111,18 @@ Cards.helpers({
         }
         ancestorIds.push(crtParentId);
       }
-      if (wouldCreateCycle(this._id, parentId, ancestorIds)) {
+      if (wouldCreateCycle(this.getRealId(), parentId, ancestorIds)) {
         throw new Meteor.Error(
           'circular-subtask',
           'A card cannot be made a subtask of itself or of one of its own subtasks.',
         );
       }
     }
-    return Cards.updateAsync(this._id, { $set: { parentId } });
+    return Cards.updateAsync(this.getRealId(), { $set: { parentId } });
   },
 
   setVoteQuestion(question, publicVote, allowNonBoardMembers) {
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: {
         vote: {
           question,
@@ -3130,38 +3136,38 @@ Cards.helpers({
   },
 
   unsetVote() {
-    return Cards.updateAsync(this._id, { $unset: { vote: '' } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { vote: '' } });
   },
 
   setVoteEnd(end) {
-    return Cards.updateAsync(this._id, { $set: { 'vote.end': end } });
+    return Cards.updateAsync(this.getRealId(), { $set: { 'vote.end': end } });
   },
 
   unsetVoteEnd() {
-    return Cards.updateAsync(this._id, { $unset: { 'vote.end': '' } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { 'vote.end': '' } });
   },
 
   setVote(userId, forIt) {
     switch (forIt) {
       case true:
-        return Cards.updateAsync(this._id, {
+        return Cards.updateAsync(this.getRealId(), {
           $pull: { 'vote.negative': userId },
           $addToSet: { 'vote.positive': userId },
         });
       case false:
-        return Cards.updateAsync(this._id, {
+        return Cards.updateAsync(this.getRealId(), {
           $pull: { 'vote.positive': userId },
           $addToSet: { 'vote.negative': userId },
         });
       default:
-        return Cards.updateAsync(this._id, {
+        return Cards.updateAsync(this.getRealId(), {
           $pull: { 'vote.positive': userId, 'vote.negative': userId },
         });
     }
   },
 
   setPokerQuestion(question, allowNonBoardMembers) {
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: {
         poker: {
           question,
@@ -3182,23 +3188,23 @@ Cards.helpers({
   },
 
   setPokerEstimation(estimation) {
-    return Cards.updateAsync(this._id, { $set: { 'poker.estimation': estimation } });
+    return Cards.updateAsync(this.getRealId(), { $set: { 'poker.estimation': estimation } });
   },
 
   unsetPokerEstimation() {
-    return Cards.updateAsync(this._id, { $unset: { 'poker.estimation': '' } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { 'poker.estimation': '' } });
   },
 
   unsetPoker() {
-    return Cards.updateAsync(this._id, { $unset: { poker: '' } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { poker: '' } });
   },
 
   setPokerEnd(end) {
-    return Cards.updateAsync(this._id, { $set: { 'poker.end': end } });
+    return Cards.updateAsync(this.getRealId(), { $set: { 'poker.end': end } });
   },
 
   unsetPokerEnd() {
-    return Cards.updateAsync(this._id, { $unset: { 'poker.end': '' } });
+    return Cards.updateAsync(this.getRealId(), { $unset: { 'poker.end': '' } });
   },
 
   setPoker(userId, state) {
@@ -3208,17 +3214,17 @@ Cards.helpers({
 
     if (pokerFields.includes(state)) {
       delete pullFields[`poker.${state}`];
-      return Cards.updateAsync(this._id, {
+      return Cards.updateAsync(this.getRealId(), {
         $pull: pullFields,
         $addToSet: { [`poker.${state}`]: userId },
       });
     } else {
-      return Cards.updateAsync(this._id, { $pull: pullFields });
+      return Cards.updateAsync(this.getRealId(), { $pull: pullFields });
     }
   },
 
   replayPoker() {
-    return Cards.updateAsync(this._id, {
+    return Cards.updateAsync(this.getRealId(), {
       $set: {
         'poker.one': [],
         'poker.two': [],

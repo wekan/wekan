@@ -156,10 +156,10 @@ test('the UI offers exactly what the server would accept', () => {
     canModifyBoard: 'write',
   };
   for (const [fn, capability] of Object.entries(CAPABILITY_OF)) {
-    const at = code.indexOf(`  ${fn}() {`);
+    const at = code.indexOf(`  ${fn}(`);
     assert.notStrictEqual(at, -1, `${fn} must exist`);
     const body = code.slice(at, code.indexOf('\n  },', at));
-    assert.ok(new RegExp(`currentUserCan\\('${capability}'\\)`).test(body),
+    assert.ok(new RegExp(`currentUserCan\\('${capability}'(?:,|\\))`).test(body),
       `${fn} must ask the table for the ${capability} capability`);
     for (const flag of Object.values(ROLE_FLAGS)) {
       assert.ok(!body.includes(flag), `${fn} must not name ${flag} itself`);

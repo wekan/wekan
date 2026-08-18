@@ -11,6 +11,20 @@ import {
   onlyTouchesAllowedFields,
 } from '/models/lib/fileVersionFields';
 import { tripCanary } from '/server/lib/canary';
+import Cards from '/models/cards';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+
+async function canEditAttachmentCard(userId, fileObj) {
+  const cardId = fileObj?.meta?.cardId;
+  if (cardId) {
+    const card = await Cards.findOneAsync(cardId);
+    if (card) return await canEditCardOrLinkedCard(userId, card);
+  }
+  return allowIsBoardMemberWithWriteAccess(
+    userId,
+    await Boards.findOneAsync(fileObj?.meta?.boardId),
+  );
+}
 
 Attachments.allow({
   async insert(userId, fileObj) {
@@ -35,7 +49,7 @@ Attachments.allow({
     }
 
     // ReadOnly users cannot upload attachments
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.meta?.boardId));
+    return await canEditAttachmentCard(userId, fileObj);
   },
   async update(userId, fileObj, fields) {
     // SECURITY: The 'name' field is sanitized in onBeforeUpload and server-side methods,
@@ -60,7 +74,7 @@ Attachments.allow({
     }
 
     // ReadOnly users cannot update attachments
-    return allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(fileObj.meta?.boardId));
+    return await canEditAttachmentCard(userId, fileObj);
   },
   async remove(userId, fileObj) {
     // Additional security check: ensure the file belongs to the board the user has access to
@@ -80,7 +94,7 @@ Attachments.allow({
     }
 
     // ReadOnly users cannot delete attachments
-    return allowIsBoardMemberWithWriteAccess(userId, board);
+    return await canEditAttachmentCard(userId, fileObj);
   },
   fetch: ['meta'],
 });
