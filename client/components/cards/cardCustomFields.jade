@@ -68,12 +68,12 @@ template(name="cardCustomField-checkbox")
   //- This is a persisted card value, not a checklist item and not the
     Custom Fields menu's visibility toggle. Keep its own event hook so no
     generic checklist handler can interpret the click.
-  .js-card-custom-field-checkbox.checklist-item(class="{{#if data.value }}is-checked{{/if}}")
+  .js-card-custom-field-checkbox.checklist-item(class="{{#if value}}is-checked{{/if}}")
     if canModifyCard
       .check-box-container
-        .check-box.materialCheckBox(class="{{#if data.value}}is-checked{{/if}}")
+        .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
     else
-      .materialCheckBox(class="{{#if data.value}}is-checked{{/if}}")
+      .materialCheckBox(class="{{#if value}}is-checked{{/if}}")
 
 template(name="cardCustomField-currency")
     if canModifyCard

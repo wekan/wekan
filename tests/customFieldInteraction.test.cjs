@@ -11,6 +11,7 @@ const { buildExportCardDocument } = require('../models/lib/cardExportDocument');
 const root = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const client = read('client/components/cards/cardCustomFields.js');
+const template = read('client/components/cards/cardCustomFields.jade');
 const server = read('server/models/cards.js');
 
 let passed = 0;
@@ -31,6 +32,14 @@ test('opened-card checkbox saves its value independently of visibility', () => {
   assert.match(body, /!Boolean\(storedField\.value\)/);
   assert.match(body, /event\.stopPropagation\(\)/);
   assert.doesNotMatch(body, /tpl\.card\.setCustomField/);
+});
+
+test('opened-card checkbox renders the persisted value in its own context', () => {
+  const at = template.indexOf('template(name="cardCustomField-checkbox")');
+  const body = template.slice(at, template.indexOf(
+    'template(name="cardCustomField-currency")', at));
+  assert.match(body, /class="\{\{#if value\}\}is-checked/);
+  assert.doesNotMatch(body, /data\.value/);
 });
 
 test('server validates actor, board field definition and checkbox type', () => {
