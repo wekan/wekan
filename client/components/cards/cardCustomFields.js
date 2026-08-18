@@ -128,25 +128,49 @@ Template.cardCustomField.onCreated(function () {
   this.customFieldId = Template.currentData()._id;
 });
 
+function openCustomFieldValueEditor(event, tpl) {
+  // The Checkbox square is the direct on/off control. Only its surrounding row
+  // uses this shared editor route.
+  if (event.target.closest('.check-box-container')) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const field = Template.currentData();
+  if (field?.definition?.type === 'date') {
+    const opener = tpl.find('.js-card-custom-field-date-value');
+    if (!opener) return;
+    // The title and value both open Date, but its popup always belongs below
+    // the visible date value. A hidden generic trigger has no useful bounds
+    // and made Popup position the date editor elsewhere on the card.
+    Popup.open('cardCustomField-date').call(field, {
+      currentTarget: opener,
+      target: opener,
+      preventDefault() {},
+    });
+    return;
+  }
+  const trigger = tpl.find('.js-custom-field-edit-trigger');
+  if (trigger) trigger.click();
+}
+
 Template.cardCustomField.events({
-  'click .js-edit-card-custom-field-value'(event, tpl) {
-    event.preventDefault();
-    if (this.definition?.type === 'date') {
-      const opener = tpl.find('.js-card-custom-field-date-value');
-      if (!opener) return;
-      // The title and value both open Date, but its popup always belongs below
-      // the visible date value. A hidden generic trigger has no useful bounds
-      // and made Popup position the date editor elsewhere on the card.
-      Popup.open('cardCustomField-date').call(this, {
-        currentTarget: opener,
-        target: opener,
-        preventDefault() {},
-      });
-      return;
-    }
-    const trigger = tpl.find('.js-custom-field-edit-trigger');
-    if (trigger) trigger.click();
-  },
+  'click .js-edit-card-custom-field-value': openCustomFieldValueEditor,
+});
+
+// Titles belong to Template.cardCustomField, while displayed values belong to
+// these nested type templates. Register on both sides of the Blaze boundary so
+// every title, value and type-specific empty edit area behaves consistently.
+[
+  'text',
+  'number',
+  'checkbox',
+  'currency',
+  'date',
+  'dropdown',
+  'stringtemplate',
+].forEach(type => {
+  Template[`cardCustomField-${type}`].events({
+    'click .js-edit-card-custom-field-value': openCustomFieldValueEditor,
+  });
 });
 
 // cardCustomField-text

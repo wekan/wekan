@@ -136,15 +136,21 @@ test('the title and value open editing while checkbox control stays independent'
     'template(name="customFieldCopyButton")', wrapperAt));
   assert.match(wrapper, /js-edit-card-custom-field-value/);
   assert.match(client,
-    /click \.js-edit-card-custom-field-value[\s\S]*js-custom-field-edit-trigger/);
+    /function openCustomFieldValueEditor[\s\S]*js-custom-field-edit-trigger/);
   assert.match(template,
     /span\.js-card-custom-field-date-value\.js-edit-card-custom-field-value/,
     'the visible date is the popup anchor');
   assert.doesNotMatch(template, /button\.js-edit-date[^\n]*hidden/,
     'Date no longer positions from a hidden button');
   assert.match(client,
-    /definition\?\.type === 'date'[\s\S]*tpl\.find\('\.js-card-custom-field-date-value'\)[\s\S]*Popup\.open\('cardCustomField-date'\)\.call\(this,[\s\S]*currentTarget: opener/,
+    /definition\?\.type === 'date'[\s\S]*tpl\.find\('\.js-card-custom-field-date-value'\)[\s\S]*Popup\.open\('cardCustomField-date'\)\.call\(field,[\s\S]*currentTarget: opener/,
     'both title and value route the popup through the visible date anchor');
+  assert.match(client,
+    /'text',[\s\S]*'checkbox',[\s\S]*'date',[\s\S]*'stringtemplate',[\s\S]*\.forEach\(type => \{[\s\S]*Template\[`cardCustomField-\$\{type\}`\]\.events[\s\S]*openCustomFieldValueEditor/,
+    'every nested type template owns its value clicks instead of relying on its parent');
+  assert.match(client,
+    /event\.target\.closest\('\.check-box-container'\)\) return/,
+    'the shared route does not take over the Checkbox square');
   assert.match(cardDetailsTemplate,
     /card-details-item-customfield\(class="custom-field-type-\{\{definition\.type\}\}"\)/,
     'each grid cell exposes its field type for type-specific interaction');
