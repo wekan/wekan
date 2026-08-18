@@ -58,6 +58,14 @@ test('currency save is acknowledged and has an X beside Save', () => {
   assert.match(templateBody, /input\(type="text" value=value autofocus\)/);
 });
 
+test('dropdown has the standard X immediately beside Save', () => {
+  const at = template.indexOf('template(name="cardCustomField-dropdown")');
+  const body = template.slice(at, template.indexOf(
+    '// cardCustomField-dropdown', at));
+  assert.match(body,
+    /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
+});
+
 test('server validates actor, board field definition and value type', () => {
   for (const method of [
     'setCardCustomFieldAssigned',

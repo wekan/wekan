@@ -131,7 +131,7 @@ template(name="cardCustomField-dropdown")
                             = name
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.js-close-inlined-form
+                a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             a.js-open-inlined-form
                 if value
