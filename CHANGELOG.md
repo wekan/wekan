@@ -471,6 +471,21 @@ checks both the closed dialog and the stored linked card.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a830cae64742bfcf99ab500a19872413e35de802">Link placement survives asynchronous popup confirmation</a>. Thanks to xet7.</summary>
+
+The linked-board confirmation asked Blaze for the popup's `top` or `bottom`
+position after awaiting the next card number. By then its event view was no
+longer current, so Blaze threw `There is no current view` before inserting the
+link. The popup now captures its position when it is created and its sort
+calculation uses only that stored value after asynchronous work. The board
+selector is scoped to the same popup as well.
+
+The regression test rejects any later `Template.currentData()` call inside the
+sort calculation and covers both placement choices.
+
+</details>
+
 **All Boards** - the overview on phone-sized layouts.
 
 <details>
