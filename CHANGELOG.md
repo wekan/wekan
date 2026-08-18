@@ -403,8 +403,8 @@ browser build to verify).
 **In short:** **card details** restore checkbox custom fields, keep their saved
 values separate from field visibility, save currency values, provide
 independent opened-card and minicard visibility settings, make every custom-field
-value copyable, restore cross-board card links, omit deleted custom fields from
-exports, and make attachment
+value copyable, restore the grid/one-per-row layout switch, restore cross-board
+card links, omit deleted custom fields from exports, and make attachment
 previews use the available viewport. Linked cards mirror every visible source
 field across boards and authorized members can edit that shared content from
 either board. Card locations recognize both map URLs and plain
@@ -438,6 +438,21 @@ viewport's eight-pixel margins. Mobile remains full-screen and non-resizable.
 
 Placement and maximized-card regression coverage checks both resize directions,
 the initial width, viewport ceiling, mobile behavior and maximized geometry.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0ca913d477b8583b19d5ea5c60fd27a9d4ba0ff">The Custom Fields layout toggle changes and remembers the layout</a>. Thanks to xet7.</summary>
+
+The toggle continued saving the user's `customFieldsGrid` preference after the
+card-section refactor, but the rendered container no longer read it, so nothing
+visibly changed. The off state now produces a compact wrapping grid and the on
+state makes each custom field occupy a full row, preserving the toggle's
+original behavior.
+
+Focused positive and negative coverage checks both layout classes and the
+persisted method wiring. A browser regression switches the layout and reloads
+the card to verify that the selected mode remains active.
 
 </details>
 
