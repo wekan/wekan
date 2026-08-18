@@ -409,8 +409,9 @@ browser build to verify).
 
 **In short:** **card details** restore checkbox custom fields and cross-board
 card links, omit deleted custom fields from exports, and make attachment
-previews use the available viewport. Positive, negative and browser regression
-coverage keeps each interaction working. **All Boards** also keeps the complete
+previews use the available viewport. Card locations recognize both map URLs and
+plain coordinate pairs. Positive, negative and browser regression coverage
+keeps each interaction working. **All Boards** also keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -483,6 +484,22 @@ selector is scoped to the same popup as well.
 
 The regression test rejects any later `Template.currentData()` call inside the
 sort calculation and covers both placement choices.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5693c1965a09f59e4e76795c9aeccd3653fdb47f">Card locations detect plain latitude and longitude pairs</a>. Thanks to xet7.</summary>
+
+Detect location already recognized provider URLs such as Google Maps
+`@latitude,longitude,zoom`, but a coordinate pair copied directly from a map or
+GPS application produced no result. The same field now accepts a complete
+`latitude, longitude` pair with optional surrounding whitespace and retains its
+range checks. The match is anchored to the entire input so prose that happens
+to contain two numbers is not mistaken for a location.
+
+Parser tests cover both supplied formats, exact precision and the prose
+negative case. The browser regression enters each format through the location
+popup and verifies the detected latitude and longitude fields.
 
 </details>
 
