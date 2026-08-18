@@ -418,7 +418,9 @@ Opened cards can also be resized wider as well as narrower on desktop. **All
 Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 **Developer tooling** keeps long-running Rspack development watchers from
-retaining cache state until they exhaust the JavaScript heap.
+retaining cache state until they exhaust the JavaScript heap. **Dependencies**
+refresh S3 storage, build analysis, keyboard shortcuts, CSV parsing and browser
+automation.
 **Admin Panel / Problems / Offices** groups login addresses by person and shows
 each address family, available location, per-person login count and available
 initials instead of empty avatar circles.
@@ -890,6 +892,17 @@ The phone browser regression creates a real pending invitation and verifies
 that its message and both buttons remain visible and inside the tile.
 
 </details>
+
+and updates the following dependencies:
+
+- **@aws-sdk/client-s3 3.1109.0 → 3.1113.0** — the AWS S3 client used by
+  S3-compatible attachment storage.
+- **@rsdoctor/rspack-plugin 1.6.1 → 1.6.2** — the Rspack build-analysis plugin.
+- **hotkeys-js 4.0.4 → 4.0.5** — keyboard shortcut handling.
+- **papaparse 5.5.4 → 5.6.0** — CSV parsing and generation.
+- **puppeteer 25.6.0 → 25.8.0** — browser automation for exports and tests.
+
+Thanks to dependabot.
 
 and improves developer tooling:
 
