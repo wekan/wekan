@@ -309,6 +309,9 @@ test.describe('Cards – operations', () => {
       db.updateOne('boards', { _id: source.boardId }, {
         $set: { labels: [{ _id: labelId, name: 'Source Label', color: 'green' }] },
       });
+      db.updateOne('boards', { _id: board.boardId }, {
+        $set: { allowsCustomFieldsOnMinicard: true },
+      });
       db.insertOne('customFields', {
         _id: customFieldId,
         boardIds: [source.boardId],

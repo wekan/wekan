@@ -550,6 +550,10 @@ Template.cardDetails.onDestroyed(function () {
 });
 
 Template.cardDetails.helpers({
+  canShowCustomFieldsOnCard() {
+    const board = this?.board?.();
+    return Utils.canModifyCard(this) && board?.allowsCustomFields !== false;
+  },
   stickers() {
     const card = Template.currentData();
     return card && typeof card.getStickers === 'function' ? card.getStickers() : [];

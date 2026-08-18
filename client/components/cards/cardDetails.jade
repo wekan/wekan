@@ -446,7 +446,7 @@ template(name="cardDetails")
           were removed with the move, and the sidebar view is opened by nothing.
           The FIELDS below still come from `customFieldsWD`, so an empty section
           is an empty section, not a phantom row.
-        if canModifyCard
+        if canShowCustomFieldsOnCard
           //- ONE header for the whole group, outside the loop: a card with six
             custom fields is one Custom Fields section, not six sections that
             happen to share a caret and draw six rules. A group like the others,

@@ -28,8 +28,8 @@ test('opened-card checkbox saves its value independently of visibility', () => {
   const at = client.indexOf("async 'click .js-card-custom-field-checkbox .check-box-container'");
   const body = client.slice(at, client.indexOf('\n  },', at));
   assert.match(body, /await Meteor\.callAsync\(\s*'setCardCustomFieldCheckbox'/);
-  assert.match(body, /sourceCard\?\.customFields/);
-  assert.match(body, /!Boolean\(storedField\.value\)/);
+  assert.match(body, /Template\.currentData\(\)/);
+  assert.match(body, /!Boolean\(currentField\.value\)/);
   assert.match(body, /event\.stopPropagation\(\)/);
   assert.doesNotMatch(body, /tpl\.card\.setCustomField/);
 });

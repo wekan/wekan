@@ -604,6 +604,19 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCustomFields: {
+      /** Show assigned custom fields on opened cards? */
+      type: Boolean,
+      optional: true,
+      defaultValue: true,
+    },
+    allowsCustomFieldsOnMinicard: {
+      /** Show assigned custom fields on minicards? Opt-in by default. */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+
     allowsChecklistCountBadgeOnMinicard: {
       /**
        * Does the board show the compact checklist item-count badge

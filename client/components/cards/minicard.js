@@ -34,6 +34,10 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  showCustomFieldsOnMinicard() {
+    const board = this.board();
+    return board?.allowsCustomFieldsOnMinicard === true;
+  },
   // True exactly when the drag handle is rendered (see minicard.jade): the user
   // may move the card AND drag handles are on. On a coarse pointer the handle is
   // a 48px strip down the leading edge, so the card's own content needs matching

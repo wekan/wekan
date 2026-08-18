@@ -132,10 +132,10 @@ template(name="minicard")
             if hiddenMinicardLabelText
               .minicard-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{name}}")
 
-    .minicard-custom-fields
-      each customFieldsWD
-        if definition.showOnCard
-          if trueValue
+    if showCustomFieldsOnMinicard
+      .minicard-custom-fields
+        each customFieldsWD
+          if definition.showOnCard
             .minicard-custom-field
               // If there is custom field label, show label at left,
               // and value at right

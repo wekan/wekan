@@ -134,12 +134,12 @@ Template['cardCustomField-checkbox'].events({
   async 'click .js-card-custom-field-checkbox .check-box-container'(event, tpl) {
     event.preventDefault();
     event.stopPropagation();
-    const sourceCard = tpl.card?.getRealCard?.() || tpl.card;
-    const storedField = (sourceCard?.customFields || []).find(
-      field => field?._id === tpl.customFieldId,
-    );
-    if (!sourceCard || !storedField) return;
-    const value = !Boolean(storedField.value);
+    // This template context is rebuilt from customFieldsWD whenever the saved
+    // value changes. Using the Card object captured at onCreated kept the old
+    // value after the first click, so a second click tried to save true again.
+    const currentField = Template.currentData();
+    if (!currentField || currentField._id !== tpl.customFieldId) return;
+    const value = !Boolean(currentField.value);
     try {
       await Meteor.callAsync(
         'setCardCustomFieldCheckbox', tpl.card.getRealId(), tpl.customFieldId, value);

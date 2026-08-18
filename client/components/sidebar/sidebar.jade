@@ -479,6 +479,17 @@ template(name="boardCardSettingsPopup")
           | {{_ 'custom-field-text'}}
     .card-settings-row
       .card-settings-column
+        a.flex.js-field-has-custom-fields(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFields}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCustomFields}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        a.flex.js-field-has-custom-fields-on-minicard(title="{{_ 'custom-fields'}}" class="{{#if allowsCustomFieldsOnMinicard}}is-checked{{/if}}")
+          i.fa(class="{{#if allowsCustomFieldsOnMinicard}}fa-check{{else}}fa-square-o{{/if}}")
+      .card-settings-column
+        span
+          i.fa.fa-list-alt
+          | {{_ 'custom-fields'}}
+    .card-settings-row
+      .card-settings-column
         a.flex.js-field-has-card-number(title="{{_ 'card'}} {{_ 'number'}}" class="{{#if allowsCardNumber}}is-checked{{/if}}")
           i.fa(class="{{#if allowsCardNumber}}fa-check{{else}}fa-square-o{{/if}}")
       .card-settings-column

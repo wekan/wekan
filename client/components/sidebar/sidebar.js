@@ -1700,6 +1700,14 @@ Template.boardCardSettingsPopup.helpers({
     const currentBoard = ReactiveCache.getBoard(boardId);
     return getMinicardSetting(currentBoard, 'allowsLabelsOnMinicard', 'allowsLabels', true);
   },
+  allowsCustomFields() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board ? board.allowsCustomFields !== false : true;
+  },
+  allowsCustomFieldsOnMinicard() {
+    const board = ReactiveCache.getBoard(Session.get('currentBoard'));
+    return board?.allowsCustomFieldsOnMinicard === true;
+  },
   allowsShowListsOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
@@ -2000,6 +2008,20 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsLabelsOnMinicard;
     Boards.update(tpl.currentBoard._id, { $set: { allowsLabelsOnMinicard: newValue } });
+  },
+  'click .js-field-has-custom-fields'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsCustomFields !== false;
+    Boards.update(tpl.currentBoard._id, {
+      $set: { allowsCustomFields: !currentValue },
+    });
+  },
+  'click .js-field-has-custom-fields-on-minicard'(evt, tpl) {
+    evt.preventDefault();
+    const currentValue = tpl.currentBoard.allowsCustomFieldsOnMinicard === true;
+    Boards.update(tpl.currentBoard._id, {
+      $set: { allowsCustomFieldsOnMinicard: !currentValue },
+    });
   },
   'click .js-field-has-card-show-lists-on-minicard'(evt, tpl) {
     evt.preventDefault();
