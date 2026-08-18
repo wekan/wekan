@@ -504,6 +504,8 @@ comma-decimal amount and verifies the stored numeric value.
 
 </details>
 
+- [Custom Field Dropdown places an X close control beside Save](https://github.com/wekan/wekan/commit/a67094b1f96daf7a8cee6e6e3c16332c7394ed42). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
 
