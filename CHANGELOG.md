@@ -401,8 +401,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **card details** restore checkbox custom fields, keep their saved
-values separate from field visibility, provide independent opened-card and
-minicard visibility settings, and restore cross-board
+values separate from field visibility, save currency values, provide
+independent opened-card and minicard visibility settings, and restore cross-board
 card links, omit deleted custom fields from exports, and make attachment
 previews use the available viewport. Linked cards mirror every visible source
 field across boards and authorized members can edit that shared content from
@@ -485,6 +485,22 @@ without changing their values or the opened-card setting.
 Positive and negative tests cover both defaults, both menu handlers, both
 rendering gates and repeated checkbox toggles. Existing browser coverage that
 expects minicard custom fields explicitly enables the opt-in setting.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a437ef31d93afbf20dd9555cb3646922088fc21">Currency custom fields save and provide an X beside Save</a>. Thanks to xet7.</summary>
+
+The currency editor issued an unacknowledged direct card update and closed
+without knowing whether the value was accepted. It now parses dot or comma
+decimals, rejects non-finite input, and awaits a server method that verifies
+card-edit permission, the board's currency-field definition and the assigned
+field before storing the number. Linked cards use the same source-card route.
+
+Its input reads the direct current value, and the standard X close control now
+sits immediately after Save. Static tests cover authorization, field type,
+finite-number validation and control order; the browser regression enters a
+comma-decimal amount and verifies the stored numeric value.
 
 </details>
 
