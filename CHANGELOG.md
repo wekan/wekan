@@ -460,6 +460,8 @@ the card to verify that the selected mode remains active.
 
 - [The Custom Fields layout selector shows Grid and List icons](https://github.com/wekan/wekan/commit/2d9d41ff46ea247773306c54ae3d09c59f13f798). Thanks to xet7.
 
+- [The layout selector stays inside the expanded Custom Fields section](https://github.com/wekan/wekan/commit/93d681874bb92e734a047d7afb27faafdceeef61). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7879012c92a22e3c73c1ad580b48035a1c3bbba">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
 
