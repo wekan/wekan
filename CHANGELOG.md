@@ -416,6 +416,8 @@ negative and browser regression coverage keeps each interaction working.
 Opened cards can also be resized wider as well as narrower on desktop. **All
 Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
+**Developer tooling** keeps long-running Rspack development watchers from
+retaining cache state until they exhaust the JavaScript heap.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -788,6 +790,25 @@ Ordinary board icons remain compact and equal-height.
 Static coverage keeps the invitation exception attached to its template state.
 The phone browser regression creates a real pending invitation and verifies
 that its message and both buttons remain visible and inside the tile.
+
+</details>
+
+and improves developer tooling:
+
+**Development builds** - local builds and long-running watchers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1f842eb56e20b2033cd999214fec10d187ca929">Long-running Rspack watchers no longer exhaust the JavaScript heap</a>. Thanks to xet7.</summary>
+
+Rspack's experimental persistent cache retained JavaScript-side serialization
+state while `meteor run` repeatedly rebuilt WeKan's large Blaze graph. After a
+long development session that retained state could consume the full 16 GB V8
+heap and abort the bundler.
+
+Development client and server watchers now run without the persistent cache.
+Short-lived production builds keep caching, and unrelated Rspack experiments
+still merge normally. Focused coverage checks both watchers, the production
+negative case and the merge over Meteor's cache defaults.
 
 </details>
 
