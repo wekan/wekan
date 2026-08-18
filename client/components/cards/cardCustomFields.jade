@@ -121,8 +121,7 @@ template(name="cardCustomField-currency")
 
 template(name="cardCustomField-date")
     if canModifyCard
-      button.js-edit-date.js-custom-field-edit-trigger(type="button" hidden)
-      span.js-edit-card-custom-field-value(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      span.js-card-custom-field-date-value.js-edit-card-custom-field-value(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
         if value
           div.card-date
             time(datetime="{{showISODate}}")

@@ -131,6 +131,19 @@ Template.cardCustomField.onCreated(function () {
 Template.cardCustomField.events({
   'click .js-edit-card-custom-field-value'(event, tpl) {
     event.preventDefault();
+    if (this.definition?.type === 'date') {
+      const opener = tpl.find('.js-card-custom-field-date-value');
+      if (!opener) return;
+      // The title and value both open Date, but its popup always belongs below
+      // the visible date value. A hidden generic trigger has no useful bounds
+      // and made Popup position the date editor elsewhere on the card.
+      Popup.open('cardCustomField-date').call(this, {
+        currentTarget: opener,
+        target: opener,
+        preventDefault() {},
+      });
+      return;
+    }
     const trigger = tpl.find('.js-custom-field-edit-trigger');
     if (trigger) trigger.click();
   },
@@ -304,10 +317,6 @@ Template['cardCustomField-date'].helpers({
   showTitle() {
     return `${TAPi18n.__('card-start-on')} ${Template.instance().date.get().toLocaleString()}`;
   },
-});
-
-Template['cardCustomField-date'].events({
-  'click .js-edit-date': Popup.open('cardCustomField-date'),
 });
 
 // cardCustomField-datePopup

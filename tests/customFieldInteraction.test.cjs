@@ -134,6 +134,14 @@ test('the title and value open editing while checkbox control stays independent'
   assert.match(wrapper, /js-edit-card-custom-field-value/);
   assert.match(client,
     /click \.js-edit-card-custom-field-value[\s\S]*js-custom-field-edit-trigger/);
+  assert.match(template,
+    /span\.js-card-custom-field-date-value\.js-edit-card-custom-field-value/,
+    'the visible date is the popup anchor');
+  assert.doesNotMatch(template, /button\.js-edit-date[^\n]*hidden/,
+    'Date no longer positions from a hidden button');
+  assert.match(client,
+    /definition\?\.type === 'date'[\s\S]*tpl\.find\('\.js-card-custom-field-date-value'\)[\s\S]*Popup\.open\('cardCustomField-date'\)\.call\(this,[\s\S]*currentTarget: opener/,
+    'both title and value route the popup through the visible date anchor');
 
   for (const [type, next] of [
     ['text', 'number'],
