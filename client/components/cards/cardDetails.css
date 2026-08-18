@@ -138,7 +138,10 @@
 body.desktop-mode .card-details:not(.card-details-popup) {
   position: fixed;
   width: auto;
-  max-width: 520px; /* #6465: narrower dock (was 800px, ~1/4 screen) */
+  /* Open at the compact dock width below, but let the bottom-right native
+     resize handle grow the card up to the viewport edge. A fixed 520px cap
+     made the handle capable of shrinking only. */
+  max-width: calc(100vw - 16px);
   flex-basis: auto;
   border-radius: 3px;
   z-index: 2001;
@@ -149,7 +152,7 @@ body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"]):no
   top: 8px;
   inset-inline-start: auto;
   inset-inline-end: 8px;
-  width: min(650px, 90vw);
+  width: min(520px, 90vw);
   bottom: 8px;
 }
 
@@ -207,7 +210,7 @@ body.desktop-mode .card-details:not(.card-details-popup):not(.card-details-colla
    canvas (off-screen) instead of over the viewport.
    All four insets are !important for two reasons:
    1. The floating-window rules above (top: 8px / inset-inline-end: 8px /
-      width: min(650px, 90vw), specificity up to 0,5,1) otherwise override the
+      width: min(520px, 90vw), specificity up to 0,5,1) otherwise override the
       lower-specificity .card-details-maximized geometry entirely, leaving the
       Maximize button a no-op.
    2. The drag handle writes inline left/top styles onto the card; a card that

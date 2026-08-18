@@ -11,7 +11,7 @@
 // pane rendered at its swimlane's position in the tall scrolled canvas —
 // off-screen — instead of over the viewport. On top of that, in desktop mode
 // the floating-window rules (top: 8px / inset-inline-end: 8px /
-// width: min(650px, 90vw), specificity up to 0,5,1) silently overrode ALL of
+// width: min(520px, 90vw), specificity up to 0,5,1) silently overrode ALL of
 // the lower-specificity maximized geometry, and inline left/top styles written
 // by the drag handle survived into the maximized state (a stale dragged offset
 // is exactly the "wrong place" of #4822, since inline styles beat every
@@ -313,7 +313,7 @@ test('maximized card fills the viewport from fixed insets (top/left/right/bottom
   assert.strictEqual(styles.left, '8px');
   assert.strictEqual(styles.right, '8px');
   assert.strictEqual(styles.bottom, '8px');
-  // The floating-window width (min(650px, 90vw)) must NOT survive maximizing.
+  // The floating-window width (min(520px, 90vw)) must NOT survive maximizing.
   assert.strictEqual(styles.width, 'auto');
   assert.strictEqual(styles.height, 'auto');
 });
@@ -372,7 +372,7 @@ test('NEGATIVE: non-maximized card is the floating window, not full-viewport', (
   assert.strictEqual(styles.position, 'fixed');
   assert.strictEqual(styles.top, '8px');
   assert.notStrictEqual(styles.width, 'auto');
-  assert.ok(styles.width.includes('650px'), `floating width kept, got ${styles.width}`);
+  assert.ok(styles.width.includes('520px'), `floating width kept, got ${styles.width}`);
 });
 
 // --------------------------------------------------------------------------

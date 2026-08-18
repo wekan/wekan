@@ -207,6 +207,29 @@ test('it runs when a card is opened, and again when the viewport changes', () =>
     'coalesced into a frame: a window drag-resize fires resize continuously');
 });
 
+test('the bottom-right handle can make the opened card wider or narrower', () => {
+  const css = read('client/components/cards/cardDetails.css');
+  const desktopAt = css.indexOf(
+    'body.desktop-mode .card-details:not(.card-details-popup) {',
+  );
+  const desktopRule = css.slice(desktopAt, css.indexOf('\n}', desktopAt));
+  assert.match(desktopRule, /max-width: calc\(100vw - 16px\)/,
+    'the desktop card can grow to the viewport edge');
+  assert.doesNotMatch(desktopRule, /max-width: 520px/,
+    'the initial width must not also be the resize ceiling');
+
+  const defaultAt = css.indexOf(
+    'body.desktop-mode .card-details:not(.card-details-popup):not([style*="left"])',
+  );
+  const defaultRule = css.slice(defaultAt, css.indexOf('\n}', defaultAt));
+  assert.match(defaultRule, /width: min\(520px, 90vw\)/,
+    'the card still opens at its established compact width');
+  assert.match(css, /@media screen and \(min-width: 801px\)[\s\S]*?\.card-details \{[\s\S]*?resize: both;/,
+    'desktop users retain the two-way native resize handle');
+  assert.match(css, /body\.mobile-mode \.card-details \{[\s\S]*?resize: none !important;/,
+    'mobile remains full-screen rather than resizable');
+});
+
 test('a window the user dragged keeps its place, and is only kept on screen', () => {
   const js = read('client/components/cards/cardDetails.js');
   // Both drag handles — the header handle and the title — must mark it.
