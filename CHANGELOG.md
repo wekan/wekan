@@ -414,8 +414,9 @@ mirror every visible source field across boards and
 authorized members can edit that shared content from either board. Card
 locations recognize both map URLs and plain coordinate pairs. Positive,
 negative and browser regression coverage keeps each interaction working.
-Opened cards can also be resized wider as well as narrower on desktop. **All
-Boards** keeps the complete
+Existing boards also receive the new default-on opened-card custom-fields
+setting during schema upgrade. Opened cards can be resized wider as well as
+narrower on desktop. **All Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 **Developer tooling** keeps long-running Rspack development watchers from
 retaining cache state until they exhaust the JavaScript heap. **Dependencies**
@@ -518,6 +519,22 @@ pagers and the defensive shared-handler path.
 </details>
 
 **Card details** - fields, attachments and links on an opened card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/491781c449c1e1e03bc3620472dd04f91ecd741f">Existing boards keep default-on opened-card custom fields</a>. Thanks to xet7.</summary>
+
+The board schema made opened-card custom fields visible by default, but the
+schema-upgrade list omitted that new flag. Boards created before the setting
+therefore retained no stored default when their other default-on feature flags
+were repaired. The upgrade now backfills `allowsCustomFields: true` while still
+preserving an administrator's explicit `false` choice.
+
+The complete 490-suite Node run also exposed guards that still described old
+custom-field, date-control, card-width, initials and publication layouts, plus a
+security scan entering a downloaded Go toolchain under `.tools`. Those guards
+now pin the current intended behavior and scan only maintained FerretDB source.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/518a4d2fec487fef91f66224a9be8fc5f94e7527">JFIF uploads use portable JPEG download names</a>. Thanks to xet7.</summary>
@@ -875,7 +892,22 @@ selector branches.
 
 </details>
 
-**All Boards** - the overview on phone-sized layouts.
+**All Boards** - the overview, its Archive actions and phone-sized layouts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c62824341">Archived boards can be deleted and selected cards can be archived reliably</a>. Thanks to Nissulya and xet7.</summary>
+
+The archived-board half of [#6608](https://github.com/wekan/wekan/issues/6608)
+is handled by the new Global-Admin-only, explicitly enabled and confirmed
+multi-selection Delete action. For cards, the sidebar previously fired direct
+client updates and closed immediately, so a refused write looked successful
+while every card stayed in place. It now sends one ordered selection to an
+awaited server method. The server validates the board, write access and every
+live card before archiving the first; a failure reports its reason and keeps the
+selection open. Unit tests cover positive and negative client/server paths, and
+a browser test selects and archives two cards from one list.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc12789b43006a6fc1d48c2df07c17275728f95c">Phone board invitations show their message and actions</a>. Thanks to mimZD and xet7.</summary>
@@ -928,12 +960,8 @@ translations.
 
 # v11.02 2026-08-18 WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **release metadata** advances WeKan to v11.02 and records the
+binary provenance carried by its platform bundles.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -945,6 +973,19 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release updates release metadata:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b82ecfdd34903c38d92b111e2204da3ea4e8ddbd">Release metadata advances to v11.02</a>. Thanks to xet7.</summary>
+
+The release preparation records v11.02 and carries forward the verified Node.js
+and FerretDB binary provenance for every built platform.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.01 2026-08-18 WeKan ® release
 
@@ -1384,21 +1425,6 @@ operation even though validation appeared later in the method. Validation now
 runs before the first `await`; malformed attempts still resolve their actor in
 the failure path and are written to Recovery without masking the original
 error. Positive ordering and audit-path tests cover the regression.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/c62824341">Archived boards can be deleted and selected cards can be archived reliably</a>. Thanks to Nissulya and xet7.</summary>
-
-The archived-board half of [#6608](https://github.com/wekan/wekan/issues/6608)
-is handled by the new Global-Admin-only, explicitly enabled and confirmed
-multi-selection Delete action. For cards, the sidebar previously fired direct
-client updates and closed immediately, so a refused write looked successful
-while every card stayed in place. It now sends one ordered selection to an
-awaited server method. The server validates the board, write access and every
-live card before archiving the first; a failure reports its reason and keeps the
-selection open. Unit tests cover positive and negative client/server paths, and
-a browser test selects and archives two cards from one list.
 
 </details>
 
