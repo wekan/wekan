@@ -402,8 +402,9 @@ browser build to verify).
 
 **In short:** **card details** restore checkbox custom fields, keep their saved
 values separate from field visibility, save currency values, provide
-independent opened-card and minicard visibility settings, and restore cross-board
-card links, omit deleted custom fields from exports, and make attachment
+independent opened-card and minicard visibility settings, make every custom-field
+value copyable, restore cross-board card links, omit deleted custom fields from
+exports, and make attachment
 previews use the available viewport. Linked cards mirror every visible source
 field across boards and authorized members can edit that shared content from
 either board. Card locations recognize both map URLs and plain
@@ -509,6 +510,19 @@ comma-decimal amount and verifies the stored numeric value.
 - [Custom Field Number places an X close control beside Save](https://github.com/wekan/wekan/commit/82a0f2f78f53c3c9eeed70694832c357c3d9e7b4). Thanks to xet7.
 
 - [Custom Field Text places an X close control beside Save](https://github.com/wekan/wekan/commit/3d0e4805ee21693649ad918caca884db8e279aa8). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad9300297f69031155762e174e6bb828f5a4dc75">Every custom field editor provides a copy-to-clipboard control</a>. Thanks to xet7.</summary>
+
+Text fields retain the copy button supplied by their rich-text editor. Number,
+checkbox, currency, date, dropdown and string-template fields now use a shared
+copy control beside their editable value. Date values are copied in ISO format
+and multi-part values are separated by newlines.
+
+Focused interaction coverage verifies that every field type exposes a copy
+control and that the shared handler normalizes scalar, date and array values.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
