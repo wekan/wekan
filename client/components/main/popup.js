@@ -1,26 +1,10 @@
 import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
-import { visibleFocusableElements } from '/client/lib/popup';
+import { trapTabKey } from '/client/lib/accessibility';
 
 Popup.template.events({
   'keydown .js-pop-over'(event) {
-    if (event.key !== 'Tab') return;
-    const controls = visibleFocusableElements(event.currentTarget);
-    if (!controls.length) {
-      event.preventDefault();
-      event.currentTarget.focus();
-      return;
-    }
-
-    const first = controls[0];
-    const last = controls[controls.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
+    trapTabKey(event);
   },
   'click .js-back-view'() {
     Popup.back();

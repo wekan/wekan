@@ -1,5 +1,6 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tracker } from 'meteor/tracker';
+import { tabIndexForKey } from '/client/lib/accessibility';
 
 // Creation-time stack tracking which basicTabs is currently being rendered.
 // Blaze creates parent views before children, so when tabContent.onCreated fires,
@@ -59,20 +60,8 @@ Template.basicTabs.events({
     const currentIndex = tabs.findIndex(tab => tab.slug === this.slug);
     if (currentIndex < 0) return;
 
-    let nextIndex;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-      nextIndex = (currentIndex + 1) % tabs.length;
-    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-    } else if (event.key === 'Home') {
-      nextIndex = 0;
-    } else if (event.key === 'End') {
-      nextIndex = tabs.length - 1;
-    } else if (event.key === 'Enter' || event.key === ' ') {
-      nextIndex = currentIndex;
-    } else {
-      return;
-    }
+    const nextIndex = tabIndexForKey(event, currentIndex, tabs.length);
+    if (nextIndex === null) return;
 
     event.preventDefault();
     template._activeTab.set(tabs[nextIndex]);

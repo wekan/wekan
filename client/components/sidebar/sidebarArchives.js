@@ -4,6 +4,7 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Cards from '/models/cards';
 import { Utils } from '/client/lib/utils';
+import { tabIndexForKey } from '/client/lib/accessibility';
 
 const ARCHIVE_PAGE_SIZE = 30;
 const ARCHIVE_SCROLL_THRESHOLD_PX = 120;
@@ -209,20 +210,8 @@ Template.archivesSidebar.events({
     const current = event.currentTarget.getAttribute('data-tab');
     const currentIndex = tabs.indexOf(current);
     if (currentIndex < 0) return;
-    let nextIndex;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-      nextIndex = (currentIndex + 1) % tabs.length;
-    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-    } else if (event.key === 'Home') {
-      nextIndex = 0;
-    } else if (event.key === 'End') {
-      nextIndex = tabs.length - 1;
-    } else if (event.key === 'Enter' || event.key === ' ') {
-      nextIndex = currentIndex;
-    } else {
-      return;
-    }
+    const nextIndex = tabIndexForKey(event, currentIndex, tabs.length);
+    if (nextIndex === null) return;
     event.preventDefault();
     const slug = tabs[nextIndex];
     template.activeTab.set(slug);

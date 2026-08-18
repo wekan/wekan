@@ -21,6 +21,7 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import { Filter } from '/client/lib/filter';
 import { migrationProgressManager } from '/client/components/settings/migrationProgress';
+import { focusFirstControl } from '/client/lib/accessibility';
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndex } = Utils;
@@ -302,43 +303,27 @@ Template.boardBody.onRendered(function () {
     document.body.classList.add('iphone-device');
   }
 
-  // Accessibility: Focus management for popups and menus
-  function focusFirstInteractive(container) {
-    if (!container) return;
-    // Find first focusable element
-    const focusable = container.querySelectorAll(
-      'button, [role="button"], a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    for (let i = 0; i < focusable.length; i++) {
-      if (!focusable[i].disabled && focusable[i].offsetParent !== null) {
-        focusable[i].focus();
-        break;
-      }
-    }
-  }
-
-  // Observe for new popups/menus and set focus (but exclude swimlane content)
-  const popupObserver = new MutationObserver(function (mutations) {
+  // Popups and modals use their shared focus lifecycle. Board-only menus that
+  // are inserted outside that lifecycle still need their first control focused.
+  this._accessibilityMenuObserver = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
       mutation.addedNodes.forEach(function (node) {
         if (
           node.nodeType === 1 &&
-          (node.classList.contains('popup') ||
-            node.classList.contains('modal') ||
-            node.classList.contains('menu')) &&
+          node.classList.contains('menu') &&
           !node.closest('.js-swimlanes') &&
           !node.closest('.swimlane') &&
           !node.closest('.list') &&
           !node.closest('.minicard')
         ) {
           setTimeout(function () {
-            focusFirstInteractive(node);
+            focusFirstControl(node);
           }, 10);
         }
       });
     });
   });
-  popupObserver.observe(document.body, { childList: true, subtree: true });
+  this._accessibilityMenuObserver.observe(document.body, { childList: true, subtree: true });
 
   // Remove tabindex from non-interactive elements (e.g., user abbreviations, labels)
   document
@@ -680,6 +665,8 @@ Template.boardBody.onRendered(function () {
 });
 
 Template.boardBody.onDestroyed(function () {
+  this._accessibilityMenuObserver?.disconnect();
+  this._accessibilityMenuObserver = null;
   // The reveal watcher owns a Tracker computation and a retry interval, and
   // neither stops on its own when this template goes.
   if (this.boardItemReveals) {

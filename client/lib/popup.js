@@ -5,21 +5,7 @@ import { TAPi18n } from '/imports/i18n';
 import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import { computePopupOffset } from '/client/lib/popupOffset';
-
-const POPUP_FOCUSABLE_SELECTOR = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled]):not([type="hidden"])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(',');
-
-function visibleFocusableElements(container) {
-  if (!container) return [];
-  return Array.from(container.querySelectorAll(POPUP_FOCUSABLE_SELECTOR))
-    .filter(element => element.offsetParent !== null && !element.closest('.no-height'));
-}
+import { focusFirstControl } from '/client/lib/accessibility';
 
 window.Popup = new (class {
   constructor() {
@@ -42,14 +28,11 @@ window.Popup = new (class {
     this._dep = new Tracker.Dependency();
   }
 
-  focusFirstControl() {
+  focusCurrentPopup() {
     Tracker.afterFlush(() => {
       const popup = document.querySelector('.js-pop-over');
       if (!popup) return;
-      const autofocus = popup.querySelector('[autofocus]');
-      const target = autofocus || visibleFocusableElements(popup)[0] || popup;
-      if (!popup.hasAttribute('tabindex')) popup.setAttribute('tabindex', '-1');
-      target.focus();
+      focusFirstControl(popup);
     });
   }
 
@@ -153,10 +136,10 @@ window.Popup = new (class {
           },
           document.body,
         );
-        self.focusFirstControl();
+        self.focusCurrentPopup();
       } else {
         self._dep.changed();
-        self.focusFirstControl();
+        self.focusCurrentPopup();
       }
     };
   }
@@ -216,7 +199,7 @@ window.Popup = new (class {
       }
       for (let i = 0; i < n; i++) this._stack.pop();
       this._dep.changed();
-      this.focusFirstControl();
+      this.focusCurrentPopup();
     } else {
       this.close();
     }
@@ -339,5 +322,3 @@ escapeActions.forEach(actionName => {
     },
   );
 });
-
-export { POPUP_FOCUSABLE_SELECTOR, visibleFocusableElements };

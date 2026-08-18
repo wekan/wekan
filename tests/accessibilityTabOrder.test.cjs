@@ -22,6 +22,7 @@ const archiveClient = read('client/components/sidebar/sidebarArchives.js');
 const popupClient = read('client/lib/popup.js');
 const popupEvents = read('client/components/main/popup.js');
 const layouts = read('client/components/main/layouts.js');
+const boardBody = read('client/components/boards/boardBody.js');
 const password = read('client/components/users/passwordInput.jade');
 const card = read('client/components/cards/cardDetails.jade');
 const minicard = read('client/components/cards/minicard.jade');
@@ -77,7 +78,7 @@ test('shared tabs expose tablist, tab and tabpanel relationships', () => {
   assert.match(tabsTemplate, /ul\.tabs-list\(role="tablist"\)/);
   assert.match(tabsTemplate, /role="tab"[\s\S]*tabindex="\{\{tabIndex slug\}\}"[\s\S]*aria-selected=/);
   assert.match(tabsTemplate, /role="tabpanel"[\s\S]*aria-labelledby=/);
-  assert.match(tabsClient, /ArrowRight[\s\S]*ArrowLeft[\s\S]*Home[\s\S]*End/);
+  assert.match(tabsClient, /tabIndexForKey\(event, currentIndex, tabs\.length\)/);
   assert.match(tabsClient, /Tracker\.afterFlush[\s\S]*\.focus\(\)/);
 });
 
@@ -85,20 +86,33 @@ test('the archive tabs have the same keyboard model', () => {
   assert.match(archiveTemplate, /ul\.tabs-list\(role="tablist"\)/);
   assert.match(archiveTemplate, /role="tab"[\s\S]*aria-selected=/);
   assert.match(archiveTemplate, /role="tabpanel"[\s\S]*aria-labelledby=/);
-  assert.match(archiveClient, /keydown \.tab-item[\s\S]*ArrowRight[\s\S]*Home[\s\S]*\.focus\(\)/);
+  assert.match(archiveClient,
+    /keydown \.tab-item[\s\S]*tabIndexForKey\(event, currentIndex, tabs\.length\)[\s\S]*\.focus\(\)/);
+});
+
+test('keyboard navigation and focus trapping have one shared implementation', () => {
+  assert.match(accessibility, /function tabIndexForKey[\s\S]*ArrowRight[\s\S]*Home[\s\S]*End/);
+  assert.match(accessibility,
+    /function trapTabKey[\s\S]*event\.shiftKey[\s\S]*last\.focus\(\)[\s\S]*first\.focus\(\)/);
+  assert.doesNotMatch(`${tabsClient}\n${archiveClient}`, /event\.key === 'Arrow/);
+  assert.doesNotMatch(`${popupEvents}\n${layouts}`, /querySelectorAll\([\s\S]{0,150}tabindex/);
 });
 
 test('popups focus their content, contain Tab, and restore their opener', () => {
-  assert.match(popupClient, /focusFirstControl\(\)[\s\S]*\[autofocus\]/);
-  assert.match(popupEvents, /keydown \.js-pop-over[\s\S]*event\.key !== 'Tab'/);
-  assert.match(popupEvents, /event\.shiftKey[\s\S]*last\.focus\(\)[\s\S]*first\.focus\(\)/);
+  assert.match(popupClient, /focusCurrentPopup\(\)[\s\S]*focusFirstControl\(popup\)/);
+  assert.match(popupEvents, /keydown \.js-pop-over[\s\S]*trapTabKey\(event\)/);
   assert.match(popupClient, /openerElement\?\.isConnected[\s\S]*openerElement\.focus\(\)/);
 });
 
 test('modals contain Tab and restore the previously focused control', () => {
-  assert.match(layouts, /keydown #modal[\s\S]*event\.key !== 'Tab'/);
-  assert.match(layouts, /event\.shiftKey[\s\S]*last\.focus\(\)[\s\S]*first\.focus\(\)/);
+  assert.match(layouts, /keydown #modal[\s\S]*trapTabKey\(event\)/);
   assert.match(layouts, /lastFocused = document\.activeElement[\s\S]*lastFocused\.focus\(\)/);
+});
+
+test('board-only menu focus reuses the helper and cleans up its observer', () => {
+  assert.match(boardBody, /focusFirstControl\(node\)/);
+  assert.doesNotMatch(boardBody, /function focusFirstInteractive/);
+  assert.match(boardBody, /_accessibilityMenuObserver\?\.disconnect\(\)/);
 });
 
 test('card and minicard edit targets are keyboard reachable', () => {
