@@ -582,6 +582,8 @@ view/edit boundary; the browser regression checks its editing-only visibility.
 
 - [Checkbox custom fields can be checked and unchecked while editing](https://github.com/wekan/wekan/commit/31416ce6dd083f896ea673bee35385767244d907). Thanks to xet7.
 
+- [Date custom field titles and values open their popup below the date](https://github.com/wekan/wekan/commit/ae74bc3bd7dd031220b7f8ce70de340ba5d21322). Thanks to xet7.
+
 - [Custom field Copy controls sit above editors' top-right corners](https://github.com/wekan/wekan/commit/a3e5f4ebd04f99183ead737d630f05718f319c07). Thanks to xet7.
 
 <details>
