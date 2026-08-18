@@ -168,8 +168,11 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
     /card-details-group-body\(class="\{\{#if customFieldsGrid\}\}custom-fields-one-per-row\{\{else\}\}custom-fields-grid\{\{\/if\}\}"\)/,
     'the saved user preference reaches the custom-fields container');
   assert.match(css,
-    /\.custom-fields-grid > \.card-details-item-customfield \{[\s\S]*?flex: 1 1 calc\(33\.333% - 0\.5em\)/,
-    'off is a compact wrapping grid');
+    /\.custom-fields-grid \{[\s\S]*?display: grid;[\s\S]*?grid-template-columns: repeat\(auto-fit, minmax\(min\(160px, 100%\), 1fr\)\)/,
+    'off automatically fits more grid columns when the card becomes wider');
+  assert.match(css,
+    /\.custom-fields-grid > \.card-details-item-customfield \{[\s\S]*?max-width: none[\s\S]*?min-width: 0/,
+    'the old per-field width ceiling cannot hold the grid to three columns');
   assert.match(css,
     /\.custom-fields-one-per-row > \.card-details-item-customfield \{[\s\S]*?flex: 0 0 100%[\s\S]*?max-width: 100%/,
     'on makes every custom field a full row');

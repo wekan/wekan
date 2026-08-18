@@ -490,7 +490,10 @@ test.describe('Cards – operations', () => {
     const [listA] = board.listIds;
     const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
     const values = [];
-    for (const name of ['E2E Layout A', 'E2E Layout B', 'E2E Layout C']) {
+    for (const name of [
+      'E2E Layout A', 'E2E Layout B', 'E2E Layout C',
+      'E2E Layout D', 'E2E Layout E', 'E2E Layout F',
+    ]) {
       const id = db.uid('layoutField');
       db.insertOne('customFields', {
         _id: id, boardIds: [board.boardId], name, type: 'text', settings: {},
@@ -525,6 +528,31 @@ test.describe('Cards – operations', () => {
     )).toHaveClass(initiallyRows
       ? /custom-fields-grid/
       : /custom-fields-one-per-row/);
+
+    const reloadedBody = cp.root.locator(
+      '.card-details-group-custom-fields .card-details-group-body',
+    );
+    if (!initiallyRows) {
+      await cp.root.locator('label[for="toggleCustomFieldsGridButton"]').click();
+      await expect(reloadedBody).toHaveClass(/custom-fields-grid/);
+    }
+    const columnsAtWidth = async width => {
+      await cp.root.evaluate((card, nextWidth) => {
+        card.style.width = `${nextWidth}px`;
+      }, width);
+      return reloadedBody.locator('.card-details-item-customfield').evaluateAll(
+        async fields => {
+          await new Promise(resolve => requestAnimationFrame(() =>
+            requestAnimationFrame(resolve)));
+          const tops = fields.map(field => Math.round(field.getBoundingClientRect().top));
+          const firstTop = Math.min(...tops);
+          return tops.filter(top => Math.abs(top - firstTop) <= 1).length;
+        },
+      );
+    };
+    const narrowColumns = await columnsAtWidth(520);
+    const wideColumns = await columnsAtWidth(900);
+    expect(wideColumns).toBeGreaterThan(narrowColumns);
   });
 
   // --- Adding a card at top vs bottom of list ---
