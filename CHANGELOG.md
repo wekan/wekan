@@ -419,7 +419,8 @@ invitation message and its actions visible on phone-sized layouts.
 **Developer tooling** keeps long-running Rspack development watchers from
 retaining cache state until they exhaust the JavaScript heap.
 **Admin Panel / Problems / Offices** groups login addresses by person and shows
-each address family, available location and per-person login count.
+each address family, available location, per-person login count and available
+initials instead of empty avatar circles.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -449,6 +450,21 @@ People sharing one address remain separate groups with separate counts. Search
 still matches names, addresses and locations, while location metadata for a
 page is fetched in one batch. Positive and negative coverage checks both IP
 families, shared addresses, supported location headers and absent geography.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/480074969b5aa80cf776a44c5b48196b536884f0">Offices shows available initials instead of empty avatar circles</a>. Thanks to xet7.</summary>
+
+The server already computed initials for every person, but person grouping
+dropped that field and the shared table tried to find the user again in the
+client cache. When the full user document was not published there, the fallback
+had no letters to draw and rendered an empty grey circle.
+
+Initials now travel with the person through the response, grouped rows and
+shared table cell. The existing avatar template uses them directly and retains
+its reactive user lookup as the fallback everywhere else. Regression coverage
+checks both the Offices path and the generic table conversion.
 
 </details>
 
