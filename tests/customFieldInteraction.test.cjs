@@ -74,6 +74,14 @@ test('number has the standard X immediately beside Save', () => {
     /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
 });
 
+test('text has the standard X immediately beside Save', () => {
+  const at = template.indexOf('template(name="cardCustomField-text")');
+  const body = template.slice(at, template.indexOf(
+    'template(name="cardCustomField-number")', at));
+  assert.match(body,
+    /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
+});
+
 test('server validates actor, board field definition and value type', () => {
   for (const method of [
     'setCardCustomFieldAssigned',
