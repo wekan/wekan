@@ -217,10 +217,6 @@ export function datePickerEvents() {
       datePicker.deleteDate(datePicker.card);
       Popup.back();
     },
-    'click .js-close-date-editor'(evt) {
-      evt.preventDefault();
-      Popup.back();
-    },
   };
 }
 

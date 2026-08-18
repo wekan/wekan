@@ -1,13 +1,18 @@
 .datepicker-container .fields .left {
+  float: none;
+  order: 1;
   width: 56%;
 }
 .datepicker-container .fields .right {
+  float: none;
+  order: 2;
   width: 38%;
 }
 .datepicker-container .fields .custom-field-date-copy {
   align-items: center;
   display: flex;
   flex: 0 0 auto;
+  order: 3;
   padding-top: 24px;
 }
 .datepicker-container .fields .custom-field-date-copy .custom-field-copy-control {

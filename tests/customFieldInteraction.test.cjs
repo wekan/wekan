@@ -120,7 +120,7 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   const stringAt = template.indexOf('template(name="cardCustomField-stringtemplate")');
   assert.match(template.slice(stringAt), /\+customFieldCopyButton\(value=/);
   assert.match(datepickerTemplate,
-    /customFieldControls[\s\S]*\+customFieldCopyButton[\s\S]*button\.primary[\s\S]*js-close-date-editor/);
+    /\.right[\s\S]*input\.js-time-field[\s\S]*customFieldControls[\s\S]*\+customFieldCopyButton/);
 
   assert.match(client,
     /Template\.customFieldCopyButton\.events\([\s\S]*Utils\.copyTextToClipboard\(value\)/);
@@ -196,8 +196,19 @@ test('copy sits above the top-right corner of every custom field editor', () => 
     /\.custom-field-date-copy \{[\s\S]*?align-items: center;[\s\S]*?padding-top: 24px;/,
     'Copy aligns with the Time input instead of adding a row above Date and Time');
   assert.match(datepickerCss,
+    /\.fields \.left \{[\s\S]*?float: none;[\s\S]*?order: 1;/,
+    'Date is explicitly the first item in the row');
+  assert.match(datepickerCss,
+    /\.fields \.right \{[\s\S]*?float: none;[\s\S]*?order: 2;/,
+    'Time is explicitly the second item in the row');
+  assert.match(datepickerCss,
+    /\.custom-field-date-copy \{[\s\S]*?order: 3;/,
+    'Copy is explicitly to the right of Time');
+  assert.match(datepickerCss,
     /\.custom-field-date-copy \.custom-field-copy-control \{[\s\S]*?position: static;/,
     'Date overrides the absolute above-editor position inside its fields row');
+  assert.doesNotMatch(datepickerTemplate, /js-close-date-editor/,
+    'the form does not duplicate the popup header X below Copy');
   assert.doesNotMatch(formsCss, /\.custom-field-date-editor \{\s*padding-top:/,
     'Date no longer reserves empty space above its inputs');
 });
