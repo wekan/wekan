@@ -196,6 +196,11 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
   assert.match(js,
     /'click #toggleCustomFieldsGridButton'\(event\)[\s\S]*?event\.stopPropagation\(\)[\s\S]*?Meteor\.call\('toggleCustomFieldsGrid'\)/,
     'the switch still persists the preference');
+  const collapseAt = js.indexOf("'click .js-toggle-card-section'(event)");
+  const collapse = js.slice(collapseAt, js.indexOf('\n  },', collapseAt));
+  assert.match(collapse,
+    /event\.target\.closest\('#toggleCustomFieldsGridButton'\)\) return/,
+    'the header refuses to collapse when its layout selector was clicked');
   assert.match(jade,
     /button\.custom-fields-layout-toggle#toggleCustomFieldsGridButton[\s\S]*?fa-th-large[\s\S]*?fa-list/,
     'the control uses the paired Grid / List icon pattern');

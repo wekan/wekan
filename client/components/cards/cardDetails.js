@@ -805,7 +805,14 @@ Template.cardSectionHeader.events({
     Popup.open('cardCustomFields').call(Utils.getCurrentCard(), event);
   },
 
+  'click #toggleCustomFieldsGridButton'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    Meteor.call('toggleCustomFieldsGrid');
+  },
+
   'click .js-toggle-card-section'(event) {
+    if (event.target.closest('#toggleCustomFieldsGridButton')) return;
     event.preventDefault();
     const section = event.currentTarget.dataset.section;
     if (!section) return;
@@ -1209,11 +1216,6 @@ Template.cardDetails.events({
   async 'click #toggleHideCheckedChecklistItems'() {
     const card = Template.currentData();
     await card.toggleHideCheckedChecklistItems();
-  },
-  'click #toggleCustomFieldsGridButton'(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    Meteor.call('toggleCustomFieldsGrid');
   },
   'click .js-maximize-card-details'() {
     if (Meteor.userId()) {
