@@ -429,7 +429,7 @@ This release fixes the following bugs:
 **Card details** - fields, attachments and links on an opened card.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b79ba82bae427dea360a32e999877248bab3183a">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a7879012c92a22e3c73c1ad580b48035a1c3bbba">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
 
 Selecting a custom field and changing a checkbox now use acknowledged server
 methods with board-write and field-definition checks. A rejected optimistic
@@ -444,7 +444,7 @@ field from an opened card.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/195cdc36d0980352e315a4432faea97303d7788c">Attachment previews use the available viewport</a>. Thanks to rmb82 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e3588f2a0eaad73c1468361e55c7d0cae77e9a33">Attachment previews use the available viewport</a>. Thanks to rmb82 and xet7.</summary>
 
 Desktop PDF and text previews were fixed at 560 pixels wide, while a misplaced
 media query changed them to 840 pixels only on narrower screens. The overlay is
@@ -456,7 +456,7 @@ desktop document width, and a browser test measures the rendered preview.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/56cfcd1d970795f1728b358c527f008de0aea57d">Cross-board card links are created and their dialog closes</a>. Thanks to ClemStrummer and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/798390c6fcc7c905b12c1afda57606ec3328c5ba">Cross-board card links are created and their dialog closes</a>. Thanks to ClemStrummer and xet7.</summary>
 
 The Link dialog directly inserted its pointer card from the client, so a server
 rejection could undo the optimistic insert and leave the dialog open without an
@@ -474,7 +474,7 @@ checks both the closed dialog and the stored linked card.
 **All Boards** - the overview on phone-sized layouts.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f70de543936bf9dcbea9d973e0831934c83655f0">Phone board invitations show their message and actions</a>. Thanks to mimZD and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dc12789b43006a6fc1d48c2df07c17275728f95c">Phone board invitations show their message and actions</a>. Thanks to mimZD and xet7.</summary>
 
 The compact phone layout forced every board icon to exactly four rem, including
 an invitation that also contains its explanatory message and two touch-size
