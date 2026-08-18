@@ -462,6 +462,8 @@ the card to verify that the selected mode remains active.
 
 - [The layout selector sits between the Custom Fields title and menu](https://github.com/wekan/wekan/commit/5c789a6238c5f69d8ea44f488ef5997ac7880cd4). Thanks to xet7.
 
+- [Changing the Custom Fields layout no longer collapses the section](https://github.com/wekan/wekan/commit/2eff68cb09419ed2e139eca98d05ccb3ab2ec4c0). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7879012c92a22e3c73c1ad580b48035a1c3bbba">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
 
