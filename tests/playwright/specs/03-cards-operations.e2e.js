@@ -280,6 +280,44 @@ test.describe('Cards – operations', () => {
     db.cleanup({ boardIds: [emptyBoard.boardId] });
   });
 
+  test('#6613 links a card from another board and closes the popup', async ({ boardPage, board, user }) => {
+    const bp = new BoardPage(boardPage);
+    const [listA] = board.listIds;
+    const source = db.seedBoard({
+      ownerId: user.id,
+      title: 'Link Source Board',
+      listCount: 1,
+      cardTitlesPerList: [['Cross-board source card']],
+    });
+
+    try {
+      await bp.openAddCardTop(listA);
+      await boardPage.locator('.js-composer .js-link').click();
+      const popup = boardPage.locator('.js-pop-over');
+      await popup.waitFor({ timeout: 5_000 });
+      await popup.locator('.js-select-boards').selectOption(source.boardId);
+      await expect(popup.locator('.js-select-cards option')).toHaveCount(2, {
+        timeout: 8_000,
+      });
+      const sourceCard = db.findOne('cards', {
+        boardId: source.boardId,
+        title: 'Cross-board source card',
+      });
+      await popup.locator('.js-select-cards').selectOption(sourceCard._id);
+      await popup.locator('.js-done').click();
+      await expect(popup).toBeHidden({ timeout: 8_000 });
+
+      await expect.poll(() => db.countDocuments('cards', {
+        boardId: board.boardId,
+        listId: listA,
+        type: 'cardType-linkedCard',
+        linkedId: sourceCard._id,
+      })).toBe(1);
+    } finally {
+      db.cleanup({ boardIds: [source.boardId] });
+    }
+  });
+
   // --- Custom fields ---
 
   test('custom fields panel opens from card details', async ({ boardPage, board }) => {

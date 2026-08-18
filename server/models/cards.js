@@ -37,6 +37,62 @@ import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 Meteor.methods({
+  // #6613: create cross-board card links as an acknowledged, authoritative
+  // operation. A direct client insert could be rejected after the optimistic
+  // write, leaving the Link popup open without creating anything.
+  async createLinkedCard(sourceCardId, boardId, swimlaneId, listId, sort) {
+    check(sourceCardId, String);
+    check(boardId, String);
+    check(swimlaneId, String);
+    check(listId, String);
+    check(sort, Number);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    if (!Number.isFinite(sort)) throw new Meteor.Error('invalid-sort');
+
+    const [sourceCard, destinationBoard, destinationList, destinationSwimlane] =
+      await Promise.all([
+        Cards.findOneAsync(sourceCardId),
+        Boards.findOneAsync(boardId),
+        Lists.findOneAsync(listId),
+        Swimlanes.findOneAsync(swimlaneId),
+      ]);
+    if (!sourceCard || !destinationBoard || !destinationList || !destinationSwimlane) {
+      throw new Meteor.Error('not-found');
+    }
+    const sourceBoard = await Boards.findOneAsync(sourceCard.boardId);
+    if (!sourceBoard || !allowIsBoardMember(this.userId, sourceBoard)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, destinationBoard)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    if (
+      sourceCard.boardId === boardId ||
+      sourceCard.archived === true ||
+      destinationList.archived === true ||
+      destinationSwimlane.archived === true ||
+      destinationList.boardId !== boardId ||
+      destinationSwimlane.boardId !== boardId ||
+      sourceCard.type === 'template-card' ||
+      sourceCard.type === 'cardType-linkedCard' ||
+      sourceCard.type === 'cardType-linkedBoard'
+    ) {
+      throw new Meteor.Error('invalid-linked-card');
+    }
+
+    return await Cards.insertAsync({
+      title: sourceCard.title || '',
+      listId,
+      swimlaneId,
+      boardId,
+      sort,
+      type: 'cardType-linkedCard',
+      linkedId: sourceCardId,
+      cardNumber: await destinationBoard.getNextCardNumber(),
+      userId: this.userId,
+    });
+  },
+
   // #6608: archive one card selection as one acknowledged server operation.
   // The old sidebar loop issued direct client collection updates and closed
   // immediately, so a rejected update looked exactly like a successful action

@@ -1019,9 +1019,9 @@ Template.linkCardPopup.events({
     // https://github.com/wekan/wekan/issues/5715
     evt.stopPropagation();
     evt.preventDefault();
-    const linkedId = $('.js-select-cards option:selected').val();
+    const linkedId = tpl.$('.js-select-cards').val();
     if (!linkedId) {
-      const boardId = $('.js-select-boards option:selected').val();
+      const boardId = tpl.$('.js-select-boards').val();
       // No board and no card selected: nothing to link.
       if (!boardId) {
         Popup.back();
@@ -1059,20 +1059,21 @@ Template.linkCardPopup.events({
       Popup.back();
       return;
     }
-    const nextCardNumber = await tpl.board.getNextCardNumber();
     const sortIndex = tpl.getSortIndex();
-    const _id = Cards.insert({
-      title: $('.js-select-cards option:selected').text(), //dummy
-      listId: tpl.listId,
-      swimlaneId: tpl.swimlaneId,
-      boardId: tpl.boardId,
-      sort: sortIndex,
-      type: 'cardType-linkedCard',
-      linkedId,
-      cardNumber: nextCardNumber,
-    });
-    Filter.addException(_id);
-    Popup.back();
+    try {
+      const _id = await Meteor.callAsync(
+        'createLinkedCard',
+        linkedId,
+        tpl.boardId,
+        tpl.swimlaneId,
+        tpl.listId,
+        sortIndex,
+      );
+      Filter.addException(_id);
+      Popup.back();
+    } catch (error) {
+      alert(error.reason || error.message);
+    }
   },
   async 'click .js-link-board'(evt, tpl) {
     //LINK BOARD
