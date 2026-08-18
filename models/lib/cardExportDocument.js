@@ -58,11 +58,15 @@ function buildExportCardDocument(data, options = {}) {
       ? '' : String(card.spentTime),
     overtime: card.spentTime
       ? (card.isOvertime ? translate('yes', 'Yes') : translate('no', 'No')) : '',
-    customFields: (card.customFields || []).filter(field => field && field._id)
+    // A card from before custom-field deletion cleanup may still carry the old
+    // id. Without a definition it is not a field the board can name or render;
+    // exporting the raw database id produced #6611's cryptic PDF row.
+    customFields: (card.customFields || []).filter(field =>
+      field && field._id && customFieldsById[field._id])
       .map(field => {
         const definition = customFieldsById[field._id];
         return {
-          name: (definition && definition.name) || field._id,
+          name: definition.name,
           value: customValue(definition, field.value),
         };
       }),

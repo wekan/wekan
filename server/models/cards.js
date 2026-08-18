@@ -74,6 +74,67 @@ Meteor.methods({
     return { archived: ids.length };
   },
 
+  // #6611: custom-field selection and checkbox values are acknowledged server
+  // writes. Direct client collection writes could be refused silently, making
+  // a removed field immediately reappear and a checkbox appear inert.
+  async setCardCustomFieldAssigned(cardId, customFieldId, assigned) {
+    check(cardId, String);
+    check(customFieldId, String);
+    check(assigned, Boolean);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    const card = await Cards.findOneAsync(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    const board = await Boards.findOneAsync(card.boardId);
+    if (!board || !allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const definition = await CustomFields.findOneAsync({
+      _id: customFieldId,
+      boardIds: card.boardId,
+    });
+    if (!definition) throw new Meteor.Error('custom-field-not-found');
+
+    if (assigned) {
+      await Cards.updateAsync(cardId, {
+        $addToSet: { customFields: { _id: customFieldId, value: null } },
+      });
+    } else {
+      await Cards.updateAsync(cardId, {
+        $pull: { customFields: { _id: customFieldId } },
+      });
+    }
+    return assigned;
+  },
+
+  async setCardCustomFieldCheckbox(cardId, customFieldId, value) {
+    check(cardId, String);
+    check(customFieldId, String);
+    check(value, Boolean);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    const card = await Cards.findOneAsync(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    const board = await Boards.findOneAsync(card.boardId);
+    if (!board || !allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const definition = await CustomFields.findOneAsync({
+      _id: customFieldId,
+      boardIds: card.boardId,
+      type: 'checkbox',
+    });
+    if (!definition) throw new Meteor.Error('custom-field-not-found');
+
+    const index = (card.customFields || []).findIndex(field =>
+      field && field._id === customFieldId);
+    if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
+    await Cards.updateAsync(cardId, {
+      $set: { [`customFields.${index}.value`]: value },
+    });
+    return value;
+  },
+
   // Server-authoritative subtask creation. Fixes:
   //  - #3868 / #5788 / #2256 "extra swimlane / column on subtask creation" and
   //    #4782 "can not create more than one subtask": the default subtasks

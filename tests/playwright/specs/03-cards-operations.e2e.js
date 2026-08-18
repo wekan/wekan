@@ -272,6 +272,40 @@ test.describe('Cards – operations', () => {
     await expect(boardPage.locator('.js-pop-over')).toBeVisible({ timeout: 5_000 });
   });
 
+  test('checkbox custom fields toggle and can be removed from a card', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+    const customFieldId = db.uid('checkboxField');
+    db.insertOne('customFields', {
+      _id: customFieldId, boardIds: [board.boardId], name: 'E2E Approved',
+      type: 'checkbox', settings: {}, showOnCard: true, automaticallyOnCard: false,
+      alwaysOnCard: false, showLabelOnMiniCard: true, showSumAtTopOfList: false,
+      createdAt: new Date(), modifiedAt: new Date(),
+    });
+    db.updateOne('cards', { _id: cardId }, {
+      $push: { customFields: { _id: customFieldId, value: false } },
+    });
+
+    await boardPage.reload();
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+    const field = cp.root.locator('.card-details-item-customfield')
+      .filter({ hasText: 'E2E Approved' });
+    await field.locator('.check-box-container').click();
+    await expect.poll(() => {
+      const card = db.getCard(cardId);
+      return card.customFields.find(item => item._id === customFieldId).value;
+    }).toBe(true);
+
+    await cp.openCustomFields();
+    await boardPage.locator('.js-pop-over li.item')
+      .filter({ hasText: 'E2E Approved' }).locator('.js-select-field').click();
+    await expect.poll(() => db.getCard(cardId).customFields
+      .some(item => item._id === customFieldId)).toBe(false);
+  });
+
   // --- Adding a card at top vs bottom of list ---
 
   test('add-to-top places the card first in the list', async ({ boardPage, board }) => {

@@ -40,12 +40,18 @@ Template.cardCustomFieldsPopup.helpers({
 });
 
 Template.cardCustomFieldsPopup.events({
-  'click .js-select-field'(event) {
+  async 'click .js-select-field'(event) {
+    event.preventDefault();
     const card = getCurrentCardFromContext();
     if (!card) return;
     const customFieldId = this._id;
-    card.toggleCustomField(customFieldId);
-    event.preventDefault();
+    const assigned = card.customFieldIndex(customFieldId) < 0;
+    try {
+      await Meteor.callAsync(
+        'setCardCustomFieldAssigned', card._id, customFieldId, assigned);
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    }
   },
   // Editing a field, and making one, open in this same pop-over on top of the
   // list, so the back arrow returns to it and the card stays open behind. They
@@ -121,8 +127,15 @@ Template['cardCustomField-checkbox'].onCreated(function () {
 });
 
 Template['cardCustomField-checkbox'].events({
-  'click .js-checklist-item .check-box-container'(event, tpl) {
-    tpl.card.setCustomField(tpl.customFieldId, !Template.currentData().value);
+  async 'click .js-checklist-item .check-box-container'(event, tpl) {
+    event.preventDefault();
+    const value = !Template.currentData().value;
+    try {
+      await Meteor.callAsync(
+        'setCardCustomFieldCheckbox', tpl.card._id, tpl.customFieldId, value);
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    }
   },
 });
 
