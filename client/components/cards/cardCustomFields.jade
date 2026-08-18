@@ -53,7 +53,7 @@ template(name="cardCustomField-number")
             input(type="number" value=data.value)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.js-close-inlined-form
+                a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             a.js-open-inlined-form
                 if formattedValue
