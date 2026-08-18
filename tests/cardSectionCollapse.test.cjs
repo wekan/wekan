@@ -164,6 +164,16 @@ test('the GROUP is the full-width row, and its fields share rows inside it', () 
 });
 
 test('the Custom Fields layout toggle switches grid and one-per-row classes', () => {
+  const sectionAt = jade.indexOf(
+    '+cardSectionHeader(section="custom-fields"',
+  );
+  const section = jade.slice(sectionAt, jade.indexOf('\n      if getVoteQuestion', sectionAt));
+  assert.ok(section.indexOf('if isSectionOpen "custom-fields"') <
+    section.indexOf('button.custom-fields-layout-toggle'),
+  'the selector is inside the expanded branch and hidden when collapsed');
+  assert.ok(section.indexOf('button.custom-fields-layout-toggle') <
+    section.indexOf('.card-details-group-body'),
+  'the selector sits between the Custom Fields title and its fields');
   assert.match(jade,
     /card-details-group-body\(class="\{\{#if customFieldsGrid\}\}custom-fields-one-per-row\{\{else\}\}custom-fields-grid\{\{\/if\}\}"\)/,
     'the saved user preference reaches the custom-fields container');

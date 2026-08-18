@@ -455,20 +455,19 @@ template(name="cardDetails")
             +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields"
               menuClass="js-open-custom-fields-settings" menuTitle="custom-fields")
             if isSectionOpen "custom-fields"
+              if $gt customFieldsWD.length 1
+                button.custom-fields-layout-toggle#toggleCustomFieldsGridButton(
+                  type="button"
+                  title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}"
+                  class="{{#if customFieldsGrid}}list-active{{else}}grid-active{{/if}}")
+                  span.grid-icon(class="{{#unless customFieldsGrid}}active{{/unless}}")
+                    i.fa.fa-th-large
+                  span.list-icon(class="{{#if customFieldsGrid}}active{{/if}}")
+                    i.fa.fa-list
               .card-details-group-body(class="{{#if customFieldsGrid}}custom-fields-one-per-row{{else}}custom-fields-grid{{/if}}")
                 each customFieldsWD
                   .card-details-item.card-details-item-customfield
                     +cardCustomField
-
-          if $gt customFieldsWD.length 1
-            button.custom-fields-layout-toggle#toggleCustomFieldsGridButton(
-              type="button"
-              title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}"
-              class="{{#if customFieldsGrid}}list-active{{else}}grid-active{{/if}}")
-              span.grid-icon(class="{{#unless customFieldsGrid}}active{{/unless}}")
-                i.fa.fa-th-large
-              span.list-icon(class="{{#if customFieldsGrid}}active{{/if}}")
-                i.fa.fa-list
 
       if getVoteQuestion
         hr
