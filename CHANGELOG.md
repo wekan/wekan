@@ -456,6 +456,8 @@ the card to verify that the selected mode remains active.
 
 </details>
 
+- [Wider opened cards fit more compact-grid custom field columns](https://github.com/wekan/wekan/commit/938e373e2b00dca8968a14c2ff23011a0441a922). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7879012c92a22e3c73c1ad580b48035a1c3bbba">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
 
