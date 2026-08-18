@@ -70,6 +70,24 @@ test('dropdown has the standard X immediately beside Save', () => {
     /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
 });
 
+test('dropdown edit mode preselects the saved value', () => {
+  const clientAt = client.indexOf("Template['cardCustomField-dropdown'].onCreated");
+  const clientBody = client.slice(clientAt, client.indexOf(
+    '// cardCustomField-stringtemplate', clientAt));
+  const templateAt = template.indexOf('template(name="cardCustomField-dropdown")');
+  const templateBody = template.slice(templateAt, template.indexOf(
+    'template(name="cardCustomField-stringtemplate")', templateAt));
+
+  assert.match(clientBody, /this\.selectedValue = data\.value \?\? '';/,
+    'the editor retains the persisted value before entering the option context');
+  assert.match(clientBody,
+    /isSelectedItem\(itemId\) \{[\s\S]*Template\.instance\(\)\.selectedValue === itemId;/);
+  assert.match(templateBody,
+    /each items[\s\S]*if isSelectedItem _id[\s\S]*selected="selected"/);
+  assert.doesNotMatch(templateBody, /\$eq data\.value this\._id/,
+    'selection does not read value from the current dropdown-item context');
+});
+
 test('number has the standard X immediately beside Save', () => {
   const at = template.indexOf('template(name="cardCustomField-number")');
   const body = template.slice(at, template.indexOf(

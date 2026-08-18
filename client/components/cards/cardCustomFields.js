@@ -355,9 +355,11 @@ Template['cardCustomField-datePopup'].helpers(datePickerHelpers());
 
 // cardCustomField-dropdown
 Template['cardCustomField-dropdown'].onCreated(function () {
+  const data = Template.currentData();
   this.card = getCurrentCardFromContext();
-  this.customFieldId = Template.currentData()._id;
-  this._items = Template.currentData().definition.settings.dropdownItems;
+  this.customFieldId = data._id;
+  this.selectedValue = data.value ?? '';
+  this._items = data.definition.settings.dropdownItems;
   this.items = this._items.slice(0);
   this.items.unshift({
     _id: '',
@@ -368,6 +370,9 @@ Template['cardCustomField-dropdown'].onCreated(function () {
 Template['cardCustomField-dropdown'].helpers({
   items() {
     return Template.instance().items;
+  },
+  isSelectedItem(itemId) {
+    return Template.instance().selectedValue === itemId;
   },
   selectedItem() {
     const tpl = Template.instance();

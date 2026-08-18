@@ -149,7 +149,7 @@ template(name="cardCustomField-dropdown")
             +customFieldCopyButton(value=selectedItem)
             select.inline
                 each items
-                    if($eq data.value this._id)
+                    if isSelectedItem _id
                         option(value=_id selected="selected")
                           +viewer
                             = name
