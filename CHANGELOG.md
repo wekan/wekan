@@ -401,7 +401,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **card details** restore checkbox custom fields, keep their saved
-values separate from field visibility, and restore cross-board
+values separate from field visibility, provide independent opened-card and
+minicard visibility settings, and restore cross-board
 card links, omit deleted custom fields from exports, and make attachment
 previews use the available viewport. Linked cards mirror every visible source
 field across boards and authorized members can edit that shared content from
@@ -465,6 +466,25 @@ opened card and minicard show the same checked state immediately.
 
 The regression test requires every opened-card checkbox checkmark to bind to
 `value` and rejects the stale `data.value` path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d4ffd4080d95acae6b01a44906fddc67861aede">Cards and minicards control custom-field visibility independently</a>. Thanks to xet7.</summary>
+
+The checkbox editor calculated its second click from the Card object captured
+when the template was created, so it could keep saving `true` instead of
+unchecking. It now reads the reactive field context and saves either boolean.
+
+Custom-field values also no longer appear automatically on minicards. Card
+menu / Show on Card gains a Custom Fields setting that defaults to enabled;
+Minicard menu / Show on Minicard gains its independent Custom Fields setting
+that defaults to disabled. Enabling the minicard option shows assigned fields
+without changing their values or the opened-card setting.
+
+Positive and negative tests cover both defaults, both menu handlers, both
+rendering gates and repeated checkbox toggles. Existing browser coverage that
+expects minicard custom fields explicitly enables the opt-in setting.
 
 </details>
 
