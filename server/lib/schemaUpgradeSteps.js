@@ -133,6 +133,7 @@ const BOARD_ALLOWS_TRUE_DEFAULTS = [
   'allowsActivities',
   'allowsLabels', 'allowsLabelsOnMinicard',
   'allowsCreator',
+  'allowsCustomFields',
   'allowsAssignee', 'allowsAssigneeOnMinicard',
   'allowsMembers', 'allowsMembersOnMinicard',
   'allowsRequestedBy', 'allowsRequestedByOnMinicard',

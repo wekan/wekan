@@ -50,8 +50,8 @@ test('the edit form is written once', () => {
     assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error datePicker=datePicker\)/
       .test(cardDate.slice(at, at + 200)), `${popup} includes it`);
   }
-  assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error datePicker=datePicker\)/.test(customFields),
-    'and so does the custom field date popup');
+  assert.ok(/\+editDateForm\(showDate=showDate showTime=showTime error=error datePicker=datePicker customFieldCopyValue=value customFieldControls=true\)/.test(customFields),
+    'and so does the custom field date popup, with its date-specific controls');
 });
 
 test('the badge is written once', () => {

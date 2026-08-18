@@ -86,7 +86,7 @@ test('card details default position docks to the END edge, not over the card', (
   assert.ok(rule, 'default-position rule found');
   assert.ok(rule[0].includes('inset-inline-start: auto'));
   assert.ok(rule[0].includes('inset-inline-end: 8px'));
-  assert.ok(rule[0].includes('width: min(650px, 90vw)'));
+  assert.ok(rule[0].includes('width: min(520px, 90vw)'));
   // negative: the v8.18 whole-board overlay anchored at the start edge
   assert.ok(!rule[0].includes('inset-inline-start: 20px'));
 });

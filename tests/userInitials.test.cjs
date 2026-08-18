@@ -84,12 +84,12 @@ test('the viewBox is always a number', () => {
   // The second helper multiplied the length of what the first one returned. A
   // throw there left the attribute half-written and the avatar unrendered.
   const helpers = avatar.slice(avatar.indexOf('Template.userAvatarInitials.helpers'));
-  assert.ok(/const initials = \(user && user\.getInitials\(\)\) \|\| '';/.test(helpers),
-    'read once, defaulted');
+  assert.ok(/const initials = \(typeof this\.initials === 'string' && this\.initials\)[\s\S]*?\|\| \(user && user\.getInitials\(\)\) \|\| '';/.test(helpers),
+    'prefer supplied initials, then read the user once, and default');
   assert.ok(/return \(initials\.length \|\| 1\) \* 12;/.test(helpers),
     'and an empty one still has a width');
-  assert.ok(/return \(user && user\.getInitials\(\)\) \|\| '';/.test(helpers),
-    'the text helper defaults too, so nothing renders `undefined`');
+  assert.ok(/if \(typeof this\.initials === 'string' && this\.initials\) return this\.initials;[\s\S]*?return \(user && user\.getInitials\(\)\) \|\| '';/.test(helpers),
+    'the text helper uses supplied initials and defaults, so nothing renders `undefined`');
 });
 
 console.log(`\nuserInitials: ${passed} tests passed`);
