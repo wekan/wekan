@@ -456,6 +456,19 @@ verifies that the field remains visible after each change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/679d50378d0d41dd782b92b8cd610128a7f7f438">Opened cards display their saved custom checkbox checkmark</a>. Thanks to xet7.</summary>
+
+Saving the checkbox already changed the card's boolean and its minicard badge,
+but the opened-card square read a nested template path that did not react to
+that change. It now reads the custom field's direct persisted value, so the
+opened card and minicard show the same checked state immediately.
+
+The regression test requires every opened-card checkbox checkmark to bind to
+`value` and rejects the stale `data.value` path.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
 
 A linked card displayed the source fields but several editors still wrote its
