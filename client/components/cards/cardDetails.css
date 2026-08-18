@@ -1305,9 +1305,13 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   cursor: pointer;
   display: inline-flex;
   gap: 2px;
-  margin: 0.5em 0;
+  margin: 0;
+  margin-inline-start: auto;
   padding: 2px;
   width: auto;
+}
+.card-details h3.card-details-item-title .custom-fields-layout-toggle + .card-details-section-menu {
+  margin-inline-start: 0;
 }
 .card-details .custom-fields-layout-toggle .grid-icon,
 .card-details .custom-fields-layout-toggle .list-icon {

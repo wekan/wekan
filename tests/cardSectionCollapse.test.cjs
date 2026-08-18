@@ -168,12 +168,19 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
     '+cardSectionHeader(section="custom-fields"',
   );
   const section = jade.slice(sectionAt, jade.indexOf('\n      if getVoteQuestion', sectionAt));
-  assert.ok(section.indexOf('if isSectionOpen "custom-fields"') <
-    section.indexOf('button.custom-fields-layout-toggle'),
-  'the selector is inside the expanded branch and hidden when collapsed');
-  assert.ok(section.indexOf('button.custom-fields-layout-toggle') <
-    section.indexOf('.card-details-group-body'),
-  'the selector sits between the Custom Fields title and its fields');
+  assert.match(section, /layoutToggle=true layoutOnePerRow=customFieldsGrid/,
+    'Custom Fields asks its shared header for the selector');
+  const headerAt = jade.indexOf('template(name="cardSectionHeader")');
+  const header = jade.slice(headerAt,
+    jade.indexOf('template(name="editCardTitleForm")', headerAt));
+  assert.ok(header.indexOf('if isSectionOpen section') <
+    header.indexOf('button.custom-fields-layout-toggle'),
+  'the selector is rendered only while the section is expanded');
+  assert.ok(header.indexOf('| {{_ label}}') <
+    header.indexOf('button.custom-fields-layout-toggle') &&
+    header.indexOf('button.custom-fields-layout-toggle') <
+    header.indexOf('if menuClass'),
+  'the selector sits between the section title and hamburger menu');
   assert.match(jade,
     /card-details-group-body\(class="\{\{#if customFieldsGrid\}\}custom-fields-one-per-row\{\{else\}\}custom-fields-grid\{\{\/if\}\}"\)/,
     'the saved user preference reaches the custom-fields container');
@@ -187,13 +194,13 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
     /\.custom-fields-one-per-row > \.card-details-item-customfield \{[\s\S]*?flex: 0 0 100%[\s\S]*?max-width: 100%/,
     'on makes every custom field a full row');
   assert.match(js,
-    /'click #toggleCustomFieldsGridButton'\(\)[\s\S]*?Meteor\.call\('toggleCustomFieldsGrid'\)/,
+    /'click #toggleCustomFieldsGridButton'\(event\)[\s\S]*?event\.stopPropagation\(\)[\s\S]*?Meteor\.call\('toggleCustomFieldsGrid'\)/,
     'the switch still persists the preference');
   assert.match(jade,
     /button\.custom-fields-layout-toggle#toggleCustomFieldsGridButton[\s\S]*?fa-th-large[\s\S]*?fa-list/,
     'the control uses the paired Grid / List icon pattern');
   assert.match(jade,
-    /customFieldsGrid\}\}list-active\{\{else\}\}grid-active[\s\S]*?grid-icon[\s\S]*?unless customFieldsGrid[\s\S]*?list-icon[\s\S]*?if customFieldsGrid/,
+    /layoutOnePerRow\}\}list-active\{\{else\}\}grid-active[\s\S]*?grid-icon[\s\S]*?unless layoutOnePerRow[\s\S]*?list-icon[\s\S]*?if layoutOnePerRow/,
     'the icon matching the saved layout is active');
   assert.match(css,
     /\.custom-fields-layout-toggle \.grid-icon\.active,[\s\S]*?\.custom-fields-layout-toggle \.list-icon\.active \{[\s\S]*?background: var\(--theme-accent, #2980b9\)[\s\S]*?opacity: 1/,

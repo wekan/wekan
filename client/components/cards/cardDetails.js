@@ -815,6 +815,7 @@ Template.cardSectionHeader.events({
   // keyboard: it carries role="button" and tabindex, so Enter and Space are
   // what a screen reader user presses.
   'keydown .js-toggle-card-section'(event) {
+    if (event.target !== event.currentTarget) return;
     if (event.key !== 'Enter' && event.key !== ' ') return;
     event.preventDefault();
     const section = event.currentTarget.dataset.section;
@@ -1209,7 +1210,9 @@ Template.cardDetails.events({
     const card = Template.currentData();
     await card.toggleHideCheckedChecklistItems();
   },
-  'click #toggleCustomFieldsGridButton'() {
+  'click #toggleCustomFieldsGridButton'(event) {
+    event.preventDefault();
+    event.stopPropagation();
     Meteor.call('toggleCustomFieldsGrid');
   },
   'click .js-maximize-card-details'() {

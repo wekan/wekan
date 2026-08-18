@@ -453,17 +453,9 @@ template(name="cardDetails")
             so its rule spans the card and its fields share rows inside it.
           .card-details-group.card-details-group-custom-fields
             +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields"
-              menuClass="js-open-custom-fields-settings" menuTitle="custom-fields")
+              menuClass="js-open-custom-fields-settings" menuTitle="custom-fields"
+              layoutToggle=true layoutOnePerRow=customFieldsGrid)
             if isSectionOpen "custom-fields"
-              if $gt customFieldsWD.length 1
-                button.custom-fields-layout-toggle#toggleCustomFieldsGridButton(
-                  type="button"
-                  title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}"
-                  class="{{#if customFieldsGrid}}list-active{{else}}grid-active{{/if}}")
-                  span.grid-icon(class="{{#unless customFieldsGrid}}active{{/unless}}")
-                    i.fa.fa-th-large
-                  span.list-icon(class="{{#if customFieldsGrid}}active{{/if}}")
-                    i.fa.fa-list
               .card-details-group-body(class="{{#if customFieldsGrid}}custom-fields-one-per-row{{else}}custom-fields-grid{{/if}}")
                 each customFieldsWD
                   .card-details-item.card-details-item-customfield
@@ -821,6 +813,19 @@ template(name="cardSectionHeader")
       whose size is worth knowing before it is opened.
     if count
       |  ({{count}})
+    //- Custom Fields puts its layout selector on the heading row, between the
+      title and hamburger. A collapsed section hides actions for content that
+      is not visible, so the selector only exists while this section is open.
+    if layoutToggle
+      if isSectionOpen section
+        button.custom-fields-layout-toggle#toggleCustomFieldsGridButton(
+          type="button"
+          title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}"
+          class="{{#if layoutOnePerRow}}list-active{{else}}grid-active{{/if}}")
+          span.grid-icon(class="{{#unless layoutOnePerRow}}active{{/unless}}")
+            i.fa.fa-th-large
+          span.list-icon(class="{{#if layoutOnePerRow}}active{{/if}}")
+            i.fa.fa-list
     //- A section whose settings live somewhere gets a hamburger at the far end
       of its heading, like the card's own and the minicard's. `menuClass` is the
       handler that opens them; the click must not reach the heading, or opening

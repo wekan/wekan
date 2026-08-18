@@ -510,6 +510,14 @@ test.describe('Cards – operations', () => {
     await boardPage.reload();
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
+    const sectionHeader = cp.root.locator(
+      '.js-toggle-card-section[data-section="custom-fields"]',
+    );
+    await expect(sectionHeader.locator('#toggleCustomFieldsGridButton')).toBeVisible();
+    await sectionHeader.click({ position: { x: 10, y: 10 } });
+    await expect(cp.root.locator('#toggleCustomFieldsGridButton')).toHaveCount(0);
+    await sectionHeader.click({ position: { x: 10, y: 10 } });
+    await expect(sectionHeader.locator('#toggleCustomFieldsGridButton')).toBeVisible();
     const body = cp.root.locator(
       '.card-details-group-custom-fields .card-details-group-body',
     );
