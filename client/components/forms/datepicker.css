@@ -1,12 +1,19 @@
+.datepicker-container .fields {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
 .datepicker-container .fields .left {
+  flex: 1;
   float: none;
   order: 1;
-  width: 56%;
+  width: auto;
 }
 .datepicker-container .fields .right {
+  flex: 1;
   float: none;
   order: 2;
-  width: 38%;
+  width: auto;
 }
 .datepicker-container .fields .custom-field-date-copy {
   align-items: center;
