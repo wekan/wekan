@@ -409,9 +409,10 @@ browser build to verify).
 
 **In short:** **card details** restore checkbox custom fields and cross-board
 card links, omit deleted custom fields from exports, and make attachment
-previews use the available viewport. Card locations recognize both map URLs and
-plain coordinate pairs. Positive, negative and browser regression coverage
-keeps each interaction working. **All Boards** also keeps the complete
+previews use the available viewport. Linked cards mirror every visible source
+field across boards. Card locations recognize both map URLs and plain
+coordinate pairs. Positive, negative and browser regression coverage keeps
+each interaction working. **All Boards** also keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -500,6 +501,30 @@ to contain two numbers is not mistaken for a location.
 Parser tests cover both supplied formats, exact precision and the prose
 negative case. The browser regression enters each format through the location
 popup and verifies the detected latitude and longitude fields.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8fac3ab89127cc0d7d2164664152dffc0fbc32df">Linked cards mirror every visible field from their source</a>. Thanks to xet7.</summary>
+
+A linked card mixed a few source-aware getters with raw fields from its empty
+placement placeholder. Titles, dates and comments worked, while labels,
+stickers, custom fields, locations, dependencies, subtasks, colors, creator
+details and other direct fields could disappear. After reload, the source
+board's label and custom-field definitions were also absent because only the
+source card document and children were published.
+
+Linked cards now resolve displayed content through one live source-card path.
+The current-board publication supplies the authorized source metadata,
+definition records, relevant users, subtasks and dependency targets; all remain
+behind the existing source-board visibility check, and child-card queries are
+constrained to those authorized boards. Placement itself still belongs to the
+linked placeholder on the current board.
+
+Parity tests cover every directly rendered collection and the negative
+publication boundaries. The browser regression adds a source label, sticker,
+custom field and location, then verifies them on both the linked minicard and
+its opened details.
 
 </details>
 
