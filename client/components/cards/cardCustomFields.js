@@ -131,9 +131,15 @@ Template['cardCustomField-checkbox'].onCreated(function () {
 });
 
 Template['cardCustomField-checkbox'].events({
-  async 'click .js-checklist-item .check-box-container'(event, tpl) {
+  async 'click .js-card-custom-field-checkbox .check-box-container'(event, tpl) {
     event.preventDefault();
-    const value = !Template.currentData().value;
+    event.stopPropagation();
+    const sourceCard = tpl.card?.getRealCard?.() || tpl.card;
+    const storedField = (sourceCard?.customFields || []).find(
+      field => field?._id === tpl.customFieldId,
+    );
+    if (!sourceCard || !storedField) return;
+    const value = !Boolean(storedField.value);
     try {
       await Meteor.callAsync(
         'setCardCustomFieldCheckbox', tpl.card.getRealId(), tpl.customFieldId, value);

@@ -23,10 +23,13 @@ test('selection waits for an authorized server method', () => {
   assert.doesNotMatch(client, /card\.toggleCustomField\(customFieldId\)/);
 });
 
-test('checkbox changes wait for an authorized server method', () => {
-  const at = client.indexOf("async 'click .js-checklist-item .check-box-container'");
+test('opened-card checkbox saves its value independently of visibility', () => {
+  const at = client.indexOf("async 'click .js-card-custom-field-checkbox .check-box-container'");
   const body = client.slice(at, client.indexOf('\n  },', at));
   assert.match(body, /await Meteor\.callAsync\(\s*'setCardCustomFieldCheckbox'/);
+  assert.match(body, /sourceCard\?\.customFields/);
+  assert.match(body, /!Boolean\(storedField\.value\)/);
+  assert.match(body, /event\.stopPropagation\(\)/);
   assert.doesNotMatch(body, /tpl\.card\.setCustomField/);
 });
 

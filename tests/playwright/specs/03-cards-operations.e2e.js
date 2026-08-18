@@ -426,6 +426,18 @@ test.describe('Cards – operations', () => {
       const card = db.getCard(cardId);
       return card.customFields.find(item => item._id === customFieldId).value;
     }).toBe(true);
+    await expect(field.locator('.js-card-custom-field-checkbox')).toHaveClass(
+      /is-checked/,
+    );
+
+    // A second click saves false; it does not remove/hide the field as the
+    // similarly styled control in the Custom Fields menu intentionally does.
+    await field.locator('.check-box-container').click();
+    await expect.poll(() => {
+      const card = db.getCard(cardId);
+      return card.customFields.find(item => item._id === customFieldId).value;
+    }).toBe(false);
+    await expect(field).toBeVisible();
 
     await cp.openCustomFields();
     await boardPage.locator('.js-pop-over li.item')
