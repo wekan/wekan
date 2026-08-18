@@ -13,6 +13,7 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const client = read('client/components/cards/cardCustomFields.js');
 const template = read('client/components/cards/cardCustomFields.jade');
 const datepickerTemplate = read('client/components/forms/datepicker.jade');
+const formsCss = read('client/components/forms/forms.css');
 const server = read('server/models/cards.js');
 
 let passed = 0;
@@ -137,6 +138,17 @@ test('the title alone opens editing and copy stays inside edit controls', () => 
   assert.match(checkbox, /js-card-customfield-checkbox-editor/);
   assert.match(checkbox,
     /button\.primary\(type="submit"\)[\s\S]*\+customFieldCopyButton[\s\S]*js-close-inlined-form/);
+});
+
+test('copy aligns between Save and Close instead of using the editor offset', () => {
+  assert.match(template,
+    /span\.custom-field-copy-control[\s\S]*a\.fa\.fa-copy\.js-copy-custom-field/);
+  const controlAt = formsCss.indexOf('.custom-field-copy-control {');
+  const controlCss = formsCss.slice(controlAt, formsCss.indexOf('}', controlAt));
+  assert.match(controlCss, /display: inline-flex;/);
+  assert.match(controlCss, /align-items: center;/);
+  assert.match(formsCss,
+    /\.custom-field-copy-control > a\.fa-copy\s*\{[\s\S]*position: static;[\s\S]*top: auto;/);
 });
 
 test('server validates actor, board field definition and value type', () => {

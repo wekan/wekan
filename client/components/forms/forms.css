@@ -310,6 +310,23 @@ textarea::-moz-placeholder {
   font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   margin: 5px 21px;
 }
+/* Custom-field Copy is a member of the Save / Copy / Close control row. The
+   editor's generic `.inlined-form a.fa-copy` rule positions rich-text toolbar
+   icons 10px above their textarea; undo that positioning here so it cannot
+   lift this control over the Save button. */
+.custom-field-copy-control {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 42px;
+  justify-content: center;
+  position: relative;
+}
+.custom-field-copy-control > a.fa-copy {
+  float: none;
+  inset: auto;
+  position: static;
+  top: auto;
+}
 /* CJK (Japanese/Chinese/Korean) labels contain no spaces, so browsers may
    insert a line break between any two characters. In the narrow add-card /
    edit footers this made short labels such as "追加" (Add) and "リンク"
