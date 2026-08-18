@@ -525,6 +525,21 @@ control and that the shared handler normalizes scalar, date and array values.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9eb0c76cbd3c8ffdfbc25e3fdfbc1047f1508927">Custom field titles open editing without taking over field controls</a>. Thanks to xet7.</summary>
+
+Clicking a custom field's title now opens its value editor. The displayed value
+is no longer the edit trigger, so controls such as checkboxes remain dedicated
+to using the field. Checkbox fields gain a staged editor with Save and Close,
+while their normal checkbox continues to save direct on/off changes.
+
+Copy is hidden while a field is only being viewed. Every field editor shows it
+between Save and X, and it copies the currently edited input rather than the
+previously saved value. Focused positive and negative coverage checks the
+view/edit boundary; the browser regression checks the control order.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
 
 A linked card displayed the source fields but several editors still wrote its
