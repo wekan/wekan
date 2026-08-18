@@ -913,6 +913,45 @@ test('Broken cards is a report like the ones beside it', () => {
     'the standalone /broken-cards page keeps its publication');
 });
 
+test('Problems pagers ignore panes that own separate pagination state', () => {
+  const js = read('client/components/settings/adminProblems.js');
+
+  // Event-stream and Office table controls are descendants of adminProblems.
+  // Blaze therefore also offers their events to the parent's delegated table
+  // handlers. Those pane ids deliberately have no reportConfig entry: they use
+  // their own publication and pagination state. A missing guard made Next read
+  // cfg.count and throw instead of letting the child pager finish its request.
+  for (const functionName of ['goPrevPage', 'goNextPage', 'runSearch']) {
+    const start = js.indexOf(`function ${functionName}(`);
+    const end = js.indexOf('\n}', start) + 2;
+    assert.ok(start >= 0 && end > start, `${functionName} must exist`);
+    const body = js.slice(start, end);
+    const configLookup = body.indexOf('const cfg = reportConfig(tmpl)[reportId];');
+    const missingGuard = body.indexOf('if (!cfg) return;');
+    assert.ok(configLookup >= 0 && missingGuard > configLookup,
+      `${functionName} must ignore a report id without shared table state`);
+  }
+
+  for (const templateName of ['eventStreamReport', 'officeReport']) {
+    const start = js.indexOf(`Template.${templateName}.events({`);
+    const end = js.indexOf('\n});', start) + 4;
+    const events = js.slice(start, end);
+    for (const direction of ['prev', 'next']) {
+      const handler = new RegExp(
+        `'click \\.js-table-page-${direction}'\\(event, tmpl\\) \\{[\\s\\S]*?event\\.stopPropagation\\(\\);`,
+      );
+      assert.ok(handler.test(events),
+        `${templateName} ${direction} must not bubble into the shared Problems pager`);
+    }
+  }
+
+  const officeStart = js.indexOf('Template.officeReport.events({');
+  const officeEnd = js.indexOf('\n});', officeStart) + 4;
+  const officeEvents = js.slice(officeStart, officeEnd);
+  assert.ok(/'keydown \.js-table-page-search'\(event, tmpl\) \{[\s\S]*?event\.stopPropagation\(\);/.test(officeEvents),
+    'Office search Enter must not bubble into the shared Problems search handler');
+});
+
 // ── one row of controls, one height, one theme ─────────────────────────────
 
 test('every control in the row shares one height and no margin', () => {

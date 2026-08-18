@@ -453,6 +453,11 @@ Template.adminProblems.events({
 function goPrevPage(event, tmpl, reportId) {
   event.preventDefault();
   const cfg = reportConfig(tmpl)[reportId];
+  // Specialized Problems panes (event streams and Offices) own their pager.
+  // Blaze events bubble through containing templates, so their clicks can also
+  // reach this shared report handler. Pane changes can likewise leave a queued
+  // click with an old report id. Neither case has an entry in reportConfig.
+  if (!cfg) return;
   const current = cfg.page.get();
   if (current > 1) {
     cfg.page.set(current - 1);
@@ -463,6 +468,7 @@ function goPrevPage(event, tmpl, reportId) {
 function goNextPage(event, tmpl, reportId) {
   event.preventDefault();
   const cfg = reportConfig(tmpl)[reportId];
+  if (!cfg) return;
   const total = cfg.count.get() || 0;
   const totalPages = Math.max(1, Math.ceil(total / REPORTS_PER_PAGE));
   const current = cfg.page.get();
@@ -475,6 +481,7 @@ function goNextPage(event, tmpl, reportId) {
 // Read the report's search box, store the term, reset to page 1 and reload.
 function runSearch(tmpl, reportId, inputSelector) {
   const cfg = reportConfig(tmpl)[reportId];
+  if (!cfg) return;
   const value = (tmpl.$(inputSelector).val() || '').trim();
   cfg.search.set(value);
   cfg.page.set(1);
@@ -989,9 +996,13 @@ Template.eventStreamReport.events({
     tmpl.load();
   },
   'click .js-table-page-prev'(event, tmpl) {
+    event.preventDefault();
+    event.stopPropagation();
     if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
   },
   'click .js-table-page-next'(event, tmpl) {
+    event.preventDefault();
+    event.stopPropagation();
     const info = pageInfo(tmpl.total.get(), tmpl.page.get(), EVENTS_PER_PAGE);
     if (info.hasNext) { tmpl.page.set(tmpl.page.get() + 1); tmpl.load(); }
   },
@@ -1188,16 +1199,19 @@ Template.officeReport.helpers({
 Template.officeReport.events({
   'click .js-table-page-prev'(event, tmpl) {
     event.preventDefault();
+    event.stopPropagation();
     if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
   },
   'click .js-table-page-next'(event, tmpl) {
     event.preventDefault();
+    event.stopPropagation();
     tmpl.page.set(tmpl.page.get() + 1);
     tmpl.load();
   },
   'keydown .js-table-page-search'(event, tmpl) {
     if (event.keyCode === 13 && !event.shiftKey) {
       event.preventDefault();
+      event.stopPropagation();
       tmpl.search.set(event.currentTarget.value || '');
       tmpl.page.set(1);
       tmpl.load();
