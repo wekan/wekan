@@ -2,14 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import LoginAddresses from '/models/loginAddresses';
 
-const { officeSummary, isSharedAddress } = require('/models/lib/loginTally');
+const { officeSummary, tallyList } = require('/models/lib/loginTally');
 
-// Each account at an office is shown as its INITIALS, or its avatar where it has
-// one, and clicking it opens the same edit-user popup the People table opens. So
-// the summary carries what that needs: the _id to open the popup with, the
-// initials to draw, and the avatar URL when there is one. Resolved here rather
-// than in the browser because the office row holds a username, and a client has
-// no business publishing every account to look them up.
+// The legacy address-grouped endpoint still uses this for loginOffice().
 async function withIdentities(summary) {
   if (!summary || !summary.users.length) return summary;
   const names = summary.users.map(u => u.value);
@@ -41,12 +36,58 @@ async function withIdentities(summary) {
   return summary;
 }
 
-// Admin Panel → People: the addresses people log in from, grouped.
-//
-// An address several accounts use is an office, a VPN, a university or a
-// carrier's NAT. This is what lets an admin see the shape of their own users -
-// which offices exist, who is at each, how many times each of them has logged
-// in and over what period - before drawing any conclusion from an address.
+function initialsFor(user) {
+  const profile = user.profile || {};
+  return profile.initials
+    || (profile.fullname || '').split(/\s+/).filter(Boolean)
+      .map(word => word[0]).join('').toUpperCase()
+    || (user.username || '').slice(0, 1).toUpperCase();
+}
+
+// One person with one child row per address. The per-user tally is the source
+// of that person's count; LoginAddresses supplies the location last reported
+// for the same address by a CDN or trusted reverse proxy.
+function personSummary(user, byAddress) {
+  const addresses = tallyList(user.loginAddresses);
+  return {
+    userId: user._id,
+    username: user.username || user._id,
+    fullname: (user.profile && user.profile.fullname) || '',
+    initials: initialsFor(user),
+    avatarUrl: (user.profile && user.profile.avatarUrl) || '',
+    loginDisabled: !!user.loginDisabled,
+    addresses: addresses.map(entry => {
+      const doc = byAddress.get(entry.value) || {};
+      return {
+        address: entry.value,
+        ipv4: doc.ipv4 || (entry.family === 'ipv4' ? entry.value : ''),
+        ipv6: doc.ipv6 || (entry.family === 'ipv6' ? entry.value : ''),
+        location: doc.location || null,
+        locationLabel: doc.locationLabel || '',
+        logins: entry.count || 0,
+        firstAt: entry.firstAt,
+        at: entry.at,
+      };
+    }),
+    moreAddresses: (user.loginAddresses && user.loginAddresses.overflow) || 0,
+  };
+}
+
+async function peopleSummaries(users) {
+  const values = [...new Set(users.flatMap(user =>
+    tallyList(user.loginAddresses).map(entry => entry.value)))];
+  const docs = values.length
+    ? await LoginAddresses.find(
+      { address: { $in: values } },
+      { fields: { address: 1, ipv4: 1, ipv6: 1, location: 1, locationLabel: 1 } },
+    ).fetchAsync()
+    : [];
+  const byAddress = new Map(docs.map(doc => [doc.address, doc]));
+  return users.map(user => personSummary(user, byAddress));
+}
+
+// Admin Panel → Problems → Offices: people first, with each person's addresses
+// kept together and the successful-login count shown for every address.
 //
 // It is also the evidence behind WeKan not blocking addresses: a security event
 // blocks the ACCOUNT that caused it, because the alternative would take everyone
@@ -61,48 +102,43 @@ async function requireAdmin(context) {
 
 if (Meteor.isServer) {
   Meteor.methods({
-    // Every address, busiest first. `sharedOnly` narrows it to the ones with
-    // several accounts behind them - the offices - which is the view worth
-    // looking at when deciding anything about an address.
+    // People first, with all of each person's addresses kept together.
     async loginOffices(options) {
       check(options, Match.Optional({
-        sharedOnly: Match.Optional(Boolean),
         limit: Match.Optional(Number),
         skip: Match.Optional(Number),
         search: Match.Optional(String),
-        since: Match.Optional(Date),
       }));
       await requireAdmin(this);
       const opts = options || {};
-      const selector = {};
-      // The time range the caller asked about: rows last used since then.
-      if (opts.since) selector.at = { $gte: opts.since };
-      // Search matches the address or the place - the two things an admin has
-      // in hand. Escaped: a search box is not a place to accept a pattern.
+      const selector = { 'loginAddresses.entries': { $exists: true } };
       if (opts.search) {
         const safe = String(opts.search).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const rx = new RegExp(safe, 'i');
-        selector.$or = [{ address: rx }, { locationLabel: rx }];
+        const matchingAddresses = await LoginAddresses.find(
+          { $or: [{ address: rx }, { locationLabel: rx }] },
+          { fields: { users: 1 } },
+        ).fetchAsync();
+        const names = new Set();
+        matchingAddresses.forEach(row => {
+          Object.values((row.users && row.users.entries) || {})
+            .forEach(entry => names.add(entry.value));
+        });
+        selector.$or = [
+          { username: rx },
+          { 'profile.fullname': rx },
+          ...(names.size ? [{ username: { $in: [...names] } }] : []),
+        ];
       }
       const limit = Math.min(Math.max(opts.limit || 25, 1), 200);
       const skip = Math.max(opts.skip || 0, 0);
 
-      // sharedOnly filters on a shape Mongo cannot express over a
-      // dynamically-keyed subdocument, so it is applied after fetching and the
-      // total is counted the same way - over the whole (already small) set of
-      // addresses rather than a page of it.
-      if (opts.sharedOnly) {
-        const all = await LoginAddresses.find(selector, { sort: { count: -1 } }).fetchAsync();
-        const shared = all.filter(isSharedAddress);
-        const page = shared.slice(skip, skip + limit).map(officeSummary);
-        return { total: shared.length, offices: await Promise.all(page.map(withIdentities)) };
-      }
-      const total = await LoginAddresses.find(selector).countAsync();
-      const rows = await LoginAddresses.find(selector, {
-        sort: { count: -1 }, limit, skip,
+      const total = await Meteor.users.find(selector).countAsync();
+      const users = await Meteor.users.find(selector, {
+        fields: { username: 1, profile: 1, loginDisabled: 1, loginAddresses: 1 },
+        sort: { username: 1 }, limit, skip,
       }).fetchAsync();
-      const offices = rows.map(officeSummary);
-      return { total, offices: await Promise.all(offices.map(withIdentities)) };
+      return { total, people: await peopleSummaries(users) };
     },
 
     // One address, in full: who logs in from it and how often.

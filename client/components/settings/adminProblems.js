@@ -15,6 +15,7 @@ import { Mongo } from 'meteor/mongo';
 import { buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 // The flag and city an office row leads with (models/lib/geoHeaders.js).
 const { officeLabel } = require('/models/lib/geoHeaders');
+const { officeRowsByPerson } = require('/models/lib/loginTally');
 import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
@@ -1102,18 +1103,27 @@ for (const tpl of [Template.featuresPerformance, Template.featuresSecurity,
 }
 
 // ── Admin Panel / Problems / Offices ────────────────────────────────────────
-// Where people log in from, grouped by address. An address several accounts use
-// is an office, a VPN, a university or a carrier's NAT - and seeing that shape
-// is what stops anybody reacting to an address as though it were a person
-// (models/lib/loginTally.js, server/lib/blockOnSecurityEvent.js).
+// Where people log in from, grouped by person. Every address remains its own row
+// so IPv4, IPv6, location and that person's successful-login count stay exact.
 //
 // Through the shared table page like every other report here
 // (docs/Features/Page/Table.md): same layout, same controls, same paginator.
 const OFFICES_PER_PAGE = 25;
 
 const OFFICE_COLUMNS = [
-  // The flag and the city, leftmost: an admin recognises "London" instantly and
-  // an address never. The flag says WHICH London.
+  {
+    labelKey: 'office-people',
+    users: d => [{
+      userId: d.userId,
+      text: d.fullname ? `${d.fullname} (${d.username})` : d.username,
+      avatarUrl: d.avatarUrl,
+    }],
+    value: () => '',
+  },
+  { labelKey: 'event-ipv4', nowrap: true, value: d => d.ipv4 },
+  { labelKey: 'event-ipv6', nowrap: true, value: d => d.ipv6 },
+  // The flag and the city: an admin recognises "London" instantly and the flag
+  // says WHICH London.
   {
     labelKey: 'office-location', nowrap: true,
     value: d => (d.locationLabel ? officeLabel(d.location).text : ''),
@@ -1127,16 +1137,6 @@ const OFFICE_COLUMNS = [
       longitude: d.location.longitude,
       label: d.locationLabel || d.address || '',
     }),
-  },
-  { labelKey: 'office-address', nowrap: true, value: d => d.address },
-  // Initials or avatar per person, with their own login count beside them.
-  {
-    labelKey: 'office-people',
-    users: d => (d.users || []).map(u => ({
-      userId: u.userId, text: u.fullname ? `${u.fullname} (${u.value})` : u.value,
-      avatarUrl: u.avatarUrl, count: u.count,
-    })),
-    value: d => (d.moreUsers ? `+${d.moreUsers}` : ''),
   },
   { labelKey: 'office-logins', align: 'end', value: d => d.logins },
   { labelKey: 'office-first-seen', nowrap: true, value: d => formatDate(d.firstAt) },
@@ -1155,7 +1155,7 @@ Template.officeReport.onCreated(function () {
       search: this.search.get() || undefined,
     }, (err, res) => {
       if (err) return;
-      this.rows.set((res && res.offices) || []);
+      this.rows.set(officeRowsByPerson((res && res.people) || []));
       this.total.set((res && res.total) || 0);
     });
   };

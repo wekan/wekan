@@ -138,6 +138,7 @@ template(name="tablePage")
                                 img.avatar.avatar-image(src="{{avatarUrl}}" alt="{{text}}")
                               else
                                 +userAvatarInitials(userId=userId)
+                            span.table-page-person-name {{text}}
                             if count
                               span.table-page-people-count {{count}}
                     else if userId

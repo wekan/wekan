@@ -121,6 +121,20 @@ function officeSummary(addressDoc) {
   };
 }
 
+// Flatten the person-grouped response for the shared table renderer. Keeping a
+// person's address rows adjacent is the grouping; repeating the identity makes
+// every row understandable to screen readers and after table sorting/copying.
+function officeRowsByPerson(people = []) {
+  return people.flatMap(person => (person.addresses || []).map(address => ({
+    ...address,
+    userId: person.userId,
+    username: person.username,
+    fullname: person.fullname,
+    avatarUrl: person.avatarUrl,
+    moreAddresses: person.moreAddresses,
+  })));
+}
+
 module.exports = {
   MAX_ADDRESSES_PER_USER,
   MAX_USERS_PER_ADDRESS,
@@ -132,4 +146,5 @@ module.exports = {
   tallyList,
   isSharedAddress,
   officeSummary,
+  officeRowsByPerson,
 };

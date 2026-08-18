@@ -267,12 +267,18 @@
   margin: 0;
   flex: 0 0 auto;
 }
-/* One person: the avatar and their login count, side by side and never split
-   across a line break. */
+/* One person: avatar, visible identity and login count, side by side. Offices
+   are grouped by person now, so a tooltip-only identity would hide the name of
+   the group from keyboard and touch users. */
 .table-page-person {
   display: inline-flex;
   align-items: center;
   gap: 2px;
+}
+.table-page-person-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .table-page-people .edit-user {
   display: inline-flex;
