@@ -421,6 +421,8 @@ retaining cache state until they exhaust the JavaScript heap.
 **Admin Panel / Problems / Offices** groups login addresses by person and shows
 each address family, available location, per-person login count and available
 initials instead of empty avatar circles.
+**Admin Panel / People / People** summarizes each person's login countries and
+opens country-by-country city, IPv4, IPv6 and login-time details.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -465,6 +467,27 @@ Initials now travel with the person through the response, grouped rows and
 shared table cell. The existing avatar template uses them directly and retains
 its reactive user lookup as the fallback everywhere else. Regression coverage
 checks both the Offices path and the generic table conversion.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff9d0bab8b63bee6ef70c70decf82a852f5bb2ba">People shows country login counters with city and address details</a>. Thanks to xet7.</summary>
+
+A Location column immediately before Status now shows each person's country
+flags and successful-login counts. Selecting a counter opens that person's
+location report: countries are the left menu, busiest first, and the selected
+country's shared Table.md table lists city, IPv4, IPv6 and the person's first
+and last login times for every address.
+
+The detail view has the shared search, pagination and Back controls. Location
+data is fetched once per People page and restricted through the same site-admin
+or tenant-admin scope as the People list. Unknown locations are not guessed,
+stale page responses are discarded, and new logins retain the available proxy
+location on the person's own address tally.
+
+Positive and negative coverage checks country totals and ordering, both IP
+families, city rows, timestamps, menu and table wiring, authorization limits
+and absent geography.
 
 </details>
 
