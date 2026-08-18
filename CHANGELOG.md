@@ -588,6 +588,8 @@ view/edit boundary; the browser regression checks its editing-only visibility.
 
 - [The Date custom field popup keeps Date, Time and Copy on one row without a second X](https://github.com/wekan/wekan/commit/4f513437beb30d777fd86bdc89131a76b7775ab0). Thanks to xet7.
 
+- [Dropdown custom fields preselect their saved value when editing](https://github.com/wekan/wekan/commit/93c6c5d51be2623f944e841eb2c59f97d188d193). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b17a9f8597a7f5857b051f640c63cd1e3b99a4e">Currency and String Template custom fields no longer break minicards</a>. Thanks to xet7.</summary>
 
