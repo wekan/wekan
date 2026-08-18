@@ -409,7 +409,8 @@ opened-card and minicard visibility settings, make every custom-field value
 copyable, use compact accessible pencil icons for Edit actions, restore the
 grid/one-per-row layout switch, restore cross-board card links, omit deleted
 custom fields from exports, and make attachment previews use the available
-viewport. Linked cards mirror every visible source field across boards and
+viewport. JFIF image uploads receive portable JPEG download names. Linked cards
+mirror every visible source field across boards and
 authorized members can edit that shared content from either board. Card
 locations recognize both map URLs and plain coordinate pairs. Positive,
 negative and browser regression coverage keeps each interaction working.
@@ -508,6 +509,21 @@ pagers and the defensive shared-handler path.
 </details>
 
 **Card details** - fields, attachments and links on an opened card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/518a4d2fec487fef91f66224a9be8fc5f94e7527">JFIF uploads use portable JPEG download names</a>. Thanks to xet7.</summary>
+
+Content detection already identified a JFIF upload as JPEG, but the MIME
+database did not recognize the `.jfif` filename suffix. The generic correction
+therefore appended `.jpeg` and stored names such as `photo.jfif.jpeg`.
+
+Detected JPEG content named with `.jfif` now replaces that suffix with `.jpeg`.
+Downloads consequently use a conventional filename that desktop file
+associations can open directly, while valid `.jpg` and `.jpeg` names remain
+unchanged. Positive and negative tests cover replacement, non-appending and the
+Security Report's sanitization reason.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc609f9feb494ebaec326e9c47107af909bbd29a">Edit actions use compact accessible pencil icons</a>. Thanks to xet7.</summary>
