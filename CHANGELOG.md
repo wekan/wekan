@@ -578,6 +578,8 @@ view/edit boundary; the browser regression checks its editing-only visibility.
 
 - [Custom field titles and values open editing while checkbox squares toggle](https://github.com/wekan/wekan/commit/3bb07f8b2d07111c92fea315530bd747262380a6). Thanks to xet7.
 
+- [Checkbox custom fields can be checked and unchecked while editing](https://github.com/wekan/wekan/commit/31416ce6dd083f896ea673bee35385767244d907). Thanks to xet7.
+
 - [Custom field Copy controls sit above editors' top-right corners](https://github.com/wekan/wekan/commit/a3e5f4ebd04f99183ead737d630f05718f319c07). Thanks to xet7.
 
 <details>
