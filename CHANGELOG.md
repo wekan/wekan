@@ -548,6 +548,8 @@ comma-decimal amount and verifies the stored numeric value.
 
 - [Custom Field Text places an X close control beside Save](https://github.com/wekan/wekan/commit/3d0e4805ee21693649ad918caca884db8e279aa8). Thanks to xet7.
 
+- [Custom Field String Template places an X close control beside Save](https://github.com/wekan/wekan/commit/3928242d5fd339aa431dc42ffcfbc47c38ddd11c). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad9300297f69031155762e174e6bb828f5a4dc75">Every custom field editor provides a copy-to-clipboard control</a>. Thanks to xet7.</summary>
 
