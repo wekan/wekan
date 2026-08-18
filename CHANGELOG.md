@@ -508,6 +508,8 @@ comma-decimal amount and verifies the stored numeric value.
 
 - [Custom Field Number places an X close control beside Save](https://github.com/wekan/wekan/commit/82a0f2f78f53c3c9eeed70694832c357c3d9e7b4). Thanks to xet7.
 
+- [Custom Field Text places an X close control beside Save](https://github.com/wekan/wekan/commit/3d0e4805ee21693649ad918caca884db8e279aa8). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
 
