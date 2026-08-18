@@ -403,14 +403,15 @@ browser build to verify).
 **In short:** **card details** restore checkbox custom fields, keep their saved
 values separate from field visibility, save currency values, provide
 independent opened-card and minicard visibility settings, make every custom-field
-value copyable, restore the grid/one-per-row layout switch, restore cross-board
-card links, omit deleted custom fields from exports, and make attachment
-previews use the available viewport. Linked cards mirror every visible source
-field across boards and authorized members can edit that shared content from
-either board. Card locations recognize both map URLs and plain
-coordinate pairs. Positive, negative and browser regression coverage keeps
-each interaction working. Opened cards can also be resized wider as well as
-narrower on desktop. **All Boards** keeps the complete
+value copyable, use compact accessible pencil icons for Edit actions, restore
+the grid/one-per-row layout switch, restore cross-board card links, omit deleted
+custom fields from exports, and make attachment previews use the available
+viewport. Linked cards mirror every visible source field across boards and
+authorized members can edit that shared content from either board. Card
+locations recognize both map URLs and plain coordinate pairs. Positive,
+negative and browser regression coverage keeps each interaction working.
+Opened cards can also be resized wider as well as narrower on desktop. **All
+Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -427,6 +428,20 @@ invitation message and its actions visible on phone-sized layouts.
 This release fixes the following bugs:
 
 **Card details** - fields, attachments and links on an opened card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc609f9feb494ebaec326e9c47107af909bbd29a">Edit actions use compact accessible pencil icons</a>. Thanks to xet7.</summary>
+
+Visible Edit controls on cards now use the same Font Awesome pencil-square icon
+as Description instead of repeating the word. This covers custom fields,
+Requested By, Assigned By and comments; Add remains text where it is a distinct
+action. Every icon is decorative to assistive technology, while its control
+retains the localized Edit tooltip and accessible name.
+
+Focused coverage rejects textual Edit controls, checks the icon and accessibility
+attributes, and keeps the separate Add state intact.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46b276e7582c1bd020ccb2fe4d01a88b8ee177ae">Opened cards can be resized wider as well as narrower</a>. Thanks to xet7.</summary>
