@@ -539,6 +539,8 @@ view/edit boundary; the browser regression checks the control order.
 
 </details>
 
+- [Custom field Copy controls align between Save and X](https://github.com/wekan/wekan/commit/cb517165d442c990c7c40679d19bcbfca445d821). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
 
