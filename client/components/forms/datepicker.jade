@@ -13,8 +13,6 @@
 template(name="editDateForm")
   .datepicker-container
     form.edit-date(class="{{#if customFieldControls}}custom-field-date-editor{{/if}}")
-      if customFieldControls
-        +customFieldCopyButton(value=customFieldCopyValue)
       .fields
         .left
           label(for="date") {{_ 'date'}}
@@ -22,6 +20,9 @@ template(name="editDateForm")
         .right
           label(for="time") {{_ 'time'}}
           input.js-time-field#time(type="time" name="time" value=showTime)
+        if customFieldControls
+          .custom-field-date-copy
+            +customFieldCopyButton(value=customFieldCopyValue)
       if error.get
         .warning {{_ error.get}}
       button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}

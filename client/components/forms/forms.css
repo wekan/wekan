@@ -327,15 +327,6 @@ textarea::-moz-placeholder {
   top: -24px;
   z-index: 1;
 }
-/* A popup clips content above its body at the header boundary. Keep Date's
-   top-right Copy action inside the form and reserve a row for it, instead of
-   applying the negative inline-editor offset that showed only half the icon. */
-.custom-field-date-editor {
-  padding-top: 28px;
-}
-.custom-field-date-editor .custom-field-copy-control {
-  top: 0;
-}
 form.inlined-form .custom-field-copy-control > a.fa-copy,
 .custom-field-date-editor .custom-field-copy-control > a.fa-copy {
   float: none;

@@ -13,6 +13,7 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const client = read('client/components/cards/cardCustomFields.js');
 const template = read('client/components/cards/cardCustomFields.jade');
 const datepickerTemplate = read('client/components/forms/datepicker.jade');
+const datepickerCss = read('client/components/forms/datepicker.css');
 const formsCss = read('client/components/forms/forms.css');
 const minicardClient = read('client/components/cards/minicard.js');
 const server = read('server/models/cards.js');
@@ -188,9 +189,17 @@ test('copy sits above the top-right corner of every custom field editor', () => 
   assert.match(controlCss, /top: -24px;/);
   assert.match(formsCss,
     /form\.inlined-form \.custom-field-copy-control > a\.fa-copy[\s\S]*position: static;[\s\S]*top: auto;/);
-  assert.match(formsCss,
-    /\.custom-field-date-editor \{[\s\S]*?padding-top: 28px;[\s\S]*?\}[\s\S]*?\.custom-field-date-editor \.custom-field-copy-control \{[\s\S]*?top: 0;/,
-    'Date reserves space inside its popup so Copy is not clipped by the header');
+  assert.match(datepickerTemplate,
+    /\.right[\s\S]*?input\.js-time-field[\s\S]*?customFieldControls[\s\S]*?\.custom-field-date-copy[\s\S]*?\+customFieldCopyButton/,
+    'Date places Copy immediately after the Time field');
+  assert.match(datepickerCss,
+    /\.custom-field-date-copy \{[\s\S]*?align-items: center;[\s\S]*?padding-top: 24px;/,
+    'Copy aligns with the Time input instead of adding a row above Date and Time');
+  assert.match(datepickerCss,
+    /\.custom-field-date-copy \.custom-field-copy-control \{[\s\S]*?position: static;/,
+    'Date overrides the absolute above-editor position inside its fields row');
+  assert.doesNotMatch(formsCss, /\.custom-field-date-editor \{\s*padding-top:/,
+    'Date no longer reserves empty space above its inputs');
 });
 
 test('minicard Currency and String Template format their row without throwing', () => {
