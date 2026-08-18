@@ -564,10 +564,10 @@ control and that the shared handler normalizes scalar, date and array values.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9eb0c76cbd3c8ffdfbc25e3fdfbc1047f1508927">Custom field titles open editing without taking over field controls</a>. Thanks to xet7.</summary>
 
-Clicking a custom field's title now opens its value editor. The displayed value
-is no longer the edit trigger, so controls such as checkboxes remain dedicated
-to using the field. Checkbox fields gain a staged editor with Save and Close,
-while their normal checkbox continues to save direct on/off changes.
+Clicking a custom field's title or displayed value now opens its value editor.
+Checkbox fields keep their square as an immediate on/off control, while their
+title and the empty area beside the square open a staged editor with Save and
+Close.
 
 Copy is hidden while a field is only being viewed. Every field editor provides
 the action while editing, and it copies the currently edited input rather than
@@ -575,6 +575,8 @@ the previously saved value. Focused positive and negative coverage checks the
 view/edit boundary; the browser regression checks its editing-only visibility.
 
 </details>
+
+- [Custom field titles and values open editing while checkbox squares toggle](https://github.com/wekan/wekan/commit/3bb07f8b2d07111c92fea315530bd747262380a6). Thanks to xet7.
 
 - [Custom field Copy controls sit above editors' top-right corners](https://github.com/wekan/wekan/commit/a3e5f4ebd04f99183ead737d630f05718f319c07). Thanks to xet7.
 
