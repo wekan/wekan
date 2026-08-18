@@ -29,6 +29,25 @@ import {
 import { CustomFieldStringTemplate } from '/client/lib/customFields'
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { formatNumberValue } from '/imports/lib/customNumberFormat';
+import { Utils } from '/client/lib/utils';
+
+Template.customFieldCopyButton.events({
+  'click .js-copy-custom-field'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const rawValue = Template.currentData()?.value;
+    let value;
+    if (rawValue instanceof Date) {
+      value = rawValue.toISOString();
+    } else if (Array.isArray(rawValue)) {
+      value = rawValue.join('\n');
+    } else {
+      value = rawValue == null ? '' : String(rawValue);
+    }
+    const promise = Utils.copyTextToClipboard(value);
+    Utils.showCopied(promise, tpl.$('.copied-tooltip'));
+  },
+});
 
 Template.cardCustomFieldsPopup.helpers({
   board() {

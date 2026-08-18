@@ -27,6 +27,10 @@ template(name="cardCustomFieldsPopup")
 template(name="cardCustomField")
     +Template.dynamic(template=getTemplate)
 
+template(name="customFieldCopyButton")
+    a.fa.fa-copy.js-copy-custom-field(title="{{_ 'copy-text-to-clipboard'}}")
+    span.copied-tooltip {{_ 'copied'}}
+
 template(name="cardCustomField-text")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-text")
@@ -53,6 +57,7 @@ template(name="cardCustomField-number")
             input(type="number" value=data.value)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
+                +customFieldCopyButton(value=value)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             a.js-open-inlined-form
@@ -72,6 +77,7 @@ template(name="cardCustomField-checkbox")
     if canModifyCard
       .check-box-container
         .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
+      +customFieldCopyButton(value=value)
     else
       .materialCheckBox(class="{{#if value}}is-checked{{/if}}")
 
@@ -81,6 +87,7 @@ template(name="cardCustomField-currency")
             input(type="text" value=value autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
+                +customFieldCopyButton(value=value)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             a.js-open-inlined-form
@@ -104,6 +111,7 @@ template(name="cardCustomField-date")
                   | {{showWeek}}
         else
           | {{_ 'edit'}}
+      +customFieldCopyButton(value=value)
     else
       if value
         div.card-date
@@ -131,6 +139,7 @@ template(name="cardCustomField-dropdown")
                             = name
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
+                +customFieldCopyButton(value=selectedItem)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             a.js-open-inlined-form
@@ -152,6 +161,7 @@ template(name="cardCustomField-stringtemplate")
             input.js-card-customfield-stringtemplate-item.last(type="text" value="" placeholder="{{_ 'custom-field-stringtemplate-item-placeholder'}}" autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
+                +customFieldCopyButton(value=formattedValue)
                 a.js-close-inlined-form
         else
             a.js-open-inlined-form

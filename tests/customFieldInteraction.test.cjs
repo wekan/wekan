@@ -82,6 +82,36 @@ test('text has the standard X immediately beside Save', () => {
     /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
 });
 
+test('every custom field editor has a copy-to-clipboard control', () => {
+  assert.match(template, /template\(name="customFieldCopyButton"\)[\s\S]*js-copy-custom-field/);
+  // Text already receives the established copy control from +editor.
+  const textAt = template.indexOf('template(name="cardCustomField-text")');
+  const textBody = template.slice(textAt, template.indexOf(
+    'template(name="cardCustomField-number")', textAt));
+  assert.match(textBody, /\+editor\(autofocus=true\)/);
+
+  const boundaries = [
+    ['number', 'checkbox'],
+    ['checkbox', 'currency'],
+    ['currency', 'date'],
+    ['date', 'datePopup'],
+    ['dropdown', 'stringtemplate'],
+  ];
+  for (const [type, next] of boundaries) {
+    const at = template.indexOf(`template(name="cardCustomField-${type}")`);
+    const body = template.slice(at, template.indexOf(
+      `template(name="cardCustomField-${next}")`, at));
+    assert.match(body, /\+customFieldCopyButton\(value=/, `${type} has copy`);
+  }
+  const stringAt = template.indexOf('template(name="cardCustomField-stringtemplate")');
+  assert.match(template.slice(stringAt), /\+customFieldCopyButton\(value=/);
+
+  assert.match(client,
+    /Template\.customFieldCopyButton\.events\([\s\S]*Utils\.copyTextToClipboard\(value\)/);
+  assert.match(client, /rawValue instanceof Date[\s\S]*toISOString\(\)/);
+  assert.match(client, /Array\.isArray\(rawValue\)[\s\S]*join\('\\n'\)/);
+});
+
 test('server validates actor, board field definition and value type', () => {
   for (const method of [
     'setCardCustomFieldAssigned',
