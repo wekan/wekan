@@ -139,6 +139,7 @@ function parseMapLink(url) {
   if ((m = sd.match(new RegExp(`[?&]ll=${N},${N}`)))) setCoords(m[1], m[2]);
   if ((m = sd.match(new RegExp(`[?&]q=${N},${N}`)))) setCoords(m[1], m[2]);
   if ((m = sd.match(new RegExp(`[?&]center=${N},${N}`)))) setCoords(m[1], m[2]);
+  if ((m = sd.match(new RegExp(`^\\s*${N}\\s*,\\s*${N}\\s*$`)))) setCoords(m[1], m[2]);
 
   if (lat !== undefined) {
     result.latitude = lat;
@@ -209,6 +210,24 @@ test('Google Maps @lat,lon', () => {
   const r = parseMapLink('https://www.google.com/maps/@60.1699,24.9384,15z');
   assert.strictEqual(r.latitude, 60.1699);
   assert.strictEqual(r.longitude, 24.9384);
+});
+
+test('Google Finland Maps @lat,lon,zoom with tracking parameters', () => {
+  const r = parseMapLink(
+    'https://www.google.fi/maps/@61.9118869,28.6344825,9.42z?entry=ttu&g_ep=tracking',
+  );
+  assert.strictEqual(r.latitude, 61.9118869);
+  assert.strictEqual(r.longitude, 28.6344825);
+});
+
+test('plain latitude, longitude copied from a map', () => {
+  const r = parseMapLink('62.04818048451111, 28.15197260779129');
+  assert.strictEqual(r.latitude, 62.04818048451111);
+  assert.strictEqual(r.longitude, 28.15197260779129);
+});
+
+test('plain coordinate detection is anchored to the complete input (negative)', () => {
+  assert.deepStrictEqual(parseMapLink('meet at 62.04818, 28.15197 tomorrow'), {});
 });
 
 test('Google Maps place with !3d!4d and place name', () => {

@@ -158,6 +158,12 @@ function parseMapLink(url) {
   if ((m = sd.match(new RegExp(`[?&]q=${N},${N}`)))) setCoords(m[1], m[2]);
   // Generic center=lat,lon
   if ((m = sd.match(new RegExp(`[?&]center=${N},${N}`)))) setCoords(m[1], m[2]);
+  // A coordinate pair copied directly from a map or GPS application. Anchor
+  // the complete input so unrelated prose containing two numbers is not
+  // silently treated as a location.
+  if ((m = sd.match(new RegExp(`^\\s*${N}\\s*,\\s*${N}\\s*$`)))) {
+    setCoords(m[1], m[2]);
+  }
 
   if (lat !== undefined) {
     result.latitude = lat;
