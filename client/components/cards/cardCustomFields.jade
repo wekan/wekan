@@ -25,22 +25,30 @@ template(name="cardCustomFieldsPopup")
         span {{_ 'createCustomField'}}
 
 template(name="cardCustomField")
+    h3.card-details-item-title.js-edit-card-custom-field-value(
+      class="{{#if canModifyCard}}is-editable{{/if}}"
+      title="{{#if canModifyCard}}{{_ 'edit'}}{{/if}}")
+        i.fa.fa-list
+        = definition.name
     +Template.dynamic(template=getTemplate)
 
 template(name="customFieldCopyButton")
-    a.fa.fa-copy.js-copy-custom-field(title="{{_ 'copy-text-to-clipboard'}}")
-    span.copied-tooltip {{_ 'copied'}}
+    span.custom-field-copy-control
+        a.fa.fa-copy.js-copy-custom-field(title="{{_ 'copy-text-to-clipboard'}}")
+        span.copied-tooltip {{_ 'copied'}}
 
 template(name="cardCustomField-text")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-text")
-            +editor(autofocus=true)
+            +editor(autofocus=true hideCopy=true)
                 = value
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
+                +customFieldCopyButton(value=value)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
-            a.js-open-inlined-form
+            button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+            span
                 if value
                     +viewer
                         = value
@@ -60,7 +68,8 @@ template(name="cardCustomField-number")
                 +customFieldCopyButton(value=value)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
-            a.js-open-inlined-form
+            button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+            span
                 if formattedValue
                     = formattedValue
                 else
@@ -73,13 +82,22 @@ template(name="cardCustomField-checkbox")
   //- This is a persisted card value, not a checklist item and not the
     Custom Fields menu's visibility toggle. Keep its own event hook so no
     generic checklist handler can interpret the click.
-  .js-card-custom-field-checkbox.checklist-item(class="{{#if value}}is-checked{{/if}}")
-    if canModifyCard
-      .check-box-container
+  if canModifyCard
+    +inlinedForm(classNames="js-card-customfield-checkbox-editor")
+      label.check-box-container
+        input.js-card-customfield-checkbox-input(type="checkbox" checked=value)
         .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
-      +customFieldCopyButton(value=value)
+      .edit-controls.clearfix
+        button.primary(type="submit") {{_ 'save'}}
+        +customFieldCopyButton(value=value)
+        a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
     else
-      .materialCheckBox(class="{{#if value}}is-checked{{/if}}")
+      button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+      .js-card-custom-field-checkbox.checklist-item(class="{{#if value}}is-checked{{/if}}")
+        .check-box-container
+          .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
+  else
+    .materialCheckBox(class="{{#if value}}is-checked{{/if}}")
 
 template(name="cardCustomField-currency")
     if canModifyCard
@@ -90,7 +108,8 @@ template(name="cardCustomField-currency")
                 +customFieldCopyButton(value=value)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
-            a.js-open-inlined-form
+            button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+            span
                 if value
                     = formattedValue
                 else
@@ -101,7 +120,8 @@ template(name="cardCustomField-currency")
 
 template(name="cardCustomField-date")
     if canModifyCard
-      a.js-edit-date(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      button.js-edit-date.js-custom-field-edit-trigger(type="button" hidden)
+      span(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
         if value
           div.card-date
             time(datetime="{{showISODate}}")
@@ -111,7 +131,6 @@ template(name="cardCustomField-date")
                   | {{showWeek}}
         else
           | {{_ 'edit'}}
-      +customFieldCopyButton(value=value)
     else
       if value
         div.card-date
@@ -122,7 +141,7 @@ template(name="cardCustomField-date")
                 | {{showWeek}}
 
 template(name="cardCustomField-datePopup")
-  +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)
+  +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker customFieldCopyValue=value customFieldControls=true)
 
 template(name="cardCustomField-dropdown")
     if canModifyCard
@@ -142,7 +161,8 @@ template(name="cardCustomField-dropdown")
                 +customFieldCopyButton(value=selectedItem)
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
-            a.js-open-inlined-form
+            button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+            span
                 if value
                     +viewer
                         = selectedItem
@@ -164,7 +184,8 @@ template(name="cardCustomField-stringtemplate")
                 +customFieldCopyButton(value=formattedValue)
                 a.js-close-inlined-form
         else
-            a.js-open-inlined-form
+            button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
+            span
                 if value
                     +viewer
                         = formattedValue

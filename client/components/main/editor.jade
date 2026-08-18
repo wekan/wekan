@@ -1,7 +1,8 @@
 template(name="editor")
   a.fa.fa-brands.fa-markdown(title="{{_ 'convert-to-markdown'}}")
-  a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
-  span.copied-tooltip {{_ 'copied'}}
+  unless hideCopy
+    a.fa.fa-copy(title="{{_ 'copy-text-to-clipboard'}}")
+    span.copied-tooltip {{_ 'copied'}}
   textarea.editor(
     dir="auto"
     class="{{class}}"

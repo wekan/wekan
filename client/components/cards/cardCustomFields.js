@@ -35,7 +35,31 @@ Template.customFieldCopyButton.events({
   'click .js-copy-custom-field'(event, tpl) {
     event.preventDefault();
     event.stopPropagation();
-    const rawValue = Template.currentData()?.value;
+    const form = event.currentTarget.closest('form');
+    const checkbox = form?.querySelector('input[type="checkbox"]');
+    const select = form?.querySelector('select');
+    const date = form?.querySelector('input[type="date"]');
+    const time = form?.querySelector('input[type="time"]');
+    const stringItems = form?.querySelectorAll(
+      '.js-card-customfield-stringtemplate-item',
+    );
+    const editor = form?.querySelector(
+      'textarea, input[type="text"], input[type="number"]',
+    );
+    let rawValue = Template.currentData()?.value;
+    if (checkbox) {
+      rawValue = checkbox.checked;
+    } else if (select) {
+      rawValue = select.selectedOptions[0]?.textContent?.trim() ?? '';
+    } else if (date) {
+      rawValue = [date.value, time?.value].filter(Boolean).join(' ');
+    } else if (stringItems?.length) {
+      rawValue = Array.from(stringItems)
+        .map(input => input.value)
+        .filter(value => value.trim());
+    } else if (editor) {
+      rawValue = editor.value;
+    }
     let value;
     if (rawValue instanceof Date) {
       value = rawValue.toISOString();
@@ -104,6 +128,14 @@ Template.cardCustomField.onCreated(function () {
   this.customFieldId = Template.currentData()._id;
 });
 
+Template.cardCustomField.events({
+  'click .js-edit-card-custom-field-value'(event, tpl) {
+    event.preventDefault();
+    const trigger = tpl.find('.js-custom-field-edit-trigger');
+    if (trigger) trigger.click();
+  },
+});
+
 // cardCustomField-text
 Template['cardCustomField-text'].onCreated(function () {
   this.card = getCurrentCardFromContext();
@@ -150,6 +182,18 @@ Template['cardCustomField-checkbox'].onCreated(function () {
 });
 
 Template['cardCustomField-checkbox'].events({
+  async 'submit .js-card-customfield-checkbox-editor'(event, tpl) {
+    event.preventDefault();
+    const value = Boolean(
+      tpl.find('.js-card-customfield-checkbox-input')?.checked,
+    );
+    try {
+      await Meteor.callAsync(
+        'setCardCustomFieldCheckbox', tpl.card.getRealId(), tpl.customFieldId, value);
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    }
+  },
   async 'click .js-card-custom-field-checkbox .check-box-container'(event, tpl) {
     event.preventDefault();
     event.stopPropagation();

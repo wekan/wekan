@@ -23,4 +23,7 @@ template(name="editDateForm")
       if error.get
         .warning {{_ error.get}}
       button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
+      if customFieldControls
+        +customFieldCopyButton(value=customFieldCopyValue)
+        a.fa.fa-times-thin.js-close-date-editor(title="{{_ 'close'}}")
       button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}

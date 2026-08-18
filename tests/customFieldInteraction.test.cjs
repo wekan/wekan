@@ -12,6 +12,7 @@ const root = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const client = read('client/components/cards/cardCustomFields.js');
 const template = read('client/components/cards/cardCustomFields.jade');
+const datepickerTemplate = read('client/components/forms/datepicker.jade');
 const server = read('server/models/cards.js');
 
 let passed = 0;
@@ -84,17 +85,17 @@ test('text has the standard X immediately beside Save', () => {
 
 test('every custom field editor has a copy-to-clipboard control', () => {
   assert.match(template, /template\(name="customFieldCopyButton"\)[\s\S]*js-copy-custom-field/);
-  // Text already receives the established copy control from +editor.
   const textAt = template.indexOf('template(name="cardCustomField-text")');
   const textBody = template.slice(textAt, template.indexOf(
     'template(name="cardCustomField-number")', textAt));
-  assert.match(textBody, /\+editor\(autofocus=true\)/);
+  assert.match(textBody, /\+editor\(autofocus=true hideCopy=true\)/);
+  assert.match(textBody,
+    /button\.primary\(type="submit"\)[\s\S]*\+customFieldCopyButton[\s\S]*js-close-inlined-form/);
 
   const boundaries = [
     ['number', 'checkbox'],
     ['checkbox', 'currency'],
     ['currency', 'date'],
-    ['date', 'datePopup'],
     ['dropdown', 'stringtemplate'],
   ];
   for (const [type, next] of boundaries) {
@@ -105,11 +106,37 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   }
   const stringAt = template.indexOf('template(name="cardCustomField-stringtemplate")');
   assert.match(template.slice(stringAt), /\+customFieldCopyButton\(value=/);
+  assert.match(datepickerTemplate,
+    /button\.primary[\s\S]*customFieldControls[\s\S]*\+customFieldCopyButton[\s\S]*js-close-date-editor/);
 
   assert.match(client,
     /Template\.customFieldCopyButton\.events\([\s\S]*Utils\.copyTextToClipboard\(value\)/);
+  assert.match(client, /closest\('form'\)/);
   assert.match(client, /rawValue instanceof Date[\s\S]*toISOString\(\)/);
   assert.match(client, /Array\.isArray\(rawValue\)[\s\S]*join\('\\n'\)/);
+});
+
+test('the title alone opens editing and copy stays inside edit controls', () => {
+  const wrapperAt = template.indexOf('template(name="cardCustomField")');
+  const wrapper = template.slice(wrapperAt, template.indexOf(
+    'template(name="customFieldCopyButton")', wrapperAt));
+  assert.match(wrapper, /js-edit-card-custom-field-value/);
+  assert.match(client,
+    /click \.js-edit-card-custom-field-value[\s\S]*js-custom-field-edit-trigger/);
+
+  assert.doesNotMatch(template,
+    /a\.js-open-inlined-form[\s\S]{0,180}(formattedValue|selectedItem|\+viewer)/);
+  for (const match of template.matchAll(/\+customFieldCopyButton\(value=/g)) {
+    const before = template.slice(Math.max(0, match.index - 300), match.index);
+    assert.match(before, /(edit-controls|customFieldControls)/,
+      'copy control is rendered only by an active editor');
+  }
+  const checkboxAt = template.indexOf('template(name="cardCustomField-checkbox")');
+  const checkbox = template.slice(checkboxAt, template.indexOf(
+    'template(name="cardCustomField-currency")', checkboxAt));
+  assert.match(checkbox, /js-card-customfield-checkbox-editor/);
+  assert.match(checkbox,
+    /button\.primary\(type="submit"\)[\s\S]*\+customFieldCopyButton[\s\S]*js-close-inlined-form/);
 });
 
 test('server validates actor, board field definition and value type', () => {

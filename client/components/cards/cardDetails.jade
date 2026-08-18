@@ -458,12 +458,6 @@ template(name="cardDetails")
               .card-details-group-body
                 each customFieldsWD
                   .card-details-item.card-details-item-customfield
-                    //- The field's NAME: +cardCustomField renders the value and
-                      nothing else, so without this a card shows values with
-                      nothing to say what they are.
-                    h3.card-details-item-title
-                      i.fa.fa-list
-                      = definition.name
                     +cardCustomField
 
           if $gt customFieldsWD.length 1
