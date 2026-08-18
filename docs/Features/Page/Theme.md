@@ -32,7 +32,7 @@ template and says whose theme is being set:
 | `server/models/users.js` | `.js` methods | `setGlobalThemeColor` — the user's own override. |
 | `server/methods/tenant.js` | `.js` methods | `getAdminThemeColor` / `setAdminThemeColor` — the site theme, and which document it lands in. |
 | `models/lib/tenantAdmin.js` | `.js` module, pure helpers | `themeTarget()` — the instance's theme, or one Organization's. |
-| `docs/Theme/Theme.md` | `.md` guide | What the themes look like, and the custom-colour categories. |
+| `docs/Features/Theme/Theme.md` | `.md` guide | What the themes look like, and the custom-colour categories. |
 
 ## The order of themes
 
