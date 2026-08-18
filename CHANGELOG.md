@@ -590,6 +590,8 @@ view/edit boundary; the browser regression checks its editing-only visibility.
 
 - [Dropdown custom fields preselect their saved value when editing](https://github.com/wekan/wekan/commit/93c6c5d51be2623f944e841eb2c59f97d188d193). Thanks to xet7.
 
+- [Every custom field editor starts with its saved value](https://github.com/wekan/wekan/commit/9ff711f095e88df8daf65fda7af5486e93f403a2). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b17a9f8597a7f5857b051f640c63cd1e3b99a4e">Currency and String Template custom fields no longer break minicards</a>. Thanks to xet7.</summary>
 
