@@ -74,8 +74,10 @@ test('the field picker uses the Admin Settings and Announcement animation', () =
 });
 
 test('each field has a pencil, and Add sits under a rule', () => {
-  assert.ok(/a\.js-edit-custom-field\(title="\{\{_ 'edit'\}\}"\)/.test(popup), 'a pencil per field');
-  assert.ok(/i\.fa\.fa-pencil/.test(popup), 'drawn as one');
+  assert.ok(/a\.js-edit-custom-field\(title="\{\{_ 'edit'\}\}" aria-label="\{\{_ 'edit'\}\}"\)/.test(popup),
+    'an accessible pencil per field');
+  assert.ok(/i\.fa\.fa-pencil-square-o\(aria-hidden="true"\)/.test(popup),
+    'drawn as the shared decorative Edit icon');
   const lines = popup.split('\n').map(l => l.trim());
   const at = lines.findIndex(l => l.includes('js-open-create-custom-field'));
   assert.ok(at !== -1, 'Add custom field is there');

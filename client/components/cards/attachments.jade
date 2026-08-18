@@ -23,7 +23,7 @@ template(name="cardAttachmentsPopup")
 
 template(name="previewClipboardImagePopup")
   p <kbd>Ctrl</kbd>+<kbd>V</kbd> {{_ "paste-or-dragdrop"}}
-  img.preview-clipboard-image()
+  img.preview-clipboard-image(alt="{{_ 'preview'}}")
   button.primary.js-upload-pasted-image {{_ 'upload'}}
 
 template(name="attachmentDeletePopup")
@@ -62,9 +62,9 @@ template(name="attachmentGallery")
         .attachment-thumbnail-container.open-preview(data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
           if link
             if(isImage)
-              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}")
+              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}")
             else if($eq extension 'svg')
-              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" type="image/svg+xml")
+              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}" type="image/svg+xml")
             else if($eq extension 'mp3')
               video.attachment-thumbnail(title="{{cleanFilename name}}")
                 source(src="{{link}}" type="audio/mpeg")

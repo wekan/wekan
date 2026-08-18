@@ -45,7 +45,7 @@ template(name="header")
         if currentSetting.customTopLeftCornerLogoImageUrl
           if currentSetting.customTopLeftCornerLogoLinkUrl
             a.header-logo(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
-              img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
+              img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" alt="{{currentSetting.productName}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
           unless currentSetting.customTopLeftCornerLogoLinkUrl
             img.header-logo(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
         unless currentSetting.customTopLeftCornerLogoImageUrl

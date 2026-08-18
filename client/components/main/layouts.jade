@@ -34,10 +34,10 @@ template(name="userFormsLayout")
       if currentSetting.customLoginLogoImageUrl
         if currentSetting.customLoginLogoLinkUrl
           a(href="{{currentSetting.customLoginLogoLinkUrl}}")
-            img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
+            img(src="{{currentSetting.customLoginLogoImageUrl}}" alt="{{currentSetting.productName}}" width="300" height="auto")
           br
         unless currentSetting.customLoginLogoLinkUrl
-          img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
+          img(src="{{currentSetting.customLoginLogoImageUrl}}" alt="{{currentSetting.productName}}" width="300" height="auto")
           br
       else
         img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")

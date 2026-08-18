@@ -27,7 +27,9 @@ template(name="cardCustomFieldsPopup")
 template(name="cardCustomField")
     h3.card-details-item-title.js-edit-card-custom-field-value(
       class="{{#if canModifyCard}}is-editable{{/if}}"
-      title="{{#if canModifyCard}}{{_ 'edit'}}{{/if}}")
+      title="{{#if canModifyCard}}{{_ 'edit'}}{{/if}}"
+      role="{{#if canModifyCard}}button{{/if}}"
+      tabindex="{{#if canModifyCard}}0{{else}}-1{{/if}}")
         i.fa.fa-list
         = definition.name
     +Template.dynamic(template=getTemplate)
@@ -48,7 +50,7 @@ template(name="cardCustomField-text")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+            a.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     +viewer
                         = value
@@ -69,7 +71,7 @@ template(name="cardCustomField-number")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+            a.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if formattedValue
                     = formattedValue
                 else
@@ -94,7 +96,8 @@ template(name="cardCustomField-checkbox")
     else
       button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
       .js-card-custom-field-checkbox.js-edit-card-custom-field-value.checklist-item(
-        class="{{#if value}}is-checked{{/if}}" title="{{_ 'edit'}}")
+        class="{{#if value}}is-checked{{/if}}" title="{{_ 'edit'}}"
+        aria-label="{{_ 'edit'}}" role="button" tabindex="0")
         .check-box-container
           .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
   else
@@ -110,7 +113,7 @@ template(name="cardCustomField-currency")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+            a.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     = formattedValue
                 else
@@ -162,7 +165,7 @@ template(name="cardCustomField-dropdown")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+            a.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     +viewer
                         = selectedItem
@@ -185,7 +188,7 @@ template(name="cardCustomField-stringtemplate")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+            a.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     +viewer
                         = formattedValue

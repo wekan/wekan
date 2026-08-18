@@ -1,11 +1,18 @@
 template(name="archivesSidebar")
   if isArchiveReady.get
     .basicTabs-container
-      ul.tabs-list
+      ul.tabs-list(role="tablist")
         each tabs
-          li.tab-item(class="{{isArchiveTabActive slug}} {{class}}" data-tab="{{slug}}") {{name}}
+          li.tab-item(
+            id="archive-tab-{{slug}}"
+            class="{{isArchiveTabActive slug}} {{class}}"
+            data-tab="{{slug}}"
+            role="tab"
+            tabindex="{{#if isArchiveTabActive slug}}0{{else}}-1{{/if}}"
+            aria-selected="{{#if isArchiveTabActive slug}}true{{else}}false{{/if}}"
+            aria-controls="archive-panel-{{slug}}") {{name}}
       .tabs-content-container
-        section.tabs-content(class="{{isArchiveTabActive 'cards'}}" data-tab="cards")
+        section.tabs-content#archive-panel-cards(class="{{isArchiveTabActive 'cards'}}" data-tab="cards" role="tabpanel" aria-labelledby="archive-tab-cards" tabindex="0")
           if currentUser
             unless isWorker
               unless currentUser.isReadOnly
@@ -40,7 +47,7 @@ template(name="archivesSidebar")
           else
             p.no-items-message {{_ 'no-archived-cards'}}
 
-        section.tabs-content(class="{{isArchiveTabActive 'lists'}}" data-tab="lists")
+        section.tabs-content#archive-panel-lists(class="{{isArchiveTabActive 'lists'}}" data-tab="lists" role="tabpanel" aria-labelledby="archive-tab-lists" tabindex="0")
           if currentUser
             unless isWorker
               unless currentUser.isReadOnly
@@ -70,7 +77,7 @@ template(name="archivesSidebar")
             else
               li.no-items-message {{_ 'no-archived-lists'}}
 
-        section.tabs-content(class="{{isArchiveTabActive 'swimlanes'}}" data-tab="swimlanes")
+        section.tabs-content#archive-panel-swimlanes(class="{{isArchiveTabActive 'swimlanes'}}" data-tab="swimlanes" role="tabpanel" aria-labelledby="archive-tab-swimlanes" tabindex="0")
           if currentUser
             unless isWorker
               unless currentUser.isReadOnly

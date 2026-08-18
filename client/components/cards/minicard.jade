@@ -115,7 +115,7 @@ template(name="minicard")
           client/components/cards/minicard.css
         span.minicard-title-text(class="{{#if canModifyCard}}is-editable{{/if}}")
           if canModifyCard
-            span.minicard-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
+            a.minicard-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
           +viewer
             if showCardNumber
               span.card-number

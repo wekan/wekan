@@ -29,7 +29,7 @@ template(name="userAvatarInitials")
     taller than the box it is drawn in, so it also touched the edges. `y="50%"`
     with `dominant-baseline="central"` centres it whatever the initials are, and
     the size fits inside the box.
-  svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
+  svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15" aria-hidden="true")
     text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= initials
 
 template(name="orgAvatar")
@@ -45,7 +45,7 @@ template(name="boardTeamRow")
     +boardTeamName(teamId=teamData._id)
 
 template(name="boardOrgName")
-  svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15")
+  svg.avatar.avatar-initials(viewBox="0 0 {{orgViewPortWidth}} 15" aria-hidden="true")
     text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= orgName
 
 template(name="teamAvatar")
@@ -53,7 +53,7 @@ template(name="teamAvatar")
     +boardTeamName(orgId=orgData._id)
 
 template(name="boardTeamName")
-  svg.avatar.avatar-initials(viewBox="0 0 {{teamViewPortWidth}} 15")
+  svg.avatar.avatar-initials(viewBox="0 0 {{teamViewPortWidth}} 15" aria-hidden="true")
     text(x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10")= teamName
 
 template(name="userPopup")
@@ -85,7 +85,7 @@ template(name="changeAvatarPopup")
       li.avatar-list-item(class="{{#if isSelected}}selected{{/if}}")
         a.js-select-avatar.avatar-list-select(title="{{name}}")
           .member
-            img.avatar.avatar-image(src="{{avatarLink}}")
+            img.avatar.avatar-image(src="{{avatarLink}}" alt="")
           .avatar-list-info
             span.avatar-list-name= name
           if isSelected
@@ -129,7 +129,7 @@ template(name="adminChangeAvatarPopup")
       li.avatar-list-item(class="{{#if isSelected}}selected{{/if}}")
         a.js-select-avatar.avatar-list-select(title="{{name}}")
           .member
-            img.avatar.avatar-image(src="{{avatarLink}}")
+            img.avatar.avatar-image(src="{{avatarLink}}" alt="")
           .avatar-list-info
             span.avatar-list-name= name
           if isSelected

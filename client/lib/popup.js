@@ -6,6 +6,21 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { Utils } from '/client/lib/utils';
 import { computePopupOffset } from '/client/lib/popupOffset';
 
+const POPUP_FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
+
+function visibleFocusableElements(container) {
+  if (!container) return [];
+  return Array.from(container.querySelectorAll(POPUP_FOCUSABLE_SELECTOR))
+    .filter(element => element.offsetParent !== null && !element.closest('.no-height'));
+}
+
 window.Popup = new (class {
   constructor() {
     // The template we use to render popups
@@ -25,6 +40,17 @@ window.Popup = new (class {
     // We invalidate this internal dependency every time the top of the stack
     // has changed and we want to re-render a popup with the new top-stack data.
     this._dep = new Tracker.Dependency();
+  }
+
+  focusFirstControl() {
+    Tracker.afterFlush(() => {
+      const popup = document.querySelector('.js-pop-over');
+      if (!popup) return;
+      const autofocus = popup.querySelector('[autofocus]');
+      const target = autofocus || visibleFocusableElements(popup)[0] || popup;
+      if (!popup.hasAttribute('tabindex')) popup.setAttribute('tabindex', '-1');
+      target.focus();
+    });
   }
 
   /// This function returns a callback that can be used in an event map:
@@ -127,8 +153,10 @@ window.Popup = new (class {
           },
           document.body,
         );
+        self.focusFirstControl();
       } else {
         self._dep.changed();
+        self.focusFirstControl();
       }
     };
   }
@@ -188,6 +216,7 @@ window.Popup = new (class {
       }
       for (let i = 0; i < n; i++) this._stack.pop();
       this._dep.changed();
+      this.focusFirstControl();
     } else {
       this.close();
     }
@@ -205,6 +234,11 @@ window.Popup = new (class {
       this._stack = [];
       // Clean up popup content when closing
       this._cleanupPreviousPopupContent();
+      Tracker.afterFlush(() => {
+        if (openerElement?.isConnected && typeof openerElement.focus === 'function') {
+          openerElement.focus();
+        }
+      });
     }
   }
 
@@ -305,3 +339,5 @@ escapeActions.forEach(actionName => {
     },
   );
 });
+
+export { POPUP_FOCUSABLE_SELECTOR, visibleFocusableElements };

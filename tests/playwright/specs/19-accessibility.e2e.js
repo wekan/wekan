@@ -103,6 +103,65 @@ test.describe('Accessibility', () => {
     await expect(closeBtn).toBeVisible();
     const closeLabel = await closeBtn.getAttribute('aria-label');
     expect((closeLabel || '').trim().length).toBeGreaterThan(0);
+
+    // Focus stays inside the dialog in both directions, then returns to the
+    // opener when the dialog closes.
+    const opener = boardPage.locator('.js-open-list-menu').first();
+    const focusable = popup.locator(
+      'a[href]:visible, button:not([disabled]):visible, input:not([disabled]):visible, select:not([disabled]):visible, textarea:not([disabled]):visible, [tabindex]:not([tabindex="-1"]):visible',
+    );
+    const count = await focusable.count();
+    expect(count).toBeGreaterThan(0);
+    await focusable.nth(count - 1).focus();
+    await boardPage.keyboard.press('Tab');
+    await expect(focusable.first()).toBeFocused();
+    await boardPage.keyboard.press('Shift+Tab');
+    await expect(focusable.nth(count - 1)).toBeFocused();
+    await closeBtn.click();
+    await expect(opener).toBeFocused();
+  });
+
+  test('rendered pages keep natural tab order and name visible controls', async ({ loggedInPage }) => {
+    const routes = ['/my-cards', '/due-cards', '/global-search', '/public'];
+    for (const route of routes) {
+      await loggedInPage.goto(route, { waitUntil: 'commit' });
+      await loggedInPage.locator('#content').waitFor({ timeout: 15_000 });
+      const audit = await loggedInPage.evaluate(() => {
+        const visible = element => {
+          const style = getComputedStyle(element);
+          return style.display !== 'none' && style.visibility !== 'hidden' && element.getClientRects().length > 0;
+        };
+        const accessibleName = element => {
+          const aria = element.getAttribute('aria-label');
+          if (aria?.trim()) return aria.trim();
+          const labelledBy = element.getAttribute('aria-labelledby');
+          if (labelledBy) {
+            const text = labelledBy.split(/\s+/).map(id => document.getElementById(id)?.textContent || '').join(' ').trim();
+            if (text) return text;
+          }
+          if (element.id) {
+            const label = document.querySelector(`label[for="${CSS.escape(element.id)}"]`);
+            if (label?.textContent.trim()) return label.textContent.trim();
+          }
+          return (element.textContent || element.getAttribute('title') || element.getAttribute('alt') || '').trim();
+        };
+        const controls = Array.from(document.querySelectorAll(
+          'a[href], button, input:not([type="hidden"]), select, textarea, [role="button"], [role="tab"], [role="checkbox"]',
+        )).filter(visible).filter(element => !element.disabled);
+        return {
+          positiveTabindex: controls.filter(element => Number(element.getAttribute('tabindex')) > 0)
+            .map(element => element.outerHTML.slice(0, 160)),
+          unnamed: controls.filter(element => !accessibleName(element))
+            .map(element => element.outerHTML.slice(0, 160)),
+          imagesWithoutAlt: Array.from(document.querySelectorAll('img')).filter(visible)
+            .filter(image => !image.hasAttribute('alt'))
+            .map(image => image.outerHTML.slice(0, 160)),
+        };
+      });
+      expect(audit.positiveTabindex, `${route} must follow DOM order`).toEqual([]);
+      expect(audit.unnamed, `${route} has unnamed visible controls`).toEqual([]);
+      expect(audit.imagesWithoutAlt, `${route} has images without alt`).toEqual([]);
+    }
   });
 
   test('the my-cards page has no duplicate element ids', async ({ loggedInPage }) => {

@@ -31,7 +31,7 @@ template(name="activity")
         | {{{_ 'activity-attached' attachmentLink cardLink}}}.
         if($neq mode 'board')
           if activity.attachment.isImage
-            img.attachment-image-preview(src=activity.attachment.url)
+            img.attachment-image-preview(src=activity.attachment.url alt="")
 
       //- board activity ------------------------------------------------------
       if($eq activity.activityType 'createBoard')

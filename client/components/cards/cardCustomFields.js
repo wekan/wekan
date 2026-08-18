@@ -138,8 +138,16 @@ function openCustomFieldValueEditor(event, tpl) {
   if (trigger) trigger.click();
 }
 
+function openCustomFieldValueEditorFromKeyboard(event) {
+  if (event.currentTarget.matches('a, button')) return;
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  event.preventDefault();
+  event.currentTarget.click();
+}
+
 Template.cardCustomField.events({
   'click .js-edit-card-custom-field-value': openCustomFieldValueEditor,
+  'keydown .js-edit-card-custom-field-value': openCustomFieldValueEditorFromKeyboard,
 });
 
 function persistedEditValue() {
@@ -159,6 +167,7 @@ function persistedEditValue() {
 ].forEach(type => {
   Template[`cardCustomField-${type}`].events({
     'click .js-edit-card-custom-field-value': openCustomFieldValueEditor,
+    'keydown .js-edit-card-custom-field-value': openCustomFieldValueEditorFromKeyboard,
   });
 });
 

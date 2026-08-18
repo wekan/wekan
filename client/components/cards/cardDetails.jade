@@ -22,7 +22,7 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          span.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
+          a.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
             if cardCollapsed
               i.fa.fa-caret-right
             else
@@ -76,7 +76,7 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}is-editable{{/if}}")
             if canModifyCard
-              span.card-details-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
+              a.card-details-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
             +viewer
               if currentBoard.allowsCardNumber
                 span.card-number

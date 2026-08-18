@@ -1,11 +1,24 @@
 template(name="basicTabs")
   .basicTabs-container(class="{{name}}")
-    ul.tabs-list
+    ul.tabs-list(role="tablist")
       each tabs
-        li.tab-item(class="{{isActiveTab slug}} {{class}}" data-tab="{{slug}}") {{name}}
+        li.tab-item(
+          id="{{tabDomId slug}}"
+          class="{{isActiveTab slug}} {{class}}"
+          data-tab="{{slug}}"
+          role="tab"
+          tabindex="{{tabIndex slug}}"
+          aria-selected="{{isSelectedTab slug}}"
+          aria-controls="{{panelDomId slug}}") {{name}}
     .tabs-content-container
       +Template.contentBlock
 
 template(name="tabContent")
-  section.tabs-content(class="{{isActiveTab slug}}" data-tab="{{slug}}")
+  section.tabs-content(
+    id="{{panelDomId slug}}"
+    class="{{isActiveTab slug}}"
+    data-tab="{{slug}}"
+    role="tabpanel"
+    aria-labelledby="{{tabDomId slug}}"
+    tabindex="0")
     +Template.contentBlock

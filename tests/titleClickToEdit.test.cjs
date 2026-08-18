@@ -44,8 +44,8 @@ test('the minicard title text opens an editor in its place', () => {
     'which exists');
   assert.ok(/span\.minicard-title-text\(class="\{\{#if canModifyCard\}\}is-editable\{\{\/if\}\}"\)/
     .test(minicardJade), 'the title TEXT is where it happens');
-  assert.ok(/span\.minicard-title-edit-zone\.js-open-inlined-form/.test(minicardJade),
-    'and a zone over it is what opens it');
+  assert.ok(/a\.minicard-title-edit-zone\.js-open-inlined-form/.test(minicardJade),
+    'and a keyboard-focusable zone over it is what opens it');
 });
 
 test('the editor is a textarea, a Save and a way out', () => {
@@ -168,8 +168,8 @@ test('the opened card splits its title the same way', () => {
     'the row is the window\'s drag bar');
   assert.ok(/\.card-details-title \{[^}]*min-width: 60%/.test(cardCss),
     'and the heading fills it, so half the title is half the bar');
-  assert.ok(/span\.card-details-title-edit-zone\.js-open-inlined-form/.test(cardJade),
-    'with a zone over the leading half that opens the editor');
+  assert.ok(/a\.card-details-title-edit-zone\.js-open-inlined-form/.test(cardJade),
+    'with a keyboard-focusable zone over the leading half that opens the editor');
   const zone = cardCss.slice(cardCss.indexOf('.card-details-title-edit-zone {'));
   const body = zone.slice(0, zone.indexOf('}'));
   assert.ok(/width: 50%/.test(body) && /inset-inline-start: 0/.test(body),

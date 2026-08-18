@@ -310,6 +310,27 @@ Template.defaultLayout.events({
   'click .js-close-modal': () => {
     Modal.close();
   },
+  'keydown #modal'(event) {
+    if (event.key !== 'Tab') return;
+    const modal = event.currentTarget;
+    const controls = Array.from(modal.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    )).filter(element => element.offsetParent !== null);
+    if (!controls.length) {
+      event.preventDefault();
+      modal.focus();
+      return;
+    }
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  },
 });
 
 // Accessibility (WCAG 2.4.3 Focus Order): when a modal dialog opens, move
