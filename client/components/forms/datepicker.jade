@@ -12,7 +12,9 @@
 //- this template too: Blaze events do not cross a child-template boundary.
 template(name="editDateForm")
   .datepicker-container
-    form.edit-date
+    form.edit-date(class="{{#if customFieldControls}}custom-field-date-editor{{/if}}")
+      if customFieldControls
+        +customFieldCopyButton(value=customFieldCopyValue)
       .fields
         .left
           label(for="date") {{_ 'date'}}
@@ -24,6 +26,5 @@ template(name="editDateForm")
         .warning {{_ error.get}}
       button.primary.wide.left.js-submit-date(type="submit") {{_ 'save'}}
       if customFieldControls
-        +customFieldCopyButton(value=customFieldCopyValue)
         a.fa.fa-times-thin.js-close-date-editor(title="{{_ 'close'}}")
       button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}

@@ -91,7 +91,7 @@ test('every custom field editor has a copy-to-clipboard control', () => {
     'template(name="cardCustomField-number")', textAt));
   assert.match(textBody, /\+editor\(autofocus=true hideCopy=true\)/);
   assert.match(textBody,
-    /button\.primary\(type="submit"\)[\s\S]*\+customFieldCopyButton[\s\S]*js-close-inlined-form/);
+    /\+customFieldCopyButton[\s\S]*\+editor[\s\S]*button\.primary[\s\S]*js-close-inlined-form/);
 
   const boundaries = [
     ['number', 'checkbox'],
@@ -108,7 +108,7 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   const stringAt = template.indexOf('template(name="cardCustomField-stringtemplate")');
   assert.match(template.slice(stringAt), /\+customFieldCopyButton\(value=/);
   assert.match(datepickerTemplate,
-    /button\.primary[\s\S]*customFieldControls[\s\S]*\+customFieldCopyButton[\s\S]*js-close-date-editor/);
+    /customFieldControls[\s\S]*\+customFieldCopyButton[\s\S]*button\.primary[\s\S]*js-close-date-editor/);
 
   assert.match(client,
     /Template\.customFieldCopyButton\.events\([\s\S]*Utils\.copyTextToClipboard\(value\)/);
@@ -117,7 +117,7 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   assert.match(client, /Array\.isArray\(rawValue\)[\s\S]*join\('\\n'\)/);
 });
 
-test('the title alone opens editing and copy stays inside edit controls', () => {
+test('the title alone opens editing and copy stays inside active editors', () => {
   const wrapperAt = template.indexOf('template(name="cardCustomField")');
   const wrapper = template.slice(wrapperAt, template.indexOf(
     'template(name="customFieldCopyButton")', wrapperAt));
@@ -127,28 +127,24 @@ test('the title alone opens editing and copy stays inside edit controls', () => 
 
   assert.doesNotMatch(template,
     /a\.js-open-inlined-form[\s\S]{0,180}(formattedValue|selectedItem|\+viewer)/);
-  for (const match of template.matchAll(/\+customFieldCopyButton\(value=/g)) {
-    const before = template.slice(Math.max(0, match.index - 300), match.index);
-    assert.match(before, /(edit-controls|customFieldControls)/,
-      'copy control is rendered only by an active editor');
-  }
   const checkboxAt = template.indexOf('template(name="cardCustomField-checkbox")');
   const checkbox = template.slice(checkboxAt, template.indexOf(
     'template(name="cardCustomField-currency")', checkboxAt));
   assert.match(checkbox, /js-card-customfield-checkbox-editor/);
   assert.match(checkbox,
-    /button\.primary\(type="submit"\)[\s\S]*\+customFieldCopyButton[\s\S]*js-close-inlined-form/);
+    /\+customFieldCopyButton[\s\S]*button\.primary\(type="submit"\)[\s\S]*js-close-inlined-form/);
 });
 
-test('copy aligns between Save and Close instead of using the editor offset', () => {
+test('copy sits above the top-right corner of every custom field editor', () => {
   assert.match(template,
     /span\.custom-field-copy-control[\s\S]*a\.fa\.fa-copy\.js-copy-custom-field/);
   const controlAt = formsCss.indexOf('.custom-field-copy-control {');
   const controlCss = formsCss.slice(controlAt, formsCss.indexOf('}', controlAt));
-  assert.match(controlCss, /display: inline-flex;/);
-  assert.match(controlCss, /align-items: center;/);
+  assert.match(controlCss, /position: absolute;/);
+  assert.match(controlCss, /inset-inline-end: 0;/);
+  assert.match(controlCss, /top: -24px;/);
   assert.match(formsCss,
-    /\.custom-field-copy-control > a\.fa-copy\s*\{[\s\S]*position: static;[\s\S]*top: auto;/);
+    /form\.inlined-form \.custom-field-copy-control > a\.fa-copy[\s\S]*position: static;[\s\S]*top: auto;/);
 });
 
 test('server validates actor, board field definition and value type', () => {

@@ -310,18 +310,25 @@ textarea::-moz-placeholder {
   font-size: calc(20px * var(--wekan-ui-font-scale, 1));
   margin: 5px 21px;
 }
-/* Custom-field Copy is a member of the Save / Copy / Close control row. The
-   editor's generic `.inlined-form a.fa-copy` rule positions rich-text toolbar
-   icons 10px above their textarea; undo that positioning here so it cannot
-   lift this control over the Save button. */
-.custom-field-copy-control {
-  align-items: center;
-  display: inline-flex;
-  flex: 0 0 42px;
-  justify-content: center;
+/* Custom-field Copy is an editor action above the top-right corner of the
+   field controls, not part of the Save / Close row. */
+.js-card-customfield-text,
+.js-card-customfield-number,
+.js-card-customfield-checkbox-editor,
+.js-card-customfield-currency,
+.js-card-customfield-dropdown,
+.js-card-customfield-stringtemplate,
+.custom-field-date-editor {
   position: relative;
 }
-.custom-field-copy-control > a.fa-copy {
+.custom-field-copy-control {
+  inset-inline-end: 0;
+  position: absolute;
+  top: -24px;
+  z-index: 1;
+}
+form.inlined-form .custom-field-copy-control > a.fa-copy,
+.custom-field-date-editor .custom-field-copy-control > a.fa-copy {
   float: none;
   inset: auto;
   position: static;
