@@ -428,6 +428,9 @@ initials instead of empty avatar circles.
 **Admin Panel / People / People** summarizes each person's login countries and
 opens country-by-country city, IPv4, IPv6 and login-time details. Problems
 pagination no longer mixes a specialized pane's state with the shared reports.
+The complete browser run restores inline title and date editing, popup focus,
+loading-state accessibility and phone board scrolling while bringing its
+selectors in step with the current UI.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -922,6 +925,28 @@ Ordinary board icons remain compact and equal-height.
 Static coverage keeps the invitation exception attached to its template state.
 The phone browser regression creates a real pending invitation and verifies
 that its message and both buttons remain visible and inside the tile.
+
+</details>
+
+**Complete browser regression run** - cross-page interactions exercised by all
+three browser engines.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c476ee45a24ef18605d2c16e3d35345711591cea">Browser regressions restore editing, focus and phone scrolling</a>. Thanks to xet7.</summary>
+
+The all-browser run exposed interactions that narrower source tests could not:
+the minicard wrapper stopped its sibling inline-title handler, shared
+opened-card date badges lost the explicit edit-permission argument, popup Tab
+handling used Blaze's inconsistent delegated event container, and the stock
+logo briefly lost its alternative text while settings loaded. Those paths now
+retain editing permission, focus containment and accessible loading states.
+
+The shared table search has an accessible name and a phone's board list grows
+inside the single page scroller. Browser coverage now opens the attachment
+viewer where that template exists, scopes the linked-card and custom-field
+controls to their real DOM owners, waits for reactive options and fields, and
+checks the icon-only Edit control by its accessible name. Focused positive and
+negative source tests pin the permission, focus, table and scroll contracts.
 
 </details>
 
