@@ -400,11 +400,13 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **card details** restore checkbox custom fields, keep their saved
-values separate from field visibility, save currency values, provide
-independent opened-card and minicard visibility settings, make every custom-field
-value copyable, use compact accessible pencil icons for Edit actions, restore
-the grid/one-per-row layout switch, restore cross-board card links, omit deleted
+**In short:** **accessibility** gives shared tabs, dialogs, images, password
+controls and card edit targets coherent names and keyboard order throughout
+WeKan. **Card details** restore checkbox custom fields, keep their saved values
+separate from field visibility, save currency values, provide independent
+opened-card and minicard visibility settings, make every custom-field value
+copyable, use compact accessible pencil icons for Edit actions, restore the
+grid/one-per-row layout switch, restore cross-board card links, omit deleted
 custom fields from exports, and make attachment previews use the available
 viewport. Linked cards mirror every visible source field across boards and
 authorized members can edit that shared content from either board. Card
@@ -729,6 +731,27 @@ Parity tests cover every directly rendered collection and the negative
 publication boundaries. The browser regression adds a source label, sticker,
 custom field and location, then verifies them on both the linked minicard and
 its opened details.
+
+</details>
+
+**Accessibility** - keyboard order, control names and dialog focus across pages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/692207bf5ec42ba97fc189beb4135975b6d20f31">Tabs and dialogs follow a coherent keyboard and screen-reader model</a>. Thanks to xet7.</summary>
+
+Shared tabs now expose tablist, tab and tabpanel relationships, keep only the
+active tab in normal Tab order, and support arrow, Home, End, Enter and Space
+keys. Popups and modals move focus inside, contain forward and reverse Tab
+navigation, and return focus to their opener when closed. Password visibility
+is no longer skipped by Tab, card and minicard edit targets are focusable, and
+all template images explicitly provide meaningful or intentionally empty
+alternative text.
+
+Application-wide static coverage rejects positive `tabindex` values and images
+without `alt`, while focused tests pin names, roles, relationships, keyboard
+handlers and focus restoration. The browser regression audits representative
+pages for natural order, unnamed controls and missing image alternatives, and
+exercises both directions of the popup focus loop.
 
 </details>
 
