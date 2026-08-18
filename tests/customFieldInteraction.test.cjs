@@ -16,6 +16,7 @@ const datepickerTemplate = read('client/components/forms/datepicker.jade');
 const formsCss = read('client/components/forms/forms.css');
 const cardDetailsTemplate = read('client/components/cards/cardDetails.jade');
 const cardDetailsCss = read('client/components/cards/cardDetails.css');
+const minicardClient = read('client/components/cards/minicard.js');
 const server = read('server/models/cards.js');
 
 let passed = 0;
@@ -193,6 +194,29 @@ test('copy sits above the top-right corner of every custom field editor', () => 
   assert.match(controlCss, /top: -24px;/);
   assert.match(formsCss,
     /form\.inlined-form \.custom-field-copy-control > a\.fa-copy[\s\S]*position: static;[\s\S]*top: auto;/);
+});
+
+test('minicard Currency and String Template format their row without throwing', () => {
+  const currencyAt = minicardClient.indexOf(
+    'formattedCurrencyCustomFieldValue(definition)',
+  );
+  const currency = minicardClient.slice(currencyAt,
+    minicardClient.indexOf('formattedStringtemplateCustomFieldValue', currencyAt));
+  assert.doesNotMatch(currency, /this\s*\.customFieldsWD\(\)/,
+    'the custom-field row is not mistaken for a Card');
+  assert.match(currency, /const customFieldTrueValue = field\.trueValue/);
+  assert.match(currency, /Number\.isFinite\(number\)/);
+  assert.match(currency, /customFieldTrueValue === '' \|\| customFieldTrueValue == null/,
+    'empty values stay empty while numeric zero remains valid');
+
+  const stringAt = minicardClient.indexOf(
+    'formattedStringtemplateCustomFieldValue(definition)',
+  );
+  const stringTemplate = minicardClient.slice(stringAt,
+    minicardClient.indexOf('showCreatorOnMinicard', stringAt));
+  assert.doesNotMatch(stringTemplate, /this\s*\.customFieldsWD\(\)/);
+  assert.match(stringTemplate, /Array\.isArray\(field\.trueValue\)/);
+  assert.match(stringTemplate, /new CustomFieldStringTemplate\(fieldDefinition\)/);
 });
 
 test('server validates actor, board field definition and value type', () => {

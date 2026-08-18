@@ -85,29 +85,44 @@ Template.minicard.helpers({
     return '';
   },
   formattedCurrencyCustomFieldValue(definition) {
-    const customField = this
-      .customFieldsWD()
-      .find(f => f._id === definition._id);
-    const customFieldTrueValue =
-      customField && customField.trueValue ? customField.trueValue : '';
-
+    // This helper is called from `each customFieldsWD`, so `this` is already
+    // the rendered custom-field row, not the Card. Calling this.customFieldsWD
+    // threw and prevented minicards with Currency fields from rendering.
+    const field = this || {};
+    const fieldDefinition = definition || field.definition || {};
+    const customFieldTrueValue = field.trueValue;
+    if (customFieldTrueValue === '' || customFieldTrueValue == null) return '';
+    const currencyCode = fieldDefinition.settings?.currencyCode || 'USD';
     const locale = TAPi18n.getLanguage();
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: definition.settings.currencyCode,
-    }).format(customFieldTrueValue);
+    try {
+      const number = typeof customFieldTrueValue === 'number'
+        ? customFieldTrueValue
+        : Number(customFieldTrueValue);
+      if (!Number.isFinite(number)) return String(customFieldTrueValue);
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currencyCode,
+      }).format(number);
+    } catch (error) {
+      return `${currencyCode} ${customFieldTrueValue}`;
+    }
   },
 
   formattedStringtemplateCustomFieldValue(definition) {
-    const customField = this
-      .customFieldsWD()
-      .find(f => f._id === definition._id);
-
-    const customFieldTrueValue =
-      customField && customField.trueValue ? customField.trueValue : [];
-
-    const ret = new CustomFieldStringTemplate(definition).getFormattedValue(customFieldTrueValue);
-    return ret;
+    // As above, the current row already carries the resolved linked/source
+    // value and definition. Never reach back through a nonexistent Card API.
+    const field = this || {};
+    const fieldDefinition = definition || field.definition;
+    const customFieldTrueValue = Array.isArray(field.trueValue)
+      ? field.trueValue
+      : [];
+    if (!fieldDefinition) return customFieldTrueValue.join(' ');
+    try {
+      return new CustomFieldStringTemplate(fieldDefinition)
+        .getFormattedValue(customFieldTrueValue);
+    } catch (error) {
+      return customFieldTrueValue.join(' ');
+    }
   },
 
   showCreatorOnMinicard() {
