@@ -133,6 +133,7 @@ export function buildRows(docs, columns, options = {}) {
           ? (column.users(doc) || []).map(u => ({
             userId: u.userId || '',
             text: u.text || u.value || '',
+            initials: u.initials || '',
             avatarUrl: u.avatarUrl || (u.userId ? avatarUrlFor(u.userId) : ''),
             // How many times this person logged in from here. Shown beside the
             // avatar, because "who" without "how much" does not tell an office

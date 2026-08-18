@@ -1116,6 +1116,7 @@ const OFFICE_COLUMNS = [
     users: d => [{
       userId: d.userId,
       text: d.fullname ? `${d.fullname} (${d.username})` : d.username,
+      initials: d.initials,
       avatarUrl: d.avatarUrl,
     }],
     value: () => '',

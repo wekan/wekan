@@ -130,6 +130,7 @@ function officeRowsByPerson(people = []) {
     userId: person.userId,
     username: person.username,
     fullname: person.fullname,
+    initials: person.initials,
     avatarUrl: person.avatarUrl,
     moreAddresses: person.moreAddresses,
   })));

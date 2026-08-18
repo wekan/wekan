@@ -32,7 +32,8 @@ console.log('officesGroupedByPerson:');
 
 test('all addresses for one person stay adjacent with their own counts', () => {
   const rows = officeRowsByPerson([{
-    userId: 'u1', username: 'alice', fullname: 'Alice Example', avatarUrl: '/a.png',
+    userId: 'u1', username: 'alice', fullname: 'Alice Example', initials: 'AE',
+    avatarUrl: '/a.png',
     addresses: [
       { ipv4: '203.0.113.4', ipv6: '', logins: 12,
         location: { country: 'FI', city: 'Helsinki' } },
@@ -42,6 +43,7 @@ test('all addresses for one person stay adjacent with their own counts', () => {
   }]);
   assert.strictEqual(rows.length, 2);
   assert.deepStrictEqual(rows.map(row => row.username), ['alice', 'alice']);
+  assert.deepStrictEqual(rows.map(row => row.initials), ['AE', 'AE']);
   assert.deepStrictEqual(rows.map(row => row.logins), [12, 3]);
   assert.deepStrictEqual(rows.map(row => row.location.city), ['Helsinki', 'Stockholm']);
   assert.strictEqual(rows[0].ipv4, '203.0.113.4');
@@ -91,6 +93,9 @@ test('the report requests and renders separate IPv4 and IPv6 columns', () => {
   assert.ok(/span\.table-page-person-name \{\{text\}\}/.test(
     read('client/components/settings/tablePage.jade')),
   'the person must be named visibly, not only in an avatar tooltip');
+  assert.ok(/userAvatarInitials\(userId=userId initials=initials\)/.test(
+    read('client/components/settings/tablePage.jade')),
+  'the server-provided initials must render when the client has no user document');
 });
 
 test('the server joins proxy locations without replacing per-person counts', () => {
@@ -98,6 +103,7 @@ test('the server joins proxy locations without replacing per-person counts', () 
   assert.ok(/const addresses = tallyList\(user\.loginAddresses\)/.test(source));
   assert.ok(/location: doc\.location \|\| null/.test(source));
   assert.ok(/logins: entry\.count \|\| 0/.test(source));
+  assert.ok(/initials: initialsFor\(user\)/.test(source));
   assert.ok(/return \{ total, people: await peopleSummaries\(users\) \}/.test(source));
   assert.strictEqual((source.match(/LoginAddresses\.find\(/g) || []).length, 2,
     'one search lookup and one batched page lookup are enough; do not query once per person');

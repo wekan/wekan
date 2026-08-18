@@ -134,6 +134,14 @@ test('buildRows renders a user cell as a link and marks alignment', () => {
   assert.strictEqual(row.cells[0].userId, '');
 });
 
+test('buildRows preserves supplied initials for users absent from client cache', () => {
+  const [row] = lib.buildRows([{ uid: 'u1' }], [{
+    labelKey: 'office-people',
+    users: d => [{ userId: d.uid, text: 'Lauri Ojansivu', initials: 'LO' }],
+  }]);
+  assert.deepStrictEqual(row.cells[0].users.map(user => user.initials), ['LO']);
+});
+
 test('buildRows survives junk input (negative)', () => {
   assert.deepStrictEqual(lib.buildRows(null, null), []);
   assert.deepStrictEqual(lib.buildRows(undefined, [{ label: 'A' }]), []);

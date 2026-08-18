@@ -110,6 +110,7 @@ Template.userAvatar.helpers({
 
 Template.userAvatarInitials.helpers({
   initials() {
+    if (typeof this.initials === 'string' && this.initials) return this.initials;
     const user = ReactiveCache.getUser(this.userId);
     return (user && user.getInitials()) || '';
   },
@@ -119,7 +120,8 @@ Template.userAvatarInitials.helpers({
   // attribute ("0 0  15"), and the avatar rendered as nothing.
   viewPortWidth() {
     const user = ReactiveCache.getUser(this.userId);
-    const initials = (user && user.getInitials()) || '';
+    const initials = (typeof this.initials === 'string' && this.initials)
+      || (user && user.getInitials()) || '';
     return (initials.length || 1) * 12;
   },
 });

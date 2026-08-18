@@ -137,7 +137,7 @@ template(name="tablePage")
                               if avatarUrl
                                 img.avatar.avatar-image(src="{{avatarUrl}}" alt="{{text}}")
                               else
-                                +userAvatarInitials(userId=userId)
+                                +userAvatarInitials(userId=userId initials=initials)
                             span.table-page-person-name {{text}}
                             if count
                               span.table-page-people-count {{count}}
