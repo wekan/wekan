@@ -17,8 +17,8 @@ template(name="cardCustomFieldsPopup")
                     .materialCheckBox(class="{{#if hasCustomField}}is-checked{{/if}}")
                     span.full-name
                       = name
-                a.js-edit-custom-field(title="{{_ 'edit'}}")
-                    i.fa.fa-pencil
+                a.js-edit-custom-field(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
     hr
     a.quiet-button.full.js-open-create-custom-field
         i.fa.fa-plus
@@ -48,12 +48,12 @@ template(name="cardCustomField-text")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     +viewer
                         = value
                 else
-                    | {{_ 'edit'}}
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
     else
       +viewer
         = value
@@ -69,11 +69,11 @@ template(name="cardCustomField-number")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if formattedValue
                     = formattedValue
                 else
-                    | {{_ 'edit'}}
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
     else
         if formattedValue
             = formattedValue
@@ -110,18 +110,18 @@ template(name="cardCustomField-currency")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     = formattedValue
                 else
-                    | {{_ 'edit'}}
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
     else
         if value
             = formattedValue
 
 template(name="cardCustomField-date")
     if canModifyCard
-      a.js-edit-date.js-custom-field-edit-trigger(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      a.js-edit-date.js-custom-field-edit-trigger(title="{{#if value}}{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}{{else}}{{_ 'edit'}}{{/if}}" aria-label="{{_ 'edit'}}" class="{{classes}}")
         if value
           div.card-date
             time(datetime="{{showISODate}}")
@@ -130,7 +130,7 @@ template(name="cardCustomField-date")
                 b
                   | {{showWeek}}
         else
-          | {{_ 'edit'}}
+          i.fa.fa-pencil-square-o(aria-hidden="true")
     else
       if value
         div.card-date
@@ -162,12 +162,12 @@ template(name="cardCustomField-dropdown")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     +viewer
                         = selectedItem
                 else
-                    | {{_ 'edit'}}
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
     else
         if value
             +viewer
@@ -185,12 +185,12 @@ template(name="cardCustomField-stringtemplate")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}")
                 if value
                     +viewer
                         = formattedValue
                 else
-                    | {{_ 'edit'}}
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
     else
         if value
             +viewer

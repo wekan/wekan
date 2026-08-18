@@ -325,9 +325,11 @@ template(name="cardDetails")
                         .card-details-person-controls
                           a.member.add-member.card-details-item-add-button.js-select-requester(title="{{_ 'requested-by'}}")
                             i.fa.fa-plus
-                          a.js-open-inlined-form
+                          a.js-open-inlined-form(
+                            title="{{#if getRequestedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}"
+                            aria-label="{{#if getRequestedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}")
                             if getRequestedBy
-                              | {{_ 'edit'}}
+                              i.fa.fa-pencil-square-o(aria-hidden="true")
                             else
                               | {{_ 'add'}}
                   else
@@ -355,9 +357,11 @@ template(name="cardDetails")
                         .card-details-person-controls
                           a.member.add-member.card-details-item-add-button.js-select-assigner(title="{{_ 'assigned-by'}}")
                             i.fa.fa-plus
-                          a.js-open-inlined-form
+                          a.js-open-inlined-form(
+                            title="{{#if getAssignedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}"
+                            aria-label="{{#if getAssignedBy}}{{_ 'edit'}}{{else}}{{_ 'add'}}{{/if}}")
                             if getAssignedBy
-                              | {{_ 'edit'}}
+                              i.fa.fa-pencil-square-o(aria-hidden="true")
                             else
                               | {{_ 'add'}}
                   else
@@ -706,8 +710,8 @@ template(name="cardDetails")
                   a.js-close-inlined-form
               else
                 if currentBoard.allowsDescriptionText
-                  a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
-                    i.fa.fa-pencil-square-o
+                  a.js-open-inlined-form(title="{{_ 'edit'}}" aria-label="{{_ 'edit'}}" value=title)
+                    i.fa.fa-pencil-square-o(aria-hidden="true")
                   a.js-open-inlined-form(title="{{_ 'edit'}}" value=title)
                     if getDescription
                       +viewer
