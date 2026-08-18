@@ -188,6 +188,9 @@ test('copy sits above the top-right corner of every custom field editor', () => 
   assert.match(controlCss, /top: -24px;/);
   assert.match(formsCss,
     /form\.inlined-form \.custom-field-copy-control > a\.fa-copy[\s\S]*position: static;[\s\S]*top: auto;/);
+  assert.match(formsCss,
+    /\.custom-field-date-editor \{[\s\S]*?padding-top: 28px;[\s\S]*?\}[\s\S]*?\.custom-field-date-editor \.custom-field-copy-control \{[\s\S]*?top: 0;/,
+    'Date reserves space inside its popup so Copy is not clipped by the header');
 });
 
 test('minicard Currency and String Template format their row without throwing', () => {
