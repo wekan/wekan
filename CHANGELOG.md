@@ -153,10 +153,6 @@ fields not copied; needs the app to reproduce),
 [#1658](https://github.com/wekan/wekan/issues/1658) (activity list not showing
 in cards — a v1.01-era report; the activity feed has been rewritten since, so it
 needs live confirmation on current code),
-[#1946](https://github.com/wekan/wekan/issues/1946) (linked-card member avatars
-go grey after refresh — the linked card's real members live on ANOTHER board, so
-their avatar user docs are not published to the viewing board; the fix is a
-publication/subscription change verified live),
 [#5421](https://github.com/wekan/wekan/issues/5421)
 (moving a card fast — drag/reactivity glitch),
 [#761](https://github.com/wekan/wekan/issues/761) (cannot drop into a list when
@@ -312,9 +308,6 @@ to the Admin role), [#5081](https://github.com/wekan/wekan/issues/5081)
 (copy-card resets comment authorship/date — the visible card items are
 activities recorded as the copying user at copy time; changing this is a design
 decision @xet7 raised, not a clear bug),
-[#1995](https://github.com/wekan/wekan/issues/1995) (edit description/etc.
-directly on a linked card — by design a linked card mirrors the original rather
-than owning its own fields, so this is a feature request, same class as #3748),
 [#5323](https://github.com/wekan/wekan/issues/5323) (notification/webhook
 reminder on a card's due date with a per-board offset — labelled Feature; the
 built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
@@ -410,7 +403,8 @@ browser build to verify).
 **In short:** **card details** restore checkbox custom fields and cross-board
 card links, omit deleted custom fields from exports, and make attachment
 previews use the available viewport. Linked cards mirror every visible source
-field across boards. Card locations recognize both map URLs and plain
+field across boards and authorized members can edit that shared content from
+either board. Card locations recognize both map URLs and plain
 coordinate pairs. Positive, negative and browser regression coverage keeps
 each interaction working. **All Boards** also keeps the complete
 invitation message and its actions visible on phone-sized layouts.
@@ -442,6 +436,29 @@ whose definition has been deleted instead of exposing its internal ID.
 Unit tests cover successful writes, authorization and field-type failures, and
 the orphan export case. The browser test checks a checkbox and removes its
 field from an opened card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
+
+A linked card displayed the source fields but several editors still wrote its
+empty placement placeholder, while server methods required write access on the
+source board. A member who may edit the current board can now edit the shared
+source content through a visible, active link. Revoking source visibility,
+archiving the link, or assigning a read-only current-board role removes that
+delegation. Moving and archiving still affect only the linked representation.
+
+The same source route covers titles, descriptions, dates, colors, people,
+labels, stickers, locations, dependencies, custom fields, checklists, subtasks,
+attachments, covers, watchers, minicard settings, votes and estimates. Label
+and custom-field definitions come from the source board, while permission to
+edit the card comes from the board on which the linked card is visible.
+
+Positive and negative tests inventory the content mutators, method arguments
+and active-link authorization boundary. The browser regression edits the
+opened linked card, verifies both stored representations, then edits the source
+card from its own board.
 
 </details>
 
