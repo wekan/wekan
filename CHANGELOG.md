@@ -400,7 +400,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **card details** restore checkbox custom fields and cross-board
+**In short:** **card details** restore checkbox custom fields, keep their saved
+values separate from field visibility, and restore cross-board
 card links, omit deleted custom fields from exports, and make attachment
 previews use the available viewport. Linked cards mirror every visible source
 field across boards and authorized members can edit that shared content from
@@ -436,6 +437,21 @@ whose definition has been deleted instead of exposing its internal ID.
 Unit tests cover successful writes, authorization and field-type failures, and
 the orphan export case. The browser test checks a checkbox and removes its
 field from an opened card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6791ade7fc8fc40b2978055687b3c8a451e155c0">Opened-card custom checkboxes save values without hiding fields</a>. Thanks to xet7.</summary>
+
+The checkbox rendered as a card field borrowed the checklist item's event
+class and derived its next state from the template context. It now has a
+dedicated control, reads the persisted field value, and saves its boolean
+without allowing the click to reach visibility or checklist handlers. The
+Custom Fields menu remains the separate place that shows or hides the field.
+
+Static coverage keeps the value and visibility event paths distinct. The
+browser regression saves both `true` and `false` from the opened card and
+verifies that the field remains visible after each change.
 
 </details>
 
