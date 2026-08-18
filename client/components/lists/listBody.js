@@ -856,6 +856,10 @@ Template.linkCardPopup.onCreated(function () {
   this.selectedBoardId = new ReactiveVar('');
   this.selectedSwimlaneId = new ReactiveVar('');
   this.selectedListId = new ReactiveVar('');
+  // Blaze only exposes Template.currentData() while a view is current. Store
+  // the add-card position now; both confirmation handlers cross an `await`, so
+  // asking Blaze for it later throws "There is no current view".
+  this.position = Template.currentData()?.position;
 
   this.boardId = Session.get('currentBoard');
   // Only when there IS a board. `currentBoard` is null on every page that is not
@@ -882,12 +886,11 @@ Template.linkCardPopup.onCreated(function () {
     this.swimlaneId = listData.swimlaneId || ReactiveCache.getSwimlane({ boardId: this.boardId })._id;
 
   this.getSortIndex = () => {
-    const position = Template.currentData().position;
     let ret;
-    if (position === 'top') {
+    if (this.position === 'top') {
       const firstCardDom = this.list.find('.js-minicard:first')[0];
       ret = Utils.calculateIndex(null, firstCardDom).base;
-    } else if (position === 'bottom') {
+    } else if (this.position === 'bottom') {
       const lastCardDom = this.list.find('.js-minicard:last')[0];
       ret = Utils.calculateIndex(lastCardDom, null).base;
     }
@@ -1079,7 +1082,7 @@ Template.linkCardPopup.events({
     //LINK BOARD
     evt.stopPropagation();
     evt.preventDefault();
-    const impBoardId = $('.js-select-boards option:selected').val();
+    const impBoardId = tpl.$('.js-select-boards').val();
     if (
       !impBoardId ||
       ReactiveCache.getCard({ linkedId: impBoardId, archived: false })
@@ -1090,7 +1093,7 @@ Template.linkCardPopup.events({
     const nextCardNumber = await tpl.board.getNextCardNumber();
     const sortIndex = tpl.getSortIndex();
     const _id = Cards.insert({
-      title: $('.js-select-boards option:selected').text(), //dummy
+      title: tpl.$('.js-select-boards option:selected').text(), //dummy
       listId: tpl.listId,
       swimlaneId: tpl.swimlaneId,
       boardId: tpl.boardId,

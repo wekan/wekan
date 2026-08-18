@@ -19,6 +19,21 @@ test('#6613: card-link confirmation awaits an acknowledged server method', () =>
   );
 });
 
+test('#6613 follow-up: link position survives asynchronous confirmation', () => {
+  const created = client.slice(
+    client.indexOf('Template.linkCardPopup.onCreated'),
+    client.indexOf('Template.linkCardPopup.helpers'),
+  );
+  assert.match(created, /this\.position = Template\.currentData\(\)\?\.position/);
+  assert.match(created, /if \(this\.position === 'top'\)/);
+  assert.match(created, /else if \(this\.position === 'bottom'\)/);
+  assert.doesNotMatch(
+    created.slice(created.indexOf('this.getSortIndex')),
+    /Template\.currentData\(/,
+    'getSortIndex can run after await only when it no longer needs a Blaze view',
+  );
+});
+
 test('#6613: the server validates every link coordinate before inserting', () => {
   const method = server.slice(
     server.indexOf('async createLinkedCard('),
