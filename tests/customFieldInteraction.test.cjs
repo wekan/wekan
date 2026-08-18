@@ -14,8 +14,6 @@ const client = read('client/components/cards/cardCustomFields.js');
 const template = read('client/components/cards/cardCustomFields.jade');
 const datepickerTemplate = read('client/components/forms/datepicker.jade');
 const formsCss = read('client/components/forms/forms.css');
-const cardDetailsTemplate = read('client/components/cards/cardDetails.jade');
-const cardDetailsCss = read('client/components/cards/cardDetails.css');
 const minicardClient = read('client/components/cards/minicard.js');
 const server = read('server/models/cards.js');
 
@@ -138,31 +136,21 @@ test('the title and value open editing while checkbox control stays independent'
   assert.match(client,
     /function openCustomFieldValueEditor[\s\S]*js-custom-field-edit-trigger/);
   assert.match(template,
-    /span\.js-card-custom-field-date-value\.js-edit-card-custom-field-value/,
-    'the visible date is the popup anchor');
-  assert.doesNotMatch(template, /button\.js-edit-date[^\n]*hidden/,
-    'Date no longer positions from a hidden button');
+    /a\.js-edit-date\.js-custom-field-edit-trigger/,
+    'the visible datetime itself is the direct popup opener and title target');
   assert.match(client,
-    /definition\?\.type === 'date'[\s\S]*tpl\.find\('\.js-card-custom-field-date-value'\)[\s\S]*Popup\.open\('cardCustomField-date'\)\.call\(field,[\s\S]*currentTarget: opener/,
-    'both title and value route the popup through the visible date anchor');
+    /Template\['cardCustomField-date'\]\.events\(\{[\s\S]*'click \.js-edit-date': Popup\.open\('cardCustomField-date'\)/,
+    'the Date template handles its own visible datetime click directly');
   assert.match(client,
-    /'text',[\s\S]*'checkbox',[\s\S]*'date',[\s\S]*'stringtemplate',[\s\S]*\.forEach\(type => \{[\s\S]*Template\[`cardCustomField-\$\{type\}`\]\.events[\s\S]*openCustomFieldValueEditor/,
-    'every nested type template owns its value clicks instead of relying on its parent');
+    /'text',[\s\S]*'checkbox',[\s\S]*'currency',[\s\S]*'dropdown',[\s\S]*'stringtemplate',[\s\S]*\.forEach\(type => \{[\s\S]*Template\[`cardCustomField-\$\{type\}`\]\.events[\s\S]*openCustomFieldValueEditor/,
+    'the other nested type templates own their value clicks');
   assert.match(client,
     /event\.target\.closest\('\.check-box-container'\)\) return/,
     'the shared route does not take over the Checkbox square');
-  assert.match(cardDetailsTemplate,
-    /card-details-item-customfield\(class="custom-field-type-\{\{definition\.type\}\}"\)/,
-    'each grid cell exposes its field type for type-specific interaction');
-  assert.match(cardDetailsCss,
-    /custom-field-type-date \.js-card-custom-field-date-value \{[\s\S]*?display: block;[\s\S]*?flex: 1;[\s\S]*?min-height: 40px;[\s\S]*?width: 100%/,
-    'the empty area below a date remains part of its edit target');
-
   for (const [type, next] of [
     ['text', 'number'],
     ['number', 'checkbox'],
     ['currency', 'date'],
-    ['date', 'datePopup'],
     ['dropdown', 'stringtemplate'],
   ]) {
     const at = template.indexOf(`template(name="cardCustomField-${type}")`);

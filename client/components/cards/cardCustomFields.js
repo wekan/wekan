@@ -134,20 +134,6 @@ function openCustomFieldValueEditor(event, tpl) {
   if (event.target.closest('.check-box-container')) return;
   event.preventDefault();
   event.stopPropagation();
-  const field = Template.currentData();
-  if (field?.definition?.type === 'date') {
-    const opener = tpl.find('.js-card-custom-field-date-value');
-    if (!opener) return;
-    // The title and value both open Date, but its popup always belongs below
-    // the visible date value. A hidden generic trigger has no useful bounds
-    // and made Popup position the date editor elsewhere on the card.
-    Popup.open('cardCustomField-date').call(field, {
-      currentTarget: opener,
-      target: opener,
-      preventDefault() {},
-    });
-    return;
-  }
   const trigger = tpl.find('.js-custom-field-edit-trigger');
   if (trigger) trigger.click();
 }
@@ -164,7 +150,6 @@ Template.cardCustomField.events({
   'number',
   'checkbox',
   'currency',
-  'date',
   'dropdown',
   'stringtemplate',
 ].forEach(type => {
@@ -341,6 +326,13 @@ Template['cardCustomField-date'].helpers({
   showTitle() {
     return `${TAPi18n.__('card-start-on')} ${Template.instance().date.get().toLocaleString()}`;
   },
+});
+
+// Date keeps its original direct popup opener. Clicking the title activates
+// this same visible element through `.js-custom-field-edit-trigger`, while a
+// click on the displayed datetime is handled here without a template hop.
+Template['cardCustomField-date'].events({
+  'click .js-edit-date': Popup.open('cardCustomField-date'),
 });
 
 // cardCustomField-datePopup

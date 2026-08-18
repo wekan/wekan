@@ -458,7 +458,7 @@ template(name="cardDetails")
             if isSectionOpen "custom-fields"
               .card-details-group-body(class="{{#if customFieldsGrid}}custom-fields-one-per-row{{else}}custom-fields-grid{{/if}}")
                 each customFieldsWD
-                  .card-details-item.card-details-item-customfield(class="custom-field-type-{{definition.type}}")
+                  .card-details-item.card-details-item-customfield
                     +cardCustomField
 
       if getVoteQuestion
