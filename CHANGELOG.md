@@ -532,14 +532,14 @@ is no longer the edit trigger, so controls such as checkboxes remain dedicated
 to using the field. Checkbox fields gain a staged editor with Save and Close,
 while their normal checkbox continues to save direct on/off changes.
 
-Copy is hidden while a field is only being viewed. Every field editor shows it
-between Save and X, and it copies the currently edited input rather than the
-previously saved value. Focused positive and negative coverage checks the
-view/edit boundary; the browser regression checks the control order.
+Copy is hidden while a field is only being viewed. Every field editor provides
+the action while editing, and it copies the currently edited input rather than
+the previously saved value. Focused positive and negative coverage checks the
+view/edit boundary; the browser regression checks its editing-only visibility.
 
 </details>
 
-- [Custom field Copy controls align between Save and X](https://github.com/wekan/wekan/commit/cb517165d442c990c7c40679d19bcbfca445d821). Thanks to xet7.
+- [Custom field Copy controls sit above editors' top-right corners](https://github.com/wekan/wekan/commit/a3e5f4ebd04f99183ead737d630f05718f319c07). Thanks to xet7.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/49de60eb04616048803ba988cc97758091da65d2">Linked card content is editable from either board</a>. Thanks to hever and xet7.</summary>
