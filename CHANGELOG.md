@@ -409,7 +409,8 @@ previews use the available viewport. Linked cards mirror every visible source
 field across boards and authorized members can edit that shared content from
 either board. Card locations recognize both map URLs and plain
 coordinate pairs. Positive, negative and browser regression coverage keeps
-each interaction working. **All Boards** also keeps the complete
+each interaction working. Opened cards can also be resized wider as well as
+narrower on desktop. **All Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -426,6 +427,19 @@ invitation message and its actions visible on phone-sized layouts.
 This release fixes the following bugs:
 
 **Card details** - fields, attachments and links on an opened card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46b276e7582c1bd020ccb2fe4d01a88b8ee177ae">Opened cards can be resized wider as well as narrower</a>. Thanks to xet7.</summary>
+
+The desktop card already had a bottom-right resize handle, but its 520px
+opening width was also a hard maximum, so dragging could only make the card
+narrower. It still opens at the compact 520px width and can now grow up to the
+viewport's eight-pixel margins. Mobile remains full-screen and non-resizable.
+
+Placement and maximized-card regression coverage checks both resize directions,
+the initial width, viewport ceiling, mobile behavior and maximized geometry.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7879012c92a22e3c73c1ad580b48035a1c3bbba">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
