@@ -586,6 +586,21 @@ view/edit boundary; the browser regression checks its editing-only visibility.
 
 - [The empty area below a Date custom field also opens its popup](https://github.com/wekan/wekan/commit/8c07000b3ce35e7a1b34c8c755bf3eab1e86cca2). Thanks to xet7.
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b17a9f8597a7f5857b051f640c63cd1e3b99a4e">Currency and String Template custom fields no longer break minicards</a>. Thanks to xet7.</summary>
+
+Their Blaze helpers run inside `each customFieldsWD`, where the current context
+is already a custom-field row. They tried to call the Card method
+`customFieldsWD()` on that row, throwing on every render and interrupting the
+surrounding card UI. Both helpers now format the row's resolved `trueValue`
+directly, preserve numeric zero, leave empty values empty and use safe fallbacks
+for invalid definitions or values.
+
+Focused regression coverage rejects the invalid Card call and checks the value,
+empty, numeric and String Template paths.
+
+</details>
+
 - [Custom field Copy controls sit above editors' top-right corners](https://github.com/wekan/wekan/commit/a3e5f4ebd04f99183ead737d630f05718f319c07). Thanks to xet7.
 
 <details>
