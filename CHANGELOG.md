@@ -418,6 +418,8 @@ Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 **Developer tooling** keeps long-running Rspack development watchers from
 retaining cache state until they exhaust the JavaScript heap.
+**Admin Panel / Problems / Offices** groups login addresses by person and shows
+each address family, available location and per-person login count.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -431,6 +433,24 @@ retaining cache state until they exhaust the JavaScript heap.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following bugs:
+
+**The Admin Panel** - reports about people and where they log in from.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3539f2bbf33a5481f2cc0cf4569d725e19c509c9">Offices groups login addresses by person with locations and counts</a>. Thanks to xet7.</summary>
+
+The Offices report was inverted: each row represented an address and placed all
+people using it inside one cell. It now pages people and keeps every address for
+one person together. Each row has separate IPv4 and IPv6 columns, the latest
+country flag and city supplied by Cloudflare or another supported proxy, and
+that person's successful-login count and first/last times for that address.
+
+People sharing one address remain separate groups with separate counts. Search
+still matches names, addresses and locations, while location metadata for a
+page is fetched in one batch. Positive and negative coverage checks both IP
+families, shared addresses, supported location headers and absent geography.
+
+</details>
 
 **Card details** - fields, attachments and links on an opened card.
 
