@@ -422,7 +422,8 @@ retaining cache state until they exhaust the JavaScript heap.
 each address family, available location, per-person login count and available
 initials instead of empty avatar circles.
 **Admin Panel / People / People** summarizes each person's login countries and
-opens country-by-country city, IPv4, IPv6 and login-time details.
+opens country-by-country city, IPv4, IPv6 and login-time details. Problems
+pagination no longer mixes a specialized pane's state with the shared reports.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -488,6 +489,21 @@ location on the person's own address tally.
 Positive and negative coverage checks country totals and ordering, both IP
 families, city rows, timestamps, menu and table wiring, authorization limits
 and absent geography.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c034643b82785b4197fee7a1a810799280ac912">Problems pagination keeps each pane's state separate</a>. Thanks to xet7.</summary>
+
+Pagination events from specialized Problems panes bubbled into the containing
+shared report handler. Their pane ids intentionally have no shared report
+configuration, so clicking Next could try to read a count from undefined and
+stop the requested action with a browser exception.
+
+Event-stream and Offices controls now keep their events inside their own pane.
+The shared Previous, Next and search handlers also safely ignore missing or
+transitional report state. Regression coverage exercises both specialized
+pagers and the defensive shared-handler path.
 
 </details>
 
