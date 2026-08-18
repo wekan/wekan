@@ -450,6 +450,13 @@ one person together. Each row has separate IPv4 and IPv6 columns, the latest
 country flag and city supplied by Cloudflare or another supported proxy, and
 that person's successful-login count and first/last times for that address.
 
+Location is recorded when a login succeeds; existing address tallies are not
+retroactively geolocated. With Cloudflare, the proxied hostname must enable the
+`Add visitor location headers` Managed Transform so `CF-IPCountry`, `CF-IPCity`,
+`CF-Region`, `CF-IPLatitude` and `CF-IPLongitude` reach WeKan. Caddy passes
+these request headers through by default; any `header_up` override belongs
+inside its `reverse_proxy` block.
+
 People sharing one address remain separate groups with separate counts. Search
 still matches names, addresses and locations, while location metadata for a
 page is fetched in one batch. Positive and negative coverage checks both IP
