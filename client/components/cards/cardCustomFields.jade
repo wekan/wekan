@@ -48,7 +48,7 @@ template(name="cardCustomField-text")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
                 if value
                     +viewer
                         = value
@@ -69,7 +69,7 @@ template(name="cardCustomField-number")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
                 if formattedValue
                     = formattedValue
                 else
@@ -93,7 +93,8 @@ template(name="cardCustomField-checkbox")
         a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
     else
       button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-      .js-card-custom-field-checkbox.checklist-item(class="{{#if value}}is-checked{{/if}}")
+      .js-card-custom-field-checkbox.js-edit-card-custom-field-value.checklist-item(
+        class="{{#if value}}is-checked{{/if}}" title="{{_ 'edit'}}")
         .check-box-container
           .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
   else
@@ -109,7 +110,7 @@ template(name="cardCustomField-currency")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
                 if value
                     = formattedValue
                 else
@@ -121,7 +122,7 @@ template(name="cardCustomField-currency")
 template(name="cardCustomField-date")
     if canModifyCard
       button.js-edit-date.js-custom-field-edit-trigger(type="button" hidden)
-      span(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
+      span.js-edit-card-custom-field-value(title="{{showTitle}} {{_ 'predicate-week'}} {{#if showWeekOfYear}}{{showWeek}}{{/if}}" class="{{classes}}")
         if value
           div.card-date
             time(datetime="{{showISODate}}")
@@ -162,7 +163,7 @@ template(name="cardCustomField-dropdown")
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
                 if value
                     +viewer
                         = selectedItem
@@ -185,7 +186,7 @@ template(name="cardCustomField-stringtemplate")
                 a.js-close-inlined-form
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
-            span
+            span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
                 if value
                     +viewer
                         = formattedValue

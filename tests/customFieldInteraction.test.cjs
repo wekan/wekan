@@ -117,7 +117,7 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   assert.match(client, /Array\.isArray\(rawValue\)[\s\S]*join\('\\n'\)/);
 });
 
-test('the title alone opens editing and copy stays inside active editors', () => {
+test('the title and value open editing while checkbox control stays independent', () => {
   const wrapperAt = template.indexOf('template(name="cardCustomField")');
   const wrapper = template.slice(wrapperAt, template.indexOf(
     'template(name="customFieldCopyButton")', wrapperAt));
@@ -125,12 +125,31 @@ test('the title alone opens editing and copy stays inside active editors', () =>
   assert.match(client,
     /click \.js-edit-card-custom-field-value[\s\S]*js-custom-field-edit-trigger/);
 
+  for (const [type, next] of [
+    ['text', 'number'],
+    ['number', 'checkbox'],
+    ['currency', 'date'],
+    ['date', 'datePopup'],
+    ['dropdown', 'stringtemplate'],
+  ]) {
+    const at = template.indexOf(`template(name="cardCustomField-${type}")`);
+    const body = template.slice(at, template.indexOf(
+      `template(name="cardCustomField-${next}")`, at));
+    assert.match(body, /js-edit-card-custom-field-value/, `${type} value opens edit`);
+  }
+
   assert.doesNotMatch(template,
     /a\.js-open-inlined-form[\s\S]{0,180}(formattedValue|selectedItem|\+viewer)/);
   const checkboxAt = template.indexOf('template(name="cardCustomField-checkbox")');
   const checkbox = template.slice(checkboxAt, template.indexOf(
     'template(name="cardCustomField-currency")', checkboxAt));
   assert.match(checkbox, /js-card-customfield-checkbox-editor/);
+  assert.match(checkbox,
+    /js-card-custom-field-checkbox\.js-edit-card-custom-field-value[\s\S]*check-box-container/,
+    'the checkbox row opens editing, with its direct control nested inside');
+  assert.match(client,
+    /click \.js-card-custom-field-checkbox \.check-box-container[\s\S]*event\.stopPropagation\(\)/,
+    'the checkbox square toggles without opening editing');
   assert.match(checkbox,
     /\+customFieldCopyButton[\s\S]*button\.primary\(type="submit"\)[\s\S]*js-close-inlined-form/);
 });

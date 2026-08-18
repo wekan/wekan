@@ -501,6 +501,9 @@ body.desktop-mode .card-details.card-details-collapsed {
   font-weight: bold;
   color: #4d4d4d;
 }
+.card-details .card-details-item-customfield .js-edit-card-custom-field-value {
+  cursor: pointer;
+}
 .card-details .card-details-person-controls {
   align-items: flex-start;
   display: flex;
