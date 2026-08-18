@@ -301,7 +301,9 @@ Template.listBody.onCreated(function () {
     const clickedEditableTitle =
       clickedTitle && $target.closest('.js-open-inlined-form').length > 0;
     if (clickedEditableTitle || $target.closest('.js-minicard-title-form').length > 0) {
-      evt.stopImmediatePropagation();
+      // Let the title's own inlinedForm click handler run. Both handlers are
+      // delegated by Blaze on the same event root, so either propagation stop
+      // can prevent that sibling handler from replacing the title.
       evt.preventDefault();
       return;
     }

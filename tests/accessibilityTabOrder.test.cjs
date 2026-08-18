@@ -100,7 +100,8 @@ test('keyboard navigation and focus trapping have one shared implementation', ()
 
 test('popups focus their content, contain Tab, and restore their opener', () => {
   assert.match(popupClient, /focusCurrentPopup\(\)[\s\S]*focusFirstControl\(popup\)/);
-  assert.match(popupEvents, /keydown \.js-pop-over[\s\S]*trapTabKey\(event\)/);
+  assert.match(popupEvents,
+    /keydown \.js-pop-over[\s\S]*trapTabKey\(event, event\.target\.closest\('\.js-pop-over'\)\)/);
   assert.match(popupClient, /openerElement\?\.isConnected[\s\S]*openerElement\.focus\(\)/);
 });
 

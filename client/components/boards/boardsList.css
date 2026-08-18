@@ -1293,7 +1293,9 @@
   flex: 1 1 auto;
   min-height: 0;
   height: auto;
-  overflow-y: auto !important;
+  /* #6488: #content is the page's single vertical scroll owner. A nested
+     board-list scroller makes a phone swipe depend on where it starts. */
+  overflow-y: visible !important;
   overflow-x: hidden;
   padding: 0 0.5rem;
   margin: 0;

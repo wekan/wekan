@@ -53,7 +53,7 @@ template(name="header")
             that does not, and the stock one - so the bar can space the logo the
             same way whichever is drawn. docs/Features/Page/Header.md
           div#headerIsSettingDatabaseCallDone.header-logo
-            img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+            img(src="{{pathFor '/logo-header.png'}}" alt="{{headerLogoAlt}}" title="{{headerLogoAlt}}")
 
       // Mobile/desktop mode toggle (swapped with zoom)
       .mobile-mode-toggle

@@ -275,6 +275,12 @@ function headerTitleTrailOf() {
 
 Template.header.helpers({
 
+  // Settings arrive after the header's first render. Keep an accessible name
+  // on the stock logo during that short loading interval as well.
+  headerLogoAlt() {
+    return ReactiveCache.getCurrentSetting()?.productName || 'WeKan';
+  },
+
   wrappedHeader() {
     return !Session.get('currentBoard');
   },

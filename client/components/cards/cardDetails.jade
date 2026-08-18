@@ -213,7 +213,7 @@ template(name="cardDetails")
                     i.fa.fa-sign-out
                     | {{_ 'card-received'}}
                   if getReceived
-                    +cardReceivedDate
+                    +cardReceivedDate(canModifyCard=canModifyCard)
                   else
                     if canModifyCard
                       unless currentUser.isWorker
@@ -226,7 +226,7 @@ template(name="cardDetails")
                     i.fa.fa-hourglass-start
                     | {{_ 'card-start'}}
                   if getStart
-                    +cardStartDate
+                    +cardStartDate(canModifyCard=canModifyCard)
                   else
                     if canModifyCard
                       unless currentUser.isWorker
@@ -239,7 +239,7 @@ template(name="cardDetails")
                     i.fa.fa-clock-o
                     | {{_ 'card-due'}}
                   if getDue
-                    +cardDueDate
+                    +cardDueDate(canModifyCard=canModifyCard)
                   else
                     if canModifyCard
                       unless currentUser.isWorker
@@ -255,7 +255,7 @@ template(name="cardDetails")
                     i.fa.fa-hourglass-end
                     | {{_ 'card-end'}}
                   if getEnd
-                    +cardEndDate
+                    +cardEndDate(canModifyCard=canModifyCard)
                   else
                     if canModifyCard
                       unless currentUser.isWorker

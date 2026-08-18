@@ -28,6 +28,7 @@ const ROOT = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 const cardDate = read('client/components/cards/cardDate.jade');
+const cardDetails = read('client/components/cards/cardDetails.jade');
 const customFields = read('client/components/cards/cardCustomFields.jade');
 const datepicker = read('client/components/forms/datepicker.jade');
 
@@ -89,6 +90,15 @@ test('a minicard badge keeps its own kind class (negative)', () => {
     const at = cardDate.indexOf(`template(name="${tpl}")`);
     const include = cardDate.slice(at, cardDate.indexOf('\n', cardDate.indexOf('+dateBadgeBody', at)));
     assert.ok(include.includes(`baseClass="card-date ${kind}"`), `${tpl} keeps ${kind}`);
+  }
+});
+
+test('opened-card date badges receive the edit permission explicitly', () => {
+  for (const template of [
+    'cardReceivedDate', 'cardStartDate', 'cardDueDate', 'cardEndDate',
+  ]) {
+    assert.ok(cardDetails.includes(`+${template}(canModifyCard=canModifyCard)`),
+      `${template} stays editable for members who can modify the card`);
   }
 });
 

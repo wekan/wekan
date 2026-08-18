@@ -33,7 +33,8 @@ test.describe('Card members & description', () => {
     await cp.waitForOpen();
 
     await expect(cp.root.locator('.card-details-item-requested-by, .card-details-item-name')
-      .filter({ hasText: 'Requested By' }).locator('.js-open-inlined-form')).toHaveText(/Edit/i);
+      .filter({ hasText: 'Requested By' }).locator('.js-open-inlined-form'))
+      .toHaveAttribute('aria-label', /Edit/i);
     await expect(cp.root.locator('.card-details-item-assigned-by, .card-details-item-name')
       .filter({ hasText: 'Assigned By' }).locator('.js-open-inlined-form')).toHaveText(/Add/i);
   });

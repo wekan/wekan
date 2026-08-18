@@ -4,7 +4,10 @@ import { trapTabKey } from '/client/lib/accessibility';
 
 Popup.template.events({
   'keydown .js-pop-over'(event) {
-    trapTabKey(event);
+    // Blaze's delegated event currentTarget is not consistently the matched
+    // popup element in every browser.  Trap focus in the popup containing the
+    // actual key target, not in the template's outer event container.
+    trapTabKey(event, event.target.closest('.js-pop-over'));
   },
   'click .js-back-view'() {
     Popup.back();

@@ -31,7 +31,7 @@ template(name="tablePage")
       .table-page-status
         +Template.dynamic(template=statusTemplate data=statusData)
     .table-page-controls
-      input.js-table-page-search(type="search" placeholder="{{_ 'search'}}" value="{{searchTerm}}")
+      input.js-table-page-search(type="search" placeholder="{{_ 'search'}}" aria-label="{{_ 'search'}}" value="{{searchTerm}}")
       //- Filters, actions and the total are ON by default: supply them and they
       //- render. They came from Admin Panel / People, where they were hand-written
       //- into that page's own markup; they are general enough for any table.

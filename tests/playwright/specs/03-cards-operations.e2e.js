@@ -22,11 +22,12 @@ const CardPage = require('../pages/CardPage');
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 test.describe('Cards – operations', () => {
-  test('#6612 attachment viewer uses most of a desktop viewport', async ({ page }) => {
-    await page.setViewportSize({ width: 1600, height: 900 });
-    await page.goto(BASE_URL);
-    await page.waitForSelector('#viewer-overlay');
-    const dimensions = await page.evaluate(() => {
+  test('#6612 attachment viewer uses most of a desktop viewport', async ({ boardPage, board }) => {
+    await boardPage.setViewportSize({ width: 1600, height: 900 });
+    const bp = new BoardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await boardPage.waitForSelector('#viewer-overlay', { state: 'attached' });
+    const dimensions = await boardPage.evaluate(() => {
       const overlay = document.querySelector('#viewer-overlay');
       const pdf = document.querySelector('#pdf-viewer');
       overlay.classList.remove('hidden');
@@ -293,9 +294,11 @@ test.describe('Cards – operations', () => {
 
     try {
       await bp.openAddCardTop(listA);
-      await boardPage.locator('.js-composer .js-link').click();
+      await bp.list(listA).locator('.js-link').click();
       const popup = boardPage.locator('.js-pop-over');
       await popup.waitFor({ timeout: 5_000 });
+      await expect(popup.locator(`.js-select-boards option[value="${source.boardId}"]`))
+        .toHaveCount(1, { timeout: 8_000 });
       await popup.locator('.js-select-boards').selectOption(source.boardId);
       await expect(popup.locator('.js-select-cards option')).toHaveCount(2, {
         timeout: 8_000,
@@ -487,7 +490,7 @@ test.describe('Cards – operations', () => {
     const field = cp.root.locator('.card-details-item-customfield')
       .filter({ hasText: 'E2E Budget' });
     await expect(field.locator('.js-copy-custom-field')).toHaveCount(0);
-    await field.locator('.js-edit-card-custom-field-value').click();
+    await field.locator('.card-details-item-title.js-edit-card-custom-field-value').click();
     const form = field.locator('.js-card-customfield-currency');
     await expect(form.locator('button[type="submit"]')).toBeVisible();
     await expect(form.locator('.js-copy-custom-field')).toBeVisible();
@@ -554,6 +557,10 @@ test.describe('Cards – operations', () => {
 
     const reloadedBody = cp.root.locator(
       '.card-details-group-custom-fields .card-details-group-body',
+    );
+    await expect(reloadedBody.locator('.card-details-item-customfield')).toHaveCount(
+      values.length,
+      { timeout: 10_000 },
     );
     if (!initiallyRows) {
       await cp.root.locator('#toggleCustomFieldsGridButton').click();
