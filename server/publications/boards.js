@@ -1009,6 +1009,122 @@ publishComposite('board', async function(boardId, isArchived) {
           return await ReactiveCache.getCards({ _id: { $in: linkedCardIds }, archived: isArchived }, {}, true);
         }
       },
+      // Source-board display metadata for linked cards. The source card itself
+      // carries label ids and custom-field values, but their definitions live
+      // on its board. Without these cursors a link looked complete only until
+      // reload (while the board-picker subscription happened to remain alive).
+      {
+        async find(board) {
+          const linkedCardIds = await visibleLinkedCardIds(board);
+          if (linkedCardIds.length === 0) return null;
+          const linkedCards = await ReactiveCache.getCards(
+            { _id: { $in: linkedCardIds } },
+            { fields: { boardId: 1 } },
+            false,
+          );
+          const sourceBoardIds = [...new Set(linkedCards.map(card => card.boardId))];
+          return await ReactiveCache.getBoards(
+            { _id: { $in: sourceBoardIds } },
+            { fields: { title: 1, slug: 1, labels: 1 } },
+            true,
+          );
+        }
+      },
+      {
+        async find(board) {
+          const linkedCardIds = await visibleLinkedCardIds(board);
+          if (linkedCardIds.length === 0) return null;
+          const linkedCards = await ReactiveCache.getCards(
+            { _id: { $in: linkedCardIds } },
+            { fields: { boardId: 1 } },
+            false,
+          );
+          const sourceBoardIds = [...new Set(linkedCards.map(card => card.boardId))];
+          return await ReactiveCache.getCustomFields(
+            { boardIds: { $in: sourceBoardIds } },
+            { sort: { name: 1 } },
+            true,
+          );
+        }
+      },
+      // Avatars used by source-card creator/member/assignee fields.
+      {
+        async find(board) {
+          const linkedCardIds = await visibleLinkedCardIds(board);
+          if (linkedCardIds.length === 0) return null;
+          const linkedCards = await ReactiveCache.getCards(
+            { _id: { $in: linkedCardIds } },
+            { fields: { userId: 1, members: 1, assignees: 1 } },
+            false,
+          );
+          const userIds = [...new Set(linkedCards.flatMap(card => [
+            card.userId,
+            ...(card.members || []),
+            ...(card.assignees || []),
+          ]).filter(id => id && id !== thisUserId))];
+          if (userIds.length === 0) return null;
+          return await ReactiveCache.getUsers(
+            { _id: { $in: userIds } },
+            { fields: {
+              username: 1,
+              'profile.fullname': 1,
+              'profile.avatarUrl': 1,
+              'profile.initials': 1,
+            } },
+            true,
+          );
+        }
+      },
+      // Subtasks displayed by a linked source card.
+      {
+        async find(board) {
+          const linkedCardIds = await visibleLinkedCardIds(board);
+          if (linkedCardIds.length === 0) return null;
+          const linkedCards = await ReactiveCache.getCards(
+            { _id: { $in: linkedCardIds } },
+            { fields: { boardId: 1 } },
+            false,
+          );
+          const sourceBoardIds = [...new Set(linkedCards.map(card => card.boardId))];
+          return await ReactiveCache.getCards(
+            {
+              parentId: { $in: linkedCardIds },
+              boardId: { $in: sourceBoardIds },
+            },
+            {},
+            true,
+          );
+        }
+      },
+      // Cards named by the linked source card's dependency field. Constrain
+      // them to the already-authorized source boards; a malformed dependency
+      // id must not become a bridge into another private board.
+      {
+        async find(board) {
+          const linkedCardIds = await visibleLinkedCardIds(board);
+          if (linkedCardIds.length === 0) return null;
+          const linkedCards = await ReactiveCache.getCards(
+            { _id: { $in: linkedCardIds } },
+            { fields: { boardId: 1, cardDependencies: 1 } },
+            false,
+          );
+          const sourceBoardIds = [...new Set(linkedCards.map(card => card.boardId))];
+          const dependencyIds = [...new Set(linkedCards.flatMap(card =>
+            (card.cardDependencies || []).map(dependency =>
+              typeof dependency === 'string' ? dependency : dependency && dependency.cardId,
+            ),
+          ).filter(Boolean))];
+          if (dependencyIds.length === 0) return null;
+          return await ReactiveCache.getCards(
+            {
+              _id: { $in: dependencyIds },
+              boardId: { $in: sourceBoardIds },
+            },
+            {},
+            true,
+          );
+        }
+      },
       // Comments for linked cards
       {
         async find(board) {

@@ -140,7 +140,7 @@ test('the linked-card read check it was modelled on is still there', () => {
   assert.ok(/checkBoardAccess\(req\.userId, sourceCard\.boardId\)/.test(restCards));
 });
 
-// ------------------------------------------------- the same hole, five cursors
+// ------------------------------------------------ the same hole, linked cursors
 //
 // The advisory named the ancestor cursor. The LINKED-CARD cursors beside it had
 // the identical bug and a wider blast radius: they published the linked card,
@@ -148,10 +148,10 @@ test('the linked-card read check it was modelled on is still there', () => {
 // whatever board the linked card lives on, to every subscriber of this board.
 // A `cardType-linkedCard` names a card by id exactly as `parentId` does.
 
-test('all five linked-card cursors filter by the subscriber\'s visible boards', () => {
+test('all linked-card content and metadata cursors filter by visible boards', () => {
   const calls = publication.match(/const linkedCardIds = await visibleLinkedCardIds\(board\);/g) || [];
-  assert.strictEqual(calls.length, 5,
-    'linked cards, comments, attachments, checklists and checklist items — all five');
+  assert.strictEqual(calls.length, 10,
+    'card content plus source metadata, subtasks and dependencies — all ten');
 });
 
 test('the shared helper asks the same visibility question as the ancestor cursor', () => {
@@ -173,7 +173,7 @@ test('negative: no cursor publishes the raw linkedId list any more', () => {
   );
   const selfBuilt = publication.match(/const linkedCardIds = cards\.filter\(/g) || [];
   assert.strictEqual(selfBuilt.length, 0,
-    'the five duplicated preambles are gone; there is one helper and it checks');
+    'the duplicated preambles are gone; there is one helper and it checks');
 });
 
 test('the assigned-only member restriction survived the de-duplication', () => {

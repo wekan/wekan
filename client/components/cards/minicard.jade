@@ -191,7 +191,7 @@ template(name="minicard")
 
     if showCreatorOnMinicard
       .minicard-creator
-        +userAvatar(userId=this.userId noRemove=true)
+        +userAvatar(userId=getCreatorId noRemove=true)
 
     if shouldShowChecklistAtMinicard
       each shouldShowChecklistAtMinicard
@@ -327,4 +327,3 @@ template(name="minicardChecklist")
         else
           a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
             i.fa.fa-plus
-

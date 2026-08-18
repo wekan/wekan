@@ -1106,6 +1106,13 @@ Cards.helpers({
     return this.__id;
   },
 
+  // A linked card owns only its placement. Displayed content comes from the
+  // source card so the link remains a live mirror instead of a stale snapshot.
+  getRealCard() {
+    if (!this.isLinkedCard()) return this;
+    return ReactiveCache.getCard(this.linkedId) || this;
+  },
+
   getList() {
     const list = this.list();
     if (!list) {
@@ -1146,17 +1153,18 @@ Cards.helpers({
   },
 
   labels() {
-    const board = this.board();
+    const card = this.getRealCard();
+    const board = ReactiveCache.getBoard(card.boardId);
     if (!board) return [];
     const boardLabels = board.labels;
     const cardLabels = (boardLabels || []).filter(label => {
-      return (this.labelIds || []).includes(label._id);
+      return (card.labelIds || []).includes(label._id);
     });
     return cardLabels;
   },
 
   hasLabel(labelId) {
-    return (this.labelIds || []).includes(labelId);
+    return (this.getRealCard().labelIds || []).includes(labelId);
   },
 
   /** returns the sort number of a list
@@ -1207,7 +1215,7 @@ Cards.helpers({
   },
 
   user() {
-    return ReactiveCache.getUser(this.userId);
+    return ReactiveCache.getUser(this.getCreatorId());
   },
 
   isAssigned(memberId) {
@@ -1322,7 +1330,7 @@ Cards.helpers({
   },
 
   subtasks() {
-    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this._id, {
+    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this.getRealId(), {
         archived: false,
       }, {
         sort: {
@@ -1334,14 +1342,14 @@ Cards.helpers({
   },
 
   subtasksFinished() {
-    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this._id, {
+    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this.getRealId(), {
       archived: true,
     });
     return ret;
   },
 
   allSubtasks() {
-    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this._id);
+    const ret = ReactiveMiniMongoIndex.getSubTasksWithParentId(this.getRealId());
     return ret;
   },
 
@@ -1365,39 +1373,40 @@ Cards.helpers({
   },
 
   customFieldIndex(customFieldId) {
-    return (this.customFields || []).map(x => x._id).indexOf(customFieldId);
+    return (this.getRealCard().customFields || []).map(x => x._id).indexOf(customFieldId);
   },
 
   // customFields with definitions
   customFieldsWD() {
+    const card = this.getRealCard();
     // get all definitions attached to this card's CURRENT board
     const definitions = ReactiveCache.getCustomFields({
-      boardIds: { $in: [this.boardId] },
+      boardIds: { $in: [card.boardId] },
     });
     if (!definitions) {
       return {};
     }
-    // #3748: entries whose definition is not attached to THIS board are
-    // skipped — on a cross-board linked card the customFields snapshot copied
-    // by Cards.link() references the ORIGINAL board's definitions, and the old
-    // `{}` placeholders rendered phantom empty rows in the card details and
-    // threw in the cardCustomField getTemplate helper.
+    // #3748: entries whose definition is unavailable are skipped rather than
+    // becoming phantom `{}` rows. For a linked card both values and definitions
+    // now come from its source board publication.
     const { buildCustomFieldsWD } = require('./lib/customFieldsWD');
-    return buildCustomFieldsWD(this.customFields, definitions);
+    return buildCustomFieldsWD(card.customFields, definitions);
   },
 
   colorClass() {
+    const card = this.getRealCard();
     // #5514: a custom '#rrggbb' hex has no CSS class (templates prepend
     // `minicard-` / `card-details-`); it is applied inline via colorStyle().
-    if (this.color && !isHexColor(this.color)) return this.color;
+    if (card.color && !isHexColor(card.color)) return card.color;
     return '';
   },
 
   colorStyle() {
+    const card = this.getRealCard();
     // #5514: for a custom hex color, set the background inline plus an
     // automatically readable text color. Empty for named colors.
-    if (isHexColor(this.color)) {
-      return `background-color:${this.color} !important;color:${contrastText(this.color)} !important;`;
+    if (isHexColor(card.color)) {
+      return `background-color:${card.color} !important;color:${contrastText(card.color)} !important;`;
     }
     return '';
   },
@@ -1718,7 +1727,7 @@ Cards.helpers({
   // normalized { cardId, type, color, icon } objects (legacy bare-string ids are
   // upgraded on read).
   getDependencies() {
-    return normalizeDependencies(this.cardDependencies);
+    return normalizeDependencies(this.getRealCard().cardDependencies);
   },
 
   // #3392: Add (or update) a typed dependency to another card on the same board.
@@ -2309,7 +2318,7 @@ Cards.helpers({
   },
 
   getCardNumber() {
-    return this.cardNumber;
+    return this.getRealCard().cardNumber;
   },
 
   getBoardTitle() {
@@ -2733,17 +2742,20 @@ Cards.helpers({
   },
 
   addLabel(labelId) {
-    this.labelIds.push(labelId);
-    return Cards.updateAsync(this._id, { $addToSet: { labelIds: labelId } });
+    const card = this.getRealCard();
+    card.labelIds = card.labelIds || [];
+    card.labelIds.push(labelId);
+    return Cards.updateAsync(this.getRealId(), { $addToSet: { labelIds: labelId } });
   },
 
   removeLabel(labelId) {
-    this.labelIds = (this.labelIds || []).filter(x => x !== labelId);
-    return Cards.updateAsync(this._id, { $pull: { labelIds: labelId } });
+    const card = this.getRealCard();
+    card.labelIds = (card.labelIds || []).filter(x => x !== labelId);
+    return Cards.updateAsync(this.getRealId(), { $pull: { labelIds: labelId } });
   },
 
   toggleLabel(labelId) {
-    if (this.labelIds && this.labelIds.indexOf(labelId) > -1) {
+    if (this.hasLabel(labelId)) {
       return this.removeLabel(labelId);
     } else {
       return this.addLabel(labelId);
@@ -2755,12 +2767,20 @@ Cards.helpers({
   // icon can exist as a plain, mascot or computer sticker.
   hasSticker(icon, highlight) {
     const h = highlight || '';
-    return (this.stickers || []).some(s => s.icon === icon && (s.highlight || '') === h);
+    return this.getStickers().some(s => s.icon === icon && (s.highlight || '') === h);
+  },
+
+  getStickers() {
+    return this.getRealCard().stickers || [];
+  },
+
+  getCreatorId() {
+    return this.getRealCard().userId;
   },
 
   addSticker(icon, highlight, name) {
     if (!icon || this.hasSticker(icon, highlight)) return Promise.resolve();
-    const position = (this.stickers || []).length;
+    const position = this.getStickers().length;
     const sticker = { icon, position };
     if (highlight) sticker.highlight = highlight;
     if (name) sticker.name = name;
@@ -2772,7 +2792,7 @@ Cards.helpers({
 
   removeSticker(icon, highlight) {
     const h = highlight || '';
-    const stickers = (this.stickers || []).slice();
+    const stickers = this.getStickers().slice();
     const index = stickers.findIndex(
       s => s.icon === icon && (s.highlight || '') === h,
     );
@@ -2787,7 +2807,7 @@ Cards.helpers({
   // Remove a single sticker by its position in the array (so duplicates with
   // the same icon/name can be removed individually).
   removeStickerAt(index) {
-    const stickers = (this.stickers || []).slice();
+    const stickers = this.getStickers().slice();
     if (index < 0 || index >= stickers.length) return Promise.resolve();
     stickers.splice(index, 1);
     return Cards.updateAsync(
@@ -2808,20 +2828,21 @@ Cards.helpers({
   // flat locationName/Address/Latitude/Longitude fields is surfaced here as a
   // location entry so existing (e.g. Trello-imported) cards keep working.
   getLocations() {
-    const locations = (this.locations || []).slice();
+    const card = this.getRealCard();
+    const locations = (card.locations || []).slice();
     if (
       !locations.length &&
-      (this.locationName ||
-        this.locationAddress ||
-        typeof this.locationLatitude === 'number' ||
-        typeof this.locationLongitude === 'number')
+      (card.locationName ||
+        card.locationAddress ||
+        typeof card.locationLatitude === 'number' ||
+        typeof card.locationLongitude === 'number')
     ) {
       locations.push({
         _id: 'legacy',
-        name: this.locationName || '',
-        address: this.locationAddress || '',
-        latitude: this.locationLatitude,
-        longitude: this.locationLongitude,
+        name: card.locationName || '',
+        address: card.locationAddress || '',
+        latitude: card.locationLatitude,
+        longitude: card.locationLongitude,
       });
     }
     return locations;

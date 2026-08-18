@@ -303,6 +303,31 @@ test.describe('Cards – operations', () => {
         boardId: source.boardId,
         title: 'Cross-board source card',
       });
+      const labelId = `linked-label-${Date.now()}`;
+      const customFieldId = `linked-field-${Date.now()}`;
+      db.updateOne('boards', { _id: source.boardId }, {
+        $set: { labels: [{ _id: labelId, name: 'Source Label', color: 'green' }] },
+      });
+      db.insertOne('customFields', {
+        _id: customFieldId,
+        boardIds: [source.boardId],
+        name: 'Source Field',
+        type: 'text',
+        settings: {},
+        showOnCard: true,
+        showLabelOnMiniCard: true,
+      });
+      db.updateOne('cards', { _id: sourceCard._id }, { $set: {
+        labelIds: [labelId],
+        stickers: [{ icon: 'rocket', name: 'Source Sticker', position: 0 }],
+        customFields: [{ _id: customFieldId, value: 'Source Value' }],
+        locations: [{
+          _id: 'linked-location',
+          name: 'Source Location',
+          latitude: 62.04818,
+          longitude: 28.15197,
+        }],
+      } });
       await popup.locator('.js-select-cards').selectOption(sourceCard._id);
       await popup.locator('.js-done').click();
       await expect(popup).toBeHidden({ timeout: 8_000 });
@@ -313,6 +338,27 @@ test.describe('Cards – operations', () => {
         type: 'cardType-linkedCard',
         linkedId: sourceCard._id,
       })).toBe(1);
+
+      const linked = boardPage.locator('.minicard.linked-card').filter({
+        hasText: 'Cross-board source card',
+      });
+      await expect(linked.locator('.minicard-label')).toHaveAttribute(
+        'title',
+        'Source Label',
+      );
+      await expect(linked.locator('.minicard-sticker .fa-rocket')).toBeVisible();
+      await expect(linked).toContainText('Source Field');
+      await expect(linked).toContainText('Source Value');
+
+      await linked.click();
+      await expect(boardPage.locator('.card-details')).toBeVisible();
+      await expect(boardPage.locator('.card-details .card-label')).toHaveAttribute(
+        'title',
+        'Source Label',
+      );
+      await expect(boardPage.locator('.card-details .card-sticker .fa-rocket')).toBeVisible();
+      await expect(boardPage.locator('.card-details')).toContainText('Source Location');
+      await expect(boardPage.locator('.card-details')).toContainText('Source Value');
     } finally {
       db.cleanup({ boardIds: [source.boardId] });
     }

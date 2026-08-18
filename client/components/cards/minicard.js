@@ -12,7 +12,6 @@ import {
   parseChecklistItemTitles,
   buildChecklistItemPayload,
 } from '/models/lib/checklistItemTitles';
-import { normalizeDependencies } from '/models/metadata/dependencies';
 import { setCardMenuSource } from '/client/lib/cardMenuSource';
 import {
   hiddenMinicardLabelText,
@@ -54,7 +53,7 @@ Template.minicard.helpers({
   // when a card has dependencies: the first dependency's icon and color plus the
   // total count.
   dependencyBadge() {
-    const deps = normalizeDependencies(this.cardDependencies);
+    const deps = this.getDependencies();
     if (deps.length === 0) return null;
     return {
       icon: deps[0].icon,
@@ -65,9 +64,10 @@ Template.minicard.helpers({
   // #3984: visual card aging — fade cards that have not been touched recently,
   // based on dateLastActivity, when the board has card aging enabled.
   agingClass() {
+    const card = this.getRealCard();
     const board = ReactiveCache.getBoard(this.boardId);
     if (!board || !board.cardAging) return '';
-    const last = this.dateLastActivity || this.modifiedAt || this.createdAt;
+    const last = card.dateLastActivity || card.modifiedAt || card.createdAt;
     if (!last) return '';
     const days = (Date.now() - new Date(last).getTime()) / 86400000;
     // #3984: thresholds are board-configurable (board settings / cardSettings API),
@@ -116,7 +116,7 @@ Template.minicard.helpers({
     return ret;
   },
   isWatching() {
-    return this.findWatcher(Meteor.userId());
+    return this.getRealCard().findWatcher(Meteor.userId());
   },
 
   showMembers() {
@@ -173,6 +173,9 @@ Template.minicard.helpers({
   },
 
   hiddenMinicardLabelText,
+  stickers() {
+    return this.getStickers();
+  },
   cover() {
     // #5666: for a linked card the cover lives on the real card it points at, so
     // resolve the cover id through it (mirroring getTitle/getDue/...); a plain
@@ -197,13 +200,13 @@ Template.minicard.helpers({
   },
   // Upload progress helpers
   hasActiveUploads() {
-    return uploadProgressManager.hasActiveUploads(this._id);
+    return uploadProgressManager.hasActiveUploads(this.getRealId());
   },
   uploads() {
-    return uploadProgressManager.getUploadsForCard(this._id);
+    return uploadProgressManager.getUploadsForCard(this.getRealId());
   },
   uploadCount() {
-    return uploadProgressManager.getUploadCountForCard(this._id);
+    return uploadProgressManager.getUploadCountForCard(this.getRealId());
   },
   listName() {
     const list = this.list();
@@ -216,7 +219,7 @@ Template.minicard.helpers({
     // 2. This specific card has the setting enabled
     const currentBoard = this.board();
     if (!currentBoard) return false;
-    return currentBoard.allowsShowListsOnMinicard || this.showListOnMinicard;
+    return currentBoard.allowsShowListsOnMinicard || this.getRealCard().showListOnMinicard;
   },
 
   shouldShowChecklistAtMinicard() {

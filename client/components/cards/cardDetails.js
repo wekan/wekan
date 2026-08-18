@@ -550,10 +550,15 @@ Template.cardDetails.onDestroyed(function () {
 });
 
 Template.cardDetails.helpers({
+  stickers() {
+    const card = Template.currentData();
+    return card && typeof card.getStickers === 'function' ? card.getStickers() : [];
+  },
   isWatching() {
     const card = Template.currentData();
     if (!card || typeof card.findWatcher !== 'function') return false;
-    return card.findWatcher(Meteor.userId());
+    const realCard = typeof card.getRealCard === 'function' ? card.getRealCard() : card;
+    return realCard.findWatcher(Meteor.userId());
   },
 
   // #6081: number of times this card's due date has been changed, for
@@ -623,7 +628,10 @@ Template.cardDetails.helpers({
 
   showActivities() {
     const card = Template.currentData();
-    return card && card.showActivities;
+    const realCard = card && typeof card.getRealCard === 'function'
+      ? card.getRealCard()
+      : card;
+    return realCard && realCard.showActivities;
   },
 
   cardCollapsed() {
