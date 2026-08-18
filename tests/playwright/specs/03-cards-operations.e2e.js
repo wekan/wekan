@@ -515,7 +515,7 @@ test.describe('Cards – operations', () => {
     );
     const initiallyRows = await body.evaluate(el =>
       el.classList.contains('custom-fields-one-per-row'));
-    await cp.root.locator('label[for="toggleCustomFieldsGridButton"]').click();
+    await cp.root.locator('#toggleCustomFieldsGridButton').click();
     await expect(body).toHaveClass(initiallyRows
       ? /custom-fields-grid/
       : /custom-fields-one-per-row/);
@@ -533,7 +533,7 @@ test.describe('Cards – operations', () => {
       '.card-details-group-custom-fields .card-details-group-body',
     );
     if (!initiallyRows) {
-      await cp.root.locator('label[for="toggleCustomFieldsGridButton"]').click();
+      await cp.root.locator('#toggleCustomFieldsGridButton').click();
       await expect(reloadedBody).toHaveClass(/custom-fields-grid/);
     }
     const columnsAtWidth = async width => {

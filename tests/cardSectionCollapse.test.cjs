@@ -179,6 +179,15 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
   assert.match(js,
     /'click #toggleCustomFieldsGridButton'\(\)[\s\S]*?Meteor\.call\('toggleCustomFieldsGrid'\)/,
     'the switch still persists the preference');
+  assert.match(jade,
+    /button\.custom-fields-layout-toggle#toggleCustomFieldsGridButton[\s\S]*?fa-th-large[\s\S]*?fa-list/,
+    'the control uses the paired Grid / List icon pattern');
+  assert.match(jade,
+    /customFieldsGrid\}\}list-active\{\{else\}\}grid-active[\s\S]*?grid-icon[\s\S]*?unless customFieldsGrid[\s\S]*?list-icon[\s\S]*?if customFieldsGrid/,
+    'the icon matching the saved layout is active');
+  assert.match(css,
+    /\.custom-fields-layout-toggle \.grid-icon\.active,[\s\S]*?\.custom-fields-layout-toggle \.list-icon\.active \{[\s\S]*?background: var\(--theme-accent, #2980b9\)[\s\S]*?opacity: 1/,
+    'the active icon is a filled theme-colored chip');
 });
 
 test('the group caret sits ON the first field\'s title, not on a line of its own', () => {

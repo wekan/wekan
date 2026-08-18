@@ -1294,3 +1294,38 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   margin-inline-end: 0;
   max-width: 100%;
 }
+/* The same paired-icon language as the header's Mobile / Desktop selector:
+   both choices remain visible and the active layout is the filled chip. */
+.card-details .custom-fields-layout-toggle {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 4px;
+  color: #4d4d4d;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 2px;
+  margin: 0.5em 0;
+  padding: 2px;
+  width: auto;
+}
+.card-details .custom-fields-layout-toggle .grid-icon,
+.card-details .custom-fields-layout-toggle .list-icon {
+  align-items: center;
+  border-radius: 3px;
+  display: inline-flex;
+  justify-content: center;
+  min-width: 28px;
+  opacity: 0.35;
+  padding: 4px 7px;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+.card-details .custom-fields-layout-toggle .grid-icon.active,
+.card-details .custom-fields-layout-toggle .list-icon.active {
+  background: var(--theme-accent, #2980b9);
+  opacity: 1;
+}
+.card-details .custom-fields-layout-toggle .grid-icon.active .fa,
+.card-details .custom-fields-layout-toggle .list-icon.active .fa {
+  color: #fff;
+}

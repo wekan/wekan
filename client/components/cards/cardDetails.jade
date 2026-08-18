@@ -461,12 +461,14 @@ template(name="cardDetails")
                     +cardCustomField
 
           if $gt customFieldsWD.length 1
-            .material-toggle-switch(title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}")
-              if customFieldsGrid
-                input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton" checked="checked")
-              else
-                input.toggle-switch(type="checkbox" id="toggleCustomFieldsGridButton")
-              label.toggle-label(for="toggleCustomFieldsGridButton")
+            button.custom-fields-layout-toggle#toggleCustomFieldsGridButton(
+              type="button"
+              title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}"
+              class="{{#if customFieldsGrid}}list-active{{else}}grid-active{{/if}}")
+              span.grid-icon(class="{{#unless customFieldsGrid}}active{{/unless}}")
+                i.fa.fa-th-large
+              span.list-icon(class="{{#if customFieldsGrid}}active{{/if}}")
+                i.fa.fa-list
 
       if getVoteQuestion
         hr
