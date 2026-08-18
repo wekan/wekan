@@ -402,7 +402,8 @@ browser build to verify).
 
 **In short:** **accessibility** gives shared tabs, dialogs, images, password
 controls and card edit targets coherent names and keyboard order throughout
-WeKan. **Card details** restore checkbox custom fields, keep their saved values
+WeKan, with one common keyboard utility keeping those behaviors consistent.
+**Card details** restore checkbox custom fields, keep their saved values
 separate from field visibility, save currency values, provide independent
 opened-card and minicard visibility settings, make every custom-field value
 copyable, use compact accessible pencil icons for Edit actions, restore the
@@ -752,6 +753,23 @@ without `alt`, while focused tests pin names, roles, relationships, keyboard
 handlers and focus restoration. The browser regression audits representative
 pages for natural order, unnamed controls and missing image alternatives, and
 exercises both directions of the popup focus loop.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fce4d79453c7625f10718da23b8fda2cbd65666e">Keyboard navigation uses one shared accessibility utility</a>. Thanks to xet7.</summary>
+
+Popup, modal and board-menu focus previously discovered controls independently,
+while shared tabs and Archive tabs separately implemented the same six-key
+navigation rule. Focusable-element discovery, initial focus, Tab trapping and
+tab-key calculation now live together in `client/lib/accessibility.js`; each
+consumer supplies only its own state transition. The board-only menu observer
+also disconnects with its template instead of remaining attached after leaving
+a board.
+
+Regression coverage requires both tab implementations and every dialog consumer
+to delegate to the shared helpers, and rejects copies of the old key and focus
+selector branches.
 
 </details>
 
