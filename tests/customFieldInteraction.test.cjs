@@ -15,6 +15,7 @@ const template = read('client/components/cards/cardCustomFields.jade');
 const datepickerTemplate = read('client/components/forms/datepicker.jade');
 const datepickerCss = read('client/components/forms/datepicker.css');
 const formsCss = read('client/components/forms/forms.css');
+const editorCss = read('client/components/main/editor.css');
 const minicardClient = read('client/components/cards/minicard.js');
 const server = read('server/models/cards.js');
 
@@ -170,6 +171,15 @@ test('every custom field editor has a copy-to-clipboard control', () => {
   assert.match(client, /closest\('form'\)/);
   assert.match(client, /rawValue instanceof Date[\s\S]*toISOString\(\)/);
   assert.match(client, /Array\.isArray\(rawValue\)[\s\S]*join\('\\n'\)/);
+});
+
+test('Text Convert to Markdown sits immediately left of Copy', () => {
+  assert.match(editorCss,
+    /\.inlined-form\.js-card-customfield-text > a\.fa\.fa-brands\.fa-markdown \{[\s\S]*?float: none;[\s\S]*?inset-inline-end: 28px;[\s\S]*?top: -24px;/,
+    'the Text-specific override aligns Convert with Copy above the editor');
+  assert.match(formsCss,
+    /\.custom-field-copy-control \{[\s\S]*?inset-inline-end: 0;[\s\S]*?top: -24px;/,
+    'Copy remains the rightmost control in LTR');
 });
 
 test('the title and value open editing while checkbox control stays independent', () => {

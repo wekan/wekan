@@ -5,6 +5,11 @@
   top: -10px;
   inset-inline-end: 60px;
 }
+.inlined-form.js-card-customfield-text > a.fa.fa-brands.fa-markdown {
+  float: none;
+  inset-inline-end: 28px;
+  top: -24px;
+}
 .new-comment a.fa.fa-copy,
 .inlined-form a.fa.fa-copy {
   float: inline-end;
