@@ -586,7 +586,7 @@ view/edit boundary; the browser regression checks its editing-only visibility.
 
 - [Date custom fields restore their direct datetime popup opener](https://github.com/wekan/wekan/commit/1defd1794467a078fd96754b707eec8d0ed08cff). Thanks to xet7.
 
-- [The Date custom field popup shows its complete Copy icon](https://github.com/wekan/wekan/commit/df2426081d356bf54a05e8ed28cee45eafbac5b8). Thanks to xet7.
+- [The Date custom field popup places its complete Copy icon beside Time](https://github.com/wekan/wekan/commit/413844882ac2a5b423de766456cab244791b1456). Thanks to xet7.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b17a9f8597a7f5857b051f640c63cd1e3b99a4e">Currency and String Template custom fields no longer break minicards</a>. Thanks to xet7.</summary>
