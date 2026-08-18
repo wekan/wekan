@@ -445,7 +445,16 @@ test.describe('Cards – operations', () => {
     // The rest of the checkbox row edits the value; only the square itself is
     // the immediate toggle control.
     await field.locator('.js-card-custom-field-checkbox').evaluate(row => row.click());
-    await expect(field.locator('.js-card-customfield-checkbox-editor')).toBeVisible();
+    const editor = field.locator('.js-card-customfield-checkbox-editor');
+    await expect(editor).toBeVisible();
+    const editorInput = editor.locator('.js-card-customfield-checkbox-input');
+    const editorSquare = editor.locator('.materialCheckBox');
+    await editor.locator('.check-box-container').click();
+    await expect(editorInput).toBeChecked();
+    await expect(editorSquare).toHaveClass(/is-checked/);
+    await editor.locator('.check-box-container').click();
+    await expect(editorInput).not.toBeChecked();
+    await expect(editorSquare).not.toHaveClass(/is-checked/);
     await field.locator('.js-close-inlined-form').click();
 
     await cp.openCustomFields();

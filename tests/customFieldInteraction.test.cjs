@@ -150,6 +150,9 @@ test('the title and value open editing while checkbox control stays independent'
   assert.match(client,
     /click \.js-card-custom-field-checkbox \.check-box-container[\s\S]*event\.stopPropagation\(\)/,
     'the checkbox square toggles without opening editing');
+  assert.match(client,
+    /change \.js-card-customfield-checkbox-input[\s\S]*toggleClass\('is-checked', event\.currentTarget\.checked\)/,
+    'the staged editor visibly supports both checking and unchecking');
   assert.match(checkbox,
     /\+customFieldCopyButton[\s\S]*button\.primary\(type="submit"\)[\s\S]*js-close-inlined-form/);
 });

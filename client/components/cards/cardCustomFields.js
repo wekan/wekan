@@ -182,6 +182,13 @@ Template['cardCustomField-checkbox'].onCreated(function () {
 });
 
 Template['cardCustomField-checkbox'].events({
+  'change .js-card-customfield-checkbox-input'(event, tpl) {
+    // Editing is staged until Save, but its square must still show the staged
+    // value immediately. The persisted `value` remains unchanged until submit,
+    // so update only the editor's visual checkbox here.
+    tpl.$('.js-card-customfield-checkbox-editor .materialCheckBox')
+      .toggleClass('is-checked', event.currentTarget.checked);
+  },
   async 'submit .js-card-customfield-checkbox-editor'(event, tpl) {
     event.preventDefault();
     const value = Boolean(
