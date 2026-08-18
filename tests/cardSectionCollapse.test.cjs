@@ -32,6 +32,7 @@ const ROOT = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 const jade = read('client/components/cards/cardDetails.jade');
+const customFieldsJade = read('client/components/cards/cardCustomFields.jade');
 const js = read('client/components/cards/cardDetails.js');
 const css = read('client/components/cards/cardDetails.css');
 const activities = read('client/components/activities/activities.js');
@@ -160,6 +161,21 @@ test('the GROUP is the full-width row, and its fields share rows inside it', () 
   // grouping - it is what put Assignee and Creator on the next line.
   assert.ok(!/card-details-item-members\.card-details-section/.test(jade),
     'no field is a full-width row of its own any more');
+});
+
+test('the Custom Fields layout toggle switches grid and one-per-row classes', () => {
+  assert.match(jade,
+    /card-details-group-body\(class="\{\{#if customFieldsGrid\}\}custom-fields-one-per-row\{\{else\}\}custom-fields-grid\{\{\/if\}\}"\)/,
+    'the saved user preference reaches the custom-fields container');
+  assert.match(css,
+    /\.custom-fields-grid > \.card-details-item-customfield \{[\s\S]*?flex: 1 1 calc\(33\.333% - 0\.5em\)/,
+    'off is a compact wrapping grid');
+  assert.match(css,
+    /\.custom-fields-one-per-row > \.card-details-item-customfield \{[\s\S]*?flex: 0 0 100%[\s\S]*?max-width: 100%/,
+    'on makes every custom field a full row');
+  assert.match(js,
+    /'click #toggleCustomFieldsGridButton'\(\)[\s\S]*?Meteor\.call\('toggleCustomFieldsGrid'\)/,
+    'the switch still persists the preference');
 });
 
 test('the group caret sits ON the first field\'s title, not on a line of its own', () => {
@@ -322,15 +338,17 @@ test('the card button row is still there', () => {
 });
 
 test('a custom field still shows its NAME', () => {
-  // +cardCustomField renders the value and nothing else, so a card with three
-  // custom fields showed three values with nothing to say what they were.
+  // The wrapper renders the field title before selecting its type-specific
+  // value editor, so every value remains identifiable in either layout.
   const at = jade.indexOf('.card-details-item.card-details-item-customfield');
-  const block = jade.slice(at, at + 600);
-  assert.ok(/= definition\.name/.test(block), 'the field name is rendered');
-  // The INCLUDE, at the start of its own line - the comment above it mentions
-  // +cardCustomField too, and matching that would compare against prose.
-  assert.ok(block.indexOf('= definition.name') < block.search(/\n\s+\+cardCustomField/),
-    'above its value');
+  assert.ok(/\n\s+\+cardCustomField/.test(jade.slice(at, at + 250)),
+    'the field wrapper is included');
+  const wrapperAt = customFieldsJade.indexOf('template(name="cardCustomField")');
+  const wrapper = customFieldsJade.slice(wrapperAt,
+    customFieldsJade.indexOf('template(name="customFieldCopyButton")', wrapperAt));
+  assert.ok(/= definition\.name/.test(wrapper), 'the field name is rendered');
+  assert.ok(wrapper.indexOf('= definition.name') < wrapper.indexOf('+Template.dynamic'),
+    'above its type-specific value');
 });
 
 test('the Attachments heading can still show its count', () => {

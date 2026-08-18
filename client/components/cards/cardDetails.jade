@@ -455,7 +455,7 @@ template(name="cardDetails")
             +cardSectionHeader(section="custom-fields" icon="fa-list-alt" label="custom-fields"
               menuClass="js-open-custom-fields-settings" menuTitle="custom-fields")
             if isSectionOpen "custom-fields"
-              .card-details-group-body
+              .card-details-group-body(class="{{#if customFieldsGrid}}custom-fields-one-per-row{{else}}custom-fields-grid{{/if}}")
                 each customFieldsWD
                   .card-details-item.card-details-item-customfield
                     +cardCustomField

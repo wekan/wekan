@@ -1278,3 +1278,14 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-details .card-details-group-body .card-details-item {
   flex-grow: 1;
 }
+/* The user's Custom Fields layout toggle has two deliberately distinct modes.
+   Off keeps the compact wrapping grid; on gives every field its own row. */
+.card-details .card-details-group-custom-fields .custom-fields-grid > .card-details-item-customfield {
+  flex: 1 1 calc(33.333% - 0.5em);
+  min-width: min(160px, 100%);
+}
+.card-details .card-details-group-custom-fields .custom-fields-one-per-row > .card-details-item-customfield {
+  flex: 0 0 100%;
+  margin-inline-end: 0;
+  max-width: 100%;
+}

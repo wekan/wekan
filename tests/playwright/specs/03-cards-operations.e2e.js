@@ -484,6 +484,49 @@ test.describe('Cards – operations', () => {
       .find(item => item._id === customFieldId).value).toBe(123.45);
   });
 
+  test('custom field layout toggle switches and persists its layout', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+    const values = [];
+    for (const name of ['E2E Layout A', 'E2E Layout B', 'E2E Layout C']) {
+      const id = db.uid('layoutField');
+      db.insertOne('customFields', {
+        _id: id, boardIds: [board.boardId], name, type: 'text', settings: {},
+        showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: true, showSumAtTopOfList: false,
+        createdAt: new Date(), modifiedAt: new Date(),
+      });
+      values.push({ _id: id, value: name });
+    }
+    db.updateOne('cards', { _id: cardId }, {
+      $push: { customFields: { $each: values } },
+    });
+
+    await boardPage.reload();
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+    const body = cp.root.locator(
+      '.card-details-group-custom-fields .card-details-group-body',
+    );
+    const initiallyRows = await body.evaluate(el =>
+      el.classList.contains('custom-fields-one-per-row'));
+    await cp.root.locator('label[for="toggleCustomFieldsGridButton"]').click();
+    await expect(body).toHaveClass(initiallyRows
+      ? /custom-fields-grid/
+      : /custom-fields-one-per-row/);
+
+    await boardPage.reload();
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+    await expect(cp.root.locator(
+      '.card-details-group-custom-fields .card-details-group-body',
+    )).toHaveClass(initiallyRows
+      ? /custom-fields-grid/
+      : /custom-fields-one-per-row/);
+  });
+
   // --- Adding a card at top vs bottom of list ---
 
   test('add-to-top places the card first in the list', async ({ boardPage, board }) => {
