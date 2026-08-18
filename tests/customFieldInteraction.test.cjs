@@ -84,6 +84,16 @@ test('text has the standard X immediately beside Save', () => {
     /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
 });
 
+test('string template has the standard X immediately beside Save', () => {
+  const at = template.indexOf('template(name="cardCustomField-stringtemplate")');
+  const body = template.slice(at);
+  assert.match(body,
+    /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form\(title="\{\{_ 'close'\}\}"\)/);
+  assert.match(client,
+    /click \.js-close-inlined-form[\s\S]*stringtemplateItems\.set\(Template\.currentData\(\)\.value \?\? \[\]\)/,
+    'X continues to restore the saved items instead of retaining staged edits');
+});
+
 test('every custom field editor has a copy-to-clipboard control', () => {
   assert.match(template, /template\(name="customFieldCopyButton"\)[\s\S]*js-copy-custom-field/);
   const textAt = template.indexOf('template(name="cardCustomField-text")');

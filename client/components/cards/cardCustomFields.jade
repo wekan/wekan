@@ -183,7 +183,7 @@ template(name="cardCustomField-stringtemplate")
             input.js-card-customfield-stringtemplate-item.last(type="text" value="" placeholder="{{_ 'custom-field-stringtemplate-item-placeholder'}}" autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.js-close-inlined-form
+                a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             button.js-open-inlined-form.js-custom-field-edit-trigger(type="button" hidden)
             span.js-edit-card-custom-field-value(title="{{_ 'edit'}}")
