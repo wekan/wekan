@@ -950,6 +950,22 @@ negative source tests pin the permission, focus, table and scroll contracts.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9f9fa4c2d53d1ad6592d142f4cc547649639348">Browser regression corrections now pass against a fresh production bundle</a>. Thanks to xet7.</summary>
+
+Linked-card creation now restarts the board subscription so source labels,
+stickers and custom fields are available with the new link. Date writes are
+awaited and refresh the same subscription, popup focus trapping uses the real
+dialog element, and the phone board grid leaves vertical scrolling to the page.
+
+The browser tests now use stable card identities and the actual interactive
+DOM targets after titles change, distinguish visible and compact label markup,
+seed existing dates before subscribing, and measure scroll ownership instead
+of relying on a browser's normalized overflow keyword. The complete Node suite
+and the modified Chromium browser group cover the positive and negative paths.
+
+</details>
+
 and updates the following dependencies:
 
 - **@aws-sdk/client-s3 3.1109.0 → 3.1113.0** — the AWS S3 client used by
