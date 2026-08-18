@@ -285,12 +285,63 @@ test.describe('Cards – operations', () => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
-    const source = db.seedBoard({
-      ownerId: user.id,
+    const sourceSlug = `link-source-${Date.now()}`;
+    const sourceBoardId = await boardPage.evaluate(payload => new Promise((resolve, reject) => {
+      Meteor.call('createBoardWithInitialSwimlanes', payload, (error, result) =>
+        error ? reject(error) : resolve(result));
+    }), {
       title: 'Link Source Board',
-      listCount: 1,
-      cardTitlesPerList: [['Cross-board source card']],
+      slug: sourceSlug,
+      permission: 'private',
+      type: 'board',
+      migrationVersion: 1,
+      swimlanes: [{ title: 'Default', sort: 0, type: 'swimlane' }],
     });
+    const sourceSwimlane = db.findOne('swimlanes', { boardId: sourceBoardId });
+    const sourceListId = db.uid('list');
+    const sourceCardId = db.uid('card');
+    const now = new Date();
+    db.insertOne('lists', {
+      _id: sourceListId, title: 'Source List', boardId: sourceBoardId,
+      swimlaneId: sourceSwimlane._id, archived: false, sort: 100,
+      createdAt: now, modifiedAt: now,
+    });
+    db.insertOne('cards', {
+      _id: sourceCardId, title: 'Cross-board source card', boardId: sourceBoardId,
+      listId: sourceListId, swimlaneId: sourceSwimlane._id,
+      type: 'cardType-card', archived: false, sort: 100,
+      members: [], labelIds: [], customFields: [], createdAt: now,
+      modifiedAt: now, dateLastActivity: now, userId: user.id,
+    });
+    const source = { boardId: sourceBoardId, slug: sourceSlug };
+    const labelId = `linked-label-${Date.now()}`;
+    const customFieldId = `linked-field-${Date.now()}`;
+    db.updateOne('boards', { _id: source.boardId }, {
+      $set: { labels: [{ _id: labelId, name: 'Source Label', color: 'green' }] },
+    });
+    db.updateOne('boards', { _id: board.boardId }, {
+      $set: { allowsCustomFieldsOnMinicard: true },
+    });
+    db.insertOne('customFields', {
+      _id: customFieldId,
+      boardIds: [source.boardId],
+      name: 'Source Field',
+      type: 'text',
+      settings: {},
+      showOnCard: true,
+      showLabelOnMiniCard: true,
+    });
+    db.updateOne('cards', { _id: sourceCardId }, { $set: {
+      labelIds: [labelId],
+      stickers: [{ icon: 'rocket', name: 'Source Sticker', position: 0 }],
+      customFields: [{ _id: customFieldId, value: 'Source Value' }],
+      locations: [{
+        _id: 'linked-location',
+        name: 'Source Location',
+        latitude: 62.04818,
+        longitude: 28.15197,
+      }],
+    } });
 
     try {
       await bp.openAddCardTop(listA);
@@ -303,38 +354,7 @@ test.describe('Cards – operations', () => {
       await expect(popup.locator('.js-select-cards option')).toHaveCount(2, {
         timeout: 8_000,
       });
-      const sourceCard = db.findOne('cards', {
-        boardId: source.boardId,
-        title: 'Cross-board source card',
-      });
-      const labelId = `linked-label-${Date.now()}`;
-      const customFieldId = `linked-field-${Date.now()}`;
-      db.updateOne('boards', { _id: source.boardId }, {
-        $set: { labels: [{ _id: labelId, name: 'Source Label', color: 'green' }] },
-      });
-      db.updateOne('boards', { _id: board.boardId }, {
-        $set: { allowsCustomFieldsOnMinicard: true },
-      });
-      db.insertOne('customFields', {
-        _id: customFieldId,
-        boardIds: [source.boardId],
-        name: 'Source Field',
-        type: 'text',
-        settings: {},
-        showOnCard: true,
-        showLabelOnMiniCard: true,
-      });
-      db.updateOne('cards', { _id: sourceCard._id }, { $set: {
-        labelIds: [labelId],
-        stickers: [{ icon: 'rocket', name: 'Source Sticker', position: 0 }],
-        customFields: [{ _id: customFieldId, value: 'Source Value' }],
-        locations: [{
-          _id: 'linked-location',
-          name: 'Source Location',
-          latitude: 62.04818,
-          longitude: 28.15197,
-        }],
-      } });
+      const sourceCard = db.findOne('cards', { _id: sourceCardId });
       await popup.locator('.js-select-cards').selectOption(sourceCard._id);
       await popup.locator('.js-done').click();
       await expect(popup).toBeHidden({ timeout: 8_000 });
@@ -346,10 +366,16 @@ test.describe('Cards – operations', () => {
         linkedId: sourceCard._id,
       })).toBe(1);
 
+      // Re-enter the board so this assertion exercises the permanent linked
+      // data publication, independently of the source-board picker subscription
+      // that was active while the link was created.
+      await boardPage.goto(`/b/${board.boardId}/${board.slug}`);
+      await boardPage.locator('.board-canvas').waitFor({ timeout: 15_000 });
+
       const linked = boardPage.locator('.minicard.linked-card').filter({
         hasText: 'Cross-board source card',
       });
-      await expect(linked.locator('.minicard-label')).toHaveAttribute(
+      await expect(linked.locator('.minicard-label, .card-label')).toHaveAttribute(
         'title',
         'Source Label',
       );
@@ -359,7 +385,9 @@ test.describe('Cards – operations', () => {
 
       await linked.click();
       await expect(boardPage.locator('.card-details')).toBeVisible();
-      await expect(boardPage.locator('.card-details .card-label')).toHaveAttribute(
+      await expect(boardPage.locator(
+        '.card-details .card-label[title="Source Label"]',
+      )).toHaveAttribute(
         'title',
         'Source Label',
       );
@@ -383,7 +411,7 @@ test.describe('Cards – operations', () => {
       await boardPage.locator('.board-canvas').waitFor({ timeout: 15_000 });
       await boardPage.locator('.minicard').filter({
         hasText: 'Edited through linked card',
-      }).click();
+      }).evaluate(el => el.click());
       await cp.waitForOpen();
       await cp.editTitle('Edited from source board');
       await expect.poll(() => db.findOne('cards', { _id: sourceCard._id })?.title)

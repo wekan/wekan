@@ -174,7 +174,7 @@ test('and a board in the Archive can be opened', () => {
   assert.ok(/archived: isArchived/.test(pub),
     'lists, swimlanes and cards still follow the isArchived argument');
   const client = read('client/components/boards/boardBody.js');
-  assert.ok(/Meteor\.subscribe\('board', currentBoardId, false\)/.test(client),
+  assert.ok(/Meteor\.subscribe\(\s*'board',\s*currentBoardId,\s*false,\s*subscriptionGeneration,\s*\)/s.test(client),
     'and the board page still asks for the live ones');
 });
 

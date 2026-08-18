@@ -1075,6 +1075,10 @@ Template.linkCardPopup.events({
         sortIndex,
       );
       Filter.addException(_id);
+      Session.set(
+        'boardSubscriptionGeneration',
+        (Session.get('boardSubscriptionGeneration') || 0) + 1,
+      );
       Popup.back();
     } catch (error) {
       alert(error.reason || error.message);

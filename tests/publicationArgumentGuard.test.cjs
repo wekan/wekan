@@ -53,7 +53,9 @@ test('a subscription that names no board publishes nothing', () => {
 });
 
 test('the board publisher tests its arguments before anything else', () => {
-  const at = boards.indexOf("publishComposite('board', async function(boardId, isArchived)");
+  const at = boards.indexOf(
+    "publishComposite('board', async function(boardId, isArchived, generation)",
+  );
   assert.ok(at !== -1, 'the publisher must be there');
   // The publisher's OWN body, not a fixed-size window: the comment explaining why
   // check() cannot be the guard grew past 1400 characters, which put the first
@@ -74,7 +76,8 @@ test('the board publisher tests its arguments before anything else', () => {
   // 'board'"). Match.test does not count; check(x, Match.Any) does, and never
   // throws.
   assert.ok(/check\(boardId, Match\.Any\);/.test(head)
-    && /check\(isArchived, Match\.Any\);/.test(head),
+    && /check\(isArchived, Match\.Any\);/.test(head)
+    && /check\(generation, Match\.Any\);/.test(head),
     'every argument must be check()ed with Match.Any, or the audit throws');
   assert.ok(head.indexOf('check(boardId, Match.Any)') < head.indexOf('Match.test(boardId'),
     'marked first, validated second');

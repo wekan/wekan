@@ -107,16 +107,33 @@ test.describe('Accessibility', () => {
     // Focus stays inside the dialog in both directions, then returns to the
     // opener when the dialog closes.
     const opener = boardPage.locator('.js-open-list-menu').first();
-    const focusable = popup.locator(
-      'a[href]:visible, button:not([disabled]):visible, input:not([disabled]):visible, select:not([disabled]):visible, textarea:not([disabled]):visible, [tabindex]:not([tabindex="-1"]):visible',
-    );
-    const count = await focusable.count();
-    expect(count).toBeGreaterThan(0);
-    await focusable.nth(count - 1).focus();
+    const focusEdge = async edge => popup.evaluate((dialog, requestedEdge) => {
+      const selector = [
+        'a[href]', 'button:not([disabled])',
+        'input:not([disabled]):not([type="hidden"])',
+        'select:not([disabled])', 'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(',');
+      const controls = Array.from(dialog.querySelectorAll(selector))
+        .filter(element => element.offsetParent !== null && !element.closest('.no-height'));
+      controls[requestedEdge === 'first' ? 0 : controls.length - 1]?.focus();
+      return controls.length;
+    }, edge);
+    expect(await focusEdge('last')).toBeGreaterThan(0);
     await boardPage.keyboard.press('Tab');
-    await expect(focusable.first()).toBeFocused();
+    await expect.poll(() => popup.evaluate(dialog => {
+      const first = Array.from(dialog.querySelectorAll(
+        'a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',
+      )).find(element => element.offsetParent !== null && !element.closest('.no-height'));
+      return document.activeElement === first;
+    })).toBe(true);
     await boardPage.keyboard.press('Shift+Tab');
-    await expect(focusable.nth(count - 1)).toBeFocused();
+    await expect.poll(() => popup.evaluate(dialog => {
+      const controls = Array.from(dialog.querySelectorAll(
+        'a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',
+      )).filter(element => element.offsetParent !== null && !element.closest('.no-height'));
+      return document.activeElement === controls[controls.length - 1];
+    })).toBe(true);
     await closeBtn.click();
     await expect(opener).toBeFocused();
   });

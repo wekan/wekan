@@ -596,7 +596,7 @@ Meteor.methods({
 //
 // If isArchived = false, this will only return board elements which are not archived.
 // If isArchived = true, this will only return board elements which are archived.
-publishComposite('board', async function(boardId, isArchived) {
+publishComposite('board', async function(boardId, isArchived, generation) {
   // A subscription's arguments come from the CLIENT, so they can be anything -
   // including a null board id from a page that subscribed before it knew which
   // board it was on. `check()` throws for that, and a throw inside an ASYNC
@@ -617,8 +617,10 @@ publishComposite('board', async function(boardId, isArchived) {
   // below it.
   check(boardId, Match.Any);
   check(isArchived, Match.Any);
+  check(generation, Match.Any);
   if (!Match.test(boardId, String) || !boardId) return;
   if (!Match.test(isArchived, Boolean)) return;
+  if (generation !== undefined && !Match.test(generation, Number)) return;
 
   // Best-effort, fire-and-forget: copy any board member's external avatar (Sandstorm
   // profile picture, LDAP/OAuth2/OIDC, a pasted URL) into WeKan's own files/avatars so

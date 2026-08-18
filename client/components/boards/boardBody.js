@@ -118,12 +118,23 @@ Template.board.onCreated(function () {
   // Pattern: https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
   this.autorun(() => {
     const currentBoardId = Session.get('currentBoard');
+    // Creating a linked card changes the set of source cards, boards and field
+    // definitions that the composite publication must expose. Reading this
+    // generation lets the link dialog restart the subscription immediately;
+    // otherwise those child cursors are only recalculated after a page reload.
+    const subscriptionGeneration =
+      Session.get('boardSubscriptionGeneration') || 0;
     if (!currentBoardId) {
       this.isBoardReady.set(false);
       return;
     }
 
-    const handle = Meteor.subscribe('board', currentBoardId, false);
+    const handle = Meteor.subscribe(
+      'board',
+      currentBoardId,
+      false,
+      subscriptionGeneration,
+    );
     // Learn this board's card-loading mode (lazy vs eager) so 'auto' can decide
     // per board by size; the flag drives isLazyCards(boardId). #6480.
     Meteor.subscribe('boardCardsLoadingMode', currentBoardId);

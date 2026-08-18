@@ -122,12 +122,14 @@ test.describe('Cards – open & view modes', () => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
+    const cardId = await card.getAttribute('data-card-id');
 
     await card.locator('.minicard-title-edit-zone').click();
-    const editor = card.locator('textarea.js-edit-minicard-title');
+    const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
+    const editor = editingCard.locator('textarea.js-edit-minicard-title');
     await expect(editor).toBeVisible({ timeout: 5_000 });
     await editor.fill('Alpha Card - Inline renamed');
-    await card.locator('button.js-submit-edit-minicard-title').click();
+    await editingCard.locator('button.js-submit-edit-minicard-title').click();
 
     await expect(bp.minicard(listA, 'Alpha Card - Inline renamed')).toBeVisible({
       timeout: 8_000,
@@ -139,12 +141,14 @@ test.describe('Cards – open & view modes', () => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
+    const cardId = await card.getAttribute('data-card-id');
 
     await card.locator('.minicard-title-edit-zone').click();
-    const editor = card.locator('textarea.js-edit-minicard-title');
+    const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
+    const editor = editingCard.locator('textarea.js-edit-minicard-title');
     await expect(editor).toBeVisible({ timeout: 5_000 });
     await editor.fill('   ');
-    await card.locator('button.js-submit-edit-minicard-title').click();
+    await editingCard.locator('button.js-submit-edit-minicard-title').click();
 
     await expect(bp.minicard(listA, 'Alpha Card')).toBeVisible({ timeout: 5_000 });
     await expect(boardPage.locator('.js-card-details')).not.toBeVisible();

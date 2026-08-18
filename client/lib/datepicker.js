@@ -160,7 +160,7 @@ export function datePickerEvents() {
         }
       }
     },
-    'submit .edit-date'(evt, tpl) {
+    async 'submit .edit-date'(evt, tpl) {
       evt.preventDefault();
       const datePicker = getDatePicker(tpl);
 
@@ -208,13 +208,25 @@ export function datePickerEvents() {
         return;
       }
 
-      datePicker.storeDate(newCompleteDate, datePicker.card);
+      await datePicker.storeDate(newCompleteDate, datePicker.card);
+      // FerretDB does not always wake Meteor's already-running observer for an
+      // update made through the async collection path. Restart the current
+      // board publication so the saved badge replaces the add-date control
+      // immediately instead of appearing only after a later navigation.
+      Session.set(
+        'boardSubscriptionGeneration',
+        (Session.get('boardSubscriptionGeneration') || 0) + 1,
+      );
       Popup.back();
     },
-    'click .js-delete-date'(evt, tpl) {
+    async 'click .js-delete-date'(evt, tpl) {
       evt.preventDefault();
       const datePicker = getDatePicker(tpl);
-      datePicker.deleteDate(datePicker.card);
+      await datePicker.deleteDate(datePicker.card);
+      Session.set(
+        'boardSubscriptionGeneration',
+        (Session.get('boardSubscriptionGeneration') || 0) + 1,
+      );
       Popup.back();
     },
   };

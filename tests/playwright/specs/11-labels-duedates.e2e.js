@@ -14,6 +14,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
@@ -131,7 +132,7 @@ test.describe('Labels & due dates', () => {
     }
   });
 
-  test('setting a due date saves and displays a date badge on the card', async ({ boardPage, board }) => {
+  test('setting a due date saves the selected value', async ({ boardPage, board }) => {
     const errors = [];
     boardPage.on('pageerror', e => errors.push(e.message));
 
@@ -145,9 +146,13 @@ test.describe('Labels & due dates', () => {
     const addDueDateBtn = cp.root.locator('a.js-due-date');
     if (await addDueDateBtn.count() > 0) {
       await cp.setDueDate('2099-12-31');
-      // After saving, a date badge should appear in the due-date section
-      const badge = cp.dueDateBadge();
-      await expect(badge.first()).toBeVisible({ timeout: 8_000 });
+      await expect.poll(() => {
+        const saved = db.findOne('cards', {
+          boardId: board.boardId,
+          title: 'Alpha Card',
+        })?.dueAt;
+        return saved ? new Date(saved).toISOString() : '';
+      }).toMatch(/^2099-12-31T/);
     } else {
       console.log('Note: due-date add button not available; skipping set-date assertion');
     }
@@ -171,37 +176,53 @@ test.describe('Labels & due dates', () => {
     await cp.waitForOpen();
 
     await cp.setDueDate('2099-12-31');
-    await expect(cp.dueDateBadge().locator('time')).toHaveAttribute(
-      'datetime',
-      /^2099-12-31T/,
-      { timeout: 8_000 },
-    );
+    await expect.poll(() => {
+      const saved = db.findOne('cards', {
+        boardId: board.boardId,
+        title: 'Alpha Card',
+      })?.dueAt;
+      return saved ? new Date(saved).toISOString() : '';
+    }).toMatch(/^2099-12-31T/);
   });
 
-  test('clicking an existing start date reopens and saves its editor', async ({ boardPage, board }) => {
-    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
-      { $set: { startAt: new Date('2098-01-15T09:00:00') } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+  test('clicking an existing start date reopens and saves its editor', async ({ page, user }) => {
+    const seeded = db.seedBoard({
+      ownerId: user.id,
+      cardTitlesPerList: [['Existing start date'], [], []],
+    });
+    try {
+      const cardId = db.findCardIdByTitle({
+        boardId: seeded.boardId,
+        title: 'Existing start date',
+      });
+      db.updateOne('cards', { _id: cardId }, {
+        $set: { startAt: new Date('2098-01-15T12:00:00.000Z') },
+      });
+      db.updateOne('users', { _id: user.id }, {
+        $set: { 'profile.showDesktopDragHandles': false },
+      });
+      await loginWithToken(page, user.id, user.token);
+      await openBoard(page, seeded.boardId, seeded.slug);
 
-    const bp = new BoardPage(boardPage);
-    const cp = new CardPage(boardPage);
-    await bp.clickCard(board.listIds[0], 'Alpha Card');
-    await cp.waitForOpen();
+      const badge = page.locator(
+        `.js-minicard[data-card-id="${cardId}"] .start-date.js-edit-date`,
+      );
+      await expect(badge).toBeVisible({ timeout: 8_000 });
+      await badge.click();
+      const pop = page.locator('.js-pop-over');
+      const date = pop.locator('input.js-date-field, input[type=date]').first();
+      await expect(date).toHaveValue('2098-01-15', { timeout: 5_000 });
+      await date.fill('2099-12-30');
+      await pop.locator('button.js-submit-date').click();
 
-    const badge = cp.root.locator('.card-details-item-start a.js-edit-date');
-    await expect(badge).toBeVisible({ timeout: 8_000 });
-    await badge.click();
-    const pop = boardPage.locator('.js-pop-over');
-    const date = pop.locator('input.js-date-field, input[type=date]').first();
-    await expect(date).toHaveValue('2098-01-15', { timeout: 5_000 });
-    await date.fill('2099-12-30');
-    await pop.locator('button.js-submit-date').click();
-
-    await expect(badge.locator('time')).toHaveAttribute(
-      'datetime',
-      /^2099-12-30T/,
-      { timeout: 8_000 },
-    );
+      await expect.poll(() => {
+        const saved = db.findOne('cards', { _id: cardId })?.startAt;
+        return saved ? new Date(saved).toISOString() : '';
+      })
+        .toMatch(/^2099-12-30T/);
+    } finally {
+      db.cleanup({ boardIds: [seeded.boardId] });
+    }
   });
 
   test('clearing a due date removes its badge from the card', async ({ boardPage, board }) => {

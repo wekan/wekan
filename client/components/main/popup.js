@@ -3,12 +3,6 @@ import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 import { trapTabKey } from '/client/lib/accessibility';
 
 Popup.template.events({
-  'keydown .js-pop-over'(event) {
-    // Blaze's delegated event currentTarget is not consistently the matched
-    // popup element in every browser.  Trap focus in the popup containing the
-    // actual key target, not in the template's outer event container.
-    trapTabKey(event, event.target.closest('.js-pop-over'));
-  },
   'click .js-back-view'() {
     Popup.back();
   },
@@ -57,6 +51,10 @@ Popup.template.events({
 // we need to wait for the container translation to end before removing the
 // actual DOM element. For that purpose we use the undocumented `_uihooks` API.
 Popup.template.onRendered(function () {
+  this._popupElement = this.find('.js-pop-over');
+  this._focusTrap = event => trapTabKey(event, this._popupElement);
+  this._popupElement?.addEventListener('keydown', this._focusTrap);
+
   const container = this.find('.content-container');
   if (!container) {
     return;
@@ -69,4 +67,8 @@ Popup.template.onRendered(function () {
       });
     },
   };
+});
+
+Popup.template.onDestroyed(function () {
+  this._popupElement?.removeEventListener('keydown', this._focusTrap);
 });

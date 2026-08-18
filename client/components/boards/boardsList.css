@@ -1444,7 +1444,7 @@
        margin is gone (below) and the gap is the whole answer. */
     gap: 10px;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: visible !important;
     overflow-x: hidden;
     padding: 0 0.25rem;
     margin: 0;
