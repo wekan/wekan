@@ -142,6 +142,10 @@ Template.cardCustomField.events({
   'click .js-edit-card-custom-field-value': openCustomFieldValueEditor,
 });
 
+function persistedEditValue() {
+  return Template.instance().data?.value;
+}
+
 // Titles belong to Template.cardCustomField, while displayed values belong to
 // these nested type templates. Register on both sides of the Blaze boundary so
 // every title, value and type-specific empty edit area behaves consistently.
@@ -164,6 +168,10 @@ Template['cardCustomField-text'].onCreated(function () {
   this.customFieldId = Template.currentData()._id;
 });
 
+Template['cardCustomField-text'].helpers({
+  editValue: persistedEditValue,
+});
+
 Template['cardCustomField-text'].events({
   'submit .js-card-customfield-text'(event, tpl) {
     event.preventDefault();
@@ -179,6 +187,7 @@ Template['cardCustomField-number'].onCreated(function () {
 });
 
 Template['cardCustomField-number'].helpers({
+  editValue: persistedEditValue,
   // Render blank / cleared / non-numeric values as empty instead of "NaN" (#2091).
   formattedValue() {
     return formatNumberValue(this.value);
@@ -201,6 +210,10 @@ Template['cardCustomField-number'].events({
 Template['cardCustomField-checkbox'].onCreated(function () {
   this.card = getCurrentCardFromContext();
   this.customFieldId = Template.currentData()._id;
+});
+
+Template['cardCustomField-checkbox'].helpers({
+  editValue: persistedEditValue,
 });
 
 Template['cardCustomField-checkbox'].events({
@@ -249,6 +262,7 @@ Template['cardCustomField-currency'].onCreated(function () {
 });
 
 Template['cardCustomField-currency'].helpers({
+  editValue: persistedEditValue,
   formattedValue() {
     const locale = TAPi18n.getLanguage();
     const tpl = Template.instance();
@@ -358,7 +372,6 @@ Template['cardCustomField-dropdown'].onCreated(function () {
   const data = Template.currentData();
   this.card = getCurrentCardFromContext();
   this.customFieldId = data._id;
-  this.selectedValue = data.value ?? '';
   this._items = data.definition.settings.dropdownItems;
   this.items = this._items.slice(0);
   this.items.unshift({
@@ -372,7 +385,7 @@ Template['cardCustomField-dropdown'].helpers({
     return Template.instance().items;
   },
   isSelectedItem(itemId) {
-    return Template.instance().selectedValue === itemId;
+    return (Template.instance().data.value ?? '') === itemId;
   },
   selectedItem() {
     const tpl = Template.instance();

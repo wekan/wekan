@@ -40,9 +40,9 @@ template(name="customFieldCopyButton")
 template(name="cardCustomField-text")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-text")
-            +customFieldCopyButton(value=value)
+            +customFieldCopyButton(value=editValue)
             +editor(autofocus=true hideCopy=true)
-                = value
+                = editValue
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
@@ -62,8 +62,8 @@ template(name="cardCustomField-text")
 template(name="cardCustomField-number")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-number")
-            +customFieldCopyButton(value=value)
-            input(type="number" value=data.value)
+            +customFieldCopyButton(value=editValue)
+            input(type="number" value=editValue)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
@@ -84,10 +84,10 @@ template(name="cardCustomField-checkbox")
     generic checklist handler can interpret the click.
   if canModifyCard
     +inlinedForm(classNames="js-card-customfield-checkbox-editor")
-      +customFieldCopyButton(value=value)
+      +customFieldCopyButton(value=editValue)
       label.check-box-container
-        input.js-card-customfield-checkbox-input(type="checkbox" checked=value)
-        .check-box.materialCheckBox(class="{{#if value}}is-checked{{/if}}")
+        input.js-card-customfield-checkbox-input(type="checkbox" checked=editValue)
+        .check-box.materialCheckBox(class="{{#if editValue}}is-checked{{/if}}")
       .edit-controls.clearfix
         button.primary(type="submit") {{_ 'save'}}
         a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
@@ -103,8 +103,8 @@ template(name="cardCustomField-checkbox")
 template(name="cardCustomField-currency")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-currency")
-            +customFieldCopyButton(value=value)
-            input(type="text" value=value autofocus)
+            +customFieldCopyButton(value=editValue)
+            input(type="text" value=editValue autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
                 a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")

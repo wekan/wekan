@@ -59,7 +59,7 @@ test('currency save is acknowledged and has an X beside Save', () => {
     'template(name="cardCustomField-date")', templateAt));
   assert.match(templateBody,
     /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
-  assert.match(templateBody, /input\(type="text" value=value autofocus\)/);
+  assert.match(templateBody, /input\(type="text" value=editValue autofocus\)/);
 });
 
 test('dropdown has the standard X immediately beside Save', () => {
@@ -78,14 +78,39 @@ test('dropdown edit mode preselects the saved value', () => {
   const templateBody = template.slice(templateAt, template.indexOf(
     'template(name="cardCustomField-stringtemplate")', templateAt));
 
-  assert.match(clientBody, /this\.selectedValue = data\.value \?\? '';/,
-    'the editor retains the persisted value before entering the option context');
   assert.match(clientBody,
-    /isSelectedItem\(itemId\) \{[\s\S]*Template\.instance\(\)\.selectedValue === itemId;/);
+    /isSelectedItem\(itemId\) \{[\s\S]*Template\.instance\(\)\.data\.value \?\? ''\) === itemId;/,
+    'the option is compared with the current persisted template value');
   assert.match(templateBody,
     /each items[\s\S]*if isSelectedItem _id[\s\S]*selected="selected"/);
   assert.doesNotMatch(templateBody, /\$eq data\.value this\._id/,
     'selection does not read value from the current dropdown-item context');
+});
+
+test('every custom field editor starts with its saved value', () => {
+  assert.match(client,
+    /function persistedEditValue\(\) \{[\s\S]*Template\.instance\(\)\.data\?\.value;/);
+  for (const [type, next] of [
+    ['text', 'number'],
+    ['number', 'checkbox'],
+    ['checkbox', 'currency'],
+    ['currency', 'date'],
+  ]) {
+    const at = template.indexOf(`template(name="cardCustomField-${type}")`);
+    const body = template.slice(at, template.indexOf(
+      `template(name="cardCustomField-${next}")`, at));
+    assert.match(body, /editValue/, `${type} binds its persisted edit value`);
+    assert.match(client,
+      new RegExp(`Template\\['cardCustomField-${type}'\\]\\.helpers\\(\\{[\\s\\S]*?editValue: persistedEditValue`),
+      `${type} exposes the persisted value to its editor`);
+  }
+
+  assert.match(client,
+    /setupDatePicker\(this, \{[\s\S]*initialDate: data\.value \? data\.value : undefined/,
+    'Date initializes its popup from the saved date');
+  assert.match(client,
+    /this\.stringtemplateItems = new ReactiveVar\(Template\.currentData\(\)\.value \?\? \[\]\)/,
+    'String Template initializes its staged inputs from the saved array');
 });
 
 test('number has the standard X immediately beside Save', () => {
