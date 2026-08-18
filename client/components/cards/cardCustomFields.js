@@ -168,11 +168,21 @@ Template['cardCustomField-currency'].helpers({
 });
 
 Template['cardCustomField-currency'].events({
-  'submit .js-card-customfield-currency'(event, tpl) {
+  async 'submit .js-card-customfield-currency'(event, tpl) {
     event.preventDefault();
     // To allow input separated by comma, the comma is replaced by a period.
-    const value = Number(tpl.find('input').value.replace(/,/i, '.'), 10);
-    tpl.card.setCustomField(tpl.customFieldId, value);
+    const value = Number(tpl.find('input').value.trim().replace(/,/g, '.'));
+    if (!Number.isFinite(value)) return;
+    try {
+      await Meteor.callAsync(
+        'setCardCustomFieldCurrency',
+        tpl.card.getRealId(),
+        tpl.customFieldId,
+        value,
+      );
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    }
   },
 });
 

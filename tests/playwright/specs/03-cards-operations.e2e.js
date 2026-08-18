@@ -449,6 +449,38 @@ test.describe('Cards – operations', () => {
       .some(item => item._id === customFieldId)).toBe(false);
   });
 
+  test('currency custom fields save and offer an X beside Save', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+    const customFieldId = db.uid('currencyField');
+    db.insertOne('customFields', {
+      _id: customFieldId, boardIds: [board.boardId], name: 'E2E Budget',
+      type: 'currency', settings: { currencyCode: 'EUR' }, showOnCard: true,
+      automaticallyOnCard: false, alwaysOnCard: false,
+      showLabelOnMiniCard: true, showSumAtTopOfList: false,
+      createdAt: new Date(), modifiedAt: new Date(),
+    });
+    db.updateOne('cards', { _id: cardId }, {
+      $push: { customFields: { _id: customFieldId, value: 0 } },
+    });
+
+    await boardPage.reload();
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+    const field = cp.root.locator('.card-details-item-customfield')
+      .filter({ hasText: 'E2E Budget' });
+    await field.locator('.js-open-inlined-form').click();
+    const form = field.locator('.js-card-customfield-currency');
+    await expect(form.locator('button[type="submit"]')).toBeVisible();
+    await expect(form.locator('.fa-times-thin.js-close-inlined-form')).toBeVisible();
+    await form.locator('input').fill('123,45');
+    await form.locator('button[type="submit"]').click();
+    await expect.poll(() => db.getCard(cardId).customFields
+      .find(item => item._id === customFieldId).value).toBe(123.45);
+  });
+
   // --- Adding a card at top vs bottom of list ---
 
   test('add-to-top places the card first in the list', async ({ boardPage, board }) => {

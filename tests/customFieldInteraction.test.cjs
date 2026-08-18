@@ -42,8 +42,28 @@ test('opened-card checkbox renders the persisted value in its own context', () =
   assert.doesNotMatch(body, /data\.value/);
 });
 
-test('server validates actor, board field definition and checkbox type', () => {
-  for (const method of ['setCardCustomFieldAssigned', 'setCardCustomFieldCheckbox']) {
+test('currency save is acknowledged and has an X beside Save', () => {
+  const clientAt = client.indexOf("async 'submit .js-card-customfield-currency'");
+  const clientBody = client.slice(clientAt, client.indexOf('\n  },', clientAt));
+  assert.match(clientBody,
+    /await Meteor\.callAsync\(\s*'setCardCustomFieldCurrency'/);
+  assert.match(clientBody, /Number\.isFinite\(value\)/);
+  assert.doesNotMatch(clientBody, /tpl\.card\.setCustomField/);
+
+  const templateAt = template.indexOf('template(name="cardCustomField-currency")');
+  const templateBody = template.slice(templateAt, template.indexOf(
+    'template(name="cardCustomField-date")', templateAt));
+  assert.match(templateBody,
+    /button\.primary\(type="submit"\)[\s\S]*a\.fa\.fa-times-thin\.js-close-inlined-form/);
+  assert.match(templateBody, /input\(type="text" value=value autofocus\)/);
+});
+
+test('server validates actor, board field definition and value type', () => {
+  for (const method of [
+    'setCardCustomFieldAssigned',
+    'setCardCustomFieldCheckbox',
+    'setCardCustomFieldCurrency',
+  ]) {
     const at = server.indexOf(`async ${method}(`);
     const body = server.slice(at, server.indexOf('\n  },', at));
     assert.ok(at >= 0, `${method} exists`);
@@ -54,6 +74,9 @@ test('server validates actor, board field definition and checkbox type', () => {
   const checkbox = server.slice(server.indexOf('async setCardCustomFieldCheckbox'));
   assert.match(checkbox, /type: 'checkbox'/);
   assert.match(checkbox, /if \(index < 0\) throw new Meteor\.Error\('custom-field-not-on-card'\)/);
+  const currency = server.slice(server.indexOf('async setCardCustomFieldCurrency'));
+  assert.match(currency, /type: 'currency'/);
+  assert.match(currency, /Number\.isFinite\(value\)/);
 });
 
 test('deleted definitions are omitted from detailed exports', () => {

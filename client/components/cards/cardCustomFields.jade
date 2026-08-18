@@ -78,10 +78,10 @@ template(name="cardCustomField-checkbox")
 template(name="cardCustomField-currency")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-currency")
-            input(type="text" value=data.value autofocus)
+            input(type="text" value=value autofocus)
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
-                a.js-close-inlined-form
+                a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close'}}")
         else
             a.js-open-inlined-form
                 if value

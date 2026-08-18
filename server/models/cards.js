@@ -192,6 +192,37 @@ Meteor.methods({
     return value;
   },
 
+  async setCardCustomFieldCurrency(cardId, customFieldId, value) {
+    check(cardId, String);
+    check(customFieldId, String);
+    check(value, Number);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    if (!Number.isFinite(value)) {
+      throw new Meteor.Error('invalid-custom-field-value');
+    }
+
+    const card = await Cards.findOneAsync(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    const board = await Boards.findOneAsync(card.boardId);
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const definition = await CustomFields.findOneAsync({
+      _id: customFieldId,
+      boardIds: card.boardId,
+      type: 'currency',
+    });
+    if (!definition) throw new Meteor.Error('custom-field-not-found');
+
+    const index = (card.customFields || []).findIndex(field =>
+      field && field._id === customFieldId);
+    if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
+    await Cards.updateAsync(cardId, {
+      $set: { [`customFields.${index}.value`]: value },
+    });
+    return value;
+  },
+
   // Server-authoritative subtask creation. Fixes:
   //  - #3868 / #5788 / #2256 "extra swimlane / column on subtask creation" and
   //    #4782 "can not create more than one subtask": the default subtasks
