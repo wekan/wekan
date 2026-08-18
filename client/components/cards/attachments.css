@@ -80,6 +80,8 @@
   color: #666;
 }
 #viewer-overlay {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -88,11 +90,16 @@
   z-index: 9999 !important;
   background: rgba(13, 13, 13, 0.95);
 }
+#viewer-overlay.hidden {
+  display: none;
+}
 #viewer-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
 }
 #viewer-top-bar {
   display: flex;
@@ -100,6 +107,8 @@
   justify-content: space-between;
   width: 100%;
   padding: 16px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
 }
 #attachment-name {
   color: white;
@@ -276,8 +285,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: calc(100% - 50px);
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
 }
 #image-viewer {
   background: repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) 50% /
@@ -293,12 +304,12 @@
   max-width: 100%;
 }
 #pdf-viewer {
-  width: 560px;
+  width: 100%;
   height: 100%;
 }
 #txt-viewer {
   background-color: white;
-  width: 560px;
+  width: 100%;
   height: 100%;
 }
 .pdf-preview-error {
@@ -306,12 +317,6 @@
   display: block;
   font-size: 2em;
   color: white;
-}
-
-@media screen and (max-width: 1600px) {
-  #pdf-viewer {
-    width: 840px;
-  }
 }
 
 @media screen and (max-width: 800px) {

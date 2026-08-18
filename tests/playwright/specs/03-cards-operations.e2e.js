@@ -22,6 +22,27 @@ const CardPage = require('../pages/CardPage');
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 test.describe('Cards – operations', () => {
+  test('#6612 attachment viewer uses most of a desktop viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 1600, height: 900 });
+    await page.goto(BASE_URL);
+    await page.waitForSelector('#viewer-overlay');
+    const dimensions = await page.evaluate(() => {
+      const overlay = document.querySelector('#viewer-overlay');
+      const pdf = document.querySelector('#pdf-viewer');
+      overlay.classList.remove('hidden');
+      pdf.classList.remove('hidden');
+      const result = {
+        overlayWidth: overlay.getBoundingClientRect().width,
+        pdfWidth: pdf.getBoundingClientRect().width,
+      };
+      overlay.classList.add('hidden');
+      pdf.classList.add('hidden');
+      return result;
+    });
+    expect(dimensions.overlayWidth).toBeGreaterThanOrEqual(1500);
+    expect(dimensions.pdfWidth).toBeGreaterThanOrEqual(1200);
+  });
+
   // --- Archive / Unarchive ---
 
   test('archiving a card removes it from board view', async ({ boardPage, board }) => {
