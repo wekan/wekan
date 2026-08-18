@@ -407,12 +407,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **card details** restore checkbox custom fields and cross-board
+card links, omit deleted custom fields from exports, and make attachment
+previews use the available viewport. Positive, negative and browser regression
+coverage keeps each interaction working.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -424,6 +422,56 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Card details** - fields, attachments and links on an opened card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b79ba82bae427dea360a32e999877248bab3183a">Checkbox custom fields respond, stay removed, and leave clean exports</a>. Thanks to Heart1010 and xet7.</summary>
+
+Selecting a custom field and changing a checkbox now use acknowledged server
+methods with board-write and field-definition checks. A rejected optimistic
+client write can therefore no longer make a checkbox appear inert or make a
+deselected field spring back. PDF and Excel export also omit an orphan field
+whose definition has been deleted instead of exposing its internal ID.
+
+Unit tests cover successful writes, authorization and field-type failures, and
+the orphan export case. The browser test checks a checkbox and removes its
+field from an opened card.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/195cdc36d0980352e315a4432faea97303d7788c">Attachment previews use the available viewport</a>. Thanks to rmb82 and xet7.</summary>
+
+Desktop PDF and text previews were fixed at 560 pixels wide, while a misplaced
+media query changed them to 840 pixels only on narrower screens. The overlay is
+now a viewport-filling flex layout: document viewers take the space between the
+navigation controls, images retain their aspect ratio, and mobile controls keep
+their compact layout. Static positive and negative tests reject another fixed
+desktop document width, and a browser test measures the rendered preview.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56cfcd1d970795f1728b358c527f008de0aea57d">Cross-board card links are created and their dialog closes</a>. Thanks to ClemStrummer and xet7.</summary>
+
+The Link dialog directly inserted its pointer card from the client, so a server
+rejection could undo the optimistic insert and leave the dialog open without an
+explanation. It now awaits one server-authoritative operation and closes only
+after success. The server verifies read access to the source, write access to
+the destination, the selected list and swimlane, and rejects archived,
+same-board, template and link-pointer targets.
+
+Method tests cover the acknowledged path and invalid targets. The browser test
+follows the reported board, swimlane, list, card and position selection, then
+checks both the closed dialog and the stored linked card.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.02 2026-08-18 WeKan ® release
 
