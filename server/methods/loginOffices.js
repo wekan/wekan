@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import LoginAddresses from '/models/loginAddresses';
+import * as tenantAdmin from '/models/lib/tenantAdmin';
 
-const { officeSummary, tallyList } = require('/models/lib/loginTally');
+const {
+  officeSummary, tallyList, loginLocationsByCountry,
+} = require('/models/lib/loginTally');
 
 // The legacy address-grouped endpoint still uses this for loginOffice().
 async function withIdentities(summary) {
@@ -100,8 +103,45 @@ async function requireAdmin(context) {
   }
 }
 
+async function visiblePeople(context, userIds) {
+  const caller = context.userId && await Meteor.users.findOneAsync(
+    context.userId, { fields: { isAdmin: 1, orgs: 1 } });
+  if (!tenantAdmin.canOpenAdminPanel(caller)) {
+    throw new Meteor.Error('not-authorized', 'Admin access required');
+  }
+  return Meteor.users.find(
+    tenantAdmin.peopleScopeSelector(caller, { _id: { $in: userIds } }),
+    { fields: { username: 1, loginAddresses: 1 } },
+  ).fetchAsync();
+}
+
+async function locationReports(users) {
+  const addresses = [...new Set(users.flatMap(user =>
+    tallyList(user.loginAddresses).map(entry => entry.value)))];
+  const docs = addresses.length ? await LoginAddresses.find(
+    { address: { $in: addresses } },
+    { fields: { address: 1, ipv4: 1, ipv6: 1, location: 1 } },
+  ).fetchAsync() : [];
+  return users.map(user => ({
+    userId: user._id,
+    username: user.username || user._id,
+    countries: loginLocationsByCountry(user, docs),
+  }));
+}
+
 if (Meteor.isServer) {
   Meteor.methods({
+    // Country counters for the current People page, and the rows behind each
+    // counter. Returning one authorized batch avoids one method call per user.
+    async peopleLoginLocations(userIds) {
+      check(userIds, [String]);
+      if (userIds.length > 200) {
+        throw new Meteor.Error('too-many-users', 'At most 200 users per page');
+      }
+      const users = await visiblePeople(this, [...new Set(userIds)]);
+      return locationReports(users);
+    },
+
     // People first, with all of each person's addresses kept together.
     async loginOffices(options) {
       check(options, Match.Optional({

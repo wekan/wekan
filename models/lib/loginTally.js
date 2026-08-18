@@ -27,6 +27,7 @@
 
 const crypto = require('crypto');
 const { classifyAddress } = require('./ipAddress');
+const { countryFlag } = require('./geoHeaders');
 
 // How many addresses one account will name, and how many accounts one address
 // will name, before the rest are counted rather than listed.
@@ -136,6 +137,48 @@ function officeRowsByPerson(people = []) {
   })));
 }
 
+// One person's successful logins grouped by the country currently recorded for
+// each address. Older per-user tallies predate location storage, so the address
+// collection supplies the location; counts and time windows always remain the
+// person's own, never the address-wide totals.
+function loginLocationsByCountry(user, addressDocs = []) {
+  const byAddress = new Map(addressDocs.map(doc => [doc.address, doc]));
+  const countries = new Map();
+  for (const entry of tallyList(user && user.loginAddresses)) {
+    const doc = byAddress.get(entry.value) || {};
+    const location = entry.location || doc.location || null;
+    const country = String(location && location.country || '').toUpperCase();
+    if (!/^[A-Z]{2}$/.test(country) || country === 'XX' || country === 'T1') continue;
+    if (!countries.has(country)) {
+      countries.set(country, {
+        country,
+        flag: countryFlag(country),
+        count: 0,
+        rows: [],
+      });
+    }
+    const group = countries.get(country);
+    group.count += entry.count || 0;
+    group.rows.push({
+      city: location.city || location.region || country,
+      ipv4: doc.ipv4 || (entry.family === 'ipv4' ? entry.value : ''),
+      ipv6: doc.ipv6 || (entry.family === 'ipv6' ? entry.value : ''),
+      firstAt: entry.firstAt,
+      at: entry.at,
+      count: entry.count || 0,
+    });
+  }
+  return [...countries.values()]
+    .map(group => ({
+      ...group,
+      rows: group.rows.sort((a, b) => (b.count || 0) - (a.count || 0)
+        || String(a.city).localeCompare(String(b.city))
+        || String(a.ipv4 || a.ipv6).localeCompare(String(b.ipv4 || b.ipv6))),
+    }))
+    .sort((a, b) => (b.count || 0) - (a.count || 0)
+      || a.country.localeCompare(b.country));
+}
+
 module.exports = {
   MAX_ADDRESSES_PER_USER,
   MAX_USERS_PER_ADDRESS,
@@ -148,4 +191,5 @@ module.exports = {
   isSharedAddress,
   officeSummary,
   officeRowsByPerson,
+  loginLocationsByCountry,
 };

@@ -71,8 +71,10 @@ function peopleListChanged() {
 }
 let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg' or 'removeTeam' when adding or modifying a user
 let selectedUserChkBoxUserIds = [];
+let activePeopleTemplate = null;
 
 Template.people.onCreated(function () {
+  activePeopleTemplate = this;
   this.infiniteScrolling = new InfiniteScrolling();
 
   this.error = new ReactiveVar('');
@@ -101,6 +103,34 @@ Template.people.onCreated(function () {
   // record is always in minimongo - so the table renders this list, not everything
   // a `Users.find()` happens to match. See getPeoplePageIds in server/models/users.js.
   this.peoplePageIds = new ReactiveVar([]);
+  this.peopleLoginLocations = new ReactiveVar({});
+  this.loginLocationReport = new ReactiveVar(null);
+  this.loginLocationCountry = new ReactiveVar('');
+  this.loginLocationSearch = new ReactiveVar('');
+  this.loginLocationPage = new ReactiveVar(1);
+  this.peopleLoginLocationsRequest = 0;
+  this.loadPeopleLoginLocations = userIds => {
+    const request = ++this.peopleLoginLocationsRequest;
+    Meteor.call('peopleLoginLocations', userIds, (error, reports) => {
+      if (request !== this.peopleLoginLocationsRequest) return;
+      if (error) {
+        console.error('Failed to load people login locations:', error);
+        return;
+      }
+      const byUser = {};
+      (reports || []).forEach(report => { byUser[report.userId] = report; });
+      this.peopleLoginLocations.set(byUser);
+    });
+  };
+  this.openLoginLocationReport = (userId, country) => {
+    const report = this.peopleLoginLocations.get()[userId];
+    if (!report || !report.countries || !report.countries.length) return;
+    this.loginLocationReport.set(report);
+    const requested = report.countries.find(item => item.country === country);
+    this.loginLocationCountry.set((requested || report.countries[0]).country);
+    this.loginLocationSearch.set('');
+    this.loginLocationPage.set(1);
+  };
   this.userFilterType = new ReactiveVar('all');
   // The search box lives in the shared controls row now, so keep the term in
   // state rather than reading it back out of a DOM id.
@@ -399,6 +429,7 @@ Template.people.onCreated(function () {
           return;
         }
         this.peoplePageIds.set(Array.isArray(ids) ? ids : []);
+        this.loadPeopleLoginLocations(Array.isArray(ids) ? ids : []);
         // The total moves with the page's contents, so it is refreshed here too:
         // the subscription's ready callback only fires the first time.
         this.refreshUsersCount();
@@ -416,6 +447,10 @@ Template.people.onCreated(function () {
       this.refreshUsersCount();
     });
   });
+});
+
+Template.people.onDestroyed(function () {
+  if (activePeopleTemplate === this) activePeopleTemplate = null;
 });
 
 // The People side menu, as data (docs/Features/Page/Left-Menu.md). Locked users
@@ -506,9 +541,20 @@ const PEOPLE_COLUMNS = [
   { labelKey: 'email' },
   { labelKey: 'admin' },
   { labelKey: 'active-person' },
+  { labelKey: 'location' },
   { labelKey: 'accounts-lockout-status' },
   { labelKey: 'createdAt' },
   { headerTemplate: 'selectAllUser' },
+];
+
+const LOGIN_LOCATION_COLUMNS = [
+  { labelKey: 'office-location', value: row => row.city },
+  { labelKey: 'event-ipv4', nowrap: true, value: row => row.ipv4 },
+  { labelKey: 'event-ipv6', nowrap: true, value: row => row.ipv6 },
+  { labelKey: 'office-first-seen', nowrap: true,
+    value: row => (row.firstAt ? new Date(row.firstAt).toLocaleString() : '') },
+  { labelKey: 'office-last-seen', nowrap: true,
+    value: row => (row.at ? new Date(row.at).toLocaleString() : '') },
 ];
 
 const TEAM_COLUMNS = [
@@ -579,7 +625,10 @@ Template.people.helpers({
       ]),
       header: buildHeader(PEOPLE_COLUMNS),
       rowTemplate: 'peopleRow',
-      docs: users.map(user => ({ user })),
+      docs: users.map(user => ({
+        user,
+        countries: (tpl.peopleLoginLocations.get()[user._id] || {}).countries || [],
+      })),
       rowCount: users.length,
       page: tpl.peoplePage.get(),
       totalPages,
@@ -645,6 +694,54 @@ Template.people.helpers({
   menuItems() {
     return leftMenuData(peopleMenu(ReactiveCache.getCurrentUser()),
       Template.instance().activeMenuId.get());
+  },
+  loginLocationReportOpen() {
+    return !!Template.instance().loginLocationReport.get();
+  },
+  loginLocationMenuItems() {
+    const tpl = Template.instance();
+    const report = tpl.loginLocationReport.get();
+    const items = (report && report.countries || []).map(country => ({
+      id: `login-country-${country.country}`,
+      icon: 'fa-map-marker',
+      label: `${country.flag} ${country.country} (${country.count})`,
+    }));
+    return leftMenuData(items, `login-country-${tpl.loginLocationCountry.get()}`);
+  },
+  loginLocationPaneTitle() {
+    const tpl = Template.instance();
+    const report = tpl.loginLocationReport.get();
+    const country = report && report.countries.find(
+      item => item.country === tpl.loginLocationCountry.get());
+    return { label: report && country
+      ? `${report.username} — ${country.flag} ${country.country}` : '' };
+  },
+  loginLocationTablePageData() {
+    const tpl = Template.instance();
+    const report = tpl.loginLocationReport.get();
+    const country = report && report.countries.find(
+      item => item.country === tpl.loginLocationCountry.get());
+    const term = tpl.loginLocationSearch.get().trim().toLowerCase();
+    const all = (country && country.rows || []).filter(row => !term
+      || [row.city, row.ipv4, row.ipv6].some(value =>
+        String(value || '').toLowerCase().includes(term)));
+    const info = pageInfo(all.length, tpl.loginLocationPage.get());
+    const pageRows = all.slice((info.page - 1) * TABLE_PAGE_ROWS_PER_PAGE,
+      info.page * TABLE_PAGE_ROWS_PER_PAGE);
+    return {
+      searchTerm: tpl.loginLocationSearch.get(),
+      actions: buildActions([{ id: 'back-from-login-locations', icon: 'fa-arrow-left',
+        labelKey: 'back' }]),
+      emptyKey: 'no-items-message',
+      header: buildHeader(LOGIN_LOCATION_COLUMNS),
+      rows: buildRows(pageRows, LOGIN_LOCATION_COLUMNS),
+      rowCount: pageRows.length,
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+      total: all.length,
+    };
   },
   // The heading above the pane: the open menu entry's own label
   // (docs/Features/Page/Left-Menu.md). Every Admin Panel page renders one, so no pane
@@ -830,6 +927,12 @@ Template.people.events({
   'keydown .js-table-page-search'(event, tpl) {
     if (event.keyCode !== 13 || event.shiftKey) return;
     const value = $(event.currentTarget).val() || '';
+    if (tpl.loginLocationReport.get()) {
+      event.preventDefault();
+      tpl.loginLocationSearch.set(value);
+      tpl.loginLocationPage.set(1);
+      return;
+    }
     // One search box, three panes. They all render inside this template and carry
     // the same class, so the open pane decides what the box searches - the same way
     // the pager and the filters are scoped.
@@ -860,8 +963,14 @@ Template.people.events({
   },
   'click .js-table-page-action'(event, tpl) {
     if (tpl.activeMenuId.get() !== 'people-setting') return;
-    event.preventDefault();
     const action = event.currentTarget.getAttribute('data-action');
+    if (action === 'back-from-login-locations') {
+      event.preventDefault();
+      tpl.loginLocationReport.set(null);
+      tpl.loginLocationCountry.set('');
+      return;
+    }
+    event.preventDefault();
     if (action === 'add-remove-teams') {
       document.getElementById('divAddOrRemoveTeamContainer').style.display = 'block';
     } else if (action === 'unlock-all') {
@@ -884,6 +993,13 @@ Template.people.events({
   // Teams gains a working PREV in the process: it had a prev button in its old
   // markup and no handler behind it, so paging back was silently dead.
   'click .js-table-page-prev'(event, tpl) {
+    if (tpl.loginLocationReport.get()) {
+      event.preventDefault();
+      if (tpl.loginLocationPage.get() > 1) {
+        tpl.loginLocationPage.set(tpl.loginLocationPage.get() - 1);
+      }
+      return;
+    }
     const pane = tpl.activeMenuId.get();
     event.preventDefault();
     if (pane === 'org-setting' && tpl.orgPage.get() > 1) {
@@ -895,6 +1011,18 @@ Template.people.events({
     }
   },
   'click .js-table-page-next'(event, tpl) {
+    if (tpl.loginLocationReport.get()) {
+      event.preventDefault();
+      const report = tpl.loginLocationReport.get();
+      const country = report.countries.find(
+        item => item.country === tpl.loginLocationCountry.get());
+      const totalPages = Math.max(1, Math.ceil(
+        ((country && country.rows.length) || 0) / TABLE_PAGE_ROWS_PER_PAGE));
+      if (tpl.loginLocationPage.get() < totalPages) {
+        tpl.loginLocationPage.set(tpl.loginLocationPage.get() + 1);
+      }
+      return;
+    }
     const pane = tpl.activeMenuId.get();
     event.preventDefault();
     const pages = (total, per) => Math.max(1, Math.ceil((total || 0) / per));
@@ -924,6 +1052,13 @@ Template.people.events({
   // The per-pane extras (reset to page 1, refresh that pane's total) stay.
   'click .js-left-menu-item'(event, tpl) {
     const targetID = $(event.currentTarget).data('id');
+    if (tpl.loginLocationReport.get() && String(targetID).startsWith('login-country-')) {
+      event.preventDefault();
+      tpl.loginLocationCountry.set(String(targetID).slice('login-country-'.length));
+      tpl.loginLocationSearch.set('');
+      tpl.loginLocationPage.set(1);
+      return;
+    }
     tpl.switchMenu(event);
     // ...and into the address bar, so the pane can be linked and bookmarked.
     const path = adminPath('people', targetID);
@@ -1246,6 +1381,10 @@ Template.teamRow.helpers({
 });
 
 Template.peopleRow.helpers({
+  loginCountries() {
+    const userId = this.user && this.user._id;
+    return (this.countries || []).map(country => ({ ...country, userId }));
+  },
   userData() {
     // Depend on global avatar update counter to reactively update when avatars change
     avatarUpdateCounter.get();
@@ -1501,6 +1640,14 @@ Template.teamRow.events({
 });
 
 Template.peopleRow.events({
+  'click .js-open-login-country'(event) {
+    event.preventDefault();
+    if (activePeopleTemplate) {
+      activePeopleTemplate.openLoginLocationReport(
+        event.currentTarget.getAttribute('data-user-id'),
+        event.currentTarget.getAttribute('data-country'));
+    }
+  },
   'click a.edit-user'(event) {
     // Get the user ID from the data attribute
     const userId = event.currentTarget.getAttribute('data-user-id');

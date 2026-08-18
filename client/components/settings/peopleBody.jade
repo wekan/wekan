@@ -11,38 +11,44 @@ template(name="people")
       //- the left menu highlights the open pane, so a third line repeating the pane
       //- name only cost vertical space. Admin Panel / Problems never had one.
       .content-body
-        +leftMenu(menuItems)
-        .main-body
-          //- Every Admin Panel pane opens with the same heading, and it is the
-          //- open menu entry's own label (docs/Features/Page/Left-Menu.md).
-          +paneTitle(paneTitleData)
-          //- Login and E-mail moved here from Admin Panel / Settings. Their templates
-          //- still live in settingBody.jade beside the other settings panes - Blaze
-          //- templates are global - and their handlers moved onto those templates so
-          //- they fire wherever the pane is rendered.
-          //- The comment lives ABOVE the chain on purpose: a comment BETWEEN `if` and
-          //- `else if` splits them, and the orphaned `else if` fails the build with
-          //- "Can't use the built-in 'if' here".
-          if loading.get
-            +spinner
-          else if registrationSetting.get
-            +general
-          else if emailSetting.get
-            +email
-          else if orgSetting.get
-            +orgGeneral(orgTablePageData)
-          else if teamSetting.get
-            +teamGeneral(teamTablePageData)
-          else if peopleSetting.get
-            +peopleGeneral(peopleTablePageData)
-          else if lockedUsersSetting.get
-            +lockedUsersGeneral
-          else if rolesSetting.get
-            +rolesGeneral
-          else if templatesSetting.get
-            +templatesGeneral
-          else if domainSetting.get
-            +domainGeneral
+        if loginLocationReportOpen
+          +leftMenu(loginLocationMenuItems)
+          .main-body
+            +paneTitle(loginLocationPaneTitle)
+            +tablePage(loginLocationTablePageData)
+        else
+          +leftMenu(menuItems)
+          .main-body
+            //- Every Admin Panel pane opens with the same heading, and it is the
+            //- open menu entry's own label (docs/Features/Page/Left-Menu.md).
+            +paneTitle(paneTitleData)
+            //- Login and E-mail moved here from Admin Panel / Settings. Their templates
+            //- still live in settingBody.jade beside the other settings panes - Blaze
+            //- templates are global - and their handlers moved onto those templates so
+            //- they fire wherever the pane is rendered.
+            //- The comment lives ABOVE the chain on purpose: a comment BETWEEN `if` and
+            //- `else if` splits them, and the orphaned `else if` fails the build with
+            //- "Can't use the built-in 'if' here".
+            if loading.get
+              +spinner
+            else if registrationSetting.get
+              +general
+            else if emailSetting.get
+              +email
+            else if orgSetting.get
+              +orgGeneral(orgTablePageData)
+            else if teamSetting.get
+              +teamGeneral(teamTablePageData)
+            else if peopleSetting.get
+              +peopleGeneral(peopleTablePageData)
+            else if lockedUsersSetting.get
+              +lockedUsersGeneral
+            else if rolesSetting.get
+              +rolesGeneral
+            else if templatesSetting.get
+              +templatesGeneral
+            else if domainSetting.get
+              +domainGeneral
 
 
 template(name="orgGeneral")
@@ -266,6 +272,11 @@ template(name="peopleRow")
       else
         span.text-green.js-toggle-active-status(data-user-id=userData._id, data-is-active="true", title="{{_ 'admin-people-user-active'}}")
           i.fa.fa-check
+    td.people-login-locations
+      each loginCountries
+        button.js-open-login-country(type="button", data-user-id="{{userId}}", data-country="{{country}}", title="{{country}}")
+          span(aria-hidden="true") {{flag}}
+          span {{count}}
     td.account-status
       if isUserLocked
         span.text-red.js-toggle-lock-status.emoji-icon(data-user-id=userData._id, data-is-locked="true", title="{{_ 'accounts-lockout-click-to-unlock'}}")

@@ -21,7 +21,9 @@ Module._load = function load(request, parent, isMain) {
   }
   return originalLoad.call(this, request, parent, isMain);
 };
-const { officeRowsByPerson } = require('../models/lib/loginTally');
+const {
+  officeRowsByPerson, loginLocationsByCountry,
+} = require('../models/lib/loginTally');
 Module._load = originalLoad;
 const { locationFromHeaders, officeLabel } = require('../models/lib/geoHeaders');
 
@@ -82,6 +84,45 @@ test('an address without location headers remains visible without invented geogr
   assert.deepStrictEqual(officeLabel(null), { flag: '', text: '' });
 });
 
+test('one person is grouped into country counters with per-address city rows', () => {
+  const user = { _id: 'u1', loginAddresses: { entries: {
+    a: { value: '203.0.113.4', family: 'ipv4', count: 7,
+      firstAt: new Date('2026-01-01'), at: new Date('2026-02-01') },
+    b: { value: '2001:db8::4', family: 'ipv6', count: 3,
+      firstAt: new Date('2026-03-01'), at: new Date('2026-04-01') },
+    c: { value: '198.51.100.8', family: 'ipv4', count: 2,
+      firstAt: new Date('2026-05-01'), at: new Date('2026-06-01') },
+  } } };
+  const countries = loginLocationsByCountry(user, [
+    { address: '203.0.113.4', ipv4: '203.0.113.4',
+      location: { country: 'FI', city: 'Helsinki' } },
+    { address: '2001:db8::4', ipv6: '2001:db8::4',
+      location: { country: 'FI', city: 'Tampere' } },
+    { address: '198.51.100.8', ipv4: '198.51.100.8',
+      location: { country: 'SE', city: 'Stockholm' } },
+  ]);
+  assert.deepStrictEqual(countries.map(item => [item.country, item.count]),
+    [['FI', 10], ['SE', 2]], 'top country must open first');
+  assert.deepStrictEqual(countries[0].rows.map(row =>
+    [row.city, row.ipv4, row.ipv6, row.count]), [
+    ['Helsinki', '203.0.113.4', '', 7],
+    ['Tampere', '', '2001:db8::4', 3],
+  ]);
+  assert.strictEqual(countries[0].rows[0].firstAt, user.loginAddresses.entries.a.firstAt);
+  assert.strictEqual(countries[0].rows[0].at, user.loginAddresses.entries.a.at);
+});
+
+test('unknown and special location codes do not invent country counters', () => {
+  const user = { loginAddresses: { entries: {
+    a: { value: '203.0.113.4', family: 'ipv4', count: 1 },
+    b: { value: '203.0.113.5', family: 'ipv4', count: 1 },
+  } } };
+  assert.deepStrictEqual(loginLocationsByCountry(user, [
+    { address: '203.0.113.4', location: { country: 'XX' } },
+    { address: '203.0.113.5' },
+  ]), []);
+});
+
 test('the report requests and renders separate IPv4 and IPv6 columns', () => {
   const source = read('client/components/settings/adminProblems.js');
   assert.ok(/labelKey: 'office-people'/.test(source));
@@ -105,8 +146,37 @@ test('the server joins proxy locations without replacing per-person counts', () 
   assert.ok(/logins: entry\.count \|\| 0/.test(source));
   assert.ok(/initials: initialsFor\(user\)/.test(source));
   assert.ok(/return \{ total, people: await peopleSummaries\(users\) \}/.test(source));
-  assert.strictEqual((source.match(/LoginAddresses\.find\(/g) || []).length, 2,
-    'one search lookup and one batched page lookup are enough; do not query once per person');
+  assert.strictEqual((source.match(/LoginAddresses\.find\(/g) || []).length, 3,
+    'Office search, Office page and People-location page each use one batch; '
+    + 'do not query once per person');
+});
+
+test('People puts Location before Status and opens a country-menu table', () => {
+  const js = read('client/components/settings/peopleBody.js');
+  const jade = read('client/components/settings/peopleBody.jade');
+  assert.ok(js.indexOf("labelKey: 'location'")
+    < js.indexOf("labelKey: 'accounts-lockout-status'"));
+  assert.ok(/loginLocationReportOpen[\s\S]*?leftMenu\(loginLocationMenuItems\)[\s\S]*?tablePage\(loginLocationTablePageData\)/
+    .test(jade));
+  for (const key of ['office-location', 'event-ipv4', 'event-ipv6',
+    'office-first-seen', 'office-last-seen']) {
+    assert.ok(js.includes(`labelKey: '${key}'`), `missing detail column ${key}`);
+  }
+  assert.ok(/\(requested \|\| report\.countries\[0\]\)\.country/.test(js),
+    'opening without a matching country must select the top country');
+});
+
+test('login-location methods are batched and tenant-scoped (negative)', () => {
+  const source = read('server/methods/loginOffices.js');
+  assert.ok(/async peopleLoginLocations\(userIds\)/.test(source));
+  assert.ok(/check\(userIds, \[String\]\)/.test(source));
+  assert.ok(/tenantAdmin\.peopleScopeSelector\(caller/.test(source));
+  assert.ok(/userIds\.length > 200/.test(source));
+});
+
+test('new logins retain their supplied location on the person-address tally', () => {
+  const source = read('server/lib/loginTally.js');
+  assert.ok(/if \(location\) \{[\s\S]*?loginAddresses\.entries\.\$\{key\}\.location`] = location/.test(source));
 });
 
 console.log(`\nofficesGroupedByPerson: ${passed} tests passed`);

@@ -58,6 +58,9 @@ export async function recordLogin(user, connection) {
   if (!known.includes(key)) {
     userUpdate.$set[`loginAddresses.entries.${key}.firstAt`] = now;
   }
+  if (location) {
+    userUpdate.$set[`loginAddresses.entries.${key}.location`] = location;
+  }
   delete userUpdate.$setOnInsert;
   await Meteor.users.updateAsync({ _id: user._id }, userUpdate);
 

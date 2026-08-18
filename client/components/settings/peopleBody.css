@@ -229,6 +229,30 @@ table:not(.table-page-table) td:first-child {
   font-weight: 500;
 }
 
+/* Compact country counters in People. They are real buttons because each opens
+   the country/city/address report; wrapping keeps several countries inside the
+   Location column instead of widening the whole Admin Panel. */
+.people-login-locations {
+  white-space: normal;
+}
+.people-login-locations .js-open-login-country {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 26px;
+  margin: 1px 3px 1px 0;
+  padding: 2px 6px;
+  border: 1px solid var(--theme-border, #ccc);
+  border-radius: 12px;
+  background: var(--theme-window, #fff);
+  color: inherit;
+  cursor: pointer;
+}
+.people-login-locations .js-open-login-country:hover,
+.people-login-locations .js-open-login-country:focus-visible {
+  background: var(--theme-hover, #eee);
+}
+
 .username .avatar img.avatar-image {
   object-fit: cover;
   object-position: center;
