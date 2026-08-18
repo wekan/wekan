@@ -410,7 +410,8 @@ browser build to verify).
 **In short:** **card details** restore checkbox custom fields and cross-board
 card links, omit deleted custom fields from exports, and make attachment
 previews use the available viewport. Positive, negative and browser regression
-coverage keeps each interaction working.
+coverage keeps each interaction working. **All Boards** also keeps the complete
+invitation message and its actions visible on phone-sized layouts.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -467,6 +468,24 @@ same-board, template and link-pointer targets.
 Method tests cover the acknowledged path and invalid targets. The browser test
 follows the reported board, swimlane, list, card and position selection, then
 checks both the closed dialog and the stored linked card.
+
+</details>
+
+**All Boards** - the overview on phone-sized layouts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f70de543936bf9dcbea9d973e0831934c83655f0">Phone board invitations show their message and actions</a>. Thanks to mimZD and xet7.</summary>
+
+The compact phone layout forced every board icon to exactly four rem, including
+an invitation that also contains its explanatory message and two touch-size
+buttons. The board tile clipped that overflow, leaving only the title visible.
+Invitation tiles now carry an explicit state class and retain the ordinary
+four-rem floor while growing naturally around the message, Accept and Decline.
+Ordinary board icons remain compact and equal-height.
+
+Static coverage keeps the invitation exception attached to its template state.
+The phone browser regression creates a real pending invitation and verifies
+that its message and both buttons remain visible and inside the tile.
 
 </details>
 
