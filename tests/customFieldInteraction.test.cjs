@@ -14,6 +14,8 @@ const client = read('client/components/cards/cardCustomFields.js');
 const template = read('client/components/cards/cardCustomFields.jade');
 const datepickerTemplate = read('client/components/forms/datepicker.jade');
 const formsCss = read('client/components/forms/forms.css');
+const cardDetailsTemplate = read('client/components/cards/cardDetails.jade');
+const cardDetailsCss = read('client/components/cards/cardDetails.css');
 const server = read('server/models/cards.js');
 
 let passed = 0;
@@ -142,6 +144,12 @@ test('the title and value open editing while checkbox control stays independent'
   assert.match(client,
     /definition\?\.type === 'date'[\s\S]*tpl\.find\('\.js-card-custom-field-date-value'\)[\s\S]*Popup\.open\('cardCustomField-date'\)\.call\(this,[\s\S]*currentTarget: opener/,
     'both title and value route the popup through the visible date anchor');
+  assert.match(cardDetailsTemplate,
+    /card-details-item-customfield\(class="custom-field-type-\{\{definition\.type\}\}"\)/,
+    'each grid cell exposes its field type for type-specific interaction');
+  assert.match(cardDetailsCss,
+    /custom-field-type-date \.js-card-custom-field-date-value \{[\s\S]*?display: block;[\s\S]*?flex: 1;[\s\S]*?min-height: 40px;[\s\S]*?width: 100%/,
+    'the empty area below a date remains part of its edit target');
 
   for (const [type, next] of [
     ['text', 'number'],

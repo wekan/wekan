@@ -504,6 +504,19 @@ body.desktop-mode .card-details.card-details-collapsed {
 .card-details .card-details-item-customfield .js-edit-card-custom-field-value {
   cursor: pointer;
 }
+/* Date's visible text can be shorter than neighboring grid cells. Make the
+   remaining area below that date part of the same edit target, so clicking the
+   blank lower portion opens the popup too. */
+.card-details .card-details-items .card-details-item.card-details-item-customfield.custom-field-type-date {
+  display: flex;
+  flex-direction: column;
+}
+.card-details .card-details-item-customfield.custom-field-type-date .js-card-custom-field-date-value {
+  display: block;
+  flex: 1;
+  min-height: 40px;
+  width: 100%;
+}
 .card-details .card-details-person-controls {
   align-items: flex-start;
   display: flex;
