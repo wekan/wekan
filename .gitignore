@@ -115,3 +115,7 @@ node-patches/
 # MongoDB Database Tools that WeKan's bundled bsondump/mongodump/... are built
 # from, replacing the wekan/mongo-tools source fork.
 mongo-tools-patches/
+
+# Meteor Modern-Tools build context directories
+*/build-assets*
+*/build-chunks*
