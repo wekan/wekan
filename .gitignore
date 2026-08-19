@@ -119,3 +119,7 @@ mongo-tools-patches/
 # Meteor Modern-Tools build context directories
 */build-assets*
 */build-chunks*
+
+# Meteor custom local directory (METEOR_LOCAL_DIR)
+*/build-assets-local-test*
+*/build-chunks-local-test*
