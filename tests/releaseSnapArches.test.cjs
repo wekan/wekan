@@ -125,6 +125,54 @@ test('a slow Launchpad arch can neither fail the release nor cancel another arch
     `timeout-minutes: ${timeout[1]} is over GitHub's per-job ceiling`);
 });
 
+test('Launchpad waits for and verifies its architecture-specific release bundle', () => {
+  const launchpad = job('snap-launchpad');
+  assert.ok(/needs: \[[^\]]*build-extra-arches[^\]]*\]/.test(launchpad),
+    'Launchpad must wait for build-extra-arches; otherwise the snap downloads a '
+    + 'release asset while the job that creates it is still running and gets 404');
+  assert.ok(/ppc64el\) bundle_arch=ppc64le/.test(launchpad),
+    'the Launchpad ppc64el spelling must map to the ppc64le bundle spelling');
+  assert.ok(/asset="wekan-\$\{VERSION\}-\$\{bundle_arch\}\.zip"/.test(launchpad),
+    'the preflight checks the exact bundle snapcraft will download');
+  assert.ok(/gh release view[\s\S]*--json assets[\s\S]*grep -qxF "\$asset"/.test(launchpad),
+    'the release asset must be read back from GitHub before starting Launchpad');
+  assert.ok(/available=false[\s\S]*skipping the .* snap instead of retrying a permanent 404/.test(launchpad),
+    'a missing optional bundle is skipped with its real cause instead of retried');
+
+  for (const step of [
+    'actions/checkout@v7',
+    'Flatten history so the Launchpad push stays small',
+    'Install snapcraft',
+    'Provide Launchpad credentials for remote-build',
+    'Verify snapcraft.yaml version matches the release',
+    'Build the ${{ matrix.arch }} snap on Launchpad',
+    'Push ${{ matrix.arch }} to the Snap Store',
+    'Attach the ${{ matrix.arch }} snap to the GitHub Release',
+  ]) {
+    const at = launchpad.indexOf(step);
+    assert.notStrictEqual(at, -1, `missing Launchpad step: ${step}`);
+    const surrounding = launchpad.slice(at, at + 500);
+    assert.ok(/if: steps\.bundle\.outputs\.available == 'true'/.test(surrounding),
+      `${step} must not run when its runtime bundle is absent`);
+  }
+});
+
+test('a validated snap survives a snapcraft post-download cleanup failure', () => {
+  const launchpad = code(job('snap-launchpad'));
+  const success = launchpad.slice(
+    launchpad.indexOf('snap_ok()'),
+    launchpad.indexOf('if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]'),
+  );
+  assert.ok(/if \[ "\$\{#snaps\[@\]\}" -gt 0 \] && snap_ok "\$\{snaps\[0\]\}"/.test(success),
+    'artifact validity, not snapcraft cleanup status, determines build success');
+  assert.ok(!/"\$rc" -eq 0/.test(success),
+    'the success condition must accept a validated artifact after non-zero cleanup');
+  assert.ok(/snapcraft exited \$rc during post-download cleanup/.test(success),
+    'the non-zero cleanup is retained as a warning, not silently hidden');
+  assert.ok(/snap_ok\(\)/.test(success) && /52428800/.test(success) && /hsqs/.test(success),
+    'acceptance still requires a full-sized squashfs snap');
+});
+
 test('it names the secret it is missing, and the one Launchpad refused', () => {
   // A remote build needs BOTH: SNAP_AUTH to upload, LP_CREDENTIALS to build. The
   // arches that just moved here did not need LP_CREDENTIALS before, so a missing

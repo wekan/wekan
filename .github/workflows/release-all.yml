@@ -4296,7 +4296,11 @@ jobs:
     # ENABLED. `continue-on-error: true` below means a failure here can never
     # fail the release or hold up another job - the point of running it is to
     # SEE what it reports. Disable again with `if: ${{ false }}`.
-    needs: [prepare, release, snap-auth-check]
+    # The snap downloads its WeKan runtime from the architecture-specific asset
+    # attached by build-extra-arches. Waiting only for `release` let Launchpad
+    # start while that asset was still being built, so snapcraft retried a
+    # deterministic GitHub 404 three times.
+    needs: [prepare, release, build-extra-arches, snap-auth-check]
     # ppc64el, s390x and riscv64: none of them has a native GitHub runner, and
     # snapcraft cannot cross-build a snap, so Launchpad remote-build is the only way
     # to build them - QEMU is not. ppc64el and s390x were on a QEMU job
@@ -4365,7 +4369,29 @@ jobs:
           fi
           echo "snap-launchpad: SNAP_AUTH is set and LP_CREDENTIALS decodes to $bytes bytes."
 
+      - name: Check the ${{ matrix.arch }} release bundle exists
+        id: bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          case "${{ matrix.arch }}" in
+            ppc64el) bundle_arch=ppc64le ;;
+            *)       bundle_arch=${{ matrix.arch }} ;;
+          esac
+          asset="wekan-${VERSION}-${bundle_arch}.zip"
+          echo "asset=$asset" >> "$GITHUB_OUTPUT"
+          if gh release view "v${VERSION}" --repo "${GITHUB_REPOSITORY}" \
+            --json assets --jq '.assets[].name' | grep -qxF "$asset"; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            echo "Found $asset; Launchpad can build ${{ matrix.arch }}."
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::$asset is absent after build-extra-arches finished; skipping the ${{ matrix.arch }} snap instead of retrying a permanent 404 on Launchpad."
+          fi
+
       - uses: actions/checkout@v7
+        if: steps.bundle.outputs.available == 'true'
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           # remote-build (Launchpad) rejects shallow clones, so fetch full history
@@ -4373,6 +4399,7 @@ jobs:
           fetch-depth: 0
 
       - name: Flatten history so the Launchpad push stays small
+        if: steps.bundle.outputs.available == 'true'
         # snapcraft remote-build pushes the project's git repository to
         # git.launchpad.net and builds it there. It rejects a SHALLOW clone
         # (that is why the checkout above is fetch-depth: 0), but it does NOT
@@ -4399,6 +4426,7 @@ jobs:
           echo "Re-initialised as one commit; shallow: $(git rev-parse --is-shallow-repository)"
 
       - name: Install snapcraft
+        if: steps.bundle.outputs.available == 'true'
         # The Snap Store intermittently rejects the install with a 429-style rate
         # limit; retry so one transient throttle does not fail the build.
         run: |
@@ -4412,6 +4440,7 @@ jobs:
           exit 1
 
       - name: Provide Launchpad credentials for remote-build
+        if: steps.bundle.outputs.available == 'true'
         env:
           LP_CREDENTIALS: ${{ secrets.LP_CREDENTIALS }}
         run: |
@@ -4420,6 +4449,7 @@ jobs:
           chmod 600 ~/.local/share/snapcraft/launchpad-credentials
 
       - name: Verify snapcraft.yaml version matches the release
+        if: steps.bundle.outputs.available == 'true'
         run: |
           set -euo pipefail
           if ! grep -qxF "version: '${VERSION}'" snapcraft.yaml; then
@@ -4429,6 +4459,7 @@ jobs:
           echo "snapcraft.yaml is at version '${VERSION}'."
 
       - name: Build the ${{ matrix.arch }} snap on Launchpad
+        if: steps.bundle.outputs.available == 'true'
         # --build-for ${{ matrix.arch }}: build ONLY this leg's arch so a slow/failed
         # arch never blocks the others. remote-build can exit 0 without producing a
         # .snap (it just downloads logs), so require the file. Retry a few times to
@@ -4478,7 +4509,15 @@ jobs:
             # deduplicated, because the two patterns match the same file and it was
             # printed (and would be uploaded) twice.
             snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
-            if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ] && snap_ok "${snaps[0]}"; then
+            # snapcraft can download a complete snap and then fail while cleaning
+            # up its Launchpad session (for example an SSL EOF while revoking the
+            # proxy token). The validated artifact is the build result; do not
+            # throw it away and spend hours rebuilding because cleanup returned
+            # a non-zero status after the download completed.
+            if [ "${#snaps[@]}" -gt 0 ] && snap_ok "${snaps[0]}"; then
+              if [ "$rc" -ne 0 ]; then
+                echo "::warning::snapcraft exited $rc during post-download cleanup, but ${snaps[0]} is a complete squashfs snap; keeping it."
+              fi
               echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]} ($(stat -c%s "${snaps[0]}") bytes, squashfs)"
               exit 0
             fi
@@ -4595,7 +4634,7 @@ jobs:
         # the job is over the only copy is the one kept here. always(), not
         # failure(): a build that succeeded on attempt 2 hides why attempt 1 did
         # not, and these are a few hundred KB of text.
-        if: always()
+        if: always() && steps.bundle.outputs.available == 'true'
         run: |
           set -uo pipefail
           mkdir -p snap-logs
@@ -4622,7 +4661,7 @@ jobs:
         # afterwards, and the renaming above is not the last thing that could
         # ever make one of them unuploadable.
         continue-on-error: true
-        if: always()
+        if: always() && steps.bundle.outputs.available == 'true'
         with:
           name: snap-launchpad-logs-${{ matrix.arch }}
           path: snap-logs/
@@ -4630,6 +4669,7 @@ jobs:
           retention-days: 30
 
       - name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
+        if: steps.bundle.outputs.available == 'true'
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         run: |
@@ -4691,6 +4731,7 @@ jobs:
           done
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
+        if: steps.bundle.outputs.available == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

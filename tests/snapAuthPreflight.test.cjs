@@ -46,7 +46,7 @@ test('and every job that publishes a snap waits for it', () => {
     const start = wf.indexOf(`\n  ${snapJob}:\n`);
     assert.notStrictEqual(start, -1, `${snapJob} must exist`);
     const head = wf.slice(start, start + 1200);
-    assert.ok(/needs: \[prepare, release, snap-auth-check\]/.test(head),
+    assert.ok(/needs: \[[^\n\]]*snap-auth-check[^\n\]]*\]/.test(head),
       `${snapJob} must wait for snap-auth-check`);
   }
   // ...and a job that has nothing to do with snaps must NOT wait for it: that
