@@ -116,6 +116,15 @@ Template.editCardEndDatePopup.helpers(datePickerHelpers());
 
 // --- Card date badge display helpers ---
 
+// Passing named arguments to a Blaze inclusion replaces the included
+// template's data context with the argument object. Card details passes
+// `canModifyCard`, while minicards and Table view inherit the Card directly.
+// Keep both call shapes explicit so reactive reruns never try Card methods on
+// `{ card, canModifyCard }` (#6615).
+function cardFromDateContext(data = Template.currentData()) {
+  return data?.card || data;
+}
+
 // dateBadgeBody is a child template whose data is only display arguments. An
 // event handled by the surrounding card/minicard date template therefore must
 // open the popup with THAT surrounding template's Card, not with the event's
@@ -125,7 +134,11 @@ function openDateEditor(name) {
   return function (event, templateInstance) {
     event.preventDefault();
     event.stopPropagation();
-    Popup.open(name).call(templateInstance.data, event, templateInstance);
+    Popup.open(name).call(
+      cardFromDateContext(templateInstance.data),
+      event,
+      templateInstance,
+    );
   };
 }
 
@@ -166,7 +179,7 @@ Template.cardReceivedDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getReceived()));
+    self.date.set(new Date(cardFromDateContext().getReceived()));
   });
 });
 
@@ -174,7 +187,7 @@ Template.cardReceivedDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
     let classes = 'received-date ';
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const dueAt = data.getDue();
     const endAt = data.getEnd();
     const startAt = data.getStart();
@@ -209,7 +222,7 @@ Template.cardStartDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getStart()));
+    self.date.set(new Date(cardFromDateContext().getStart()));
   });
 });
 
@@ -217,7 +230,7 @@ Template.cardStartDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
     let classes = 'start-date ';
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const dueAt = data.getDue();
     const endAt = data.getEnd();
     const theDate = tpl.date.get();
@@ -250,14 +263,14 @@ Template.cardDueDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getDue()));
+    self.date.set(new Date(cardFromDateContext().getDue()));
   });
 });
 
 Template.cardDueDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const endAt = data.getEnd();
     const theDate = tpl.date.get();
     const nowVal = tpl.now.get();
@@ -282,7 +295,7 @@ Template.cardEndDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getEnd()));
+    self.date.set(new Date(cardFromDateContext().getEnd()));
   });
 });
 
@@ -290,7 +303,7 @@ Template.cardEndDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
     let classes = 'end-date ';
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const dueAt = data.getDue();
     const theDate = tpl.date.get();
 
@@ -353,7 +366,7 @@ Template.minicardReceivedDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getReceived()));
+    self.date.set(new Date(cardFromDateContext().getReceived()));
   });
 });
 
@@ -361,7 +374,7 @@ Template.minicardReceivedDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
     let classes = 'received-date ';
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const dueAt = data.getDue();
     const endAt = data.getEnd();
     const startAt = data.getStart();
@@ -401,7 +414,7 @@ Template.minicardStartDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getStart()));
+    self.date.set(new Date(cardFromDateContext().getStart()));
   });
 });
 
@@ -409,7 +422,7 @@ Template.minicardStartDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
     let classes = 'start-date ';
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const dueAt = data.getDue();
     const endAt = data.getEnd();
     const theDate = tpl.date.get();
@@ -447,14 +460,14 @@ Template.minicardDueDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getDue()));
+    self.date.set(new Date(cardFromDateContext().getDue()));
   });
 });
 
 Template.minicardDueDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const endAt = data.getEnd();
     const theDate = tpl.date.get();
     const nowVal = tpl.now.get();
@@ -484,7 +497,7 @@ Template.minicardEndDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getEnd()));
+    self.date.set(new Date(cardFromDateContext().getEnd()));
   });
 });
 
@@ -492,7 +505,7 @@ Template.minicardEndDate.helpers(cardDateHelpers({
   classes() {
     const tpl = Template.instance();
     let classes = 'end-date ';
-    const data = Template.currentData();
+    const data = cardFromDateContext();
     const dueAt = data.getDue();
     const theDate = tpl.date.get();
 
@@ -556,7 +569,7 @@ Template.voteEndDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getVoteEnd()));
+    self.date.set(new Date(cardFromDateContext().getVoteEnd()));
   });
 });
 
@@ -584,7 +597,7 @@ Template.pokerEndDate.onCreated(function () {
   cardDateOnCreated(this);
   const self = this;
   self.autorun(() => {
-    self.date.set(new Date(Template.currentData().getPokerEnd()));
+    self.date.set(new Date(cardFromDateContext().getPokerEnd()));
   });
 });
 

@@ -19,6 +19,45 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Labels & due dates', () => {
+  test('#6615: an existing card with dates opens and remains editable', async ({ boardPage, board }) => {
+    const errors = [];
+    boardPage.on('pageerror', error => errors.push(error.message));
+
+    const card = db.findOne('cards', {
+      boardId: board.boardId,
+      title: 'Alpha Card',
+    });
+    const labelId = `issue-6615-label-${Date.now()}`;
+    db.updateOne('boards', { _id: board.boardId }, {
+      $push: { labels: { _id: labelId, name: 'Still assigned', color: 'green' } },
+    });
+    db.updateOne('cards', { _id: card._id }, {
+      $set: {
+        receivedAt: new Date('2026-08-18T08:00:00.000Z'),
+        startAt: new Date('2026-08-19T08:00:00.000Z'),
+        dueAt: new Date('2026-08-20T17:00:00.000Z'),
+        endAt: new Date('2026-08-21T17:00:00.000Z'),
+        labelIds: [labelId],
+      },
+    });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+
+    await expect(cp.root.locator('.card-date')).toHaveCount(4);
+    await expect(cp.root.locator('.card-label').filter({ hasText: 'Still assigned' }))
+      .toBeVisible();
+    await cp.editTitle('Alpha Card remains editable');
+    await expect(cp.title()).toContainText('Alpha Card remains editable');
+
+    expect(errors.filter(message =>
+      /get(Received|Start|Due|End) is not a function/.test(message),
+    )).toEqual([]);
+  });
+
   test('label selector popup opens from a card', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
