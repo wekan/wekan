@@ -418,7 +418,7 @@ date-template context error.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e4bee8998">Cards with saved dates open and remain editable</a>. Thanks to ClemStrummer and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e909b475b">Cards with saved dates open and remain editable</a>. Thanks to ClemStrummer and xet7.</summary>
 
 Named Blaze arguments had replaced each opened-card date template's `Card`
 context with a plain argument object. Reactive date helpers then called Card
