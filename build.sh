@@ -490,6 +490,24 @@ function browser_needs_docker(){
 # Back-compat: existing callers/env (WEKAN_WEBKIT_DOCKER) keep working.
 function webkit_needs_docker(){ browser_needs_docker webkit; }
 
+# VS Code's Flatpak sandbox does not put the host Docker CLI in PATH, even
+# though `flatpak-spawn --host docker ...` is available. Keep Docker calls in
+# one wrapper so the ARM64 Playwright route works both in an ordinary terminal
+# and in the documented sandbox.
+function docker_available(){
+	command -v docker >/dev/null 2>&1 && return 0
+	command -v flatpak-spawn >/dev/null 2>&1 || return 1
+	flatpak-spawn --host sh -lc 'command -v docker >/dev/null 2>&1' >/dev/null 2>&1
+}
+
+function docker_exec(){
+	if command -v docker >/dev/null 2>&1; then
+		docker "$@"
+	else
+		flatpak-spawn --host docker "$@"
+	fi
+}
+
 # Run a Playwright browser project (chromium / firefox / webkit) inside the
 # official Playwright container. First arg is the browser; any extra args are
 # passed through to `playwright test`. WeKan must already be running on the host
@@ -499,7 +517,7 @@ function run_playwright_docker(){
 	local browser="$1"; shift
 	local reporoot="$ORIG_HOME/repos/wekan"
 	local pwdir="$reporoot/tests/playwright"
-	if ! command -v docker >/dev/null 2>&1; then
+	if ! docker_available; then
 		echo "ERROR: Docker is required to run $browser in the Playwright container, but 'docker' was not found."
 		echo "       Install Docker, or run this browser natively (set WEKAN_PLAYWRIGHT_DOCKER=0)."
 		return 127
@@ -520,7 +538,7 @@ function run_playwright_docker(){
 	# not leave root-owned files under test-results/ (which would later make
 	# native Chromium/Firefox runs fail with "EACCES: permission denied, mkdir
 	# .../test-results/.playwright-artifacts-N").
-	docker run --rm --init --ipc=host --network host \
+	docker_exec run --rm --init --ipc=host --network host \
 		--user "$(id -u):$(id -g)" \
 		-e HOME=/tmp \
 		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
@@ -566,12 +584,12 @@ function install_playwright_browsers(){
 	# Pull the Playwright Docker image if any browser is configured for Docker
 	# (e.g. WebKit on Linux arm64, or WEKAN_PLAYWRIGHT_DOCKER=1 for the whole matrix).
 	if browser_needs_docker chromium || browser_needs_docker firefox || browser_needs_docker webkit; then
-		if command -v docker >/dev/null 2>&1; then
+		if docker_available; then
 			local pwver
 			pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 			[ -z "$pwver" ] && pwver="1.60.0"
 			echo "Pulling Playwright Docker image mcr.microsoft.com/playwright:v${pwver}-noble ..."
-			docker pull "mcr.microsoft.com/playwright:v${pwver}-noble"
+			docker_exec pull "mcr.microsoft.com/playwright:v${pwver}-noble"
 		else
 			echo "NOTE: some browsers are configured for Docker, but 'docker' is not installed."
 			echo "      Install Docker, or set WEKAN_PLAYWRIGHT_DOCKER=0 to run all browsers natively."
@@ -933,12 +951,12 @@ function run_all_tests(){
 		# wekan-conformance-<engine> and removes it when that engine is done. An
 		# interrupted run leaves the one it was on, and a container holding port
 		# 5432 or 3306 fails the NEXT run's engine before it starts.
-		if command -v docker >/dev/null 2>&1; then
+		if docker_available; then
 			local leftovers
-			leftovers=$(docker ps -aq --filter "name=^wekan-conformance-" 2>/dev/null)
+			leftovers=$(docker_exec ps -aq --filter "name=^wekan-conformance-" 2>/dev/null)
 			if [ -n "$leftovers" ]; then
 				echo "Stopping database-conformance container(s)."
-				docker rm -f $leftovers >/dev/null 2>&1 || true
+				docker_exec rm -f $leftovers >/dev/null 2>&1 || true
 			fi
 		fi
 	}
