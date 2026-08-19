@@ -213,6 +213,7 @@ test.describe('Labels & due dates', () => {
       const date = pop.locator('input.js-date-field, input[type=date]').first();
       await expect(date).toHaveValue('2098-01-15', { timeout: 5_000 });
       await date.fill('2099-12-30');
+      await expect(date).toHaveValue('2099-12-30');
       await pop.locator('button.js-submit-date').click();
 
       await expect.poll(() => {

@@ -37,10 +37,10 @@ Template.editCardReceivedDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card.getReceived() ? card.getReceived() : undefined,
     storeDate(date, currentCard) {
-      currentCard.setReceived(date);
+      return currentCard.setReceived(date);
     },
     deleteDate(currentCard) {
-      currentCard.unsetReceived();
+      return currentCard.unsetReceived();
     },
   });
 });
@@ -58,10 +58,10 @@ Template.editCardStartDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card.getStart() ? card.getStart() : undefined,
     storeDate(date, currentCard) {
-      currentCard.setStart(date);
+      return currentCard.setStart(date);
     },
     deleteDate(currentCard) {
-      currentCard.unsetStart();
+      return currentCard.unsetStart();
     },
   });
 });
@@ -79,10 +79,10 @@ Template.editCardDueDatePopup.onCreated(function () {
     defaultTime: '1970-01-01 17:00:00',
     initialDate: card.getDue() ? card.getDue() : undefined,
     storeDate(date, currentCard) {
-      currentCard.setDue(date);
+      return currentCard.setDue(date);
     },
     deleteDate(currentCard) {
-      currentCard.unsetDue();
+      return currentCard.unsetDue();
     },
   });
 });
@@ -100,10 +100,10 @@ Template.editCardEndDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card.getEnd() ? card.getEnd() : undefined,
     storeDate(date, currentCard) {
-      currentCard.setEnd(date);
+      return currentCard.setEnd(date);
     },
     deleteDate(currentCard) {
-      currentCard.unsetEnd();
+      return currentCard.unsetEnd();
     },
   });
 });

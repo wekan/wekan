@@ -139,6 +139,19 @@ export function datePickerEvents() {
         // HTML date input format is always YYYY-MM-DD
         const dateObj = new Date(dateValue + 'T12:00:00');
         if (isValidDate(dateObj)) {
+          const currentDate = datePicker.date.get();
+          if (isValidDate(currentDate)) {
+            dateObj.setHours(
+              currentDate.getHours(),
+              currentDate.getMinutes(),
+              currentDate.getSeconds(),
+              currentDate.getMilliseconds(),
+            );
+          }
+          // Keep the reactive draft in step with the native input. Otherwise
+          // any unrelated Blaze rerender can restore the old date after the
+          // user edited it but before the form is submitted.
+          datePicker.date.set(dateObj);
           datePicker.error.set('');
         } else {
           datePicker.error.set('invalid-date');
@@ -154,6 +167,17 @@ export function datePickerEvents() {
         // HTML time input format is always HH:mm
         const timeObj = new Date(`1970-01-01T${timeValue}:00`);
         if (isValidDate(timeObj)) {
+          const currentDate = datePicker.date.get();
+          if (isValidDate(currentDate)) {
+            const draftDate = new Date(currentDate);
+            draftDate.setHours(
+              timeObj.getHours(),
+              timeObj.getMinutes(),
+              0,
+              0,
+            );
+            datePicker.date.set(draftDate);
+          }
           datePicker.error.set('');
         } else {
           datePicker.error.set('invalid-time');

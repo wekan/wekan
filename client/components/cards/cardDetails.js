@@ -2560,11 +2560,11 @@ Template.editVoteEndDatePopup.onCreated(function () {
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getVoteEnd ? (card.getVoteEnd() || undefined) : undefined,
-    storeDate(date, currentCard) {
-      Meteor.call('cards.setVoteEnd', currentCard.getRealId(), date);
+    async storeDate(date, currentCard) {
+      await Meteor.callAsync('cards.setVoteEnd', currentCard.getRealId(), date);
     },
-    deleteDate(currentCard) {
-      Meteor.call('cards.unsetVoteEnd', currentCard.getRealId());
+    async deleteDate(currentCard) {
+      await Meteor.callAsync('cards.unsetVoteEnd', currentCard.getRealId());
     },
   });
 });
@@ -2632,11 +2632,11 @@ Template.editPokerEndDatePopup.onCreated(function () {
   setupDatePicker(this, {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getPokerEnd ? (card.getPokerEnd() || undefined) : undefined,
-    storeDate(date, currentCard) {
-      Meteor.call('cards.setPokerEnd', currentCard.getRealId(), date);
+    async storeDate(date, currentCard) {
+      await Meteor.callAsync('cards.setPokerEnd', currentCard.getRealId(), date);
     },
-    deleteDate(currentCard) {
-      Meteor.call('cards.unsetPokerEnd', currentCard.getRealId());
+    async deleteDate(currentCard) {
+      await Meteor.callAsync('cards.unsetPokerEnd', currentCard.getRealId());
     },
   });
 });
