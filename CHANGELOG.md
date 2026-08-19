@@ -402,7 +402,9 @@ browser build to verify).
 
 **In short:** **opened cards** with saved dates render normally again, retain
 their labels and remain editable instead of stopping Blaze reactivity with a
-date-template context error.
+date-template context error. **Launchpad snap builds** now wait for their
+release bundles and preserve valid artifacts when Snapcraft only fails during
+post-download cleanup.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -428,6 +430,26 @@ while the shared date code accepts both that wrapped context and the direct
 context used by minicards and Table view. Browser coverage opens a labeled card
 with all four dates, verifies every badge and label, edits its title, and checks
 that no date-context exception occurs.
+
+</details>
+
+and fixes the following developer-tooling bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2be7aac2b">Launchpad waits for release bundles and keeps validated snaps</a>. Thanks to xet7.</summary>
+
+Launchpad snap jobs used to start alongside the extra-architecture bundle jobs,
+so s390x and ppc64el repeatedly downloaded release assets that did not exist
+yet. They now wait for those jobs and verify the exact architecture-specific
+asset before starting a remote build. A missing optional bundle is skipped with
+its real cause instead of spending hours retrying a permanent 404.
+
+A Snapcraft SSL error during cleanup also used to discard an armhf snap that
+had already downloaded successfully. The workflow now keeps an artifact only
+after checking its minimum size and squashfs magic, regardless of the later
+cleanup status. Release-workflow tests cover the dependency, bundle-name
+mapping, missing-asset path, step gates, successful cleanup-failure path and
+invalid-artifact rejection.
 
 </details>
 
