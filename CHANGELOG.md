@@ -418,7 +418,7 @@ intermittent Chromium failure when changing an existing start date.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e04a3323e">Date editors preserve edits through reactive redraws</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6c118812f">Date editors preserve edits through reactive redraws</a>. Thanks to xet7.</summary>
 
 The shared date editor now synchronizes valid native date and time input changes
 with its reactive draft and awaits every card, vote and planning-poker date
