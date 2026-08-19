@@ -419,7 +419,8 @@ setting during schema upgrade. Opened cards can be resized wider as well as
 narrower on desktop. **All Boards** keeps the complete
 invitation message and its actions visible on phone-sized layouts.
 **Developer tooling** keeps long-running Rspack development watchers from
-retaining cache state until they exhaust the JavaScript heap. **Dependencies**
+retaining cache state until they exhaust the JavaScript heap, and lets Flatpak
+terminals run the Firefox/WebKit matrix through host Docker. **Dependencies**
 refresh S3 storage, build analysis, keyboard shortcuts, CSV parsing and browser
 automation.
 **Admin Panel / Problems / Offices** groups login addresses by person and shows
@@ -993,6 +994,25 @@ Development client and server watchers now run without the persistent cache.
 Short-lived production builds keep caching, and unrelated Rspack experiments
 still merge normally. Focused coverage checks both watchers, the production
 negative case and the merge over Meteor's cache defaults.
+
+</details>
+
+**Browser test containers** - running the complete Playwright matrix from the
+documented VS Code sandbox.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ae63a53417123c9a1686f94a69178a5bc412203">Flatpak terminals can run Firefox and WebKit through host Docker</a>. Thanks to xet7.</summary>
+
+The ARM64 browser runner correctly selected Playwright's official Docker image,
+but a VS Code Flatpak terminal could not see the host `docker` executable and
+reported that Docker was not installed. The build script now discovers Docker
+through `flatpak-spawn --host` and routes image pulls, browser containers and
+conformance cleanup through the same host-aware wrapper.
+
+Regression coverage pins both direct and Flatpak-host discovery. The complete
+Firefox and WebKit matrices were run against a fresh production bundle; all 255
+runnable tests passed in each engine, with the eight Chromium-only drag harness
+tests intentionally skipped.
 
 </details>
 
