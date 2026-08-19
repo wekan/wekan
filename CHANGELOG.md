@@ -402,7 +402,9 @@ browser build to verify).
 
 **In short:** **card date editors** now preserve edited date and time values
 through reactive redraws and wait for persistence before closing, fixing an
-intermittent Chromium failure when changing an existing start date.
+intermittent Chromium failure when changing an existing start date. **Meteor**
+moves to 3.5.2-beta.0 together with its matching Rspack integration and core
+package prereleases.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -427,6 +429,16 @@ between editing and submission. The Chromium start-date regression passed ten
 consecutive runs, and a node guard covers every asynchronous callback.
 
 </details>
+
+and updates the following dependencies:
+
+- **Meteor 3.5.1 → 3.5.2-beta.0** — the framework WeKan is built on. Its
+  matching `accounts-base`, Babel, DDP client, ECMAScript, JavaScript minifier,
+  MongoDB driver wrapper, Rspack, tools-core and TypeScript packages move to
+  their `beta352.0` builds, while `@meteorjs/rspack` moves from 2.1.0 to
+  2.2.0-beta.0. [Update](https://github.com/wekan/wekan/commit/9059b1824e59babf110d5efb07a87d66b77eb434).
+
+Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
