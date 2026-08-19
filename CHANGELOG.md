@@ -400,12 +400,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **opened cards** with saved dates render normally again, retain
+their labels and remain editable instead of stopping Blaze reactivity with a
+date-template context error.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -417,6 +414,24 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4bee8998">Cards with saved dates open and remain editable</a>. Thanks to ClemStrummer and xet7.</summary>
+
+Named Blaze arguments had replaced each opened-card date template's `Card`
+context with a plain argument object. Reactive date helpers then called Card
+methods on that object, stopping card-detail rendering and leaving the board in
+a refresh loop after a date save. Card details now passes the Card explicitly,
+while the shared date code accepts both that wrapped context and the direct
+context used by minicards and Table view. Browser coverage opens a labeled card
+with all four dates, verifies every badge and label, edits its title, and checks
+that no date-context exception occurs.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.04 2026-08-19 WeKan ® release
 
