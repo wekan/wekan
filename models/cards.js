@@ -1115,7 +1115,7 @@ Cards.helpers({
 
   getRealBoard() {
     const card = this.getRealCard();
-    return ReactiveCache.getBoard(card.boardId);
+    return ReactiveCache.getBoard(card.boardId) || this.board();
   },
 
   getList() {
@@ -3315,12 +3315,15 @@ async function cardMove(
       userId,
       oldListId,
       activityType: 'moveCard',
-      listName: list.title,
+      // Old/shared-list boards can momentarily update a card before the target
+      // list/swimlane reaches this cache. Activity logging must not make the
+      // otherwise-valid move fail (#6614).
+      listName: list ? list.title : '',
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
       cardTitle: doc.title,
-      swimlaneName: swimlane.title,
+      swimlaneName: swimlane ? swimlane.title : '',
       swimlaneId: doc.swimlaneId,
       oldSwimlaneId,
     });

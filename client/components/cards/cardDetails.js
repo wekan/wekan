@@ -712,12 +712,11 @@ Template.cardDetails.helpers({
     const swimlaneId = card.swimlaneId;
     const selector = { boardId: card.boardId, archived: false };
     if (swimlaneId) {
-      const defaultSwimlane = board.getDefaultSwimline && board.getDefaultSwimline();
-      if (defaultSwimlane && defaultSwimlane._id === swimlaneId) {
-        selector.swimlaneId = { $in: [swimlaneId, null, ''] };
-      } else {
-        selector.swimlaneId = swimlaneId;
-      }
+      // Board-wide lists have no swimlaneId. They are shared by EVERY
+      // swimlane, not only by the first/default one. Restricting this fallback
+      // to the default swimlane made the List chooser (and move/copy chooser)
+      // empty for valid cards in every later swimlane (#6614/#6618).
+      selector.swimlaneId = { $in: [swimlaneId, null, ''] };
     }
     return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
   },

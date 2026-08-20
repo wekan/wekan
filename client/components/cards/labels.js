@@ -113,7 +113,10 @@ Template.cardLabelsPopup.onRendered(function () {
 Template.cardLabelsPopup.helpers({
   board() {
     const card = Template.currentData();
-    return card?.getRealBoard ? card.getRealBoard() : card?.board?.();
+    // The linked source board is preferred when it is published. Fall back to
+    // the card's placement/current board: a missing linked source must not turn
+    // the whole label picker into the lone "Create label" row (#6616).
+    return card?.getRealBoard?.() || card?.board?.() || Utils.getCurrentBoard();
   },
   isLabelSelected(cardId) {
     const card = ReactiveCache.getCard(cardId);

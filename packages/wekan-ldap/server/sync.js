@@ -99,12 +99,17 @@ export function getLdapEmail(ldapUser) {
 
 export function getLdapFullname(ldapUser) {
   const fullnameField = LDAP.settings_get('LDAP_FULLNAME_FIELD');
+  const asText = value => {
+    const scalar = Array.isArray(value) ? value[0] : value;
+    if (scalar === undefined || scalar === null) return '';
+    return Buffer.isBuffer(scalar) ? scalar.toString('utf8') : String(scalar);
+  };
   if (fullnameField.indexOf('#{') > -1) {
     return fullnameField.replace(/#{(.+?)}/g, function(match, field) {
-      return ldapUser.getLDAPValue(field);
+      return asText(ldapUser.getLDAPValue(field));
     });
   }
-  return ldapUser.getLDAPValue(fullnameField);
+  return asText(ldapUser.getLDAPValue(fullnameField));
 }
 
 export function getLdapUserUniqueID(ldapUser) {
