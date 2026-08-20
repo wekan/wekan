@@ -400,12 +400,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **card details** once again offer every valid list and label, in
+every swimlane, while **LDAP profiles** consistently retain the directory's
+full display name. Below that: regression coverage for all four reported bugs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -417,6 +414,44 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Card details** - choosing placement and labels on an opened card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a87e3378">It offers board-wide lists in every swimlane and logs moves through reactive cache gaps</a>. Thanks to mimZD, rmb82 and xet7.</summary>
+
+The list, move and copy selectors treated a legacy board-wide list as shared
+only in the default swimlane. They now include it for every swimlane. Activity
+logging also records a temporarily unavailable list or swimlane with an empty
+name instead of throwing after the valid card update.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a87e3378">Its label picker falls back to the visible card board</a>. Thanks to ClemStrummer and xet7.</summary>
+
+The linked-card label refactor could resolve no source board and render only
+the Create label action. It now prefers the source board but falls back through
+the placement board to the current visible board, retaining existing labels and
+newly created ones.
+
+</details>
+
+**LDAP profiles** - directory names shown to signed-in users.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a87e3378">They normalize displayName values to text before saving the full name</a>. Thanks to Nissulya and xet7.</summary>
+
+Active Directory attributes can arrive as a scalar, a one-element array or a
+buffer. The full-name sync now converts all three shapes to text, so the user
+header and profile do not fall back to `sAMAccountName` while the Admin Panel
+still sees directory data.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.05 2026-08-19 WeKan ® release
 
