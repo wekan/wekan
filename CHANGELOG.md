@@ -401,8 +401,9 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **card details** once again offer every valid list and label, in
-every swimlane, while **LDAP profiles** consistently retain the directory's
-full display name. Below that: regression coverage for all four reported bugs.
+every swimlane and through linked cards, while **LDAP profiles** consistently
+retain the directory's full display name. Below that: regression coverage for
+all four reported bugs and linked-card label writes.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -436,6 +437,16 @@ The linked-card label refactor could resolve no source board and render only
 the Create label action. It now prefers the source board but falls back through
 the placement board to the current visible board, retaining existing labels and
 newly created ones.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e633f3c74">Adding a label through a linked card updates its source</a>. Thanks to xet7.</summary>
+
+The label row is a nested popup context, while the routed board contains the
+linked representation. The popup now retains the card as its explicit mutation
+target and resolves the label catalogue and new-label board from the source, so
+selecting or creating labels through a linked card works consistently.
 
 </details>
 
