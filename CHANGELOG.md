@@ -404,7 +404,8 @@ browser build to verify).
 every swimlane and through linked cards, and use compact accessible icons for
 person-field actions, while **LDAP profiles** consistently retain the
 directory's full display name. Below that: regression coverage for all four
-reported bugs, linked-card label writes and the icon controls.
+reported bugs, linked-card label writes and the icon controls, plus corrected
+Node and browser expectations for those controls and card dates.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -470,6 +471,20 @@ Active Directory attributes can arrive as a scalar, a one-element array or a
 buffer. The full-name sync now converts all three shapes to text, so the user
 header and profile do not fall back to `sAMAccountName` while the Admin Panel
 still sees directory data.
+
+</details>
+
+and updates the following developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d61772c08">Regression suites follow accessible Add icons and Card-wrapped dates</a>. Thanks to xet7.</summary>
+
+The all-tests run still expected visible Add text after those actions became
+icon-only controls, and one date test expected the direct context used before
+the v11.05 card-date repair. Node and Playwright coverage now checks the
+localized accessible name, tooltip and plus icon, and the date assertion
+matches the Card explicitly passed through the Blaze argument context. The
+complete plain-Node run passes all 495 suites.
 
 </details>
 
