@@ -49,10 +49,13 @@ test('each replacement uses the Description pencil icon accessibly', () => {
     /button\.primary\(type="submit" title="\{\{_ 'edit'\}\}" aria-label="\{\{_ 'edit'\}\}"\)[\s\S]*?i\.fa\.fa-pencil-square-o\(aria-hidden="true"\)/);
 });
 
-test('Add remains text and receives an Add accessible name', () => {
+test('Add uses a plus icon and retains its accessible name', () => {
   assert.match(cardDetails,
     /title="\{\{#if getRequestedBy\}\}\{\{_ 'edit'\}\}\{\{else\}\}\{\{_ 'add'\}\}\{\{\/if\}\}"/);
-  assert.match(cardDetails, /else\s+\| \{\{_ 'add'\}\}/);
+  assert.match(cardDetails,
+    /aria-label="\{\{#if getRequestedBy\}\}\{\{_ 'edit'\}\}\{\{else\}\}\{\{_ 'add'\}\}\{\{\/if\}\}"/);
+  assert.match(cardDetails, /else\s+i\.fa\.fa-plus\(aria-hidden="true"\)/);
+  assert.doesNotMatch(cardDetails, /^\s*\| \{\{_ 'add'\}\}/m);
 });
 
 console.log(`\n${passed} tests passed`);

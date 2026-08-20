@@ -9,7 +9,7 @@
  *  - Description editor opens when the description area is clicked
  *  - Adding a description and saving it persists the text
  *  - The "add card" form on a list creates a new card
- *  - Requested/Assigned By free-text controls say Add or Edit from their value
+ *  - Requested/Assigned By icon controls expose Add or Edit from their value
  */
 
 const { test, expect } = require('../fixtures');
@@ -18,7 +18,7 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Card members & description', () => {
-  test('Requested By says Edit when populated while empty Assigned By says Add', async ({ boardPage, board }) => {
+  test('Requested By exposes Edit while empty Assigned By exposes Add', async ({ boardPage, board }) => {
     db.updateOne('boards', { _id: board.boardId }, {
       $set: { allowsRequestedBy: true, allowsAssignedBy: true },
     });
@@ -35,8 +35,11 @@ test.describe('Card members & description', () => {
     await expect(cp.root.locator('.card-details-item-requested-by, .card-details-item-name')
       .filter({ hasText: 'Requested By' }).locator('.js-open-inlined-form'))
       .toHaveAttribute('aria-label', /Edit/i);
-    await expect(cp.root.locator('.card-details-item-assigned-by, .card-details-item-name')
-      .filter({ hasText: 'Assigned By' }).locator('.js-open-inlined-form')).toHaveText(/Add/i);
+    const assignedByAction = cp.root.locator('.card-details-item-assigned-by, .card-details-item-name')
+      .filter({ hasText: 'Assigned By' }).locator('.js-open-inlined-form');
+    await expect(assignedByAction).toHaveAttribute('aria-label', /Add/i);
+    await expect(assignedByAction).toHaveAttribute('title', /Add/i);
+    await expect(assignedByAction.locator('i.fa-plus')).toHaveCount(1);
   });
 
   test('member selector popup opens from a card', async ({ boardPage, board }) => {

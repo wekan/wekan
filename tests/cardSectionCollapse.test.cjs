@@ -345,13 +345,17 @@ test('Requested By and Assigned By select a member with + or edit free text', ()
   for (const [field, getter] of [['requester', 'getRequestedBy'], ['assigner', 'getAssignedBy']]) {
     const at = jade.indexOf(`js-card-details-${field}`);
     assert.ok(at !== -1, `${field} is there`);
-    const block = jade.slice(at, at + 950);
+    const block = jade.slice(at, at + 1200);
     assert.ok(new RegExp(`js-select-${field}`).test(block), `${field} + opens its picker`);
     assert.ok(/i\.fa\.fa-plus/.test(block), 'with the plus in it');
     assert.ok(/\.card-details-person-controls[\s\S]*js-open-inlined-form/.test(block),
-      `${field}: Add remains the free-text editor below +`);
-    assert.ok(new RegExp(`if ${getter}[\\s\\S]*\\{\\{_ 'edit'\\}\\}[\\s\\S]*else[\\s\\S]*\\{\\{_ 'add'\\}\\}`)
-      .test(block), `${field}: existing text says Edit; an empty field says Add`);
+      `${field}: the free-text editor remains beside the member picker`);
+    assert.ok(new RegExp(`title="\\{\\{#if ${getter}\\}\\}\\{\\{_ 'edit'\\}\\}\\{\\{else\\}\\}\\{\\{_ 'add'\\}\\}`)
+      .test(block), `${field}: the tooltip says Edit or Add from the value`);
+    assert.ok(new RegExp(`aria-label="\\{\\{#if ${getter}\\}\\}\\{\\{_ 'edit'\\}\\}\\{\\{else\\}\\}\\{\\{_ 'add'\\}\\}`)
+      .test(block), `${field}: the accessible name says Edit or Add from the value`);
+    assert.ok(/i\.fa\.fa-pencil-square-o\(aria-hidden="true"\)[\s\S]*else[\s\S]*i\.fa\.fa-plus\(aria-hidden="true"\)/
+      .test(block), `${field}: pencil edits and plus adds without visible text`);
   }
   // And it is the class Members' button is styled by, not a new look.
   const members = jade.slice(jade.indexOf('allowsMembers'), jade.indexOf('allowsAssignee'));

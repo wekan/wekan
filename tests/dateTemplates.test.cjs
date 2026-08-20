@@ -97,7 +97,7 @@ test('opened-card date badges receive the edit permission explicitly', () => {
   for (const template of [
     'cardReceivedDate', 'cardStartDate', 'cardDueDate', 'cardEndDate',
   ]) {
-    assert.ok(cardDetails.includes(`+${template}(canModifyCard=canModifyCard)`),
+    assert.ok(cardDetails.includes(`+${template}(card=this canModifyCard=canModifyCard)`),
       `${template} stays editable for members who can modify the card`);
   }
 });
@@ -146,7 +146,7 @@ test('clicking an existing date reopens its editor with the Card context', () =>
   const js = read('client/components/cards/cardDate.js');
   const opener = js.slice(js.indexOf('function openDateEditor(name) {'),
     js.indexOf('// Shared onCreated logic'));
-  assert.ok(/Popup\.open\(name\)\.call\(templateInstance\.data, event, templateInstance\)/.test(opener),
+  assert.ok(/Popup\.open\(name\)\.call\(\s*cardFromDateContext\(templateInstance\.data\),\s*event,\s*templateInstance,?\s*\)/.test(opener),
     'the surrounding date template supplies its Card, not dateBadgeBody arguments');
   assert.ok(/event\.stopPropagation\(\)/.test(opener),
     'cardDetails must not open a second popup while the badge click bubbles');
