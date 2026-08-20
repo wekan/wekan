@@ -16,6 +16,12 @@ const getFallbackLabelColor = () => {
   return 'green';
 };
 
+// Label popups opened from a linked card operate on the source card and its
+// label catalogue. Do not infer this from the route: the route still names the
+// board containing the linked representation.
+const getCardLabelBoard = card =>
+  card?.getRealBoard?.() || card?.board?.() || Utils.getCurrentBoard();
+
 Template.formLabel.onCreated(function () {
   const initialColor = this.data?.color || getFallbackLabelColor();
   this.currentColor = new ReactiveVar(initialColor);
@@ -56,7 +62,7 @@ Template.createLabelPopup.helpers({
   // is not already used in the board (although it's not a problem if two
   // labels have the same color).
   defaultColor() {
-    const board = Utils.getCurrentBoard();
+    const board = getCardLabelBoard(Template.currentData());
     const colors = Array.isArray(labelColors) ? labelColors : [getFallbackLabelColor()];
     const labels = Array.isArray(board?.labels) ? board.labels : [];
     const usedColors = labels.map(l => l.color);
@@ -116,7 +122,7 @@ Template.cardLabelsPopup.helpers({
     // The linked source board is preferred when it is published. Fall back to
     // the card's placement/current board: a missing linked source must not turn
     // the whole label picker into the lone "Create label" row (#6616).
-    return card?.getRealBoard?.() || card?.board?.() || Utils.getCurrentBoard();
+    return getCardLabelBoard(card);
   },
   isLabelSelected(cardId) {
     const card = ReactiveCache.getCard(cardId);
@@ -125,11 +131,15 @@ Template.cardLabelsPopup.helpers({
 });
 
 Template.cardLabelsPopup.events({
-  'click .js-select-label'(event) {
-    const card = Template.currentData();
+  async 'click .js-select-label'(event, templateInstance) {
+    // The event's `this` is the label row. Keep the popup template's card data
+    // explicitly so a linked card updates its source instead of trying to call
+    // toggleLabel on the row context.
+    const card = templateInstance.data;
     const labelId = this._id;
-    card.toggleLabel(labelId);
     event.preventDefault();
+    if (!card?.toggleLabel) return;
+    await card.toggleLabel(labelId);
   },
   'click .js-edit-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
@@ -139,7 +149,7 @@ Template.createLabelPopup.events({
   // Create the new label
   'submit .create-label'(event, templateInstance) {
     event.preventDefault();
-    const board = Utils.getCurrentBoard();
+    const board = getCardLabelBoard(templateInstance.data);
     if (!board) {
       return;
     }

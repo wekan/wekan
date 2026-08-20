@@ -17,8 +17,14 @@ test('card list chooser includes board-wide lists in every swimlane', () => {
 });
 
 test('label picker retains a visible-board fallback', () => {
-  assert.match(labels, /getRealBoard\?\.\(\) \|\| card\?\.board\?\.\(\) \|\| Utils\.getCurrentBoard\(\)/);
+  assert.match(labels, /const getCardLabelBoard = card =>[\s\S]*getRealBoard\?\.\(\) \|\| card\?\.board\?\.\(\) \|\| Utils\.getCurrentBoard\(\)/);
   assert.match(cards, /return ReactiveCache\.getBoard\(card\.boardId\) \|\| this\.board\(\)/);
+});
+
+test('adding a label to a linked card uses the popup card and source board', () => {
+  assert.match(labels, /const card = templateInstance\.data;[\s\S]*await card\.toggleLabel\(labelId\)/);
+  assert.match(labels, /defaultColor\(\)[\s\S]*getCardLabelBoard\(Template\.currentData\(\)\)/);
+  assert.match(labels, /submit \.create-label[\s\S]*getCardLabelBoard\(templateInstance\.data\)/);
 });
 
 test('move activity tolerates a list or swimlane cache miss', () => {
