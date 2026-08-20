@@ -401,9 +401,10 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **card details** once again offer every valid list and label, in
-every swimlane and through linked cards, while **LDAP profiles** consistently
-retain the directory's full display name. Below that: regression coverage for
-all four reported bugs and linked-card label writes.
+every swimlane and through linked cards, and use compact accessible icons for
+person-field actions, while **LDAP profiles** consistently retain the
+directory's full display name. Below that: regression coverage for all four
+reported bugs, linked-card label writes and the icon controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -447,6 +448,16 @@ The label row is a nested popup context, while the routed board contains the
 linked representation. The popup now retains the card as its explicit mutation
 target and resolves the label catalogue and new-label board from the source, so
 selecting or creating labels through a linked card works consistently.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96e598059">Requested By and Assigned By use an icon instead of Add text</a>. Thanks to xet7.</summary>
+
+Empty person fields now use the same compact icon-only language as description
+editing: a plus to add and a pencil to edit. Both states keep localized hover
+tooltips and accessible names, while the decorative icons stay hidden from
+screen readers.
 
 </details>
 
