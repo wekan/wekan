@@ -331,7 +331,7 @@ template(name="cardDetails")
                             if getRequestedBy
                               i.fa.fa-pencil-square-o(aria-hidden="true")
                             else
-                              | {{_ 'add'}}
+                              i.fa.fa-plus(aria-hidden="true")
                   else
                     each userId in getRequesters
                       +userAvatar(userId=userId noRemove=true)
@@ -363,7 +363,7 @@ template(name="cardDetails")
                             if getAssignedBy
                               i.fa.fa-pencil-square-o(aria-hidden="true")
                             else
-                              | {{_ 'add'}}
+                              i.fa.fa-plus(aria-hidden="true")
                   else
                     each userId in getAssigners
                       +userAvatar(userId=userId noRemove=true)
