@@ -387,9 +387,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **riscv64 snap releases** now survive Launchpad queue waits that
-outlive a GitHub-hosted job, reconnecting on a later run without duplicating the
-remote build and publishing only after its snap is ready.
+**In short:** **card history** once again shows every activity and REST comment,
+including older records with stale board metadata, while **Move/Copy Card**
+offers board-global lists in every swimlane. Below that: riscv64 snap releases
+survive Launchpad queue waits that outlive a GitHub-hosted job.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -402,7 +403,35 @@ remote build and publishing only after its snap is ready.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following developer-tooling bug:
+This release fixes the following bugs:
+
+**Card details** - activity history and destination selection.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/394a89fbc">Opening Activities shows the complete card history and REST returns every comment</a>. Thanks to rmb82 and xet7.</summary>
+
+The removed Activities eye left its old per-card `showActivities: false` value
+in control, so opening the new caret could still request comments only. Opening
+the section now always requests its complete history. The comments REST endpoint
+also validates the card against the requested board before selecting all records
+by their authoritative `cardId`, so older and imported comments with missing or
+stale denormalized board metadata are no longer omitted without weakening board
+isolation. Positive and negative regression tests cover both retrieval paths.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/394a89fbc">Move and Copy Card offer board-global lists in every swimlane</a>. Thanks to rmb82 and xet7.</summary>
+
+The destination picker treated a list without a `swimlaneId` as shared only by
+the default swimlane. It now combines board-global lists with the selected
+swimlane's own lists for every swimlane, while continuing to exclude lists owned
+by another swimlane. Regression tests cover both cases and the shared picker
+used by Move Card and Copy Card.
+
+</details>
+
+and fixes the following developer-tooling bug:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d11987fad">Queued riscv64 snap builds survive the GitHub job limit</a>. Thanks to xet7.</summary>
