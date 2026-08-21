@@ -387,10 +387,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **card history** once again shows every activity and REST comment,
-including older records with stale board metadata, while **Move/Copy Card**
-offers board-global lists in every swimlane. Below that: riscv64 snap releases
-survive Launchpad queue waits that outlive a GitHub-hosted job.
+**In short:** the **CalendarBleed** security fix prevents comment-only, Worker
+and read-only members from creating cards through the DDP iCalendar importer.
+Below that: complete card history and REST comments, board-global Move/Copy Card
+destinations, and resilient riscv64 snap release builds.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -403,7 +403,24 @@ survive Launchpad queue waits that outlive a GitHub-hosted job.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bugs:
+This release fixes the following MODERATE SECURITY ISSUE of [CalendarBleed](https://wekan.fi/hall-of-fame/calendarbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e062042c1">ICS imports require the canonical board write capability</a>. Thanks to Char0n1507 and xet7.</summary>
+
+An authenticated Comment Only member could call `importIcsToBoard` over
+Meteor/DDP and create arbitrary cards. The method checked board membership and
+excluded only read-only roles, so Comment Only, Only Assigned Comment and Worker
+members reached card insertion despite the role policy denying them write
+access. The DDP path now uses the same canonical write-capability helper as its
+REST sibling. Regression coverage denies all five non-writing roles and confirms
+that the four legitimate writing roles retain access. See
+[GHSA-fpm6-r5fg-2mrg](https://github.com/wekan/wekan/security/advisories/GHSA-fpm6-r5fg-2mrg)
+and [CalendarBleed](https://wekan.fi/hall-of-fame/calendarbleed/).
+
+</details>
+
+and fixes the following bugs:
 
 **Card details** - activity history and destination selection.
 
