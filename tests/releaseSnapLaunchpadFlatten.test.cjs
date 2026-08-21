@@ -44,6 +44,13 @@ test('snap-launchpad flattens the repo to one complete commit', () => {
     'the flatten must commit the current tree as one commit');
 });
 
+test('the flattened commit is deterministic so a re-run reconnects', () => {
+  assert.ok(/snapshot_date="\$\(git show -s --format=%cI HEAD\)"/.test(body),
+    'the tagged commit timestamp is captured before history is removed');
+  assert.ok(/GIT_AUTHOR_DATE="\$snapshot_date" GIT_COMMITTER_DATE="\$snapshot_date"/.test(body),
+    'author and committer dates are fixed, or every re-run submits a new recipe');
+});
+
 test('the flatten runs AFTER the checkout and BEFORE the remote build', () => {
   const coIdx = body.indexOf('actions/checkout@');
   const flattenIdx = body.search(/rm -rf \.git/);

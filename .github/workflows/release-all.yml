@@ -4324,13 +4324,10 @@ jobs:
     # clear message instead of GitHub's silent 6h cancel. fail-fast: false so one arch
     # never cancels the others - each publishes the moment it finishes.
     continue-on-error: true
-    # 180 minutes was one attempt on the slow arches, not three. In v10.71 the
-    # riscv64 leg spent 2h24m on attempt 1 - almost all of it queueing for a
-    # riscv64 builder - failed it, and was cancelled by this timeout 35 minutes
-    # into attempt 2, which is the "The operation was canceled." in that job and
-    # not a Launchpad problem at all. The retry loop is only worth having if the
-    # job outlives the retries, so allow for two full slow-arch attempts. 350 is
-    # under GitHub's 360-minute per-job ceiling.
+    # GitHub's hosted-job ceiling is six hours. The remote command below stops
+    # waiting after five hours on riscv64 and leaves the queued Launchpad build
+    # alive, giving log collection and the summary a full hour to finish cleanly
+    # instead of having GitHub cancel the job at 360 minutes.
     timeout-minutes: 360
     strategy:
       fail-fast: false
@@ -4417,12 +4414,18 @@ jobs:
         # so dropping the history changes nothing about what is built.
         run: |
           set -euo pipefail
+          # remote-build derives its Launchpad recipe name from this commit.
+          # Preserve the tagged commit's timestamp so a re-run creates the SAME
+          # root commit and reconnects to the queued build instead of submitting
+          # another riscv64 build behind it.
+          snapshot_date="$(git show -s --format=%cI HEAD)"
           rm -rf .git
           git init -q
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -q -m "WeKan ${VERSION} snapshot for Launchpad remote-build"
+          GIT_AUTHOR_DATE="$snapshot_date" GIT_COMMITTER_DATE="$snapshot_date" \
+            git commit -q -m "WeKan ${VERSION} snapshot for Launchpad remote-build"
           echo "Re-initialised as one commit; shallow: $(git rev-parse --is-shallow-repository)"
 
       - name: Install snapcraft
@@ -4459,6 +4462,7 @@ jobs:
           echo "snapcraft.yaml is at version '${VERSION}'."
 
       - name: Build the ${{ matrix.arch }} snap on Launchpad
+        id: launchpad
         if: steps.bundle.outputs.available == 'true'
         # --build-for ${{ matrix.arch }}: build ONLY this leg's arch so a slow/failed
         # arch never blocks the others. remote-build can exit 0 without producing a
@@ -4495,6 +4499,8 @@ jobs:
             [ "$(head -c4 "$1")" = "hsqs" ] || {
               echo "$1 does not start with the squashfs magic 'hsqs' - it is not a snap."; return 1; }
           }
+          echo "built=false" >> "$GITHUB_OUTPUT"
+          echo "pending=false" >> "$GITHUB_OUTPUT"
           attempts=3
           for i in $(seq 1 "$attempts"); do
             # A partial file from a previous attempt must not be mistaken for
@@ -4502,8 +4508,18 @@ jobs:
             # already has, so the truncated one would be uploaded again.
             rm -f wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap
             echo "::group::Remote build ${{ matrix.arch }} attempt $i/$attempts"
-            snapcraft remote-build --launchpad-accept-public-upload \
-              --build-for ${{ matrix.arch }} && rc=0 || rc=$?
+            if [ "${{ matrix.arch }}" = riscv64 ]; then
+              # Launchpad's riscv64 queue exceeded GitHub's six-hour job cap in
+              # v11.06. Stop only the LOCAL waiter after five hours; Launchpad
+              # keeps the named build, and the deterministic snapshot above lets
+              # a job re-run reconnect and download it when ready.
+              timeout --foreground 300m snapcraft remote-build \
+                --launchpad-accept-public-upload \
+                --build-for ${{ matrix.arch }} && rc=0 || rc=$?
+            else
+              snapcraft remote-build --launchpad-accept-public-upload \
+                --build-for ${{ matrix.arch }} && rc=0 || rc=$?
+            fi
             echo "::endgroup::"
             # A real glob, so nullglob can empty it, plus any name Launchpad chose -
             # deduplicated, because the two patterns match the same file and it was
@@ -4519,6 +4535,12 @@ jobs:
                 echo "::warning::snapcraft exited $rc during post-download cleanup, but ${snaps[0]} is a complete squashfs snap; keeping it."
               fi
               echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]} ($(stat -c%s "${snaps[0]}") bytes, squashfs)"
+              echo "built=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [ "${{ matrix.arch }}" = riscv64 ] && [ "$rc" -eq 124 ]; then
+              echo "pending=true" >> "$GITHUB_OUTPUT"
+              echo "::warning::Launchpad riscv64 is still queued after five hours. Ending the local wait cleanly; re-run this matrix job later to reconnect to the same build and publish its snap."
               exit 0
             fi
             if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
@@ -4669,7 +4691,7 @@ jobs:
           retention-days: 30
 
       - name: Push ${{ matrix.arch }} to the Snap Store (stable + candidate + beta + edge)
-        if: steps.bundle.outputs.available == 'true'
+        if: steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true'
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_AUTH }}
         run: |
@@ -4731,7 +4753,7 @@ jobs:
           done
 
       - name: Attach the ${{ matrix.arch }} snap to the GitHub Release
-        if: steps.bundle.outputs.available == 'true'
+        if: steps.bundle.outputs.available == 'true' && steps.launchpad.outputs.built == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -4778,14 +4800,14 @@ jobs:
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
       # job it was in.
-      # A TIMEOUT HERE IS NOT A FAILED BUILD. v10.89's riscv64 leg ran 5h50m -
-      # the cap - with Launchpad still printing "Building: riscv64", and the run
-      # showed CANCELLED with nothing else said. What is true at that moment:
-      # the LAUNCHPAD build carries on, it keeps its name (snapcraft names the
-      # remote build from the project, not from the run), and re-running this
-      # job reconnects to the SAME build and downloads the snap instead of
-      # starting a new one. That is worth printing, because "CANCELLED" reads
-      # like the work is gone.
+      - name: Say what a queued riscv64 build leaves behind
+        if: steps.launchpad.outputs.pending == 'true'
+        run: |
+          echo "::warning::snap-launchpad riscv64 is still queued on Launchpad; this Actions job stopped waiting cleanly before GitHub's cap."
+          echo "Re-run this matrix job after Launchpad finishes. Its deterministic snapshot reconnects to the same build, downloads the snap, and publishes it."
+
+      # An unexpected job-level cancellation is distinct from the deliberate,
+      # clean riscv64 waiter timeout above.
       - name: Say what a cancelled ${{ matrix.arch }} job leaves behind
         if: cancelled()
         run: |

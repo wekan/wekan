@@ -123,6 +123,12 @@ test('a slow Launchpad arch can neither fail the release nor cancel another arch
     `timeout-minutes: ${timeout[1]} does not fit two attempts on a slow arch`);
   assert.ok(Number(timeout[1]) <= 360,
     `timeout-minutes: ${timeout[1]} is over GitHub's per-job ceiling`);
+  assert.ok(/timeout --foreground 300m snapcraft remote-build/.test(launchpad),
+    'riscv64 stops its local waiter before the six-hour hosted-job cancellation');
+  assert.ok(/\[ "\$\{\{ matrix\.arch \}\}" = riscv64 \] && \[ "\$rc" -eq 124 \]/.test(launchpad),
+    'the waiter timeout is recognized as queued work, not a failed build');
+  assert.ok(/pending=true/.test(launchpad),
+    'the clean timeout is exposed to the job summary');
 });
 
 test('Launchpad waits for and verifies its architecture-specific release bundle', () => {
@@ -254,6 +260,18 @@ test('a remote build that produced no .snap is a failure, not a silent success',
     'the attach step reads back the release assets');
   assert.ok(/is not listed in release v\$\{VERSION\} although the upload reported success/.test(attach),
     'and fails when its own snap is not among them');
+});
+
+test('a queued riscv64 build cannot reach publish steps without an artifact', () => {
+  const launchpad = job('snap-launchpad');
+  assert.ok(/id: launchpad/.test(launchpad), 'the build step exposes its outcome');
+  for (const name of ['Push ${{ matrix.arch }} to the Snap Store', 'Attach the ${{ matrix.arch }} snap']) {
+    const at = launchpad.indexOf(`- name: ${name}`);
+    assert.notStrictEqual(at, -1, `${name} exists`);
+    assert.match(launchpad.slice(at, at + 260),
+      /steps\.launchpad\.outputs\.built == 'true'/,
+      `${name} must be skipped while Launchpad is only queued`);
+  }
 });
 
 test('the Launchpad build log is printed whenever there is no snap', () => {
