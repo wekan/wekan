@@ -1,4 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { tripCanary } from '/server/lib/canary';
 const { requestPermissions: oauth2RequestPermissions } = require('/models/lib/oauth2Scopes');
 
 const {
@@ -54,12 +56,23 @@ export const Authentication = {
     await Authentication.checkAdminOrCondition(userId, normalAccess);
   },
 
-  // Helper function. Will throw an error if the user does not have write access to the board (excludes read-only users).
+  // Helper function. Will throw an error if the user does not have the
+  // canonical board write capability.
   async checkBoardWriteAccess(userId, boardId) {
     Authentication.checkLoggedIn(userId);
     const board = await ReactiveCache.getBoard(boardId);
     Authentication.checkBoardExists(board);
-    const writeAccess = board.members.some(e => e.userId === userId && e.isActive && !e.isNoComments && !e.isCommentOnly && !e.isWorker && !e.isReadOnly && !e.isReadAssignedOnly);
+    // AssignedBleed (GHSA-f396-42fx-vr88): the old hand-written exclusion
+    // omitted isCommentAssignedOnly, so that non-writing role could mutate
+    // cards through every REST route using this helper. Read the same role
+    // capability table as DDP permissions and the client instead.
+    const writeAccess = allowIsBoardMemberWithWriteAccess(userId, board);
+    if (!writeAccess) {
+      const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
+      if (admin === undefined) {
+        tripCanary('board.write-without-capability', { userId });
+      }
+    }
     await Authentication.checkAdminOrCondition(userId, writeAccess);
   },
 

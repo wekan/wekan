@@ -16,6 +16,8 @@ import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import fs from 'fs';
 import path from 'path';
 import { ObjectId } from 'bson';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { tripCanary } from '/server/lib/canary';
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 const HARD_MAX_API_UPLOAD_BODY_BYTES = 96 * 1024 * 1024;
@@ -139,29 +141,23 @@ function sendErrorResponse(res, statusCode, message) {
 }
 
 // Returns true if the user may *write* to the board (add/change/remove
-// attachments), mirroring Authentication.checkBoardWriteAccess: an active member
-// who is not read-only, comment-only, no-comments, worker, or assigned-only —
-// or a global site admin. Read operations should keep using board.hasMember().
+// attachments), mirroring Authentication.checkBoardWriteAccess: the canonical
+// board write capability, or a global site admin. Read operations should keep
+// using board.hasMember().
 async function userHasBoardWriteAccess(board, userId) {
   if (!board || !userId) {
     return false;
   }
-  const writeAccess = board.members.some(
-    m =>
-      m.userId === userId &&
-      m.isActive &&
-      !m.isNoComments &&
-      !m.isCommentOnly &&
-      !m.isWorker &&
-      !m.isReadOnly &&
-      !m.isReadAssignedOnly,
-  );
-  if (writeAccess) {
+  if (allowIsBoardMemberWithWriteAccess(userId, board)) {
     return true;
   }
   // Global site admins may write to any board.
   const admin = await ReactiveCache.getUser({ _id: userId, isAdmin: true });
-  return admin !== undefined;
+  if (admin !== undefined) {
+    return true;
+  }
+  tripCanary('board.write-without-capability', { userId });
+  return false;
 }
 
 // Upload attachment endpoint

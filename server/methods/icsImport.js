@@ -9,6 +9,7 @@ import { icsToCards } from '/server/lib/icsImport';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { tripCanary } from '/server/lib/canary';
 
 // Shared import logic used by both the Meteor method and the REST endpoint.
 // Validates that the target list/swimlane belong to the board (no cross-board
@@ -83,6 +84,7 @@ Meteor.methods({
     // cards through DDP even though the role table gives them no write access.
     // Keep this identical to the REST sibling below.
     if (!allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      tripCanary('calendar.import-without-write', { userId: this.userId });
       throw new Meteor.Error('not-authorized', 'You do not have write access to this board.');
     }
 

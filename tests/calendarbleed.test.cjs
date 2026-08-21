@@ -64,4 +64,9 @@ test('DDP and REST use the same helper', () => {
   );
 });
 
+test('a denied import is visible in Admin Panel Problems', () => {
+  assert.match(method,
+    /tripCanary\('calendar\.import-without-write', \{ userId: this\.userId \}\)/);
+});
+
 console.log(`\ncalendarbleed: ${passed} tests passed`);

@@ -91,6 +91,14 @@ const CANARIES = {
     key: 'authz.comment',
     what: "tried to delete another user's comment over the REST API",
   },
+  'calendar.import-without-write': {
+    key: 'authz.calendar',
+    what: 'tried to import iCalendar events as cards without board write access',
+  },
+  'board.write-without-capability': {
+    key: 'authz.assigned',
+    what: 'tried to mutate board content without the board write capability',
+  },
   'reaction.foreign': {
     key: 'authz.comment',
     what: "tried to add or remove another user's comment reaction",

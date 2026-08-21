@@ -53,6 +53,8 @@ const CATALOG = {
   'authz.parent':    { category: 'authz', bleed: 'ParentBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.share':     { category: 'authz', bleed: 'RevokeBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },
+  'authz.calendar':  { category: 'authz', bleed: 'CalendarBleed', severity: 'medium', cwe: 'CWE-863' },
+  'authz.assigned':  { category: 'authz', bleed: 'AssignedBleed', severity: 'medium', cwe: 'CWE-863' },
   'authz.database':  { category: 'authz', bleed: 'DatabaseBleed', severity: 'high', cwe: 'CWE-863' },
   // The five ybsun0215 REST API findings. Four of them have an ATTEMPT that can
   // be told apart from ordinary use, so the refusal is recorded and shows in
