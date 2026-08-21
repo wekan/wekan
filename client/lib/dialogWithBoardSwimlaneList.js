@@ -123,13 +123,9 @@ export class BoardSwimlaneListDialog {
     };
 
     if (swimlaneId) {
-      const defaultSwimlane =
-        board.getDefaultSwimline && board.getDefaultSwimline();
-      if (defaultSwimlane && defaultSwimlane._id === swimlaneId) {
-        selector.swimlaneId = { $in: [swimlaneId, null, ''] };
-      } else {
-        selector.swimlaneId = swimlaneId;
-      }
+      // Lists with no swimlane are board-global, not default-swimlane lists.
+      // Offer them beside the selected swimlane's own lists for every swimlane.
+      selector.swimlaneId = { $in: [swimlaneId, null, ''] };
     }
 
     return ReactiveCache.getLists(selector, { sort: { sort: 1 } });

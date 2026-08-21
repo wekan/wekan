@@ -97,10 +97,22 @@ WebApp.handlers.get('/api/boards/:boardId/cards/:cardId/comments', async functio
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    // The card is the authoritative board boundary. Older/imported comments can
+    // have a missing or stale denormalized boardId even though their cardId is
+    // valid (the board export deliberately follows cardId for the same reason).
+    // Validate that the requested card belongs to this board, then return every
+    // comment attached to it instead of silently dropping those legacy rows.
+    const card = await ReactiveCache.getCard({
+      _id: paramCardId,
+      boardId: paramBoardId,
+    });
+    if (!card) {
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
     sendJsonResult(res, {
       code: 200,
       data: (await ReactiveCache.getCardComments({
-        boardId: paramBoardId,
         cardId: paramCardId,
       })).map(doc => ({
         _id: doc._id,

@@ -98,10 +98,10 @@ function _showActivities(data) {
       // is gone: one control for one idea. Nothing is fetched at all while the
       // section is closed, which is the cheaper half of what the flag was for,
       // and opening it now means the whole history rather than a filtered part
-      // of it. `card.showActivities` still overrides when it was explicitly set
-      // to false, so a card somebody had set that way keeps its setting.
-      const card = data?.card || Utils.getCurrentCard();
-      ret = card?.showActivities ?? true;
+      // of it. Do not consult the obsolete per-card `showActivities` value here:
+      // existing cards commonly persist its old default (`false`), which would
+      // silently turn an explicitly opened Activities section into comments-only.
+      ret = true;
     } else {
       ret = Utils.getCurrentBoard().showActivities ?? false;
     }

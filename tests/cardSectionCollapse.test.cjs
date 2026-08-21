@@ -113,8 +113,10 @@ test('removing it did not quietly turn the history into comments-only', () => {
   // `activityType: 'addComment'` in the publication. With the eye gone and
   // nothing left to set the flag, an opened section would have shown comments
   // only - a feature lost by accident rather than by decision.
-  assert.ok(/card\?\.showActivities \?\? true/.test(activities),
-    'a card section that is open asks for the whole history');
+  assert.ok(/mode === 'card'[\s\S]{0,1400}ret = true;/.test(activities),
+    'a card section that is open always asks for the whole history');
+  assert.ok(!/card\?\.showActivities \?\?/.test(activities),
+    'an old persisted false value cannot reduce the opened feed to comments');
   assert.ok(/comments ONLY/.test(activities),
     'and the reason the default flipped is written down');
   const publication = read('server/publications/activities.js');
