@@ -387,10 +387,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the **AssignedBleed** and **CalendarBleed** security fixes make
-REST and iCalendar card creation follow the canonical board-role capabilities.
-Below that: complete card history and REST comments, board-global Move/Copy Card
-destinations, and resilient riscv64 snap release builds.
+**In short:** the **TenantBleed**, **AssignedBleed** and **CalendarBleed**
+security fixes restrict Organization/Team writes to site admins and make REST
+and iCalendar card creation follow canonical board-role capabilities. Below
+that: card-history, destination-picker and riscv64 release-build fixes.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -404,6 +404,22 @@ destinations, and resilient riscv64 snap release builds.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following MODERATE SECURITY ISSUES:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/216146edc">Organization and Team DDP writes require a site administrator</a>. Thanks to Char0n1507 and xet7.</summary>
+
+Any authenticated user could insert, update or remove an Organization or Team
+document over Meteor/DDP when its `_id` equalled their user id. The collection
+allow rules treated document identity as authority without requiring site-admin,
+tenant-admin or membership privileges, exposing tenant configuration and
+deletion. All six operations now share one site-admin-only decision; legitimate
+scoped and internal writes continue through their authorization-enforcing server
+methods. Refused authenticated attempts are rate-limited, attributed and shown
+in Admin Panel / Problems. See
+[GHSA-p4cq-83j9-7g73](https://github.com/wekan/wekan/security/advisories/GHSA-p4cq-83j9-7g73)
+and [TenantBleed](https://wekan.fi/hall-of-fame/tenantbleed/).
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1c75e995">REST mutations enforce the canonical board write capability</a>. Thanks to Char0n1507 and xet7.</summary>
