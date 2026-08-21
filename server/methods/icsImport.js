@@ -77,12 +77,13 @@ Meteor.methods({
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
     }
-    // Only board members (not read-only viewers) may create cards.
-    if (typeof board.hasMember === 'function' && !board.hasMember(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'You are not a member of this board.');
-    }
-    if (typeof board.hasReadOnly === 'function' && board.hasReadOnly(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'You have read-only access to this board.');
+    // CalendarBleed (GHSA-fpm6-r5fg-2mrg): importing creates cards, so it must
+    // use the canonical write capability. Membership plus !hasReadOnly() let
+    // Comment Only, Only Assigned Comment and Worker members create arbitrary
+    // cards through DDP even though the role table gives them no write access.
+    // Keep this identical to the REST sibling below.
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      throw new Meteor.Error('not-authorized', 'You do not have write access to this board.');
     }
 
     return importIcsCards(this.userId, boardId, listId, swimlaneId, icsText);
