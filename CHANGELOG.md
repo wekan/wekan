@@ -387,8 +387,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the **CalendarBleed** security fix prevents comment-only, Worker
-and read-only members from creating cards through the DDP iCalendar importer.
+**In short:** the **AssignedBleed** and **CalendarBleed** security fixes make
+REST and iCalendar card creation follow the canonical board-role capabilities.
 Below that: complete card history and REST comments, board-global Move/Copy Card
 destinations, and resilient riscv64 snap release builds.
 
@@ -403,7 +403,23 @@ destinations, and resilient riscv64 snap release builds.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following MODERATE SECURITY ISSUE of [CalendarBleed](https://wekan.fi/hall-of-fame/calendarbleed/):
+This release fixes the following MODERATE SECURITY ISSUES:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1c75e995">REST mutations enforce the canonical board write capability</a>. Thanks to Char0n1507 and xet7.</summary>
+
+An authenticated Only Assigned Comment member could modify any card through the
+REST API, even when not assigned to it. The shared REST authorization helper
+duplicated a list of excluded role flags and omitted `isCommentAssignedOnly`, so
+every card mutation route using it accepted a role whose canonical policy says
+`write: false`. The helper and both parallel attachment APIs now use the shared
+role-capability decision. All non-writing roles are denied, while No Comments
+and the other legitimate writing roles retain access. Refused attempts are
+rate-limited, attributed and shown in Admin Panel / Problems. See
+[GHSA-f396-42fx-vr88](https://github.com/wekan/wekan/security/advisories/GHSA-f396-42fx-vr88)
+and [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/).
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e062042c1">ICS imports require the canonical board write capability</a>. Thanks to Char0n1507 and xet7.</summary>
@@ -414,7 +430,8 @@ excluded only read-only roles, so Comment Only, Only Assigned Comment and Worker
 members reached card insertion despite the role policy denying them write
 access. The DDP path now uses the same canonical write-capability helper as its
 REST sibling. Regression coverage denies all five non-writing roles and confirms
-that the four legitimate writing roles retain access. See
+that the four legitimate writing roles retain access. Refused attempts are
+rate-limited, attributed and shown in Admin Panel / Problems. See
 [GHSA-fpm6-r5fg-2mrg](https://github.com/wekan/wekan/security/advisories/GHSA-fpm6-r5fg-2mrg)
 and [CalendarBleed](https://wekan.fi/hall-of-fame/calendarbleed/).
 
