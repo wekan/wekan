@@ -390,7 +390,9 @@ browser build to verify).
 **In short:** the **TenantBleed**, **AssignedBleed** and **CalendarBleed**
 security fixes restrict Organization/Team writes to site admins and make REST
 and iCalendar card creation follow canonical board-role capabilities. Below
-that: card-history, destination-picker and riscv64 release-build fixes.
+that: card-history, destination-picker and riscv64 release-build fixes. The
+binary table is the v11.06 baseline and will be replaced by this release's
+verified provenance when its platform builds run.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -404,6 +406,8 @@ that: card-history, destination-picker and riscv64 release-build fixes.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following MODERATE SECURITY ISSUES:
+
+**Organizations and Teams** - tenant configuration and its DDP permissions.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/216146edc">Organization and Team DDP writes require a site administrator</a>. Thanks to Char0n1507 and xet7.</summary>
@@ -421,6 +425,8 @@ and [TenantBleed](https://wekan.fi/hall-of-fame/tenantbleed/).
 
 </details>
 
+**REST authorization** - the shared permission gate for board mutations.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1c75e995">REST mutations enforce the canonical board write capability</a>. Thanks to Char0n1507 and xet7.</summary>
 
@@ -436,6 +442,8 @@ rate-limited, attributed and shown in Admin Panel / Problems. See
 and [AssignedBleed](https://wekan.fi/hall-of-fame/assignedbleed/).
 
 </details>
+
+**iCalendar import** - creating cards from calendar events through DDP.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e062042c1">ICS imports require the canonical board write capability</a>. Thanks to Char0n1507 and xet7.</summary>
