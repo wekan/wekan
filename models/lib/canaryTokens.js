@@ -99,6 +99,10 @@ const CANARIES = {
     key: 'authz.assigned',
     what: 'tried to mutate board content without the board write capability',
   },
+  'tenant.mutate-without-admin': {
+    key: 'authz.tenant',
+    what: 'tried to mutate Organization or Team configuration without site-admin access',
+  },
   'reaction.foreign': {
     key: 'authz.comment',
     what: "tried to add or remove another user's comment reaction",

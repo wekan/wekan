@@ -1,32 +1,15 @@
 import Org from '/models/org';
+import { allowSiteAdminCollectionMutation } from '/server/lib/adminCollectionPermission';
 
 Org.allow({
-  async insert(userId, doc) {
-    const user = await Meteor.users.findOneAsync(userId);
-    if (user?.isAdmin)
-      return true;
-    if (!user) {
-      return false;
-    }
-    return doc._id === userId;
+  async insert(userId) {
+    return allowSiteAdminCollectionMutation(userId);
   },
-  async update(userId, doc) {
-    const user = await Meteor.users.findOneAsync(userId);
-    if (user?.isAdmin)
-      return true;
-    if (!user) {
-      return false;
-    }
-    return doc._id === userId;
+  async update(userId) {
+    return allowSiteAdminCollectionMutation(userId);
   },
-  async remove(userId, doc) {
-    const user = await Meteor.users.findOneAsync(userId);
-    if (user?.isAdmin)
-      return true;
-    if (!user) {
-      return false;
-    }
-    return doc._id === userId;
+  async remove(userId) {
+    return allowSiteAdminCollectionMutation(userId);
   },
   fetch: [],
 });

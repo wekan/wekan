@@ -52,6 +52,7 @@ const WIRED = [
   ['comment.foreign-delete',           'server/models/cardComments.js',               'CommentBleed'],
   ['calendar.import-without-write',    'server/methods/icsImport.js',                  'CalendarBleed'],
   ['board.write-without-capability',   'server/authentication.js',                     'AssignedBleed'],
+  ['tenant.mutate-without-admin',      'server/lib/adminCollectionPermission.js',      'TenantBleed'],
   ['export.path-outside-storage',      'models/exporter.js',                          'PathBleed'],
   ['database.canary',                  'server/lib/databaseProblems.js',              '-'],
   // Injection - the attacker sends a query instead of a value.
@@ -120,7 +121,7 @@ test('the attempts behind published vulnerabilities are watched', () => {
   // permission check should trip something.
   const watched = new Set(WIRED.map(w => w[2]).filter(b => b !== '-'));
   ['BoardBleed', 'ChecklistBleed', 'PathBleed', 'ParentBleed', 'CommentBleed',
-    'CalendarBleed', 'AssignedBleed'].forEach(bleed => {
+    'CalendarBleed', 'AssignedBleed', 'TenantBleed'].forEach(bleed => {
     assert.ok(watched.has(bleed), `${bleed}'s attempt has no canary`);
   });
 });
