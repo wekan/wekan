@@ -405,7 +405,7 @@ remote build and publishing only after its snap is ready.
 This release fixes the following developer-tooling bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3fa0a2dc5">Queued riscv64 snap builds survive the GitHub job limit</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d11987fad">Queued riscv64 snap builds survive the GitHub job limit</a>. Thanks to xet7.</summary>
 
 The Release All log showed no riscv64 compiler or recipe failure: Launchpad
 kept it pending until GitHub cancelled the runner at its six-hour limit. The
