@@ -184,7 +184,7 @@ as human there. So: **only missing strings are ever filled, only when missing
 everywhere, human strings are always preferred and merged**, and nothing you fill is
 pushed to Transifex as if it were human.
 
-## General practices (from ../log/v10/Claude.txt)
+## General practices (from .tools/log/v10/Claude.txt)
 
 - **[maintainer only]** Commit as `Lauri Ojansivu <x@xet7.org>`, with **no**
   "Co-Authored-By" or any other AI trailer, directly to the `main` branch of WeKan and
@@ -197,7 +197,7 @@ pushed to Transifex as if it were human.
 - Directory structure:
   - `wekan` — this repo (https://github.com/wekan/wekan); see
     `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root.
-  - `../w/wekan.fi` — the WeKan website.
+  - `.tools/wekan.fi` — the WeKan website companion repository.
   - `.tools/` — everything that is NOT part of this repository but is needed to
     build, test and release it, in ONE directory that `.gitignore` and
     `.meteorignore` already exclude (each used to need its own ignore entry at
@@ -575,7 +575,7 @@ have cost a released section its accuracy:
 ### Security issues
 
 - Fix the vulnerability, add a CRITICAL section to the WeKan CHANGELOG like previous
-  entries, and update `../w/wekan.fi/hall-of-fame/index.html` and the vuln-name
+  entries, and update `.tools/wekan.fi/hall-of-fame/index.html` and the vuln-name
   subdirectory `index.html` like previous security issues.
 - **Every security fix gets a TEST and a NEGATIVE TEST, and they are written so the
   fault cannot exist ANYWHERE in the codebase — not just at the place it was
@@ -708,19 +708,17 @@ have cost a released section its accuracy:
 - Add tests, negative tests and UI tests for all new features and fixes that do not yet
   have tests. When adding a test, run or validate it and fix it until it works.
 - **"Check newest test logs":** test logs go into a `log/<datetime>/` directory,
-  one per run (e.g. `2026-07-21_20-58-09/`). That is **`../log/`**, one level up
-  from the repo, so a run does not show up in `git status` - **unless the parent
-  is not writable**, as in a Flatpak sandbox that shares only the repository;
-  there it is **`./log/`** inside the repo (gitignored). `build.sh` prints which
-  one when a run starts. The
+  one per run (e.g. `2026-07-21_20-58-09/`). That is **`.tools/log/`** inside the
+  repository's ignored tool area, so a run does not show up in `git status` and
+  does not depend on the parent directory being writable. The
   newest datetime directory is the latest run. Each holds the Playwright per-browser
   logs (`wekan-alltests-chromium.log`, `-firefox.log`, `-webkit.log`), the mocha/unit
   log (`wekan-alltests-mocha.log`), the e2e/import logs, and `wekan-test-server.log`
   (the WeKan test server + database output). A whole-run directory also holds the
   database-conformance logs (`db-conformance-*.log`, `-report.md`, `-summary.txt`)
   and FerretDB's own (`ferretdb-unit.log`, `-vet.log`, `-integration.log`). "Check
-  the newest test logs" means: open the most recent `log/<datetime>/` - look in
-  `../log/` first, then `./log/` - and read those.
+  the newest test logs" means: open the most recent
+  `.tools/log/<datetime>/` and read those.
 - **Check and fix WHILE the tests are still running.** A full run takes a long time
   (three browsers, then every database with an image for this CPU, then FerretDB's
   own suites), and its stages finish one at a time. Do not wait for the end: read
