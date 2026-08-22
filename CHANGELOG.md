@@ -389,7 +389,8 @@ browser build to verify).
 
 **In short:** six coordinated reports harden **REST authorization**, board
 ownership, administrator token auditing and error responses. Build and release
-tooling now supports **Alpine, Arch, Fedora, RHEL and Oracle Linux**, and keeps
+tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
+Linux, and keeps
 companion data under the repository's ignored **.tools** directory.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -511,6 +512,17 @@ and Oracle Linux configure their respective EPEL repositories before installing
 [snapd](https://github.com/wekan/wekan/commit/7017209b5).
 Mocked detection tests cover Alpine, Arch, Fedora, RHEL, Oracle Linux and Debian,
 and every migrated script is syntax-checked.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87451849f">Build and release scripts work when launched from macOS zsh</a>. Thanks to xet7.</summary>
+
+Host-facing Bash scripts now hand direct zsh invocation to macOS's system Bash
+before parsing Bash-specific syntax. The shared installer detects Darwin without
+depending on the caller's shell and maps command names to the correct Homebrew
+formulae for Python, GNU awk, GCC, 7-Zip and Node.js. Regression tests cover the
+handoff, Darwin detection and every differing formula name.
 
 </details>
 
