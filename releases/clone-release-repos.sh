@@ -10,29 +10,10 @@ if [ $# -ne 0 ]
     exit 1
 fi
 
-
-# 2) Check for git and install if missing
-if [ "$(uname)" = "Darwin" ]; then
-  if ! command -v brew >/dev/null 2>&1; then
-    echo "Homebrew not found. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-  if ! command -v git >/dev/null 2>&1; then
-    echo "git not found. Installing git with brew..."
-    brew install git
-  fi
-else
-  if ! command -v git >/dev/null 2>&1; then
-    if command -v dnf >/dev/null 2>&1; then
-      echo "git not found. Installing git with dnf..."
-      sudo dnf install -y git
-    else
-      echo "git not found. Installing git with apt-get..."
-      sudo apt-get update && sudo apt-get install -y git
-    fi
-  fi
-fi
-
+# 2) Install git with the current platform package manager.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+. "$SCRIPT_DIR/ensure-tools.sh"
+ensure_tools git
 # 3) Create directories, clone repos
 mkdir ../w
 cd ../w

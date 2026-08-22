@@ -94,8 +94,8 @@ fi
 
 if ! command -v jq >/dev/null 2>&1; then
   echo "error: 'jq' not found - it is needed to split and summarize the reports." >&2
-  echo "       Debian/Ubuntu: sudo apt install jq     Fedora: sudo dnf install jq" >&2
-  echo "       macOS: brew install jq                 Snap:   sudo snap install jq" >&2
+  echo "       Debian/Ubuntu: sudo apt install jq     Fedora/RHEL/Oracle: sudo dnf install jq" >&2
+  echo "       Alpine: sudo apk add jq                Arch: sudo pacman -S jq    macOS: brew install jq" >&2
   exit 1
 fi
 

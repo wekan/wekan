@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Shared helper: install required CLI tools for the CURRENT platform if they are
-# not already installed. Supports Debian/Ubuntu (apt), Fedora (dnf), and macOS
-# (Homebrew). The package-manager commands are architecture independent.
+# Shared helper: install required CLI tools for the current platform if missing.
+# Supports Debian/Ubuntu, Fedora, RHEL/Oracle Linux, Alpine, Arch, and macOS.
+# The package-manager commands are architecture independent.
 #
 # Usage (source it, then call ensure_tools with the tools you need):
 #   . "$(dirname "$0")/ensure-tools.sh"
@@ -18,17 +18,26 @@ _et_os() {
     *)      echo unknown ;;
   esac
 }
-
 _et_linux_family() {
-  if [ -r /etc/os-release ]; then
-    # shellcheck disable=SC1091
-    . /etc/os-release
+  local os_release="${WEKAN_OS_RELEASE_FILE:-/etc/os-release}"
+  if [ -r "$os_release" ]; then
+    ID=""; ID_LIKE=""
+    # shellcheck disable=SC1090
+    . "$os_release"
     case "${ID:-} ${ID_LIKE:-}" in
-      *fedora*|*rhel*) echo fedora; return ;;
+      *alpine*) echo alpine; return ;;
+      *arch*) echo arch; return ;;
+      *ol*|*oracle*|*rhel*|*centos*|*rocky*|*almalinux*) echo rhel; return ;;
+      *fedora*) echo fedora; return ;;
       *debian*|*ubuntu*) echo debian; return ;;
     esac
   fi
-  if _et_have dnf; then echo fedora; else echo debian; fi
+  if _et_have apk; then echo alpine
+  elif _et_have pacman; then echo arch
+  elif _et_have dnf || _et_have yum; then echo rhel
+  elif _et_have apt-get; then echo debian
+  else echo unknown
+  fi
 }
 
 _et_have() { command -v "$1" >/dev/null 2>&1; }
@@ -57,32 +66,65 @@ _et_apt_gh() {
 
 # ensure_tools <tool> [<tool> ...] — install each tool if missing.
 ensure_tools() {
-  local os tool
+  local os tool check family pm package
   os="$(_et_os)"
   for tool in "$@"; do
-    if _et_have "$tool"; then
+    check="$tool"; [ "$tool" = ripgrep ] && check=rg
+    if _et_have "$check"; then
       continue
     fi
     echo "Installing missing tool for $os: $tool"
     case "$os" in
       linux)
-        if [ "$(_et_linux_family)" = fedora ]; then
-          case "$tool" in
-            snapcraft)
-              sudo dnf install -y snapd
-              sudo systemctl enable --now snapd.socket
-              sudo ln -sfn /var/lib/snapd/snap /snap
-              sudo snap install snapcraft --classic
-              ;;
-            *)         sudo dnf install -y "$tool" ;;
-          esac
-        else
-          case "$tool" in
-            gh)        _et_apt_gh ;;
-            snapcraft) sudo snap install snapcraft --classic ;;
-            *)         sudo apt-get update && sudo apt-get install -y "$tool" ;;
-          esac
-        fi
+        family="$(_et_linux_family)"
+        case "$family" in
+          fedora|rhel)
+            pm=dnf; _et_have dnf || pm=yum
+            case "$tool" in
+              snapcraft)
+                sudo "$pm" install -y snapd
+                sudo systemctl enable --now snapd.socket
+                sudo ln -sfn /var/lib/snapd/snap /snap
+                sudo snap install snapcraft --classic
+                ;;
+              g++) package=gcc-c++ ; sudo "$pm" install -y "$package" ;;
+              7zip) [ "$family" = fedora ] && package=7zip || package=p7zip; sudo "$pm" install -y "$package" ;;
+              *) sudo "$pm" install -y "$tool" ;;
+            esac
+            ;;
+          alpine)
+            case "$tool" in
+              gh) package=github-cli ;;
+              awk) package=gawk ;;
+              pip3|python3-pip) package=py3-pip ;;
+              7zip) package=p7zip ;;
+              snapcraft) echo "snapcraft is not packaged for Alpine; use an Ubuntu VM/container." >&2; return 1 ;;
+              *) package="$tool" ;;
+            esac
+            sudo apk add --no-cache "$package"
+            ;;
+          arch)
+            case "$tool" in
+              gh) package=github-cli ;;
+              python3) package=python ;;
+              g++) package=gcc ;;
+              awk) package=gawk ;;
+              pip3|python3-pip) package=python-pip ;;
+              7zip) package=p7zip ;;
+              snapcraft) echo "Install snapd from AUR, enable snapd.socket, then install snapcraft." >&2; return 1 ;;
+              *) package="$tool" ;;
+            esac
+            sudo pacman -Sy --needed --noconfirm "$package"
+            ;;
+          debian)
+            case "$tool" in
+              gh) _et_apt_gh ;;
+              snapcraft) sudo apt-get update; sudo apt-get install -y snapd; sudo systemctl enable --now snapd.socket; sudo snap install snapcraft --classic ;;
+              *) sudo apt-get update && sudo apt-get install -y "$tool" ;;
+            esac
+            ;;
+          *) echo "Unknown Linux distribution; install $tool manually." >&2; return 1 ;;
+        esac
         ;;
       macos)
         _et_brew_ensure
@@ -93,4 +135,33 @@ ensure_tools() {
         ;;
     esac
   done
+}
+
+
+# Install the native compiler and archive tools used by bundle scripts.
+ensure_build_toolchain() {
+  local pm
+  case "$(_et_os):$(_et_linux_family)" in
+    linux:alpine) sudo apk add --no-cache bash build-base python3 curl wget p7zip zip unzip ;;
+    linux:arch) sudo pacman -Sy --needed --noconfirm base-devel python curl wget p7zip zip unzip ;;
+    linux:fedora) sudo dnf group install -y development-tools; sudo dnf install -y gcc gcc-c++ make python3 curl wget 7zip zip unzip ;;
+    linux:rhel) pm=dnf; _et_have dnf || pm=yum; sudo "$pm" groupinstall -y "Development Tools"; sudo "$pm" install -y gcc gcc-c++ make python3 curl wget p7zip zip unzip ;;
+    linux:debian) sudo apt-get update; sudo apt-get install -y build-essential g++ make python3 curl wget p7zip-full zip unzip ;;
+    macos:*) _et_brew_ensure; brew install make python curl wget sevenzip zip ;;
+    *) echo "Unsupported platform: install a C/C++ toolchain, Python 3, curl, wget, 7zip, zip and unzip." >&2; return 1 ;;
+  esac
+}
+
+# Install the download/archive tools used by Sandstorm and bundle conversion.
+ensure_archive_tools() {
+  local pm
+  case "$(_et_os):$(_et_linux_family)" in
+    linux:alpine) sudo apk add --no-cache curl wget p7zip zip unzip ;;
+    linux:arch) sudo pacman -Sy --needed --noconfirm curl wget p7zip zip unzip ;;
+    linux:fedora) sudo dnf install -y curl wget 7zip zip unzip ;;
+    linux:rhel) pm=dnf; _et_have dnf || pm=yum; sudo "$pm" install -y curl wget p7zip zip unzip ;;
+    linux:debian) sudo apt-get update; sudo apt-get install -y curl wget p7zip-full zip unzip ;;
+    macos:*) _et_brew_ensure; brew install curl wget sevenzip zip ;;
+    *) echo "Unsupported platform: install curl, wget, 7zip, zip and unzip." >&2; return 1 ;;
+  esac
 }

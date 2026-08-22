@@ -81,6 +81,7 @@ mkdir -p "$WEKAN_LOG_ROOT"
 WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEKAN_TOOLS_DIR="$WEKAN_DIR/.tools"
 export WEKAN_DIR WEKAN_TOOLS_DIR
+. "$WEKAN_DIR/releases/ensure-tools.sh"
 
 # Prefer the repository-local toolchain installed under .tools. A fresh shell
 # does not normally have .tools/.meteor on PATH, which made unattended test and
@@ -1476,35 +1477,19 @@ function install_forge_tools(){
 	if command -v brew >/dev/null 2>&1; then PM=brew
 	elif command -v apt  >/dev/null 2>&1; then PM=apt
 	elif command -v dnf  >/dev/null 2>&1; then PM=dnf
+	elif command -v yum  >/dev/null 2>&1; then PM=yum
+	elif command -v apk  >/dev/null 2>&1; then PM=apk
 	elif command -v pacman >/dev/null 2>&1; then PM=pacman
 	fi
 	echo "Detected package manager: ${PM:-none}"
 
 	# gh - GitHub CLI (source forge)
 	if command -v gh >/dev/null 2>&1; then echo "OK: gh present"
-	else case "$PM" in
-		brew) brew install gh ;;
-		dnf)  sudo dnf install -y gh ;;
-		pacman) sudo pacman -S --noconfirm github-cli ;;
-		apt)
-			type -p curl >/dev/null || sudo apt install -y curl
-			curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-			sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-			echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
-			sudo apt update && sudo apt install -y gh ;;
-		*) echo "Install gh manually: https://github.com/cli/cli#installation" ;;
-	esac; fi
+	else ensure_tools gh || echo "Install gh manually: https://github.com/cli/cli#installation"; fi
 
 	# glab - GitLab CLI
 	if command -v glab >/dev/null 2>&1; then echo "OK: glab present"
-	else case "$PM" in
-		brew) brew install glab ;;
-		pacman) sudo pacman -S --noconfirm glab ;;
-		dnf) sudo dnf install -y glab || echo "If unavailable: https://gitlab.com/gitlab-org/cli/-/releases" ;;
-		apt) sudo apt install -y glab 2>/dev/null || echo "glab not in apt; .deb at https://gitlab.com/gitlab-org/cli/-/releases" ;;
-		*) echo "Install glab manually: https://gitlab.com/gitlab-org/cli#installation" ;;
-	esac; fi
-
+	else ensure_tools glab || echo "Install glab manually: https://gitlab.com/gitlab-org/cli/-/releases"; fi
 	# tea - Gitea/Forgejo CLI (covers Codeberg, Forgejo, Gitea)
 	if command -v tea >/dev/null 2>&1; then echo "OK: tea present"
 	elif [ "$PM" = brew ]; then brew install tea
@@ -2325,17 +2310,31 @@ for _once in 1; do
 
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 			echo "Linux";
-			if command -v dnf >/dev/null 2>&1; then
-				# Fedora Workstation and other Fedora-family distributions.
-				sudo dnf group install -y development-tools
-				sudo dnf install -y gcc gcc-c++ make git curl wget 7zip zip unzip npm
-			else
-				# Debian, Ubuntu, Mint
-				sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm
-			fi
+			case "$(_et_linux_family)" in
+				alpine)
+					sudo apk add --no-cache bash build-base git curl wget p7zip zip unzip npm
+					;;
+				arch)
+					sudo pacman -Sy --needed --noconfirm base-devel git curl wget p7zip zip unzip npm
+					;;
+				fedora)
+					sudo dnf group install -y development-tools
+					sudo dnf install -y gcc gcc-c++ make git curl wget 7zip zip unzip npm
+					;;
+				rhel)
+					pm=dnf; command -v dnf >/dev/null 2>&1 || pm=yum
+					sudo "$pm" groupinstall -y "Development Tools"
+					sudo "$pm" install -y gcc gcc-c++ make git curl wget p7zip zip unzip npm
+					;;
+				debian)
+					sudo apt-get update
+					sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm
+					;;
+				*) echo "Unsupported Linux distribution; install a C/C++ toolchain, git, curl, wget, 7zip, zip, unzip and npm." >&2; exit 1 ;;
+			esac
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 24.16.0
+			sudo n "$_wekan_node_version"
 			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -2640,15 +2639,7 @@ for _once in 1; do
 		{
 			if ! command -v rg >/dev/null 2>&1; then
 				echo "ripgrep (rg) not found. Installing dependency."
-				if command -v apt >/dev/null 2>&1; then
-					sudo apt install -y ripgrep
-				elif command -v dnf >/dev/null 2>&1; then
-					sudo dnf install -y ripgrep
-				elif command -v brew >/dev/null 2>&1; then
-					brew install ripgrep
-				else
-					echo "WARNING: Could not auto-install ripgrep. Falling back to grep."
-				fi
+				ensure_tools ripgrep || echo "WARNING: Could not auto-install ripgrep. Falling back to grep."
 			fi
 
 			MISSING_TS_ESLINT=0

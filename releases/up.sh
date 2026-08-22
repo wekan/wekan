@@ -9,29 +9,10 @@ if [ $# -ne 1 ]
     echo "  ./maintainer-make-bundle-o.sh 5.10"
     exit 1
 fi
-
-
-# 2) Install parallel if it's not installed yet
-if [ "$(uname)" = "Darwin" ]; then
-  if ! command -v brew >/dev/null 2>&1; then
-    echo "Homebrew not found. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-  if ! command -v parallel >/dev/null 2>&1; then
-    echo "GNU parallel not found. Installing with brew..."
-    brew install parallel
-  fi
-else
-  if ! command -v parallel >/dev/null 2>&1; then
-    if command -v dnf >/dev/null 2>&1; then
-      echo "GNU parallel not found. Installing with dnf..."
-      sudo dnf install -y parallel
-    else
-      echo "GNU parallel not found. Installing with apt-get..."
-      sudo apt-get -y install parallel
-    fi
-  fi
-fi
+# 2) Install GNU parallel with the current platform package manager.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+. "$SCRIPT_DIR/ensure-tools.sh"
+ensure_tools parallel
 
 # 3) Download releases from build servers and
 #    upload releases to download server,

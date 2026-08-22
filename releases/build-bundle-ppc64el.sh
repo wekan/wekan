@@ -10,12 +10,9 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-if command -v dnf >/dev/null 2>&1; then
-  sudo dnf install -y gcc-c++ 7zip
-  sudo dnf group install -y development-tools
-else
-  sudo apt -y install g++ build-essential p7zip-full
-fi
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+. "$SCRIPT_DIR/ensure-tools.sh"
+ensure_build_toolchain
 sudo npm -g uninstall node-pre-gyp
 sudo npm -g install @mapbox/node-pre-gyp
 rm -rf bundle

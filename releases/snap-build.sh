@@ -87,21 +87,12 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
   }
 
-  # Ensure necessary tools are installed and running
-  if [ -r /etc/os-release ]; then
-    # shellcheck disable=SC1091
-    . /etc/os-release
-  fi
-  if [[ "${ID:-} ${ID_LIKE:-}" == *fedora* ]] || command -v dnf >/dev/null 2>&1; then
-    sudo dnf install -y snapd
-    sudo systemctl enable --now snapd.socket
-    sudo ln -sfn /var/lib/snapd/snap /snap
-  else
-    sudo apt-get -y install snapd
-    sudo systemctl enable snapd
-    sudo systemctl start snapd
-  fi
-  sudo snap install snapcraft --classic
+  # Snapcraft is available natively on Debian, Fedora and RHEL families.
+  # Alpine has no snapd package; Arch requires snapd from AUR, so the shared
+  # helper reports the required manual prerequisite instead of running apt.
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  . "$SCRIPT_DIR/ensure-tools.sh"
+  ensure_tools snapcraft
   sudo snap install lxd
 
   ensure_lxd_network() {

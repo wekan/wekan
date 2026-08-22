@@ -1,32 +1,15 @@
-
 #!/bin/bash
-
-# Check dependencies for macOS/Linux
-if [ "$(uname)" = "Darwin" ]; then
-  if ! command -v brew >/dev/null 2>&1; then
-    echo "Homebrew not found. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-  for dep in git awk; do
-    if ! command -v $dep >/dev/null 2>&1; then
-      echo "$dep not found. Installing $dep with brew..."
-      brew install $dep
-    fi
-  done
-else
-  for dep in git awk; do
-    if ! command -v $dep >/dev/null 2>&1; then
-      if command -v dnf >/dev/null 2>&1; then
-        package=$dep
-        [ "$dep" = awk ] && package=gawk
-        echo "$dep not found. Installing $package with dnf..."
-        sudo dnf install -y "$package"
-      else
-        echo "$dep not found. Installing $dep with apt-get..."
-        sudo apt-get update && sudo apt-get install -y "$dep"
-      fi
-    fi
-  done
+# Check dependencies with the current platform package manager.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+. "$SCRIPT_DIR/ensure-tools.sh"
+ensure_tools git
+if ! command -v awk >/dev/null 2>&1; then
+  case "$(_et_linux_family)" in
+    alpine) sudo apk add --no-cache gawk ;;
+    arch) sudo pacman -Sy --needed --noconfirm gawk ;;
+    fedora|rhel) pm=dnf; command -v dnf >/dev/null 2>&1 || pm=yum; sudo "$pm" install -y gawk ;;
+    *) ensure_tools awk ;;
+  esac
 fi
 
 # At 2024, GitHub removed feature of counting lines of code from
