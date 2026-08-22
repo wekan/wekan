@@ -387,10 +387,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** build and release tooling now supports **Fedora Workstation** with
-Fedora's package names and `dnf`, and keeps companion website and log data under
-the repository's ignored **.tools** directory. The existing Debian, Ubuntu and
-macOS paths remain unchanged.
+**In short:** six coordinated reports harden **REST authorization**, board
+ownership, administrator token auditing and error responses. Build and release
+tooling also supports **Fedora Workstation** and keeps companion data under the
+repository's ignored **.tools** directory.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -403,7 +403,89 @@ macOS paths remain unchanged.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release has the following developer-tooling improvements:
+This release fixes the following HIGH AND MODERATE SECURITY ISSUES:
+
+**REST board mutations** - cards, checklists, checklist items and comments.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Checklist mutations require board write access</a>. Thanks to Char0n1507 and xet7.</summary>
+
+Checklist and checklist-item create, edit and delete routes accepted read-only
+board members because they checked only whether the caller could view the board.
+Every mutation now requires the canonical board write capability; read-only
+members retain GET access. See
+[GHSA-5r4m-5xx6-96jf](https://github.com/wekan/wekan/security/advisories/GHSA-5r4m-5xx6-96jf)
+and [ChecklistWriteBleed](https://wekan.fi/hall-of-fame/checklistwritebleed/).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Every REST mutation follows its canonical board-role capability</a>. Thanks to senti-man and xet7.</summary>
+
+Checklist, checklist-item and comment routes had drifted from the role capability
+table: some mutations needed only read access, while comment creation required
+full write access and incorrectly rejected Comment Only members. Mutation routes
+now require write access and comment creation uses the comment capability. See
+[GHSA-cp24-5m9m-wm97](https://github.com/wekan/wekan/security/advisories/GHSA-cp24-5m9m-wm97)
+and [RoleBleed](https://wekan.fi/hall-of-fame/rolebleed/).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Card and checklist creation requires board write access</a>. Thanks to Char0n1507 and xet7.</summary>
+
+Card and checklist creation reused the comment permission, allowing Comment Only
+members to create board content. Both single and bulk card creation and checklist
+creation now require the canonical write capability. See
+[GHSA-qf5c-63jx-mpv4](https://github.com/wekan/wekan/security/advisories/GHSA-qf5c-63jx-mpv4)
+and [CommentWriteBleed](https://wekan.fi/hall-of-fame/commentwritebleed/).
+
+</details>
+
+**Boards** - ownership assigned by the board-creation API.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/061410efe">REST board creation cannot choose another owner</a>. Thanks to Char0n1507 and xet7.</summary>
+
+The board-creation route trusted the owner and role flags in the request body, so
+an authenticated caller could create a board attributed to another user. The
+authenticated caller is now always the initial active administrator and owner.
+See
+[GHSA-6jvj-85q3-6q2m](https://github.com/wekan/wekan/security/advisories/GHSA-6jvj-85q3-6q2m)
+and [OwnerBleed](https://wekan.fi/hall-of-fame/ownerbleed/).
+
+</details>
+
+**Administrator API** - issuing login tokens for another account.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Administrator-created login tokens require an audited reason</a>. Thanks to Char0n1507 and xet7.</summary>
+
+The administrator token endpoint could create a reusable login token for another
+user without producing the impersonation audit record used by the normal UI. It
+now requires a reason, verifies the target, records the administrator and target
+before inserting the login token, and rejects an unaudited request. See
+[GHSA-5r57-9vj7-c64f](https://github.com/wekan/wekan/security/advisories/GHSA-5r57-9vj7-c64f)
+and [TokenAuditBleed](https://wekan.fi/hall-of-fame/tokenauditbleed/).
+
+</details>
+
+**REST responses** - safe status codes and public error messages.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/061410efe">REST failures return sanitized errors and correct HTTP statuses</a>. Thanks to Char0n1507 and xet7.</summary>
+
+Board and user routes returned raw Error objects as successful HTTP 200 responses,
+which exposed implementation details and made failures look successful. Shared
+response handling now preserves expected 4xx statuses while replacing unexpected
+5xx details with a generic message. Regression tests cover both paths and ensure
+raw errors do not return from the affected handlers. See
+[GHSA-h59p-76c3-8345](https://github.com/wekan/wekan/security/advisories/GHSA-h59p-76c3-8345)
+and [ErrorBleed](https://wekan.fi/hall-of-fame/errorbleed/).
+
+</details>
+
+and has the following developer-tooling improvements:
 
 **Build and release tooling** - host setup and repository-local working data.
 
@@ -428,6 +510,8 @@ the CI environment-variable overrides.
 </details>
 
 - [Repository instructions use the same .tools paths](https://github.com/wekan/wekan/commit/35d7c06aa). Thanks to xet7.
+
+- [The database-conformance regression test expects .tools/log](https://github.com/wekan/wekan/commit/2e1d74f64). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
