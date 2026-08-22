@@ -389,8 +389,8 @@ browser build to verify).
 
 **In short:** six coordinated reports harden **REST authorization**, board
 ownership, administrator token auditing and error responses. Build and release
-tooling also supports **Fedora Workstation** and keeps companion data under the
-repository's ignored **.tools** directory.
+tooling now supports **Alpine, Arch, Fedora, RHEL and Oracle Linux**, and keeps
+companion data under the repository's ignored **.tools** directory.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -496,6 +496,19 @@ Host-side dependency installers now choose Fedora's `dnf` commands and package
 names, including Fedora 44's `7zip`, `gcc-c++`, `glibc-langpack-en` and snapd
 socket setup. Debian/Ubuntu continue to use apt and macOS continues to use
 Homebrew. Mocked installer-path tests cover both Fedora and Debian selection.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc573c760">Installers support Alpine, Arch, RHEL and Oracle Linux</a>. Thanks to xet7.</summary>
+
+Host-facing shell installers now identify Linux families through `/etc/os-release`
+and select `apk`, `pacman`, `dnf`, `yum` or `apt-get` with each distribution's
+package names. Shared compiler and archive setup covers bundle conversion, docs,
+Sandstorm, release downloads, Snap prerequisites and forge tooling. Alpine and
+Arch report the manual Snap prerequisite instead of incorrectly running apt.
+Mocked detection tests cover Alpine, Arch, Fedora, RHEL, Oracle Linux and Debian,
+and every migrated script is syntax-checked.
 
 </details>
 
