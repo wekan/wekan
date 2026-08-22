@@ -149,7 +149,7 @@ echo   1^) EVERYTHING two-worker: one stage at a time, two Playwright workers
 echo       per browser; every database and all FerretDB tests remain sequential.
 echo       Logs in .tools\log\^<datetime^>\
 echo   2^) EVERYTHING one by one: one stage and one Playwright worker at a time
-echo       for minimum RAM usage
+echo       for minimum RAM usage; database and FerretDB stages stay sequential
 echo   3^) EVERYTHING at once: WeKan test jobs concurrently; database and
 echo       FerretDB stages remain sequential
 echo   4^) Mocha ^(server-side^)

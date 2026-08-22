@@ -2525,7 +2525,7 @@ while [ -z "$opt" ]; do
 			"Tests")
 				choose "Tests" \
 					"EVERYTHING two-worker|Run EVERYTHING with stages one by one and two Playwright workers per browser; database and FerretDB stages stay sequential; logs in log/<datetime>/" \
-					"EVERYTHING one by one|Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; logs in log/<datetime>/" \
+					"EVERYTHING one by one|Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; database and FerretDB stages stay sequential; logs in log/<datetime>/" \
 					"EVERYTHING at once|Run EVERYTHING with the WeKan test jobs concurrently; database backends and FerretDB stages stay sequential; logs in log/<datetime>/" \
 					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
 					"Import regression|Test import regression (tests/wekanCreator.import.test.js, fast, no server)" \
@@ -2835,7 +2835,7 @@ for _once in 1; do
 		break
 		;;
 
-    "Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; logs in log/<datetime>/")
+    "Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; database and FerretDB stages stay sequential; logs in log/<datetime>/")
 		run_everything sequential
 		break
 		;;

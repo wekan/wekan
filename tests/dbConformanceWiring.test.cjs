@@ -258,9 +258,10 @@ test('everything can be run in one go, from either build script', () => {
   const sh = read('build.sh');
   const bat = read('build.bat');
 
-  // The three stages, in one function, sequential, sharing one log directory.
+  // The complete stages share one function and log directory; only the selected
+  // WeKan scheduling mode changes. Database and FerretDB stages stay sequential.
   assert.ok(/function run_everything\(\)/.test(sh), 'build.sh has the EVERYTHING runner');
-  for (const stage of ['run_all_tests sequential', './releases/db-conformance.sh',
+  for (const stage of ['run_all_tests "$EVERYTHING_MODE"', './releases/db-conformance.sh',
     './build.sh test-all']) {
     assert.ok(sh.includes(stage), `EVERYTHING must run: ${stage}`);
   }
@@ -270,7 +271,9 @@ test('everything can be run in one go, from either build script', () => {
 
   // Both menus offer it, and the direct FerretDB entry too.
   assert.ok(sh.includes('Run all FerretDB tests - SEQUENTIAL'), 'build.sh: FerretDB entry');
-  assert.ok(sh.includes('EVERYTHING (sequential)'), 'build.sh: EVERYTHING entry');
+  for (const mode of ['EVERYTHING two-worker', 'EVERYTHING one by one', 'EVERYTHING at once']) {
+    assert.ok(sh.includes(mode), `build.sh: ${mode} entry`);
+  }
 
   // It is the FIRST entry of the Tests menu, and the entries around it say what
   // they really cover: "ALL tests" used to mean WeKan's own suite only, which
@@ -279,15 +282,15 @@ test('everything can be run in one go, from either build script', () => {
   // The entries of this menu only: up to the ';;' that closes the "Tests" case.
   const entries = [...menu.slice(0, menu.indexOf('\n\t\t\t;;'))
     .matchAll(/^\s*"([^"|]+)\|([^"]*)"/gm)].map(m => [m[1], m[2]]);
-  assert.ok(entries[0][0].startsWith('EVERYTHING (sequential)'),
-    `the first Tests entry must be the everything-run, found "${entries[0][0]}"`);
-  for (const [label, description] of entries.slice(1, 3)) {
-    assert.ok(/WeKan's own tests only/.test(label),
-      `"${label}" must not claim to be ALL tests - it does not run the database or FerretDB suites`);
-    assert.ok(/No database conformance and no FerretDB tests/.test(description),
-      `"${label}" must say what it does NOT cover`);
-    // `.tools/log/<datetime>/` - see the note on the entry above:
-    // the root is resolved at run time, so the menu names the shape.
+  assert.deepStrictEqual(entries.slice(0, 3).map(([label]) => label), [
+    'EVERYTHING two-worker',
+    'EVERYTHING one by one',
+    'EVERYTHING at once',
+  ], 'the first three Tests entries must be complete execution modes');
+  for (const [label, description] of entries.slice(0, 3)) {
+    assert.ok(/EVERYTHING/.test(label), `"${label}" must run the complete matrix`);
+    assert.ok(/database/.test(description) && /FerretDB/.test(description),
+      `"${label}" must describe its database and FerretDB stages`);
     assert.ok(/log\/<datetime>\//.test(description), `"${label}" must say where the logs go`);
   }
 });
@@ -328,7 +331,11 @@ test('every Tests option writes its log to .tools/log/<datetime>/', () => {
     assert.ok(new RegExp(`\\b${b}\\b`).test(pwAll), `and cover ${b}`);
   }
   assert.ok(/Run all FerretDB tests - SEQUENTIAL/.test(bat), 'build.bat: FerretDB entry');
-  assert.ok(/EVERYTHING \^\(sequential\^\)/.test(bat), 'build.bat: EVERYTHING entry');
+  for (const mode of [
+    'EVERYTHING two-worker', 'EVERYTHING one by one', 'EVERYTHING at once',
+  ]) {
+    assert.ok(bat.includes(mode), `build.bat: ${mode} entry`);
+  }
   assert.ok(/bash \.\/releases\/run-everything\.sh/.test(bat),
     'build.bat runs the shared script rather than a second implementation');
   assert.ok(fs.existsSync(path.join(ROOT, 'releases/run-everything.sh')));
