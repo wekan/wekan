@@ -390,8 +390,8 @@ browser build to verify).
 **In short:** six coordinated reports harden **REST authorization**, board
 ownership, administrator token auditing and error responses. Build and release
 tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
-Linux, and keeps
-companion data under the repository's ignored **.tools** directory.
+Linux, keeps companion data under the repository's ignored **.tools** directory
+and bounds **test runtime memory** independently from compilation.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -489,6 +489,19 @@ and [ErrorBleed](https://wekan.fi/hall-of-fame/errorbleed/).
 and has the following developer-tooling improvements:
 
 **Build and release tooling** - host setup and repository-local working data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18a6031f3">Test runtimes cannot consume the build tool's half-of-RAM heap allowance</a>. Thanks to xet7.</summary>
+
+The adaptive 8-16 GiB heap ceiling needed while Meteor compiles WeKan was also
+inherited by the long-lived bundle server and every Node, E2E and Playwright
+process. A leaking test could therefore consume nearly all workstation RAM and
+swap before Linux killed it. Runtime processes now use a separate quarter-RAM
+allowance clamped to 2-4 GiB, while Meteor compilation retains the larger heap.
+`WEKAN_TEST_NODE_OPTIONS` provides a test-only override. Regression coverage
+pins both the bounded processes and the deliberately unbounded compiler.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/04b6eb788">Build and release scripts detect and support Fedora hosts</a>. Thanks to xet7.</summary>
