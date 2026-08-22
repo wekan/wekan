@@ -20,7 +20,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 
 sudo reboot
 
-flatpak install flathub com.visualstudio.code
+flatpak install flathub com.vscodium.codium
 ```
 
 ## 3) Edit VSCode desktop icon
@@ -31,27 +31,27 @@ nano ~/.local/share/applications/wekan-vscode.desktop
 Content:
 ```
 [Desktop Entry]
-Name=VS Code - WeKan
+Name=VS Codium - WeKan
 Comment=Open the WeKan project with Flatpak
-Exec=flatpak run com.visualstudio.code /home/wekan/repos/wekan
-Icon=com.visualstudio.code
+Exec=flatpak run com.vscodium.codium /home/wekan/repos/wekan
+Icon=com.vscodium.codium
 Terminal=false
 Type=Application
 Categories=Development;IDE;
 StartupWMClass=code
 ```
 
-## 4) Force VS Code to use the internal (isolated) browser
+## 4) Force VS Codium to use the internal (isolated) browser
 
 This setting is also added as git commit to VSCode settings.
 
 This is the most important step. If this is "native", it will use the operating system window that sees everything.
 
-1. Open VS Code.
+1. Open VS Codium.
 2. Press `Ctrl + ,` (options).
 3. Type in search: **Dialogs: Custom**
 4. Change the `Files: Simple Dialog` setting to **on** (check the box).
-5. Restart VS Code.
+5. Restart VS Codium.
 
 ## 5) Set the strictest sandbox possible (in Terminal)
 
@@ -59,10 +59,10 @@ Run these two commands (the first clears everything, the second sets limits):
 
 ```bash
 # Reset previous attempts
-sudo flatpak override --reset com.visualstudio.code
+sudo flatpak override --reset com.vscodium.codium
 
 # Block EVERYTHING except the display and the wekan folder
-sudo flatpak override com.visualstudio.code \
+sudo flatpak override com.vscodium.codium \
   --nofilesystem=home \
   --nofilesystem=host \
   --nofilesystem=xdg-run/gvfs \
@@ -78,7 +78,7 @@ sudo flatpak override com.visualstudio.code \
 If you have already set wrong Chrome sandbox env earlier, remove it:
 
 ```bash
-sudo flatpak override --unset-env=CHROME_DEVEL_SANDBOX com.visualstudio.code
+sudo flatpak override --unset-env=CHROME_DEVEL_SANDBOX com.vscodium.codium
 ```
 
 Why: inside this Flatpak, `/usr/sbin/chrome-devel-sandbox` does not exist, and Chromium aborts immediately if that env points there.
@@ -87,29 +87,29 @@ Why: inside this Flatpak, `/usr/sbin/chrome-devel-sandbox` does not exist, and C
 
 Now when you go to **File -> Open Folder**:
 
-1. You will no longer see the fancy system file window, but VS Code's own, simple list.
+1. You will no longer see the fancy system file window, but VS Codium's own, simple list.
 2. If you try to go to the parent folder or somewhere else, **the list is empty** or it only shows `~/repos/wekan`.
 
 ## 7) Where existing binaries are (verified)
 
 These were found already present in this sandboxed setup:
 
-- Node.js: `/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin/node`
-- npm: `/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin/npm`
-- npx: `/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin/npx`
+- Node.js: `/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin/node`
+- npm: `/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin/npm`
+- npx: `/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin/npx`
 - Meteor CLI symlink: `/home/wekan/.meteor/meteor`
-- Playwright Chromium binary: `/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright/chromium-1223/chrome-linux64/chrome`
+- Playwright Chromium binary: `/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright/chromium-1223/chrome-linux64/chrome`
 - Flatpak-provided chrome-sandbox binary (not SUID in this runtime): `/app/extra/vscode/chrome-sandbox`
 
 ## 8) Reuse same in-sandbox toolchain (tested)
 
-Open VS Code integrated terminal and run:
+Open VS Codium integrated terminal and run:
 
 ```bash
 cd /home/wekan/repos/wekan
 
 # 1) Use repo-local Node/npm/npx
-export PATH="$PWD/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+export PATH="$PWD/.tools/node-v24.19.0-linux-x64/bin:$PATH"
 
 # 2) Use Meteor CLI installed at ~/.meteor (if present)
 export PATH="/home/wekan/.meteor:$PATH"
@@ -118,7 +118,7 @@ export PATH="/home/wekan/.meteor:$PATH"
 unset CHROME_DEVEL_SANDBOX
 
 # 4) Keep Playwright browsers in Flatpak-private cache
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 ```
 
 Quick checks:
@@ -134,7 +134,7 @@ If `meteor` is missing first time, bootstrap it from local Node:
 
 ```bash
 cd /home/wekan/repos/wekan
-export PATH="$PWD/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+export PATH="$PWD/.tools/node-v24.19.0-linux-x64/bin:$PATH"
 npx -y meteor
 export PATH="/home/wekan/.meteor:$PATH"
 ```
@@ -142,7 +142,7 @@ export PATH="/home/wekan/.meteor:$PATH"
 If you keep `--nofilesystem=home`, allow Meteor directory explicitly:
 
 ```bash
-sudo flatpak override com.visualstudio.code --filesystem=~/.meteor:rw
+sudo flatpak override com.vscodium.codium --filesystem=~/.meteor:rw
 ```
 
 ## 9) Run tests fully inside sandbox (headless)
@@ -151,15 +151,15 @@ Install Playwright deps and run Chromium-only tests:
 
 ```bash
 cd /home/wekan/repos/wekan/tests/playwright
-export PATH="/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+export PATH="/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin:$PATH"
 unset CHROME_DEVEL_SANDBOX
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 
 npm install
 npx playwright test --project=chromium
 ```
 
-This runs headless browser tests inside Flatpak sandboxed VS Code terminal (no external/native browser window needed).
+This runs headless browser tests inside Flatpak sandboxed VS Codium terminal (no external/native browser window needed).
 
 ### Run Firefox/WebKit too
 
@@ -176,7 +176,7 @@ Then run for example:
 cd /home/wekan/repos/wekan/tests/playwright
 export HOME="/home/wekan/repos/wekan/.tools"
 unset CHROME_DEVEL_SANDBOX
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 export WEKAN_PLAYWRIGHT_ALL=1
 
 /home/wekan/repos/wekan/.tools/.meteor/meteor npm exec playwright test -- --project=firefox
@@ -228,7 +228,7 @@ After applying the sandbox env settings from this document and running with:
 cd /home/wekan/repos/wekan/tests/playwright
 export HOME="/home/wekan/repos/wekan/.tools"
 unset CHROME_DEVEL_SANDBOX
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 export WEKAN_PLAYWRIGHT_ALL=1
 
 /home/wekan/repos/wekan/.tools/.meteor/meteor npm exec playwright test -- --project=webkit
@@ -242,7 +242,7 @@ validated result:
 
 ```bash
 cd /home/wekan/repos/wekan/tests/playwright
-export PATH="/home/wekan/repos/wekan/.tools/node-v22.13.1-linux-x64/bin:$PATH"
+export PATH="/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin:$PATH"
 unset CHROME_DEVEL_SANDBOX
 
 node -e "(async()=>{const {chromium}=require('playwright');const b=await chromium.launch({headless:true,args:['--no-sandbox']});const p=await b.newPage();await p.goto('about:blank');console.log('PW_OK');await b.close();})().catch(e=>{console.error(e);process.exit(1);});"
@@ -316,7 +316,7 @@ Terminal 2 (run tests):
 ```bash
 cd /home/wekan/repos/wekan/tests/playwright
 unset CHROME_DEVEL_SANDBOX
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 /home/wekan/.meteor/meteor npm exec playwright test -- --project=chromium
 ```
 
@@ -358,7 +358,7 @@ mkdir -p "$WRITABLE_PATH/files/attachments" "$WRITABLE_PATH/files/avatars"
 
 # Sandbox-safe browser env
 unset CHROME_DEVEL_SANDBOX
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 
 # Ensure Playwright-side mongosh exists for DB seeding
 /home/wekan/.meteor/meteor npm --prefix tests/playwright install mongosh
@@ -395,7 +395,7 @@ Terminal 2:
 ```bash
 cd /home/wekan/repos/wekan
 unset CHROME_DEVEL_SANDBOX
-export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.visualstudio.code/cache/ms-playwright"
+export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 /home/wekan/.meteor/meteor npm --prefix tests/playwright install mongosh
 /home/wekan/.meteor/meteor npm --prefix tests/playwright exec playwright test -- --project=chromium
 ```
@@ -408,7 +408,7 @@ Linux arch), install everything into the repo-local `.tools/` directory yourself
 
 IMPORTANT — use the SAME versions WeKan/FerretDB use, not whatever is newest:
 
-- Node.js: the exact `NODE_VERSION` from `Dockerfile` (currently `v24.18.0`).
+- Node.js: the exact `NODE_VERSION` from `Dockerfile` (currently `v24.19.0`).
 - npm: the `NPM_VERSION` from `Dockerfile` (currently `11.12.1`; the npm bundled with the
   pinned Node is acceptable if pinning fails).
 - Meteor: the release in `.meteor/release` (currently `METEOR@3.5`).
@@ -423,13 +423,13 @@ cd /home/wekan/repos/wekan          # your repo path
 mkdir -p .tools && cd .tools
 A=arm64                              # or x64 for Node / amd64 for Go on x86_64
 # Node — EXACT Dockerfile NODE_VERSION:
-curl -fsSL -o node.tar.xz "https://nodejs.org/dist/v24.18.0/node-v24.18.0-linux-$A.tar.xz"
+curl -fsSL -o node.tar.xz "https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-$A.tar.xz"
 tar xf node.tar.xz && rm node.tar.xz
 # Go — NEWEST release, for building FerretDB:
 curl -fsSL -o go.tar.gz "https://go.dev/dl/$(curl -fsSL https://go.dev/VERSION?m=text|head -1).linux-$A.tar.gz"
 tar xf go.tar.gz && rm go.tar.gz
 cd ..
-export PATH="$PWD/.tools/node-v24.18.0-linux-$A/bin:$PWD/.tools/go/bin:$PATH"
+export PATH="$PWD/.tools/node-v24.19.0-linux-$A/bin:$PWD/.tools/go/bin:$PATH"
 node -v && go version
 # Meteor — the release from .meteor/release, installed under HOME=.tools so it never
 # touches a read-only ~/.meteor:
@@ -453,7 +453,7 @@ go test -short -tags=ferretdb_debug ./internal/... ./cmd/...   # all packages: o
 
 ```bash
 cd /home/wekan/repos/wekan
-export HOME="$PWD/.tools" PATH="$PWD/.tools/node-v24.18.0-linux-arm64/bin:$PWD/.tools/.meteor:$PATH"
+export HOME="$PWD/.tools" PATH="$PWD/.tools/node-v24.19.0-linux-arm64/bin:$PWD/.tools/.meteor:$PATH"
 export TOOL_NODE_FLAGS="--max-old-space-size=8192" NODE_OPTIONS="--max-old-space-size=8192"
 meteor npm install
 meteor build .build --directory                      # -> .build/bundle/main.js
@@ -464,7 +464,7 @@ npm install --prefix .build/bundle/programs/server   # server deps, needed to RU
 
 ```bash
 cd /home/wekan/repos/wekan
-export PATH="$PWD/.tools/node-v24.18.0-linux-arm64/bin:$PATH"
+export PATH="$PWD/.tools/node-v24.19.0-linux-arm64/bin:$PATH"
 npm run test:unit:node        # plain-node .cjs unit + negative tests (no DB/browser)
 npm run test:unit:node -- board   # only the suites whose path contains "board"
 node tests/run-node-suites.cjs --list   # what would run
@@ -491,7 +491,7 @@ DO_NOT_TRACK=1 ./FerretDB/bin/ferretdb --handler=sqlite --sqlite-url="file:$D/db
   --telemetry=disable --log-level=error &
 # 2) THEN WeKan (starting it before FerretDB is ready crashes on the users index —
 #    "Topology is closed" — see #6500):
-PATH="$T/node-v24.18.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:27017/wekan" \
+PATH="$T/node-v24.19.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:27017/wekan" \
   METEOR_REACTIVITY_ORDER="oplog,polling" \
   MONGO_OPLOG_URL="mongodb://127.0.0.1:27017/local?replicaSet=rs0" \
   PORT=8080 ROOT_URL="http://localhost:8080" WRITABLE_PATH="$D" \
