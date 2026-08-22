@@ -152,11 +152,15 @@ fi
 echo "FerretDB at $(git -C "$FERRET_DIR" rev-parse --short HEAD 2>/dev/null || echo '?')"
 
 # ── 2. build it ─────────────────────────────────────────────────────────────
-# FerretDB's own build.sh installs the Go toolchain when it is missing (ensure_go)
-# and downloads the module dependencies, so nothing has to be installed by hand.
+# FerretDB's build action installs the Go toolchain when it is missing and `go
+# build` downloads only the modules needed by the binary. Do not precede it with
+# `deps`: that action downloads every dependency of the root, integration and
+# tools modules, although conformance has not started those test suites yet.
+# EVERYTHING runs those suites in the following stage, where Go can fetch their
+# dependencies on demand. Keeping the Go cache makes either fetch a one-time cost.
 echo
 echo "---- Building FerretDB v1 from source ----"
-( cd "$FERRET_DIR" && ./build.sh deps && ./build.sh build ) 2>&1 \
+( cd "$FERRET_DIR" && ./build.sh build ) 2>&1 \
   | tee -a "$LOGDIR/db-conformance-build.log"
 if [ ! -x "$FERRET_BIN" ]; then
   echo "ERROR: the build produced no $FERRET_BIN - see $LOGDIR/db-conformance-build.log" >&2

@@ -1399,6 +1399,17 @@ function floating_promises_checks(){
 # by git and by Meteor, so a companion repo cannot reach a commit or a rebuild.
 function run_everything(){
 	local RUN_TS RUN_LOGDIR FAILED=0
+	# Bound Go package parallelism separately from Node so many compiler processes
+	# cannot drive the workstation into swap. Keep 2-4 workers and a 2-4 GiB
+	# managed-heap limit per Go process; explicit overrides still win.
+	local FERRET_GO_JOBS=$(( _mem_total_mb / 4096 ))
+	[ "$FERRET_GO_JOBS" -lt 2 ] && FERRET_GO_JOBS=2
+	[ "$FERRET_GO_JOBS" -gt 4 ] && FERRET_GO_JOBS=4
+	local FERRET_GO_MEMORY_MB=$(( _mem_total_mb / 8 ))
+	[ "$FERRET_GO_MEMORY_MB" -lt 2048 ] && FERRET_GO_MEMORY_MB=2048
+	[ "$FERRET_GO_MEMORY_MB" -gt 4096 ] && FERRET_GO_MEMORY_MB=4096
+	local FERRET_GOFLAGS="${WEKAN_FERRETDB_GOFLAGS:--p=$FERRET_GO_JOBS}"
+	local FERRET_GOMEMLIMIT="${WEKAN_FERRETDB_GOMEMLIMIT:-${FERRET_GO_MEMORY_MB}MiB}"
 	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
 	RUN_LOGDIR="$WEKAN_LOG_ROOT/$RUN_TS"
 	mkdir -p "$RUN_LOGDIR"
@@ -1413,6 +1424,8 @@ function run_everything(){
 	echo "  3/4  Database conformance    (builds FerretDB, every database this CPU runs)"
 	echo "  4/4  FerretDB's own tests    (unit, vet, integration)"
 	echo "This takes a long time. Nothing runs concurrently, so a failure is readable."
+	echo "FerretDB Go limit: $FERRET_GO_JOBS parallel package builds, $FERRET_GOMEMLIMIT managed heap per Go process."
+	echo "  Override with WEKAN_FERRETDB_GOFLAGS / WEKAN_FERRETDB_GOMEMLIMIT."
 	echo "=============================================================================="
 	echo
 
@@ -1432,7 +1445,8 @@ function run_everything(){
 	echo
 	echo "### 3/4 Database conformance ##################################################"
 	if [ -x ./releases/db-conformance.sh ]; then
-		./releases/db-conformance.sh || conf_rc=$?
+		GOFLAGS="$FERRET_GOFLAGS" GOMEMLIMIT="$FERRET_GOMEMLIMIT" \
+			./releases/db-conformance.sh || conf_rc=$?
 	else
 		echo "ERROR: releases/db-conformance.sh is missing."; conf_rc=1
 	fi
@@ -1444,7 +1458,9 @@ function run_everything(){
 	# order of its own stages.
 	ferret_dir="$(ensure_tool_repo FerretDB)" || ferret_dir=""
 	if [ -n "$ferret_dir" ] && [ -x "$ferret_dir/build.sh" ]; then
-		( cd "$ferret_dir" && WEKAN_LOGDIR="$RUN_LOGDIR" ./build.sh test-all ) || ferret_rc=$?
+		( cd "$ferret_dir" && WEKAN_LOGDIR="$RUN_LOGDIR" \
+			GOFLAGS="$FERRET_GOFLAGS" GOMEMLIMIT="$FERRET_GOMEMLIMIT" \
+			./build.sh test-all ) || ferret_rc=$?
 	else
 		echo "ERROR: .tools/FerretDB/build.sh is missing and could not be cloned."
 		echo "       Clone it by hand: git clone git@github.com:wekan/FerretDB .tools/FerretDB"

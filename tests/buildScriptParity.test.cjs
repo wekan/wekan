@@ -570,4 +570,16 @@ test('test runtimes cannot inherit the build tool half-of-RAM heap', () => {
     'Meteor test keeps the larger build heap because it compiles a test application');
 });
 
+
+test('EVERYTHING bounds FerretDB compilation and skips the redundant dependency preload', () => {
+  const start = sh.indexOf('function run_everything(){');
+  const flow = sh.slice(start, sh.indexOf('\n}\n', start) + 3);
+  assert.ok(/FERRET_GO_JOBS=\$\(\( _mem_total_mb \/ 4096 \)\)/.test(flow));
+  assert.ok(/FERRET_GO_JOBS.*-lt 2/.test(flow) && /FERRET_GO_JOBS.*-gt 4/.test(flow));
+  assert.ok(/WEKAN_FERRETDB_GOFLAGS/.test(flow) && /WEKAN_FERRETDB_GOMEMLIMIT/.test(flow));
+  assert.strictEqual((flow.match(/GOFLAGS="\$FERRET_GOFLAGS" GOMEMLIMIT="\$FERRET_GOMEMLIMIT"/g) || []).length, 2);
+  const conformance = read('releases/db-conformance.sh');
+  assert.ok(/\.\/build\.sh build/.test(conformance));
+  assert.ok(!/\.\/build\.sh deps/.test(conformance));
+});
 console.log(`\n${passed} tests passed`);

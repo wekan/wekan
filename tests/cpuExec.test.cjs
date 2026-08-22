@@ -13,7 +13,7 @@ const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { execFileSync } = require('child_process');
+const { execFileSync, spawnSync } = require('child_process');
 
 const repoRoot = path.resolve(__dirname, '..');
 const CPU_EXEC = path.join(repoRoot, 'snap-src/bin/cpu-exec');
@@ -93,16 +93,14 @@ test('no declared features: plain exec (safe for every binary)', () => {
 test('negative: feature missing AND no qemu — still runs, with a clear error', () => {
   // Running directly (probably to a SIGILL) beats silently doing nothing:
   // the real failure must surface in the logs.
-  const out = execFileSync('bash', [CPU_EXEC, '--features', `${ARCH}=avx`, 'echo', 'ran-anyway'], {
+  const result = spawnSync('bash', [CPU_EXEC, '--features', `${ARCH}=avx`, 'echo', 'ran-anyway'], {
     env: { PATH: NO_QEMU_PATH, WEKAN_CPUINFO: cpuinfoWithout },
     encoding: 'utf8',
   });
-  const stderr = execFileSync('bash', ['-c', `"${CPU_EXEC}" --features "${ARCH}=avx" true 2>&1 1>/dev/null || true`], {
-    env: { PATH: NO_QEMU_PATH, WEKAN_CPUINFO: cpuinfoWithout },
-    encoding: 'utf8',
-  });
-  assert.strictEqual(out.trim(), 'ran-anyway');
-  assert.ok(/cpu-exec: ERROR: .*lacks avx.*no qemu-user/.test(stderr), `stderr explains: ${stderr}`);
+  assert.strictEqual(result.status, 0, result.stderr);
+  assert.strictEqual(result.stdout.trim(), 'ran-anyway');
+  assert.ok(/cpu-exec: ERROR: .*lacks avx.*no qemu-user/.test(result.stderr),
+    `stderr explains: ${result.stderr}`);
 });
 
 test("negative: another architecture's requirements are ignored", () => {
