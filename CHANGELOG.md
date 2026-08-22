@@ -518,6 +518,8 @@ every platform and distinguish implemented FerretDB telemetry from follow-ups.
 
 </details>
 
+- [Browser runs reuse cached binaries and report only their selected project](https://github.com/wekan/wekan/commit/9f459303a). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8388314a">Sandbox tasks install version-matched local tools under .tools</a>. Thanks to xet7.</summary>
 
