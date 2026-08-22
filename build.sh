@@ -15,8 +15,8 @@ echo "       starts."
 # "FATAL ERROR: Ineffective mark-compacts near heap limit - JavaScript heap out
 # of memory". TOOL_NODE_FLAGS controls the Meteor command-line/build process
 # (the one that hits the limit during `meteor run`/`meteor test`/`meteor build`);
-# NODE_OPTIONS covers the child Node/rspack processes. Both default to 8 GB here
-# and honor any value you already exported. Lower it if your machine has less RAM.
+# NODE_OPTIONS covers child Node/rspack processes. Defaults use available
+# memory and honor any value already exported.
 # The size is worked out from the machine rather than fixed at 8192, because
 # 8192 is where a build died:
 #
@@ -28,9 +28,9 @@ echo "       starts."
 # because that ceiling was a constant, the same number was too small on a large
 # machine and too large on a small one.
 #
-# Half of total RAM, clamped to [4096, 16384]. Half is the share that leaves the
-# rest of the machine usable while a build runs, the floor keeps a small machine
-# from being given something unusable, and the ceiling is there because a heap
+# Half of available host or cgroup RAM, capped at 16384. Half leaves the
+# rest usable while a build runs; a small machine
+# gets a proportionally smaller heap, and the ceiling is there because a heap
 # larger than that means something is wrong rather than something is big. At
 # 16 GiB this works out to 8192, which is exactly what was hard-coded here
 # before, so nothing changes on the machine that value was chosen for.
@@ -40,11 +40,20 @@ echo "       starts."
 # already set, skipping this would leave the other with an empty size and Node
 # would be handed "--max-old-space-size=".
 _mem_total_mb=$(awk '/^MemTotal:/ { print int($2 / 1024) }' /proc/meminfo 2>/dev/null)
+# Containers and Flatpak may expose host MemTotal while enforcing a smaller cgroup.
+# Use the smaller finite cgroup limit so the heap cannot exceed its real sandbox.
+for _cg_file in /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory/memory.limit_in_bytes; do
+  [ -r "$_cg_file" ] || continue
+  _cg_bytes=$(cat "$_cg_file" 2>/dev/null || true)
+  case "$_cg_bytes" in ''|max|*[!0-9]*) continue ;; esac
+  _cg_mb=$(( _cg_bytes / 1048576 ))
+  [ "$_cg_mb" -gt 0 ] && { [ -z "${_mem_total_mb:-}" ] || [ "$_cg_mb" -lt "$_mem_total_mb" ]; } && _mem_total_mb=$_cg_mb
+  break
+done
 # macOS has no /proc; hw.memsize is bytes.
 [ -n "${_mem_total_mb:-}" ] || _mem_total_mb=$(( $(sysctl -n hw.memsize 2>/dev/null || echo 0) / 1048576 ))
 [ "${_mem_total_mb:-0}" -gt 0 ] 2>/dev/null || _mem_total_mb=16384
 _heap_mb=$(( _mem_total_mb / 2 ))
-[ "$_heap_mb" -lt 4096 ]  && _heap_mb=4096
 [ "$_heap_mb" -gt 16384 ] && _heap_mb=16384
 if [ -z "${TOOL_NODE_FLAGS:-}${NODE_OPTIONS:-}" ]; then
 	echo "Node heap limit for builds: ${_heap_mb} MB (half of ${_mem_total_mb} MB of RAM)."
@@ -364,7 +373,7 @@ function build_wekan(){
 	{
 		echo "===== wekan build started $(date '+%F %T') ====="
 		rm -rf node_modules node_modules/.cache .meteor/local .build _build
-		(meteor update --npm 2>/dev/null || true) && meteor npm install
+		(meteor update --npm || true) && meteor npm install
 		meteor build .build --directory
 		local rc=$?
 		echo "===== wekan build finished $(date '+%F %T') (exit $rc) ====="
@@ -606,7 +615,7 @@ function install_playwright_browsers(){
 # host user lacks when it is root-owned), so this needs sudo; it is a no-op when
 # the directory is already writable or absent.
 function ensure_test_results_writable(){
-	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
+	local pwdir="$WEKAN_DIR/tests/playwright"
 	[ -e "$pwdir/test-results" ] || return 0
 	[ -w "$pwdir/test-results" ] && return 0
 	echo "Fixing test-results/ ownership (left as root by an earlier Docker WebKit run)."
@@ -626,17 +635,66 @@ function pw_failures_of(){
 	node -e 'const fs=require("fs");let r;try{r=JSON.parse(fs.readFileSync(process.argv[1],"utf8"))}catch(e){process.exit(0)}const label=process.argv[2]||"";const out=[];function walk(su,ti){const t=[...ti,su.title].filter(Boolean);for(const s of su.suites||[])walk(s,t);for(const sp of su.specs||[]){if(sp.ok)continue;const loc=sp.file?`${sp.file}:${sp.line}`:"";out.push(`[${label}] ${loc} › ${[...t,sp.title].join(" › ")}`);}}for(const s of r.suites||[])walk(s,[]);out.forEach(l=>console.log(l));' "$1" "$2"
 }
 
+# Select the repository-local browser cache used by the Flatpak bootstrap.
+# Explicit caller configuration wins; every automatic install uses the ignored
+# .tools cache on both ordinary Fedora and Flatpak.
+function set_playwright_browser_path(){
+	[ -n "${PLAYWRIGHT_BROWSERS_PATH:-}" ] || \
+		export PLAYWRIGHT_BROWSERS_PATH="$WEKAN_DIR/.tools/ms-playwright"
+}
+
+function ensure_playwright_test_dependencies(){
+	local pwdir="$WEKAN_DIR/tests/playwright"
+	if [ ! -x "$pwdir/node_modules/.bin/playwright" ]; then
+		echo "Installing Playwright test dependencies under tests/playwright/node_modules."
+		( cd "$pwdir" && meteor npm install ) || return 1
+	fi
+}
+
+function ensure_native_playwright_browser(){
+	local browser="$1" pwdir="$WEKAN_DIR/tests/playwright"
+	set_playwright_browser_path
+	mkdir -p "$PLAYWRIGHT_BROWSERS_PATH"
+	echo "Ensuring the matching Playwright $browser browser is installed in $PLAYWRIGHT_BROWSERS_PATH."
+	( cd "$pwdir" && "$pwdir/node_modules/.bin/playwright" install "$browser" )
+}
+
+function native_browser_can_launch(){
+	local browser="$1" pwdir="$WEKAN_DIR/tests/playwright"
+	(
+		cd "$pwdir" || exit 1
+		export HOME="$WEKAN_DIR/.tools"
+		unset CHROME_DEVEL_SANDBOX
+		set_playwright_browser_path
+		node -e "require('@playwright/test').${browser}.launch().then(b=>b.close()).then(()=>process.exit(0)).catch(()=>process.exit(1))"
+	) >/dev/null 2>&1
+}
+
 # Run one Playwright browser project for the whole-suite flows.
 # Writes test-results/all-tests-<browser>.json and returns playwright's exit code.
 # On Linux arm64 every browser goes through Docker (see browser_needs_docker).
 function run_pw_all_browser(){
 	local browser="$1"
-	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
+	local pwdir="$WEKAN_DIR/tests/playwright"
 	local json="test-results/all-tests-${browser}.json"
 	# Per-browser output dir so suites can run in parallel without their
 	# artifacts (.playwright-artifacts-N, screenshots, traces) colliding or
 	# wiping each other when Playwright clears its output dir at startup.
 	local outdir="test-results/${browser}"
+	ensure_playwright_test_dependencies || return 1
+	if ! browser_needs_docker "$browser"; then
+		if ! ensure_native_playwright_browser "$browser"; then
+			docker_available || { echo "ERROR: could not install Playwright $browser and Docker is unavailable."; return 1; }
+		fi
+	fi
+	# Prefer a working native browser, but do not turn missing immutable Flatpak
+	# runtime libraries into one failure per test. The host-Docker wrapper is
+	# available through flatpak-spawn and carries the matching browser runtime.
+	if ! browser_needs_docker "$browser" && ! native_browser_can_launch "$browser" && docker_available; then
+		echo "Native Playwright $browser cannot launch; using the official container instead."
+		( cd "$pwdir" && export PLAYWRIGHT_JSON_OUTPUT_NAME="$json" && run_playwright_docker "$browser" --output="$outdir" --reporter=list,json )
+		return $?
+	fi
 	ensure_test_results_writable
 	rm -f "$pwdir/$json"
 	if browser_needs_docker "$browser"; then
@@ -645,10 +703,9 @@ function run_pw_all_browser(){
 	fi
 	(
 		cd "$pwdir"
-		export HOME="$ORIG_HOME/repos/wekan/.tools"
+		export HOME="$WEKAN_DIR/.tools"
+		set_playwright_browser_path
 		unset CHROME_DEVEL_SANDBOX
-		[ -d "$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright" ] && \
-			export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
 		export WEKAN_PLAYWRIGHT_ALL=1
 		export PLAYWRIGHT_JSON_OUTPUT_NAME="$json"
 		PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project="$browser" --output="$outdir" --reporter=list,json
@@ -663,7 +720,7 @@ function run_pw_all_browser(){
 # users/boards and clean up by id, so running the three browsers at once is safe.
 function run_playwright_parallel(){
 	ORIG_HOME="$HOME"
-	local pwdir="$ORIG_HOME/repos/wekan/tests/playwright"
+	local pwdir="$WEKAN_DIR/tests/playwright"
 	ensure_test_results_writable
 
 	if ! curl -fsS --connect-timeout 2 --max-time 4 http://127.0.0.1:3000/sign-in >/dev/null 2>&1; then
@@ -762,14 +819,13 @@ function run_playwright_single(){
 	if browser_needs_docker "$browser"; then
 		echo "Running $browser via the official Playwright Docker image."
 		echo "Make sure WeKan is running on http://localhost:3000 (a whole-suite option starts it for you)."
-		( cd "$ORIG_HOME/repos/wekan/tests/playwright" && run_playwright_docker "$browser" )
+		( cd "$WEKAN_DIR/tests/playwright" && run_playwright_docker "$browser" )
 		return $?
 	fi
-	cd "$ORIG_HOME/repos/wekan/tests/playwright"
-	export HOME="$ORIG_HOME/repos/wekan/.tools"
+	cd "$WEKAN_DIR/tests/playwright"
+	export HOME="$WEKAN_DIR/.tools"
+		set_playwright_browser_path
 	unset CHROME_DEVEL_SANDBOX
-	[ -d "$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright" ] && \
-		export PLAYWRIGHT_BROWSERS_PATH="$ORIG_HOME/.var/app/com.visualstudio.code/cache/ms-playwright"
 	export WEKAN_PLAYWRIGHT_ALL=1
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) meteor npm install ;; esac
@@ -815,10 +871,9 @@ function run_all_tests(){
 	# matrix: the bundle server stays alive while E2E/Playwright run, and allowing
 	# each Node child 8-16 GiB lets one leaking suite drive the workstation into
 	# swap or the OOM killer. Test processes get a quarter of RAM, clamped to a
-	# useful 2-4 GiB; callers with an exceptional fixture can override this one
+	# useful maximum of 4 GiB; callers with an exceptional fixture can override this one
 	# scope without lowering the heap needed by Meteor's build tool.
 	local TEST_HEAP_MB=$(( _mem_total_mb / 4 ))
-	[ "$TEST_HEAP_MB" -lt 2048 ] && TEST_HEAP_MB=2048
 	[ "$TEST_HEAP_MB" -gt 4096 ] && TEST_HEAP_MB=4096
 	local TEST_NODE_OPTIONS="${WEKAN_TEST_NODE_OPTIONS:---max-old-space-size=$TEST_HEAP_MB}"
 	echo "Node heap limit for test runtime processes: ${TEST_HEAP_MB} MB."
@@ -976,7 +1031,8 @@ function run_all_tests(){
 			fi
 		fi
 	}
-	trap 'stop_test_databases' EXIT INT TERM
+	trap 'stop_test_databases' EXIT
+	trap 'stop_test_databases; exit 130' INT TERM
 	# Start one test job in the background: record its exit code in STATDIR/<key>
 	# and send all of its output to $RUN_LOGDIR/wekan-alltests-<key>.log. In "parallel"
 	# mode every job runs at once; in "sequential" mode we wait for each job to
@@ -1400,13 +1456,13 @@ function floating_promises_checks(){
 function run_everything(){
 	local RUN_TS RUN_LOGDIR FAILED=0
 	# Bound Go package parallelism separately from Node so many compiler processes
-	# cannot drive the workstation into swap. Keep 2-4 workers and a 2-4 GiB
+	# cannot drive the workstation into swap. Keep 1-4 workers and a proportional,
+	# at-most-4 GiB
 	# managed-heap limit per Go process; explicit overrides still win.
 	local FERRET_GO_JOBS=$(( _mem_total_mb / 4096 ))
-	[ "$FERRET_GO_JOBS" -lt 2 ] && FERRET_GO_JOBS=2
+	[ "$FERRET_GO_JOBS" -lt 1 ] && FERRET_GO_JOBS=1
 	[ "$FERRET_GO_JOBS" -gt 4 ] && FERRET_GO_JOBS=4
 	local FERRET_GO_MEMORY_MB=$(( _mem_total_mb / 8 ))
-	[ "$FERRET_GO_MEMORY_MB" -lt 2048 ] && FERRET_GO_MEMORY_MB=2048
 	[ "$FERRET_GO_MEMORY_MB" -gt 4096 ] && FERRET_GO_MEMORY_MB=4096
 	local FERRET_GOFLAGS="${WEKAN_FERRETDB_GOFLAGS:--p=$FERRET_GO_JOBS}"
 	local FERRET_GOMEMLIMIT="${WEKAN_FERRETDB_GOMEMLIMIT:-${FERRET_GO_MEMORY_MB}MiB}"

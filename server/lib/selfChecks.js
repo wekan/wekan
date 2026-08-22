@@ -15,6 +15,8 @@
 import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import path from 'path';
+import v8 from 'v8';
+const { heapHealth, diskHealth, DEFAULT_DISK_BYTES } = require('/models/lib/runtimeHealth');
 import { recordFailure } from '/server/lib/testLog';
 
 function filesRoot() {
@@ -38,9 +40,26 @@ async function checkWritablePath() {
   fs.unlinkSync(probe);
 }
 
+async function checkHeapHeadroom() {
+  const stats = v8.getHeapStatistics();
+  const result = heapHealth(stats.used_heap_size, stats.heap_size_limit);
+  if (!result.ok) throw new Error(result.detail);
+}
+
+async function checkFreeDiskSpace() {
+  const stats = fs.statfsSync(filesRoot());
+  const configured = Number(process.env.WEKAN_MIN_FREE_DISK_MB);
+  const minimum = Number.isFinite(configured) && configured >= 0
+    ? configured * 1024 * 1024 : DEFAULT_DISK_BYTES;
+  const result = diskHealth(stats.bavail, stats.bsize, minimum);
+  if (!result.ok) throw new Error(result.detail);
+}
+
 const CHECKS = [
   { name: 'database-roundtrip', fn: checkDatabaseRoundtrip },
   { name: 'writable-path', fn: checkWritablePath },
+  { name: 'heap-headroom', fn: checkHeapHeadroom },
+  { name: 'free-disk-space', fn: checkFreeDiskSpace },
 ];
 
 // Run all self-checks; record each failure to the Tests stream. Returns a small

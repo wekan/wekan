@@ -211,7 +211,7 @@ check('slow HTTP requests are recorded to the speed stream', () => {
 check('runtime self-checks feed the Tests stream WITHOUT Playwright', () => {
   const src = read('server/lib/selfChecks.js');
   assert.ok(/runSelfChecks/.test(src) && /recordFailure/.test(src), 'records failures to the Tests stream');
-  assert.ok(/database-roundtrip/.test(src) && /writable-path/.test(src), 'has runtime checks');
+  assert.ok(/database-roundtrip/.test(src) && /writable-path/.test(src) && /heap-headroom/.test(src) && /free-disk-space/.test(src), 'has runtime checks');
   assert.ok(/user\.isAdmin/.test(src), 'on-demand method is admin-gated');
   assert.ok(!/require\(['"]playwright|from ['"]playwright/.test(src), 'self-checks never import Playwright');
   assert.ok(/import '\/server\/lib\/selfChecks'/.test(read('server/imports.js')), 'must be loaded');

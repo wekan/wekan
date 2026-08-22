@@ -36,4 +36,14 @@ test('the Playwright runner fails clearly only when neither route exists', () =>
   assert.doesNotMatch(runner, /command -v docker/);
 });
 
+test("the runner installs local browsers and falls back per browser", () => {
+  assert.ok(build.includes("function ensure_playwright_test_dependencies()"));
+  assert.ok(build.includes("function ensure_native_playwright_browser()"));
+  assert.ok(build.includes("$WEKAN_DIR/.tools/ms-playwright"));
+  assert.ok(build.includes("! native_browser_can_launch \"$browser\" && docker_available"));
+  const config = fs.readFileSync(path.join(__dirname, "playwright", "playwright.config.js"), "utf8");
+  assert.ok(config.includes("LOCAL_BROWSER_CACHE"));
+  assert.ok(config.includes("ms-playwright"));
+});
+
 console.log(`\n${passed} tests passed`);

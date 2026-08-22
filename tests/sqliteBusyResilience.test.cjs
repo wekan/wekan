@@ -74,6 +74,13 @@ test('SQLITE_BUSY is one of the errors it recognises', () => {
   // ...and a fault is not.
   const disk = classifyDatabaseError('database or disk is full');
   assert.notStrictEqual(disk.id, 'deadlock');
+  for (const [message, id] of [
+    ['JavaScript heap out of memory', 'memory-exhausted'],
+    ['EMFILE: too many open files', 'file-descriptors-exhausted'],
+    ['attempt to write a readonly database', 'read-only-filesystem'],
+    ['database disk image is malformed', 'database-corrupt'],
+    ['BSONObjectTooLarge', 'document-too-large'],
+  ]) assert.strictEqual(classifyDatabaseError(message).id, id);
 });
 
 test('the guard is installed before anything that registers a startup callback', () => {

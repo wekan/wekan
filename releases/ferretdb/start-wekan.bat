@@ -83,6 +83,14 @@ REM Run the bundled FerretDB (this platform's ferretdb.exe) and WeKan (main.js o
 REM the bundled node.exe) together in a restart loop: start FerretDB in the
 REM background, run WeKan in the foreground, and if WeKan exits, stop FerretDB and
 REM restart the whole stack. Close the window to stop both.
+if not defined WEKAN_MEMORY_MB for /f "usebackq delims=" %%M in (`powershell.exe -NoProfile -Command "[math]::Floor((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize / 1024)" 2^>NUL`) do set "WEKAN_MEMORY_MB=%%M"
+if not defined WEKAN_MEMORY_MB set "WEKAN_MEMORY_MB=2048"
+set /a WEKAN_RUNTIME_HEAP_MB=WEKAN_MEMORY_MB*3/5
+if %WEKAN_RUNTIME_HEAP_MB% GTR 4096 set "WEKAN_RUNTIME_HEAP_MB=4096"
+set /a WEKAN_GO_HEAP_MB=WEKAN_MEMORY_MB/5
+if %WEKAN_GO_HEAP_MB% GTR 1024 set "WEKAN_GO_HEAP_MB=1024"
+if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=%WEKAN_RUNTIME_HEAP_MB%"
+if not defined GOMEMLIMIT set "GOMEMLIMIT=%WEKAN_GO_HEAP_MB%MiB"
 :wekan_loop
 echo Starting bundled FerretDB v1 (SQLite) on 127.0.0.1:27017 (data: %FERRETDB_SQLITE_DIR%) ...
 start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 %FERRET_REPL_ARG% --telemetry=disable

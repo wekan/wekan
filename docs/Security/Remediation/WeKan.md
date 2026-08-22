@@ -1,22 +1,46 @@
 # Design: WeKan automatic security & speed remediation, logging and reports
 
-Status: **Design for approval** · Owner: xet7 · Related: [FerretDB.md](FerretDB.md),
+Status: **Implemented and audited 2026-08-23** · Owner: xet7 · Related: [FerretDB.md](FerretDB.md),
 [History.md](../../Features/Reports/History/History.md) (the Reports UI pattern),
 [hall-of-fame](https://wekan.fi/hall-of-fame/).
 
-This document specifies one subsystem that, for **every vulnerability class and every
-performance problem** WeKan can detect at runtime:
+This document describes the implemented subsystem for vulnerability classes and
+performance problems WeKan can detect at runtime:
 
 1. **Remediates automatically** where possible (block / sanitize / pin / rate-limit / tune).
 2. **Logs** each event into the existing WeKan database, with **counts per category** and a **summary**.
-3. **Surfaces** it in **Admin Panel → Reports → Security** and **→ Speed**, using the same
+3. **Surfaces** it in **Admin Panel → Problems → Security** and **→ Speed**, using the same
    table + search + pagination design as [History.md](../../Features/Reports/History/History.md).
 
-It is a design doc only; the sibling [FerretDB.md](FerretDB.md) covers FerretDB. Both write to the
+The sibling [FerretDB.md](FerretDB.md) covers FerretDB. Both write to the
 same `eventlog` collection in the existing WeKan database (FerretDB reports problems to WeKan, which
 records them — §7), so it works the same on FerretDB and MongoDB.
 
 ---
+
+## Implementation and platform audit (2026-08-23)
+
+The subsystem is active on every WeKan package because detection and reporting run
+in the server bundle, not a platform-specific wrapper. Source, Linux and Windows
+bundles, Docker, Snap and Sandstorm use the same `eventlog` collection and Admin
+Panel Problems methods. Launchers also bound Node and bundled FerretDB memory
+relative to host or cgroup memory; explicit limits win.
+
+Runtime self-checks cover database round trips, writable file storage, V8 heap
+headroom and free space on the attachment/database filesystem. Heap use at or above
+90 percent and free space below 256 MiB (override with `WEKAN_MIN_FREE_DISK_MB`)
+are reported to Problems → Tests before allocation or writes fail. Passing checks
+write nothing. Positive and negative tests live in `tests/runtimeHealth.test.cjs`.
+
+Database/process classification covers exhausted memory or file descriptors,
+read-only volumes, corrupt database storage and oversized BSON documents. These
+are reported with actionable guidance; unsafe automatic repair of corruption or
+mount permissions is deliberately not attempted.
+
+“Every possible failure” is not a finite claim. This audit covers failures
+observable from current code: authorization and input guards, database errors,
+resource pressure, file integrity, process crashes, startup health and slow
+requests. A new class must add remediation, reporting and a regression.
 
 ## 1. Goals (from the request)
 
@@ -28,11 +52,11 @@ records them — §7), so it works the same on FerretDB and MongoDB.
   [hall-of-fame/index.html](https://wekan.fi/hall-of-fame/)**.
 - **Do not create new files or databases** under `WRITABLE_PATH` — use the existing WeKan DB via
   normal Meteor JavaScript queries (works on FerretDB, MongoDB, …).
-- Add **Admin Panel → Reports → Security** showing summary + details of these logs (pagination
+- Add **Admin Panel → Problems → Security** showing summary + details of these logs (pagination
   etc., History.md design).
 - Add **automatic remediation of all possible performance problems**; anything not
   auto-remediated is logged/summarized in the existing WeKan database and shown in
-  **Admin Panel → Reports → Speed** (same design).
+  **Admin Panel → Problems → Speed** (same design).
 
 ---
 
@@ -49,7 +73,7 @@ records them — §7), so it works the same on FerretDB and MongoDB.
       existing WeKan database → collection `eventlog` (stream:'security')
                                         │
                                         ▼  find({stream}).sort({at:-1}).skip().limit() · grouped count (summary)
-             Admin Panel → Reports → Security  (summary panel + details table)
+             Admin Panel → Problems → Security  (summary panel + details table)
 ```
 
 The **speed** and **tests** paths are identical with `speedLog.record()` /

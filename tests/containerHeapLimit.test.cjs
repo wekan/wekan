@@ -23,14 +23,16 @@ test('the image reads both cgroup v2 and v1 memory limits', () => {
   assert.ok(entry.includes('/sys/fs/cgroup/memory/memory.limit_in_bytes'));
 });
 
-test('three quarters go to V8 and one quarter stays native', () => {
-  assert.ok(/_heap_mb=\$\(\( _memory_bytes \/ 1024 \/ 1024 \* 3 \/ 4 \)\)/.test(entry));
+test('three fifths go to V8 and room stays for Go and native memory', () => {
+  assert.ok(entry.includes('_heap_mb=$((_memory_bytes/1024/1024*3/5))'));
   assert.ok(/--max-old-space-size=\$_heap_mb/.test(entry));
+  assert.ok(entry.includes('_go_mb=$((_memory_bytes/1024/1024/5))'));
+  assert.ok(/export GOMEMLIMIT="\${_go_mb}MiB"/.test(entry));
 });
 
-test('the automatic heap has safe lower and upper bounds', () => {
-  assert.ok(/\[ "\$_heap_mb" -lt 768 \] && _heap_mb=768/.test(entry),
-    'a 1 GiB pod needs more than the failing ~640 MiB ceiling');
+test('the automatic heap never imposes a host-exceeding floor and has an upper bound', () => {
+  assert.ok(!/_heap_mb=768/.test(entry),
+    'a fixed floor can exceed a small container limit');
   assert.ok(/\[ "\$_heap_mb" -gt 4096 \] && _heap_mb=4096/.test(entry),
     'large hosts keep the documented 4 GiB ceiling');
 });
@@ -46,6 +48,19 @@ test('an explicit administrator setting always wins (negative)', () => {
 
 test('heap selection happens before the server exec', () => {
   assert.ok(entry.indexOf('export NODE_OPTIONS=') < entry.indexOf('exec node /build/main.js'));
+});
+
+test('every packaged runtime derives memory and preserves overrides', () => {
+  for (const rel of ['releases/ferretdb/start-wekan.sh', 'snap-src/bin/wekan-control', 'snap-src/bin/ferretdb-control', 'start-wekan.sh', 'sandstorm-src/start-memory.sh']) {
+    const source = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    assert.ok(source.includes('/sys/fs/cgroup/memory.max'), `${rel} must read cgroup v2`);
+    assert.ok(source.includes('${NODE_OPTIONS:-') || source.includes('${GOMEMLIMIT:-'), `${rel} must preserve overrides`);
+  }
+  for (const rel of ['build.bat', 'start-wekan.bat', 'releases/ferretdb/start-wekan.bat']) {
+    const source = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    assert.ok(source.includes('TotalVisibleMemorySize'), `${rel} must derive installed RAM`);
+  }
+  assert.ok(fs.readFileSync(path.join(ROOT, 'sandstorm-pkgdef.capnp'), 'utf8').includes('./start-memory.sh'));
 });
 
 console.log(`\ncontainerHeapLimit: ${passed} tests passed`);

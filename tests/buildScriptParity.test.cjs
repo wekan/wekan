@@ -53,6 +53,13 @@ test('build.sh builds before the tests, every time', () => {
     'the description must not still promise the old bundle is reused');
 });
 
+test('build.sh keeps dependency-install errors visible in the console and log', () => {
+  assert.ok(sh.includes('(meteor update --npm || true) && meteor npm install'),
+    'meteor update and npm install must remain inside the build log stream');
+  assert.ok(!sh.includes('meteor update --npm 2>/dev/null'),
+    'meteor update stderr must not be hidden from the console or timestamped log');
+});
+
 test('build.bat does the same, in both of its ALL-tests flows', () => {
   assert.ok(/^:rebuild_for_tests/m.test(bat), 'the subroutine must exist');
   const sub = bat.slice(/^:rebuild_for_tests/m.exec(bat).index);
@@ -520,7 +527,7 @@ test('a test run stops the databases it started, on every way out', () => {
   // database that ANSWERS, so a leftover mongod is silently reused holding data
   // this run never seeded, and the failures land somewhere else entirely.
   assert.ok(/stop_test_databases\(\) \{/.test(sh), 'build.sh has one place that stops them');
-  assert.ok(/trap 'stop_test_databases' EXIT INT TERM/.test(sh),
+  assert.ok(/trap 'stop_test_databases' EXIT[\s\S]*trap 'stop_test_databases; exit 130' INT TERM/.test(sh),
     'and it runs on every way out, not only the happy path');
   const fn = sh.slice(sh.indexOf('stop_test_databases() {'));
   const body = fn.slice(0, fn.indexOf("trap 'stop_test_databases'"));
@@ -551,8 +558,8 @@ test('test runtimes cannot inherit the build tool half-of-RAM heap', () => {
 
   assert.ok(/local TEST_HEAP_MB=\$\(\( _mem_total_mb \/ 4 \)\)/.test(flow),
     'the test-runtime allowance is computed separately from the build heap');
-  assert.ok(/TEST_HEAP_MB.*-lt 2048/.test(flow) && /TEST_HEAP_MB.*-gt 4096/.test(flow),
-    'the runtime heap stays in the documented 2-4 GiB range');
+  assert.ok(/TEST_HEAP_MB.*-gt 4096/.test(flow),
+    'the runtime heap is proportional and capped at 4 GiB');
   assert.ok(/WEKAN_TEST_NODE_OPTIONS/.test(flow), 'the test-only ceiling is overridable');
   for (const command of [
     'meteor npm run test:unit:all',
@@ -575,7 +582,7 @@ test('EVERYTHING bounds FerretDB compilation and skips the redundant dependency 
   const start = sh.indexOf('function run_everything(){');
   const flow = sh.slice(start, sh.indexOf('\n}\n', start) + 3);
   assert.ok(/FERRET_GO_JOBS=\$\(\( _mem_total_mb \/ 4096 \)\)/.test(flow));
-  assert.ok(/FERRET_GO_JOBS.*-lt 2/.test(flow) && /FERRET_GO_JOBS.*-gt 4/.test(flow));
+  assert.ok(/FERRET_GO_JOBS.*-lt 1/.test(flow) && /FERRET_GO_JOBS.*-gt 4/.test(flow));
   assert.ok(/WEKAN_FERRETDB_GOFLAGS/.test(flow) && /WEKAN_FERRETDB_GOMEMLIMIT/.test(flow));
   assert.strictEqual((flow.match(/GOFLAGS="\$FERRET_GOFLAGS" GOMEMLIMIT="\$FERRET_GOMEMLIMIT"/g) || []).length, 2);
   const conformance = read('releases/db-conformance.sh');

@@ -332,14 +332,14 @@ releaseTest('a package whose image is gone cannot come back into the index', () 
 test('the official pod budget fits the container heap selected at startup', () => {
   // #6606: 1 GiB was the chart's own default, not a reporter's unusually low
   // choice. Node 24 derived a ~640 MiB heap from it and v10.96+ exhausted that
-  // while loading. The image gives V8 75% and retains 25% for native memory, so
-  // a 2 GiB limit means a 1536 MiB heap rather than a crash-looping 640 MiB one.
+  // while loading. The image gives V8 60%, budgets 20% for Go, and retains 20% for native memory, so
+  // a 2 GiB limit means a 1228 MiB heap rather than a crash-looping 640 MiB one.
   const values = read('values.yaml');
   const resources = values.slice(values.indexOf('\nresources:'), values.indexOf('\nreadinessProbe:'));
   assert.ok(/requests:\s*\n\s+memory: 512Mi/.test(resources),
     'the scheduler request must reflect that this is not a 128 MiB process');
   assert.ok(/limits:\s*\n\s+memory: 2Gi/.test(resources),
-    'the default limit must leave room for a 1536 MiB V8 heap plus native memory');
+    'the default limit must leave room for a 1228 MiB V8 heap plus native memory');
 });
 
 releaseTest('backfilling old releases does not hand them today\'s FerretDB chart', () => {

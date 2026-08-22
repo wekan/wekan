@@ -51,10 +51,13 @@ REM development sessions and test runs don't crash with "FATAL ERROR: ...
 REM JavaScript heap out of memory". TOOL_NODE_FLAGS controls the Meteor
 REM command-line/build process (the one that hits the limit during
 REM `meteor run` / `meteor test` / `meteor build`); NODE_OPTIONS covers the
-REM child Node/rspack processes. Both default to 8 GB and honor any value you
-REM already set. Lower it if your machine has less RAM.
-if not defined TOOL_NODE_FLAGS set "TOOL_NODE_FLAGS=--max-old-space-size=8192"
-if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=8192"
+REM child Node/rspack processes. Both derive their defaults from installed RAM and honor any value you
+set "WEKAN_MEMORY_MB=16384"
+for /f "usebackq delims=" %%M in (`powershell.exe -NoProfile -Command "[math]::Floor((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize / 1024)" 2^>NUL`) do set "WEKAN_MEMORY_MB=%%M"
+set /a WEKAN_BUILD_HEAP_MB=WEKAN_MEMORY_MB/2
+if %WEKAN_BUILD_HEAP_MB% GTR 16384 set "WEKAN_BUILD_HEAP_MB=16384"
+if not defined TOOL_NODE_FLAGS set "TOOL_NODE_FLAGS=--max-old-space-size=%WEKAN_BUILD_HEAP_MB%"
+if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=%WEKAN_BUILD_HEAP_MB%"
 
 REM Every log this script writes goes into the repo-local ignored .tools\log\.
 REM Create it up front so redirections never fail on a missing directory.

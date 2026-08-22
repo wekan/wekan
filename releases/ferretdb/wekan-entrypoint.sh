@@ -36,29 +36,24 @@ export DDP_TRANSPORT="${DDP_TRANSPORT:-sockjs}"
 # Give V8 a deliberate share of the CONTAINER limit. Node 24's automatic
 # cgroup heuristic capped a 1 GiB Helm pod at about 640 MiB; the server bundle
 # can cross that while linking and creating its startup indexes, so v10.96+
-# died before the first application log (#6606). Keep one quarter for native
+# died before the first application log (#6606). Keep forty percent for native
 # allocations (and the bundled FerretDB when this image runs it), cap the heap
 # at the long-standing 4 GiB recommendation, and respect an administrator's
 # NODE_OPTIONS unchanged.
-if [ -z "${NODE_OPTIONS:-}" ]; then
+if [ -z "${NODE_OPTIONS:-}" ] || [ -z "${GOMEMLIMIT:-}" ]; then
   _memory_bytes=""
-  if [ -r /sys/fs/cgroup/memory.max ]; then
-    _memory_bytes="$(cat /sys/fs/cgroup/memory.max 2>/dev/null || true)"
-  elif [ -r /sys/fs/cgroup/memory/memory.limit_in_bytes ]; then
-    _memory_bytes="$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null || true)"
+  if [ -r /sys/fs/cgroup/memory.max ]; then _memory_bytes=$(cat /sys/fs/cgroup/memory.max 2>/dev/null || true)
+  elif [ -r /sys/fs/cgroup/memory/memory.limit_in_bytes ]; then _memory_bytes=$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null || true); fi
+  case "$_memory_bytes" in ''|max|*[!0-9]*) _mem_kb=$(awk '/^MemTotal:/{print $2}' /proc/meminfo 2>/dev/null || true); case "$_mem_kb" in ''|*[!0-9]*) _mem_kb=2097152;; esac; _memory_bytes=$((_mem_kb*1024));; esac
+  if [ -z "${NODE_OPTIONS:-}" ]; then
+    _heap_mb=$((_memory_bytes/1024/1024*3/5)); [ "$_heap_mb" -gt 4096 ] && _heap_mb=4096
+    export NODE_OPTIONS="--max-old-space-size=$_heap_mb"
+    echo "WeKan: Node heap limit ${_heap_mb} MiB (60% of available memory, capped at 4096 MiB)."
   fi
-  case "$_memory_bytes" in
-    ''|max|*[!0-9]*)
-      _mem_kb="$(awk '/^MemTotal:/{print $2}' /proc/meminfo 2>/dev/null || true)"
-      case "$_mem_kb" in ''|*[!0-9]*) _mem_kb=2097152 ;; esac
-      _memory_bytes=$(( _mem_kb * 1024 ))
-      ;;
-  esac
-  _heap_mb=$(( _memory_bytes / 1024 / 1024 * 3 / 4 ))
-  [ "$_heap_mb" -lt 768 ] && _heap_mb=768
-  [ "$_heap_mb" -gt 4096 ] && _heap_mb=4096
-  export NODE_OPTIONS="--max-old-space-size=$_heap_mb"
-  echo "WeKan: Node heap limit ${_heap_mb} MiB (75% of the container memory, capped at 4096 MiB)."
+  if [ -z "${GOMEMLIMIT:-}" ]; then
+    _go_mb=$((_memory_bytes/1024/1024/5)); [ "$_go_mb" -gt 1024 ] && _go_mb=1024
+    export GOMEMLIMIT="${_go_mb}MiB"
+  fi
 fi
 
 FERRETDB_BIN="/build/ferretdb"

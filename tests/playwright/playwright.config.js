@@ -1,9 +1,18 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 const { execFileSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const RUN_ALL_BROWSERS = process.env.WEKAN_PLAYWRIGHT_ALL === '1';
+// Flatpak exposes only the repository, so browsers installed by the sandbox
+// bootstrap live here rather than under the real home cache. Honour an explicit
+// caller path first; otherwise make direct npx runs use the existing local cache.
+const LOCAL_BROWSER_CACHE = path.join(__dirname, '..', '..', '.tools', 'ms-playwright');
+if (!process.env.PLAYWRIGHT_BROWSERS_PATH && fs.existsSync(LOCAL_BROWSER_CACHE)) {
+  process.env.PLAYWRIGHT_BROWSERS_PATH = LOCAL_BROWSER_CACHE;
+}
 
 // WPE WebKit (the `webkit` project) aborts its WPEWebProcess renderer in headless
 // software-GL environments — notably ARM hosts using Mesa llvmpipe (observed

@@ -59,7 +59,7 @@ const KNOWN_DB_CANARIES = {
   'db.result-to-collection': 'tried to write a query result into a collection',
   'db.drop-database': 'tried to drop a database',
   'db.server-admin': 'tried to run a server administration command',
-  // The database's own last-look SQL guard refused a statement that carried
+  // The database's own last-look iSQL guard|JavaScript heap out of memory|ENOMEM|EMFILE|ENFILE|read-only file system|EROFS|database disk image is malformed|BSONObjectTooLarge refused a statement that carried
   // what only injection produces. WeKan builds no SQL, so this is either a bug
   // in a statement builder or an attack that reached one - both worth an
   // operator's attention (docs/Security/Remediation/FerretDB.md §3b).
@@ -175,9 +175,9 @@ Meteor.startup(() => {
         .filter(Boolean)
         .join(' ');
 
-      // Only what looks like it came from the database - everything else is
-      // somebody else's error and belongs in their log, not in this stream.
-      if (/mongo|sqlite|postgres|mysql|maria|hdb|SQLSTATE|Error \d+ \(\d{5}\)|SQL guard/i.test(text)) {
+      // Database and process-resource failures belong here; unrelated application errors are
+      // left to their existing logger.
+      if (/mongo|sqlite|postgres|mysql|maria|hdb|SQLSTATE|Error \d+ \(\d{5}\)|SQL guard|JavaScript heap out of memory|ENOMEM|EMFILE|ENFILE|read-only file system|EROFS|database disk image is malformed|BSONObjectTooLarge/i.test(text)) {
         recordDatabaseProblem(text, { source: 'Meteor._debug' });
       }
     } catch (e) { /* never let the watcher break the logger */ }

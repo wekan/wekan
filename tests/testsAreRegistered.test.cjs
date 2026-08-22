@@ -126,7 +126,7 @@ test('one failing suite no longer hides the rest', () => {
 test('and "Run ALL tests" runs that script', () => {
   // A registered suite that the test RUN never invokes is no better off.
   const sh = fs.readFileSync(path.join(ROOT, 'build.sh'), 'utf8');
-  assert.ok(/unit\)   meteor npm run test:unit:all/.test(sh),
+  assert.ok(/unit\)   NODE_OPTIONS="\$TEST_NODE_OPTIONS" meteor npm run test:unit:all/.test(sh),
     'build.sh: the ALL-tests flow must have a unit job');
   const bat = fs.readFileSync(path.join(ROOT, 'build.bat'), 'utf8');
   assert.ok(/call meteor npm run test:unit:all/.test(bat), 'build.bat: the same job');

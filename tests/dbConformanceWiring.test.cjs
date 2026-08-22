@@ -158,8 +158,8 @@ test('the runner builds the newest FerretDB from source before testing anything'
   assert.ok(/git clone/.test(sh));
   // Build it, through FerretDB's own build.sh, which installs Go and the module
   // dependencies when they are missing.
-  assert.ok(/\.\/build\.sh deps && \.\/build\.sh build/.test(sh),
-    'installs the dependencies and builds');
+  assert.ok(/\.\/build\.sh build/.test(sh),
+    'builds and lets Go fetch only the dependencies it needs');
   assert.ok(/FerretDB\/bin\/ferretdb/.test(sh), 'and uses the binary it just built');
   // Not the released binary: the whole point is testing the newest code.
   assert.ok(!/releases\/latest\/download\/ferretdb/.test(sh),

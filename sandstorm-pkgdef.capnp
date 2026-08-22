@@ -227,9 +227,9 @@ const pkgdef :Spk.PackageDefinition = (
 
 const myCommand :Spk.Manifest.Command = (
   # Here we define the command used to start up your server.
-  #argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start.js"],
+  #argv = ["/sandstorm-http-bridge", "4000", "--", "./start-memory.sh"],
   #argv = ["/sandstorm-http-bridge", "4000", "--", "node", "--stack-size=65500", "start.js"],
-  argv = ["/sandstorm-http-bridge", "4000", "--", "node", "start.js"],
+  argv = ["/sandstorm-http-bridge", "4000", "--", "./start-memory.sh"],
   environ = [
     # Note that this defines the *entire* environment seen by your app.
     #---------------------------------------------------------------------
@@ -239,7 +239,6 @@ const myCommand :Spk.Manifest.Command = (
     # Add more stack:
     #bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
     #---------------------------------------------------------------------
-    (key = "NODE_OPTIONS", value = "--max_old_space_size=4096"),
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     # Files root for the Node24/FerretDB build: attachments/, avatars/ and the
     # FerretDB SQLite db/ live under /var/files (start.js also exports this). See

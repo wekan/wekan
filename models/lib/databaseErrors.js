@@ -147,6 +147,12 @@ const RULES = [
     act: null,
   },
 
+  { id: 'memory-exhausted', match: /JavaScript heap out of memory|ENOMEM|Cannot allocate memory/i, databases: DATABASES, severity: 'critical', kind: 'memory', means: 'The server or database exhausted its available memory.', whatToDo: 'The platform launcher now derives Node and FerretDB limits from available RAM. Check Admin Panel Problems and reduce concurrency or raise the container memory limit.', act: null },
+  { id: 'file-descriptors-exhausted', match: /EMFILE|ENFILE|too many open files/i, databases: DATABASES, severity: 'critical', kind: 'descriptors', means: 'The process cannot open another file or socket.', whatToDo: 'Raise the service file-descriptor limit and investigate leaked files or connections.', act: null },
+  { id: 'read-only-filesystem', match: /EROFS|read-only file system|attempt to write a readonly database/i, databases: DATABASES, severity: 'critical', kind: 'filesystem', means: 'The database or files volume is mounted read-only.', whatToDo: 'Restore a writable volume and ownership, then run Admin Panel Problems self-checks.', act: null },
+  { id: 'database-corrupt', match: /database disk image is malformed|database corruption|WiredTiger.*corrupt|checksum mismatch/i, databases: DATABASES, severity: 'critical', kind: 'corruption', means: 'The database reported corrupt storage.', whatToDo: 'Stop writes, preserve the volume, and restore or repair from a verified backup.', act: null },
+  { id: 'document-too-large', match: /BSONObjectTooLarge|DocumentTooLarge|object to insert too large|exceeds.*BSON/i, databases: DATABASES, severity: 'warning', kind: 'document-size', means: 'A document exceeds the database wire or storage limit.', whatToDo: 'Move large content to attachments and report which operation created the oversized document.', act: null },
+
   // ── the machine underneath ───────────────────────────────────────────────
   {
     id: 'disk-full',
