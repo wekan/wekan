@@ -82,6 +82,25 @@ WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEKAN_TOOLS_DIR="$WEKAN_DIR/.tools"
 export WEKAN_DIR WEKAN_TOOLS_DIR
 
+# Prefer the repository-local toolchain installed under .tools. A fresh shell
+# does not normally have .tools/.meteor on PATH, which made unattended test and
+# build entries fail with "meteor: command not found" even after setup had
+# installed the requested Meteor release.
+if [ -x "$WEKAN_TOOLS_DIR/.meteor/meteor" ]; then
+	PATH="$WEKAN_TOOLS_DIR/.meteor:$PATH"
+fi
+_wekan_node_version="$(sed -n 's/.*NODE_VERSION=v\([^ \\]*\).*/\1/p' "$WEKAN_DIR/Dockerfile" | head -1)"
+case "$(uname -m 2>/dev/null)" in
+	x86_64|amd64) _wekan_node_arch=x64 ;;
+	aarch64|arm64) _wekan_node_arch=arm64 ;;
+	*) _wekan_node_arch="" ;;
+esac
+_wekan_local_node="$WEKAN_TOOLS_DIR/node-v${_wekan_node_version}-linux-${_wekan_node_arch}/bin"
+if [ -n "$_wekan_node_version" ] && [ -n "$_wekan_node_arch" ] && [ -x "$_wekan_local_node/node" ]; then
+	PATH="$_wekan_local_node:$PATH"
+fi
+export PATH
+
 # ensure_tool_repo <name> [git-url] - the path to .tools/<name>, cloning it if it
 # is not there yet. Prints the path on stdout; everything else goes to stderr, so
 # a caller can do `dir="$(ensure_tool_repo FerretDB)"`.

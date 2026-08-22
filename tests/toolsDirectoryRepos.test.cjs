@@ -58,9 +58,19 @@ test('build.sh clones a companion repo into .tools, SSH then HTTPS', () => {
 });
 
 test('the .tools directory is derived from the script, not the caller\'s cwd', () => {
-  assert.ok(/WEKAN_DIR="\$\(cd "\$\(dirname "\$\{BASH_SOURCE\[0\]\}"\)" && pwd\)"/.test(sh),
+  assert.ok(sh.includes('WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"'),
     'a clone must not land in whatever directory somebody happened to be in');
-  assert.ok(/WEKAN_TOOLS_DIR="\$WEKAN_DIR\/\.tools"/.test(sh), 'and .tools sits in the checkout');
+  assert.ok(sh.includes('WEKAN_TOOLS_DIR="$WEKAN_DIR/.tools"'),
+    'and .tools sits in the checkout');
+});
+
+test('build.sh prefers the repository-local Node and Meteor tools', () => {
+  assert.ok(sh.includes('PATH="$WEKAN_TOOLS_DIR/.meteor:$PATH"'),
+    'the installed Meteor launcher is available to every menu and direct entry');
+  assert.ok(sh.includes('node-v${_wekan_node_version}-linux-${_wekan_node_arch}/bin'),
+    'the exact Node version from Dockerfile is resolved under .tools');
+  assert.ok(sh.includes('PATH="$_wekan_local_node:$PATH"'),
+    'the repository-local Node precedes the host Node when it exists');
 });
 
 test('EVERYTHING and the conformance run both use .tools/FerretDB', () => {
@@ -120,9 +130,11 @@ test('a repo inside .tools still finds the WeKan log directory', () => {
     'counting ../ from the repo is what broke when the repo moved');
   assert.ok(/-d "\$d\/\.meteor" \] && \[ -f "\$d\/build\.sh"/.test(ferret),
     'it recognises a WeKan checkout by what is in it');
-  assert.ok(/\$wekan_dir\/\.\.\/log/.test(ferret) && /\$wekan_dir\/log/.test(ferret),
-    'and then applies WeKan\'s own rule: ../log when writable, else log/ inside '
-    + 'the checkout (a sandbox shares only the repository)');
+  const unit = ferret.slice(ferret.indexOf('act_unit()'), ferret.indexOf('act_test_all()'));
+  assert.ok(unit.indexOf('go run generate.go') < unit.indexOf('go test -count=1'),
+    'version metadata is generated before unit packages initialize');
+  assert.ok(ferret.includes('logdir="$wekan_dir/.tools/log/$stamp"'),
+    'a standalone companion run uses WeKan .tools/log');
   assert.ok(/WEKAN_LOGDIR/.test(ferret),
     'and a run driven by WeKan still shares that run\'s directory');
 });
