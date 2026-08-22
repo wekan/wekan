@@ -427,6 +427,8 @@ the CI environment-variable overrides.
 
 </details>
 
+- [Repository instructions use the same .tools paths](https://github.com/wekan/wekan/commit/35d7c06aa). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.07 2026-08-22 WeKan ® release
