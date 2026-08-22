@@ -551,6 +551,7 @@ function run_playwright_docker(){
 	# native Chromium/Firefox runs fail with "EACCES: permission denied, mkdir
 	# .../test-results/.playwright-artifacts-N").
 	docker_exec run --rm --init --ipc=host --network host \
+		--label org.wekan.test-run=everything \
 		--user "$(id -u):$(id -g)" \
 		-e HOME=/tmp \
 		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
@@ -1054,8 +1055,8 @@ function run_all_tests(){
 			fi
 		fi
 	}
-	trap 'stop_test_databases' EXIT
-	trap 'stop_test_databases; exit 130' INT TERM
+	trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock' EXIT
+	trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
 	# Start one test job in the background: record its exit code in STATDIR/<key>
 	# and send all of its output to $RUN_LOGDIR/wekan-alltests-<key>.log. In "parallel"
 	# mode every job runs at once; in "sequential" mode we wait for each job to
@@ -1478,6 +1479,9 @@ function floating_promises_checks(){
 # by git and by Meteor, so a companion repo cannot reach a commit or a rebuild.
 function run_everything(){
 	local EVERYTHING_MODE="${1:-two-worker}"
+	acquire_everything_lock || return 1
+	trap 'cleanup_everything_processes own; release_everything_lock' EXIT
+	trap 'cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
 	local RUN_TS RUN_LOGDIR FAILED=0
 	# Bound Go package parallelism separately from Node so many compiler processes
 	# cannot drive the workstation into swap. Keep 1-4 workers and a proportional,
@@ -1558,9 +1562,146 @@ function run_everything(){
 	unset WEKAN_LOGDIR
 	[ $guard_rc -eq 0 ] && [ $wekan_rc -eq 0 ] && [ $conf_rc -eq 0 ] && [ $ferret_rc -eq 0 ] || FAILED=1
 	if [ "$FAILED" -eq 0 ]; then echo "RESULT: EVERYTHING passed."; else echo "RESULT: something FAILED - see the stage summaries above."; fi
+	release_everything_lock
 	return "$FAILED"
 }
 
+# Only one complete matrix may own the shared test ports and databases. The lock
+# stores both PID and a platform process-start token, so a stale PID cannot terminate an
+# unrelated process after PID reuse. A new run asks the old shell to clean up,
+# waits for it, and force-stops it only if graceful shutdown does not finish.
+EVERYTHING_LOCK_DIR="$WEKAN_DIR/.tools/run-everything.lock"
+EVERYTHING_LOCK_OWNED=0
+
+everything_process_start() {
+	if [ -r "/proc/$1/stat" ]; then
+		awk "{ print \$22 }" "/proc/$1/stat" 2>/dev/null
+	else
+		ps -p "$1" -o lstart= 2>/dev/null | cksum | awk "{ print \$1 }"
+	fi
+}
+
+everything_process_is_owner() {
+	local pid="$1" start="$2" actual
+	case "$pid:$start" in *[!0-9:]*|:*) return 1 ;; esac
+	actual="$(everything_process_start "$pid")"
+	[ -n "$actual" ] && [ "$actual" = "$start" ] && kill -0 "$pid" 2>/dev/null
+}
+
+everything_expand_descendants() {
+	local pids="$1" changed=1 pid ppid tree
+	tree="$(ps -eo pid=,ppid= 2>/dev/null)"
+	while [ "$changed" = 1 ]; do
+		changed=0
+		while read -r pid ppid; do
+			case " $pids " in
+				*" $pid "*) ;;
+				*" $ppid "*) pids="$pids $pid"; changed=1 ;;
+			esac
+		done <<< "$tree"
+	done
+	printf "%s\n" "$pids"
+}
+
+everything_pid_running() {
+	local state
+	state="$(ps -o stat= -p "$1" 2>/dev/null)"
+	[ -n "$state" ] && [ "${state#Z}" = "$state" ]
+}
+
+cleanup_everything_processes() {
+	local scope="${1:-all}" pid pids="" survivors="" containers=""
+	if [ "$scope" != own ] && command -v pgrep >/dev/null 2>&1; then
+		for pid in $(pgrep -f "[b]uild\.sh --run-everything" 2>/dev/null); do
+			[ "$pid" = "$$" ] || pids="$pids $pid"
+		done
+		for pid in $(pgrep -f "$WEKAN_DIR/(tests|\.build/bundle|releases/db-conformance)" 2>/dev/null); do
+			[ "$pid" = "$$" ] || pids="$pids $pid"
+		done
+	fi
+	pids="$(everything_expand_descendants "$pids $$")"
+	local filtered_pids=""
+	for pid in $pids; do
+		[ "$pid" = "$$" ] || ! everything_pid_running "$pid" || filtered_pids="$filtered_pids $pid"
+	done
+	pids="$filtered_pids"
+	if [ -n "${pids//[[:space:]]/}" ]; then
+		echo "==> Stopping previous WeKan test process(es):$pids"
+		kill -TERM $pids 2>/dev/null || true
+		sleep 5
+		for pid in $pids; do
+			everything_pid_running "$pid" && kill -KILL "$pid" 2>/dev/null || true
+		done
+		sleep 2
+		for pid in $pids; do
+			everything_pid_running "$pid" && survivors="$survivors $pid"
+		done
+	fi
+	if ! kill_meteor_on_port 3000; then survivors="$survivors ports:3000/3001"; fi
+	if docker_available; then
+		containers=$(docker_exec ps -aq --filter "label=org.wekan.test-run" 2>/dev/null)
+		containers="$containers $(docker_exec ps -aq --filter "name=^wekan-conformance-" 2>/dev/null)"
+		[ -n "$(printf "%s" "$containers" | tr -d "[:space:]")" ] && docker_exec rm -f $containers >/dev/null 2>&1 || true
+		containers=$(docker_exec ps -q --filter "label=org.wekan.test-run" 2>/dev/null)
+		containers="$containers $(docker_exec ps -q --filter "name=^wekan-conformance-" 2>/dev/null)"
+	fi
+	if [ -n "$survivors" ] || [ -n "$(printf "%s" "$containers" | tr -d "[:space:]")" ]; then
+		echo "ERROR: Could not stop previous WeKan tests and databases."
+		[ -n "$survivors" ] && echo "       Test process or port survivor(s):$survivors"
+		[ -n "$(printf "%s" "$containers" | tr -d "[:space:]")" ] && echo "       Test container(s) still running:$containers"
+		echo "       No new EVERYTHING test run was started. Stop them manually and retry."
+		return 1
+	fi
+	return 0
+}
+
+release_everything_lock() {
+	[ "${EVERYTHING_LOCK_OWNED:-0}" = 1 ] || return 0
+	local pid start
+	if read -r pid start < "$EVERYTHING_LOCK_DIR/owner" 2>/dev/null && [ "$pid" = "$$" ]; then
+		rm -f "$EVERYTHING_LOCK_DIR/owner"
+		rmdir "$EVERYTHING_LOCK_DIR" 2>/dev/null || true
+	fi
+	EVERYTHING_LOCK_OWNED=0
+}
+
+acquire_everything_lock() {
+	mkdir -p "$WEKAN_DIR/.tools"
+	local old_pid old_start waited
+	while ! mkdir "$EVERYTHING_LOCK_DIR" 2>/dev/null; do
+		old_pid=""; old_start=""
+		read -r old_pid old_start < "$EVERYTHING_LOCK_DIR/owner" 2>/dev/null || true
+		if everything_process_is_owner "$old_pid" "$old_start"; then
+			echo "==> Stopping older EVERYTHING run (PID $old_pid) before starting over."
+			kill -TERM "$old_pid" 2>/dev/null || true
+			waited=0
+			while everything_process_is_owner "$old_pid" "$old_start" && [ "$waited" -lt 30 ]; do
+				sleep 1
+				waited=$((waited + 1))
+			done
+			if everything_process_is_owner "$old_pid" "$old_start"; then
+				echo "==> Older EVERYTHING run did not stop in 30 seconds; force-stopping it."
+				kill -KILL "$old_pid" 2>/dev/null || true
+				sleep 2
+			fi
+			if everything_process_is_owner "$old_pid" "$old_start"; then
+				echo "ERROR: Could not stop previous WeKan tests and databases (PID $old_pid)."
+				echo "       No new EVERYTHING test run was started. Stop that process manually and retry."
+				return 1
+			fi
+		else
+			echo "==> Removing stale EVERYTHING run lock."
+		fi
+		rm -f "$EVERYTHING_LOCK_DIR/owner"
+		rmdir "$EVERYTHING_LOCK_DIR" 2>/dev/null || true
+	done
+	if ! cleanup_everything_processes; then
+		rmdir "$EVERYTHING_LOCK_DIR" 2>/dev/null || true
+		return 1
+	fi
+	printf "%s %s\n" "$$" "$(everything_process_start "$$")" > "$EVERYTHING_LOCK_DIR/owner"
+	EVERYTHING_LOCK_OWNED=1
+}
 # ============================================================================
 # Multi-forge tooling (menu options below).
 #   * install_forge_tools: install gh-like CLIs (gh, glab, tea, git-bug, forge).

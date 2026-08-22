@@ -1995,6 +1995,8 @@ REM CPU, then all of FerretDB's tests. One .tools\log\<datetime>\ directory for 
 REM whole run, and nothing runs concurrently, which is what makes a failure
 REM readable.
 REM
+REM The shared runner first stops and waits for any older EVERYTHING run, so the
+REM two runs cannot share ports 3000/3001, databases or browser output.
 REM The WeKan stage builds a Meteor bundle and runs a server, which needs the
 REM POSIX shell throughout - so this hands the whole run to bash rather than
 REM reimplementing it here, exactly as options 14 and 15 do.
@@ -2004,6 +2006,10 @@ if errorlevel 1 (
   goto end
 )
 bash ./releases/run-everything.sh %WEKAN_EVERYTHING_MODE%
+if errorlevel 1 (
+  echo ERROR: EVERYTHING did not start or did not finish successfully. See the message above.
+  goto end
+)
 goto end
 
 REM ===========================================================================

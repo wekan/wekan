@@ -557,7 +557,7 @@ test('a test run stops the databases it started, on every way out', () => {
   // database that ANSWERS, so a leftover mongod is silently reused holding data
   // this run never seeded, and the failures land somewhere else entirely.
   assert.ok(/stop_test_databases\(\) \{/.test(sh), 'build.sh has one place that stops them');
-  assert.ok(/trap 'stop_test_databases' EXIT[\s\S]*trap 'stop_test_databases; exit 130' INT TERM/.test(sh),
+  assert.ok(sh.includes("trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock' EXIT") && sh.includes("trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM"),
     'and it runs on every way out, not only the happy path');
   const fn = sh.slice(sh.indexOf('stop_test_databases() {'));
   const body = fn.slice(0, fn.indexOf("trap 'stop_test_databases'"));
@@ -579,6 +579,28 @@ test('a test run stops the databases it started, on every way out', () => {
   assert.ok(/WekanTestServer/.test(labelBody) && /WekanTestMongo/.test(labelBody),
     'stopping the same two things build.sh stops');
   assert.ok(/wekan-conformance-db-/.test(labelBody), 'and the conformance containers');
+});
+
+test('a new EVERYTHING run replaces an older complete run before starting', () => {
+  const acquireAt = sh.indexOf('acquire_everything_lock || return 1');
+  const stampAt = sh.indexOf('RUN_TS="$(date', acquireAt);
+  assert.ok(acquireAt !== -1 && stampAt > acquireAt,
+    'the old run is stopped before a new timestamp or test stage is created');
+  assert.match(sh, /EVERYTHING_LOCK_DIR="\$WEKAN_DIR\/\.tools\/run-everything\.lock"/);
+  assert.match(sh, /everything_process_start[\s\S]*\/proc\/\$1\/stat[\s\S]*lstart=[\s\S]*cksum/,
+    'Linux, macOS and Windows record a process-start token, preventing stale PID reuse');
+  assert.match(sh, /Stopping older EVERYTHING run[\s\S]*kill -TERM[\s\S]*-lt 30[\s\S]*kill -KILL/,
+    'replacement is graceful first, bounded, then forced when necessary');
+  assert.match(sh, /pgrep -f "\[b\]uild\\.sh --run-everything"/,
+    'the first upgraded run also finds active runs created before locking existed');
+  assert.match(sh, /Could not stop previous WeKan tests and databases[\s\S]*No new EVERYTHING test run was started/,
+    'cleanup failure must explain why the new run exits before starting');
+  assert.match(sh, /kill_meteor_on_port 3000[\s\S]*label=org\.wekan\.test-run/,
+    'shared server ports and browser/database containers are stopped and verified');
+  assert.match(sh, /release_everything_lock\n\treturn "\$FAILED"/,
+    'a completed menu run releases ownership without waiting for build.sh to exit');
+  assert.match(bat, /shared runner first stops and waits for any older EVERYTHING run/,
+    'build.bat documents and uses the same replacement behavior');
 });
 
 test('test runtimes cannot inherit the build tool half-of-RAM heap', () => {
