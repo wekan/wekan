@@ -385,7 +385,7 @@ browser build to verify).
 
 </details>
 
-# Upcoming WeKan ® release
+# v11.08 2026-08-23 WeKan ® release
 
 **In short:** six coordinated reports harden **REST authorization**, board
 ownership, administrator token auditing and error responses. Build and release
