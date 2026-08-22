@@ -2680,23 +2680,14 @@ for _once in 1; do
 		break
 		;;
 
-    "Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)")
-		mirror_forge
-		break
-		;;
-
     "Run all FerretDB tests - SEQUENTIAL: unit, vet and the integration suite of the FerretDB subdirectory of this repo, one at a time, logs in log/<datetime>/")
-	# FerretDB is a subdirectory of this repo; releases/db-conformance.sh clones it
-	# when it is not there, and its own build.sh installs Go and the modules.
-	if [ ! -x FerretDB/build.sh ]; then
-		echo "FerretDB/build.sh is missing. Clone it first:"
-		echo "  git clone git@github.com:wekan/FerretDB"
-		echo "(or run Tests -> All databases, which clones it before building.)"
+	ferret_dir="$(ensure_tool_repo FerretDB)" || ferret_dir=""
+	if [ -n "$ferret_dir" ] && [ -x "$ferret_dir/build.sh" ]; then
+		( cd "$ferret_dir" && ./build.sh test-all )
 	else
-		( cd FerretDB && ./build.sh test-all )
+		echo "ERROR: .tools/FerretDB/build.sh is missing and could not be cloned."
 	fi
 	;;
-
     "Run EVERYTHING sequentially: the floating-promises guard (seconds), then WeKan's own tests (mocha, the node suites, import regression, node E2E and all three browsers), then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/")
 	run_everything
 	;;

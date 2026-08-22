@@ -82,6 +82,7 @@ test('EVERYTHING and the conformance run both use .tools/FerretDB', () => {
   // Every mention of the repo's build.sh must be the .tools one - including the
   // error message, which tells the reader where it should be.
   assert.ok(!/cd FerretDB\b/.test(flow), 'nothing cds into the old repo-root path');
+  assert.ok(!/cd FerretDB\b/.test(shCode), 'the direct menu dispatcher also uses .tools');
   for (const m of flow.match(/\S*FerretDB\/build\.sh/g) || []) {
     assert.ok(m.includes('.tools/'), `still names the old path: ${m}`);
   }
