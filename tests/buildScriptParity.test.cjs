@@ -447,8 +447,10 @@ test('build.bat cannot fail the same way', () => {
   const everything = bat.slice(bat.indexOf(':test_everything'));
   assert.ok(/bash \.\/releases\/run-everything\.sh/.test(everything.slice(0, 1200)),
     'the .bat EVERYTHING delegates to the shared script');
-  assert.ok(/if "%choice%"=="1"\s+goto test_everything/.test(bat),
-    'and is reached by number, not by matching a sentence');
+  for (const [choice, label] of [['1', 'two'], ['2', 'one'], ['3', 'all']]) {
+    assert.ok(new RegExp(`if "%choice%"=="${choice}"\\s+goto test_everything_${label}`).test(bat),
+      `EVERYTHING mode ${choice} is reached by number, not by matching a sentence`);
+  }
 });
 
 test('EVERYTHING runs every test either script offers', () => {
@@ -461,7 +463,7 @@ test('EVERYTHING runs every test either script offers', () => {
 
   assert.ok(/floating_promises_checks/.test(flow),
     'EVERYTHING must run the floating-promises guard');
-  assert.ok(/run_all_tests sequential/.test(flow),
+  assert.ok(/run_all_tests "\$EVERYTHING_MODE"/.test(flow),
     'and WeKan\'s own suite - mocha, the node suites, import, E2E, three browsers');
   assert.ok(/db-conformance\.sh/.test(flow), 'and the database conformance run');
   assert.ok(/build\.sh test-all/.test(flow), 'and all of FerretDB\'s own tests');
@@ -492,6 +494,34 @@ test('EVERYTHING runs every test either script offers', () => {
     'build.bat must delegate EVERYTHING to releases/run-everything.sh');
   assert.ok(/exec \.\/build\.sh --run-everything/.test(read('releases/run-everything.sh')),
     'and that script must call build.sh --run-everything, so there is one implementation');
+});
+
+test('the first three Tests options are complete bounded execution modes', () => {
+  const testsMenu = sh.slice(sh.indexOf('choose "Tests"'));
+  const labels = [...testsMenu.matchAll(/^\s*"(EVERYTHING [^|"\n]+)\|/gm)]
+    .slice(0, 3).map((match) => match[1]);
+  assert.deepStrictEqual(labels, [
+    'EVERYTHING two-worker',
+    'EVERYTHING one by one',
+    'EVERYTHING at once',
+  ]);
+
+  const start = sh.indexOf('function run_all_tests(){');
+  const flow = sh.slice(start, sh.indexOf('\n}\n', start));
+  assert.match(flow, /two-worker\) RUN_MODE=sequential; PLAYWRIGHT_WORKERS=2/);
+  assert.match(flow, /sequential\) RUN_MODE=sequential/);
+  assert.match(flow, /parallel\) RUN_MODE=parallel/);
+  assert.match(flow, /export WEKAN_PLAYWRIGHT_WORKERS="\$PLAYWRIGHT_WORKERS"/);
+  assert.match(read('tests\/playwright\/playwright.config.js'),
+    /workers: Math\.max\(1, Number\(process\.env\.WEKAN_PLAYWRIGHT_WORKERS \|\| 1\)\)/);
+
+  for (const [label, mode] of [
+    ['two', 'two-worker'], ['one', 'sequential'], ['all', 'parallel'],
+  ]) {
+    assert.match(bat, new RegExp(`:test_everything_${label}\\s+set "WEKAN_EVERYTHING_MODE=${mode}"`));
+  }
+  assert.match(read('releases\/run-everything.sh'),
+    /--run-everything "\$\{1:-\$\{WEKAN_EVERYTHING_MODE:-two-worker\}\}"/);
 });
 
 test('both scripts write ONE LOG PER BROWSER, not one for all three', () => {

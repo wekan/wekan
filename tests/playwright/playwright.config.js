@@ -101,7 +101,7 @@ module.exports = defineConfig({
   timeout: 60_000,
   expect: { timeout: 15_000 },
   fullyParallel: false,
-  workers: 1,
+  workers: Math.max(1, Number(process.env.WEKAN_PLAYWRIGHT_WORKERS || 1)),
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI
     ? [['github'], ['html', { outputFolder: 'playwright-report', open: 'never' }]]

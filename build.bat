@@ -145,13 +145,13 @@ REM ===========================================================================
 :menu_tests
 echo.
 echo -- Tests --   ^(0 = Back^)
-echo   1^) EVERYTHING ^(sequential^): the floating-promises guard, then WeKan's own
-echo       tests ^(mocha, node suites, import, node E2E, three browsers^), then every
-echo       database with an image for this CPU, then all FerretDB tests ^(unit, vet,
-echo       integration^). Logs in .tools\log\^<datetime^>\
-echo   2^) WeKan's own tests only, parallel: Mocha, node unit suites, import, node
-echo       E2E and all three browsers, concurrently. No databases, no FerretDB
-echo   3^) WeKan's own tests only, sequential: the same suite, one job at a time
+echo   1^) EVERYTHING two-worker: one stage at a time, two Playwright workers
+echo       per browser; every database and all FerretDB tests remain sequential.
+echo       Logs in .tools\log\^<datetime^>\
+echo   2^) EVERYTHING one by one: one stage and one Playwright worker at a time
+echo       for minimum RAM usage
+echo   3^) EVERYTHING at once: WeKan test jobs concurrently; database and
+echo       FerretDB stages remain sequential
 echo   4^) Mocha ^(server-side^)
 echo   5^) Import regression
 echo   6^) Node E2E regressions
@@ -167,9 +167,9 @@ echo       against every database with an image for this CPU, compare the answer
 echo  15^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
 set "choice="
 set /p "choice=Choose: "
-if "%choice%"=="1"  goto test_everything
-if "%choice%"=="2"  goto test_all_parallel
-if "%choice%"=="3"  goto test_all_sequential
+if "%choice%"=="1"  goto test_everything_two
+if "%choice%"=="2"  goto test_everything_one
+if "%choice%"=="3"  goto test_everything_all
 if "%choice%"=="4"  goto test_mocha
 if "%choice%"=="5"  goto test_import
 if "%choice%"=="6"  goto test_e2e
@@ -1976,6 +1976,18 @@ bash -c "cd .tools/FerretDB && ./build.sh test-all"
 goto end
 
 REM ===========================================================================
+:test_everything_two
+set "WEKAN_EVERYTHING_MODE=two-worker"
+goto test_everything
+
+:test_everything_one
+set "WEKAN_EVERYTHING_MODE=sequential"
+goto test_everything
+
+:test_everything_all
+set "WEKAN_EVERYTHING_MODE=parallel"
+goto test_everything
+
 :test_everything
 REM Every test WeKan and FerretDB have, one stage at a time: WeKan's own suite,
 REM then the database conformance run for every database with an image for this
@@ -1991,7 +2003,7 @@ if errorlevel 1 (
   echo ERROR: bash was not found. It comes with Git for Windows ^(Git Bash^) and with WSL.
   goto end
 )
-bash ./releases/run-everything.sh
+bash ./releases/run-everything.sh %WEKAN_EVERYTHING_MODE%
 goto end
 
 REM ===========================================================================

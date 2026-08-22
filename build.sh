@@ -557,6 +557,7 @@ function run_playwright_docker(){
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
 		-e WEKAN_PLAYWRIGHT_ALL=1 \
 		-e WEKAN_PLAYWRIGHT_PROJECT="$browser" \
+		-e WEKAN_PLAYWRIGHT_WORKERS="${WEKAN_PLAYWRIGHT_WORKERS:-1}" \
 		-e WEKAN_PLAYWRIGHT_PROBE=0 \
 		-e PLAYWRIGHT_HTML_OPEN=never \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
@@ -877,8 +878,17 @@ mongo_answers() {
 }
 
 function run_all_tests(){
-	local RUN_MODE="${1:-parallel}"
-	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
+	local REQUESTED_MODE="${1:-two-worker}"
+	local RUN_MODE="$REQUESTED_MODE" PLAYWRIGHT_WORKERS=1
+	case "$REQUESTED_MODE" in
+		two-worker) RUN_MODE=sequential; PLAYWRIGHT_WORKERS=2 ;;
+		sequential) RUN_MODE=sequential ;;
+		parallel) RUN_MODE=parallel ;;
+		*) echo "ERROR: unknown EVERYTHING mode: $REQUESTED_MODE" >&2; return 2 ;;
+	esac
+	export WEKAN_PLAYWRIGHT_WORKERS="$PLAYWRIGHT_WORKERS"
+	local modeword
+	[ "$REQUESTED_MODE" = parallel ] && modeword="at once (concurrently)" || modeword="one stage at a time (${PLAYWRIGHT_WORKERS} Playwright worker(s))"
 	# The large heap at the top of this file is for compiling WeKan. Do not hand
 	# that same half-of-all-RAM allowance to every runtime process in the test
 	# matrix: the bundle server stays alive while E2E/Playwright run, and allowing
@@ -1467,6 +1477,7 @@ function floating_promises_checks(){
 # releases/db-conformance.sh, which needs it a stage earlier). .tools/ is ignored
 # by git and by Meteor, so a companion repo cannot reach a commit or a rebuild.
 function run_everything(){
+	local EVERYTHING_MODE="${1:-two-worker}"
 	local RUN_TS RUN_LOGDIR FAILED=0
 	# Bound Go package parallelism separately from Node so many compiler processes
 	# cannot drive the workstation into swap. Keep 1-4 workers and a proportional,
@@ -1486,13 +1497,13 @@ function run_everything(){
 	export WEKAN_LOGDIR="$RUN_LOGDIR"
 
 	echo "=============================================================================="
-	echo "EVERYTHING, one stage at a time. Logs: $RUN_LOGDIR/"
+	echo "EVERYTHING mode: $EVERYTHING_MODE. Logs: $RUN_LOGDIR/"
 	echo "  1/4  Floating-promises guard (seconds: the rule, and unawaited auth checks)"
 	echo "  2/4  WeKan's own tests       (builds the bundle, starts a server; mocha, the"
 	echo "                                node suites, import, node E2E, three browsers)"
 	echo "  3/4  Database conformance    (builds FerretDB, every database this CPU runs)"
 	echo "  4/4  FerretDB's own tests    (unit, vet, integration)"
-	echo "This takes a long time. Nothing runs concurrently, so a failure is readable."
+	echo "Database and FerretDB stages remain sequential; the WeKan phase follows the selected mode."
 	echo "FerretDB Go limit: $FERRET_GO_JOBS parallel package builds, $FERRET_GOMEMLIMIT managed heap per Go process."
 	echo "  Override with WEKAN_FERRETDB_GOFLAGS / WEKAN_FERRETDB_GOMEMLIMIT."
 	echo "=============================================================================="
@@ -1509,7 +1520,7 @@ function run_everything(){
 
 	echo
 	echo "### 2/4 WeKan tests ###########################################################"
-	run_all_tests sequential || wekan_rc=$?
+	run_all_tests "$EVERYTHING_MODE" || wekan_rc=$?
 
 	echo
 	echo "### 3/4 Database conformance ##################################################"
@@ -2340,7 +2351,7 @@ cli_run() {
 # on Windows): the same "EVERYTHING (sequential)" the Tests menu offers, without
 # the menu.
 case "${1:-}" in
-	--run-everything) run_everything; exit $? ;;
+	--run-everything) run_everything "${2:-two-worker}"; exit $? ;;
 	-h|--help|help)   cli_help; exit 0 ;;
 	-l|--list|list)   cli_help | head -8; echo; echo "Commands:"; cli_list; exit 0 ;;
 	"")               ;;                       # no arguments: the menu below
@@ -2372,9 +2383,9 @@ while [ -z "$opt" ]; do
 					"Kill all dev servers|Kill all dev servers (free ports 3000/3001/3100/3101/4000/4001/8080)" ;;
 			"Tests")
 				choose "Tests" \
-					"EVERYTHING (sequential): the guard + WeKan tests + all databases + FerretDB tests|Run EVERYTHING sequentially: the floating-promises guard (seconds), then WeKan's own tests (mocha, the node suites, import regression, node E2E and all three browsers), then the database conformance run for every database with a Docker image for this CPU, then all of FerretDB's own tests (unit, vet, integration) - one stage at a time, all logs in log/<datetime>/" \
-					"WeKan's own tests only, parallel|Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in log/<datetime>/" \
-					"WeKan's own tests only, sequential|Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in log/<datetime>/" \
+					"EVERYTHING two-worker|Run EVERYTHING with stages one by one and two Playwright workers per browser; database and FerretDB stages stay sequential; logs in log/<datetime>/" \
+					"EVERYTHING one by one|Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; logs in log/<datetime>/" \
+					"EVERYTHING at once|Run EVERYTHING with the WeKan test jobs concurrently; database backends and FerretDB stages stay sequential; logs in log/<datetime>/" \
 					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
 					"Import regression|Test import regression (tests/wekanCreator.import.test.js, fast, no server)" \
 					"Node E2E regressions|Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" \
@@ -2673,13 +2684,18 @@ for _once in 1; do
                 break
                 ;;
 
-    "Run WeKan's own tests in parallel on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, concurrently. No database conformance and no FerretDB tests - logs in log/<datetime>/")
-		run_all_tests parallel
+    "Run EVERYTHING with stages one by one and two Playwright workers per browser; database and FerretDB stages stay sequential; logs in log/<datetime>/")
+		run_everything two-worker
 		break
 		;;
 
-    "Run WeKan's own tests sequentially on http://localhost:3000: Mocha, the node unit suites, import regression, node E2E and all three browsers, one job at a time. No database conformance and no FerretDB tests - logs in log/<datetime>/")
-		run_all_tests sequential
+    "Run EVERYTHING with the WeKan test jobs concurrently; database backends and FerretDB stages stay sequential; logs in log/<datetime>/")
+		run_everything parallel
+		break
+		;;
+
+    "Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; logs in log/<datetime>/")
+		run_everything sequential
 		break
 		;;
 
