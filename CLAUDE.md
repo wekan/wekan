@@ -747,6 +747,46 @@ have cost a released section its accuracy:
   same directory — read it when something behaves differently than a normal host (file
   access, network, running services).
 
+### Flatpak sandbox: install task tools under `.tools/`
+
+- In the Flatpak sandbox launched by
+  `docs/Security/Sandboxes/vscode/vscodium-sandbox.sh` (or the VSCode variant),
+  the repository may be the only writable/shared host directory. When a command
+  needs a tool that is missing, install its binary, virtual environment, models
+  and caches under the repository-local `.tools/` directory. Do not install it
+  into the read-only Flatpak image or scatter generated tool files through the
+  source tree. `.tools/` is excluded by both `.gitignore` and `.meteorignore`, so
+  local toolchains neither enter commits nor consume Meteor file-watcher slots.
+- Use the version selected by the repository, resolved from the current files at
+  install time; never copy a version number from an old log or hard-code the
+  example currently shown in the sandbox README. In particular: Node.js and npm
+  come from `NODE_VERSION` and `NPM_VERSION` in `Dockerfile`; Meteor comes from
+  `.meteor/release`; companion repositories use the versions in their own build
+  scripts or module files. Use the architecture reported by `uname -m`. Reuse an
+  existing matching `.tools` installation before downloading another copy.
+- Follow the complete, tested bootstrap commands and environment variables in
+  `docs/Security/Sandboxes/vscode/README.md`, especially its "From-scratch
+  toolchain in `.tools/`" section. Prefer repository setup helpers such as
+  `build.sh` and `releases/ensure-tools.sh` when they already install the needed
+  pinned tool. Keep `HOME`, `PATH`, `GOROOT`, `GOPATH`, `GOCACHE`, `GOMODCACHE`
+  and similar overrides scoped to the command or sandbox terminal; do not change
+  the real host home or a system installation.
+- For screenshot or image text that cannot be read by the normal image viewer
+  because Flatpak/bubblewrap cannot create a user namespace, install RapidOCR
+  locally instead of guessing from filenames or logs:
+
+  ```bash
+  python3 -m venv .tools/ocr-venv
+  .tools/ocr-venv/bin/pip install rapidocr_onnxruntime pillow
+  .tools/ocr-venv/bin/python -c 'from rapidocr_onnxruntime import RapidOCR; import sys; result, _ = RapidOCR()(sys.argv[1]); print("\n".join(row[1] for row in (result or [])))' path/to/screenshot.png
+  ```
+
+  Process a timestamped screenshot series in chronological order and correlate
+  OCR output with the matching `.tools/log/<datetime>/` files. OCR is evidence
+  with recognition errors: retain timestamps and coordinates when needed, verify
+  suspicious numbers against adjacent frames, and do not claim visual details
+  that neither OCR nor another available viewer confirmed.
+
 ### Always validate from the actual code
 
 - When doing anything, check how it actually works in the code first.
