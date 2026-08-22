@@ -126,7 +126,7 @@ WebApp.handlers.post(
     const paramBoardId = req.params.boardId;
     const paramChecklistId = req.params.checklistId;
     const paramCardId = req.params.cardId;
-    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const checklist = await ReactiveCache.getChecklist({
       _id: paramChecklistId,
       cardId: paramCardId,
@@ -181,7 +181,7 @@ WebApp.handlers.put(
     const paramCardId = req.params.cardId;
     const paramChecklistId = req.params.checklistId;
     const paramItemId = req.params.itemId;
-    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
     if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {
@@ -235,7 +235,7 @@ WebApp.handlers.delete(
     const paramCardId = req.params.cardId;
     const paramChecklistId = req.params.checklistId;
     const paramItemId = req.params.itemId;
-    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const checklistItem = await ReactiveCache.getChecklistItem(paramItemId);
     if (!checklistItem || checklistItem.cardId !== paramCardId || checklistItem.checklistId !== paramChecklistId) {

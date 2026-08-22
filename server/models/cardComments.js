@@ -12,6 +12,7 @@ import Activities from '/models/activities';
 import CardComments, { assertCanMutateComment } from '/models/cardComments';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { tripCanary } from '/server/lib/canary';
+import { allowIsBoardMemberCommentOnly } from '/server/lib/utils';
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);
@@ -157,7 +158,13 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
   try {
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
-    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    Authentication.checkLoggedIn(req.userId);
+    const board = await ReactiveCache.getBoard(paramBoardId);
+    Authentication.checkBoardExists(board);
+    await Authentication.checkAdminOrCondition(
+      req.userId,
+      allowIsBoardMemberCommentOnly(req.userId, board),
+    );
 
     // Validate the required `comment` parameter before inserting. Without this
     // an empty/missing comment reaches the schema-validated insert and throws a

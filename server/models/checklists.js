@@ -3,7 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { allowIsBoardMemberByCard, allowIsBoardMemberCommentOnly } from '/server/lib/utils';
+import { allowIsBoardMemberByCard } from '/server/lib/utils';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
@@ -243,10 +243,7 @@ WebApp.handlers.post(
   '/api/boards/:boardId/cards/:cardId/checklists',
   async function(req, res) {
     const paramBoardId = req.params.boardId;
-    await Authentication.checkBoardAccess(req.userId, paramBoardId);
-    const board = await ReactiveCache.getBoard(paramBoardId);
-    const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
-    await Authentication.checkAdminOrCondition(req.userId, addPermission);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
     const paramCardId = req.params.cardId;
 
     const card = await ReactiveCache.getCard({
@@ -303,7 +300,7 @@ WebApp.handlers.delete(
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const paramChecklistId = req.params.checklistId;
-    await Authentication.checkBoardAccess(req.userId, paramBoardId);
+    await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
 
     const card = await ReactiveCache.getCard({
       _id: paramCardId,

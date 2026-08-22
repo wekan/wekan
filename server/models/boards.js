@@ -32,6 +32,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
+import { publicErrorData } from '/server/lib/apiResponseHelpers';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -851,10 +852,7 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
 
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -877,10 +875,7 @@ WebApp.handlers.get('/api/boards', async function(req, res) {
       })),
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -897,10 +892,7 @@ WebApp.handlers.get('/api/boards_count', async function(req, res) {
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -915,10 +907,7 @@ WebApp.handlers.get('/api/boards/:boardId', async function(req, res) {
       data: board,
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -932,18 +921,15 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
       title: req.body.title,
       members: [
         {
-          // #5650: fall back to the authenticated caller when `owner` is omitted.
-          // Without a valid userId the board's only member has userId=undefined,
-          // so the boards publication (members.$elemMatch:{userId,isActive:true})
-          // never matches the user — the board is returned by the REST API but is
-          // invisible in the browser UI. Mirrors the Meteor create method, which
-          // uses this.userId.
-          userId: req.body.owner || req.userId,
-          isAdmin: req.body.isAdmin || true,
-          isActive: req.body.isActive || true,
-          isNoComments: req.body.isNoComments || false,
-          isCommentOnly: req.body.isCommentOnly || false,
-          isWorker: req.body.isWorker || false,
+          // The authenticated caller is always the initial owner. An `owner`
+          // field in the body must not let one user inject boards into another
+          // user's account.
+          userId: req.userId,
+          isAdmin: true,
+          isActive: true,
+          isNoComments: false,
+          isCommentOnly: false,
+          isWorker: false,
         },
       ],
       permission,
@@ -962,10 +948,7 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: error.statusCode || error.code || 500,
-      data: { error: error.reason || error.message || 'Error' },
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1010,7 +993,7 @@ WebApp.handlers.post('/api/boards/import', async function(req, res) {
     );
     sendJsonResult(res, { code: 200, data: { _id: boardId } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1047,7 +1030,7 @@ WebApp.handlers.post('/api/boards/import/:source', async function(req, res) {
     );
     sendJsonResult(res, { code: 200, data: { _id: boardId } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1063,10 +1046,7 @@ WebApp.handlers.delete('/api/boards/:boardId', async function(req, res) {
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: error.statusCode || error.code || 500,
-      data: { error: error.reason || error.message || 'Error' },
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1086,10 +1066,7 @@ WebApp.handlers.put('/api/boards/:boardId/title', async function(req, res) {
       },
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1149,10 +1126,7 @@ WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
       data: labelId,
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: error.statusCode || error.code || 500,
-      data: { error: error.reason || error.message || 'Error' },
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1286,13 +1260,10 @@ WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
     // status to 200 when no `code` is given, so `catch { data: error }` returned
     // 200 with the error object as the body — a failed copy looked like a success
     // whose response happened to be an error (the copy REST test then saw an
-    // object, not the new board id). Return 500 with the message, and log the
+    // object, not the new board id). Return a sanitized failure, and log the
     // stack server-side so a failing copy is diagnosable instead of swallowed.
     console.error('POST /api/boards/:boardId/copy failed:', error);
-    sendJsonResult(res, {
-      code: 500,
-      data: { error: (error && error.message) || String(error) },
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1369,10 +1340,7 @@ WebApp.handlers.post('/api/boards/:boardId/members/:memberId', async function(re
       data: query,
     });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1399,10 +1367,7 @@ WebApp.handlers.get('/api/boards/:boardId/domains', async function(req, res) {
     }
     sendJsonResult(res, { code: 200, data: board.domains || [] });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1467,10 +1432,7 @@ WebApp.handlers.post('/api/boards/:boardId/domains', async function(req, res) {
     const updated = await ReactiveCache.getBoard(boardId);
     sendJsonResult(res, { code: 200, data: updated.domains || [] });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -1515,10 +1477,7 @@ WebApp.handlers.delete('/api/boards/:boardId/domains/:domain', async function(re
     const updated = await ReactiveCache.getBoard(boardId);
     sendJsonResult(res, { code: 200, data: updated.domains || [] });
   } catch (error) {
-    sendJsonResult(res, {
-      code: 200,
-      data: error,
-    });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 

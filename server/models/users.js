@@ -22,6 +22,7 @@ import { BOARD_COLORS } from '/models/metadata/colors';
 import { isValidCustomColors } from '/models/lib/themeCategories';
 import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { publicErrorData } from '/server/lib/apiResponseHelpers';
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
 // so invitation-code sign-up (and any other registration) attempts cannot be
@@ -1996,7 +1997,7 @@ WebApp.handlers.get('/api/user', async function(req, res) {
     data.boards = boards;
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2010,7 +2011,7 @@ WebApp.handlers.get('/api/users', async function(req, res) {
       data: users.map(doc => ({ _id: doc._id, username: doc.username })),
     });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2059,7 +2060,7 @@ WebApp.handlers.get('/api/users/:userId', async function(req, res) {
     user.boards = boards;
     sendJsonResult(res, { code: 200, data: withoutSecrets(user) });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2094,7 +2095,7 @@ WebApp.handlers.put('/api/users/:userId', async function(req, res) {
     }
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2187,7 +2188,7 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/add', async function(
     }
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2239,14 +2240,14 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async functi
     }
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
 WebApp.handlers.post('/api/users/', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
-    const id = Accounts.createUser({
+    const id = await Accounts.createUser({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
@@ -2254,7 +2255,7 @@ WebApp.handlers.post('/api/users/', async function(req, res) {
     });
     sendJsonResult(res, { code: 200, data: { _id: id } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2265,7 +2266,7 @@ WebApp.handlers.delete('/api/users/:userId', async function(req, res) {
     await Meteor.users.removeAsync({ _id: id });
     sendJsonResult(res, { code: 200, data: { _id: id } });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2273,8 +2274,28 @@ WebApp.handlers.post('/api/createtoken/:userId', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
+    check(id, String);
+    const reason = req.body && typeof req.body.reason === 'string'
+      ? req.body.reason.trim()
+      : '';
+    if (!reason) {
+      sendJsonResult(res, {
+        code: 400,
+        data: { error: 'A reason is required when creating a token for another user' },
+      });
+      return;
+    }
+    if (!(await ReactiveCache.getUser(id))) {
+      sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+      return;
+    }
     const token = Accounts._generateStampedLoginToken();
-    Accounts._insertLoginToken(id, token);
+    await ImpersonatedUsers.insertAsync({
+      adminId: req.userId,
+      userId: id,
+      reason: `restCreateToken: ${reason.slice(0, 500)}`,
+    });
+    await Accounts._insertLoginToken(id, token);
 
     sendJsonResult(res, {
       code: 200,
@@ -2284,7 +2305,7 @@ WebApp.handlers.post('/api/createtoken/:userId', async function(req, res) {
       },
     });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2311,7 +2332,7 @@ WebApp.handlers.post('/api/deletetoken', async function(req, res) {
 
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });
 
@@ -2751,6 +2772,6 @@ WebApp.handlers.get('/api/admin/domains', async function(req, res) {
       .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
     sendJsonResult(res, { code: 200, data });
   } catch (error) {
-    sendJsonResult(res, { code: 200, data: error });
+    sendJsonResult(res, publicErrorData(error));
   }
 });

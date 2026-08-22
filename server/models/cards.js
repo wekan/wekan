@@ -6,7 +6,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { add, now } from '/imports/lib/dateUtils';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import { allowIsBoardMember, allowIsBoardMemberCommentOnly, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
+import { allowIsBoardMember, allowIsBoardMemberWithWriteAccess, computeSortForIndex, mergeLabelIds, canAssignCardMember, isCardDateClear } from '/server/lib/utils';
 import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
 const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
@@ -1064,7 +1064,7 @@ WebApp.handlers.post('/api/boards/:boardId/lists/:listId/cards', async function(
   Authentication.checkLoggedIn(req.userId);
   const paramBoardId = req.params.boardId;
   const board = await ReactiveCache.getBoard(paramBoardId);
-  const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
+  const addPermission = allowIsBoardMemberWithWriteAccess(req.userId, board);
   // Must be awaited: checkAdminOrCondition is async, so without await a denied
   // (non board member) caller's rejection never blocks and the card was created
   // anyway — an auth bypass (CWE-862). Awaiting enforces the membership check.
@@ -1197,7 +1197,7 @@ WebApp.handlers.post(
     Authentication.checkLoggedIn(req.userId);
     const paramBoardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(paramBoardId);
-    const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
+    const addPermission = allowIsBoardMemberWithWriteAccess(req.userId, board);
     await Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;
 

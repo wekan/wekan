@@ -76,6 +76,9 @@ export function httpStatusForError(error) {
   if (error && typeof error.statusCode === 'number') {
     return error.statusCode;
   }
+  if (error && typeof error.code === 'number' && error.code >= 400 && error.code <= 599) {
+    return error.code;
+  }
   const name = error && (error.error || error.errorType || error.name);
   switch (name) {
     case 'Unauthorized':
@@ -87,6 +90,21 @@ export function httpStatusForError(error) {
     default:
       return 500;
   }
+}
+
+/**
+ * Return an error body safe for an unauthenticated network boundary. Expected
+ * client/auth failures keep their useful message; unexpected 5xx failures do
+ * not expose validation internals, bundle paths, or stack-derived text.
+ */
+export function publicErrorData(error) {
+  const status = httpStatusForError(error);
+  return {
+    code: status,
+    data: {
+      error: status >= 500 ? 'Internal server error' : extractErrorMessage(error),
+    },
+  };
 }
 
 /**

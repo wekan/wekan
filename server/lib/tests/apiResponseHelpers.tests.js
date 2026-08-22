@@ -4,6 +4,7 @@ import {
   extractErrorMessage,
   safeJsonStringify,
   httpStatusForError,
+  publicErrorData,
   validateCommentBody,
 } from '../apiResponseHelpers';
 
@@ -97,6 +98,33 @@ describe('REST API response helpers (#5804)', function() {
       expect(httpStatusForError(new Error('boom'))).to.equal(500);
       expect(httpStatusForError(null)).to.equal(500);
       expect(httpStatusForError(undefined)).to.equal(500);
+    });
+  });
+
+  describe('publicErrorData', function() {
+    it('keeps an expected client error status and message', function() {
+      expect(publicErrorData({ statusCode: 403, reason: 'Forbidden' })).to.deep.equal({
+        code: 403,
+        data: { error: 'Forbidden' },
+      });
+    });
+
+    it('accepts numeric Meteor error codes', function() {
+      expect(publicErrorData({ code: 409, reason: 'Already exists' })).to.deep.equal({
+        code: 409,
+        data: { error: 'Already exists' },
+      });
+    });
+
+    it('does not expose unexpected internal messages', function() {
+      const response = publicErrorData(
+        new Error('/build/programs/server/private/path.js:42 database exploded'),
+      );
+      expect(response).to.deep.equal({
+        code: 500,
+        data: { error: 'Internal server error' },
+      });
+      expect(JSON.stringify(response)).not.to.include('/build/');
     });
   });
 
