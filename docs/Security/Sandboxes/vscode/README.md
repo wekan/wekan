@@ -31,7 +31,7 @@ nano ~/.local/share/applications/wekan-vscode.desktop
 Content:
 ```
 [Desktop Entry]
-Name=VS Codium - WeKan
+Name=WeKan - VS Codium
 Comment=Open the WeKan project with Flatpak
 Exec=flatpak run com.vscodium.codium /home/wekan/repos/wekan
 Icon=com.vscodium.codium
