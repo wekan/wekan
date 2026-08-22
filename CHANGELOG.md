@@ -409,7 +409,7 @@ This release fixes the following HIGH AND MODERATE SECURITY ISSUES:
 **REST board mutations** - cards, checklists, checklist items and comments.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Checklist mutations require board write access</a>. Thanks to Char0n1507 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1fa0b158c">Checklist mutations require board write access</a>. Thanks to Char0n1507 and xet7.</summary>
 
 Checklist and checklist-item create, edit and delete routes accepted read-only
 board members because they checked only whether the caller could view the board.
@@ -421,7 +421,7 @@ and [ChecklistWriteBleed](https://wekan.fi/hall-of-fame/checklistwritebleed/).
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Every REST mutation follows its canonical board-role capability</a>. Thanks to senti-man and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1fa0b158c">Every REST mutation follows its canonical board-role capability</a>. Thanks to senti-man and xet7.</summary>
 
 Checklist, checklist-item and comment routes had drifted from the role capability
 table: some mutations needed only read access, while comment creation required
@@ -433,7 +433,7 @@ and [RoleBleed](https://wekan.fi/hall-of-fame/rolebleed/).
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Card and checklist creation requires board write access</a>. Thanks to Char0n1507 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1fa0b158c">Card and checklist creation requires board write access</a>. Thanks to Char0n1507 and xet7.</summary>
 
 Card and checklist creation reused the comment permission, allowing Comment Only
 members to create board content. Both single and bulk card creation and checklist
@@ -446,7 +446,7 @@ and [CommentWriteBleed](https://wekan.fi/hall-of-fame/commentwritebleed/).
 **Boards** - ownership assigned by the board-creation API.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/061410efe">REST board creation cannot choose another owner</a>. Thanks to Char0n1507 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1fa0b158c">REST board creation cannot choose another owner</a>. Thanks to Char0n1507 and xet7.</summary>
 
 The board-creation route trusted the owner and role flags in the request body, so
 an authenticated caller could create a board attributed to another user. The
@@ -460,7 +460,7 @@ and [OwnerBleed](https://wekan.fi/hall-of-fame/ownerbleed/).
 **Administrator API** - issuing login tokens for another account.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/061410efe">Administrator-created login tokens require an audited reason</a>. Thanks to Char0n1507 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1fa0b158c">Administrator-created login tokens require an audited reason</a>. Thanks to Char0n1507 and xet7.</summary>
 
 The administrator token endpoint could create a reusable login token for another
 user without producing the impersonation audit record used by the normal UI. It
@@ -474,7 +474,7 @@ and [TokenAuditBleed](https://wekan.fi/hall-of-fame/tokenauditbleed/).
 **REST responses** - safe status codes and public error messages.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/061410efe">REST failures return sanitized errors and correct HTTP statuses</a>. Thanks to Char0n1507 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1fa0b158c">REST failures return sanitized errors and correct HTTP statuses</a>. Thanks to Char0n1507 and xet7.</summary>
 
 Board and user routes returned raw Error objects as successful HTTP 200 responses,
 which exposed implementation details and made failures look successful. Shared
@@ -491,7 +491,7 @@ and has the following developer-tooling improvements:
 **Build and release tooling** - host setup and repository-local working data.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1d69ae06c">Sandbox tasks install version-matched local tools under .tools</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e8388314a">Sandbox tasks install version-matched local tools under .tools</a>. Thanks to xet7.</summary>
 
 The agent instructions now treat the repository-local, ignored `.tools` tree as
 the installation root when the Flatpak sandbox lacks a required command. Node.js
@@ -505,7 +505,7 @@ creating a user namespace.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c1a0a82a0">The complete test matrix cannot create an unbounded shell or Go compiler load</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/69e9a8ba1">The complete test matrix cannot create an unbounded shell or Go compiler load</a>. Thanks to xet7.</summary>
 
 Fedora screenshots showed available memory falling from 28.6 GiB to 371 MiB
 while the CPU-exec negative regression created a large group of short-lived
@@ -519,7 +519,7 @@ positive and negative regressions pin these resource boundaries.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/18a6031f3">Test runtimes cannot consume the build tool's half-of-RAM heap allowance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/175328061">Test runtimes cannot consume the build tool's half-of-RAM heap allowance</a>. Thanks to xet7.</summary>
 
 The adaptive 8-16 GiB heap ceiling needed while Meteor compiles WeKan was also
 inherited by the long-lived bundle server and every Node, E2E and Playwright
@@ -532,7 +532,7 @@ pins both the bounded processes and the deliberately unbounded compiler.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/04b6eb788">Build and release scripts detect and support Fedora hosts</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c34daf2bd">Build and release scripts detect and support Fedora hosts</a>. Thanks to xet7.</summary>
 
 Host-side dependency installers now choose Fedora's `dnf` commands and package
 names, including Fedora 44's `7zip`, `gcc-c++`, `glibc-langpack-en` and snapd
@@ -542,7 +542,7 @@ Homebrew. Mocked installer-path tests cover both Fedora and Debian selection.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fc573c760">Installers support Alpine, Arch, RHEL and Oracle Linux</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/87252792f">Installers support Alpine, Arch, RHEL and Oracle Linux</a>. Thanks to xet7.</summary>
 
 Host-facing shell installers now identify Linux families through `/etc/os-release`
 and select `apk`, `pacman`, `dnf`, `yum` or `apt-get` with each distribution's
@@ -550,14 +550,14 @@ package names. Shared compiler and archive setup covers bundle conversion, docs,
 Sandstorm, release downloads, Snap prerequisites and forge tooling. Alpine and
 Arch report the manual Snap prerequisite instead of incorrectly running apt. RHEL
 and Oracle Linux configure their respective EPEL repositories before installing
-[snapd](https://github.com/wekan/wekan/commit/7017209b5).
+[snapd](https://github.com/wekan/wekan/commit/6d6c574cd).
 Mocked detection tests cover Alpine, Arch, Fedora, RHEL, Oracle Linux and Debian,
 and every migrated script is syntax-checked.
 
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/87451849f">Build and release scripts work when launched from macOS zsh</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ef8b1043e">Build and release scripts work when launched from macOS zsh</a>. Thanks to xet7.</summary>
 
 Host-facing Bash scripts now hand direct zsh invocation to macOS's system Bash
 before parsing Bash-specific syntax. The shared installer detects Darwin without
@@ -568,7 +568,7 @@ handoff, Darwin detection and every differing formula name.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0d98ad6d0">Scripts keep website and log directories under .tools</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/299f943f2">Scripts keep website and log directories under .tools</a>. Thanks to xet7.</summary>
 
 Shell and Windows batch scripts now use `.tools/wekan.fi` for the website
 companion checkout and `.tools/log` for build and test output. This removes the
@@ -578,7 +578,7 @@ the CI environment-variable overrides.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/83d417221">Test runs use the Node and Meteor installations under .tools</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f7f7fc73e">Test runs use the Node and Meteor installations under .tools</a>. Thanks to xet7.</summary>
 
 A fresh shell did not include `.tools/.meteor` on `PATH`, so EVERYTHING stopped
 before building with `meteor: command not found` even though setup had installed
@@ -591,11 +591,11 @@ stages pass together.
 
 </details>
 
-- [The direct FerretDB test entry uses .tools/FerretDB](https://github.com/wekan/wekan/commit/a749fee1f). Thanks to xet7.
+- [The direct FerretDB test entry uses .tools/FerretDB](https://github.com/wekan/wekan/commit/7231c6f69). Thanks to xet7.
 
-- [Repository instructions use the same .tools paths](https://github.com/wekan/wekan/commit/35d7c06aa). Thanks to xet7.
+- [Repository instructions use the same .tools paths](https://github.com/wekan/wekan/commit/c9b88b32a). Thanks to xet7.
 
-- [The database-conformance regression test expects .tools/log](https://github.com/wekan/wekan/commit/2e1d74f64). Thanks to xet7.
+- [The database-conformance regression test expects .tools/log](https://github.com/wekan/wekan/commit/896639ffc). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
