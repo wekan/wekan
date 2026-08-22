@@ -390,8 +390,9 @@ browser build to verify).
 **In short:** six coordinated reports harden **REST authorization**, board
 ownership, administrator token auditing and error responses. Build and release
 tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
-Linux, keeps companion data under the repository's ignored **.tools** directory
-provides **sandbox-local version-matched tools** and bounds **test and compiler resources**.
+Linux, keeps companion data under the repository's ignored **.tools** directory,
+provides **sandbox-local tools**, bounds **build, test and runtime**
+**resources** across every platform, reports resource failures in **Admin Panel Problems**, and includes four dependency updates.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -486,9 +487,36 @@ and [ErrorBleed](https://wekan.fi/hall-of-fame/errorbleed/).
 
 </details>
 
+and updates the following dependencies:
+
+- **@aws-sdk/client-s3 3.1113.0 → 3.1114.0** — the Amazon S3 client.
+- **@aws-sdk/lib-storage 3.1109.0 → 3.1114.0** — managed multipart uploads to S3.
+- **@google-cloud/storage 7.22.0 → 8.0.1** — Google Cloud Storage integration.
+- **dompurify 3.4.13 → 3.4.14** — HTML sanitization in the browser.
+
+Thanks to dependabot.
+
 and has the following developer-tooling improvements:
 
 **Build and release tooling** - host setup and repository-local working data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ec619e43">Every platform bounds runtime memory and reports resource failures</a>. Thanks to xet7.</summary>
+
+Source builds, Linux and Windows bundles, Docker, Snap and Sandstorm now derive
+Node and FerretDB limits from available host or cgroup memory while preserving
+explicit administrator overrides. Test and Go compiler floors no longer exceed
+small containers, Playwright installs repository-local browsers and uses a
+matching Docker fallback when immutable host libraries are missing, and build
+dependency stderr remains visible in both the console and timestamped log.
+
+Runtime self-checks proactively report low disk space and V8 heap pressure in
+Admin Panel Problems. The database classifier now gives actionable reports for
+memory and file-descriptor exhaustion, read-only volumes, corruption and
+oversized documents. The remediation documents record which protections work on
+every platform and distinguish implemented FerretDB telemetry from follow-ups.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8388314a">Sandbox tasks install version-matched local tools under .tools</a>. Thanks to xet7.</summary>
@@ -8221,7 +8249,7 @@ scripts were addressed as `src/releases/…` — correct until the bcrypt step d
 `pushd "$TMP"`, after which a relative path resolves against a temp directory:
 
 ```
-bash: src/releases/npm-retry.sh: No such file or directory
+bash: src/releases/npm-retry.sh: No such file or directory,
 ```
 
 The location is fixed now BEFORE anything moves — `SRC="$PWD/src"` at the top of
@@ -8265,8 +8293,8 @@ that needed nothing into steps that need this repository:
 
 ```
 bash: /home/runner/work/wekan/wekan/releases/apt-install.sh:
-        No such file or directory
-bash: D:\a\wekan\wekan/releases/npm-retry.sh: No such file or directory
+        No such file or directory,
+bash: D:\a\wekan\wekan/releases/npm-retry.sh: No such file or directory,
 ```
 
 The first is `build-extra-arches`, where "Install dependencies" was the FIRST
@@ -10862,8 +10890,8 @@ checksummed:
 
 ```
 a95d331b…  wekan-10.78-amd64.zip
-bash: releases/record-provenance.sh: No such file or directory
-bash: releases/ferretdb-latest-tag.sh: No such file or directory
+bash: releases/record-provenance.sh: No such file or directory,
+bash: releases/ferretdb-latest-tag.sh: No such file or directory,
 ```
 
 The step runs `cd .build` first, so nothing relative in it means what it looks
@@ -12655,8 +12683,8 @@ one shape passes while the build breaks.
 
 The condition is now the invariant rather than the diagnosis: when this part
 carries no `mongod` - the FerretDB-only architectures, where MongoDB ships no
-server and the build exits early - `bin` becomes an empty real directory
-whatever it was, since `rm -rf` takes a symlink, a regular file or a directory
+server and the build exits early - `bin` becomes an empty real directory,
+whatever it was, since `rm -rf` takes a symlink, a regular file or a directory,
 where the old `rm -f` took neither of the last two, and removing a symlink
 leaves what it pointed at alone. An empty real directory merges into `stage/bin`
 and changes nothing. Where `mongod` really is there, amd64 and arm64, nothing is
@@ -12666,7 +12694,7 @@ It also prints `ls -ld` of `bin` before and after, because the reason this
 needed two attempts is that no log ever recorded what the thing actually was.
 Verified by running the scriptlet against each shape - symlink, regular file,
 missing, empty directory, and a directory holding `mongod` - and checking what
-it leaves behind, including that the symlink case does not delete the directory
+it leaves behind, including that the symlink case does not delete the directory,
 it points at.
 
 </details>
@@ -14977,7 +15005,7 @@ the MacStadium and WeKan logos from **wekan.fi**.
 Each is stored next to the page that shows it now, named after its platform:
 `zenith.svg`, `scalingo.svg`, `heroku.png`, `sandstorm.svg`,
 `MacStadium-developerlogo.png` and `wekan-logo.svg`. **PikaPods** needed no
-download at all, because `pikapods.svg` was already sitting in its own directory
+download at all, because `pikapods.svg` was already sitting in its own directory,
 unused while the page fetched the same image over the network.
 
 Screenshots are left as they are. This is about the logos, which are small,
