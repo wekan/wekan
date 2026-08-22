@@ -23,8 +23,13 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
 else
   if ! command -v parallel >/dev/null 2>&1; then
-    echo "GNU parallel not found. Installing with apt-get..."
-    sudo apt-get -y install parallel
+    if command -v dnf >/dev/null 2>&1; then
+      echo "GNU parallel not found. Installing with dnf..."
+      sudo dnf install -y parallel
+    else
+      echo "GNU parallel not found. Installing with apt-get..."
+      sudo apt-get -y install parallel
+    fi
   fi
 fi
 

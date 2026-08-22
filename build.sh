@@ -2324,8 +2324,14 @@ for _once in 1; do
 
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 			echo "Linux";
-			# Debian, Ubuntu, Mint
-			sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm p7zip-full
+			if command -v dnf >/dev/null 2>&1; then
+				# Fedora Workstation and other Fedora-family distributions.
+				sudo dnf group install -y development-tools
+				sudo dnf install -y gcc gcc-c++ make git curl wget 7zip zip unzip npm
+			else
+				# Debian, Ubuntu, Mint
+				sudo apt install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm
+			fi
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
 			sudo n 24.16.0
@@ -2635,6 +2641,8 @@ for _once in 1; do
 				echo "ripgrep (rg) not found. Installing dependency."
 				if command -v apt >/dev/null 2>&1; then
 					sudo apt install -y ripgrep
+				elif command -v dnf >/dev/null 2>&1; then
+					sudo dnf install -y ripgrep
 				elif command -v brew >/dev/null 2>&1; then
 					brew install ripgrep
 				else

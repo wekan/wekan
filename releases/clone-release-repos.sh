@@ -23,8 +23,13 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
 else
   if ! command -v git >/dev/null 2>&1; then
-    echo "git not found. Installing git with apt-get..."
-    sudo apt-get update && sudo apt-get install -y git
+    if command -v dnf >/dev/null 2>&1; then
+      echo "git not found. Installing git with dnf..."
+      sudo dnf install -y git
+    else
+      echo "git not found. Installing git with apt-get..."
+      sudo apt-get update && sudo apt-get install -y git
+    fi
   fi
 fi
 

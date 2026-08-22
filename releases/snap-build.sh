@@ -88,9 +88,19 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   }
 
   # Ensure necessary tools are installed and running
-  sudo apt-get -y install snapd
-  sudo systemctl enable snapd
-  sudo systemctl start snapd
+  if [ -r /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    . /etc/os-release
+  fi
+  if [[ "${ID:-} ${ID_LIKE:-}" == *fedora* ]] || command -v dnf >/dev/null 2>&1; then
+    sudo dnf install -y snapd
+    sudo systemctl enable --now snapd.socket
+    sudo ln -sfn /var/lib/snapd/snap /snap
+  else
+    sudo apt-get -y install snapd
+    sudo systemctl enable snapd
+    sudo systemctl start snapd
+  fi
   sudo snap install snapcraft --classic
   sudo snap install lxd
 

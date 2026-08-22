@@ -1,16 +1,15 @@
 #!/bin/bash
 #
 # Shared helper: install required CLI tools for the CURRENT platform if they are
-# not already installed. Supports Ubuntu (amd64/arm64, via apt) and macOS
-# (amd64/arm64, via Homebrew). The package-manager commands are architecture
-# independent — apt and brew install the correct binary for the running CPU.
+# not already installed. Supports Debian/Ubuntu (apt), Fedora (dnf), and macOS
+# (Homebrew). The package-manager commands are architecture independent.
 #
 # Usage (source it, then call ensure_tools with the tools you need):
 #   . "$(dirname "$0")/ensure-tools.sh"
 #   ensure_tools curl wget git gh snapcraft
 #
 # Known special-cased tools: gh (GitHub CLI apt repo), snapcraft (snap/brew).
-# Everything else is installed by its own name via apt-get / brew.
+# Everything else is installed by its own name via apt-get / dnf / brew.
 
 _et_os() {
   case "$(uname -s)" in
@@ -18,6 +17,18 @@ _et_os() {
     Darwin) echo macos ;;
     *)      echo unknown ;;
   esac
+}
+
+_et_linux_family() {
+  if [ -r /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    . /etc/os-release
+    case "${ID:-} ${ID_LIKE:-}" in
+      *fedora*|*rhel*) echo fedora; return ;;
+      *debian*|*ubuntu*) echo debian; return ;;
+    esac
+  fi
+  if _et_have dnf; then echo fedora; else echo debian; fi
 }
 
 _et_have() { command -v "$1" >/dev/null 2>&1; }
@@ -55,11 +66,23 @@ ensure_tools() {
     echo "Installing missing tool for $os: $tool"
     case "$os" in
       linux)
-        case "$tool" in
-          gh)        _et_apt_gh ;;
-          snapcraft) sudo snap install snapcraft --classic ;;
-          *)         sudo apt-get update && sudo apt-get install -y "$tool" ;;
-        esac
+        if [ "$(_et_linux_family)" = fedora ]; then
+          case "$tool" in
+            snapcraft)
+              sudo dnf install -y snapd
+              sudo systemctl enable --now snapd.socket
+              sudo ln -sfn /var/lib/snapd/snap /snap
+              sudo snap install snapcraft --classic
+              ;;
+            *)         sudo dnf install -y "$tool" ;;
+          esac
+        else
+          case "$tool" in
+            gh)        _et_apt_gh ;;
+            snapcraft) sudo snap install snapcraft --classic ;;
+            *)         sudo apt-get update && sudo apt-get install -y "$tool" ;;
+          esac
+        fi
         ;;
       macos)
         _et_brew_ensure

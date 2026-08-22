@@ -10,7 +10,12 @@ if [ $# -ne 1 ]
     exit 1
 fi
 
-sudo apt -y install g++ build-essential p7zip-full
+if command -v dnf >/dev/null 2>&1; then
+  sudo dnf install -y gcc-c++ 7zip
+  sudo dnf group install -y development-tools
+else
+  sudo apt -y install g++ build-essential p7zip-full
+fi
 sudo npm -g uninstall node-pre-gyp
 sudo npm -g install @mapbox/node-pre-gyp
 rm -rf bundle

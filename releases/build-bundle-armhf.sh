@@ -23,6 +23,12 @@ VERSION=$1
 if command -v apt-get &>/dev/null; then
   sudo apt-get update
   sudo apt-get install -y build-essential g++ make python3 curl wget zip unzip
+elif command -v dnf &>/dev/null; then
+  sudo dnf install -y gcc gcc-c++ make python3 curl wget zip unzip
+  sudo dnf group install -y development-tools
+else
+  echo "Unsupported Linux distribution: install a C/C++ toolchain, make, python3, curl, wget, zip, and unzip." >&2
+  exit 1
 fi
 
 # Remove old files

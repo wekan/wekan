@@ -50,12 +50,22 @@ if [ "$(uname)" = "Darwin" ]; then
 else
   # Linux
   if ! command -v python3 >/dev/null 2>&1; then
-    echo "python3 not found. Installing python3 with apt-get..."
-    sudo apt-get update && sudo apt-get install -y python3
+    if command -v dnf >/dev/null 2>&1; then
+      echo "python3 not found. Installing python3 with dnf..."
+      sudo dnf install -y python3
+    else
+      echo "python3 not found. Installing python3 with apt-get..."
+      sudo apt-get update && sudo apt-get install -y python3
+    fi
   fi
   if ! command -v pip3 >/dev/null 2>&1; then
-    echo "pip3 not found. Installing pip3 with apt-get..."
-    sudo apt-get update && sudo apt-get install -y python3-pip
+    if command -v dnf >/dev/null 2>&1; then
+      echo "pip3 not found. Installing python3-pip with dnf..."
+      sudo dnf install -y python3-pip
+    else
+      echo "pip3 not found. Installing pip3 with apt-get..."
+      sudo apt-get update && sudo apt-get install -y python3-pip
+    fi
   fi
 fi
 
@@ -75,7 +85,11 @@ if [ -z "$PIP" ]; then
         brew install python
       fi
     else
-      sudo apt-get update && sudo apt-get install -y python3-pip
+      if command -v dnf >/dev/null 2>&1; then
+        sudo dnf install -y python3-pip
+      else
+        sudo apt-get update && sudo apt-get install -y python3-pip
+      fi
     fi
     PIP=$(command -v pip3 || echo "")
   fi

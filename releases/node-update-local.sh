@@ -27,8 +27,16 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
 else
   if ! command -v volta >/dev/null 2>&1; then
-    echo "volta not found. Installing volta with apt-get..."
-    sudo apt-get update && sudo apt-get install -y volta
+    if command -v dnf >/dev/null 2>&1; then
+      echo "volta not found. Installing Volta with its official installer..."
+      sudo dnf install -y curl
+      curl https://get.volta.sh | bash
+      export VOLTA_HOME="${VOLTA_HOME:-$HOME/.volta}"
+      export PATH="$VOLTA_HOME/bin:$PATH"
+    else
+      echo "volta not found. Installing volta with apt-get..."
+      sudo apt-get update && sudo apt-get install -y volta
+    fi
   fi
 fi
 

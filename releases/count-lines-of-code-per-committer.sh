@@ -16,8 +16,15 @@ if [ "$(uname)" = "Darwin" ]; then
 else
   for dep in git awk; do
     if ! command -v $dep >/dev/null 2>&1; then
-      echo "$dep not found. Installing $dep with apt-get..."
-      sudo apt-get update && sudo apt-get install -y $dep
+      if command -v dnf >/dev/null 2>&1; then
+        package=$dep
+        [ "$dep" = awk ] && package=gawk
+        echo "$dep not found. Installing $package with dnf..."
+        sudo dnf install -y "$package"
+      else
+        echo "$dep not found. Installing $dep with apt-get..."
+        sudo apt-get update && sudo apt-get install -y "$dep"
+      fi
     fi
   done
 fi
