@@ -219,19 +219,13 @@ test('a FerretDB that will not start says why, in the output', () => {
 
 test('results are written where every other test run writes them', () => {
   const sh = read('releases/db-conformance.sh');
-  // log/<datetime>/ of its own, unless a larger run (EVERYTHING) already named
-  // one in WEKAN_LOGDIR - then the whole run stays in that single directory.
-  //
-  // The ROOT is no longer hard-coded to ../log. It is WEKAN_LOG_ROOT, which
-  // build.sh resolves to ../log when the parent of the repo is writable and to
-  // ./log inside the repo when it is not - a Flatpak sandbox shares only the
-  // repository, and `mkdir -p ../log` failed there. This script makes the same
-  // choice when it is run on its own, so what is pinned now is that it asks the
-  // same question rather than assuming the parent is there.
+  // .tools/log/<datetime>/ of its own, unless a larger run (EVERYTHING) already
+  // named one in WEKAN_LOGDIR - then the whole run stays in that directory.
+  // WEKAN_LOG_ROOT remains an override for CI and callers that need another root.
   assert.ok(/LOGDIR="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/\$RUN_TS\}"/.test(sh),
     'log/<datetime>/ under WEKAN_LOG_ROOT, or the directory the caller named');
-  assert.ok(/WEKAN_LOG_ROOT="\.\.\/log"/.test(sh) && /WEKAN_LOG_ROOT="log"/.test(sh),
-    'and it falls back to ./log when ../log cannot be written');
+  assert.ok(/WEKAN_LOG_ROOT="\.tools\/log"/.test(sh),
+    '.tools/log is the standalone default');
   assert.ok(/date '\+%Y-%m-%d_%H-%M-%S'/.test(sh), 'the same datetime format as build.sh');
   assert.ok(read('build.sh').includes("date '+%Y-%m-%d_%H-%M-%S'"),
     'which is the format build.sh uses for its own run directories');
@@ -250,10 +244,8 @@ test('both build scripts offer it, and say it runs sequentially', () => {
   const entry = sh.slice(sh.indexOf(label), sh.indexOf(label) + 400);
   assert.ok(/SEQUENTIALLY/.test(entry), 'the entry says it is sequential');
   assert.ok(/image for this CPU/i.test(entry), 'and that it picks by CPU');
-  // `log/<datetime>/`, not `../log/`: the root is resolved at run time now -
-  // ../log when the parent of the repo is writable, ./log inside it when only
-  // the repository is shared, as in a Flatpak sandbox - so the menu entry names
-  // the shape rather than promising a path that is not always the one used.
+  // `.tools/log/<datetime>/` is the default; the menu names the suffix so a
+  // WEKAN_LOG_ROOT override remains accurate.
   assert.ok(/log\/<datetime>\//.test(entry), 'and where the results go');
   // And the dispatcher actually runs the script.
   assert.ok(/\.\/releases\/db-conformance\.sh/.test(sh), 'build.sh runs the script');
@@ -273,7 +265,7 @@ test('everything can be run in one go, from either build script', () => {
     assert.ok(sh.includes(stage), `EVERYTHING must run: ${stage}`);
   }
   assert.ok(/WEKAN_LOGDIR="\$RUN_LOGDIR"/.test(sh),
-    'and hand the same ../log/<datetime>/ to every stage');
+    'and hand the same .tools/log/<datetime>/ to every stage');
   assert.ok(/--run-everything/.test(sh), 'with a non-interactive entry point');
 
   // Both menus offer it, and the direct FerretDB entry too.
@@ -294,22 +286,20 @@ test('everything can be run in one go, from either build script', () => {
       `"${label}" must not claim to be ALL tests - it does not run the database or FerretDB suites`);
     assert.ok(/No database conformance and no FerretDB tests/.test(description),
       `"${label}" must say what it does NOT cover`);
-    // `log/<datetime>/` rather than `../log/` - see the note on the entry above:
+    // `.tools/log/<datetime>/` - see the note on the entry above:
     // the root is resolved at run time, so the menu names the shape.
     assert.ok(/log\/<datetime>\//.test(description), `"${label}" must say where the logs go`);
   }
 });
 
-test('every Tests option writes its log to ../log/<datetime>/', () => {
+test('every Tests option writes its log to .tools/log/<datetime>/', () => {
   // "Check the newest test logs" means one directory. An option that printed to
   // the terminal only left nothing to check afterwards.
   const sh = read('build.sh');
   const bat = read('build.bat');
   assert.ok(/^one_log\(\) \{/m.test(sh), 'build.sh has the one_log helper');
-  // The root is WEKAN_LOG_ROOT, resolved once at startup, not a literal ../log:
-  // the parent of the repo is not writable in a Flatpak sandbox, where the
-  // fallback is ./log inside it. What is pinned is that one_log still honours
-  // WEKAN_LOGDIR first, which is what keeps a whole-suite run in one directory.
+  // The root is WEKAN_LOG_ROOT, resolved once at startup to .tools/log unless
+  // overridden. WEKAN_LOGDIR keeps a whole-suite run in one directory.
   assert.ok(/dir="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/\$\(date/.test(sh),
     'which honours WEKAN_LOGDIR so a whole-suite run stays in one directory');
   for (const name of ['mocha', 'import', 'e2e', 'floating-promises', 'test-counts',
@@ -350,7 +340,7 @@ test('every Tests option writes its log to ../log/<datetime>/', () => {
     assert.ok(/test-all\)\s*act_test_all/.test(src), 'FerretDB: the test-all command');
     assert.ok(/Run all FerretDB tests/.test(src), 'FerretDB: the menu entry');
     assert.ok(/WEKAN_LOGDIR/.test(src) && /log\/\$\(date/.test(src),
-      'FerretDB: logs to ../log/<datetime>/, shared when WeKan drives the run');
+      'FerretDB: logs to .tools/log/<datetime>/, shared when WeKan drives the run');
     assert.ok(/act_unit/.test(src) && /act_lint/.test(src) && /act_test seq/.test(src),
       'FerretDB: unit, vet and the integration suite');
   }
