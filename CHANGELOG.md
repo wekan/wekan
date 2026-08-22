@@ -393,7 +393,7 @@ tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
 Linux, keeps companion data under the repository's ignored **.tools** directory,
 provides **sandbox-local tools**, bounds **build, test and runtime**
 **resources** across every platform, reports resource failures in **Admin Panel
-Problems**, offers three bounded
+Problems**, offers three bounded, cleanly interruptible
 complete-test execution modes, and includes four dependency updates.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -532,6 +532,20 @@ at-once runs WeKan jobs concurrently. Database backends and FerretDB stages stay
 sequential in every mode to avoid port conflicts and overlapping compiler load.
 The Windows helper forwards the selected mode to the shared shell implementation,
 and parity tests pin the menu order, mode mapping and Playwright worker limit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09db353b6">Complete runs clean up older tests and databases before starting</a>. Thanks to xet7.</summary>
+
+Every EVERYTHING run now owns a repository-local process lock. Starting another
+one first stops the older run and all descendants, frees and verifies ports 3000
+and 3001, and removes tagged Playwright and database-conformance containers.
+Ctrl-C uses the same cleanup for the interrupted run. Cleanup tries graceful
+termination before a bounded forced stop; if a process, port or container still
+survives, the replacement exits with an actionable error before creating logs,
+building WeKan or starting any new tests. PID start tokens prevent stale lock
+files from targeting an unrelated reused PID on Linux, macOS and Windows.
 
 </details>
 
