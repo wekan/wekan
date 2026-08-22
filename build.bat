@@ -56,9 +56,9 @@ REM already set. Lower it if your machine has less RAM.
 if not defined TOOL_NODE_FLAGS set "TOOL_NODE_FLAGS=--max-old-space-size=8192"
 if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=8192"
 
-REM Every log this script writes goes into ..\log\ (one directory up from the
-REM repo). Create it up front so redirections never fail on a missing directory.
-if not exist "..\log" md "..\log"
+REM Every log this script writes goes into the repo-local ignored .tools\log\.
+REM Create it up front so redirections never fail on a missing directory.
+if not exist ".tools\log" md ".tools\log"
 
 REM --- Platform detection (OS + CPU arch), like detect_platform in the .sh ---
 set "PLATFORM_OS=windows"
@@ -67,7 +67,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "PLATFORM_ARCH=arm64"
 if /i "%PROCESSOR_ARCHITEW6432%"=="ARM64" set "PLATFORM_ARCH=arm64"
 echo Platform: %PLATFORM_OS% %PLATFORM_ARCH%
 echo Repo: %REPO%
-echo Note: Dev-server console output is also logged to ..\log\wekan-log.log
+echo Note: Dev-server console output is also logged to .tools\log\wekan-log.log
 
 :menu
 echo.
@@ -145,7 +145,7 @@ echo -- Tests --   ^(0 = Back^)
 echo   1^) EVERYTHING ^(sequential^): the floating-promises guard, then WeKan's own
 echo       tests ^(mocha, node suites, import, node E2E, three browsers^), then every
 echo       database with an image for this CPU, then all FerretDB tests ^(unit, vet,
-echo       integration^). Logs in ..\log\^<datetime^>\
+echo       integration^). Logs in .tools\log\^<datetime^>\
 echo   2^) WeKan's own tests only, parallel: Mocha, node unit suites, import, node
 echo       E2E and all three browsers, concurrently. No databases, no FerretDB
 echo   3^) WeKan's own tests only, sequential: the same suite, one job at a time
@@ -1004,12 +1004,12 @@ set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
 set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
 set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
 set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
-REM Each run gets its own ..\log\<timestamp>\ dir (stamped once at run start), so
+REM Each run gets its own .tools\log\<timestamp>\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
 REM from any job's working directory (e.g. the browser job runs in tests\playwright).
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "RUN_TS=%%i"
-set "RUN_LOGDIR=%REPO%\..\log\%RUN_TS%"
+set "RUN_LOGDIR=%REPO%\.tools\log\%RUN_TS%"
 if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
 echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
@@ -1146,12 +1146,12 @@ set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
 set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
 set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
 set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
-REM Each run gets its own ..\log\<timestamp>\ dir (stamped once at run start), so
+REM Each run gets its own .tools\log\<timestamp>\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
 REM from any job's working directory (e.g. the browser job runs in tests\playwright).
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "RUN_TS=%%i"
-set "RUN_LOGDIR=%REPO%\..\log\%RUN_TS%"
+set "RUN_LOGDIR=%REPO%\.tools\log\%RUN_TS%"
 if not exist "%RUN_LOGDIR%" md "%RUN_LOGDIR%"
 echo Logs for this run: %RUN_LOGDIR%\  - previous runs are kept
 REM Clear completion flags from any previous run.
@@ -1350,7 +1350,7 @@ REM
 REM It used to be a single `playwright test --project=... --project=...` call
 REM with no log at all: everything went to the terminal and there was nothing
 REM left to read afterwards, which is what tests/dbConformanceWiring.test.cjs
-REM means by "every Tests option writes its log to ../log/<datetime>/".
+REM means by "every Tests option writes its log to .tools/log/<datetime>/".
 set "PW_ALL_FAILED=0"
 for %%B in (chromium firefox webkit) do call :pw_one_browser %%B
 if "%PW_ALL_FAILED%"=="1" ( echo RESULT: Some Playwright browsers FAILED ^(see the logs above^). ) else ( echo RESULT: All Playwright browsers passed. )
@@ -1531,7 +1531,7 @@ set "RICHER_CARD_COMMENT_EDITOR=false"
 exit /b 0
 
 :onelog
-REM Set ONELOG to ..\log\<datetime>\wekan-%1.log - the same place every other
+REM Set ONELOG to .tools\log\<datetime>\wekan-%1.log - the same place every other
 REM test run writes, so "the newest test logs" is one directory whichever option
 REM produced them. A larger run (EVERYTHING) exports WEKAN_LOGDIR first, and then
 REM the whole run stays in that one directory. The Windows equivalent of build.sh's
@@ -1539,7 +1539,7 @@ REM one_log().
 if defined WEKAN_LOGDIR (
 	set "ONELOGDIR=%WEKAN_LOGDIR%"
 ) else (
-	for /f %%T in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "ONELOGDIR=..\log\%%T"
+	for /f %%T in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH-mm-ss"') do set "ONELOGDIR=.tools\log\%%T"
 )
 if not exist "%ONELOGDIR%" md "%ONELOGDIR%" >nul 2>&1
 set "ONELOG=%ONELOGDIR%\wekan-%~1.log"
@@ -1555,8 +1555,8 @@ exit /b 0
 
 :runlog
 REM Run "meteor run <args>" showing output live AND copying it to
-REM ..\log\wekan-log.log - the Windows equivalent of the .sh's
-REM "meteor run ... 2>&1 | tee ../log/wekan-log.log". cmd has no built-in tee,
+REM .tools\log\wekan-log.log - the Windows equivalent of the .sh's
+REM "meteor run ... 2>&1 | tee .tools/log/wekan-log.log". cmd has no built-in tee,
 REM so pipe through PowerShell's Tee-Object. %* = all args forwarded to meteor.
 REM Note: PowerShell buffers the pipeline, so console output can appear in
 REM bursts; the full stream is always captured in the log file.
@@ -1564,8 +1564,8 @@ REM Callers always pass "--port <PORT>" first, so %2 is the port: kill any
 REM Meteor dev server already listening there before starting a new one.
 call :kill_meteor_on_port %2
 if errorlevel 1 exit /b 1
-if not exist "..\log" md "..\log"
-call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '..\log\wekan-log.log'"
+if not exist ".tools\log" md ".tools\log"
+call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath '.tools\log\wekan-log.log'"
 exit /b 0
 
 :kill_meteor_on_port
@@ -1919,7 +1919,7 @@ REM there, and installing Go and the module dependencies if they are
 REM missing), then run the whole FerretDB v1 query catalogue against every
 REM database that has a Docker image for THIS CPU - one at a time, because they
 REM all use the same FerretDB port - and compare that they all answered the same.
-REM Results go to ..\log\<datetime>\ with every other test run's.
+REM Results go to .tools\log\<datetime>\ with every other test run's.
 REM
 REM The orchestration is one bash script, shared with build.sh rather than
 REM rewritten here: a second implementation would drift, and Docker Desktop on
@@ -1942,7 +1942,7 @@ REM that .gitignore and .meteorignore already exclude, instead of one ignored
 REM subdirectory each at the repo root. It is cloned here when it is not there,
 REM the same as build.sh's ensure_tool_repo does, so neither script depends on
 REM the other having been run first. Its build.sh installs Go and the Go modules
-REM when they are missing, and writes its logs to ..\log\<datetime>\ with every
+REM when they are missing, and writes its logs to .tools\log\<datetime>\ with every
 REM other test run's.
 where bash >nul 2>&1
 if errorlevel 1 (
@@ -1976,7 +1976,7 @@ REM ===========================================================================
 :test_everything
 REM Every test WeKan and FerretDB have, one stage at a time: WeKan's own suite,
 REM then the database conformance run for every database with an image for this
-REM CPU, then all of FerretDB's tests. One ..\log\<datetime>\ directory for the
+REM CPU, then all of FerretDB's tests. One .tools\log\<datetime>\ directory for the
 REM whole run, and nothing runs concurrently, which is what makes a failure
 REM readable.
 REM

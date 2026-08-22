@@ -6,9 +6,8 @@ echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correc
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to <logs>/wekan-log.log"
 echo "Note3: All logs this script produces go into a log/<datetime>/ directory -"
-echo "       ../log/ when the parent of the repo is writable, otherwise ./log/"
-echo "       inside it (a sandbox that shares only this repository). The path is"
-echo "       printed when a run starts."
+echo "       .tools/log/ inside this repository. The path is printed when a run"
+echo "       starts."
 
 # Give the Meteor build tool and Node processes a larger heap so long
 # development sessions and test runs don't crash with
@@ -56,29 +55,12 @@ export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=$_heap_mb}"
 # Every log this script writes goes into a `log/<datetime>/` directory, and
 # WEKAN_LOG_ROOT is where those directories live.
 #
-# ../log by preference - one level up from the repo, so a test run's output is
-# not mixed into the working tree and `git status` after a run is about the code
-# rather than about the run. That is what the docs and the release process say
-# to read.
-#
-# But the parent of the repo is not always there to write into. In the Flatpak
-# sandbox only the repository directory itself is shared, so `..` is either
-# missing or read-only, and `mkdir -p ../log` fails - after which every
-# redirection in this script either failed or quietly dropped its log into the
-# repo root. So: try the parent, and fall back to `log/` INSIDE the repo, which
-# is always writable because the repo is what the sandbox shares. Same
-# `log/<datetime>/` shape either way, so nothing that reads these logs has to
-# care which happened, and the path is printed whenever a run starts.
+# `.tools/log` is inside the repository's ignored tool area, so test output is
+# kept out of the source tree without depending on a writable parent directory.
 #
 # WEKAN_LOG_ROOT can be set to put them somewhere else entirely.
 if [ -z "${WEKAN_LOG_ROOT:-}" ]; then
-	if mkdir -p ../log 2>/dev/null && [ -w ../log ]; then
-		WEKAN_LOG_ROOT="../log"
-	else
-		WEKAN_LOG_ROOT="log"
-		echo "Note: the parent directory is not writable (a sandbox shares only"
-		echo "      this repository), so logs go into $(pwd)/log/ instead of ../log/."
-	fi
+	WEKAN_LOG_ROOT=".tools/log"
 fi
 export WEKAN_LOG_ROOT
 mkdir -p "$WEKAN_LOG_ROOT"
@@ -672,7 +654,7 @@ function run_playwright_parallel(){
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) ( cd "$pwdir" && meteor npm install ) ;; esac
 
-	# This run's own ../log/<timestamp>/ dir, so logs are never overwritten.
+	# This run's own .tools/log/<timestamp>/ dir, so logs are never overwritten.
 	local RUN_LOGDIR
 	RUN_LOGDIR="$WEKAN_LOG_ROOT/$(date '+%Y-%m-%d_%H-%M-%S')"
 	mkdir -p "$RUN_LOGDIR"
@@ -688,7 +670,7 @@ function run_playwright_parallel(){
 	local rc_chromium rc_firefox rc_webkit
 	local ts
 	# Stream live to the console with tee while also saving to this run's
-	# ../log/<timestamp>/ dir. PIPESTATUS[0] is run_pw_all_browser's exit code (the
+	# .tools/log/<timestamp>/ dir. PIPESTATUS[0] is run_pw_all_browser's exit code (the
 	# left side of the pipe), not tee's, so the pass/fail result stays accurate.
 	for entry in "chromium:Chromium" "firefox:Firefox" "webkit:WebKit"; do
 		browser="${entry%%:*}"; label="${entry#*:}"
@@ -807,7 +789,7 @@ mongo_answers() {
 function run_all_tests(){
 	local RUN_MODE="${1:-parallel}"
 	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
-	# Each whole-suite run gets its own ../log/<timestamp>/ directory
+	# Each whole-suite run gets its own .tools/log/<timestamp>/ directory
 	# (stamped once, when the run starts), so logs are never overwritten and
 	# previous runs are kept.
 	local RUN_TS RUN_LOGDIR
@@ -2460,7 +2442,7 @@ for _once in 1; do
 		kill_meteor_on_port 3000 || break
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		# Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+		# Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
@@ -2473,7 +2455,7 @@ for _once in 1; do
 		kill_meteor_on_port 3000 || break
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                # Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+                # Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=$_heap_mb" WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #---------------------------------------------------------------------
                 break
@@ -2484,7 +2466,7 @@ for _once in 1; do
 		kill_meteor_on_port 3000 || break
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
@@ -2503,7 +2485,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
@@ -2522,7 +2504,7 @@ for _once in 1; do
                 #---------------------------------------------------------------------
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
-                #Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+                #Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
                 DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
                 #---------------------------------------------------------------------
@@ -2536,7 +2518,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		# Same environment as the plain localhost:3000 option; only the port and
 		# ROOT_URL differ. Logging of terminal output to console and to
-		# ../log/wekan-log.log at the end of the line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+		# .tools/log/wekan-log.log at the end of the line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL="$DEV_ROOT_URL" meteor run --port "$DEV_PORT" 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------
@@ -2555,7 +2537,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
 		#---------------------------------------------------------------------
-		#Logging of terminal output to console and to ../log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
+		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
 		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee "$WEKAN_LOG_ROOT/wekan-log.log"
 		#---------------------------------------------------------------------

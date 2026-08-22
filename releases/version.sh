@@ -440,13 +440,13 @@ version_bump_logic() {
   # 8. Update Wekan website (manual/local flow only; the remote flow handles the
   # wekan.fi and charts repos in dedicated parallel GitHub Actions jobs). These
   # blocks no-op in CI because the sibling repos are not checked out there.
-  if [ -d "../w/wekan.fi" ]; then
-    INSTALL_PAGE="../w/wekan.fi/install/index.html"
+  if [ -d ".tools/wekan.fi" ]; then
+    INSTALL_PAGE=".tools/wekan.fi/install/index.html"
     METEOR_VER=$(grep -o 'METEOR@[^ "\\]*' .meteor/release | head -1 | sed 's/.*@//')
     NPM_VER=$(grep -o 'NPM_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
     NODE_VER=$(grep -o 'NODE_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
-    (cd ../w/wekan.fi && git pull)
+    (cd .tools/wekan.fi && git pull)
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VER</span>|g" "$INSTALL_PAGE"
     # Node.js download URL paths: OFFICIAL nodejs.org (amd64/arm64/s390x/ppc64le)
@@ -459,10 +459,10 @@ version_bump_logic() {
     # the page still gets re-normalized to v$NEW_VERSION (see release-website.sh).
     sedi -E "s#(<span class=\"version-number\">)v[0-9][^<]*(</span>)#\1v${NEW_VERSION}\2#g" "$INSTALL_PAGE"
     (
-      cd ../w/wekan.fi
+      cd .tools/wekan.fi
       git add --all
       if git diff --cached --quiet; then
-        echo "[INFO] No website changes to commit in ../w/wekan.fi."
+        echo "[INFO] No website changes to commit in .tools/wekan.fi."
       else
         git commit -m "Updates"
         git push

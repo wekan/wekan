@@ -47,16 +47,10 @@ RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
 # One run, one directory: when build.sh's "EVERYTHING" is driving this, it passes
 # the directory the whole run is writing to, so the WeKan suite, this and
 # FerretDB's own tests end up together under log/<datetime>/.
-# WEKAN_LOG_ROOT is resolved by build.sh: ../log when the parent of the repo is
-# writable, ./log inside it when only the repository is shared - a Flatpak
-# sandbox does exactly that. Run on its own, this makes the same choice rather
-# than assuming the parent is there.
+# WEKAN_LOG_ROOT is resolved by build.sh to the ignored `.tools/log` directory.
+# Standalone runs use that same repository-local path.
 if [ -z "${WEKAN_LOG_ROOT:-}" ]; then
-  if mkdir -p ../log 2>/dev/null && [ -w ../log ]; then
-    WEKAN_LOG_ROOT="../log"
-  else
-    WEKAN_LOG_ROOT="log"
-  fi
+  WEKAN_LOG_ROOT=".tools/log"
 fi
 LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/$RUN_TS}"
 mkdir -p "$LOGDIR"
