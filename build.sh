@@ -810,6 +810,19 @@ mongo_answers() {
 function run_all_tests(){
 	local RUN_MODE="${1:-parallel}"
 	local modeword; [ "$RUN_MODE" = parallel ] && modeword="in parallel (concurrently)" || modeword="one at a time (sequential)"
+	# The large heap at the top of this file is for compiling WeKan. Do not hand
+	# that same half-of-all-RAM allowance to every runtime process in the test
+	# matrix: the bundle server stays alive while E2E/Playwright run, and allowing
+	# each Node child 8-16 GiB lets one leaking suite drive the workstation into
+	# swap or the OOM killer. Test processes get a quarter of RAM, clamped to a
+	# useful 2-4 GiB; callers with an exceptional fixture can override this one
+	# scope without lowering the heap needed by Meteor's build tool.
+	local TEST_HEAP_MB=$(( _mem_total_mb / 4 ))
+	[ "$TEST_HEAP_MB" -lt 2048 ] && TEST_HEAP_MB=2048
+	[ "$TEST_HEAP_MB" -gt 4096 ] && TEST_HEAP_MB=4096
+	local TEST_NODE_OPTIONS="${WEKAN_TEST_NODE_OPTIONS:---max-old-space-size=$TEST_HEAP_MB}"
+	echo "Node heap limit for test runtime processes: ${TEST_HEAP_MB} MB."
+	echo "  Override by exporting WEKAN_TEST_NODE_OPTIONS yourself."
 	# Each whole-suite run gets its own .tools/log/<timestamp>/ directory
 	# (stamped once, when the run starts), so logs are never overwritten and
 	# previous runs are kept.
@@ -987,10 +1000,10 @@ function run_all_tests(){
 			# together at the end. It used to be an && chain, where node stopped at the
 			# first failing suite and the ~200 after it never ran while the summary
 			# still read "tests:508 fail:1".
-			unit)   meteor npm run test:unit:all || rc=$? ;;
-			import) node tests/wekanCreator.import.test.js || rc=$? ;;
-			e2e)    meteor npm run test:e2e || rc=$? ;;
-			*)      run_pw_all_browser "$k" || rc=$? ;;
+			unit)   NODE_OPTIONS="$TEST_NODE_OPTIONS" meteor npm run test:unit:all || rc=$? ;;
+			import) NODE_OPTIONS="$TEST_NODE_OPTIONS" node tests/wekanCreator.import.test.js || rc=$? ;;
+			e2e)    NODE_OPTIONS="$TEST_NODE_OPTIONS" meteor npm run test:e2e || rc=$? ;;
+			*)      NODE_OPTIONS="$TEST_NODE_OPTIONS" run_pw_all_browser "$k" || rc=$? ;;
 		esac
 		echo "$rc" > "$STATDIR/$k"
 		echo
@@ -1195,7 +1208,7 @@ function run_all_tests(){
 	  MONGO_URL="$TEST_MONGO_URL" ROOT_URL="http://localhost:3000" PORT=3000 \
 	  WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
 	  DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" \
-	  "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
+	  NODE_OPTIONS="$TEST_NODE_OPTIONS" "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
 	TEST_SERVER_PID=$!
 
 	SERVER_READY=0

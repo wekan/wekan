@@ -77,8 +77,8 @@ test('"Run ALL tests" really runs all of them, in both scripts', () => {
   // ran mocha, import, e2e and the three browsers only. A guard that never runs
   // guards nothing.
   const flow = sh.slice(sh.indexOf('function run_all_tests()'));
-  assert.ok(/unit\)   meteor npm run test:unit:all \|\| rc=\$\?/.test(flow),
-    'build.sh must have a unit job that runs test:unit:all');
+  assert.ok(/unit\)   NODE_OPTIONS="\$TEST_NODE_OPTIONS" meteor npm run test:unit:all \|\| rc=\$\?/.test(flow),
+    'build.sh must have a bounded unit job that runs test:unit:all');
   assert.ok(/launch_job unit/.test(flow), 'and launch it');
   for (const keys of flow.match(/ALLKEYS="[^"]+"/g) || []) {
     assert.ok(/\bunit\b/.test(keys), `${keys} must include the unit job`);
@@ -542,6 +542,32 @@ test('a test run stops the databases it started, on every way out', () => {
   assert.ok(/WekanTestServer/.test(labelBody) && /WekanTestMongo/.test(labelBody),
     'stopping the same two things build.sh stops');
   assert.ok(/wekan-conformance-db-/.test(labelBody), 'and the conformance containers');
+});
+
+test('test runtimes cannot inherit the build tool half-of-RAM heap', () => {
+  const start = sh.indexOf('function run_all_tests(){');
+  const end = sh.indexOf('\n# floating_promises_checks', start);
+  const flow = sh.slice(start, end);
+
+  assert.ok(/local TEST_HEAP_MB=\$\(\( _mem_total_mb \/ 4 \)\)/.test(flow),
+    'the test-runtime allowance is computed separately from the build heap');
+  assert.ok(/TEST_HEAP_MB.*-lt 2048/.test(flow) && /TEST_HEAP_MB.*-gt 4096/.test(flow),
+    'the runtime heap stays in the documented 2-4 GiB range');
+  assert.ok(/WEKAN_TEST_NODE_OPTIONS/.test(flow), 'the test-only ceiling is overridable');
+  for (const command of [
+    'meteor npm run test:unit:all',
+    'node tests/wekanCreator.import.test.js',
+    'meteor npm run test:e2e',
+    'run_pw_all_browser "$k"',
+    '"$NODE_BIN" "$BUNDLE_DIR/main.js"',
+  ]) {
+    const escaped = command.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(flow, new RegExp(`NODE_OPTIONS="\\$TEST_NODE_OPTIONS"[^\\n]*${escaped}`),
+      `${command} must use the bounded test-runtime heap`);
+  }
+  assert.match(flow,
+    /mocha\)  METEOR_LOCAL_DIR=.*meteor test --once/,
+    'Meteor test keeps the larger build heap because it compiles a test application');
 });
 
 console.log(`\n${passed} tests passed`);
