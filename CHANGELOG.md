@@ -391,7 +391,7 @@ browser build to verify).
 ownership, administrator token auditing and error responses. Build and release
 tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
 Linux, keeps companion data under the repository's ignored **.tools** directory
-and bounds **test runtime memory** independently from compilation.
+and bounds **test and compiler resources** across the complete test matrix.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -489,6 +489,20 @@ and [ErrorBleed](https://wekan.fi/hall-of-fame/errorbleed/).
 and has the following developer-tooling improvements:
 
 **Build and release tooling** - host setup and repository-local working data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1a0a82a0">The complete test matrix cannot create an unbounded shell or Go compiler load</a>. Thanks to xet7.</summary>
+
+Fedora screenshots showed available memory falling from 28.6 GiB to 371 MiB
+while the CPU-exec negative regression created a large group of short-lived
+`bash` processes. The test now captures stdout and stderr from one direct helper
+invocation instead of launching a duplicate nested shell. The following
+FerretDB stages limit Go package compilation to two through four workers with a
+separate managed-heap target, and conformance no longer downloads the root,
+integration and tools module graphs before building its single binary. Focused
+positive and negative regressions pin these resource boundaries.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/18a6031f3">Test runtimes cannot consume the build tool's half-of-RAM heap allowance</a>. Thanks to xet7.</summary>
