@@ -392,7 +392,9 @@ ownership, administrator token auditing and error responses. Build and release
 tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
 Linux, keeps companion data under the repository's ignored **.tools** directory,
 provides **sandbox-local tools**, bounds **build, test and runtime**
-**resources** across every platform, reports resource failures in **Admin Panel Problems**, and includes four dependency updates.
+**resources** across every platform, reports resource failures in **Admin Panel
+Problems**, offers three bounded
+complete-test execution modes, and includes four dependency updates.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -519,6 +521,19 @@ every platform and distinguish implemented FerretDB telemetry from follow-ups.
 </details>
 
 - [Browser runs reuse cached binaries and report only their selected project](https://github.com/wekan/wekan/commit/9f459303a). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c51e6938d">Complete tests offer two-worker, one-by-one and at-once modes</a>. Thanks to xet7.</summary>
+
+The first three Tests menu choices in both `build.sh` and `build.bat` now run the
+whole matrix. The default runs one stage at a time with two Playwright workers
+per browser for a safe speed increase; one-by-one minimizes memory use; and
+at-once runs WeKan jobs concurrently. Database backends and FerretDB stages stay
+sequential in every mode to avoid port conflicts and overlapping compiler load.
+The Windows helper forwards the selected mode to the shared shell implementation,
+and parity tests pin the menu order, mode mapping and Playwright worker limit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8388314a">Sandbox tasks install version-matched local tools under .tools</a>. Thanks to xet7.</summary>
