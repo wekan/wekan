@@ -2246,7 +2246,7 @@ WebApp.handlers.post('/api/boards/:boardId/members/:userId/remove', async functi
 WebApp.handlers.post('/api/users/', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
-    const id = Accounts.createUser({
+    const id = await Accounts.createUser({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
