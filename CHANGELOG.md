@@ -509,6 +509,20 @@ the CI environment-variable overrides.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/83d417221">Test runs use the Node and Meteor installations under .tools</a>. Thanks to xet7.</summary>
+
+A fresh shell did not include `.tools/.meteor` on `PATH`, so EVERYTHING stopped
+before building with `meteor: command not found` even though setup had installed
+the exact release there. `build.sh` now prefers the repository-local Meteor and
+the Node version and architecture named by the release configuration. The
+companion [FerretDB test runner](https://github.com/wekan/FerretDB/commit/17bb70eb)
+also generates current version metadata before unit packages initialize and
+writes standalone logs under `.tools/log`. Its unit, vet and SQLite integration
+stages pass together.
+
+</details>
+
 - [Repository instructions use the same .tools paths](https://github.com/wekan/wekan/commit/35d7c06aa). Thanks to xet7.
 
 - [The database-conformance regression test expects .tools/log](https://github.com/wekan/wekan/commit/2e1d74f64). Thanks to xet7.
