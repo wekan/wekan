@@ -506,7 +506,9 @@ Host-facing shell installers now identify Linux families through `/etc/os-releas
 and select `apk`, `pacman`, `dnf`, `yum` or `apt-get` with each distribution's
 package names. Shared compiler and archive setup covers bundle conversion, docs,
 Sandstorm, release downloads, Snap prerequisites and forge tooling. Alpine and
-Arch report the manual Snap prerequisite instead of incorrectly running apt.
+Arch report the manual Snap prerequisite instead of incorrectly running apt. RHEL
+and Oracle Linux configure their respective EPEL repositories before installing
+[snapd](https://github.com/wekan/wekan/commit/7017209b5).
 Mocked detection tests cover Alpine, Arch, Fedora, RHEL, Oracle Linux and Debian,
 and every migrated script is syntax-checked.
 
