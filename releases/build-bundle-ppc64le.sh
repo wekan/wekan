@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
 # Build WeKan ppc64le bundle - Meteor 3 style (no fibers needed).
 #

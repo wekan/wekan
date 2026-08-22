@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
 # WeKan REMOTE release script — pushes your CHANGELOG.md edit and triggers the
 # GitHub Actions release workflow, which does EVERYTHING else remotely.

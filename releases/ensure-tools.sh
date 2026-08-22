@@ -8,11 +8,11 @@
 #   . "$(dirname "$0")/ensure-tools.sh"
 #   ensure_tools curl wget git gh snapcraft
 #
-# Known special-cased tools: gh (GitHub CLI apt repo), snapcraft (snap/brew).
-# Everything else is installed by its own name via apt-get / dnf / brew.
+# Known special-cased tools include package names that differ between package
+# managers. Everything else is installed by its command name.
 
 _et_os() {
-  case "$(uname -s)" in
+  case "${WEKAN_UNAME_S:-$(uname -s)}" in
     Linux)  echo linux ;;
     Darwin) echo macos ;;
     *)      echo unknown ;;
@@ -139,7 +139,15 @@ ensure_tools() {
         ;;
       macos)
         _et_brew_ensure
-        brew install "$tool"
+        case "$tool" in
+          python3|pip3|python3-pip) package=python ;;
+          awk) package=gawk ;;
+          g++) package=gcc ;;
+          7zip) package=sevenzip ;;
+          npm) package=node ;;
+          *) package="$tool" ;;
+        esac
+        brew install "$package"
         ;;
       *)
         echo "  Unknown OS ($(uname -s)); please install '$tool' manually." >&2

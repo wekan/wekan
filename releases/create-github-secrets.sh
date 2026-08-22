@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #
 # Interactive helper to create the GitHub Actions secrets required by
 # .github/workflows/release-all.yml. It walks you through creating ALL or ONE of

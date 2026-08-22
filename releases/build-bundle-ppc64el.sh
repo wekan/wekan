@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
 # This script is only for Wekan maintainer to
 # convert x64 bundle to ppc64le bundle.

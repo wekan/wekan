@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
 # Rebuild OpenAPI spec (wekan.yml) and HTML docs (wekan.html) from source.
 #
