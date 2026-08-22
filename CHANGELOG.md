@@ -523,6 +523,8 @@ stages pass together.
 
 </details>
 
+- [The direct FerretDB test entry uses .tools/FerretDB](https://github.com/wekan/wekan/commit/a749fee1f). Thanks to xet7.
+
 - [Repository instructions use the same .tools paths](https://github.com/wekan/wekan/commit/35d7c06aa). Thanks to xet7.
 
 - [The database-conformance regression test expects .tools/log](https://github.com/wekan/wekan/commit/2e1d74f64). Thanks to xet7.
