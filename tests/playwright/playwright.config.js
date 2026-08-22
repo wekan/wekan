@@ -6,6 +6,7 @@ const path = require('path');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const RUN_ALL_BROWSERS = process.env.WEKAN_PLAYWRIGHT_ALL === '1';
+const SELECTED_BROWSER = process.env.WEKAN_PLAYWRIGHT_PROJECT || '';
 // Flatpak exposes only the repository, so browsers installed by the sandbox
 // bootstrap live here rather than under the real home cache. Honour an explicit
 // caller path first; otherwise make direct npx runs use the existing local cache.
@@ -61,7 +62,9 @@ function canLaunch(browserName) {
 }
 
 function browserProjects() {
-  const candidates = RUN_ALL_BROWSERS
+  const candidates = SELECTED_BROWSER
+    ? [{ name: SELECTED_BROWSER, use: { ...devices[SELECTED_BROWSER === 'chromium' ? 'Desktop Chrome' : SELECTED_BROWSER === 'firefox' ? 'Desktop Firefox' : 'Desktop Safari'] } }]
+    : RUN_ALL_BROWSERS
     ? [
         { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
         { name: 'firefox', use: { ...devices['Desktop Firefox'] } },

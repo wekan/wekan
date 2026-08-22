@@ -527,7 +527,7 @@ function docker_exec(){
 # shares the host network so it can reach both.
 function run_playwright_docker(){
 	local browser="$1"; shift
-	local reporoot="$ORIG_HOME/repos/wekan"
+	local reporoot="$WEKAN_DIR"
 	local pwdir="$reporoot/tests/playwright"
 	if ! docker_available; then
 		echo "ERROR: Docker is required to run $browser in the Playwright container, but 'docker' was not found."
@@ -556,6 +556,7 @@ function run_playwright_docker(){
 		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
 		-e WEKAN_PLAYWRIGHT_ALL=1 \
+		-e WEKAN_PLAYWRIGHT_PROJECT="$browser" \
 		-e WEKAN_PLAYWRIGHT_PROBE=0 \
 		-e PLAYWRIGHT_HTML_OPEN=never \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
@@ -574,7 +575,7 @@ function run_playwright_webkit_docker(){ run_playwright_docker webkit "$@"; }
 # to run in Docker is covered by the image pull rather than a native install.
 function install_playwright_browsers(){
 	ORIG_HOME="$HOME"
-	local reporoot="$ORIG_HOME/repos/wekan"
+	local reporoot="$WEKAN_DIR"
 	local pwdir="$reporoot/tests/playwright"
 	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
 		echo "Installing Playwright test dependencies (npm)..."
@@ -651,9 +652,19 @@ function ensure_playwright_test_dependencies(){
 	fi
 }
 
+function native_browser_is_installed(){
+	local browser="$1" pwdir="$WEKAN_DIR/tests/playwright"
+	set_playwright_browser_path
+	( cd "$pwdir" && node -e "const fs=require('fs');const p=require('@playwright/test').${browser}.executablePath();fs.accessSync(p,fs.constants.X_OK)" ) >/dev/null 2>&1
+}
+
 function ensure_native_playwright_browser(){
 	local browser="$1" pwdir="$WEKAN_DIR/tests/playwright"
 	set_playwright_browser_path
+	if native_browser_is_installed "$browser"; then
+		echo "Using cached Playwright $browser browser from $PLAYWRIGHT_BROWSERS_PATH."
+		return 0
+	fi
 	mkdir -p "$PLAYWRIGHT_BROWSERS_PATH"
 	echo "Ensuring the matching Playwright $browser browser is installed in $PLAYWRIGHT_BROWSERS_PATH."
 	( cd "$pwdir" && "$pwdir/node_modules/.bin/playwright" install "$browser" )
@@ -707,6 +718,7 @@ function run_pw_all_browser(){
 		set_playwright_browser_path
 		unset CHROME_DEVEL_SANDBOX
 		export WEKAN_PLAYWRIGHT_ALL=1
+		export WEKAN_PLAYWRIGHT_PROJECT="$browser"
 		export PLAYWRIGHT_JSON_OUTPUT_NAME="$json"
 		PLAYWRIGHT_HTML_OPEN=never meteor npm exec playwright test -- --project="$browser" --output="$outdir" --reporter=list,json
 	)
@@ -827,10 +839,11 @@ function run_playwright_single(){
 		set_playwright_browser_path
 	unset CHROME_DEVEL_SANDBOX
 	export WEKAN_PLAYWRIGHT_ALL=1
+		export WEKAN_PLAYWRIGHT_PROJECT="$browser"
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) meteor npm install ;; esac
 	local log
-	log="$(cd "$ORIG_HOME/repos/wekan" && one_log "playwright-$browser")"
+	log="$(cd "$WEKAN_DIR" && one_log "playwright-$browser")"
 	echo "Log: $log"
 	meteor npm exec playwright test -- --project="$browser" 2>&1 | tee "$log"
 	return "${PIPESTATUS[0]}"
@@ -1345,7 +1358,7 @@ function run_all_tests(){
 		label="$(label_of "$k")"
 		case "$k" in
 			chromium|firefox|webkit)
-				json="$ORIG_HOME/repos/wekan/tests/playwright/test-results/all-tests-${k}.json"
+				json="$WEKAN_DIR/tests/playwright/test-results/all-tests-${k}.json"
 				stats="$(pw_stats_of "$json")"
 				if [ "$rc" = "0" ]; then record PASS "$label" "$stats"; else record FAIL "$label" "$stats"; fi
 				fails="$(pw_failures_of "$json" "$label")"

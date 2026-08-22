@@ -44,6 +44,10 @@ test("the runner installs local browsers and falls back per browser", () => {
   const config = fs.readFileSync(path.join(__dirname, "playwright", "playwright.config.js"), "utf8");
   assert.ok(config.includes("LOCAL_BROWSER_CACHE"));
   assert.ok(config.includes("ms-playwright"));
+  assert.ok(build.includes("function native_browser_is_installed()"));
+  assert.ok(build.includes("WEKAN_PLAYWRIGHT_PROJECT=\"$browser\""));
+  assert.ok(config.includes("SELECTED_BROWSER"));
+  assert.ok(/SELECTED_BROWSER[\s\S]*name: SELECTED_BROWSER/.test(config));
 });
 
 console.log(`\n${passed} tests passed`);
