@@ -522,6 +522,8 @@ every platform and distinguish implemented FerretDB telemetry from follow-ups.
 
 - [Browser runs reuse cached binaries and report only their selected project](https://github.com/wekan/wekan/commit/9f459303a). Thanks to xet7.
 
+- [Complete-mode wiring checks cover all three test schedules](https://github.com/wekan/wekan/commit/ba1c1b1e4). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c51e6938d">Complete tests offer two-worker, one-by-one and at-once modes</a>. Thanks to xet7.</summary>
 
