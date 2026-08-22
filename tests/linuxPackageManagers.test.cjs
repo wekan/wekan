@@ -58,6 +58,7 @@ test('shared specialized installers cover every Linux family', () => {
   const src = fs.readFileSync(helper, 'utf8');
   assert.ok(src.includes('ensure_build_toolchain()'));
   assert.ok(src.includes('ensure_archive_tools()'));
+  assert.ok(src.includes('oracle-epel-release-el${major}'));
 });
 
 console.log(`\n${passed} tests passed`);

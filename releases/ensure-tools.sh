@@ -66,7 +66,7 @@ _et_apt_gh() {
 
 # ensure_tools <tool> [<tool> ...] — install each tool if missing.
 ensure_tools() {
-  local os tool check family pm package
+  local os tool check family pm package major os_release linux_id
   os="$(_et_os)"
   for tool in "$@"; do
     check="$tool"; [ "$tool" = ripgrep ] && check=rg
@@ -82,6 +82,17 @@ ensure_tools() {
             pm=dnf; _et_have dnf || pm=yum
             case "$tool" in
               snapcraft)
+                if [ "$family" = rhel ]; then
+                  major="$(rpm -E %rhel)"
+                  os_release="${WEKAN_OS_RELEASE_FILE:-/etc/os-release}"
+                  linux_id="$(. "$os_release"; echo "${ID:-}")"
+                  if [ "$linux_id" = ol ]; then
+                    sudo "$pm" install -y "oracle-epel-release-el${major}"
+                    sudo "$pm" config-manager --set-enable "ol${major}_developer_EPEL" || true
+                  else
+                    sudo "$pm" install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${major}.noarch.rpm"
+                  fi
+                fi
                 sudo "$pm" install -y snapd
                 sudo systemctl enable --now snapd.socket
                 sudo ln -sfn /var/lib/snapd/snap /snap
