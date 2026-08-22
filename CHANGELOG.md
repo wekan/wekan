@@ -391,7 +391,7 @@ browser build to verify).
 ownership, administrator token auditing and error responses. Build and release
 tooling now supports **macOS zsh**, Alpine, Arch, Fedora, RHEL and Oracle
 Linux, keeps companion data under the repository's ignored **.tools** directory
-and bounds **test and compiler resources** across the complete test matrix.
+provides **sandbox-local version-matched tools** and bounds **test and compiler resources**.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -489,6 +489,20 @@ and [ErrorBleed](https://wekan.fi/hall-of-fame/errorbleed/).
 and has the following developer-tooling improvements:
 
 **Build and release tooling** - host setup and repository-local working data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d69ae06c">Sandbox tasks install version-matched local tools under .tools</a>. Thanks to xet7.</summary>
+
+The agent instructions now treat the repository-local, ignored `.tools` tree as
+the installation root when the Flatpak sandbox lacks a required command. Node.js
+and npm versions are read from `Dockerfile`, Meteor from `.meteor/release`, and
+other tools from their repository-owned version sources instead of stale copied
+examples. The instructions link the tested sandbox bootstrap, keep environment
+overrides scoped, and document a local RapidOCR virtual environment for reading
+timestamped screenshots when bubblewrap prevents the normal image viewer from
+creating a user namespace.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c1a0a82a0">The complete test matrix cannot create an unbounded shell or Go compiler load</a>. Thanks to xet7.</summary>
