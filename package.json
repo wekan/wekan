@@ -58,7 +58,7 @@
     "@azure/storage-blob": "^12.33.0",
     "@babel/parser": "^8.0.4",
     "@babel/runtime": "^8.0.0",
-    "@google-cloud/storage": "^7.21.0",
+    "@google-cloud/storage": "^8.0.1",
     "@meteorjs/reify": "^0.25.4",
     "@rwap/jquery-ui-touch-punch": "^1.0.11",
     "@swc/helpers": "^0.5.23",
