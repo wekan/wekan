@@ -387,10 +387,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Fedora Workstation** can now run WeKan's build and release shell
-scripts with Fedora's own package names and `dnf`, including its Snapcraft,
-7-Zip, compiler, Python, Meteor and locale setup. The existing Debian, Ubuntu
-and macOS paths remain unchanged.
+**In short:** build and release tooling now supports **Fedora Workstation** with
+Fedora's package names and `dnf`, and keeps companion website and log data under
+the repository's ignored **.tools** directory. The existing Debian, Ubuntu and
+macOS paths remain unchanged.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -403,7 +403,9 @@ and macOS paths remain unchanged.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release has the following developer-tooling improvement:
+This release has the following developer-tooling improvements:
+
+**Build and release tooling** - host setup and repository-local working data.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/04b6eb788">Build and release scripts detect and support Fedora hosts</a>. Thanks to xet7.</summary>
@@ -412,6 +414,16 @@ Host-side dependency installers now choose Fedora's `dnf` commands and package
 names, including Fedora 44's `7zip`, `gcc-c++`, `glibc-langpack-en` and snapd
 socket setup. Debian/Ubuntu continue to use apt and macOS continues to use
 Homebrew. Mocked installer-path tests cover both Fedora and Debian selection.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d98ad6d0">Scripts keep website and log directories under .tools</a>. Thanks to xet7.</summary>
+
+Shell and Windows batch scripts now use `.tools/wekan.fi` for the website
+companion checkout and `.tools/log` for build and test output. This removes the
+legacy sibling `../w/wekan.fi` and parent `../log` assumptions while preserving
+the CI environment-variable overrides.
 
 </details>
 
