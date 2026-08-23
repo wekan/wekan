@@ -425,7 +425,7 @@ This release improves the following translations:
 **Translation tooling** - placeholder safety and same-language vocabulary reuse.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5615e9547">IPv4 and IPv6 labels follow each language’s own IP-address vocabulary</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eec7ea495">IPv4 and IPv6 labels follow each language’s own IP-address vocabulary</a>. Thanks to xet7.</summary>
 
 The placeholder-only local-memory tool now derives versioned protocol labels
 from each language’s established IP-address translation, preserving its word
@@ -442,7 +442,7 @@ protocol-token exception.
 **East Asian translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/73e665fc8">Office and API reports use simplified and traditional Chinese</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/df7bb6976">Office and API reports use simplified and traditional Chinese</a>. Thanks to xet7.</summary>
 
 All twelve translatable report labels and descriptions now cover eleven Chinese
 language tags, using simplified or traditional script to match each existing
@@ -453,7 +453,7 @@ key, both scripts and the intentionally universal API labels.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9b111c026">Office and API reports use Japanese and Korean</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/18ce975c7">Office and API reports use Japanese and Korean</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now cover three Japanese and two
 Korean language tags, following each family’s established login and address
@@ -466,7 +466,7 @@ intentionally universal API labels.
 **Cyrillic translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/beb044d63">Office and API reports use Russian and Ukrainian</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/58b510e49">Office and API reports use Russian and Ukrainian</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now cover four Russian and two
 Ukrainian language tags, following each family’s established login and address
@@ -477,7 +477,7 @@ intentionally universal API labels.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2697c354c">Office and API reports use Belarusian and Bulgarian</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aac41827e">Office and API reports use Belarusian and Bulgarian</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now use distinct Belarusian and
 Bulgarian vocabulary in Cyrillic script. REST API, IPv4, IPv6 and WITH_API=true
@@ -489,7 +489,7 @@ languages and the intentionally universal API labels.
 **Right-to-left translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1949d5cea">Office and API reports use Arabic across four locale tags</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c2235fbda">Office and API reports use Arabic across four locale tags</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now cover the Arabic, Algerian,
 Egyptian and Moroccan tags in Arabic script. REST API, IPv4, IPv6 and
@@ -500,7 +500,7 @@ universal API labels.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a98920393">Office and API reports use Hebrew and Persian</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ebfcbd986">Office and API reports use Hebrew and Persian</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now cover two Hebrew and two Persian
 language tags in their respective right-to-left scripts. REST API, IPv4, IPv6
@@ -512,7 +512,7 @@ translated key, both scripts and the intentionally universal API labels.
 **Indic translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2e85c3af8">Office and API reports use Hindi and Gujarati</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/31946787b">Office and API reports use Hindi and Gujarati</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now cover two Hindi tags in
 Devanagari and one Gujarati tag in Gujarati script. REST API, IPv4, IPv6 and
@@ -524,7 +524,7 @@ key, both scripts and the intentionally universal API labels.
 **Greek translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f417f880">Office and API reports use Greek across both locale tags</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6d0e5b845">Office and API reports use Greek across both locale tags</a>. Thanks to xet7.</summary>
 
 All twelve report labels and descriptions now cover both Greek language tags in
 Greek script. REST API, IPv4, IPv6 and WITH_API=true remain recognizable.
@@ -536,7 +536,7 @@ intentionally universal API labels.
 **Khmer translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e160af7dc">Office and API reports use Khmer</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d233b4fd4">Office and API reports use Khmer</a>. Thanks to xet7.</summary>
 
 All twelve translatable report labels and descriptions now use Khmer vocabulary
 across the three Khmer language tags. API, REST API, IPv4, IPv6 and
@@ -548,7 +548,7 @@ key, Khmer script, variant consistency and the intentionally universal literals.
 **Vietnamese translations** - the Office and REST API usage reports.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2e626a106">Office and API reports use Vietnamese</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5bd71c07d">Office and API reports use Vietnamese</a>. Thanks to xet7.</summary>
 
 All twelve translatable report labels and descriptions now use Vietnamese
 across both language tags, following their established login, report and
