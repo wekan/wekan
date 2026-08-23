@@ -406,8 +406,8 @@ browser build to verify).
 **In short:** a **CRITICAL SECURITY ISSUE**, **ImportBleed**, allowed a
 logged-out DDP client to write imported board data directly into the database;
 both import methods now reject unauthenticated callers before processing input.
-Below that: Office and API report translations, visible obsolete English
-placeholders and focused regression coverage.
+Below that: bounded legacy E2E login waits, Office and API report translations,
+visible obsolete English placeholders and focused regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -435,6 +435,19 @@ Problems. Source-level and logged-out browser regression tests cover the guard
 and no-write outcome. See
 [GHSA-qp32-wqxw-wq3h](https://github.com/wekan/wekan/security/advisories/GHSA-qp32-wqxw-wq3h)
 and [ImportBleed](https://wekan.fi/hall-of-fame/importbleed/).
+
+</details>
+
+and has the following developer-tooling fix:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ccb71bae">Legacy E2E login and suite waits are bounded</a>. Thanks to xet7.</summary>
+
+The Puppeteer list-regression suite now waits for a connected DDP session before
+resume-token login and bounds the token callback, reactive identity settlement
+and entire suite. A stalled fresh second session fails with its URL, DDP status,
+user id and login state instead of pausing all tests indefinitely. Regression
+coverage keeps every wait bounded and diagnostic.
 
 </details>
 
