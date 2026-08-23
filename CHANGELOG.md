@@ -223,15 +223,17 @@ than by native speakers, so a review of any of them is welcome — and a Transif
 translation replaces a filled string permanently.
 
 The newest per-key batch reused each language’s own translated IP-address label
-for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347 obsolete
-English Office and Home-board sentences to the current English source, making
-those hidden placeholders visible to the safe fill workflow again.
+for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
+obsolete English Office and Home-board sentences to the current English source,
+making those hidden placeholders visible to the safe fill workflow again. The
+next batch translated all twelve Office and API report strings across eleven
+simplified and traditional Chinese language tags: **132 values**.
 
 **What is left, in the order worth doing it.** As of **2026-08-23**:
 
 | Files | To translate | Nothing to translate | Which |
 | --- | --- | --- | --- |
-| 56 | **1,051** | 2,171 | non-Latin, near-complete |
+| 56 | **919** | 2,171 | non-Latin, near-complete |
 | 86 | **2,868** | 3,980 | Latin-script, near-complete |
 | 92 | **192,241** | 15,829 | second tier |
 
@@ -241,7 +243,7 @@ source because that IS the translation — product names (*Meteor*, *MongoDB*,
 `__board__` placeholders. They will never stop counting, and they are why a flat
 count reads several times larger than the work.
 
-1. **The 56 non-Latin near-complete files: 1,051.** New Office and API
+1. **The 56 non-Latin near-complete files: 919.** New Office and API
    report strings now dominate this tier; an English string is most glaring
    where it interrupts another script.
 2. **The 86 Latin-script near-complete files: 2,868.** Smaller than it looks,
@@ -393,10 +395,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **IPv4 and IPv6 address labels** now reuse each language’s
-own established vocabulary and word order, while obsolete English source text
-is visible to the placeholder-only workflow again. Below that: safer local
-translation memory and wrong-script regression coverage.
+**In short:** **Chinese Office and API reports** now read in simplified and
+traditional Chinese, while **IPv4 and IPv6 address labels** reuse each language’s
+established vocabulary. Below that: visible obsolete-English placeholders,
+safer local translation memory and focused regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -411,17 +413,33 @@ translation memory and wrong-script regression coverage.
 
 This release improves the following translations:
 
+**Translation tooling** - placeholder safety and same-language vocabulary reuse.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5615e9547">IPv4 and IPv6 labels follow each language’s own IP-address vocabulary</a>. Thanks to xet7.</summary>
 
 The placeholder-only local-memory tool now derives versioned protocol labels
 from each language’s established IP-address translation, preserving its word
-order and changing only the universal protocol token. It filled 282 rendered labels across
-141 language tags (268 stored values plus seven locale aliases). Two obsolete English sentences were reset to the current
-source so future fills can see them, and wrong-script analysis now ignores only
+order and changing only the universal protocol token. It filled 282 rendered
+labels across 141 language tags (268 stored values plus seven locale aliases).
+Two obsolete English sentences were reset to the current source so future fills
+can see them, and wrong-script analysis now ignores only
 exact IPv4 and IPv6 identifiers while continuing to inspect surrounding prose.
 Regression tests pin the ambiguity guard, placeholder protection and narrow
 protocol-token exception.
+
+</details>
+
+**Chinese translations** - the Office and REST API usage reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73e665fc8">Office and API reports use simplified and traditional Chinese</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now cover eleven Chinese
+language tags, using simplified or traditional script to match each existing
+locale. Product and protocol terms such as REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, both scripts and the intentionally universal API labels.
 
 </details>
 
