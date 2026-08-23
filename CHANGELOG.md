@@ -405,10 +405,10 @@ browser build to verify).
 
 **In short:** a **CRITICAL SECURITY ISSUE**, **ImportBleed**, allowed a
 logged-out DDP client to write imported board data directly into the database;
-both import methods now reject unauthenticated callers before import processing.
-Below that: bounded legacy E2E login waits, restored Transifex locale aliases,
-Office and API report translations, visible obsolete English placeholders and
-focused regression coverage.
+both import methods now reject unauthenticated callers after mandatory argument
+validation and before import processing. Below that: bounded legacy E2E login
+waits, restored Transifex locale aliases, Office and API report translations,
+visible obsolete English placeholders and focused regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -430,9 +430,10 @@ The importBoard method reached direct collection writers without first requiring
 an authenticated user, allowing a network client with no account or token to
 create imported board data and placeholder users. importBoard and importScoped
 now complete Meteor’s mandatory type checks, then reject logged-out callers
-before feature checks, parsers or creators can run. Scoped imports carry the authenticated method user explicitly. Denied attempts are attributed by connection address in Admin Panel /
-Problems. Source-level and logged-out browser regression tests cover the guard
-and no-write outcome. See
+before feature checks, parsers or creators can run. Scoped imports carry the
+authenticated method user explicitly. Denied attempts are attributed by
+connection address in Admin Panel / Problems. Source-level and logged-out
+browser regression tests cover the guard and no-write outcome. See
 [GHSA-qp32-wqxw-wq3h](https://github.com/wekan/wekan/security/advisories/GHSA-qp32-wqxw-wq3h)
 and [ImportBleed](https://wekan.fi/hall-of-fame/importbleed/).
 
