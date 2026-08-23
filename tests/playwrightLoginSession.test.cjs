@@ -97,4 +97,16 @@ test('openBoard is what the fixture times out in, so it must still retry and rep
     'so the two failure modes can be told apart afterwards');
 });
 
+
+test('the final navigation waits for the expected resumed user', () => {
+  const at = auth.indexOf('await page.goto(BASE_URL', auth.indexOf('async function loginWithToken'));
+  const tail = auth.slice(at, auth.indexOf('async function loginWithCredentials'));
+  assert.ok(/waitForMeteor\(page\)[\s\S]*page\.waitForFunction\(/.test(tail),
+    'the app global must load before checking the resumed Accounts identity');
+  assert.ok(/Meteor\.userId\(\) === expectedId/.test(tail),
+    'loginWithToken must not return while the final navigation is still anonymous');
+  assert.ok(/userId,[\s\S]*timeout: 15_000/.test(tail),
+    'the expected id is passed to a bounded wait so a real resume failure surfaces');
+});
+
 console.log(`\n${passed} tests passed`);

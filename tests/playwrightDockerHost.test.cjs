@@ -50,4 +50,14 @@ test("the runner installs local browsers and falls back per browser", () => {
   assert.ok(/SELECTED_BROWSER[\s\S]*name: SELECTED_BROWSER/.test(config));
 });
 
+
+test('local WebKit gets one fresh-worker retry for renderer internal errors', () => {
+  const config = fs.readFileSync(path.join(__dirname, 'playwright', 'playwright.config.js'), 'utf8');
+  assert.match(config, /!process\.env\.CI/);
+  assert.match(config, /candidates\.find\(project => project\.name === 'webkit'\)/);
+  assert.match(config, /webkitProject\.retries = 1/);
+  assert.match(config, /retries: process\.env\.CI \? 2 : 0/,
+    'CI must retain its existing two-retry policy');
+});
+
 console.log(`\n${passed} tests passed`);

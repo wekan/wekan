@@ -157,6 +157,14 @@ async function loginWithToken(page, userId, token) {
   // landing page, so tests that immediately call Meteor.call via page.evaluate
   // don't hit "Meteor is not defined" before the bundle loads.
   await waitForMeteor(page);
+  // A navigation starts a new DDP connection. The Meteor global can be ready
+  // before Accounts has resumed the token, so wait for the expected identity
+  // before returning to a test that may immediately call an authorized method.
+  await page.waitForFunction(
+    expectedId => typeof Meteor !== 'undefined' && Meteor.userId() === expectedId,
+    userId,
+    { timeout: 15_000 },
+  );
 }
 
 /** Login using the actual username/password form (tests the login UI). */

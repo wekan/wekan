@@ -72,6 +72,15 @@ function browserProjects() {
       ]
     : [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }];
 
+  // WebKit can occasionally terminate a renderer after hundreds of tests and
+  // report only "WebKit encountered an internal error". One local retry gets a
+  // fresh Playwright worker/browser. A real application failure repeats and
+  // still fails; CI keeps its broader two-retry policy below.
+  if (!process.env.CI) {
+    const webkitProject = candidates.find(project => project.name === 'webkit');
+    if (webkitProject) webkitProject.retries = 1;
+  }
+
   if (!SHOULD_PROBE) {
     return candidates;
   }
