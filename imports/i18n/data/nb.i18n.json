@@ -2410,5 +2410,6 @@
   "import-source-heading": "Importer fra:",
   "import-parts-instruction": "Bare de avkryssede delene importeres. Det samme valget brukes ved eksport.",
   "import-wekan-file": "Importer fra en .json- eller .zip-eksportfil:",
-  "jalor-tagline": "Samarbeidsbasert oppgavehåndtering"
+  "jalor-tagline": "Samarbeidsbasert oppgavehåndtering",
+  "jalor-main-nav": "Hovednavigasjon"
 }

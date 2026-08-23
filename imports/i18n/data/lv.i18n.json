@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importēt no:",
   "import-parts-instruction": "Tiek importētas tikai atzīmētās daļas. Tā pati izvēle tiek izmantota eksportējot.",
   "import-wekan-file": "Importēt no .json vai .zip eksporta faila:",
-  "jalor-tagline": "Sadarbīga uzdevumu pārvaldība"
+  "jalor-tagline": "Sadarbīga uzdevumu pārvaldība",
+  "jalor-main-nav": "Galvenā navigācija"
 }

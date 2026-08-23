@@ -17,6 +17,7 @@
 // (config/const.js), guarded by tests. Order here is the 2nd-level dropdown order.
 const THEME_CATEGORIES = {
   flat: [
+    'jalor',
     'belize',
     'nephritis',
     'pomegranate',

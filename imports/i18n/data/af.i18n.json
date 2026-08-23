@@ -2407,5 +2407,6 @@
   "import-source-heading": "Voer in vanaf:",
   "import-parts-instruction": "Slegs die gemerkte dele word ingevoer. Dieselfde keuse geld by uitvoer.",
   "import-wekan-file": "Voer in vanaf 'n .json- of .zip-uitvoerlêer:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

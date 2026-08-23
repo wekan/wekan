@@ -2410,5 +2410,6 @@
   "import-source-heading": "가져올 원본:",
   "import-parts-instruction": "선택한 부분만 가져옵니다. 내보낼 때도 같은 선택이 사용됩니다.",
   "import-wekan-file": ".json 또는 .zip 내보내기 파일에서 가져오기:",
-  "jalor-tagline": "협업 작업 관리"
+  "jalor-tagline": "협업 작업 관리",
+  "jalor-main-nav": "주요 탐색"
 }

@@ -70,12 +70,23 @@ body.userform-layout .auth-layout {
   box-shadow: none;
 }
 
+/* The dialog's own title row. WeKan pulls it out to the panel edges with a
+   negative margin and paints it #f7f7f7; that shape is right - it reads as the
+   header of a card - so it is kept and given the DSFR's alt grey and a rule
+   under it instead of an off-palette grey with no edge. */
+.auth-layout .auth-dialog .at-form .at-title {
+  background: var(--jalor-bg-alt);
+  border-bottom: 1px solid var(--jalor-border);
+  padding: var(--jalor-space-3) var(--jalor-space-5);
+  margin: calc(var(--jalor-space-5) * -1) calc(var(--jalor-space-5) * -1) var(--jalor-space-5);
+}
+
 .auth-layout .auth-dialog .at-form .at-title h3 {
   color: var(--jalor-text-title);
   font-size: calc(18px * var(--wekan-ui-font-scale, 1));
   font-weight: 700;
   text-align: start;
-  margin: 0 0 var(--jalor-space-4);
+  margin: 0;
 }
 
 /* --- Fields ---------------------------------------------------------------

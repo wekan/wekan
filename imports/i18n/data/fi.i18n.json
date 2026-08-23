@@ -2410,5 +2410,6 @@
   "import-source-heading": "Tuo lähteestä:",
   "import-parts-instruction": "Vain valitut osat tuodaan. Samaa valintaa käytetään vietäessä.",
   "import-wekan-file": "Tuo .json- tai .zip-vientitiedostosta:",
-  "jalor-tagline": "Yhteisöllinen tehtävienhallinta"
+  "jalor-tagline": "Yhteisöllinen tehtävienhallinta",
+  "jalor-main-nav": "Päänavigointi"
 }

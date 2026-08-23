@@ -2410,5 +2410,6 @@
   "import-source-heading": "导入来源：",
   "import-parts-instruction": "只导入勾选的部分。导出时使用相同的选择。",
   "import-wekan-file": "从 .json 或 .zip 导出文件导入：",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

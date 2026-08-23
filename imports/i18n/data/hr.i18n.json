@@ -2407,5 +2407,6 @@
   "import-source-heading": "Uvezi iz:",
   "import-parts-instruction": "Uvoze se samo označeni dijelovi. Isti odabir koristi se i pri izvozu.",
   "import-wekan-file": "Uvezi iz .json ili .zip datoteke izvoza:",
-  "jalor-tagline": "Suradničko upravljanje zadacima"
+  "jalor-tagline": "Suradničko upravljanje zadacima",
+  "jalor-main-nav": "Glavna navigacija"
 }

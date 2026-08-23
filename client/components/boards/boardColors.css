@@ -6,6 +6,110 @@
    See docs/Features/Page/Theme.md and docs/Features/Page/Left-Menu.md. */
 
 /* ===============
+THEME - Jalor
+=================*/
+
+/* Jalor's own theme, and the DEFAULT one: `ALLOWED_BOARD_COLORS[0]` is what a
+   new board is created with (models/boards.js), so this is the colour somebody
+   sees on their first board unless they choose another.
+
+   It is Bleu France - #000091, the DSFR's primary - and its shades are the
+   DSFR's own: #1212ff for hover, #2323ff for active, #e3e3fd and #f5f5fe for
+   the two pale grounds. Nothing here is invented; they are the values in
+   client/jalor/vendor/dsfr.min.css.
+
+   What this block deliberately does NOT do, unlike every WeKan theme beside
+   it: give the minicard a border-radius and a drop shadow. A theme's
+   `.board-color-X .minicard` rule outranks the Jalor layer's plain `.minicard`,
+   so restating the WeKan card shape here would undo the square DSFR tile on
+   the one theme that is meant to show it. */
+
+.board-color-jalor#header,
+.board-color-jalor#header-quick-access,
+.board-color-jalor.sk-spinner div,
+.board-backgrounds-list .board-color-jalor.background-box,
+.public-board-row.board-color-jalor,
+.board-list li.board-color-jalor,
+.board-color-jalor .setting-content .content-body .side-menu ul li.active,
+.board-color-jalor .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: #000091;
+}
+.board-color-jalor .is-selected .minicard {
+  border-inline-start: 3px solid #000091;
+}
+.board-color-jalor button[type=submit].primary,
+.board-color-jalor input[type=submit].primary,
+.board-color-jalor .sidebar .sidebar-content .sidebar-btn {
+  background-color: #000091;
+  border-radius: 0;
+}
+.board-color-jalor.pop-over .pop-over-list li a:not(.disabled):hover,
+.board-color-jalor .sidebar .sidebar-content .sidebar-btn:hover,
+.board-color-jalor .sidebar-list li a:hover {
+  background-color: #1212ff;
+}
+.board-color-jalor#header ul li.current,
+.board-color-jalor#header-quick-access ul li.current {
+  border-bottom: 2px solid #ffffff;
+}
+.board-color-jalor#header-quick-access {
+  color: #fff;
+}
+.board-color-jalor#header #header-main-bar .board-header-btn.emphasis {
+  background: #1212ff;
+}
+.board-color-jalor#header #header-main-bar .board-header-btn.emphasis:hover,
+.board-color-jalor#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: #2323ff;
+}
+.board-color-jalor#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: #000091;
+}
+.board-color-jalor .materialCheckBox.is-checked {
+  border-bottom: 2px solid #000091;
+  border-inline-end: 2px solid #000091;
+}
+.board-color-jalor .checklist-progress-bar {
+  background-color: #e3e3fd !important;
+}
+.board-color-jalor .checklist-progress-bar .checklist-progress {
+  background-color: #000091 !important;
+}
+.board-color-jalor .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: #e3e3fd;
+}
+.board-color-jalor .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: #f5f5fe;
+}
+.board-color-jalor .toggle-label:after {
+  background-color: #ffffff;
+}
+.board-color-jalor .toggle-switch:checked ~ .toggle-label {
+  background-color: #000091;
+}
+.board-color-jalor .toggle-switch:checked ~ .toggle-label:after {
+  background-color: #ffffff;
+}
+@media screen and (max-width: 800px) {
+  .board-color-jalor.pop-over .header {
+    background: #000091;
+    color: #fff;
+  }
+}
+
+/* Transparent modern scrollbar - jalor */
+.board-color-jalor .board-canvas {
+  scrollbar-color: #000091f2 #e4e4e400;
+}
+
+/* Apply scrollbar to sidebar content */
+.board-color-jalor .sidebar .sidebar-content {
+  scrollbar-color: #000091f2 #e4e4e400;
+}
+
+/* === END Jalor THEME === */
+
+/* ===============
 THEME - NEPHRITIS
 =================*/
 

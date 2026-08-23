@@ -2410,5 +2410,6 @@
   "import-source-heading": "Importovat z:",
   "import-parts-instruction": "Importují se pouze zaškrtnuté části. Stejná volba se použije při exportu.",
   "import-wekan-file": "Importovat ze souboru exportu .json nebo .zip:",
-  "jalor-tagline": "Společná správa úkolů"
+  "jalor-tagline": "Společná správa úkolů",
+  "jalor-main-nav": "Hlavní navigace"
 }

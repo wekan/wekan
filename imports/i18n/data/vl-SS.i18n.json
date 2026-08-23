@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importeren uit:",
   "import-parts-instruction": "Alleen de aangevinkte onderdelen worden geïmporteerd. Dezelfde keuze geldt bij het exporteren.",
   "import-wekan-file": "Importeren uit een .json- of .zip-exportbestand:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

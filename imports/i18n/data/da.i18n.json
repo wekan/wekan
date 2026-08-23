@@ -2410,5 +2410,6 @@
   "import-source-heading": "Importér fra:",
   "import-parts-instruction": "Kun de afkrydsede dele importeres. Det samme valg bruges ved eksport.",
   "import-wekan-file": "Importér fra en .json- eller .zip-eksportfil:",
-  "jalor-tagline": "Samarbejdsbaseret opgavestyring"
+  "jalor-tagline": "Samarbejdsbaseret opgavestyring",
+  "jalor-main-nav": "Hovednavigation"
 }

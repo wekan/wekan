@@ -2410,5 +2410,6 @@
   "import-source-heading": "Impor dari:",
   "import-parts-instruction": "Hanya bagian yang dicentang yang diimpor. Pilihan yang sama dipakai saat mengekspor.",
   "import-wekan-file": "Impor dari berkas ekspor .json atau .zip:",
-  "jalor-tagline": "Manajemen tugas kolaboratif"
+  "jalor-tagline": "Manajemen tugas kolaboratif",
+  "jalor-main-nav": "Navigasi utama"
 }

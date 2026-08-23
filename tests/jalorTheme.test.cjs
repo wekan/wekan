@@ -45,19 +45,40 @@ test('and no WeKan theme that LOOKS dark was left out', () => {
   const entries = [...accents.matchAll(/^\s{2}([a-z]+): '(#[0-9a-fA-F]{3,6})',/gm)];
   assert.ok(entries.length > 20, `only ${entries.length} themes parsed`);
 
-  const luminance = hex => {
+  const channels = hex => {
     let h = hex.slice(1);
     if (h.length === 3) h = h.split('').map(c => c + c).join('');
-    const [r, g, b] = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+    return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+  };
+  const luminance = hex => {
+    const [r, g, b] = channels(hex);
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  // Darkness alone is not enough to tell a dark THEME from a strong colour:
+  // Bleu France (#000091) is darker than any of WeKan's dark themes and is not
+  // one - it is Jalor's primary on an otherwise light page. What the dark
+  // themes have in common is that their accent is a near-neutral grey, so
+  // saturation is the other half of the test.
+  const saturation = hex => {
+    const [r, g, b] = channels(hex);
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    if (max === min) return 0;
+    const l = (max + min) / 2;
+    return l > 0.5 ? (max - min) / (2 - max - min) : (max - min) / (max + min);
   };
 
   const missed = entries
-    .filter(([, name, hex]) => luminance(hex) < 0.2 && !darkList.includes(name))
+    .filter(([, name, hex]) =>
+      luminance(hex) < 0.2 && saturation(hex) < 0.5 && !darkList.includes(name))
     .map(([, name, hex]) => `${name} (${hex})`);
   assert.deepStrictEqual(missed, [],
     'these themes are dark but do not switch the DSFR over - add them to '
     + 'JALOR_DARK_THEMES in client/jalor/jalorTheme.js');
+
+  // negative: Jalor's own theme is a dark BLUE on a light page, not dark mode.
+  assert.ok(!darkList.includes('jalor'),
+    "Jalor's own theme must not put the DSFR in dark mode");
 });
 
 test('it reads the class WeKan actually writes', () => {

@@ -2407,5 +2407,6 @@
   "import-source-heading": "Inportatu hemendik:",
   "import-parts-instruction": "Markatutako zatiak baino ez dira inportatzen. Aukera bera erabiltzen da esportatzean.",
   "import-wekan-file": "Inportatu .json edo .zip esportazio-fitxategi batetik:",
-  "jalor-tagline": "Zereginen kudeaketa kolaboratiboa"
+  "jalor-tagline": "Zereginen kudeaketa kolaboratiboa",
+  "jalor-main-nav": "Nabigazio nagusia"
 }

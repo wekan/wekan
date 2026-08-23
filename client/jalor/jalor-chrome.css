@@ -89,6 +89,78 @@
   color: var(--jalor-header-text);
 }
 
+/* --- Primary navigation --------------------------------------------------
+ * The four whole-application pages and the Admin Panel, on the bar. This is
+ * the DSFR's navigation, adapted to a dark bar: the current entry is marked by
+ * a rule under it and by weight, because the DSFR's own "underline plus bold"
+ * is the one marking that survives being drawn in white on a colour a theme
+ * may have changed.
+ *
+ * `aria-current="page"` carries the same information to a screen reader; the
+ * CSS below is deliberately keyed on the ATTRIBUTE and not only on a class, so
+ * the two cannot drift apart (client/components/main/header.jade). */
+#jalor-main-nav {
+  display: flex;
+  align-items: center;
+  margin-inline-start: var(--jalor-space-3);
+  min-width: 0;
+}
+
+#jalor-main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--jalor-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#jalor-main-nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--jalor-space-2);
+  padding: var(--jalor-space-1) var(--jalor-space-3);
+  border-radius: var(--jalor-radius);
+  border-bottom: 2px solid transparent;
+  color: var(--jalor-header-text);
+  font-size: var(--jalor-font-size);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+#jalor-main-nav a:hover {
+  background: rgba(255, 255, 255, 0.16);
+  text-decoration: none;
+}
+
+#jalor-main-nav a[aria-current='page'] {
+  border-bottom-color: var(--jalor-header-text);
+  font-weight: 700;
+}
+
+/* Under 1100px the bar already carries the page title, the logo, two toggles,
+   the starred-boards menu, the bell and the account. The labels give way
+   first - the icons keep the entries reachable - and under 800px the whole
+   navigation goes, because every one of these pages is also in the account
+   menu, which is where WeKan has always kept them. Nothing becomes
+   unreachable at any width. */
+@media screen and (max-width: 1100px) {
+  #jalor-main-nav .jalor-nav-label {
+    display: none;
+  }
+
+  #jalor-main-nav a {
+    padding: var(--jalor-space-1) var(--jalor-space-2);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #jalor-main-nav {
+    display: none;
+  }
+}
+
 /* --- The page body ------------------------------------------------------- */
 #content {
   background-color: var(--jalor-bg-alt);

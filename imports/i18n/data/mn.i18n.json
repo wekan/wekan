@@ -2407,5 +2407,6 @@
   "import-source-heading": "Эндээс импортлох:",
   "import-parts-instruction": "Зөвхөн тэмдэглэсэн хэсгүүд импортлогдоно. Экспортлохдоо мөн ижил сонголтыг ашиглана.",
   "import-wekan-file": ".json эсвэл .zip экспортын файлаас импортлох:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

@@ -102,7 +102,25 @@ button:focus-visible,
 /* --- Links ---------------------------------------------------------------
  * DSFR links are Bleu France and underlined on hover, never on rest inside an
  * application chrome (a menu of underlined items is unreadable). Links inside
- * user-written text keep their underline, because there they are prose. */
+ * user-written text keep their underline, because there they are prose.
+ *
+ * The DSFR does not draw a link's underline with `text-decoration`. It paints
+ * TWO background gradients on `[href]`, sized from `--underline-idle-width`
+ * (100%) and `--underline-thickness`, so the underline can animate on hover.
+ * That is right for a page of prose and wrong for an application: WeKan's
+ * links are controls - a board tile, a menu row, a card - and many of them are
+ * block-level, so each was drawing a full-width rule across itself. The board
+ * tiles came out with a line under the title and another under the empty
+ * description.
+ *
+ * Turned off the DSFR's OWN way, by setting the variable it reads rather than
+ * by overriding the three background properties: `.fr-raw-link [href]` and
+ * `.fr-reset-link[href]` in the DSFR do exactly this. A component that wants
+ * the underline back sets `--underline-img` on itself, which outranks this. */
+[href] {
+  --underline-img: none;
+}
+
 a {
   color: var(--jalor-primary-text);
   text-decoration: none;

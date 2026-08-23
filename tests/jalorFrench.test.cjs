@@ -103,12 +103,25 @@ test('"member" is one word throughout, not two', () => {
 });
 
 test('and every French variant says the same thing', () => {
+  // fr-FR, not fr, is what a browser set to "Français (France)" actually loads,
+  // so a glossary that only holds in fr.i18n.json is a glossary most French
+  // users never see. That was the bug: the header navigation still read "Mes
+  // Cartes" and "Chercher" after fr.i18n.json had been corrected.
+  const fr = JSON.parse(read('imports/i18n/data/fr.i18n.json'));
   for (const tag of ['fr-FR', 'fr-CH', 'fr-CA', 'fr-BE']) {
     const doc = JSON.parse(read(`imports/i18n/data/${tag}.i18n.json`));
     const offenders = Object.entries(doc)
       .filter(([, v]) => typeof v === 'string' && /\bparticipants?\b/i.test(v))
       .map(([k]) => k);
     assert.deepStrictEqual(offenders, [], `${tag} still says participant`);
+
+    for (const key of ['board', 'boards', 'list', 'card', 'labels', 'due-date',
+      'members', 'settings', 'my-cards', 'search', 'dueCards-title', 'participating',
+      'memberPopup-title', 'memberMenuPopup-title', 'officeReportTitle',
+      'api-calls', 'attachment-limit-unit-bytes']) {
+      assert.strictEqual(doc[key], fr[key],
+        `${tag}: ${key} disagrees with fr.i18n.json`);
+    }
   }
 });
 

@@ -2407,5 +2407,6 @@
   "import-source-heading": "Увези од:",
   "import-parts-instruction": "Се увезуваат само означените делови. Истиот избор се користи и при извоз.",
   "import-wekan-file": "Увези од .json или .zip датотека за извоз:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

@@ -2407,5 +2407,6 @@
   "import-source-heading": "Impordi allikast:",
   "import-parts-instruction": "Imporditakse ainult märgitud osad. Sama valikut kasutatakse eksportimisel.",
   "import-wekan-file": "Impordi .json- või .zip-ekspordifailist:",
-  "jalor-tagline": "Ühine ülesannete haldus"
+  "jalor-tagline": "Ühine ülesannete haldus",
+  "jalor-main-nav": "Peamine navigatsioon"
 }

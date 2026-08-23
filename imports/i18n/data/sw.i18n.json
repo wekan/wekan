@@ -2407,5 +2407,6 @@
   "import-source-heading": "Ingiza kutoka:",
   "import-parts-instruction": "Sehemu zilizotiwa alama pekee ndizo huingizwa. Chaguo hilo hilo hutumika unapohamisha.",
   "import-wekan-file": "Ingiza kutoka faili la kuhamisha la .json au .zip:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

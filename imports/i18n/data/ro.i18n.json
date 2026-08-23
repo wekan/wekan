@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importă din:",
   "import-parts-instruction": "Se importă doar părțile bifate. Aceeași alegere este folosită la export.",
   "import-wekan-file": "Importă dintr-un fișier de export .json sau .zip:",
-  "jalor-tagline": "Gestionarea colaborativă a sarcinilor"
+  "jalor-tagline": "Gestionarea colaborativă a sarcinilor",
+  "jalor-main-nav": "Navigare principală"
 }

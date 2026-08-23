@@ -2410,5 +2410,6 @@
   "import-source-heading": "Nhập từ:",
   "import-parts-instruction": "Chỉ những phần được đánh dấu mới được nhập. Cùng lựa chọn đó được dùng khi xuất.",
   "import-wekan-file": "Nhập từ tệp xuất .json hoặc .zip:",
-  "jalor-tagline": "Quản lý công việc cộng tác"
+  "jalor-tagline": "Quản lý công việc cộng tác",
+  "jalor-main-nav": "Điều hướng chính"
 }

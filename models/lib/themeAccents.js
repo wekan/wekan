@@ -17,6 +17,8 @@
 // parses that stylesheet and fails if the two ever disagree, so a new theme cannot
 // be added in CSS alone and quietly fall back to blue.
 const THEME_ACCENTS = {
+  // Jalor's own, and the default (config/const.js). Bleu France.
+  jalor: '#000091',
   belize: '#2980b9',
   nephritis: '#27ae60',
   pomegranate: '#c0392b',

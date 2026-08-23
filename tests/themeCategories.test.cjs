@@ -37,7 +37,10 @@ test('categories partition into flat/clear/dark/special in order', () => {
       `${slide} does not accept one`);
   }
   assert.deepStrictEqual(TC.colorsInCategory('dark'), ['midnight', 'dark', 'moderndark', 'exodark', 'cleandark']);
-  assert.strictEqual(TC.colorsInCategory('flat').length, 9);
+  // Ten flat themes: WeKan's nine, plus Jalor's own Bleu France one, which is
+  // first in the list and is the default a new board is created with.
+  assert.strictEqual(TC.colorsInCategory('flat').length, 10);
+  assert.strictEqual(TC.colorsInCategory('flat')[0], 'jalor');
   assert.deepStrictEqual(TC.colorsInCategory('special'),
     ['relax', 'corteza', 'appleglasspastel', 'modern', 'cleanlight']);
 });

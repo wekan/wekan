@@ -2410,5 +2410,6 @@
   "import-source-heading": "匯入從：",
   "import-parts-instruction": "僅會匯入已勾選的部分。匯出時亦採用相同的設定。",
   "import-wekan-file": "從 .json 或 .zip 匯出檔匯入：",
-  "jalor-tagline": "协作任务管理"
+  "jalor-tagline": "协作任务管理",
+  "jalor-main-nav": "主导航"
 }

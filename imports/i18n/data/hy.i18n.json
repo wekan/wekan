@@ -2407,5 +2407,6 @@
   "import-source-heading": "Ներմուծել այստեղից․",
   "import-parts-instruction": "Ներմուծվում են միայն նշված մասերը։ Նույն ընտրությունն օգտագործվում է արտահանելիս։",
   "import-wekan-file": "Ներմուծել .json կամ .zip արտահանման ֆայլից․",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

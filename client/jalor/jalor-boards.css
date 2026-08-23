@@ -29,10 +29,13 @@
 
 /* The tile's outer element keeps the board's colour - that is where every
    theme paints it (boardColors.css) - and the card inside it is inset from the
-   top, so what remains visible of the colour is a 6px band. */
+   top, so what remains visible of the colour is a 6px band.
+   No `background-color` here: `.board-list li.board-color-<name>` is the same
+   specificity as this selector and loads BEFORE it, so setting one would have
+   painted every board's band the same grey and thrown the colours away. The
+   default for a board with no colour is upstream's, in boardsList.css. */
 .board-list > li.js-board {
   border-radius: var(--jalor-radius);
-  background-color: var(--jalor-text-muted);
 }
 
 .board-list .board-list-item:not(.has-background-image) {

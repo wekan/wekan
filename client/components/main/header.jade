@@ -62,6 +62,30 @@ template(name="header")
               an SVG.
             img(src="{{pathFor '/jalor-logo-header.svg'}}" alt="{{headerLogoAlt}}" title="{{headerLogoAlt}}" width="116" height="28")
 
+      //- ------------------------------------------------------------------
+        Jalor's primary navigation.
+
+        WeKan reaches its four whole-application pages - My Cards, Due Cards,
+        Search, the Admin Panel - only from the pop-over behind the avatar, so
+        the parts of the product that are not a board are invisible until you
+        go looking for them. They are on the bar now, named, as the DSFR's
+        navigation is: a list of links with the current one marked.
+
+        Every entry is a route that already exists (config/router.js). Nothing
+        here is a page waiting to be written.
+
+        `aria-current="page"` and not only a class: that is what a screen
+        reader announces, and it is the whole accessibility content of a
+        navigation bar (RGAA 12.2).
+      nav#jalor-main-nav(aria-label="{{_ 'jalor-main-nav'}}")
+        ul
+          each jalorNav
+            li
+              a(href="{{url}}" aria-current="{{#if isCurrent}}page{{/if}}"
+                class="{{#if isCurrent}}is-current{{/if}}" title="{{_ labelKey}}")
+                i.fa(class="{{icon}}" aria-hidden="true")
+                span.jalor-nav-label {{_ labelKey}}
+
       // Mobile/desktop mode toggle (swapped with zoom)
       .mobile-mode-toggle
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")

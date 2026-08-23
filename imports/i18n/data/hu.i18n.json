@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importálás innen:",
   "import-parts-instruction": "Csak a bejelölt részek kerülnek importálásra. Ugyanez a választás érvényes exportáláskor is.",
   "import-wekan-file": "Importálás .json vagy .zip exportfájlból:",
-  "jalor-tagline": "Együttműködő feladatkezelés"
+  "jalor-tagline": "Együttműködő feladatkezelés",
+  "jalor-main-nav": "Fő navigáció"
 }

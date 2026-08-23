@@ -1456,7 +1456,7 @@
   "myCardsSortChangePopup-title": "Trier Mes Cartes",
   "myCardsSortChange-choice-board": "Par tableau",
   "myCardsSortChange-choice-dueat": "Par date d'échéance",
-  "dueCards-title": "Cartes Échues",
+  "dueCards-title": "Cartes échues",
   "dueCardsViewChange-title": "Vue des Cartes Échues",
   "dueCardsViewChangePopup-title": "Vue des Cartes Échues",
   "dueCardsViewChange-choice-me": "Moi",
@@ -2410,5 +2410,6 @@
   "import-source-heading": "Importer depuis :",
   "import-parts-instruction": "Seules les parties cochées sont importées. Le même choix est utilisé lors de l'export.",
   "import-wekan-file": "Importer depuis un fichier d'export .json ou .zip :",
-  "jalor-tagline": "Gestion collaborative des tâches"
+  "jalor-tagline": "Gestion collaborative des tâches",
+  "jalor-main-nav": "Navigation principale"
 }

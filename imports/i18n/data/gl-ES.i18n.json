@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importar desde:",
   "import-parts-instruction": "Só se importan as partes marcadas. Úsase a mesma selección ao exportar.",
   "import-wekan-file": "Importar desde un ficheiro de exportación .json ou .zip:",
-  "jalor-tagline": "Xestión colaborativa de tarefas"
+  "jalor-tagline": "Xestión colaborativa de tarefas",
+  "jalor-main-nav": "Navegación principal"
 }

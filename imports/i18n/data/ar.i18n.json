@@ -2410,5 +2410,6 @@
   "import-source-heading": "الاستيراد من:",
   "import-parts-instruction": "لا يُستورد سوى الأجزاء المحددة. ويُستخدم الاختيار نفسه عند التصدير.",
   "import-wekan-file": "الاستيراد من ملف تصدير ‏.json أو ‏.zip:",
-  "jalor-tagline": "إدارة تعاونية للمهام"
+  "jalor-tagline": "إدارة تعاونية للمهام",
+  "jalor-main-nav": "التنقل الرئيسي"
 }

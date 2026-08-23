@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importar dende:",
   "import-parts-instruction": "Namái s'importen les partes marcaes. La mesma esbilla úsase al esportar.",
   "import-wekan-file": "Importar dende un ficheru d'esportación .json o .zip:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

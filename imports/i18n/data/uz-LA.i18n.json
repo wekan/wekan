@@ -2407,5 +2407,6 @@
   "import-source-heading": "Quyidagidan import qilish:",
   "import-parts-instruction": "Faqat belgilangan qismlar import qilinadi. Eksport qilishda ham xuddi shu tanlov ishlatiladi.",
   "import-wekan-file": ".json yoki .zip eksport faylidan import qilish:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

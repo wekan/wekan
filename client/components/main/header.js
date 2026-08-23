@@ -10,6 +10,7 @@ import Announcements, {
 import { Utils } from '/client/lib/utils';
 // What this bar calls the page you are on. models/lib/pageTitles.js
 import { headerTitle } from '/models/lib/pageTitles';
+import { jalorNavEntries } from '/models/lib/jalorNav';
 // The bookmark rules. docs/Features/Board/Starred.md
 import { isStarrablePageUrl } from '/models/lib/starredPages';
 import { headerPathVar } from '/client/lib/headerPathVar';
@@ -274,6 +275,24 @@ function headerTitleTrailOf() {
 }
 
 Template.header.helpers({
+
+  // Jalor's primary navigation. The decision - which entries, and which one is
+  // current - is made by models/lib/jalorNav.js, which has no Meteor in it and
+  // is tested on its own; this only reads the router and the user and turns the
+  // route names into hrefs.
+  jalorNav() {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return [];
+    const entries = jalorNavEntries({
+      isAdmin: !!user.isAdmin,
+      isOrgAdmin: !!user.isOrgAdmin,
+      currentRoute: FlowRouter.getRouteName() || '',
+    });
+    return entries.map(entry => ({
+      ...entry,
+      url: FlowRouter.path(entry.routeName),
+    }));
+  },
 
   // Settings arrive after the header's first render. Keep an accessible name
   // on the stock logo during that short loading interval as well.

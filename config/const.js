@@ -1,4 +1,9 @@
 export const ALLOWED_BOARD_COLORS = [
+  // Jalor's own theme is FIRST, and being first is what makes it the default:
+  // models/boards.js gives a new board the first entry of this list. Bleu
+  // France, so a board looks like the rest of Jalor unless somebody chooses
+  // otherwise. Every WeKan theme below it is untouched and still selectable.
+  'jalor',
   'belize',
   'nephritis',
   'pomegranate',

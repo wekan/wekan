@@ -2407,5 +2407,6 @@
   "import-source-heading": "Importa des de:",
   "import-parts-instruction": "Només s'importen les parts marcades. La mateixa selecció s'usa en exportar.",
   "import-wekan-file": "Importa des d'un fitxer d'exportació .json o .zip:",
-  "jalor-tagline": "Gestió col·laborativa de tasques"
+  "jalor-tagline": "Gestió col·laborativa de tasques",
+  "jalor-main-nav": "Navegació principal"
 }

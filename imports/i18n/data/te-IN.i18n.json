@@ -2407,5 +2407,6 @@
   "import-source-heading": "దీని నుండి దిగుమతి:",
   "import-parts-instruction": "టిక్ చేసిన భాగాలు మాత్రమే దిగుమతి అవుతాయి. ఎగుమతి చేసేటప్పుడూ అదే ఎంపిక వాడబడుతుంది.",
   "import-wekan-file": ".json లేదా .zip ఎగుమతి ఫైల్ నుండి దిగుమతి చేయి:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }

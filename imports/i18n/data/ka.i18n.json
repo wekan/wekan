@@ -2407,5 +2407,6 @@
   "import-source-heading": "იმპორტი წყაროდან:",
   "import-parts-instruction": "იმპორტირდება მხოლოდ მონიშნული ნაწილები. იგივე არჩევანი გამოიყენება ექსპორტისას.",
   "import-wekan-file": "იმპორტი .json ან .zip ექსპორტის ფაილიდან:",
-  "jalor-tagline": "Collaborative task management"
+  "jalor-tagline": "Collaborative task management",
+  "jalor-main-nav": "Main navigation"
 }
