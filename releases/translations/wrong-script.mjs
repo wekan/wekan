@@ -104,6 +104,11 @@ function wrongScriptKeys(lang) {
     if (typeof value !== 'string' || !value.trim()) continue;
     if (value === en[key]) continue;                 // untranslated, not wrong
 
+    // IPv4 and IPv6 are universal protocol identifiers, not English prose.
+    // Strip only those exact tokens for script analysis; the translated words
+    // around them remain and are still checked below.
+    const analyzedValue = value.replace(/\bIPv[46]\b/g, "");
+
     // A value written ENTIRELY in the Latin alphabet, inside a language that is
     // not, is the other half of this check - and the half that stayed invisible
     // longest, because Latin is not one of the blocks compared below. Greek
@@ -111,10 +116,10 @@ function wrongScriptKeys(lang) {
     // French while the count read zero. Product names are Latin too, so a value
     // is only suspect when it says something: five letters or more, and not the
     // English source wearing different punctuation.
-    if (!LATIN_SCRIPTS.has(script) && !RANGES[script].test(value)
-        && LETTER.test(value) && bare(value).length >= 5
-        && bare(value) !== bare(en[key] || '')
-        && !CJK_OK(script, value)) {
+    if (!LATIN_SCRIPTS.has(script) && !RANGES[script].test(analyzedValue)
+        && LETTER.test(analyzedValue) && bare(analyzedValue).length >= 5
+        && bare(analyzedValue) !== bare(en[key] || '')
+        && !CJK_OK(script, analyzedValue)) {
       out.push({ key, value, en: en[key], found: 'latin' });
       continue;
     }
@@ -128,7 +133,7 @@ function wrongScriptKeys(lang) {
       // for hangul hid 80 such values in each Korean file (看板, 拡大, 担当者).
       if (name === 'cjk' && script === 'kana') continue;
       if (name === 'cjk' && script === 'hangul' && RANGES.hangul.test(value)) continue;
-      if (!re.test(value)) continue;
+      if (!re.test(analyzedValue)) continue;
       out.push({ key, value, en: en[key], found: name });
       break;
     }

@@ -66,14 +66,30 @@ for (const name of fs.readdirSync(DATA_DIR).sort()) {
   );
   ambiguousSources += ambiguous.size;
 
+  // Protocol versions are not vocabulary: preserve this language own
+  // translation and word order for "IP address", changing only the standard
+  // literal token. Refuse the derivation unless the base is unique and really
+  // contains that token.
+  const derivedMemory = new Map();
+  const ipAddressValues = memory.get("IP address");
+  if (ipAddressValues?.size === 1) {
+    const ipAddress = ipAddressValues.values().next().value;
+    if (/\bIP\b/.test(ipAddress)) {
+      derivedMemory.set("IPv4 address", ipAddress.replace(/\bIP\b/g, "IPv4"));
+      derivedMemory.set("IPv6 address", ipAddress.replace(/\bIP\b/g, "IPv6"));
+    }
+  }
+
   let filled = 0;
   for (const key of keys) {
     const source = en[key];
     const current = data[key];
     if (typeof source !== 'string' || (typeof current === 'string' && current !== source)) continue;
+    const derived = derivedMemory.get(source);
     const values = memory.get(source);
-    if (!values || values.size !== 1) continue;
-    data[key] = values.values().next().value;
+    const exact = values?.size === 1 ? values.values().next().value : undefined;
+    if (derived === undefined && exact === undefined) continue;
+    data[key] = derived ?? exact;
     filled += 1;
   }
 
