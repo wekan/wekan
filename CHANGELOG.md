@@ -385,6 +385,39 @@ browser build to verify).
 
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Playwright authentication** now waits for the resumed user after
+navigation, and local **WebKit** runs retry once with a fresh worker after rare
+renderer failures. Below that: regression coverage for both safeguards.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release improves the following developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47b277932">Playwright waits for resumed users and retries unstable WebKit renderers</a>. Thanks to xet7.</summary>
+
+Token login now waits for the expected Meteor user after the final navigation,
+preventing an authorized method call from racing Accounts token resumption. Local
+WebKit runs retry once in a fresh worker when its renderer fails internally after
+many tests; persistent application and assertion failures still fail. Regression
+tests require the identity wait, its bounded timeout, the local retry and the
+unchanged two-retry CI policy.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.08 2026-08-23 WeKan ® release
 
 **In short:** six coordinated reports harden **REST authorization**, board
