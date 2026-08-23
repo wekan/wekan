@@ -232,13 +232,15 @@ Korean followed with **60 values** across five language tags, then Russian and
 Ukrainian with **72 values** across six language tags, and Arabic with **48
 values** across four language tags, then Hebrew and Persian with **48 values**
 across four language tags, then Hindi and Gujarati with **36 values** across
-three language tags, then Greek with **24 values** across both language tags.
+three language tags, then Greek with **24 values** across both language tags,
+then Belarusian and Bulgarian with **24 values**, and Khmer with **36 values**
+across three language tags.
 
 **What is left, in the order worth doing it.** As of **2026-08-23**:
 
 | Files | To translate | Nothing to translate | Which |
 | --- | --- | --- | --- |
-| 56 | **631** | 2,171 | non-Latin, near-complete |
+| 56 | **571** | 2,171 | non-Latin, near-complete |
 | 86 | **2,868** | 3,980 | Latin-script, near-complete |
 | 92 | **192,241** | 15,829 | second tier |
 
@@ -248,7 +250,7 @@ source because that IS the translation — product names (*Meteor*, *MongoDB*,
 `__board__` placeholders. They will never stop counting, and they are why a flat
 count reads several times larger than the work.
 
-1. **The 56 non-Latin near-complete files: 631.** New Office and API
+1. **The 56 non-Latin near-complete files: 571.** New Office and API
    report strings now dominate this tier; an English string is most glaring
    where it interrupts another script.
 2. **The 86 Latin-script near-complete files: 2,868.** Smaller than it looks,
@@ -401,9 +403,10 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Office and API reports** now read in Chinese, Japanese, Korean,
-Russian, Ukrainian, Arabic, Hebrew, Persian, Hindi, Gujarati and Greek. **IPv4
-and IPv6 labels** reuse established vocabulary. Below that: visible obsolete English
-placeholders, safer local translation memory and regression coverage.
+Russian, Ukrainian, Belarusian, Bulgarian, Arabic, Hebrew, Persian, Hindi,
+Gujarati, Greek and Khmer. **IPv4 and IPv6 labels** reuse established vocabulary.
+Below that: visible obsolete English placeholders and focused regression
+coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -472,6 +475,16 @@ intentionally universal API labels.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2697c354c">Office and API reports use Belarusian and Bulgarian</a>. Thanks to xet7.</summary>
+
+All twelve report labels and descriptions now use distinct Belarusian and
+Bulgarian vocabulary in Cyrillic script. REST API, IPv4, IPv6 and WITH_API=true
+remain recognizable. Regression coverage checks every translated key, both
+languages and the intentionally universal API labels.
+
+</details>
+
 **Right-to-left translations** - the Office and REST API usage reports.
 
 <details>
@@ -516,6 +529,18 @@ All twelve report labels and descriptions now cover both Greek language tags in
 Greek script. REST API, IPv4, IPv6 and WITH_API=true remain recognizable.
 Regression coverage checks every translated key, Greek-script content and the
 intentionally universal API labels.
+
+</details>
+
+**Khmer translations** - the Office and REST API usage reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e160af7dc">Office and API reports use Khmer</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Khmer vocabulary
+across the three Khmer language tags. API, REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, Khmer script, variant consistency and the intentionally universal literals.
 
 </details>
 
