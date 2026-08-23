@@ -405,7 +405,7 @@ browser build to verify).
 
 **In short:** a **CRITICAL SECURITY ISSUE**, **ImportBleed**, allowed a
 logged-out DDP client to write imported board data directly into the database;
-both import methods now reject unauthenticated callers before processing input.
+both import methods now reject unauthenticated callers before import processing.
 Below that: bounded legacy E2E login waits, Office and API report translations,
 visible obsolete English placeholders and focused regression coverage.
 
@@ -423,14 +423,13 @@ visible obsolete English placeholders and focused regression coverage.
 This release fixes the following CRITICAL SECURITY ISSUE of [ImportBleed](https://wekan.fi/hall-of-fame/importbleed/):
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f69df317">Board imports reject logged-out DDP callers before processing input</a>. Thanks to Char0n1507 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2898635df">Board imports reject logged-out DDP callers before import processing</a>. Thanks to Char0n1507 and xet7.</summary>
 
 The importBoard method reached direct collection writers without first requiring
 an authenticated user, allowing a network client with no account or token to
 create imported board data and placeholder users. importBoard and importScoped
-now reject logged-out callers before argument processing, feature checks, parsers
-or creators can run, and scoped imports carry the authenticated method user
-explicitly. Denied attempts are attributed by connection address in Admin Panel /
+now complete Meteor’s mandatory type checks, then reject logged-out callers
+before feature checks, parsers or creators can run. Scoped imports carry the authenticated method user explicitly. Denied attempts are attributed by connection address in Admin Panel /
 Problems. Source-level and logged-out browser regression tests cover the guard
 and no-write outcome. See
 [GHSA-qp32-wqxw-wq3h](https://github.com/wekan/wekan/security/advisories/GHSA-qp32-wqxw-wq3h)
