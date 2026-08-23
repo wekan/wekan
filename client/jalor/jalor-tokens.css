@@ -24,7 +24,8 @@
   --jalor-bg: var(--background-default-grey);
   --jalor-bg-alt: var(--background-alt-grey);
   --jalor-bg-contrast: var(--background-contrast-grey);
-  --jalor-bg-raised: var(--background-raised-grey);
+  --jalor-bg-contrast-hover: var(--background-contrast-grey-hover);
+  --jalor-bg-disabled: var(--background-disabled-grey);
   --jalor-bg-overlay: var(--background-overlap-grey, var(--background-raised-grey));
 
   /* --- Text -------------------------------------------------------------- */
@@ -42,16 +43,14 @@
   --jalor-primary-text: var(--text-action-high-blue-france);
   --jalor-primary-soft: var(--background-action-low-blue-france);
   --jalor-primary-soft-hover: var(--background-action-low-blue-france-hover);
-  --jalor-primary-open: var(--background-open-blue-france);
 
   /* --- Borders ----------------------------------------------------------- */
   --jalor-border: var(--border-default-grey);
   --jalor-border-strong: var(--border-plain-grey);
-  --jalor-border-contrast: var(--border-contrast-grey);
-  --jalor-border-primary: var(--border-action-high-blue-france);
 
   /* --- Feedback ---------------------------------------------------------- */
   --jalor-error: var(--text-default-error);
+  --jalor-error-strong: var(--background-action-high-error);
   --jalor-error-border: var(--border-plain-error);
   --jalor-error-bg: var(--background-contrast-error);
   --jalor-success: var(--text-default-success);
@@ -60,7 +59,6 @@
   --jalor-warning: var(--text-default-warning);
   --jalor-warning-border: var(--border-plain-warning);
   --jalor-warning-bg: var(--background-contrast-warning);
-  --jalor-info: var(--text-default-info);
   --jalor-info-border: var(--border-plain-info);
   --jalor-info-bg: var(--background-contrast-info);
 
@@ -86,7 +84,6 @@
   --jalor-font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   --jalor-font-size-sm: calc(12px * var(--wekan-ui-font-scale, 1));
   --jalor-font-size-lg: calc(16px * var(--wekan-ui-font-scale, 1));
-  --jalor-font-size-xl: calc(20px * var(--wekan-ui-font-scale, 1));
   --jalor-line-height: 1.5;
 
   /* --- Geometry ---------------------------------------------------------
@@ -119,11 +116,12 @@
    * unthemed Jalor is Bleu France. */
   --jalor-header-bg: var(--theme-accent, var(--jalor-primary));
   --jalor-header-text: #ffffff;
-  --jalor-header-height: 44px;
 
-  /* --- Kanban density ---------------------------------------------------- */
-  --jalor-list-width: 272px;
-  --jalor-list-gap: 8px;
+  /* --- Kanban density ----------------------------------------------------
+   * The one number the Kanban layer reads from here. The column WIDTH is not a
+   * token: it is a per-board setting WeKan already stores and lets a user drag
+   * (client/components/lists/list.js), and a token would only be a second,
+   * disagreeing answer. */
   --jalor-minicard-padding: 8px;
 }
 

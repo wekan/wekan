@@ -420,7 +420,6 @@ p {
   -webkit-user-select: text;
   user-select: text;
 
-
 }
 p a {
   text-decoration: underline;
@@ -624,20 +623,7 @@ a:not(.disabled).is-active i.fa {
 .atMention.me {
   background: #cfdfe8;
 }
-.big-message {
-  display: block;
-  margin: 90px auto;
-  text-align: center;
-  max-width: min(600px, 90vw);
-}
-.big-message h1 {
-  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
-  margin-bottom: 27px;
-}
-.big-message p {
-  font-size: calc(16px * var(--wekan-ui-font-scale, 1));
-  line-height: 1.3;
-}
+
 .gutter {
   margin-inline-start: 70px;
 }

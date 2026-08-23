@@ -45,7 +45,7 @@ services:
   # ---------------------------------------------------------------------
   wekandb:
     image: mongo:7
-    container_name: wekan-db
+    container_name: jalor-db
     restart: always
     network_mode: "host"
     entrypoint: ["sh", "-c"]
@@ -79,8 +79,15 @@ services:
   #   3. uws.port in METEOR_SETTINGS — here 5001
   # ---------------------------------------------------------------------
   wekan-tenant1:
-    image: ghcr.io/wekan/wekan:latest
-    container_name: wekan-tenant1
+    # Jalor, built from this checkout - see docker-compose.yml. Both tenants use
+    # the SAME image: they are two instances of one application, told apart by
+    # their port, their database and their uws port, and building it twice would
+    # only mean two chances of them drifting apart.
+    image: ${JALOR_IMAGE:-jalor:local}
+    build:
+      context: .
+      dockerfile: Dockerfile.jalor
+    container_name: jalor-tenant1
     restart: always
     network_mode: "host"
     depends_on:
@@ -104,8 +111,15 @@ services:
   # Tenant 2 — same template, distinct PORT / database / uws.port
   # ---------------------------------------------------------------------
   wekan-tenant2:
-    image: ghcr.io/wekan/wekan:latest
-    container_name: wekan-tenant2
+    # Jalor, built from this checkout - see docker-compose.yml. Both tenants use
+    # the SAME image: they are two instances of one application, told apart by
+    # their port, their database and their uws port, and building it twice would
+    # only mean two chances of them drifting apart.
+    image: ${JALOR_IMAGE:-jalor:local}
+    build:
+      context: .
+      dockerfile: Dockerfile.jalor
+    container_name: jalor-tenant2
     restart: always
     network_mode: "host"
     depends_on:

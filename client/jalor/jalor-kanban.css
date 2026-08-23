@@ -180,21 +180,30 @@
 
 /* --- Moving a card without a mouse ---------------------------------------
  * Drag and drop cannot be the only way to move a card (RGAA 7.3 / WCAG 2.1
- * SC 2.1.1). WeKan already renders the arrows - `.minicard-move-buttons` with
- * .js-card-move-up / .js-card-move-down - and the card menu carries "Move card
- * to…" as well. They are made VISIBLE here as proper controls rather than as
- * faint glyphs, because an alternative nobody can find is not one.
- * tests/jalorAccessibleCardMove.test.cjs pins that both routes still exist. */
-.minicard .minicard-move-buttons a {
-  color: var(--jalor-text-muted);
+ * SC 2.1.1). WeKan already answers that, and answers it well, so Jalor keeps
+ * the mechanism exactly as it is and only recolours it:
+ *
+ *   - `.minicard-move-buttons.sr-only` holds a real, hit-testable pair of
+ *     up/down controls that are transparent until focused and then reveal
+ *     themselves (client/components/main/layouts.css), so a keyboard user can
+ *     see where the focus went;
+ *   - the card's own actions menu carries "Move card to...", "Move to top" and
+ *     "Move to bottom" as visible items, which is the route for somebody who
+ *     is not tabbing through the board.
+ *
+ * tests/jalorAccessibleCardMove.test.cjs pins both routes, so neither can be
+ * lost to a later cleanup.
+ *
+ * Only the revealed colours change here, to Bleu France - the same accent the
+ * rest of Jalor uses for a focused control. The geometry is left to WeKan: it
+ * is what keeps the transparent control from nudging the card's layout. */
+.minicard .minicard-move-buttons.sr-only a:focus,
+.minicard .minicard-move-buttons.sr-only a:focus-visible {
+  background: var(--theme-accent, var(--jalor-primary));
+  color: #fff;
   border-radius: var(--jalor-radius);
-  padding: 2px var(--jalor-space-1);
-}
-
-.minicard .minicard-move-buttons a:hover,
-.minicard .minicard-move-buttons a:focus-visible {
-  color: var(--jalor-primary-text);
-  background: var(--jalor-primary-soft);
+  outline: var(--jalor-focus-width) solid var(--jalor-focus-color);
+  outline-offset: var(--jalor-focus-offset);
 }
 
 /* --- Drag affordances ----------------------------------------------------- */

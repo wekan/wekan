@@ -1,22 +1,23 @@
 template(name="support")
-  .support-page
-    if isSupportPublic
-      if isSupportEnabled
-        .support-page-content
-          +viewer
-            | {{supportContent}}
-      else
-        .support-page-content
-          | {{_ 'support-info-not-added-yet'}}
-    else
-      if currentUser
+  //- Same shape as the accessibility page: one block of administrator-written
+    text, in a DSFR callout. The three branches below are WeKan's own visibility
+    rules (public page / signed in / neither) and are unchanged.
+  .support-page.jalor-page
+    .fr-callout
+      if isSupportPublic
         if isSupportEnabled
-          .support-page-content
+          .fr-callout__text
             +viewer
               | {{supportContent}}
         else
-          .support-page-content
-            | {{_ 'support-info-not-added-yet'}}
+          p.fr-callout__text {{_ 'support-info-not-added-yet'}}
       else
-        .support-page-content
-          | {{_ 'support-info-only-for-logged-in-users'}}
+        if currentUser
+          if isSupportEnabled
+            .fr-callout__text
+              +viewer
+                | {{supportContent}}
+          else
+            p.fr-callout__text {{_ 'support-info-not-added-yet'}}
+        else
+          p.fr-callout__text {{_ 'support-info-only-for-logged-in-users'}}

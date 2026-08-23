@@ -1,0 +1,129 @@
+# =============================================================================
+# Jalor — build the application from THIS checkout.
+#
+# Why this file exists beside the WeKan Dockerfile rather than replacing it:
+# the Dockerfile next door does not compile anything. It downloads a published
+# release archive,
+#
+#     https://github.com/wekan/wekan/releases/download/v${VERSION}/wekan-...zip
+#
+# and packages it. That is exactly right for upstream, whose CI has already
+# built the bundle by the time the image job runs - and exactly wrong here,
+# because it would produce upstream WeKan and none of the Jalor work in this
+# repository would be in the image. It is left untouched so upstream's own
+# release tooling keeps working.
+#
+# This file builds the Meteor bundle from source in one stage and ships it in
+# another, which is the ordinary way to containerise a Meteor application:
+#
+#   docker compose up -d          # uses this file (see docker-compose.yml)
+#   docker build -f Dockerfile.jalor -t jalor:local .
+#
+# The first build is long - it downloads the Meteor tool and compiles the whole
+# client bundle. Afterwards Docker's layer cache makes rebuilds quick as long
+# as package.json and .meteor/ have not changed.
+# =============================================================================
+
+# --- Stage 1: build ----------------------------------------------------------
+FROM debian:trixie AS builder
+
+# Kept in step with the Dockerfile beside this one (NODE_VERSION) and with
+# .meteor/release. Both are build arguments so a build can pin a different pair
+# without editing the file.
+ARG NODE_VERSION=v24.19.0
+ARG METEOR_RELEASE=3.5.2-beta.0
+ARG TARGETARCH
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    METEOR_ALLOW_SUPERUSER=true \
+    NPM_CONFIG_UPDATE_NOTIFIER=false \
+    NPM_CONFIG_FUND=false \
+    NPM_CONFIG_AUDIT=false
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ca-certificates curl xz-utils git python3 g++ make bsdtar procps \
+ && rm -rf /var/lib/apt/lists/*
+
+# Node.js, from nodejs.org, at the version the runtime stage also uses. The
+# checksum is verified: an unverified toolchain download is how a build machine
+# becomes somebody else's.
+RUN set -eux; \
+    case "${TARGETARCH:-amd64}" in \
+      amd64) node_arch=x64 ;; \
+      arm64) node_arch=arm64 ;; \
+      *) echo "unsupported architecture: ${TARGETARCH}" >&2; exit 1 ;; \
+    esac; \
+    cd /tmp; \
+    curl -fsSLO "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-${node_arch}.tar.xz"; \
+    curl -fsSLO "https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt"; \
+    grep " node-${NODE_VERSION}-linux-${node_arch}.tar.xz\$" SHASUMS256.txt | sha256sum -c -; \
+    tar -xJf "node-${NODE_VERSION}-linux-${node_arch}.tar.xz" -C /usr/local \
+        --strip-components=1 --no-same-owner; \
+    rm -f "node-${NODE_VERSION}-linux-${node_arch}.tar.xz" SHASUMS256.txt; \
+    node --version; npm --version
+
+# The Meteor tool, at the release .meteor/release names.
+RUN curl -fsSL "https://install.meteor.com/?release=${METEOR_RELEASE}" | sh
+ENV PATH="/root/.meteor:${PATH}"
+
+WORKDIR /source
+
+# Dependencies first, so a change to application code does not re-download the
+# npm tree. .dsfr.yml comes with them: @gouvfr/dsfr refuses to install until it
+# finds that file, which records this project's acceptance of the DSFR's terms
+# of use (see docs/Jalor/DSFR.md).
+COPY package.json package-lock.json .dsfr.yml ./
+COPY npm-packages ./npm-packages
+COPY scripts ./scripts
+RUN meteor npm install
+
+# Then the application itself.
+COPY . .
+
+# `--server-only` because nothing here serves a Cordova mobile build; the web
+# client is part of the server bundle either way.
+RUN set -eux; \
+    case "${TARGETARCH:-amd64}" in \
+      amd64) meteor_arch=os.linux.x86_64 ;; \
+      arm64) meteor_arch=os.linux.aarch64 ;; \
+      *) echo "unsupported architecture: ${TARGETARCH}" >&2; exit 1 ;; \
+    esac; \
+    meteor build --directory /build --server-only --architecture "${meteor_arch}"
+
+# The bundle's own npm dependencies, installed against the runtime's Node.
+RUN cd /build/bundle/programs/server && npm install --omit=dev
+
+# --- Stage 2: run ------------------------------------------------------------
+FROM debian:trixie-slim AS runtime
+
+ARG NODE_VERSION=v24.19.0
+
+# The same defaults the WeKan image publishes, so a compose file written for one
+# works with the other. Every one of them is meant to be overridden.
+ENV PORT=8080 \
+    ROOT_URL=http://localhost \
+    MONGO_URL=mongodb://ferretdb:27017/wekan?directConnection=true \
+    WITH_API=true \
+    WRITABLE_PATH=/data \
+    NODE_ENV=production
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates tzdata \
+ && rm -rf /var/lib/apt/lists/* \
+ && useradd --create-home --shell /bin/bash jalor \
+ && mkdir -p /data \
+ && chown jalor:jalor /data
+
+COPY --from=builder /usr/local/bin/node /usr/local/bin/node
+COPY --from=builder --chown=jalor:jalor /build/bundle /home/jalor/app
+
+USER jalor
+WORKDIR /home/jalor/app
+
+EXPOSE 8080
+VOLUME ["/data"]
+
+# The bundle's entry point. No shell in between, so a `docker stop` reaches
+# node itself and Meteor gets its SIGTERM.
+CMD ["node", "main.js"]

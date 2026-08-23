@@ -48,7 +48,7 @@ input[type='url']:hover,
 input[type='date']:hover,
 input[type='time']:hover,
 input[type='datetime-local']:hover {
-  background-color: var(--background-contrast-grey-hover, var(--jalor-bg-contrast));
+  background-color: var(--jalor-bg-contrast-hover);
   border-bottom-color: var(--jalor-text-title);
 }
 
@@ -70,7 +70,7 @@ select:disabled,
 textarea:disabled,
 input:disabled,
 .wekan-form-control:disabled {
-  background-color: var(--background-disabled-grey);
+  background-color: var(--jalor-bg-disabled);
   color: var(--jalor-text-disabled);
   border-bottom-color: var(--jalor-text-disabled);
   cursor: not-allowed;
@@ -235,7 +235,7 @@ button.negate:hover,
 input[type='submit'].negate:focus,
 button.negate:focus,
 .button-link.danger:hover {
-  background: var(--text-default-error);
+  background: var(--jalor-error-strong);
   background-image: none;
   box-shadow: none;
   color: #fff;
@@ -266,7 +266,7 @@ input[type='submit']:not(.fr-btn):disabled,
 input[type='button']:not(.fr-btn):disabled,
 .button.disabled,
 .button-link.disabled {
-  background: var(--background-disabled-grey);
+  background: var(--jalor-bg-disabled);
   background-image: none;
   border-color: transparent;
   color: var(--jalor-text-disabled);

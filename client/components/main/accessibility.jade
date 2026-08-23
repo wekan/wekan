@@ -1,10 +1,14 @@
 template(name="accessibility")
   if currentUser
-    .accessibility-page
-      if isAccessibilityEnabled
-        .accessibility-page-content
-          +viewer
-            | {{accessibilityContent}}
-      else
-        .accessibility-page-content
-          | {{_ 'accessibility-info-not-added-yet'}}
+    //- The accessibility statement an administrator writes in Admin Panel /
+      Settings. A DSFR callout, because that is what this page is: one block of
+      text a reader was sent here to read. `.accessibility-page-content` and its
+      rules are gone - this was their only use.
+    .accessibility-page.jalor-page
+      .fr-callout
+        if isAccessibilityEnabled
+          .fr-callout__text
+            +viewer
+              | {{accessibilityContent}}
+        else
+          p.fr-callout__text {{_ 'accessibility-info-not-added-yet'}}

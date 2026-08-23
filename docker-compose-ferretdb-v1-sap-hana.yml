@@ -84,7 +84,7 @@ services:
   # it. Only the --handler and its URL differ from the other compose files here.
   ferretdb:
     image: debian:bookworm-slim
-    container_name: wekan-ferretdb
+    container_name: jalor-ferretdb
     restart: always
     environment:
       DO_NOT_TRACK: "1"
@@ -148,25 +148,31 @@ services:
 
   wekan:
     #-------------------------------------------------------------------------------------
-    # ==== WEKAN FROM GITHUB/QUAY/DOCKER HUB ====
-    # All of GitHub, Quay and Docker Hub have latest, but because
-    # latest tag changes when is newest release,
-    # when upgrading would be better to use version tag.
-    # a) Using specific version tag is better:
-    # image: ghcr.io/wekan/wekan:v6.89
-    # image: quay.io/wekan/wekan:v6.89
-    # image: wekanteam/wekan:v6.89
-    # b) GitHub Container registry.
-    # b1) Latest release tag:
-    image: ghcr.io/wekan/wekan:latest
-    # b2) Newest git commit automatic build:
-    #image: ghcr.io/wekan/wekan:main
-    # c) Quay:
-    #image: quay.io/wekan/wekan:latest
-    # d) Docker Hub:
-    #image: wekanteam/wekan:latest
+    # ==== JALOR, BUILT FROM THIS CHECKOUT ====
+    # `docker compose up -d` has to give you JALOR. Upstream's compose file pulls
+    # a published wekan image, which is the right default THERE and the wrong one
+    # here: it would start WeKan and none of the work in this repository would be
+    # in it. So the image is built from Dockerfile.jalor.
+    #
+    # The first build is long (it compiles the Meteor bundle); afterwards Docker
+    # caches it and `up -d` is quick. To rebuild after pulling new commits:
+    #   docker compose build --pull && docker compose up -d
+    #
+    # To run a PUBLISHED image instead - a registry of your own, or upstream
+    # WeKan for comparison - set JALOR_IMAGE and comment the `build:` block out:
+    #   JALOR_IMAGE=ghcr.io/example/jalor:v1 docker compose up -d
+    image: ${JALOR_IMAGE:-jalor:local}
+    build:
+      context: .
+      # Dockerfile.jalor, NOT the Dockerfile beside it: that one does not
+      # compile anything, it downloads a published WeKan release archive and
+      # packages it, so building it here would produce upstream WeKan with none
+      # of this repository's work in it. It is left alone so upstream's release
+      # tooling keeps working. Dockerfile.jalor builds the Meteor bundle from
+      # this checkout.
+      dockerfile: Dockerfile.jalor
     #-------------------------------------------------------------------------------------
-    container_name: wekan-app
+    container_name: jalor-app
     # On CentOS 7 there is seccomp issue with glibc 6,
     # so CentOS 7 users shoud use these security_opt seccomp:unconfined
     # settings to get WeKan working. See:
@@ -178,11 +184,11 @@ services:
     networks:
       - wekan-tier
     #-------------------------------------------------------------------------------------
-    # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
-    # ==== and use commands: docker compose up -d --build
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
+    # ==== BUILDING FROM SOURCE IS THE DEFAULT HERE ====
+    # Upstream keeps a commented-out `build:` block at this spot, because its
+    # default is to pull a published image. Jalor's default is the opposite: the
+    # `build:` block near the top of this service is live, and points at
+    # Dockerfile.jalor. There is nothing to uncomment here.
     #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
@@ -261,7 +267,7 @@ services:
       #       You can encode those characters for example at: https://www.urlencoder.org
       #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
       - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
-      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      - MAIL_FROM=Notifications Jalor <noreply.jalor@mydomain.com>
       # Currently MAIL_SERVICE is not in use.
       #- MAIL_SERVICE=Outlook365
       #- MAIL_SERVICE_USER=firstname.lastname@hotmail.com
@@ -902,6 +908,10 @@ services:
       - wekan-files:/data:rw
 
 volumes:
+  # The volume NAMES stay as they are on purpose, where the container names were
+  # renamed to jalor-*. A container name is a label; a volume name is where the
+  # data lives, and renaming it would silently start an existing installation
+  # with empty attachments and an empty database rather than with its own.
   wekan-files:
     driver: local
   ferretdb-data:

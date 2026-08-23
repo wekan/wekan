@@ -67,7 +67,13 @@ template(name="userFormsLayout")
         +loader
       else
         // ARIA live region for error messages
-        div#login-error-message(role="alert" aria-live="assertive" style="color: #d32f2f; margin-bottom: 1em;")
+        //- The live region the sign-in code writes failures into. The colour
+          and the spacing used to be an inline `style`, which is the one place
+          a stylesheet cannot reach: the DSFR error treatment in
+          client/jalor/jalor-auth.css draws it now - a red leading rule, a
+          tinted ground and red text - and it only draws when the region has
+          something in it, so an empty alert is not an empty red box.
+        div#login-error-message(role="alert" aria-live="assertive")
         +Template.dynamic(template=content)
         if currentSetting.displayAuthenticationMethod
           +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
@@ -134,11 +140,17 @@ template(name="defaultLayout")
 template(name="notFound")
   +message(label='page-not-found')
 
+//- "Not found", "this board is private", and every other page that has one
+  thing to say. A real DSFR callout - `fr-callout` with its title and text -
+  rather than WeKan's `.big-message`, which was a centred grey paragraph with
+  no shape of its own. The class it replaced was used here and nowhere else,
+  so its rules went from layouts.css with it.
 template(name="message")
-  .big-message.quiet(class=color)
-    h1 {{_ label}}
-    unless currentUser
-      p {{{_ 'page-maybe-private' '/sign-in'}}}
+  .jalor-page
+    .fr-callout(class=color)
+      h1.fr-callout__title {{_ label}}
+      unless currentUser
+        p.fr-callout__text {{{_ 'page-maybe-private' '/sign-in'}}}
 
 template(name="loader")
   h1.loadingText {{_ 'loading'}}

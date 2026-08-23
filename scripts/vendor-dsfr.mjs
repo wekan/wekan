@@ -175,6 +175,14 @@ function main() {
   fs.mkdirSync(cssOut, { recursive: true });
   fs.mkdirSync(assetOut, { recursive: true });
 
+  // The banner goes AFTER a leading `@charset`, never before it: `@charset` is
+  // only honoured as the very first bytes of a stylesheet, and a comment in
+  // front of it turns it into a no-op.
+  const withBanner = (css, what) => {
+    const m = css.match(/^@charset [^;]+;\s*/);
+    return m ? m[0] + banner(what) + css.slice(m[0].length) : banner(what) + css;
+  };
+
   const banner = (what) =>
     `/* DSFR ${version} - ${what}.\n` +
     ` * Vendored by scripts/vendor-dsfr.mjs from the npm package @gouvfr/dsfr.\n` +
@@ -184,11 +192,18 @@ function main() {
     ` * bundled by rspack without its font and icon references being resolved as\n` +
     ` * modules (see the css-loader rule in rspack.config.js). */\n`;
 
-  // 1. The stylesheet, with only its url() paths repointed.
+  // 1. The stylesheet, with only its url() paths repointed. It names its fonts
+  //    AND about sixty icons of its own - the ones its components draw without
+  //    being asked for an icon class: the checkbox tick, the alert marks, the
+  //    accordion caret, the pagination arrows, the external-link glyph.
   const core = fs
     .readFileSync(path.join(dist, 'dsfr.min.css'), 'utf8')
-    .replace(/url\(fonts\//g, 'url(/dsfr/fonts/');
-  fs.writeFileSync(path.join(cssOut, 'dsfr.min.css'), banner('core, components and utilities') + core);
+    .replace(/url\((["']?)fonts\//g, 'url($1/dsfr/fonts/')
+    .replace(/url\((["']?)icons\//g, 'url($1/dsfr/icons/');
+  fs.writeFileSync(
+    path.join(cssOut, 'dsfr.min.css'),
+    withBanner(core, 'core, components and utilities'),
+  );
 
   // 2. Marianne and Spectral.
   const fontsDir = path.join(dist, 'fonts');
@@ -204,22 +219,29 @@ function main() {
     /\.\.\/\.\.\/icons\//g,
     '/dsfr/icons/',
   );
-  fs.writeFileSync(path.join(cssOut, 'dsfr.icons.css'), `${banner('icon sheet, trimmed to the icons Jalor uses')}${filtered}\n`);
+  fs.writeFileSync(
+    path.join(cssOut, 'dsfr.icons.css'),
+    `${withBanner(filtered, 'icon sheet, trimmed to the icons Jalor uses')}\n`,
+  );
 
+  // 4. Every icon file either sheet points at - the ones the core sheet's own
+  //    components draw, and the ones the trimmed icon sheet carries.
   const missing = [];
   const copied = new Set();
-  for (const m of filtered.matchAll(/url\(\/dsfr\/(icons\/[^)]+\.svg)\)/g)) {
-    const rel = m[1];
-    const from = path.join(dist, rel);
-    if (!fs.existsSync(from)) {
-      missing.push(rel);
-      continue;
+  for (const sheet of [core, filtered]) {
+    for (const m of sheet.matchAll(/url\(["']?\/dsfr\/(icons\/[^)"']+\.svg)["']?\)/g)) {
+      const rel = m[1];
+      const from = path.join(dist, rel);
+      if (!fs.existsSync(from)) {
+        missing.push(rel);
+        continue;
+      }
+      copyFile(from, path.join(assetOut, rel));
+      copied.add(rel);
     }
-    copyFile(from, path.join(assetOut, rel));
-    copied.add(rel);
   }
 
-  // 4. Licence and version, so what is vendored says where it came from.
+  // 5. Licence and version, so what is vendored says where it came from.
   const licence = path.join(srcRoot, 'LICENSE.md');
   if (fs.existsSync(licence)) copyFile(licence, path.join(assetOut, 'DSFR-LICENSE.md'));
   const cgu = path.join(srcRoot, 'doc', 'legal', 'cgu.md');

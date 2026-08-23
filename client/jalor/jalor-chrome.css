@@ -250,7 +250,7 @@
 
 .boards-pagination button.disabled,
 .pagination-controls button.disabled {
-  background: var(--background-disabled-grey);
+  background: var(--jalor-bg-disabled);
   border-color: transparent;
   color: var(--jalor-text-disabled);
 }
@@ -315,11 +315,17 @@
   background: var(--jalor-bg-alt);
 }
 
-/* --- Big message / empty states ------------------------------------------ */
-.big-message {
-  color: var(--jalor-text);
+/* --- A single-purpose page -----------------------------------------------
+ * "Not found", the accessibility statement, the support page: one column of
+ * content, centred, at the DSFR's reading measure. The templates that use it
+ * carry a real `fr-callout` inside, so the DSFR draws the block itself and
+ * this only has to place it. */
+.jalor-page {
+  max-width: 42rem;
+  margin: var(--jalor-space-6) auto;
+  padding: 0 var(--jalor-space-4);
 }
 
-.big-message h1 {
-  color: var(--jalor-text-title);
+.jalor-page .fr-callout__title {
+  margin-top: 0;
 }

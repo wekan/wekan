@@ -119,8 +119,39 @@ docker compose up -d
 L'application est ensuite disponible, par défaut, sur :
 
 ```text
-http://localhost:3000
+http://localhost
 ```
+
+Le port est publié par `docker-compose.yml` (`80:8080`) ; modifiez-le si le
+port 80 est déjà pris sur la machine.
+
+### Ce que construit `docker compose`
+
+`docker compose up -d` **construit Jalor à partir du dépôt**, avec
+`Dockerfile.jalor`. C'est une différence importante avec WeKan : le `Dockerfile`
+d'origine ne compile rien, il télécharge une archive de version publiée de WeKan
+et l'empaquette. Le construire ici produirait donc WeKan, sans aucune des
+modifications de ce dépôt. Il est conservé tel quel, pour que l'outillage de
+publication de WeKan continue de fonctionner.
+
+Conséquence : la **première** construction est longue (elle télécharge l'outil
+Meteor et compile l'ensemble du client). Les suivantes sont rapides grâce au
+cache de Docker. Après avoir récupéré de nouveaux commits :
+
+```bash
+docker compose build --pull && docker compose up -d
+```
+
+Pour utiliser une image déjà publiée plutôt que de construire :
+
+```bash
+JALOR_IMAGE=ghcr.io/exemple/jalor:v1 docker compose up -d
+```
+
+Les services, les volumes et les variables d'environnement restent ceux de
+WeKan. En particulier, les **volumes gardent leurs noms d'origine**
+(`wekan-files`, `ferretdb-data`) : ce sont les emplacements des données, et les
+renommer ferait redémarrer une installation existante avec une base vide.
 
 > Les paramètres Docker peuvent évoluer pendant la phase de transformation du fork. Consultez toujours le fichier `docker-compose.yml` présent dans le dépôt.
 
@@ -235,20 +266,64 @@ Jalor repose pour le moment largement sur l'architecture historique de WeKan.
 ```text
 jalor/
 ├── client/
+│   ├── components/          templates et styles hérités de WeKan
+│   └── jalor/               couche de conception Jalor
+│       ├── vendor/          DSFR officiel, copié tel quel
+│       ├── jalor-tokens.css seul fichier qui nomme un jeton DSFR
+│       └── jalor-*.css      le reste de la couche, par zone d'écran
 ├── imports/
 │   ├── client/
 │   ├── server/
 │   ├── api/
-│   └── i18n/
+│   └── i18n/                246 langues, français par défaut
+├── models/
 ├── server/
 ├── public/
+│   ├── dsfr/                polices Marianne et icônes DSFR
+│   └── jalor-*.svg          marque Jalor
+├── scripts/
+│   ├── vendor-dsfr.mjs      met à jour le DSFR embarqué
+│   └── generate-jalor-icons.mjs  fabrique favicons et icônes PWA
+├── docs/Jalor/              pourquoi le fork diverge, et où
 ├── tests/
 ├── docker-compose.yml
+├── Dockerfile               Dockerfile WeKan (non modifié)
+├── Dockerfile.jalor         construit Jalor depuis les sources
 ├── build.sh
 └── build.bat
 ```
 
 Cette architecture pourra évoluer au fur et à mesure de l'adaptation du projet.
+
+---
+
+## Interface : comment le DSFR est appliqué
+
+Le point important pour la maintenabilité du fork : **l'interface n'est pas
+réécrite, elle est restylée par-dessus**. Les feuilles de style se chargent dans
+cet ordre (`client/styles.js`) :
+
+```text
+1. DSFR officiel        client/jalor/vendor/  — remise à zéro, jetons, composants fr-*
+2. styles WeKan         client/components/    — inchangés, ils gagnent toute règle partagée
+3. couche Jalor         client/jalor/         — l'apparence Jalor, appliquée par-dessus
+```
+
+La couche Jalor restyle les **sélecteurs de WeKan** plutôt que de remplacer ses
+gabarits. Une version de WeKan qui ajoute un formulaire obtient donc l'apparence
+Jalor sans travail supplémentaire, et une fusion depuis upstream n'entre jamais
+en conflit dans des fichiers qu'upstream ne possède pas.
+
+Le DSFR est **embarqué** depuis le paquet officiel `@gouvfr/dsfr`, jamais
+réimplémenté :
+
+```bash
+node scripts/vendor-dsfr.mjs      # après avoir changé la version dans package.json
+node scripts/generate-jalor-icons.mjs
+```
+
+`docs/Jalor/DSFR.md` détaille ce choix, ce qui est embarqué, ce qui ne l'est pas
+(le bloc-marque de l'État, le JavaScript du DSFR) et pourquoi.
 
 ---
 
