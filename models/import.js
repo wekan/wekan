@@ -19,6 +19,18 @@ function importDeadlineMs() {
   return Number.isFinite(ms) ? ms : 120000;
 }
 
+function recordAnonymousImportAttempt(method, connection) {
+  if (!Meteor.isServer) return;
+  const { record } = require('/server/lib/securityLog');
+  record({
+    key: 'authn.import',
+    action: 'blocked',
+    source: 'ddp:' + method,
+    ip: connection && connection.clientAddress,
+    detail: 'Anonymous board import denied',
+  });
+}
+
 // Parse an uploaded .xlsx (base64) into the row-array shape the CsvCreator
 // consumes (board[0] is the header row). Excel import reuses the CSV creator.
 async function parseXlsxToRows(excelBase64) {
@@ -39,6 +51,13 @@ async function parseXlsxToRows(excelBase64) {
 
 Meteor.methods({
   async importBoard(board, data, importSource, currentBoard) {
+    // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
+    // writes, so authentication must be rejected before argument processing,
+    // feature checks, parsing or creator construction can do any work.
+    if (!this.userId) {
+      recordAnonymousImportAttempt('importBoard', this.connection);
+      throw new Meteor.Error('error-notAuthorized');
+    }
     // All check() calls must run BEFORE the first `await`: Meteor's
     // audit-argument-checks tracks checked arguments on the current async context,
     // and awaiting first makes later check()s (e.g. `board` in the switch below) not
@@ -120,6 +139,13 @@ Meteor.methods({
   // that card. The document is the same one the export writes, and `fields` is
   // the same selection popup; on this side it means what to BRING IN.
   async importScoped(target, doc, fields) {
+    // Keep the scoped sibling explicit too. Board helpers are authorization
+    // checks for an authenticated user; they are not an authentication guard.
+    if (!this.userId) {
+      recordAnonymousImportAttempt('importScoped', this.connection);
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    const userId = this.userId;
     check(target, Object);
     check(target.boardId, String);
     check(target.swimlaneId, Match.Maybe(String));
@@ -144,7 +170,7 @@ Meteor.methods({
     if (!Meteor.isServer) return null;
     const { ScopedImporter } = require('./server/scopedImporter');
     const importer = new ScopedImporter(target, doc, {
-      userId: Meteor.userId(),
+      userId,
       fields,
     });
     return withDeadline(

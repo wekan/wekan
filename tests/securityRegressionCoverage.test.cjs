@@ -65,6 +65,10 @@ const GUARDED = {
   exportbleed: ['tests/exportHTMLXss.test.cjs'],
   followbleed: ['tests/followbleed.test.cjs'],
   identitybleed: ['tests/noIdentityReplacement.test.cjs'],
+  importbleed: [
+    'tests/importBleed.test.cjs',
+    'tests/playwright/specs/42-import-bleed.e2e.js',
+  ],
   // Moved up from RECORDED: the guard is repo-wide rather than per-site - every
   // place that folds random bytes onto an alphabet has to reject the bytes that
   // would bias it, and every file that makes a secret has to use a cryptographic
@@ -231,7 +235,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 59, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 60, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the four newest advisories are guarded, not recorded', () => {
