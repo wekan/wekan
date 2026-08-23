@@ -77,6 +77,9 @@ function findChromiumPath() {
 const CHROMIUM_PATH = findChromiumPath();
 const HEADLESS = process.env.HEADLESS !== 'false';
 const KEEP_E2E_DATA = process.env.KEEP_E2E_DATA === '1';
+const DDP_CONNECT_TIMEOUT_MS = Number(process.env.E2E_DDP_CONNECT_TIMEOUT_MS) || 30000;
+const LOGIN_TIMEOUT_MS = Number(process.env.E2E_LOGIN_TIMEOUT_MS) || 30000;
+const SUITE_TIMEOUT_MS = Number(process.env.E2E_SUITE_TIMEOUT_MS) || 10 * 60 * 1000;
 const RUN_ID = `${Date.now()}-${crypto.randomBytes(3).toString('hex')}`;
 const ARTIFACT_DIR = process.env.E2E_ARTIFACT_DIR || `/tmp/wekan-list-regressions-${RUN_ID}`;
 
@@ -121,6 +124,14 @@ function assert(condition, message) {
 
 function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function withTimeout(promise, timeoutMs, message) {
+  let timer;
+  const timeout = new Promise((_resolve, reject) => {
+    timer = setTimeout(() => reject(new Error(message)), timeoutMs);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
 // Run an async callback with a connected MongoDB client (official `mongodb`
@@ -365,6 +376,40 @@ async function waitForMeteorGlobals(targetPage) {
   );
 }
 
+async function meteorDiagnostics(targetPage) {
+  try {
+    return await targetPage.evaluate(() => ({
+      href: location.href,
+      hasMeteor: typeof Meteor !== 'undefined',
+      status: typeof Meteor !== 'undefined' && typeof Meteor.status === 'function'
+        ? Meteor.status() : null,
+      userId: typeof Meteor !== 'undefined' && typeof Meteor.userId === 'function'
+        ? Meteor.userId() : null,
+      loggingIn: typeof Meteor !== 'undefined' && typeof Meteor.loggingIn === 'function'
+        ? Meteor.loggingIn() : null,
+    }));
+  } catch (error) {
+    return { diagnosticError: error.message };
+  }
+}
+
+async function waitForMeteorConnection(targetPage) {
+  try {
+    await targetPage.waitForFunction(
+      () => typeof Meteor !== 'undefined'
+        && typeof Meteor.status === 'function'
+        && Meteor.status().connected,
+      { timeout: DDP_CONNECT_TIMEOUT_MS },
+    );
+  } catch (error) {
+    const diagnostic = await meteorDiagnostics(targetPage);
+    throw new Error(
+      'DDP did not connect within ' + DDP_CONNECT_TIMEOUT_MS + 'ms: '
+        + JSON.stringify(diagnostic),
+    );
+  }
+}
+
 // Fire a navigation without blocking on load/domcontentloaded — Rspack HMR
 // can trigger a hot-code-push reload mid-navigation which detaches the frame
 // and causes puppeteer to throw.  Instead we fire and forget, then wait for
@@ -381,19 +426,47 @@ async function reloadAndWait(targetPage) {
 
 async function loginWithToken(targetPage, rawToken) {
   await gotoAndWait(targetPage, `${BASE_URL}/sign-in`);
-  const loginResult = await targetPage.evaluate(async token => {
+  await waitForMeteorConnection(targetPage);
+  const loginResult = await targetPage.evaluate(async ({ token, timeoutMs }) => {
     return await new Promise(resolve => {
+      let settled = false;
+      let timer;
+      const state = () => ({
+        status: typeof Meteor.status === 'function' ? Meteor.status() : null,
+        userId: Meteor.userId(),
+        loggingIn: typeof Meteor.loggingIn === 'function' ? Meteor.loggingIn() : null,
+      });
+      const finish = result => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        resolve(result);
+      };
+      timer = setTimeout(() => {
+        finish({ error: `login callback timed out after ${timeoutMs}ms`, ...state() });
+      }, timeoutMs);
       Meteor.loginWithToken(token, err => {
-        resolve({
+        finish({
           error: err && (err.reason || err.message),
-          userId: Meteor.userId(),
+          ...state(),
         });
       });
     });
-  }, rawToken);
-  assert(!loginResult.error, `Login with resume token failed: ${loginResult.error}`);
-  assert(loginResult.userId === TEST_USER_ID, 'Unexpected logged-in test user');
+  }, { token: rawToken, timeoutMs: LOGIN_TIMEOUT_MS });
+  assert(!loginResult.error,
+    `Login with resume token failed: ${loginResult.error}; state=${JSON.stringify(loginResult)}`);
+  try {
+    await targetPage.waitForFunction(
+      expectedUserId => Meteor.userId() === expectedUserId,
+      { timeout: LOGIN_TIMEOUT_MS },
+      TEST_USER_ID,
+    );
+  } catch (error) {
+    const diagnostic = await meteorDiagnostics(targetPage);
+    throw new Error(`Login did not settle on ${TEST_USER_ID}: ${JSON.stringify(diagnostic)}`);
+  }
   await gotoAndWait(targetPage, BASE_URL);
+  await waitForMeteorConnection(targetPage);
 }
 
 async function seedBoardData() {
@@ -711,7 +784,11 @@ async function runTest() {
   }
 
   try {
-    await runTest();
+    await withTimeout(
+      runTest(),
+      SUITE_TIMEOUT_MS,
+      `E2E suite exceeded ${SUITE_TIMEOUT_MS}ms`,
+    );
   } catch (error) {
     console.error(`\n[wekan-e2e] FAIL: ${error.message}`);
     if (page) {
