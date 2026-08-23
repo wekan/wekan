@@ -1,203 +1,480 @@
-# WeKan ® - Open Source kanban
+# Jalor
 
-## Downloads
+**Jalor** est une application libre de gestion collaborative des tâches et des projets, basée sur [WeKan](https://github.com/wekan/wekan) et adaptée à l'écosystème numérique du service public français.
 
-https://wekan.fi/install/
+L'objectif du projet est de proposer une solution de type Kanban :
 
-## Docker Containers
+* simple à déployer ;
+* auto-hébergeable ;
+* compatible Docker ;
+* adaptée aux usages d'équipes ;
+* utilisant le [Système de Design de l'État — DSFR](https://www.systeme-de-design.gouv.fr/) ;
+* orientée accessibilité et sobriété ;
+* sans dépendance à un service SaaS propriétaire.
 
-- [GitHub](https://github.com/wekan/wekan/pkgs/container/wekan)
-- [Quay](https://quay.io/repository/wekan/wekan)
-- [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
+> Jalor est un fork indépendant de WeKan et n'est pas affilié au projet officiel WeKan.
 
-docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.yml
+---
 
-## Standards
+## Fonctionnalités
 
-- [WeKan and Standard for Public Code](https://wekan.fi/standard-for-public-code/) assessment was made at 2023-11.
-  Currently Wekan meets 8 out of 16 criteria out of the box.
-  Some others could be met with small changes.
+Jalor reprend le moteur fonctionnel de WeKan et permet notamment de :
 
-## Code stats
+* créer des tableaux Kanban ;
+* organiser le travail en listes et cartes ;
+* déplacer les cartes par glisser-déposer ;
+* assigner des utilisateurs ;
+* ajouter des étiquettes ;
+* définir des échéances ;
+* utiliser des checklists ;
+* commenter les cartes ;
+* joindre des fichiers ;
+* suivre l'activité d'un tableau ;
+* gérer plusieurs utilisateurs et équipes ;
+* administrer les droits d'accès.
 
-- [CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619)
-- [Code Climate](https://codeclimate.com/github/wekan/wekan)
-- [Open Hub](https://www.openhub.net/p/wekan)
-- [OSS Insight](https://ossinsight.io/analyze/wekan/wekan)
+Le projet vise progressivement à proposer une interface entièrement adaptée au DSFR.
 
-## Translate WeKan ® at Transifex
+---
 
-Translations to non-English languages are accepted only at [Transifex](https://app.transifex.com/wekan/wekan) using webbrowser.
-New English strings of new features can be added as PRs to master branch file wekan/imports/i18n/data/en.i18n.json .
+## État du projet
 
-## WeKan ® feature requests and bugs
+Jalor est actuellement en cours d'adaptation à partir de WeKan.
 
-Please add most of your questions as GitHub issue: [WeKan ® Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
-It's better than at chat where details get lost when chat scrolls up.
+Les principaux axes de travail sont :
 
-## Discussions
+1. remplacement progressif de l'interface WeKan par une interface DSFR ;
+2. simplification de l'expérience utilisateur ;
+3. francisation des parcours principaux ;
+4. amélioration de l'accessibilité ;
+5. harmonisation avec les autres applications de la suite **Outils Publics** ;
+6. simplification du déploiement Docker ;
+7. conservation de la compatibilité avec les fonctionnalités principales de WeKan.
 
-[IRC](https://github.com/wekan/wekan/blob/main/docs/FAQ/IRC-FAQ.md)
+Certaines parties de l'interface peuvent donc encore utiliser le design historique de WeKan.
 
-## Docker: Latest tag has newest release
+---
 
-You can use latest tag to get newest release tag.
-See bottom of https://github.com/wekan/wekan/issues/3874
+## DSFR
 
-## FAQ
+Jalor utilise progressivement le **Système de Design de l'État (DSFR)**.
 
-**NOTE**:
+Documentation officielle :
 
-- Please read the [FAQ](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md) first
-- Please don't feed the [trolls](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/blob/main/docs/FAQ/FAQ.md#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
+[https://www.systeme-de-design.gouv.fr/](https://www.systeme-de-design.gouv.fr/)
 
-## About WeKan ®
+Le DSFR est mis à disposition par le Service d'Information du Gouvernement.
 
-WeKan ® is a completely [Open Source][open_source] and [Free software][free_software]
-collaborative kanban board application with MIT license.
+Son utilisation est soumise à ses propres conditions d'utilisation.
+Le fait que Jalor soit un logiciel libre ne signifie pas que l'utilisation de l'identité visuelle de l'État soit libre de toute restriction.
 
-Whether you’re maintaining a personal todo list, planning your holidays with some friends,
-or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool
-to keep your things organized. They give you a visual overview of the current state of your project,
-and make you productive by allowing you to focus on the few items that matter the most.
+Les organismes utilisant ou redistribuant Jalor doivent vérifier qu'ils sont autorisés à utiliser le DSFR et les éléments d'identité associés.
 
-Since WeKan ® is a free software, you don’t have to trust us with your data and can
-install Wekan on your own computer or server. In fact we encourage you to do
-that by providing one-click installation on various platforms.
+---
 
-- WeKan ® is used in [most countries of the world](https://snapcraft.io/wekan).
-- WeKan ® largest user has 30k users using WeKan ® in their company.
-- WeKan ® has been [translated](https://app.transifex.com/wekan/) to 234 languages,
-  142 of them essentially complete.
-- [Features][features]: WeKan ® has real-time user interface.
-- [Platforms](https://wekan.fi/install/): WeKan ® supports many platforms.
-  WeKan ® is critical part of new platforms Wekan is currently being integrated to.
+## Installation avec Docker
 
-## Requirements
+Le mode de déploiement recommandé à terme est Docker Compose.
 
-- 1 GB RAM minimum free for WeKan ®. Production server should have minimum total 4 GB RAM.
-  For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/main/docker-compose.yml): 3 frontend servers,
-  each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
-- Enough disk space and alerts about low disk space. If you run out of disk space, MongoDB database gets corrupted.
-- SECURITY: Updating to newest WeKan ® version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
-  Old versions have security issues because of old versions Node.js etc. Only newest WeKan ® is supported.
-  WeKan ® on Sandstorm is not usually affected by any Standalone WeKan ® (Snap/Docker/Source) security issues.
-- [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
-  New features and fixes are added to WeKan ® [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
-- [Backups](https://github.com/wekan/wekan/blob/main/docs/Backup/Backup.md) of WeKan ® database once a day minimum.
-  Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
-  Some bugs can cause WeKan ® board to not load at all, requiring manual fixing of database content.
+### Prérequis
 
-## Roadmap and Demo
+* Docker
+* Docker Compose
+* au minimum 4 Go de RAM recommandés pour un serveur de production ;
+* suffisamment d'espace disque pour MongoDB et les pièces jointes.
 
-[Roadmap][roadmap_wekan] - Public read-only board at WeKan ® demo.
+### Démarrage
 
-[Developer Documentation][dev_docs]
-
-- There are many companies and individuals contributing code to WeKan ®, to add features and bugfixes
-  [many times a day](https://github.com/wekan/wekan/blob/main/CHANGELOG.md).
-- [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
-- [Commercial Support](https://wekan.fi/commercial-support/).
-
-We also welcome sponsors for features and bugfixes.
-By working directly with WeKan ® you get the benefit of active maintenance and new features added by growing WeKan ® developer community.
-
-## Getting Started with Development
-
-The main branch uses Meteor 3.5 with Node.js 24.x.
-See [CHANGELOG.md](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) for the latest runtime updates.
-
-To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./build.sh` (or `./build.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-install-dependencies-build-wekan-and-run-the-dev-server). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
-
-Please refer to the [developer documentation](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md) for more information.
-
-## First-Time Setup for Development
-
-### Prerequisites
-
-Before building WeKan from source, ensure you have:
-
-- **Git** - for cloning the repository
-- **Node.js 24.x** - WeKan requires Node.js 24.x
-- **Meteor** - the JavaScript framework WeKan is built with
-
-### Installing Node.js 24.x
+Clonez le dépôt :
 
 ```bash
-# Using nvm (recommended)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-source ~/.zshrc  # or ~/.bashrc
+git clone https://github.com/OUTILS-PUBLICS/jalor.git
+cd jalor
+```
+
+Puis lancez l'application :
+
+```bash
+docker compose up -d
+```
+
+L'application est ensuite disponible, par défaut, sur :
+
+```text
+http://localhost:3000
+```
+
+> Les paramètres Docker peuvent évoluer pendant la phase de transformation du fork. Consultez toujours le fichier `docker-compose.yml` présent dans le dépôt.
+
+---
+
+## Développement
+
+Jalor est actuellement basé sur l'architecture de WeKan.
+
+La branche upstream de WeKan utilise :
+
+* Meteor 3.5 ;
+* Node.js 24.x ;
+* MongoDB.
+
+### Prérequis
+
+Installez :
+
+* Git ;
+* Node.js 24.x ;
+* Meteor ;
+* MongoDB si vous ne l'utilisez pas via Docker.
+
+### Node.js
+
+L'utilisation de `nvm` est recommandée :
+
+```bash
 nvm install 24
 nvm use 24
 ```
 
-### Installing Meteor
+### Meteor
 
 ```bash
 curl https://install.meteor.com/ | sh
 ```
 
-### Building WeKan
+---
 
-The `build.sh` script shows a two-level menu. The top level groups options into categories:
-
-```
-1) Setup   2) Dev server   3) Tests   4) Docker   5) Tools   6) Quit
-```
-
-You pick a category number, then the item number inside it (each submenu also has a `Back` entry). Building from source is a three-stage process:
-
-1. **Setup -> Install dependencies** - Downloads all required Meteor packages and npm modules
-2. **Setup -> Build WeKan** - Compiles the application
-3. **Dev server -> localhost:3000** - Starts the development server at http://localhost:3000
+## Lancer Jalor depuis les sources
 
 ```bash
-# Clone your fork
-git clone git@github.com:YOUR_USERNAME/wekan.git
-cd wekan
-
-# Make the script executable
-chmod +x build.sh
-
-# Step 1: Install dependencies (Setup -> Install dependencies)
-./build.sh
-# Press 1 (Setup) and Enter, then 1 (Install dependencies) and Enter
-
-# Step 2: Build WeKan (Setup -> Build WeKan, after dependencies complete)
-./build.sh
-# Press 1 (Setup) and Enter, then 2 (Build WeKan) and Enter
-
-# Step 3: Run WeKan in development mode (Dev server -> localhost:3000)
-./build.sh
-# Press 2 (Dev server) and Enter, then 1 (localhost:3000) and Enter
+git clone https://github.com/OUTILS-PUBLICS/jalor.git
+cd jalor
 ```
 
-If a dev server is already running on that port, the **Dev server** options stop it automatically and start a fresh server on the same port.
- 
+Sous Linux/macOS :
 
-### WSL Users
+```bash
+chmod +x build.sh
+./build.sh
+```
 
-WSL users can use Snap Candidate. See [install docs](https://wekan.fi/install/).
+Sous Windows :
 
-The development server will start at http://localhost:3000. Any changes you make to the source code will automatically trigger a rebuild and refresh your browser.
+```powershell
+build.bat
+```
 
-## Screenshot
+Le script de build hérité de WeKan propose plusieurs catégories :
 
-[More screenshots at Features page](https://github.com/wekan/wekan/tree/main/docs/Features)
+```text
+1) Setup
+2) Dev server
+3) Tests
+4) Docker
+5) Tools
+6) Quit
+```
 
-[![Screenshot of WeKan ®][screenshot_wekan]][roadmap_wekan]
+Pour démarrer un environnement de développement :
 
-## License
+### 1. Installer les dépendances
 
-WeKan ® is released under the very permissive [MIT license](LICENSE), and made
-with [Meteor](https://www.meteor.com).
+```text
+Setup
+└── Install dependencies
+```
 
-[dev_docs]: https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md
-[screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
-[features]: https://github.com/wekan/wekan/wiki/Features
-[roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
-[wekan_issues]: https://github.com/wekan/wekan/issues
-[docker_image]: https://hub.docker.com/r/wekanteam/wekan/
-[translate_wekan]: https://app.transifex.com/wekan/wekan/
-[open_source]: https://en.wikipedia.org/wiki/Open-source_software
-[free_software]: https://en.wikipedia.org/wiki/Free_software
+### 2. Construire l'application
+
+```text
+Setup
+└── Build WeKan
+```
+
+Cette appellation peut subsister temporairement dans les scripts hérités de WeKan.
+
+### 3. Démarrer le serveur
+
+```text
+Dev server
+└── localhost:3000
+```
+
+L'application sera disponible sur :
+
+```text
+http://localhost:3000
+```
+
+Meteor reconstruit automatiquement l'application lors des modifications du code.
+
+---
+
+## Architecture du projet
+
+Jalor repose pour le moment largement sur l'architecture historique de WeKan.
+
+```text
+jalor/
+├── client/
+├── imports/
+│   ├── client/
+│   ├── server/
+│   ├── api/
+│   └── i18n/
+├── server/
+├── public/
+├── tests/
+├── docker-compose.yml
+├── build.sh
+└── build.bat
+```
+
+Cette architecture pourra évoluer au fur et à mesure de l'adaptation du projet.
+
+---
+
+## Base de données
+
+Jalor utilise actuellement **MongoDB**, comme WeKan.
+
+Les données persistantes comprennent notamment :
+
+* utilisateurs ;
+* tableaux ;
+* listes ;
+* cartes ;
+* commentaires ;
+* checklists ;
+* paramètres ;
+* métadonnées ;
+* pièces jointes selon la configuration.
+
+### Sauvegardes
+
+Une sauvegarde régulière de MongoDB est fortement recommandée.
+
+En production, prévoyez au minimum :
+
+* une sauvegarde quotidienne ;
+* une copie externe au serveur principal ;
+* une politique de rétention ;
+* des tests réguliers de restauration.
+
+Une saturation du disque peut provoquer des problèmes importants sur MongoDB.
+
+---
+
+## Sécurité
+
+Pour une utilisation en production :
+
+* utilisez toujours une version maintenue de Jalor ;
+* maintenez Node.js, Meteor et MongoDB à jour ;
+* utilisez HTTPS ;
+* protégez l'accès à MongoDB ;
+* n'exposez jamais directement la base de données sur Internet ;
+* appliquez une politique de sauvegarde ;
+* utilisez des mots de passe robustes ;
+* configurez correctement les mécanismes d'authentification disponibles ;
+* surveillez l'espace disque et l'état du serveur.
+
+Les correctifs provenant du projet WeKan pourront être régulièrement intégrés dans Jalor.
+
+---
+
+## Relation avec WeKan
+
+Jalor est basé sur :
+
+[WeKan — Open Source Kanban](https://github.com/wekan/wekan)
+
+WeKan est un logiciel libre distribué sous licence MIT.
+
+Le projet Jalor conserve une relation avec le dépôt upstream afin de pouvoir intégrer lorsque cela est pertinent :
+
+* correctifs de sécurité ;
+* corrections de bugs ;
+* améliorations de performances ;
+* évolutions de compatibilité ;
+* améliorations fonctionnelles.
+
+Une adaptation importante de l'interface peut néanmoins rendre certaines mises à jour upstream plus complexes à intégrer.
+
+---
+
+## Synchronisation avec WeKan upstream
+
+Pour les développeurs travaillant sur le fork, il est recommandé de conserver le dépôt officiel WeKan comme remote `upstream`.
+
+```bash
+git remote add upstream https://github.com/wekan/wekan.git
+```
+
+Vérification :
+
+```bash
+git remote -v
+```
+
+Exemple :
+
+```text
+origin    https://github.com/OUTILS-PUBLICS/jalor.git
+upstream  https://github.com/wekan/wekan.git
+```
+
+Pour récupérer les évolutions de WeKan :
+
+```bash
+git fetch upstream
+```
+
+Puis intégrer les changements souhaités dans Jalor selon la stratégie de branches du projet.
+
+---
+
+## Traductions
+
+Jalor vise une expérience **française complète par défaut**, tout en conservant autant que possible les mécanismes d'internationalisation de WeKan.
+
+Les fichiers de traduction hérités de WeKan se trouvent notamment dans :
+
+```text
+imports/i18n/
+```
+
+Les traductions provenant directement du projet WeKan restent gérées par leur communauté sur Transifex :
+
+[https://app.transifex.com/wekan/wekan/](https://app.transifex.com/wekan/wekan/)
+
+Les traductions propres à Jalor peuvent être maintenues directement dans ce dépôt.
+
+---
+
+## Accessibilité
+
+L'accessibilité constitue un objectif important du projet.
+
+L'adaptation DSFR doit notamment prendre en compte :
+
+* navigation au clavier ;
+* contrastes ;
+* focus visibles ;
+* structure sémantique ;
+* lecteurs d'écran ;
+* formulaires accessibles ;
+* modales accessibles ;
+* alternatives textuelles ;
+* responsive design ;
+* réduction des interactions exclusivement basées sur le glisser-déposer.
+
+L'objectif à terme est de tendre vers une conformité aussi large que possible avec le **RGAA**.
+
+---
+
+## Principes du projet
+
+Jalor vise à rester :
+
+* libre ;
+* auto-hébergeable ;
+* documenté ;
+* déployable avec Docker ;
+* sans dépendance SaaS obligatoire ;
+* compatible avec des infrastructures internes ;
+* accessible ;
+* sobre ;
+* compréhensible par des utilisateurs non techniques ;
+* maintenable sur le long terme.
+
+---
+
+## Outils Publics
+
+Jalor s'inscrit dans une démarche plus large de création d'outils numériques libres et auto-hébergeables adaptés aux besoins du service public.
+
+Chaque application vise à pouvoir être déployée indépendamment.
+
+Exemples de briques pouvant appartenir à cette suite :
+
+```text
+Outils Publics
+├── Portail
+├── Trombinoscope
+├── Wiki
+└── Jalor
+```
+
+Jalor correspond à la brique de **gestion collaborative des tâches et tableaux Kanban**.
+
+---
+
+## Contribution
+
+Les contributions sont les bienvenues.
+
+Avant de proposer une modification importante :
+
+1. vérifiez qu'une issue similaire n'existe pas ;
+2. ouvrez une issue décrivant le besoin ;
+3. créez une branche dédiée ;
+4. développez et testez votre modification ;
+5. soumettez une Pull Request.
+
+Pour les modifications d'interface, veillez notamment à respecter :
+
+* les composants DSFR ;
+* l'accessibilité ;
+* la cohérence visuelle ;
+* le responsive design ;
+* la compatibilité avec les fonctionnalités existantes.
+
+---
+
+## Signaler un problème
+
+Les bugs concernant **Jalor** doivent être signalés sur le dépôt Jalor.
+
+Les problèmes reproductibles uniquement sur WeKan upstream peuvent également être vérifiés dans le tracker officiel :
+
+[https://github.com/wekan/wekan/issues](https://github.com/wekan/wekan/issues)
+
+Lorsqu'un problème provient directement du code upstream, merci de le préciser dans l'issue.
+
+---
+
+## Licence
+
+Le code original de WeKan est distribué sous **licence MIT**.
+
+Jalor est une œuvre dérivée de WeKan et conserve les notices de copyright et de licence requises pour le code provenant du projet original.
+
+Consultez le fichier [`LICENSE`](LICENSE) pour le texte complet de la licence applicable.
+
+WeKan et les marques associées appartiennent à leurs détenteurs respectifs.
+
+**Jalor est un projet indépendant et n'est ni une version officielle de WeKan, ni affilié, ni sponsorisé par le projet WeKan.**
+
+---
+
+## Crédits
+
+Jalor n'existerait pas sans le travail réalisé depuis de nombreuses années par les contributeurs de WeKan.
+
+Projet original :
+
+**WeKan — Open Source Kanban**
+[https://github.com/wekan/wekan](https://github.com/wekan/wekan)
+
+Merci à l'ensemble de ses contributeurs.
+
+---
+
+## Liens utiles
+
+* [WeKan](https://github.com/wekan/wekan)
+* [Documentation WeKan](https://github.com/wekan/wekan/tree/main/docs)
+* [DSFR](https://www.systeme-de-design.gouv.fr/)
+* [RGAA](https://accessibilite.numerique.gouv.fr/)
+* [Licence MIT](LICENSE)
