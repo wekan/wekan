@@ -403,11 +403,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Office and API reports** now read in Chinese, Japanese, Korean,
-Russian, Ukrainian, Belarusian, Bulgarian, Arabic, Hebrew, Persian, Hindi,
-Gujarati, Greek, Khmer and Vietnamese. **IPv4 and IPv6 labels** reuse established
-vocabulary. Below that: visible obsolete English placeholders and focused
-regression coverage.
+**In short:** a **CRITICAL SECURITY ISSUE**, **ImportBleed**, allowed a
+logged-out DDP client to write imported board data directly into the database;
+both import methods now reject unauthenticated callers before processing input.
+Below that: Office and API report translations, visible obsolete English
+placeholders and focused regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -420,7 +420,25 @@ regression coverage.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves the following translations:
+This release fixes the following CRITICAL SECURITY ISSUE of [ImportBleed](https://wekan.fi/hall-of-fame/importbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f69df317">Board imports reject logged-out DDP callers before processing input</a>. Thanks to Char0n1507 and xet7.</summary>
+
+The importBoard method reached direct collection writers without first requiring
+an authenticated user, allowing a network client with no account or token to
+create imported board data and placeholder users. importBoard and importScoped
+now reject logged-out callers before argument processing, feature checks, parsers
+or creators can run, and scoped imports carry the authenticated method user
+explicitly. Denied attempts are attributed by connection address in Admin Panel /
+Problems. Source-level and logged-out browser regression tests cover the guard
+and no-write outcome. See
+[GHSA-qp32-wqxw-wq3h](https://github.com/wekan/wekan/security/advisories/GHSA-qp32-wqxw-wq3h)
+and [ImportBleed](https://wekan.fi/hall-of-fame/importbleed/).
+
+</details>
+
+and improves the following translations:
 
 **Translation tooling** - placeholder safety and same-language vocabulary reuse.
 
