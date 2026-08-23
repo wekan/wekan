@@ -406,8 +406,9 @@ browser build to verify).
 **In short:** a **CRITICAL SECURITY ISSUE**, **ImportBleed**, allowed a
 logged-out DDP client to write imported board data directly into the database;
 both import methods now reject unauthenticated callers before import processing.
-Below that: bounded legacy E2E login waits, Office and API report translations,
-visible obsolete English placeholders and focused regression coverage.
+Below that: bounded legacy E2E login waits, restored Transifex locale aliases,
+Office and API report translations, visible obsolete English placeholders and
+focused regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -453,6 +454,17 @@ coverage keeps every wait bounded and diagnostic.
 and improves the following translations:
 
 **Translation tooling** - placeholder safety and same-language vocabulary reuse.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d966f157">Transifex locale aliases remain symlinks to their translation targets</a>. Thanks to xet7.</summary>
+
+The Khmer and Russian hyphenated locale aliases again point to their underscored
+Transifex targets. Translation pulls therefore update the files loaded by the
+app instead of leaving materialized copies stale. The former copies were
+byte-identical to their targets, so no translation was lost; lazy-loading and
+new-language wiring tests pin both aliases as symlinks.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eec7ea495">IPv4 and IPv6 labels follow each language’s own IP-address vocabulary</a>. Thanks to xet7.</summary>
