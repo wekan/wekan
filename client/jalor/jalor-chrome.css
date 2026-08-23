@@ -171,7 +171,6 @@
  * a column of sections with a count on the right. The DSFR's side menu is a
  * plain list with a left rule that turns Bleu France on the current item. */
 .boards-left-menu,
-.setting-content .left-menu,
 .boards-left-menu ul.menu {
   background: var(--jalor-bg);
 }
@@ -180,8 +179,7 @@
   border-inline-end: 1px solid var(--jalor-border);
 }
 
-.boards-left-menu ul.menu li.menu-item > a,
-.setting-content .left-menu li a {
+.boards-left-menu ul.menu li.menu-item > a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -193,19 +191,51 @@
   font-weight: 500;
 }
 
-.boards-left-menu ul.menu li.menu-item > a:hover,
-.setting-content .left-menu li a:hover {
+.boards-left-menu ul.menu li.menu-item > a:hover {
   background: var(--jalor-bg-alt);
   color: var(--jalor-primary-text);
   text-decoration: none;
 }
 
-.boards-left-menu ul.menu li.menu-item.active > a,
-.setting-content .left-menu li.active a {
+.boards-left-menu ul.menu li.menu-item.active > a {
   background: var(--jalor-primary-soft);
   border-inline-start-color: var(--jalor-primary);
   color: var(--jalor-primary-text);
   font-weight: 700;
+}
+
+/* The Admin Panel's menu is the same object with different class names -
+ * `.setting-content .content-body .side-menu ul li`, not `.boards-left-menu`.
+ * It gets the same treatment, so the two pages read as one application.
+ *
+ * `body:not([class*="board-color-"])` is the guard that keeps WeKan's themes
+ * working. Upstream fills the selected row with `var(--theme-accent, #2980b9)`
+ * and turns its label white, and every named theme paints the same selector in
+ * boardColors.css. Those rules are right when a theme IS active; this one is
+ * the answer for an instance with none, where the fallback was WeKan's blue.
+ * Without the guard, a themed instance would get the theme's dark fill AND
+ * this rule's Bleu France label on top of it. */
+body:not([class*='board-color-']) .setting-content .content-body .side-menu ul li.active,
+body:not([class*='board-color-']) .setting-content .content-body .side-menu ul li.active:hover {
+  background: var(--jalor-primary-soft);
+  box-shadow: none;
+  border-inline-start: 3px solid var(--jalor-primary);
+  border-radius: var(--jalor-radius);
+}
+
+body:not([class*='board-color-']) .setting-content .content-body .side-menu ul li.active > a,
+body:not([class*='board-color-']) .setting-content .content-body .side-menu ul li.active > a i {
+  color: var(--jalor-primary-text);
+  font-weight: 700;
+}
+
+body:not([class*='board-color-']) .setting-content .content-body .side-menu ul li:hover {
+  background: var(--jalor-bg-alt);
+  box-shadow: none;
+}
+
+body:not([class*='board-color-']) .setting-content .content-body .side-menu ul li a {
+  color: var(--jalor-text);
 }
 
 /* The count beside a section name: a DSFR-ish neutral badge, not a coloured
