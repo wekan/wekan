@@ -230,13 +230,14 @@ next batch translated all twelve Office and API report strings across eleven
 simplified and traditional Chinese language tags: **132 values**. Japanese and
 Korean followed with **60 values** across five language tags, then Russian and
 Ukrainian with **72 values** across six language tags, and Arabic with **48
-values** across four language tags.
+values** across four language tags, then Hebrew and Persian with **48 values**
+across four language tags.
 
 **What is left, in the order worth doing it.** As of **2026-08-23**:
 
 | Files | To translate | Nothing to translate | Which |
 | --- | --- | --- | --- |
-| 56 | **739** | 2,171 | non-Latin, near-complete |
+| 56 | **691** | 2,171 | non-Latin, near-complete |
 | 86 | **2,868** | 3,980 | Latin-script, near-complete |
 | 92 | **192,241** | 15,829 | second tier |
 
@@ -246,7 +247,7 @@ source because that IS the translation — product names (*Meteor*, *MongoDB*,
 `__board__` placeholders. They will never stop counting, and they are why a flat
 count reads several times larger than the work.
 
-1. **The 56 non-Latin near-complete files: 739.** New Office and API
+1. **The 56 non-Latin near-complete files: 691.** New Office and API
    report strings now dominate this tier; an English string is most glaring
    where it interrupts another script.
 2. **The 86 Latin-script near-complete files: 2,868.** Smaller than it looks,
@@ -399,9 +400,9 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Office and API reports** now read in Chinese, Japanese, Korean,
-Russian, Ukrainian and Arabic, while **IPv4 and IPv6 address labels** reuse
-established vocabulary. Below that: visible obsolete-English placeholders, safer
-local translation memory and focused regression coverage.
+Russian, Ukrainian, Arabic, Hebrew and Persian, while **IPv4 and IPv6 labels**
+reuse established vocabulary. Below that: visible obsolete-English placeholders,
+safer local translation memory and focused regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -480,6 +481,16 @@ Egyptian and Moroccan tags in Arabic script. REST API, IPv4, IPv6 and
 WITH_API=true remain recognizable. Regression coverage checks every translated
 key, all four right-to-left tags, Arabic-script content and the intentionally
 universal API labels.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a98920393">Office and API reports use Hebrew and Persian</a>. Thanks to xet7.</summary>
+
+All twelve report labels and descriptions now cover two Hebrew and two Persian
+language tags in their respective right-to-left scripts. REST API, IPv4, IPv6
+and WITH_API=true remain recognizable. Regression coverage checks every
+translated key, both scripts and the intentionally universal API labels.
 
 </details>
 
