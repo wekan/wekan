@@ -403,11 +403,18 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Office and API reports** now read in Chinese, Japanese, Korean,
-Russian, Ukrainian, Belarusian, Bulgarian, Arabic, Hebrew, Persian, Hindi,
-Gujarati, Greek, Khmer and Vietnamese. **IPv4 and IPv6 labels** reuse established
-vocabulary. Below that: visible obsolete English placeholders and focused
-regression coverage.
+**In short:** the first pass of the **WeKan to Jalor** transformation. The
+**Systeme de Design de l'Etat** is vendored from its official package and
+applied as a LAYER over WeKan's own stylesheets, so the fork can keep taking
+upstream releases; the **Jalor identity** replaces WeKan's in the interface
+while its licence and copyright stay untouched; **French** becomes the default
+language and its wording is brought to one glossary; a **primary navigation**
+puts the pages that are not a board back on the bar; and `docker compose up -d`
+now builds Jalor rather than pulling upstream WeKan. Below that: the **Office
+and API reports** now read in Chinese, Japanese, Korean, Russian, Ukrainian,
+Belarusian, Bulgarian, Arabic, Hebrew, Persian, Hindi, Gujarati, Greek, Khmer
+and Vietnamese, **IPv4 and IPv6 labels** reuse established vocabulary, and the
+usual regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -555,6 +562,167 @@ across both language tags, following their established login, report and
 endpoint vocabulary. API, REST API, IPv4, IPv6 and WITH_API=true remain
 recognizable. Regression coverage checks every translated key, variant
 consistency and the intentionally universal literals.
+
+</details>
+
+and begins the transformation of WeKan into Jalor:
+
+**The design system** - how the DSFR is installed, and why it is installed that
+way.
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/57dfa01">The Systeme de Design de l'Etat is vendored from its official package</a>. Thanks to Clement-Plancon.</summary>
+
+`scripts/vendor-dsfr.mjs` copies the published `@gouvfr/dsfr` dist into
+`client/jalor/vendor/` (the stylesheets) and `public/dsfr/` (the Marianne fonts
+and the icon files), changing nothing but the relative `url()` paths, which are
+repointed at `/dsfr/...` so the sheets can be bundled without their assets being
+resolved as modules. The icon sheet is trimmed to the icons the source actually
+names, so the 1088-icon set does not land in the repository whole - and the
+sixty icons the DSFR's own components draw without being asked, the checkbox
+tick and the alert marks among them, are vendored too. `.dsfr.yml` records the
+acceptance the installer requires; those terms restrict the DSFR to
+public-service digital services, and Jalor deliberately does not embark the
+Marianne / Republique Francaise block.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/57dfa01">The look is applied in a layer, not by rewriting WeKan's templates</a>. Thanks to Clement-Plancon.</summary>
+
+Three layers, in this order: the vendored DSFR (its element reset, its ~1000
+tokens, its `fr-*` components), then WeKan's own stylesheets unchanged, then
+`client/jalor/*.css`. The DSFR has to come FIRST or its reset would overwrite
+WeKan wholesale; loading it first means WeKan wins every rule the two share and
+the DSFR only fills in what WeKan never styled. The Jalor layer then restyles
+WeKan's OWN selectors, so a WeKan release that adds a form gets the Jalor look
+for free and a merge never conflicts in files upstream does not have.
+`jalor-tokens.css` is the only file that names a DSFR token, so a DSFR release
+that renames one is a single edit. The Kanban takes the DSFR's surface language
+and none of its editorial spacing: a board still shows several columns of
+compact cards.
+
+</details>
+
+**The identity** - what the product is called, and what it is drawn with.
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/57dfa01">One function decides the product's name, and the marks are generated from one drawing</a>. Thanks to Clement-Plancon.</summary>
+
+Every surface that shows a brand - the document title, the header logo's
+alternative text, the sign-in masthead, the import page, the migration
+dashboard - resolves through `models/lib/productName.js`, so renaming the fork
+is one string and the assets beside it rather than a search and replace.
+`public/jalor-mark.svg` is drawn with rectangles on purpose, which is what lets
+`scripts/generate-jalor-icons.mjs` rasterise the whole favicon, PWA and tile set
+from it with no image library. WeKan's licence, its copyright notice and the
+places its name is a fact rather than a brand - the import format, the
+repository metadata, this changelog - are untouched, and a test holds them so.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/1046c1a">A new board is Bleu France, not WeKan's blue</a>. Thanks to Clement-Plancon.</summary>
+
+The first entry of `ALLOWED_BOARD_COLORS` is what a new board is created with,
+and it was `belize` - so every board painted the header WeKan's blue and the
+Jalor identity stopped at the door of the screen people spend their day in. A
+`jalor` theme is added, first in the list, in Bleu France with the DSFR's own
+shades. Every WeKan theme is untouched and still selectable. It is deliberately
+the one theme that does not restate the rounded, shadowed minicard the others
+do, so the square DSFR tile survives on it.
+
+</details>
+
+**The application chrome** - what is on the bar, and what a link looks like.
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/1046c1a">The pages that are not a board are on the header bar</a>. Thanks to Clement-Plancon.</summary>
+
+My Cards, Due Cards, Search and the Admin Panel were reachable only from the
+pop-over behind the avatar, so most of the product could not be found. They are
+a `nav` now, with `aria-current` on the entry you are in. Every one is a route
+`config/router.js` already serves; which entries appear is decided by
+`models/lib/jalorNav.js`, a pure module tested on its own, and a per-tenant
+Global Admin is sent to People rather than to Settings because their panel has
+no Settings pane. Under 1100px the labels give way to their icons and under
+800px the bar goes, where WeKan's account menu still carries all of it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/1046c1a">Block-level links stop drawing a rule across themselves</a>. Thanks to Clement-Plancon.</summary>
+
+The DSFR does not underline a link with `text-decoration`; it paints two
+background gradients on `[href]`, sized from `--underline-idle-width`, so the
+underline can animate. In an application whose links are controls - a board
+tile, a menu row - and many of them block-level, each was drawing a full-width
+rule across itself: a board tile came out with a line under its title and
+another under its empty description. Turned off the DSFR's own way, by setting
+`--underline-img`, which is exactly what `.fr-raw-link` does.
+
+</details>
+
+**French** - the default language, and the words the interface uses.
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/5d16d4f">The interface speaks French when nothing else was asked for</a>. Thanks to Clement-Plancon.</summary>
+
+The order is unchanged - the user's own choice, then what the browser asks for -
+so somebody whose browser is in German still gets German; what changes is the
+answer when nothing matches, and the language of a notification sent to an
+account that never chose one. English stays the fallback for a MISSING STRING,
+which is a different question: every key is written from English and a key with
+no translation must still render words. All 246 language files, and the
+multilingual machinery, are untouched.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/5d16d4f">A board member is a "membre", in all five French locales</a>. Thanks to Clement-Plancon.</summary>
+
+WeKan's French called a board member a "participant", which was not the word
+the rest of the interface used and collided with "Participating", the
+notification state - so the two read as the same thing. All 52 strings now say
+"membre" and the state became "Participation". The due date became "Echeance",
+the Office and REST API reports were translated for the first time, and a
+handful of title-cased strings were given French sentence capitalisation. The
+regional files matter as much as `fr`: `fr-FR` is what a browser set to
+"Francais (France)" actually loads, so a glossary that held only in `fr` was one
+most French users never saw.
+
+</details>
+
+**Deployment** - what `docker compose up -d` starts.
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/5d16d4f">Docker builds Jalor instead of pulling upstream WeKan</a>. Thanks to Clement-Plancon.</summary>
+
+Upstream's compose file pulls a published wekan image, and upstream's Dockerfile
+does not compile anything either: it downloads a release archive and packages
+it. Either of those, used here, would have started upstream WeKan with none of
+this repository's work in it, and nothing would have said so. `Dockerfile.jalor`
+builds the Meteor bundle from this checkout in a builder stage and ships it in a
+slim one; the Dockerfile beside it is untouched so upstream's release tooling
+keeps working. All eight compose files moved together, and the volume names were
+deliberately left alone - a container name is a label, a volume name is where
+the boards live.
+
+</details>
+
+**Accessibility** - what the layer promises, and what it must not break.
+
+<details>
+<summary><a href="https://github.com/Clement-Plancon/jalor/commit/5d16d4f">One focus ring, a real heading on sign-in, and both routes for moving a card</a>. Thanks to Clement-Plancon.</summary>
+
+The DSFR's focus ring is declared once, on `:focus-visible`, and put back
+everywhere WeKan cleared it - its form controls drew a blue glow instead, and
+two indicators on one field read as an error. The sign-in page was rendering an
+EMPTY level-one heading above the real one, because upstream marks the logo box
+up as an `h1`. Moving a card without a mouse is WeKan's own mechanism, kept
+exactly as it is and only recoloured: transparent up/down controls that reveal
+themselves on keyboard focus, and "Move card to..." in the card's menu. Reduced
+motion is honoured, and an error state is never carried by colour alone.
 
 </details>
 

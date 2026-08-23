@@ -27,6 +27,13 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 
 const changelog = read('CHANGELOG.md');
+
+// A summary's link must point at the commit it describes, in the repository
+// that commit is in: Jalor for this fork's own work, wekan/wekan for the
+// entries written before the fork, wekan/FerretDB for changes in the database
+// fork WeKan ships.
+const COMMIT_LINK =
+  /<a href="https:\/\/github\.com\/(wekan\/(wekan|FerretDB)|Clement-Plancon\/jalor)\/commit\//;
 const lines = changelog.split('\n');
 
 // Every <details> block, with the summary line and the body below it.
@@ -207,10 +214,14 @@ test('the newest release follows the rules to the letter', () => {
     assert.ok(summaryText(b.summary).length <= 120,
       `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
     // The commit it describes - in THIS repository, or in wekan/FerretDB when the
-    // change is in the fork WeKan's default database is built from. A WeKan hash
-    // for work that is not in this repository points at the wrong change, so the
-    // link follows the code rather than the changelog.
-    assert.ok(/<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB)\/commit\//.test(b.summary),
+    // change is in the fork WeKan's default database is built from. A hash from
+    // the wrong repository points at the wrong change, so the link follows the
+    // code rather than the changelog.
+    //
+    // Jalor is a fork, so "this repository" is Clement-Plancon/jalor, and the
+    // entries WeKan wrote before the fork still link wekan/wekan, where their
+    // commits are. Both are accepted; anything else is a mistake.
+    assert.ok(COMMIT_LINK.test(b.summary),
       `line ${b.line}: the summary links the commit it describes`);
   }
 });
@@ -253,7 +264,7 @@ test('the Upcoming section, when there is one, follows the same rules', () => {
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,
       `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
-    assert.ok(/<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB)\/commit\//.test(b.summary),
+    assert.ok(COMMIT_LINK.test(b.summary),
       `line ${b.line}: the summary links the commit it describes`);
   }
 });
