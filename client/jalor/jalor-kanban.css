@@ -1,0 +1,223 @@
+/* ===========================================================================
+ * Jalor — the board
+ *
+ * The Kanban is the product. Everything else in Jalor can afford the DSFR's
+ * editorial spacing; this cannot: a board has to show four or five columns at
+ * once on a laptop, and a column has to show six or seven cards without
+ * scrolling. So what is taken from the DSFR here is its SURFACE language —
+ * square corners, borders instead of shadows, one Bleu France accent, the
+ * grey scale — and not its page rhythm.
+ *
+ * The surface hierarchy, which is what makes a board readable at a glance:
+ *
+ *   board canvas   --background-contrast-grey  the darkest, so columns lift off it
+ *   list column    --background-default-grey   white
+ *   list header    --background-alt-grey       a shade back, so it reads as a header
+ *   card           white + a 1px border        a tile on the column
+ *
+ * Nothing here changes a layout property that jQuery UI's sortable measures —
+ * no display, float, position or width is touched — so drag and drop behaves
+ * exactly as upstream. Only colour, border, radius and padding change.
+ *
+ * Board COLOURS keep working: every `.swimlane-blue` / `.minicard-red` rule
+ * upstream is `!important`, so a themed board still paints over everything
+ * below without this file having to know the list of colours.
+ * =========================================================================== */
+
+/* --- The canvas ----------------------------------------------------------- */
+.swimlane {
+  background: var(--jalor-bg-contrast);
+}
+
+.list-group {
+  background: transparent;
+}
+
+/* --- The column ----------------------------------------------------------- */
+.list {
+  background: var(--jalor-bg);
+  border-inline-start: 1px solid var(--jalor-border);
+  border-inline-end: 1px solid var(--jalor-border);
+}
+
+/* The header of a column. Upstream sets its background with `!important`
+   (client/components/lists/list.css), so matching it is the only way to change
+   the colour - this is one of the two places in the Jalor layer that needs the
+   flag, and it is here for that reason rather than as a habit.
+   The 28px of top padding is NOT reduced: the "+" that adds a card to the top
+   of the list is positioned absolutely at `top: 5px` inside this box, and the
+   band is the room it sits in. */
+.list-header {
+  background-color: var(--jalor-bg-alt) !important;
+  border-bottom: 1px solid var(--jalor-border) !important;
+  padding-inline: var(--jalor-space-3) !important;
+}
+
+.list-header .list-header-name {
+  color: var(--jalor-text-title);
+}
+
+/* How many cards are in this column. A neutral DSFR badge, so it reads as a
+   count and not as a status. */
+.list-header .cardCount {
+  color: var(--jalor-text);
+  background: var(--jalor-bg-contrast);
+  border-radius: var(--jalor-radius-pill);
+  padding: 0 var(--jalor-space-2);
+  font-weight: 700;
+}
+
+.list-header .list-header-menu-icon,
+.list-header .list-header-plus-top,
+.list-header .js-collapse {
+  color: var(--jalor-text-muted);
+  border-radius: var(--jalor-radius);
+}
+
+.list-header .list-header-menu-icon:hover,
+.list-header .list-header-plus-top:hover,
+.list-header .js-collapse:hover {
+  color: var(--jalor-primary-text);
+  background: var(--jalor-primary-soft);
+}
+
+.list-body {
+  background: var(--jalor-bg);
+}
+
+/* "Add a card" at the foot of a column, and "Add a list" at the end of the
+   board: tertiary DSFR actions, quiet until pointed at. */
+.list-body .open-minicard-composer,
+.list .list-composer .open-list-composer {
+  color: var(--jalor-primary-text);
+  border-radius: var(--jalor-radius);
+  font-weight: 500;
+}
+
+.list-body .open-minicard-composer:hover,
+.list .list-composer .open-list-composer:hover {
+  background: var(--jalor-primary-soft);
+  color: var(--jalor-primary-text);
+  text-decoration: none;
+}
+
+/* --- The card ------------------------------------------------------------
+ * Square, bordered, no drop shadow: a DSFR tile. The shadow is what made a
+ * WeKan board look like a 2014 web app, and removing it is most of the visual
+ * difference at a glance. */
+.minicard {
+  background-color: var(--jalor-bg);
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  box-shadow: none;
+  color: var(--jalor-text);
+  padding: var(--jalor-minicard-padding) 10px 6px;
+}
+
+.minicard:hover:not(.minicard-composer) {
+  background: var(--jalor-bg-alt);
+  border-color: var(--jalor-border-strong);
+}
+
+.is-selected .minicard {
+  border-color: var(--jalor-primary);
+  box-shadow: none;
+}
+
+.minicard .minicard-title {
+  color: var(--jalor-text-title);
+  font-size: var(--jalor-font-size);
+  line-height: 1.35;
+}
+
+/* --- Labels ---------------------------------------------------------------
+ * The DSFR tag: a small rounded pill with its own colour. WeKan already gives
+ * each label its colour inline or by class; only the shape and the type size
+ * are set here, so a card with six labels stays one line tall. */
+.minicard .minicard-labels .minicard-label,
+.card-label {
+  border-radius: var(--jalor-radius-pill);
+  font-size: var(--jalor-font-size-sm);
+  line-height: 1.4;
+}
+
+/* --- Badges ---------------------------------------------------------------
+ * The row of small indicators under a card's title: comments, checklist
+ * progress, attachments, the due date. They are the densest thing on a board,
+ * so they get the muted grey and the small size, and only the ones that mean
+ * "something needs attention" get a colour. */
+.minicard .badges .badge {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+.minicard .badges .badge.is-finished {
+  color: var(--jalor-success);
+}
+
+.minicard .card-date.due-soon,
+.minicard .card-date.due-soon.is-active {
+  background: var(--jalor-warning-bg);
+  color: var(--jalor-text);
+  border-radius: var(--jalor-radius);
+}
+
+.minicard .card-date.overdue,
+.minicard .card-date.overdue.is-active {
+  background: var(--jalor-error-bg);
+  color: var(--jalor-error);
+  border-radius: var(--jalor-radius);
+  font-weight: 700;
+}
+
+.minicard .card-date.completed,
+.minicard .card-date.completed-on-time,
+.minicard .card-date.completed-early {
+  background: var(--jalor-success-bg);
+  color: var(--jalor-success);
+  border-radius: var(--jalor-radius);
+}
+
+/* --- Moving a card without a mouse ---------------------------------------
+ * Drag and drop cannot be the only way to move a card (RGAA 7.3 / WCAG 2.1
+ * SC 2.1.1). WeKan already renders the arrows - `.minicard-move-buttons` with
+ * .js-card-move-up / .js-card-move-down - and the card menu carries "Move card
+ * to…" as well. They are made VISIBLE here as proper controls rather than as
+ * faint glyphs, because an alternative nobody can find is not one.
+ * tests/jalorAccessibleCardMove.test.cjs pins that both routes still exist. */
+.minicard .minicard-move-buttons a {
+  color: var(--jalor-text-muted);
+  border-radius: var(--jalor-radius);
+  padding: 2px var(--jalor-space-1);
+}
+
+.minicard .minicard-move-buttons a:hover,
+.minicard .minicard-move-buttons a:focus-visible {
+  color: var(--jalor-primary-text);
+  background: var(--jalor-primary-soft);
+}
+
+/* --- Drag affordances ----------------------------------------------------- */
+.minicard .handle .drag-handle,
+.list-header .list-header-handle,
+.swimlane-header-menu .swimlane-handle {
+  color: var(--jalor-text-muted);
+}
+
+.minicard-wrapper.placeholder {
+  background: var(--jalor-primary-soft);
+  border: 2px dashed var(--jalor-primary);
+  border-radius: var(--jalor-radius);
+}
+
+/* --- The composer --------------------------------------------------------- */
+.minicard.minicard-composer {
+  border: 1px solid var(--jalor-primary);
+  background: var(--jalor-bg);
+}
+
+.minicard .js-minicard-title-form textarea.minicard-title-editor {
+  background: var(--jalor-bg);
+  border: 0;
+  color: var(--jalor-text-title);
+}

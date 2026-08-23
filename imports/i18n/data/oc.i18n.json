@@ -2406,5 +2406,6 @@
   "import-board-source": "Importar un tablèu (Trello, Jira, expòrt WeKan, CSV, Excel, …)",
   "import-source-heading": "Importar dempuèi:",
   "import-parts-instruction": "Solas las partidas marcadas son importadas. La meteissa causida es utilizada a l'expòrt.",
-  "import-wekan-file": "Importar dempuèi un fichièr d'expòrt .json o .zip:"
+  "import-wekan-file": "Importar dempuèi un fichièr d'expòrt .json o .zip:",
+  "jalor-tagline": "Gestion collaborativa de las prètzfachas"
 }

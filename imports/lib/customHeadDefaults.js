@@ -2,26 +2,29 @@ export const DEFAULT_HEAD_META = `<meta name="viewport" content="width=device-wi
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Wekan">
-<meta name="application-name" content="Wekan">
-<meta name="msapplication-TileColor" content="#00aba9">
-<meta name="theme-color" content="#ffffff">`;
+<meta name="apple-mobile-web-app-title" content="Jalor">
+<meta name="application-name" content="Jalor">
+<meta name="msapplication-TileColor" content="#000091">
+<meta name="theme-color" content="#000091">`;
 
 export const DEFAULT_HEAD_LINKS = `<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" crossorigin="use-credentials" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">`;
+<link rel="icon" type="image/svg+xml" href="/jalor-mark.svg">
+<link rel="mask-icon" href="/jalor-pinned-tab.svg" color="#000091">`;
 
 export const DEFAULT_SITE_MANIFEST = `{
-  "name": "Wekan",
-  "short_name": "Wekan",
+  "name": "Jalor",
+  "short_name": "Jalor",
+  "description": "Jalor - Gestion collaborative des taches",
+  "lang": "fr",
   "icons": [
     {
-      "src": "svg-etc/wekan-logo-512.svg",
+      "src": "jalor-mark.svg",
       "sizes": "any",
-      "type": "image/svg"
+      "type": "image/svg+xml"
     },
     {
       "src": "android-chrome-192x192.png",
@@ -521,15 +524,15 @@ export const DEFAULT_SITE_MANIFEST = `{
       "type": "image/webp"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#000091",
+  "background_color": "#ffffff",
   "start_url": "sign-in",
   "display": "standalone",
   "orientation": "any",
   "categories": [
     "productivity"
   ],
-  "description": "Open Source kanban with MIT license",
+  "description": "Jalor - Gestion collaborative des taches. Logiciel libre (MIT), derive de WeKan.",
   "dir": "auto",
   "prefer_related_applications": false,
   "display_override": [

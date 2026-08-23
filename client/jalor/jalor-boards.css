@@ -1,0 +1,157 @@
+/* ===========================================================================
+ * Jalor — All Boards (the home page)
+ *
+ * WeKan already organises this page well: a left menu that switches between
+ * Home, Starred, Remaining, Templates and the Archive, a workspaces tree, and
+ * a grid of board tiles. Jalor keeps every one of those sections - they are
+ * real features with data behind them, and inventing a "Recents" or a
+ * "Shared with me" that nothing populates would be worse than not having one.
+ *
+ * What changes is the TILE. A WeKan tile is a solid block of the board's
+ * colour with white text on it, which means the page reads as a colour chart
+ * and a long board name on a pale colour is barely legible. The Jalor tile is
+ * a DSFR card - white, square, bordered - with the board's colour kept as a
+ * band across its top, so a board is still recognised by its colour at a
+ * glance while its NAME is the thing that is actually readable.
+ * =========================================================================== */
+
+.all-boards-wrapper,
+.boards-right-grid {
+  background: var(--jalor-bg-alt);
+}
+
+.board-list {
+  /* Slightly wider tracks than upstream's 200px: a DSFR card carries a title
+     and a description line, and 200px cuts most board names in half. */
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: var(--jalor-space-3);
+}
+
+/* The tile's outer element keeps the board's colour - that is where every
+   theme paints it (boardColors.css) - and the card inside it is inset from the
+   top, so what remains visible of the colour is a 6px band. */
+.board-list > li.js-board {
+  border-radius: var(--jalor-radius);
+  background-color: var(--jalor-text-muted);
+}
+
+.board-list .board-list-item:not(.has-background-image) {
+  background-color: var(--jalor-bg);
+  color: var(--jalor-text-title);
+  margin-top: 6px;
+  min-height: 108px;
+  border: 1px solid var(--jalor-border);
+  border-top: 0;
+  padding: var(--jalor-space-3) var(--jalor-space-3) var(--jalor-space-4);
+  font-size: var(--jalor-font-size-lg);
+  line-height: 1.35;
+}
+
+.board-list > li.js-board:hover .board-list-item:not(.has-background-image) {
+  background-color: var(--jalor-bg-alt);
+}
+
+.board-list .board-list-item:not(.has-background-image) .board-list-item-name {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+}
+
+.board-list .board-list-item:not(.has-background-image) .board-list-item-desc {
+  color: var(--jalor-text-muted);
+  font-weight: 400;
+}
+
+.board-list .board-list-item:not(.has-background-image) .board-list-item-sub-name,
+.board-list .board-list-item:not(.has-background-image) .board-list-item-archived-at {
+  color: var(--jalor-text-muted);
+}
+
+/* The star. It sits on the card now rather than on a block of colour, so it
+   needs a colour of its own instead of relying on white-on-anything. */
+.board-list .board-list-item:not(.has-background-image) .js-star-board,
+.board-list .board-list-item:not(.has-background-image) .js-has-spenttime-cards {
+  color: var(--jalor-text-muted);
+}
+
+.board-list .js-board.starred .board-list-item:not(.has-background-image) .js-star-board {
+  color: var(--jalor-warning);
+}
+
+/* A board someone has invited you to: the DSFR's "callout" treatment, because
+   it is the one tile on the page that asks a question. */
+.board-list > li.js-board.is-invited .board-list-item {
+  background-color: var(--jalor-info-bg);
+  border-inline-start: 4px solid var(--jalor-info-border);
+  color: var(--jalor-text);
+}
+
+/* --- Add a board ---------------------------------------------------------
+ * The DSFR has no "add" tile; this is the standard dashed-outline affordance,
+ * drawn in the Bleu France so it reads as the page's primary action rather
+ * than as an empty board. */
+.board-list .js-add-board .board-list-item {
+  background: var(--jalor-bg);
+  border: 1px dashed var(--jalor-primary);
+  color: var(--jalor-primary-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.board-list .js-add-board .board-list-item:hover {
+  background: var(--jalor-primary-soft);
+  text-decoration: none;
+}
+
+.board-list-item-empty {
+  background: var(--jalor-bg);
+  border: 1px solid var(--jalor-border);
+  color: var(--jalor-text-muted);
+}
+
+/* --- Bookmarks -----------------------------------------------------------
+ * A saved page, listed among the starred boards. It is a different KIND of
+ * thing from a board, so it keeps a different shape: a white card with a Bleu
+ * France leading rule rather than a coloured band. */
+.board-list .board-list-item-bookmark .board-list-item {
+  background: var(--jalor-bg);
+  border: 1px solid var(--jalor-border);
+  border-inline-start: 4px solid var(--jalor-primary);
+  color: var(--jalor-text-title);
+  margin-top: 0;
+}
+
+.board-list .board-list-item-bookmark .bookmark-url {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+/* --- Multi-selection ------------------------------------------------------ */
+.board-multiselection-controls button {
+  margin-inline-end: var(--jalor-space-2);
+}
+
+.board-list > li.js-board.is-checked .board-list-item {
+  outline: 2px solid var(--jalor-primary);
+  outline-offset: -2px;
+}
+
+/* --- Workspaces ----------------------------------------------------------- */
+.workspace-node-content {
+  border-radius: var(--jalor-radius);
+  color: var(--jalor-text);
+}
+
+.workspace-node-content:hover {
+  background: var(--jalor-bg-alt);
+}
+
+/* --- Drop target for "remove from Home" ---------------------------------- */
+.home-remove-target {
+  background: var(--jalor-error-bg);
+  border: 1px dashed var(--jalor-error-border);
+  color: var(--jalor-error);
+  border-radius: var(--jalor-radius);
+}

@@ -2406,5 +2406,6 @@
   "import-board-source": "Abaguer on tåvlea (Trello, Jira, ebagaedje WeKan, CSV, Excel, …)",
   "import-source-heading": "Abaguer di:",
   "import-parts-instruction": "Seulmint les pårteyes tchoezeyes sont abaguêyes. Li minme tchoes est eployî po l' ebagaedje.",
-  "import-wekan-file": "Abaguer d' on fitchî d' ebagaedje .json ou .zip:"
+  "import-wekan-file": "Abaguer d' on fitchî d' ebagaedje .json ou .zip:",
+  "jalor-tagline": "Manaedjmint colaboratif des bouyes"
 }

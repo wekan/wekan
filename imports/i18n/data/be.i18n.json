@@ -2406,5 +2406,6 @@
   "import-board-source": "Імпартаваць дошку (Trello, Jira, экспарт WeKan, CSV, Excel, …)",
   "import-source-heading": "Імпартаваць з:",
   "import-parts-instruction": "Імпартуюцца толькі адзначаныя часткі. Той самы выбар выкарыстоўваецца пры экспарце.",
-  "import-wekan-file": "Імпартаваць з файла экспарту .json або .zip:"
+  "import-wekan-file": "Імпартаваць з файла экспарту .json або .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

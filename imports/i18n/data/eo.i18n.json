@@ -2406,5 +2406,6 @@
   "import-board-source": "Importi tabulon (Trello, Jira, eksporto de WeKan, CSV, Excel, …)",
   "import-source-heading": "Importi el:",
   "import-parts-instruction": "Nur la markitaj partoj estas importataj. La sama elekto uziĝas ĉe eksportado.",
-  "import-wekan-file": "Importi el .json- aŭ .zip-eksportdosiero:"
+  "import-wekan-file": "Importi el .json- aŭ .zip-eksportdosiero:",
+  "jalor-tagline": "Kunlabora administrado de taskoj"
 }

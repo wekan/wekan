@@ -2409,5 +2409,6 @@
   "import-board-source": "استيراد لوحة (Trello، Jira، تصدير WeKan، CSV، Excel، …)",
   "import-source-heading": "الاستيراد من:",
   "import-parts-instruction": "لا يُستورد سوى الأجزاء المحددة. ويُستخدم الاختيار نفسه عند التصدير.",
-  "import-wekan-file": "الاستيراد من ملف تصدير ‏.json أو ‏.zip:"
+  "import-wekan-file": "الاستيراد من ملف تصدير ‏.json أو ‏.zip:",
+  "jalor-tagline": "Collaborative task management"
 }

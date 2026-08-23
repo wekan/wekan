@@ -2406,5 +2406,6 @@
   "import-board-source": "Увези таблу (Trello, Jira, WeKan извоз, CSV, Excel, …)",
   "import-source-heading": "Увези из:",
   "import-parts-instruction": "Увозе се само означени делови. Исти избор се користи и при извозу.",
-  "import-wekan-file": "Увези из .json или .zip датотеке извоза:"
+  "import-wekan-file": "Увези из .json или .zip датотеке извоза:",
+  "jalor-tagline": "Заједничко управљање задацима"
 }

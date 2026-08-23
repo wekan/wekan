@@ -2406,5 +2406,6 @@
   "import-board-source": "Importă panou (Trello, Jira, export WeKan, CSV, Excel, …)",
   "import-source-heading": "Importă din:",
   "import-parts-instruction": "Se importă doar părțile bifate. Aceeași alegere este folosită la export.",
-  "import-wekan-file": "Importă dintr-un fișier de export .json sau .zip:"
+  "import-wekan-file": "Importă dintr-un fișier de export .json sau .zip:",
+  "jalor-tagline": "Gestionarea colaborativă a sarcinilor"
 }

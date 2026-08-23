@@ -2406,5 +2406,6 @@
   "import-board-source": "אימפּאָרטירן אַ ברעט (Trello, Jira, WeKan־עקספּאָרט, CSV, Excel, …)",
   "import-source-heading": "אימפּאָרטירן פֿון:",
   "import-parts-instruction": "בלויז די אָפּגעצייכנטע טיילן ווערן אימפּאָרטירט. די זעלבע אויסקלײַב ווערט גענוצט בײַם עקספּאָרטירן.",
-  "import-wekan-file": "אימפּאָרטירן פֿון אַ .json אָדער .zip עקספּאָרט־טעקע:"
+  "import-wekan-file": "אימפּאָרטירן פֿון אַ .json אָדער .zip עקספּאָרט־טעקע:",
+  "jalor-tagline": "Collaborative task management"
 }

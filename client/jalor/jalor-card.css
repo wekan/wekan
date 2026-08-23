@@ -1,0 +1,258 @@
+/* ===========================================================================
+ * Jalor — the card
+ *
+ * Opening a card is the second-most-used screen in the product, and the one
+ * where WeKan shows its age most: everything is on the page at once, at the
+ * same weight, with the actions scattered among the data.
+ *
+ * WeKan's own markup already has the right skeleton - `.card-details-header`,
+ * then `.card-details-group`s each with a `.card-details-group-body`, and the
+ * activity feed at the end - so Jalor does not rewrite the template. It gives
+ * that skeleton the DSFR's reading order instead:
+ *
+ *   Title                        the h1 of the panel, on white, with the path
+ *                                above it and the card's own actions beside it
+ *   Main information             members, labels, dates, custom fields, laid
+ *                                out as label/value pairs on one tinted block
+ *   Description                  prose, at reading size
+ *   Checklists, attachments      each its own bordered section with a heading
+ *   Comments and activity        a feed at the end, quietest of the four
+ *
+ * Sections are separated by rules and headings rather than by boxes inside
+ * boxes: the DSFR separates with lines, and a card that nests panels three
+ * deep is what made this screen hard to scan in the first place.
+ * =========================================================================== */
+
+.card-details {
+  background: var(--jalor-bg);
+  border-inline-start: 1px solid var(--jalor-border);
+  color: var(--jalor-text);
+}
+
+/* --- Header --------------------------------------------------------------- */
+.card-details .card-details-header {
+  background: var(--jalor-bg);
+  border-bottom: 1px solid var(--jalor-border);
+  padding-bottom: var(--jalor-space-3);
+}
+
+.card-details .card-details-path {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+.card-details .card-details-title,
+.card-details .card-details-header h2 {
+  color: var(--jalor-text-title);
+  font-size: calc(20px * var(--wekan-ui-font-scale, 1));
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.card-details a.card-details-menu,
+.card-details a.card-details-section-menu,
+.card-details a.card-collapse-toggle {
+  color: var(--jalor-text-muted);
+  border-radius: var(--jalor-radius);
+  padding: var(--jalor-space-1) var(--jalor-space-2);
+}
+
+.card-details a.card-details-menu:hover,
+.card-details a.card-details-section-menu:hover,
+.card-details a.card-collapse-toggle:hover {
+  color: var(--jalor-primary-text);
+  background: var(--jalor-primary-soft);
+}
+
+/* --- Sections ------------------------------------------------------------- */
+.card-details .card-details-group {
+  border-top: 1px solid var(--jalor-border);
+  padding-top: var(--jalor-space-3);
+  margin-top: var(--jalor-space-3);
+}
+
+.card-details .card-details-group > h3,
+.card-details .card-details-group-title,
+.card-details .comment-title {
+  color: var(--jalor-text-label);
+  font-size: var(--jalor-font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--jalor-space-2);
+}
+
+/* --- Main information ----------------------------------------------------
+ * The label/value pairs. A tinted block, so "who, when, which labels" reads as
+ * one unit distinct from the prose below it, which is the DSFR's own way of
+ * marking a summary. */
+.card-details .card-details-items {
+  background: var(--jalor-bg-alt);
+  border: 1px solid var(--jalor-border);
+  padding: var(--jalor-space-3);
+}
+
+.card-details .card-details-item {
+  margin-bottom: var(--jalor-space-3);
+}
+
+.card-details .card-details-item > h3,
+.card-details .card-details-item .item-title {
+  color: var(--jalor-text-label);
+  font-size: var(--jalor-font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card-details .card-details-item-content {
+  color: var(--jalor-text);
+}
+
+/* --- Labels --------------------------------------------------------------- */
+.card-details .card-label,
+.card-details a.card-label {
+  border-radius: var(--jalor-radius-pill);
+  font-size: var(--jalor-font-size-sm);
+  font-weight: 500;
+  padding: 2px var(--jalor-space-2);
+}
+
+/* --- Dates ---------------------------------------------------------------- */
+.card-details .card-date.overdue {
+  background: var(--jalor-error-bg);
+  color: var(--jalor-error);
+  border-radius: var(--jalor-radius);
+  font-weight: 700;
+}
+
+.card-details .card-date.due-soon {
+  background: var(--jalor-warning-bg);
+  border-radius: var(--jalor-radius);
+}
+
+/* --- Checklists ----------------------------------------------------------
+ * A checklist is a task list, so it gets the DSFR's list treatment: a progress
+ * line at the top, then rows that are quiet until hovered, with the checkbox
+ * (already restyled in jalor-controls.css) as the only colour. */
+.card-details .checklist,
+.card-details .checklists {
+  border: 1px solid var(--jalor-border);
+  background: var(--jalor-bg);
+  padding: var(--jalor-space-2);
+  margin-bottom: var(--jalor-space-3);
+}
+
+.card-details .checklist-title,
+.card-details .checklist .title {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+}
+
+.card-details .checklist-item:hover,
+.card-details .checklist-items .item:hover {
+  background: var(--jalor-bg-alt);
+}
+
+.card-details .checklist-progress-bar,
+.card-details .progress-bar {
+  background: var(--jalor-bg-contrast);
+  border-radius: var(--jalor-radius);
+}
+
+.card-details .checklist-progress-bar > span,
+.card-details .progress-bar > .progress {
+  background: var(--jalor-primary);
+}
+
+/* --- Attachments ---------------------------------------------------------- */
+.card-details .attachment,
+.card-details .attachment-item {
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  background: var(--jalor-bg);
+}
+
+.card-details .attachment-thumbnail {
+  border-radius: var(--jalor-radius);
+}
+
+/* Upload progress: the DSFR has no progress bar component, so this is the
+   plainest thing that reads as one - a Bleu France fill on a grey track. */
+.upload-progress-bar {
+  background: var(--jalor-bg-contrast);
+  border-radius: var(--jalor-radius);
+}
+
+.upload-progress-fill {
+  background: var(--jalor-primary);
+}
+
+.upload-progress-success {
+  color: var(--jalor-success);
+}
+
+.upload-progress-error {
+  color: var(--jalor-error);
+}
+
+/* --- Comments and activity -----------------------------------------------
+ * The feed at the end of the card. Quiet by design: it is history, not the
+ * card. The comment BOX, on the other hand, is an action, so it keeps the
+ * DSFR field shape and a primary submit. */
+.activities .activity {
+  border-bottom: 1px solid var(--jalor-border);
+  padding: var(--jalor-space-2) 0;
+  color: var(--jalor-text-muted);
+}
+
+.activities .activity .activity-desc,
+.activities .activity-comment {
+  color: var(--jalor-text);
+}
+
+.activities .activity .member,
+.activities .activity .activity-meta {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+.activities .activity-comment .comment-text {
+  background: var(--jalor-bg-alt);
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  padding: var(--jalor-space-2) var(--jalor-space-3);
+}
+
+.new-comment textarea,
+.js-new-comment-form textarea {
+  min-height: 72px;
+}
+
+/* --- Vote and planning poker ---------------------------------------------
+ * Two WeKan features that draw their own little tables. They keep their
+ * layout; only the surface changes, so they stop looking like a different
+ * application inside the card. */
+.card-details .poker-table,
+.card-details .vote-result {
+  border: 1px solid var(--jalor-border);
+  background: var(--jalor-bg);
+}
+
+.card-details .poker-title,
+.card-details .vote-title {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+}
+
+.card-details .poker-card {
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  background: var(--jalor-bg);
+  color: var(--jalor-text-title);
+}
+
+.card-details .poker-card:hover {
+  border-color: var(--jalor-primary);
+  background: var(--jalor-primary-soft);
+}

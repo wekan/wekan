@@ -1,0 +1,5 @@
+1.15.2
+
+Vendored from the npm package @gouvfr/dsfr by scripts/vendor-dsfr.mjs.
+Do not edit anything in this directory, or in client/jalor/vendor/, by hand -
+bump the version in package.json and re-run the script instead.

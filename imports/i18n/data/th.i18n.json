@@ -2406,5 +2406,6 @@
   "import-board-source": "นำเข้าบอร์ด (Trello, Jira, ไฟล์ส่งออกของ WeKan, CSV, Excel, …)",
   "import-source-heading": "นำเข้าจาก:",
   "import-parts-instruction": "จะนำเข้าเฉพาะส่วนที่ทำเครื่องหมายไว้ และใช้ตัวเลือกเดียวกันนี้เมื่อส่งออก",
-  "import-wekan-file": "นำเข้าจากไฟล์ส่งออก .json หรือ .zip:"
+  "import-wekan-file": "นำเข้าจากไฟล์ส่งออก .json หรือ .zip:",
+  "jalor-tagline": "การจัดการงานร่วมกัน"
 }

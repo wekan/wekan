@@ -2409,5 +2409,6 @@
   "import-board-source": "Bord importeren (Trello, Jira, WeKan-export, CSV, Excel, …)",
   "import-source-heading": "Importeren uit:",
   "import-parts-instruction": "Alleen de aangevinkte onderdelen worden geïmporteerd. Dezelfde keuze geldt bij het exporteren.",
-  "import-wekan-file": "Importeren uit een .json- of .zip-exportbestand:"
+  "import-wekan-file": "Importeren uit een .json- of .zip-exportbestand:",
+  "jalor-tagline": "Gezamenlijk taakbeheer"
 }

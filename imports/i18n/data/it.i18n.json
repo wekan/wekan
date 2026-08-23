@@ -2409,5 +2409,6 @@
   "import-board-source": "Importa bacheca (Trello, Jira, esportazione di WeKan, CSV, Excel, …)",
   "import-source-heading": "Importa da:",
   "import-parts-instruction": "Vengono importate solo le parti selezionate. La stessa scelta è usata durante l'esportazione.",
-  "import-wekan-file": "Importa da un file di esportazione .json o .zip:"
+  "import-wekan-file": "Importa da un file di esportazione .json o .zip:",
+  "jalor-tagline": "Gestione collaborativa delle attività"
 }

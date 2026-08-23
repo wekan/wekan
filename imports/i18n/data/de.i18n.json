@@ -2409,5 +2409,6 @@
   "import-board-source": "Board importieren (Trello, Jira, WeKan-Export, CSV, Excel, …)",
   "import-source-heading": "Importieren aus:",
   "import-parts-instruction": "Nur die angehakten Teile werden importiert. Dieselbe Auswahl gilt beim Exportieren.",
-  "import-wekan-file": "Aus einer .json- oder .zip-Exportdatei importieren:"
+  "import-wekan-file": "Aus einer .json- oder .zip-Exportdatei importieren:",
+  "jalor-tagline": "Kollaborative Aufgabenverwaltung"
 }

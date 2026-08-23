@@ -55,8 +55,24 @@ module.exports = defineConfig(Meteor => ({
       },
       ...(Meteor.isClient
         ? [
+            // The vendored DSFR (client/jalor/vendor/). Its url() references point
+            // at /dsfr/fonts/... and /dsfr/icons/..., which are STATIC files under
+            // public/ - not modules. css-loader resolves a root-relative url()
+            // through resolve.roots and would fail the build looking for
+            // <project>/dsfr/fonts/Marianne-Regular.woff2, so URL handling is off
+            // for these two files only. Everything else keeps the default.
+            // scripts/vendor-dsfr.mjs is what writes those absolute paths.
             {
               test: /\.css$/i,
+              include: path.resolve(__dirname, 'client/jalor/vendor'),
+              use: [
+                'style-loader',
+                { loader: 'css-loader', options: { url: false, import: false } },
+              ],
+            },
+            {
+              test: /\.css$/i,
+              exclude: path.resolve(__dirname, 'client/jalor/vendor'),
               use: ['style-loader', 'css-loader'],
             },
           ]

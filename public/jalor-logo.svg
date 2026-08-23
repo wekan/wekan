@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 96" role="img" aria-label="Jalor — Gestion collaborative des taches">
+  <title>Jalor</title>
+  <desc>Jalor — Gestion collaborative des taches</desc>
+  <rect x="0" y="16" width="64" height="64" fill="#000091"/>
+  <rect x="12" y="50" width="10" height="18" fill="#ffffff"/>
+  <rect x="27" y="40" width="10" height="28" fill="#ffffff"/>
+  <rect x="42" y="30" width="10" height="38" fill="#ffffff"/>
+  <text x="80" y="55" font-family="Marianne, Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#000091">Jalor</text>
+  <text x="81" y="74" font-family="Marianne, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#666666">Gestion collaborative des tâches</text>
+</svg>

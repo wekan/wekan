@@ -201,3 +201,17 @@ Blaze.registerHelper('Filter', () => Filter);
 Blaze.registerHelper('MultiSelection', () => MultiSelection);
 Blaze.registerHelper('Sidebar', () => getSidebar());
 Blaze.registerHelper('BoardMultiSelection', () => BoardMultiSelection);
+
+// Jalor: the product's name, wherever a template shows a brand.
+//
+// `currentSetting.productName` is empty until an administrator fills in Admin
+// Panel / Settings / Layout / Product name, so a template that reads it
+// directly renders NOTHING on a stock instance - which is how the sign-in page
+// would have had a blank where its title goes. This helper is the same one
+// answer the document title and the migration dashboard already use
+// (models/lib/productName.js): the configured name, or Jalor.
+import { productNameOrDefault } from '/models/lib/productName';
+
+Blaze.registerHelper('productName', () =>
+  productNameOrDefault(ReactiveCache.getCurrentSetting()?.productName),
+);

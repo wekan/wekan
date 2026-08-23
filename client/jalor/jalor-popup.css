@@ -1,0 +1,172 @@
+/* ===========================================================================
+ * Jalor — pop-overs, menus and modals
+ *
+ * WeKan puts nearly every secondary action behind a `.pop-over`: the board
+ * menu, the card actions, the label picker, the member picker, every "move
+ * to…". There are well over a hundred of them and they are what the app
+ * actually feels like, so they are the single highest-value surface to bring
+ * to the DSFR — and the one place where a "just a blue theme" fork gives
+ * itself away.
+ *
+ * The DSFR has no pop-over component; its nearest relatives are the modal and
+ * the navigation menu. What is taken from them: a white raised surface, a
+ * square outline, a titled header with a close control, and list rows that
+ * highlight in the Bleu France tint rather than in a saturated blue.
+ * =========================================================================== */
+
+.pop-over {
+  background: var(--jalor-bg-overlay);
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  box-shadow: var(--jalor-shadow-overlay);
+  color: var(--jalor-text);
+}
+
+.pop-over .header {
+  background: var(--jalor-bg);
+  border-bottom: 1px solid var(--jalor-border);
+  border-radius: 0;
+}
+
+.pop-over .header .header-title {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+  font-size: var(--jalor-font-size);
+}
+
+.pop-over .header .back-btn,
+.pop-over .header .close-btn {
+  color: var(--jalor-text);
+  border-radius: var(--jalor-radius);
+}
+
+.pop-over .header .back-btn:hover,
+.pop-over .header .close-btn:hover {
+  background: var(--jalor-bg-contrast);
+  color: var(--jalor-text-title);
+}
+
+.pop-over hr {
+  border-top: 1px solid var(--jalor-border);
+}
+
+/* --- Menu rows -----------------------------------------------------------
+ * A pop-over list is a menu. The DSFR menu row is full-bleed, square, and
+ * turns the pale Bleu France on hover with the label going Bleu France too —
+ * which is legible at any contrast setting, unlike a saturated fill that
+ * forces the label to white and back. */
+.pop-over-list li > a {
+  border-radius: var(--jalor-radius);
+  color: var(--jalor-text);
+  padding: var(--jalor-space-2) var(--jalor-space-3);
+}
+
+.pop-over-list li > a:not(.disabled):hover {
+  background: var(--jalor-primary-soft);
+  color: var(--jalor-primary-text);
+  text-decoration: none;
+}
+
+.pop-over-list li > a:not(.disabled):hover .quiet,
+.pop-over-list li > a:not(.disabled):hover i.fa {
+  color: var(--jalor-primary-text);
+}
+
+.pop-over-list li > a:active {
+  background: var(--jalor-primary-soft-hover);
+}
+
+.pop-over-list li > a.current {
+  background: var(--jalor-primary-soft);
+  color: var(--jalor-primary-text);
+  font-weight: 700;
+}
+
+.pop-over-list li > a.disabled,
+.pop-over-list li > a.disabled:hover {
+  color: var(--jalor-text-disabled);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.pop-over-list-title,
+.pop-over .pop-over-list-subheading {
+  color: var(--jalor-text-label);
+  font-size: var(--jalor-font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --- Modal ---------------------------------------------------------------
+ * WeKan's own modal keeps its markup and its open/close JavaScript; only the
+ * surface changes. The DSFR modal: a dimmed page, a white square panel with a
+ * visible title row and the close control at the top end corner. */
+#modal .overlay {
+  background: rgba(22, 22, 22, 0.64);
+}
+
+#modal .modal-content,
+#modal .modal-content-wide {
+  background: var(--jalor-bg-overlay);
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  box-shadow: var(--jalor-shadow-overlay);
+  color: var(--jalor-text);
+}
+
+#modal .modal-content h2,
+#modal .modal-content-wide h2 {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+  border-bottom: 1px solid var(--jalor-border);
+  padding-bottom: var(--jalor-space-2);
+  margin-bottom: var(--jalor-space-3);
+}
+
+#modal .modal-content .modal-close-btn,
+#modal .modal-content-wide .modal-close-btn {
+  color: var(--jalor-text);
+  border-radius: var(--jalor-radius);
+  padding: var(--jalor-space-1);
+}
+
+#modal .modal-content .modal-close-btn:hover,
+#modal .modal-content-wide .modal-close-btn:hover {
+  background: var(--jalor-bg-contrast);
+  color: var(--jalor-text-title);
+}
+
+/* --- Notices -------------------------------------------------------------
+ * The DSFR's alert, available to any template that has something to say. Four
+ * intents, each carrying its meaning in a left rule AND in words — never in
+ * colour alone (RGAA 3.1). */
+.jalor-notice {
+  display: block;
+  padding: var(--jalor-space-3) var(--jalor-space-4);
+  margin-bottom: var(--jalor-space-3);
+  border-inline-start: 4px solid var(--jalor-info-border);
+  background: var(--jalor-info-bg);
+  color: var(--jalor-text);
+}
+
+.jalor-notice--success {
+  border-inline-start-color: var(--jalor-success-border);
+  background: var(--jalor-success-bg);
+}
+
+.jalor-notice--warning {
+  border-inline-start-color: var(--jalor-warning-border);
+  background: var(--jalor-warning-bg);
+}
+
+.jalor-notice--error {
+  border-inline-start-color: var(--jalor-error-border);
+  background: var(--jalor-error-bg);
+}
+
+.jalor-notice-title {
+  display: block;
+  font-weight: 700;
+  color: var(--jalor-text-title);
+}

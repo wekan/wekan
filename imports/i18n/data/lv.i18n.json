@@ -2406,5 +2406,6 @@
   "import-board-source": "Importēt tāfeli (Trello, Jira, WeKan eksports, CSV, Excel, …)",
   "import-source-heading": "Importēt no:",
   "import-parts-instruction": "Tiek importētas tikai atzīmētās daļas. Tā pati izvēle tiek izmantota eksportējot.",
-  "import-wekan-file": "Importēt no .json vai .zip eksporta faila:"
+  "import-wekan-file": "Importēt no .json vai .zip eksporta faila:",
+  "jalor-tagline": "Sadarbīga uzdevumu pārvaldība"
 }

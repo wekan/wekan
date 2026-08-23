@@ -2406,5 +2406,6 @@
   "import-board-source": "تاختا ئەكىرىش (Trello، Jira، WeKan ئېكسپورتى، CSV، Excel، …)",
   "import-source-heading": "مۇنداق مەنبەدىن ئەكىرىش:",
   "import-parts-instruction": "پەقەت بەلگە قويۇلغان قىسىملارلا ئەكىرىلىدۇ. ئېكسپورت قىلغاندىمۇ شۇ تاللاش ئىشلىتىلىدۇ.",
-  "import-wekan-file": ".json ياكى .zip ئېكسپورت ھۆججىتىدىن ئەكىرىش:"
+  "import-wekan-file": ".json ياكى .zip ئېكسپورت ھۆججىتىدىن ئەكىرىش:",
+  "jalor-tagline": "Collaborative task management"
 }

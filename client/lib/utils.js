@@ -900,7 +900,7 @@ export const Utils = {
   },
 
   setCustomUI(data) {
-    const productName = (data && data.productName) ? data.productName : 'Wekan';
+    const productName = (data && data.productName) ? data.productName : 'Jalor';
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
       document.title = `${currentBoard.title} - ${productName}`;

@@ -72,6 +72,24 @@ Les organismes utilisant ou redistribuant Jalor doivent vérifier qu'ils sont au
 
 ---
 
+## Langues
+
+Jalor conserve intégralement le système multilingue de WeKan. L'interface est
+[traduite](https://app.transifex.com/wekan/wekan/) en 234 langues,
+dont 142 essentiellement complètes.
+
+Le français est la langue **par défaut** : c'est celle qu'obtient une personne
+dont le navigateur ne demande aucune des langues disponibles, et celle des
+notifications envoyées à un compte qui n'a pas choisi la sienne. Le choix
+individuel de langue reste disponible sur l'écran de connexion et dans les
+paramètres du compte, et il l'emporte toujours.
+
+L'anglais reste la langue de repli d'une **chaîne manquante** : c'est une autre
+question, et elle garde sa réponse, sinon une clé non traduite n'afficherait
+rien du tout.
+
+---
+
 ## Installation avec Docker
 
 Le mode de déploiement recommandé à terme est Docker Compose.

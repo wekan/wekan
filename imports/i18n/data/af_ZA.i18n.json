@@ -2406,5 +2406,6 @@
   "import-board-source": "Voer bord in (Trello, Jira, WeKan-uitvoer, CSV, Excel, …)",
   "import-source-heading": "Voer in vanaf:",
   "import-parts-instruction": "Slegs die gemerkte dele word ingevoer. Dieselfde keuse geld by uitvoer.",
-  "import-wekan-file": "Voer in vanaf 'n .json- of .zip-uitvoerlêer:"
+  "import-wekan-file": "Voer in vanaf 'n .json- of .zip-uitvoerlêer:",
+  "jalor-tagline": "Collaborative task management"
 }

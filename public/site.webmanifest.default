@@ -1,11 +1,13 @@
 {
-  "name": "Wekan",
-  "short_name": "Wekan",
+  "name": "Jalor",
+  "short_name": "Jalor",
+  "description": "Jalor - Gestion collaborative des taches",
+  "lang": "fr",
   "icons": [
     {
-      "src": "svg-etc/wekan-logo-512.svg",
+      "src": "jalor-mark.svg",
       "sizes": "any",
-      "type": "image/svg"
+      "type": "image/svg+xml"
     },
     {
       "src": "android-chrome-192x192.png",
@@ -505,15 +507,15 @@
       "type": "image/webp"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#000091",
+  "background_color": "#ffffff",
   "start_url": "sign-in",
   "display": "standalone",
   "orientation": "any",
   "categories": [
     "productivity"
   ],
-  "description": "Open Source kanban with MIT license",
+  "description": "Jalor - Gestion collaborative des taches. Logiciel libre (MIT), derive de WeKan.",
   "dir": "auto",
   "prefer_related_applications": false,
   "display_override": [

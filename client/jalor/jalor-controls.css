@@ -1,0 +1,335 @@
+/* ===========================================================================
+ * Jalor — form controls
+ *
+ * Buttons, fields, selects, checkboxes and toggles, restyled to the DSFR.
+ *
+ * These are restyled through WeKan's OWN selectors rather than by rewriting
+ * hundreds of templates to carry `fr-btn` / `fr-input`. That is the whole
+ * bargain of the fork: a WeKan release that adds a form gets the Jalor look
+ * for free, and a merge from upstream never conflicts in this file because
+ * upstream does not have it. Templates that Jalor rewrites anyway (the login
+ * screen, the header) do use the real DSFR classes.
+ *
+ * What the DSFR asks of a control, and what is applied here:
+ *   - square corners, a 1px bottom rule under a filled field;
+ *   - Bleu France for the primary action, an outlined button for the second;
+ *   - a visible label above the field, never a placeholder standing in for one;
+ *   - error state carried by colour AND a message, never colour alone;
+ *   - the same focus ring as everything else (jalor-base.css).
+ * =========================================================================== */
+
+/* --- Text fields ---------------------------------------------------------
+ * The DSFR field is a light grey box with a strong bottom rule and no side or
+ * top borders - that rule is what makes a DSFR form recognisable at a glance.
+ * `:not([type=file])` mirrors WeKan's own selector so the file input keeps its
+ * native widget. */
+select:not(.fr-select),
+textarea:not(.fr-input),
+input:not([type='file']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not(.fr-input),
+.wekan-form-control {
+  background-color: var(--jalor-bg-contrast);
+  border: 0;
+  border-bottom: 2px solid var(--jalor-text-title);
+  border-radius: var(--jalor-radius);
+  color: var(--jalor-text);
+  min-height: 36px;
+  padding: 6px 10px;
+  box-shadow: none;
+}
+
+select:hover,
+textarea:hover,
+input[type='text']:hover,
+input[type='password']:hover,
+input[type='email']:hover,
+input[type='number']:hover,
+input[type='search']:hover,
+input[type='url']:hover,
+input[type='date']:hover,
+input[type='time']:hover,
+input[type='datetime-local']:hover {
+  background-color: var(--background-contrast-grey-hover, var(--jalor-bg-contrast));
+  border-bottom-color: var(--jalor-text-title);
+}
+
+/* WeKan clears the outline on every field (`:focus { outline: 0 }`) and draws a
+   blue glow instead. The DSFR wants the ring, so the ring comes back - and the
+   glow goes, because two focus indicators on one field read as an error. */
+select:not(.fr-select):focus,
+textarea:not(.fr-input):focus,
+input:not([type='file']):not(.fr-input):focus,
+.wekan-form-control:focus {
+  outline: var(--jalor-focus-width) solid var(--jalor-focus-color);
+  outline-offset: var(--jalor-focus-offset);
+  box-shadow: none;
+  background-color: var(--jalor-bg-contrast);
+  border-bottom-color: var(--jalor-text-title);
+}
+
+select:disabled,
+textarea:disabled,
+input:disabled,
+.wekan-form-control:disabled {
+  background-color: var(--background-disabled-grey);
+  color: var(--jalor-text-disabled);
+  border-bottom-color: var(--jalor-text-disabled);
+  cursor: not-allowed;
+}
+
+::placeholder {
+  color: var(--jalor-text-muted);
+  opacity: 1;
+}
+
+/* Error: the DSFR's red bottom rule and red text. WeKan sets `.input-error`
+   on the field itself, which is the hook. */
+select.input-error,
+textarea.input-error,
+input.input-error,
+.wekan-form-control.input-error,
+input[aria-invalid='true'],
+textarea[aria-invalid='true'],
+select[aria-invalid='true'] {
+  border-bottom-color: var(--jalor-error-border);
+  background-color: var(--jalor-bg-contrast);
+  color: var(--jalor-text);
+}
+
+/* A field's own error message, when a template renders one next to it. */
+.jalor-field-error,
+.at-error,
+.at-input .at-error {
+  display: block;
+  margin-top: var(--jalor-space-1);
+  color: var(--jalor-error);
+  font-size: var(--jalor-font-size-sm);
+  font-weight: 500;
+}
+
+.jalor-field-hint {
+  display: block;
+  margin-top: var(--jalor-space-1);
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+label,
+.at-form label {
+  color: var(--jalor-text-label);
+  font-weight: 500;
+}
+
+/* Native selects keep their arrow; the DSFR draws its own, so the WeKan chrome
+   (rounded grey box) is replaced by the DSFR field shape above and the arrow is
+   left to the platform - a custom arrow is one more thing to keep accessible
+   for no gain. */
+select {
+  padding-inline-end: var(--jalor-space-5);
+}
+
+/* --- Buttons -------------------------------------------------------------
+ * Three levels, which is all the DSFR has: primary (filled Bleu France),
+ * secondary (outlined), tertiary (text only). WeKan's classes map onto them:
+ *   .primary / button[type=submit].primary  -> primary
+ *   a bare button / .button-link            -> secondary
+ *   .quiet-button / .button-link.setting    -> tertiary
+ *   .negate                                 -> destructive
+ *
+ * `:not(.fr-btn)` / `:not(.fr-input)` throughout: a control that already
+ * carries a real DSFR class is the DSFR's own and must not be restyled from
+ * here, or the templates Jalor DID rewrite would end up fighting this file.
+ */
+button:not(.fr-btn),
+input[type='submit']:not(.fr-btn),
+input[type='button']:not(.fr-btn),
+.button,
+.button-link {
+  font-family: var(--jalor-font);
+  font-size: var(--jalor-font-size);
+  font-weight: 500;
+  border-radius: var(--jalor-radius);
+  min-height: 36px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-in, color 0.1s ease-in;
+}
+
+/* Secondary — the default look of a button with no class saying otherwise. */
+button:not(.fr-btn),
+input[type='button']:not(.fr-btn),
+.button,
+.button-link {
+  background: var(--jalor-bg);
+  background-image: none;
+  border: 1px solid var(--jalor-primary);
+  color: var(--jalor-primary-text);
+  box-shadow: none;
+}
+
+button:not(.fr-btn):hover,
+input[type='button']:not(.fr-btn):hover,
+.button:hover,
+.button-link:hover {
+  background: var(--jalor-primary-soft);
+  background-image: none;
+  color: var(--jalor-primary-text);
+}
+
+button:not(.fr-btn):active,
+input[type='button']:not(.fr-btn):active,
+.button:active,
+.button-link:active {
+  background: var(--jalor-primary-soft-hover);
+}
+
+/* Primary — filled Bleu France, or the active WeKan theme's own accent when
+   one is set, exactly as WeKan already does (`var(--theme-accent, …)`). */
+input[type='submit']:not(.fr-btn),
+input[type='submit'].primary,
+button.primary,
+button[type='submit']:not(.fr-btn),
+.button-link.primary,
+.pop-over .at-form button.at-btn {
+  background: var(--theme-accent, var(--jalor-primary));
+  background-image: none;
+  border: 1px solid transparent;
+  box-shadow: none;
+  color: #fff;
+}
+
+input[type='submit']:not(.fr-btn):hover,
+input[type='submit'].primary:hover,
+button.primary:hover,
+button[type='submit']:not(.fr-btn):hover,
+.button-link.primary:hover,
+.pop-over .at-form button.at-btn:hover,
+input[type='submit'].primary:focus,
+button.primary:focus,
+button[type='submit']:not(.fr-btn):focus,
+.pop-over .at-form button.at-btn:focus {
+  background: var(--theme-accent, var(--jalor-primary-hover));
+  color: #fff;
+}
+
+input[type='submit'].primary:active,
+button.primary:active,
+button[type='submit']:not(.fr-btn):active,
+.pop-over .at-form button.at-btn:active {
+  background: var(--theme-accent, var(--jalor-primary-active));
+}
+
+/* Destructive. Red is the DSFR's error red, not WeKan's tomato, and it stays a
+   FILLED button so it never reads as the safe option. */
+input[type='submit'].negate,
+button.negate,
+.button-link.danger {
+  background: var(--jalor-error-border);
+  background-image: none;
+  border: 1px solid transparent;
+  box-shadow: none;
+  color: #fff;
+}
+
+input[type='submit'].negate:hover,
+button.negate:hover,
+input[type='submit'].negate:focus,
+button.negate:focus,
+.button-link.danger:hover {
+  background: var(--text-default-error);
+  background-image: none;
+  box-shadow: none;
+  color: #fff;
+}
+
+/* Tertiary — no border, no fill, just the label. */
+.quiet-button,
+.quiet-button-large,
+.button-link.setting,
+.show-more {
+  background: none;
+  background-image: none;
+  border: 1px solid transparent;
+  color: var(--jalor-primary-text);
+  box-shadow: none;
+}
+
+.quiet-button:hover,
+.quiet-button-large:hover,
+.button-link.setting:hover,
+.show-more:hover {
+  background: var(--jalor-primary-soft);
+  color: var(--jalor-primary-text);
+}
+
+button:not(.fr-btn):disabled,
+input[type='submit']:not(.fr-btn):disabled,
+input[type='button']:not(.fr-btn):disabled,
+.button.disabled,
+.button-link.disabled {
+  background: var(--background-disabled-grey);
+  background-image: none;
+  border-color: transparent;
+  color: var(--jalor-text-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* --- Checkboxes ----------------------------------------------------------
+ * WeKan's `.materialCheckBox` is a bare div toggled by a class, used in 92
+ * places. It keeps its markup and its behaviour; only the drawing changes, to
+ * the DSFR's square box with a Bleu France fill and a white tick. */
+.materialCheckBox {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--jalor-text-title);
+  border-radius: var(--jalor-radius);
+  background-color: var(--jalor-bg);
+  transform: none;
+}
+
+.materialCheckBox.is-checked {
+  background-color: var(--jalor-primary);
+  border-color: var(--jalor-primary);
+}
+
+/* --- Toggles -------------------------------------------------------------
+ * The DSFR toggle: a rounded track that turns Bleu France when on. WeKan's
+ * markup (a hidden checkbox plus `.toggle-label`) is untouched. */
+.toggle-label {
+  background-color: var(--jalor-text-muted);
+  height: 20px;
+  width: 40px;
+}
+
+.toggle-switch:checked ~ .toggle-label {
+  background-color: var(--jalor-primary);
+}
+
+.toggle-switch:focus-visible ~ .toggle-label {
+  outline: var(--jalor-focus-width) solid var(--jalor-focus-color);
+  outline-offset: var(--jalor-focus-offset);
+}
+
+/* --- Inline composers ----------------------------------------------------
+ * "Add a card", "Add a list", the rename fields: an inline input has no room
+ * for the DSFR's bottom rule and grey fill without pushing the layout about,
+ * so it stays flush and gains the DSFR's border and focus ring only. */
+input[type='text'].inline-input,
+input[type='password'].inline-input,
+input[type='email'].inline-input {
+  background: var(--jalor-bg);
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+}
+
+.add-controls,
+.edit-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--jalor-space-2);
+}
+
+.add-controls button[type='submit'],
+.add-controls input[type='button'] {
+  margin-bottom: 0;
+}

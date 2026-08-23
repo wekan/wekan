@@ -2409,5 +2409,6 @@
   "import-board-source": "Pano içe aktar (Trello, Jira, WeKan dışa aktarımı, CSV, Excel, …)",
   "import-source-heading": "Şuradan içe aktar:",
   "import-parts-instruction": "Yalnızca işaretlenen bölümler içe aktarılır. Dışa aktarırken de aynı seçim kullanılır.",
-  "import-wekan-file": "Bir .json veya .zip dışa aktarma dosyasından içe aktar:"
+  "import-wekan-file": "Bir .json veya .zip dışa aktarma dosyasından içe aktar:",
+  "jalor-tagline": "İş birliğine dayalı görev yönetimi"
 }

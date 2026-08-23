@@ -58,6 +58,8 @@ import '/client/lib/exportHTML';
 import '/client/lib/filter';
 import '/client/lib/fixDuplicateLists';
 import '/client/lib/i18n';
+// Jalor: keeps the DSFR's colour scheme in step with WeKan's active theme.
+import '/client/jalor/jalorTheme';
 import '/client/lib/infiniteScrolling';
 import '/client/lib/jquery-ui';
 import '/client/lib/localStorageValidator';

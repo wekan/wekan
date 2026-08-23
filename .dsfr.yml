@@ -1,0 +1,16 @@
+# Modalites d'utilisation du Systeme de Design de l'Etat (DSFR).
+#
+# Le paquet npm @gouvfr/dsfr refuse de s'installer tant que ce fichier ne
+# declare pas la version des modalites acceptee. Ce fichier est donc la trace,
+# dans le depot, de cette acceptation pour le projet Jalor.
+#
+# A LIRE AVANT DE DEPLOYER : le DSFR est d'usage RESTREINT. Il est destine aux
+# services numeriques de l'Etat et des organismes charges d'une mission de
+# service public. Le bloc-marque (Marianne, "Republique Francaise") est soumis a
+# des regles plus strictes encore et Jalor ne l'embarque pas : une administration
+# qui y a droit l'ajoute elle-meme via l'en-tete DSFR. Les modalites completes
+# sont dans node_modules/@gouvfr/dsfr/doc/legal/cgu.md et une copie de la licence
+# est vendue avec les fichiers dans public/dsfr/.
+#
+# Voir docs/Jalor/DSFR.md.
+accept-license: '1.0.1'

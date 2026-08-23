@@ -2406,5 +2406,6 @@
   "import-board-source": "Bubata bọọdụ (Trello, Jira, mbupụ WeKan, CSV, Excel, …)",
   "import-source-heading": "Bubata site na:",
   "import-parts-instruction": "Naanị akụkụ ndị e jiri akara họrọ ka a na-ebubata. Otu nhọrọ ahụ ka eji mgbe a na-ebupụ.",
-  "import-wekan-file": "Bubata site na faịlụ mbupụ .json ma ọ bụ .zip:"
+  "import-wekan-file": "Bubata site na faịlụ mbupụ .json ma ọ bụ .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

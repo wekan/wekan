@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Jalor">
+  <title>Jalor</title>
+  <!-- Trois jalons qui montent : les colonnes d'un tableau Kanban et la
+       progression d'un travail. Bleu France (#000091) du Systeme de Design
+       de l'Etat. Dessine uniquement avec des rectangles, pour que
+       scripts/generate-jalor-icons.mjs puisse en produire les favicons. -->
+  <rect width="64" height="64" fill="#000091"/>
+  <rect x="12" y="34" width="10" height="18" fill="#ffffff"/>
+  <rect x="27" y="24" width="10" height="28" fill="#ffffff"/>
+  <rect x="42" y="14" width="10" height="38" fill="#ffffff"/>
+</svg>

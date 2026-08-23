@@ -2406,5 +2406,6 @@
   "import-board-source": "Gbé ọkọ wọlé (Trello, Jira, okeere WeKan, CSV, Excel, …)",
   "import-source-heading": "Gbé wọlé láti:",
   "import-parts-instruction": "Àwọn apá tí a yàn nìkan ni a ó gbé wọlé. Àṣàyàn kan náà ni a ó lò nígbà okeere.",
-  "import-wekan-file": "Gbé wọlé láti inú fáìlì okeere .json tàbí .zip:"
+  "import-wekan-file": "Gbé wọlé láti inú fáìlì okeere .json tàbí .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

@@ -1,0 +1,195 @@
+/* ===========================================================================
+ * Jalor — base layer
+ *
+ * Typography, colours and focus for the page as a whole. Everything here is
+ * deliberately generic: it is what makes a screen nobody has migrated yet
+ * still look like Jalor rather than like WeKan, which is what keeps the fork
+ * coherent while the migration continues.
+ * =========================================================================== */
+
+/* Marianne, the State's typeface, shipped with the DSFR.
+ *
+ * WeKan's own base rule (client/components/main/layouts.css) names Roboto for
+ * `body, input, select, textarea, button`; it is left untouched so a WeKan
+ * upgrade never conflicts here, and this rule - loaded after it - is what
+ * actually applies. Member Settings / Font still wins over both: its rule is
+ * `body.has-ui-font ... !important`. */
+body,
+input,
+select,
+textarea,
+button,
+.wekan-form-control {
+  font-family: var(--jalor-font);
+}
+
+body {
+  font-size: var(--jalor-font-size);
+  line-height: var(--jalor-line-height);
+  color: var(--jalor-text);
+  /* WeKan paints the page #dedede. The DSFR's page is its own light grey, and
+     the difference is visible on every screen that is not a board. */
+  background-color: var(--jalor-bg-alt);
+}
+
+/* Headings: the DSFR scale, held down to back-office sizes. WeKan's 22/18/16
+   is close enough that nothing reflows; what changes is the weight and the
+   colour, which is where the DSFR's voice actually is. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--jalor-font);
+  color: var(--jalor-text-title);
+  font-weight: 700;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: calc(22px * var(--wekan-ui-font-scale, 1));
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: calc(18px * var(--wekan-ui-font-scale, 1));
+  line-height: 1.35;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--jalor-font-size-lg);
+  line-height: 1.4;
+}
+
+/* --- Focus ---------------------------------------------------------------
+ * One visible focus ring, everywhere, and the DSFR's own.
+ *
+ * This is an accessibility requirement (RGAA 10.7) and the single most common
+ * thing an application layer breaks, so it is stated once here, on
+ * :focus-visible, rather than per component. `:focus:not(:focus-visible)` is
+ * cleared so a MOUSE click does not leave a ring behind - the keyboard user
+ * gets the ring, the mouse user does not. */
+:focus-visible {
+  outline: var(--jalor-focus-width) solid var(--jalor-focus-color);
+  outline-offset: var(--jalor-focus-offset);
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* WeKan hides the outline in a few places to keep a control flush. Those are
+   exactly the places a keyboard user needs it, so it comes back. */
+a:focus-visible,
+button:focus-visible,
+.js-open-card:focus-visible,
+.minicard:focus-visible,
+.board-header-btn:focus-visible,
+.pop-over-list li > a:focus-visible {
+  outline: var(--jalor-focus-width) solid var(--jalor-focus-color);
+  outline-offset: var(--jalor-focus-offset);
+}
+
+/* --- Links ---------------------------------------------------------------
+ * DSFR links are Bleu France and underlined on hover, never on rest inside an
+ * application chrome (a menu of underlined items is unreadable). Links inside
+ * user-written text keep their underline, because there they are prose. */
+a {
+  color: var(--jalor-primary-text);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.viewer a,
+.card-description a,
+.comment-text a {
+  text-decoration: underline;
+}
+
+/* --- Text helpers WeKan already uses -------------------------------------- */
+.quiet,
+.sub-name,
+.minicard-creator {
+  color: var(--jalor-text-muted);
+}
+
+.error,
+.field-error {
+  color: var(--jalor-error);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--jalor-border);
+  margin: var(--jalor-space-3) 0;
+}
+
+/* --- Reading surfaces -----------------------------------------------------
+ * A card's description and its comments are prose, not chrome: they go back
+ * up to the DSFR's 16px and get a comfortable measure. */
+.card-details .card-description .viewer,
+.card-details .comment-text,
+.activity .activity-comment .viewer {
+  font-size: var(--jalor-font-size-lg);
+  line-height: 1.6;
+  color: var(--jalor-text);
+}
+
+/* --- Screen-reader-only ---------------------------------------------------
+ * The DSFR ships `.fr-sr-only`; Jalor adds its own short name so a template
+ * does not have to reach for a DSFR utility class for one label. */
+.jalor-sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The skip link WeKan already renders (layouts.jade), given the DSFR's look:
+   invisible until focused, then a real Bleu France banner at the top. */
+.skip-link {
+  position: absolute;
+  inset-inline-start: -9999px;
+  top: 0;
+  z-index: 10000;
+  padding: var(--jalor-space-2) var(--jalor-space-4);
+  background-color: var(--jalor-primary);
+  color: var(--jalor-text-inverted);
+  text-decoration: underline;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  inset-inline-start: 0;
+}
+
+/* --- Motion ---------------------------------------------------------------
+ * RGAA 13.8 / prefers-reduced-motion: an animation nobody asked for is a
+ * barrier. WeKan animates drag placeholders, spinners and pop-over entries. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

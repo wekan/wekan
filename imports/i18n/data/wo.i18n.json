@@ -2406,5 +2406,6 @@
   "import-board-source": "Dugal tablo (Trello, Jira, génneg WeKan, CSV, Excel, …)",
   "import-source-heading": "Dugal ci:",
   "import-parts-instruction": "Ay pàcc yi ñu tànn rekk lañu dugal. Tànn boobu la ñu jëfandikoo bu ñu génnee.",
-  "import-wekan-file": "Dugal ci fiiseg génne .json walla .zip:"
+  "import-wekan-file": "Dugal ci fiiseg génne .json walla .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

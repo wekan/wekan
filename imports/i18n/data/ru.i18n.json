@@ -2409,5 +2409,6 @@
   "import-board-source": "Импортировать доску (Trello, Jira, экспорт WeKan, CSV, Excel, …)",
   "import-source-heading": "Импортировать из:",
   "import-parts-instruction": "Импортируются только отмеченные части. Тот же выбор используется при экспорте.",
-  "import-wekan-file": "Импортировать из файла экспорта .json или .zip:"
+  "import-wekan-file": "Импортировать из файла экспорта .json или .zip:",
+  "jalor-tagline": "Совместное управление задачами"
 }

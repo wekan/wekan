@@ -2406,5 +2406,6 @@
   "import-board-source": "នាំចូលក្តារ (Trello, Jira, ការនាំចេញ WeKan, CSV, Excel, …)",
   "import-source-heading": "នាំចូលពី៖",
   "import-parts-instruction": "មានតែផ្នែកដែលបានធីកប៉ុណ្ណោះដែលត្រូវបាននាំចូល។ ជម្រើសដដែលនេះត្រូវប្រើពេលនាំចេញ។",
-  "import-wekan-file": "នាំចូលពីឯកសារនាំចេញ .json ឬ .zip៖"
+  "import-wekan-file": "នាំចូលពីឯកសារនាំចេញ .json ឬ .zip៖",
+  "jalor-tagline": "Collaborative task management"
 }

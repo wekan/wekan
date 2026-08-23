@@ -2406,5 +2406,6 @@
   "import-board-source": "બોર્ડ આયાત કરો (Trello, Jira, WeKan નિકાસ, CSV, Excel, …)",
   "import-source-heading": "અહીંથી આયાત કરો:",
   "import-parts-instruction": "ફક્ત ટિક કરેલા ભાગો આયાત થાય છે. નિકાસ વખતે પણ એ જ પસંદગી વપરાય છે.",
-  "import-wekan-file": ".json અથવા .zip નિકાસ ફાઇલમાંથી આયાત કરો:"
+  "import-wekan-file": ".json અથવા .zip નિકાસ ફાઇલમાંથી આયાત કરો:",
+  "jalor-tagline": "Collaborative task management"
 }

@@ -2409,5 +2409,6 @@
   "import-board-source": "बोर्ड आयात करें (Trello, Jira, WeKan निर्यात, CSV, Excel, …)",
   "import-source-heading": "यहाँ से आयात करें:",
   "import-parts-instruction": "केवल चिह्नित भाग ही आयात किए जाते हैं। निर्यात करते समय भी यही चयन उपयोग होता है।",
-  "import-wekan-file": ".json या .zip निर्यात फ़ाइल से आयात करें:"
+  "import-wekan-file": ".json या .zip निर्यात फ़ाइल से आयात करें:",
+  "jalor-tagline": "सहयोगी कार्य प्रबंधन"
 }

@@ -121,8 +121,11 @@ test('the README\'s language count is the count', () => {
   // ninety more languages were added. It is checked against the files rather
   // than remembered: the count of non-English data files, and how many of them
   // are essentially complete.
+  // Jalor's README is written in French (it is a French public-service fork),
+  // so the sentence this checks is the French one - the claim is what matters,
+  // not which language states it.
   const readme = read('README.md');
-  const m = readme.match(/translated\]\([^)]*\) to (\d+) languages,\s*\n\s*(\d+) of them essentially complete/);
+  const m = readme.match(/traduite\]\([^)]*\) en (\d+) langues,\s*\n\s*dont (\d+) essentiellement compl\u00e8tes/);
   assert.ok(m, 'the README states both numbers in one sentence');
 
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));

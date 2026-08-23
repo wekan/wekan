@@ -2409,5 +2409,6 @@
   "import-board-source": "ボードをインポート（Trello、Jira、WeKan のエクスポート、CSV、Excel など）",
   "import-source-heading": "インポート元:",
   "import-parts-instruction": "チェックした部分だけがインポートされます。エクスポート時も同じ選択が使われます。",
-  "import-wekan-file": ".json または .zip のエクスポートファイルからインポート:"
+  "import-wekan-file": ".json または .zip のエクスポートファイルからインポート:",
+  "jalor-tagline": "共同タスク管理"
 }

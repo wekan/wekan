@@ -2406,5 +2406,6 @@
   "import-board-source": "Импортиране на табло (Trello, Jira, експорт от WeKan, CSV, Excel, …)",
   "import-source-heading": "Импортиране от:",
   "import-parts-instruction": "Импортират се само отметнатите части. Същият избор се използва и при експортиране.",
-  "import-wekan-file": "Импортиране от файл за експорт .json или .zip:"
+  "import-wekan-file": "Импортиране от файл за експорт .json или .zip:",
+  "jalor-tagline": "Съвместно управление на задачи"
 }

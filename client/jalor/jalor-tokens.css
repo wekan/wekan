@@ -1,0 +1,134 @@
+/* ===========================================================================
+ * Jalor — design tokens
+ *
+ * The bridge between the DSFR and WeKan. The DSFR publishes ~1000 CSS custom
+ * properties on :root (client/jalor/vendor/dsfr.min.css); WeKan's own
+ * stylesheets know nothing about them. Rather than repeating
+ * `var(--background-action-high-blue-france)` in fifty places, every Jalor
+ * sheet reads a SHORT Jalor name from this file, and this file is the only
+ * place that names a DSFR token.
+ *
+ * That indirection is what makes the fork maintainable in two directions at
+ * once: a DSFR release that renames a token is one edit here, and a WeKan
+ * upgrade that adds a component only needs the new selectors to read the same
+ * Jalor names.
+ *
+ * Load order matters and is set in client/styles.js:
+ *   1. the vendored DSFR      — element reset, tokens, fr-* components
+ *   2. WeKan's own stylesheets — unchanged, so they win every rule they share
+ *   3. this layer             — the Jalor look, applied on top
+ * =========================================================================== */
+
+:root {
+  /* --- Surfaces ---------------------------------------------------------- */
+  --jalor-bg: var(--background-default-grey);
+  --jalor-bg-alt: var(--background-alt-grey);
+  --jalor-bg-contrast: var(--background-contrast-grey);
+  --jalor-bg-raised: var(--background-raised-grey);
+  --jalor-bg-overlay: var(--background-overlap-grey, var(--background-raised-grey));
+
+  /* --- Text -------------------------------------------------------------- */
+  --jalor-text: var(--text-default-grey);
+  --jalor-text-title: var(--text-title-grey);
+  --jalor-text-muted: var(--text-mention-grey);
+  --jalor-text-label: var(--text-label-grey);
+  --jalor-text-inverted: var(--text-inverted-grey);
+  --jalor-text-disabled: var(--text-disabled-grey);
+
+  /* --- Bleu France, the primary action colour ---------------------------- */
+  --jalor-primary: var(--background-action-high-blue-france);
+  --jalor-primary-hover: var(--background-action-high-blue-france-hover);
+  --jalor-primary-active: var(--background-action-high-blue-france-active);
+  --jalor-primary-text: var(--text-action-high-blue-france);
+  --jalor-primary-soft: var(--background-action-low-blue-france);
+  --jalor-primary-soft-hover: var(--background-action-low-blue-france-hover);
+  --jalor-primary-open: var(--background-open-blue-france);
+
+  /* --- Borders ----------------------------------------------------------- */
+  --jalor-border: var(--border-default-grey);
+  --jalor-border-strong: var(--border-plain-grey);
+  --jalor-border-contrast: var(--border-contrast-grey);
+  --jalor-border-primary: var(--border-action-high-blue-france);
+
+  /* --- Feedback ---------------------------------------------------------- */
+  --jalor-error: var(--text-default-error);
+  --jalor-error-border: var(--border-plain-error);
+  --jalor-error-bg: var(--background-contrast-error);
+  --jalor-success: var(--text-default-success);
+  --jalor-success-border: var(--border-plain-success);
+  --jalor-success-bg: var(--background-contrast-success);
+  --jalor-warning: var(--text-default-warning);
+  --jalor-warning-border: var(--border-plain-warning);
+  --jalor-warning-bg: var(--background-contrast-warning);
+  --jalor-info: var(--text-default-info);
+  --jalor-info-border: var(--border-plain-info);
+  --jalor-info-bg: var(--background-contrast-info);
+
+  /* --- Focus ------------------------------------------------------------
+   * The DSFR focus ring, restated as a token so every Jalor rule draws the
+   * same one. It is deliberately NOT the browser default: the DSFR's is a 2px
+   * #0a76f6 outline held 2px off the element, which stays visible on the blue
+   * header bar as well as on white. */
+  --jalor-focus-color: #0a76f6;
+  --jalor-focus-width: 2px;
+  --jalor-focus-offset: 2px;
+
+  /* --- Typography -------------------------------------------------------
+   * Marianne is the State's typeface and comes with the DSFR. Spectral is its
+   * serif companion; Jalor has no editorial text, so nothing asks for it.
+   *
+   * 14px base, not the DSFR's 16px: Jalor is a dense back-office where a board
+   * has to show several columns of cards at once, and every DSFR component
+   * used here is sized in rem so it scales with this one number. Headings and
+   * the reading surfaces of a card (description, comments) go back up to 16px
+   * in jalor-base.css, because those ARE text to read. */
+  --jalor-font: "Marianne", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --jalor-font-size: calc(14px * var(--wekan-ui-font-scale, 1));
+  --jalor-font-size-sm: calc(12px * var(--wekan-ui-font-scale, 1));
+  --jalor-font-size-lg: calc(16px * var(--wekan-ui-font-scale, 1));
+  --jalor-font-size-xl: calc(20px * var(--wekan-ui-font-scale, 1));
+  --jalor-line-height: 1.5;
+
+  /* --- Geometry ---------------------------------------------------------
+   * Square, like the DSFR. The right angle is most of what tells a State
+   * service apart from a generic SaaS at a glance, so Jalor keeps it on
+   * controls and panels. The one exception is the badge/tag pill, which the
+   * DSFR itself rounds. */
+  --jalor-radius: 0;
+  --jalor-radius-pill: 9999px;
+
+  /* --- Spacing scale (the DSFR's 4px grid) ------------------------------- */
+  --jalor-space-1: 4px;
+  --jalor-space-2: 8px;
+  --jalor-space-3: 12px;
+  --jalor-space-4: 16px;
+  --jalor-space-5: 24px;
+  --jalor-space-6: 32px;
+
+  /* --- Elevation --------------------------------------------------------
+   * The DSFR barely uses shadow; it separates surfaces with borders. Jalor
+   * follows that, and keeps one soft shadow for the things that genuinely
+   * float above the page - pop-overs and the modal. */
+  --jalor-shadow-overlay: 0 4px 12px rgba(0, 0, 18, 0.16);
+
+  /* --- Chrome -----------------------------------------------------------
+   * The top bars. `--theme-accent` is WeKan's own variable, set by
+   * client/components/main/globalThemeColor.js whenever a site, board or user
+   * theme is active, and UNSET when none is - so writing it as the fallback
+   * chain below keeps every WeKan theme working exactly as before while an
+   * unthemed Jalor is Bleu France. */
+  --jalor-header-bg: var(--theme-accent, var(--jalor-primary));
+  --jalor-header-text: #ffffff;
+  --jalor-header-height: 44px;
+
+  /* --- Kanban density ---------------------------------------------------- */
+  --jalor-list-width: 272px;
+  --jalor-list-gap: 8px;
+  --jalor-minicard-padding: 8px;
+}
+
+/* Dark mode is the DSFR's own, switched on by `data-fr-theme="dark"` on the
+ * root element. client/jalor/jalorTheme.js sets that attribute when WeKan's
+ * active theme is one of the dark ones, so the two systems agree instead of
+ * fighting: the DSFR redefines every token above, and every Jalor rule follows
+ * without a second set of rules to maintain. */

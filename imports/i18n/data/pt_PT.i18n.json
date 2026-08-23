@@ -2409,5 +2409,6 @@
   "import-board-source": "Importar quadro (Trello, Jira, exportação do WeKan, CSV, Excel, …)",
   "import-source-heading": "Importar de:",
   "import-parts-instruction": "Só as partes assinaladas são importadas. A mesma escolha é usada ao exportar.",
-  "import-wekan-file": "Importar de um ficheiro de exportação .json ou .zip:"
+  "import-wekan-file": "Importar de um ficheiro de exportação .json ou .zip:",
+  "jalor-tagline": "Gestão colaborativa de tarefas"
 }

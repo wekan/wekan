@@ -2406,5 +2406,6 @@
   "import-board-source": "Kter tafelwit (Trello, Jira, asifeḍ n WeKan, CSV, Excel, …)",
   "import-source-heading": "Kter seg:",
   "import-parts-instruction": "Ala iḥricen yettwafernen ara yettwakteren. Afran-nni i yettuseqdacen deg usifeḍ.",
-  "import-wekan-file": "Kter seg ufaylu n usifeḍ .json neɣ .zip:"
+  "import-wekan-file": "Kter seg ufaylu n usifeḍ .json neɣ .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

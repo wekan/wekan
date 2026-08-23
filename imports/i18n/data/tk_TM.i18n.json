@@ -2406,5 +2406,6 @@
   "import-board-source": "Tagta import et (Trello, Jira, WeKan eksporty, CSV, Excel, …)",
   "import-source-heading": "Şundan import et:",
   "import-parts-instruction": "Diňe bellenen bölekler import edilýär. Eksport edilende hem şol saýlaw ulanylýar.",
-  "import-wekan-file": ".json ýa-da .zip eksport faýlyndan import et:"
+  "import-wekan-file": ".json ýa-da .zip eksport faýlyndan import et:",
+  "jalor-tagline": "Collaborative task management"
 }

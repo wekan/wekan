@@ -1,3 +1,21 @@
+// ============================================================================
+// Jalor: the DSFR comes FIRST.
+//
+// client/jalor/vendor/dsfr.min.css carries the Systeme de Design de l'Etat's
+// element reset (`*`, `body`, `a`, `button`, `input`, `h1`-`h6`, `ul`, `li`,
+// `p`, ...) as well as its ~1000 design tokens and its fr-* components. That
+// reset has to land BEFORE WeKan's own stylesheets or it would overwrite them
+// wholesale; loading it first means WeKan keeps winning every rule the two
+// share, and the DSFR only fills in what WeKan never styled.
+//
+// The Jalor design layer is imported at the END of this file, after WeKan, so
+// it is the last word. docs/Jalor/DSFR.md explains the three-layer order.
+//
+// These two files are generated - do not edit them: `node scripts/vendor-dsfr.mjs`.
+// ============================================================================
+import '/client/jalor/vendor/dsfr.min.css';
+import '/client/jalor/vendor/dsfr.icons.css';
+
 import '/client/components/activities/activities.css';
 import '/client/components/activities/comments.css';
 import '/client/components/boardConversionProgress.css';
@@ -66,3 +84,21 @@ import '/client/components/sidebar/sidebarSearches.css';
 import '/client/components/swimlanes/swimlanes.css';
 import '/client/components/users/userAvatar.css';
 import '/client/components/users/userForm.css';
+
+// ============================================================================
+// Jalor design layer — LAST, so it is what the user actually sees.
+//
+// Each file restyles WeKan's own selectors with DSFR tokens rather than
+// rewriting WeKan's templates, which is what lets this fork keep taking
+// upstream releases. docs/Jalor/UI.md describes what lives in which file.
+// ============================================================================
+import '/client/jalor/jalor-tokens.css';
+import '/client/jalor/jalor-base.css';
+import '/client/jalor/jalor-controls.css';
+import '/client/jalor/jalor-chrome.css';
+import '/client/jalor/jalor-popup.css';
+import '/client/jalor/jalor-auth.css';
+import '/client/jalor/jalor-boards.css';
+import '/client/jalor/jalor-kanban.css';
+import '/client/jalor/jalor-card.css';
+import '/client/jalor/jalor-admin.css';

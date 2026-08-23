@@ -2406,5 +2406,6 @@
   "import-board-source": "Importuoti lentą (Trello, Jira, WeKan eksportas, CSV, Excel, …)",
   "import-source-heading": "Importuoti iš:",
   "import-parts-instruction": "Importuojamos tik pažymėtos dalys. Tas pats pasirinkimas naudojamas eksportuojant.",
-  "import-wekan-file": "Importuoti iš .json arba .zip eksporto failo:"
+  "import-wekan-file": "Importuoti iš .json arba .zip eksporto failo:",
+  "jalor-tagline": "Bendradarbiavimu grįstas užduočių valdymas"
 }

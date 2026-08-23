@@ -2409,5 +2409,6 @@
   "import-board-source": "Εισαγωγή πίνακα (Trello, Jira, εξαγωγή WeKan, CSV, Excel, …)",
   "import-source-heading": "Εισαγωγή από:",
   "import-parts-instruction": "Εισάγονται μόνο τα επιλεγμένα μέρη. Η ίδια επιλογή χρησιμοποιείται κατά την εξαγωγή.",
-  "import-wekan-file": "Εισαγωγή από αρχείο εξαγωγής .json ή .zip:"
+  "import-wekan-file": "Εισαγωγή από αρχείο εξαγωγής .json ή .zip:",
+  "jalor-tagline": "Συνεργατική διαχείριση εργασιών"
 }

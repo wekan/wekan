@@ -1783,7 +1783,12 @@ Users.helpers({
 
   getLanguage() {
     const profile = this.profile || {};
-    return profile.language || 'en';
+    // Jalor is a French service, so French is what a user who has never chosen
+    // a language gets - on the server side this is what addresses an email
+    // notification, which has no browser to ask. The multilingual machinery is
+    // untouched: every one of the 246 languages is still there, still lazily
+    // loaded, and a user's own choice still wins.
+    return profile.language || 'fr';
   },
 
   getStartDayOfWeek() {

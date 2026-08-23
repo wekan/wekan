@@ -2406,5 +2406,6 @@
   "import-board-source": "Doskani import qilish (Trello, Jira, WeKan eksporti, CSV, Excel, …)",
   "import-source-heading": "Quyidagidan import qilish:",
   "import-parts-instruction": "Faqat belgilangan qismlar import qilinadi. Eksport qilishda ham xuddi shu tanlov ishlatiladi.",
-  "import-wekan-file": ".json yoki .zip eksport faylidan import qilish:"
+  "import-wekan-file": ".json yoki .zip eksport faylidan import qilish:",
+  "jalor-tagline": "Collaborative task management"
 }

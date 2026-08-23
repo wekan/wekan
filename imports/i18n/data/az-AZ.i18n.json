@@ -2406,5 +2406,6 @@
   "import-board-source": "Lövhə idxal et (Trello, Jira, WeKan ixracı, CSV, Excel, …)",
   "import-source-heading": "Buradan idxal et:",
   "import-parts-instruction": "Yalnız işarələnmiş hissələr idxal olunur. İxrac zamanı da eyni seçim istifadə olunur.",
-  "import-wekan-file": ".json və ya .zip ixrac faylından idxal et:"
+  "import-wekan-file": ".json və ya .zip ixrac faylından idxal et:",
+  "jalor-tagline": "Collaborative task management"
 }

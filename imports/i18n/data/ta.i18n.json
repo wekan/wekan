@@ -2406,5 +2406,6 @@
   "import-board-source": "பலகையை இறக்குமதி செய் (Trello, Jira, WeKan ஏற்றுமதி, CSV, Excel, …)",
   "import-source-heading": "இங்கிருந்து இறக்குமதி:",
   "import-parts-instruction": "தேர்வு செய்யப்பட்ட பகுதிகள் மட்டுமே இறக்குமதி செய்யப்படும். ஏற்றுமதி செய்யும்போதும் அதே தேர்வு பயன்படும்.",
-  "import-wekan-file": ".json அல்லது .zip ஏற்றுமதிக் கோப்பிலிருந்து இறக்குமதி செய்:"
+  "import-wekan-file": ".json அல்லது .zip ஏற்றுமதிக் கோப்பிலிருந்து இறக்குமதி செய்:",
+  "jalor-tagline": "Collaborative task management"
 }

@@ -2406,5 +2406,6 @@
   "import-board-source": "ਬੋਰਡ ਆਯਾਤ ਕਰੋ (Trello, Jira, WeKan ਨਿਰਯਾਤ, CSV, Excel, …)",
   "import-source-heading": "ਇੱਥੋਂ ਆਯਾਤ ਕਰੋ:",
   "import-parts-instruction": "ਸਿਰਫ਼ ਨਿਸ਼ਾਨਬੱਧ ਹਿੱਸੇ ਹੀ ਆਯਾਤ ਹੁੰਦੇ ਹਨ। ਨਿਰਯਾਤ ਵੇਲੇ ਵੀ ਇਹੀ ਚੋਣ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।",
-  "import-wekan-file": ".json ਜਾਂ .zip ਨਿਰਯਾਤ ਫ਼ਾਈਲ ਤੋਂ ਆਯਾਤ ਕਰੋ:"
+  "import-wekan-file": ".json ਜਾਂ .zip ਨਿਰਯਾਤ ਫ਼ਾਈਲ ਤੋਂ ਆਯਾਤ ਕਰੋ:",
+  "jalor-tagline": "Collaborative task management"
 }

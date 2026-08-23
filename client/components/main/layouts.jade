@@ -15,11 +15,15 @@ template(name="main")
       link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
       link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
       link(rel="manifest" crossOrigin="use-credentials" href="/site.webmanifest")
-      link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5")
-      meta(name="apple-mobile-web-app-title" content="Wekan")
-      meta(name="application-name" content="Wekan")
-      meta(name="msapplication-TileColor" content="#00aba9")
-      meta(name="theme-color" content="#ffffff")
+      link(rel="icon" type="image/svg+xml" href="/jalor-mark.svg")
+      link(rel="mask-icon" href="/jalor-pinned-tab.svg" color="#000091")
+      meta(name="apple-mobile-web-app-title" content="Jalor")
+      meta(name="application-name" content="Jalor")
+      //- Bleu France (#000091), the DSFR's primary. It is what a browser paints
+        its address bar and a phone its task switcher with, so it is the first
+        piece of Jalor identity anybody sees, before the page has loaded.
+      meta(name="msapplication-TileColor" content="#000091")
+      meta(name="theme-color" content="#000091")
       //link(rel="stylesheet" type="text/css" class="__meteor-css__" href="css/html5-default-theme.css")
 
 template(name="userFormsLayout")
@@ -40,8 +44,17 @@ template(name="userFormsLayout")
           img(src="{{currentSetting.customLoginLogoImageUrl}}" alt="{{currentSetting.productName}}" width="300" height="auto")
           br
       else
-        img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
-        br
+        //- The Jalor masthead, when the instance has not been given a logo of
+          its own. The mark, the product name as the page's ONE h1, and the
+          tagline under it - which is what the sign-in page of a public service
+          is expected to say before it asks for anything.
+          The mark is `alt=""` and `aria-hidden`: it is decoration beside the
+          name, and a screen reader reading "Jalor" twice is worse than not
+          describing it at all (RGAA 1.2).
+        .jalor-auth-brand
+          img.jalor-auth-logo(src="{{pathFor '/jalor-mark.svg'}}" alt="" aria-hidden="true" width="88" height="88")
+          h1.jalor-auth-name {{productName}}
+          p.jalor-auth-tagline {{_ 'jalor-tagline'}}
   if currentSetting.textBelowCustomLoginLogo
     hr
     section.textBelowCustomLoginLogo

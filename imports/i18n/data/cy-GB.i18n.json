@@ -2406,5 +2406,6 @@
   "import-board-source": "Mewnforio bwrdd (Trello, Jira, allforiad WeKan, CSV, Excel, …)",
   "import-source-heading": "Mewnforio o:",
   "import-parts-instruction": "Dim ond y rhannau sydd wedi'u ticio sy'n cael eu mewnforio. Defnyddir yr un dewis wrth allforio.",
-  "import-wekan-file": "Mewnforio o ffeil allforio .json neu .zip:"
+  "import-wekan-file": "Mewnforio o ffeil allforio .json neu .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

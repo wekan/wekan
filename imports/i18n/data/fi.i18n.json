@@ -2409,5 +2409,6 @@
   "import-board-source": "Tuo taulu (Trello, Jira, WeKan-vienti, CSV, Excel, …)",
   "import-source-heading": "Tuo lähteestä:",
   "import-parts-instruction": "Vain valitut osat tuodaan. Samaa valintaa käytetään vietäessä.",
-  "import-wekan-file": "Tuo .json- tai .zip-vientitiedostosta:"
+  "import-wekan-file": "Tuo .json- tai .zip-vientitiedostosta:",
+  "jalor-tagline": "Yhteisöllinen tehtävienhallinta"
 }

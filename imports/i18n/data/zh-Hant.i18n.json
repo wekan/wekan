@@ -2409,5 +2409,6 @@
   "import-board-source": "匯入看板（Trello、Jira、WeKan 匯出、CSV、Excel 等）",
   "import-source-heading": "匯入來源：",
   "import-parts-instruction": "只匯入勾選的部分。匯出時使用相同的選擇。",
-  "import-wekan-file": "從 .json 或 .zip 匯出檔匯入："
+  "import-wekan-file": "從 .json 或 .zip 匯出檔匯入：",
+  "jalor-tagline": "協作任務管理"
 }

@@ -2406,5 +2406,6 @@
   "import-board-source": "Impordi tahvel (Trello, Jira, WeKani eksport, CSV, Excel, …)",
   "import-source-heading": "Impordi allikast:",
   "import-parts-instruction": "Imporditakse ainult märgitud osad. Sama valikut kasutatakse eksportimisel.",
-  "import-wekan-file": "Impordi .json- või .zip-ekspordifailist:"
+  "import-wekan-file": "Impordi .json- või .zip-ekspordifailist:",
+  "jalor-tagline": "Ühine ülesannete haldus"
 }

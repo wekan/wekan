@@ -809,7 +809,7 @@ await test('dashboard state: progress, per-step results, and the product name wh
   });
   await runSchemaUpgrade(db, opts);
   const state = getUpgradeState();
-  assert.strictEqual(state.product, 'AcmeBoards', 'dashboard shows the Admin Panel product name, not WeKan');
+  assert.strictEqual(state.product, 'AcmeBoards', 'dashboard shows the Admin Panel product name, not Jalor');
   assert.strictEqual(state.running, false);
   assert.ok(state.startedAt && state.finishedAt);
   assert.strictEqual(state.steps['board-permission-lowercase'].status, 'done');
@@ -817,10 +817,10 @@ await test('dashboard state: progress, per-step results, and the product name wh
   assert.strictEqual(state.steps['checklist-items-embedded'].status, 'skipped');
 });
 
-await test('negative: no product name set -> dashboard says WeKan', async () => {
+await test('negative: no product name set -> dashboard says Jalor', async () => {
   const db = fakeDb({});
   await runSchemaUpgrade(db, opts);
-  assert.strictEqual(getUpgradeState().product, 'WeKan');
+  assert.strictEqual(getUpgradeState().product, 'Jalor');
 });
 
 // ── wiring ───────────────────────────────────────────────────────────────────

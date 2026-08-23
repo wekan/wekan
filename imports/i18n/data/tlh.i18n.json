@@ -2406,5 +2406,6 @@
   "import-board-source": "'echlet yISuq (Trello, Jira, WeKan De', CSV, Excel, …)",
   "import-source-heading": "nuqvo' yISuq:",
   "import-parts-instruction": "wIvbogh De' neH Suqlu'. ngeHmeH wIv rap lo'lu'.",
-  "import-wekan-file": ".json ghap .zip De'vo' yISuq:"
+  "import-wekan-file": ".json ghap .zip De'vo' yISuq:",
+  "jalor-tagline": "Collaborative task management"
 }

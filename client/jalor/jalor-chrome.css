@@ -1,0 +1,325 @@
+/* ===========================================================================
+ * Jalor — application chrome
+ *
+ * The frame every page sits in: the two header bars, the left menus of All
+ * Boards and the Admin Panel, the pane titles, the right sidebar and the
+ * paginated tables.
+ *
+ * WeKan draws two stacked bars — #header-quick-access (the always-present strip
+ * with the home link, the page title, the user menu) and #header (the board's
+ * own bar). Jalor keeps both, because the second one only exists on a board and
+ * collapsing them would cost a board its controls. What changes is that they
+ * now read as ONE DSFR header: the same Bleu France, one bottom rule under the
+ * pair, and no gradients.
+ * =========================================================================== */
+
+/* --- The two bars -------------------------------------------------------- */
+#header-quick-access,
+#header {
+  background: var(--jalor-header-bg);
+  color: var(--jalor-header-text);
+  /* WeKan cross-fades the bar when a theme changes. A 0.4s colour transition on
+     the widest element of the page is also the first thing a reduced-motion
+     user notices, and jalor-base.css already neutralises it there. */
+  transition: background-color 0.2s;
+}
+
+#header-quick-access {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  /* The DSFR's header sits on a shadowless rule, not a drop shadow. */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#header {
+  border-bottom: 1px solid var(--jalor-border);
+}
+
+/* Every control in the bars: square, no gradient, a light wash on hover. The
+   bar is dark, so hover and focus have to be drawn in white transparency
+   rather than in the DSFR's grey tints, which would vanish. */
+#header-quick-access .board-header-btn,
+#header #header-main-bar .board-header-btn,
+#header-quick-access .home-icon .header-home-link {
+  border-radius: var(--jalor-radius);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--jalor-header-text);
+  box-shadow: none;
+}
+
+#header-quick-access .board-header-btn:hover,
+#header #header-main-bar .board-header-btn:hover,
+#header-quick-access .home-icon .header-home-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--jalor-header-text);
+  text-decoration: none;
+}
+
+#header-quick-access .board-header-btn.active,
+#header-quick-access .board-header-btn.active:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* The grouped controls (the phone/desktop toggle, the star group) keep their
+   outline, in the DSFR's square shape. */
+#header-quick-access .header-star-group,
+#header-quick-access .mobile-mode-toggle .board-header-btn {
+  border-radius: var(--jalor-radius);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* The page title in the top bar: this is the H1 of the page as far as a reader
+   is concerned, so it is given the weight of one. */
+#header-quick-access .header-page-title {
+  font-size: var(--jalor-font-size);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+#header-quick-access .header-page-title.is-editable:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: var(--jalor-radius);
+}
+
+/* The board's title in the second bar. */
+#header #header-main-bar h1 {
+  font-size: var(--jalor-font-size-lg);
+  font-weight: 700;
+  color: var(--jalor-header-text);
+}
+
+/* --- The page body ------------------------------------------------------- */
+#content {
+  background-color: var(--jalor-bg-alt);
+}
+
+/* --- Left menus ----------------------------------------------------------
+ * All Boards and the Admin Panel each have one, and they are the same object:
+ * a column of sections with a count on the right. The DSFR's side menu is a
+ * plain list with a left rule that turns Bleu France on the current item. */
+.boards-left-menu,
+.setting-content .left-menu,
+.boards-left-menu ul.menu {
+  background: var(--jalor-bg);
+}
+
+.boards-left-menu {
+  border-inline-end: 1px solid var(--jalor-border);
+}
+
+.boards-left-menu ul.menu li.menu-item > a,
+.setting-content .left-menu li a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--jalor-space-2);
+  padding: var(--jalor-space-2) var(--jalor-space-3);
+  border-radius: var(--jalor-radius);
+  border-inline-start: 3px solid transparent;
+  color: var(--jalor-text);
+  font-weight: 500;
+}
+
+.boards-left-menu ul.menu li.menu-item > a:hover,
+.setting-content .left-menu li a:hover {
+  background: var(--jalor-bg-alt);
+  color: var(--jalor-primary-text);
+  text-decoration: none;
+}
+
+.boards-left-menu ul.menu li.menu-item.active > a,
+.setting-content .left-menu li.active a {
+  background: var(--jalor-primary-soft);
+  border-inline-start-color: var(--jalor-primary);
+  color: var(--jalor-primary-text);
+  font-weight: 700;
+}
+
+/* The count beside a section name: a DSFR-ish neutral badge, not a coloured
+   pill fighting the row it sits in. */
+.boards-left-menu .menu-count {
+  background: var(--jalor-bg-contrast);
+  color: var(--jalor-text);
+  border-radius: var(--jalor-radius-pill);
+  padding: 0 var(--jalor-space-2);
+  font-size: var(--jalor-font-size-sm);
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+.boards-menu-divider {
+  border-top: 1px solid var(--jalor-border);
+}
+
+.workspaces-header {
+  color: var(--jalor-text-label);
+  font-weight: 700;
+  font-size: var(--jalor-font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --- Pane titles ---------------------------------------------------------
+ * The heading of the right-hand pane on All Boards and in the Admin Panel. */
+.admin-pane-title,
+.pane-title {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+  border-bottom: 1px solid var(--jalor-border);
+  padding-bottom: var(--jalor-space-2);
+}
+
+.admin-pane-group-title,
+.admin-pane-subgroup-title {
+  color: var(--jalor-text-label);
+  font-weight: 700;
+}
+
+/* --- Right sidebar -------------------------------------------------------
+ * The board's own panel. It is a surface, so it gets the DSFR's raised white
+ * and a single rule down its leading edge - no shadow, the DSFR separates with
+ * borders. */
+.sidebar .sidebar-content,
+.board-sidebar,
+.page-sidebar {
+  background: var(--jalor-bg);
+  border-inline-start: 1px solid var(--jalor-border);
+  color: var(--jalor-text);
+}
+
+.sidebar .sidebar-content .sidebar-btn {
+  border-radius: var(--jalor-radius);
+  background-color: var(--theme-accent, var(--jalor-primary));
+  color: #fff;
+}
+
+.sidebar-tongue {
+  border-radius: var(--jalor-radius);
+  background: var(--jalor-bg);
+  border: 1px solid var(--jalor-border);
+  color: var(--jalor-primary-text);
+}
+
+/* --- Tabs ----------------------------------------------------------------
+ * WeKan's `.basicTabs-container`, given the DSFR's tab strip: a row of square
+ * tabs sitting on a rule, the current one lifted onto the page's background
+ * with a Bleu France top edge. */
+.basicTabs-container .tabs-list {
+  border-bottom: 1px solid var(--jalor-border);
+  gap: var(--jalor-space-1);
+}
+
+.basicTabs-container .tabs-list .tab-item {
+  border-radius: var(--jalor-radius);
+  background: var(--jalor-bg-alt);
+  border: 1px solid transparent;
+  border-bottom: 0;
+  color: var(--jalor-text);
+  font-weight: 500;
+}
+
+.basicTabs-container .tabs-list .tab-item:hover {
+  background: var(--jalor-bg-contrast);
+}
+
+.basicTabs-container .tabs-list .tab-item.active {
+  background: var(--jalor-bg);
+  border-color: var(--jalor-border);
+  border-top: 3px solid var(--jalor-primary);
+  color: var(--jalor-primary-text);
+  font-weight: 700;
+}
+
+/* --- Pagination ----------------------------------------------------------
+ * Shared by the admin tables, All Boards and the board's Table view. */
+.boards-pagination button,
+.pagination-controls button {
+  background: var(--jalor-bg);
+  border: 1px solid var(--jalor-primary);
+  color: var(--jalor-primary-text);
+  border-radius: var(--jalor-radius);
+  min-width: 36px;
+}
+
+.boards-pagination button:hover,
+.pagination-controls button:hover {
+  background: var(--jalor-primary-soft);
+}
+
+.boards-pagination button.disabled,
+.pagination-controls button.disabled {
+  background: var(--background-disabled-grey);
+  border-color: transparent;
+  color: var(--jalor-text-disabled);
+}
+
+.boards-page-info {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+/* --- Data tables ---------------------------------------------------------
+ * The DSFR table: no vertical rules, a tinted header row, one hairline between
+ * rows and a light wash on hover.
+ *
+ * Named table by named table rather than a bare `table` selector: WeKan also
+ * lays things out in tables that are not data - the Gantt grid, the planning
+ * poker table, FullCalendar's month view - and a global rule would put a header
+ * band and row rules through all of them. tests/jalorDesignLayer.test.cjs keeps
+ * this list in step with the templates that render a data table. */
+.table-page-table,
+.gridfs-stats-table,
+.info-table,
+.stats-view-table,
+.my-cards-board-table,
+.responsive-table > table {
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--jalor-bg);
+}
+
+.table-page-table th,
+.gridfs-stats-table th,
+.info-table th,
+.stats-view-table th,
+.my-cards-board-table th,
+.responsive-table > table th {
+  background: var(--jalor-bg-contrast);
+  color: var(--jalor-text-title);
+  font-weight: 700;
+  text-align: start;
+  padding: var(--jalor-space-2) var(--jalor-space-3);
+  border: 0;
+  border-bottom: 2px solid var(--jalor-border-strong);
+}
+
+.table-page-table td,
+.gridfs-stats-table td,
+.info-table td,
+.stats-view-table td,
+.my-cards-board-table td,
+.responsive-table > table td {
+  padding: var(--jalor-space-2) var(--jalor-space-3);
+  border: 0;
+  border-bottom: 1px solid var(--jalor-border);
+  vertical-align: middle;
+}
+
+.table-page-table tbody tr:hover,
+.gridfs-stats-table tbody tr:hover,
+.stats-view-table tbody tr:hover,
+.my-cards-board-table tbody tr:hover,
+.responsive-table > table tbody tr:hover {
+  background: var(--jalor-bg-alt);
+}
+
+/* --- Big message / empty states ------------------------------------------ */
+.big-message {
+  color: var(--jalor-text);
+}
+
+.big-message h1 {
+  color: var(--jalor-text-title);
+}

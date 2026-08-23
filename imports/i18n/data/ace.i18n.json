@@ -2406,5 +2406,6 @@
   "import-board-source": "Import papan (Trello, Jira, eksport WeKan, CSV, Excel, …)",
   "import-source-heading": "Import daripada:",
   "import-parts-instruction": "Hanya bahagian yang ditanda diimport. Pilihan yang sama digunakan semasa mengeksport.",
-  "import-wekan-file": "Import daripada fail eksport .json atau .zip:"
+  "import-wekan-file": "Import daripada fail eksport .json atau .zip:",
+  "jalor-tagline": "Collaborative task management"
 }

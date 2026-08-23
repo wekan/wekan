@@ -2406,5 +2406,6 @@
   "import-board-source": "ବୋର୍ଡ ଆମଦାନି କରନ୍ତୁ (Trello, Jira, WeKan ରପ୍ତାନି, CSV, Excel, …)",
   "import-source-heading": "ଏଥିରୁ ଆମଦାନି:",
   "import-parts-instruction": "କେବଳ ଚିହ୍ନିତ ଅଂଶଗୁଡ଼ିକ ଆମଦାନି ହୁଏ। ରପ୍ତାନି ସମୟରେ ମଧ୍ୟ ସେହି ପସନ୍ଦ ବ୍ୟବହାର ହୁଏ।",
-  "import-wekan-file": ".json କିମ୍ବା .zip ରପ୍ତାନି ଫାଇଲରୁ ଆମଦାନି କରନ୍ତୁ:"
+  "import-wekan-file": ".json କିମ୍ବା .zip ରପ୍ତାନି ଫାଇଲରୁ ଆମଦାନି କରନ୍ତୁ:",
+  "jalor-tagline": "Collaborative task management"
 }

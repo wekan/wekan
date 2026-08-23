@@ -2409,5 +2409,6 @@
   "import-board-source": "Nhập bảng (Trello, Jira, bản xuất WeKan, CSV, Excel, …)",
   "import-source-heading": "Nhập từ:",
   "import-parts-instruction": "Chỉ những phần được đánh dấu mới được nhập. Cùng lựa chọn đó được dùng khi xuất.",
-  "import-wekan-file": "Nhập từ tệp xuất .json hoặc .zip:"
+  "import-wekan-file": "Nhập từ tệp xuất .json hoặc .zip:",
+  "jalor-tagline": "Quản lý công việc cộng tác"
 }

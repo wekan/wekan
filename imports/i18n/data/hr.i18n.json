@@ -2406,5 +2406,6 @@
   "import-board-source": "Uvezi ploču (Trello, Jira, WeKan izvoz, CSV, Excel, …)",
   "import-source-heading": "Uvezi iz:",
   "import-parts-instruction": "Uvoze se samo označeni dijelovi. Isti odabir koristi se i pri izvozu.",
-  "import-wekan-file": "Uvezi iz .json ili .zip datoteke izvoza:"
+  "import-wekan-file": "Uvezi iz .json ili .zip datoteke izvoza:",
+  "jalor-tagline": "Suradničko upravljanje zadacima"
 }

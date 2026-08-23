@@ -7,7 +7,7 @@
 //
 // Admin Panel / Settings / Layout / Product name (Settings.productName) lets an
 // admin white-label WeKan. Migrations (e.g. the #6484 board-repair) must show
-// that Product name, falling back to 'WeKan' only when none is configured.
+// that Product name, falling back to 'Jalor' only when none is configured.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -26,13 +26,13 @@ check('trims surrounding whitespace', () => {
   assert.strictEqual(productNameOrDefault('  Trello-ish  '), 'Trello-ish');
 });
 
-check('falls back to WeKan when unset / blank / non-string', () => {
-  assert.strictEqual(productNameOrDefault(undefined), 'WeKan');
-  assert.strictEqual(productNameOrDefault(null), 'WeKan');
-  assert.strictEqual(productNameOrDefault(''), 'WeKan');
-  assert.strictEqual(productNameOrDefault('   '), 'WeKan');
-  assert.strictEqual(productNameOrDefault(42), 'WeKan');
-  assert.strictEqual(productNameOrDefault({}), 'WeKan');
+check('falls back to Jalor when unset / blank / non-string', () => {
+  assert.strictEqual(productNameOrDefault(undefined), 'Jalor');
+  assert.strictEqual(productNameOrDefault(null), 'Jalor');
+  assert.strictEqual(productNameOrDefault(''), 'Jalor');
+  assert.strictEqual(productNameOrDefault('   '), 'Jalor');
+  assert.strictEqual(productNameOrDefault(42), 'Jalor');
+  assert.strictEqual(productNameOrDefault({}), 'Jalor');
 });
 
 // ── source guard: the migration-progress modal is branded with the Product name
@@ -45,7 +45,7 @@ check('migrationProgress modal uses the Product-name helper', () => {
   const body = js.slice(start, start + 200);
   assert.ok(/getCurrentSetting\(\)/.test(body), 'must read the current setting');
   assert.ok(/productNameOrDefault\(setting && setting\.productName\)/.test(body),
-    'must resolve via the tested helper (Product name or WeKan fallback)');
+    'must resolve via the tested helper (Product name or Jalor fallback)');
 });
 
 check('migrationProgress.jade shows the Product name in the title', () => {

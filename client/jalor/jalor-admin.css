@@ -1,0 +1,139 @@
+/* ===========================================================================
+ * Jalor — the Admin Panel, Member Settings and the other secondary screens
+ *
+ * The Admin Panel is already organised the way the brief asks for - a left
+ * menu whose sections are Settings, People, Reports, Attachments, Translation,
+ * Version - and jalor-chrome.css has already given that menu and its tables
+ * the DSFR treatment, because All Boards uses the same two components. What is
+ * left is this page's own furniture: the setting rows, the panes, and the
+ * banners that report a problem.
+ *
+ * No section is invented here. WeKan's Admin Panel menu is generated from what
+ * the instance can actually do (registration, SMTP, accounts, layout, webhooks,
+ * attachments, people, org/team, reports, translation, maintenance), so the
+ * categories the brief lists - Users, Settings, Authentication, Security,
+ * Appearance, Features, Maintenance - are already there under WeKan's own
+ * names and are reachable from that menu.
+ * =========================================================================== */
+
+.setting-content {
+  background: var(--jalor-bg-alt);
+  color: var(--jalor-text);
+}
+
+.setting-content .content-body,
+.setting-content .main-body,
+.setting-detail {
+  background: var(--jalor-bg);
+  border: 1px solid var(--jalor-border);
+  border-radius: var(--jalor-radius);
+  padding: var(--jalor-space-4);
+}
+
+/* One setting: a title, an optional description, and a control. The
+   description is what makes an admin screen usable, so it gets a colour of its
+   own rather than being the same grey as the value beside it. */
+.setting-content .title {
+  color: var(--jalor-text-title);
+  font-weight: 700;
+}
+
+.setting-content .description,
+.table-page-desc {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+.button-link.setting .label {
+  color: var(--jalor-text-title);
+}
+
+.button-link.setting .value {
+  color: var(--jalor-text-muted);
+}
+
+/* --- The problems banner -------------------------------------------------
+ * Admin Panel / Problems reports blocked security attempts, slow queries and
+ * failing tests. It is an alert, so it is drawn as the DSFR's alert: an intent
+ * colour on the leading edge, and the words carrying the meaning. */
+.admin-problem-banner {
+  border-inline-start: 4px solid var(--jalor-warning-border);
+  background: var(--jalor-warning-bg);
+  color: var(--jalor-text);
+  border-radius: var(--jalor-radius);
+  padding: var(--jalor-space-2) var(--jalor-space-3);
+}
+
+.admin-problem-banner.is-error {
+  border-inline-start-color: var(--jalor-error-border);
+  background: var(--jalor-error-bg);
+}
+
+/* --- Table page ---------------------------------------------------------- */
+.table-page-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--jalor-space-2);
+  margin-bottom: var(--jalor-space-3);
+}
+
+.table-page-controls input.js-table-page-search {
+  min-width: 220px;
+  margin-bottom: 0;
+}
+
+.table-page-total {
+  color: var(--jalor-text-muted);
+  font-size: var(--jalor-font-size-sm);
+}
+
+/* --- Member Settings / the user menu -------------------------------------
+ * The pop-over that opens from the avatar. It is a `.pop-over`, so it is
+ * already styled; what it needs here is a readable identity block at the top. */
+.pop-over.miniprofile .header,
+.pop-over.miniprofile .header-title {
+  color: var(--jalor-text-title);
+}
+
+/* --- Import / export ------------------------------------------------------ */
+.import-header,
+.import-body {
+  color: var(--jalor-text);
+}
+
+/* --- Print ----------------------------------------------------------------
+ * A board or a card printed on paper: drop the chrome, keep the content, and
+ * put ink on white. An administration prints things. */
+@media print {
+  #header,
+  #header-quick-access,
+  .sidebar,
+  .page-sidebar,
+  .boards-left-menu,
+  .list-composer,
+  .open-minicard-composer,
+  .skip-link {
+    display: none !important;
+  }
+
+  body,
+  #content,
+  .swimlane,
+  .list,
+  .minicard,
+  .card-details {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .minicard,
+  .list {
+    border: 1px solid #999 !important;
+    box-shadow: none !important;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+}

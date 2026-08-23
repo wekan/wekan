@@ -2409,5 +2409,6 @@
   "import-board-source": "ייבוא לוח (Trello,‏ Jira, ייצוא WeKan,‏ CSV,‏ Excel, …)",
   "import-source-heading": "ייבוא מ־:",
   "import-parts-instruction": "רק החלקים המסומנים מיובאים. אותה בחירה משמשת גם בייצוא.",
-  "import-wekan-file": "ייבוא מקובץ ייצוא ‎.json או ‎.zip:"
+  "import-wekan-file": "ייבוא מקובץ ייצוא ‎.json או ‎.zip:",
+  "jalor-tagline": "ניהול משימות שיתופי"
 }

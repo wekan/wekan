@@ -42,7 +42,7 @@ WebApp.handlers.get('/schema-upgrade-status', (req, res) => {
       + `<td>${s.fixed || 0}</td><td class="${s.unresolved ? 'fail' : ''}">${s.unresolved || 0}</td>`
       + `<td>${s.error ? escHtml(s.error) : ''}</td></tr>`;
   }).join('');
-  const product = escHtml(state.product || 'WeKan');
+  const product = escHtml(state.product || 'Jalor');
   const phase = state.running
     ? `Checking / migrating… (${escHtml(state.currentStep || '')})`
     : state.gated

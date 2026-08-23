@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 28" role="img" aria-label="Jalor">
+  <title>Jalor</title>
+  <!-- Version pour la barre d'en-tete : fond transparent, trace blanc, pour
+       se poser sur le bleu de l'en-tete ou sur la couleur d'un theme. -->
+  <rect x="0" y="0" width="28" height="28" fill="#ffffff" fill-opacity="0.16"/>
+  <rect x="5" y="15" width="4" height="8" fill="#ffffff"/>
+  <rect x="12" y="11" width="4" height="12" fill="#ffffff"/>
+  <rect x="19" y="6" width="4" height="17" fill="#ffffff"/>
+  <text x="36" y="20" font-family="Marianne, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#ffffff">Jalor</text>
+</svg>

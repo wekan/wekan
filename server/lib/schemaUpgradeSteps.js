@@ -95,7 +95,7 @@ function randomId(len = 17) {
 // ── live progress state for the migration dashboard ─────────────────────────
 const upgradeState = {
   running: false,
-  product: 'WeKan',        // Admin Panel product name when set
+  product: 'Jalor',        // Admin Panel product name when set
   appVersion: '',
   startedAt: null,
   finishedAt: null,
@@ -107,7 +107,7 @@ const upgradeState = {
 function getUpgradeState() { return upgradeState; }
 function resetState(appVersion) {
   upgradeState.running = true;
-  upgradeState.product = 'WeKan';
+  upgradeState.product = 'Jalor';
   upgradeState.appVersion = appVersion || '';
   upgradeState.startedAt = new Date();
   upgradeState.finishedAt = null;

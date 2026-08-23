@@ -37,9 +37,19 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 const root = path.join(__dirname, '..');
 
+// client/jalor/vendor/ holds the DSFR exactly as its maintainers published it,
+// copied there by scripts/vendor-dsfr.mjs. It is not ours to rewrite - editing
+// it would be undone by the next `node scripts/vendor-dsfr.mjs` - and it is
+// minified, so every rule in it is on one line and the shapes this guard allows
+// (a `max-height:` DECLARATION, a `min(px, vw)` cap) cannot be told apart from
+// the ones it forbids. The DSFR's own uses are the allowed kind: `max-height:
+// 80vh` on the modal body so a tall dialog fits a short window.
+const VENDORED = path.join('client', 'jalor', 'vendor');
+
 function cssFiles(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
+    if (path.relative(root, full).startsWith(VENDORED)) continue;
     if (entry.isDirectory()) cssFiles(full, out);
     else if (full.endsWith('.css')) out.push(full);
   }

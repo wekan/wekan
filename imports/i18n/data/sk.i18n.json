@@ -2406,5 +2406,6 @@
   "import-board-source": "Importovať tabuľu (Trello, Jira, export WeKan, CSV, Excel, …)",
   "import-source-heading": "Importovať z:",
   "import-parts-instruction": "Importujú sa iba zaškrtnuté časti. Rovnaká voľba sa použije pri exporte.",
-  "import-wekan-file": "Importovať zo súboru exportu .json alebo .zip:"
+  "import-wekan-file": "Importovať zo súboru exportu .json alebo .zip:",
+  "jalor-tagline": "Spoločná správa úloh"
 }

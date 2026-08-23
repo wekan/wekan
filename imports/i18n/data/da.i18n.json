@@ -2409,5 +2409,6 @@
   "import-board-source": "Importér tavle (Trello, Jira, WeKan-eksport, CSV, Excel, …)",
   "import-source-heading": "Importér fra:",
   "import-parts-instruction": "Kun de afkrydsede dele importeres. Det samme valg bruges ved eksport.",
-  "import-wekan-file": "Importér fra en .json- eller .zip-eksportfil:"
+  "import-wekan-file": "Importér fra en .json- eller .zip-eksportfil:",
+  "jalor-tagline": "Samarbejdsbaseret opgavestyring"
 }

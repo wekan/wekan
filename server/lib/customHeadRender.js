@@ -27,7 +27,7 @@ Meteor.startup(async () => {
       }
 
       // Always set title tag based on productName
-      const productName = (setting && setting.productName) ? setting.productName : 'Wekan';
+      const productName = (setting && setting.productName) ? setting.productName : 'Jalor';
       data.head += `\n  <title>${productName}</title>\n`;
 
       // #6419: ensure a responsive viewport meta tag. Without it, mobile browsers
