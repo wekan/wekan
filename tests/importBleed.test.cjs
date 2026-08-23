@@ -2,7 +2,7 @@
 
 // ImportBleed (GHSA-qp32-wqxw-wq3h): board imports reach direct database
 // writes. Both DDP entry points must reject a logged-out connection before any
-// argument processing, feature lookup, parser or creator can run.
+// feature lookup, parser or creator can run after mandatory type checks.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -23,18 +23,22 @@ const scopedImport = methodBody('importScoped', '\n});\n\nMeteor.methods({');
 
 function firstGuard(body, name) {
   const guard = body.indexOf('if (!this.userId)');
-  const checks = [
-    body.indexOf('check('),
-    body.indexOf('await assertImportEnabled()'),
+  const firstAwait = body.indexOf('await assertImportEnabled()');
+  const creators = [
     body.indexOf('new WekanCreator'),
     body.indexOf('new ScopedImporter'),
   ].filter(index => index !== -1);
+  const checks = [...body.matchAll(/\bcheck\(/g)].map(match => match.index);
   assert.notEqual(guard, -1, `${name} explicitly requires an authenticated user`);
-  assert.ok(checks.every(index => guard < index),
-    `${name} rejects anonymous callers before parsing or writes can start`);
-  assert.match(body.slice(guard, guard + 150),
-    /throw new Meteor\.Error\('error-notAuthorized'\)/,
-    `${name} returns the canonical authorization error`);
+  assert.ok(checks.filter(index => index < guard).length >= 4,
+    `${name} completes Meteor argument auditing before its authorization error`);
+  assert.ok(firstAwait === -1 || guard < firstAwait,
+    `${name} rejects anonymous callers before feature lookup`);
+  assert.ok(creators.every(index => guard < index),
+    `${name} rejects anonymous callers before writers can be constructed`);
+  assert.match(body.slice(guard, guard + 220),
+    /recordAnonymousImportAttempt[\s\S]*throw new Meteor\.Error\('error-notAuthorized'\)/,
+    `${name} records the denial and returns the canonical authorization error`);
 }
 
 firstGuard(boardImport, 'importBoard');

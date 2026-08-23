@@ -51,22 +51,22 @@ async function parseXlsxToRows(excelBase64) {
 
 Meteor.methods({
   async importBoard(board, data, importSource, currentBoard) {
-    // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
-    // writes, so authentication must be rejected before argument processing,
-    // feature checks, parsing or creator construction can do any work.
-    if (!this.userId) {
-      recordAnonymousImportAttempt('importBoard', this.connection);
-      throw new Meteor.Error('error-notAuthorized');
-    }
     // All check() calls must run BEFORE the first `await`: Meteor's
     // audit-argument-checks tracks checked arguments on the current async context,
-    // and awaiting first makes later check()s (e.g. `board` in the switch below) not
-    // count — throwing "Did not check() all arguments". So check `board` up front
-    // here (the per-source switch still does its more specific check).
+    // and an early throw before checking them replaces the intended error with
+    // "Did not check() all arguments". These checks validate types only; no parser,
+    // feature lookup, creator or write is reached before authentication.
     check(board, Match.OneOf(Object, Array));
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
+    // ImportBleed (GHSA-qp32-wqxw-wq3h): this method reaches direct collection
+    // writes, so authentication is rejected immediately after Meteor's mandatory
+    // argument audit and before feature checks, parsing or creator construction.
+    if (!this.userId) {
+      recordAnonymousImportAttempt('importBoard', this.connection);
+      throw new Meteor.Error('error-notAuthorized');
+    }
     // Admin Panel / Features / Security: master switch to disable all import.
     await assertImportEnabled();
     let creator;
@@ -139,13 +139,6 @@ Meteor.methods({
   // that card. The document is the same one the export writes, and `fields` is
   // the same selection popup; on this side it means what to BRING IN.
   async importScoped(target, doc, fields) {
-    // Keep the scoped sibling explicit too. Board helpers are authorization
-    // checks for an authenticated user; they are not an authentication guard.
-    if (!this.userId) {
-      recordAnonymousImportAttempt('importScoped', this.connection);
-      throw new Meteor.Error('error-notAuthorized');
-    }
-    const userId = this.userId;
     check(target, Object);
     check(target.boardId, String);
     check(target.swimlaneId, Match.Maybe(String));
@@ -153,6 +146,13 @@ Meteor.methods({
     check(target.cardId, Match.Maybe(String));
     check(doc, Object);
     check(fields, Match.Maybe([String]));
+    // Keep the scoped sibling explicit too. Board helpers are authorization
+    // checks for an authenticated user; they are not an authentication guard.
+    if (!this.userId) {
+      recordAnonymousImportAttempt('importScoped', this.connection);
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    const userId = this.userId;
     await assertImportEnabled();
 
     const board = await ReactiveCache.getBoard(target.boardId);
