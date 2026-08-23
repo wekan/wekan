@@ -234,14 +234,15 @@ values** across four language tags, then Hebrew and Persian with **48 values**
 across four language tags, then Hindi and Gujarati with **36 values** across
 three language tags, then Greek with **24 values** across both language tags,
 then Belarusian and Bulgarian with **24 values**, and Khmer with **36 values**
-across three language tags.
+across three language tags. Vietnamese followed with **24 values** across both
+language tags.
 
 **What is left, in the order worth doing it.** As of **2026-08-23**:
 
 | Files | To translate | Nothing to translate | Which |
 | --- | --- | --- | --- |
 | 56 | **571** | 2,171 | non-Latin, near-complete |
-| 86 | **2,868** | 3,980 | Latin-script, near-complete |
+| 86 | **2,844** | 3,980 | Latin-script, near-complete |
 | 92 | **192,241** | 15,829 | second tier |
 
 The second column is the backlog; the third is strings that equal the English
@@ -253,7 +254,7 @@ count reads several times larger than the work.
 1. **The 56 non-Latin near-complete files: 571.** New Office and API
    report strings now dominate this tier; an English string is most glaring
    where it interrupts another script.
-2. **The 86 Latin-script near-complete files: 2,868.** Smaller than it looks,
+2. **The 86 Latin-script near-complete files: 2,844.** Smaller than it looks,
    for a reason worth knowing before starting. Much of what remains is a
    LOANWORD: *magenta* and *indigo* are magenta and indigo nearly everywhere,
    and so are *Filter*, *Container*, *Version*, *Pause*, *Type*, *Status*,
@@ -404,9 +405,9 @@ browser build to verify).
 
 **In short:** **Office and API reports** now read in Chinese, Japanese, Korean,
 Russian, Ukrainian, Belarusian, Bulgarian, Arabic, Hebrew, Persian, Hindi,
-Gujarati, Greek and Khmer. **IPv4 and IPv6 labels** reuse established vocabulary.
-Below that: visible obsolete English placeholders and focused regression
-coverage.
+Gujarati, Greek, Khmer and Vietnamese. **IPv4 and IPv6 labels** reuse established
+vocabulary. Below that: visible obsolete English placeholders and focused
+regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -541,6 +542,19 @@ All twelve translatable report labels and descriptions now use Khmer vocabulary
 across the three Khmer language tags. API, REST API, IPv4, IPv6 and
 WITH_API=true remain recognizable. Regression coverage checks every translated
 key, Khmer script, variant consistency and the intentionally universal literals.
+
+</details>
+
+**Vietnamese translations** - the Office and REST API usage reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e626a106">Office and API reports use Vietnamese</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Vietnamese
+across both language tags, following their established login, report and
+endpoint vocabulary. API, REST API, IPv4, IPv6 and WITH_API=true remain
+recognizable. Regression coverage checks every translated key, variant
+consistency and the intentionally universal literals.
 
 </details>
 
