@@ -251,8 +251,11 @@ tracked data files plus the `ru-RU` symlink alias). **1,052 mismatched keys
 across 34 locale files remained**. Italian, Venda and Volapük then completed the
 tier with eighteen more repairs, including language-specific rewrites of the
 wrongly seeded Venda and Volapük prose. **1,034 mismatched keys across 31 locale
-files remain**. The surrounding translation must be preserved or corrected into
-the locale language while every token is restored exactly from
+files remained**. A deterministic Transifex-marker pass then restored **1,208
+numbered machine markers in 539 translated values across five files**, making
+Igbo and Yoruba clean and reducing the counted backlog to **546 mismatched keys
+across 29 locale files**. The surrounding translation must be preserved or
+corrected into the locale language while every token is restored exactly from
 `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -454,7 +457,8 @@ tokens, and four wrongly seeded locales now use their declared languages in the
 repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
 logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
-coverage and native-speaker review notes for low-confidence direct translations.
+coverage, a repository-wide Transifex machine-marker repair, and native-speaker
+review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -604,6 +608,19 @@ due-time value and rejects the Italian, Esperanto and French seed wording. The
 direct Venda and Volapük translations have low confidence and welcome
 native-speaker review. Another 1,034 mismatched keys across 31 locale files
 remain for audited batches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bacbfa3d5">Numbered Transifex machine placeholders are restored repository-wide</a>. Thanks to xet7.</summary>
+
+A deterministic, transactional utility maps `PH0`, `PH1` and later markers to
+the protected backtick, HTML, angle, named and printf spans in each matching
+English source key. It repaired 1,208 markers in 539 translated values across
+Igbo, Odia, Turkmen, Uyghur and Yoruba without replacing their surrounding
+prose. Repository-wide negative coverage rejects every marker spelling variant.
+Igbo and Yoruba are now placeholder-clean; another 546 mismatched keys across
+29 locale files remain for audited batches.
 
 </details>
 
