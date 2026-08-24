@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Four Bashkir batches then translated 200 values,
-leaving **194,793 genuinely untranslated values across 90 locale files**,
-including 1,966 in Bashkir.
+across 90 locale files**. Six Bashkir batches then translated 300 values,
+leaving **194,693 genuinely untranslated values across 90 locale files**,
+including 1,866 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,9 +527,10 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with four 50-value batches covering activity history,
+Bashkir then begins with six 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
-sizing, archives, administrator announcements and board display settings.
+sizing, archives, administrator announcements, board display/views, card
+membership, voting, Planning Poker, dependencies and import/export dialogs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1995,6 +1996,25 @@ Administrator announcements, archives, templates, attachments, board
 backgrounds and member/assignee summaries now use Bashkir while retaining
 count, size and HTML emphasis tokens. Whole-locale invariant coverage leaves
 1,966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f098a105">Bashkir board views gain 50 values</a>. Thanks to xet7.</summary>
+
+Board visibility, icon ordering, backgrounds, desktop/mobile modes, zoom,
+calendar navigation, archive guidance and card-edit labels now use Bashkir
+while retaining workspace, comment, percent and HTML emphasis tokens.
+Whole-locale invariant coverage leaves 1,916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c00ec4492">Bashkir card dialogs gain 50 values</a>. Thanks to xet7.</summary>
+
+Card membership, voting, Planning Poker, dependencies, organization/team/domain
+membership and component import/export dialogs now use Bashkir. Whole-locale
+invariant coverage leaves 1,866 values.
 
 </details>
 
