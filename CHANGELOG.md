@@ -237,13 +237,14 @@ then Belarusian and Bulgarian with **24 values**, and Khmer with **36 values**
 across three language tags. Vietnamese followed with **24 values** across both
 language tags, then Macedonian and Serbian with **24 values** across both
 language tags. Armenian and Georgian followed with **24 values** across both
-language tags.
+language tags, then Telugu and Tamil with **24 values** across both language
+tags.
 
 **What is left, in the order worth doing it.** As of **2026-08-24**:
 
 | Files | To translate | Nothing to translate | Which |
 | --- | --- | --- | --- |
-| 56 | **523** | 2,171 | non-Latin, near-complete |
+| 56 | **499** | 2,171 | non-Latin, near-complete |
 | 86 | **2,844** | 3,980 | Latin-script, near-complete |
 | 92 | **192,241** | 15,829 | second tier |
 
@@ -253,7 +254,7 @@ source because that IS the translation — product names (*Meteor*, *MongoDB*,
 `__board__` placeholders. They will never stop counting, and they are why a flat
 count reads several times larger than the work.
 
-1. **The 56 non-Latin near-complete files: 523.** New Office and API
+1. **The 56 non-Latin near-complete files: 499.** New Office and API
    report strings now dominate this tier; an English string is most glaring
    where it interrupts another script.
 2. **The 86 Latin-script near-complete files: 2,844.** Smaller than it looks,
@@ -609,6 +610,18 @@ All twelve report labels and descriptions now cover two Hindi tags in
 Devanagari and one Gujarati tag in Gujarati script. REST API, IPv4, IPv6 and
 WITH_API=true remain recognizable. Regression coverage checks every translated
 key, both scripts and the intentionally universal API labels.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e19994a5">Office and API reports use Telugu and Tamil</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Telugu or Tamil
+script and each language's own vocabulary. REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, rejects the neighbouring script and preserves the intentionally universal
+API labels. These direct translations have low confidence and welcome review by
+Telugu and Tamil speakers.
 
 </details>
 
