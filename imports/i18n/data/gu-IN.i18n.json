@@ -27,7 +27,7 @@
   "act-removeChecklist": "ચેકલિસ્ટ __checklist__ કાર્ડમાંથી કાઢી નાખ્યું __card__ યાદીમાં __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",
   "act-removeChecklistItem": "ચેકલિસ્ટ આઇટમ __checklistItem__ ચેકલિસ્ટમાંથી કાઢી નાખી __checkList__ કાર્ડ પર __card__ યાદીમાં __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",
   "act-checkedItem": "ચેકલિસ્ટ __checklistItem__ ચેકલિસ્ટ __checklist__ કાર્ડ પર __card__ યાદીમાં __list__ સ્વિમલેન __swimlane__ બોર્ડ પર __board__",
-  "act-uncheckedItem": "ચેકલિસ્ટમાંથી અનચેક કરેલ __checklist__ કાર્ડ પર __card__ યાદીમાં __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",
+  "act-uncheckedItem": "ચેકલિસ્ટ આઇટમ __checklistItem__ ચેકલિસ્ટમાંથી અનચેક કરેલ __checklist__ કાર્ડ પર __card__ યાદીમાં __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",
   "act-completeChecklist": "પૂર્ણ થયેલ ચેકલિસ્ટ __checklist__ કાર્ડ પર __card__ યાદીમાં __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",
   "act-uncompleteChecklist": "અપૂર્ણ ચેકલિસ્ટ __checklist__ કાર્ડ પર __card__ યાદી પર __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",
   "act-addComment": "કાર્ડ પર ટિપ્પણી __card__: __comment__ યાદીમાં __list__ સ્વિમલેન પર __swimlane__ બોર્ડ પર __board__",

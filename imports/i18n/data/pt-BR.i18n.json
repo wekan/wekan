@@ -74,7 +74,7 @@
   "activity-removed": "removeu %s de %s",
   "activity-sent": "enviou %s de %s",
   "activity-unjoined": "saiu de %s",
-  "activity-subtask-added": "Adcionar subtarefa à",
+  "activity-subtask-added": "adicionou a subtarefa a %s",
   "activity-checked-item": "marcado %s na lista de verificação %s de %s",
   "activity-unchecked-item": "desmarcado %s na lista de verificação %s de %s",
   "activity-checklist-added": "Adicionada lista de verificação a %s",

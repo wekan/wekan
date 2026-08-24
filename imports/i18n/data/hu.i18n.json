@@ -87,7 +87,7 @@
   "activity-checked-item-card": "bepipálta %s elemet ebben a listában: %s",
   "activity-unchecked-item-card": "pipáltanította %s elemet ebben a listában: %s",
   "activity-checklist-completed-card": "befejezte: __checklist__ listát ezen a kártyán: __card__ ebben az oszlopban: __list__ ezen az úszósávon: __swimlane__ at ezen a kártyán: __board__",
-  "activity-checklist-uncompleted-card": "befejezetlenné tette ezt a listát: __checklist__ ezen a kártyán: __card__ ebben az oszlopban: __list__ ezen az úszósávon: __swimlane__ at ezen a kártyán: __board__",
+  "activity-checklist-uncompleted-card": "befejezetlenné tette az ellenőrzőlistát: %s",
   "activity-editComment": "szerkesztette ezt a megjegyzést: %s",
   "activity-deleteComment": "törölte ezt a megjegyzést: %s",
   "activity-receivedDate": "átírta az \"érkezett\" dátumot erről: %s erre: %s",

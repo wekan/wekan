@@ -25,7 +25,7 @@
   "act-addChecklist": "agregada checklist __checklist__ a tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
   "act-addChecklistItem": "agregado ítem __checklistItem__ a checklist __checklist__ en la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
   "act-removeChecklist": "eliminada checklist __checklist__ de tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
-  "act-removeChecklistItem": "eliminado ítem __checklistItem__ de checklist __checklist__ en la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
+  "act-removeChecklistItem": "eliminado ítem __checklistItem__ de checklist __checkList__ en la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
   "act-checkedItem": "marcado ítem __checklistItem__ de checklist __checklist__ en la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
   "act-uncheckedItem": "desmarcado ítem __checklistItem__ de checklist __checklist__ en la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
   "act-completeChecklist": "completada checklist __checklist__ en la tarjeta __card__ en la lista __list__ en el swimlane __swimlane__ en el tablero __board__",
