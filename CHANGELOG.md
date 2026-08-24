@@ -297,7 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**.
+**190,661 genuinely untranslated values across 88 locale files**. Two 50-value
+Bambara batches then translated 100 values, leaving **190,561 genuinely
+untranslated values across 88 locale files**, including 2,066 in Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -594,6 +596,8 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
+Bambara then begins with two 50-value batches covering board/card/list/swimlane
+activity, checklists, comments, movement and workspace controls.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -2909,6 +2913,26 @@ import and the card-number search operator now use Bhojpuri while retaining the
 named operator placeholder, number metavariable, formats and product names.
 Whole-locale invariant coverage proves zero English placeholders across all
 2,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/063ea0160">Bambara activity and checklists gain 50 values</a>. Thanks to xet7.</summary>
+
+Board/card/list/swimlane activity, attachments, subtasks, labels, checklists,
+comments, custom fields and archive/import actions now use Bambara. New
+whole-locale regression coverage checks all token/tag inventories and leaves
+2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37faf9fea">Bambara movement and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement, membership, compact activity/checklist messages and All Boards
+workspace controls now use Bambara while retaining every positional and named
+placeholder in source order. Whole-locale invariant coverage leaves 2,066
+values.
 
 </details>
 
