@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Thirty-four
-50-value Bambara batches then translated 1,700 values, leaving **188,961
-genuinely untranslated values across 88 locale files**, including 466 in
+**190,661 genuinely untranslated values across 88 locale files**. Thirty-six
+50-value Bambara batches then translated 1,800 values, leaving **188,861
+genuinely untranslated values across 88 locale files**, including 366 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with thirty-four 50-value batches covering board/card/list/swimlane
+Bambara then begins with thirty-six 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -627,6 +627,8 @@ Recovery, wait indicators, tickets, team/organization administration, Node heap
 diagnostics, legal notices, checklist actions and attachment storage follow.
 Attachment-location repair, MongoDB compaction, uploads, custom translations,
 checklist collapsing, support and accessibility follow too.
+Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
+storage and MongoDB/FerretDB/Sandstorm database migration follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3276,6 +3278,26 @@ Board status and time summaries, upload progress and restrictions, login fields,
 PDF preview, workspace dragging, custom translations, checklist collapsing,
 support and accessibility now use Bambara. The workspace token and technical
 format names remain exact, and invariant coverage leaves 466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/115860bbb">Bambara account protection and scheduled jobs gain 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility content, brute-force account lockout settings and user controls,
+Admin Panel people filters, scheduled jobs, attachment and avatar paths and
+board archive, backup and cleanup scheduling now use Bambara. Whole-locale
+invariant coverage leaves 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2552328f4">Bambara storage and database migration gain 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled-job and migration controls, filesystem, S3 and Azure storage,
+MongoDB-to-FerretDB text-data migration and Sandstorm migration status now use
+Bambara. URLs, ports, environment names, commands, product names, paths and the
+database placeholder remain exact, and invariant coverage leaves 366 values.
 
 </details>
 
