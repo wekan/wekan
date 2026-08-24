@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Thirty 50-value Bengali batches then translated 1,500 values, leaving
-**186,995 genuinely untranslated values across 87 locale files**, including
-666 in Bengali.
+files**. Thirty-two 50-value Bengali batches then translated 1,600 values,
+leaving **186,895 genuinely untranslated values across 87 locale files**,
+including 566 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with thirty 50-value batches covering board, card,
+Bengali then begins with thirty-two 50-value batches covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
 controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
@@ -671,6 +671,8 @@ Global-search result counts, operator/predicate labels, validation messages and
 the full syntax/help documentation follow too.
 Sorting, completion, stickers, dependencies, board backgrounds, locations, map
 detection, server troubleshooting, string templates and admin reports follow.
+Recovery/API reports, wait indicators, tickets, Node heap diagnostics, legal
+notices, checklist actions and attachment storage follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3709,6 +3711,26 @@ fields and file, security, speed, test, CPU, database, rule, board, card,
 impersonation, recovery and Office reports now use Bengali. Commands, HTML
 entities and the value placeholder remain exact, and invariant coverage leaves
 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7400196ca">Bengali recovery and ticketing gain 50 values</a>. Thanks to xet7.</summary>
+
+Office, REST API and recovery reports, recovery maintenance, swimlane copying,
+wait indicators, card sizing, organization and team deletion guards, tickets,
+requests, sorting and card details now use Bengali. Technical flags and service
+names remain literal, and invariant coverage leaves 616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2d839b63">Bengali diagnostics and attachment storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Team and organization assignment, invitations, Node heap and memory diagnostics,
+legal notices, checklist and subtask actions and filesystem, GridFS and S3
+attachment movement now use Bengali. Technical storage and runtime names remain
+recognizable, and invariant coverage leaves 566 values.
 
 </details>
 
