@@ -275,7 +275,10 @@ untranslated values across 158 locale files**. Breton, Lithuanian and Yiddish
 then completed 66 more values, leaving **201,598 genuinely untranslated values
 across 155 locale files**. Galician, Xhosa, Swahili, Asturian, Welsh and Uzbek
 then completed 268 more values, leaving **201,330 genuinely untranslated
-values across 144 locale files**. Continue filling those English
+values across 144 locale files**. Azerbaijani, Croatian, Polish, Slovak,
+Estonian, Romanian and Walloon then completed 290 more values, leaving
+**201,040 genuinely untranslated values across 133 locale files**. Continue
+filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -910,6 +913,24 @@ with zero-backlog, terminology and protected-literal coverage.
 Seven tags translate 175 values without replacing existing human Uzbek text.
 Zero-backlog coverage preserves network and configuration literals. Asturian
 and Uzbek have mixed confidence and welcome native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b3563555">Seven files complete the 26-value translation tier</a>. Thanks to xet7.</summary>
+
+Azerbaijani, Croatian, Polish and Slovak translate 182 values with zero-backlog,
+sibling-consistency and protected-token coverage. Azerbaijani has mixed
+confidence and welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a518c6990">Four files complete the 27-value translation tier</a>. Thanks to xet7.</summary>
+
+Estonian, Romanian and Walloon translate 108 values with zero-backlog,
+sibling-consistency and protected-token coverage. Walloon has low confidence
+and welcomes native-speaker review.
 
 </details>
 
