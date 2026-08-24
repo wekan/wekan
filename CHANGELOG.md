@@ -271,7 +271,9 @@ across 182 locale files**. Portuguese, Thai, Venda, Zulu, Esperanto, Spanish and
 Turkish batches then completed another 20 locale files, leaving **201,748
 genuinely untranslated values across 162 locale files**. Hungarian, Latvian,
 Basque and Uyghur then completed 84 more values, leaving **201,664 genuinely
-untranslated values across 158 locale files**. Continue filling those English
+untranslated values across 158 locale files**. Breton, Lithuanian and Yiddish
+then completed 66 more values, leaving **201,598 genuinely untranslated values
+across 155 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -871,6 +873,16 @@ Forty-two board, admin, Office, API report and search-help values now use Basque
 and Uyghur. Zero-backlog and target-language coverage preserves `%s`,
 `__operator_number__`, `IPv4`, `IPv6`, `REST API` and `WITH_API=true` exactly.
 The Uyghur translations have low confidence and welcome native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdefe268d">Breton, Lithuanian and Yiddish complete their direct fills</a>. Thanks to xet7.</summary>
+
+Sixty-six board, admin, Office, API, storage and search-help values now use their
+target languages. Zero-backlog, terminology and script coverage preserves every
+protected API and search placeholder. Breton and Yiddish have low confidence
+and welcome native-speaker review.
 
 </details>
 
