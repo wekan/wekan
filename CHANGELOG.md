@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Ten Bashkir batches then translated 500 values,
-leaving **194,493 genuinely untranslated values across 90 locale files**,
-including 1,666 in Bashkir.
+across 90 locale files**. Twelve Bashkir batches then translated 600 values,
+leaving **194,393 genuinely untranslated values across 90 locale files**,
+including 1,566 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,12 +527,13 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with ten 50-value batches covering activity history,
+Bashkir then begins with twelve 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
 member mapping, appearance, navigation, card aging, colors, roles, custom
-fields, account emails, WIP limits and validation errors.
+fields, account emails, WIP limits, validation errors, card exports, filtering
+and multi-source board imports.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2054,6 +2055,25 @@ Custom-field dialogs, permanent deletion, profiles, dates, account emails,
 WIP limits and board/import errors now use Bashkir while retaining email
 paragraph structure, named tokens and JSON/CSV/TSV terms. Whole-locale
 invariant coverage leaves 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8bd69df66">Bashkir exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account validation, card PDF/Excel exports, attachment metadata, list sorting
+and date/label/member filters now use Bashkir while retaining export format
+names. Whole-locale invariant coverage leaves 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a70fcc603">Bashkir advanced filters and imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced filters and Kanboard, Deck, OpenProject, issue, Asana, ZenKit, Trello,
+CSV/TSV, Jira, Excel and WeKan import guidance now use Bashkir while retaining
+operators, regex, endpoint tokens, API paths and data-format examples.
+Whole-locale invariant coverage leaves 1,566 values.
 
 </details>
 
