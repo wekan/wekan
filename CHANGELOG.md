@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Six 50-value Bhojpuri batches
-then translated 300 values, leaving **192,527 genuinely untranslated values
-across 89 locale files**, including 1,866 in Bhojpuri.
+16-value batch then translated all 2,166 values. Eight 50-value Bhojpuri batches
+then translated 400 values, leaving **192,427 genuinely untranslated values
+across 89 locale files**, including 1,766 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,10 +556,12 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with six 50-value batches covering board/card/list/
+Bhojpuri then begins with eight 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
+It also covers member mapping, appearance, fonts, navigation, card aging and
+twenty-two color names.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2487,6 +2489,25 @@ Card membership, voting, Planning Poker, dependencies, organization/team/
 domain management and checklist/swimlane/list/card/board import/export dialogs
 now use Bhojpuri while retaining the Planning Poker name. Whole-locale
 invariant coverage leaves 1,866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51a89024e">Bhojpuri member mapping and appearance gain 50 values</a>. Thanks to xet7.</summary>
+
+Member/sticker/invite/sorting dialogs, archive restoration, imported-member
+mapping, themes, fonts, text colors and avatar/language/permission dialogs now
+use Bhojpuri while retaining CAS, Markdown and preview digits. Whole-locale
+invariant coverage leaves 1,816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e394b294">Bhojpuri navigation and colors gain 50 values</a>. Thanks to xet7.</summary>
+
+Starred boards/pages, automatic list width, clipboard input, card aging,
+movement/dialog accessibility and twenty-two color names now use Bhojpuri.
+Whole-locale invariant coverage leaves 1,766 values.
 
 </details>
 
