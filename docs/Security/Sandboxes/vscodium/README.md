@@ -1,15 +1,15 @@
-# Secure Sandbox: VSCode at Debian 13 amd64
+# Secure Sandbox: VSCodium at Debian 13 amd64
 
 Related files at this repo `.vscode` at [this commit](https://github.com/wekan/wekan/commit/639ac9549f88069d8569de777c533ab4c9438088).
 
 ## 1) Install Debian
 
-Install Debian with username `wekan`, so that WeKan repo here, only directory where VSCode will have access:
+Install Debian with username `wekan`, so that WeKan repo here, only directory where VSCodium will have access:
 ```
 /home/wekan/repos/wekan
 ```
 
-## 2) Install Flatpak and VSCode
+## 2) Install Flatpak and VSCodium
 
 ```
 sudo apt install flatpak
@@ -23,10 +23,10 @@ sudo reboot
 flatpak install flathub com.vscodium.codium
 ```
 
-## 3) Edit VSCode desktop icon
+## 3) Edit VSCodium desktop icon
 
 ```
-nano ~/.local/share/applications/wekan-vscode.desktop
+nano ~/.local/share/applications/wekan-vscodium.desktop
 ```
 Content:
 ```
@@ -43,7 +43,7 @@ StartupWMClass=code
 
 ## 4) Force VS Codium to use the internal (isolated) browser
 
-This setting is also added as git commit to VSCode settings.
+This setting is also added as git commit to VSCodium settings.
 
 This is the most important step. If this is "native", it will use the operating system window that sees everything.
 
@@ -501,7 +501,7 @@ PATH="$T/node-v24.19.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:270
 
 ### Docker is NOT available inside this Flatpak sandbox
 
-`docker` / `docker-compose` / `podman` are not present in the VSCode Flatpak sandbox, so
+`docker` / `docker-compose` / `podman` are not present in the VSCodium Flatpak sandbox, so
 `docker compose up` cannot be run here. To reproduce a `docker-compose.yml`-style setup,
 run FerretDB and the bundle manually as shown above (the compose `ferretdb` service just
 downloads and runs the same `ferretdb-<arch>` binary; the `wekan` service just runs the
