@@ -300,7 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**.
+files**. Two 50-value Bengali batches then translated 100 values, leaving
+**188,395 genuinely untranslated values across 87 locale files**, including
+2,066 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -638,6 +640,8 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
+Bengali then begins with two 50-value batches covering board, card, list and
+swimlane activity, checklists, comments, movement and workspace controls.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3387,6 +3391,25 @@ IP labels, filesystem integrity, scoped board import and export guidance and
 the number-search operator now use Bambara. The named operator, markup, file
 formats and product names remain exact. The final 16-value batch completes all
 2,166 source values, with whole-locale token and tag regression coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b4168928">Bengali activity and checklists gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, card, list and swimlane activity, attachments, subtasks, labels,
+checklists, comments, custom fields and archive/import actions now use Bengali.
+New whole-locale regression coverage checks all token and tag inventories and
+leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88cf43f3a">Bengali movement and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement, membership, compact activity and checklist messages and All
+Boards workspace controls now use Bengali. Named and positional placeholders
+remain exact, and whole-locale invariant coverage leaves 2,066 values.
 
 </details>
 
