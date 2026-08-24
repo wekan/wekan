@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Twelve 50-value Bengali batches then translated 600 values, leaving
-**187,895 genuinely untranslated values across 87 locale files**, including
-1,566 in Bengali.
+files**. Fourteen 50-value Bengali batches then translated 700 values, leaving
+**187,795 genuinely untranslated values across 87 locale files**, including
+1,466 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,8 +640,8 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with twelve 50-value batches covering board, card, list and
-swimlane activity, checklists, comments, movement and workspace controls.
+Bengali then begins with fourteen 50-value batches covering board, card, list
+and swimlane activity, checklists, comments, movement and workspace controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
 attachments, membership and board visibility follow.
 Board views, calendar and archive guidance, voting, Planning Poker,
@@ -652,6 +652,8 @@ Board roles, destructive confirmations, clipboard actions, custom fields,
 account emails and board, import and linked-card errors follow too.
 Card export, list sorting, date/label/member filters, advanced-filter syntax and
 board-import instructions follow too.
+Trello API imports, import jobs, member mapping, validation, board departure,
+list archives, settings, multi-selection and notification roles follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3516,6 +3518,26 @@ Advanced-filter help and Kanboard, Deck, OpenProject, issue, Asana, ZenKit,
 Trello, CSV, Jira, Excel and WeKan imports now use Bengali. Operators, regex,
 escapes, JSON fields, API paths and named placeholders remain exact, and
 invariant coverage leaves 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52bad0ab2">Bengali Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello API credentials, workspace and board selection, import-job lifecycle,
+member mapping, date and user validation, shortcuts and label controls now use
+Bengali. The API URL and positional placeholder remain exact, and invariant
+coverage leaves 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b60072a2f">Bengali archives and multi-selection gain 50 values</a>. Thanks to xet7.</summary>
+
+Board departure, list and card archive actions, user, team and organization
+settings, multi-selection, muted notifications and normal-role permissions now
+use Bengali. The board-title placeholder remains exact, and invariant coverage
+leaves 1,466 values.
 
 </details>
 
