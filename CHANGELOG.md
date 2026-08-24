@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Sixteen Assamese batches then translated 800 values, leaving **196,359
-genuinely untranslated values across 91 locale files**, including 1,366 in
+Eighteen Assamese batches then translated 900 values, leaving **196,259
+genuinely untranslated values across 91 locale files**, including 1,266 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,11 +508,12 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with sixteen 50-value batches covering activity history,
+Assamese then begins with eighteen 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
-roles, navigation, tracking and branding.
+roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics
+and tenancy.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1665,6 +1666,26 @@ Subscriptions, tracking, time and shortcut labels, uploads, branding URLs,
 welcome/template boards, WIP errors and attachment/API limits now use Assamese
 while retaining numeric ranges and technical terms. Whole-locale invariant
 coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65eabb5b2">Assamese limits and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment/API transfer limits, registration and invitations, SMTP settings,
+test mail, webhooks and runtime versions now use Assamese while retaining
+technical terms and the invitation template's placeholders and paragraph
+structure. Focused coverage leaves 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a0c79ca2">Assamese diagnostics and tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Database/FerretDB/reactivity diagnostics, OS metrics, custom-field display,
+account visibility, organization tenancy/domains/admins and team propagation
+now use Assamese while retaining modes, hostnames and environment variables.
+Whole-locale invariant coverage leaves 1,266 values.
 
 </details>
 
