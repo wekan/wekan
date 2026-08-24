@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Six 50-value Tibetan batches then translated 300
-values, leaving **186,029 genuinely untranslated values across 86 locale
-files**, including 1,866 in Tibetan.
+across 86 locale files**. Eight 50-value Tibetan batches then translated 400
+values, leaving **185,929 genuinely untranslated values across 86 locale
+files**, including 1,766 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,9 +642,11 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with six 50-value batches covering board, card, checklist,
+Tibetan then begins with eight 50-value batches covering board, card, checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
+Member mapping, themes, fonts, avatars, permissions, card aging, navigation and
+color names follow too.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -3926,6 +3928,25 @@ Card membership and custom fields, voting, Planning Poker, dependencies,
 organization and team controls, account and background deletion and import and
 export dialogs now use Tibetan. Whole-locale invariant coverage leaves 1,866
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f46492df">Tibetan member mapping and appearance gain 50 values</a>. Thanks to xet7.</summary>
+
+Member dialogs, archive restoration, CAS login, linked cards and boards,
+imported-member mapping, themes, fonts, avatars, language and permission
+controls now use Tibetan. Numeric preview text remains exact, and whole-locale
+invariant coverage leaves 1,816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69eccdbde">Tibetan navigation and color names gain 50 values</a>. Thanks to xet7.</summary>
+
+Star controls, automatic list widths, clipboard actions, card aging, movement,
+dialog navigation, board restoration guidance and the first color-name set now
+use Tibetan. Whole-locale invariant coverage leaves 1,766 values.
 
 </details>
 
