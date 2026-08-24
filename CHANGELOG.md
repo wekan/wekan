@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Twenty-six Bashkir batches then translated 1,300
-values, leaving **193,693 genuinely untranslated values across 90 locale
-files**, including 866 in Bashkir.
+across 90 locale files**. Twenty-eight Bashkir batches then translated 1,400
+values, leaving **193,593 genuinely untranslated values across 90 locale
+files**, including 766 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with twenty-six 50-value batches covering activity history,
+Bashkir then begins with twenty-eight 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -542,7 +542,8 @@ deletion, subtasks, minicards, parent cards, visual automation rules, scheduled
 triggers, due-date conditions, buttons, checklist/member actions, custom web
 metadata, authentication, destructive actions and due-date reminders.
 It also covers notification management, board-role permissions, weekdays,
-domains, shared templates, My Cards, due-card views and global search.
+domains, shared templates, My Cards, due-card views, global-search operators,
+predicates, validation and advanced-search instructions.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2222,6 +2223,27 @@ Checklist visibility, domains, shared templates, My Cards sorting, due-card
 views, global search and missing-object errors now use Bashkir while retaining
 domain examples, Markdown emphasis and percent arguments. Whole-locale
 invariant coverage leaves 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9fee1dc6">Bashkir search operators gain 50 values</a>. Thanks to xet7.</summary>
+
+Search result counts and board/swimlane/list/label/user/member/assignee,
+status/date/comment/content operators and predicates now use Bashkir while
+retaining positional and pagination tokens. Whole-locale invariant coverage
+leaves 816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9823596f">Bashkir search guidance gains 50 values</a>. Thanks to xet7.</summary>
+
+Operator validation, pagination and the complete advanced-search operator,
+status, field, sorting, limit and combination guidance now use Bashkir while
+retaining code spans, Markdown emphasis, angle-bracket parameters, examples,
+newlines and every search token. Whole-locale invariant coverage leaves 766
+values.
 
 </details>
 
