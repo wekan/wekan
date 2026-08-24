@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Twenty-eight
-50-value Bambara batches then translated 1,400 values, leaving **189,261
-genuinely untranslated values across 88 locale files**, including 766 in
+**190,661 genuinely untranslated values across 88 locale files**. Thirty
+50-value Bambara batches then translated 1,500 values, leaving **189,161
+genuinely untranslated values across 88 locale files**, including 666 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with twenty-eight 50-value batches covering board/card/list/swimlane
+Bambara then begins with thirty 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -621,6 +621,8 @@ Multi-window/editor behavior, notifications, board-role controls, weekdays,
 linked-card guards, domains/templates, My/Due Cards and global search follow.
 Global-search result counts, operator/predicate labels, validation messages and
 the full syntax/help documentation follow too.
+Sorting, completion, stickers, dependencies, board backgrounds, locations, map
+detection, server troubleshooting, string templates and admin reports follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3209,6 +3211,27 @@ Operator validation and the complete global-search operator, status, field,
 sorting, limit and composition documentation now use Bambara. Code examples,
 metavariables, formatting, semantic literals and every named and positional
 token remain exact, and invariant coverage leaves 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/185221c6c">Bambara dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+
+Label and board sorting, card completion, stickers, dependency relationships and
+JSON/SVG imports, board backgrounds and location fields now use Bambara. Import
+counts and the background-size placeholder remain exact, and invariant coverage
+leaves 716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eaa812a7f">Bambara maps and administrative reports gain 50 values</a>. Thanks to xet7.</summary>
+
+Map detection, server troubleshooting, card and swimlane sorting, string
+templates, file, security, speed, test, CPU, database, rule, board, card,
+impersonation, recovery and Office reports now use Bambara. Commands, entities,
+format placeholders and IP names remain exact, and invariant coverage leaves
+666 values.
 
 </details>
 
