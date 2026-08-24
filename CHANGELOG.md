@@ -284,7 +284,9 @@ untranslated values across 122 locale files**. Valencian then completed 31
 more values, leaving **200,692 genuinely untranslated values across 121 locale
 files**. Walloon, Yoruba, Italian, Catalan and Klingon then completed 202 more
 values, leaving **200,490 genuinely untranslated values across 115 locale
-files**. Continue filling those English
+files**. Igbo, Swedish, Afrikaans, Malay, Danish and Norwegian Bokmål then
+completed 304 more values, leaving **200,186 genuinely untranslated values
+across 107 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -1005,6 +1007,46 @@ Valencian, with zero-backlog and protected-token coverage.
 Seventy values now use their target languages with zero-backlog, foreign-script
 and protected-placeholder coverage. Klingon has very low confidence; its older
 mixed-language seed text remains for the whole-file audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f84ba9d2b">Igbo and Swedish complete the 36-value translation tier</a>. Thanks to xet7.</summary>
+
+Seventy-two values now use their target languages with zero-backlog, storage-ID
+and protected-token coverage. Igbo has low confidence and welcomes review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d55ef1df">Both Afrikaans tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+Seventy-four values now use explicit Afrikaans alternatives for valid cognates,
+with zero-backlog and sibling-consistency coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cbae558f2">Both Malay tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+Seventy-six values now use Malay with executable-JSON, zero-backlog and
+sibling-consistency coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/819f24fdc">Danish completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Forty interface, Office, API and storage values now use explicit Danish
+alternatives for valid cognates, with zero-backlog coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d50690692">Norwegian Bokmål completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Forty-two interface, Office, API and storage values now use explicit Norwegian
+alternatives for valid cognates, with zero-backlog coverage.
 
 </details>
 
