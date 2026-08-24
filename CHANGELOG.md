@@ -269,7 +269,9 @@ untranslated values across 210 locale files**. Compact direct-fill batches have
 since completed 28 locale files, leaving **202,139 genuinely untranslated values
 across 182 locale files**. Portuguese, Thai, Venda, Zulu, Esperanto, Spanish and
 Turkish batches then completed another 20 locale files, leaving **201,748
-genuinely untranslated values across 162 locale files**. Continue filling those English
+genuinely untranslated values across 162 locale files**. Hungarian, Latvian,
+Basque and Uyghur then completed 84 more values, leaving **201,664 genuinely
+untranslated values across 158 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -843,6 +845,32 @@ verifies every tag.
 
 Twenty checklist, typography, Office, API report and storage values now use
 Turkish, with zero-backlog, terminology and English-remnant coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e6924f68">Hungarian completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Twenty-one board, archive, Office and API report values now use Hungarian, with
+zero-backlog, terminology and protected-literal coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7874d769b">Latvian completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Twenty-one board, archive, Office and API report values now use Latvian, with
+zero-backlog, terminology and protected-literal coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac1ce0295">Basque and Uyghur complete their direct translation fills</a>. Thanks to xet7.</summary>
+
+Forty-two board, admin, Office, API report and search-help values now use Basque
+and Uyghur. Zero-backlog and target-language coverage preserves `%s`,
+`__operator_number__`, `IPv4`, `IPv6`, `REST API` and `WITH_API=true` exactly.
+The Uyghur translations have low confidence and welcome native-speaker review.
 
 </details>
 
