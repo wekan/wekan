@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Four 50-value Bengali batches then translated 200 values, leaving
-**188,295 genuinely untranslated values across 87 locale files**, including
-1,966 in Bengali.
+files**. Six 50-value Bengali batches then translated 300 values, leaving
+**188,195 genuinely untranslated values across 87 locale files**, including
+1,866 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,10 +640,12 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with four 50-value batches covering board, card, list and
+Bengali then begins with six 50-value batches covering board, card, list and
 swimlane activity, checklists, comments, movement and workspace controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
 attachments, membership and board visibility follow.
+Board views, calendar and archive guidance, voting, Planning Poker,
+dependencies, organization/team controls and import dialogs follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3432,6 +3434,25 @@ Archive operations, attachments, templates, board backgrounds, All Boards
 settings, member and assignee labels and private-board messaging now use
 Bengali. Named and positional placeholders and the strong-emphasis tags remain
 exact, and whole-locale invariant coverage leaves 1,966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7d67ee34">Bengali board views and archive guidance gain 50 values</a>. Thanks to xet7.</summary>
+
+Board appearance and view modes, zoom and calendar controls, card and list
+archive guidance and common card editing labels now use Bengali. Named and
+positional placeholders, percentages and emphasis tags remain exact, and
+whole-locale invariant coverage leaves 1,916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e57724fe">Bengali voting and import dialogs gain 50 values</a>. Thanks to xet7.</summary>
+
+Voting, Planning Poker, card dependencies, organizations, teams, account and
+background administration and import/export popup titles now use Bengali.
+Whole-locale invariant coverage leaves 1,866 values.
 
 </details>
 
