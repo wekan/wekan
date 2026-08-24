@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Eight 50-value Tibetan batches then translated 400
-values, leaving **185,929 genuinely untranslated values across 86 locale
-files**, including 1,766 in Tibetan.
+across 86 locale files**. Ten 50-value Tibetan batches then translated 500
+values, leaving **185,829 genuinely untranslated values across 86 locale
+files**, including 1,666 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,11 +642,13 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with eight 50-value batches covering board, card, checklist,
+Tibetan then begins with ten 50-value batches covering board, card, checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
 Member mapping, themes, fonts, avatars, permissions, card aging, navigation and
 color names follow too.
+Board roles, destructive confirmations, clipboard actions, custom fields,
+account emails and board, import and linked-card errors follow too.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -3947,6 +3949,26 @@ invariant coverage leaves 1,816 values.
 Star controls, automatic list widths, clipboard actions, card aging, movement,
 dialog navigation, board restoration guidance and the first color-name set now
 use Tibetan. Whole-locale invariant coverage leaves 1,766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2868da302">Tibetan roles and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+
+Board roles, destructive confirmations, list movement, clipboard actions,
+multi-card JSON examples, labels and custom-field types now use Tibetan. JSON
+structure remains valid, and whole-locale invariant coverage leaves 1,716
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/337ebfdac">Tibetan account email and errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom-field controls, permanent deletion, profile and WIP settings, account
+enrolment, invitation, password-reset and verification emails and board, import
+and linked-card errors now use Tibetan. Named placeholders and technical format
+names remain exact, and whole-locale invariant coverage leaves 1,666 values.
 
 </details>
 
