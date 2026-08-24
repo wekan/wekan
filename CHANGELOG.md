@@ -288,7 +288,9 @@ files**. Igbo, Swedish, Afrikaans, Malay, Danish and Norwegian Bokmål then
 completed 304 more values, leaving **200,186 genuinely untranslated values
 across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
-locale files**. Continue filling those English
+locale files**. Dutch and Flemish then completed 205 more values, leaving
+**199,325 genuinely untranslated values across 92 locale files**. The remaining
+queue now consists of whole-file-sized locale fills. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -1081,6 +1083,22 @@ sibling-consistency coverage. The translations have mixed confidence.
 
 Two hundred thirty-two values now use established German UI terms instead of
 English loanword placeholders, with zero-backlog and sibling coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f14d95b8">Both Dutch tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+One hundred thirty-two values now use established Dutch UI terms instead of
+English loanword placeholders, with zero-backlog and sibling coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cff765a79">Flemish completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Seventy-three values now use verified Dutch terminology plus regional Flemish
+board and admin wording, with zero-backlog coverage.
 
 </details>
 
