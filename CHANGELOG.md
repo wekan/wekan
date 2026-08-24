@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Sixteen 50-value Tibetan batches then translated 800
-values, leaving **185,529 genuinely untranslated values across 86 locale
-files**, including 1,366 in Tibetan.
+across 86 locale files**. Eighteen 50-value Tibetan batches then translated 900
+values, leaving **185,429 genuinely untranslated values across 86 locale
+files**, including 1,266 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,7 +642,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with sixteen 50-value batches covering board, card,
+Tibetan then begins with eighteen 50-value batches covering board, card,
 checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
@@ -657,6 +657,8 @@ list archives, settings, multi-selection and notification roles follow too.
 Public and private messaging, member removal, rescue, search and WIP controls,
 shortcuts, time tracking, uploads, custom branding, templates and WIP errors
 follow too.
+Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
+custom-field displays and organization tenancy and administration follow too.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -4040,6 +4042,27 @@ Time tracking, assignee and label shortcuts, uploads, custom branding URLs,
 watching, welcome content, card, list and board templates, WIP errors and
 attachment/API limits now use Tibetan. Technical names and numeric ranges
 remain exact, and whole-locale invariant coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/906580d92">Tibetan transfer limits and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and API transfer limits, avatar upload blocking, registration,
+invitations, SMTP configuration and test mail, webhooks and basic runtime
+version fields now use Tibetan. Email tokens and product and protocol names
+remain exact, and whole-locale invariant coverage leaves 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5fade33b4">Tibetan diagnostics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Database, FerretDB, reactivity, DDP and operating-system diagnostics, time
+units, custom-field display settings, account changes, visibility and
+organization and team tenancy administration now use Tibetan. Environment
+variables, hostnames and technical runtime names remain exact, and whole-locale
+invariant coverage leaves 1,266 values.
 
 </details>
 
