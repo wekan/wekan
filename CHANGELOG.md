@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Twenty-four 50-value Bhojpuri
-batches then translated 1,200 values, leaving **191,627 genuinely untranslated
-values across 89 locale files**, including 966 in Bhojpuri.
+16-value batch then translated all 2,166 values. Twenty-six 50-value Bhojpuri
+batches then translated 1,300 values, leaving **191,527 genuinely untranslated
+values across 89 locale files**, including 866 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with twenty-four 50-value batches covering board/card/list/
+Bhojpuri then begins with twenty-six 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -583,6 +583,9 @@ label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
 layout controls, date/reminder activities, mentions, destructive account/team/
 organization actions and UI behavior are translated too.
+Multi-window/editor behavior, notification and board-role controls, weekdays,
+linked-card deletion guards, domain/template sharing, My Cards, Due Cards,
+global search and lookup errors follow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2686,6 +2689,26 @@ deletion, date/reminder activities, mentions, destructive account/team/
 organization actions and UI behavior now use Bhojpuri. Body tags, placeholders,
 percent arguments and line breaks remain exact. Invariant coverage leaves 966
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c32b8e69">Bhojpuri board roles gain 50 values</a>. Thanks to xet7.</summary>
+
+Multi-window cards, editor key behavior, organization/team/user dialogs,
+notifications, board-role permissions/status, weekdays, voting and linked-card
+deletion guards now use Bhojpuri while retaining keyboard combinations and the
+Admin Panel name. Whole-locale invariant coverage leaves 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c8a2acae">Bhojpuri shared templates and searches gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist visibility, domain/template sharing, My Cards and Due Cards views,
+global search and lookup errors now use Bhojpuri while retaining the domain
+example, Markdown emphasis and positional lookup arguments. Whole-locale
+invariant coverage leaves 866 values.
 
 </details>
 
