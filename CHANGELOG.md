@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Fourteen
-50-value Bambara batches then translated 700 values, leaving **189,961 genuinely
-untranslated values across 88 locale files**, including 1,466 in Bambara.
+**190,661 genuinely untranslated values across 88 locale files**. Sixteen
+50-value Bambara batches then translated 800 values, leaving **189,861 genuinely
+untranslated values across 88 locale files**, including 1,366 in Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -596,7 +596,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with fourteen 50-value batches covering board/card/list/swimlane
+Bambara then begins with sixteen 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -606,6 +606,8 @@ Card export, list sorting, filters, advanced-filter syntax and board-import
 instructions follow.
 Trello API imports, import jobs, member mapping, validation, board departure,
 list archives, settings, multi-selection and notification roles follow too.
+Public/private messaging, member removal, rescue/search/WIP controls, shortcuts,
+time tracking, uploads, custom branding, templates and WIP errors follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3057,6 +3059,25 @@ Board departure, list and card archive actions, user, team and organization
 settings, multi-selection, muted notifications and normal-role permissions now
 use Bambara. The board-title placeholder remains exact, and invariant coverage
 leaves 1,466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c6be34a6">Bambara shortcuts and board visibility gain 50 values</a>. Thanks to xet7.</summary>
+
+Watch notifications, public and private pages, member removal, rescue dialogs,
+search and WIP controls, keyboard shortcuts, sidebars, signup and starred and
+default boards now use Bambara. Markup and all placeholders remain exact, and
+invariant coverage leaves 1,416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a17c8ac9">Bambara tracking and custom branding gain 50 values</a>. Thanks to xet7.</summary>
+
+Time tracking, assignee and label shortcuts, uploads, custom branding URLs,
+welcome and template boards, WIP errors and attachment limits now use Bambara.
+Whole-locale invariant coverage leaves 1,366 values.
 
 </details>
 
