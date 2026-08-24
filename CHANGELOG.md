@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Twenty-six Amharic
-batches translated 1,300 values, leaving **198,025 genuinely untranslated
-values across 92 locale files**, including 866 in Amharic. Continue filling
+queue now consists of whole-file-sized locale fills. Twenty-eight Amharic
+batches translated 1,400 values, leaving **197,925 genuinely untranslated
+values across 92 locale files**, including 766 in Amharic. Continue filling
 those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
@@ -498,7 +498,7 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with twenty-six 50-value Amharic batches covering
+Whole-file work now begins with twenty-eight 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
@@ -1332,6 +1332,24 @@ chords. Whole-locale invariant coverage leaves 916 values.
 Checklist visibility, domains, shared templates, My Cards, Due Cards, global
 search and lookup errors now use Amharic while retaining domain examples,
 Markdown and percent placeholders. Whole-locale coverage leaves 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88f4e76f4">Amharic global-search vocabulary gains 50 values</a>. Thanks to xet7.</summary>
+
+Result counts, search operators and predicates now use Amharic while retaining
+percent tokens and range-placeholder order. Focused order coverage leaves 816
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ede9a641">Amharic search help gains 50 values</a>. Thanks to xet7.</summary>
+
+Search predicates, validation messages and full operator help now use Amharic
+while retaining backticked expressions, metavariables, Markdown, newlines and
+placeholders. Whole-locale invariant coverage leaves 766 values.
 
 </details>
 
