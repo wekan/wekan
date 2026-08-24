@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Twelve Bashkir batches then translated 600 values,
-leaving **194,393 genuinely untranslated values across 90 locale files**,
-including 1,566 in Bashkir.
+across 90 locale files**. Fourteen Bashkir batches then translated 700 values,
+leaving **194,293 genuinely untranslated values across 90 locale files**,
+including 1,466 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,13 +527,14 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with twelve 50-value batches covering activity history,
+Bashkir then begins with fourteen 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
 member mapping, appearance, navigation, card aging, colors, roles, custom
 fields, account emails, WIP limits, validation errors, card exports, filtering
-and multi-source board imports.
+and multi-source board imports, including Trello API jobs/member mapping,
+board departure, list actions, multi-selection and notification roles.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2074,6 +2075,26 @@ Advanced filters and Kanboard, Deck, OpenProject, issue, Asana, ZenKit, Trello,
 CSV/TSV, Jira, Excel and WeKan import guidance now use Bashkir while retaining
 operators, regex, endpoint tokens, API paths and data-format examples.
 Whole-locale invariant coverage leaves 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c34816ed">Bashkir Trello imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello ZIP safety, workspace placement, API credentials, multi-board job
+progress/cancellation and member mapping now use Bashkir while retaining the
+API URL, file formats and percent label argument. Whole-locale invariant
+coverage leaves 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8bda89b9">Bashkir board roles gain 50 values</a>. Thanks to xet7.</summary>
+
+Last-admin safeguards, board departure, list/archive actions, settings dialogs,
+multi-selection, archive states and assigned-only notification roles now use
+Bashkir while retaining the board-title token. Whole-locale invariant coverage
+leaves 1,466 values.
 
 </details>
 
