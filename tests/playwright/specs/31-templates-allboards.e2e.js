@@ -51,6 +51,37 @@ async function boardListNames(page) {
 }
 
 test.describe('#2339 #5850 All Boards / Templates redesign', () => {
+  test('#6628: Table view can open board creation where Lists can', async ({ page, user }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem('wekan-all-boards-view', 'table');
+    });
+    await loginWithToken(page, user.id, user.token);
+    await page.goto(`${BASE_URL}/allboards/remaining`, { waitUntil: 'commit' });
+
+    const add = page.locator('.all-boards-table-actions .js-add-board');
+    await expect(add).toBeVisible({ timeout: 15_000 });
+    await add.click();
+    await expect(page.locator('.pop-over form').first()).toBeVisible({
+      timeout: 10_000,
+    });
+  });
+
+  test('#6628 negative: Table view does not create boards in Archive or Home', async ({ page, user }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem('wekan-all-boards-view', 'table');
+    });
+    await loginWithToken(page, user.id, user.token);
+    for (const section of ['archive', 'home']) {
+      await page.goto(`${BASE_URL}/allboards/${section}`, { waitUntil: 'commit' });
+      await expect(page.locator('.boards-right-grid')).toBeVisible({
+        timeout: 15_000,
+      });
+      await expect(
+        page.locator('.all-boards-table-actions .js-add-board'),
+      ).toHaveCount(0);
+    }
+  });
+
   test('ensureTemplatesBoard creates the templates container and is idempotent', async ({ page, user }) => {
     let templatesBoardId;
     try {

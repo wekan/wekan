@@ -2256,3 +2256,8 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   white-space: normal;
   word-break: break-word;
 }
+.all-boards-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}

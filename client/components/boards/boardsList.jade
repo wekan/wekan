@@ -126,6 +126,17 @@ template(name="boardList")
           multi-selection, dragging and the tile layout did not work.
           docs/Features/Page/Archive.md
         if isAllBoardsView 'table'
+          //- The same create action as the Lists tile, in the same sections.
+            Archive and Home deliberately expose neither action.
+          if showsAddBoardTile
+            .all-boards-table-actions
+              button.primary.js-add-board(type="button")
+                span.emoji-icon
+                  i.fa.fa-plus
+                if isSelectedMenu 'templates'
+                  | {{_ 'add-template-container'}}
+                else
+                  | {{_ 'add-board'}}
           +tablePage(tablePageData)
         else
           if boardsPaginationActive
