@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Six 50-value Bengali batches then translated 300 values, leaving
-**188,195 genuinely untranslated values across 87 locale files**, including
-1,866 in Bengali.
+files**. Eight 50-value Bengali batches then translated 400 values, leaving
+**188,095 genuinely untranslated values across 87 locale files**, including
+1,766 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,12 +640,14 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with six 50-value batches covering board, card, list and
+Bengali then begins with eight 50-value batches covering board, card, list and
 swimlane activity, checklists, comments, movement and workspace controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
 attachments, membership and board visibility follow.
 Board views, calendar and archive guidance, voting, Planning Poker,
 dependencies, organization/team controls and import dialogs follow too.
+Member mapping, themes, fonts, avatars, permissions, card aging, navigation and
+color names follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3453,6 +3455,24 @@ whole-locale invariant coverage leaves 1,916 values.
 Voting, Planning Poker, card dependencies, organizations, teams, account and
 background administration and import/export popup titles now use Bengali.
 Whole-locale invariant coverage leaves 1,866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4645d6a12">Bengali member mapping and appearance gain 50 values</a>. Thanks to xet7.</summary>
+
+Popup labels, archived-item restoration, imported-member mapping, themes,
+fonts, avatars, language selection and permission controls now use Bengali.
+Whole-locale invariant coverage leaves 1,816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/33a240462">Bengali navigation and color names gain 50 values</a>. Thanks to xet7.</summary>
+
+Automatic list width, card aging, keyboard navigation, accessible close labels,
+board restoration guidance and the first color-name set now use Bengali.
+Whole-locale invariant coverage leaves 1,766 values.
 
 </details>
 
