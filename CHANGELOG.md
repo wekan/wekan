@@ -291,12 +291,11 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
-Amharic batches and a final 16-value batch translated all 2,166 values, leaving
-**197,159 genuinely untranslated values across 91 locale files**. Continue
-filling
-those English
-values directly while preserving human translations and exact tokens from
-`en.i18n.json`.
+Amharic batches and a final 16-value batch translated all 2,166 values.
+Two Assamese batches then translated 100 values, leaving **197,059 genuinely
+untranslated values across 91 locale files**, including 2,066 in Assamese.
+Continue filling those English values directly while preserving human
+translations and exact tokens from `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -508,6 +507,8 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
+Assamese then begins with two 50-value batches covering activity history and
+workspace controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1505,6 +1506,25 @@ The final 16 integrity, export, import and number-search values now use Amharic
 while retaining IP versions, file extensions, product names and exact search
 metavariables. The fill tool and focused regression now require zero English
 placeholders across the whole locale.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ee1df2ca">Assamese begins its whole-file translation</a>. Thanks to xet7.</summary>
+
+The first 50 activity and board-history values now use Assamese while retaining
+every named and percent placeholder. New whole-locale regression coverage
+checks the exact remaining count, token and HTML inventories, Assamese script
+and representative activity placeholders, leaving 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/648d42691">Assamese activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement, activity phrases and All Boards workspace controls now use
+Assamese while retaining named placeholders, percent multiplicity and Markdown
+terminology. Whole-locale invariant coverage leaves 2,066 values.
 
 </details>
 
