@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Twenty-four 50-value Bengali batches then translated 1,200 values,
-leaving **187,295 genuinely untranslated values across 87 locale files**,
-including 966 in Bengali.
+files**. Twenty-six 50-value Bengali batches then translated 1,300 values,
+leaving **187,195 genuinely untranslated values across 87 locale files**,
+including 866 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with twenty-four 50-value batches covering board, card, list
+Bengali then begins with twenty-six 50-value batches covering board, card, list
 and swimlane activity, checklists, comments, movement and workspace controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
 attachments, membership and board visibility follow.
@@ -664,6 +664,8 @@ Scheduled, due, list and button triggers and the rule vocabulary for label,
 member, attachment, checklist, card and email actions follow too.
 Further rule actions, authentication/custom-head settings, duplication,
 destructive actions, activity reminders, mentions and layout controls follow.
+Multi-window/editor behavior, notifications, board-role controls, weekdays,
+linked-card guards, domains/templates, My/Due Cards and global search follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3644,6 +3646,24 @@ Board duplication, swimlane and account deletion, date activities, reminders,
 mentions, card positioning, drag controls and editor behavior now use Bengali.
 HTML tags and every activity placeholder remain exact, and invariant coverage
 leaves 966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aac0cc636">Bengali roles and editor behavior gain 50 values</a>. Thanks to xet7.</summary>
+
+Multi-window and editor behavior, organization, team and user dialogs,
+notification controls, board-role permissions, weekdays and linked-card
+deletion guards now use Bengali. Invariant coverage leaves 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94be3426f">Bengali templates and global search gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist display, domains, shared templates, My Cards, Due Cards and global
+search now use Bengali. Markdown emphasis and positional lookup placeholders
+remain exact, and invariant coverage leaves 866 values.
 
 </details>
 
