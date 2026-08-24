@@ -240,9 +240,13 @@ keys across 91 locale files remained**. The next tier repaired 54 counted
 mismatches plus a hidden Xhosa machine remnant across eighteen files. **1,243
 mismatched keys across 73 locale files remained**. The following tier repaired
 56 mismatches across fourteen files. **1,187 mismatched keys across 59 locale
-files remain** for audited batches. The surrounding translation must be
-preserved or corrected into the locale language while every token is restored
-exactly from `en.i18n.json`.
+files remained**. The coherent part of the five-mismatch tier repaired 55 keys
+across eleven French, German and Hindi variants. **1,132 mismatched keys across
+48 locale files remain** for audited batches. Breton, Walloon, Wolof and Klingon
+each still have five mismatches inside wrongly seeded French or German prose and
+need language-specific rewrites rather than token-only edits. The surrounding
+translation must be preserved or corrected into the locale language while every
+token is restored exactly from `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -438,8 +442,9 @@ English placeholder tokens. Eleven additional locale files now have exact token
 inventories, followed by seventeen files from the next tier. Below that:
 eighteen more locale files now reject translated tokens and wrong-language
 carryovers, followed by fourteen files from the four-mismatch tier. Below that:
-focused regression coverage and native-speaker review notes for low-confidence
-direct translations.
+eleven French, German and Hindi variants restore their search and activity
+tokens. Below that: focused regression coverage and native-speaker review notes
+for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -535,6 +540,20 @@ files are clean and rejects translated token names, duplicate prompt values and
 wrong-language forms. These direct translations have mixed confidence and
 welcome native-speaker review. Another 1,187 mismatched keys across 59 locale
 files remain for audited batches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0edb3db90">Eleven French, German and Hindi variants restore exact placeholders</a>. Thanks to xet7.</summary>
+
+The coherent part of the five-mismatch tier now preserves exact activity,
+email, count and search tokens across eleven locale variants. Search examples
+such as `user:<name>` and `has:-due` remain literals instead of becoming extra
+runtime placeholders. Whole-file regression coverage proves all eleven files
+are clean and rejects embedded spaces, incomplete named tokens and invented
+operator tokens. Another 1,132 mismatched keys across 48 locale files remain;
+the four wrongly seeded files from this tier need separate language-specific
+rewrites.
 
 </details>
 
