@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Twenty Amharic batches
-translated 1,000 values, leaving **198,325 genuinely untranslated values across
-92 locale files**, including 1,166 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Twenty-two Amharic batches
+translated 1,100 values, leaving **198,225 genuinely untranslated values across
+92 locale files**, including 1,066 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,10 +497,11 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with twenty 50-value Amharic batches covering
+Whole-file work now begins with twenty-two 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
-tracking, branding, transfer limits, webhooks, diagnostics and tenancy.
+tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
+automation.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1276,6 +1277,24 @@ invariant coverage leaves 1,216 values.
 Activity messages and automation workflow/import controls now use Amharic while
 retaining repeated percent argument order, named tokens and format terms.
 Focused positional coverage leaves 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2e8a2747">Amharic scheduled automation gains 50 values</a>. Thanks to xet7.</summary>
+
+Visual workflows, schedules, due-date triggers, buttons, sorting and relative
+dates now use Amharic while retaining workflow product names and structural
+values. Whole-locale invariant coverage leaves 1,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/039266234">Amharic automation phrases gain 50 values</a>. Thanks to xet7.</summary>
+
+List, label, member, checklist, card and email automation fragments now use
+consistent Amharic rule-builder terminology. Whole-locale invariant coverage
+leaves 1,066 values.
 
 </details>
 
