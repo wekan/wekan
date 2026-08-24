@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Fourteen Assamese batches then translated 700 values, leaving **196,459
-genuinely untranslated values across 91 locale files**, including 1,466 in
+Sixteen Assamese batches then translated 800 values, leaving **196,359
+genuinely untranslated values across 91 locale files**, including 1,366 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,11 +508,11 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with fourteen 50-value batches covering activity history,
+Assamese then begins with sixteen 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
-fields, email, errors, exports, filters, imports, member mapping, list actions
-and roles.
+fields, email, errors, exports, filters, imports, member mapping, list actions,
+roles, navigation, tracking and branding.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1645,6 +1645,26 @@ Board departure, list archive/move/delete actions, settings dialogs,
 multi-selection, notification modes and normal/assigned roles now use Assamese
 while retaining the board-title placeholder. Whole-locale invariant coverage
 leaves 1,466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1febef555">Assamese navigation and members gain 50 values</a>. Thanks to xet7.</summary>
+
+Watched updates, private-page login links, board visibility, member removal,
+rescue/search/WIP controls, shortcuts, sidebars and starred/home boards now use
+Assamese while retaining exact HTML and member placeholders. Whole-locale
+invariant coverage leaves 1,416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/454fe1e71">Assamese tracking and branding gain 50 values</a>. Thanks to xet7.</summary>
+
+Subscriptions, tracking, time and shortcut labels, uploads, branding URLs,
+welcome/template boards, WIP errors and attachment/API limits now use Assamese
+while retaining numeric ranges and technical terms. Whole-locale invariant
+coverage leaves 1,366 values.
 
 </details>
 
