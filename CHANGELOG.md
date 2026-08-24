@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Sixteen Bashkir batches then translated 800 values,
-leaving **194,193 genuinely untranslated values across 90 locale files**,
-including 1,366 in Bashkir.
+across 90 locale files**. Eighteen Bashkir batches then translated 900 values,
+leaving **194,093 genuinely untranslated values across 90 locale files**,
+including 1,266 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with sixteen 50-value batches covering activity history,
+Bashkir then begins with eighteen 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -536,7 +536,8 @@ fields, account emails, WIP limits, validation errors, card exports, filtering
 and multi-source board imports, including Trello API jobs/member mapping,
 board departure, list actions, multi-selection, notification roles, privacy,
 shortcuts, tracking, uploads, branding, welcome/template boards and WIP
-warnings.
+warnings, attachment limits, registration, invitations, SMTP, webhooks,
+runtime diagnostics, custom-field display and organization tenancy.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2116,6 +2117,26 @@ coverage leaves 1,416 values.
 Tracking, time and overtime, uploads, custom branding and URL schemes,
 welcome/template boards, WIP warnings and attachment/API limits now use
 Bashkir. Whole-locale invariant coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9323a2c9d">Bashkir administration settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment transfer limits, avatar blocking, registration, invitations, SMTP
+and outgoing/two-way webhooks now use Bashkir while retaining four invitation
+placeholders and its paragraph structure. Whole-locale invariant coverage
+leaves 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af1db66d1">Bashkir diagnostics and tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Database and operating-system diagnostics, time units, custom-field display,
+account changes, visibility, shared templates and organization/team tenancy
+now use Bashkir while retaining configuration names, domain examples and
+MULTITENANCY=true. Whole-locale invariant coverage leaves 1,266 values.
 
 </details>
 
