@@ -282,6 +282,8 @@ Occitan, Brazilian Portuguese, Turkmen, Tamazight, Acehnese, Czech, Slovenian
 and Volapük then completed 317 more values, leaving **200,723 genuinely
 untranslated values across 122 locale files**. Valencian then completed 31
 more values, leaving **200,692 genuinely untranslated values across 121 locale
+files**. Walloon, Yoruba, Italian, Catalan and Klingon then completed 202 more
+values, leaving **200,490 genuinely untranslated values across 115 locale
 files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
@@ -970,6 +972,39 @@ and welcomes native-speaker review.
 
 Thirty-one board, admin, Office, API and storage values now use Valencian, with
 zero-backlog, terminology and protected-token coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8be40c24">Walloon and Yoruba complete the 32-value translation tier</a>. Thanks to xet7.</summary>
+
+Sixty-four values now use their target languages with zero-backlog,
+mixed-language and protected-placeholder coverage. Both have low confidence.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf9a4ce5f">Italian completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Thirty-three interface, Office, API and storage values now use explicit Italian
+alternatives for valid cognates, with zero-backlog coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3debaa3a">Catalan completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Thirty-five values now use standard Catalan terminology distinct from
+Valencian, with zero-backlog and protected-token coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6eeffd572">Catalan-Spain and Klingon complete their 35-value tails</a>. Thanks to xet7.</summary>
+
+Seventy values now use their target languages with zero-backlog, foreign-script
+and protected-placeholder coverage. Klingon has very low confidence; its older
+mixed-language seed text remains for the whole-file audit.
 
 </details>
 
