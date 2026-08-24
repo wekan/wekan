@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Twenty-eight Amharic
-batches translated 1,400 values, leaving **197,925 genuinely untranslated
-values across 92 locale files**, including 766 in Amharic. Continue filling
+queue now consists of whole-file-sized locale fills. Thirty Amharic batches
+translated 1,500 values, leaving **197,825 genuinely untranslated values across
+92 locale files**, including 666 in Amharic. Continue filling
 those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
@@ -498,7 +498,7 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with twenty-eight 50-value Amharic batches covering
+Whole-file work now begins with thirty 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
@@ -1350,6 +1350,24 @@ values.
 Search predicates, validation messages and full operator help now use Amharic
 while retaining backticked expressions, metavariables, Markdown, newlines and
 placeholders. Whole-locale invariant coverage leaves 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/40da7ceed">Amharic dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+
+Sorting, stickers, dependencies, board backgrounds and locations now use
+Amharic while retaining JSON/SVG, named tokens and double-brace templates.
+Expanded token coverage leaves 716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f9176edc">Amharic maps and reports gain 50 values</a>. Thanks to xet7.</summary>
+
+Maps, server troubleshooting, string templates, reports and office locations
+now use Amharic while retaining shell commands, HTML entities, IP terms and
+percent-brace tokens. Expanded token coverage leaves 666 values.
 
 </details>
 
