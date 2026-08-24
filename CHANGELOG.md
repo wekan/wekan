@@ -220,9 +220,10 @@ not language consistency; `hi`, `ta`, `th` and `el` were written by looking the
 words up rather than by native speakers, so a review remains welcome.
 
 **Same-script repair is now in progress.** Comparing Mongolian with Russian
-found **1,174 exact Cyrillic matches**. The archive/board and card-control
-batches replaced **71 Russian values** with Mongolian and retained `Архив` as a
-valid shared loanword. **1,103 exact-match candidates remain to audit** in
+found **1,174 exact Cyrillic matches**. The archive/board, card and attachment
+batches replaced **85 Russian values** with Mongolian and retained `Архив` and
+`Файл` as valid shared loanwords. **1,089 exact-match candidates remain to
+audit** in
 coherent UI batches; equality is evidence of copying, but shared loanwords must
 be reviewed rather than blindly replaced. A Transifex translation in the
 correct language replaces a direct repair permanently.
@@ -415,7 +416,8 @@ browser build to verify).
 **In short:** **translation coverage** now extends the Office and REST API
 reports across nine more language files, and the translation policy now requires
 every locale to use its declared language. The first same-script repair replaces
-Russian archive, board and card controls in Mongolian. Below that: focused
+Russian archive, board, card and attachment controls in Mongolian. Below that:
+focused
 regression coverage and native-speaker review notes for low-confidence direct
 translations.
 
@@ -492,6 +494,18 @@ coverage compares every repaired key with Russian, preserves placeholders and
 established card vocabulary, and rejects common Russian card terms. Another
 1,103 exact-match candidates remain for later audited batches. This direct
 repair has low confidence and welcomes review by Mongolian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27ac02b41">Mongolian attachment controls no longer use Russian</a>. Thanks to xet7.</summary>
+
+Fourteen exact Russian copies across attachment deletion, actions, storage moves
+and renaming now use Mongolian. The shared `Файл` loanword remains valid and
+GridFS remains recognizable. Regression coverage compares the repaired values
+with Russian and rejects common Russian attachment terms. Another 1,089 exact
+matches, including shared loanwords, remain for later audit. This direct repair
+has low confidence and welcomes review by Mongolian speakers.
 
 </details>
 
