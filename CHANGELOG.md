@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Two 50-value Bhojpuri batches
-then translated 100 values, leaving **192,727 genuinely untranslated values
-across 89 locale files**, including 2,066 in Bhojpuri.
+16-value batch then translated all 2,166 values. Four 50-value Bhojpuri batches
+then translated 200 values, leaving **192,627 genuinely untranslated values
+across 89 locale files**, including 1,966 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,8 +556,9 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with two 50-value batches covering board/card/list/
-swimlane activity, checklists, comments, movement and workspace management.
+Bhojpuri then begins with four 50-value batches covering board/card/list/
+swimlane activity, checklists, comments, movement, workspace management, Home
+boards, list/swimlane sizing, archives and All Boards settings.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2445,6 +2446,26 @@ Card movement/restoration, member removal, positional activity phrases,
 checklist states, dates and workspace creation/editing now use Bhojpuri while
 retaining every positional and named argument. Whole-locale invariant coverage
 leaves 2,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32ea617a9">Bhojpuri board layout gains 50 values</a>. Thanks to xet7.</summary>
+
+Workspace deletion, multi-board selection, Home boards, card insertion,
+personal/shared/fixed list widths, keyboard shortcuts, swimlane heights and
+checklist actions now use Bhojpuri while retaining positional date arguments.
+Whole-locale invariant coverage leaves 2,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19625f136">Bhojpuri board settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Administration announcements, archives, templates, attachments, automatic
+watching, board backgrounds, All Boards display and member/assignee summaries
+now use Bhojpuri while retaining count/size/percent tokens and HTML emphasis.
+Whole-locale invariant coverage leaves 1,966 values.
 
 </details>
 
