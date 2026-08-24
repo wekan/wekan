@@ -264,8 +264,10 @@ Romanian and Chinese family files then restored 145 values, leaving **304
 mismatched keys across eight locale files**. Ukrainian, Estonian, Arabic-family
 and Tamazight repairs completed the final 304 values. **The repository-wide
 placeholder mismatch count is now zero.** The separate direct-fill report, now
-excluding invariant values that require no translation, has **202,628 genuinely
-untranslated values across 210 locale files**. Continue filling those English
+excluding invariant values that require no translation, had **202,628 genuinely
+untranslated values across 210 locale files**. Compact direct-fill batches have
+since completed 28 locale files, leaving **202,139 genuinely untranslated values
+across 182 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -729,6 +731,67 @@ containing placeholders remain listed. The corrected direct-fill backlog is
 202,628 values across 210 locales, with CLI regression coverage.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e6b0e73f">Five single-value locales complete their direct fills</a>. Thanks to xet7.</summary>
+
+Finnish, two Hindi variants and two Ukrainian variants translate their final
+genuine English values with exact-value and target-script coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e6942e6f">Vietnamese and Hebrew complete their direct-fill tails</a>. Thanks to xet7.</summary>
+
+Both Vietnamese variants translate checklist, font-preview and storage terms.
+Date-format masks are now classified as invariant, completing both Hebrew tags.
+CLI and language regressions cover both outcomes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa7f62ffe">Both Greek variants complete their storage terminology</a>. Thanks to xet7.</summary>
+
+Connection-string, container, backup and project-ID values now use Greek, with
+Greek-script and zero-backlog coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eca9301e9">Four Indic locales complete board-selection messages</a>. Thanks to xet7.</summary>
+
+Gujarati, Odia, Punjabi and Telugu translate 28 board-selection and
+permanent-delete values. Target-script and English-remnant coverage verifies all
+four completed files.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78daa9961">Six eight-value locale tails are complete</a>. Thanks to xet7.</summary>
+
+Belarusian, Armenian, Georgian, Mongolian, Serbian and Tamil translate their
+remaining board controls and technical labels. Zero-backlog and script coverage
+verifies all six files.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e61400e2">Four nine-value locale tails are complete</a>. Thanks to xet7.</summary>
+
+Bulgarian, both Persian variants and Macedonian translate their remaining board
+controls and technical labels while preserving product and JSON identifiers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41af211f8">Khmer completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Thirteen board-selection, permanent-delete and wait-spinner values now use Khmer
+across all tags, with Khmer-script and English-remnant coverage.
+
+</details>
+
+- [The tracked Khmer underscore tag carries the same verified translations](https://github.com/wekan/wekan/commit/68aa99f44). Thanks to xet7.
 
 and improves the following translations:
 
