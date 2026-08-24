@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Twenty
-50-value Bambara batches then translated 1,000 values, leaving **189,661
-genuinely untranslated values across 88 locale files**, including 1,166 in
+**190,661 genuinely untranslated values across 88 locale files**. Twenty-two
+50-value Bambara batches then translated 1,100 values, leaving **189,561
+genuinely untranslated values across 88 locale files**, including 1,066 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with twenty 50-value batches covering board/card/list/swimlane
+Bambara then begins with twenty-two 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -613,6 +613,8 @@ Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
 custom-field displays and organization tenancy/administration follow too.
 Received/end dates, destructive board actions, subtask/card/minicard settings,
 parent relationships, activity labels and automation rule workflows follow.
+Scheduled, due, list and button triggers and the rule vocabulary for label,
+member, attachment, checklist, card and email actions follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3123,6 +3125,25 @@ Attachment and custom-field activity, automation rule controls and the visual
 workflow and JSON, CSV and Trello Butler import/export paths now use Bambara.
 Every positional and named token remains exact, and invariant coverage leaves
 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f16b1dac0">Bambara scheduled automation triggers gain 50 values</a>. Thanks to xet7.</summary>
+
+Visual-workflow formats, scheduled, due, list and button triggers, relative
+dates, sorting, completion and card movement now use Bambara. The named count,
+day marker, product names and weekday range remain exact, and invariant coverage
+leaves 1,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19ca9756b">Bambara automation actions gain 50 values</a>. Thanks to xet7.</summary>
+
+List, label, member, attachment and checklist triggers and card movement,
+membership, color, checklist-item and email actions now use Bambara.
+Whole-locale invariant coverage leaves 1,066 values.
 
 </details>
 
