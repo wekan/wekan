@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Nine Amharic batches
-translated 450 values, leaving **198,875 genuinely untranslated values across
-92 locale files**, including 1,716 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Ten Amharic batches
+translated 500 values, leaving **198,825 genuinely untranslated values across
+92 locale files**, including 1,666 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,8 +497,8 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with nine 50-value Amharic batches covering activity,
-boards, cards, members, navigation, roles and custom fields.
+Whole-file work now begins with ten 50-value Amharic batches covering activity,
+boards, cards, members, navigation, roles, custom fields, email and errors.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1177,6 +1177,14 @@ now use Amharic. Whole-locale invariant coverage leaves 1,766 values.
 Colors, board roles, deletion confirmations, copying and custom fields now use
 Amharic. Percent-token coverage now protects every letter-style placeholder;
 1,716 values remain.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17f7dc538">Amharic email templates and errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Profile, email-template, WIP and error values now use Amharic while retaining
+every message placeholder. Whole-locale invariant coverage leaves 1,666 values.
 
 </details>
 
