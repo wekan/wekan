@@ -14,9 +14,11 @@ const fullLocale = list('ee');
 assert.ok(!('act-withCardTitle' in fullLocale),
   'placeholder-only display formats are invariant');
 assert.ok('no-boards-selected' in fullLocale, 'real English prose remains listed');
+const hebrew = list('he');
+assert.deepStrictEqual(hebrew, {}, 'date-format masks are invariant');
 const finnish = list('fi');
 assert.deepStrictEqual(finnish, {},
   'a completed locale contains only translations and invariant values');
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
-console.log('fillTranslationsInvariantSources: 5 tests passed');
+console.log('fillTranslationsInvariantSources: 6 tests passed');
