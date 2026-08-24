@@ -159,6 +159,17 @@ earlier `machine-translate.mjs` that called LibreTranslate/DeepL is removed on p
   note low-confidence replacements in the commit. Script checks alone are insufficient
   when both languages share a script, such as Russian and Mongolian; inspect vocabulary
   as well.
+- **Placeholders are code, not language. Never translate them.** Any source token that
+  begins and ends with underscores (for example `__board__`, `__card__` or
+  `__username__`) and any format token whose token begins with `%` (for example `%s`,
+  `%d` or `%1$s`) must be copied from the corresponding value in `en.i18n.json`
+  exactly, character for character. Preserve every placeholder, its spelling, case,
+  count and format; translate only the prose around it. If a locale has translated,
+  renamed, removed or malformed one of these tokens, restore the original token from
+  the same key in `en.i18n.json`, even when the surrounding translation is human.
+  Regression coverage for a translation batch must compare its underscore-delimited
+  and percent-prefixed token inventory with English so a translated placeholder cannot
+  pass as ordinary prose.
 - **Add the languages WeKan does not have yet.** The 154 files under
   `imports/i18n/data/` are not the list of languages worth supporting - they are the
   list somebody happened to start. When a language has a dictionary, a word list or a
