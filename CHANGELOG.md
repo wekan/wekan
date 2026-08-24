@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Ten 50-value Bengali batches then translated 500 values, leaving
-**187,995 genuinely untranslated values across 87 locale files**, including
-1,666 in Bengali.
+files**. Twelve 50-value Bengali batches then translated 600 values, leaving
+**187,895 genuinely untranslated values across 87 locale files**, including
+1,566 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with ten 50-value batches covering board, card, list and
+Bengali then begins with twelve 50-value batches covering board, card, list and
 swimlane activity, checklists, comments, movement and workspace controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
 attachments, membership and board visibility follow.
@@ -650,6 +650,8 @@ Member mapping, themes, fonts, avatars, permissions, card aging, navigation and
 color names follow too.
 Board roles, destructive confirmations, clipboard actions, custom fields,
 account emails and board, import and linked-card errors follow too.
+Card export, list sorting, date/label/member filters, advanced-filter syntax and
+board-import instructions follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3495,6 +3497,25 @@ Account enrollment, invitation, password-reset and verification emails now use
 Bengali, along with WIP controls and board, JSON, CSV, import and linked-card
 errors. Every email placeholder remains exact, and invariant coverage leaves
 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89eb712c5">Bengali card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account-name conflicts, PDF and Excel card exports, attachment metadata, list
+sorting and date, label and member filters now use Bengali. Whole-locale
+invariant coverage leaves 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/30a566ec6">Bengali advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced-filter help and Kanboard, Deck, OpenProject, issue, Asana, ZenKit,
+Trello, CSV, Jira, Excel and WeKan imports now use Bengali. Operators, regex,
+escapes, JSON fields, API paths and named placeholders remain exact, and
+invariant coverage leaves 1,566 values.
 
 </details>
 
