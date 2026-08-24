@@ -259,9 +259,11 @@ completed those three locales, leaving **514 mismatched keys across 26 locale
 files**. Acehnese, Indonesian, Turkish and Traditional Chinese then completed the
 seven-mismatch tier, leaving **486 mismatched keys across 22 locale files**.
 Latvian, Norwegian Bokmål, Occitan and Hong Kong Chinese then repaired 37 more
-values, leaving **449 mismatched keys across 18 locale files**. The surrounding
-translation must be preserved or corrected into the locale language while every
-token is restored exactly from
+values, leaving **449 mismatched keys across 18 locale files**. Ten Afrikaans,
+Romanian and Chinese family files then restored 145 values, leaving **304
+mismatched keys across eight locale files**. The surrounding translation must be
+preserved or corrected into the locale language while every token is restored
+exactly from
 `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -662,7 +664,19 @@ named and printf inventories. Occitan also replaces French-seeded prose in its
 affected values. Whole-file coverage and focused negative tests reject mistyped,
 translated and wrong-language identifiers. All four files are clean; the direct
 Occitan prose welcomes native-speaker review. Another 449 mismatches across 18
-locale files remain.
+locale files remained.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4659eea3">Afrikaans, Romanian and Chinese families restore every placeholder</a>. Thanks to xet7.</summary>
+
+Ten locale files restore 145 named and printf inventories. Romanian replaces
+Italian-seeded activity prose, while Simplified and Traditional Chinese variants
+reuse only asserted placeholder-clean sibling translations. Family-wide and
+focused negative coverage proves every file clean and rejects translated or
+wrong-language identifiers. Another 304 mismatches across eight locale files
+remain; direct translations welcome native-speaker review.
 
 </details>
 
