@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Eight Assamese batches then translated 400 values, leaving **196,759 genuinely
-untranslated values across 91 locale files**, including 1,766 in Assamese.
+Ten Assamese batches then translated 500 values, leaving **196,659 genuinely
+untranslated values across 91 locale files**, including 1,666 in Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -507,9 +507,10 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with eight 50-value batches covering activity history,
+Assamese then begins with ten 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
-voting, dialogs, member mapping, typography, navigation and colors.
+voting, dialogs, member mapping, typography, navigation, colors, roles, custom
+fields, email and errors.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1583,6 +1584,26 @@ numeric preview content. Whole-locale invariant coverage leaves 1,816 values.
 Starring, automatic list widths, clipboard and card-aging controls, movement,
 navigation dialogs and the first color vocabulary set now use Assamese.
 Whole-locale invariant coverage leaves 1,766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4511ccce">Assamese roles and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+
+Board roles and comment permissions, deletion confirmations, clipboard and
+link copying, multi-card templates and custom-field types now use Assamese.
+The translated multi-card example remains valid JSON. Whole-locale invariant
+coverage leaves 1,716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e963dab3">Assamese email and errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom fields, permanent deletion, WIP and profile dialogs, email templates,
+validation and import errors now use Assamese while retaining placeholders,
+paragraph breaks and JSON/CSV/TSV terminology. Focused email-template coverage
+leaves 1,666 values.
 
 </details>
 
