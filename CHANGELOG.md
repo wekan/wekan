@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Thirty-two
-50-value Bambara batches then translated 1,600 values, leaving **189,061
-genuinely untranslated values across 88 locale files**, including 566 in
+**190,661 genuinely untranslated values across 88 locale files**. Thirty-four
+50-value Bambara batches then translated 1,700 values, leaving **188,961
+genuinely untranslated values across 88 locale files**, including 466 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with thirty-two 50-value batches covering board/card/list/swimlane
+Bambara then begins with thirty-four 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -625,6 +625,8 @@ Sorting, completion, stickers, dependencies, board backgrounds, locations, map
 detection, server troubleshooting, string templates and admin reports follow.
 Recovery, wait indicators, tickets, team/organization administration, Node heap
 diagnostics, legal notices, checklist actions and attachment storage follow.
+Attachment-location repair, MongoDB compaction, uploads, custom translations,
+checklist collapsing, support and accessibility follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3254,6 +3256,26 @@ Team and organization assignment, invitations, Node heap and memory diagnostics,
 legal notices, checklist and subtask actions and filesystem, GridFS and S3
 attachment movement now use Bambara. Technical storage and runtime names remain
 recognizable, and invariant coverage leaves 566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f5f4c78b">Bambara storage repair and compaction gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and avatar storage migration and location repair, storage defaults,
+progress and statistics, identifiers and MongoDB GridFS compaction now use
+Bambara. Storage, replica, oplog and identifier terminology remains recognizable,
+and invariant coverage leaves 516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74faf789d">Bambara uploads, support and accessibility gain 50 values</a>. Thanks to xet7.</summary>
+
+Board status and time summaries, upload progress and restrictions, login fields,
+PDF preview, workspace dragging, custom translations, checklist collapsing,
+support and accessibility now use Bambara. The workspace token and technical
+format names remain exact, and invariant coverage leaves 466 values.
 
 </details>
 
