@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Thirty-four Bashkir batches then translated 1,700
-values, leaving **193,293 genuinely untranslated values across 90 locale
-files**, including 466 in Bashkir.
+across 90 locale files**. Thirty-six Bashkir batches then translated 1,800
+values, leaving **193,193 genuinely untranslated values across 90 locale
+files**, including 366 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with thirty-four 50-value batches covering activity history,
+Bashkir then begins with thirty-six 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -548,7 +548,8 @@ backgrounds, locations, troubleshooting and administrative reports.
 Recovery, wait indicators, tickets, team/organization administration, Node heap
 diagnostics, legal notices, checklist actions and attachment storage follow.
 Attachment-location repair, MongoDB compaction, uploads, custom translations,
-support and accessibility are translated too.
+support, accessibility, account lockouts, scheduled operations, cloud storage
+and database migration are translated too.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2310,6 +2311,27 @@ Board timing/upload status, upload limits, card details, workspace assignment,
 custom translations, checklist visibility, board ZIP imports and support/
 accessibility pages now use Bashkir while retaining the workspace token and
 ISO/PDF/JSON/Markdown/.zip names. Whole-locale invariant coverage leaves 466
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf5b97b9e">Bashkir account protection gains 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility metadata, brute-force protection/lockouts, administrator user
+filters, scheduled jobs, attachment/avatar paths and scheduled board archive,
+backup and cleanup operations now use Bashkir. Whole-locale invariant coverage
+leaves 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59702f662">Bashkir storage and migration gain 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled-job and migration recovery, filesystem/S3/Azure storage, MongoDB ↔
+FerretDB text-data migration and Sandstorm grain migration now use Bashkir
+while retaining URLs, environment variables, commands, database/version names,
+paths and the database token. Whole-locale invariant coverage leaves 366
 values.
 
 </details>
