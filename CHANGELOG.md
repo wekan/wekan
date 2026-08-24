@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Eighteen 50-value Bhojpuri
-batches then translated 900 values, leaving **191,927 genuinely untranslated
-values across 89 locale files**, including 1,266 in Bhojpuri.
+16-value batch then translated all 2,166 values. Twenty 50-value Bhojpuri
+batches then translated 1,000 values, leaving **191,827 genuinely untranslated
+values across 89 locale files**, including 1,166 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with eighteen 50-value batches covering board/card/list/
+Bhojpuri then begins with twenty 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -575,6 +575,9 @@ WIP errors and attachment/API limits follow.
 Attachment transfer limits, registration, SMTP, webhooks, diagnostics,
 custom-field display, account/board visibility and organization/team tenancy
 controls are translated too.
+Card dates/colors, destructive actions, subtask/card/minicard settings, parent
+paths, activity messages and the automation-rule workflow/import interface
+follow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2617,6 +2620,26 @@ Diagnostics, custom-field display, account and board visibility, organization
 tenancy/admin controls, teams and timestamps now use Bhojpuri while retaining
 environment variables, modes, sample domains and technical identifiers.
 Whole-locale invariant coverage leaves 1,266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60d228c7e">Bhojpuri card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Card dates/colors, destructive board and notification actions, duplicate-list
+cleanup, subtask/card/minicard settings, parent paths and label activity now use
+Bhojpuri while retaining the board and positional activity placeholders.
+Whole-locale invariant coverage leaves 1,216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eba96421c">Bhojpuri automation rules gain 50 values</a>. Thanks to xet7.</summary>
+
+Activity messages, rule management, workflow builder triggers/actions and JSON,
+CSV and Trello Butler imports now use Bhojpuri. Positional custom-field values,
+time and imported-count placeholders retain their source order and spelling.
+Whole-locale invariant coverage leaves 1,166 values.
 
 </details>
 
