@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Forty-two 50-value Bengali batches then translated 2,100 values,
-leaving **186,395 genuinely untranslated values across 87 locale files**,
-including 66 in Bengali.
+files**. Forty-three 50-value Bengali batches and a final 16-value batch then
+translated all 2,166 values, leaving **186,329 genuinely untranslated values
+across 86 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,8 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with forty-two 50-value batches covering board, card,
+Bengali then begins with forty-three 50-value batches and a final 16-value batch
+covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
 controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
@@ -683,6 +684,8 @@ GridFS/S3 and attachment migrations, scheduled board operations and board-data
 integrity repair follow too.
 Conversion steps, scheduled jobs, system-resource monitoring, export monitoring
 and migration tuning and progress follow too.
+Account and repository access, problem and event monitoring, card repair, IP
+labels and scoped import/export complete all 2,166 values.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3840,6 +3843,25 @@ Bulk attachment migration, batch, CPU and delay tuning, migration logs and
 warnings, monitoring controls, schedules, progress and system-resource totals
 now use Bengali. Storage names and numeric ranges remain exact, and invariant
 coverage leaves 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/685eab566">Bengali accounts and event monitoring gain 50 values</a>. Thanks to xet7.</summary>
+
+OTP login, accounts, repository access, problem summaries, broken-card repair,
+CPU diagnostics and event details now use Bengali. Card-repair placeholders and
+technical names remain exact, and invariant coverage leaves 16 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f75e20562">Bengali translation completes its final 16 values</a>. Thanks to xet7.</summary>
+
+IP-address labels, filesystem integrity, scoped card export and WeKan file and
+board import guidance now use Bengali. The global-search operator placeholder,
+format names and angle-bracket value remain exact. All 2,166 values are now
+translated and whole-locale invariant coverage reports zero placeholders.
 
 </details>
 
