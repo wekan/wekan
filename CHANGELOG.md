@@ -220,10 +220,10 @@ not language consistency; `hi`, `ta`, `th` and `el` were written by looking the
 words up rather than by native speakers, so a review remains welcome.
 
 **Same-script repair is now in progress.** Comparing Mongolian with Russian
-found **1,174 exact Cyrillic matches**. The archive/board, card and attachment
-batches replaced **85 Russian values** with Mongolian and retained `Архив` and
-`Файл` as valid shared loanwords. **1,089 exact-match candidates remain to
-audit** in
+found **1,174 exact Cyrillic matches**. The archive/board, card, attachment
+and checklist/subtask batches replaced **135 Russian values** with Mongolian and
+retained `Архив` and `Файл` as valid shared loanwords. **1,039 exact-match
+candidates remain to audit** in
 coherent UI batches; equality is evidence of copying, but shared loanwords must
 be reviewed rather than blindly replaced. A Transifex translation in the
 correct language replaces a direct repair permanently.
@@ -416,8 +416,8 @@ browser build to verify).
 **In short:** **translation coverage** now extends the Office and REST API
 reports across nine more language files, and the translation policy now requires
 every locale to use its declared language. The first same-script repair replaces
-Russian archive, board, card and attachment controls in Mongolian. Below that:
-focused
+Russian archive, board, card, attachment, checklist and subtask text in
+Mongolian. Below that: focused
 regression coverage and native-speaker review notes for low-confidence direct
 translations.
 
@@ -506,6 +506,19 @@ GridFS remains recognizable. Regression coverage compares the repaired values
 with Russian and rejects common Russian attachment terms. Another 1,089 exact
 matches, including shared loanwords, remain for later audit. This direct repair
 has low confidence and welcomes review by Mongolian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0aa734872">Mongolian checklists and subtasks no longer use Russian</a>. Thanks to xet7.</summary>
+
+Fifty exact Russian copies across activities, dialogs, settings, automation,
+search and export now use consistent Mongolian checklist and subtask vocabulary.
+Regression coverage compares every value with Russian, preserves named and
+printf placeholders, keeps the search operator space-free and rejects common
+Russian terms. Another 1,039 exact matches, including shared loanwords, remain
+for later audit. This direct repair has low confidence and welcomes review by
+Mongolian speakers.
 
 </details>
 
