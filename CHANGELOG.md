@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Thirty Bashkir batches then translated 1,500 values,
-leaving **193,493 genuinely untranslated values across 90 locale files**,
-including 666 in Bashkir.
+across 90 locale files**. Thirty-two Bashkir batches then translated 1,600
+values, leaving **193,393 genuinely untranslated values across 90 locale
+files**, including 566 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with thirty 50-value batches covering activity history,
+Bashkir then begins with thirty-two 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -545,6 +545,8 @@ It also covers notification management, board-role permissions, weekdays,
 domains, shared templates, My Cards, due-card views, global-search operators,
 predicates, validation, advanced-search instructions, dependencies, board
 backgrounds, locations, troubleshooting and administrative reports.
+Recovery, wait indicators, tickets, team/organization administration, Node heap
+diagnostics, legal notices, checklist actions and attachment storage follow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2266,6 +2268,26 @@ templates and administrative file/security/performance/database/rules/board/
 card/impersonation/recovery/office reports now use Bashkir while retaining
 commands, the value placeholder, HTML entities and IPv4/IPv6 names.
 Whole-locale invariant coverage leaves 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b32595edb">Bashkir recovery and tickets gain 50 values</a>. Thanks to xet7.</summary>
+
+Office/API usage, automatic recovery, swimlane copying, wait indicators,
+organization/team deletion safeguards and support tickets now use Bashkir
+while retaining REST API, WITH_API=true, MongoDB and spinner-style names.
+Whole-locale invariant coverage leaves 616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7539f6a11">Bashkir diagnostics and storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Team/organization administration, invitations, Node heap/memory diagnostics,
+legal notices, checklist/subtask actions and filesystem/GridFS/S3 attachment
+moves now use Bashkir while retaining runtime and storage names. Whole-locale
+invariant coverage leaves 566 values.
 
 </details>
 
