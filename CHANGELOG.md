@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Twenty Bashkir batches then translated 1,000 values,
-leaving **193,993 genuinely untranslated values across 90 locale files**,
-including 1,166 in Bashkir.
+across 90 locale files**. Twenty-two Bashkir batches then translated 1,100
+values, leaving **193,893 genuinely untranslated values across 90 locale
+files**, including 1,066 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with twenty 50-value batches covering activity history,
+Bashkir then begins with twenty-two 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -538,7 +538,8 @@ board departure, list actions, multi-selection, notification roles, privacy,
 shortcuts, tracking, uploads, branding, welcome/template boards and WIP
 warnings, attachment limits, registration, invitations, SMTP, webhooks,
 runtime diagnostics, custom-field display, organization tenancy, dates, board
-deletion, subtasks, minicards, parent cards and visual automation rules.
+deletion, subtasks, minicards, parent cards, visual automation rules, scheduled
+triggers, due-date conditions, buttons and checklist/member actions.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2158,6 +2159,25 @@ Attachment/custom-field activity, rule management, the visual workflow
 builder, event triggers and JSON/CSV/Trello Butler imports now use Bashkir while
 retaining time/count and positional activity arguments. Whole-locale invariant
 coverage leaves 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe28d09c5">Bashkir scheduled rules gain 50 values</a>. Thanks to xet7.</summary>
+
+n8n/Node-RED workflow imports, scheduled triggers, due-date and list-duration
+conditions, card/board buttons, sorting and relative dates now use Bashkir
+while retaining the unmapped-count token and integration names. Whole-locale
+invariant coverage leaves 1,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8eeced26">Bashkir rule actions gain 50 values</a>. Thanks to xet7.</summary>
+
+Movement, archive, label/member/attachment/checklist conditions and actions,
+card positioning and rule-email subjects now use Bashkir. Whole-locale
+invariant coverage leaves 1,066 values.
 
 </details>
 
