@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Sixteen 50-value Bhojpuri
-batches then translated 800 values, leaving **192,027 genuinely untranslated
-values across 89 locale files**, including 1,366 in Bhojpuri.
+16-value batch then translated all 2,166 values. Eighteen 50-value Bhojpuri
+batches then translated 900 values, leaving **191,927 genuinely untranslated
+values across 89 locale files**, including 1,266 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with sixteen 50-value batches covering board/card/list/
+Bhojpuri then begins with eighteen 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -572,6 +572,9 @@ roles are translated too.
 Watching/privacy, member removal, search, shortcuts, starred/default boards,
 subscriptions, time tracking, uploads, custom branding, welcome/template labels,
 WIP errors and attachment/API limits follow.
+Attachment transfer limits, registration, SMTP, webhooks, diagnostics,
+custom-field display, account/board visibility and organization/team tenancy
+controls are translated too.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2594,6 +2597,26 @@ leaves 1,416 values.
 Subscriptions, time tracking, assignee/label shortcuts, uploads, custom
 branding URLs, welcome/template labels, WIP errors and attachment/API limits
 now use Bhojpuri. Whole-locale invariant coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6381700a">Bhojpuri server settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment/API limits, registration invitations, SMTP, webhooks and system
+version labels now use Bhojpuri while retaining all invitation placeholders and
+the SMTP, TLS, API, Node and Meteor identifiers. Whole-locale invariant coverage
+leaves 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86a4d9897">Bhojpuri diagnostics and tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Diagnostics, custom-field display, account and board visibility, organization
+tenancy/admin controls, teams and timestamps now use Bhojpuri while retaining
+environment variables, modes, sample domains and technical identifiers.
+Whole-locale invariant coverage leaves 1,266 values.
 
 </details>
 
