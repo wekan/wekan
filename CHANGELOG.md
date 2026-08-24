@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Forty-two 50-value Bhojpuri
-batches then translated 2,100 values, leaving **190,727 genuinely untranslated
-values across 89 locale files**, including 66 in Bhojpuri.
+16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
+batches and a final 16-value batch then translated all 2,166 values, leaving
+**190,661 genuinely untranslated values across 88 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with forty-two 50-value batches covering board/card/list/
+Bhojpuri then begins with forty-three 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -592,6 +592,8 @@ GridFS/S3 migration controls, attachment monitoring and board-integrity
 migrations covering lists, lost cards, archives and avatar/file URLs follow.
 Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
+Account/repository access, problem and event monitoring, card repair, IP labels
+and scoped import/export complete all 2,166 values in a final 16-value batch.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -2886,6 +2888,27 @@ Migration tuning, background progress/logs, monitoring refresh/export,
 schedules, storage distribution and system resources now use Bhojpuri while
 retaining CPU percentages, millisecond units, numeric ranges, GridFS and S3.
 Whole-locale invariant coverage leaves 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/faf451531">Bhojpuri problem monitoring gains 50 values</a>. Thanks to xet7.</summary>
+
+OTP/account access, repository management, API endpoints, problem monitoring,
+broken-card repair, CPU status and event fields now use Bhojpuri while retaining
+OTP/API/CPU names and fixed/unfixable counters. Whole-locale invariant coverage
+leaves 16 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16fe17bb4">Bhojpuri completes its final 16 values</a>. Thanks to xet7.</summary>
+
+IP/IPv4/IPv6 event labels, filesystem integrity, card/scoped export, WeKan file
+import and the card-number search operator now use Bhojpuri while retaining the
+named operator placeholder, number metavariable, formats and product names.
+Whole-locale invariant coverage proves zero English placeholders across all
+2,166 values.
 
 </details>
 
