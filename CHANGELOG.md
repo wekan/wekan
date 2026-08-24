@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Fourteen 50-value Tibetan batches then translated 700
-values, leaving **185,629 genuinely untranslated values across 86 locale
-files**, including 1,466 in Tibetan.
+across 86 locale files**. Sixteen 50-value Tibetan batches then translated 800
+values, leaving **185,529 genuinely untranslated values across 86 locale
+files**, including 1,366 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,7 +642,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with fourteen 50-value batches covering board, card,
+Tibetan then begins with sixteen 50-value batches covering board, card,
 checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
@@ -654,6 +654,9 @@ Card export, list sorting, date, label, member and assignee filters,
 advanced-filter syntax and board-import instructions follow too.
 Trello API imports, import jobs, member mapping, validation, board departure,
 list archives, settings, multi-selection and notification roles follow too.
+Public and private messaging, member removal, rescue, search and WIP controls,
+shortcuts, time tracking, uploads, custom branding, templates and WIP errors
+follow too.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -4016,6 +4019,27 @@ settings, swimlane actions, imports, selection movement and copying, muted and
 normal notification roles and archived-item states now use Tibetan. The board
 title token remains exact, and whole-locale invariant coverage leaves 1,466
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ed929eb9">Tibetan search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+
+Watch notifications, private and public guidance, previews, member removal,
+card-description rescue, search, WIP settings, keyboard shortcuts, sidebars and
+Home-board controls now use Tibetan. The login link, positional placeholder and
+member tokens remain exact, and whole-locale invariant coverage leaves 1,416
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4d4607ab">Tibetan uploads and templates gain 50 values</a>. Thanks to xet7.</summary>
+
+Time tracking, assignee and label shortcuts, uploads, custom branding URLs,
+watching, welcome content, card, list and board templates, WIP errors and
+attachment/API limits now use Tibetan. Technical names and numeric ranges
+remain exact, and whole-locale invariant coverage leaves 1,366 values.
 
 </details>
 
