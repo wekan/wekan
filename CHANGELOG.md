@@ -277,8 +277,10 @@ across 155 locale files**. Galician, Xhosa, Swahili, Asturian, Welsh and Uzbek
 then completed 268 more values, leaving **201,330 genuinely untranslated
 values across 144 locale files**. Azerbaijani, Croatian, Polish, Slovak,
 Estonian, Romanian and Walloon then completed 290 more values, leaving
-**201,040 genuinely untranslated values across 133 locale files**. Continue
-filling those English
+**201,040 genuinely untranslated values across 133 locale files**. Indonesian,
+Occitan, Brazilian Portuguese, Turkmen, Tamazight, Acehnese, Czech, Slovenian
+and Volapük then completed 317 more values, leaving **200,723 genuinely
+untranslated values across 122 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -930,6 +932,33 @@ confidence and welcomes native-speaker review.
 
 Estonian, Romanian and Walloon translate 108 values with zero-backlog,
 sibling-consistency and protected-token coverage. Walloon has low confidence
+and welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/762a778aa">Five files complete the 28-value translation tier</a>. Thanks to xet7.</summary>
+
+Indonesian, Occitan, Brazilian Portuguese, Turkmen and Tamazight translate 140
+values with embedded-JSON, zero-backlog and placeholder coverage. Occitan,
+Turkmen and Tamazight have low confidence and welcome review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c34ec39a">Three files complete the 29-value translation tier</a>. Thanks to xet7.</summary>
+
+Acehnese and both Czech tags translate 87 values with embedded-JSON,
+sibling-consistency and protected-token coverage. Acehnese has low confidence
+and welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e1cbc1c5">Three files complete the 30-value translation tier</a>. Thanks to xet7.</summary>
+
+Both Slovenian tags and Volapük translate 90 values with mixed-language,
+sibling-consistency and protected-token coverage. Volapük has low confidence
 and welcomes native-speaker review.
 
 </details>
