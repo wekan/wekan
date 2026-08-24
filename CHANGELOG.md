@@ -414,10 +414,10 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **translation coverage** now extends the Office and REST API
-reports across nine more language files, and the translation policy now requires
-every locale to use its declared language. The first same-script repair replaces
-Russian archive, board, card, attachment, checklist, subtask, filter and
-label text in Mongolian. Below that: focused
+reports across nine more language files. Translation policy now requires every
+locale to use its declared language and preserves placeholder tokens exactly.
+The first same-script repair replaces Russian archive, board, card, attachment,
+checklist, subtask, filter and label text in Mongolian. Below that: focused
 regression coverage and native-speaker review notes for low-confidence direct
 translations.
 
@@ -434,7 +434,7 @@ translations.
 
 This release improves the translation workflow:
 
-**Translation policy** - correct-language preference and mixed-language repair.
+**Translation policy** - correct-language and placeholder integrity.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/775c56df9">Every locale file must use the language declared by its tag</a>. Thanks to xet7.</summary>
@@ -443,6 +443,18 @@ Human-preference protection now applies only to translations written in the
 locale tag’s language. Mixed or wrongly seeded values must be replaced directly,
 including same-script cases such as Russian text in Mongolian, with vocabulary
 review and regression coverage where script detection cannot distinguish them.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65d86b442">Translation placeholders must match the English source exactly</a>. Thanks to xet7.</summary>
+
+Underscore-delimited tokens such as `__board__` and percent-prefixed format
+tokens such as `%s` are code, not translatable prose. They must retain their
+English spelling, case, count and format. A translated, renamed, missing or
+malformed token is restored from the same key in `en.i18n.json`, even inside an
+otherwise human translation, and regression coverage compares token inventories
+with English.
 
 </details>
 
