@@ -286,7 +286,9 @@ files**. Walloon, Yoruba, Italian, Catalan and Klingon then completed 202 more
 values, leaving **200,490 genuinely untranslated values across 115 locale
 files**. Igbo, Swedish, Afrikaans, Malay, Danish and Norwegian Bokmål then
 completed 304 more values, leaving **200,186 genuinely untranslated values
-across 107 locale files**. Continue filling those English
+across 107 locale files**. Wolof, French, West Frisian and German then completed
+656 more values, leaving **199,530 genuinely untranslated values across 95
+locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -1047,6 +1049,38 @@ alternatives for valid cognates, with zero-backlog coverage.
 
 Forty-two interface, Office, API and storage values now use explicit Norwegian
 alternatives for valid cognates, with zero-backlog coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a28e1df7e">Wolof completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Forty-four values now use Wolof with zero-backlog, terminology and
+English-remnant coverage. The translations have low confidence.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87b49dc12">All five French tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+Two hundred seventy values now use explicit French phrases for valid cognates,
+with zero-backlog and sibling-consistency coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e36d074b">Both West Frisian tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+One hundred ten values now use West Frisian with zero-backlog, storage-ID and
+sibling-consistency coverage. The translations have mixed confidence.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a9b669d0">All four German tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+Two hundred thirty-two values now use established German UI terms instead of
+English loanword placeholders, with zero-backlog and sibling coverage.
 
 </details>
 
