@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'ba'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1716);
+assert.equal(Object.keys(remaining).length, 1666);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const bashkir = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ba.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -21,3 +21,4 @@ assert.match(bashkir['act-addChecklistItem'], /[ӘәӨөҮүҠҡҒғҘҙҪҫҺһ
 for (const token of ['__checklistItem__', '__checklist__', '__card__', '__list__', '__swimlane__', '__board__']) {
   assert.match(bashkir['act-addChecklistItem'], new RegExp(token));
 }
+assert.match(bashkir['email-resetPassword-text'], /__user__,\n\n.*\n\n__url__\n\n/s);
