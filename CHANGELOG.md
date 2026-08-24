@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Twelve
-50-value Bambara batches then translated 600 values, leaving **190,061 genuinely
-untranslated values across 88 locale files**, including 1,566 in Bambara.
+**190,661 genuinely untranslated values across 88 locale files**. Fourteen
+50-value Bambara batches then translated 700 values, leaving **189,961 genuinely
+untranslated values across 88 locale files**, including 1,466 in Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -596,7 +596,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with twelve 50-value batches covering board/card/list/swimlane
+Bambara then begins with fourteen 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -604,6 +604,8 @@ member mapping, themes, fonts, card aging, navigation, color names, roles,
 clipboard actions, custom fields, emails and import/error messages.
 Card export, list sorting, filters, advanced-filter syntax and board-import
 instructions follow.
+Trello API imports, import jobs, member mapping, validation, board departure,
+list archives, settings, multi-selection and notification roles follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3035,6 +3037,26 @@ Advanced-filter help and Kanboard, Deck, OpenProject, issue, Asana, ZenKit,
 Trello, CSV, Jira, Excel and WeKan imports now use Bambara. Operators, regex,
 escapes, JSON fields, API paths and named placeholders remain exact, and
 invariant coverage leaves 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4cbf2c57">Bambara Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello API credentials, workspace and board selection, import-job lifecycle,
+member mapping, date and user validation, shortcuts and label controls now use
+Bambara. The API URL and positional placeholder remain exact, and invariant
+coverage leaves 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9a575561">Bambara archives and multi-selection gain 50 values</a>. Thanks to xet7.</summary>
+
+Board departure, list and card archive actions, user, team and organization
+settings, multi-selection, muted notifications and normal-role permissions now
+use Bambara. The board-title placeholder remains exact, and invariant coverage
+leaves 1,466 values.
 
 </details>
 
