@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Four 50-value
-Bambara batches then translated 200 values, leaving **190,461 genuinely
-untranslated values across 88 locale files**, including 1,966 in Bambara.
+**190,661 genuinely untranslated values across 88 locale files**. Six 50-value
+Bambara batches then translated 300 values, leaving **190,361 genuinely
+untranslated values across 88 locale files**, including 1,866 in Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -596,9 +596,10 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with four 50-value batches covering board/card/list/swimlane
+Bambara then begins with six 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
-list/swimlane sizing, archives, attachments and member/board visibility controls.
+list/swimlane sizing, archives, attachments, member/board visibility controls,
+board views, voting, Planning Poker, dependencies and import/export dialogs.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -2954,6 +2955,25 @@ Archive operations, attachments, templates, board backgrounds, All Boards
 settings, member and assignee labels and private-board messaging now use
 Bambara. Named and positional placeholders and the strong-emphasis tags remain
 exact, and whole-locale invariant coverage leaves 1,966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be89ad924">Bambara board views and archive guidance gain 50 values</a>. Thanks to xet7.</summary>
+
+Board appearance and view modes, zoom and calendar controls, card and list
+archive guidance and common card editing labels now use Bambara. Named and
+positional placeholders, percentages and emphasis tags remain exact, and
+whole-locale invariant coverage leaves 1,916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5de4e783">Bambara voting and import dialogs gain 50 values</a>. Thanks to xet7.</summary>
+
+Voting, Planning Poker, card dependencies, organizations, teams, account and
+background administration and import/export popup titles now use Bambara.
+Whole-locale invariant coverage leaves 1,866 values.
 
 </details>
 
