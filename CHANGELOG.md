@@ -273,7 +273,9 @@ genuinely untranslated values across 162 locale files**. Hungarian, Latvian,
 Basque and Uyghur then completed 84 more values, leaving **201,664 genuinely
 untranslated values across 158 locale files**. Breton, Lithuanian and Yiddish
 then completed 66 more values, leaving **201,598 genuinely untranslated values
-across 155 locale files**. Continue filling those English
+across 155 locale files**. Galician, Xhosa, Swahili, Asturian, Welsh and Uzbek
+then completed 268 more values, leaving **201,330 genuinely untranslated
+values across 144 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -883,6 +885,31 @@ Sixty-six board, admin, Office, API, storage and search-help values now use thei
 target languages. Zero-backlog, terminology and script coverage preserves every
 protected API and search placeholder. Breton and Yiddish have low confidence
 and welcome native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6d3662b3">Galician and Xhosa complete their direct fills</a>. Thanks to xet7.</summary>
+
+Both Galician tags and Xhosa translate 69 board, admin, Office, API, storage and
+typography values. Xhosa has low confidence and welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7af96193">Swahili completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Twenty-four board, colour, admin, Office, API and CPU values now use Swahili,
+with zero-backlog, terminology and protected-literal coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46351547a">Asturian, Welsh and Uzbek complete their direct fills</a>. Thanks to xet7.</summary>
+
+Seven tags translate 175 values without replacing existing human Uzbek text.
+Zero-backlog coverage preserves network and configuration literals. Asturian
+and Uzbek have mixed confidence and welcome native-speaker review.
 
 </details>
 
