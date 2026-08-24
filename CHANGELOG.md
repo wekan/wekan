@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Two Bashkir batches then translated 100 values,
-leaving **194,893 genuinely untranslated values across 90 locale files**,
-including 2,066 in Bashkir.
+across 90 locale files**. Four Bashkir batches then translated 200 values,
+leaving **194,793 genuinely untranslated values across 90 locale files**,
+including 1,966 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,8 +527,9 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with two 50-value batches covering activity history,
-card movement, checklists and workspace controls.
+Bashkir then begins with four 50-value batches covering activity history,
+card movement, checklists, workspace controls, board selection, list/swimlane
+sizing, archives, administrator announcements and board display settings.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1974,6 +1975,26 @@ leaves 2,116 values.
 Card movement, positional activity phrases, checklist states and workspace
 management now use Bashkir while retaining repeated percent order and named
 location tokens. Whole-locale invariant coverage leaves 2,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52c6d1731">Bashkir workspace controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Workspace deletion, multi-board selection, Home boards, card insertion,
+personal/shared list widths, swimlane heights and checklist actions now use
+Bashkir while retaining positional activity arguments. Whole-locale invariant
+coverage leaves 2,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad6520f22">Bashkir board settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Administrator announcements, archives, templates, attachments, board
+backgrounds and member/assignee summaries now use Bashkir while retaining
+count, size and HTML emphasis tokens. Whole-locale invariant coverage leaves
+1,966 values.
 
 </details>
 
