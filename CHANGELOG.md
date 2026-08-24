@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Thirty-four Assamese batches then translated 1,700 values, leaving **195,459
-genuinely untranslated values across 91 locale files**, including 466 in
+Thirty-six Assamese batches then translated 1,800 values, leaving **195,359
+genuinely untranslated values across 91 locale files**, including 366 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,7 +508,7 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with thirty-four 50-value batches covering activity history,
+Assamese then begins with thirty-six 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
@@ -519,7 +519,8 @@ role permissions, weekdays, domains, shared templates, card search views,
 operators, predicates, advanced-search instructions, dependencies, board
 backgrounds, locations, server troubleshooting, diagnostic/recovery reports,
 tickets, Node memory metrics, legal notices, attachment storage/repair,
-MongoDB compaction, custom translations, support and accessibility settings.
+MongoDB compaction, custom translations, support/accessibility settings,
+account lockouts, cron operations, cloud storage and database migration.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1848,6 +1849,25 @@ Board timing, upload restrictions, custom translations, checklist display,
 support and accessibility settings now use Assamese while retaining the
 workspace token, PDF, ISO 8601, JSON and archive formats. Whole-locale
 invariant coverage leaves 466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4abde2c3e">Assamese account protection gains 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility content, brute-force lockouts, user-state filters, scheduled
+jobs, attachment paths and board maintenance now use Assamese. Whole-locale
+invariant coverage leaves 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7869792ee">Assamese database migration gains 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled migration controls, filesystem, S3 and Azure storage, MongoDB to
+FerretDB migration and Sandstorm migration status now use Assamese while
+retaining the database token, URLs, environment variables, paths and product
+names. Whole-locale invariant coverage leaves 366 values.
 
 </details>
 
