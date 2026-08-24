@@ -549,7 +549,7 @@
   "editLabelPopup-title": "Змінити мітку",
   "editNotificationPopup-title": "Редагувати сповіщення",
   "editProfilePopup-title": "Редагувати профіль",
-  "email": "Email",
+  "email": "Електронна пошта",
   "email-address": "Адреса електронної пошти",
   "email-enrollAccount-subject": "Акаунт створений для вас на __siteName__",
   "email-enrollAccount-text": "Привіт __user__,\n\nЩоб почати користуватися сервісом, просто натисніть на посилання нижче.\n\n__url__\n\nДякуємо.",
