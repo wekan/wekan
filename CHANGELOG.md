@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Twenty-two Bashkir batches then translated 1,100
-values, leaving **193,893 genuinely untranslated values across 90 locale
-files**, including 1,066 in Bashkir.
+across 90 locale files**. Twenty-four Bashkir batches then translated 1,200
+values, leaving **193,793 genuinely untranslated values across 90 locale
+files**, including 966 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with twenty-two 50-value batches covering activity history,
+Bashkir then begins with twenty-four 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -539,7 +539,8 @@ shortcuts, tracking, uploads, branding, welcome/template boards and WIP
 warnings, attachment limits, registration, invitations, SMTP, webhooks,
 runtime diagnostics, custom-field display, organization tenancy, dates, board
 deletion, subtasks, minicards, parent cards, visual automation rules, scheduled
-triggers, due-date conditions, buttons and checklist/member actions.
+triggers, due-date conditions, buttons, checklist/member actions, custom web
+metadata, authentication, destructive actions and due-date reminders.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2178,6 +2179,27 @@ invariant coverage leaves 1,116 values.
 Movement, archive, label/member/attachment/checklist conditions and actions,
 card positioning and rule-email subjects now use Bashkir. Whole-locale
 invariant coverage leaves 1,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a869ab850">Bashkir customization and rules gain 50 values</a>. Thanks to xet7.</summary>
+
+Rule email/checklist/swimlane/date actions, authentication, product naming,
+custom HTML/manifest/assetlinks metadata and layout controls now use Bashkir
+while retaining HTML/JSON and assetlinks.json literals. Whole-locale invariant
+coverage leaves 1,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e74d4c12">Bashkir reminders and layout gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom body HTML, authentication display, board/swimlane duplication and
+deletion, date activity, due reminders, mentions, account deletion and resize
+controls now use Bashkir while retaining body tags, positional arguments,
+named tokens and multiline structure. Whole-locale invariant coverage leaves
+966 values.
 
 </details>
 
