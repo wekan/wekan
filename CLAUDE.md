@@ -105,23 +105,31 @@ from source and say clearly what was and was not verified.
 
 WeKan translations live in `imports/i18n/data/<lang>.i18n.json` (flat
 `key -> string`, 2-space indent, key order matches `en.i18n.json`). Transifex holds
-the human translations. **The policy is: never overwrite a human translation with a
-filled (or English) one, but always take the newest translations from Transifex.**
+the human translations. **The policy is: never overwrite a human translation in the
+correct language with a filled (or English) one, but always take the newest correct-
+language translations from Transifex. Text in another language is not protected: the
+locale tag is authoritative, and wrong-language or mixed-language values must be
+replaced with the language named by that tag.**
 
 - Pull with `releases/translations/pull-translations.sh`. It runs `tx pull -a -f`
   (which fills every string that is UNtranslated on Transifex with the English source)
   and then a **per-key merge** (`releases/translations/merge-translations.mjs`) that,
   for every language file and every key:
-  - Transifex has a real translation (pulled value differs from English) → **keep it**
-    (the newest human translation always wins);
-  - the pull reverted it to English but a human translation is committed in git →
-    **restore the committed translation** (a pull never reverts a human translation,
-    even in files that also received real new Transifex translations);
+  - Transifex has a real translation in the locale's declared language (pulled value
+    differs from English) → **keep it** (the newest correct-language human translation
+    always wins);
+  - the pull reverted it to English but a correct-language human translation is
+    committed in git → **restore the committed translation** (a pull never reverts a
+    correct-language human translation, even in files that also received real new
+    Transifex translations);
   - **no translation anywhere** (untranslated on Transifex AND never committed) → leave
     the English source as a placeholder. **This is the only case a non-human value is
     used.** A separate fill step may fill *only* these English placeholders, so a filled
     string can never overwrite a human translation.
-- Restored languages are pushed back to Transifex so they stop reverting.
+- After the merge, audit for mixed or wrong-language values. A value that differs from
+  English can still be wrong for its locale; replace it directly as described below.
+- Restored correct-language translations are pushed back to Transifex so they stop
+  reverting.
 
 ### Filling the remaining untranslated strings — directly, no translation service
 
@@ -138,9 +146,19 @@ earlier `machine-translate.mjs` that called LibreTranslate/DeepL is removed on p
   WeKan cannot find a speaker for every language, and a file left in English stays in
   English for years. **Look the words up.** Any dictionary, word list, grammar or
   Wiktionary page on the Internet is a legitimate source — read it, take the terms it
-  gives, and write the translation from them. Where a file is already written in ANOTHER
-  language (several are seeded from French, German, Malay or Zulu), complete it in the
-  language that file is actually in rather than leaving half of it English.
+  gives, and write the translation from them.
+- **A locale file must contain its declared language, not whichever language happened
+  to seed it.** If a Mongolian file contains Russian, replace the Russian with
+  Mongolian; likewise replace French, German, Malay, Zulu or any other wrong-language
+  text with the language named by the file's locale tag. This rule applies to isolated
+  mixed-language values and to an entire wrongly seeded file. Wrong-language text is
+  not a human translation for that locale and does not receive human-preference
+  protection. Because `fill-translations.mjs --apply` deliberately writes only English
+  placeholders, make these corrections directly in the locale JSON (preserving key
+  order and formatting), add regression coverage for the correct language/script, and
+  note low-confidence replacements in the commit. Script checks alone are insufficient
+  when both languages share a script, such as Russian and Mongolian; inspect vocabulary
+  as well.
 - **Add the languages WeKan does not have yet.** The 154 files under
   `imports/i18n/data/` are not the list of languages worth supporting - they are the
   list somebody happened to start. When a language has a dictionary, a word list or a
@@ -181,8 +199,9 @@ that the pull-merge keeps/restores human translations and that a fill only touch
 placeholders. Filled strings stay **local** — they are **NOT** pushed to Transifex (only
 the merge-restored human languages are pushed), so a filled string can never masquerade
 as human there. So: **only missing strings are ever filled, only when missing
-everywhere, human strings are always preferred and merged**, and nothing you fill is
-pushed to Transifex as if it were human.
+everywhere, correct-language human strings are always preferred and merged**, while
+wrong-language values are corrected directly; nothing you fill is pushed to Transifex
+as if it were human.
 
 ## General practices (from .tools/log/v10/Claude.txt)
 
