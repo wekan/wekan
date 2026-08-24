@@ -294,7 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**.
+across 90 locale files**. Two Bashkir batches then translated 100 values,
+leaving **194,893 genuinely untranslated values across 90 locale files**,
+including 2,066 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -525,6 +527,8 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
+Bashkir then begins with two 50-value batches covering activity history,
+card movement, checklists and workspace controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1951,6 +1955,25 @@ leaves 16 values.
 The final sixteen event-address, filesystem-integrity, scoped import/export
 and card-number search values now use Assamese. Zero-backlog coverage retains
 the operator token, markup and file-format names across all 2,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b78cf2d98">Bashkir begins its whole-file translation</a>. Thanks to xet7.</summary>
+
+Fifty activity values for boards, cards, attachments, labels, checklists,
+comments, custom fields and imports now use Bashkir while retaining every
+named activity token. Focused Cyrillic and whole-locale invariant coverage
+leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/727fd0308">Bashkir activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement, positional activity phrases, checklist states and workspace
+management now use Bashkir while retaining repeated percent order and named
+location tokens. Whole-locale invariant coverage leaves 2,066 values.
 
 </details>
 
