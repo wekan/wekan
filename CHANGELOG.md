@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Twenty-eight 50-value Bengali batches then translated 1,400 values,
-leaving **187,095 genuinely untranslated values across 87 locale files**,
-including 766 in Bengali.
+files**. Thirty 50-value Bengali batches then translated 1,500 values, leaving
+**186,995 genuinely untranslated values across 87 locale files**, including
+666 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with twenty-eight 50-value batches covering board, card,
+Bengali then begins with thirty 50-value batches covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
 controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
@@ -669,6 +669,8 @@ Multi-window/editor behavior, notifications, board-role controls, weekdays,
 linked-card guards, domains/templates, My/Due Cards and global search follow.
 Global-search result counts, operator/predicate labels, validation messages and
 the full syntax/help documentation follow too.
+Sorting, completion, stickers, dependencies, board backgrounds, locations, map
+detection, server troubleshooting, string templates and admin reports follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3686,6 +3688,27 @@ coverage leaves 816 values.
 Operator validation, pagination and the complete global-search syntax and notes
 now use Bengali. Named tokens, angle-bracket fields, Markdown emphasis, code
 examples and line breaks remain exact, and invariant coverage leaves 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/868db2640">Bengali dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+
+Card and board sorting, completion, stickers, dependency types and imports,
+board backgrounds and card locations now use Bengali. Named import counters and
+the background-size placeholder remain exact, and invariant coverage leaves 716
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9330bf65d">Bengali maps and admin reports gain 50 values</a>. Thanks to xet7.</summary>
+
+Map detection, server troubleshooting, sorting, board activity, string-template
+fields and file, security, speed, test, CPU, database, rule, board, card,
+impersonation, recovery and Office reports now use Bengali. Commands, HTML
+entities and the value placeholder remain exact, and invariant coverage leaves
+666 values.
 
 </details>
 
