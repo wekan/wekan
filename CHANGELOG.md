@@ -280,7 +280,9 @@ Estonian, Romanian and Walloon then completed 290 more values, leaving
 **201,040 genuinely untranslated values across 133 locale files**. Indonesian,
 Occitan, Brazilian Portuguese, Turkmen, Tamazight, Acehnese, Czech, Slovenian
 and Volapük then completed 317 more values, leaving **200,723 genuinely
-untranslated values across 122 locale files**. Continue filling those English
+untranslated values across 122 locale files**. Valencian then completed 31
+more values, leaving **200,692 genuinely untranslated values across 121 locale
+files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -960,6 +962,14 @@ and welcomes native-speaker review.
 Both Slovenian tags and Volapük translate 90 values with mixed-language,
 sibling-consistency and protected-token coverage. Volapük has low confidence
 and welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9faa361b">Valencian completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Thirty-one board, admin, Office, API and storage values now use Valencian, with
+zero-backlog, terminology and protected-token coverage.
 
 </details>
 
