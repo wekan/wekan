@@ -256,8 +256,10 @@ numbered machine markers in 539 translated values across five files**, making
 Igbo and Yoruba clean and reducing the counted backlog to **546 mismatched keys
 across 29 locale files**. The remaining 32 Odia, Turkmen and Uyghur values then
 completed those three locales, leaving **514 mismatched keys across 26 locale
-files**. The surrounding translation must be preserved or corrected into the
-locale language while every token is restored exactly from
+files**. Acehnese, Indonesian, Turkish and Traditional Chinese then completed the
+seven-mismatch tier, leaving **486 mismatched keys across 22 locale files**. The
+surrounding translation must be preserved or corrected into the locale language
+while every token is restored exactly from
 `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -634,7 +636,19 @@ every named and printf placeholder while retaining prose in each declared
 language. Whole-file coverage proves all three locale inventories are clean, and
 focused negative tests reject the final Odia marker fragment and missing Turkmen
 and Uyghur values. The direct translations welcome native-speaker review. Another
-514 mismatched keys across 26 locale files remain for audited batches.
+514 mismatched keys across 26 locale files remained for audited batches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fdacd27a1">Four languages complete the seven-mismatch placeholder tier</a>. Thanks to xet7.</summary>
+
+Acehnese, Indonesian, Turkish and Traditional Chinese restore 28 named and
+printf inventories. Acehnese replaces Indonesian seed wording with its existing
+`kad`, `senarai` and `papan` terminology; focused negative tests also reject
+case-damaged Turkish tokens and translated Chinese token names. All four files
+are clean. The direct Acehnese prose has low confidence and welcomes
+native-speaker review. Another 486 mismatches across 22 locale files remain.
 
 </details>
 
