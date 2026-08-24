@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Eighteen Assamese batches then translated 900 values, leaving **196,259
-genuinely untranslated values across 91 locale files**, including 1,266 in
+Twenty Assamese batches then translated 1,000 values, leaving **196,159
+genuinely untranslated values across 91 locale files**, including 1,166 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,12 +508,12 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with eighteen 50-value batches covering activity history,
+Assamese then begins with twenty 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
-roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics
-and tenancy.
+roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics,
+tenancy, card/subtask settings and automation.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1686,6 +1686,26 @@ Database/FerretDB/reactivity diagnostics, OS metrics, custom-field display,
 account visibility, organization tenancy/domains/admins and team propagation
 now use Assamese while retaining modes, hostnames and environment variables.
 Whole-locale invariant coverage leaves 1,266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/504950321">Assamese card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Received/end dates, colors, destructive cleanup, subtask/card settings,
+minicard display, parent paths and label activity now use Assamese while
+retaining the board and quoted percent placeholders. Whole-locale invariant
+coverage leaves 1,216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa5e543a8">Assamese activity and automation gain 50 values</a>. Thanks to xet7.</summary>
+
+Activity phrases, rule management, workflow/list views, triggers, actions,
+scheduled time and JSON/CSV/Trello Butler import/export now use Assamese while
+retaining all placeholders and formats. Focused repeated-percent coverage
+leaves 1,166 values.
 
 </details>
 
