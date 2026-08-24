@@ -15,10 +15,8 @@ assert.ok(!('act-withCardTitle' in fullLocale),
   'placeholder-only display formats are invariant');
 assert.ok('no-boards-selected' in fullLocale, 'real English prose remains listed');
 const finnish = list('fi');
-assert.ok(!Object.values(finnish).includes('Meteor'));
-assert.ok(!Object.values(finnish).includes('1'));
-assert.ok(Object.values(finnish).some(value => /[A-Za-z]{4}/.test(value)),
-  'real untranslated prose remains listed');
+assert.deepStrictEqual(finnish, {},
+  'a completed locale contains only translations and invariant values');
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
-console.log('fillTranslationsInvariantSources: 6 tests passed');
+console.log('fillTranslationsInvariantSources: 5 tests passed');
