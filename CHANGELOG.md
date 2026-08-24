@@ -290,9 +290,10 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Twenty-two Amharic batches
-translated 1,100 values, leaving **198,225 genuinely untranslated values across
-92 locale files**, including 1,066 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Twenty-four Amharic
+batches translated 1,200 values, leaving **198,125 genuinely untranslated
+values across 92 locale files**, including 966 in Amharic. Continue filling
+those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,7 +498,7 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with twenty-two 50-value Amharic batches covering
+Whole-file work now begins with twenty-four 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
@@ -1295,6 +1296,24 @@ values. Whole-locale invariant coverage leaves 1,116 values.
 List, label, member, checklist, card and email automation fragments now use
 consistent Amharic rule-builder terminology. Whole-locale invariant coverage
 leaves 1,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/115e6151b">Amharic automation and custom head gain 50 values</a>. Thanks to xet7.</summary>
+
+Automation actions, authentication, custom-head settings and layout controls
+now use Amharic while retaining comma-separated examples, format names and
+assetlinks.json. Whole-locale invariant coverage leaves 1,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/129a95c11">Amharic authentication and reminders gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom body HTML, authentication, duplication, deletion, positioning, due
+reminders, drag and editor controls now use Amharic while retaining HTML tags,
+newlines and activity placeholders. Whole-locale coverage leaves 966 values.
 
 </details>
 
