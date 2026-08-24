@@ -290,9 +290,10 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Forty-two Amharic batches
-translated 2,100 values, leaving **197,225 genuinely untranslated values across
-92 locale files**, including 66 in Amharic. Continue filling
+queue now consists of whole-file-sized locale fills. Forty-three 50-value
+Amharic batches and a final 16-value batch translated all 2,166 values, leaving
+**197,159 genuinely untranslated values across 91 locale files**. Continue
+filling
 those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
@@ -498,13 +499,15 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with forty-two 50-value Amharic batches covering
+Whole-file work begins with forty-three 50-value Amharic batches and a final
+16-value batch covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
 automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
+Amharic is now complete.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1482,6 +1485,26 @@ Whole-locale invariant coverage leaves 116 values.
 Bulk attachment migration, throttling, monitoring, pagination, schedules and
 progress counters now use Amharic while retaining numeric ranges, percent, ms,
 CPU, GridFS and S3. Whole-locale invariant coverage leaves 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb8d8724f">Amharic repositories and repairs gain 50 values</a>. Thanks to xet7.</summary>
+
+Repository login/upload, authentication errors, problem monitoring,
+broken-card repair, CPU status and event columns now use Amharic while
+retaining repair placeholders in source order. Whole-locale invariant coverage
+leaves 16 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8ef7ad8a">Amharic completes its whole-file translation</a>. Thanks to xet7.</summary>
+
+The final 16 integrity, export, import and number-search values now use Amharic
+while retaining IP versions, file extensions, product names and exact search
+metavariables. The fill tool and focused regression now require zero English
+placeholders across the whole locale.
 
 </details>
 
