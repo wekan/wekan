@@ -302,7 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**.
+across 86 locale files**. Two 50-value Tibetan batches then translated 100
+values, leaving **186,229 genuinely untranslated values across 86 locale
+files**, including 2,066 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,6 +642,8 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
+Tibetan then begins with two 50-value batches covering board, card, checklist,
+comment and membership activity plus workspaces.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -3862,6 +3866,25 @@ IP-address labels, filesystem integrity, scoped card export and WeKan file and
 board import guidance now use Bengali. The global-search operator placeholder,
 format names and angle-bracket value remain exact. All 2,166 values are now
 translated and whole-locale invariant coverage reports zero placeholders.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb16fe49d">Tibetan activity and checklists gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, card, list and swimlane activity, attachments, labels, checklists,
+comments, custom fields, archives and imports now use Tibetan. Named and
+positional placeholders remain exact, and whole-locale invariant coverage
+leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efd5a918c">Tibetan movement and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement, membership, concise activity messages, checklist activity and
+workspace controls now use Tibetan. Named and positional placeholders remain
+exact, and whole-locale invariant coverage leaves 2,066 values.
 
 </details>
 
