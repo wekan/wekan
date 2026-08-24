@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Thirty-six
-50-value Bambara batches then translated 1,800 values, leaving **188,861
-genuinely untranslated values across 88 locale files**, including 366 in
+**190,661 genuinely untranslated values across 88 locale files**. Thirty-eight
+50-value Bambara batches then translated 1,900 values, leaving **188,761
+genuinely untranslated values across 88 locale files**, including 266 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with thirty-six 50-value batches covering board/card/list/swimlane
+Bambara then begins with thirty-eight 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -629,6 +629,8 @@ Attachment-location repair, MongoDB compaction, uploads, custom translations,
 checklist collapsing, support and accessibility follow too.
 Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
 storage and MongoDB/FerretDB/Sandstorm database migration follow.
+Sandstorm cleanup, card-loading/security/import/export/backup controls and cloud
+storage/backup configuration follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3298,6 +3300,27 @@ Scheduled-job and migration controls, filesystem, S3 and Azure storage,
 MongoDB-to-FerretDB text-data migration and Sandstorm migration status now use
 Bambara. URLs, ports, environment names, commands, product names, paths and the
 database placeholder remain exact, and invariant coverage leaves 366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cd50d1e8">Bambara security controls and backups gain 50 values</a>. Thanks to xet7.</summary>
+
+Sandstorm cleanup, card-loading performance, safe rich-text rendering, global
+import, export, avatar, activity, notification and watch controls, user
+anonymization and instance or organization backups now use Bambara. Environment
+variables, markup examples, paths and counter examples remain exact, and
+invariant coverage leaves 316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/869778143">Bambara backup schedules and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Backup schedules and restores and GCS, S3 and Azure storage configuration now
+use Bambara, including the provider-console guidance for MinIO, R2, B2, Wasabi
+and Spaces. Time formats, ranges, JSON and CSV names, console paths, roles, keys
+and product names remain exact, and invariant coverage leaves 266 values.
 
 </details>
 
