@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Twenty-two 50-value Tibetan batches then translated
-1,100 values, leaving **185,229 genuinely untranslated values across 86 locale
-files**, including 1,066 in Tibetan.
+across 86 locale files**. Twenty-four 50-value Tibetan batches then translated
+1,200 values, leaving **185,129 genuinely untranslated values across 86 locale
+files**, including 966 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,7 +642,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with twenty-two 50-value batches covering board, card,
+Tibetan then begins with twenty-four 50-value batches covering board, card,
 checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
@@ -664,6 +664,8 @@ settings, parent relationships, activity labels and automation workflows follow
 too.
 Scheduled, due, list and button triggers and the rule vocabulary for label,
 member, attachment, checklist, card and email actions follow too.
+Further rule actions, authentication/custom-head settings, duplication,
+destructive actions, activity reminders, mentions and layout controls follow.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -4111,6 +4113,27 @@ List, card, label, member, attachment, checklist and checklist-item trigger
 phrases plus card movement, archive restoration, color, member, checklist and
 email actions now use Tibetan. Whole-locale invariant coverage leaves 1,066
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eef4af62c">Tibetan configuration and authentication gain 50 values</a>. Thanks to xet7.</summary>
+
+Remaining automation actions, authentication, custom-head metadata, manifest
+and asset-link settings, board duplication and layout, card counters and member
+lists now use Tibetan. Technical metadata names remain exact, and whole-locale
+invariant coverage leaves 1,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/729433cdf">Tibetan due-date activity and interaction settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom HTML placement, login errors, authentication display, duplication and
+deletion confirmations, date activity, due reminders, mentions, card
+positioning and drag, editor and multi-card settings now use Tibetan. HTML,
+named and positional placeholders remain exact, and whole-locale invariant
+coverage leaves 966 values.
 
 </details>
 
