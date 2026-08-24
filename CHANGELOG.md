@@ -295,8 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values, leaving **192,827 genuinely
-untranslated values across 89 locale files**.
+16-value batch then translated all 2,166 values. Two 50-value Bhojpuri batches
+then translated 100 values, leaving **192,727 genuinely untranslated values
+across 89 locale files**, including 2,066 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -555,6 +556,8 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
+Bhojpuri then begins with two 50-value batches covering board/card/list/
+swimlane activity, checklists, comments, movement and workspace management.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2420,6 +2423,28 @@ number-search guidance now use Bashkir while retaining IPv4/IPv6, WeKan,
 archive/data-format names, the search token and angle-bracket parameter. The
 authoritative missing-value list is empty, and whole-locale token, markup and
 key-order coverage verifies all 2,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85d354077">Bhojpuri activity history gains 50 values</a>. Thanks to xet7.</summary>
+
+Board membership restrictions and board/card/list/swimlane creation, deletion,
+archive, import, attachment, subtask, label, checklist and comment activity now
+use Bhojpuri while retaining percent and named location/content tokens. New
+whole-locale regression coverage checks every translated token inventory and
+HTML tag, representative Bhojpuri terminology and activity placeholders,
+leaving 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3e0feb9f">Bhojpuri movement and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement/restoration, member removal, positional activity phrases,
+checklist states, dates and workspace creation/editing now use Bhojpuri while
+retaining every positional and named argument. Whole-locale invariant coverage
+leaves 2,066 values.
 
 </details>
 
