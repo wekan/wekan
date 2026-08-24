@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Seven Amharic batches
-translated 350 values, leaving **198,975 genuinely untranslated values across
-92 locale files**, including 1,816 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Nine Amharic batches
+translated 450 values, leaving **198,875 genuinely untranslated values across
+92 locale files**, including 1,716 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,6 +497,8 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
+Whole-file work now begins with nine 50-value Amharic batches covering activity,
+boards, cards, members, navigation, roles and custom fields.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1158,6 +1160,23 @@ Amharic. Whole-locale invariant coverage leaves 1,866 values.
 
 Popups, imported-member mapping, themes and typography now use Amharic.
 Placeholder, markup and Ethiopic-script coverage leaves 1,816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74b4cf093">Amharic navigation and color controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Settings, subtasks, starring, card aging, movement dialogs and most color names
+now use Amharic. Whole-locale invariant coverage leaves 1,766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e9aced92">Amharic roles and custom-field controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Colors, board roles, deletion confirmations, copying and custom fields now use
+Amharic. Percent-token coverage now protects every letter-style placeholder;
+1,716 values remain.
 
 </details>
 
