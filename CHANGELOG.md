@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Twenty-four
-50-value Bambara batches then translated 1,200 values, leaving **189,461
-genuinely untranslated values across 88 locale files**, including 966 in
+**190,661 genuinely untranslated values across 88 locale files**. Twenty-six
+50-value Bambara batches then translated 1,300 values, leaving **189,361
+genuinely untranslated values across 88 locale files**, including 866 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with twenty-four 50-value batches covering board/card/list/swimlane
+Bambara then begins with twenty-six 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -617,6 +617,8 @@ Scheduled, due, list and button triggers and the rule vocabulary for label,
 member, attachment, checklist, card and email actions follow too.
 Further rule actions, authentication/custom-head settings, duplication,
 destructive actions, activity reminders, mentions and layout controls follow.
+Multi-window/editor behavior, notifications, board-role controls, weekdays,
+linked-card guards, domains/templates, My/Due Cards and global search follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3166,6 +3168,25 @@ Custom body HTML, authentication, board duplication, destructive actions,
 received, start, due and end activities, reminders, mentions, drag resizing,
 editor submission and multi-card behavior now use Bambara. Markup, multiline
 structure and every token remain exact, and invariant coverage leaves 966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84e821ac2">Bambara role status and weekdays gain 50 values</a>. Thanks to xet7.</summary>
+
+Multi-window and editor behavior, organization, team and user dialogs,
+notification controls, board-role permissions and status, weekdays, ownership,
+voting and linked-card deletion guards now use Bambara. Whole-locale invariant
+coverage leaves 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/411663d0d">Bambara shared templates and search views gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist visibility, domains, shared templates, My Cards, Due Cards, global
+search and lookup errors now use Bambara. Every positional placeholder and
+emphasis marker remains exact, and invariant coverage leaves 866 values.
 
 </details>
 
