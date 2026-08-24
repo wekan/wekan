@@ -4,7 +4,7 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
-const node = path.join(ROOT, '.tools/node-v24.19.0-linux-x64/bin/node');
+const node = process.execPath;
 const fill = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 for (const language of ['pt-PT', 'pt', 'pt_PT']) {
   const remaining = JSON.parse(childProcess.execFileSync(node,

@@ -281,6 +281,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'translations/fill-from-local-memory.mjs': 'a guarded translation-maintenance\n'
       + '      helper: dry-run finds reusable same-language values and --write\n'
       + '      changes hundreds of language files, so it is reviewed and run directly',
+    'translations/repair-machine-placeholders.mjs': 'a one-off guarded repair\n'
+      + '      helper for legacy machine-filled placeholder values; run directly\n'
+      + '      while auditing those values, not as a release-menu action',
   };
 
   const missing = { sh: [], bat: [] };

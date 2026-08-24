@@ -4,7 +4,7 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
-const node = path.join(ROOT, '.tools/node-v24.19.0-linux-x64/bin/node');
+const node = process.execPath;
 const fill = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 const cases = [['bg', /[\u0400-\u04ff]/u], ['fa-IR', /[\u0600-\u06ff]/u],
   ['fa', /[\u0600-\u06ff]/u], ['mk', /[\u0400-\u04ff]/u]];

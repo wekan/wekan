@@ -3,7 +3,7 @@ const assert = require('assert');
 const childProcess = require('child_process');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
-const node = path.join(ROOT, '.tools/node-v24.19.0-linux-x64/bin/node');
+const node = process.execPath;
 const script = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 const list = language => JSON.parse(childProcess.execFileSync(
   node, [script, '--list', language], { cwd: ROOT, encoding: 'utf8' },

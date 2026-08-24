@@ -4,7 +4,7 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
-const node = path.join(ROOT, '.tools/node-v24.19.0-linux-x64/bin/node');
+const node = process.execPath;
 const fill = path.join(ROOT, 'releases/translations/fill-translations.mjs');
 const languages = ['es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX', 'es-PE',
   'es-PY', 'es', 'es_CO'];

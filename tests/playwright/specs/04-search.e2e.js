@@ -198,16 +198,22 @@ test.describe('Search', () => {
       { $set: { labelIds: [labelId] } });
     await boardPage.reload({ waitUntil: 'networkidle' });
 
-    const sp = new SearchPage(boardPage);
-    await sp.openFilterSidebar();
-    await boardPage.locator('.js-toggle-label-filter')
-      .filter({ hasText: labelName }).first().click();
-
+    // A board-view change reloads the page and clears the in-memory Filter.
+    // Enter Table view first, then activate the filter under test.
     await boardPage.locator('.js-toggle-board-view').first().click();
     await boardPage.locator('.pop-over .js-open-table-view').click();
     await expect(boardPage.locator('.my-cards-board-table')).toBeVisible({
       timeout: 10_000,
     });
+
+    const sp = new SearchPage(boardPage);
+    await sp.openFilterSidebar();
+    const labelFilter = boardPage.locator('.js-toggle-label-filter')
+      .filter({ hasText: labelName }).first();
+    await labelFilter.click();
+    await expect(labelFilter.locator('i.fa-check').first())
+      .toBeVisible({ timeout: 10_000 });
+
     await expect(boardPage.locator('.my-cards-board-table tbody tr'))
       .toHaveCount(1);
     await expect(boardPage.locator('.my-cards-board-table tbody'))
