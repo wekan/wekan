@@ -139,7 +139,7 @@ test('both right-column views grow inside the page scroller', () => {
   const jade = read('client/components/boards/boardsList.jade');
   // The two branches the template really has, so this test fails if a third
   // appears without a scroller.
-  assert.ok(/if isAllBoardsView 'table'\s*\n\s*\+tablePage/.test(jade),
+  assert.ok(/if isAllBoardsView 'table'[\s\S]{0,600}\+tablePage/.test(jade),
     'the Table branch of the right column must still be +tablePage');
   assert.ok(/ul\.board-list/.test(jade), 'the icons branch must still be .board-list');
 

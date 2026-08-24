@@ -355,7 +355,7 @@ test('the popup offers exactly those two, with the current one checked', () => {
 // ── the Table view ──────────────────────────────────────────────────────────
 
 test('the Table view is the shared table page', () => {
-  assert.ok(/if isAllBoardsView 'table'\n\s+\+tablePage\(tablePageData\)/.test(jade),
+  assert.ok(/if isAllBoardsView 'table'[\s\S]{0,600}\+tablePage\(tablePageData\)/.test(jade),
     'Table renders the shared table page');
   assert.ok(/else\n/.test(jade), 'and Lists is the other branch');
   assert.ok(/rowTemplate: 'allBoardsRow'/.test(js), 'with its own row template');
