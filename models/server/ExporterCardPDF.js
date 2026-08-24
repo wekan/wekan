@@ -300,7 +300,7 @@ class ExporterCardPDF extends PDFExporterBase {
     // the pdf? Location, Voting, Checklists, Subtasks, Custom Fields,
     // Attachments, Comments,...?" - the three that were not fetched at all.
     const subtasks = await ReactiveCache.getCards(
-      { parentId: this._cardId },
+      { boardId: this._boardId, parentId: this._cardId },
       { sort: { sort: 1 } },
     );
     const attachments = await ReactiveCache.getAttachments(
@@ -459,7 +459,7 @@ class ExporterBoardPDF extends PDFExporterBase {
         { sort: { sort: 1 } })
       : [];
     const subtasks = this.hasField('subtasks')
-      ? await ReactiveCache.getCards({ parentId: { $in: cardIds } }, { sort: { sort: 1 } })
+      ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: { $in: cardIds } }, { sort: { sort: 1 } })
       : [];
     const comments = this.hasField('comments')
       ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })

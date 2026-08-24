@@ -259,7 +259,7 @@ class ExporterExcelCard {
 
     const checklists    = needsChecklists  ? await ReactiveCache.getChecklists({ cardId: this._cardId })                                 : [];
     const checklistItems= needsChecklists  ? await ReactiveCache.getChecklistItems({ cardId: this._cardId })                             : [];
-    const subtasks      = needsSubtasks    ? await ReactiveCache.getCards({ parentId: this._cardId })                                    : [];
+    const subtasks      = needsSubtasks    ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: this._cardId })            : [];
     const comments      = needsComments    ? await ReactiveCache.getCardComments({ cardId: this._cardId }, { sort: { createdAt: 1 } })   : [];
     const attachments   = needsAttachments ? await ReactiveCache.getAttachments({ 'meta.cardId': this._cardId }, { sort: { uploadedAt: -1 } }) : [];
 

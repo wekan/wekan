@@ -155,6 +155,8 @@ Meteor.methods({
       throw new Meteor.Error('not-found', 'History entry not found');
     }
 
+    await requireBoardVisible(this.userId, history.boardId);
+
     return await history.undo();
   },
 

@@ -250,12 +250,23 @@ const casValidate = (req, ticket, token, service, callback) => {
       email : userData[mail]
     },
     active: true,
+    authenticationMethod: 'cas',
     globalRoles: ['user']
   };
   if (attrs.debug) {
     console.log(`CAS response : ${JSON.stringify(result)}`);
   }
   let user = await Meteor.users.findOneAsync({ 'username': options.username });
+  if (user) {
+    const isCasAccount = user.authenticationMethod === 'cas';
+    const mergeAllowed = process.env.CAS_MERGE_EXISTING_USERS === 'true';
+    if (!isCasAccount && !mergeAllowed) {
+      throw new Meteor.Error(
+        'cas-account-conflict',
+        'CAS authentication succeeded, but a non-CAS WeKan account already exists with this username.',
+      );
+    }
+  }
   if (! user) {
     if (attrs.debug) {
       console.log(`Creating user account ${JSON.stringify(options)}`);

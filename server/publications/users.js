@@ -1,8 +1,20 @@
 import Users from '/models/users';
 import { ReactiveCache } from '/imports/reactiveCache';
+import escapeForRegex from 'escape-string-regexp';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+
+DDPRateLimiter.addRule(
+  { type: 'subscription', name: 'user-search' },
+  20,
+  10 * 1000,
+);
 
 Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
+
+  if (!this.userId) {
+    return this.ready();
+  }
 
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
@@ -62,16 +74,16 @@ Meteor.publish('user-search', async function (searchTerm) {
   }
 
   // Create a regex for case-insensitive search
-  const searchRegex = new RegExp(searchTerm, 'i');
+  const searchRegex = new RegExp(escapeForRegex(searchTerm), 'i');
 
-  // Search for users by username, fullname, or email
+  // This general publication deliberately exposes only public identity fields.
+  // Board-authorized email lookup is handled by the bounded searchUsers method.
   const ret = await ReactiveCache.getUsers(
     {
       $or: [
         { username: searchRegex },
         { 'profile.fullname': searchRegex },
-        { 'emails.address': searchRegex }
-      ]
+      ],
     },
     {
       fields: {
@@ -80,13 +92,6 @@ Meteor.publish('user-search', async function (searchTerm) {
         'profile.fullname': 1,
         'profile.avatarUrl': 1,
         'profile.initials': 1,
-        'emails.address': 1,
-        'emails.verified': 1,
-        authenticationMethod: 1,
-        isAdmin: 1,
-        loginDisabled: 1,
-        teams: 1,
-        orgs: 1,
       },
     },
     true,

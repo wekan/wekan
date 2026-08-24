@@ -298,6 +298,7 @@ export class Exporter {
       );
       result.subtaskItems.push(
         ...await ReactiveCache.getCards({
+          boardId: card.boardId,
           parentId: card._id,
         }),
       );
@@ -646,7 +647,7 @@ export class Exporter {
     await streamArray('checklists', checklistsRaw, checklistSelector, {}, d => userIds.add(d.userId));
     await streamArray('checklistItems', checklistItemsRaw, checklistItemSelector, {});
     await streamArray('subtaskItems', cardsRaw,
-      this.hasField('subtasks') ? { parentId: { $in: cardIds } } : { _id: '__none__' }, {});
+      this.hasField('subtasks') ? { boardId, parentId: { $in: cardIds } } : { _id: '__none__' }, {});
 
     // Rules + their triggers/actions.
     const ruleTriggerIds = [];

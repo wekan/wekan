@@ -23,6 +23,7 @@ import { isValidCustomColors } from '/models/lib/themeCategories';
 import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
+import escapeForRegex from 'escape-string-regexp';
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
 // so invitation-code sign-up (and any other registration) attempts cannot be
@@ -41,6 +42,11 @@ if (Meteor.isServer) {
     },
     10,
     60 * 1000,
+  );
+  DDPRateLimiter.addRule(
+    { type: 'method', name: 'searchUsers' },
+    20,
+    10 * 1000,
   );
 }
 
@@ -2687,7 +2693,7 @@ Meteor.methods({
       return [];
     }
 
-    const searchRegex = new RegExp(query, 'i');
+    const searchRegex = new RegExp(escapeForRegex(query), 'i');
     const users = await ReactiveCache.getUsers(
       {
         $or: [

@@ -101,7 +101,7 @@ class ExporterExcelBoard {
         { checklistId: { $in: checklists.map(c => c._id) } }, { sort: { sort: 1 } })
       : [];
     const subtasks = this.hasField('subtasks')
-      ? await ReactiveCache.getCards({ parentId: { $in: cardIds } }, { sort: { sort: 1 } })
+      ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: { $in: cardIds } }, { sort: { sort: 1 } })
       : [];
     const comments = this.hasField('comments')
       ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })
