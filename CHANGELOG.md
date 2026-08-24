@@ -232,6 +232,8 @@ correct language replaces a direct repair permanently.
 **1,346 keys across 120 locale files** whose underscore-delimited or
 percent-prefixed token inventory differed from the same English key. Restoring
 four Mongolian keys made that locale clean; **1,342 mismatched keys across 119
+locale files remained**. The next batch repaired every locale with exactly one
+mismatch: eleven keys across eleven files. **1,331 mismatched keys across 108
 locale files remain** for audited batches. The surrounding translation must be
 preserved or corrected into the locale language while every token is restored
 exactly from `en.i18n.json`.
@@ -426,8 +428,9 @@ reports across nine more language files. Translation policy now requires every
 locale to use its declared language and preserves placeholder tokens exactly.
 The first same-script repair replaces Russian archive, board, card, attachment,
 checklist, subtask, filter and label text in Mongolian, and restores its exact
-English placeholder tokens. Below that: focused regression coverage and
-native-speaker review notes for low-confidence direct translations.
+English placeholder tokens. Eleven additional locale files now have exact token
+inventories. Below that: focused regression coverage and native-speaker review
+notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -463,6 +466,22 @@ English spelling, case, count and format. A translated, renamed, missing or
 malformed token is restored from the same key in `en.i18n.json`, even inside an
 otherwise human translation, and regression coverage compares token inventories
 with English.
+
+</details>
+
+**Placeholder repairs** - exact named and printf token inventories.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0aa3b9784">Eleven locale files restore their last mismatched placeholder</a>. Thanks to xet7.</summary>
+
+Spanish (Argentina), Galician, Gujarati, Hungarian, Polish and Portuguese
+variants now preserve the same named and printf tokens as their English keys.
+The repair keeps exact spelling and case, updates obsolete Hungarian prose and
+replaces copied Portuguese wording with Galician. Whole-file regression
+coverage proves all eleven locale files are clean and rejects the malformed,
+missing and wrong-language forms. The direct Galician and Hungarian wording
+welcomes human review. Another 1,331 mismatched keys across 108 locale files
+remain for audited batches.
 
 </details>
 
