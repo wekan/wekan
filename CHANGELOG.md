@@ -208,19 +208,24 @@ the ground again. Run this first — it is the status, and it is always current:
 node releases/translations/fill-translations.mjs --status
 ```
 
-**What is DONE.** Every file that carried text in ANOTHER LANGUAGE is fixed, and
-it turned out to be two problems rather than one. Values written in another
-SCRIPT — `ko`/`ko-KR` (Japanese kana, then 80 more of pure CJK each), `ka`
-(Russian), `hi`/`hi-IN` (Gujarati), `ta` (Telugu and Devanagari): **5,542
-values**. And values written in the LATIN alphabet inside a language that is not
-written in it, which no Unicode-block comparison can see — `el`/`el-GR`
-(Italian), `th` (Vietnamese), `ar-DZ` (French), `ka` again (Turkish), `mn`, and
-a tail of small ones: **3,174 more**. `node
-releases/translations/wrong-script.mjs --count` reports **zero for both checks**
-across all 246 files and stays as the guard for the next file seeded from a
-neighbour. `hi`, `ta`, `th` and `el` were written by looking the words up rather
-than by native speakers, so a review of any of them is welcome — and a Transifex
-translation replaces a filled string permanently.
+**What is DONE.** The known cross-script and Latin-script mismatches are fixed.
+Values written in another SCRIPT — `ko`/`ko-KR` (Japanese kana, then 80 more
+of pure CJK each), `ka` (Russian), `hi`/`hi-IN` (Gujarati), `ta` (Telugu and
+Devanagari): **5,542 values**. Values written in the LATIN alphabet inside a
+language that does not use it — `el`/`el-GR` (Italian), `th` (Vietnamese),
+`ar-DZ` (French), `ka` again (Turkish), `mn`, and a tail of small ones:
+**3,174 more**. `node releases/translations/wrong-script.mjs --count` reports
+**zero for both checks** across all 246 files. That proves script consistency,
+not language consistency; `hi`, `ta`, `th` and `el` were written by looking the
+words up rather than by native speakers, so a review remains welcome.
+
+**Same-script repair is now in progress.** Comparing Mongolian with Russian
+found **1,174 exact Cyrillic matches**. The first archive, template and board-view
+batch replaced **28 Russian values** with Mongolian and retained `Архив` as a
+valid shared loanword. **1,146 exact-match candidates remain to audit** in
+coherent UI batches; equality is evidence of copying, but shared loanwords must
+be reviewed rather than blindly replaced. A Transifex translation in the
+correct language replaces a direct repair permanently.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -409,7 +414,8 @@ browser build to verify).
 
 **In short:** **translation coverage** now extends the Office and REST API
 reports across nine more language files, and the translation policy now requires
-every locale to use its declared language. Below that: focused regression
+every locale to use its declared language. The first same-script repair replaces
+Russian archive and board controls in Mongolian. Below that: focused regression
 coverage and native-speaker review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -461,6 +467,18 @@ vocabulary in Cyrillic script. REST API, IPv4, IPv6 and WITH_API=true remain
 recognizable. Regression coverage checks every translated key, Cyrillic content
 and the intentionally universal API labels. This direct translation has low
 confidence and welcomes review by Mongolian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56f270fa2">Mongolian archive and board controls no longer use Russian</a>. Thanks to xet7.</summary>
+
+Twenty-eight exact Russian copies in archive, template and board-view controls
+now use Mongolian vocabulary. The shared `Архив` loanword remains valid.
+Regression coverage compares the repaired values directly with Russian, checks
+established Mongolian board terms and rejects common Russian UI words. Another
+1,146 exact-match candidates remain for later audited batches. This direct
+repair has low confidence and welcomes review by Mongolian speakers.
 
 </details>
 
