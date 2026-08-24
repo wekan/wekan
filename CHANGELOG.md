@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Thirty-six Amharic batches
-translated 1,800 values, leaving **197,525 genuinely untranslated values across
-92 locale files**, including 366 in Amharic. Continue filling
+queue now consists of whole-file-sized locale fills. Thirty-eight Amharic
+batches translated 1,900 values, leaving **197,425 genuinely untranslated
+values across 92 locale files**, including 266 in Amharic. Continue filling
 those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
@@ -498,12 +498,13 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with thirty-six 50-value Amharic batches covering
+Whole-file work now begins with thirty-eight 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
 automation, reports, tickets, administration, attachment storage, support,
-accessibility, account lockouts, scheduling and database migration.
+accessibility, account lockouts, scheduling, database migration, security,
+privacy, backups and cloud storage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1425,6 +1426,25 @@ Scheduled-job results, filesystem and cloud storage, MongoDB/FerretDB migration
 and Sandstorm status now use Amharic while retaining the database placeholder,
 URLs, environment variables and product names. Whole-locale invariant coverage
 leaves 366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/925fd424b">Amharic security and backups gain 50 values</a>. Thanks to xet7.</summary>
+
+Sandstorm cleanup, card loading, security switches, anonymized import/export
+and backups now use Amharic while retaining markup, environment variables,
+service names and backup paths. Whole-locale invariant coverage leaves 316
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88daa17da">Amharic cloud storage gains 50 values</a>. Thanks to xet7.</summary>
+
+Backup scheduling and restoration plus AWS, Azure and Google Cloud setup
+guidance now use Amharic while retaining JSON, IDs, filenames, field labels and
+HH:MM. Whole-locale invariant coverage leaves 266 values.
 
 </details>
 
