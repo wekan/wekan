@@ -302,11 +302,14 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Thirty-four 50-value Tibetan batches then translated
-1,700 values, leaving **184,629 genuinely untranslated values across 86 locale
-files**, including 466 in Tibetan.
+across 86 locale files**. Thirty-five 50-value Tibetan batches then translated
+1,750 values, leaving **184,579 genuinely untranslated values across 86 locale
+files**, including 416 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
+Resume Tibetan at `cron-job-delete-failed` with
+`node releases/translations/fill-translations.mjs --list bo --limit 50`;
+batch 35 is committed and batch 36 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -642,7 +645,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with thirty-four 50-value batches covering board, card,
+Tibetan then begins with thirty-five 50-value batches covering board, card,
 checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
@@ -676,6 +679,10 @@ Recovery, wait indicators, tickets, team/organization administration, Node heap
 diagnostics, legal notices, checklist actions and attachment storage follow.
 Attachment-location repair, MongoDB compaction, uploads, custom translations,
 checklist collapsing, support and accessibility follow too.
+Brute-force account protection, scheduled jobs, attachment paths and board
+maintenance scheduling follow too.
+The current Tibetan checkpoint is 1,750 translated values with 416 remaining;
+the next untouched key is `cron-job-delete-failed`.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -4250,6 +4257,16 @@ workspace assignment, custom translations, Markdown and ZIP imports, checklist
 collapsing, support and accessibility now use Tibetan. Named placeholders,
 format names and standards remain exact, and whole-locale invariant coverage
 leaves 466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8745d70a">Tibetan account lockouts and scheduled jobs gain 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility metadata, brute-force login protection and locked-user
+administration, people status filters, scheduled jobs, attachment and avatar
+paths and board archive, backup and cleanup scheduling now use Tibetan.
+Whole-locale invariant coverage leaves 416 values.
 
 </details>
 
