@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Twenty-four Assamese batches then translated 1,200 values, leaving **195,959
-genuinely untranslated values across 91 locale files**, including 966 in
+Twenty-six Assamese batches then translated 1,300 values, leaving **195,859
+genuinely untranslated values across 91 locale files**, including 866 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,13 +508,14 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with twenty-four 50-value batches covering activity history,
+Assamese then begins with twenty-six 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
 roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics,
 tenancy, card/subtask settings, scheduled automation, rule-builder phrases,
-custom web metadata, layout controls, activity reminders and account cleanup.
+custom web metadata, layout controls, activity reminders, account cleanup,
+role permissions, weekdays, domains, shared templates and card search views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1747,6 +1748,24 @@ Custom HTML placement, authentication errors, board duplication, activity
 dates and reminders, account cleanup and drag controls now use Assamese while
 retaining HTML tags, named activity tokens and percent arguments. Whole-locale
 invariant coverage leaves 966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4c1ef2e2">Assamese roles and weekdays gain 50 values</a>. Thanks to xet7.</summary>
+
+Card-window and editor preferences, organizations, users, notification states,
+board-role permissions, weekdays and linked-card deletion warnings now use
+Assamese. Whole-locale invariant coverage leaves 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b00d2effa">Assamese shared views gain 50 values</a>. Thanks to xet7.</summary>
+
+Domains, shared templates, My Cards, Due Cards and global search now use
+Assamese while retaining example.com, emphasis markers and positional percent
+arguments. Whole-locale invariant coverage leaves 866 values.
 
 </details>
 
