@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Thirty-eight Amharic
-batches translated 1,900 values, leaving **197,425 genuinely untranslated
-values across 92 locale files**, including 266 in Amharic. Continue filling
+queue now consists of whole-file-sized locale fills. Forty Amharic batches
+translated 2,000 values, leaving **197,325 genuinely untranslated values across
+92 locale files**, including 166 in Amharic. Continue filling
 those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
@@ -498,13 +498,13 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with thirty-eight 50-value Amharic batches covering
+Whole-file work now begins with forty 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
 automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
-privacy, backups and cloud storage.
+privacy, backups, cloud storage and board-integrity migration.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1445,6 +1445,25 @@ values.
 Backup scheduling and restoration plus AWS, Azure and Google Cloud setup
 guidance now use Amharic while retaining JSON, IDs, filenames, field labels and
 HH:MM. Whole-locale invariant coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3378401c">Amharic attachment migration and S3 gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS and attachment migrations, S3 settings, scheduled board operations and
+storage navigation now use Amharic while retaining storage products,
+SSL/TLS and the region example. Whole-locale invariant coverage leaves 216
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d08603ac">Amharic board migration gains 50 values</a>. Thanks to xet7.</summary>
+
+Lost-card recovery, duplicate-list cleanup, archive restoration, URL repairs
+and migration steps now use Amharic while retaining field identifiers, IDs and
+URLs. Whole-locale invariant coverage leaves 166 values.
 
 </details>
 
