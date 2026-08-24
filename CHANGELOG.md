@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Twenty 50-value Bhojpuri
-batches then translated 1,000 values, leaving **191,827 genuinely untranslated
-values across 89 locale files**, including 1,166 in Bhojpuri.
+16-value batch then translated all 2,166 values. Twenty-two 50-value Bhojpuri
+batches then translated 1,100 values, leaving **191,727 genuinely untranslated
+values across 89 locale files**, including 1,066 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with twenty 50-value batches covering board/card/list/
+Bhojpuri then begins with twenty-two 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -578,6 +578,8 @@ controls are translated too.
 Card dates/colors, destructive actions, subtask/card/minicard settings, parent
 paths, activity messages and the automation-rule workflow/import interface
 follow.
+Workflow formats, schedules, button/due/list triggers, relative dates and
+label/member/attachment/checklist/card/email automation actions follow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2640,6 +2642,26 @@ Activity messages, rule management, workflow builder triggers/actions and JSON,
 CSV and Trello Butler imports now use Bhojpuri. Positional custom-field values,
 time and imported-count placeholders retain their source order and spelling.
 Whole-locale invariant coverage leaves 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dbac7b00">Bhojpuri scheduled automation gains 50 values</a>. Thanks to xet7.</summary>
+
+Workflow formats, scheduled/button triggers, due-date timing, list sorting,
+card completion, bulk moves and relative dates now use Bhojpuri while retaining
+the imported-count placeholder and n8n, Node-RED and WeKan names. Whole-locale
+invariant coverage leaves 1,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4dd2ee13">Bhojpuri automation actions gain 50 values</a>. Thanks to xet7.</summary>
+
+List/archive movements, label/member/attachment/checklist triggers, card and
+checklist actions and email actions now use consistent, compact Bhojpuri
+sentence-building fragments. Whole-locale invariant coverage leaves 1,066
+values.
 
 </details>
 
