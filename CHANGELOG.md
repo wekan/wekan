@@ -498,7 +498,9 @@ browser build to verify).
 
 **In short:** five **HIGH AND MODERATE SECURITY ISSUES** now protect user
 directory data, literal searches, position-history undo, subtask exports and
-CAS account linking. **Translation coverage** now extends the Office and REST API
+CAS account linking. The **All Boards Table view** now offers board creation,
+and the **Board Table view** applies active filters. **Translation coverage**
+now extends the Office and REST API
 reports across nine more language files. Translation policy now requires every
 locale to use its declared language and preserves placeholder tokens exactly.
 The first same-script repair replaces Russian archive, board, card, attachment,
@@ -814,6 +816,34 @@ account with the same name. New CAS users are marked with their authentication
 method; a conflicting account is rejected unless the administrator explicitly
 sets `CAS_MERGE_EXISTING_USERS=true`. Positive CAS reuse and negative implicit
 linking are pinned by regression coverage.
+
+</details>
+
+and fixes the following bugs:
+
+**All Boards** - the overview's Lists and Table layouts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aae4e8183">Table view offers the same board creation action as Lists view</a>. Thanks to rmb82 and xet7.</summary>
+
+The All Boards Table layout displayed existing boards but offered no way to
+create one. It now shows the same create action and uses the same handler as the
+Lists tile, including the Template Container wording and workspace context.
+Archive and the special Home section continue to exclude creation. Source,
+negative and browser tests cover the available and excluded sections.
+
+</details>
+
+**Board views** - alternate ways to display one board's cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdec1744f">Table view applies the active board Filter to its card rows</a>. Thanks to rmb82 and xet7.</summary>
+
+The Table layout queried every active card directly and ignored label, member,
+assignee, date and other criteria from the board Filter. Its reactive query now
+ANDs the Filter selector with immutable board and archive boundaries before the
+view's own text search and pagination. Unit, wiring and browser tests cover both
+unfiltered and filtered rows.
 
 </details>
 
