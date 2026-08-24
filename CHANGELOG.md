@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Thirty-four 50-value Bhojpuri
-batches then translated 1,700 values, leaving **191,127 genuinely untranslated
-values across 89 locale files**, including 466 in Bhojpuri.
+16-value batch then translated all 2,166 values. Thirty-six 50-value Bhojpuri
+batches then translated 1,800 values, leaving **191,027 genuinely untranslated
+values across 89 locale files**, including 366 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with thirty-four 50-value batches covering board/card/list/
+Bhojpuri then begins with thirty-six 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -584,6 +584,8 @@ are translated too.
 Attachment/avatar storage repair, MongoDB compaction, upload/file controls,
 workspace assignment, custom translations, checklist collapsing, support and
 accessibility follow.
+Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
+storage and MongoDB/FerretDB/Sandstorm database migration follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -2799,6 +2801,25 @@ Board status, upload progress, password/login prompts, file restrictions, PDF
 fallback, workspace assignment, custom translations, checklist collapsing,
 support and accessibility now use Bhojpuri while retaining the workspace
 placeholder, ISO 8601, PDF, JSON and .zip. Invariant coverage leaves 466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b60492f9">Bhojpuri account security and scheduling gain 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility content, brute-force login lockouts, admin user filters,
+scheduled jobs, attachment/avatar paths and scheduled board operations now use
+Bhojpuri. Whole-locale invariant coverage leaves 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/91260e7d1">Bhojpuri storage and database migration gain 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled-job/migration control, filesystem/S3/Azure storage, MongoDB/FerretDB
+text-data migration and Sandstorm migration status now use Bhojpuri while
+retaining URLs, ports, environment variables, configuration literals, versions,
+paths and the database placeholder. Invariant coverage leaves 366 values.
 
 </details>
 
