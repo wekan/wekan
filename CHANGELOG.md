@@ -407,12 +407,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **translation coverage** now extends the Office and REST API
+reports across nine more language files, and the translation policy now requires
+every locale to use its declared language. Below that: focused regression
+coverage and native-speaker review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -424,6 +422,89 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release improves the translation workflow:
+
+**Translation policy** - correct-language preference and mixed-language repair.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/775c56df9">Every locale file must use the language declared by its tag</a>. Thanks to xet7.</summary>
+
+Human-preference protection now applies only to translations written in the
+locale tag’s language. Mixed or wrongly seeded values must be replaced directly,
+including same-script cases such as Russian text in Mongolian, with vocabulary
+review and regression coverage where script detection cannot distinguish them.
+
+</details>
+
+and improves the following translations:
+
+**Cyrillic translations** - the Office and REST API usage reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a64f8bd7">Office and API reports use Macedonian and Serbian</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use distinct
+Macedonian and Serbian vocabulary in Cyrillic script. REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, Cyrillic content, distinct vocabulary and the intentionally universal API
+labels. These direct translations have low confidence and welcome review by
+Macedonian and Serbian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/293568999">Office and API reports use Mongolian</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Mongolian
+vocabulary in Cyrillic script. REST API, IPv4, IPv6 and WITH_API=true remain
+recognizable. Regression coverage checks every translated key, Cyrillic content
+and the intentionally universal API labels. This direct translation has low
+confidence and welcomes review by Mongolian speakers.
+
+</details>
+
+**Caucasian translations** - the Office and REST API usage reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71c6d0be6">Office and API reports use Armenian and Georgian</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Armenian or
+Georgian script and each language's own vocabulary. REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, rejects the neighbouring script and preserves the intentionally universal
+API labels. These direct translations have low confidence and welcome review by
+Armenian and Georgian speakers.
+
+</details>
+
+**Indic translations** - the Office and REST API usage reports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e19994a5">Office and API reports use Telugu and Tamil</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Telugu or Tamil
+script and each language's own vocabulary. REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, rejects the neighbouring script and preserves the intentionally universal
+API labels. These direct translations have low confidence and welcome review by
+Telugu and Tamil speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fac8a9cc">Office and API reports use Odia and Punjabi</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Odia or Gurmukhi
+script and each language's own vocabulary. REST API, IPv4, IPv6 and
+WITH_API=true remain recognizable. Regression coverage checks every translated
+key, rejects the neighbouring script and preserves the intentionally universal
+API labels. These direct translations have low confidence and welcome review by
+Odia and Punjabi speakers.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.10 2026-08-23 WeKan ® release
 
@@ -553,43 +634,6 @@ languages and the intentionally universal API labels.
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a64f8bd7">Office and API reports use Macedonian and Serbian</a>. Thanks to xet7.</summary>
-
-All twelve translatable report labels and descriptions now use distinct
-Macedonian and Serbian vocabulary in Cyrillic script. REST API, IPv4, IPv6 and
-WITH_API=true remain recognizable. Regression coverage checks every translated
-key, Cyrillic content, distinct vocabulary and the intentionally universal API
-labels. These direct translations have low confidence and welcome review by
-Macedonian and Serbian speakers.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/293568999">Office and API reports use Mongolian</a>. Thanks to xet7.</summary>
-
-All twelve translatable report labels and descriptions now use Mongolian
-vocabulary in Cyrillic script. REST API, IPv4, IPv6 and WITH_API=true remain
-recognizable. Regression coverage checks every translated key, Cyrillic content
-and the intentionally universal API labels. This direct translation has low
-confidence and welcomes review by Mongolian speakers.
-
-</details>
-
-**Caucasian translations** - the Office and REST API usage reports.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/71c6d0be6">Office and API reports use Armenian and Georgian</a>. Thanks to xet7.</summary>
-
-All twelve translatable report labels and descriptions now use Armenian or
-Georgian script and each language's own vocabulary. REST API, IPv4, IPv6 and
-WITH_API=true remain recognizable. Regression coverage checks every translated
-key, rejects the neighbouring script and preserves the intentionally universal
-API labels. These direct translations have low confidence and welcome review by
-Armenian and Georgian speakers.
-
-</details>
-
 **Right-to-left translations** - the Office and REST API usage reports.
 
 <details>
@@ -622,30 +666,6 @@ All twelve report labels and descriptions now cover two Hindi tags in
 Devanagari and one Gujarati tag in Gujarati script. REST API, IPv4, IPv6 and
 WITH_API=true remain recognizable. Regression coverage checks every translated
 key, both scripts and the intentionally universal API labels.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4e19994a5">Office and API reports use Telugu and Tamil</a>. Thanks to xet7.</summary>
-
-All twelve translatable report labels and descriptions now use Telugu or Tamil
-script and each language's own vocabulary. REST API, IPv4, IPv6 and
-WITH_API=true remain recognizable. Regression coverage checks every translated
-key, rejects the neighbouring script and preserves the intentionally universal
-API labels. These direct translations have low confidence and welcome review by
-Telugu and Tamil speakers.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/7fac8a9cc">Office and API reports use Odia and Punjabi</a>. Thanks to xet7.</summary>
-
-All twelve translatable report labels and descriptions now use Odia or Gurmukhi
-script and each language's own vocabulary. REST API, IPv4, IPv6 and
-WITH_API=true remain recognizable. Regression coverage checks every translated
-key, rejects the neighbouring script and preserves the intentionally universal
-API labels. These direct translations have low confidence and welcome review by
-Odia and Punjabi speakers.
 
 </details>
 
