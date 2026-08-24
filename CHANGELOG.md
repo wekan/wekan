@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Fourteen 50-value Bhojpuri
-batches then translated 700 values, leaving **192,127 genuinely untranslated
-values across 89 locale files**, including 1,466 in Bhojpuri.
+16-value batch then translated all 2,166 values. Sixteen 50-value Bhojpuri
+batches then translated 800 values, leaving **192,027 genuinely untranslated
+values across 89 locale files**, including 1,366 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with fourteen 50-value batches covering board/card/list/
+Bhojpuri then begins with sixteen 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -569,6 +569,9 @@ WeKan follow.
 Trello API jobs, imported-member mapping, validation, labels, board departure,
 archive/list actions, settings, multi-selection, notification states and normal
 roles are translated too.
+Watching/privacy, member removal, search, shortcuts, starred/default boards,
+subscriptions, time tracking, uploads, custom branding, welcome/template labels,
+WIP errors and attachment/API limits follow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2572,6 +2575,25 @@ label placeholder. Whole-locale invariant coverage leaves 1,516 values.
 Board departure, archive/list actions, settings, multi-selection, notification
 states and normal-role permissions now use Bhojpuri while retaining the board
 title placeholder. Whole-locale invariant coverage leaves 1,466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4e81b0de">Bhojpuri privacy and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+
+Watching/privacy, member removal, search/WIP controls, keyboard shortcuts,
+sidebars, signup and starred/default boards now use Bhojpuri while retaining
+the login anchor and its `%s` placeholder. Whole-locale invariant coverage
+leaves 1,416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/562e2e7ae">Bhojpuri tracking and uploads gain 50 values</a>. Thanks to xet7.</summary>
+
+Subscriptions, time tracking, assignee/label shortcuts, uploads, custom
+branding URLs, welcome/template labels, WIP errors and attachment/API limits
+now use Bhojpuri. Whole-locale invariant coverage leaves 1,366 values.
 
 </details>
 
