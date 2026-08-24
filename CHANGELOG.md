@@ -297,10 +297,10 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Forty-two
-50-value Bambara batches then translated 2,100 values, leaving **188,561
-genuinely untranslated values across 88 locale files**, including 66 in
-Bambara.
+**190,661 genuinely untranslated values across 88 locale files**. Forty-three
+50-value Bambara batches and a final 16-value batch then translated all 2,166
+values, leaving **188,495 genuinely untranslated values across 87 locale
+files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -597,7 +597,8 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with forty-two 50-value batches covering board/card/list/swimlane
+Bambara then begins with forty-three 50-value batches and a final 16-value batch
+covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -635,6 +636,8 @@ GridFS/S3 migration controls, attachment monitoring and board-integrity repair
 for lists, lost cards, archives and avatar/file URLs follow.
 Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
+Account and repository access, problem and event monitoring, card repair, IP
+labels and scoped import/export complete all 2,166 values.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3365,6 +3368,25 @@ Attachment-storage migration targets, resource thresholds, batch tuning,
 monitoring exports, schedules, progress controls and storage totals now use
 Bambara. Numeric ranges and technical storage names remain exact, and invariant
 coverage leaves 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb7d42fca">Bambara accounts and event monitoring gain 50 values</a>. Thanks to xet7.</summary>
+
+OTP and account access, repository management, problem summaries, broken-card
+repair, CPU status and event metadata now use Bambara. Named repair counters
+remain exact, and invariant coverage leaves 16 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/926ff59d2">Bambara whole-file translation is complete</a>. Thanks to xet7.</summary>
+
+IP labels, filesystem integrity, scoped board import and export guidance and
+the number-search operator now use Bambara. The named operator, markup, file
+formats and product names remain exact. The final 16-value batch completes all
+2,166 source values, with whole-locale token and tag regression coverage.
 
 </details>
 
