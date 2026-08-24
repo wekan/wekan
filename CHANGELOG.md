@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Fourteen Amharic batches
-translated 700 values, leaving **198,625 genuinely untranslated values across
-92 locale files**, including 1,466 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Sixteen Amharic batches
+translated 800 values, leaving **198,525 genuinely untranslated values across
+92 locale files**, including 1,366 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,9 +497,10 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with fourteen 50-value Amharic batches covering
+Whole-file work now begins with sixteen 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
-errors, exports, filters, imports, member mapping and multi-selection.
+errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
+tracking and branding.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1221,6 +1222,24 @@ invariant coverage leaves 1,516 values.
 Board departure, list and archive actions, selection tools, notifications and
 roles now use Amharic while retaining the board-title placeholder. Whole-locale
 invariant coverage leaves 1,466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ba438326">Amharic privacy and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+
+Notifications, privacy, removal, search, WIP and shortcuts now use Amharic while
+retaining login markup and member placeholders. Whole-locale invariant coverage
+leaves 1,416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/14344e047">Amharic tracking and branding gain 50 values</a>. Thanks to xet7.</summary>
+
+Time tracking, uploads, custom branding, welcome templates and WIP warnings now
+use Amharic while retaining URL, API, WIP and numeric terms. Whole-locale
+invariant coverage leaves 1,366 values.
 
 </details>
 
