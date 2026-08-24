@@ -220,10 +220,10 @@ not language consistency; `hi`, `ta`, `th` and `el` were written by looking the
 words up rather than by native speakers, so a review remains welcome.
 
 **Same-script repair is now in progress.** Comparing Mongolian with Russian
-found **1,174 exact Cyrillic matches**. The archive/board, card, attachment
-and checklist/subtask batches replaced **135 Russian values** with Mongolian and
-retained `Архив` and `Файл` as valid shared loanwords. **1,039 exact-match
-candidates remain to audit** in
+found **1,174 exact Cyrillic matches**. The archive/board, card, attachment,
+checklist/subtask and filter batches replaced **146 Russian values** with
+Mongolian and retained `Архив` and `Файл` as valid shared loanwords. **1,028
+exact-match candidates remain to audit** in
 coherent UI batches; equality is evidence of copying, but shared loanwords must
 be reviewed rather than blindly replaced. A Transifex translation in the
 correct language replaces a direct repair permanently.
@@ -416,8 +416,8 @@ browser build to verify).
 **In short:** **translation coverage** now extends the Office and REST API
 reports across nine more language files, and the translation policy now requires
 every locale to use its declared language. The first same-script repair replaces
-Russian archive, board, card, attachment, checklist and subtask text in
-Mongolian. Below that: focused
+Russian archive, board, card, attachment, checklist, subtask and filter text
+in Mongolian. Below that: focused
 regression coverage and native-speaker review notes for low-confidence direct
 translations.
 
@@ -519,6 +519,18 @@ printf placeholders, keeps the search operator space-free and rejects common
 Russian terms. Another 1,039 exact matches, including shared loanwords, remain
 for later audit. This direct repair has low confidence and welcomes review by
 Mongolian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5aa7cb978">Mongolian filter labels no longer use Russian</a>. Thanks to xet7.</summary>
+
+Eleven exact Russian copies across date, list-title, label, member, assignee,
+custom-field, advanced and card-title filters now use consistent Mongolian
+filter vocabulary. Regression coverage compares every repaired value with
+Russian and rejects common Russian filter terms. Another 1,028 exact matches,
+including shared loanwords, remain for later audit. This direct repair has low
+confidence and welcomes review by Mongolian speakers.
 
 </details>
 
