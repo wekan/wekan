@@ -267,7 +267,9 @@ placeholder mismatch count is now zero.** The separate direct-fill report, now
 excluding invariant values that require no translation, had **202,628 genuinely
 untranslated values across 210 locale files**. Compact direct-fill batches have
 since completed 28 locale files, leaving **202,139 genuinely untranslated values
-across 182 locale files**. Continue filling those English
+across 182 locale files**. Portuguese, Thai, Venda, Zulu, Esperanto, Spanish and
+Turkish batches then completed another 20 locale files, leaving **201,748
+genuinely untranslated values across 162 locale files**. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -792,6 +794,57 @@ across all tags, with Khmer-script and English-remnant coverage.
 </details>
 
 - [The tracked Khmer underscore tag carries the same verified translations](https://github.com/wekan/wekan/commit/68aa99f44). Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a1d4587f">All Portuguese tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+Three tags translate 57 color, menu, location, Office and API report values,
+using explicit Portuguese alternatives for valid cognates. Zero-backlog and
+report coverage verifies every tag.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3bf82281">Thai completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Nineteen board-selection, permanent-delete, Office and API report values now use
+Thai, with target-script, English-remnant and API-literal coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3bd4ea9f3">Venda and Zulu complete separate direct fills</a>. Thanks to xet7.</summary>
+
+Three Tshivenda and two isiZulu tags translate 95 values with distinct language
+mappings. Zero-backlog and language-distinction coverage verifies every file.
+The direct translations have low confidence and welcome native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b9f6874a">Esperanto completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Twenty board, clipboard, Office and API report values now use Esperanto, with
+zero-backlog, vocabulary and English-remnant coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64bda540f">Nine Spanish tags complete their direct fills</a>. Thanks to xet7.</summary>
+
+The shared 20-value tail completes 180 UI, Office, API report and ticket values.
+Explicit Spanish alternatives replace valid cognates, and report coverage
+verifies every tag.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/442065048">Turkish completes its direct translation fill</a>. Thanks to xet7.</summary>
+
+Twenty checklist, typography, Office, API report and storage values now use
+Turkish, with zero-backlog, terminology and English-remnant coverage.
+
+</details>
 
 and improves the following translations:
 
