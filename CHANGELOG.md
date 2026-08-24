@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Twenty-four Bashkir batches then translated 1,200
-values, leaving **193,793 genuinely untranslated values across 90 locale
-files**, including 966 in Bashkir.
+across 90 locale files**. Twenty-six Bashkir batches then translated 1,300
+values, leaving **193,693 genuinely untranslated values across 90 locale
+files**, including 866 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with twenty-four 50-value batches covering activity history,
+Bashkir then begins with twenty-six 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -541,6 +541,8 @@ runtime diagnostics, custom-field display, organization tenancy, dates, board
 deletion, subtasks, minicards, parent cards, visual automation rules, scheduled
 triggers, due-date conditions, buttons, checklist/member actions, custom web
 metadata, authentication, destructive actions and due-date reminders.
+It also covers notification management, board-role permissions, weekdays,
+domains, shared templates, My Cards, due-card views and global search.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2200,6 +2202,26 @@ deletion, date activity, due reminders, mentions, account deletion and resize
 controls now use Bashkir while retaining body tags, positional arguments,
 named tokens and multiline structure. Whole-locale invariant coverage leaves
 966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/341305be8">Bashkir board roles and weekdays gain 50 values</a>. Thanks to xet7.</summary>
+
+Multi-card/editor behavior, organization/team/user dialogs, notification
+management, renaming, board-role permissions/status, weekdays and linked-card
+deletion safeguards now use Bashkir while retaining keyboard shortcut names.
+Whole-locale invariant coverage leaves 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f832359b4">Bashkir shared templates and views gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist visibility, domains, shared templates, My Cards sorting, due-card
+views, global search and missing-object errors now use Bashkir while retaining
+domain examples, Markdown emphasis and percent arguments. Whole-locale
+invariant coverage leaves 866 values.
 
 </details>
 
