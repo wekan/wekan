@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Ten Assamese batches then translated 500 values, leaving **196,659 genuinely
-untranslated values across 91 locale files**, including 1,666 in Assamese.
+Twelve Assamese batches then translated 600 values, leaving **196,559 genuinely
+untranslated values across 91 locale files**, including 1,566 in Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -507,10 +507,10 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with ten 50-value batches covering activity history,
+Assamese then begins with twelve 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
-fields, email and errors.
+fields, email, errors, exports, filters and imports.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1604,6 +1604,25 @@ Custom fields, permanent deletion, WIP and profile dialogs, email templates,
 validation and import errors now use Assamese while retaining placeholders,
 paragraph breaks and JSON/CSV/TSV terminology. Focused email-template coverage
 leaves 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/104f3f12e">Assamese exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account-name errors, card export fields, disk-space messages, list sorting and
+date, label and member filters now use Assamese while retaining PDF, Excel and
+file-format names. Whole-locale invariant coverage leaves 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b95aa961b">Assamese advanced filters and imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced filters and board-import instructions for multiple services and
+formats now use Assamese while retaining operators, regex, escapes, JSON field
+names, API paths, extensions and placeholders. Focused syntax coverage leaves
+1,566 values.
 
 </details>
 
