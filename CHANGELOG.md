@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Twenty-eight 50-value Bhojpuri
-batches then translated 1,400 values, leaving **191,427 genuinely untranslated
-values across 89 locale files**, including 766 in Bhojpuri.
+16-value batch then translated all 2,166 values. Thirty 50-value Bhojpuri
+batches then translated 1,500 values, leaving **191,327 genuinely untranslated
+values across 89 locale files**, including 666 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with twenty-eight 50-value batches covering board/card/list/
+Bhojpuri then begins with thirty 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -588,6 +588,9 @@ linked-card deletion guards, domain/template sharing, My Cards, Due Cards,
 global search and lookup errors follow.
 Global-search result counts, operator/predicate labels, validation messages and
 the full syntax/help documentation are translated too.
+Sorting/completion, stickers, dependencies, board backgrounds, locations, map
+detection, server troubleshooting, string-template fields and admin reports
+follow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2730,6 +2733,26 @@ Search validation, pagination and full operator/status/note documentation now
 use Bhojpuri while retaining every named placeholder, Markdown code/emphasis,
 angle-bracket metavariable, operator example and deliberate line break.
 Whole-locale invariant coverage leaves 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80b9efc62">Bhojpuri dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+
+Sorting/completion, stickers, dependency relationships/imports, board
+backgrounds and card locations now use Bhojpuri while retaining import counters,
+the background-size placeholder and JSON/SVG terminology. Whole-locale invariant
+coverage leaves 716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2f0cc4ca">Bhojpuri maps and reports gain 50 values</a>. Thanks to xet7.</summary>
+
+Map detection, server-error troubleshooting, sorting, swimlane movement,
+string-template fields and admin reports now use Bhojpuri while retaining shell
+commands, the value placeholder, space entities, IPv4 and IPv6. Whole-locale
+invariant coverage leaves 666 values.
 
 </details>
 
