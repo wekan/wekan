@@ -187,4 +187,34 @@ test.describe('Search', () => {
 
     await sp.clearFilters();
   });
+
+  test('#6629: Board Table view applies the active label filter', async ({ boardPage, board }) => {
+    const labelId = `lbl_${Date.now()}`;
+    const labelName = 'Table Filter Label';
+    db.updateOne('boards', { _id: board.boardId },
+      { $set: { labels: [{ _id: labelId, name: labelName, color: 'green' }] } });
+    db.updateMany('cards', { boardId: board.boardId }, { $set: { labelIds: [] } });
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { labelIds: [labelId] } });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    const sp = new SearchPage(boardPage);
+    await sp.openFilterSidebar();
+    await boardPage.locator('.js-toggle-label-filter')
+      .filter({ hasText: labelName }).first().click();
+
+    await boardPage.locator('.js-toggle-board-view').first().click();
+    await boardPage.locator('.pop-over .js-open-table-view').click();
+    await expect(boardPage.locator('.my-cards-board-table')).toBeVisible({
+      timeout: 10_000,
+    });
+    await expect(boardPage.locator('.my-cards-board-table tbody tr'))
+      .toHaveCount(1);
+    await expect(boardPage.locator('.my-cards-board-table tbody'))
+      .toContainText('Alpha Card');
+    await expect(boardPage.locator('.my-cards-board-table tbody'))
+      .not.toContainText('Beta Card');
+
+    await sp.clearFilters();
+  });
 });

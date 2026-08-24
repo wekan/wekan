@@ -1,5 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { Filter } from '/client/lib/filter';
+import { tableViewCardsSelector } from '/models/lib/tableViewFilter';
 
 // Board "Table" view: lists every card of the current board in a table that
 // reuses the My Cards table styling (the .my-cards-board-table CSS classes in
@@ -18,8 +20,8 @@ Template.tableView.onCreated(function () {
   this.filteredRows = new ReactiveVar([]);
 
   // Recompute the flat, filtered and sorted row list whenever the board cards,
-  // search query or sort order change. Pagination is applied separately in the
-  // rows() helper so paging does not rebuild the whole list.
+  // board Filter or search query changes. Pagination is applied separately in
+  // the rows() helper so paging does not rebuild the whole list.
   this.autorun(() => {
     const board = Utils.getCurrentBoard();
     if (!board) {
@@ -28,9 +30,16 @@ Template.tableView.onCreated(function () {
     }
 
     const query = this.searchQuery.get().trim().toLowerCase();
+    const filterSelector = Filter.isActive()
+      ? Filter._getMongoSelector()
+      : undefined;
+    const cards = ReactiveCache.getCards(
+      tableViewCardsSelector(board._id, filterSelector),
+      { sort: { title: 1 } },
+    );
 
     const rows = [];
-    board.cards().forEach(card => {
+    cards.forEach(card => {
       const swimlane = card.getSwimlane();
       const list = card.getList();
       if (!swimlane || swimlane.archived || !list || list.archived) return;
