@@ -234,9 +234,11 @@ percent-prefixed token inventory differed from the same English key. Restoring
 four Mongolian keys made that locale clean; **1,342 mismatched keys across 119
 locale files remained**. The next batch repaired every locale with exactly one
 mismatch: eleven keys across eleven files. **1,331 mismatched keys across 108
-locale files remain** for audited batches. The surrounding translation must be
-preserved or corrected into the locale language while every token is restored
-exactly from `en.i18n.json`.
+locale files remained**. The following tier repaired 34 counted mismatches and
+four Welsh HTML placeholder remnants across seventeen files. **1,297 mismatched
+keys across 91 locale files remain** for audited batches. The surrounding
+translation must be preserved or corrected into the locale language while
+every token is restored exactly from `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -429,8 +431,9 @@ locale to use its declared language and preserves placeholder tokens exactly.
 The first same-script repair replaces Russian archive, board, card, attachment,
 checklist, subtask, filter and label text in Mongolian, and restores its exact
 English placeholder tokens. Eleven additional locale files now have exact token
-inventories. Below that: focused regression coverage and native-speaker review
-notes for low-confidence direct translations.
+inventories, followed by seventeen files from the next tier. Below that:
+focused regression coverage and native-speaker review notes for low-confidence
+direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -482,6 +485,20 @@ coverage proves all eleven locale files are clean and rejects the malformed,
 missing and wrong-language forms. The direct Galician and Hungarian wording
 welcomes human review. Another 1,331 mismatched keys across 108 locale files
 remain for audited batches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3f4007e0">Seventeen locale files restore their remaining placeholder tokens</a>. Thanks to xet7.</summary>
+
+Welsh, Greek, Spanish, Basque, Finnish, Croatian and Slovenian variants now
+preserve exact named, printf and HTML placeholders. The repair covers 34 counted
+token mismatches plus four Welsh machine-placeholder remnants, removes a
+duplicated English sentence from Greek and replaces Catalan prose in Basque.
+Whole-file regression coverage proves all seventeen locale files are clean and
+rejects the corrupt or wrong-language forms. The direct Welsh, Basque, Finnish,
+Croatian and Slovenian wording welcomes human review. Another 1,297 mismatched
+keys across 91 locale files remain for audited batches.
 
 </details>
 
