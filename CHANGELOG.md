@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Thirty-eight Bashkir batches then translated 1,900
-values, leaving **193,093 genuinely untranslated values across 90 locale
-files**, including 266 in Bashkir.
+across 90 locale files**. Forty Bashkir batches then translated 2,000 values,
+leaving **192,993 genuinely untranslated values across 90 locale files**,
+including 166 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with thirty-eight 50-value batches covering activity history,
+Bashkir then begins with forty 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -550,7 +550,8 @@ diagnostics, legal notices, checklist actions and attachment storage follow.
 Attachment-location repair, MongoDB compaction, uploads, custom translations,
 support, accessibility, account lockouts, scheduled operations, cloud storage
 and database migration are translated too, followed by security controls,
-anonymization, backups and cloud-provider setup guidance.
+anonymization, backups, cloud-provider setup guidance, migration controls and
+board-integrity repair.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2355,6 +2356,26 @@ Backup scheduling/restoration and GCS, AWS S3, MinIO, Azure, Cloudflare R2,
 Backblaze B2, Wasabi and DigitalOcean Spaces setup guidance now use Bashkir
 while retaining console menu labels, JSON fields, key names, HH:MM and .csv.
 Whole-locale invariant coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a3aaed21">Bashkir migration controls gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS and S3 storage, migration start/pause/stop controls, scheduled board
+operations, writable paths and attachment/board migration settings now use
+Bashkir while retaining MongoDB, GridFS, CollectionFS, AWS, MinIO, SSL/TLS and
+region names. Whole-locale invariant coverage leaves 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b310f52e8">Bashkir board repair gains 50 values</a>. Thanks to xet7.</summary>
+
+Comprehensive board-integrity migration, duplicate-list deletion, lost/archive
+restoration, list/avatar/file repair, confirmations, progress and migration
+steps now use Bashkir while retaining swimlaneId, listId, URL and ID names.
+Whole-locale invariant coverage leaves 166 values.
 
 </details>
 
