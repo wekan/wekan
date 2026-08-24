@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'as'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1716);
+assert.equal(Object.keys(remaining).length, 1666);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const assamese = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/as.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -24,3 +24,4 @@ assert.match(assamese['act-addChecklistItem'], /__card__/);
 assert.match(assamese['act-addChecklistItem'], /__list__/);
 assert.match(assamese['act-addChecklistItem'], /__swimlane__/);
 assert.match(assamese['act-addChecklistItem'], /__board__/);
+assert.match(assamese['email-resetPassword-text'], /__user__,\n\n.*\n\n__url__\n\n/s);
