@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Sixteen Amharic batches
-translated 800 values, leaving **198,525 genuinely untranslated values across
-92 locale files**, including 1,366 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Eighteen Amharic batches
+translated 900 values, leaving **198,425 genuinely untranslated values across
+92 locale files**, including 1,266 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,10 +497,10 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with sixteen 50-value Amharic batches covering
+Whole-file work now begins with eighteen 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
-tracking and branding.
+tracking, branding, transfer limits, webhooks, diagnostics and tenancy.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1240,6 +1240,24 @@ leaves 1,416 values.
 Time tracking, uploads, custom branding, welcome templates and WIP warnings now
 use Amharic while retaining URL, API, WIP and numeric terms. Whole-locale
 invariant coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f4380a52">Amharic limits and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment limits, registration, SMTP, invitations, webhooks and runtime
+versions now use Amharic while retaining invitation placeholders and technical
+terms. Whole-locale invariant coverage leaves 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d96fcf16">Amharic diagnostics and tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Diagnostics, custom-field display, visibility, organizations and teams now use
+Amharic while retaining environment variables, protocols, hostnames and
+multitenancy syntax. Whole-locale invariant coverage leaves 1,266 values.
 
 </details>
 
