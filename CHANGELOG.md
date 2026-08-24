@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Twelve Amharic batches
-translated 600 values, leaving **198,725 genuinely untranslated values across
-92 locale files**, including 1,566 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Fourteen Amharic batches
+translated 700 values, leaving **198,625 genuinely untranslated values across
+92 locale files**, including 1,466 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,9 +497,9 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with twelve 50-value Amharic batches covering
+Whole-file work now begins with fourteen 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
-errors, exports, filters and imports.
+errors, exports, filters, imports, member mapping and multi-selection.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1203,6 +1203,24 @@ Whole-locale invariant coverage leaves 1,616 values.
 Advanced filters, activities and board-import instructions now use Amharic
 while preserving grammar, JSON terms, paths and placeholders. Focused syntax
 coverage leaves 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27cfa82d0">Amharic Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello API imports, member mapping, validation and labels now use Amharic while
+retaining the API URL, year example and percent placeholder. Whole-locale
+invariant coverage leaves 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/337592476">Amharic board actions and roles gain 50 values</a>. Thanks to xet7.</summary>
+
+Board departure, list and archive actions, selection tools, notifications and
+roles now use Amharic while retaining the board-title placeholder. Whole-locale
+invariant coverage leaves 1,466 values.
 
 </details>
 
