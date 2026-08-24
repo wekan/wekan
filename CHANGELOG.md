@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Thirty-eight 50-value Bhojpuri
-batches then translated 1,900 values, leaving **190,927 genuinely untranslated
-values across 89 locale files**, including 266 in Bhojpuri.
+16-value batch then translated all 2,166 values. Forty 50-value Bhojpuri batches
+then translated 2,000 values, leaving **190,827 genuinely untranslated values
+across 89 locale files**, including 166 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with thirty-eight 50-value batches covering board/card/list/
+Bhojpuri then begins with forty 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -588,6 +588,8 @@ Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
 storage and MongoDB/FerretDB/Sandstorm database migration follow.
 Sandstorm cleanup, card-loading/security/import/export/backup controls and cloud
 storage/backup configuration are translated too.
+GridFS/S3 migration controls, attachment monitoring and board-integrity
+migrations covering lists, lost cards, archives and avatar/file URLs follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -2842,6 +2844,26 @@ Scheduled backup restore plus GCS, AWS/S3, Azure, MinIO and compatible cloud
 storage setup now use Bhojpuri while retaining console paths, credential field
 names, JSON/CSV formats, time syntax, identifiers and product names.
 Whole-locale invariant coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0f1a3869">Bhojpuri migration controls gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS/S3 storage, migration controls and monitoring, scheduled board operations
+and attachment settings now use Bhojpuri while retaining MongoDB, GridFS,
+CollectionFS, AWS S3, MinIO, SSL/TLS, region examples and paths. Whole-locale
+invariant coverage leaves 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1525d0182">Bhojpuri board-integrity migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+Duplicate/absent lists, lost cards, archive restoration, avatar/file URLs,
+confirmations, progress and validation steps now use Bhojpuri while retaining
+swimlaneId, listId, IDs and URLs. Whole-locale invariant coverage leaves 166
+values.
 
 </details>
 
