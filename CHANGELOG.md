@@ -245,9 +245,13 @@ across eleven French, German and Hindi variants. **1,132 mismatched keys across
 48 locale files remained**. Breton, Walloon, Wolof and Klingon then received
 language-specific rewrites for their twenty mismatches inside wrongly seeded
 French or German prose. **1,112 mismatched keys across 44 locale files remain**
-for audited batches. The surrounding translation must be preserved or corrected
-into the locale language while every token is restored exactly from
-`en.i18n.json`.
+for audited batches. The coherent part of the six-mismatch tier then repaired
+60 logical locale values across ten Azerbaijani, Catalan and Russian tags (nine
+tracked data files plus the `ru-RU` symlink alias). **1,052 mismatched keys
+across 34 locale files remain**. Italian, Venda and Volapük still need their
+separate language-specific pass. The surrounding translation must be preserved
+or corrected into the locale language while every token is restored exactly
+from `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -445,8 +449,9 @@ eighteen more locale files now reject translated tokens and wrong-language
 carryovers, followed by fourteen files from the four-mismatch tier. Below that:
 eleven French, German and Hindi variants restore their search and activity
 tokens, and four wrongly seeded locales now use their declared languages in the
-repaired strings. Below that: focused regression coverage and native-speaker
-review notes for low-confidence direct translations.
+repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
+logical placeholder inventories. Below that: focused regression coverage and
+native-speaker review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -569,6 +574,20 @@ examples remain literals. Whole-file regression coverage proves all four files
 are clean and rejects the French and German seed wording. These direct
 translations have low confidence and welcome native-speaker review. Another
 1,112 mismatched keys across 44 locale files remain for audited batches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ce409f05">Ten Azerbaijani, Catalan and Russian tags restore exact placeholders</a>. Thanks to xet7.</summary>
+
+The coherent part of the six-mismatch tier restores 60 logical locale values
+across nine tracked data files and the `ru-RU` symlink alias. Azerbaijani
+activities retain every board location, Catalan search help restores its full
+predicate inventory, and Russian email subjects and errors use exact named and
+printf tokens. Whole-file regression coverage proves all ten tags are clean and
+rejects corrupted predicates, `%1` fragments and substituted URL tokens. The
+direct Azerbaijani wording welcomes human review. Another 1,052 mismatched keys
+across 34 locale files remain for audited batches.
 
 </details>
 
