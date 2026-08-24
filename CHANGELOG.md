@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Two 50-value Tibetan batches then translated 100
-values, leaving **186,229 genuinely untranslated values across 86 locale
-files**, including 2,066 in Tibetan.
+across 86 locale files**. Four 50-value Tibetan batches then translated 200
+values, leaving **186,129 genuinely untranslated values across 86 locale
+files**, including 1,966 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,8 +642,9 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with two 50-value batches covering board, card, checklist,
-comment and membership activity plus workspaces.
+Tibetan then begins with four 50-value batches covering board, card, checklist,
+comment and membership activity, workspaces, selection, layout, archives,
+membership and visibility controls.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -3885,6 +3886,26 @@ leaves 2,116 values.
 Card movement, membership, concise activity messages, checklist activity and
 workspace controls now use Tibetan. Named and positional placeholders remain
 exact, and whole-locale invariant coverage leaves 2,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c977c7b0">Tibetan board layout controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Workspace deletion, multi-board selection, Home boards, templates, list widths,
+keyboard shortcuts, swimlane heights and common card controls now use Tibetan.
+Positional placeholders remain exact, and whole-locale invariant coverage
+leaves 2,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9de5c5fd">Tibetan archives and board visibility gain 50 values</a>. Thanks to xet7.</summary>
+
+Administration announcements, public boards, archives, attachments, board
+appearance, member and assignee summaries and private-board guidance now use
+Tibetan. Named and positional placeholders and strong-emphasis tags remain
+exact, and whole-locale invariant coverage leaves 1,966 values.
 
 </details>
 
