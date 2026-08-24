@@ -242,11 +242,12 @@ mismatched keys across 73 locale files remained**. The following tier repaired
 56 mismatches across fourteen files. **1,187 mismatched keys across 59 locale
 files remained**. The coherent part of the five-mismatch tier repaired 55 keys
 across eleven French, German and Hindi variants. **1,132 mismatched keys across
-48 locale files remain** for audited batches. Breton, Walloon, Wolof and Klingon
-each still have five mismatches inside wrongly seeded French or German prose and
-need language-specific rewrites rather than token-only edits. The surrounding
-translation must be preserved or corrected into the locale language while every
-token is restored exactly from `en.i18n.json`.
+48 locale files remained**. Breton, Walloon, Wolof and Klingon then received
+language-specific rewrites for their twenty mismatches inside wrongly seeded
+French or German prose. **1,112 mismatched keys across 44 locale files remain**
+for audited batches. The surrounding translation must be preserved or corrected
+into the locale language while every token is restored exactly from
+`en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -443,8 +444,9 @@ inventories, followed by seventeen files from the next tier. Below that:
 eighteen more locale files now reject translated tokens and wrong-language
 carryovers, followed by fourteen files from the four-mismatch tier. Below that:
 eleven French, German and Hindi variants restore their search and activity
-tokens. Below that: focused regression coverage and native-speaker review notes
-for low-confidence direct translations.
+tokens, and four wrongly seeded locales now use their declared languages in the
+repaired strings. Below that: focused regression coverage and native-speaker
+review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -552,8 +554,21 @@ such as `user:<name>` and `has:-due` remain literals instead of becoming extra
 runtime placeholders. Whole-file regression coverage proves all eleven files
 are clean and rejects embedded spaces, incomplete named tokens and invented
 operator tokens. Another 1,132 mismatched keys across 48 locale files remain;
-the four wrongly seeded files from this tier need separate language-specific
-rewrites.
+the four wrongly seeded files from this tier are handled separately in the next
+entry.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63bbf2460">Four wrongly seeded locales restore exact tokens in their own languages</a>. Thanks to xet7.</summary>
+
+Breton, Walloon and Wolof no longer use copied French in the five affected
+activity and search strings, and Klingon no longer uses copied German. Their
+twenty mismatches now preserve the exact English token inventory while search
+examples remain literals. Whole-file regression coverage proves all four files
+are clean and rejects the French and German seed wording. These direct
+translations have low confidence and welcome native-speaker review. Another
+1,112 mismatched keys across 44 locale files remain for audited batches.
 
 </details>
 
