@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Six Assamese batches then translated 300 values, leaving **196,859 genuinely
-untranslated values across 91 locale files**, including 1,866 in Assamese.
+Eight Assamese batches then translated 400 values, leaving **196,759 genuinely
+untranslated values across 91 locale files**, including 1,766 in Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -507,9 +507,9 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with six 50-value batches covering activity history,
+Assamese then begins with eight 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
-voting and dialogs.
+voting, dialogs, member mapping, typography, navigation and colors.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1565,6 +1565,24 @@ invariant coverage leaves 1,916 values.
 Card membership, voting, Planning Poker, dependencies and administration,
 domain, import and export dialogs now use Assamese. Whole-locale invariant
 coverage leaves 1,866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/265675c1c">Assamese members and typography gain 50 values</a>. Thanks to xet7.</summary>
+
+Member and dialog titles, imported-member mapping, themes, fonts, colors,
+avatars, language and permissions now use Assamese while retaining CAS and
+numeric preview content. Whole-locale invariant coverage leaves 1,816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b9a7b6a8">Assamese navigation and colors gain 50 values</a>. Thanks to xet7.</summary>
+
+Starring, automatic list widths, clipboard and card-aging controls, movement,
+navigation dialogs and the first color vocabulary set now use Assamese.
+Whole-locale invariant coverage leaves 1,766 values.
 
 </details>
 
