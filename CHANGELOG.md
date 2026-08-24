@@ -302,9 +302,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Twenty-six 50-value Tibetan batches then translated
-1,300 values, leaving **185,029 genuinely untranslated values across 86 locale
-files**, including 866 in Tibetan.
+across 86 locale files**. Twenty-eight 50-value Tibetan batches then translated
+1,400 values, leaving **184,929 genuinely untranslated values across 86 locale
+files**, including 766 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -642,7 +642,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with twenty-six 50-value batches covering board, card,
+Tibetan then begins with twenty-eight 50-value batches covering board, card,
 checklist,
 comment and membership activity, workspaces, selection, layout, archives,
 membership, visibility, board views, voting, dependencies and import controls.
@@ -668,6 +668,8 @@ Further rule actions, authentication/custom-head settings, duplication,
 destructive actions, activity reminders, mentions and layout controls follow.
 Multi-window/editor behavior, notifications, board-role controls, weekdays,
 linked-card guards, domains/templates, My/Due Cards and global search follow.
+Global-search result counts, operator/predicate labels, validation messages and
+the full syntax/help documentation follow too.
 Bengali then begins with forty-three 50-value batches and a final 16-value batch
 covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
@@ -4157,6 +4159,27 @@ Checklist visibility, tasks, domains, shared templates, My Cards, Due Cards,
 global search and missing-item errors now use Tibetan. Domain examples,
 emphasis markers and positional placeholders remain exact, and whole-locale
 invariant coverage leaves 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b4836376">Tibetan global-search vocabulary gains 50 values</a>. Thanks to xet7.</summary>
+
+Missing-result messages, paginated result counts and the complete set of
+global-search operator and predicate labels now use Tibetan. Positional and
+named range placeholders remain exact, and whole-locale invariant coverage
+leaves 816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/49c7d6827">Tibetan global-search help gains 50 values</a>. Thanks to xet7.</summary>
+
+Operator validation, pagination, search syntax, every operator explanation,
+status and field predicates, sorting and limit guidance and query-composition
+notes now use Tibetan. Backticked examples, emphasis, angle-bracket
+metavariables and named and positional placeholders remain exact, and
+whole-locale invariant coverage leaves 766 values.
 
 </details>
 
