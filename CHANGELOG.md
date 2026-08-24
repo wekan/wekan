@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Ten Amharic batches
-translated 500 values, leaving **198,825 genuinely untranslated values across
-92 locale files**, including 1,666 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Twelve Amharic batches
+translated 600 values, leaving **198,725 genuinely untranslated values across
+92 locale files**, including 1,566 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,8 +497,9 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with ten 50-value Amharic batches covering activity,
-boards, cards, members, navigation, roles, custom fields, email and errors.
+Whole-file work now begins with twelve 50-value Amharic batches covering
+activity, boards, cards, members, navigation, roles, custom fields, email,
+errors, exports, filters and imports.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1185,6 +1186,23 @@ Amharic. Percent-token coverage now protects every letter-style placeholder;
 
 Profile, email-template, WIP and error values now use Amharic while retaining
 every message placeholder. Whole-locale invariant coverage leaves 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68b20172f">Amharic card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+User errors, card exports, sorting and initial filters now use Amharic.
+Whole-locale invariant coverage leaves 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e052624b">Amharic advanced filters and imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced filters, activities and board-import instructions now use Amharic
+while preserving grammar, JSON terms, paths and placeholders. Focused syntax
+coverage leaves 1,566 values.
 
 </details>
 
