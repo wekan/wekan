@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Eight Bashkir batches then translated 400 values,
-leaving **194,593 genuinely untranslated values across 90 locale files**,
-including 1,766 in Bashkir.
+across 90 locale files**. Ten Bashkir batches then translated 500 values,
+leaving **194,493 genuinely untranslated values across 90 locale files**,
+including 1,666 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,11 +527,12 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with eight 50-value batches covering activity history,
+Bashkir then begins with ten 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
-member mapping, appearance, navigation, card aging and colors.
+member mapping, appearance, navigation, card aging, colors, roles, custom
+fields, account emails, WIP limits and validation errors.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2034,6 +2035,25 @@ coverage leaves 1,816 values.
 Starred boards/pages, automatic list width, clipboard input, card aging,
 movement/dialog accessibility and twenty-two color names now use Bashkir.
 Whole-locale invariant coverage leaves 1,766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de74b644d">Bashkir roles and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+
+Board role restrictions, deletion confirmations, clipboard links, JSON card
+templates and custom-field types/options now use Bashkir while retaining JSON
+structure. Whole-locale invariant coverage leaves 1,716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4dfa3b32">Bashkir account email and errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom-field dialogs, permanent deletion, profiles, dates, account emails,
+WIP limits and board/import errors now use Bashkir while retaining email
+paragraph structure, named tokens and JSON/CSV/TSV terms. Whole-locale
+invariant coverage leaves 1,666 values.
 
 </details>
 
