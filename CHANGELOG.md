@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Twenty-six Assamese batches then translated 1,300 values, leaving **195,859
-genuinely untranslated values across 91 locale files**, including 866 in
+Twenty-eight Assamese batches then translated 1,400 values, leaving **195,759
+genuinely untranslated values across 91 locale files**, including 766 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,14 +508,15 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with twenty-six 50-value batches covering activity history,
+Assamese then begins with twenty-eight 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
 roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics,
 tenancy, card/subtask settings, scheduled automation, rule-builder phrases,
 custom web metadata, layout controls, activity reminders, account cleanup,
-role permissions, weekdays, domains, shared templates and card search views.
+role permissions, weekdays, domains, shared templates, card search views,
+operators, predicates and advanced-search instructions.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1766,6 +1767,25 @@ Assamese. Whole-locale invariant coverage leaves 916 values.
 Domains, shared templates, My Cards, Due Cards and global search now use
 Assamese while retaining example.com, emphasis markers and positional percent
 arguments. Whole-locale invariant coverage leaves 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b53c5fdc">Assamese search syntax gains 50 values</a>. Thanks to xet7.</summary>
+
+Search result counts, operators and predicates now use Assamese while
+retaining positional and range placeholders. Whole-locale invariant coverage
+leaves 816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b010bf75c">Assamese search help gains 50 values</a>. Thanks to xet7.</summary>
+
+Advanced-search validation, paging, operator instructions and combination
+notes now use Assamese while retaining every code fragment, markup marker,
+named operator token and positional argument. Whole-locale invariant coverage
+leaves 766 values.
 
 </details>
 
