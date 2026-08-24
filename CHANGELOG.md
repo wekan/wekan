@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Ten 50-value
-Bambara batches then translated 500 values, leaving **190,161 genuinely
-untranslated values across 88 locale files**, including 1,666 in Bambara.
+**190,661 genuinely untranslated values across 88 locale files**. Twelve
+50-value Bambara batches then translated 600 values, leaving **190,061 genuinely
+untranslated values across 88 locale files**, including 1,566 in Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -596,12 +596,14 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with ten 50-value batches covering board/card/list/swimlane
+Bambara then begins with twelve 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
 member mapping, themes, fonts, card aging, navigation, color names, roles,
 clipboard actions, custom fields, emails and import/error messages.
+Card export, list sorting, filters, advanced-filter syntax and board-import
+instructions follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3014,6 +3016,25 @@ Account enrollment, invitation, password-reset and verification emails now use
 Bambara, along with WIP controls and board, JSON, CSV, import and linked-card
 errors. Every email placeholder remains exact, and invariant coverage leaves
 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aff357749">Bambara card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account-name conflicts, PDF and Excel card exports, attachment metadata, list
+sorting and date, label and member filters now use Bambara. Whole-locale
+invariant coverage leaves 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e2632fc1">Bambara advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced-filter help and Kanboard, Deck, OpenProject, issue, Asana, ZenKit,
+Trello, CSV, Jira, Excel and WeKan imports now use Bambara. Operators, regex,
+escapes, JSON fields, API paths and named placeholders remain exact, and
+invariant coverage leaves 1,566 values.
 
 </details>
 
