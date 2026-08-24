@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Forty Bashkir batches then translated 2,000 values,
-leaving **192,993 genuinely untranslated values across 90 locale files**,
-including 166 in Bashkir.
+across 90 locale files**. Forty-two Bashkir batches then translated 2,100
+values, leaving **192,893 genuinely untranslated values across 90 locale
+files**, including 66 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with forty 50-value batches covering activity history,
+Bashkir then begins with forty-two 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -551,7 +551,7 @@ Attachment-location repair, MongoDB compaction, uploads, custom translations,
 support, accessibility, account lockouts, scheduled operations, cloud storage
 and database migration are translated too, followed by security controls,
 anonymization, backups, cloud-provider setup guidance, migration controls and
-board-integrity repair.
+board-integrity repair, conversion monitoring and migration tuning.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2376,6 +2376,26 @@ Comprehensive board-integrity migration, duplicate-list deletion, lost/archive
 restoration, list/avatar/file repair, confirmations, progress and migration
 steps now use Bashkir while retaining swimlaneId, listId, URL and ID names.
 Whole-locale invariant coverage leaves 166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4173a30cc">Bashkir conversion monitoring gains 50 values</a>. Thanks to xet7.</summary>
+
+Board-repair steps, conversion status, CPU/memory/filesystem/GridFS monitoring,
+scheduled frequencies, job queues and export monitoring now use Bashkir while
+retaining CPU, GridFS, URL and ID names. Whole-locale invariant coverage leaves
+116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97db47bb1">Bashkir migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
+
+Bulk storage migration, batch/CPU/delay tuning, background migration guidance,
+monitoring refresh/export, schedules, operation progress and system-resource
+totals now use Bashkir while retaining GridFS, S3, CPU, percentages and units.
+Whole-locale invariant coverage leaves 66 values.
 
 </details>
 
