@@ -261,9 +261,12 @@ seven-mismatch tier, leaving **486 mismatched keys across 22 locale files**.
 Latvian, Norwegian Bokmål, Occitan and Hong Kong Chinese then repaired 37 more
 values, leaving **449 mismatched keys across 18 locale files**. Ten Afrikaans,
 Romanian and Chinese family files then restored 145 values, leaving **304
-mismatched keys across eight locale files**. The surrounding translation must be
-preserved or corrected into the locale language while every token is restored
-exactly from
+mismatched keys across eight locale files**. Ukrainian, Estonian, Arabic-family
+and Tamazight repairs completed the final 304 values. **The repository-wide
+placeholder mismatch count is now zero.** The separate direct-fill report, now
+excluding invariant values that require no translation, has **202,628 genuinely
+untranslated values across 210 locale files**. Continue filling those English
+values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -677,6 +680,53 @@ reuse only asserted placeholder-clean sibling translations. Family-wide and
 focused negative coverage proves every file clean and rejects translated or
 wrong-language identifiers. Another 304 mismatches across eight locale files
 remain; direct translations welcome native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/baafa9872">Both Ukrainian variants restore their search placeholders</a>. Thanks to xet7.</summary>
+
+Sixty-eight values restore exact activity arities plus every operator and
+predicate in Ukrainian search help. Whole-file and focused coverage proves both
+variants clean. Direct wording welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e15e3d88">Estonian restores every translated identifier</a>. Thanks to xet7.</summary>
+
+Thirty-five activity, email, due-date, range and search values restore their
+named and printf inventories. Whole-file negative coverage rejects translated
+identifiers. Direct wording welcomes native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f800c6b73">Four Arabic-family files restore every placeholder</a>. Thanks to xet7.</summary>
+
+Arabic, Algerian Arabic, Egyptian Arabic and Moroccan Arabic restore 160
+activity and email inventories. Script and identifier regressions cover every
+file. Moroccan Arabic wording has low dialect confidence and welcomes review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/70bac688e">Tamazight completes the placeholder repair backlog</a>. Thanks to xet7.</summary>
+
+The final 41 mismatches now use Latin-script Tamazight prose instead of mixed
+Arabic and French seed text. Whole-file coverage proves the repository-wide
+placeholder mismatch count is zero. These translations have low confidence and
+welcome native-speaker review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/269404954">Fill reports exclude values that intentionally stay invariant</a>. Thanks to xet7.</summary>
+
+Numbers, symbols, empty values, placeholder-only formats, product names and
+storage backends no longer appear as impossible translation work. Real sentences
+containing placeholders remain listed. The corrected direct-fill backlog is
+202,628 values across 210 locales, with CLI regression coverage.
 
 </details>
 
