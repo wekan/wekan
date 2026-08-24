@@ -248,10 +248,12 @@ French or German prose. **1,112 mismatched keys across 44 locale files remain**
 for audited batches. The coherent part of the six-mismatch tier then repaired
 60 logical locale values across ten Azerbaijani, Catalan and Russian tags (nine
 tracked data files plus the `ru-RU` symlink alias). **1,052 mismatched keys
-across 34 locale files remain**. Italian, Venda and Volapük still need their
-separate language-specific pass. The surrounding translation must be preserved
-or corrected into the locale language while every token is restored exactly
-from `en.i18n.json`.
+across 34 locale files remained**. Italian, Venda and Volapük then completed the
+tier with eighteen more repairs, including language-specific rewrites of the
+wrongly seeded Venda and Volapük prose. **1,034 mismatched keys across 31 locale
+files remain**. The surrounding translation must be preserved or corrected into
+the locale language while every token is restored exactly from
+`en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -451,7 +453,8 @@ eleven French, German and Hindi variants restore their search and activity
 tokens, and four wrongly seeded locales now use their declared languages in the
 repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
 logical placeholder inventories. Below that: focused regression coverage and
-native-speaker review notes for low-confidence direct translations.
+Italian, Venda and Volapük complete that tier. Below that: focused regression
+coverage and native-speaker review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -588,6 +591,19 @@ printf tokens. Whole-file regression coverage proves all ten tags are clean and
 rejects corrupted predicates, `%1` fragments and substituted URL tokens. The
 direct Azerbaijani wording welcomes human review. Another 1,052 mismatched keys
 across 34 locale files remain for audited batches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09444981d">Italian, Venda and Volapük complete the six-mismatch tier</a>. Thanks to xet7.</summary>
+
+Italian restores its six activity placeholders, while Venda and Volapük replace
+wrong-language seed prose as they restore the same exact token inventories.
+Whole-file regression coverage proves all three files are clean, checks every
+due-time value and rejects the Italian, Esperanto and French seed wording. The
+direct Venda and Volapük translations have low confidence and welcome
+native-speaker review. Another 1,034 mismatched keys across 31 locale files
+remain for audited batches.
 
 </details>
 
