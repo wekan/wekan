@@ -290,7 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Continue filling those English
+queue now consists of whole-file-sized locale fills. The first Amharic batch
+translated 50 values, leaving **199,275 genuinely untranslated values across 92
+locale files**, including 2,116 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -1099,6 +1101,15 @@ English loanword placeholders, with zero-backlog and sibling coverage.
 
 Seventy-three values now use verified Dutch terminology plus regional Flemish
 board and admin wording, with zero-backlog coverage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c37a15bac">Amharic begins its whole-file direct translation</a>. Thanks to xet7.</summary>
+
+The first 50 activity and board-history values now use Amharic. Progress,
+Ethiopic-script and whole-locale placeholder coverage verifies the batch; 2,116
+values remain. The translations have mixed confidence and welcome review.
 
 </details>
 
