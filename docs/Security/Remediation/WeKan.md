@@ -196,7 +196,8 @@ one table (`server/lib/securityCategories.js`).
 | --- | --- | --- |
 | `ssrf` | RedirectBleed, LiveBleed, DnsBleed, ProxyBleed, IntegrationBleed | `ssrfGuard.fetchSafe`, `validateAttachmentUrl`, `localizeAvatar`, `trelloApiImport`, outgoing webhooks |
 | `xss` | SourceBleed, InputBleed, MimeBleed, ReactionBleed | activity `sourceLink` scheme check, import sanitizers, upload MIME validation |
-| `authz` (broken access control) | ImpersonateBleed, SortBleed, BoardBleed, ChecklistBleed, ExcelBleed, BFLABleed, CloneBleed, ReadOnlyBleed | export `canExport`, collection `allow`/`deny` rules, REST board/card guards |
+| `authz` (broken access control) | ImpersonateBleed, SortBleed, BoardBleed, ChecklistBleed, ExcelBleed, BFLABleed, CloneBleed, ReadOnlyBleed, PositionHistoryBleed | export `canExport`, collection `allow`/`deny` rules, REST board/card guards, undo history |
+| `authn` | MiniProfileBleed, CasBleed | logged-out publications, external-login account linking |
 | `auth-race` | CasBleed, (OidcBleed) | CAS/OIDC login handlers |
 | `spoofing` | MetricsBleed, ProxyBleed | `/metrics` XFF handling, trusted-proxy parsing |
 | `weak-random` / `brute-force` | InviteBleed, RandomBleed, BruteBleed | invitation code CSPRNG, `DDPRateLimiter` on `createUser`/login |
@@ -223,11 +224,18 @@ already the block/sanitize; the logging is the new part. Representative wiring:
 | `models/server/metrics.js` | ignore forged XFF unless METRICS_TRUST_PROXY | `spoofing` / MetricsBleed |
 | `models/export*.js` | require real `canExport` (no impersonation bypass) | `authz` / ImpersonateBleed |
 | `packages/wekan-accounts-cas/cas_server.js` | per-token user data | `auth-race` / CasBleed |
+| `packages/wekan-accounts-cas/cas_server.js` | refuse implicit linking to an existing non-CAS account | `authn` / CasBleed |
+| `server/publications/users.js` | refuse logged-out mini-profile subscriptions | `authn` / MiniProfileBleed |
+| `server/permissions/userPositionHistory.js` + undo model | refuse forged or cross-board history | `authz` / PositionHistoryBleed |
 | `server/models/settings.js` + `users.js` | CSPRNG invite code + `DDPRateLimiter` | `weak-random`/`brute-force` / InviteBleed |
 | `models/fileValidation.js` | MIME sniff + `shellQuote` scanner | `xss`·`injection` / MimeBleed·ScannerBleed |
 | collection `allow`/`deny` (`server/permissions/*`) | field-scoped authorization | `authz` / BoardBleed·SortBleed·ChecklistBleed |
 
 New guards discovered during the audit are added to this table and to the tests (§9).
+
+UserSearchBleed and SubtaskExportBleed deliberately have no Problems event. Those fixes
+change the safe result of otherwise legitimate search and export requests; no denied
+permission boundary identifies an attack, so logging them would record ordinary use.
 
 ### 7a. Attachment & avatar upload remediation (explicit)
 

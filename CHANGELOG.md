@@ -774,7 +774,11 @@ Both publications now require authentication; the general search returns only
 public identity fields. User-controlled search text is escaped before becoming
 a regular expression, and both DDP search paths are rate-limited. Regression
 coverage pins the positive identity projection and the negative sensitive-field
-and raw-pattern cases.
+and raw-pattern cases. The logged-out mini-profile denial is summarized as
+MiniProfileBleed in Admin Panel → Problems with its source address. UserSearchBleed
+has no runtime event because its fixes change what legitimate search responses
+carry and how ordinary punctuation is interpreted; logging those calls would
+record normal use.
 
 </details>
 
@@ -786,8 +790,11 @@ and raw-pattern cases.
 [PositionHistoryBleed](https://wekan.fi/hall-of-fame/positionhistorybleed/)
 trusted a client-created history entry's previous board. Inserts now require
 membership on both named boards, the undo method rechecks the history board,
-and the model rechecks destination membership immediately before moving a card.
-The test covers allowed same-board history and rejected cross-board data.
+the model rechecks destination membership immediately before moving a card, and
+clients cannot rewrite trusted history after insertion. The test covers allowed
+same-board history and rejected cross-board data. Denied inserts, rewrites and
+undo moves are summarized as PositionHistoryBleed in Admin Panel → Problems with
+the account and source address.
 
 </details>
 
@@ -801,7 +808,8 @@ allowed a card from a private board to appear in another board's JSON, ZIP,
 Excel or PDF export when its parent identifier named a card there. All six
 subtask query paths now include the exporting board identifier. Regression
 coverage checks every board and card export implementation and rejects the old
-parent-only selectors.
+parent-only selectors. There is no runtime event because the fix changes the
+contents of a legitimate export instead of denying an attributable attack.
 
 </details>
 
@@ -815,7 +823,8 @@ username to receive the session of an existing password or other non-CAS
 account with the same name. New CAS users are marked with their authentication
 method; a conflicting account is rejected unless the administrator explicitly
 sets `CAS_MERGE_EXISTING_USERS=true`. Positive CAS reuse and negative implicit
-linking are pinned by regression coverage.
+linking are pinned by regression coverage. Refused implicit links are summarized
+as CasBleed in Admin Panel → Problems.
 
 </details>
 

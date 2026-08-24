@@ -2,6 +2,7 @@ import Users from '/models/users';
 import { ReactiveCache } from '/imports/reactiveCache';
 import escapeForRegex from 'escape-string-regexp';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { tripCanary } from '/server/lib/canary';
 
 DDPRateLimiter.addRule(
   { type: 'subscription', name: 'user-search' },
@@ -13,6 +14,9 @@ Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
 
   if (!this.userId) {
+    tripCanary('user.miniprofile-without-login', {
+      ip: this.connection && this.connection.clientAddress,
+    });
     return this.ready();
   }
 

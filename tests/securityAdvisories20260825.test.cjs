@@ -32,6 +32,7 @@ test('user-miniprofile rejects logged-out subscriptions', () => {
     /Meteor\.publish\('user-miniprofile',[\s\S]*?\n\}\);/,
   )[0];
   assert.ok(/if \(!this\.userId\)[\s\S]*?this\.ready\(\)/.test(body));
+  assert.ok(/tripCanary\('user\.miniprofile-without-login'/.test(body));
 });
 
 test('user-search treats metacharacters literally and returns public identity only', () => {
@@ -62,12 +63,17 @@ test('history insertion requires membership on current and previous boards', () 
   assert.ok(/async insert\(userId, doc\)/.test(historyPermission));
   assert.ok(/findOneAsync\(doc\.boardId\)/.test(historyPermission));
   assert.ok(/previousBoard\.hasMember\(userId\)/.test(historyPermission));
+  assert.ok(/tripCanary\('history\.cross-board'/.test(historyPermission));
+  assert.ok(/update\(userId\)[\s\S]*?return tripCanary\('history\.cross-board'/.test(
+    historyPermission,
+  ));
 });
 
 test('history undo rechecks source visibility and destination membership', () => {
   assert.ok(/requireBoardVisible\(this\.userId, history\.boardId\)/.test(historyMethods));
   assert.ok(/destinationBoard\.hasMember\(userId\)/.test(historyModel));
   assert.ok(/throw new Meteor\.Error\([\s\S]*?'not-authorized'/.test(historyModel));
+  assert.ok(/tripCanary\([\s\S]*?'history\.cross-board'/.test(historyModel));
 });
 
 test('every subtask export query carries its board boundary', () => {
@@ -98,6 +104,7 @@ test('CAS refuses implicit linking and marks newly created CAS accounts', () => 
   assert.ok(/user\.authenticationMethod === 'cas'/.test(cas));
   assert.ok(/CAS_MERGE_EXISTING_USERS/.test(cas));
   assert.ok(/'cas-account-conflict'/.test(cas));
+  assert.ok(/tripCanary\('cas\.account-conflict'/.test(cas));
 });
 
 console.log('\nsecurityAdvisories20260825: all ' + passed + ' tests passed');

@@ -1,20 +1,28 @@
 import UserPositionHistory from '/models/userPositionHistory';
 import Boards from '/models/boards';
+import { tripCanary } from '/server/lib/canary';
 
 UserPositionHistory.allow({
   async insert(userId, doc) {
-    if (!userId || doc.userId !== userId) return false;
+    if (!userId || doc.userId !== userId) {
+      return tripCanary('history.cross-board', { userId });
+    }
     const board = await Boards.findOneAsync(doc.boardId);
-    if (!board || !board.hasMember(userId)) return false;
+    if (!board || !board.hasMember(userId)) {
+      return tripCanary('history.cross-board', { userId });
+    }
     if (doc.previousBoardId) {
       const previousBoard = await Boards.findOneAsync(doc.previousBoardId);
-      if (!previousBoard || !previousBoard.hasMember(userId)) return false;
+      if (!previousBoard || !previousBoard.hasMember(userId)) {
+        return tripCanary('history.cross-board', { userId });
+      }
     }
     return true;
   },
-  update(userId, doc) {
-    // Only allow users to update their own history (for checkpoints)
-    return userId && doc.userId === userId;
+  update(userId) {
+    // Server-side checkpoint updates bypass allow rules. A client must never be
+    // able to rewrite a trusted undo destination after insert validation.
+    return tripCanary('history.cross-board', { userId });
   },
   remove() {
     // Don't allow removal - history is permanent

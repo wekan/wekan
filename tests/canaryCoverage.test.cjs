@@ -39,6 +39,9 @@ const WIRED = [
   ['card.invisible-parent',            'server/permissions/cards.js',                 'ParentBleed'],
   ['card.vote-field',                  'server/permissions/cards.js',                 '-'],
   ['card.poker-field',                 'server/permissions/cards.js',                 '-'],
+  ['user.miniprofile-without-login',  'server/publications/users.js',                'MiniProfileBleed'],
+  ['history.cross-board',              'server/permissions/userPositionHistory.js',   'PositionHistoryBleed'],
+  ['cas.account-conflict',             'packages/wekan-accounts-cas/cas_server.js',    'CasBleed'],
   ['list.cross-board-move',            'server/permissions/lists.js',                 'BoardBleed'],
   ['swimlane.cross-board-move',        'server/permissions/swimlanes.js',             'BoardBleed'],
   ['checklist.cross-board-move',       'server/permissions/checklists.js',            'ChecklistBleed'],
@@ -121,7 +124,8 @@ test('the attempts behind published vulnerabilities are watched', () => {
   // permission check should trip something.
   const watched = new Set(WIRED.map(w => w[2]).filter(b => b !== '-'));
   ['BoardBleed', 'ChecklistBleed', 'PathBleed', 'ParentBleed', 'CommentBleed',
-    'CalendarBleed', 'AssignedBleed', 'TenantBleed'].forEach(bleed => {
+    'CalendarBleed', 'AssignedBleed', 'TenantBleed', 'MiniProfileBleed',
+    'PositionHistoryBleed', 'CasBleed'].forEach(bleed => {
     assert.ok(watched.has(bleed), `${bleed}'s attempt has no canary`);
   });
 });

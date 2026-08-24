@@ -49,6 +49,11 @@ const DELIBERATE = {
   RouteBleed: 'the incomplete regular-expression escaping existed only in a source-reading '
     + 'test over its own hardcoded route table; no application request reaches it, so there '
     + 'is no runtime attempt to deny, attribute or record (CodeQL alert #434)',
+  UserSearchBleed: 'the fix makes search punctuation literal and removes sensitive fields from '
+    + 'the response; legitimate searches reach the same path, so there is no denied attack-only '
+    + 'event to attribute without logging ordinary use',
+  SubtaskExportBleed: 'the fix scopes internal export queries and changes only what a legitimate '
+    + 'export response carries; no request is denied, so logging exports would record ordinary use',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.

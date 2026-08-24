@@ -119,6 +119,18 @@ const CANARIES = {
     key: 'authz.board',
     what: 'tried to write a poker field directly instead of through the method',
   },
+  'user.miniprofile-without-login': {
+    key: 'authn.miniprofile',
+    what: 'tried to enumerate user mini-profiles without logging in',
+  },
+  'history.cross-board': {
+    key: 'authz.position-history',
+    what: 'tried to use position history across a board membership boundary',
+  },
+  'cas.account-conflict': {
+    key: 'authn.cas-link',
+    what: 'tried to link a CAS identity to an existing non-CAS account without consent',
+  },
   'database.canary': {
     key: 'authz.database',
     what: 'the database refused an operation that WeKan never issues',
