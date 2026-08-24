@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Thirty-six Bashkir batches then translated 1,800
-values, leaving **193,193 genuinely untranslated values across 90 locale
-files**, including 366 in Bashkir.
+across 90 locale files**. Thirty-eight Bashkir batches then translated 1,900
+values, leaving **193,093 genuinely untranslated values across 90 locale
+files**, including 266 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,7 +527,7 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with thirty-six 50-value batches covering activity history,
+Bashkir then begins with thirty-eight 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
@@ -549,7 +549,8 @@ Recovery, wait indicators, tickets, team/organization administration, Node heap
 diagnostics, legal notices, checklist actions and attachment storage follow.
 Attachment-location repair, MongoDB compaction, uploads, custom translations,
 support, accessibility, account lockouts, scheduled operations, cloud storage
-and database migration are translated too.
+and database migration are translated too, followed by security controls,
+anonymization, backups and cloud-provider setup guidance.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2333,6 +2334,27 @@ FerretDB text-data migration and Sandstorm grain migration now use Bashkir
 while retaining URLs, environment variables, commands, database/version names,
 paths and the database token. Whole-locale invariant coverage leaves 366
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d50461797">Bashkir security controls and backups gain 50 values</a>. Thanks to xet7.</summary>
+
+Sandstorm cleanup, card-loading modes, plain-text security rendering,
+import/export/avatar/activity/watch controls, user anonymization and instance/
+organization backups now use Bashkir while retaining markup examples,
+environment variables, integration names, usernames and backup paths.
+Whole-locale invariant coverage leaves 316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9225018cc">Bashkir cloud backup setup gains 50 values</a>. Thanks to xet7.</summary>
+
+Backup scheduling/restoration and GCS, AWS S3, MinIO, Azure, Cloudflare R2,
+Backblaze B2, Wasabi and DigitalOcean Spaces setup guidance now use Bashkir
+while retaining console menu labels, JSON fields, key names, HH:MM and .csv.
+Whole-locale invariant coverage leaves 266 values.
 
 </details>
 
