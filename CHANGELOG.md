@@ -220,9 +220,9 @@ not language consistency; `hi`, `ta`, `th` and `el` were written by looking the
 words up rather than by native speakers, so a review remains welcome.
 
 **Same-script repair is now in progress.** Comparing Mongolian with Russian
-found **1,174 exact Cyrillic matches**. The first archive, template and board-view
-batch replaced **28 Russian values** with Mongolian and retained `Архив` as a
-valid shared loanword. **1,146 exact-match candidates remain to audit** in
+found **1,174 exact Cyrillic matches**. The archive/board and card-control
+batches replaced **71 Russian values** with Mongolian and retained `Архив` as a
+valid shared loanword. **1,103 exact-match candidates remain to audit** in
 coherent UI batches; equality is evidence of copying, but shared loanwords must
 be reviewed rather than blindly replaced. A Transifex translation in the
 correct language replaces a direct repair permanently.
@@ -415,8 +415,9 @@ browser build to verify).
 **In short:** **translation coverage** now extends the Office and REST API
 reports across nine more language files, and the translation policy now requires
 every locale to use its declared language. The first same-script repair replaces
-Russian archive and board controls in Mongolian. Below that: focused regression
-coverage and native-speaker review notes for low-confidence direct translations.
+Russian archive, board and card controls in Mongolian. Below that: focused
+regression coverage and native-speaker review notes for low-confidence direct
+translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -478,6 +479,18 @@ now use Mongolian vocabulary. The shared `Архив` loanword remains valid.
 Regression coverage compares the repaired values directly with Russian, checks
 established Mongolian board terms and rejects common Russian UI words. Another
 1,146 exact-match candidates remain for later audited batches. This direct
+repair has low confidence and welcomes review by Mongolian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acc164e40">Mongolian card controls no longer use Russian</a>. Thanks to xet7.</summary>
+
+Forty-three exact Russian copies across card guidance, dates, editing controls,
+voting, templates, sorting and popup titles now use Mongolian. Regression
+coverage compares every repaired key with Russian, preserves placeholders and
+established card vocabulary, and rejects common Russian card terms. Another
+1,103 exact-match candidates remain for later audited batches. This direct
 repair has low confidence and welcomes review by Mongolian speakers.
 
 </details>
