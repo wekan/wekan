@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Five Amharic batches
-translated 250 values, leaving **199,075 genuinely untranslated values across
-92 locale files**, including 1,916 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Seven Amharic batches
+translated 350 values, leaving **198,975 genuinely untranslated values across
+92 locale files**, including 1,816 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -1142,6 +1142,22 @@ Whole-locale coverage now also preserves HTML tags; 1,966 values remain.
 
 Visibility, display-mode, archive and card-editing values now use Amharic.
 Placeholder, markup and Ethiopic-script coverage leaves 1,916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b70b264d9">Amharic voting and import controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Membership, voting, Planning Poker, dependency and import values now use
+Amharic. Whole-locale invariant coverage leaves 1,866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a7965ef9">Amharic member and typography controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Popups, imported-member mapping, themes and typography now use Amharic.
+Placeholder, markup and Ethiopic-script coverage leaves 1,816 values.
 
 </details>
 
