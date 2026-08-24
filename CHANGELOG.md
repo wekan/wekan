@@ -257,9 +257,11 @@ Igbo and Yoruba clean and reducing the counted backlog to **546 mismatched keys
 across 29 locale files**. The remaining 32 Odia, Turkmen and Uyghur values then
 completed those three locales, leaving **514 mismatched keys across 26 locale
 files**. Acehnese, Indonesian, Turkish and Traditional Chinese then completed the
-seven-mismatch tier, leaving **486 mismatched keys across 22 locale files**. The
-surrounding translation must be preserved or corrected into the locale language
-while every token is restored exactly from
+seven-mismatch tier, leaving **486 mismatched keys across 22 locale files**.
+Latvian, Norwegian Bokmål, Occitan and Hong Kong Chinese then repaired 37 more
+values, leaving **449 mismatched keys across 18 locale files**. The surrounding
+translation must be preserved or corrected into the locale language while every
+token is restored exactly from
 `en.i18n.json`.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -648,7 +650,19 @@ printf inventories. Acehnese replaces Indonesian seed wording with its existing
 `kad`, `senarai` and `papan` terminology; focused negative tests also reject
 case-damaged Turkish tokens and translated Chinese token names. All four files
 are clean. The direct Acehnese prose has low confidence and welcomes
-native-speaker review. Another 486 mismatches across 22 locale files remain.
+native-speaker review. Another 486 mismatches across 22 locale files remained.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3b17b34e">Four compact locale tiers restore every placeholder</a>. Thanks to xet7.</summary>
+
+Latvian, Norwegian Bokmål, Occitan and Hong Kong Traditional Chinese restore 37
+named and printf inventories. Occitan also replaces French-seeded prose in its
+affected values. Whole-file coverage and focused negative tests reject mistyped,
+translated and wrong-language identifiers. All four files are clean; the direct
+Occitan prose welcomes native-speaker review. Another 449 mismatches across 18
+locale files remain.
 
 </details>
 
