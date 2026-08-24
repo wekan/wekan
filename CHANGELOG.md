@@ -496,7 +496,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **translation coverage** now extends the Office and REST API
+**In short:** five **HIGH AND MODERATE SECURITY ISSUES** now protect user
+directory data, literal searches, position-history undo, subtask exports and
+CAS account linking. **Translation coverage** now extends the Office and REST API
 reports across nine more language files. Translation policy now requires every
 locale to use its declared language and preserves placeholder tokens exactly.
 The first same-script repair replaces Russian archive, board, card, attachment,
@@ -754,7 +756,68 @@ follow.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves the translation workflow:
+This release fixes the following HIGH AND MODERATE SECURITY ISSUES:
+
+**User directory and search** - who may search, what they receive and how
+queries are evaluated.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ce5cf6e1">User lookup requires a login and exposes only public identity fields</a>. Thanks to Char0n1507, Reload3d and xet7.</summary>
+
+[UserSearchBleed](https://wekan.fi/hall-of-fame/usersearchbleed/) and
+[MiniProfileBleed](https://wekan.fi/hall-of-fame/miniprofilebleed/) allowed
+logged-out profile enumeration and let any authenticated user retrieve
+instance-wide email, administrator, account-state and organization metadata.
+Both publications now require authentication; the general search returns only
+public identity fields. User-controlled search text is escaped before becoming
+a regular expression, and both DDP search paths are rate-limited. Regression
+coverage pins the positive identity projection and the negative sensitive-field
+and raw-pattern cases.
+
+</details>
+
+**Position history** - authorization for recorded moves and undo.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ce5cf6e1">Undo cannot move a card into a board outside the caller's membership</a>. Thanks to Char0n1507 and xet7.</summary>
+
+[PositionHistoryBleed](https://wekan.fi/hall-of-fame/positionhistorybleed/)
+trusted a client-created history entry's previous board. Inserts now require
+membership on both named boards, the undo method rechecks the history board,
+and the model rechecks destination membership immediately before moving a card.
+The test covers allowed same-board history and rejected cross-board data.
+
+</details>
+
+**Board exports** - keeping subtask data inside the exported board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ce5cf6e1">Every export format scopes subtask queries to its board</a>. Thanks to Char0n1507 and xet7.</summary>
+
+[SubtaskExportBleed](https://wekan.fi/hall-of-fame/subtaskexportbleed/)
+allowed a card from a private board to appear in another board's JSON, ZIP,
+Excel or PDF export when its parent identifier named a card there. All six
+subtask query paths now include the exporting board identifier. Regression
+coverage checks every board and card export implementation and rejects the old
+parent-only selectors.
+
+</details>
+
+**CAS login** - explicit ownership of matching local accounts.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ce5cf6e1">CAS cannot silently take over a matching non-CAS account</a>. Thanks to Char0n1507, crypto-nidh and xet7.</summary>
+
+[CasBleed](https://wekan.fi/hall-of-fame/casbleed/) allowed a validated CAS
+username to receive the session of an existing password or other non-CAS
+account with the same name. New CAS users are marked with their authentication
+method; a conflicting account is rejected unless the administrator explicitly
+sets `CAS_MERGE_EXISTING_USERS=true`. Positive CAS reuse and negative implicit
+linking are pinned by regression coverage.
+
+</details>
+
+and improves the translation workflow:
 
 **Translation policy** - correct-language and placeholder integrity.
 
