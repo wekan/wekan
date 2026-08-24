@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Thirty-eight 50-value Bengali batches then translated 1,900 values,
-leaving **186,595 genuinely untranslated values across 87 locale files**,
-including 266 in Bengali.
+files**. Forty 50-value Bengali batches then translated 2,000 values, leaving
+**186,495 genuinely untranslated values across 87 locale files**, including
+166 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with thirty-eight 50-value batches covering board, card,
+Bengali then begins with forty 50-value batches covering board, card,
 list and swimlane activity, checklists, comments, movement and workspace
 controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
@@ -679,6 +679,8 @@ Brute-force account protection, scheduled jobs and migrations, storage paths,
 cloud storage and database migration follow too.
 Sandstorm cleanup, card-loading and content-security controls, anonymized
 import/export, backups and cloud-storage setup follow too.
+GridFS/S3 and attachment migrations, scheduled board operations and board-data
+integrity repair follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3796,6 +3798,26 @@ exact, and invariant coverage leaves 316 values.
 Backup schedules and restore modes plus Google Cloud, S3 and Azure credential,
 permission and console guidance now use Bengali. JSON, product names and menu
 paths remain recognizable, and invariant coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/621729fd4">Bengali storage migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS and S3 settings, migration lifecycle controls, scheduled board
+operations, writable storage paths and attachment and board migration settings
+now use Bengali. Product and protocol names remain exact, and invariant
+coverage leaves 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bf2bc791">Bengali board integrity repair gains 50 values</a>. Thanks to xet7.</summary>
+
+Board structure checks, duplicate-list cleanup, lost-card and archive recovery,
+missing-list repair, avatar and attachment URL repair and migration progress now
+use Bengali. Data identifiers remain exact, and invariant coverage leaves 166
+values.
 
 </details>
 
