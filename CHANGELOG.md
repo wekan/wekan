@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Sixteen
-50-value Bambara batches then translated 800 values, leaving **189,861 genuinely
-untranslated values across 88 locale files**, including 1,366 in Bambara.
+**190,661 genuinely untranslated values across 88 locale files**. Eighteen
+50-value Bambara batches then translated 900 values, leaving **189,761 genuinely
+untranslated values across 88 locale files**, including 1,266 in Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -596,7 +596,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with sixteen 50-value batches covering board/card/list/swimlane
+Bambara then begins with eighteen 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -608,6 +608,8 @@ Trello API imports, import jobs, member mapping, validation, board departure,
 list archives, settings, multi-selection and notification roles follow too.
 Public/private messaging, member removal, rescue/search/WIP controls, shortcuts,
 time tracking, uploads, custom branding, templates and WIP errors follow.
+Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
+custom-field displays and organization tenancy/administration follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3078,6 +3080,26 @@ invariant coverage leaves 1,416 values.
 Time tracking, assignee and label shortcuts, uploads, custom branding URLs,
 welcome and template boards, WIP errors and attachment limits now use Bambara.
 Whole-locale invariant coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0035fcd0c">Bambara attachment limits and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and API size limits, registration, invitations, SMTP configuration,
+invitation emails, authorization, webhooks and diagnostic version labels now
+use Bambara. Every email token remains exact, and invariant coverage leaves
+1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/889f15ee5">Bambara diagnostics and organization settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Runtime, OS and memory diagnostics, time units, custom-field display controls,
+account and board visibility settings and organization tenancy, domains and
+administration now use Bambara. Environment names, modes and example hostnames
+remain literal, and invariant coverage leaves 1,266 values.
 
 </details>
 
