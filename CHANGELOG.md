@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Twenty-two Assamese batches then translated 1,100 values, leaving **196,059
-genuinely untranslated values across 91 locale files**, including 1,066 in
+Twenty-four Assamese batches then translated 1,200 values, leaving **195,959
+genuinely untranslated values across 91 locale files**, including 966 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,12 +508,13 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with twenty-two 50-value batches covering activity history,
+Assamese then begins with twenty-four 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
 roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics,
-tenancy, card/subtask settings, scheduled automation and rule-builder phrases.
+tenancy, card/subtask settings, scheduled automation, rule-builder phrases,
+custom web metadata, layout controls, activity reminders and account cleanup.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1726,6 +1727,26 @@ Rule-builder vocabulary for lists, labels, members, attachments,
 checklists/items, card movement, colors and email actions now uses consistent
 Assamese automation terminology. Whole-locale invariant coverage leaves 1,066
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b44314ae">Assamese automation settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Automation actions, authentication, custom-head, manifest and asset-link
+settings plus layout controls now use Assamese while retaining HTML, JSON,
+assetlinks.json and product names. Whole-locale invariant coverage leaves 1,016
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3928c5675">Assamese activity settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom HTML placement, authentication errors, board duplication, activity
+dates and reminders, account cleanup and drag controls now use Assamese while
+retaining HTML tags, named activity tokens and percent arguments. Whole-locale
+invariant coverage leaves 966 values.
 
 </details>
 
