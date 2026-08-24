@@ -228,6 +228,14 @@ coherent UI batches; equality is evidence of copying, but shared loanwords must
 be reviewed rather than blindly replaced. A Transifex translation in the
 correct language replaces a direct repair permanently.
 
+**Placeholder repair is now measured repository-wide.** The first audit found
+**1,346 keys across 120 locale files** whose underscore-delimited or
+percent-prefixed token inventory differed from the same English key. Restoring
+four Mongolian keys made that locale clean; **1,342 mismatched keys across 119
+locale files remain** for audited batches. The surrounding translation must be
+preserved or corrected into the locale language while every token is restored
+exactly from `en.i18n.json`.
+
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
 obsolete English Office and Home-board sentences to the current English source,
@@ -417,9 +425,9 @@ browser build to verify).
 reports across nine more language files. Translation policy now requires every
 locale to use its declared language and preserves placeholder tokens exactly.
 The first same-script repair replaces Russian archive, board, card, attachment,
-checklist, subtask, filter and label text in Mongolian. Below that: focused
-regression coverage and native-speaker review notes for low-confidence direct
-translations.
+checklist, subtask, filter and label text in Mongolian, and restores its exact
+English placeholder tokens. Below that: focused regression coverage and
+native-speaker review notes for low-confidence direct translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -555,6 +563,18 @@ label vocabulary. Regression coverage compares every value with Russian and
 preserves named, printf and Markdown placeholders. Another 998 exact matches,
 including shared loanwords, remain for later audit. This direct repair has low
 confidence and welcomes review by Mongolian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24bc8efb0">Mongolian translations restore their exact English placeholders</a>. Thanks to xet7.</summary>
+
+Three email subjects now keep `__siteName__` instead of substituting `__url__`,
+and the unknown-operator message keeps `%s` instead of malformed `%1`. Their
+surrounding Russian prose now uses Mongolian. Whole-file regression coverage
+compares every Mongolian placeholder inventory with `en.i18n.json` and rejects
+the repaired Russian wording. This direct repair has low confidence and
+welcomes review by Mongolian speakers.
 
 </details>
 
