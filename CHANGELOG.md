@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. The first Amharic batch
-translated 50 values, leaving **199,275 genuinely untranslated values across 92
-locale files**, including 2,116 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Three Amharic batches
+translated 150 values, leaving **199,175 genuinely untranslated values across
+92 locale files**, including 2,016 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -1110,6 +1110,22 @@ board and admin wording, with zero-backlog coverage.
 The first 50 activity and board-history values now use Amharic. Progress,
 Ethiopic-script and whole-locale placeholder coverage verifies the batch; 2,116
 values remain. The translations have mixed confidence and welcome review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4af04a4e4">Amharic activity and workspace history gains 50 values</a>. Thanks to xet7.</summary>
+
+The second direct batch completes the remaining activity-history and initial
+workspace strings. Whole-locale placeholder coverage leaves 2,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a3465e29">Amharic board interface gains another 50 values</a>. Thanks to xet7.</summary>
+
+Workspace, board-selection, list-sizing and checklist controls now use Amharic.
+Progress, Ethiopic-script and placeholder coverage leaves 2,016 values.
 
 </details>
 
