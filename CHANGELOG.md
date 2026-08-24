@@ -300,9 +300,9 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 **190,661 genuinely untranslated values across 88 locale files**. Forty-three
 50-value Bambara batches and a final 16-value batch then translated all 2,166
 values, leaving **188,495 genuinely untranslated values across 87 locale
-files**. Sixteen 50-value Bengali batches then translated 800 values, leaving
-**187,695 genuinely untranslated values across 87 locale files**, including
-1,366 in Bengali.
+files**. Eighteen 50-value Bengali batches then translated 900 values, leaving
+**187,595 genuinely untranslated values across 87 locale files**, including
+1,266 in Bengali.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -640,7 +640,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning and progress follow too.
 Account and repository access, problem and event monitoring, card repair, IP
 labels and scoped import/export complete all 2,166 values.
-Bengali then begins with sixteen 50-value batches covering board, card, list
+Bengali then begins with eighteen 50-value batches covering board, card, list
 and swimlane activity, checklists, comments, movement and workspace controls.
 Board selection, Home-board controls, list and swimlane sizing, archives,
 attachments, membership and board visibility follow.
@@ -656,6 +656,8 @@ Trello API imports, import jobs, member mapping, validation, board departure,
 list archives, settings, multi-selection and notification roles follow too.
 Public/private messaging, member removal, rescue/search/WIP controls, shortcuts,
 time tracking, uploads, custom branding, templates and WIP errors follow too.
+Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
+custom-field displays and organization tenancy/administration follow too.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3559,6 +3561,26 @@ invariant coverage leaves 1,416 values.
 Time tracking, assignee and label shortcuts, uploads, custom branding URLs,
 welcome and template boards, WIP errors and attachment limits now use Bengali.
 Whole-locale invariant coverage leaves 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e5c9fb22">Bengali attachment limits and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and API size limits, registration, invitations, SMTP configuration,
+invitation emails, authorization, webhooks and diagnostic version labels now
+use Bengali. Every email token remains exact, and invariant coverage leaves
+1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb33a9c63">Bengali diagnostics and organization settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Runtime, OS and memory diagnostics, time units, custom-field display controls,
+account and board visibility settings and organization tenancy, domains and
+administration now use Bengali. Environment names, modes and example hostnames
+remain literal, and invariant coverage leaves 1,266 values.
 
 </details>
 
