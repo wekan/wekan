@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Twelve 50-value Bhojpuri batches
-then translated 600 values, leaving **192,227 genuinely untranslated values
-across 89 locale files**, including 1,566 in Bhojpuri.
+16-value batch then translated all 2,166 values. Fourteen 50-value Bhojpuri
+batches then translated 700 values, leaving **192,127 genuinely untranslated
+values across 89 locale files**, including 1,466 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,7 +556,7 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with twelve 50-value batches covering board/card/list/
+Bhojpuri then begins with fourteen 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
@@ -566,6 +566,9 @@ custom fields, account emails, WIP limits and import/authorization errors.
 User/account errors, card exports, sorting, filters and imports from Kanboard,
 Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, CSV, Jira, Excel and
 WeKan follow.
+Trello API jobs, imported-member mapping, validation, labels, board departure,
+archive/list actions, settings, multi-selection, notification states and normal
+roles are translated too.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2551,6 +2554,24 @@ Advanced filters and board imports from Kanboard, Deck, OpenProject, issue
 trackers, Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan now use Bhojpuri.
 Operators, examples, API paths, JSON fields, extensions and source/endpoint
 placeholders remain exact. Whole-locale invariant coverage leaves 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d1f0a938">Bhojpuri Trello jobs and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello ZIP/API imports, job controls, imported-member mapping, validation
+messages and labels now use Bhojpuri while retaining the API-key URL and `%s`
+label placeholder. Whole-locale invariant coverage leaves 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f08d8c479">Bhojpuri board and list actions gain 50 values</a>. Thanks to xet7.</summary>
+
+Board departure, archive/list actions, settings, multi-selection, notification
+states and normal-role permissions now use Bhojpuri while retaining the board
+title placeholder. Whole-locale invariant coverage leaves 1,466 values.
 
 </details>
 
