@@ -238,13 +238,14 @@ across three language tags. Vietnamese followed with **24 values** across both
 language tags, then Macedonian and Serbian with **24 values** across both
 language tags. Armenian and Georgian followed with **24 values** across both
 language tags, then Telugu and Tamil with **24 values** across both language
-tags, followed by Odia and Punjabi with **24 values** across both language tags.
+tags, followed by Odia and Punjabi with **24 values** across both language tags,
+then Mongolian with **12 values**.
 
 **What is left, in the order worth doing it.** As of **2026-08-24**:
 
 | Files | To translate | Nothing to translate | Which |
 | --- | --- | --- | --- |
-| 56 | **475** | 2,171 | non-Latin, near-complete |
+| 56 | **463** | 2,171 | non-Latin, near-complete |
 | 86 | **2,844** | 3,980 | Latin-script, near-complete |
 | 92 | **192,241** | 15,829 | second tier |
 
@@ -254,7 +255,7 @@ source because that IS the translation — product names (*Meteor*, *MongoDB*,
 `__board__` placeholders. They will never stop counting, and they are why a flat
 count reads several times larger than the work.
 
-1. **The 56 non-Latin near-complete files: 475.** New Office and API
+1. **The 56 non-Latin near-complete files: 463.** New Office and API
    report strings now dominate this tier; an English string is most glaring
    where it interrupts another script.
 2. **The 86 Latin-script near-complete files: 2,844.** Smaller than it looks,
@@ -561,6 +562,17 @@ WITH_API=true remain recognizable. Regression coverage checks every translated
 key, Cyrillic content, distinct vocabulary and the intentionally universal API
 labels. These direct translations have low confidence and welcome review by
 Macedonian and Serbian speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/293568999">Office and API reports use Mongolian</a>. Thanks to xet7.</summary>
+
+All twelve translatable report labels and descriptions now use Mongolian
+vocabulary in Cyrillic script. REST API, IPv4, IPv6 and WITH_API=true remain
+recognizable. Regression coverage checks every translated key, Cyrillic content
+and the intentionally universal API labels. This direct translation has low
+confidence and welcomes review by Mongolian speakers.
 
 </details>
 
