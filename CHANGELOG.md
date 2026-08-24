@@ -294,9 +294,9 @@ queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
-across 90 locale files**. Fourteen Bashkir batches then translated 700 values,
-leaving **194,293 genuinely untranslated values across 90 locale files**,
-including 1,466 in Bashkir.
+across 90 locale files**. Sixteen Bashkir batches then translated 800 values,
+leaving **194,193 genuinely untranslated values across 90 locale files**,
+including 1,366 in Bashkir.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -527,14 +527,16 @@ account lockouts, cron operations, cloud storage, database migration, card
 loading/security controls, anonymization, cloud backup configuration, storage
 migrations, board-integrity repair, conversion monitoring, migration tuning,
 problem reporting, repository access and scoped import/export.
-Bashkir then begins with fourteen 50-value batches covering activity history,
+Bashkir then begins with sixteen 50-value batches covering activity history,
 card movement, checklists, workspace controls, board selection, list/swimlane
 sizing, archives, administrator announcements, board display/views, card
 membership, voting, Planning Poker, dependencies, import/export dialogs,
 member mapping, appearance, navigation, card aging, colors, roles, custom
 fields, account emails, WIP limits, validation errors, card exports, filtering
 and multi-source board imports, including Trello API jobs/member mapping,
-board departure, list actions, multi-selection and notification roles.
+board departure, list actions, multi-selection, notification roles, privacy,
+shortcuts, tracking, uploads, branding, welcome/template boards and WIP
+warnings.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2095,6 +2097,25 @@ Last-admin safeguards, board departure, list/archive actions, settings dialogs,
 multi-selection, archive states and assigned-only notification roles now use
 Bashkir while retaining the board-title token. Whole-locale invariant coverage
 leaves 1,466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cfd6593b">Bashkir privacy and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+
+Watched updates, private and public pages, member removal, unsaved-description
+recovery, card search, WIP controls and keyboard shortcuts now use Bashkir while
+retaining the HTML login link and member/board tokens. Whole-locale invariant
+coverage leaves 1,416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98e649f40">Bashkir tracking and branding gain 50 values</a>. Thanks to xet7.</summary>
+
+Tracking, time and overtime, uploads, custom branding and URL schemes,
+welcome/template boards, WIP warnings and attachment/API limits now use
+Bashkir. Whole-locale invariant coverage leaves 1,366 values.
 
 </details>
 
