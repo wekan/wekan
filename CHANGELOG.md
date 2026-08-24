@@ -292,8 +292,8 @@ locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
 queue now consists of whole-file-sized locale fills. Forty-three 50-value
 Amharic batches and a final 16-value batch translated all 2,166 values.
-Thirty-eight Assamese batches then translated 1,900 values, leaving **195,259
-genuinely untranslated values across 91 locale files**, including 266 in
+Forty Assamese batches then translated 2,000 values, leaving **195,159
+genuinely untranslated values across 91 locale files**, including 166 in
 Assamese.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -508,7 +508,7 @@ automation, reports, tickets, administration, attachment storage, support,
 accessibility, account lockouts, scheduling, database migration, security,
 privacy, backups, cloud storage, board-integrity migration and monitoring.
 Amharic is now complete.
-Assamese then begins with thirty-eight 50-value batches covering activity history,
+Assamese then begins with forty 50-value batches covering activity history,
 workspace controls, board layout, administration, archives, board views,
 voting, dialogs, member mapping, typography, navigation, colors, roles, custom
 fields, email, errors, exports, filters, imports, member mapping, list actions,
@@ -521,7 +521,8 @@ backgrounds, locations, server troubleshooting, diagnostic/recovery reports,
 tickets, Node memory metrics, legal notices, attachment storage/repair,
 MongoDB compaction, custom translations, support/accessibility settings,
 account lockouts, cron operations, cloud storage, database migration, card
-loading/security controls, anonymization and cloud backup configuration.
+loading/security controls, anonymization, cloud backup configuration, storage
+migrations and board-integrity repair.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1889,6 +1890,26 @@ Backup schedules and restore modes plus Google Cloud, AWS S3 and Azure
 credential guidance now use Assamese while retaining console paths, JSON
 field names, time syntax and storage product names. Whole-locale invariant
 coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55793c200">Assamese storage migration gains 50 values</a>. Thanks to xet7.</summary>
+
+GridFS and S3 configuration, attachment and board migration controls,
+scheduled board operations and writable storage paths now use Assamese while
+retaining storage product and protocol names. Whole-locale invariant coverage
+leaves 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f193c3089">Assamese board migration gains 50 values</a>. Thanks to xet7.</summary>
+
+Board-integrity checks, lost-card recovery, duplicate-list cleanup and
+avatar/attachment URL repair now use Assamese while retaining ID field names,
+URLs and storage terminology. Whole-locale invariant coverage leaves 166
+values.
 
 </details>
 
