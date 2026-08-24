@@ -297,9 +297,9 @@ translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
 16-value batch then translated all 2,166 values. Forty-three 50-value Bhojpuri
 batches and a final 16-value batch then translated all 2,166 values, leaving
-**190,661 genuinely untranslated values across 88 locale files**. Thirty-eight
-50-value Bambara batches then translated 1,900 values, leaving **188,761
-genuinely untranslated values across 88 locale files**, including 266 in
+**190,661 genuinely untranslated values across 88 locale files**. Forty
+50-value Bambara batches then translated 2,000 values, leaving **188,661
+genuinely untranslated values across 88 locale files**, including 166 in
 Bambara.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
@@ -597,7 +597,7 @@ Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
 and migration tuning/progress are translated too.
 Account/repository access, problem and event monitoring, card repair, IP labels
 and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with thirty-eight 50-value batches covering board/card/list/swimlane
+Bambara then begins with forty 50-value batches covering board/card/list/swimlane
 activity, checklists, comments, movement, workspace controls, board selection,
 list/swimlane sizing, archives, attachments, member/board visibility controls,
 board views, voting, Planning Poker, dependencies, import/export dialogs,
@@ -631,6 +631,8 @@ Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
 storage and MongoDB/FerretDB/Sandstorm database migration follow.
 Sandstorm cleanup, card-loading/security/import/export/backup controls and cloud
 storage/backup configuration follow too.
+GridFS/S3 migration controls, attachment monitoring and board-integrity repair
+for lists, lost cards, archives and avatar/file URLs follow.
 Workflow formats, schedules, button/due/list triggers, relative dates and
 label/member/attachment/checklist/card/email automation actions follow.
 Additional automation actions, authentication, custom HTML/JSON configuration,
@@ -3321,6 +3323,26 @@ Backup schedules and restores and GCS, S3 and Azure storage configuration now
 use Bambara, including the provider-console guidance for MinIO, R2, B2, Wasabi
 and Spaces. Time formats, ranges, JSON and CSV names, console paths, roles, keys
 and product names remain exact, and invariant coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6352abab1">Bambara migration controls and S3 settings gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS enablement, CollectionFS movement, S3 settings, archive, backup and
+cleanup schedules, attachment monitoring and board migration controls now use
+Bambara. Paths and technical storage names remain recognizable, and invariant
+coverage leaves 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/db205e56b">Bambara board-repair migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+Comprehensive board migration, duplicate-list cleanup, lost-card and archive
+restoration, missing-list repair, avatar and attachment URL repair and migration
+progress now use Bambara. The `swimlaneId` and `listId` identifiers remain exact,
+and invariant coverage leaves 166 values.
 
 </details>
 
