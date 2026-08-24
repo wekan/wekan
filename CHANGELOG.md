@@ -290,9 +290,9 @@ across 107 locale files**. Wolof, French, West Frisian and German then completed
 656 more values, leaving **199,530 genuinely untranslated values across 95
 locale files**. Dutch and Flemish then completed 205 more values, leaving
 **199,325 genuinely untranslated values across 92 locale files**. The remaining
-queue now consists of whole-file-sized locale fills. Eighteen Amharic batches
-translated 900 values, leaving **198,425 genuinely untranslated values across
-92 locale files**, including 1,266 in Amharic. Continue filling those English
+queue now consists of whole-file-sized locale fills. Twenty Amharic batches
+translated 1,000 values, leaving **198,325 genuinely untranslated values across
+92 locale files**, including 1,166 in Amharic. Continue filling those English
 values directly while preserving human translations and exact tokens from
 `en.i18n.json`.
 
@@ -497,7 +497,7 @@ logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
 review notes for low-confidence direct translations.
-Whole-file work now begins with eighteen 50-value Amharic batches covering
+Whole-file work now begins with twenty 50-value Amharic batches covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
 errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
 tracking, branding, transfer limits, webhooks, diagnostics and tenancy.
@@ -1258,6 +1258,24 @@ terms. Whole-locale invariant coverage leaves 1,316 values.
 Diagnostics, custom-field display, visibility, organizations and teams now use
 Amharic while retaining environment variables, protocols, hostnames and
 multitenancy syntax. Whole-locale invariant coverage leaves 1,266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef061a85d">Amharic card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Card dates, colors, deletion, subtasks, minicard display and activity labels now
+use Amharic while retaining board and percent placeholders. Whole-locale
+invariant coverage leaves 1,216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e4508f23">Amharic activity and automation gain 50 values</a>. Thanks to xet7.</summary>
+
+Activity messages and automation workflow/import controls now use Amharic while
+retaining repeated percent argument order, named tokens and format terms.
+Focused positional coverage leaves 1,166 values.
 
 </details>
 
