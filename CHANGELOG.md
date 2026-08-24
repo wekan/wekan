@@ -295,9 +295,9 @@ Amharic batches and a final 16-value batch translated all 2,166 values.
 Forty-three 50-value Assamese batches and a final 16-value batch then
 translated all 2,166 values, leaving **194,993 genuinely untranslated values
 across 90 locale files**. Forty-three 50-value Bashkir batches and a final
-16-value batch then translated all 2,166 values. Eight 50-value Bhojpuri batches
-then translated 400 values, leaving **192,427 genuinely untranslated values
-across 89 locale files**, including 1,766 in Bhojpuri.
+16-value batch then translated all 2,166 values. Ten 50-value Bhojpuri batches
+then translated 500 values, leaving **192,327 genuinely untranslated values
+across 89 locale files**, including 1,666 in Bhojpuri.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
 
@@ -556,12 +556,13 @@ anonymization, backups, cloud-provider setup guidance, migration controls and
 board-integrity repair, conversion monitoring, migration tuning, repository
 access, problem reporting and scoped import/export, completing all 2,166
 values.
-Bhojpuri then begins with eight 50-value batches covering board/card/list/
+Bhojpuri then begins with ten 50-value batches covering board/card/list/
 swimlane activity, checklists, comments, movement, workspace management, Home
 boards, list/swimlane sizing, archives, All Boards settings, board views,
 voting, Planning Poker, dependencies and component import dialogs.
-It also covers member mapping, appearance, fonts, navigation, card aging and
-twenty-two color names.
+It also covers member mapping, appearance, fonts, navigation, card aging,
+twenty-two color names, permissions, deletion confirmations, clipboard actions,
+custom fields, account emails, WIP limits and import/authorization errors.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2508,6 +2509,26 @@ invariant coverage leaves 1,816 values.
 Starred boards/pages, automatic list width, clipboard input, card aging,
 movement/dialog accessibility and twenty-two color names now use Bhojpuri.
 Whole-locale invariant coverage leaves 1,766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4aac0b48a">Bhojpuri permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+
+Comment/read/worker permissions, deletion confirmations, clipboard actions,
+copy/import dialogs and custom-field basics now use Bhojpuri while retaining
+the copied-card JSON structure. Whole-locale invariant coverage leaves 1,716
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7b8b1acf">Bhojpuri account emails and errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom fields, profile/date dialogs, account emails, WIP settings and import/
+authorization errors now use Bhojpuri while retaining every account, site,
+board, inviter and URL placeholder. Whole-locale invariant coverage leaves
+1,666 values.
 
 </details>
 
