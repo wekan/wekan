@@ -17,8 +17,65 @@ const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { centerOf } = require('../helpers/dragSort');
+
+async function dragSidebarItemToCard(page, source, target) {
+  const from = await centerOf(source);
+  const to = await centerOf(target);
+  await page.mouse.move(from.cx, from.cy);
+  await page.mouse.down();
+  await page.mouse.move(from.cx + 12, from.cy, { steps: 4 });
+  await page.mouse.move(to.cx, to.cy, { steps: 16 });
+  await page.waitForTimeout(100);
+  await page.mouse.up();
+}
 
 test.describe('Labels & due dates', () => {
+  test('#1554 sidebar labels remain droppable on cards rendered later', async ({
+    boardPage,
+    board,
+  }) => {
+    const labelId = `issue-1554-label-${Date.now()}`;
+    db.updateOne('boards', { _id: board.boardId }, {
+      $push: { labels: { _id: labelId, name: 'Dragged Label', color: 'green' } },
+    });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    const existing = db.findOne('cards', {
+      boardId: board.boardId,
+      title: 'Alpha Card',
+    });
+    const lateCardId = db.uid('late-card');
+    db.insertOne('cards', {
+      ...existing,
+      _id: lateCardId,
+      title: 'Later Card',
+      labelIds: [],
+      sort: existing.sort + 50,
+      createdAt: new Date(),
+      modifiedAt: new Date(),
+      dateLastActivity: new Date(),
+    });
+
+    const bp = new BoardPage(boardPage);
+    await expect(bp.minicard(board.listIds[0], 'Later Card')).toBeVisible();
+    await bp.openSidebar();
+    const label = boardPage.locator('.board-sidebar .js-label').filter({
+      hasText: 'Dragged Label',
+    });
+    await expect(label).toBeVisible();
+
+    await dragSidebarItemToCard(
+      boardPage,
+      label,
+      bp.minicard(board.listIds[0], 'Later Card'),
+    );
+    await expect.poll(() => {
+      const card = db.findOne('cards', { _id: lateCardId });
+      return card && card.labelIds;
+    }).toContain(labelId);
+  });
+
   test('#6615: an existing card with dates opens and remains editable', async ({ boardPage, board }) => {
     const errors = [];
     boardPage.on('pageerror', error => errors.push(error.message));
