@@ -767,6 +767,22 @@ still requires external LDAP and OIDC services; FerretDB is not involved.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/433455e0e">Background sync updates LDAP profiles and disables only confirmed removals</a>. Thanks to RowhamD, q16marvin and xet7.</summary>
+
+Existing LDAP accounts are re-found by their stored identifier attribute, with
+the configured search field as a fallback, so later username, full-name and
+email changes are written instead of stopping after the first import. The
+opt-in authoritative mode disables a user only when a successful directory
+search returns zero entries and re-enables that user on reappearance. Missing
+identifier configuration and ambiguous matches now abort safely rather than
+masquerading as deletion. Eight new background-sync and eleven identifier
+filter tests pass, every LDAP plain-Node suite remains green, and Meteor
+compiles and starts. A live directory sync still requires an external LDAP
+server; FerretDB only stores the resulting user document.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7fb9ad1d7">LDAP encryption settings distinguish LDAPS, STARTTLS and unencrypted transport</a>. Thanks to robertdahlem and xet7.</summary>
 
 The maintained LDAP guide now recommends `true` for immediate TLS (LDAPS),
