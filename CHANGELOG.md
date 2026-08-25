@@ -682,6 +682,19 @@ an administrator scrolls or pages.
 
 </details>
 
+**The board archive** - card actions stay visually attached to their card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41d6a8a28">The grouped Restore and Delete action report is explicitly closed</a>. Thanks to fxkr and xet7.</summary>
+
+The earlier fix wraps every archived card together with its own Restore and
+Delete links and separates that complete group from the next card. Structural,
+spacing, hover, narrow-sidebar, RTL and theme-neutral regressions all pass, and
+the browser restore flow remains registered. The negative case prevents the
+old equal spacing above and below the actions from returning.
+
+</details>
+
 **Linked cards** - safe snapshots remain usable across board boundaries.
 
 <details>
