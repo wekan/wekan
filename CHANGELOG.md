@@ -84,7 +84,6 @@ never arrives - the reporter's own title says environment specific, and the send
 path needs a real SMTP server to tell a WeKan defect from a rejected or
 silently-dropped message; the code that composes and sends it is worth reading
 against a live log rather than guessed at),
-[#3707](https://github.com/wekan/wekan/issues/3707) (LDAP),
 [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm),
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
@@ -478,8 +477,8 @@ stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
-source boards. **LDAP account creation and group restrictions** normalize
-directory values and fail closed on incomplete membership settings.
+source boards. **LDAP account creation, REST login and group restrictions** now
+use directory authentication consistently and fail closed when required.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -701,6 +700,22 @@ are named in the error and produce no groups or a refused login before an LDAP
 search begins. Six focused configuration and wiring tests pass, the full LDAP
 suite remains green, and the package compiles and starts in the live Meteor
 stack. FerretDB is not involved in the pre-login directory searches.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b294ecfb0">REST login authenticates LDAP credentials through their registered handler</a>. Thanks to mariogalan, ViViDboarder, mgiacomoli, HaKePlan and xet7.</summary>
+
+The REST route called Meteor's private bcrypt checker directly, so every LDAP
+account without a duplicated local password failed before WeKan's LDAP handler
+could run. Existing and first-time LDAP username logins now use Meteor's
+server-side login-handler API, then receive the same REST token as local users.
+Local-password accounts, uniform failure messages, throttling and two-factor
+checks retain their existing paths. Seven focused positive, negative and wiring
+tests and 28 related authentication tests pass; the full app compiles and all
+25 live REST API browser tests pass. A real LDAP bind still requires an external
+directory fixture and was not available locally. FerretDB is not involved in
+credential validation.
 
 </details>
 
