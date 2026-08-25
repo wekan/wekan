@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first thirty-three 50-value
-Ewe batches then left **171,683 genuinely untranslated values across 80 locale
-files**, including 516 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first thirty-five 50-value
+Ewe batches then left **171,583 genuinely untranslated values across 80 locale
+files**, including 416 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `board-status-loading-mode` with
+Resume Ewe at `cron-job-delete-failed` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 33 are committed and batch 34 has not been applied.
+1 through 35 are committed and batch 36 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2549,6 +2549,26 @@ Attachment movement and location repair, default storage, progress and counts,
 storage identifiers and MongoDB GridFS collection compaction now use Ewe.
 Backend, identifier, database and oplog terminology remain exact, leaving 516
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b6bb374b">Settings and accessibility gain 50 values</a>. Thanks to xet7.</summary>
+
+Board timing and uploads, file restrictions, workspace assignment, custom
+translations, subtasks, ISO week display, Markdown conversion, board ZIP
+imports, checklist folding, support and accessibility now use Ewe. Named tokens
+and format names remain exact, leaving 466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/285ad0dae">Account protection and scheduling gain 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility content, brute-force account protection and unlocking, active
+user filters, attachment and avatar paths and scheduled board archive, backup
+and cleanup operations now use Ewe. Whole-locale token and markup invariants
+remain exact, leaving 416 values.
 
 </details>
 
