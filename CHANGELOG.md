@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-twelve 50-value Cherokee batches then left **181,397 genuinely untranslated
-values across 84 locale files**, including 1,566 in Cherokee.
+thirteen 50-value Cherokee batches then left **181,347 genuinely untranslated
+values across 84 locale files**, including 1,516 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `import-trello-zip-file-too-large` with
+Resume Cherokee at `last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 12 are committed and batch 13
+Buryat is complete, Cherokee batches 1 through 13 are committed and batch 14
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,9 +501,9 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, navigation, account emails,
-exports, filters and multi-source imports. This continues the direct whole-file
-translation effort while preserving human work and every code token. Below
-that: whole-locale placeholder and markup checks protect the new values.
+exports, filters, imports and member mapping. This continues the direct
+whole-file translation effort while preserving human work and every code token.
+Below that: whole-locale placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -627,6 +627,17 @@ Advanced custom-field filters, activity and imported-member states and Kanboard,
 NextCloud, OpenProject, issue, Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan
 imports now use Cherokee syllabary. Operators, regex, API paths, JSON properties,
 file extensions and named tokens remain exact, leaving 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a191657a">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello archive validation, workspaces, API credentials, board selection,
+progress, cancellation and recovery, imported-member mapping, date validation,
+keyboard shortcuts and label controls now use Cherokee syllabary. URLs, file
+extensions, format names, percent tokens and digits remain exact, leaving 1,516
+values.
 
 </details>
 
