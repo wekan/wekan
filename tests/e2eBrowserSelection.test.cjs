@@ -12,6 +12,7 @@ const source = fs.readFileSync(
   path.join(__dirname, 'e2e/list-regressions.js'),
   'utf8',
 );
+const build = fs.readFileSync(path.join(__dirname, '../build.sh'), 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -28,6 +29,13 @@ test('Linux ELF architecture must match Node before a browser is selected (negat
   assert.match(source, /elf\.readUInt16LE\(18\)/);
   assert.match(source, /process\.arch === 'arm64' && machine === 183/);
   assert.match(source, /process\.arch === 'x64' && machine === 62/);
+});
+
+test('the all-tests flow uses the Playwright browser container when native Chromium is unsupported', () => {
+  assert.match(build, /function run_node_e2e_docker\(\)/);
+  assert.match(build,
+    /e2e\)\s+if browser_needs_docker chromium; then[^\n]*run_node_e2e_docker/);
+  assert.match(build, /CHROMIUM_PATH="\$browser_path" exec node tests\/e2e\/list-regressions\.js/);
 });
 
 test('a failed board render reports browser errors instead of only a blank body', () => {

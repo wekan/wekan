@@ -567,6 +567,38 @@ function run_playwright_docker(){
 		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project="$0" "$@"' "$browser" "$@"
 }
 
+# Run the older Puppeteer-based Node E2E regression suite in the same browser
+# image used by Playwright. On Linux arm64 there is no compatible host Chromium,
+# but the official image already provides one and can reach the shared test
+# server and MongoDB through the host network.
+function run_node_e2e_docker(){
+	local reporoot="$WEKAN_DIR"
+	local pwdir="$reporoot/tests/playwright"
+	if ! docker_available; then
+		echo "ERROR: Docker is required for Node E2E on this platform, but 'docker' was not found."
+		return 127
+	fi
+	if [ ! -d "$pwdir/node_modules/@playwright/test" ]; then
+		echo "Installing Playwright test dependencies for the browser container."
+		( cd "$pwdir" && meteor npm install ) || return 1
+	fi
+	local pwver
+	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
+	[ -z "$pwver" ] && pwver="1.60.0"
+	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
+	echo "Running Node E2E in Docker ($image)."
+	docker_exec run --rm --init --ipc=host --network host \
+		--label org.wekan.test-run=everything \
+		--user "$(id -u):$(id -g)" \
+		-e HOME=/tmp \
+		-e NODE_OPTIONS="${NODE_OPTIONS:-}" \
+		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
+		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
+		-v "$reporoot":/repo -w /repo \
+		"$image" \
+		sh -c 'browser_path="$(find /ms-playwright -type f \( -path "*/chrome-linux/chrome" -o -path "*/chrome-linux64/chrome" \) -perm -111 | sort -r | head -n 1)"; test -n "$browser_path" || { echo "No Chromium executable found in Playwright image" >&2; exit 127; }; CHROMIUM_PATH="$browser_path" exec node tests/e2e/list-regressions.js'
+}
+
 # Back-compat wrapper: run the WebKit project in Docker.
 function run_playwright_webkit_docker(){ run_playwright_docker webkit "$@"; }
 
@@ -1082,7 +1114,7 @@ function run_all_tests(){
 			# still read "tests:508 fail:1".
 			unit)   NODE_OPTIONS="$TEST_NODE_OPTIONS" meteor npm run test:unit:all || rc=$? ;;
 			import) NODE_OPTIONS="$TEST_NODE_OPTIONS" node tests/wekanCreator.import.test.js || rc=$? ;;
-			e2e)    NODE_OPTIONS="$TEST_NODE_OPTIONS" meteor npm run test:e2e || rc=$? ;;
+			e2e)    if browser_needs_docker chromium; then NODE_OPTIONS="$TEST_NODE_OPTIONS" run_node_e2e_docker || rc=$?; else NODE_OPTIONS="$TEST_NODE_OPTIONS" meteor npm run test:e2e || rc=$?; fi ;;
 			*)      NODE_OPTIONS="$TEST_NODE_OPTIONS" run_pw_all_browser "$k" || rc=$? ;;
 		esac
 		echo "$rc" > "$STATDIR/$k"
