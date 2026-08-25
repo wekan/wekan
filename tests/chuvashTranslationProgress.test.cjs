@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1016);
+assert.equal(Object.keys(remaining).length, 966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -200,3 +200,18 @@ assert.match(chuvash['r-in-swimlane'], /ҫул/);
 assert.match(chuvash['authentication-method'], /Аутентификаци/);
 assert.match(chuvash['custom-head-meta-tags'], /HTML/);
 assert.match(chuvash['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(chuvash['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(chuvash['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(chuvash['act-a-dueAt']), [
+  '__card__',
+  '__timeOldValue__',
+  '__timeValue__',
+]);
+assert.equal(chuvash['act-a-dueAt'].split('\n').length, 4);
+assert.deepEqual(tokens(chuvash['act-atUserComment']), [
+  '__board__',
+  '__card__',
+  '__comment__',
+  '__list__',
+  '__swimlane__',
+]);
