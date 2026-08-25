@@ -48,6 +48,14 @@ test.describe('Red Strings – card dependency overlay', () => {
     db.setBoardShowDependencies({ boardId: board.boardId, value: true });
   });
 
+  // Each test gets a new browser page and therefore a new login session. Do
+  // not reuse one resume token across all of them: Accounts may invalidate a
+  // token when an earlier connection is torn down, which made a later Firefox
+  // test fail at login before exercising its dependency badge assertion.
+  test.beforeEach(() => {
+    owner.token = db.addResumeToken(owner.id);
+  });
+
   test.afterAll(() => {
     db.cleanup({ boardIds: [board.boardId], userIds: [owner.id] });
   });
