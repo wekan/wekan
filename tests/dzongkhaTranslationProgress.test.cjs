@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1066);
+assert.equal(Object.keys(remaining).length, 1016);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -210,3 +210,8 @@ assert.match(dzongkha['r-check-all'], /ཚང་མ/);
 assert.match(dzongkha['r-d-move-to-top-gen'], /རྩེ/);
 assert.match(dzongkha['r-d-move-to-bottom-gen'], /མཐིལ/);
 assert.match(dzongkha['r-send-email'], /གློག་འཕྲིན/);
+assert.match(dzongkha['r-items-list'], /རྣམ་གྲངས1,རྣམ་གྲངས2,རྣམ་གྲངས3/);
+assert.match(dzongkha['custom-head-meta-tags'], /HTML/);
+assert.match(dzongkha['custom-head-manifest-content'], /JSON/);
+assert.match(dzongkha['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.match(dzongkha['r-link-card'], /ཤོག་བྱང/);
