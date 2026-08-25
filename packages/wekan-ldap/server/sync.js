@@ -8,6 +8,7 @@ import { isAdminByGroups } from './adminGroups';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
+import { ldapPresenceUpdate } from './presenceSync';
 import {
   ldapTextValue,
   ldapTextValues,
@@ -561,12 +562,20 @@ async function sync() {
           // user that is present in LDAP again (recovers from a removal or a
           // transient outage). Gated by the same opt-in flag as the disable
           // below; off by default.
-          if (
-            LDAP.settings_get('LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS') === true &&
-            user.loginDisabled === true
-          ) {
+          const presenceUpdate = ldapPresenceUpdate({
+            ldapUserFound: true,
+            disableNonexistentUsers:
+              LDAP.settings_get(
+                'LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS',
+              ) === true,
+            loginDisabled: user.loginDisabled,
+          });
+          if (presenceUpdate) {
             log_info('Re-enabling user present in LDAP again', user.username);
-            await Meteor.users.updateAsync({ _id: user._id }, { $set: { loginDisabled: false } });
+            await Meteor.users.updateAsync(
+              { _id: user._id },
+              { $set: presenceUpdate },
+            );
           }
         } else {
           // #4738: optionally disable Wekan users that no longer exist in the
@@ -576,14 +585,27 @@ async function sync() {
           // authoritative source of active status: users missing from LDAP are
           // disabled and reappearing users are re-enabled (see the if-branch
           // above), which also overrides a manual disable of an LDAP user.
-          // Caveat: a transient LDAP lookup failure looks the same as a removed
-          // user, so an account may be briefly disabled until it reappears.
-          if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS') === true) {
-            if (!user.loginDisabled) {
-              log_info('Disabling user no longer present in LDAP', user.username);
-              await Meteor.users.updateAsync({ _id: user._id }, { $set: { loginDisabled: true } });
-            }
-          } else {
+          // Lookup/configuration errors throw and abort the run before this
+          // branch, so only a successful zero-result search counts as removed.
+          const presenceUpdate = ldapPresenceUpdate({
+            ldapUserFound: false,
+            disableNonexistentUsers:
+              LDAP.settings_get(
+                'LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS',
+              ) === true,
+            loginDisabled: user.loginDisabled,
+          });
+          if (presenceUpdate) {
+            log_info('Disabling user no longer present in LDAP', user.username);
+            await Meteor.users.updateAsync(
+              { _id: user._id },
+              { $set: presenceUpdate },
+            );
+          } else if (
+            LDAP.settings_get(
+              'LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS',
+            ) !== true
+          ) {
             log_info('Can\'t sync user', user.username);
           }
         }

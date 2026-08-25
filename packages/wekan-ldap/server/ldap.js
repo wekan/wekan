@@ -420,8 +420,10 @@ export default class LDAP {
     );
 
     if (!filter) {
-      Log.error('Can\'t search user by id: neither LDAP_UNIQUE_IDENTIFIER_FIELD nor LDAP_USER_SEARCH_FIELD is configured');
-      return;
+      throw new Error(
+        'Can\'t search user by id: neither LDAP_UNIQUE_IDENTIFIER_FIELD nor ' +
+          'LDAP_USER_SEARCH_FIELD is configured',
+      );
     }
 
     const searchOptions = {
@@ -440,7 +442,10 @@ export default class LDAP {
     }
 
     if (result.length > 1) {
-      Log.error(`Search by id ${id} returned ${result.length} records`);
+      throw new Error(
+        `Search by id ${id} returned ${result.length} records; refusing an ` +
+          'ambiguous LDAP background-sync update',
+      );
     }
 
     return result[0];

@@ -189,9 +189,12 @@ Source). On Snap use the lower-case dash-separated equivalent (for example
 `ldap-sync-organizations`).
 
 - `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default `false`) — when
-  `true`, background sync disables Wekan users that are no longer found in the LDAP
-  directory, and re-enables them if they reappear. This makes LDAP authoritative
-  for the active/inactive status of users.
+  `true`, background sync disables Wekan users that a successful LDAP search
+  confirms are no longer present, and re-enables them if they reappear. This
+  makes LDAP authoritative for active/inactive status and requires
+  `LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true`. Lookup errors,
+  missing identifier settings and ambiguous matches abort the run instead of
+  disabling accounts.
 - `LDAP_SYNC_ORGANIZATIONS` (default `false`) — when `true`, a user's LDAP groups
   are synced into that user's Wekan **Organizations**.
 - `LDAP_SYNC_ORGANIZATIONS_GROUPS` (default empty) — comma-separated list of LDAP
