@@ -496,258 +496,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** five **HIGH AND MODERATE SECURITY ISSUES** now protect user
-directory data, literal searches, position-history undo, subtask exports and
-CAS account linking. The **All Boards Table view** now offers board creation,
-and the **Board Table view** applies active filters. **Translation coverage**
-now extends the Office and REST API
-reports across nine more language files. Translation policy now requires every
-locale to use its declared language and preserves placeholder tokens exactly.
-The first same-script repair replaces Russian archive, board, card, attachment,
-checklist, subtask, filter and label text in Mongolian, and restores its exact
-English placeholder tokens. Eleven additional locale files now have exact token
-inventories, followed by seventeen files from the next tier. Below that:
-eighteen more locale files now reject translated tokens and wrong-language
-carryovers, followed by fourteen files from the four-mismatch tier. Below that:
-eleven French, German and Hindi variants restore their search and activity
-tokens, and four wrongly seeded locales now use their declared languages in the
-repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
-logical placeholder inventories. Below that: focused regression coverage and
-Italian, Venda and Volapük complete that tier. Below that: focused regression
-coverage, a repository-wide Transifex machine-marker repair, and native-speaker
-review notes for low-confidence direct translations. New **Haxe, Go and Free
-Pascal rewrite designs** map WeKan's dependencies to realistic alternatives and
-incremental prototype paths.
-Whole-file work begins with forty-three 50-value Amharic batches and a final
-16-value batch covering
-activity, boards, cards, members, navigation, roles, custom fields, email,
-errors, exports, filters, imports, member mapping, multi-selection, shortcuts,
-tracking, branding, transfer limits, webhooks, diagnostics, tenancy and
-automation, reports, tickets, administration, attachment storage, support,
-accessibility, account lockouts, scheduling, database migration, security,
-privacy, backups, cloud storage, board-integrity migration and monitoring.
-Amharic is now complete.
-Assamese then completes with forty-three 50-value batches and a final 16-value
-batch covering activity history,
-workspace controls, board layout, administration, archives, board views,
-voting, dialogs, member mapping, typography, navigation, colors, roles, custom
-fields, email, errors, exports, filters, imports, member mapping, list actions,
-roles, navigation, tracking, branding, transfer limits, webhooks, diagnostics,
-tenancy, card/subtask settings, scheduled automation, rule-builder phrases,
-custom web metadata, layout controls, activity reminders, account cleanup,
-role permissions, weekdays, domains, shared templates, card search views,
-operators, predicates, advanced-search instructions, dependencies, board
-backgrounds, locations, server troubleshooting, diagnostic/recovery reports,
-tickets, Node memory metrics, legal notices, attachment storage/repair,
-MongoDB compaction, custom translations, support/accessibility settings,
-account lockouts, cron operations, cloud storage, database migration, card
-loading/security controls, anonymization, cloud backup configuration, storage
-migrations, board-integrity repair, conversion monitoring, migration tuning,
-problem reporting, repository access and scoped import/export.
-Bashkir then receives forty-three 50-value batches and a final 16-value batch
-covering activity history,
-card movement, checklists, workspace controls, board selection, list/swimlane
-sizing, archives, administrator announcements, board display/views, card
-membership, voting, Planning Poker, dependencies, import/export dialogs,
-member mapping, appearance, navigation, card aging, colors, roles, custom
-fields, account emails, WIP limits, validation errors, card exports, filtering
-and multi-source board imports, including Trello API jobs/member mapping,
-board departure, list actions, multi-selection, notification roles, privacy,
-shortcuts, tracking, uploads, branding, welcome/template boards and WIP
-warnings, attachment limits, registration, invitations, SMTP, webhooks,
-runtime diagnostics, custom-field display, organization tenancy, dates, board
-deletion, subtasks, minicards, parent cards, visual automation rules, scheduled
-triggers, due-date conditions, buttons, checklist/member actions, custom web
-metadata, authentication, destructive actions and due-date reminders.
-It also covers notification management, board-role permissions, weekdays,
-domains, shared templates, My Cards, due-card views, global-search operators,
-predicates, validation, advanced-search instructions, dependencies, board
-backgrounds, locations, troubleshooting and administrative reports.
-Recovery, wait indicators, tickets, team/organization administration, Node heap
-diagnostics, legal notices, checklist actions and attachment storage follow.
-Attachment-location repair, MongoDB compaction, uploads, custom translations,
-support, accessibility, account lockouts, scheduled operations, cloud storage
-and database migration are translated too, followed by security controls,
-anonymization, backups, cloud-provider setup guidance, migration controls and
-board-integrity repair, conversion monitoring, migration tuning, repository
-access, problem reporting and scoped import/export, completing all 2,166
-values.
-Bhojpuri then begins with forty-three 50-value batches covering board/card/list/
-swimlane activity, checklists, comments, movement, workspace management, Home
-boards, list/swimlane sizing, archives, All Boards settings, board views,
-voting, Planning Poker, dependencies and component import dialogs.
-It also covers member mapping, appearance, fonts, navigation, card aging,
-twenty-two color names, permissions, deletion confirmations, clipboard actions,
-custom fields, account emails, WIP limits and import/authorization errors.
-User/account errors, card exports, sorting, filters and imports from Kanboard,
-Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, CSV, Jira, Excel and
-WeKan follow.
-Trello API jobs, imported-member mapping, validation, labels, board departure,
-archive/list actions, settings, multi-selection, notification states and normal
-roles are translated too.
-Watching/privacy, member removal, search, shortcuts, starred/default boards,
-subscriptions, time tracking, uploads, custom branding, welcome/template labels,
-WIP errors and attachment/API limits follow.
-Attachment transfer limits, registration, SMTP, webhooks, diagnostics,
-custom-field display, account/board visibility and organization/team tenancy
-controls are translated too.
-Card dates/colors, destructive actions, subtask/card/minicard settings, parent
-paths, activity messages and the automation-rule workflow/import interface
-follow.
-Office/API/recovery reports, maintenance, wait spinners, tickets, invitations,
-Node heap diagnostics, legal notices, checklist actions and attachment storage
-are translated too.
-Attachment/avatar storage repair, MongoDB compaction, upload/file controls,
-workspace assignment, custom translations, checklist collapsing, support and
-accessibility follow.
-Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
-storage and MongoDB/FerretDB/Sandstorm database migration follow.
-Sandstorm cleanup, card-loading/security/import/export/backup controls and cloud
-storage/backup configuration are translated too.
-GridFS/S3 migration controls, attachment monitoring and board-integrity
-migrations covering lists, lost cards, archives and avatar/file URLs follow.
-Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
-and migration tuning/progress are translated too.
-Account/repository access, problem and event monitoring, card repair, IP labels
-and scoped import/export complete all 2,166 values in a final 16-value batch.
-Bambara then begins with forty-three 50-value batches and a final 16-value batch
-covering board/card/list/swimlane
-activity, checklists, comments, movement, workspace controls, board selection,
-list/swimlane sizing, archives, attachments, member/board visibility controls,
-board views, voting, Planning Poker, dependencies, import/export dialogs,
-member mapping, themes, fonts, card aging, navigation, color names, roles,
-clipboard actions, custom fields, emails and import/error messages.
-Card export, list sorting, filters, advanced-filter syntax and board-import
-instructions follow.
-Trello API imports, import jobs, member mapping, validation, board departure,
-list archives, settings, multi-selection and notification roles follow too.
-Public/private messaging, member removal, rescue/search/WIP controls, shortcuts,
-time tracking, uploads, custom branding, templates and WIP errors follow.
-Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
-custom-field displays and organization tenancy/administration follow too.
-Received/end dates, destructive board actions, subtask/card/minicard settings,
-parent relationships, activity labels and automation rule workflows follow.
-Scheduled, due, list and button triggers and the rule vocabulary for label,
-member, attachment, checklist, card and email actions follow too.
-Further rule actions, authentication/custom-head settings, duplication,
-destructive actions, activity reminders, mentions and layout controls follow.
-Multi-window/editor behavior, notifications, board-role controls, weekdays,
-linked-card guards, domains/templates, My/Due Cards and global search follow.
-Global-search result counts, operator/predicate labels, validation messages and
-the full syntax/help documentation follow too.
-Sorting, completion, stickers, dependencies, board backgrounds, locations, map
-detection, server troubleshooting, string templates and admin reports follow.
-Recovery, wait indicators, tickets, team/organization administration, Node heap
-diagnostics, legal notices, checklist actions and attachment storage follow.
-Attachment-location repair, MongoDB compaction, uploads, custom translations,
-checklist collapsing, support and accessibility follow too.
-Brute-force account protection, scheduled jobs/migrations, filesystem/S3/Azure
-storage and MongoDB/FerretDB/Sandstorm database migration follow.
-Sandstorm cleanup, card-loading/security/import/export/backup controls and cloud
-storage/backup configuration follow too.
-GridFS/S3 migration controls, attachment monitoring and board-integrity repair
-for lists, lost cards, archives and avatar/file URLs follow.
-Conversion steps, cleanup, resource diagnostics, schedules, export monitoring
-and migration tuning and progress follow too.
-Account and repository access, problem and event monitoring, card repair, IP
-labels and scoped import/export complete all 2,166 values.
-Tibetan then begins with thirty-five 50-value batches covering board, card,
-checklist,
-comment and membership activity, workspaces, selection, layout, archives,
-membership, visibility, board views, voting, dependencies and import controls.
-Member mapping, themes, fonts, avatars, permissions, card aging, navigation and
-color names follow too.
-Board roles, destructive confirmations, clipboard actions, custom fields,
-account emails and board, import and linked-card errors follow too.
-Card export, list sorting, date, label, member and assignee filters,
-advanced-filter syntax and board-import instructions follow too.
-Trello API imports, import jobs, member mapping, validation, board departure,
-list archives, settings, multi-selection and notification roles follow too.
-Public and private messaging, member removal, rescue, search and WIP controls,
-shortcuts, time tracking, uploads, custom branding, templates and WIP errors
-follow too.
-Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
-custom-field displays and organization tenancy and administration follow too.
-Received and end dates, destructive board actions, subtask, card and minicard
-settings, parent relationships, activity labels and automation workflows follow
-too.
-Scheduled, due, list and button triggers and the rule vocabulary for label,
-member, attachment, checklist, card and email actions follow too.
-Further rule actions, authentication/custom-head settings, duplication,
-destructive actions, activity reminders, mentions and layout controls follow.
-Multi-window/editor behavior, notifications, board-role controls, weekdays,
-linked-card guards, domains/templates, My/Due Cards and global search follow.
-Global-search result counts, operator/predicate labels, validation messages and
-the full syntax/help documentation follow too.
-Sorting, completion, stickers, dependencies, board backgrounds, locations, map
-detection, server troubleshooting, string templates and admin reports follow.
-Recovery, wait indicators, tickets, team/organization administration, Node heap
-diagnostics, legal notices, checklist actions and attachment storage follow.
-Attachment-location repair, MongoDB compaction, uploads, custom translations,
-checklist collapsing, support and accessibility follow too.
-Brute-force account protection, scheduled jobs, attachment paths and board
-maintenance scheduling follow too.
-The current Tibetan checkpoint is 1,750 translated values with 416 remaining;
-the next untouched key is `cron-job-delete-failed`.
-Bengali then begins with forty-three 50-value batches and a final 16-value batch
-covering board, card,
-list and swimlane activity, checklists, comments, movement and workspace
-controls.
-Board selection, Home-board controls, list and swimlane sizing, archives,
-attachments, membership and board visibility follow.
-Board views, calendar and archive guidance, voting, Planning Poker,
-dependencies, organization/team controls and import dialogs follow too.
-Member mapping, themes, fonts, avatars, permissions, card aging, navigation and
-color names follow too.
-Board roles, destructive confirmations, clipboard actions, custom fields,
-account emails and board, import and linked-card errors follow too.
-Card export, list sorting, date/label/member filters, advanced-filter syntax and
-board-import instructions follow too.
-Trello API imports, import jobs, member mapping, validation, board departure,
-list archives, settings, multi-selection and notification roles follow too.
-Public/private messaging, member removal, rescue/search/WIP controls, shortcuts,
-time tracking, uploads, custom branding, templates and WIP errors follow too.
-Attachment/API limits, registration, SMTP, webhooks, runtime diagnostics,
-custom-field displays and organization tenancy/administration follow too.
-Received/end dates, destructive board actions, subtask/card/minicard settings,
-parent relationships, activity labels and automation workflows follow too.
-Scheduled, due, list and button triggers and the rule vocabulary for label,
-member, attachment, checklist, card and email actions follow too.
-Further rule actions, authentication/custom-head settings, duplication,
-destructive actions, activity reminders, mentions and layout controls follow.
-Multi-window/editor behavior, notifications, board-role controls, weekdays,
-linked-card guards, domains/templates, My/Due Cards and global search follow.
-Global-search result counts, operator/predicate labels, validation messages and
-the full syntax/help documentation follow too.
-Sorting, completion, stickers, dependencies, board backgrounds, locations, map
-detection, server troubleshooting, string templates and admin reports follow.
-Recovery/API reports, wait indicators, tickets, Node heap diagnostics, legal
-notices, checklist actions and attachment storage follow too.
-Attachment-location repair, MongoDB compaction, uploads, custom translations,
-checklist collapsing, support and accessibility follow too.
-Brute-force account protection, scheduled jobs and migrations, storage paths,
-cloud storage and database migration follow too.
-Sandstorm cleanup, card-loading and content-security controls, anonymized
-import/export, backups and cloud-storage setup follow too.
-GridFS/S3 and attachment migrations, scheduled board operations and board-data
-integrity repair follow too.
-Conversion steps, scheduled jobs, system-resource monitoring, export monitoring
-and migration tuning and progress follow too.
-Account and repository access, problem and event monitoring, card repair, IP
-labels and scoped import/export complete all 2,166 values.
-Workflow formats, schedules, button/due/list triggers, relative dates and
-label/member/attachment/checklist/card/email automation actions follow.
-Additional automation actions, authentication, custom HTML/JSON configuration,
-layout controls, date/reminder activities, mentions, destructive account/team/
-organization actions and UI behavior are translated too.
-Multi-window/editor behavior, notification and board-role controls, weekdays,
-linked-card deletion guards, domain/template sharing, My Cards, Due Cards,
-global search and lookup errors follow.
-Global-search result counts, operator/predicate labels, validation messages and
-the full syntax/help documentation are translated too.
-Sorting/completion, stickers, dependencies, board backgrounds, locations, map
-detection, server troubleshooting, string-template fields and admin reports
-follow.
+**In short:** this release closes five **security and privacy gaps**, improves
+board creation and filtering, and makes denied attacks visible to
+administrators. It also completes substantial **translation and locale-integrity
+work**, strengthens cross-browser testing, updates dependencies, and documents
+Haxe, Go and Free Pascal alternatives for WeKan's future architecture.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -762,8 +515,7 @@ follow.
 
 This release fixes the following HIGH AND MODERATE SECURITY ISSUES:
 
-**User directory and search** - who may search, what they receive and how
-queries are evaluated.
+**User search** - login, identity fields and literal query boundaries.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ce5cf6e1">User lookup requires a login and exposes only public identity fields</a>. Thanks to Char0n1507, Reload3d and xet7.</summary>
@@ -830,6 +582,43 @@ as CasBleed in Admin Panel → Problems.
 
 </details>
 
+**Security reporting** - denied attributable attacks reach Admin Panel Problems
+without turning ordinary use into noise.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a1dfa88b4">Blocked security attacks produce bounded administrator events</a>. Thanks to xet7.</summary>
+
+Denied MiniProfileBleed, PositionHistoryBleed and CasBleed attempts now create
+attributed, rate-bounded entries in Admin Panel → Problems. UserSearchBleed and
+SubtaskExportBleed remain silent because their safe paths are indistinguishable
+from normal searches and exports. Clients are also prevented from rewriting
+validated position-history records after insertion. Canary, advisory and
+negative authorization tests cover the reporting boundary.
+
+</details>
+
+and updates the following dependencies:
+
+**Dependencies** - storage, authentication, build and lint packages stay current.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/343340444">The dependency lockfile is refreshed</a>. Thanks to dependency developers and xet7.</summary>
+
+The first refresh advances the resolved AWS, Azure authentication, MongoDB,
+Rspack diagnostics, SWC, TypeScript ESLint, browser-compatibility and supporting
+packages without changing WeKan's declared dependency ranges.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7783497a6">The latest compatible transitive dependency fixes are included</a>. Thanks to dependency developers and xet7.</summary>
+
+A follow-up lockfile refresh takes the compatible patch releases published
+after the first batch, including the final AWS SDK, Smithy, parser, lint and
+browser-data resolutions used by this release.
+
+</details>
+
 and fixes the following bugs:
 
 **All Boards** - the overview's Lists and Table layouts.
@@ -842,6 +631,16 @@ create one. It now shows the same create action and uses the same handler as the
 Lists tile, including the Template Container wording and workspace context.
 Archive and the special Home section continue to exclude creation. Source,
 negative and browser tests cover the available and excluded sections.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a495d7d89">Existing All Boards layouts remain covered after adding board creation</a>. Thanks to xet7.</summary>
+
+The source-level Lists and phone-layout tests now recognize the shared Add Board
+action introduced in Table view while continuing to pin scrolling, tile and
+layout behaviour. This keeps the feature's new control from being mistaken for
+an unexpected duplicate by the older regression assertions.
 
 </details>
 
@@ -858,6 +657,56 @@ unfiltered and filtered rows.
 
 </details>
 
+and improves the following developer tooling:
+
+**Complete tests** - suites use repository tools and available CPU browsers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af1924567">Complete-test regressions are repaired after recent feature and translation work</a>. Thanks to xet7.</summary>
+
+Translation subprocesses now use the suite's own Node executable, invariant and
+backlog expectations follow the current translation helpers, and the Table-view
+browser test reapplies its filter after the view-change reload. The complete
+runner therefore checks current behaviour instead of failing on stale harness
+assumptions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c31e64059">Node E2E uses the Playwright container when no compatible Chromium is installed</a>. Thanks to xet7.</summary>
+
+The Puppeteer-based Node regression harness now routes through the existing
+Playwright container when its browser must come from Docker. Linux arm64 no
+longer falls back to a missing `/usr/bin/chromium`, and selection tests pin both
+the local and container paths.
+
+</details>
+
+**Browser isolation** - one test's teardown cannot revoke another test's login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b72e0e99f">Every Red Strings browser test receives its own session</a>. Thanks to xet7.</summary>
+
+Each Red Strings case now creates a separate resume token. Closing an earlier
+Chromium or WebKit connection can no longer revoke the session a later Firefox
+case is about to use, eliminating the cross-browser ordering failure while
+retaining normal session teardown.
+
+</details>
+
+**Release notes** - readers get a brief overview before topic and commit detail.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/403a0ad7a">The release-summary hierarchy and topic grouping are explicit and tested</a>. Thanks to xet7.</summary>
+
+`AGENTS.md` and `CLAUDE.md` now define three levels: a release-wide In short
+paragraph of at most about 120 words, one high-level summary for each topic, and
+commit-specific expandable details. The format regression caps the introductory
+word count and checks that the documented grouping vocabulary remains present.
+
+</details>
+
+
 and improves the following documentation:
 
 **Multiverse** - alternative implementation languages and dependency mappings.
@@ -865,38 +714,43 @@ and improves the following documentation:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b649189f4">Haxe rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
 
-The Multiverse design now compares incremental Haxe/JavaScript modules, a Haxe
-browser client, a Haxe/Node server and native HashLink, C++ and JVM servers. Its
-dependency tables map Meteor, DDP over SockJS, Blaze, Tracker, Minimongo,
-accounts, cloud storage, exports, build tools, tests and packaging to possible
-Haxe libraries or explicitly custom replacements. The design recommends a
-tested vertical slice before any full rewrite and distinguishes stronger typing,
-native deployment and one-file packaging as separate goals.
+The Multiverse design compares incremental Haxe/JavaScript modules, a Haxe
+browser client, a Haxe/Node server and native HashLink, C++ and JVM servers. It
+maps Meteor platform facilities and WeKan dependencies to Haxe libraries or
+explicitly custom replacements, and recommends a tested vertical slice before
+any complete rewrite.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/037eb3144">Go rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
 
-The Multiverse design maps Meteor, DDP over SockJS, Blaze, Tracker, Minimongo,
-accounts, templates, cloud storage, exports, operations, tests and distribution
-to Go standard-library facilities, maintained packages or explicitly custom
-compatibility work. It explains that Pug is Jade's JavaScript successor, while
-`html/template` and templ are Go-native rewrites, and recommends prototyping a
-standalone Go server before considering a browser rewrite or FerretDB merger.
+The Go design maps the server, browser, data, authentication, storage, export,
+operations, testing and distribution stack to standard-library facilities,
+maintained packages or custom compatibility work. It separates Pug as Jade's
+JavaScript successor from Go-native `html/template` and templ rewrites.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5d33681e5">Free Pascal rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
 
-The Multiverse design derives its Free Pascal stack from the existing Omi and
-Wami prototypes: FCL `fphttpapp`, `httproute`, `fpjson`, statically linked
-SQLite, server-rendered HTML, optional `interact.js`, Caddy at the TLS edge and
-mORMot 2 or Brook only after measured scale requires them. It maps the current
-WeKan dependencies, distinguishes proven prototype choices from unimplemented
-integrations, and recommends extending Wami with production authentication and
-shared compatibility tests.
+The Free Pascal design derives its stack from Omi and Wami: FCL `fphttpapp`,
+`httproute`, `fpjson`, linked SQLite, server-rendered HTML, optional
+`interact.js`, Caddy at the TLS edge and mORMot 2 or Brook only when measured
+scale requires them.
+
+</details>
+
+**Development sandbox** - the documented editor sandbox uses its maintained,
+open-source distribution consistently.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4bf68e8c3">The VS Code sandbox is renamed and updated for VSCodium</a>. Thanks to xet7.</summary>
+
+The sandbox directory, launcher and documentation now consistently name
+VSCodium. Obsolete VS Code-specific setup is removed so paths and commands match
+the editor distribution the sandbox actually installs.
 
 </details>
 
@@ -923,6 +777,16 @@ English spelling, case, count and format. A translated, renamed, missing or
 malformed token is restored from the same key in `en.i18n.json`, even inside an
 otherwise human translation, and regression coverage compares token inventories
 with English.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d0dd9ffc">Completed locales remain included in translation-fill regression coverage</a>. Thanks to xet7.</summary>
+
+The invariant-source regression now follows the completed-locale list and the
+current fill helper instead of retaining obsolete exclusions. It continues to
+prove that already completed locales stay at zero fillable English placeholders
+as translation work advances.
 
 </details>
 
