@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1966);
+assert.equal(Object.keys(remaining).length, 1916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -90,3 +90,13 @@ assert.deepEqual(tags(kurdish['board-private-info']), [
   '<strong>',
 ]);
 assert.match(kurdish['board-private-info'], /تایبەت/);
+assert.deepEqual(tags(kurdish['board-public-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.deepEqual(
+  tokens(kurdish['board-open-and-move-between-remaining-and-workspaces']),
+  ['__workspaces__'],
+);
+assert.match(kurdish['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(kurdish['card-comments-title']), ['%s']);
