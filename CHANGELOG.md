@@ -515,9 +515,9 @@ repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
 logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
-review notes for low-confidence direct translations. A new **Haxe rewrite
-design** maps WeKan's dependencies to realistic Haxe-side candidates and an
-incremental prototype path.
+review notes for low-confidence direct translations. New **Haxe and Go rewrite
+designs** map WeKan's dependencies to realistic alternatives and incremental
+prototype paths.
 Whole-file work begins with forty-three 50-value Amharic batches and a final
 16-value batch covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
@@ -860,6 +860,8 @@ unfiltered and filtered rows.
 
 and improves the following documentation:
 
+**Multiverse** - alternative implementation languages and dependency mappings.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b649189f4">Haxe rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
 
@@ -870,6 +872,18 @@ accounts, cloud storage, exports, build tools, tests and packaging to possible
 Haxe libraries or explicitly custom replacements. The design recommends a
 tested vertical slice before any full rewrite and distinguishes stronger typing,
 native deployment and one-file packaging as separate goals.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/037eb3144">Go rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
+
+The Multiverse design maps Meteor, DDP over SockJS, Blaze, Tracker, Minimongo,
+accounts, templates, cloud storage, exports, operations, tests and distribution
+to Go standard-library facilities, maintained packages or explicitly custom
+compatibility work. It explains that Pug is Jade's JavaScript successor, while
+`html/template` and templ are Go-native rewrites, and recommends prototyping a
+standalone Go server before considering a browser rewrite or FerretDB merger.
 
 </details>
 
