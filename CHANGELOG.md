@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-twenty-eight 50-value Chuvash batches then left **176,265 genuinely untranslated
-values across 82 locale files**, including 766 in Chuvash.
+twenty-nine 50-value Chuvash batches then left **176,215 genuinely untranslated
+values across 82 locale files**, including 716 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `label-colors` with
+Resume Chuvash at `location-longitude` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 28
-are committed and batch 29 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 29
+are committed and batch 30 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1647,6 +1647,15 @@ use Chuvash. Percent and result-range tokens remain exact, leaving 816 values.
 Search predicates, validation, paging, operator syntax, statuses, sorting,
 limits and combination guidance now use Chuvash. Named tokens, pseudo-tags,
 Markdown examples and line breaks remain exact, leaving 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a054d37f">Dependencies and backgrounds gain 50 values</a>. Thanks to xet7.</summary>
+
+Label metadata, board sorting, card completion, stickers, dependency relations
+and imports, board backgrounds and location fields now use Chuvash. JSON, SVG,
+named and size tokens and sort arrows remain exact, leaving 716 values.
 
 </details>
 
