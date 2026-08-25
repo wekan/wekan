@@ -515,7 +515,9 @@ repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
 logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
-review notes for low-confidence direct translations.
+review notes for low-confidence direct translations. A new **Haxe rewrite
+design** maps WeKan's dependencies to realistic Haxe-side candidates and an
+incremental prototype path.
 Whole-file work begins with forty-three 50-value Amharic batches and a final
 16-value batch covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
@@ -853,6 +855,21 @@ assignee, date and other criteria from the board Filter. Its reactive query now
 ANDs the Filter selector with immutable board and archive boundaries before the
 view's own text search and pagination. Unit, wiring and browser tests cover both
 unfiltered and filtered rows.
+
+</details>
+
+and improves the following documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b649189f4">Haxe rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
+
+The Multiverse design now compares incremental Haxe/JavaScript modules, a Haxe
+browser client, a Haxe/Node server and native HashLink, C++ and JVM servers. Its
+dependency tables map Meteor, DDP over SockJS, Blaze, Tracker, Minimongo,
+accounts, cloud storage, exports, build tools, tests and packaging to possible
+Haxe libraries or explicitly custom replacements. The design recommends a
+tested vertical slice before any full rewrite and distinguishes stronger typing,
+native deployment and one-file packaging as separate goals.
 
 </details>
 
