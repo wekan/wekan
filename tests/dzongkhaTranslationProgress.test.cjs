@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2066);
+assert.equal(Object.keys(remaining).length, 2016);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -75,3 +75,8 @@ assert.deepEqual(tokens(dzongkha['activity-checklist-completed-card']), [
 ]);
 assert.match(dzongkha['allboards.add-workspace'], /ལཱ་གི་ས་སྒོ/);
 assert.match(dzongkha['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(dzongkha['activity-dueDate']), ['%s', '%s']);
+assert.match(dzongkha['home-board-remove-confirm'], /བཏོན་ནི་མེན/);
+assert.match(dzongkha['list-width-error-message'], /270/);
+assert.match(dzongkha['set-swimlane-height'], /ཆུ་ལམ/);
+assert.match(dzongkha['convertChecklistItemToCardPopup-title'], /ཤོག་བྱང/);
