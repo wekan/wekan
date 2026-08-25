@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 616);
+assert.equal(Object.keys(remaining).length, 566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -253,3 +253,8 @@ assert.match(ewe['api-report-desc'], /REST API/);
 assert.match(ewe['api-no-calls'], /REST API.*API.*WITH_API=true/);
 assert.match(ewe['recovery-report-desc'], /MongoDB/);
 assert.match(ewe['carbon-copy'], /Cc:/);
+assert.match(ewe.Node_heap_malloced_memory, /Node heap.*malloced memory/);
+assert.match(ewe.Node_memory_usage_rss, /Node.*resident set size/);
+assert.match(ewe['custom-legal-notice-link-url'], /URL/);
+assert.match(ewe['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(ewe['attachment-move-storage-s3'], /S3/);
