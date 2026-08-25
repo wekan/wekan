@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first forty 50-value Ewe
-batches then left **171,333 genuinely untranslated values across 80 locale
-files**, including 166 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first forty-two 50-value
+Ewe batches then left **171,233 genuinely untranslated values across 80 locale
+files**, including 66 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `step-analyze-lists` with
-`node releases/translations/fill-translations.mjs --list ee --limit 50`;
+Finish Ewe at `otp` with
+`node releases/translations/fill-translations.mjs --list ee --limit 100`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 40 are committed and batch 41 has not been applied.
+1 through 42 are committed and the final 66-value batch has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2619,6 +2619,26 @@ Comprehensive board integrity checks, duplicate-list cleanup, lost-card and
 archive restoration, missing-list repair, avatar and file URL repair,
 confirmations, progress and migration steps now use Ewe. Schema identifiers,
 IDs and URLs remain exact, leaving 166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0967f16b2">Migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
+
+Final board-repair steps, conversion status, CPU and memory reporting,
+scheduled intervals, filesystem and GridFS monitoring, board scans, job queues
+and migration state now use Ewe. Identifiers, metric names and numeric intervals
+remain exact, leaving 116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c154db44">Migration tuning gains 50 values</a>. Thanks to xet7.</summary>
+
+Attachment migration destinations, batch and CPU thresholds, background
+status, monitoring controls, schedules, storage distribution and system
+resources now use Ewe. GridFS, S3, CPU, percent signs and numeric ranges remain
+exact, leaving 66 values.
 
 </details>
 
