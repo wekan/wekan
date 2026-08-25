@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first seventeen 50-value
-Buryat batches then left **183,313 genuinely untranslated values across 85
-locale files**, including 1,316 in Buryat.
+16-value batch then translated all 2,166 values. The first eighteen 50-value
+Buryat batches then left **183,263 genuinely untranslated values across 85
+locale files**, including 1,266 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `Database_commit` with
+Resume Buryat at `card-received-on` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 17 are committed and batch 18 has not been applied.
+batches 1 through 18 are committed and batch 19 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4557,6 +4557,17 @@ Attachment and API transfer limits, avatar blocking, registration and
 invitations, SMTP configuration and testing, authorization errors, outgoing
 and global webhooks and runtime version labels now use Buryat. Invitation email
 tokens remain exact, and whole-locale invariant coverage leaves 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d8afbc41">Buryat diagnostics and organization controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Database, FerretDB, reactivity, DDP and operating-system diagnostics, time
+units, custom-field display, account and board visibility settings and team and
+organization tenancy, domains, administrators and member synchronization now
+use Buryat. Environment-variable names remain exact, and whole-locale invariant
+coverage leaves 1,266 values.
 
 </details>
 
