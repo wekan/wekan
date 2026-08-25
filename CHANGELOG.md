@@ -302,14 +302,14 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Forty 50-value Tibetan batches then translated 2,000
-values, leaving **184,329 genuinely untranslated values across 86 locale
-files**, including 166 in Tibetan.
+across 86 locale files**. Forty-one 50-value Tibetan batches then translated
+2,050 values, leaving **184,279 genuinely untranslated values across 86 locale
+files**, including 116 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Tibetan at `step-analyze-lists` with
+Resume Tibetan at `migrate-all-to-filesystem` with
 `node releases/translations/fill-translations.mjs --list bo --limit 50`;
-batch 40 is committed and batch 41 has not been applied.
+batch 41 is committed and batch 42 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4351,6 +4351,16 @@ Comprehensive board checks, duplicate-list cleanup, lost-card restoration,
 archive recovery, missing-list repair, avatar/file URL repair and migration
 progress now use Tibetan. `swimlaneId`, `listId`, IDs and URLs remain exact, and
 whole-locale invariant coverage leaves 166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/045565cc4">Tibetan migration steps and resource monitoring gain 50 values</a>. Thanks to xet7.</summary>
+
+The remaining board-conversion steps, cleanup, database migrations, run
+intervals, export and attachment monitoring, filesystem/GridFS statistics, job
+queues, CPU and memory use now use Tibetan. ID, URL, CPU and GridFS remain
+exact, and whole-locale invariant coverage leaves 116 values.
 
 </details>
 
