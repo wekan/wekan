@@ -74,6 +74,7 @@ import { Utils } from '/client/lib/utils';
 import autosize from 'autosize';
 import { cardMenuSource, setCardMenuSource } from '/client/lib/cardMenuSource';
 import { caretClassFor } from '/client/lib/sectionCaret';
+const { openCardIsUnavailable } = require('/models/lib/openCardPresence');
 
 // Id of the location currently being edited in the cardLocationsPopup; null
 // when adding a new location.
@@ -344,6 +345,36 @@ Template.cardDetails.onCreated(function () {
   this.currentBoard = Utils.getCurrentBoard();
   this.isLoaded = new ReactiveVar(false);
   this.infiniteScrolling = new InfiniteScrolling();
+  const openedCardId = this.data?._id;
+  const openedBoardId = this.data?.boardId;
+
+  // #3114: another client can delete/archive this card or move it to another
+  // board. Minimongo then removed the data while the mobile details view kept
+  // rendering an empty shell. Observe the card that created this instance and
+  // close every way it can be open as soon as it no longer belongs here.
+  this.autorun(() => {
+    if (!openedCardId || !openedBoardId) return;
+    const card = ReactiveCache.getCard(openedCardId);
+    if (!openCardIsUnavailable(card, openedBoardId)) return;
+
+    Session.set(
+      'openCards',
+      (Session.get('openCards') || []).filter(id => id !== openedCardId),
+    );
+    if (Session.get('currentCard') === openedCardId) {
+      Session.set('currentCard', null);
+    }
+    if (Session.get('popupCardId') === openedCardId) {
+      Session.delete('popupCardId');
+      Session.delete('popupCardBoardId');
+      Popup.close();
+    }
+
+    const routeCardId = FlowRouter.current()?.params?.cardId;
+    if (routeCardId === openedCardId) {
+      Utils.goBoardId(openedBoardId);
+    }
+  });
 
   const boardBody = getBoardBodyInstance();
   if (boardBody !== null) {

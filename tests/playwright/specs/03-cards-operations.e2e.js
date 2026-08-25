@@ -59,6 +59,32 @@ test.describe('Cards – operations', () => {
     await expect(bp.minicard(listA, 'Alpha Card')).not.toBeVisible({ timeout: 8_000 });
   });
 
+  test('#3114: remotely deleting an open card closes its details', async ({
+    boardPage,
+    board,
+  }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    await boardPage.setViewportSize({ width: 390, height: 844 });
+    await boardPage.evaluate(() =>
+      localStorage.setItem('wekan-mobile-mode', 'true'),
+    );
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+
+    const cardId = db.findCardIdByTitle({
+      boardId: board.boardId,
+      title: 'Alpha Card',
+    });
+    db.deleteOne('cards', { _id: cardId });
+
+    await expect(boardPage.locator('.js-card-details')).toHaveCount(0, {
+      timeout: 10_000,
+    });
+    await expect(boardPage.locator('.board-canvas')).toBeVisible();
+  });
+
   test('multi-selection archives every selected card', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
