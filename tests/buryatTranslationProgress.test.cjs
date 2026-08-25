@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1916);
+assert.equal(Object.keys(remaining).length, 1866);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -32,3 +32,6 @@ assert.match(buryat['board-private-info'], /<strong>хубиин<\/strong>/);
 assert.match(buryat['board-public-info'], /<strong>ниитын<\/strong>/);
 assert.match(buryat['board-open-and-move-between-remaining-and-workspaces'], /__workspaces__/);
 assert.match(buryat['card-comments-title'], /%s/);
+assert.equal(buryat['cardStartVotingPopup-title'], 'Һанал хуряалга эхилүүлхэ');
+assert.equal(buryat['cardDependenciesPopup-title'], 'Хамаарал нэмэхэ');
+assert.equal(buryat['importBoardIntoPopup-title'], 'Самбарта оруулха');
