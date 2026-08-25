@@ -91,7 +91,11 @@ function ldapUser() {
     username: 'jdoe',
     emails: [{ address: 'jdoe@example.com', verified: true }],
     authenticationMethod: 'ldap',
-    services: { ldap: { id: 'jdoe' } },
+    services: {
+      ldap: { id: 'jdoe' },
+      resume: { loginTokens: [{ hashedToken: 'existing-session' }] },
+    },
+    orgs: [{ orgId: 'org1', orgDisplayName: 'Existing organization' }],
     profile: {
       fullname: 'John Doe',
       initials: 'JD',
@@ -182,6 +186,16 @@ test('LDAP -> OIDC merge keeps avatar, templates board/swimlanes and preferences
   assert.strictEqual(result.authenticationMethod, 'oauth2');
   assert.strictEqual(result.services.oidc.id, 'oidc-sub-1');
   assert.strictEqual(result.services.ldap.id, 'jdoe', 'old service data untouched');
+  assert.deepStrictEqual(
+    result.services.resume.loginTokens,
+    [{ hashedToken: 'existing-session' }],
+    'existing login sessions survive account linking',
+  );
+  assert.deepStrictEqual(
+    result.orgs,
+    [{ orgId: 'org1', orgDisplayName: 'Existing organization' }],
+    'existing organization membership survives account linking',
+  );
 });
 
 test('provider without a fullname claim does not clobber the stored fullname', async () => {
