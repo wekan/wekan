@@ -759,6 +759,19 @@ hiding the entire card. Both WeKan import browser flows remain registered.
 
 </details>
 
+**Labels** - sidebar drag-and-drop follows cards added after initial render.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/712ce25d0">Late-rendered cards remain valid sidebar label drop targets</a>. Thanks to marco-aa, ocdtrekkie and xet7.</summary>
+
+The existing reactive dependency reinitializes droppable behavior whenever a
+card enters the board after its lists first render. Three focused wiring cases
+pass. A new browser regression inserts a late card, performs a real pointer
+drag from the sidebar label and verifies the resulting label assignment in the
+database, reproducing the navigation-dependent failure from issue 1554.
+
+</details>
+
 **Card copying** - duplicated conversations remain recognizable as history.
 
 <details>
