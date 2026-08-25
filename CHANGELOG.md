@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first thirty-three
-50-value Buryat batches then left **182,513 genuinely untranslated values
-across 85 locale files**, including 516 in Buryat.
+16-value batch then translated all 2,166 values. The first thirty-four 50-value
+Buryat batches then left **182,463 genuinely untranslated values across 85
+locale files**, including 466 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `board-status-loading-mode` with
+Resume Buryat at `accessibility-title` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 33 are committed and batch 34 has not been applied.
+batches 1 through 34 are committed and batch 35 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4729,6 +4729,17 @@ Attachment and avatar storage migration, location repair, default storage,
 progress and file statistics plus MongoDB GridFS compaction now use Buryat.
 Storage names, IDs, replica-set, oplog and Meteor terminology remain
 recognizable, and whole-locale invariant coverage leaves 516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/edd68f23e">Buryat uploads and accessibility gain 50 values</a>. Thanks to xet7.</summary>
+
+Board timing, upload progress and limits, account prompts, PDF previews,
+workspace assignment, custom translations, Markdown and ZIP imports, checklist
+collapsing, support and accessibility now use Buryat. Named placeholders,
+format names and standards remain exact, and whole-locale invariant coverage
+leaves 466 values.
 
 </details>
 
