@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first sixteen 50-value Dzongkha batches then left **174,699
-genuinely untranslated values across 81 locale files**, including 1,366 in
+81 locale files**. The first seventeen 50-value Dzongkha batches then left **174,649
+genuinely untranslated values across 81 locale files**, including 1,316 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `attachment-limits` with
+Resume Dzongkha at `Database_commit` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 16 are committed and batch 17 has not been applied.
+through 17 are committed and batch 18 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1951,6 +1951,16 @@ Time tracking, assignments, subscriptions, uploads, custom branding, URL
 schemes, watching, welcome and board templates and WIP-limit controls now use
 Dzongkha. Product names, numeric ranges and whole-locale invariants remain
 exact, leaving 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d38d376e0">Attachment limits and invitations gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and API transfer limits, avatar restrictions, registration,
+invitations, SMTP configuration and tests, authorization, webhooks and software
+version labels now use Dzongkha. Email tokens and paragraph structure and
+whole-locale markup invariants remain exact, leaving 1,316 values.
 
 </details>
 
