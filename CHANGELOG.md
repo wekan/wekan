@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first twenty-two 50-value
-Buryat batches then left **183,063 genuinely untranslated values across 85
-locale files**, including 1,066 in Buryat.
+16-value batch then translated all 2,166 values. The first twenty-three
+50-value Buryat batches then left **183,013 genuinely untranslated values
+across 85 locale files**, including 1,016 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `r-d-send-email-message` with
+Resume Buryat at `add-custom-html-after-body-start` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 22 are committed and batch 23 has not been applied.
+batches 1 through 23 are committed and batch 24 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4611,6 +4611,17 @@ Card, label, member, attachment, checklist and checklist-item conditions,
 archive transitions, card movement, membership and color actions, checklist
 updates, email actions and their generated descriptions now use Buryat.
 Whole-locale token and tag invariant coverage leaves 1,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c06f1d46a">Buryat rule details and branding gain 50 values</a>. Thanks to xet7.</summary>
+
+Generated email, archive, label, member and checklist actions, card creation,
+swimlanes, date-field actions, card links, authentication, product names,
+custom HTML, manifests, asset links and layout settings now use Buryat. Format
+names and comma-separated examples remain exact, and whole-locale invariant
+coverage leaves 1,016 values.
 
 </details>
 
