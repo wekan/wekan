@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1566);
+assert.equal(Object.keys(remaining).length, 1516);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -139,3 +139,7 @@ assert.deepEqual(tokens(ewe['import-board-instruction-issues']), [
 ]);
 assert.match(ewe['import-board-instruction-excel'], /WeKan.*\.xlsx.*Excel/);
 assert.match(ewe['import-trello-json-file-hint'], /Trello API key.*token/);
+assert.match(ewe['trello-api-key'], /Trello API key.*https:\/\/trello\.com\/app-key/);
+assert.match(ewe['trello-api-token'], /Trello API token.*API key/);
+assert.match(ewe['invalid-year'], /2026/);
+assert.deepEqual(tokens(ewe['label-default']), ['%s']);
