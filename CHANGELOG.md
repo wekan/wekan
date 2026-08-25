@@ -497,7 +497,8 @@ browser build to verify).
 legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **card dragging** is visually
-stable, and the first **Fulah translations** are present.
+stable, **mobile Search** returns directly to the board, and the first **Fulah
+translations** are present.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -609,6 +610,20 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+**Mobile navigation** - full-screen panels return readers to their board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d67f80df">Search Back returns directly to the card wall</a>. Thanks to 1ubuntuuser and xet7.</summary>
+
+On a mini screen, Search occupies the board area, but its Back arrow used to
+replace Search with the sidebar Home/settings content. It now resets Search for
+the next opening and closes the sidebar, uncovering the board immediately.
+Desktop Search and every other sidebar view retain their existing transitions.
+Positive and negative unit coverage protects that boundary, and a mobile
+browser regression checks the full Search-to-board interaction.
 
 </details>
 
