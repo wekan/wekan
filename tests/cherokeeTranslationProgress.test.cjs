@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1366);
+assert.equal(Object.keys(remaining).length, 1316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -119,3 +119,11 @@ assert.deepEqual(tags(cherokee['page-maybe-private']), ["</a>", "<a href='%s'>"]
 assert.match(cherokee['toggle-assignees'], /1-9/);
 assert.match(cherokee['custom-top-left-corner-logo-height'], /27/);
 assert.match(cherokee['attachment-transfer-limits-title'], /API/);
+assert.deepEqual(tokens(cherokee['email-invite-register-text']), [
+  '__icode__',
+  '__inviter__',
+  '__url__',
+  '__user__',
+]);
+assert.match(cherokee['smtp-host'], /SMTP/);
+assert.match(cherokee.Database_type, /ᎧᏃᎮᏓ/);
