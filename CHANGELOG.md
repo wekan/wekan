@@ -658,6 +658,20 @@ fix against issue 4825.
 
 </details>
 
+**The Admin Panel** - People paging stays consistent with stored account data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68e370226">The inconsistent People-list report gains exact paging and field regressions</a>. Thanks to jas01, dvschuetz and xet7.</summary>
+
+The current server-side People paging explicitly names every page and the table
+renders only those users in the server's stable creation-time order. Each row
+also receives its email, creation time and authentication method. Positive and
+negative coverage now names issue 4897 so unrelated cached user documents
+cannot make rows disappear, duplicate or display different account data while
+an administrator scrolls or pages.
+
+</details>
+
 **Linked cards** - safe snapshots remain usable across board boundaries.
 
 <details>
