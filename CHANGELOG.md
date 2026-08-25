@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first eighteen 50-value
-Buryat batches then left **183,263 genuinely untranslated values across 85
-locale files**, including 1,266 in Buryat.
+16-value batch then translated all 2,166 values. The first nineteen 50-value
+Buryat batches then left **183,213 genuinely untranslated values across 85
+locale files**, including 1,216 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `card-received-on` with
+Resume Buryat at `activity-delete-attach` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 18 are committed and batch 19 has not been applied.
+batches 1 through 19 are committed and batch 20 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4568,6 +4568,17 @@ units, custom-field display, account and board visibility settings and team and
 organization tenancy, domains, administrators and member synchronization now
 use Buryat. Environment-variable names remain exact, and whole-locale invariant
 coverage leaves 1,266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1615d1543">Buryat card dates and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+
+Received and end dates, card and selection colors, board and notification
+deletion, duplicate-list cleanup, subtask destinations, minicard fields,
+parent-card display and label activity now use Buryat. Named and percent tokens
+and count examples remain exact, and whole-locale invariant coverage leaves
+1,216 values.
 
 </details>
 
