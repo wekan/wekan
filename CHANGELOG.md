@@ -476,8 +476,9 @@ stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
-source boards. **LDAP account creation, REST login and group restrictions** now
-use directory authentication consistently and fail closed when required.
+source boards. **LDAP account creation, login boundaries and group
+restrictions** now use directory authentication consistently and fail closed
+when required.
 **Sandstorm member cleanup** now distinguishes WeKan visibility from grain
 access.
 
@@ -717,6 +718,20 @@ positive, negative and wiring cases cover admin-only users, multiple groups,
 disabled admin sync and malformed lists; the full LDAP suite passes and the
 package compiles and starts in Meteor. A live bind still needs an external LDAP
 directory; FerretDB is not involved.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88d37ae98">REST email login rejects stale local passwords on LDAP accounts</a>. Thanks to akitzing and xet7.</summary>
+
+The existing Meteor login-attempt guard already rejected a migrated LDAP
+account's retained local password in browser logins. The REST email form did
+not use Meteor's login hooks and could still compare that stale bcrypt hash
+directly. It now applies the same guard first, performs dummy bcrypt work and
+returns the route's uniform failure. Fourteen guard, eight REST LDAP, seven
+timing and ten throttle tests pass. In the live Meteor stack, the same valid
+password receives HTTP 401 for an LDAP account and HTTP 200 for a local
+account. FerretDB is not involved in authentication.
 
 </details>
 
