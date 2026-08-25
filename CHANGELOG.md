@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first ten 50-value Central Kurdish batches then
-left **179,331 genuinely untranslated values across 83 locale files**, including
-1,666 in Central Kurdish.
+all 2,166 Cherokee values. The first eleven 50-value Central Kurdish batches
+then left **179,281 genuinely untranslated values across 83 locale files**,
+including 1,616 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `error-user-doesNotExist` with
+Resume Central Kurdish at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 10 are
-committed and batch 11 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 11 are
+committed and batch 12 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1041,6 +1041,15 @@ The bulk-card example remains valid JSON, leaving 1,716 values.
 Custom-field text, permanent deletion, profiles, WIP limits, account emails and
 authorization, JSON, CSV, TSV and board-import errors now use Central Kurdish.
 Named email tokens and paragraph breaks remain exact, leaving 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/461ac1910">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account errors, attachment-free board export, PDF and Excel card exports,
+attachment metadata, list sorting and date, label and member filters now use
+Central Kurdish. File-format names remain exact, leaving 1,616 values.
 
 </details>
 
