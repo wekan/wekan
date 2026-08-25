@@ -17,6 +17,10 @@ const {
   equalizeMissingUserTiming,
 } = require('/server/lib/loginTimingDefense');
 const { ReactiveCache } = require('/imports/reactiveCache');
+const {
+  useLdapForRestLogin,
+  ldapRestLoginRequest,
+} = require('/server/lib/restAuthenticationMethod');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -114,24 +118,40 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       user = await Meteor.users.findOneAsync({ username: options.username });
     }
 
-    // GHSA-2g94-9x3m-hv37: a missing user — or a user with no local password
-    // (LDAP/OIDC only) — would otherwise return with no bcrypt work, leaking
-    // existence by timing. Burn one dummy bcrypt comparison and fail with the
-    // exact same uniform error as a wrong password, so neither text nor timing
-    // distinguishes the two.
-    if (!hasLocalPassword(user)) {
+    // #3707: LDAP credentials must run through the registered LDAP login
+    // handler. A direct _checkPasswordAsync call can only authenticate a local
+    // bcrypt password and rejected every LDAP-only account. _runLoginHandlers
+    // is Meteor's server API for checking credentials without attaching them
+    // to a DDP connection; token creation remains below in this REST route.
+    const useLdap = useLdapForRestLogin({
+      user,
+      ldapEnabled:
+        process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true,
+      usernameProvided: Boolean(options.username),
+    });
+
+    let result;
+    if (useLdap) {
+      result = await Accounts._runLoginHandlers(
+        { connection: null },
+        ldapRestLoginRequest(options.username, options.password),
+      );
+      if (result && result.userId) {
+        user = await Meteor.users.findOneAsync(result.userId);
+      }
+    } else if (!hasLocalPassword(user)) {
+      // GHSA-2g94-9x3m-hv37: a missing user — or a non-LDAP user with no local
+      // password — would otherwise return with no bcrypt work, leaking
+      // existence by timing. Burn one dummy bcrypt comparison and fail with
+      // the same uniform error as a wrong password.
       await equalizeMissingUserTiming(Accounts._checkPasswordAsync);
       restLoginThrottle.recordFailure(clientKey, now);
       throw uniformLoginError();
+    } else {
+      result = await Accounts._checkPasswordAsync(user, options.password);
     }
 
-    const result = await Accounts._checkPasswordAsync(user, options.password);
-    check(result, {
-      userId: String,
-      error: Match.Optional(Meteor.Error),
-    });
-
-    if (result.error) {
+    if (!result || result.error || !result.userId || !user) {
       restLoginThrottle.recordFailure(clientKey, now);
       throw uniformLoginError();
     }
