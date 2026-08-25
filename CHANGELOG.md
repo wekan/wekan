@@ -307,14 +307,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
-final 66-value batch then translated all 2,166 Central Kurdish values, leaving
-**177,665 genuinely untranslated values across 82 locale files**.
+final 66-value batch then translated all 2,166 Central Kurdish values. The first
+50-value Chuvash batch then left **177,615 genuinely untranslated values across
+82 locale files**, including 2,116 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Begin Chuvash at `accept` with
+Resume Chuvash at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, and no Chuvash batch has been
-applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batch 1 is committed
+and batch 2 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -505,8 +506,9 @@ browser build to verify).
 covering activity, workspaces, board and card views, imports and exports,
 privacy, automation, roles, search, dependencies, locations, reports,
 attachments, accessibility, account protection, migrations, security controls,
-backups and cloud storage. Whole-locale placeholder and markup checks preserve
-human work and every code token.
+backups and cloud storage. **Chuvash activity translation has begun**, while
+whole-locale placeholder and markup checks preserve human work and every code
+token.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1371,6 +1373,18 @@ filesystem integrity, scoped import/export and number-search guidance now use
 Central Kurdish. OTP, API, IP versions, product and format names, named tokens
 and pseudo-tags remain exact. All 2,166 formerly untranslated values are now
 translated, with zero English placeholders remaining.
+
+</details>
+
+**Chuvash** - direct whole-file translation in Chuvash Cyrillic script.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38834c8de">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, list, swimlane, card, attachment, subtask, label, checklist, comment,
+custom-field, member, archive and import activity now uses Chuvash. Named and
+percent placeholders remain exact, and new whole-locale invariant coverage
+leaves 2,116 values.
 
 </details>
 
