@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 416);
+assert.equal(Object.keys(remaining).length, 366);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -238,3 +238,10 @@ assert.match(cherokee['accounts-lockout-confirm-unlock-all'], /ᏂᎦᏛ/);
 assert.match(cherokee['attachments-path-description'], /ᏅᏃᏓ/);
 assert.match(cherokee['board-backup-scheduled'], /ᎣᏍᏓ/);
 assert.match(cherokee['cron-job-delete-confirm'], /\?/);
+assert.match(cherokee['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.deepEqual(tokens(cherokee['database-migration-confirm']), ['__db__']);
+assert.match(
+  cherokee['database-migration-description'],
+  /mongodb:\/\/127\.0\.0\.1:27018.*WEKAN_FERRETDB_URL.*MONGO_URL/s,
+);
+assert.match(cherokee['sandstorm-migration-description'], /MongoDB 3.*SQLite/s);
