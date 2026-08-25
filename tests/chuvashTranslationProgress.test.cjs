@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 866);
+assert.equal(Object.keys(remaining).length, 816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -226,3 +226,11 @@ assert.match(chuvash['shared-templates-info'], /организаци.*коман
 assert.match(chuvash['dueCardsViewChange-choice-all-description'], /\*Вӗҫленӳ\*/);
 assert.deepEqual(tokens(chuvash['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(chuvash['label-color-not-found']), ['%s']);
+assert.deepEqual(tokens(chuvash['n-n-of-n-cards-found']), [
+  '__end__',
+  '__start__',
+  '__total__',
+]);
+assert.equal(chuvash['operator-board'], 'хӑма');
+assert.equal(chuvash['operator-swimlane'], 'ҫул');
+assert.equal(chuvash['predicate-overdue'], 'вӗҫленӳ вӑхӑчӗ иртнӗ');
