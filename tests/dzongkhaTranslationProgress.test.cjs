@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1366);
+assert.equal(Object.keys(remaining).length, 1316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -163,3 +163,20 @@ assert.match(dzongkha['upload-completed'], /ལེགས་གྲུབ/);
 assert.match(dzongkha['custom-login-logo-image-url'], /URL/);
 assert.match(dzongkha['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 assert.match(dzongkha['attachment-transfer-limits-title'], /API/);
+assert.match(dzongkha['api-upload-limit-label'], /API/);
+assert.match(dzongkha['smtp-tls-description'], /SMTP.*TLS/);
+assert.deepEqual(tokens(dzongkha['email-invite-register-subject']), [
+  '__inviter__',
+]);
+assert.deepEqual(tokens(dzongkha['email-invite-register-text']), [
+  '__icode__',
+  '__inviter__',
+  '__url__',
+  '__user__',
+]);
+assert.equal(
+  dzongkha['email-invite-register-text'].split('\n').length,
+  english['email-invite-register-text'].split('\n').length,
+);
+assert.match(dzongkha.Node_version, /Node/);
+assert.match(dzongkha.Meteor_version, /Meteor/);
