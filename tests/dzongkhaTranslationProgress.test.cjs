@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1816);
+assert.equal(Object.keys(remaining).length, 1766);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -105,3 +105,8 @@ assert.match(dzongkha.casSignIn, /CAS/);
 assert.match(dzongkha['map-to-existing-user-desc'], /གནང་བ/);
 assert.match(dzongkha['font-preview-text'], /0123456789/);
 assert.match(dzongkha['changeLanguagePopup-title'], /སྐད་ཡིག/);
+assert.match(dzongkha['card-aging-days'], /3/);
+assert.match(dzongkha['move-card-up'], /ཡར/);
+assert.match(dzongkha['move-list-left'], /གཡོན/);
+assert.equal(dzongkha['color-black'], 'གནགཔོ།');
+assert.equal(dzongkha['color-red'], 'དམརཔོ།');
