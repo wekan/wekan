@@ -1546,7 +1546,12 @@ Accounts.onCreateUser(async (options, user) => {
   const userCount = typeof usersCursor.countAsync === 'function' ? await usersCursor.countAsync() : usersCursor.count();
   user.isAdmin = userCount === 0;
 
-  if (user.services.oidc) {
+  // A custom login handler is allowed to supply a valid user document without
+  // a `services` object. WeKan's CAS handler does exactly that: its verified
+  // username, email, profile and authenticationMethod are top-level fields.
+  // Only enter the OIDC normalization path when OIDC service data exists.
+  // #3204
+  if (user.services?.oidc) {
     let email = user.services.oidc.email;
     if (Array.isArray(email)) {
       email = email.shift();
