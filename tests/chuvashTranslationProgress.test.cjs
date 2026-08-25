@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 716);
+assert.equal(Object.keys(remaining).length, 666);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -254,3 +254,11 @@ assert.deepEqual(tokens(chuvash['import-dependencies-done']), [
 assert.deepEqual(tokens(chuvash['background-too-big']), ['{{size}}']);
 assert.match(chuvash['import-dependencies-file'], /JSON.*SVG/);
 assert.match(chuvash['sort-boards-title-asc'], /А → Я/);
+assert.equal(chuvash['server-error-troubleshooting'].split('\n').length, 3);
+assert.match(chuvash['server-error-troubleshooting'], /sudo snap logs wekan\.wekan/);
+assert.match(chuvash['server-error-troubleshooting'], /sudo docker logs wekan-app/);
+assert.deepEqual(tokens(chuvash['custom-field-stringtemplate-format']), [
+  '%{value}',
+]);
+assert.match(chuvash['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+assert.match(chuvash['office-report-desc'], /IPv4.*IPv6/);
