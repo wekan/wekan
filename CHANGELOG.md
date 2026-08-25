@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first nineteen 50-value
-Ewe batches then left **172,383 genuinely untranslated values across 80 locale
-files**, including 1,216 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first twenty-one 50-value
+Ewe batches then left **172,283 genuinely untranslated values across 80 locale
+files**, including 1,116 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `activity-delete-attach` with
+Resume Ewe at `r-list` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 19 are committed and batch 20 has not been applied.
+1 through 21 are committed and batch 22 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2413,6 +2413,26 @@ Received and end dates, color dialogs, permanent board and duplicate-list
 deletion, subtask and card settings, minicard fields, parent paths and label
 activity now use Ewe. Named and percent tokens and count examples remain exact,
 leaving 1,216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54c02b7e6">Automation workflows gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and custom-field activity, visual rule workflows, triggers,
+actions, rule selection and JSON, CSV and Trello Butler imports now use Ewe.
+Percent and named tokens and format and product names remain exact, leaving
+1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd54f339f">Automation scheduling gains 50 values</a>. Thanks to xet7.</summary>
+
+n8n and Node-RED workflow imports, scheduled and button triggers, due-date
+conditions, list sorting, completion, relative dates, units and board and card
+actions now use Ewe. Product names, count tokens and variables remain exact,
+leaving 1,116 values.
 
 </details>
 
