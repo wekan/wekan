@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1766);
+assert.equal(Object.keys(remaining).length, 1716);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -115,3 +115,6 @@ assert.match(ewe['card-aging-days'], /3/);
 assert.match(ewe['color-black'], /yibɔ/);
 assert.match(ewe['color-green'], /amaɖi/);
 assert.match(ewe['color-red'], /dzĩ/);
+assert.match(ewe['copyManyCardsPopup-instructions'], /JSON/);
+assert.doesNotThrow(() => JSON.parse(ewe['copyManyCardsPopup-format']));
+assert.match(ewe['custom-field-dropdown-options-placeholder'], /enter/);
