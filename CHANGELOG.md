@@ -608,6 +608,23 @@ report cannot silently regress.
 
 </details>
 
+**Lists and swimlanes** - color choices persist behind prefixed reverse proxies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c5332419">Their color forms stay on the board while saving under a URL path</a>. Thanks to RowhamD, cautiouscoyote and xet7.</summary>
+
+Firefox treated the popup's Save buttons as implicit form submissions and
+navigated before the list or swimlane mutation completed, which was most
+visible when `ROOT_URL` included a path prefix. The existing handlers now
+prevent that navigation on both the click and submit paths. Four focused
+positive and negative checks pass. A production-mode Meteor server under
+`/path` compiled and started, and live Chromium changed both stored colors
+without leaving the prefixed board URL. The Firefox browser regression is
+registered but could not run locally because its Playwright binary is absent.
+FerretDB and the service-worker 404 are unrelated to these client mutations.
+
+</details>
+
 **Filters and bulk selection** - cached cards remain confined to the board being
 edited.
 
