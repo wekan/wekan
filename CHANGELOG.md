@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-thirty 50-value Chuvash batches then left **176,165 genuinely untranslated
-values across 82 locale files**, including 666 in Chuvash.
+thirty-one 50-value Chuvash batches then left **176,115 genuinely untranslated
+values across 82 locale files**, including 616 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `office-shared` with
+Resume Chuvash at `add-teams-label` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 30
-are committed and batch 31 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 31
+are committed and batch 32 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1666,6 +1666,16 @@ Map locations, server-error diagnostics, activity sorting, string templates,
 file and security reports, impersonation, recovery and office-login details now
 use Chuvash. Commands, HTML entities, format tokens, line breaks and IP versions
 remain exact, leaving 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/188a09c7c">Recovery and support workflows gain 50 values</a>. Thanks to xet7.</summary>
+
+Office and API reports, recovery events and maintenance, swimlane copying,
+loading animations, organization guards, tickets, requests and card details now
+use Chuvash. REST API, environment, database and email-copy terms remain exact,
+leaving 616 values.
 
 </details>
 
