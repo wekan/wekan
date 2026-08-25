@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1516);
+assert.equal(Object.keys(remaining).length, 1466);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -146,3 +146,7 @@ assert.match(kurdish['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.match(kurdish['trello-api-token'], /API/);
 assert.match(kurdish['invalid-year'], /2026/);
 assert.deepEqual(tokens(kurdish['label-default']), ['%s']);
+assert.deepEqual(tokens(kurdish['leave-board-pop']), ['__boardTitle__']);
+assert.match(kurdish['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.match(kurdish['no-archived-swimlanes'], /ڕێڕەو/);
+assert.match(kurdish['normal-assigned-only-desc'], /ئاسایی/);
