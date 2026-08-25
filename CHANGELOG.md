@@ -84,7 +84,6 @@ never arrives - the reporter's own title says environment specific, and the send
 path needs a real SMTP server to tell a WeKan defect from a rejected or
 silently-dropped message; the code that composes and sends it is worth reading
 against a live log rather than guessed at),
-[#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm),
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
 Node-24-compatible bridge implementation; direct HTTP is intentionally blocked
@@ -479,6 +478,8 @@ case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
 source boards. **LDAP account creation, REST login and group restrictions** now
 use directory authentication consistently and fail closed when required.
+**Sandstorm member cleanup** now distinguishes WeKan visibility from grain
+access.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -886,6 +887,20 @@ email-account creation stays hidden because those accounts cannot authenticate
 through Sandstorm. Focused coverage protects the Sandstorm branch and admin
 mapping; live Chromium adds a user to the second of two boards, leaves the first
 unchanged and opens the second board as that user.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9cfc1d8d">Local member removal warns that Sandstorm grain access remains</a>. Thanks to soerenk, ocdtrekkie, rautamiekka, kentonv, ertanalytics, sjoki, lslamp and xet7.</summary>
+
+Revoking a user's Sandstorm share prevents access but cannot notify the app, so
+the old WeKan member avatar can remain. Board administrators can remove that
+stale local member and all of their card roles, while a Sandstorm-only warning
+now states that this action does not revoke grain access and points them to the
+platform's Share access dialog. Four positive, negative and wiring regressions
+pass, the complete client compiles, and both live member-removal permission
+scenarios pass in Chromium. A real revoke callback cannot be tested because
+Sandstorm exposes none; FerretDB is not involved in grain authorization.
 
 </details>
 
