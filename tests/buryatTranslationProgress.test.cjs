@@ -7,10 +7,10 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 66);
+assert.equal(Object.keys(remaining).length, 0);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
-const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
+const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
 const tags = (value) => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)].map(([tag]) => tag).sort();
 for (const [key, value] of Object.entries(buryat)) {
   if (value !== english[key]) assert.deepEqual(tokens(value), tokens(english[key]), key);
@@ -143,3 +143,6 @@ assert.equal(buryat['every-30-minutes'], '30 минута бүри');
 assert.match(buryat['migration-cpu-threshold'], /CPU.*%/);
 assert.match(buryat['migration-delay-ms-description'], /100-10000/);
 assert.equal(buryat['migrate-all-to-gridfs'], 'Бүгэдые GridFS рүү нүүлгэхэ');
+assert.deepEqual(tokens(buryat['repair-broken-cards-done-unfixable']), ['__fixed__', '__unfixable__']);
+assert.deepEqual(tokens(buryat['globalSearch-instructions-operator-number']), ['__operator_number__']);
+assert.deepEqual(tags(buryat['globalSearch-instructions-operator-number']), ['<number>', '<number>']);
