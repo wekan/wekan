@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-thirty-nine 50-value Cherokee batches then left **180,047 genuinely
-untranslated values across 84 locale files**, including 216 in Cherokee.
+forty 50-value Cherokee batches then left **179,997 genuinely untranslated
+values across 84 locale files**, including 166 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `comprehensive-board-migration` with
+Resume Cherokee at `step-analyze-lists` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 39 are committed and batch 40
+Buryat is complete, Cherokee batches 1 through 40 are committed and batch 41
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -897,6 +897,15 @@ paths, provider names and secret labels remain exact, leaving 266 values.
 GridFS state, migration controls, S3 authentication, scheduled board operations
 and attachment monitoring now use Cherokee syllabary. MongoDB, CollectionFS,
 MinIO, regions and transport protocols remain exact, leaving 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8a632e1d">Board repair migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+Board-integrity analysis, lost-card recovery, archive restoration and file URL
+repair now use Cherokee syllabary. Swimlane and list identifiers, URLs and
+confirmation punctuation remain exact, leaving 166 values.
 
 </details>
 
