@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-twenty-three 50-value Cherokee batches then left **180,847 genuinely
-untranslated values across 84 locale files**, including 1,016 in Cherokee.
+twenty-four 50-value Cherokee batches then left **180,797 genuinely untranslated
+values across 84 locale files**, including 966 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `add-custom-html-after-body-start` with
+Resume Cherokee at `open-many-cards-at-once-description` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 23 are committed and batch 24
+Buryat is complete, Cherokee batches 1 through 24 are committed and batch 25
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,8 +501,8 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
-imports, privacy, branding, runtime metrics, tenancy, card settings, automation
-and manifests. This continues the direct whole-file translation effort while
+imports, privacy, branding, runtime metrics, tenancy, automation, manifests and
+reminders. This continues the direct whole-file translation effort while
 preserving human work and every code token. Below that: whole-locale placeholder
 and markup checks protect the new values.
 
@@ -744,6 +744,16 @@ actions, relative date fields, authentication, product naming, custom head tags,
 web manifests, asset links, layout and member displays now use Cherokee
 syllabary. Comma-separated examples and HTML/JSON names remain exact, leaving
 1,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a0b5d2c4">Reminders and layout controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom body HTML, authentication, board duplication, swimlane deletion, date
+and due-time reminders, mentions, account, team and organization deletion,
+minicard labels, drag handles and editor behavior now use Cherokee syllabary.
+HTML and named and percent tokens remain exact, leaving 966 values.
 
 </details>
 
