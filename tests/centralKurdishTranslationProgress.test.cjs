@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1066);
+assert.equal(Object.keys(remaining).length, 1016);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -197,3 +197,8 @@ assert.match(kurdish['r-trigger'], /دەستپێکەر/);
 assert.match(kurdish['r-unarchived'], /ئەرشیف/);
 assert.match(kurdish['r-checklist'], /لیستی پشکنین/);
 assert.match(kurdish['r-send-email'], /ئیمەیڵ/);
+assert.equal(kurdish['r-items-list'], 'بڕگە1,بڕگە2,بڕگە3');
+assert.match(kurdish['r-in-swimlane'], /ڕێڕەو/);
+assert.match(kurdish['authentication-method'], /پشتڕاستکردنەوە/);
+assert.match(kurdish['custom-head-meta-tags'], /HTML/);
+assert.match(kurdish['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
