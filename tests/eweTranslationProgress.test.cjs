@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2066);
+assert.equal(Object.keys(remaining).length, 2016);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -83,3 +83,7 @@ assert.deepEqual(tokens(ewe['activity-checklist-completed-card']), [
   '__swimlane__',
 ]);
 assert.match(ewe['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(ewe['activity-dueDate']), ['%s', '%s']);
+assert.match(ewe['list-width-error-message'], /270/);
+assert.match(ewe['set-swimlane-height'], /tsiƒuƒu/);
+assert.match(ewe['convertChecklistItemToCardPopup-title'], /kaɖi/);
