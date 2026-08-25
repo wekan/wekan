@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first twenty 50-value
-Buryat batches then left **183,163 genuinely untranslated values across 85
-locale files**, including 1,166 in Buryat.
+16-value batch then translated all 2,166 values. The first twenty-one 50-value
+Buryat batches then left **183,113 genuinely untranslated values across 85
+locale files**, including 1,116 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `r-workflow-format` with
+Resume Buryat at `r-list` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 20 are committed and batch 21 has not been applied.
+batches 1 through 21 are committed and batch 22 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4590,6 +4590,17 @@ workflow and list views, card, label, member, checklist, attachment and daily
 triggers and JSON, CSV and Trello Butler rule transfer now use Buryat. Named
 and percent tokens remain exact, and whole-locale invariant coverage leaves
 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31e730efa">Buryat scheduled automation gains 50 values</a>. Thanks to xet7.</summary>
+
+Visual workflow formats, n8n and Node-RED imports, scheduled and button
+triggers, daily through monthly schedules, due-date and time-in-list triggers,
+list sorting, completion actions, relative dates and time units now use Buryat.
+The import count remains exact, and whole-locale invariant coverage leaves
+1,116 values.
 
 </details>
 
