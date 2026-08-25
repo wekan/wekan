@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 916);
+assert.equal(Object.keys(remaining).length, 866);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -222,3 +222,8 @@ assert.match(kurdish['submit-on-enter-description'], /Ctrl\/Cmd\+Enter/);
 assert.equal(kurdish.monday, 'دووشەممە');
 assert.equal(kurdish.friday, 'هەینی');
 assert.match(kurdish['roles-info'], /پانێڵی بەڕێوەبەر/);
+assert.match(kurdish['invalid-domain'], /example\.com.*@/);
+assert.match(kurdish['shared-templates-info'], /ڕێکخراو.*تیم.*دۆمەین/);
+assert.match(kurdish['dueCardsViewChange-choice-all-description'], /\*کۆتایی\*/);
+assert.deepEqual(tokens(kurdish['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(kurdish['label-color-not-found']), ['%s']);
