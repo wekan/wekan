@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2016);
+assert.equal(Object.keys(remaining).length, 1966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -87,3 +87,11 @@ assert.deepEqual(tokens(ewe['activity-dueDate']), ['%s', '%s']);
 assert.match(ewe['list-width-error-message'], /270/);
 assert.match(ewe['set-swimlane-height'], /tsiƒuƒu/);
 assert.match(ewe['convertChecklistItemToCardPopup-title'], /kaɖi/);
+assert.deepEqual(tokens(ewe['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(ewe['avatar-too-big']), ['__size__']);
+assert.deepEqual(tokens(ewe['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(ewe['board-private-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.match(ewe['board-background-image-url'], /URL/);
