@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first twenty-six 50-value Dzongkha batches then left **174,199
-genuinely untranslated values across 81 locale files**, including 866 in
+81 locale files**. The first twenty-seven 50-value Dzongkha batches then left **174,149
+genuinely untranslated values across 81 locale files**, including 816 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `comment-not-found` with
+Resume Dzongkha at `predicate-public` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 26 are committed and batch 27 has not been applied.
+through 27 are committed and batch 28 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2051,6 +2051,16 @@ Checklist visibility, domain-scoped shared templates, My Cards sorting, Due
 Cards and global-search views and board, swimlane, list, label and username
 errors now use Dzongkha. Domain examples, Markdown emphasis and percent tokens
 remain exact, leaving 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfa2ad9ac">Search operators gain 50 values</a>. Thanks to xet7.</summary>
+
+Comment, organization and team errors, result counts and board, swimlane, list,
+label, user, date, status, attachment, checklist and custom-field search
+operators and predicates now use Dzongkha. Percent and result-range tokens
+remain exact, leaving 816 values.
 
 </details>
 
