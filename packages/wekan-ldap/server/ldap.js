@@ -2,6 +2,10 @@ import { Client } from 'ldapts';
 import { Log } from 'meteor/logging';
 import { normalizeLdapEncryption } from './encryptionSetting';
 import { buildUserIdFilter } from './userIdFilter';
+import {
+  missingGroupLookupSettings,
+  missingLoginGroupFilterSettings,
+} from './groupFilterConfig';
 
 // #4158: warn about a deprecated/invalid LDAP_ENCRYPTION value only once per
 // distinct message, not on every single login attempt (LDAP instantiates a
@@ -487,6 +491,14 @@ export default class LDAP {
       return [];
     }
 
+    const missingSettings = missingGroupLookupSettings(this.options);
+    if (missingSettings.length > 0) {
+      Log.error(
+        `LDAP group search is enabled but cannot check membership because these settings are missing: ${missingSettings.join(', ')}. Answering with NO groups.`,
+      );
+      return [];
+    }
+
     const filter = ['(&'];
 
     if (this.options.group_filter_object_class !== '') {
@@ -564,6 +576,21 @@ export default class LDAP {
   async isUserInGroup(username, ldapUser) {
     if (!this.options.group_filter_enabled) {
       return true;
+    }
+
+    const adminGroupNames =
+      this.constructor.settings_get('LDAP_SYNC_ADMIN_STATUS') === true
+        ? this.constructor.settings_get('LDAP_SYNC_ADMIN_GROUPS')
+        : '';
+    const missingSettings = missingLoginGroupFilterSettings(
+      this.options,
+      adminGroupNames,
+    );
+    if (missingSettings.length > 0) {
+      Log.error(
+        `LDAP group login filter is enabled but cannot check membership because these settings are missing: ${missingSettings.join(', ')}. Refusing login.`,
+      );
+      return false;
     }
 
     const grps = await this.getUserGroups(username, ldapUser);
