@@ -5,6 +5,10 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { allBoardsPath, SECTION_ARCHIVE } = require('/models/lib/allBoardsUrls');
+const {
+  SIDEBAR_BACK_CLOSE,
+  sidebarBackAction,
+} = require('/models/lib/sidebarBackAction');
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import '/client/components/boards/exportScope';
 import AccessibilitySettings from '/models/accessibilitySettings';
@@ -336,6 +340,13 @@ Template.sidebar.events({
     tpl.hide();
   },
   'click .js-back-home'(event, tpl) {
+    if (sidebarBackAction(tpl.getView(), Utils.isMiniScreen()) === SIDEBAR_BACK_CLOSE) {
+      // #3576: Search is a full-screen panel on a phone. Reset its view for the
+      // next open, but close it now so Back returns directly to the card wall.
+      tpl._view.set(defaultView);
+      tpl.hide();
+      return;
+    }
     tpl.setView();
   },
   'click .js-shortcuts'() {

@@ -18,6 +18,26 @@ const CardPage = require('../pages/CardPage');
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 test.describe('Cards – open & view modes', () => {
+  test('#3576: mobile Search back returns directly to the board', async ({
+    boardPage,
+  }) => {
+    await boardPage.setViewportSize({ width: 390, height: 844 });
+    await boardPage.evaluate(() =>
+      localStorage.setItem('wekan-mobile-mode', 'true'),
+    );
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    await boardPage.locator('.js-open-search-view').click();
+    await expect(boardPage.locator('.board-sidebar')).toHaveClass(/is-open/);
+    await expect(boardPage.locator('.js-search-term-form')).toBeVisible();
+    await boardPage.locator('.board-sidebar .js-back-home').click();
+
+    await expect(boardPage.locator('.board-sidebar')).not.toHaveClass(/is-open/);
+    await expect(boardPage.locator('.board-canvas')).toBeVisible();
+    await expect(boardPage.locator('.board-sidebar .js-search-term-form'))
+      .not.toBeVisible();
+  });
+
   test('clicking a minicard opens the card detail panel', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
