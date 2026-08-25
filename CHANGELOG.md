@@ -682,6 +682,19 @@ an administrator scrolls or pages.
 
 </details>
 
+**REST authentication** - clients can invalidate bearer tokens explicitly.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e4e1a5db">REST logout proves that a revoked token immediately loses access</a>. Thanks to Gobliins, MonkeyNinja, AbdullahAlAsad and xet7.</summary>
+
+The existing logout endpoint revokes either the presented token or every
+session with authenticated-user scoping. All 12 positive and negative planning
+cases pass. A new end-to-end API regression logs out with a real bearer token,
+verifies its removal from the user's resume tokens and requires that same token
+to receive HTTP 401 on its next request.
+
+</details>
+
 **The board archive** - card actions stay visually attached to their card.
 
 <details>
