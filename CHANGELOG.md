@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first thirteen 50-value Ewe
-batches then left **172,683 genuinely untranslated values across 80 locale
-files**, including 1,516 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first fifteen 50-value Ewe
+batches then left **172,583 genuinely untranslated values across 80 locale
+files**, including 1,416 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `last-admin-desc` with
+Resume Ewe at `starred-boards-description` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 13 are committed and batch 14 has not been applied.
+1 through 15 are committed and batch 16 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2353,6 +2353,26 @@ Trello ZIP validation, workspace placement, API imports, credential storage,
 bulk selection and cancellation, member mapping, date validation, keyboard
 shortcuts and labels now use Ewe. The API URL, key and token names, year example
 and percent token remain exact, leaving 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d63bb85c3">Roles and list actions gain 50 values</a>. Thanks to xet7.</summary>
+
+Last-administrator protection, leaving boards, list archives, role settings,
+swimlane actions, card imports, login, selection tools and notification roles
+now use Ewe. Named board-title tokens and import formats remain exact, leaving
+1,466 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a8613a77">Access and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+
+Watch notifications, private and public access guidance, member removal,
+description rescue, search, WIP limits, keyboard shortcuts, sidebars and
+default-board behavior now use Ewe. HTML links, named and percent tokens and
+product and keyboard terms remain exact, leaving 1,416 values.
 
 </details>
 
