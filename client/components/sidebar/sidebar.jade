@@ -918,6 +918,8 @@ template(name="mapImportedMemberPopup")
 
 template(name="removeMemberPopup")
   p {{_ 'remove-member-pop' name=user.profile.fullname username=user.username boardTitle=board.title}}
+  if isSandstorm
+    p.warning {{_ 'sandstorm-remove-member-warning'}}
   button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}
 
 template(name="leaveBoardPopup")
