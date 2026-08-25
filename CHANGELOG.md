@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first twenty-nine 50-value
-Ewe batches then left **171,883 genuinely untranslated values across 80 locale
-files**, including 716 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first thirty-one 50-value
+Ewe batches then left **171,783 genuinely untranslated values across 80 locale
+files**, including 616 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `location-longitude` with
+Resume Ewe at `add-teams-label` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 29 are committed and batch 30 has not been applied.
+1 through 31 are committed and batch 32 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2509,6 +2509,26 @@ inline-code examples, quoted values and Markdown emphasis remain exact, leaving
 Sorting, card completion, stickers, dependency relations and imports, board
 backgrounds and locations now use Ewe. Sort directions, JSON and SVG, named
 import counts and size tokens remain exact, leaving 716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d77da6cb4">Reports and location detection gain 50 values</a>. Thanks to xet7.</summary>
+
+Location detection, map settings, server troubleshooting, swimlane movement,
+string templates, system reports, impersonation, recovery and office login data
+now use Ewe. Shell commands, placeholders, HTML entities, IPv4 and IPv6 remain
+exact, leaving 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/297673768">Recovery and tickets gain 50 values</a>. Thanks to xet7.</summary>
+
+REST API reporting, recovery and database health, swimlane copying, wait
+spinners, card sizing, deletion constraints, tickets, requests and card details
+now use Ewe. Environment, database, spinner and mail-header names remain exact,
+leaving 616 values.
 
 </details>
 
