@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first twenty-two 50-value Central Kurdish batches
-then left **178,731 genuinely untranslated values across 83 locale files**,
-including 1,066 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty-three 50-value Central Kurdish
+batches then left **178,681 genuinely untranslated values across 83 locale
+files**, including 1,016 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `r-d-send-email-message` with
+Resume Central Kurdish at `add-custom-html-after-body-start` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 22 are
-committed and batch 23 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 23 are
+committed and batch 24 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1163,6 +1163,16 @@ Moves, archives, label, member, attachment and checklist conditions, card
 placement, member and label removal, colors, checklist actions and email actions
 now use Central Kurdish. Rule terminology remains consistent, leaving 1,066
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5613c836e">Rule details and custom branding gain 50 values</a>. Thanks to xet7.</summary>
+
+Rule emails, archives, labels, cards, members, checklists, swimlanes and date
+fields, authentication, custom product metadata and manifests, layout and board
+member lists now use Central Kurdish. Delimiters, HTML, JSON and filenames
+remain exact, leaving 1,016 values.
 
 </details>
 
