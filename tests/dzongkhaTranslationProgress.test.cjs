@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1616);
+assert.equal(Object.keys(remaining).length, 1566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -132,3 +132,11 @@ assert.match(dzongkha['export-card-pdf'], /PDF/);
 assert.match(dzongkha['export-card-excel'], /Excel/);
 assert.match(dzongkha['export-card-field-board-info'], /ཆུ་ལམ/);
 assert.match(dzongkha['filter-due-today'], /ད་རིས/);
+assert.match(dzongkha['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(dzongkha['import-board-instruction-issues']), [
+  '__endpoint__',
+  '__sourceName__',
+]);
+assert.match(dzongkha['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
+assert.match(dzongkha['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
+assert.match(dzongkha['import-trello-json-file-hint'], /API/);
