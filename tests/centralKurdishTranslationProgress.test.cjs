@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1666);
+assert.equal(Object.keys(remaining).length, 1616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -130,3 +130,7 @@ assert.deepEqual(tokens(kurdish['email-invite-text']), [
 assert.match(kurdish['error-json-malformed'], /JSON/);
 assert.match(kurdish['error-csv-schema'], /CSV.*TSV/);
 assert.match(kurdish['error-import-empty-board'], /WeKan/);
+assert.match(kurdish['export-card-pdf'], /PDF/);
+assert.match(kurdish['export-card-excel'], /Excel/);
+assert.match(kurdish['export-card-field-board-info'], /ڕێڕەو/);
+assert.match(kurdish['filter-due-today'], /ئەمڕۆ/);
