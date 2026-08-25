@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 916);
+assert.equal(Object.keys(remaining).length, 866);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -238,3 +238,11 @@ assert.equal(dzongkha.monday, 'གཟའ་ཟླ་བ།');
 assert.equal(dzongkha.sunday, 'གཟའ་ཉི་མ།');
 assert.match(dzongkha['roles-info'], /བདག་སྐྱོང/);
 assert.match(dzongkha['delete-linked-cards-before-this-list'], /འབྲེལ/);
+assert.match(dzongkha['invalid-domain'], /example\.com.*@/);
+assert.match(dzongkha['dueCardsViewChange-choice-all-description'], /\*[^*]+\*/);
+assert.match(
+  dzongkha['globalSearchViewChange-choice-all-description'],
+  /\*[^*]+\*/,
+);
+assert.deepEqual(tokens(dzongkha['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(dzongkha['user-username-not-found']), ['%s']);
