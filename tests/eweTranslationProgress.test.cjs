@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1966);
+assert.equal(Object.keys(remaining).length, 1916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -95,3 +95,12 @@ assert.deepEqual(tags(ewe['board-private-info']), [
   '<strong>',
 ]);
 assert.match(ewe['board-background-image-url'], /URL/);
+assert.deepEqual(tags(ewe['board-public-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.deepEqual(tokens(ewe['board-open-and-move-between-remaining-and-workspaces']), [
+  '__workspaces__',
+]);
+assert.match(ewe['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(ewe['card-comments-title']), ['%s']);
