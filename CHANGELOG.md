@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first twenty-eight 50-value Central Kurdish
-batches then left **178,431 genuinely untranslated values across 83 locale
-files**, including 766 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty-nine 50-value Central Kurdish
+batches then left **178,381 genuinely untranslated values across 83 locale
+files**, including 716 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `label-colors` with
+Resume Central Kurdish at `location-longitude` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 28 are
-committed and batch 29 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 29 are
+committed and batch 30 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1223,6 +1223,16 @@ Search predicates and validation, paging, operator syntax and examples, board,
 list, swimlane, label, user, organization, team, date, status, content, sorting
 and limit guidance now use Central Kurdish. Pseudo-tags, named tokens, examples
 and line breaks remain exact, leaving 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fca09616b">Dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+
+Label metadata, board and card sorting, completion, stickers, dependency types
+and transfer, board backgrounds and card-location fields now use Central
+Kurdish. Sort arrows, format names, named tokens and size syntax remain exact,
+leaving 716 values.
 
 </details>
 
