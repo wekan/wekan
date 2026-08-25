@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 166);
+assert.equal(Object.keys(remaining).length, 116);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -295,3 +295,8 @@ assert.match(ewe['restore-lost-cards-migration-description'], /swimlaneId.*listI
 assert.match(ewe['restore-all-archived-migration-description'], /swimlaneId.*listId/);
 assert.match(ewe['fix-avatar-urls-migration-description'], /URL/);
 assert.match(ewe['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(ewe['step-fix-missing-ids'], /ID/);
+assert.match(ewe['step-fix-file-urls'], /URL/);
+assert.match(ewe['cpu-cores'], /CPU/);
+assert.match(ewe['gridfs-attachments'], /GridFS/);
+assert.match(ewe['every-30-minutes'], /30/);
