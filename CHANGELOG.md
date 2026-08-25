@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-five 50-value Chuvash batches then left **177,415 genuinely untranslated values
-across 82 locale files**, including 1,916 in Chuvash.
+six 50-value Chuvash batches then left **177,365 genuinely untranslated values
+across 82 locale files**, including 1,866 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `card-members-title` with
+Resume Chuvash at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 5
-are committed and batch 6 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 6
+are committed and batch 7 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1424,6 +1424,15 @@ Public-board notices, board movement, backgrounds, desktop and mobile modes,
 zoom, calendar and statistics views, archive recovery and card controls now use
 Chuvash. Named and percent tokens and HTML tags remain exact, leaving 1,916
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/944646bd8">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Card membership and dates, voting, Planning Poker, dependencies, organizations,
+teams, backgrounds and checklist, swimlane, list, card and board imports now use
+Chuvash. Product names remain exact, leaving 1,866 values.
 
 </details>
 
