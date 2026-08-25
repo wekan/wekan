@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 566);
+assert.equal(Object.keys(remaining).length, 516);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -280,3 +280,8 @@ assert.match(kurdish['custom-legal-notice-link-url'], /URL/);
 assert.match(kurdish['newLineNewItem'], /=/);
 assert.match(kurdish['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(kurdish['attachment-move-storage-s3'], /S3/);
+assert.match(kurdish['attachment-repair-locations-description'], /GridFS/);
+assert.match(kurdish['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
+assert.match(kurdish['mongodb-compact-warning'], /oplog.*Meteor/);
+assert.match(kurdish['move-all-attachments-of-board-to-s3'], /S3/);
+assert.match(kurdish['gridfs-file-id'], /GridFS/);
