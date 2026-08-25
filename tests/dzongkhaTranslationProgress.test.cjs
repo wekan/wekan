@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 66);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -368,3 +368,9 @@ assert.match(dzongkha['migration-batch-size-description'], /1-100/);
 assert.match(dzongkha['migration-cpu-threshold'], /CPU.*%/);
 assert.match(dzongkha['migration-cpu-threshold-description'], /10-90/);
 assert.match(dzongkha['migration-delay-ms-description'], /100-10000/);
+assert.match(dzongkha['repair-broken-cards-done'], /__fixed__/);
+assert.match(dzongkha['repair-broken-cards-done-unfixable'], /__fixed__.*__unfixable__/);
+assert.match(dzongkha['globalSearch-instructions-operator-number'], /`__operator_number__:<number>`/);
+assert.match(dzongkha['globalSearch-instructions-operator-number'], /\*<number>\*/);
+assert.match(dzongkha['import-here-instruction'], /\.json.*\.zip/);
+assert.match(dzongkha['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
