@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-seventeen 50-value Cherokee batches then left **181,147 genuinely untranslated
-values across 84 locale files**, including 1,316 in Cherokee.
+eighteen 50-value Cherokee batches then left **181,097 genuinely untranslated
+values across 84 locale files**, including 1,266 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `Database_commit` with
+Resume Cherokee at `card-received-on` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 17 are committed and batch 18
+Buryat is complete, Cherokee batches 1 through 18 are committed and batch 19
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,10 +501,10 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
-filters, imports, privacy, tracking, branding, attachment limits and webhooks.
-This continues the direct whole-file translation effort while preserving human
-work and every code token. Below that: whole-locale placeholder and markup
-checks protect the new values.
+imports, privacy, branding, attachment limits, webhooks, runtime metrics and
+tenancy. This continues the direct whole-file translation effort while
+preserving human work and every code token. Below that: whole-locale placeholder
+and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -680,6 +680,17 @@ SMTP configuration and testing, authorization, outgoing and bidirectional
 webhooks and package, database, Node and Meteor metadata now use Cherokee
 syllabary. Invitation tokens and protocol/product names remain exact, leaving
 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6b02f4d0">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Database and FerretDB revisions, reactivity and DDP modes, OS metrics, time
+units, custom-field display, account changes, visibility and organization/team
+templates, authentication synchronization, tenancy, domains and administrators
+now use Cherokee syllabary. Environment variables, hostnames and product names
+remain exact, leaving 1,266 values.
 
 </details>
 
