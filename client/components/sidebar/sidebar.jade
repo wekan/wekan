@@ -93,11 +93,12 @@ template(name="membersWidget")
           else
             each currentBoard.membersForSidebar
               +userAvatar(userId=this.userId showStatus=true)
-            if isSandstorm
-              if currentUser.isBoardMember
-                a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
-                  i.fa.fa-plus
-            else if currentUser.canInviteToBoard
+            //- Sandstorm grains can contain multiple boards. Their users already
+              exist in this grain after first visiting it, so use WeKan's normal,
+              permission-checked board-member picker. The former Powerbox button
+              depended on capnp.node (unavailable with the bundled Node 24) and its
+              claimed identity was never attached to the selected board. #2405
+            if currentUser.canInviteToBoard
               a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
                 i.fa.fa-plus
             .clearfix
@@ -994,7 +995,11 @@ template(name="addMemberPopup")
             span.full-name
               = profile.fullname
               | (<span class="username">{{username}}</span>)
-    button.js-email-invite.primary.full {{_ 'email-invite'}}
+    //- A Sandstorm identity must enter through grain sharing; creating a local
+      email/password account here would produce an account that cannot use the
+      grain's header-based login. Existing grain identities remain searchable.
+    unless isSandstorm
+      button.js-email-invite.primary.full {{_ 'email-invite'}}
 
 
 template(name="addMemberPopupTest")

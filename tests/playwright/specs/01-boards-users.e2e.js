@@ -78,6 +78,39 @@ test.describe('Boards – user membership', () => {
     }
   });
 
+  test('#2405 owner can add a grain user to a second board', async ({ page, user, user2 }) => {
+    const first = db.seedBoard({ ownerId: user.id });
+    const second = db.seedBoard({ ownerId: user.id });
+    try {
+      await loginWithToken(page, user.id, user.token);
+      await openBoard(page, second.boardId, second.slug);
+
+      const bp = new BoardPage(page);
+      await bp.openBoardMembers();
+      const popup = page.locator('.js-pop-over');
+      await popup.locator('.js-search-member-input').pressSequentially(user2.username);
+      const candidate = popup.locator('.js-select-member').filter({ hasText: user2.username });
+      await expect(candidate).toBeVisible({ timeout: 10_000 });
+      await candidate.click();
+
+      await expect.poll(() => {
+        const stored = db.getBoard(second.boardId);
+        return stored?.members?.some(member =>
+          member.userId === user2.id && member.isActive,
+        );
+      }, { timeout: 10_000 }).toBe(true);
+
+      const untouched = db.getBoard(first.boardId);
+      expect(untouched.members.some(member => member.userId === user2.id)).toBe(false);
+
+      await loginWithToken(page, user2.id, user2.token);
+      await openBoard(page, second.boardId, second.slug);
+      await expect(page.locator('.board-canvas')).toBeVisible({ timeout: 15_000 });
+    } finally {
+      db.cleanup({ boardIds: [first.boardId, second.boardId] });
+    }
+  });
+
   test('board admin can change a member role to admin', async ({ boardPage, board, user2 }) => {
     // Pre-add user2 as non-admin member
     db.addBoardMember({ boardId: board.boardId, userId: user2.id, isAdmin: false });
