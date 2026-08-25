@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first thirty-five 50-value Central Kurdish
-batches then left **178,081 genuinely untranslated values across 83 locale
-files**, including 416 in Central Kurdish.
+all 2,166 Cherokee values. The first thirty-six 50-value Central Kurdish batches
+then left **178,031 genuinely untranslated values across 83 locale files**,
+including 366 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `cron-job-delete-failed` with
+Resume Central Kurdish at `sandstorm-disk-usage` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 35 are
-committed and batch 36 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 36 are
+committed and batch 37 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1294,6 +1294,16 @@ Accessibility content, brute-force protection, locked-user administration,
 active-user filters, scheduled jobs and migrations, attachment/avatar paths and
 scheduled board archive, backup and cleanup now use Central Kurdish. Durations
 and status distinctions remain explicit, leaving 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/268150d47">Database migration gains 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled-job and migration recovery, filesystem and S3 settings, Azure
+credentials, MongoDB/FerretDB text-data migration and Sandstorm grain migration
+now use Central Kurdish. URLs, ports, environment variables, paths and database
+and platform names remain exact, leaving 366 values.
 
 </details>
 
