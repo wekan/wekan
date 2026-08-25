@@ -78,6 +78,23 @@ test('#619 scenario: second similar email gets a suffixed username', async () =>
   assert.strictEqual(third, 'cats2');
 });
 
+test('#825: john.doe at two domains creates two distinct invitees', async () => {
+  const dir = directory([]);
+  const first = await deriveUniqueInviteeUsername(
+    'john.doe@foo.com',
+    dir.isTakenAsync,
+  );
+  dir.add(first);
+  const second = await deriveUniqueInviteeUsername(
+    'john.doe@bar.com',
+    dir.isTakenAsync,
+  );
+
+  assert.strictEqual(first, 'john.doe');
+  assert.strictEqual(second, 'john.doe1');
+  assert.notStrictEqual(first, second);
+});
+
 test('collision with a pre-existing non-invited account is also avoided', async () => {
   // e.g. someone registered the username "admin" long ago.
   const dir = directory(['admin', 'admin1']);
@@ -104,6 +121,11 @@ test('email is normalized before deriving (mixed case still collides)', async ()
     dir.isTaken,
   );
   assert.strictEqual(name, 'cats1');
+});
+
+test('#825: invitation normalization prevents capitalized login records', () => {
+  assert.strictEqual(usernameFromEmail('User@Example.COM'), 'user');
+  assert.strictEqual(usernameFromEmail(' user@example.com '), 'user');
 });
 
 test('returns null for non-email input (negative)', async () => {
