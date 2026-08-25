@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-thirty-eight 50-value Cherokee batches then left **180,097 genuinely
-untranslated values across 84 locale files**, including 266 in Cherokee.
+thirty-nine 50-value Cherokee batches then left **180,047 genuinely
+untranslated values across 84 locale files**, including 216 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `gridfs-enabled` with
+Resume Cherokee at `comprehensive-board-migration` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 38 are committed and batch 39
+Buryat is complete, Cherokee batches 1 through 39 are committed and batch 40
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -888,6 +888,15 @@ leaving 316 values.
 Backup restoration and scheduling and Google Cloud, AWS S3 and Azure storage
 configuration now use Cherokee syllabary. Time formats, JSON fields, console
 paths, provider names and secret labels remain exact, leaving 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04e9b2a32">Storage migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS state, migration controls, S3 authentication, scheduled board operations
+and attachment monitoring now use Cherokee syllabary. MongoDB, CollectionFS,
+MinIO, regions and transport protocols remain exact, leaving 216 values.
 
 </details>
 
