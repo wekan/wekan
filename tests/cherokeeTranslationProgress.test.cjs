@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 816);
+assert.equal(Object.keys(remaining).length, 766);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -178,3 +178,17 @@ assert.match(cherokee['operator-board'], /ᎦᏍᎩᎸ/);
 assert.match(cherokee['operator-member'], /ᎠᎵᏏᎾᏓᏍᏗ/);
 assert.match(cherokee['predicate-overdue'], /ᎤᎶᏒ/);
 assert.match(cherokee['predicate-checklist'], /ᏗᎪᏪᎵ/);
+assert.deepEqual(tokens(cherokee['operator-number-expected']), [
+  '__operator__',
+  '__value__',
+]);
+assert.deepEqual(
+  tokens(cherokee['globalSearch-instructions-operator-has']),
+  tokens(english['globalSearch-instructions-operator-has']),
+);
+assert.deepEqual(
+  tags(cherokee['globalSearch-instructions-operator-label']),
+  tags(english['globalSearch-instructions-operator-label']),
+);
+assert.match(cherokee['globalSearch-instructions-notes-2'], /\*OR\*/);
+assert.match(cherokee['globalSearch-instructions-notes-3'], /\*AND\*/);
