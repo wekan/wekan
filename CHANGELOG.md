@@ -864,6 +864,17 @@ open card directly from the database and expects the board canvas to return.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ad5d2ba3">Opening Activities is confirmed to show persisted card history</a>. Thanks to franksiler and xet7.</summary>
+
+Activities starts collapsed to keep card opening light, but its caret now asks
+for the complete card history regardless of obsolete per-card visibility flags.
+All 26 section-state, keyboard, subscription and negative regressions pass. A
+new browser scenario seeds a non-comment activity, opens the card's Activities
+section and requires that exact persisted entry to render.
+
+</details>
+
 **Card movement** - drag-and-drop remains visually stable during reactive work.
 
 <details>
