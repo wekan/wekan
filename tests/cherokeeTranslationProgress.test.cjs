@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 216);
+assert.equal(Object.keys(remaining).length, 166);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -266,3 +266,7 @@ assert.match(cherokee['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(cherokee['s3-region-description'], /us-east-1/);
 assert.match(cherokee['s3-ssl-enabled-description'], /SSL\/TLS/);
 assert.match(cherokee['card-show-lists-on-minicard'], /ᎤᏍᏗ ᎪᏪᎵ/);
+assert.match(cherokee['restore-lost-cards-migration-description'], /swimlaneId.*listId/);
+assert.match(cherokee['fix-avatar-urls-migration-description'], /URLs/);
+assert.match(cherokee['run-restore-all-archived-migration-confirm'], /IDs.*\?/);
+assert.match(cherokee['step-fix-attachment-urls'], /URLs/);
