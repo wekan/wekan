@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 466);
+assert.equal(Object.keys(remaining).length, 416);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -233,3 +233,8 @@ assert.match(cherokee['preview-pdf-not-supported'], /PDF/);
 assert.match(cherokee['show-week-of-year'], /ISO 8601/);
 assert.match(cherokee['import-board-zip'], /\.zip.*JSON/);
 assert.match(cherokee['convert-to-markdown'], /Markdown/);
+assert.match(cherokee['accounts-lockout-no-locked-users'], /ᎬᏗᏍᎩ/);
+assert.match(cherokee['accounts-lockout-confirm-unlock-all'], /ᏂᎦᏛ/);
+assert.match(cherokee['attachments-path-description'], /ᏅᏃᏓ/);
+assert.match(cherokee['board-backup-scheduled'], /ᎣᏍᏓ/);
+assert.match(cherokee['cron-job-delete-confirm'], /\?/);
