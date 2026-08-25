@@ -28,6 +28,67 @@ async function dbOrder(boardId, listId) {
 }
 
 test.describe('Card drag-sort reordering', () => {
+  test('#761 dragging toward the bottom scrolls the long list and accepts the drop', async ({
+    loggedInPage,
+    user,
+    browserName,
+  }) => {
+    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
+    const titles = Array.from({ length: 35 }, (_, i) => `Long Card ${i + 1}`);
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'Issue 761 Long List',
+      cardTitlesPerList: [titles, [], []],
+    });
+    try {
+      await loggedInPage.setViewportSize({ width: 1000, height: 600 });
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+      const list = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
+      const body = list.locator('.list-body');
+      const source = list.locator('.js-minicard').filter({ hasText: titles[0] });
+      await expect(source).toBeVisible({ timeout: 20_000 });
+      const originalSort = db.findOne('cards', {
+        boardId: board.boardId,
+        title: titles[0],
+      }).sort;
+      const sourceBox = await source.boundingBox();
+      const bodyBox = await body.boundingBox();
+      expect(sourceBox).toBeTruthy();
+      expect(bodyBox).toBeTruthy();
+
+      await loggedInPage.mouse.move(
+        sourceBox.x + sourceBox.width / 2,
+        sourceBox.y + 12,
+      );
+      await loggedInPage.mouse.down();
+      await loggedInPage.mouse.move(
+        sourceBox.x + sourceBox.width / 2 + 10,
+        sourceBox.y + 24,
+        { steps: 4 },
+      );
+      const edgeX = bodyBox.x + bodyBox.width / 2;
+      const edgeY = bodyBox.y + bodyBox.height - 8;
+      for (let i = 0; i < 45; i += 1) {
+        await loggedInPage.mouse.move(edgeX + (i % 2), edgeY - (i % 2), {
+          steps: 2,
+        });
+        await loggedInPage.waitForTimeout(20);
+      }
+      const scrolled = await body.evaluate(element => element.scrollTop);
+      expect(scrolled).toBeGreaterThan(0);
+      await loggedInPage.mouse.up();
+
+      await expect.poll(() => db.findOne('cards', {
+        boardId: board.boardId,
+        title: titles[0],
+      }).sort).not.toBe(originalSort);
+    } finally {
+      await loggedInPage.mouse.up().catch(() => {});
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#5421 a fast touch drag moves the card without opening it', async ({
     loggedInPage,
     user,

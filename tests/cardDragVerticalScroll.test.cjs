@@ -69,7 +69,7 @@ test('the vertical auto-scroll picks the list under the pointer', () => {
 });
 
 test('the canvas is only scrolled when the list could not be', () => {
-  assert.ok(/scrolledList \? null : document\.querySelector\('\.board-canvas'\)/.test(sortHandler),
+  assert.ok(/scrolledList\s*\?\s*null\s*:\s*document\.querySelector\('\.board-canvas'\)/.test(sortHandler),
     'a drag past the end of a list should still move on to the board, but a drag ' +
     'down a list that can still scroll must not move the board underneath it');
 });
