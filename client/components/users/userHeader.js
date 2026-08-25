@@ -181,9 +181,15 @@ Template.editProfilePopup.events({
         'profile.initials': initials,
       },
     });
-    isChangeUserName = username !== ReactiveCache.getCurrentUser().username;
+    const currentUser = ReactiveCache.getCurrentUser();
+    const primaryEmail =
+      Array.isArray(currentUser.emails) && currentUser.emails.length
+        ? currentUser.emails[0]
+        : null;
+    isChangeUserName = username !== currentUser.username;
     isChangeEmail =
-      email.toLowerCase() !== ReactiveCache.getCurrentUser().emails[0].address.toLowerCase();
+      email.toLowerCase() !==
+      (primaryEmail ? primaryEmail.address.toLowerCase() : '');
     if (isChangeUserName && isChangeEmail) {
       Meteor.call(
         'setUsernameAndEmail',

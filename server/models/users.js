@@ -82,6 +82,7 @@ const {
 } = require('/models/lib/starredPages');
 import InvitationCodes from '/models/invitationCodes';
 import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
+import AccountSettings from '/models/accountSettings';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Users, { allowedSortValues, allowedAllBoardsSortValues } from '/models/users';
@@ -1136,23 +1137,29 @@ Meteor.methods({
     if (userId.includes('/') || email.includes('/')) {
       return false;
     }
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      if (Array.isArray(email)) {
-        email = email.shift();
-      }
-      const existingUser = await ReactiveCache.getUser(
-        { 'emails.address': email },
-        { fields: { _id: 1 } },
-      );
-      if (existingUser) {
-        throw new Meteor.Error('email-already-taken');
-      } else {
-        await Users.updateAsync(userId, {
-          $set: {
-            emails: [{ address: email, verified: false }],
-          },
-        });
-      }
+    const currentUser = await ReactiveCache.getCurrentUser();
+    const allowSelfChange =
+      this.userId === userId &&
+      (await AccountSettings.findOneAsync('accounts-allowEmailChange'))
+        ?.booleanValue;
+    if (!currentUser?.isAdmin && !allowSelfChange) {
+      throw new Meteor.Error('not-authorized');
+    }
+    if (Array.isArray(email)) {
+      email = email.shift();
+    }
+    const existingUser = await ReactiveCache.getUser(
+      { 'emails.address': email },
+      { fields: { _id: 1 } },
+    );
+    if (existingUser) {
+      throw new Meteor.Error('email-already-taken');
+    } else {
+      await Users.updateAsync(userId, {
+        $set: {
+          emails: [{ address: email, verified: false }],
+        },
+      });
     }
   },
 
