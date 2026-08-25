@@ -132,8 +132,6 @@ fields not copied; needs the app to reproduce),
 [#1658](https://github.com/wekan/wekan/issues/1658) (activity list not showing
 in cards — a v1.01-era report; the activity feed has been rewritten since, so it
 needs live confirmation on current code),
-[#5421](https://github.com/wekan/wekan/issues/5421)
-(moving a card fast — drag/reactivity glitch),
 [#761](https://github.com/wekan/wekan/issues/761) (cannot drop into a list when
 it is scrolled to the bottom — drag-drop/scroll),
 [#1942](https://github.com/wekan/wekan/issues/1942) (a card linked from board A
@@ -501,7 +499,7 @@ protocol-required legacy authentication exception. **Fulah translation** now
 covers its first activity-history and workspace controls with exact tokens, and
 **Rules** can again save current-date, cleared-date and add-member actions.
 **Card moves** remain visible at their dropped position while large boards
-finish reactive rendering.
+finish reactive rendering, and fast touch drags no longer open the moved card.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -576,6 +574,19 @@ the target slot until the real reactive card arrives; it cannot receive pointer
 events and is removed immediately on arrival or failure, with a safety timeout.
 A Chromium drag regression deliberately delays the model move and verifies the
 target remains occupied throughout before the real card replaces the preview.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c9ba4745">Fast touch drags move cards without opening them</a>. Thanks to xator91 and xet7.</summary>
+
+The touch bridge synthesized a click for every gesture shorter than 500 ms,
+even after jQuery UI had completed a sortable drag. That click followed the
+minicard link, making the board appear to reload with the moved card open. The
+adapter now suppresses only the synchronous post-drag click; normal taps and
+later independent clicks remain unchanged. Positive and negative unit coverage
+pins that boundary, and a Chromium regression performs a raw fast touch drag,
+checks the database move and verifies that card details stay closed.
 
 </details>
 
