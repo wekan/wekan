@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 366);
+assert.equal(Object.keys(remaining).length, 316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -276,3 +276,7 @@ assert.match(ewe['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
 assert.match(ewe['database-migration-description'], /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
 assert.deepEqual(tokens(ewe['database-migration-confirm']), ['__db__']);
 assert.match(ewe['sandstorm-migration-description'], /WeKan.*Sandstorm grain.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars.*disk.*MongoDB.*grain/);
+assert.match(ewe['cards-loading-description'], /WeKan.*infinite scroll.*CARDS_LOADING.*all\/lazy\/auto.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(ewe['render-links-as-plain-text-description']), ['<a href>']);
+assert.match(ewe['always-show-code-as-text-description'], /HTML.*<!-- -->.*JavaScript/);
+assert.match(ewe['backup-description'], /\.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/);
