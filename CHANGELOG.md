@@ -772,6 +772,17 @@ hiding the entire card. Both WeKan import browser flows remain registered.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b552af160">Legacy board imports default safely to private visibility</a>. Thanks to xet7.</summary>
+
+Old Sandstorm exports can omit the board permission. The importer now preserves
+an exact explicit `public` or `private` value while missing, malformed and
+lookalike values fail closed to `private`. Five focused positive and negative
+cases pass, and a browser regression imports a permission-less Sandstorm-style
+board and verifies its stored visibility.
+
+</details>
+
 **Labels** - sidebar drag-and-drop follows cards added after initial render.
 
 <details>
