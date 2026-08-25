@@ -227,6 +227,48 @@ test.describe('Cards – operations', () => {
     expect(occurrences).toBe(1);
   });
 
+  test('#2494 cross-board moves receive a unique finite position and stay visible', async ({
+    boardPage,
+    board,
+    user,
+  }) => {
+    const targetTitle = 'Issue 2494 Target';
+    const target = db.seedBoard({
+      ownerId: user.id,
+      title: targetTitle,
+      cardTitlesPerList: [['Existing One', 'Existing Two'], [], []],
+    });
+    try {
+      const bp = new BoardPage(boardPage);
+      const cp = new CardPage(boardPage);
+      await bp.clickCard(board.listIds[0], 'Alpha Card');
+      await cp.waitForOpen();
+      await cp.moveCard(targetTitle, 'List A');
+
+      await expect.poll(() => db.findOne('cards', {
+        boardId: target.boardId,
+        title: 'Alpha Card',
+      })).toBeTruthy();
+      const cards = db.findMany('cards', {
+        boardId: target.boardId,
+        listId: target.listIds[0],
+        archived: false,
+      });
+      expect(cards).toHaveLength(3);
+      const sorts = cards.map(card => card.sort);
+      expect(sorts.every(Number.isFinite)).toBe(true);
+      expect(new Set(sorts).size).toBe(sorts.length);
+
+      await openBoard(boardPage, target.boardId, target.slug);
+      const targetPage = new BoardPage(boardPage);
+      for (const title of ['Existing One', 'Existing Two', 'Alpha Card']) {
+        await expect(targetPage.minicard(target.listIds[0], title)).toBeVisible();
+      }
+    } finally {
+      db.cleanup({ boardIds: [target.boardId] });
+    }
+  });
+
   // --- Copy card ---
 
   test('copying a card adds it to the target list without removing the original', async ({ boardPage, board }) => {
