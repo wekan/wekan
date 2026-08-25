@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 116);
+assert.equal(Object.keys(remaining).length, 66);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -328,3 +328,8 @@ assert.match(kurdish['step-fix-file-urls'], /URL/);
 assert.match(kurdish['cpu-cores'], /CPU/);
 assert.match(kurdish['every-30-minutes'], /30.*خولەک/);
 assert.match(kurdish['gridfs-attachments'], /GridFS/);
+assert.match(kurdish['migrate-all-to-s3'], /S3/);
+assert.match(kurdish['migration-batch-size-description'], /1-100/);
+assert.match(kurdish['migration-cpu-threshold-description'], /10-90/);
+assert.match(kurdish['migration-delay-ms-description'], /100-10000/);
+assert.match(kurdish.showChecklistAtMinicard, /لیستی پشکنین/);
