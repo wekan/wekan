@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1966);
+assert.equal(Object.keys(remaining).length, 1916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -87,3 +87,13 @@ assert.deepEqual(tags(dzongkha['board-private-info']), [
   '<strong>',
 ]);
 assert.match(dzongkha['board-private-info'], /སྒེར/);
+assert.deepEqual(tags(dzongkha['board-public-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.deepEqual(
+  tokens(dzongkha['board-open-and-move-between-remaining-and-workspaces']),
+  ['__workspaces__'],
+);
+assert.match(dzongkha['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(dzongkha['card-comments-title']), ['%s']);
