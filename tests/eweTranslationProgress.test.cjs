@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1266);
+assert.equal(Object.keys(remaining).length, 1216);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -178,3 +178,7 @@ assert.match(ewe.Reactivity_mode, /changeStreams \/ oplog \/ polling/);
 assert.match(ewe.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(ewe.DDP_transport, /DDP.*DDP_TRANSPORT/);
 assert.match(ewe['org-domains-description'], /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
+assert.deepEqual(tokens(ewe['default-subtasks-board']), ['__board__']);
+assert.match(ewe['checklist-count-on-minicard'], /0\/0/);
+assert.deepEqual(tokens(ewe['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(ewe['activity-removed-label']), ['%s', '%s']);
