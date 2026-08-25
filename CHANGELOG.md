@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-50-value Cherokee batch then left **181,947 genuinely untranslated values
-across 84 locale files**, including 2,116 in Cherokee.
+two 50-value Cherokee batches then left **181,897 genuinely untranslated values
+across 84 locale files**, including 2,066 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `act-moveCard` with
+Resume Cherokee at `workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batch 1 is committed and batch 2 has not been
+Buryat is complete, Cherokee batches 1 and 2 are committed and batch 3 has not been
 applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -499,12 +499,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Cherokee translation** now covers card moves, membership and
+checklist activity, dates and workspace controls. This continues the direct
+whole-file translation effort while preserving human work and every code token.
+Below that: whole-locale placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -516,6 +514,21 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release improves the following translation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6fec608a">Cherokee activity history and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card moves, membership changes, activity history, checklist events, dates and
+workspace controls now use Cherokee syllabary. Named and percent placeholders,
+HTML tags and Markdown remain exact, and whole-locale invariant coverage leaves
+2,066 values.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.11 2026-08-25 WeKan ® release
 
