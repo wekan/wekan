@@ -311,14 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values, leaving **173,333 genuinely
-untranslated values across 80 locale files**.
+batch then translated all 2,166 Dzongkha values. The first 50-value Ewe batch
+then left **173,283 genuinely untranslated values across 80 locale files**,
+including 2,116 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Begin Ewe at `accept` with
+Resume Ewe at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
-Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; no Ewe
-batch has been applied.
+Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
+1 is committed and batch 2 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -509,7 +510,8 @@ browser build to verify).
 covering activity, workspaces, board and card views, imports and exports,
 privacy, automation, roles, search, dependencies, locations, reports,
 attachments, accessibility, account protection, migrations, security controls,
-backups and cloud storage. **Chuvash and Dzongkha are complete**, while
+backups and cloud storage. **Chuvash and Dzongkha are complete and Ewe is
+progressing**, while
 whole-locale placeholder and markup checks preserve human work and every code
 token.
 
@@ -2223,6 +2225,18 @@ broken-card repair and import/export controls now use Dzongkha. Named tokens,
 angle-bracket examples, inline code, emphasis, file extensions and product
 names remain exact. This final 66-value batch completes all 2,166 Dzongkha
 placeholders.
+
+</details>
+
+**Ewe** - direct whole-file translation using established Ewe vocabulary.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf2a68e13">Activity and board basics gain 50 values</a>. Thanks to xet7.</summary>
+
+Organization and team membership, comments, due dates, attachments, subtasks,
+labels, checklists, boards, lists, cards, swimlanes and archive and import
+activity now use Ewe. Percent and named activity tokens remain exact, leaving
+2,116 values.
 
 </details>
 
