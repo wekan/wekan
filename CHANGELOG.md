@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first thirty 50-value
-Buryat batches then left **182,663 genuinely untranslated values across 85
-locale files**, including 666 in Buryat.
+16-value batch then translated all 2,166 values. The first thirty-one 50-value
+Buryat batches then left **182,613 genuinely untranslated values across 85
+locale files**, including 616 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `office-shared` with
+Resume Buryat at `add-teams-label` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 30 are committed and batch 31 has not been applied.
+batches 1 through 31 are committed and batch 32 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4697,6 +4697,17 @@ sorting, activity visibility, swimlane movement, string templates and file,
 security, speed, test, CPU, database, rule, board, card, impersonation, recovery
 and office reports now use Buryat. Shell commands and the template placeholder
 remain exact, and whole-locale invariant coverage leaves 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60d0ef5e6">Buryat recovery and support reports gain 50 values</a>. Thanks to xet7.</summary>
+
+Office sharing, REST API usage, data recovery status and maintenance, swimlane
+copying, wait-spinner styles, organization and team deletion safeguards,
+support tickets and card sorting and details now use Buryat. API and database
+configuration names remain exact, and whole-locale invariant coverage leaves
+616 values.
 
 </details>
 
