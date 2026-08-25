@@ -1047,6 +1047,20 @@ remain translated while preserving the exact replaceable-token inventory.
 
 </details>
 
+**Apache deployments** - reverse-proxy examples cannot inherit open forwarding.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/577ccb9f8">Both documented virtual hosts explicitly disable forward proxying</a>. Thanks to bastos77 and xet7.</summary>
+
+The abusive third-party traffic came from Apache's `ProxyRequests On`, not from
+WeKan or its database. Both reverse-proxy examples now set `ProxyRequests Off`
+inside the virtual host and no longer grant wildcard proxy access, preventing
+an unsafe global setting from leaking into the WeKan host. The guide also
+explains why `ProxyMaxForwards` does not close an open proxy. Three positive and
+negative configuration regressions protect those boundaries.
+
+</details>
+
 and improves the following translation:
 
 **Fulah** - direct whole-file translation using established Pulaar vocabulary.
