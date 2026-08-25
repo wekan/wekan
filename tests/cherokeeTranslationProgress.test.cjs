@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 716);
+assert.equal(Object.keys(remaining).length, 666);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -200,3 +200,16 @@ assert.deepEqual(tokens(cherokee['import-dependencies-done']), [
 ]);
 assert.deepEqual(tokens(cherokee['background-too-big']), ['{{size}}']);
 assert.match(cherokee['location-open-map'], /ᎦᏙᎯ/);
+assert.deepEqual(tokens(cherokee['custom-field-stringtemplate-format']), [
+  '%{value}',
+]);
+assert.match(
+  cherokee['custom-field-stringtemplate-separator'],
+  /&#32;.*&nbsp;/,
+);
+assert.match(
+  cherokee['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s,
+);
+assert.match(cherokee.officeReportTitle, /ᎠᏂᎸᏫᏍᏓᏁᎸ/);
+assert.match(cherokee['office-report-desc'], /IPv4.*IPv6/);
