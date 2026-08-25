@@ -9,6 +9,7 @@ import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { planImportedBoardMember } from '/models/lib/importedBoardMemberPlan';
 import { importedCardDates } from '/models/lib/importedCardDates';
+import { importedBoardPermission } from '/models/lib/importedBoardPermission';
 import {
   getImportExportSecuritySettings,
   anonymizedUserWord,
@@ -352,7 +353,10 @@ export class WekanCreator {
       autoWidth: !!boardToImport.autoWidth,
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
-      permission: boardToImport.permission,
+      // #1991: old Sandstorm exports have no permission field. Import those
+      // privately, and fail closed for malformed legacy values; only an
+      // explicit `public` export may create a public board.
+      permission: importedBoardPermission(boardToImport.permission),
       slug: getSlug(boardToImport.title) || 'board',
       stars: 0,
       title: await Boards.uniqueTitle(boardToImport.title),
