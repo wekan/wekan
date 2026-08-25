@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 516);
+assert.equal(Object.keys(remaining).length, 466);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -285,3 +285,8 @@ assert.match(kurdish['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
 assert.match(kurdish['mongodb-compact-warning'], /oplog.*Meteor/);
 assert.match(kurdish['move-all-attachments-of-board-to-s3'], /S3/);
 assert.match(kurdish['gridfs-file-id'], /GridFS/);
+assert.match(kurdish['preview-pdf-not-supported'], /PDF/);
+assert.deepEqual(tokens(kurdish['drag-board-to-workspace']), ['__workspaces__']);
+assert.match(kurdish['show-week-of-year'], /ISO 8601/);
+assert.match(kurdish['import-board-zip'], /\.zip.*JSON/);
+assert.match(kurdish.accessibility, /دەستڕاگەیشتن/);
