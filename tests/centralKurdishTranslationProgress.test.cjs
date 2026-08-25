@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2016);
+assert.equal(Object.keys(remaining).length, 1966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -83,3 +83,10 @@ assert.match(kurdish['home-board-remove-confirm'], /ناسڕدرێتەوە/);
 assert.match(kurdish['list-width-error-message'], /270/);
 assert.match(kurdish['set-swimlane-height'], /ڕێڕەو/);
 assert.match(kurdish['convertChecklistItemToCardPopup-title'], /کارت/);
+assert.deepEqual(tokens(kurdish['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(kurdish['avatar-too-big']), ['__size__']);
+assert.deepEqual(tags(kurdish['board-private-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.match(kurdish['board-private-info'], /تایبەت/);
