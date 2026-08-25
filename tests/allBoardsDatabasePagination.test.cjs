@@ -19,6 +19,12 @@ test('title-sorted pages use database count, sort, skip and limit', () => {
   assert.doesNotMatch(method, /boards\.sort|boards\.slice/);
 });
 
+test('pagination uses the same relationship-only scope as the live publication', () => {
+  assert.match(method, /includePublic: false/);
+  assert.match(method, /clauses\.length === 1 \? clauses\[0\] : \{ \$or: clauses \}/);
+  assert.doesNotMatch(method, /\$or: boardVisibilitySelectors/);
+});
+
 test('menu filters are encoded before the query', () => {
   assert.match(method, /selector\._id = \{ \$in: starred \}/);
   assert.match(method, /selector\.type = 'template-container'/);

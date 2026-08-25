@@ -700,6 +700,9 @@ Meteor.startup(async () => {
   // scanned archived, which on boards with years of archived+active cards burned CPU
   // and caused SQLITE_BUSY (#6480). This compound index covers that filter.
   await ensureIndex(Cards, { boardId: 1, archived: 1 });
+  // Linked-card and parent discovery add one predicate to that common prefix.
+  await ensureIndex(Cards, { boardId: 1, archived: 1, type: 1 });
+  await ensureIndex(Cards, { boardId: 1, archived: 1, parentId: 1 });
   await ensureIndex(Cards, { parentId: 1 });
   // Admin Panel / Problems / Broken cards asks for cards with NO board, swimlane
   // or list, or an unknown type - an $or, which can only use an index if each of

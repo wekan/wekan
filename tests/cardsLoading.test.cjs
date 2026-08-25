@@ -14,6 +14,7 @@
 // windowCountId: a falsy swimlaneId (undefined/null/'') MUST collapse to one id.
 
 const assert = require('assert');
+const fs = require('fs');
 const {
   DEFAULT_LAZY_THRESHOLD,
   resolveCardsLoadingMode,
@@ -115,6 +116,25 @@ test('a real swimlane id produces a distinct id', () => {
 });
 test('different lists never collide', () => {
   assert.notStrictEqual(windowCountId('l1', 's1'), windowCountId('l2', 's1'));
+});
+
+test('FerretDB launchers default to auto without blocking an operator override', () => {
+  const composeFiles = [
+    'docker-compose.yml',
+    'docker-compose-ferretdb-v1-postgresql.yml',
+    'docker-compose-ferretdb-v1-mariadb.yml',
+    'docker-compose-ferretdb-v1-mysql.yml',
+    'docker-compose-ferretdb-v1-sap-hana.yml',
+  ];
+  for (const file of composeFiles) {
+    const source = fs.readFileSync(file, 'utf8');
+    assert.match(source, /CARDS_LOADING=auto/, file);
+    assert.doesNotMatch(source, /CARDS_LOADING=all/, file);
+  }
+
+  const launcher = fs.readFileSync('releases/ferretdb/start-wekan.sh', 'utf8');
+  assert.match(launcher, /CARDS_LOADING="\$\{CARDS_LOADING:-auto\}"/);
+  assert.doesNotMatch(launcher, /CARDS_LOADING="\$\{CARDS_LOADING:-all\}"/);
 });
 
 console.log(`\ncardsLoading: ${passed} tests passed`);

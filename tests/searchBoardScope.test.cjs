@@ -120,10 +120,9 @@ test('userSearch keeps its old behaviour for anyone who does not ask', () => {
     'the empty-scope case must be answered without querying');
 });
 
-test('the boards LIST still shows public boards', () => {
-  // The whole point of the distinction: discoverability belongs in the list.
-  // Every other caller of userBoards/userBoardIds passes no options, so they keep
-  // the public clause - this checks nobody turned it off globally.
+test('generic board helpers retain public access for callers that need it', () => {
+  // Direct/public discovery still defaults to including public boards. The
+  // relationship-only All Boards publication opts out at its own call site.
   for (const helper of ['Boards.userBoards = (', 'Boards.userBoardIds = async (']) {
     assert.ok(boards.includes(helper), `${helper} must exist`);
   }

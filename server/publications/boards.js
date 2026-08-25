@@ -82,6 +82,16 @@ publishComposite('boards', function() {
       if (!user) {
         return [];
       }
+      const clauses = boardVisibilitySelectors({
+        userId,
+        orgIds: user.orgIds(),
+        teamIds: user.teamIds(),
+        emailDomains: user.emailDomains(),
+        // Public means anybody may open the board, not that it belongs in this
+        // user's All Boards list. `/public` and the singular board publication
+        // retain public discovery and direct-link access.
+        includePublic: false,
+      });
       const selector = {
         archived: false,
         type: 'board',
@@ -89,12 +99,9 @@ publishComposite('boards', function() {
         // see", everywhere. This used to be a hand-written copy of the same
         // array - and the `board` publication's copy was the one that forgot
         // isActive and served revoked shares.
-        $or: boardVisibilitySelectors({
-          userId,
-          orgIds: user.orgIds(),
-          teamIds: user.teamIds(),
-          emailDomains: user.emailDomains(),
-        }),
+        // Avoid a single-clause $or: FerretDB can push the direct membership
+        // predicate into its backend when it remains at the top level.
+        ...(clauses.length === 1 ? clauses[0] : { $or: clauses }),
       };
       return await ReactiveCache.getBoards(
         selector,
@@ -359,17 +366,19 @@ Meteor.methods({
     const menu = params.menu || 'remaining';
 
     // Same visibility selector as the live `boards` publication.
+    const clauses = boardVisibilitySelectors({
+      userId,
+      orgIds: user.orgIds(),
+      teamIds: user.teamIds(),
+      emailDomains: user.emailDomains(),
+      includePublic: false,
+    });
     const selector = {
       archived: false,
       type: search || menu === 'templates'
         ? { $in: ['board', 'template-container'] }
         : 'board',
-      $or: boardVisibilitySelectors({
-        userId,
-        orgIds: user.orgIds(),
-        teamIds: user.teamIds(),
-        emailDomains: user.emailDomains(),
-      }),
+      ...(clauses.length === 1 ? clauses[0] : { $or: clauses }),
     };
     if (search) {
       selector.title = new RegExp(
@@ -679,48 +688,70 @@ publishComposite('board', async function(boardId, isArchived, generation) {
   //
   // The five cursors used to repeat this preamble verbatim; sharing it is also
   // what stops the next one from being written without the check.
-  const visibleLinkedCardIds = async board => {
-    // NOT memoized. An earlier version cached the result per board to spare the
-    // five cursors their duplicate queries - but publishComposite re-runs a
-    // child's find() when the parent document changes, and a cache that lives
-    // for the whole subscription would then serve the ids computed the FIRST
-    // time forever: a linked card added later would never be published, and one
-    // removed would go on being published. The five cursors each ran these same
-    // queries before this helper existed, so computing per call is exactly the
-    // cost they always had, and it is correct.
-    const compute = (async () => {
-      const cardSelector = {
-        ...boardCardScope(board),
-        archived: isArchived,
-      };
-
-      if (thisUserId && board.members) {
-        const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-        if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-          cardSelector.assignees = { $in: [thisUserId] };
-        }
+  const cardScopeFor = board => {
+    const cardSelector = {
+      ...boardCardScope(board),
+      archived: isArchived,
+    };
+    if (thisUserId && board.members) {
+      const member = findWhere(board.members, { userId: thisUserId, isActive: true });
+      if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
+        cardSelector.assignees = { $in: [thisUserId] };
       }
+    }
+    return cardSelector;
+  };
 
-      const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, type: 1, linkedId: 1 } }, false);
-      if (!cards || cards.length === 0) return [];
+  // publishComposite passes the same parent document object to its sibling
+  // child cursors during one evaluation. WeakMap shares their discovery work
+  // only at that boundary: a later parent evaluation has a new document object
+  // and therefore recomputes cards and authorization. There is deliberately no
+  // TTL or board-id cache that could serve stale access after a revoke.
+  const cardIndexByParent = new WeakMap();
+  const visibleLinkedByParent = new WeakMap();
 
-      const linkedCardIds = cards
-        .filter(c => c.type === 'cardType-linkedCard' && c.linkedId)
-        .map(c => c.linkedId);
-      if (linkedCardIds.length === 0) return [];
+  const boardCardIndex = board => {
+    let compute = cardIndexByParent.get(board);
+    if (compute) return compute;
+
+    compute = Promise.all([
+      ReactiveCache.getCards(
+        { ...cardScopeFor(board), type: 'cardType-linkedCard' },
+        { fields: { _id: 1, linkedId: 1 } },
+        false,
+      ),
+      ReactiveCache.getCards(
+        { ...cardScopeFor(board), parentId: { $exists: true, $ne: null } },
+        { fields: { _id: 1, parentId: 1 } },
+        false,
+      ),
+    ]).then(([links, children]) => ({
+      linkedIds: [...new Set((links || []).map(card => card.linkedId).filter(Boolean))],
+      parentIds: [...new Set((children || []).map(card => card.parentId).filter(Boolean))],
+    }));
+    cardIndexByParent.set(board, compute);
+    return compute;
+  };
+
+  const visibleLinkedCardIds = board => {
+    let compute = visibleLinkedByParent.get(board);
+    if (compute) return compute;
+
+    compute = (async () => {
+      const { linkedIds } = await boardCardIndex(board);
+      if (linkedIds.length === 0) return [];
 
       const linked = await ReactiveCache.getCards(
-        { _id: { $in: linkedCardIds } },
+        { _id: { $in: linkedIds } },
         { fields: { _id: 1, boardId: 1 } },
         false,
       );
       const linkedBoardIds = [...new Set((linked || []).map(c => c.boardId).filter(Boolean))];
       const allowedBoardIds = await visibleBoardIds(thisUserId, linkedBoardIds);
       allowedBoardIds.add(board._id);
-
       return (linked || []).filter(c => allowedBoardIds.has(c.boardId)).map(c => c._id);
     })();
-
+    visibleLinkedByParent.set(board, compute);
     return compute;
   };
 
@@ -940,22 +971,7 @@ publishComposite('board', async function(boardId, isArchived, generation) {
       // Parent cards (for subtasks)
       {
         async find(board) {
-          const cardSelector = {
-            ...boardCardScope(board),
-            archived: isArchived,
-          };
-
-          if (thisUserId && board.members) {
-            const member = findWhere(board.members, { userId: thisUserId, isActive: true });
-            if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
-              cardSelector.assignees = { $in: [thisUserId] };
-            }
-          }
-
-          const cards = await ReactiveCache.getCards(cardSelector, { fields: { _id: 1, parentId: 1 } }, false);
-          if (!cards || cards.length === 0) return null;
-
-          const parentIds = cards.filter(c => c.parentId).map(c => c.parentId);
+          const { parentIds } = await boardCardIndex(board);
           if (parentIds.length === 0) return null;
 
           // #3453: the 'prefix-with-full-path' subtask setting renders the

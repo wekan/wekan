@@ -23,7 +23,8 @@
  * @param {string[]} [args.emailDomains] the user's verified email domains (#5850)
  * @param {boolean} [args.includePublic=true] include `{ permission: 'public' }`,
  *        which is not a relationship to the user at all but "anybody may open
- *        this" - wanted in a board LIST, not in a search over all boards.
+ *        this" - wanted for direct/public discovery, not in a relationship-only
+ *        list or a search over all boards.
  * @return {object[]} the `$or` clauses, in a stable order
  */
 function boardVisibilitySelectors({

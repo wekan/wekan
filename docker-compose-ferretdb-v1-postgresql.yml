@@ -340,7 +340,7 @@ services:
       #          (infinite scroll) plus a live count, so boards with
       #          thousands of cards use less memory/bandwidth.
       # Also changeable at runtime in Admin Panel / Features.
-      - CARDS_LOADING=all
+      - CARDS_LOADING=auto
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518

@@ -80,7 +80,7 @@ export WITH_API="${WITH_API:-true}"
 # Card loading: 'all' (default, every card into the browser) or 'lazy' (each list
 # loads only the visible cards on demand — for boards with thousands of cards).
 # Also changeable at runtime in Admin Panel / Features.
-export CARDS_LOADING="${CARDS_LOADING:-all}"
+export CARDS_LOADING="${CARDS_LOADING:-auto}"
 
 # Store attachments and avatars on the filesystem (default), next to the DB.
 mkdir -p "$FILES/attachments" "$FILES/avatars" "$FERRETDB_SQLITE_DIR"

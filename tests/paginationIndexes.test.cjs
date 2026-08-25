@@ -121,6 +121,12 @@ test('the other paginated reports sort on indexed fields too', () => {
     'the Boards report pages by the boards\' own order');
   assert.ok(hasIndex('server/models/boards.js', "{ archived: 1, 'members.userId': 1 }"),
     'the archive pages one member\'s archived boards');
+  assert.ok(hasIndex('server/models/boards.js', '{ archived: 1, type: 1, sort: 1 }'),
+    'All Boards common filters and ordering use one compound index');
+  assert.ok(hasIndex('server/models/cards.js', '{ boardId: 1, archived: 1, type: 1 }'),
+    'linked-card discovery uses the board/archived/type index');
+  assert.ok(hasIndex('server/models/cards.js', '{ boardId: 1, archived: 1, parentId: 1 }'),
+    'parent discovery uses the board/archived/parent index');
   assert.ok(hasIndex('models/rules.js', '{ boardId: 1 }'),
     'the Rules report sorts by board');
   assert.ok(hasIndex('models/impersonatedUsers.js', '{ createdAt: -1 }'));

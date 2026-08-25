@@ -155,7 +155,7 @@ test('all linked-card content and metadata cursors filter by visible boards', ()
 });
 
 test('the shared helper asks the same visibility question as the ancestor cursor', () => {
-  const helper = publication.match(/const visibleLinkedCardIds = async board => \{[\s\S]*?\n  \};/);
+  const helper = publication.match(/const visibleLinkedCardIds = board => \{[\s\S]*?\n  \};/);
   assert.ok(helper, 'the helper exists');
   const body = helper[0];
   assert.ok(/visibleBoardIds\(thisUserId, linkedBoardIds\)/.test(body));
@@ -180,22 +180,29 @@ test('the assigned-only member restriction survived the de-duplication', () => {
   // Members marked isNormalAssignedOnly / isCommentAssignedOnly /
   // isReadAssignedOnly only see cards they are assigned to. That narrowing used
   // to be repeated in each cursor; it must still be applied inside the helper.
-  const helper = publication.match(/const visibleLinkedCardIds = async board => \{[\s\S]*?\n  \};/)[0];
+  const helper = publication.match(/const cardScopeFor = board => \{[\s\S]*?\n  \};/)[0];
   assert.ok(/isNormalAssignedOnly \|\| member\.isCommentAssignedOnly \|\| member\.isReadAssignedOnly/.test(helper));
   assert.ok(/cardSelector\.assignees = \{ \$in: \[thisUserId\] \}/.test(helper));
 });
 
-test('the helper is NOT cached across a cursor re-run', () => {
-  // It was, briefly. publishComposite re-runs a child's find() when the parent
-  // document changes, so a cache living for the whole subscription serves the
-  // ids computed the FIRST time forever: a linked card added later would never
-  // be published, and one removed would go on being published. The five cursors
-  // each ran these queries before the helper existed, so computing per call is
-  // the cost they always had - and it is correct.
+test('deduplication is scoped to one parent evaluation, never a TTL or board id', () => {
+  assert.ok(/const cardIndexByParent = new WeakMap\(\)/.test(publication));
+  assert.ok(/const visibleLinkedByParent = new WeakMap\(\)/.test(publication));
+  assert.ok(/cardIndexByParent\.get\(board\)/.test(publication));
+  assert.ok(/visibleLinkedByParent\.get\(board\)/.test(publication));
+  assert.ok(!/CARD_INDEX_TTL|Date\.now\(\)/.test(publication),
+    'authorization must never be reused by wall-clock age');
   assert.ok(!/_linkedIdsByBoard/.test(publication),
-    'no subscription-lifetime cache of the linked card ids');
-  const helper = publication.match(/const visibleLinkedCardIds = async board => \{[\s\S]*?\n  \};/)[0];
-  assert.ok(/NOT memoized/.test(helper), 'and the reason is written where the next reader is');
+    'a board-id cache would survive a parent rerun and become stale');
+});
+
+test('linked and parent discovery use two narrow indexed queries', () => {
+  const helper = publication.match(/const boardCardIndex = board => \{[\s\S]*?\n  \};/)[0];
+  assert.ok(/type: 'cardType-linkedCard'/.test(helper));
+  assert.ok(/parentId: \{ \$exists: true, \$ne: null \}/.test(helper));
+  assert.ok(/fields: \{ _id: 1, linkedId: 1 \}/.test(helper));
+  assert.ok(/fields: \{ _id: 1, parentId: 1 \}/.test(helper));
+  assert.ok(/Promise\.all/.test(helper));
 });
 
 // ------------------------------------------- no hand-written visibility copies

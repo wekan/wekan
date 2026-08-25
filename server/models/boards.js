@@ -664,6 +664,11 @@ Meteor.startup(async () => {
   // index-backed rather than a scan + in-memory sort.
   await ensureIndex(Boards, { sort: 1 });
   await ensureIndex(Boards, { archived: 1, 'members.userId': 1 });
+  // All Boards always filters these two scalar fields and sorts by `sort`.
+  // Keep that common prefix index-backed. The relationship branches use
+  // document-form $elemMatch; FerretDB v1 pushes those through json_each, so
+  // simple dotted org/team/domain indexes cannot accelerate them.
+  await ensureIndex(Boards, { archived: 1, type: 1, sort: 1 });
 });
 
 Boards.after.insert(async (userId, doc) => {

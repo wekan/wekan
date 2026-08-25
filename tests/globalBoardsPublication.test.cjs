@@ -22,6 +22,16 @@ test('plural boards publishes projected board documents without list/card childr
   assert.doesNotMatch(plural, /getLists|getCards/);
 });
 
+test('All Boards publishes relationships, not every public board on the instance', () => {
+  const plural = block("publishComposite('boards'", "Meteor.publish('boardTemplates'");
+  assert.match(plural, /includePublic: false/);
+  assert.match(plural, /clauses\.length === 1 \? clauses\[0\] : \{ \$or: clauses \}/);
+  assert.doesNotMatch(plural, /\$or: boardVisibilitySelectors/);
+
+  const singular = block("Meteor.publish('board'", 'const visibleLinkedCardIds');
+  assert.doesNotMatch(singular, /includePublic: false/);
+});
+
 test('the projection retains appearance, access, ordering and sharing fields', () => {
   const fields = block('const BOARD_LIST_FIELDS', "publishComposite('boards'");
   for (const field of [
