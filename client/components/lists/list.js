@@ -7,12 +7,16 @@ import {
   suspendBoardDragscroll,
   resumeBoardDragscroll,
 } from '/client/lib/boardDragscroll';
+import {
+  createCardDropPreview,
+  retireCardDropPreview,
+} from '/client/lib/cardDropPreview';
 import Cards from '/models/cards';
 import {
   isDegenerateSortGap,
   computeRepairedDropIndex,
 } from '/models/lib/cardSortRepair';
-require('/client/lib/jquery-ui.js')
+require('/client/lib/jquery-ui.js');
 
 const { calculateIndex } = Utils;
 
@@ -187,7 +191,7 @@ function saveListWidth(list, width) {
   // the per-list width, so EVERY list re-renders at the new width.
   if (isFixedListWidth(boardId)) {
     if (user) {
-      Meteor.call('setFixedListWidth', boardId, width, error => {
+      Meteor.call('setFixedListWidth', boardId, width, (error) => {
         if (error) console.error('Error saving fixed list width:', error);
       });
     } else {
@@ -211,7 +215,7 @@ function saveListWidth(list, width) {
     }
   } else if (user) {
     // Shared width: server also enforces board membership.
-    Meteor.call('applyListWidth', boardId, listId, width, width, error => {
+    Meteor.call('applyListWidth', boardId, listId, width, width, (error) => {
       if (error) console.error('Error saving shared list width:', error);
     });
   }
@@ -237,9 +241,11 @@ Template.list.onCreated(function () {
 // callback, we basically solve all issues related to reactive updates. A
 // comment below provides further details.
 Template.list.onRendered(function () {
-  const boardBodyEl = this.firstNode?.parentElement?.closest?.('.board-body') ||
+  const boardBodyEl =
+    this.firstNode?.parentElement?.closest?.('.board-body') ||
     document.querySelector('.board-body');
-  const boardView = boardBodyEl && Blaze.getView(boardBodyEl, 'Template.boardBody');
+  const boardView =
+    boardBodyEl && Blaze.getView(boardBodyEl, 'Template.boardBody');
   const boardComponent = boardView?.templateInstance?.();
 
   // Initialize list resize functionality immediately
@@ -329,11 +335,21 @@ Template.list.onRendered(function () {
           .children(itemsSelector)
           .not(ui.item)
           .toArray()
-          .map(el => Blaze.getData(el))
+          .map((el) => Blaze.getData(el))
           .filter(Boolean);
       }
       const listData = Blaze.getData(ui.item.parents('.list').get(0));
       const listId = listData._id;
+      const targetContainer = ui.item.parent().get(0);
+      const cardDomElement = ui.item.get(0);
+      const droppedCard = Blaze.getData(cardDomElement);
+      // #6430: sortable('cancel') is still necessary to keep jQuery UI from
+      // fighting Blaze, but it visibly returns the card to its source until a
+      // large board finishes its reactive flush. Leave a presentation-only
+      // clone in the drop slot until the real reactive card arrives.
+      const dropPreview = !MultiSelection.isActive()
+        ? createCardDropPreview(cardDomElement, targetContainer)
+        : null;
       const currentBoard = Utils.getCurrentBoard();
       const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
       let targetSwimlaneId = null;
@@ -343,8 +359,9 @@ Template.list.onRendered(function () {
         Utils.boardView() === 'board-view-swimlanes' ||
         currentBoard.isTemplatesBoard()
       ) {
-        targetSwimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))
-          ._id;
+        targetSwimlaneId = Blaze.getData(
+          ui.item.parents('.swimlane').get(0),
+        )._id;
       } else if (listData.swimlaneId) {
         targetSwimlaneId = listData.swimlaneId;
       }
@@ -371,14 +388,19 @@ Template.list.onRendered(function () {
           nextCardData,
           nCards,
         );
-        repairedDrop.updates.forEach(u => {
+        repairedDrop.updates.forEach((u) => {
           Cards.update(u._id, { $set: { sort: u.sort } });
         });
-        sortIndex = { base: repairedDrop.base, increment: repairedDrop.increment };
+        sortIndex = {
+          base: repairedDrop.base,
+          increment: repairedDrop.increment,
+        };
       }
 
       if (MultiSelection.isActive()) {
-        ReactiveCache.getCards(MultiSelection.getMongoSelector(), { sort: ['sort'] }).forEach((card, i) => {
+        ReactiveCache.getCards(MultiSelection.getMongoSelector(), {
+          sort: ['sort'],
+        }).forEach((card, i) => {
           const newSwimlaneId = targetSwimlaneId
             ? targetSwimlaneId
             : card.swimlaneId || defaultSwimlaneId;
@@ -390,12 +412,22 @@ Template.list.onRendered(function () {
           );
         });
       } else {
-        const cardDomElement = ui.item.get(0);
-        const card = Blaze.getData(cardDomElement);
+        const card = droppedCard;
         const newSwimlaneId = targetSwimlaneId
           ? targetSwimlaneId
           : card.swimlaneId || defaultSwimlaneId;
-        card.move(currentBoard._id, newSwimlaneId, listId, sortIndex.base);
+        const moveResult = card.move(
+          currentBoard._id,
+          newSwimlaneId,
+          listId,
+          sortIndex.base,
+        );
+        retireCardDropPreview(
+          dropPreview,
+          card._id,
+          targetContainer,
+          moveResult,
+        );
       }
       if (boardComponent) boardComponent.setIsDragging(false);
     },
@@ -404,11 +436,20 @@ Template.list.onRendered(function () {
       // overflow: auto), NOT .board-canvas, which only overflows vertically —
       // the old code compared against a scrollLeftMax of 0 and never fired, so
       // dragging a card toward an off-screen list never auto-scrolled the board.
-      const { computeEdgeScroll, findLaneUnderPointer } = require('/imports/lib/boardAutoScroll');
+      const {
+        computeEdgeScroll,
+        findLaneUnderPointer,
+      } = require('/imports/lib/boardAutoScroll');
       let scrolled = false;
       const lanes = document.querySelectorAll('.js-lists');
-      const rects = Array.prototype.map.call(lanes, el => el.getBoundingClientRect());
-      const laneIndex = findLaneUnderPointer(rects, event.clientX, event.clientY);
+      const rects = Array.prototype.map.call(lanes, (el) =>
+        el.getBoundingClientRect(),
+      );
+      const laneIndex = findLaneUnderPointer(
+        rects,
+        event.clientX,
+        event.clientY,
+      );
       if (laneIndex !== -1) {
         const nextLeft = computeEdgeScroll({
           pointer: event.clientX,
@@ -442,11 +483,16 @@ Template.list.onRendered(function () {
       // horizontal case above, which already picks the lane under the pointer.
       let scrolledList = false;
       const listBodies = document.querySelectorAll('.list-body');
-      const listRects = Array.prototype.map.call(listBodies, el =>
-        el.getBoundingClientRect());
+      const listRects = Array.prototype.map.call(listBodies, (el) =>
+        el.getBoundingClientRect(),
+      );
       // findLaneUnderPointer is a plain rectangle hit-test; the name is about
       // where it was first used, not what it can be given.
-      const listIndex = findLaneUnderPointer(listRects, event.clientX, event.clientY);
+      const listIndex = findLaneUnderPointer(
+        listRects,
+        event.clientX,
+        event.clientY,
+      );
       if (listIndex !== -1) {
         const nextListTop = computeEdgeScroll({
           pointer: event.clientY,
@@ -462,7 +508,9 @@ Template.list.onRendered(function () {
           scrolledList = true;
         }
       }
-      const canvas = scrolledList ? null : document.querySelector('.board-canvas');
+      const canvas = scrolledList
+        ? null
+        : document.querySelector('.board-canvas');
       if (canvas) {
         const crect = canvas.getBoundingClientRect();
         const nextTop = computeEdgeScroll({
@@ -621,7 +669,8 @@ Template.list.onCreated(function () {
     const getEventPageX = (e) => {
       const oe = e.originalEvent || e;
       if (oe.touches && oe.touches.length) return oe.touches[0].pageX;
-      if (oe.changedTouches && oe.changedTouches.length) return oe.changedTouches[0].pageX;
+      if (oe.changedTouches && oe.changedTouches.length)
+        return oe.changedTouches[0].pageX;
       return e.pageX;
     };
 
@@ -707,7 +756,9 @@ Template.list.onCreated(function () {
     // as the handler, throwing "handler.apply is not a function" on every
     // touch. Use the native API so { passive: false } actually applies and
     // preventDefault() works during the resize.
-    $resizeHandle[0].addEventListener('touchstart', startResize, { passive: false });
+    $resizeHandle[0].addEventListener('touchstart', startResize, {
+      passive: false,
+    });
     document.addEventListener('touchmove', doResize, { passive: false });
     document.addEventListener('touchend', stopResize, { passive: false });
 

@@ -9,6 +9,11 @@
   background: #ccc;
   border-radius: 17px;
 }
+.minicard-wrapper.card-drop-preview {
+  background: transparent;
+  border-radius: 0;
+  pointer-events: none;
+}
 .minicard-wrapper.ui-sortable-helper {
   cursor: grabbing;
   transform: rotate(4deg);

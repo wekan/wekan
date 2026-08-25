@@ -11,6 +11,8 @@
  *           persist — it was reported that such cards "go back to their place".
  *           Verified here that the new order is saved both for a few cards and at
  *           scale.
+ *  - #6430: cancelling jQuery UI's DOM move must leave a visual card in the drop
+ *           slot until Blaze renders the real card there.
  */
 
 const { test, expect } = require('../fixtures');
@@ -22,10 +24,71 @@ async function dbOrder(boardId, listId) {
   return db
     .find('cards', { boardId, listId }, { title: 1, sort: 1 })
     .sort((a, b) => a.sort - b.sort)
-    .map(c => c.title);
+    .map((c) => c.title);
 }
 
 test.describe('Card drag-sort reordering', () => {
+  test('#6430 a cross-list drop never leaves its target visually empty', async ({
+    loggedInPage,
+    user,
+    browserName,
+  }) => {
+    test.skip(
+      browserName !== 'chromium',
+      'drag-sort harness validated on Chromium',
+    );
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'DragNoFlicker',
+      listCount: 2,
+      cardTitlesPerList: [['Moving Card'], []],
+    });
+    try {
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+      const source = loggedInPage
+        .locator('.js-minicard')
+        .filter({ hasText: 'Moving Card' })
+        .first();
+      const target = loggedInPage.locator(
+        `#js-list-${board.listIds[1]} .js-minicards`,
+      );
+      await source.waitFor({ timeout: 30_000 });
+
+      // Make the reconciliation gap deterministic. The object attached to the
+      // rendered source node is the same object list.js reads in sortable's
+      // stop callback, so delaying this method emulates a costly large-board
+      // flush without changing production timing.
+      await source.evaluate((element) => {
+        const card = Blaze.getData(element);
+        const move = card.move.bind(card);
+        card.move = (...args) =>
+          new Promise((resolve, reject) => {
+            setTimeout(() => move(...args).then(resolve, reject), 750);
+          });
+      });
+
+      await dragCardOnto(loggedInPage, source, target, { place: 'center' });
+
+      // At all times after mouse-up the target contains either the temporary
+      // preview or the real reactive card. The old cancel-then-render sequence
+      // left it empty for the duration of a large board's Blaze flush.
+      await expect(target.locator('[data-card-id]')).toHaveCount(1);
+      await expect(target.locator('.card-drop-preview')).toHaveCount(1);
+      await expect
+        .poll(
+          () => target.locator('.js-minicard:not(.card-drop-preview)').count(),
+          {
+            timeout: 15_000,
+          },
+        )
+        .toBe(1);
+      await expect(target.locator('.card-drop-preview')).toHaveCount(0);
+    } finally {
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#3826 cards that have a parent can be reordered and the new order persists', async ({
     loggedInPage,
     user,
@@ -34,35 +97,60 @@ test.describe('Card drag-sort reordering', () => {
     // The reorder logic is browser-independent; the jQuery-UI drag-sort harness
     // is validated on Chromium. Scoped to Chromium so cross-browser drag-timing
     // differences cannot flake the otherwise-green matrix.
-    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
+    test.skip(
+      browserName !== 'chromium',
+      'drag-sort harness validated on Chromium',
+    );
     // list 0 = parents, list 1 = sub-tasks (each given a parentId).
     const board = db.seedBoard({
       ownerId: user.id,
       title: 'DragSort',
       listCount: 2,
-      cardTitlesPerList: [['Parent P'], ['A Card', 'B Card', 'C Card', 'D Card']],
+      cardTitlesPerList: [
+        ['Parent P'],
+        ['A Card', 'B Card', 'C Card', 'D Card'],
+      ],
     });
     try {
-      const parentId = db.findOne('cards', { boardId: board.boardId, title: 'Parent P' }, { _id: 1 })._id;
+      const parentId = db.findOne(
+        'cards',
+        { boardId: board.boardId, title: 'Parent P' },
+        { _id: 1 },
+      )._id;
       const subListId = board.listIds[1];
-      db.updateMany('cards', { boardId: board.boardId, listId: subListId }, { $set: { parentId } });
+      db.updateMany(
+        'cards',
+        { boardId: board.boardId, listId: subListId },
+        { $set: { parentId } },
+      );
 
       await openBoard(loggedInPage, board.boardId, board.slug);
       await waitForMeteor(loggedInPage);
       const list = `#js-list-${subListId}`;
-      await loggedInPage.locator(`${list} .js-minicard`).first().waitFor({ timeout: 30_000 });
+      await loggedInPage
+        .locator(`${list} .js-minicard`)
+        .first()
+        .waitFor({ timeout: 30_000 });
 
       // Drag the last sub-task card to the front of the list.
       await dragCardOnto(
         loggedInPage,
-        loggedInPage.locator(`${list} .js-minicard`).filter({ hasText: 'D Card' }).first(),
-        loggedInPage.locator(`${list} .js-minicard`).filter({ hasText: 'A Card' }).first(),
+        loggedInPage
+          .locator(`${list} .js-minicard`)
+          .filter({ hasText: 'D Card' })
+          .first(),
+        loggedInPage
+          .locator(`${list} .js-minicard`)
+          .filter({ hasText: 'A Card' })
+          .first(),
         { place: 'before' },
       );
 
       // The reorder must be saved (it used to revert for parented cards).
       await expect
-        .poll(async () => (await dbOrder(board.boardId, subListId))[0], { timeout: 15_000 })
+        .poll(async () => (await dbOrder(board.boardId, subListId))[0], {
+          timeout: 15_000,
+        })
         .toBe('D Card');
     } finally {
       db.cleanup({ boardIds: [board.boardId] });
@@ -91,7 +179,10 @@ test.describe('Card drag-sort reordering', () => {
     user,
     browserName,
   }) => {
-    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
+    test.skip(
+      browserName !== 'chromium',
+      'drag-sort harness validated on Chromium',
+    );
     // Enough lists that the lane overflows horizontally, which is the board the
     // report is about, and cards in several of them so one can be found away
     // from the edges.
@@ -99,12 +190,20 @@ test.describe('Card drag-sort reordering', () => {
       ownerId: user.id,
       title: 'DragNoPan',
       listCount: 12,
-      cardTitlesPerList: [['One', 'Two'], ['Three', 'Four'], ['Five', 'Six'], ['Seven', 'Eight']],
+      cardTitlesPerList: [
+        ['One', 'Two'],
+        ['Three', 'Four'],
+        ['Five', 'Six'],
+        ['Seven', 'Eight'],
+      ],
     });
     try {
       await openBoard(loggedInPage, board.boardId, board.slug);
       await waitForMeteor(loggedInPage);
-      await loggedInPage.locator('.js-minicard').first().waitFor({ timeout: 30_000 });
+      await loggedInPage
+        .locator('.js-minicard')
+        .first()
+        .waitFor({ timeout: 30_000 });
 
       // Pan the lane away from its left edge first, so a pan in EITHER direction
       // during the drag is visible as a change (scrollLeft cannot go below 0).
@@ -112,7 +211,10 @@ test.describe('Card drag-sort reordering', () => {
         const lane = document.querySelector('.js-lists');
         const canvas = document.querySelector('.board-canvas');
         if (lane) lane.scrollLeft = 120;
-        return { lane: lane ? lane.scrollLeft : null, canvas: canvas ? canvas.scrollTop : null };
+        return {
+          lane: lane ? lane.scrollLeft : null,
+          canvas: canvas ? canvas.scrollTop : null,
+        };
       });
       expect(startScroll.lane).toBeGreaterThan(0);
 
@@ -120,30 +222,41 @@ test.describe('Card drag-sort reordering', () => {
       // MARGIN px inside the lane and the canvas, so the edge auto-scroll never
       // fires and any movement of the scroll positions is panning.
       const MARGIN = 70;
-      const plan = await loggedInPage.evaluate(margin => {
+      const plan = await loggedInPage.evaluate((margin) => {
         const lane = document.querySelector('.js-lists');
         const canvas = document.querySelector('.board-canvas');
         if (!lane || !canvas) return null;
         const l = lane.getBoundingClientRect();
         const c = canvas.getBoundingClientRect();
-        const box = { left: l.left + margin, right: l.right - margin,
-                      top: Math.max(l.top, c.top) + margin,
-                      bottom: Math.min(l.bottom, c.bottom) - margin };
+        const box = {
+          left: l.left + margin,
+          right: l.right - margin,
+          top: Math.max(l.top, c.top) + margin,
+          bottom: Math.min(l.bottom, c.bottom) - margin,
+        };
         let best = null;
         for (const el of document.querySelectorAll('.js-minicard')) {
           const r = el.getBoundingClientRect();
           const x = r.left + r.width / 2;
           const y = r.top + 12;
-          const room = Math.min(x - box.left, box.right - x, y - box.top, box.bottom - y);
-          if (room > 0 && (!best || room > best.room)) best = { x, y, room, box };
+          const room = Math.min(
+            x - box.left,
+            box.right - x,
+            y - box.top,
+            box.bottom - y,
+          );
+          if (room > 0 && (!best || room > best.room))
+            best = { x, y, room, box };
         }
         return best;
       }, MARGIN);
       // A window too small to hold a drag that stays clear of every edge would
       // measure the auto-scroll instead of panning, and would say nothing about
       // the bug. Better skipped than misleading.
-      test.skip(!plan || plan.room < 30,
-        'no card sits far enough from the lane/canvas edges in this viewport');
+      test.skip(
+        !plan || plan.room < 30,
+        'no card sits far enough from the lane/canvas edges in this viewport',
+      );
 
       // A short diagonal, entirely inside the safe box: the gesture that used to
       // drag the card and pan the lane at the same time.
