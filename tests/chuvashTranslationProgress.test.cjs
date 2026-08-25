@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1716);
+assert.equal(Object.keys(remaining).length, 1666);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -115,3 +115,16 @@ assert.match(chuvash['comment-only'], /Хушса калама/);
 assert.match(chuvash['read-only'], /Вулама/);
 assert.equal(JSON.parse(chuvash['copyManyCardsPopup-format']).length, 3);
 assert.match(chuvash['custom-field-currency'], /Укҫа/);
+assert.deepEqual(tokens(chuvash['email-enrollAccount-text']), [
+  '__url__',
+  '__user__',
+]);
+assert.deepEqual(tokens(chuvash['email-invite-text']), [
+  '__board__',
+  '__inviter__',
+  '__url__',
+  '__user__',
+]);
+assert.match(chuvash['error-json-malformed'], /JSON/);
+assert.match(chuvash['error-csv-schema'], /CSV.*TSV/);
+assert.match(chuvash['error-import-empty-board'], /WeKan/);
