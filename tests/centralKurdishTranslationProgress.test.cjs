@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 366);
+assert.equal(Object.keys(remaining).length, 316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -302,3 +302,11 @@ assert.match(kurdish['database-migration-description'], /WEKAN_FERRETDB_URL/);
 assert.match(kurdish['database-migration-description'], /WEKAN_MONGODB_URL/);
 assert.match(kurdish['database-migration-description'], /MONGO_URL/);
 assert.match(kurdish['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
+assert.match(kurdish['cards-loading-description'], /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(kurdish['render-links-as-plain-text-description']), [
+  '<a href>',
+]);
+assert.match(kurdish['always-show-code-as-text-description'], /<!-- -->/);
+assert.match(kurdish['disable-import-avatars-description'], /LDAP.*OIDC\/OAuth2/);
+assert.match(kurdish['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
+assert.match(kurdish['backup-description'], /S3\/MinIO.*Azure.*GCS/);
