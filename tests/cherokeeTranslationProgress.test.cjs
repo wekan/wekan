@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1616);
+assert.equal(Object.keys(remaining).length, 1566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -97,3 +97,9 @@ assert.match(cherokee['error-import-empty-board'], /WeKan/);
 assert.match(cherokee['export-card-pdf'], /PDF/);
 assert.match(cherokee['export-card-excel'], /Excel/);
 assert.match(cherokee['filter-due-today'], /ᎪᎯ/);
+assert.deepEqual(tokens(cherokee['import-board-instruction-issues']), [
+  '__endpoint__',
+  '__sourceName__',
+]);
+assert.match(cherokee['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.match(cherokee['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
