@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-sixteen 50-value Cherokee batches then left **181,197 genuinely untranslated
-values across 84 locale files**, including 1,366 in Cherokee.
+seventeen 50-value Cherokee batches then left **181,147 genuinely untranslated
+values across 84 locale files**, including 1,316 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `attachment-limits` with
+Resume Cherokee at `Database_commit` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 16 are committed and batch 17
+Buryat is complete, Cherokee batches 1 through 17 are committed and batch 18
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -500,11 +500,11 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Cherokee translation** now covers card moves, activity,
-workspaces, board views, voting, member settings, navigation, account emails,
-exports, filters, imports, privacy, shortcuts, tracking and branding. This
-continues the direct whole-file translation effort while preserving human work
-and every code token. Below that: whole-locale placeholder and markup checks
-protect the new values.
+workspaces, board views, voting, member settings, account emails, exports,
+filters, imports, privacy, tracking, branding, attachment limits and webhooks.
+This continues the direct whole-file translation effort while preserving human
+work and every code token. Below that: whole-locale placeholder and markup
+checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -669,6 +669,17 @@ Starred boards, subscriptions, time tracking, numeric shortcuts, upload state,
 custom logo, help and URL settings, imported usernames, watching, welcome and
 template boards, WIP limits and attachment/API limits now use Cherokee
 syllabary. Digits and URL/API terms remain exact, leaving 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/888022e10">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and API transfer limits, avatar blocking, registration, invitations,
+SMTP configuration and testing, authorization, outgoing and bidirectional
+webhooks and package, database, Node and Meteor metadata now use Cherokee
+syllabary. Invitation tokens and protocol/product names remain exact, leaving
+1,316 values.
 
 </details>
 
