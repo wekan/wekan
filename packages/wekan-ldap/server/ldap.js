@@ -202,6 +202,37 @@ export default class LDAP {
     return fields;
   }
 
+  getUserAttributes() {
+    const configured = this.options.User_Attributes;
+    if (!configured) return undefined;
+
+    const attributes = configured.split(',').map(field => field.trim()).filter(Boolean);
+    const requiredSettings = [
+      'LDAP_USERNAME_FIELD',
+      'LDAP_FULLNAME_FIELD',
+      'LDAP_EMAIL_FIELD',
+      'LDAP_UNIQUE_IDENTIFIER_FIELD',
+      'LDAP_USER_SEARCH_FIELD',
+    ];
+
+    for (const setting of requiredSettings) {
+      const value = this.constructor.settings_get(setting);
+      if (!value) continue;
+
+      for (const expression of String(value).split(',')) {
+        const templateFields = [...expression.matchAll(/#{([^}]+)}/g)].map(match => match[1]);
+        const fields = templateFields.length > 0 ? templateFields : [expression];
+        for (const field of fields.map(item => item.trim()).filter(Boolean)) {
+          if (!attributes.some(item => item.toLowerCase() === field.toLowerCase())) {
+            attributes.push(field);
+          }
+        }
+      }
+    }
+
+    return attributes;
+  }
+
   // #5539: where to look for groups. LDAP_GROUP_BASEDN when it is set, the user
   // base otherwise - an install that never had groups in a separate subtree
   // behaves exactly as before. A blank string counts as unset: an env var that is
@@ -346,7 +377,11 @@ export default class LDAP {
       sizeLimit: this.options.Search_Size_Limit,
     };
 
-    if (!!this.options.User_Attributes) searchOptions.attributes = this.options.User_Attributes.split(',');
+    // A restricted attribute list must not omit fields configured elsewhere.
+    // In particular, omitting LDAP_FULLNAME_FIELD made Active Directory logins
+    // retain the sAMAccountName fallback even when displayName was configured.
+    const attributes = this.getUserAttributes();
+    if (attributes) searchOptions.attributes = attributes;
 
     if (this.options.Search_Page_Size > 0) {
       searchOptions.paged = {

@@ -6,6 +6,7 @@ const cardDetails = fs.readFileSync('client/components/cards/cardDetails.js', 'u
 const labels = fs.readFileSync('client/components/cards/labels.js', 'utf8');
 const cards = fs.readFileSync('models/cards.js', 'utf8');
 const ldap = fs.readFileSync('packages/wekan-ldap/server/sync.js', 'utf8');
+const ldapClient = fs.readFileSync('packages/wekan-ldap/server/ldap.js', 'utf8');
 
 test('card list chooser includes board-wide lists in every swimlane', () => {
   const helper = cardDetails.slice(
@@ -36,4 +37,21 @@ test('LDAP full names are normalized to text', () => {
   const helper = ldap.slice(ldap.indexOf('export function getLdapFullname'), ldap.indexOf('export function getLdapUserUniqueID'));
   assert.match(helper, /Array\.isArray\(value\) \? value\[0\] : value/);
   assert.match(helper, /Buffer\.isBuffer\(scalar\) \? scalar\.toString\('utf8'\) : String\(scalar\)/);
+});
+
+test('LDAP restricted searches always request the configured display name', () => {
+  const helper = ldapClient.slice(
+    ldapClient.indexOf('  getUserAttributes() {'),
+    ldapClient.indexOf('  async searchAll(', ldapClient.indexOf('  getUserAttributes() {')),
+  );
+  const search = ldapClient.slice(
+    ldapClient.indexOf('  async searchUsers('),
+    ldapClient.indexOf('  async getUserById(', ldapClient.indexOf('  async searchUsers(')),
+  );
+
+  assert.match(helper, /'LDAP_FULLNAME_FIELD'/);
+  assert.match(helper, /matchAll\(\/#\{\(\[\^}\]\+\)\}\//);
+  assert.match(helper, /item\.toLowerCase\(\) === field\.toLowerCase\(\)/);
+  assert.match(search, /const attributes = this\.getUserAttributes\(\)/);
+  assert.doesNotMatch(search, /User_Attributes\.split\(','\)/);
 });
