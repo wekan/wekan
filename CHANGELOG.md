@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first twenty-seven
-50-value Buryat batches then left **182,813 genuinely untranslated values
-across 85 locale files**, including 816 in Buryat.
+16-value batch then translated all 2,166 values. The first twenty-eight
+50-value Buryat batches then left **182,763 genuinely untranslated values
+across 85 locale files**, including 766 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `predicate-public` with
+Resume Buryat at `label-colors` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 27 are committed and batch 28 has not been applied.
+batches 1 through 28 are committed and batch 29 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4665,6 +4665,17 @@ operators for board structure, people, state, dates, text, attachments and
 checklists and their archived, open, overdue and time predicates now use
 Buryat. Result-boundary tokens remain exact, and whole-locale invariant
 coverage leaves 816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c66e107db">Buryat global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
+
+Public and private predicates, operator validation, pagination and the full
+global-search guide for board structure, people, dates, state, field presence,
+sorting, limits and operator composition now use Buryat. Search examples,
+named tokens and pseudo-tags remain exact, and whole-locale invariant coverage
+leaves 766 values.
 
 </details>
 
