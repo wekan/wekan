@@ -35,6 +35,13 @@ template(name="dueCards")
           .due-cards-list
             each card in dueCardsList
               +resultCard(card)
+          .global-search-pager
+            if hasPreviousPage
+              button.js-due-cards-previous-page
+                | {{_ 'previous-page' }}
+            if hasNextPage
+              button.js-due-cards-next-page
+                | {{_ 'next-page' }}
     else
       .global-search-results-list-wrapper
         .no-results

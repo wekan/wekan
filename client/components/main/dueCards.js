@@ -18,12 +18,15 @@ Template.dueCardsControls.events({
 });
 
 Template.dueCards.onCreated(function () {
+  const PAGE_SIZE = 200;
   this._cachedCards = null;
   this._cachedTimestamp = null;
   this.subscriptionHandle = null;
   this.isLoading = new ReactiveVar(true);
   this.hasResults = new ReactiveVar(false);
   this.searching = new ReactiveVar(false);
+  this.page = new ReactiveVar(0);
+  this.pageSize = PAGE_SIZE;
 
   const tpl = this;
 
@@ -106,10 +109,16 @@ Template.dueCards.onCreated(function () {
   // Subscribe to the optimized due cards publication
   this.autorun(() => {
     const allUsers = dueCardsView() === 'all';
+    const page = tpl.page.get();
     if (tpl.subscriptionHandle) {
       tpl.subscriptionHandle.stop();
     }
-    tpl.subscriptionHandle = Meteor.subscribe('dueCards', allUsers);
+    tpl.subscriptionHandle = Meteor.subscribe(
+      'dueCards',
+      allUsers,
+      PAGE_SIZE,
+      page * PAGE_SIZE,
+    );
 
     // Update loading state based on subscription
     tpl.autorun(() => {
@@ -174,6 +183,27 @@ Template.dueCards.helpers({
       }
       return result;
     }
+  },
+  hasPreviousPage() {
+    return Template.instance().page.get() > 0;
+  },
+  hasNextPage() {
+    const tpl = Template.instance();
+    const cards = tpl.dueCardsList ? tpl.dueCardsList() : [];
+    return cards.length === tpl.pageSize;
+  },
+});
+
+Template.dueCards.events({
+  'click .js-due-cards-previous-page'(event, tpl) {
+    event.preventDefault();
+    tpl._cachedCards = null;
+    tpl.page.set(Math.max(0, tpl.page.get() - 1));
+  },
+  'click .js-due-cards-next-page'(event, tpl) {
+    event.preventDefault();
+    tpl._cachedCards = null;
+    tpl.page.set(tpl.page.get() + 1);
   },
 });
 

@@ -81,6 +81,7 @@ import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 const { boardCardScope } = require('/models/lib/boardCardScope');
+const { retainRankedCard } = require('/models/lib/cardSearchRanking');
 
 Meteor.publish('card', async function(cardId) {
   check(cardId, String);
@@ -331,8 +332,10 @@ Meteor.publish('myCards', async function(sessionId) {
 });
 
 // Optimized due cards publication for better performance
-Meteor.publish('dueCards', async function(allUsers = false) {
+Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 0) {
   check(allUsers, Boolean);
+  check(limit, Number);
+  check(skip, Number);
 
   const userId = this.userId;
   if (!userId) {
@@ -372,9 +375,11 @@ Meteor.publish('dueCards', async function(allUsers = false) {
 
   const options = {
     sort: { dueAt: 1 }, // Sort by due date ascending (oldest first)
-    // No limit: show ALL of the user's due cards across boards (issue #5999).
-    // Previously a `limit: 100` capped the results, which (combined with the
-    // per-user filter) hid many due cards compared to older versions.
+    // Page rather than truncate: #5999 requires every due card to remain
+    // reachable, while an unlimited live cursor makes one visit publish every
+    // due card and keep every one reactive. The client provides Previous/Next.
+    limit: Math.max(1, Math.min(Math.floor(limit) || 200, 500)),
+    skip: Math.max(0, Math.floor(skip) || 0),
     fields: {
       title: 1,
       dueAt: 1,
@@ -769,12 +774,19 @@ async function buildSelector(queryParams, userId) {
     }
 
     if (queryParams.hasOperator(OPERATOR_HAS)) {
+      // Search child collections inside the same board scope as the card query.
+      // Without this, a board search first materialized every attachment/checklist
+      // id on the instance and only discarded the unrelated ids in the final card
+      // query. Global search still intentionally spans all authorized board ids.
+      const boardIds = selector.boardId && selector.boardId.$in;
+      const checklistScope = Array.isArray(boardIds) ? { boardId: { $in: boardIds } } : {};
+      const attachmentScope = Array.isArray(boardIds) ? { 'meta.boardId': { $in: boardIds } } : {};
       for (const has of queryParams.getPredicates(OPERATOR_HAS)) {
         switch (has.field) {
           case PREDICATE_ATTACHMENT:
             selector.$and.push({
               _id: {
-                $in: (await ReactiveCache.getAttachments({}, { fields: { cardId: 1 } })).map(
+                $in: (await ReactiveCache.getAttachments(attachmentScope, { fields: { cardId: 1 } })).map(
                   a => a.cardId,
                 ),
               },
@@ -783,7 +795,7 @@ async function buildSelector(queryParams, userId) {
           case PREDICATE_CHECKLIST:
             selector.$and.push({
               _id: {
-                $in: (await ReactiveCache.getChecklists({}, { fields: { cardId: 1 } })).map(
+                $in: (await ReactiveCache.getChecklists(checklistScope, { fields: { cardId: 1 } })).map(
                   a => a.cardId,
                 ),
               },
@@ -828,7 +840,14 @@ async function buildSelector(queryParams, userId) {
         { fields: { cardId: 1 } },
       );
 
-      const attachments = await ReactiveCache.getAttachments({ 'original.name': regex });
+      const attachmentSelector = { 'original.name': regex };
+      if (selector.boardId && Array.isArray(selector.boardId.$in)) {
+        attachmentSelector['meta.boardId'] = { $in: selector.boardId.$in };
+      }
+      const attachments = await ReactiveCache.getAttachments(
+        attachmentSelector,
+        { fields: { cardId: 1 } },
+      );
 
       // #5910: free-text search must match text inside card comments, for BOTH
       // global and board-level (board:) search. Board scoping is preserved by the
@@ -893,7 +912,14 @@ async function buildSelector(queryParams, userId) {
     if (queryParams.hasOperator(OPERATOR_ATTACHMENT_TEXT)) {
       for (const t of queryParams.getPredicates(OPERATOR_ATTACHMENT_TEXT)) {
         const regex = new RegExp(escapeForRegex(t), 'i');
-        const attachments = await ReactiveCache.getAttachments({ 'original.name': regex });
+        const attachmentSelector = { 'original.name': regex };
+        if (selector.boardId && Array.isArray(selector.boardId.$in)) {
+          attachmentSelector['meta.boardId'] = { $in: selector.boardId.$in };
+        }
+        const attachments = await ReactiveCache.getAttachments(
+          attachmentSelector,
+          { fields: { cardId: 1 } },
+        );
         if (attachments.length) {
           selector.$and.push({ _id: { $in: attachments.map(attach => attach.cardId) } });
         } else {
@@ -1191,7 +1217,10 @@ async function findCards(sessionId, query, userId) {
   let isTextSearch = !!textMatches;
   let dbProjection = query.projection;
   if (isTextSearch) {
-    dbProjection = Object.assign({}, query.projection);
+    dbProjection = {
+      fields: { _id: 1, title: 1, description: 1, customFields: 1 },
+      sort: query.projection.sort,
+    };
     delete dbProjection.limit;
     delete dbProjection.skip;
   }
@@ -1201,22 +1230,20 @@ async function findCards(sessionId, query, userId) {
   let orderedIds = [];
 
   if (isTextSearch && totalCardsCount > 0) {
-    let fetched = typeof cards.fetchAsync === 'function' ? await cards.fetchAsync() : cards.fetch();
     const regex = new RegExp(escapeForRegex(textMatches), 'i');
-    fetched.forEach(c => {
-      c._score = 0;
-      if (c.title && regex.test(c.title)) c._score += 10;
-      else if (c.description && regex.test(c.description)) c._score += 5;
-      else if (c.customFields && c.customFields.some(f => f.value && regex.test(String(f.value)))) c._score += 1;
-    });
-    fetched.sort((a, b) => {
-      if (b._score !== a._score) return b._score - a._score;
-      return (a.title || '').localeCompare(b.title || '');
-    });
-
     const skip = query.projection.skip || 0;
     const limit = query.projection.limit || 25;
-    const page = fetched.slice(skip, skip + limit);
+    const best = [];
+    const retain = card => retainRankedCard(best, card, regex, skip + limit);
+    if (typeof cards.forEachAsync === 'function') {
+      await cards.forEachAsync(retain);
+    } else {
+      const fetched = typeof cards.fetchAsync === 'function'
+        ? await cards.fetchAsync()
+        : cards.fetch();
+      fetched.forEach(retain);
+    }
+    const page = best.slice(skip, skip + limit);
     orderedIds = page.map(c => c._id);
 
     // override the cursor to only contain the paginated results for this page

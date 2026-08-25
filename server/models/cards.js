@@ -703,6 +703,23 @@ Meteor.startup(async () => {
   // Linked-card and parent discovery add one predicate to that common prefix.
   await ensureIndex(Cards, { boardId: 1, archived: 1, type: 1 });
   await ensureIndex(Cards, { boardId: 1, archived: 1, parentId: 1 });
+  // Lazy card windows filter one board/list/swimlane, sort by the card order and
+  // use _id as a deterministic tie-breaker. MongoDB can answer the projected id
+  // window from this index alone (limit included) instead of reading and sorting
+  // every card in the list. FerretDB may use a shorter prefix until its SQLite
+  // compound-sort pushdown supports this shape, but retains identical semantics.
+  await ensureIndex(Cards, {
+    boardId: 1,
+    archived: 1,
+    listId: 1,
+    swimlaneId: 1,
+    sort: 1,
+    _id: 1,
+  });
+  // Due Cards narrows authorized boards and active ordinary cards, then orders
+  // them chronologically. The equality prefix avoids walking every card of each
+  // board before applying the due-date range.
+  await ensureIndex(Cards, { boardId: 1, archived: 1, type: 1, dueAt: 1 });
   await ensureIndex(Cards, { parentId: 1 });
   // Admin Panel / Problems / Broken cards asks for cards with NO board, swimlane
   // or list, or an unknown type - an $or, which can only use an index if each of
