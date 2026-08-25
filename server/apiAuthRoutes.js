@@ -21,6 +21,9 @@ const {
   useLdapForRestLogin,
   ldapRestLoginRequest,
 } = require('/server/lib/restAuthenticationMethod');
+const {
+  shouldRejectPasswordLogin,
+} = require('/server/lib/ldapPasswordLoginGuard');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -88,7 +91,9 @@ WebApp.handlers.post('/users/login', async function (req, res) {
           req,
           detail: 'REST login refused while locked out',
         });
-      } catch (e) { /* a canary must never break the login path */ }
+      } catch (e) {
+        /* a canary must never break the login path */
+      }
       const retryAfterSeconds = Math.ceil(gate.retryAfterMs / 1000);
       const error = new Meteor.Error(
         'too-many-requests',
@@ -108,7 +113,9 @@ WebApp.handlers.post('/users/login', async function (req, res) {
         password: String,
         code: Match.Optional(NonEmptyString),
       });
-      user = await Meteor.users.findOneAsync({ 'emails.address': options.email });
+      user = await Meteor.users.findOneAsync({
+        'emails.address': options.email,
+      });
     } else {
       check(options, {
         username: String,
@@ -139,6 +146,21 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       if (result && result.userId) {
         user = await Meteor.users.findOneAsync(result.userId);
       }
+    } else if (
+      shouldRejectPasswordLogin({
+        serviceName: 'password',
+        user,
+        env: process.env,
+      })
+    ) {
+      // #4419: email-form REST login cannot be sent through LDAP because LDAP
+      // directories authenticate their configured username field. It must not
+      // fall through to a stale local hash on an LDAP-migrated account either.
+      // Burn the same bcrypt work as an ordinary failure, then answer with the
+      // route's uniform error so this guard reveals no account metadata.
+      await equalizeMissingUserTiming(Accounts._checkPasswordAsync);
+      restLoginThrottle.recordFailure(clientKey, now);
+      throw uniformLoginError();
     } else if (!hasLocalPassword(user)) {
       // GHSA-2g94-9x3m-hv37: a missing user — or a non-LDAP user with no local
       // password — would otherwise return with no bcrypt work, leaking
@@ -292,10 +314,14 @@ WebApp.handlers.post('/users/register', async function (req, res) {
       // the admin has turned registration off, so there is no legitimate caller.
       try {
         require('/server/lib/securityLog').record({
-          key: 'authz.register', action: 'blocked', source: 'POST /users/register',
+          key: 'authz.register',
+          action: 'blocked',
+          source: 'POST /users/register',
           detail: 'refused account creation while registration is disabled',
         });
-      } catch (e) { /* logging must never break the guard */ }
+      } catch (e) {
+        /* logging must never break the guard */
+      }
       sendJsonResult(res, { code: 403 });
       return;
     }

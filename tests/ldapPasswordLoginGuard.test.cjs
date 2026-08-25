@@ -13,6 +13,8 @@
 // hard-locked by the upgrade.
 
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const {
   shouldRejectPasswordLogin,
   LDAP_PASSWORD_LOGIN_DISABLED_REASON,
@@ -84,7 +86,11 @@ test('allow: ldap user + ldap service (the intended login path)', () => {
 test('allow: other services are never rejected (resume/oidc/cas/saml)', () => {
   for (const serviceName of ['resume', 'oidc', 'cas', 'saml']) {
     assert.strictEqual(
-      shouldRejectPasswordLogin({ serviceName, user: ldapUser, env: ldapEnabled }),
+      shouldRejectPasswordLogin({
+        serviceName,
+        user: ldapUser,
+        env: ldapEnabled,
+      }),
       false,
       `service ${serviceName} must not be rejected`,
     );
@@ -179,6 +185,43 @@ test('reason: a clear user-facing message is exported for the hook', () => {
   assert.strictEqual(typeof LDAP_PASSWORD_LOGIN_DISABLED_REASON, 'string');
   assert.ok(/LDAP/.test(LDAP_PASSWORD_LOGIN_DISABLED_REASON));
   assert.ok(/password/i.test(LDAP_PASSWORD_LOGIN_DISABLED_REASON));
+});
+
+test('#4419 browser password login wires the guard into validateLoginAttempt', () => {
+  const source = fs.readFileSync(
+    path.join(__dirname, '..', 'server', 'authentication.js'),
+    'utf8',
+  );
+  assert.match(source, /Accounts\.validateLoginAttempt\(function\(options\)/);
+  assert.match(
+    source,
+    /shouldRejectPasswordLogin\(\{[\s\S]*serviceName: options\.type,[\s\S]*user: options\.user,[\s\S]*env: process\.env/,
+  );
+  assert.match(source, /ldap-password-login-disabled/);
+});
+
+test('#4419 REST email login rejects LDAP users before checking a stale hash', () => {
+  const source = fs.readFileSync(
+    path.join(__dirname, '..', 'server', 'apiAuthRoutes.js'),
+    'utf8',
+  );
+  const guard = source.indexOf('shouldRejectPasswordLogin({');
+  const localCheck = source.indexOf(
+    'Accounts._checkPasswordAsync(user, options.password)',
+  );
+  assert.ok(
+    guard >= 0,
+    'the REST route must call the shared LDAP password guard',
+  );
+  assert.ok(
+    localCheck > guard,
+    'the guard must run before a local password check',
+  );
+  assert.match(
+    source.slice(guard, localCheck),
+    /equalizeMissingUserTiming\(Accounts\._checkPasswordAsync\)/,
+  );
+  assert.match(source.slice(guard, localCheck), /throw uniformLoginError\(\)/);
 });
 
 console.log(`\nldapPasswordLoginGuard: all ${passed} tests passed`);
