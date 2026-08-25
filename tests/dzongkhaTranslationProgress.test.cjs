@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1666);
+assert.equal(Object.keys(remaining).length, 1616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -128,3 +128,7 @@ assert.equal(dzongkha['email-enrollAccount-text'].split('\n').length, 7);
 assert.match(dzongkha['error-json-malformed'], /JSON/);
 assert.match(dzongkha['error-csv-schema'], /CSV.*TSV/);
 assert.match(dzongkha['error-import-empty-board'], /WeKan/);
+assert.match(dzongkha['export-card-pdf'], /PDF/);
+assert.match(dzongkha['export-card-excel'], /Excel/);
+assert.match(dzongkha['export-card-field-board-info'], /ཆུ་ལམ/);
+assert.match(dzongkha['filter-due-today'], /ད་རིས/);
