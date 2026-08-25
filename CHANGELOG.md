@@ -305,14 +305,14 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-forty-two 50-value Cherokee batches then left **179,897 genuinely untranslated
-values across 84 locale files**, including 66 in Cherokee.
+forty-three 50-value Cherokee batches and a final 16-value batch then translated
+all 2,166 Cherokee values, leaving **179,831 genuinely untranslated values
+across 83 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `otp` with
-`node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 42 are committed and batch 43
-has not been applied.
+Resume Central Kurdish at `accept` with
+`node releases/translations/fill-translations.mjs --list ckb --limit 50`;
+Buryat and Cherokee are complete, and no Central Kurdish batch has been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -499,7 +499,7 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Cherokee translation** now covers card moves, activity,
+**In short:** **Cherokee translation is complete**, covering card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
 imports, privacy, branding, runtime metrics, automation, roles, templates, card
 views, global-search guidance, dependencies, locations, administrator reports,
@@ -924,6 +924,25 @@ names, numeric intervals and identifiers remain exact, leaving 116 values.
 Bulk attachment migration, throttling, monitoring and storage distribution now
 use Cherokee syllabary. Filesystem, GridFS, S3, units and numeric ranges remain
 exact, leaving 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/233c85b68">Repositories and problem repair gain 50 values</a>. Thanks to xet7.</summary>
+
+OTP account access, repository management, administrator problem status and
+broken-card repair now use Cherokee syllabary. API, CPU and named repair tokens
+remain exact, leaving 16 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d44e3409">The whole-file translation is complete</a>. Thanks to xet7.</summary>
+
+Event network addresses, scoped import/export and number-search guidance now
+use Cherokee syllabary. IP versions, file formats, product names, named tokens
+and pseudo-tags remain exact. All 2,166 formerly untranslated values are now
+translated, with zero English placeholders remaining.
 
 </details>
 
