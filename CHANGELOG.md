@@ -476,9 +476,10 @@ stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
-source boards. **LDAP/OIDC account linking, login boundaries and group
-restrictions** now preserve account data, use directory authentication
-consistently and fail closed when required.
+source boards. **LDAP/OIDC account linking, login boundaries, provider
+endpoints and group restrictions** now preserve account data, resolve provider
+URLs consistently, use directory authentication consistently and fail closed
+when required.
 **Sandstorm member cleanup** now distinguishes WeKan visibility from grain
 access.
 
@@ -824,6 +825,23 @@ tests and 28 related authentication tests pass; the full app compiles and all
 25 live REST API browser tests pass. A real LDAP bind still requires an external
 directory fixture and was not available locally. FerretDB is not involved in
 credential validation.
+
+</details>
+
+**OIDC login** - provider endpoint settings work as either relative paths or
+complete URLs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aee94c263">Spring and complete HTTP provider endpoints resolve correctly</a>. Thanks to Esther125 and xet7.</summary>
+
+Authorization, token, Oracle token and UserInfo requests now share one endpoint
+resolver. Complete HTTP and HTTPS URLs remain intact, while relative paths are
+joined to the provider URL without duplicate slashes. The maintained guide
+documents Spring Authorization Server's `/oauth2/authorize`, `/oauth2/token`
+and `/userinfo` defaults and the exact WeKan callback. Six endpoint and 30
+related OIDC/CAS tests pass, and the live Meteor app compiles and starts. A
+complete Spring handshake still requires an external authorization server;
+FerretDB is not involved in provider communication.
 
 </details>
 
