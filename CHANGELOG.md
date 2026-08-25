@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first 50-value Dzongkha batch then left **175,449
-genuinely untranslated values across 81 locale files**, including 2,116 in
+81 locale files**. The first two 50-value Dzongkha batches then left **175,399
+genuinely untranslated values across 81 locale files**, including 2,066 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `act-moveCard` with
+Resume Dzongkha at `workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
-Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batch 1 is
-committed and batch 2 has not been applied.
+Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
+and 2 are committed and batch 3 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1808,6 +1808,15 @@ Board, list, swimlane, card, attachment, subtask, label, checklist, comment,
 custom-field, member, archive and import activity now uses Dzongkha. Named and
 percent placeholders remain exact, and new whole-locale invariant coverage
 leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98d10bee6">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card moves, member changes, generic and checklist activity, comments, dates and
+All Boards workspace controls now use Dzongkha. Named and percent placeholders
+and Markdown terminology remain exact, leaving 2,066 values.
 
 </details>
 
