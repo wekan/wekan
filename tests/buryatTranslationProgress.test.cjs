@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 416);
+assert.equal(Object.keys(remaining).length, 366);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -122,3 +122,6 @@ assert.match(buryat['import-board-zip'], /JSON.*\.zip/);
 assert.equal(buryat['accounts-lockout-locked-users'], 'Хаалтатай хэрэглэгчэд');
 assert.match(buryat['accounts-lockout-period'], /секунда/);
 assert.equal(buryat['cron-migrations'], 'Хубаарита нүүлгэлтэнүүд');
+assert.match(buryat['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.deepEqual(tokens(buryat['database-migration-confirm']), ['__db__']);
+assert.match(buryat['database-migration-description'], /WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL/);
