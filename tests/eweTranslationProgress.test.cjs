@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1666);
+assert.equal(Object.keys(remaining).length, 1616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -128,3 +128,6 @@ assert.deepEqual(tokens(ewe['email-invite-text']), [
 assert.match(ewe['error-json-malformed'], /JSON/);
 assert.match(ewe['error-csv-schema'], /CSV.*TSV/);
 assert.match(ewe['error-import-empty-board'], /WeKan/);
+assert.match(ewe['export-card-pdf'], /PDF/);
+assert.match(ewe['export-card-excel'], /Excel/);
+assert.match(ewe['export-card-excel-no-disk-space'], /Excel.*disk/);
