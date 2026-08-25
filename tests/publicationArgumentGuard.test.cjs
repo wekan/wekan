@@ -110,12 +110,14 @@ test('the client does not send a subscription with no board id', () => {
   assert.ok(subs.length >= 5, `expected the board subscriptions, found ${subs.length}`);
   for (const m of subs) {
     const [line, before, arg] = m;
-    const context = src.slice(Math.max(0, m.index - 400), m.index);
+    const context = src.slice(Math.max(0, m.index - 700), m.index);
     const guarded =
       /if \(/.test(before)                                 // guarded on the same line
       || context.includes(`if (${arg})`)                   // guarded just above
       // ...or the id comes from a board the code already refused to work without.
-      || (arg === 'this.boardId' && /if \(!this\.board\)[\s\S]*?return;/.test(context));
+      || (arg === 'this.boardId'
+        && (/if \(!this\.board\)[\s\S]*?return;/.test(context)
+          || /if \(!boardId\)[\s\S]*?return;[\s\S]*?this\.boardId = boardId;/.test(context)));
     assert.ok(guarded, `an unguarded subscription with ${arg}`);
   }
 });

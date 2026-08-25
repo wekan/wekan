@@ -104,7 +104,7 @@ test('a refused registration is recorded, so it shows in Admin Panel / Problems'
     'under the catalog key for this guard');
   assert.ok(/action: 'blocked'/.test(registerHandler),
     'as a block, not a detection');
-  assert.ok(/catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/.test(registerHandler),
+  assert.ok(/catch \(e\) \{\s*\/\* logging must never break the guard \*\/\s*\}/.test(registerHandler),
     'and logging can never break the refusal itself');
 });
 

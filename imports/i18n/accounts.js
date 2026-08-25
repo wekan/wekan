@@ -48,6 +48,10 @@ T9n.map('tr', require('meteor-accounts-t9n/build/tr').tr);
 T9n.map('uk', require('meteor-accounts-t9n/build/uk').uk);
 T9n.map('vi', require('meteor-accounts-t9n/build/vi').vi);
 T9n.map('zh-CN', require('meteor-accounts-t9n/build/zh_CN').zh_CN);
+// The generic WeKan Chinese locale uses Simplified Chinese. accounts-t9n has
+// only region-specific bundles, so register that bundle under the generic tag
+// too instead of logging an error every time `zh` becomes active.
+T9n.map('zh', require('meteor-accounts-t9n/build/zh_CN').zh_CN);
 T9n.map('zh-HK', require('meteor-accounts-t9n/build/zh_HK').zh_HK);
 T9n.map('zh-TW', require('meteor-accounts-t9n/build/zh_TW').zh_TW);
 
