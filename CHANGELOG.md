@@ -473,15 +473,13 @@ legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **legacy minicards** retain their
 creator choice, **Japanese controls** stay aligned, and **mobile Search**
-returns directly to the board. **Email invitations** retain their collision and
-case-normalization guarantees, and **copied conversations** retain their
-original history. **Private linked cards** remain usable without exposing their
-source boards. **LDAP/OIDC account linking, login boundaries, provider
-endpoints and group restrictions** now preserve account data, resolve provider
+returns directly to the board. **Private linked cards** remain usable without
+exposing their source boards. **LDAP/OIDC account linking, login boundaries,
+provider endpoints and group restrictions** now preserve account data, resolve provider
 URLs consistently, use directory authentication consistently and fail closed
 when required.
 **Sandstorm member cleanup** now distinguishes WeKan visibility from grain
-access.
+access, and **Snap restores** safely replace existing database contents.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1253,6 +1251,23 @@ reaches its end. Focused source regressions cover list selection, both scroll
 directions, the end boundary and geometry refresh. A Chromium regression drags
 through a long list, observes vertical scrolling and requires the persisted
 card position to change.
+
+</details>
+
+**Snap database restore** - backup archives replace existing data predictably.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7a225eb0">It drops existing collections and validates the supplied archive</a>. Thanks to ram19890 and xet7.</summary>
+
+The restore command retains its existing `--drop` behavior, preventing the
+duplicate-key collisions caused by merging a backup into populated collections.
+It now also requires exactly one existing file and preserves an archive path
+containing spaces as one argument. Three command-level positive and negative
+regressions execute the real script around a mocked Snap environment and
+`mongorestore`; the related 13 old-database recovery checks and shell syntax
+validation pass. Building and installing a complete Snap was not required to
+exercise this command boundary. FerretDB is not used by this MongoDB archive
+restore path.
 
 </details>
 
