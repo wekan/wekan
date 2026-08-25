@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 416);
+assert.equal(Object.keys(remaining).length, 366);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -314,3 +314,14 @@ assert.match(dzongkha['accounts-lockout-period'], /སྐར་ཆ/);
 assert.match(dzongkha['admin-people-user-active'], /སྤྱོད་མེད/);
 assert.match(dzongkha['board-backup-scheduled'], /གྲབས་ཉར/);
 assert.match(dzongkha['cron-migrations'], /སྤོ་སྒྱུར/);
+assert.match(dzongkha['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.deepEqual(tokens(dzongkha['database-migration-confirm']), ['__db__']);
+assert.match(
+  dzongkha['database-migration-description'],
+  /mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019/,
+);
+assert.match(
+  dzongkha['database-migration-description'],
+  /WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL/,
+);
+assert.match(dzongkha['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
