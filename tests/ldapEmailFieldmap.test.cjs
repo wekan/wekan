@@ -15,6 +15,10 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const {
+  ldapTextValues,
+  ldapEmailAddresses,
+} = require('../packages/wekan-ldap/server/ldapTextValues');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -34,10 +38,8 @@ function emailsFromFieldmap(ldapUser, ldapField) {
   const emailList = [];
   const ldapValue = getLDAPValue(ldapUser, ldapField);
   if (ldapValue === undefined || ldapValue === null || ldapValue === '') return emailList;
-  if (typeof ldapValue === 'object') {
-    for (const item of Array.from(ldapValue)) emailList.push({ address: item, verified: true });
-  } else {
-    emailList.push({ address: ldapValue, verified: true });
+  for (const address of ldapEmailAddresses(ldapValue)) {
+    emailList.push({ address, verified: true });
   }
   return emailList;
 }
@@ -64,6 +66,40 @@ test('multi-valued mail attribute produces one entry per address', () => {
   ]);
 });
 
+test('a single Buffer produces one string address instead of numeric bytes', () => {
+  const emails = emailsFromFieldmap({ mail: Buffer.from('first@example.org') }, 'mail');
+  assert.deepStrictEqual(emails, [
+    { address: 'first@example.org', verified: true },
+  ]);
+});
+
+test('multi-valued Buffer mail preserves every alias as a string', () => {
+  const emails = emailsFromFieldmap({
+    mail: [Buffer.from('first@example.org'), Buffer.from('alias@example.org')],
+  }, 'mail');
+  assert.deepStrictEqual(emails, [
+    { address: 'first@example.org', verified: true },
+    { address: 'alias@example.org', verified: true },
+  ]);
+  assert.ok(emails.every(({ address }) => typeof address === 'string'));
+});
+
+test('serialized Buffers are decoded and empty values are ignored', () => {
+  assert.deepStrictEqual(ldapTextValues([
+    { type: 'Buffer', data: [...Buffer.from('alias@example.org')] },
+    null,
+    '',
+  ]), ['alias@example.org']);
+});
+
+test('duplicate aliases are removed case-insensitively', () => {
+  assert.deepStrictEqual(ldapEmailAddresses([
+    'first@example.org',
+    Buffer.from('FIRST@example.org'),
+    'alias@example.org',
+  ]), ['first@example.org', 'alias@example.org']);
+});
+
 test('NEGATIVE: a genuinely absent attribute yields no email (no crash)', () => {
   assert.deepStrictEqual(emailsFromFieldmap({ cn: 'x' }, 'mail'), []);
   assert.deepStrictEqual(emailsFromFieldmap({ mail: '' }, 'mail'), []);
@@ -83,6 +119,10 @@ test('source: getDataToSyncUserData email branch is case-insensitive (getLDAPVal
     'the case-sensitive hasOwnProperty(ldapField) lookup must be gone');
   assert.ok(!/ldapUser\[ldapField\]/.test(branch),
     'the case-sensitive ldapUser[ldapField] index must be gone');
+  assert.ok(/ldapEmailAddresses\(ldapValue\)/.test(branch),
+    'mapped LDAP email values must be decoded to strings');
+  assert.ok(!/Array\.from\(ldapValue\)/.test(branch),
+    'a Buffer must not be expanded into numeric bytes');
 });
 
 console.log(`\n${passed} passed`);

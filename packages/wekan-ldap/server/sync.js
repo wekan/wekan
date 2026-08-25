@@ -8,6 +8,11 @@ import { isAdminByGroups } from './adminGroups';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
+import {
+  ldapTextValue,
+  ldapTextValues,
+  ldapEmailAddresses,
+} from './ldapTextValues';
 
 Object.defineProperty(Object.prototype, "getLDAPValue", {
   value: function (prop) {
@@ -85,16 +90,11 @@ export function getLdapEmail(ldapUser) {
 
   if (emailField.indexOf('#{') > -1) {
     return emailField.replace(/#{(.+?)}/g, function(match, field) {
-      return ldapUser.getLDAPValue(field);
+      return ldapTextValues(ldapUser.getLDAPValue(field))[0] || '';
     });
   }
 
-  const ldapMail = ldapUser.getLDAPValue(emailField);
-  if (typeof ldapMail === 'string') {
-    return ldapMail;
-  } else {
-    return ldapMail[0].toString();
-  }
+  return ldapTextValues(ldapUser.getLDAPValue(emailField))[0] || '';
 }
 
 export function getLdapFullname(ldapUser) {
@@ -175,12 +175,14 @@ export function getDataToSyncUserData(ldapUser, user) {
           return;
         }
 
-        if (typeof ldapValue === 'object') {
-          Array.from(ldapValue).forEach(function(item) {
-            emailList.push({ address: item, verified: true });
-          });
-        } else {
-          emailList.push({ address: ldapValue, verified: true });
+        const existingAddresses = new Set(emailList.map(({ address }) =>
+          address.toLowerCase()));
+        for (const address of ldapEmailAddresses(ldapValue)) {
+          const normalizedAddress = address.toLowerCase();
+          if (!existingAddresses.has(normalizedAddress)) {
+            emailList.push({ address, verified: true });
+            existingAddresses.add(normalizedAddress);
+          }
         }
         break;
       }
@@ -337,9 +339,9 @@ export async function addLdapUser(ldapUser, username, password) {
     } else {
       userObject.email = userData.emails[0].address;
     }
-  } else if (ldapUser.getLDAPValue('mail') && String(ldapUser.getLDAPValue('mail')).indexOf('@') > -1) {
+  } else if (ldapTextValue(ldapUser.getLDAPValue('mail')).includes('@')) {
     // #6481: case-insensitive, matching the fieldmap path above.
-    userObject.email = ldapUser.getLDAPValue('mail');
+    userObject.email = ldapTextValues(ldapUser.getLDAPValue('mail'))[0];
   } else if (LDAP.settings_get('LDAP_DEFAULT_DOMAIN') !== '') {
     userObject.email = `${ username || uniqueId.value }@${ LDAP.settings_get('LDAP_DEFAULT_DOMAIN') }`;
   } else {
