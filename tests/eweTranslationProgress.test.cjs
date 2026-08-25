@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1116);
+assert.equal(Object.keys(remaining).length, 1066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -189,3 +189,6 @@ assert.match(ewe['r-import-paste'], /JSON.*CSV.*Trello Butler/);
 assert.match(ewe['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
 assert.deepEqual(tokens(ewe['r-import-unmapped']), ['__count__']);
 assert.match(ewe['r-for-n-days'], /N/);
+assert.match(ewe['r-list'], /xexlẽdzesi/);
+assert.match(ewe['r-card'], /kaɖi/);
+assert.match(ewe['r-checklist'], /ŋkuɖodzinudzesi/);
