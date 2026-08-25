@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1066);
+assert.equal(Object.keys(remaining).length, 1016);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -83,3 +83,6 @@ assert.equal(buryat['r-unit-months'], 'һара');
 assert.equal(buryat['r-list'], 'жагсаалта');
 assert.equal(buryat['r-remove-all'], 'Бүхы гишүүдые картаһаа гаргаха');
 assert.equal(buryat['r-d-move-to-bottom-spec'], 'Карта жагсаалтын адагта зөөхэ');
+assert.equal(buryat['r-items-list'], 'зүйл1,зүйл2,зүйл3');
+assert.match(buryat['custom-head-meta-tags'], /HTML/);
+assert.match(buryat['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
