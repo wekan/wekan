@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 416);
+assert.equal(Object.keys(remaining).length, 366);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -283,3 +283,9 @@ assert.match(chuvash['accounts-lockout-known-users'], /пароль/);
 assert.match(chuvash['accounts-lockout-period'], /секунд/);
 assert.match(chuvash['accounts-lockout-confirm-unlock-all'], /Пур/);
 assert.match(chuvash['cron-migrations'], /миграци/);
+assert.match(chuvash['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.match(chuvash['database-migration-description'], /mongodb:\/\/127\.0\.0\.1:27018/);
+assert.match(chuvash['database-migration-description'], /WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL/);
+assert.match(chuvash['database-migration-description'], /MONGO_URL/);
+assert.deepEqual(tokens(chuvash['database-migration-confirm']), ['__db__']);
+assert.match(chuvash['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
