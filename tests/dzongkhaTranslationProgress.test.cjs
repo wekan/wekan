@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 966);
+assert.equal(Object.keys(remaining).length, 916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -230,3 +230,11 @@ assert.deepEqual(tokens(dzongkha['act-atUserComment']), [
   '__swimlane__',
 ]);
 assert.match(dzongkha['submit-on-enter'], /Enter/);
+assert.match(
+  dzongkha['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter/,
+);
+assert.equal(dzongkha.monday, 'གཟའ་ཟླ་བ།');
+assert.equal(dzongkha.sunday, 'གཟའ་ཉི་མ།');
+assert.match(dzongkha['roles-info'], /བདག་སྐྱོང/);
+assert.match(dzongkha['delete-linked-cards-before-this-list'], /འབྲེལ/);
