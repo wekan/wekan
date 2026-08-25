@@ -600,7 +600,8 @@ checks lane order, card count and persistence across reload.
 
 and fixes the following bugs:
 
-**Rules** - action descriptions stay in the schema that owns them.
+**Rules** - actions save reliably and moved-from-list triggers match the correct
+direction.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea9002328">Date and add-member Rules save without schema errors</a>. Thanks to rmb82 and xet7.</summary>
@@ -613,6 +614,18 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/baa780331">The remaining IFTTT moved-from-list report gains exact regression coverage</a>. Thanks to TiibCD and xet7.</summary>
+
+The reported checklist, email, member-removal and date-action failures were
+already corrected by earlier changes. The remaining moved-from-list case is
+also fixed: its trigger resolves the activity's old list and matches a move
+away, while rejecting a move into that list. The existing rule-engine suite now
+names issue 1972 on both the positive and negative cases so that the historical
+report cannot silently regress.
 
 </details>
 
