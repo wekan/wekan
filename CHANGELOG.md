@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first forty-one 50-value Dzongkha batches then left **173,449
-genuinely untranslated values across 81 locale files**, including 116 in
-Dzongkha.
+81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
+batch then translated all 2,166 Dzongkha values, leaving **173,333 genuinely
+untranslated values across 80 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `migrate-all-to-filesystem` with
-`node releases/translations/fill-translations.mjs --list dz --limit 50`;
-Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 41 are committed and batch 42 has not been applied.
+Begin Ewe at `accept` with
+`node releases/translations/fill-translations.mjs --list ee --limit 50`;
+Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; no Ewe
+batch has been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -509,7 +509,7 @@ browser build to verify).
 covering activity, workspaces, board and card views, imports and exports,
 privacy, automation, roles, search, dependencies, locations, reports,
 attachments, accessibility, account protection, migrations, security controls,
-backups and cloud storage. **Chuvash is complete and Dzongkha is progressing**, while
+backups and cloud storage. **Chuvash and Dzongkha are complete**, while
 whole-locale placeholder and markup checks preserve human work and every code
 token.
 
@@ -2202,6 +2202,27 @@ Final board-repair steps, conversion status, CPU and memory reporting,
 scheduled intervals, filesystem and GridFS monitoring, board scans, job queues
 and migration state now use Dzongkha. Identifiers, metric names and numeric
 intervals remain exact, leaving 116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e406bae6">Migration tuning gains 50 values</a>. Thanks to xet7.</summary>
+
+Attachment migration destinations, batch and CPU thresholds, background
+status, monitoring controls, schedules, storage distribution and system
+resources now use Dzongkha. GridFS, S3, CPU, percent signs and numeric ranges
+remain exact, leaving 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a9a258aa">Repository and diagnostics translation completes Dzongkha</a>. Thanks to xet7.</summary>
+
+Repository authentication and uploads, problem monitoring, event diagnostics,
+broken-card repair and import/export controls now use Dzongkha. Named tokens,
+angle-bracket examples, inline code, emphasis, file extensions and product
+names remain exact. This final 66-value batch completes all 2,166 Dzongkha
+placeholders.
 
 </details>
 
