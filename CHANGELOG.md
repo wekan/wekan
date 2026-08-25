@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first 50-value Central Kurdish batch then left
-**179,781 genuinely untranslated values across 83 locale files**, including
-2,116 in Central Kurdish.
+all 2,166 Cherokee values. The first two 50-value Central Kurdish batches then
+left **179,731 genuinely untranslated values across 83 locale files**, including
+2,066 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `act-moveCard` with
+Resume Central Kurdish at `workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batch 1 is committed and
-batch 2 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 and 2 are committed
+and batch 3 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -509,7 +509,8 @@ recovery, support requests, organizations, attachment storage, custom
 translations, accessibility and account protection. This continues the direct
 whole-file translation effort through migrations, security controls, backups
 and cloud storage while preserving human work and every code token. Below that:
-whole-locale placeholder and markup checks protect the new values.
+Central Kurdish activity and workspace translation has begun, while whole-locale
+placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -956,6 +957,15 @@ translated, with zero English placeholders remaining.
 Board, list, swimlane, card, checklist, comment, member and archive activity now
 uses Central Kurdish. Named and percent placeholders remain exact, and new
 whole-locale invariant coverage leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/789eaec05">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card moves, checklist history, received and start dates and All Boards workspace
+controls now use Central Kurdish. Named and percent placeholders and Markdown
+terminology remain exact, leaving 2,066 values.
 
 </details>
 
