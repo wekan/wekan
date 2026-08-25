@@ -527,7 +527,7 @@ This release improves the following translation:
 **Fulah** - direct whole-file translation using established Pulaar vocabulary.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/071a97d36">Activity history gains its first 50 Fulah values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3d02d1d87">Activity history gains its first 50 Fulah values</a>. Thanks to xet7.</summary>
 
 Board membership, comments, dates, attachments, checklists, custom fields and
 imports now use Fulah. Named and percent placeholders and HTML tags remain
@@ -536,7 +536,7 @@ exact, and whole-locale invariant coverage leaves 2,116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e4c97c225">Activity summaries and workspaces gain 50 Fulah values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0efb942af">Activity summaries and workspaces gain 50 Fulah values</a>. Thanks to xet7.</summary>
 
 Card movement, activity summaries, checklist events and workspace controls now
 use Fulah. Named and percent placeholders, HTML tags and Markdown remain exact,
