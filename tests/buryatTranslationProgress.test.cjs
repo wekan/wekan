@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1266);
+assert.equal(Object.keys(remaining).length, 1216);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -71,3 +71,6 @@ assert.equal(buryat.Database_type, 'Үгэгдэлэй сангай түрэл')
 assert.match(buryat.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(buryat.DDP_transport, /DDP_TRANSPORT/);
 assert.match(buryat['org-domains-description'], /MULTITENANCY=true/);
+assert.match(buryat['default-subtasks-board'], /__board__/);
+assert.deepEqual(tokens(buryat['activity-added-label']), ['%s', '%s']);
+assert.equal(buryat['checklist-count-on-minicard'], 'Бишыхан картада шалгалтын жагсаалтын зүйлнүүдэй тоо (0/0)');
