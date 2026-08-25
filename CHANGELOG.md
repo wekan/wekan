@@ -478,8 +478,8 @@ exposing their source boards. **LDAP/OIDC account linking, login boundaries,
 provider endpoints and group restrictions** now preserve account data, resolve provider
 URLs consistently, use directory authentication consistently and fail closed
 when required.
-**Sandstorm member cleanup** now distinguishes WeKan visibility from grain
-access, and **Snap restores** safely replace existing database contents.
+**Sandstorm member cleanup** distinguishes WeKan visibility from grain access,
+and **Snap database settings** preserve external URLs and restore safely.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1268,6 +1268,21 @@ regressions execute the real script around a mocked Snap environment and
 validation pass. Building and installing a complete Snap was not required to
 exercise this command boundary. FerretDB is not used by this MongoDB archive
 restore path.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8c7815b2">External MongoDB URLs are confirmed to survive Snap startup unchanged</a>. Thanks to cc4in and xet7.</summary>
+
+The earlier startup fix gives an explicitly configured `mongo-url` priority
+over the internally constructed address, including its database name, while an
+empty setting still receives the local port and oplog defaults. Four executable
+positive and negative regressions run the real setting reader with a mocked
+`snapctl` and evaluate the startup selection block. They prove that both the
+external database and its explicit oplog URL survive unchanged; shell syntax
+validation also passes. A complete Snap install and external MongoDB were not
+needed to exercise the configuration boundary. FerretDB is bypassed when this
+external URL is selected.
 
 </details>
 
