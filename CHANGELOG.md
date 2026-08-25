@@ -302,14 +302,14 @@ batches and a final 16-value batch then translated all 2,166 values, leaving
 values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
-across 86 locale files**. Thirty-seven 50-value Tibetan batches then translated
-1,850 values, leaving **184,479 genuinely untranslated values across 86 locale
-files**, including 316 in Tibetan.
+across 86 locale files**. Thirty-eight 50-value Tibetan batches then translated
+1,900 values, leaving **184,429 genuinely untranslated values across 86 locale
+files**, including 266 in Tibetan.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Tibetan at `backup-frequency` with
+Resume Tibetan at `gridfs-enabled` with
 `node releases/translations/fill-translations.mjs --list bo --limit 50`;
-batch 37 is committed and batch 38 has not been applied.
+batch 38 is committed and batch 39 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4319,6 +4319,17 @@ and activity/notification controls, identity anonymization and backup settings
 now use Tibetan. Markdown and HTML examples, environment variables, storage
 paths, product names and counter examples remain exact, and whole-locale
 invariant coverage leaves 316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/939a7f0b9">Tibetan backup schedules and cloud-storage guidance gain 50 values</a>. Thanks to xet7.</summary>
+
+Backup frequency, restore modes, Google Cloud Storage credentials and
+permissions, AWS S3, Azure and GCS console paths, connection tests and cloud
+attachment moves now use Tibetan. Time formats, JSON field names, console menu
+names, storage products and secret-key terminology remain exact, and
+whole-locale invariant coverage leaves 266 values.
 
 </details>
 
