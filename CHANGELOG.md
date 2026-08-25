@@ -476,9 +476,9 @@ stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
-source boards. **LDAP account creation, login boundaries and group
-restrictions** now use directory authentication consistently and fail closed
-when required.
+source boards. **LDAP/OIDC account linking, login boundaries and group
+restrictions** now preserve account data, use directory authentication
+consistently and fail closed when required.
 **Sandstorm member cleanup** now distinguishes WeKan visibility from grain
 access.
 
@@ -732,6 +732,20 @@ returns the route's uniform failure. Fourteen guard, eight REST LDAP, seven
 timing and ten throttle tests pass. In the live Meteor stack, the same valid
 password receives HTTP 401 for an LDAP account and HTTP 200 for a local
 account. FerretDB is not involved in authentication.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7145d7047">LDAP to OIDC linking retains the complete existing account profile</a>. Thanks to funakura and xet7.</summary>
+
+The earlier merge fix updates an LDAP account with verified OIDC identity data
+instead of replacing its profile, so avatars, template board and swimlane
+references, language and preferences remain present. The behavioral regression
+executes the real account-creation hook and now also proves that existing login
+sessions, LDAP service data and organization membership survive. Seven profile
+merge, eleven concurrent-login, twelve login-style and three CAS boundary tests
+pass, and the full app compiles and starts in Meteor. A real provider handshake
+still requires external LDAP and OIDC services; FerretDB is not involved.
 
 </details>
 
