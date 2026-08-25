@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-thirty-eight 50-value Chuvash batches then left **175,765 genuinely untranslated
-values across 82 locale files**, including 266 in Chuvash.
+thirty-nine 50-value Chuvash batches then left **175,715 genuinely untranslated
+values across 82 locale files**, including 216 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `gridfs-enabled` with
+Resume Chuvash at `comprehensive-board-migration` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 38
-are committed and batch 39 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 39
+are committed and batch 40 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1743,6 +1743,16 @@ and cloud-service names remain exact, leaving 316 values.
 Backup schedules and restoration plus GCS, S3 and Azure credentials, permission
 paths and connection tests now use Chuvash. Time formats, JSON fields, provider
 names, console paths, roles and file extensions remain exact, leaving 266
+values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/70a250f22">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS and S3 storage, migration lifecycle controls, scheduled board operations,
+attachment monitoring and board migration now use Chuvash. MongoDB, GridFS,
+CollectionFS, AWS, MinIO, region and TLS terminology remains exact, leaving 216
 values.
 
 </details>
