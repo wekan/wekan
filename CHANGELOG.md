@@ -498,7 +498,8 @@ legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **card dragging** is visually
 stable, **mobile Search** returns directly to the board, and the first **Fulah
-translations** are present.
+translations** are present. **Email invitations** retain their collision and
+case-normalization guarantees.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -610,6 +611,20 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+**User invitations** - email-derived accounts remain distinct and login-safe.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3f227586">The duplicate invitee collision report gains exact regression coverage</a>. Thanks to ghost, rvalle and xet7.</summary>
+
+The production correction landed earlier in commit `0f2179988` for duplicate
+issue #619: email addresses are normalized to lowercase, and a repeated local
+part receives the first free numeric suffix before account creation. New tests
+pin #825's exact `john.doe` addresses at two domains and its mixed-case account
+scenario, proving they produce distinct, lowercase-login-safe usernames rather
+than the old raw 403 response.
 
 </details>
 
