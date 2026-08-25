@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first thirty-seven 50-value Dzongkha batches then left **173,649
-genuinely untranslated values across 81 locale files**, including 316 in
+81 locale files**. The first thirty-eight 50-value Dzongkha batches then left **173,599
+genuinely untranslated values across 81 locale files**, including 266 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `backup-frequency` with
+Resume Dzongkha at `gridfs-enabled` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 37 are committed and batch 38 has not been applied.
+through 38 are committed and batch 39 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2162,6 +2162,16 @@ import/export and avatar restrictions, user anonymization, activity,
 notification and watch controls and scoped backups now use Dzongkha.
 Environment names, markup, examples and backup paths remain exact, leaving 316
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7771030c">Cloud storage and restores gain 50 values</a>. Thanks to xet7.</summary>
+
+Backup frequency and restoration, Google Cloud credentials and permissions,
+AWS/S3, Azure and GCS setup paths, secret handling, connection tests and cloud
+attachment movement now use Dzongkha. Time formats, ranges, credential fields,
+roles, provider names and filenames remain exact, leaving 266 values.
 
 </details>
 
