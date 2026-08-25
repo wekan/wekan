@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2066);
+assert.equal(Object.keys(remaining).length, 2016);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -59,3 +59,6 @@ assert.deepEqual(tokens(cherokee['act-moveCard']), [
 ]);
 assert.match(cherokee['activity-checklist-added'], /ᏗᎪᏪᎵ/);
 assert.match(cherokee['workspace-settings'], /ᎠᏛᏁᏗ ᎦᏙᎯ/);
+assert.deepEqual(tokens(cherokee['activity-dueDate']), ['%s', '%s']);
+assert.match(cherokee['home-board-remove-confirm'], /ᎦᏍᎩᎸ/);
+assert.match(cherokee['setSwimlaneHeightPopup-title'], /ᏍᏫᎻᎴᏅ/);
