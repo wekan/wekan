@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first five 50-value Central Kurdish batches then
-left **179,581 genuinely untranslated values across 83 locale files**, including
-1,916 in Central Kurdish.
+all 2,166 Cherokee values. The first six 50-value Central Kurdish batches then
+left **179,531 genuinely untranslated values across 83 locale files**, including
+1,866 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `card-members-title` with
+Resume Central Kurdish at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 5 are
-committed and batch 6 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 6 are
+committed and batch 7 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -996,6 +996,15 @@ Public-board notices, board movement, backgrounds, desktop and mobile modes,
 zoom, calendar and statistics views, archive recovery and card controls now use
 Central Kurdish. Named and percent tokens and HTML tags remain exact, leaving
 1,916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df0adb0a6">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Card membership and dates, voting, Planning Poker, dependencies, organizations,
+teams, backgrounds and checklist, swimlane, list, card and board imports now use
+Central Kurdish. Product names remain exact, leaving 1,866 values.
 
 </details>
 
