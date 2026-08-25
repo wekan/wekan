@@ -506,8 +506,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **FerretDB board loading does substantially less polling work**
-through adaptive loading, narrower publications and indexed shared discovery.
+**In short:** **FerretDB board loading and database searches do substantially
+less work** through adaptive loading, narrower publications, bounded result
+windows and indexed shared discovery.
 **LDAP profiles retain Active Directory display names** even with restricted
 attributes. **Cherokee, Central Kurdish, Chuvash, Dzongkha and Ewe translations
 are complete**, with whole-locale integrity checks preserving code tokens.
@@ -539,6 +540,22 @@ with no TTL or board-id authorization cache. Compound indexes cover those card
 queries and the common All Boards filter and ordering. Positive and negative
 coverage preserves assigned-only scoping, share revocation, direct public
 access, pagination parity and explicit loading-mode overrides.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c69bf503c">Searches and Due Cards transfer bounded result windows</a>. Thanks to xet7.</summary>
+
+Attachment and checklist discovery is restricted to the authorized board scope,
+and filename searches retrieve only the `cardId` they consume. Text ranking
+retains only `skip + limit` candidates instead of every match. Due Cards uses
+reachable Previous/Next pages rather than an unlimited live cursor or a
+truncating cap. MongoDB receives compound indexes covering lazy card windows and
+due-card selection. The companion
+[FerretDB change](https://github.com/wekan/FerretDB/commit/99619ccb) selects the
+declared compound filter index and bounds sorted-query memory while preserving
+MongoDB BSON ordering. Regression coverage checks projections, board scoping,
+pagination, index order and positive and negative ranking behavior.
 
 </details>
 
