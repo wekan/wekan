@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-seventeen 50-value Chuvash batches then left **176,815 genuinely untranslated
-values across 82 locale files**, including 1,316 in Chuvash.
+eighteen 50-value Chuvash batches then left **176,765 genuinely untranslated
+values across 82 locale files**, including 1,266 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `Database_commit` with
+Resume Chuvash at `card-received-on` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 17
-are committed and batch 18 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 18
+are committed and batch 19 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1538,6 +1538,17 @@ Attachment and API transfer limits, avatar blocking, registration, invitations,
 SMTP configuration and testing, authorization, outgoing and bidirectional
 webhooks and package, database, Node and Meteor metadata now use Chuvash.
 Invitation tokens and protocol names remain exact, leaving 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de85c354d">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
+
+Database and FerretDB revisions, reactivity and DDP modes, OS metrics, time
+units, custom-field display, account changes, visibility, shared templates,
+authentication synchronization, tenancy, domains and administrators now use
+Chuvash. Environment variables, hostnames and product names remain exact,
+leaving 1,266 values.
 
 </details>
 
