@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 666);
+assert.equal(Object.keys(remaining).length, 616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -289,3 +289,8 @@ assert.match(
   /&#32;.*&nbsp;/,
 );
 assert.match(dzongkha['office-report-desc'], /IPv4.*IPv6/);
+assert.match(dzongkha['api-report-desc'], /REST API/);
+assert.match(dzongkha['api-no-calls'], /WITH_API=true/);
+assert.match(dzongkha['recovery-report-desc'], /MongoDB/);
+assert.match(dzongkha['carbon-copy'], /Cc:/);
+assert.match(dzongkha['delete-org-warning-message'], /ཉུང་མཐའ་གཅིག/);
