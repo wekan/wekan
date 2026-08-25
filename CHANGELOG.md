@@ -823,6 +823,17 @@ preserved page publishes a fresh viewport measurement.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eca1095f2">Username collisions are confirmed safe across case and concurrent claims</a>. Thanks to mitar and xet7.</summary>
+
+The earlier Sandstorm account fix probes candidate usernames with an anchored,
+escaped, case-insensitive match and retries the next numeric suffix if a
+concurrent insert wins the unique-index race. Eleven positive, negative, race
+and integration-wiring regressions pass. This closing commit records the
+verified implementation against issue 574.
+
+</details>
+
 **Labels** - sidebar drag-and-drop follows cards added after initial render.
 
 <details>
