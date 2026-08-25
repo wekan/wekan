@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 866);
+assert.equal(Object.keys(remaining).length, 816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -219,3 +219,10 @@ assert.match(ewe['dueCardsViewChange-choice-all-description'], /\*[^*]+\*/);
 assert.match(ewe['globalSearchViewChange-choice-all-description'], /\*[^*]+\*/);
 assert.deepEqual(tokens(ewe['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(ewe['user-username-not-found']), ['%s']);
+assert.deepEqual(tokens(ewe['n-n-of-n-cards-found']), [
+  '__end__',
+  '__start__',
+  '__total__',
+]);
+assert.match(ewe['operator-board'], /kpekpeɖeŋu/);
+assert.match(ewe['operator-checklist-text'], /ŋkuɖodzinudzesi/);
