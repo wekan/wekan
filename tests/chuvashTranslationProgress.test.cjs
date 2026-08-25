@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1766);
+assert.equal(Object.keys(remaining).length, 1716);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -111,3 +111,7 @@ assert.match(chuvash['move-card-up'], /ҫӳлелле/);
 assert.match(chuvash['move-list-left'], /сулахаялла/);
 assert.equal(chuvash['color-black'], 'хура');
 assert.equal(chuvash['color-red'], 'хӗрлӗ');
+assert.match(chuvash['comment-only'], /Хушса калама/);
+assert.match(chuvash['read-only'], /Вулама/);
+assert.equal(JSON.parse(chuvash['copyManyCardsPopup-format']).length, 3);
+assert.match(chuvash['custom-field-currency'], /Укҫа/);
