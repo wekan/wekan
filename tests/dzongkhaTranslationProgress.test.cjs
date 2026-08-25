@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 166);
+assert.equal(Object.keys(remaining).length, 116);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -357,3 +357,8 @@ assert.match(dzongkha['fix-avatar-urls-migration-description'], /URL/);
 assert.match(dzongkha['run-restore-all-archived-migration-confirm'], /ID/);
 assert.match(dzongkha['step-fix-attachment-urls'], /URL/);
 assert.match(dzongkha['migrations-admin-only'], /བདག་སྐྱོང/);
+assert.match(dzongkha['step-fix-missing-ids'], /ID/);
+assert.match(dzongkha['step-fix-file-urls'], /URL/);
+assert.match(dzongkha['cpu-cores'], /CPU/);
+assert.match(dzongkha['every-30-minutes'], /30/);
+assert.match(dzongkha['gridfs-attachments'], /GridFS/);
