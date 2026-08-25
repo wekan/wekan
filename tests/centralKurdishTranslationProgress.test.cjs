@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1366);
+assert.equal(Object.keys(remaining).length, 1316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -165,3 +165,13 @@ assert.match(kurdish['toggle-assignees'], /1-9/);
 assert.match(kurdish['custom-top-left-corner-logo-height'], /27/);
 assert.match(kurdish['automatic-linked-url-schemes'], /URL/);
 assert.match(kurdish['attachment-transfer-limits-title'], /API/);
+assert.deepEqual(tokens(kurdish['email-invite-register-text']), [
+  '__icode__',
+  '__inviter__',
+  '__url__',
+  '__user__',
+]);
+assert.match(kurdish['smtp-host'], /SMTP/);
+assert.match(kurdish['smtp-tls'], /TLS/);
+assert.match(kurdish.Node_version, /Node/);
+assert.match(kurdish.Meteor_version, /Meteor/);
