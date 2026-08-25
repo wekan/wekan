@@ -941,6 +941,22 @@ user in, while an invalid token leaves both account and session unchanged.
 
 </details>
 
+**CAS login** - first-time identities follow their own validated account shape.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca59a68fc">A first CAS login no longer requires nonexistent OAuth service data</a>. Thanks to faelys, Meeques, jgribonvald and xet7.</summary>
+
+The shared account-creation hook assumed every login handler supplied an OIDC
+`services` object. CAS instead supplies its validated username, verified email,
+profile and authentication method as top-level fields, so a first login crashed
+before insertion. OIDC normalization now runs only when that service data
+exists. Focused coverage proves the missing-services path and complete CAS
+identity wiring while retaining the negative conflict check that prevents a CAS
+identity from silently taking over a non-CAS username. Provider validation
+still requires a deployment's external CAS server.
+
+</details>
+
 **User profiles** - accounts without email metadata can add their first address.
 
 <details>
