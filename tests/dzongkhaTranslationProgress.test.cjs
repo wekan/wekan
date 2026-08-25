@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 266);
+assert.equal(Object.keys(remaining).length, 216);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -347,3 +347,8 @@ assert.match(
   /MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/,
 );
 assert.match(dzongkha['s3-secret-key-menu-path'], /Access key ID.*\.csv/);
+assert.match(dzongkha['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(dzongkha['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(dzongkha['s3-enabled-description'], /AWS S3.*MinIO/);
+assert.match(dzongkha['s3-region-description'], /us-east-1/);
+assert.match(dzongkha['s3-ssl-enabled-description'], /SSL\/TLS/);
