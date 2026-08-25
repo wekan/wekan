@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first ten 50-value Dzongkha batches then left **174,999
-genuinely untranslated values across 81 locale files**, including 1,666 in
+81 locale files**. The first eleven 50-value Dzongkha batches then left **174,949
+genuinely untranslated values across 81 locale files**, including 1,616 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `error-user-doesNotExist` with
+Resume Dzongkha at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 10 are committed and batch 11 has not been applied.
+through 11 are committed and batch 12 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1892,6 +1892,15 @@ bulk-card example remains valid JSON, leaving 1,716 values.
 Custom-field text, permanent deletion, profiles, WIP limits, account emails and
 authorization, JSON, CSV, TSV and board-import errors now use Dzongkha. Named
 email tokens and paragraph breaks remain exact, leaving 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d76ccde6c">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account errors, attachment-free board export, PDF and Excel card exports,
+attachment metadata, list sorting and date, label and member filters now use
+Dzongkha. File-format names remain exact, leaving 1,616 values.
 
 </details>
 
