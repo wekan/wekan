@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first thirteen 50-value Dzongkha batches then left **174,849
-genuinely untranslated values across 81 locale files**, including 1,516 in
+81 locale files**. The first fourteen 50-value Dzongkha batches then left **174,799
+genuinely untranslated values across 81 locale files**, including 1,466 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `last-admin-desc` with
+Resume Dzongkha at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 13 are committed and batch 14 has not been applied.
+through 14 are committed and batch 15 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -509,7 +509,7 @@ browser build to verify).
 covering activity, workspaces, board and card views, imports and exports,
 privacy, automation, roles, search, dependencies, locations, reports,
 attachments, accessibility, account protection, migrations, security controls,
-backups and cloud storage. **Chuvash activity translation has begun**, while
+backups and cloud storage. **Chuvash is complete and Dzongkha is progressing**, while
 whole-locale placeholder and markup checks preserve human work and every code
 token.
 
@@ -1921,6 +1921,16 @@ Trello archive validation, workspaces, API credentials, board selection,
 progress, cancellation and recovery, imported-member mapping, date validation,
 keyboard shortcuts and label controls now use Dzongkha. URLs, percent tokens
 and digits remain exact, leaving 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6a8549b4">Lists, archives and roles gain 50 values</a>. Thanks to xet7.</summary>
+
+Board departure, card and list links, archive actions, user, team and
+organization settings, imports, navigation, list movement, multi-selection,
+notifications and board roles now use Dzongkha. The named board-title token and
+whole-locale markup invariants remain exact, leaving 1,466 values.
 
 </details>
 
