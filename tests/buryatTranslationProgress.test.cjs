@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 716);
+assert.equal(Object.keys(remaining).length, 666);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -104,3 +104,6 @@ assert.deepEqual(tags(buryat['globalSearch-instructions-operator-board']), ['<ti
 assert.deepEqual(tokens(buryat['import-dependencies-done']), ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(buryat['background-too-big']), ['{{size}}']);
 assert.equal(buryat['location-latitude'], 'Үргэриг');
+assert.match(buryat['server-error-troubleshooting'], /`sudo snap logs wekan\.wekan`/);
+assert.match(buryat['server-error-troubleshooting'], /`sudo docker logs wekan-app`/);
+assert.deepEqual(tokens(buryat['custom-field-stringtemplate-format']), ['%{value}']);
