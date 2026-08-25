@@ -366,9 +366,6 @@ because those languages are advertised as complete.
 <details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
-[#3823](https://github.com/wekan/wekan/issues/3823),
-[#4023](https://github.com/wekan/wekan/issues/4023) (Japanese font alignment →
-per-board font request),
 [#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete
 to the Admin role), [#5081](https://github.com/wekan/wekan/issues/5081)
 (redesign the owner/member/assignee avatar layout on mini cards — a UI proposal;
