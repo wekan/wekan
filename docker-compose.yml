@@ -265,9 +265,9 @@ services:
       # Statistics Python script for Wekan Dashboard
       # https://github.com/wekan/wekan-stats
       #
-      # Console, file, and zulip logger on database changes https://github.com/wekan/wekan/pull/1010
-      # with fix to replace console.log by winston logger https://github.com/wekan/wekan/pull/1033
-      # but there could be bug https://github.com/wekan/wekan/issues/1094
+      # The legacy Winston/Zulip database-change logger was removed in 2017:
+      # replacing Meteor's default console transport could prevent database startup (#1094).
+      # Use the current logging integrations documented above instead.
       #
       # There is Feature Request: Logging date and time of all activity with summary reports,
       # and requesting reason for changing card to other column https://github.com/wekan/wekan/issues/1598
