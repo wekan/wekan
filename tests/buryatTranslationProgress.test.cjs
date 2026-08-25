@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 366);
+assert.equal(Object.keys(remaining).length, 316);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -125,3 +125,6 @@ assert.equal(buryat['cron-migrations'], 'Хубаарита нүүлгэлтэн
 assert.match(buryat['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
 assert.deepEqual(tokens(buryat['database-migration-confirm']), ['__db__']);
 assert.match(buryat['database-migration-description'], /WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL/);
+assert.match(buryat['cards-loading-description'], /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.match(buryat['always-show-code-as-text-description'], /<!-- -->/);
+assert.match(buryat['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
