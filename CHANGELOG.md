@@ -822,7 +822,8 @@ board and verifies its stored visibility.
 
 </details>
 
-**Sandstorm grains** - preserved iframes recover their responsive layout.
+**Sandstorm grains** - preserved iframes recover and board sharing works across
+the grain.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9bc1896ff">Hidden grains remeasure the viewport when their iframe resumes</a>. Thanks to neynah, dwrensha and xet7.</summary>
@@ -834,6 +835,20 @@ ordinary resize path after the iframe has rendered, refreshing the sidebar,
 header, popups and responsive layout. Hidden-frame, timing, wiring and
 hot-reload regressions pass, and a live Chromium test confirms that restoring a
 preserved page publishes a fresh viewport measurement.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c57cb876">Existing grain users can be added independently to every board</a>. Thanks to Mini-pen, drseussofporn, jpretori, ocdtrekkie, wellgoodthen, stoltenhoff and xet7.</summary>
+
+The member button no longer depends exclusively on the Powerbox native module,
+which is unavailable in the Node 24 bundle and never attached its claimed
+identity to the selected board. It now opens WeKan's maintained,
+permission-checked search for identities that have visited the grain. Local
+email-account creation stays hidden because those accounts cannot authenticate
+through Sandstorm. Focused coverage protects the Sandstorm branch and admin
+mapping; live Chromium adds a user to the second of two boards, leaves the first
+unchanged and opens the second board as that user.
 
 </details>
 
