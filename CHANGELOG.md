@@ -507,9 +507,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Fulah translation** now covers its first activity-history and
-workspace controls, with whole-locale checks preserving placeholders and
-markup. Further direct translation remains in progress.
+**In short:** **FerretDB closes its remaining CodeQL findings** across readiness
+logging, query-number handling and developer tooling while documenting a
+protocol-required legacy authentication exception. **Fulah translation** now
+covers its first activity-history and workspace controls with exact tokens.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -522,7 +523,24 @@ markup. Further direct translation remains in progress.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves the following translation:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/298216d7">FerretDB closes its remaining CodeQL alerts</a>. Thanks to xet7.</summary>
+
+Readiness probes redact MongoDB credentials before any URI reaches a log.
+Aggregation array, string, date and conversion operators keep client-provided
+BSON numbers fixed-width until their bounds are validated, including on 32-bit
+builds. Developer-tool URL expressions match the complete `github.com` hostname
+literally. The MongoDB-mandated MD5 preparation inside legacy SCRAM-SHA-1 is
+narrowly documented and suppressed rather than changed incompatibly; new
+deployments retain SCRAM-SHA-256 as the stronger option. Native unit tests,
+extreme-value regressions, 32-bit cross-compilation, the FerretDB build, vet and
+the affected tools-module tests pass.
+
+</details>
+
+and improves the following translation:
 
 **Fulah** - direct whole-file translation using established Pulaar vocabulary.
 
