@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 66);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -333,3 +333,16 @@ assert.match(kurdish['migration-batch-size-description'], /1-100/);
 assert.match(kurdish['migration-cpu-threshold-description'], /10-90/);
 assert.match(kurdish['migration-delay-ms-description'], /100-10000/);
 assert.match(kurdish.showChecklistAtMinicard, /لیستی پشکنین/);
+assert.match(kurdish.otp, /OTP/);
+assert.match(kurdish['username-too-short'], /3/);
+assert.deepEqual(tokens(kurdish['repair-broken-cards-done-unfixable']), [
+  '__fixed__',
+  '__unfixable__',
+]);
+assert.match(kurdish['event-ip'], /IP/);
+assert.match(kurdish['event-ipv4'], /IPv4/);
+assert.match(kurdish['event-ipv6'], /IPv6/);
+assert.deepEqual(
+  tags(kurdish['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>'],
+);
