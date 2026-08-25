@@ -496,7 +496,8 @@ browser build to verify).
 **In short:** **FerretDB closes its CodeQL findings** while preserving required
 legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
-dragging** is visually stable, and the first **Fulah translations** are present.
+details** close when their card disappears, **card dragging** is visually
+stable, and the first **Fulah translations** are present.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -608,6 +609,20 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+**Card details** - open views follow remote card lifecycle changes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/951b072b5">They close when another client removes or relocates the card</a>. Thanks to rptl and xet7.</summary>
+
+A deleted, archived or cross-board-moved card no longer leaves an empty details
+shell open on mobile. Each details instance observes the card that created it
+and clears desktop windows, mobile routes and popup state when that card
+disappears or changes boards. Positive and negative unit coverage pins the
+presence decision and cleanup wiring; a mobile browser regression removes an
+open card directly from the database and expects the board canvas to return.
 
 </details>
 
