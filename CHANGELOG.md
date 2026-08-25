@@ -719,6 +719,17 @@ archived swimlane.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97e7b3158">Its item collection stays separate from All Boards</a>. Thanks to ocdtrekkie and xet7.</summary>
+
+The current board menu opens its card, list and swimlane archive in the board
+sidebar, while archived boards remain a distinct section of All Boards. The
+strengthened 12-case navigation suite now names issue 1280 and prevents those
+destinations from being conflated again. The archived-card browser restore flow
+also remains registered.
+
+</details>
+
 **Board members** - invitation decisions and team grants stay consistent.
 
 <details>
