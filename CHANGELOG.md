@@ -305,14 +305,14 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-nine 50-value Cherokee batches then left **181,547 genuinely untranslated
-values across 84 locale files**, including 1,716 in Cherokee.
+ten 50-value Cherokee batches then left **181,497 genuinely untranslated values
+across 84 locale files**, including 1,666 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `custom-field-text` with
+Resume Cherokee at `error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 9 are committed and batch 10 has
-not been applied.
+Buryat is complete, Cherokee batches 1 through 10 are committed and batch 11
+has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -500,8 +500,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Cherokee translation** now covers card moves, activity,
-workspaces, board views, voting, imports, member settings, navigation,
-permissions and custom fields. This continues the direct whole-file translation
+workspaces, board views, voting, imports, member settings, navigation, custom
+fields and account emails. This continues the direct whole-file translation
 effort while preserving human work and every code token. Below that:
 whole-locale placeholder and markup checks protect the new values.
 
@@ -597,6 +597,16 @@ Comment-only, read-only and worker roles, deletion confirmations, clipboard
 actions, linked cards, templates and custom-field types now use Cherokee
 syllabary. The bulk-card example remains valid JSON with exact field names, and
 whole-locale invariant coverage leaves 1,716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/722893a04">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom-field text, permanent deletion, profiles, WIP limits, account enrollment,
+invitation, password-reset and verification emails and authorization, JSON, CSV,
+TSV and board-import errors now use Cherokee syllabary. Named email tokens and
+paragraph breaks remain exact, leaving 1,666 values.
 
 </details>
 
