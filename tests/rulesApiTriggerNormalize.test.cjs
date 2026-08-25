@@ -193,7 +193,7 @@ test('negative: non-activity triggers (scheduledTrigger/button) are untouched', 
 
 // --- the #2674 end-to-end matching scenario ------------------------------------
 
-test('#2674: UI-style "moved AWAY FROM List 1 -> removeMember" trigger matches', async () => {
+test('#1972/#2674: UI-style "moved AWAY FROM List 1 -> removeMember" trigger matches', async () => {
   const selector = await matcherFor(movedFromList1Activity);
   const uiTrigger = {
     activityType: 'moveCard',
@@ -246,7 +246,7 @@ test('#2674 fix: after normalizeTriggerDoc the API trigger matches the move-away
   assert.strictEqual(mongoDocMatches(apiTrigger, selector), true);
 });
 
-test('negative: the remove-rule does NOT fire when the card moves INTO List 1', async () => {
+test('#1972 negative: the remove-rule does NOT fire when the card moves INTO List 1', async () => {
   const selector = await matcherFor(movedToList1Activity);
   const removeTrigger = {
     ...normalizeTriggerDoc({ activityType: 'moveCard', oldListName: 'List 1' }),
