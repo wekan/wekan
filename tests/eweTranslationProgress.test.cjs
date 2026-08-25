@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 266);
+assert.equal(Object.keys(remaining).length, 216);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -286,3 +286,8 @@ assert.match(ewe['gcs-permissions-note'], /WeKan.*Google Cloud Console.*Cloud St
 assert.match(ewe['s3-endpoint-menu-path'], /AWS.*S3-compatible.*Endpoint URL.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
 assert.match(ewe['attachment-move-storage-azure'], /Azure Blob Storage/);
 assert.match(ewe['attachment-move-storage-gcs'], /Google Cloud Storage/);
+assert.match(ewe['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(ewe['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(ewe['s3-enabled-description'], /AWS S3.*MinIO/);
+assert.match(ewe['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(ewe['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
