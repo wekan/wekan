@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first 50-value Ewe batch
-then left **173,283 genuinely untranslated values across 80 locale files**,
-including 2,116 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first three 50-value Ewe
+batches then left **173,183 genuinely untranslated values across 80 locale
+files**, including 2,016 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `act-moveCard` with
+Resume Ewe at `added` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 is committed and batch 2 has not been applied.
+1 through 3 are committed and batch 4 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2237,6 +2237,26 @@ Organization and team membership, comments, due dates, attachments, subtasks,
 labels, checklists, boards, lists, cards, swimlanes and archive and import
 activity now use Ewe. Percent and named activity tokens remain exact, leaving
 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/997ec2f92">Movement and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement and restoration, member removal, general activity sentences,
+checklist events, received and start dates and workspace creation and settings
+now use Ewe. Named and percent activity tokens and Markdown terminology remain
+exact, leaving 2,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd0c42f89">Workspace and layout controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Workspace deletion, board selection and starring, Home-board behavior, list
+widths, keyboard shortcuts, swimlane height and checklist and card controls now
+use Ewe. Percent placeholders, pixels and the 270-pixel limit remain exact,
+leaving 2,016 values.
 
 </details>
 
