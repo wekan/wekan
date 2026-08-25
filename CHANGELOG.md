@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-nine 50-value Chuvash batches then left **177,215 genuinely untranslated values
-across 82 locale files**, including 1,716 in Chuvash.
+ten 50-value Chuvash batches then left **177,165 genuinely untranslated values
+across 82 locale files**, including 1,666 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `custom-field-text` with
+Resume Chuvash at `error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 9
-are committed and batch 10 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 10
+are committed and batch 11 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1460,6 +1460,15 @@ and whole-locale invariants remain exact, leaving 1,766 values.
 Comment-only, read-only and worker roles, deletion confirmations, clipboard
 actions, linked cards, templates and custom-field types now use Chuvash. The
 bulk-card example remains valid JSON, leaving 1,716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f88dd4dab">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom-field text, permanent deletion, profiles, WIP limits, account emails and
+authorization, JSON, CSV, TSV and board-import errors now use Chuvash. Named
+email tokens and paragraph breaks remain exact, leaving 1,666 values.
 
 </details>
 
