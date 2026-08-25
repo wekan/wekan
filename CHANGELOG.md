@@ -901,6 +901,18 @@ than the old raw 403 response.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb267fddf">Anonymous verification links consume their token and verify the address</a>. Thanks to Sunildevb, jgrocha and xet7.</summary>
+
+Verification emails were enabled, but the accounts package's token route was
+never configured, so links fell through to WeKan's signed-in guard without
+changing the account. `/verify-email/:token` and the companion resend route are
+now installed explicitly. Routing and mail regressions pass; live Chromium
+coverage proves a valid token verifies the address, is consumed and signs the
+user in, while an invalid token leaves both account and session unchanged.
+
+</details>
+
 **Mobile navigation** - full-screen panels return readers to their board.
 
 <details>
