@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-forty 50-value Chuvash batches then left **175,665 genuinely untranslated
-values across 82 locale files**, including 166 in Chuvash.
+forty-one 50-value Chuvash batches then left **175,615 genuinely untranslated
+values across 82 locale files**, including 116 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `step-analyze-lists` with
+Resume Chuvash at `migrate-all-to-filesystem` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 40
-are committed and batch 41 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 41
+are committed and batch 42 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1763,6 +1763,15 @@ values.
 Comprehensive board migration, duplicate-list cleanup, lost-card restoration,
 archive recovery and broken list, avatar and attachment repair now use Chuvash.
 Database field names, IDs and URLs remain exact, leaving 166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb9006385">Migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
+
+Board-repair steps, conversion progress, CPU and memory monitoring, schedules,
+filesystem and GridFS statistics and job queues now use Chuvash. IDs, URLs, CPU,
+GridFS and numeric intervals remain exact, leaving 116 values.
 
 </details>
 
