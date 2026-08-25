@@ -3,7 +3,7 @@
 // Plain-Node unit test (no Meteor) for the All Boards board-tile data helpers.
 // Run: node tests/boardTileData.test.cjs
 //
-// Regression guard for #5174 (screenshots: All Boards tiles show neither the
+// Regression guard for #4959/#5174 (screenshots: All Boards tiles show neither the
 // per-list card-counter line nor the board-member avatars even though the
 // Admin Panel "Hide ... on All Boards" settings say to show them) and #4825
 // ("Show card count per list doesn't deactivate" — inconsistent per-tile
@@ -32,7 +32,7 @@ function test(name, fn) {
 }
 
 // --- per-board opt-in flags: POSITIVE ----------------------------------------
-test('board with "Show card count per list" enabled shows the counter line', () => {
+test('#4959: board with "Show card count per list" enabled shows the counter line', () => {
   assert.strictEqual(showsCardCounterList({ allowsCardCounterList: true }), true);
 });
 
@@ -85,7 +85,7 @@ test('no cards means no counts (not a crash)', () => {
 });
 
 // --- buildBoardTileData: POSITIVE ---------------------------------------------
-test('#5174: enabled board tile carries its per-list counts in board order', () => {
+test('#4959/#5174: enabled board tile carries its per-list counts in board order', () => {
   const boards = [
     {
       _id: 'b1',
