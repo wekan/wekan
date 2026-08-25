@@ -20,6 +20,8 @@
 //     accepted values (never silently treat an unknown value as enabled).
 
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const {
   normalizeLdapEncryption,
 } = require('../packages/wekan-ldap/server/encryptionSetting');
@@ -182,6 +184,35 @@ test('NEGATIVE: valid values never carry the invalid-value warning', () => {
     assert.strictEqual(r.warning, undefined,
       `'${good}' is valid and must not warn`);
   }
+});
+
+test('#4158 wiring uses normalized LDAPS and STARTTLS modes', () => {
+  const source = fs.readFileSync(path.join(
+    __dirname, '..', 'packages', 'wekan-ldap', 'server', 'ldap.js',
+  ), 'utf8');
+  assert.match(source, /encryption\s*:\s*normalizeLdapEncryption\(/);
+  assert.match(source, /if \(this\.options\.encryption === 'tls'\) \{\s*url = `ldaps:\/\//);
+  assert.match(source, /if \(this\.options\.encryption === 'starttls'\) \{[\s\S]*client\.startTLS/);
+});
+
+test('#4158 wiring logs normalization warnings instead of failing silently', () => {
+  const source = fs.readFileSync(path.join(
+    __dirname, '..', 'packages', 'wekan-ldap', 'server', 'ldap.js',
+  ), 'utf8');
+  assert.match(source, /warnOnceAboutEncryption\(\s*normalizeLdapEncryption/);
+  assert.match(source, /Log\.warn\(warning\)/);
+});
+
+test('#4158 documentation names all preferred modes without the false security claim', () => {
+  const documentation = fs.readFileSync(path.join(
+    __dirname, '..', 'docs', 'Features', 'Login', 'LDAP.md',
+  ), 'utf8');
+  assert.match(documentation, /`LDAP_ENCRYPTION`/);
+  assert.match(documentation, /`true`[^\n]*LDAPS/);
+  assert.match(documentation, /`starttls`[^\n]*STARTTLS/);
+  assert.match(documentation, /`false`[^\n]*unencrypted/);
+  assert.match(documentation, /ldap-encryption='starttls'/);
+  assert.doesNotMatch(documentation, /STARTTLS is more secure than (?:standard )?LDAPS/i);
 });
 
 console.log(`\n${passed} tests passed`);

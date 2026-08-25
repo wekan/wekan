@@ -17,6 +17,22 @@
 
 ***
 
+## LDAP transport encryption
+
+Set `LDAP_ENCRYPTION` to one of these values:
+
+- `true` — connect with TLS immediately, normally on port 636 (LDAPS).
+- `starttls` — connect normally, then negotiate TLS with STARTTLS, normally on
+  port 389.
+- `false` — use an unencrypted connection. Avoid this outside a trusted local
+  network.
+
+The legacy values `ssl` (LDAPS) and `tls` (STARTTLS) still work so existing
+deployments do not break, but WeKan logs a deprecation warning naming the value
+above that should replace them. An unknown value logs a warning and does not
+silently enable encryption. LDAPS and STARTTLS can negotiate the same modern
+TLS protocols; STARTTLS is not inherently more secure than LDAPS.
+
 ## Snap
 
 LDAP is available on Snap Stable channel. Settings can be seen with command `wekan.help` and from repo https://github.com/wekan/wekan-ldap . More settings at https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
@@ -77,9 +93,9 @@ sudo snap set wekan ldap-fullname-field='cn'
 snap set wekan ldap-enable='true'
 snap set wekan ldap-host='ldap.example.com'
 
-# Use 'tls' and port 389 for STARTTLS, which is more secure than standard LDAPS.
+# Use 'starttls' and port 389 to negotiate TLS with STARTTLS.
 snap set wekan ldap-port='389'
-snap set wekan ldap-encryption='tls'
+snap set wekan ldap-encryption='starttls'
 
 snap set wekan ldap-timeout='10000'
 snap set wekan ldap-idle-timeout='10000'
@@ -519,4 +535,3 @@ networks:
   wekan-tier:
     driver: bridge
 ```
-
