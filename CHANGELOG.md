@@ -526,7 +526,7 @@ This release improves the following translation:
 **Cherokee** - direct whole-file translation in Cherokee syllabary.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b6fec608a">Activity history and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/70875a2f8">Activity history and workspaces gain 50 values</a>. Thanks to xet7.</summary>
 
 Card moves, membership changes, activity history, checklist events, dates and
 workspace controls now use Cherokee syllabary. Named and percent placeholders,
@@ -536,7 +536,7 @@ HTML tags and Markdown remain exact, and whole-locale invariant coverage leaves
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/53f3e891c">Board layout and Home controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4095accd5">Board layout and Home controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Workspace deletion, multi-board selection, Home-board controls, due and end
 dates, list widths, keyboard shortcuts, swimlane heights, templates, subtasks
@@ -546,7 +546,7 @@ exact, and whole-locale invariant coverage leaves 2,016 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/16f7d0c22">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3fa2fa8b2">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
 
 Administrator announcements, public boards, offline recovery, board archives,
 templates, attachments, backgrounds, member and assignee views and private
@@ -556,7 +556,7 @@ HTML tags remain exact, and whole-locale invariant coverage leaves 1,966 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9c6f989c6">Board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a144862bc">Board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Public-board notices, board movement, colors and backgrounds, desktop and mobile
 views, zoom, calendar and statistics views, archive recovery and card labels now
@@ -566,7 +566,7 @@ exact, and whole-locale invariant coverage leaves 1,916 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/18e3e2ae7">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6523fc818">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
 
 Card membership and dates, voting, Planning Poker, dependencies, organizations,
 teams, accounts, backgrounds and checklist, swimlane, list, card and board
@@ -576,7 +576,7 @@ coverage leaves 1,866 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6dc6be197">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8269f2288">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
 
 Member popups, archive restoration, imported-user mapping, permissions, themes,
 fonts, text colors, avatars and language controls now use Cherokee syllabary.
@@ -586,7 +586,7 @@ leaving 1,816 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d075d89ed">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f61d0fd6b">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
 
 Board and page starring, automatic list widths, card-aging tiers, keyboard-style
 movement, dialogs, archive recovery and twenty-three color names now use
@@ -596,7 +596,7 @@ Cherokee syllabary. Whole-locale placeholder, markup and script invariants leave
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3fdc73317">Permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8a4e8ea31">Permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
 
 Comment-only, read-only and worker roles, deletion confirmations, clipboard
 actions, linked cards, templates and custom-field types now use Cherokee
@@ -606,7 +606,7 @@ whole-locale invariant coverage leaves 1,716 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/722893a04">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9c43e8a59">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
 
 Custom-field text, permanent deletion, profiles, WIP limits, account enrollment,
 invitation, password-reset and verification emails and authorization, JSON, CSV,
@@ -616,7 +616,7 @@ paragraph breaks remain exact, leaving 1,666 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2bc8d8ce7">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/761fc439c">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
 
 Account errors, attachment-free board export, PDF and Excel card exports,
 attachment metadata, list sorting and due-date, label and member filters now use
@@ -626,7 +626,7 @@ invariant coverage leaves 1,616 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/262cd206b">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dd2592766">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
 
 Advanced custom-field filters, activity and imported-member states and Kanboard,
 NextCloud, OpenProject, issue, Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan
@@ -636,7 +636,7 @@ file extensions and named tokens remain exact, leaving 1,566 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3a191657a">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/504183ee9">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
 
 Trello archive validation, workspaces, API credentials, board selection,
 progress, cancellation and recovery, imported-member mapping, date validation,
@@ -647,7 +647,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bced15fb6">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2e55fc2fa">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
 
 Board departure, list links, archive and deletion, user, team and organization
 settings, swimlane actions, calendar, login, multi-selection, muted boards,
@@ -657,7 +657,7 @@ token and file-format names remain exact, leaving 1,466 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1e39fd1a3">Privacy, search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/99bad85a0">Privacy, search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
 
 Watched-board notices, private-page login, image previews, board visibility,
 member removal, card-description rescue, search, WIP limits, keyboard shortcuts,
@@ -667,7 +667,7 @@ percent tokens and link markup remain exact, leaving 1,416 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/659fdd6e5">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c1597fecf">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
 
 Starred boards, subscriptions, time tracking, numeric shortcuts, upload state,
 custom logo, help and URL settings, imported usernames, watching, welcome and
@@ -677,7 +677,7 @@ syllabary. Digits and URL/API terms remain exact, leaving 1,366 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/888022e10">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/66bc7e464">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
 
 Attachment and API transfer limits, avatar blocking, registration, invitations,
 SMTP configuration and testing, authorization, outgoing and bidirectional
@@ -688,7 +688,7 @@ syllabary. Invitation tokens and protocol/product names remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a6b02f4d0">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f6f2b1ebf">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
 
 Database and FerretDB revisions, reactivity and DDP modes, OS metrics, time
 units, custom-field display, account changes, visibility and organization/team
@@ -699,7 +699,7 @@ remain exact, leaving 1,266 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5eb8034bc">Card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/121400d80">Card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
 
 Received and end dates, colors, requester and assigner labels, board and
 notification deletion, duplicate-list cleanup, subtask destinations, minicard
@@ -710,7 +710,7 @@ Cherokee syllabary. Named and percent tokens and counters remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3723bef8f">Automation rules and activity gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/166388340">Automation rules and activity gain 50 values</a>. Thanks to xet7.</summary>
 
 Attachment, label and custom-field activity, rule creation and selection, visual
 workflow construction, card, label, member, checklist, attachment and scheduled
@@ -720,7 +720,7 @@ Named and percent tokens and format names remain exact, leaving 1,166 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5fa52ba4c">Scheduled automation gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b0f8eead1">Scheduled automation gains 50 values</a>. Thanks to xet7.</summary>
 
 n8n and Node-RED workflow imports, scheduled and button triggers, daily, weekly
 and monthly timing, due-date conditions, card/list duration, sorting, completion,
@@ -731,7 +731,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1db973ca7">Automation conditions and actions gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f80737e61">Automation conditions and actions gain 50 values</a>. Thanks to xet7.</summary>
 
 Card movement and archives, label, member, attachment and checklist conditions,
 checked states, card placement, member and label removal, colors, checklist
@@ -741,7 +741,7 @@ fragments remain internally consistent, leaving 1,066 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c5114f1e7">Automation and web manifests gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a06cc3483">Automation and web manifests gain 50 values</a>. Thanks to xet7.</summary>
 
 Automation email, archive, labels, card creation, member, checklist and swimlane
 actions, relative date fields, authentication, product naming, custom head tags,
@@ -752,7 +752,7 @@ syllabary. Comma-separated examples and HTML/JSON names remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8a0b5d2c4">Reminders and layout controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/20307961d">Reminders and layout controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Custom body HTML, authentication, board duplication, swimlane deletion, date
 and due-time reminders, mentions, account, team and organization deletion,
@@ -762,7 +762,7 @@ HTML and named and percent tokens remain exact, leaving 966 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/be2397d88">Roles and calendar settings gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/65c0eeeb4">Roles and calendar settings gain 50 values</a>. Thanks to xet7.</summary>
 
 Multi-card windows, Enter-key editor behavior, organization, team and user
 editing, notification state, rename and invitation permissions, board-role
@@ -772,7 +772,7 @@ syllabary. Keyboard combinations remain exact, leaving 916 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/05f694acc">Shared templates and card views gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/437a622d7">Shared templates and card views gain 50 values</a>. Thanks to xet7.</summary>
 
 Checklist visibility, tasks, domains, shared templates, people and time scopes,
 My Cards sorting, Due Cards and global-search views and missing board-element
@@ -782,7 +782,7 @@ percent tokens remain exact, leaving 866 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8e396f79c">Search operators and predicates gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2e60bec01">Search operators and predicates gain 50 values</a>. Thanks to xet7.</summary>
 
 Missing organizations, teams, comments and cards, global-search result counts,
 search operators and date, state and card-content predicates now use Cherokee
@@ -791,7 +791,7 @@ syllabary. Percent and pagination tokens remain exact, leaving 816 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/707a054a0">Global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d679f4673">Global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
 
 Global-search validation, paging, operators, status filters, sorting and search
 examples now use Cherokee syllabary. Named tokens, Markdown, pseudo-tags and
@@ -800,7 +800,7 @@ literal search examples remain exact, leaving 766 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8a9db0604">Dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7227fa01c">Dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
 
 Board and card sorting, completion, stickers, dependency graphs, board
 backgrounds and card locations now use Cherokee syllabary. Import counters,
@@ -809,7 +809,7 @@ JSON, SVG, dimensions and sort arrows remain exact, leaving 716 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b5d96a973">Locations and administrator reports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f9dc4293d">Locations and administrator reports gain 50 values</a>. Thanks to xet7.</summary>
 
 Map detection, server troubleshooting, swimlanes, string templates, file,
 security and performance reports and office-login details now use Cherokee
@@ -819,7 +819,7 @@ leaving 666 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/855abaacc">Recovery and support requests gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ef85bcb2c">Recovery and support requests gain 50 values</a>. Thanks to xet7.</summary>
 
 Office and REST API reports, automatic data recovery, wait indicators,
 organization safeguards and support-request states now use Cherokee syllabary.
@@ -828,7 +828,7 @@ API settings, product names and punctuation remain exact, leaving 616 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/77cfb72a1">Organizations and attachment storage gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9ac58afe5">Organizations and attachment storage gain 50 values</a>. Thanks to xet7.</summary>
 
 Teams, organizations, Node memory metrics, legal notices, checklist actions and
 attachment-storage movement now use Cherokee syllabary. URL, Node, filesystem,
@@ -837,7 +837,7 @@ GridFS and S3 terminology remains intact, leaving 566 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cf0d261e2">Attachment repair and storage statistics gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3e161bb31">Attachment repair and storage statistics gain 50 values</a>. Thanks to xet7.</summary>
 
 Bulk attachment movement, location repair, storage statistics and MongoDB
 compaction now use Cherokee syllabary. Filesystem, GridFS, cloud, MongoDB,
@@ -846,7 +846,7 @@ Meteor and identifier terminology remains intact, leaving 516 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/840222e09">Custom translations and accessibility gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/15d06c361">Custom translations and accessibility gain 50 values</a>. Thanks to xet7.</summary>
 
 Board timing, uploads, custom translations, checklist folding, support and
 accessibility settings now use Cherokee syllabary. Workspace tokens and PDF,
@@ -855,7 +855,7 @@ ISO 8601, Markdown, ZIP and JSON names remain exact, leaving 466 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a84388fad">Account protection and scheduled jobs gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0884ace8b">Account protection and scheduled jobs gain 50 values</a>. Thanks to xet7.</summary>
 
 Accessibility content, brute-force lockouts, administrator user filters,
 attachment paths and scheduled board operations now use Cherokee syllabary.
@@ -864,7 +864,7 @@ Whole-locale token and markup invariants remain exact, leaving 416 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0a253eb3f">Storage and database migrations gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4680fe36f">Storage and database migrations gain 50 values</a>. Thanks to xet7.</summary>
 
 Scheduled migration recovery, filesystem, S3 and Azure storage, MongoDB and
 FerretDB migration and Sandstorm conversion now use Cherokee syllabary. URLs,
@@ -874,7 +874,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8e1a05959">Security controls and backups gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b262f9661">Security controls and backups gain 50 values</a>. Thanks to xet7.</summary>
 
 Sandstorm cleanup, lazy card loading, safe rich-text rendering, import/export
 privacy controls, activity suppression and backups now use Cherokee syllabary.
@@ -884,7 +884,7 @@ leaving 316 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/36f538f94">Backup scheduling and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0abe0ba0b">Backup scheduling and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
 
 Backup restoration and scheduling and Google Cloud, AWS S3 and Azure storage
 configuration now use Cherokee syllabary. Time formats, JSON fields, console
@@ -893,7 +893,7 @@ paths, provider names and secret labels remain exact, leaving 266 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/04e9b2a32">Storage migrations gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/97f2ac4eb">Storage migrations gain 50 values</a>. Thanks to xet7.</summary>
 
 GridFS state, migration controls, S3 authentication, scheduled board operations
 and attachment monitoring now use Cherokee syllabary. MongoDB, CollectionFS,
@@ -902,7 +902,7 @@ MinIO, regions and transport protocols remain exact, leaving 216 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d8a632e1d">Board repair migrations gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6e8d52689">Board repair migrations gain 50 values</a>. Thanks to xet7.</summary>
 
 Board-integrity analysis, lost-card recovery, archive restoration and file URL
 repair now use Cherokee syllabary. Swimlane and list identifiers, URLs and
@@ -911,7 +911,7 @@ confirmation punctuation remain exact, leaving 166 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/301b990a5">Migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d97034a3">Migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
 
 Board-conversion steps, scheduled-job monitoring, CPU and memory metrics and
 filesystem and GridFS statistics now use Cherokee syllabary. URLs, backend
@@ -920,7 +920,7 @@ names, numeric intervals and identifiers remain exact, leaving 116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0cbbfbfcb">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0b713688a">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Bulk attachment migration, throttling, monitoring and storage distribution now
 use Cherokee syllabary. Filesystem, GridFS, S3, units and numeric ranges remain
@@ -929,7 +929,7 @@ exact, leaving 66 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/233c85b68">Repositories and problem repair gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3de527c06">Repositories and problem repair gain 50 values</a>. Thanks to xet7.</summary>
 
 OTP account access, repository management, administrator problem status and
 broken-card repair now use Cherokee syllabary. API, CPU and named repair tokens
@@ -938,7 +938,7 @@ remain exact, leaving 16 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5d44e3409">The whole-file translation is complete</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a61b14f2e">The whole-file translation is complete</a>. Thanks to xet7.</summary>
 
 Event network addresses, scoped import/export and number-search guidance now
 use Cherokee syllabary. IP versions, file formats, product names, named tokens
@@ -950,7 +950,7 @@ translated, with zero English placeholders remaining.
 **Central Kurdish** - direct whole-file translation in Sorani Kurdish script.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/61b98233b">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5ffd135b5">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Board, list, swimlane, card, checklist, comment, member and archive activity now
 uses Central Kurdish. Named and percent placeholders remain exact, and new
@@ -959,7 +959,7 @@ whole-locale invariant coverage leaves 2,116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/789eaec05">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/386a70f28">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
 
 Card moves, checklist history, received and start dates and All Boards workspace
 controls now use Central Kurdish. Named and percent placeholders and Markdown
@@ -968,7 +968,7 @@ terminology remain exact, leaving 2,066 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4eadcd2e6">Workspace and layout controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a60036138">Workspace and layout controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Workspace deletion, multi-board selection, Home boards, list widths, keyboard
 shortcuts, swimlane heights, templates, subtasks and checklist controls now use
@@ -978,7 +978,7 @@ Central Kurdish. Percent placeholders and numeric limits remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8e642a297">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6c11c8fe8">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
 
 Administrator announcements, offline recovery, archives, templates,
 attachments, backgrounds, member and assignee views and private-board notices
@@ -988,7 +988,7 @@ leaving 1,966 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/86d5c0c8c">Board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8389975c8">Board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Public-board notices, board movement, backgrounds, desktop and mobile modes,
 zoom, calendar and statistics views, archive recovery and card controls now use
@@ -998,7 +998,7 @@ Central Kurdish. Named and percent tokens and HTML tags remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/df0adb0a6">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1381fd30f">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
 
 Card membership and dates, voting, Planning Poker, dependencies, organizations,
 teams, backgrounds and checklist, swimlane, list, card and board imports now use
@@ -1007,7 +1007,7 @@ Central Kurdish. Product names remain exact, leaving 1,866 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/963ed826d">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eaf27f26b">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
 
 Member popups, archive restoration, imported-user mapping, permissions, themes,
 fonts, text colors, avatars and language controls now use Central Kurdish. CAS,
@@ -1016,7 +1016,7 @@ digits and whole-locale invariants remain exact, leaving 1,816 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e26e6b1a2">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/183b1dd96">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
 
 Starring, automatic list widths, card-aging tiers, keyboard-style movement,
 dialogs, archive recovery and twenty-three color names now use Central Kurdish.
@@ -1025,7 +1025,7 @@ Digits and whole-locale invariants remain exact, leaving 1,766 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/af7a32ced">Permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2efd120c8">Permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
 
 Comment-only, read-only and worker roles, deletion confirmations, clipboard
 actions, linked cards, templates and custom-field types now use Central Kurdish.
@@ -1034,7 +1034,7 @@ The bulk-card example remains valid JSON, leaving 1,716 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/54af3e918">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2d7364439">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
 
 Custom-field text, permanent deletion, profiles, WIP limits, account emails and
 authorization, JSON, CSV, TSV and board-import errors now use Central Kurdish.
@@ -1043,7 +1043,7 @@ Named email tokens and paragraph breaks remain exact, leaving 1,666 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/461ac1910">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9702a2f5">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
 
 Account errors, attachment-free board export, PDF and Excel card exports,
 attachment metadata, list sorting and date, label and member filters now use
@@ -1052,7 +1052,7 @@ Central Kurdish. File-format names remain exact, leaving 1,616 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3cccaacaf">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a1ae1d7d1">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
 
 Advanced custom-field filters and Kanboard, NextCloud, OpenProject, issue,
 Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan imports now use Central
@@ -1062,7 +1062,7 @@ exact, leaving 1,566 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5a965027e">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8dd33301c">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
 
 Trello archive validation, workspaces, API credentials, board selection,
 progress, cancellation and recovery, imported-member mapping, date validation,
@@ -1072,7 +1072,7 @@ tokens and digits remain exact, leaving 1,516 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cd0adab07">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/359ef2e37">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
 
 Board departure, list archive and movement, user, team and organization
 settings, swimlane actions, calendar, login, multi-selection, muted boards,
@@ -1082,7 +1082,7 @@ and file-format names remain exact, leaving 1,466 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/28e1d5131">Privacy, search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ab238b816">Privacy, search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
 
 Watched-board notices, private-page login, image previews, board visibility,
 member removal, card-description rescue, search, WIP limits, keyboard shortcuts,
@@ -1092,7 +1092,7 @@ tokens and link markup remain exact, leaving 1,416 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/86469cc90">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/42389b281">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
 
 Starred boards, subscriptions, time tracking, numeric shortcuts, uploads,
 custom branding and URL settings, imported usernames, watching, welcome and
@@ -1102,7 +1102,7 @@ Digits and URL/API terms remain exact, leaving 1,366 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/165ecb7aa">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4991caf56">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
 
 Attachment and API transfer limits, avatar blocking, registration, invitations,
 SMTP configuration and testing, authorization, outgoing and bidirectional
@@ -1113,7 +1113,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/25f23f480">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/021f94d4e">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
 
 Database and FerretDB revisions, reactivity and DDP modes, OS metrics, time
 units, custom-field display, account changes, visibility, shared templates,
@@ -1124,7 +1124,7 @@ exact, leaving 1,266 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/02dc32771">Card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ff176c2f4">Card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
 
 Received and end dates, colors, requester and assigner labels, board and
 notification deletion, duplicate-list cleanup, subtask destinations, minicard
@@ -1135,7 +1135,7 @@ Central Kurdish. Named and percent tokens and counters remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6524de400">Activity and board rules gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/387a30bdf">Activity and board rules gain 50 values</a>. Thanks to xet7.</summary>
 
 Attachment, label and custom-field activity, rule creation and selection,
 workflow editing, card/member/checklist triggers and JSON, CSV and Trello Butler
@@ -1145,7 +1145,7 @@ format names remain exact, leaving 1,166 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca79fda24">Workflow schedules and actions gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/862915878">Workflow schedules and actions gain 50 values</a>. Thanks to xet7.</summary>
 
 Visual-workflow imports, scheduled and button triggers, recurrence, due-date and
 list-duration conditions, sorting, completion, bulk movement and relative dates
@@ -1155,7 +1155,7 @@ exact, leaving 1,116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e51a50614">Rule conditions and card actions gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f5ffef518">Rule conditions and card actions gain 50 values</a>. Thanks to xet7.</summary>
 
 Moves, archives, label, member, attachment and checklist conditions, card
 placement, member and label removal, colors, checklist actions and email actions
@@ -1165,7 +1165,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5613c836e">Rule details and custom branding gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2f01c6785">Rule details and custom branding gain 50 values</a>. Thanks to xet7.</summary>
 
 Rule emails, archives, labels, cards, members, checklists, swimlanes and date
 fields, authentication, custom product metadata and manifests, layout and board
@@ -1175,7 +1175,7 @@ remain exact, leaving 1,016 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/84a81aa78">Reminders and layout settings gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/511daa2e8">Reminders and layout settings gain 50 values</a>. Thanks to xet7.</summary>
 
 Custom body HTML, authentication, board duplication, counts, swimlane deletion,
 date changes and reminders, card placement, account deletion and desktop layout
@@ -1185,7 +1185,7 @@ tokens remain exact, leaving 966 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6d15e3cfc">Roles and notification controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/532ea2565">Roles and notification controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Multi-window cards, editor submission, organization, team and user dialogs,
 notification filters, renaming, board-role permissions and status, weekdays,
@@ -1195,7 +1195,7 @@ Keyboard combinations remain exact, leaving 916 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a82cbc609">Shared templates and card views gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b6a028541">Shared templates and card views gain 50 values</a>. Thanks to xet7.</summary>
 
 Checklist visibility, tasks, domains, shared templates, people and time units,
 My Cards sorting, due-card and global-search views and missing-object messages
@@ -1205,7 +1205,7 @@ exact, leaving 866 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e9872d3b7">Search operators gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6dcd4e3ea">Search operators gain 50 values</a>. Thanks to xet7.</summary>
 
 Missing comments, organizations and teams, card-result counts, search operators
 for board fields and predicates for status, dates and content now use Central
@@ -1215,7 +1215,7 @@ exact, leaving 816 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b1ded7e83">Global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dc14ce1aa">Global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
 
 Search predicates and validation, paging, operator syntax and examples, board,
 list, swimlane, label, user, organization, team, date, status, content, sorting
@@ -1225,7 +1225,7 @@ and line breaks remain exact, leaving 766 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fca09616b">Dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/45874bb50">Dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
 
 Label metadata, board and card sorting, completion, stickers, dependency types
 and transfer, board backgrounds and card-location fields now use Central
@@ -1235,7 +1235,7 @@ leaving 716 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8087c1f22">Locations and reports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/27150da4c">Locations and reports gain 50 values</a>. Thanks to xet7.</summary>
 
 Map detection, server troubleshooting, sorting, links, board activity,
 swimlanes, string templates, creator fields and file, security, speed, test,
@@ -1246,7 +1246,7 @@ leaving 666 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ad1201f28">Recovery and tickets gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/089c2eaec">Recovery and tickets gain 50 values</a>. Thanks to xet7.</summary>
 
 Office and API reporting, automatic recovery, swimlane copying, card creators,
 wait animations, card sizing, organization and team deletion warnings, ticket
@@ -1256,7 +1256,7 @@ API settings and product names remain exact, leaving 616 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f6885a16f">Administration and attachments gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2b17697e5">Administration and attachments gain 50 values</a>. Thanks to xet7.</summary>
 
 Team and organization assignment, invitations, Node heap and memory metrics,
 legal notices, checklist copying and line conversion, card/subtask actions and
@@ -1266,7 +1266,7 @@ Runtime and storage names remain exact, leaving 566 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/089ab9eef">Storage maintenance gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bf5f2f0e6">Storage maintenance gains 50 values</a>. Thanks to xet7.</summary>
 
 Attachment moves and location repair, avatar storage, default upload storage,
 file counts and identifiers, MongoDB GridFS compaction and board metadata now
@@ -1276,7 +1276,7 @@ leaving 516 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/28ded9ef4">Uploads and support gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fedce366b">Uploads and support gain 50 values</a>. Thanks to xet7.</summary>
 
 Board time statistics, upload progress, login, file limits and validation,
 workspace assignment, custom translations, checklist folding, board ZIP import
@@ -1286,7 +1286,7 @@ formats and standards remain exact, leaving 466 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c171233cb">Account lockout and scheduling gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/241af1871">Account lockout and scheduling gain 50 values</a>. Thanks to xet7.</summary>
 
 Accessibility content, brute-force protection, locked-user administration,
 active-user filters, scheduled jobs and migrations, attachment/avatar paths and
@@ -1296,7 +1296,7 @@ and status distinctions remain explicit, leaving 416 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/268150d47">Database migration gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cb41f10df">Database migration gains 50 values</a>. Thanks to xet7.</summary>
 
 Scheduled-job and migration recovery, filesystem and S3 settings, Azure
 credentials, MongoDB/FerretDB text-data migration and Sandstorm grain migration
@@ -1306,7 +1306,7 @@ and platform names remain exact, leaving 366 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a4d5d0168">Security and backup controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3fd930059">Security and backup controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Sandstorm cleanup, card-loading modes, safe link and code rendering, import,
 export, avatar and identity privacy, activities, notifications, watching and
@@ -1316,7 +1316,7 @@ variables, paths and cloud-provider names remain exact, leaving 316 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/068031d3a">Backup and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aace17067">Backup and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
 
 Backup schedules and restore modes, Google Cloud service accounts, S3, Azure
 and GCS configuration paths, secret handling, connection tests and attachment
@@ -1326,7 +1326,7 @@ key names and provider names remain exact, leaving 266 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bd91f204f">Storage migration gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4c820d4dc">Storage migration gains 50 values</a>. Thanks to xet7.</summary>
 
 GridFS, general migration progress and controls, CollectionFS moves, S3
 authentication and connectivity, scheduled board operations, writable paths
@@ -1336,7 +1336,7 @@ region and transport names remain exact, leaving 216 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/136ff461b">Board repair gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/efc61040a">Board repair gains 50 values</a>. Thanks to xet7.</summary>
 
 Comprehensive board migration, duplicate-list cleanup, lost and archived item
 recovery, missing-list and file/avatar URL repair, confirmations, progress and
@@ -1346,7 +1346,7 @@ terminology remain exact, leaving 166 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ef30a6a50">Migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b5a958668">Migration monitoring gains 50 values</a>. Thanks to xet7.</summary>
 
 Board repair steps, conversion notices, CPU and memory usage, database
 migrations, job schedules and queues, filesystem and GridFS monitoring and
@@ -1356,7 +1356,7 @@ storage names remain exact, leaving 116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/07ae48ce8">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ae1eb8ad4">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Bulk storage migration, batch size, CPU and delay thresholds, background
 migration state, monitoring, schedules, progress and attachment totals and
@@ -1366,7 +1366,7 @@ units and storage names remain exact, leaving 66 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5d73cd195">The whole-file translation is complete</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/574627c33">The whole-file translation is complete</a>. Thanks to xet7.</summary>
 
 Accounts and repositories, problem and repair reporting, CPU and event details,
 filesystem integrity, scoped import/export and number-search guidance now use
@@ -1379,7 +1379,7 @@ translated, with zero English placeholders remaining.
 **Chuvash** - direct whole-file translation in Chuvash Cyrillic script.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/38834c8de">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/546f5ed18">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Board, list, swimlane, card, attachment, subtask, label, checklist, comment,
 custom-field, member, archive and import activity now uses Chuvash. Named and
@@ -1389,7 +1389,7 @@ leaves 2,116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3099faaba">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fe2bea3c6">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
 
 Card moves, member changes, generic and checklist activity, comment and date
 changes and All Boards workspace controls now use Chuvash. Named and percent
@@ -1398,7 +1398,7 @@ placeholders and Markdown terminology remain exact, leaving 2,066 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4726461c1">Workspace and layout controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ee4546120">Workspace and layout controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Workspace deletion, multi-board selection, Home boards, list widths, keyboard
 shortcuts, swimlane heights, templates, subtasks and checklist controls now use
@@ -1408,7 +1408,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/178d8d4af">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/da80a33a6">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
 
 Administrator announcements, offline recovery, archives, templates,
 attachments, backgrounds, member and assignee views and private-board notices
@@ -1418,7 +1418,7 @@ now use Chuvash. Named and percent tokens and HTML tags remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fb7d9496e">Board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/78ddf054d">Board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Public-board notices, board movement, backgrounds, desktop and mobile modes,
 zoom, calendar and statistics views, archive recovery and card controls now use
@@ -1428,7 +1428,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/944646bd8">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cc21db893">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
 
 Card membership and dates, voting, Planning Poker, dependencies, organizations,
 teams, backgrounds and checklist, swimlane, list, card and board imports now use
@@ -1437,7 +1437,7 @@ Chuvash. Product names remain exact, leaving 1,866 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/27d7ff557">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f3eb5045d">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
 
 Member popups, archive restoration, imported-user mapping, permissions, themes,
 fonts, text colors, avatars and language controls now use Chuvash. CAS, digits
@@ -1446,7 +1446,7 @@ and whole-locale invariants remain exact, leaving 1,816 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1260a29ba">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c41801d99">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
 
 Starring, automatic list widths, card-aging tiers, keyboard-style movement,
 dialogs, archive recovery and twenty-three color names now use Chuvash. Digits
@@ -1455,7 +1455,7 @@ and whole-locale invariants remain exact, leaving 1,766 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/932231625">Permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f561a0fd9">Permissions and custom fields gain 50 values</a>. Thanks to xet7.</summary>
 
 Comment-only, read-only and worker roles, deletion confirmations, clipboard
 actions, linked cards, templates and custom-field types now use Chuvash. The
@@ -1464,7 +1464,7 @@ bulk-card example remains valid JSON, leaving 1,716 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f88dd4dab">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/310178f2e">Account emails and import errors gain 50 values</a>. Thanks to xet7.</summary>
 
 Custom-field text, permanent deletion, profiles, WIP limits, account emails and
 authorization, JSON, CSV, TSV and board-import errors now use Chuvash. Named
@@ -1473,7 +1473,7 @@ email tokens and paragraph breaks remain exact, leaving 1,666 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b4c2796ff">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b0799af4b">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
 
 Account errors, attachment-free board export, PDF and Excel card exports,
 attachment metadata, list sorting and date, label and member filters now use
@@ -1482,7 +1482,7 @@ Chuvash. File-format names remain exact, leaving 1,616 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4f314ac3f">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dd5e03645">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
 
 Advanced custom-field filters and Kanboard, NextCloud, OpenProject, issue,
 Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan imports now use Chuvash.
@@ -1492,7 +1492,7 @@ leaving 1,566 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7990e2af2">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4b1511b57">Trello imports and member mapping gain 50 values</a>. Thanks to xet7.</summary>
 
 Trello archive validation, workspaces, API credentials, board selection,
 progress, cancellation and recovery, imported-member mapping, date validation,
@@ -1502,7 +1502,7 @@ digits remain exact, leaving 1,516 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/00c7c0c09">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c2ebc314e">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
 
 Board departure, list archive and movement, user, team and organization
 settings, swimlane actions, calendar, login, multi-selection, muted boards,
@@ -1512,7 +1512,7 @@ file-format names remain exact, leaving 1,466 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/138636130">Privacy, search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d29a5b185">Privacy, search and shortcuts gain 50 values</a>. Thanks to xet7.</summary>
 
 Watched-board notices, private-page login, image previews, board visibility,
 member removal, card-description rescue, search, WIP limits, keyboard shortcuts,
@@ -1522,7 +1522,7 @@ and link markup remain exact, leaving 1,416 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/23afd9703">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/615213404">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
 
 Starred boards, subscriptions, time tracking, numeric shortcuts, uploads,
 custom branding and URL settings, imported usernames, watching, welcome and
@@ -1532,7 +1532,7 @@ and URL/API terms remain exact, leaving 1,366 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b64302a2b">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e6c13ffbc">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
 
 Attachment and API transfer limits, avatar blocking, registration, invitations,
 SMTP configuration and testing, authorization, outgoing and bidirectional
@@ -1542,7 +1542,7 @@ Invitation tokens and protocol names remain exact, leaving 1,316 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/de85c354d">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8be90c927">Runtime metrics and organization tenancy gain 50 values</a>. Thanks to xet7.</summary>
 
 Database and FerretDB revisions, reactivity and DDP modes, OS metrics, time
 units, custom-field display, account changes, visibility, shared templates,
@@ -1553,7 +1553,7 @@ leaving 1,266 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8c78580a4">Card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ef259d8f0">Card and subtask settings gain 50 values</a>. Thanks to xet7.</summary>
 
 Received and end dates, colors, requester and assigner labels, board and
 notification deletion, duplicate-list cleanup, subtask destinations, minicard
@@ -1564,7 +1564,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/acae07b1e">Activity and board rules gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a2b80b889">Activity and board rules gain 50 values</a>. Thanks to xet7.</summary>
 
 Attachment, label and custom-field activity, rule creation and selection,
 workflow editing, card/member/checklist triggers and JSON, CSV and Trello Butler
@@ -1574,7 +1574,7 @@ names remain exact, leaving 1,166 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/43c123fd3">Workflow schedules and actions gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/172365825">Workflow schedules and actions gain 50 values</a>. Thanks to xet7.</summary>
 
 Visual-workflow imports, scheduled and button triggers, recurrence, due-date and
 list-duration conditions, sorting, completion, bulk movement and relative dates
@@ -1584,7 +1584,7 @@ leaving 1,116 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/249ea2f2f">Rule conditions and card actions gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f7067c50d">Rule conditions and card actions gain 50 values</a>. Thanks to xet7.</summary>
 
 Moves, archives, label, member, attachment and checklist conditions, card
 placement, member and label removal, colors, checklist actions and email actions
@@ -1593,7 +1593,7 @@ now use Chuvash. Rule terminology remains consistent, leaving 1,066 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8bbc98ff1">Rule details and custom branding gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/844b8af71">Rule details and custom branding gain 50 values</a>. Thanks to xet7.</summary>
 
 Rule emails, archives, labels, cards, members, checklists, swimlanes and date
 fields, authentication, custom product metadata and manifests, layout and board
@@ -1603,7 +1603,7 @@ leaving 1,016 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/01a20cc73">Reminders and layout settings gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c5300e01f">Reminders and layout settings gain 50 values</a>. Thanks to xet7.</summary>
 
 Custom body HTML, authentication, board duplication, counts, swimlane deletion,
 date changes and reminders, card placement, account deletion and desktop layout
@@ -1613,7 +1613,7 @@ remain exact, leaving 966 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/67c481b0a">Roles and notification controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/588c2c5ce">Roles and notification controls gain 50 values</a>. Thanks to xet7.</summary>
 
 Multi-window cards, editor submission, organization, team and user dialogs,
 notification filtering, board-role permissions and status, weekdays, ownership
@@ -1623,7 +1623,7 @@ terminology remain exact, leaving 916 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/18ed1ac50">Templates and card views gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/375e51a2c">Templates and card views gain 50 values</a>. Thanks to xet7.</summary>
 
 Checklist visibility, tasks, domains, shared templates, display names, calendar
 units, My Cards, due-card and global-search views and missing-object messages
@@ -1633,7 +1633,7 @@ exact, leaving 866 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bd37ec35d">Search vocabulary gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fcc08752d">Search vocabulary gains 50 values</a>. Thanks to xet7.</summary>
 
 Missing comments, organizations and teams, card-result counts and the search
 operators and predicates for boards, people, dates, content and card state now
@@ -1642,7 +1642,7 @@ use Chuvash. Percent and result-range tokens remain exact, leaving 816 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/69fe1a28c">Global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ce66d24e4">Global-search guidance gains 50 values</a>. Thanks to xet7.</summary>
 
 Search predicates, validation, paging, operator syntax, statuses, sorting,
 limits and combination guidance now use Chuvash. Named tokens, pseudo-tags,
@@ -1651,7 +1651,7 @@ Markdown examples and line breaks remain exact, leaving 766 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3a054d37f">Dependencies and backgrounds gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b708055c2">Dependencies and backgrounds gain 50 values</a>. Thanks to xet7.</summary>
 
 Label metadata, board sorting, card completion, stickers, dependency relations
 and imports, board backgrounds and location fields now use Chuvash. JSON, SVG,
@@ -1660,7 +1660,7 @@ named and size tokens and sort arrows remain exact, leaving 716 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/560d104c1">Locations and reports gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d2ffa905">Locations and reports gain 50 values</a>. Thanks to xet7.</summary>
 
 Map locations, server-error diagnostics, activity sorting, string templates,
 file and security reports, impersonation, recovery and office-login details now
@@ -1670,7 +1670,7 @@ remain exact, leaving 666 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/188a09c7c">Recovery and support workflows gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/74d6d9701">Recovery and support workflows gain 50 values</a>. Thanks to xet7.</summary>
 
 Office and API reports, recovery events and maintenance, swimlane copying,
 loading animations, organization guards, tickets, requests and card details now
@@ -1680,7 +1680,7 @@ leaving 616 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ea93fc643">Organizations and storage gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/360944727">Organizations and storage gain 50 values</a>. Thanks to xet7.</summary>
 
 Team invitations, Node memory statistics, organizations, legal notices,
 checklist transformations and attachment-storage movement now use Chuvash. Node,
@@ -1689,7 +1689,7 @@ heap, malloc, URL, GridFS and S3 terminology remains exact, leaving 566 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a1f0ea17">Storage repair gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/89f3e3875">Storage repair gains 50 values</a>. Thanks to xet7.</summary>
 
 Bulk attachment movement, storage discovery and repair, default backends, file
 counts and MongoDB compaction now use Chuvash. GridFS, S3, IDs, MongoDB, oplog,
@@ -1698,7 +1698,7 @@ Meteor and Compact terminology remains exact, leaving 516 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/024b1012b">Uploads and support gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cd23afbae">Uploads and support gain 50 values</a>. Thanks to xet7.</summary>
 
 Board timing, uploads, file restrictions, custom translations, checklist
 display and support and accessibility pages now use Chuvash. Workspace tokens,
@@ -1708,7 +1708,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/21b1d69c0">Account protection gains 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6b9844d08">Account protection gains 50 values</a>. Thanks to xet7.</summary>
 
 Accessibility, brute-force lockouts, administrator user filters, scheduled
 jobs, storage paths and scheduled board archive, backup and cleanup operations
@@ -1718,7 +1718,7 @@ now use Chuvash. Security distinctions and time units remain explicit, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dad05454b">Migrations and storage gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2ea587e1b">Migrations and storage gain 50 values</a>. Thanks to xet7.</summary>
 
 Scheduled-job recovery, filesystem and cloud storage and MongoDB, FerretDB and
 Sandstorm migrations now use Chuvash. URLs, ports, environment variables,
@@ -1728,7 +1728,7 @@ commands, paths, database names and the destination token remain exact, leaving
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/98a146770">Security and backups gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dff10fc4c">Security and backups gain 50 values</a>. Thanks to xet7.</summary>
 
 Sandstorm cleanup, adaptive card loading, safe text rendering, import/export
 controls, identity anonymization, activity and notification controls and backup
@@ -1738,7 +1738,7 @@ and cloud-service names remain exact, leaving 316 values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7ac578255">Cloud backups gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2646a0ae8">Cloud backups gain 50 values</a>. Thanks to xet7.</summary>
 
 Backup schedules and restoration plus GCS, S3 and Azure credentials, permission
 paths and connection tests now use Chuvash. Time formats, JSON fields, provider
@@ -1748,7 +1748,7 @@ values.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/70a250f22">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/355853811">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
 
 GridFS and S3 storage, migration lifecycle controls, scheduled board operations,
 attachment monitoring and board migration now use Chuvash. MongoDB, GridFS,
