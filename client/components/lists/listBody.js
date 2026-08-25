@@ -1123,30 +1123,30 @@ Template.searchElementPopup.onCreated(function () {
   this.isSwimlaneTemplateSearch = $(
     Popup._getTopStack().openerElement,
   ).hasClass('js-open-add-swimlane-menu');
-  this.isBoardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass(
-    'js-add-board',
-  );
+  const popupOpener = $(Popup._getTopStack().openerElement);
+  this.isBoardTemplateSearch =
+    popupOpener.hasClass('js-add-board') ||
+    popupOpener.hasClass('js-create-board');
   this.isTemplateSearch =
     this.isCardTemplateSearch ||
     this.isListTemplateSearch ||
     this.isSwimlaneTemplateSearch ||
     this.isBoardTemplateSearch;
 
-  this.board = {};
+  let boardId = '';
   if (this.isTemplateSearch) {
-    const boardId = (ReactiveCache.getCurrentUser().profile || {}).templatesBoardId;
+    boardId = (ReactiveCache.getCurrentUser().profile || {}).templatesBoardId;
     if (boardId) {
       Meteor.subscribe('board', boardId, false);
-      this.board = ReactiveCache.getBoard(boardId);
     }
   } else {
-    this.board = Utils.getCurrentBoard();
+    boardId = (Utils.getCurrentBoard() || {})._id;
   }
-  if (!this.board) {
+  if (!boardId) {
     Popup.back();
     return;
   }
-  this.boardId = this.board._id;
+  this.boardId = boardId;
   // Subscribe to this board
   Meteor.subscribe('board', this.boardId, false);
   this.selectedBoardId = new ReactiveVar(this.boardId);
@@ -1203,6 +1203,11 @@ Template.searchElementPopup.helpers({
       return [];
     }
     const board = ReactiveCache.getBoard(tpl.selectedBoardId.get());
+    // The template container is subscribed when this popup is created. Keep
+    // the popup open and reactively return results once Minimongo receives it;
+    // synchronously requiring the board here bounced a freshly opened picker
+    // back to Create Board and could leave only stale cached templates visible.
+    if (!board) return [];
     if (!tpl.isTemplateSearch || tpl.isCardTemplateSearch) {
       return board.searchCards(tpl.term.get(), false);
     } else if (tpl.isListTemplateSearch) {
@@ -1240,6 +1245,8 @@ Template.searchElementPopup.events({
       .trim();
     if (!title) return;
     const element = Blaze.getData(evt.currentTarget);
+    const sourceBoard = ReactiveCache.getBoard(tpl.boardId);
+    if (!sourceBoard) return;
     element.title = title;
     let _id = '';
     if (!tpl.isTemplateSearch || tpl.isCardTemplateSearch) {
@@ -1251,7 +1258,7 @@ Template.searchElementPopup.events({
       // no card was created from the template. Capture it while still in the
       // synchronous event/view context.
       const sortIndex = tpl.getSortIndex();
-      element.cardNumber = await tpl.board.getNextCardNumber();
+      element.cardNumber = await sourceBoard.getNextCardNumber();
       element.sort = sortIndex;
       // 1.A From template
       if (tpl.isTemplateSearch) {

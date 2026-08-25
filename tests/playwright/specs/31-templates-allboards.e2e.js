@@ -334,4 +334,90 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
       db.deleteMany('boards', { type: 'template-container', 'members.userId': user.id });
     }
   });
+
+  test('#3070 top bar lists current board templates and copies custom fields', async ({ page, user }) => {
+    const seeded = db.seedTemplatesBoard({
+      ownerId: user.id,
+      templateTitles: ['Deleted Template', 'Std Template'],
+    });
+    const [deletedTemplate, stdTemplate] = seeded.templateBoards;
+    const customFieldId = db.uid('customfield');
+    const newTitle = `Board from Std ${db.uid('copy')}`;
+    let copiedBoardId;
+
+    db.updateOne(
+      'cards',
+      { _id: deletedTemplate.cardId },
+      { $set: { archived: true } },
+    );
+    db.insertOne('customFields', {
+      _id: customFieldId,
+      boardIds: [stdTemplate.linkedBoardId],
+      name: 'Template priority',
+      type: 'text',
+      settings: {},
+      showOnCard: true,
+      automaticallyOnCard: false,
+      alwaysOnCard: false,
+      showLabelOnMiniCard: false,
+      showSumAtTopOfList: false,
+      createdAt: new Date(),
+      modifiedAt: new Date(),
+    });
+
+    try {
+      await loginWithToken(page, user.id, user.token);
+      await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+      await page.waitForFunction(
+        expected =>
+          Meteor.user()?.profile?.templatesBoardId === expected,
+        seeded.containerId,
+      );
+
+      await page.locator('.js-create-board').click();
+      await page.locator('.js-pop-over .js-board-template').click();
+      const picker = page.locator('.js-pop-over');
+      await expect(picker.locator('.js-minicard')).toHaveCount(1, {
+        timeout: 15_000,
+      });
+      await expect(picker).toContainText('Std Template');
+      await expect(picker).not.toContainText('Deleted Template');
+      await expect(picker).not.toContainText('Alpha Card');
+
+      await picker.locator('.js-element-title').fill(newTitle);
+      await picker.locator('.js-minicard').click();
+
+      await expect.poll(() => {
+        const copied = db.findOne('boards', { title: newTitle, type: 'board' });
+        copiedBoardId = copied?._id;
+        return copiedBoardId || null;
+      }, { timeout: 15_000 }).not.toBeNull();
+      await expect.poll(() =>
+        db.findOne('customFields', {
+          name: 'Template priority',
+          boardIds: copiedBoardId,
+        })?._id || null,
+      ).not.toBeNull();
+    } finally {
+      if (copiedBoardId) {
+        db.cleanup({ boardIds: [copiedBoardId] });
+        db.deleteMany('customFields', { boardIds: copiedBoardId });
+      }
+      db.deleteMany('customFields', {
+        boardIds: { $in: [stdTemplate.linkedBoardId] },
+      });
+      db.cleanup({ boardIds: [seeded.containerId] });
+      db.deleteMany('boards', {
+        _id: { $in: seeded.templateBoards.map(template => template.linkedBoardId) },
+      });
+      db.updateOne('users', { _id: user.id }, {
+        $unset: {
+          'profile.templatesBoardId': '',
+          'profile.cardTemplatesSwimlaneId': '',
+          'profile.listTemplatesSwimlaneId': '',
+          'profile.boardTemplatesSwimlaneId': '',
+        },
+      });
+    }
+  });
 });
