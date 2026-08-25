@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1066);
+assert.equal(Object.keys(remaining).length, 1016);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -195,3 +195,8 @@ assert.match(chuvash['r-trigger'], /Триггер/);
 assert.match(chuvash['r-unarchived'], /Архив/);
 assert.match(chuvash['r-checklist'], /тӗрӗслев список/);
 assert.match(chuvash['r-send-email'], /Электронлӑ ҫыру/);
+assert.equal(chuvash['r-items-list'], 'пункт1,пункт2,пункт3');
+assert.match(chuvash['r-in-swimlane'], /ҫул/);
+assert.match(chuvash['authentication-method'], /Аутентификаци/);
+assert.match(chuvash['custom-head-meta-tags'], /HTML/);
+assert.match(chuvash['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
