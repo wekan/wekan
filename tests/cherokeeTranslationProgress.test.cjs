@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1216);
+assert.equal(Object.keys(remaining).length, 1166);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -133,3 +133,10 @@ assert.match(cherokee['org-domains-description'], /MULTITENANCY=true/);
 assert.deepEqual(tokens(cherokee['default-subtasks-board']), ['__board__']);
 assert.deepEqual(tokens(cherokee['activity-added-label']), ['%s', '%s']);
 assert.match(cherokee['checklist-count'], /0\/0/);
+assert.deepEqual(tokens(cherokee['activity-set-customfield']), [
+  '%s',
+  '%s',
+  '%s',
+]);
+assert.deepEqual(tokens(cherokee['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(cherokee['r-import-done']), ['__count__']);
