@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-thirty-one 50-value Cherokee batches then left **180,447 genuinely untranslated
-values across 84 locale files**, including 616 in Cherokee.
+thirty-two 50-value Cherokee batches then left **180,397 genuinely untranslated
+values across 84 locale files**, including 566 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `add-teams-label` with
+Resume Cherokee at `move-all-attachments-to-s3` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 31 are committed and batch 32
+Buryat is complete, Cherokee batches 1 through 32 are committed and batch 33
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -503,9 +503,10 @@ browser build to verify).
 workspaces, board views, voting, member settings, account emails, exports,
 imports, privacy, branding, runtime metrics, automation, roles, templates, card
 views, global-search guidance, dependencies, locations, administrator reports,
-recovery and support requests. This continues the direct whole-file translation
-effort while preserving human work and every code token. Below that:
-whole-locale placeholder and markup checks protect the new values.
+recovery, support requests, organizations and attachment storage. This
+continues the direct whole-file translation effort while preserving human work
+and every code token. Below that: whole-locale placeholder and markup checks
+protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -821,6 +822,15 @@ leaving 666 values.
 Office and REST API reports, automatic data recovery, wait indicators,
 organization safeguards and support-request states now use Cherokee syllabary.
 API settings, product names and punctuation remain exact, leaving 616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77cfb72a1">Organizations and attachment storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Teams, organizations, Node memory metrics, legal notices, checklist actions and
+attachment-storage movement now use Cherokee syllabary. URL, Node, filesystem,
+GridFS and S3 terminology remains intact, leaving 566 values.
 
 </details>
 
