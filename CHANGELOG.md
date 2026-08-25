@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first twenty 50-value Dzongkha batches then left **174,499
-genuinely untranslated values across 81 locale files**, including 1,166 in
+81 locale files**. The first twenty-one 50-value Dzongkha batches then left **174,449
+genuinely untranslated values across 81 locale files**, including 1,116 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `r-workflow-format` with
+Resume Dzongkha at `r-list` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 20 are committed and batch 21 has not been applied.
+through 21 are committed and batch 22 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1991,6 +1991,16 @@ Attachment, label and custom-field activity, visual rule construction, card,
 label, member and checklist triggers and JSON, CSV and Trello Butler rule
 imports now use Dzongkha. Percent and named automation tokens remain exact,
 leaving 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02a4b764d">Scheduled automation gains 50 values</a>. Thanks to xet7.</summary>
+
+Visual-workflow formats, scheduled and due-date triggers, card and board
+buttons, list sorting, completion actions, relative dates and automation time
+units now use Dzongkha. Workflow product names, counts and schedule parameters
+remain exact, leaving 1,116 values.
 
 </details>
 
