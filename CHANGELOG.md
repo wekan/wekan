@@ -926,6 +926,18 @@ destination cards remain visible.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a68ad6797">Long lists scroll at the bottom edge and accept the dropped card</a>. Thanks to lenxeon and xet7.</summary>
+
+The current drag handler scrolls the list body under the pointer, refreshes
+sortable geometry after scrolling, and keeps the board still until the list
+reaches its end. Focused source regressions cover list selection, both scroll
+directions, the end boundary and geometry refresh. A Chromium regression drags
+through a long list, observes vertical scrolling and requires the persisted
+card position to change.
+
+</details>
+
 and improves the following translation:
 
 **Fulah** - direct whole-file translation using established Pulaar vocabulary.
