@@ -643,8 +643,7 @@ nor mutated. This closing commit records that verified fix against issue 2306.
 
 </details>
 
-**All Boards** - each tile consistently respects its own counter and member
-visibility settings.
+**All Boards** - tiles respect visibility settings and stay stable.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f702d535">The legacy-board card-counter report is closed with its existing regressions</a>. Thanks to Meeques, helioguardabaxo and xet7.</summary>
@@ -655,6 +654,17 @@ disabled counters independently, treats a missing legacy flag consistently as
 disabled, keeps boards and their lists isolated, and confirms that the template
 uses the resolved per-board settings. This closing commit records that verified
 fix against issue 4825.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02a3630e2">Per-list board details are confirmed restored without reactive tile movement</a>. Thanks to SmartPhoneLover, helioguardabaxo and xet7.</summary>
+
+The non-reactive tile-data implementation already restored the optional list
+names and card counts that were removed to stop board icons moving beneath the
+pointer. The positive regression now names issue 4959 and confirms that an
+enabled board receives every list in board order. Disabled, legacy and
+cross-board negative cases remain covered by the same suite.
 
 </details>
 
