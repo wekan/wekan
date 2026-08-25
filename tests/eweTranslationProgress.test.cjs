@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 666);
+assert.equal(Object.keys(remaining).length, 616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -249,3 +249,7 @@ assert.match(ewe['server-error-troubleshooting'], /`sudo snap logs wekan\.wekan`
 assert.deepEqual(tokens(ewe['custom-field-stringtemplate-format']), ['%{value}']);
 assert.match(ewe['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
 assert.match(ewe['office-report-desc'], /IPv4.*IPv6/);
+assert.match(ewe['api-report-desc'], /REST API/);
+assert.match(ewe['api-no-calls'], /REST API.*API.*WITH_API=true/);
+assert.match(ewe['recovery-report-desc'], /MongoDB/);
+assert.match(ewe['carbon-copy'], /Cc:/);
