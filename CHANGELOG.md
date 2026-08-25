@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first eleven 50-value Ewe
-batches then left **172,783 genuinely untranslated values across 80 locale
-files**, including 1,616 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first thirteen 50-value Ewe
+batches then left **172,683 genuinely untranslated values across 80 locale
+files**, including 1,516 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `filter-assignee-label` with
+Resume Ewe at `last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 11 are committed and batch 12 has not been applied.
+1 through 13 are committed and batch 14 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2333,6 +2333,26 @@ exact, leaving 1,666 values.
 User and account errors, card exports, attachment metadata, free-space errors,
 sorting and date, label and member filters now use Ewe. PDF, Excel and disk
 terminology remain exact, leaving 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efaf9537a">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced filtering, activity visibility, imported members and Kanboard,
+NextCloud Deck, OpenProject, Asana, ZenKit, Trello, Jira, Excel and WeKan board
+imports now use Ewe. Operators, regex, tokens, API paths, extensions and product
+names remain exact, leaving 1,566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf9255edd">Trello and member mapping gain 50 values</a>. Thanks to xet7.</summary>
+
+Trello ZIP validation, workspace placement, API imports, credential storage,
+bulk selection and cancellation, member mapping, date validation, keyboard
+shortcuts and labels now use Ewe. The API URL, key and token names, year example
+and percent token remain exact, leaving 1,516 values.
 
 </details>
 
