@@ -17,6 +17,7 @@
  */
 
 const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Accessibility', () => {
@@ -32,6 +33,29 @@ test.describe('Accessibility', () => {
     const dir = await loggedInPage.locator('html').getAttribute('dir');
     // dir is "ltr" for English, "rtl" for Arabic/Hebrew/etc.
     expect(['ltr', 'rtl']).toContain((dir || 'ltr').trim());
+  });
+
+  test('#914 Chinese uses its locale without a Japanese font fallback', async ({
+    loggedInPage,
+    user,
+  }) => {
+    db.updateOne('users', { _id: user.id }, {
+      $set: { 'profile.language': 'zh-CN' },
+    });
+    await loggedInPage.reload({ waitUntil: 'commit' });
+
+    await expect
+      .poll(
+        () => loggedInPage.evaluate(() => document.documentElement.lang),
+        { timeout: 15_000, message: 'the selected Chinese locale must reach html[lang]' },
+      )
+      .toBe('zh-CN');
+
+    const family = await loggedInPage.evaluate(
+      () => window.getComputedStyle(document.body).fontFamily,
+    );
+    expect(family).toMatch(/Arial/);
+    expect(family).not.toMatch(/Yu Gothic|Meiryo/i);
   });
 
   test('a skip-to-content link points at the main landmark', async ({ loggedInPage }) => {
