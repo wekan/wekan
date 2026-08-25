@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 516);
+assert.equal(Object.keys(remaining).length, 466);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -304,3 +304,8 @@ assert.match(dzongkha['gridfs-file-id'], /GridFS.*ID/);
 assert.match(dzongkha['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
 assert.match(dzongkha['mongodb-compact-warning'], /oplog.*Meteor/);
 assert.match(dzongkha['move-all-attachments-to-s3'], /S3/);
+assert.match(dzongkha.Mongo_sessions_count, /Mongo/);
+assert.deepEqual(tokens(dzongkha['drag-board-to-workspace']), ['__workspaces__']);
+assert.match(dzongkha['show-week-of-year'], /ISO 8601/);
+assert.match(dzongkha['convert-to-markdown'], /Markdown/);
+assert.match(dzongkha['import-board-zip'], /JSON.*\.zip/);
