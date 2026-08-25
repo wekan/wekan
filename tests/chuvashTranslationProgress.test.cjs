@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 916);
+assert.equal(Object.keys(remaining).length, 866);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -221,3 +221,8 @@ assert.match(chuvash['submit-on-enter-description'], /Ctrl\/Cmd\+Enter/);
 assert.match(chuvash['roles-info'], /Администратор/);
 assert.equal(chuvash.monday, 'Тунти кун');
 assert.equal(chuvash.sunday, 'Вырсарни кун');
+assert.match(chuvash['invalid-domain'], /example\.com.*@/);
+assert.match(chuvash['shared-templates-info'], /организаци.*команд.*домен/i);
+assert.match(chuvash['dueCardsViewChange-choice-all-description'], /\*Вӗҫленӳ\*/);
+assert.deepEqual(tokens(chuvash['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(chuvash['label-color-not-found']), ['%s']);
