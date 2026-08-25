@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1866);
+assert.equal(Object.keys(remaining).length, 1816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -74,3 +74,6 @@ assert.deepEqual(tokens(cherokee['card-comments-title']), ['%s']);
 assert.match(cherokee['cardStartVotingPopup-title'], /ᎤᏂᏁᎫᏥ/);
 assert.match(cherokee['cardStartPlanningPokerPopup-title'], /ᏉᎧ/);
 assert.match(cherokee['importSwimlanePopup-title'], /ᏍᏫᎻᎴᏅ/);
+assert.match(cherokee['map-to-existing-user'], /ᎬᏗᏍᎩ/);
+assert.match(cherokee['changeLanguagePopup-title'], /ᎦᏬᏂᎯᏍᏗ/);
+assert.match(cherokee['font-preview-text'], /0123456789/);
