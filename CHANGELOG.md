@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first twenty-three 50-value Dzongkha batches then left **174,349
-genuinely untranslated values across 81 locale files**, including 1,016 in
+81 locale files**. The first twenty-four 50-value Dzongkha batches then left **174,299
+genuinely untranslated values across 81 locale files**, including 966 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `add-custom-html-after-body-start` with
+Resume Dzongkha at `open-many-cards-at-once-description` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 23 are committed and batch 24 has not been applied.
+through 24 are committed and batch 25 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2021,6 +2021,16 @@ Card creation, archive, membership, checklist and date-field actions,
 automation notes, authentication, custom product names, head tags, web
 manifests, Android asset links and layout controls now use Dzongkha. Example
 lists and HTML, JSON and filename literals remain exact, leaving 1,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec14acf70">Custom HTML and reminders gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom body HTML, authentication display, duplication, destructive swimlane
+and account actions, date activity, due reminders, mention notifications,
+drag-resizing and multi-card controls now use Dzongkha. HTML tags, named and
+percent tokens and keyboard names remain exact, leaving 966 values.
 
 </details>
 
