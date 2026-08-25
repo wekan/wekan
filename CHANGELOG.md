@@ -808,6 +808,21 @@ board and verifies its stored visibility.
 
 </details>
 
+**Sandstorm grains** - preserved iframes recover their responsive layout.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bc1896ff">Hidden grains remeasure the viewport when their iframe resumes</a>. Thanks to neynah, dwrensha and xet7.</summary>
+
+A grain that finished rendering while its iframe was hidden could retain the
+hidden frame's narrow dimensions because returning did not reliably emit a
+resize. Visibility, page-show and focus restoration now coalesce into the
+ordinary resize path after the iframe has rendered, refreshing the sidebar,
+header, popups and responsive layout. Hidden-frame, timing, wiring and
+hot-reload regressions pass, and a live Chromium test confirms that restoring a
+preserved page publishes a fresh viewport measurement.
+
+</details>
+
 **Labels** - sidebar drag-and-drop follows cards added after initial render.
 
 <details>
