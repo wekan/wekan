@@ -287,4 +287,48 @@ test.describe('Search', () => {
       ),
     ).toBeVisible();
   });
+
+  test('#6634: Table view optionally groups cards by swimlane and remembers it', async ({
+    boardPage,
+    board,
+  }) => {
+    const secondSwimlaneId = db.uid('swim');
+    const now = new Date();
+    db.insertOne('swimlanes', {
+      _id: secondSwimlaneId,
+      title: 'Urgent Lane',
+      boardId: board.boardId,
+      archived: false,
+      type: 'swimlane',
+      height: -1,
+      sort: 100,
+      createdAt: now,
+      modifiedAt: now,
+    });
+    db.updateOne(
+      'cards',
+      { boardId: board.boardId, title: 'Gamma Card' },
+      { $set: { swimlaneId: secondSwimlaneId } },
+    );
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.locator('.js-toggle-board-view').first().click();
+    await boardPage.locator('.pop-over .js-open-table-view').click();
+
+    const headers = boardPage.locator('.table-view-swimlane-group');
+    await expect(boardPage.locator('.table-view-table')).toBeVisible({
+      timeout: 10_000,
+    });
+    await expect(headers).toHaveCount(0);
+    await boardPage.locator('.js-table-view-toggle-swimlane-groups').click();
+    await expect(headers).toHaveCount(2);
+    await expect(headers.nth(0)).toContainText('Default');
+    await expect(headers.nth(1)).toContainText('Urgent Lane');
+    await expect(boardPage.locator('.table-view-table tbody tr:not(.table-view-swimlane-group)'))
+      .toHaveCount(3);
+
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    await expect(boardPage.locator('.table-view-swimlane-group')).toHaveCount(2);
+    await expect(boardPage.locator('.js-table-view-toggle-swimlane-groups'))
+      .toHaveAttribute('aria-pressed', 'true');
+  });
 });

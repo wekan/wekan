@@ -10,6 +10,11 @@ import {
   compareTableViewRows,
   nextTableViewSort,
 } from '/models/lib/tableViewSort';
+import {
+  readTableViewGrouping,
+  writeTableViewGrouping,
+  addSwimlaneGroupHeaders,
+} from '/models/lib/tableViewGrouping';
 
 // Board "Table" view: lists every card of the current board in a table that
 // reuses the My Cards table styling (the .my-cards-board-table CSS classes in
@@ -31,6 +36,9 @@ Template.tableView.onCreated(function () {
   );
   this.sortField = new ReactiveVar('title');
   this.sortDirection = new ReactiveVar('asc');
+  this.groupBySwimlane = new ReactiveVar(
+    readTableViewGrouping(window.localStorage, Meteor.userId()),
+  );
 
   // Recompute the flat, filtered and sorted row list whenever the board cards,
   // board Filter or search query changes. Pagination is applied separately in
@@ -69,6 +77,8 @@ Template.tableView.onCreated(function () {
         title: card.title || '',
         listTitle: list.title || '',
         swimlaneTitle: swimlane.title || '',
+        swimlaneId: swimlane._id,
+        swimlaneSort: swimlane.sort || 0,
         colorClass: board.colorClass(),
         receivedAt: card.getReceived() || null,
         startAt: card.getStart() || null,
@@ -98,9 +108,18 @@ Template.tableView.onCreated(function () {
 
     const sortField = this.sortField.get();
     const sortDirection = this.sortDirection.get();
-    filtered = filtered
-      .slice()
-      .sort((a, b) => compareTableViewRows(a, b, sortField, sortDirection));
+    const groupBySwimlane = this.groupBySwimlane.get();
+    filtered = filtered.slice().sort((a, b) => {
+      if (groupBySwimlane) {
+        const laneOrder = a.swimlaneSort - b.swimlaneSort;
+        if (laneOrder !== 0) return laneOrder;
+        const laneTitle = a.swimlaneTitle.localeCompare(b.swimlaneTitle);
+        if (laneTitle !== 0) return laneTitle;
+        const laneId = a.swimlaneId.localeCompare(b.swimlaneId);
+        if (laneId !== 0) return laneId;
+      }
+      return compareTableViewRows(a, b, sortField, sortDirection);
+    });
 
     this.filteredRows.set(filtered);
   });
@@ -119,7 +138,10 @@ Template.tableView.helpers({
     // page; no write here, to avoid a reactive loop.
     const page = Math.min(tpl.page.get(), totalPages);
     const start = (page - 1) * rowsPerPage;
-    return all.slice(start, start + rowsPerPage);
+    const pageRows = all.slice(start, start + rowsPerPage);
+    return tpl.groupBySwimlane.get()
+      ? addSwimlaneGroupHeaders(pageRows)
+      : pageRows;
   },
 
   currentPage() {
@@ -152,6 +174,10 @@ Template.tableView.helpers({
     const tpl = Template.instance();
     if (tpl.sortField.get() !== field) return 'fa-sort';
     return tpl.sortDirection.get() === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc';
+  },
+
+  groupBySwimlane() {
+    return Template.instance().groupBySwimlane.get();
   },
 
   // A date column is shown unless BOTH its "Show at Card" (allowsXxxDate) and
@@ -226,6 +252,14 @@ Template.tableView.events({
     );
     tpl.sortField.set(next.field);
     tpl.sortDirection.set(next.direction);
+    tpl.page.set(1);
+  },
+
+  'click .js-table-view-toggle-swimlane-groups'(event, tpl) {
+    event.preventDefault();
+    const enabled = !tpl.groupBySwimlane.get();
+    tpl.groupBySwimlane.set(enabled);
+    writeTableViewGrouping(window.localStorage, Meteor.userId(), enabled);
     tpl.page.set(1);
   },
 

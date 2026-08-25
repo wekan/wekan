@@ -63,7 +63,8 @@
   color: #333;
 }
 
-.table-view-controls .js-table-view-toggle-card-title-wrap {
+.table-view-controls .js-table-view-toggle-card-title-wrap,
+.table-view-controls .js-table-view-toggle-swimlane-groups {
   width: 34px;
   height: 30px;
   border: 1px solid #bbb;
@@ -72,9 +73,21 @@
   cursor: pointer;
 }
 
-.table-view-controls .js-table-view-toggle-card-title-wrap.active {
+.table-view-controls .js-table-view-toggle-card-title-wrap.active,
+.table-view-controls .js-table-view-toggle-swimlane-groups.active {
   background: #01628c;
   color: #fff;
+}
+
+.my-cards-board-table tr.table-view-swimlane-group {
+  border-bottom: 0;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.my-cards-board-table tr.table-view-swimlane-group th {
+  padding: 8px 10px;
+  text-align: start;
+  font-size: 1.05rem;
 }
 
 /* Consume the width the board view actually has. Column percentages are

@@ -15,6 +15,8 @@ template(name="tableView")
             i.fa.fa-chevron-right
         button.js-table-view-toggle-card-title-wrap(type="button" class="{{#if wrapCardTitles}}active{{/if}}" title="{{_ 'card'}}" aria-label="{{_ 'card'}}" aria-pressed="{{wrapCardTitles}}")
           i.fa(class="{{#if wrapCardTitles}}fa-align-left{{else}}fa-ellipsis-h{{/if}}")
+        button.js-table-view-toggle-swimlane-groups(type="button" class="{{#if groupBySwimlane}}active{{/if}}" title="{{_ 'swimlane'}}" aria-label="{{_ 'swimlane'}}" aria-pressed="{{groupBySwimlane}}")
+          i.fa(class="{{#if groupBySwimlane}}fa-object-group{{else}}fa-list{{/if}}")
       table.my-cards-board-table.table-view-table(class="{{#if wrapCardTitles}}table-view-wrap-card-titles{{else}}table-view-ellipsis-card-titles{{/if}}")
         caption.sr-only {{currentBoard.title}}
         thead
@@ -53,7 +55,11 @@ template(name="tableView")
                   button.js-table-view-sort(type="button" data-field="endAt") {{_ "card-end"}}
         tbody
           each row in rows
-            tr
+            if row.isGroupHeader
+              tr.table-view-swimlane-group
+                th(colspan="11" scope="rowgroup")= row.swimlaneTitle
+            else
+              tr
               td.table-view-cell-edit
                 a.edit-card.js-table-view-edit-card(href=row.card.originRelativeUrl data-card-id=row.card._id title="{{_ 'edit'}}")
                   i.fa.fa-pencil-square-o
