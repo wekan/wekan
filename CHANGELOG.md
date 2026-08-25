@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-nineteen 50-value Chuvash batches then left **176,715 genuinely untranslated
-values across 82 locale files**, including 1,216 in Chuvash.
+twenty 50-value Chuvash batches then left **176,665 genuinely untranslated
+values across 82 locale files**, including 1,166 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `activity-delete-attach` with
+Resume Chuvash at `r-workflow-format` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 19
-are committed and batch 20 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 20
+are committed and batch 21 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1560,6 +1560,16 @@ notification deletion, duplicate-list cleanup, subtask destinations, minicard
 fields, attachment and checklist counts, parent paths and label activity now use
 Chuvash. Named and percent tokens and counters remain exact, leaving 1,216
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acae07b1e">Activity and board rules gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment, label and custom-field activity, rule creation and selection,
+workflow editing, card/member/checklist triggers and JSON, CSV and Trello Butler
+rule transfer now use Chuvash. Named and percent tokens and product and format
+names remain exact, leaving 1,166 values.
 
 </details>
 
