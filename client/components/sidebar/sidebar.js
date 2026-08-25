@@ -1649,7 +1649,10 @@ Template.boardCardSettingsPopup.helpers({
   allowsCreatorOnMinicard() {
     const boardId = Session.get('currentBoard');
     const currentBoard = ReactiveCache.getBoard(boardId);
-    return getMinicardSetting(currentBoard, 'allowsCreatorOnMinicard', 'allowsCreator', false);
+    // #3823: creator visibility on the opened card and on its minicard are
+    // separate choices. Old boards predate the minicard field, so they must
+    // stay opted out instead of inheriting the card-details setting.
+    return getMinicardSetting(currentBoard, 'allowsCreatorOnMinicard', null, false);
   },
   allowsMembers() {
     const boardId = Session.get('currentBoard');
