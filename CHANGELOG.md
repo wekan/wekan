@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first twenty-one 50-value Central Kurdish batches
-then left **178,781 genuinely untranslated values across 83 locale files**,
-including 1,116 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty-two 50-value Central Kurdish batches
+then left **178,731 genuinely untranslated values across 83 locale files**,
+including 1,066 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `r-list` with
+Resume Central Kurdish at `r-d-send-email-message` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 21 are
-committed and batch 22 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 22 are
+committed and batch 23 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1153,6 +1153,16 @@ Visual-workflow imports, scheduled and button triggers, recurrence, due-date and
 list-duration conditions, sorting, completion, bulk movement and relative dates
 now use Central Kurdish. Named tokens, product names and weekday ranges remain
 exact, leaving 1,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e51a50614">Rule conditions and card actions gain 50 values</a>. Thanks to xet7.</summary>
+
+Moves, archives, label, member, attachment and checklist conditions, card
+placement, member and label removal, colors, checklist actions and email actions
+now use Central Kurdish. Rule terminology remains consistent, leaving 1,066
+values.
 
 </details>
 
