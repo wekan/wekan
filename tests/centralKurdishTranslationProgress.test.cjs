@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1866);
+assert.equal(Object.keys(remaining).length, 1816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -104,3 +104,7 @@ assert.match(kurdish['cardStartPlanningPokerPopup-title'], /Planning Poker/);
 assert.match(kurdish['cardDependenciesPopup-title'], /پشتبەستە/);
 assert.match(kurdish['addBoardOrgPopup-title'], /ڕێکخراو/);
 assert.match(kurdish['importSwimlanePopup-title'], /ڕێڕەو/);
+assert.match(kurdish.casSignIn, /CAS/);
+assert.match(kurdish['map-to-existing-user-desc'], /مۆڵەت/);
+assert.match(kurdish['font-preview-text'], /0123456789/);
+assert.match(kurdish['changeLanguagePopup-title'], /زمان/);
