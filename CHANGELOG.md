@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-twenty-one 50-value Cherokee batches then left **180,947 genuinely untranslated
-values across 84 locale files**, including 1,116 in Cherokee.
+twenty-two 50-value Cherokee batches then left **180,897 genuinely untranslated
+values across 84 locale files**, including 1,066 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `r-list` with
+Resume Cherokee at `r-d-send-email-message` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 21 are committed and batch 22
+Buryat is complete, Cherokee batches 1 through 22 are committed and batch 23
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -502,9 +502,9 @@ browser build to verify).
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
 imports, privacy, branding, runtime metrics, tenancy, card settings and
-scheduled automation. This continues the direct whole-file translation effort
-while preserving human work and every code token. Below that: whole-locale
-placeholder and markup checks protect the new values.
+automation. This continues the direct whole-file translation effort while
+preserving human work and every code token. Below that: whole-locale placeholder
+and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -723,6 +723,16 @@ and monthly timing, due-date conditions, card/list duration, sorting, completion
 bulk movement and relative dates now use Cherokee syllabary. Named tokens,
 product names, weekday notation and the literal `N` remain exact, leaving 1,116
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1db973ca7">Automation conditions and actions gain 50 values</a>. Thanks to xet7.</summary>
+
+Card movement and archives, label, member, attachment and checklist conditions,
+checked states, card placement, member and label removal, colors, checklist
+actions and email subjects now use Cherokee syllabary. The composable rule
+fragments remain internally consistent, leaving 1,066 values.
 
 </details>
 
