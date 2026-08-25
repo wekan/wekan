@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first thirty-one 50-value Dzongkha batches then left **173,949
-genuinely untranslated values across 81 locale files**, including 616 in
+81 locale files**. The first thirty-two 50-value Dzongkha batches then left **173,899
+genuinely untranslated values across 81 locale files**, including 566 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `add-teams-label` with
+Resume Dzongkha at `move-all-attachments-to-s3` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 31 are committed and batch 32 has not been applied.
+through 32 are committed and batch 33 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2101,6 +2101,16 @@ Office and REST API reporting, data recovery and maintenance, swimlane copying,
 wait spinners, card sizing, organization and team deletion constraints and
 ticket and help-request workflows now use Dzongkha. API settings, database
 names and mail headers remain exact, leaving 616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be69998f4">Diagnostics and attachments gain 50 values</a>. Thanks to xet7.</summary>
+
+Team and organization controls, Node heap and memory diagnostics, legal
+notices, checklist movement and copying and filesystem, GridFS and S3 attachment
+storage actions now use Dzongkha. Technical storage and memory names and the
+checklist line example remain exact, leaving 566 values.
 
 </details>
 
