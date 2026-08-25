@@ -176,6 +176,14 @@ test('negative: no cursor publishes the raw linkedId list any more', () => {
     'the duplicated preambles are gone; there is one helper and it checks');
 });
 
+test('#1942: an unauthorized source stays private while its link snapshot remains usable', () => {
+  const cardsModel = read('models/cards.js');
+  assert.ok(/getRealCard\(\) \{[\s\S]*ReactiveCache\.getCard\(this\.linkedId\) \|\| this;/.test(cardsModel),
+    'a missing private source falls back to the linked-card snapshot');
+  assert.ok(/visibleBoardIds\(thisUserId, linkedBoardIds\)/.test(publication),
+    'the fallback must not publish the unauthorized source board');
+});
+
 test('the assigned-only member restriction survived the de-duplication', () => {
   // Members marked isNormalAssignedOnly / isCommentAssignedOnly /
   // isReadAssignedOnly only see cards they are assigned to. That narrowing used

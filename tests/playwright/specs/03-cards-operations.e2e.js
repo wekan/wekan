@@ -18,10 +18,54 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
+const { loginWithToken, openBoard } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 test.describe('Cards – operations', () => {
+  test('#1942: a private-source linked card opens and closes from its snapshot', async ({
+    browser,
+    user,
+    user2,
+    board,
+  }) => {
+    const source = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [['Private source']] });
+    const sourceCard = db.findOne('cards', { boardId: source.boardId, title: 'Private source' });
+    const linkedId = db.uid('link');
+    db.insertOne('cards', {
+      ...sourceCard,
+      _id: linkedId,
+      boardId: board.boardId,
+      swimlaneId: board.swimlaneId,
+      listId: board.listIds[0],
+      linkedId: sourceCard._id,
+      type: 'cardType-linkedCard',
+      title: 'Private source',
+      sort: 50,
+    });
+    db.updateOne('boards', { _id: board.boardId }, { $push: { members: {
+      userId: user2.id, isActive: true, isAdmin: false, isNoComments: false,
+      isCommentOnly: false, isWorker: false, isReadOnly: true,
+    } } });
+
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    try {
+      await loginWithToken(page, user2.id, user2.token);
+      await openBoard(page, board.boardId, board.slug);
+      const linked = page.locator(`.js-minicard[data-card-id="${linkedId}"]`);
+      await expect(linked).toContainText('Private source');
+      await linked.click();
+      await expect(page.locator('.js-card-details')).toBeVisible();
+      await page.locator('.js-close-card-details').first().click();
+      await expect(page.locator('.js-card-details')).toHaveCount(0);
+      await expect(page.locator('.board-canvas')).toBeVisible();
+    } finally {
+      await context.close();
+      db.cleanup({ boardIds: [source.boardId] });
+    }
+  });
+
   test('#6612 attachment viewer uses most of a desktop viewport', async ({ boardPage, board }) => {
     await boardPage.setViewportSize({ width: 1600, height: 900 });
     const bp = new BoardPage(boardPage);
