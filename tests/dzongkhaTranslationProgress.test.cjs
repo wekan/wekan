@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 316);
+assert.equal(Object.keys(remaining).length, 266);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -339,3 +339,11 @@ assert.match(
   dzongkha['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments/s,
 );
+assert.match(dzongkha['backup-time'], /HH:MM/);
+assert.match(dzongkha['backup-day-of-month'], /1-28/);
+assert.match(dzongkha['gcs-permissions-note'], /client_email.*Storage Object Admin/);
+assert.match(
+  dzongkha['s3-endpoint-menu-path'],
+  /MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/,
+);
+assert.match(dzongkha['s3-secret-key-menu-path'], /Access key ID.*\.csv/);
