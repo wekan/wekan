@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 316);
+assert.equal(Object.keys(remaining).length, 266);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -280,3 +280,9 @@ assert.match(ewe['cards-loading-description'], /WeKan.*infinite scroll.*CARDS_LO
 assert.deepEqual(tags(ewe['render-links-as-plain-text-description']), ['<a href>']);
 assert.match(ewe['always-show-code-as-text-description'], /HTML.*<!-- -->.*JavaScript/);
 assert.match(ewe['backup-description'], /\.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/);
+assert.match(ewe['backup-time'], /HH:MM/);
+assert.match(ewe['backup-day-of-month'], /1-28/);
+assert.match(ewe['gcs-permissions-note'], /WeKan.*Google Cloud Console.*Cloud Storage.*Buckets.*Permissions.*Grant access.*New principals.*client_email.*JSON.*Storage Object Admin/);
+assert.match(ewe['s3-endpoint-menu-path'], /AWS.*S3-compatible.*Endpoint URL.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
+assert.match(ewe['attachment-move-storage-azure'], /Azure Blob Storage/);
+assert.match(ewe['attachment-move-storage-gcs'], /Google Cloud Storage/);
