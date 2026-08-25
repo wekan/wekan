@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 116);
+assert.equal(Object.keys(remaining).length, 66);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -362,3 +362,9 @@ assert.match(dzongkha['step-fix-file-urls'], /URL/);
 assert.match(dzongkha['cpu-cores'], /CPU/);
 assert.match(dzongkha['every-30-minutes'], /30/);
 assert.match(dzongkha['gridfs-attachments'], /GridFS/);
+assert.match(dzongkha['migrate-all-to-gridfs'], /GridFS/);
+assert.match(dzongkha['migrate-all-to-s3'], /S3/);
+assert.match(dzongkha['migration-batch-size-description'], /1-100/);
+assert.match(dzongkha['migration-cpu-threshold'], /CPU.*%/);
+assert.match(dzongkha['migration-cpu-threshold-description'], /10-90/);
+assert.match(dzongkha['migration-delay-ms-description'], /100-10000/);
