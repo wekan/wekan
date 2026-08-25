@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first thirty-five 50-value
-Ewe batches then left **171,583 genuinely untranslated values across 80 locale
-files**, including 416 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first thirty-seven 50-value
+Ewe batches then left **171,483 genuinely untranslated values across 80 locale
+files**, including 316 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `cron-job-delete-failed` with
+Resume Ewe at `backup-frequency` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 35 are committed and batch 36 has not been applied.
+1 through 37 are committed and batch 38 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2569,6 +2569,26 @@ Accessibility content, brute-force account protection and unlocking, active
 user filters, attachment and avatar paths and scheduled board archive, backup
 and cleanup operations now use Ewe. Whole-locale token and markup invariants
 remain exact, leaving 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61ba6f3f9">Migrations and storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled-job and migration recovery, filesystem, S3-compatible and Azure
+storage, MongoDB/FerretDB text-data migration and Sandstorm grain conversion
+now use Ewe. Database URLs, ports, environment names, commands, named tokens
+and grain paths remain exact, leaving 366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61ec79340">Security controls and backups gain 50 values</a>. Thanks to xet7.</summary>
+
+Sandstorm cleanup, adaptive card loading, plain-text link and code controls,
+import/export and avatar restrictions, user anonymization, activity,
+notification and watch controls and scoped backups now use Ewe. Environment
+names, markup, examples and backup paths remain exact, leaving 316 values.
 
 </details>
 
