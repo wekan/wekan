@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first eleven 50-value Central Kurdish batches
-then left **179,281 genuinely untranslated values across 83 locale files**,
-including 1,616 in Central Kurdish.
+all 2,166 Cherokee values. The first twelve 50-value Central Kurdish batches
+then left **179,231 genuinely untranslated values across 83 locale files**,
+including 1,566 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `filter-assignee-label` with
+Resume Central Kurdish at `import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 11 are
-committed and batch 12 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 12 are
+committed and batch 13 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1050,6 +1050,16 @@ Named email tokens and paragraph breaks remain exact, leaving 1,666 values.
 Account errors, attachment-free board export, PDF and Excel card exports,
 attachment metadata, list sorting and date, label and member filters now use
 Central Kurdish. File-format names remain exact, leaving 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cccaacaf">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced custom-field filters and Kanboard, NextCloud, OpenProject, issue,
+Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan imports now use Central
+Kurdish. Operators, regexes, API paths, file extensions and named tokens remain
+exact, leaving 1,566 values.
 
 </details>
 
