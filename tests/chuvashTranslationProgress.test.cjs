@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1416);
+assert.equal(Object.keys(remaining).length, 1366);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -159,3 +159,7 @@ assert.deepEqual(tokens(chuvash['remove-member-pop']), [
   '__username__',
 ]);
 assert.match(chuvash['public-desc'], /Google/);
+assert.match(chuvash['toggle-assignees'], /1-9/);
+assert.match(chuvash['custom-top-left-corner-logo-height'], /27/);
+assert.match(chuvash['automatic-linked-url-schemes'], /URL/);
+assert.match(chuvash['attachment-transfer-limits-title'], /API/);
