@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 616);
+assert.equal(Object.keys(remaining).length, 566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -275,3 +275,8 @@ assert.match(kurdish['api-no-calls'], /WITH_API=true/);
 assert.match(kurdish['recovery-report-desc'], /MongoDB/);
 assert.match(kurdish['carbon-copy'], /Cc:/);
 assert.equal(kurdish.resolved, 'چارەسەرکراو');
+assert.match(kurdish.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(kurdish['custom-legal-notice-link-url'], /URL/);
+assert.match(kurdish['newLineNewItem'], /=/);
+assert.match(kurdish['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(kurdish['attachment-move-storage-s3'], /S3/);
