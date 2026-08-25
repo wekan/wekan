@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-four 50-value Cherokee batches then left **181,797 genuinely untranslated
-values across 84 locale files**, including 1,966 in Cherokee.
+five 50-value Cherokee batches then left **181,747 genuinely untranslated
+values across 84 locale files**, including 1,916 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `board-public-info` with
+Resume Cherokee at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 4 are committed and batch 5 has
+Buryat is complete, Cherokee batches 1 through 5 are committed and batch 6 has
 not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -500,10 +500,10 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Cherokee translation** now covers card moves, activity,
-workspaces, Home boards, layout, administration and archives. This continues
-the direct whole-file translation effort while preserving human work and every
-code token. Below that: whole-locale placeholder and markup checks protect the
-new values.
+workspaces, Home boards, layout, administration, archives and board views. This
+continues the direct whole-file translation effort while preserving human work
+and every code token. Below that: whole-locale placeholder and markup checks
+protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -545,6 +545,16 @@ Administrator announcements, public boards, offline recovery, board archives,
 templates, attachments, backgrounds, member and assignee views and private
 board notices now use Cherokee syllabary. Named and percent placeholders and
 HTML tags remain exact, and whole-locale invariant coverage leaves 1,966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c6f989c6">Cherokee board views and card controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Public-board notices, board movement, colors and backgrounds, desktop and mobile
+views, zoom, calendar and statistics views, archive recovery and card labels now
+use Cherokee syllabary. Named and percent placeholders and HTML tags remain
+exact, and whole-locale invariant coverage leaves 1,916 values.
 
 </details>
 
