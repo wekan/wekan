@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-thirty 50-value Cherokee batches then left **180,497 genuinely untranslated
-values across 84 locale files**, including 666 in Cherokee.
+thirty-one 50-value Cherokee batches then left **180,447 genuinely untranslated
+values across 84 locale files**, including 616 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `office-shared` with
+Resume Cherokee at `add-teams-label` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 30 are committed and batch 31
+Buryat is complete, Cherokee batches 1 through 31 are committed and batch 32
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -502,10 +502,10 @@ browser build to verify).
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
 imports, privacy, branding, runtime metrics, automation, roles, templates, card
-views, global-search guidance, dependencies, locations and administrator
-reports. This continues the direct whole-file translation effort while
-preserving human work and every code token. Below that: whole-locale placeholder
-and markup checks protect the new values.
+views, global-search guidance, dependencies, locations, administrator reports,
+recovery and support requests. This continues the direct whole-file translation
+effort while preserving human work and every code token. Below that:
+whole-locale placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -812,6 +812,15 @@ Map detection, server troubleshooting, swimlanes, string templates, file,
 security and performance reports and office-login details now use Cherokee
 syllabary. Commands, entities, template tokens and IP versions remain exact,
 leaving 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/855abaacc">Recovery and support requests gain 50 values</a>. Thanks to xet7.</summary>
+
+Office and REST API reports, automatic data recovery, wait indicators,
+organization safeguards and support-request states now use Cherokee syllabary.
+API settings, product names and punctuation remain exact, leaving 616 values.
 
 </details>
 
