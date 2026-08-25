@@ -495,8 +495,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **FerretDB closes its remaining CodeQL findings** across readiness
-logging, query-number handling and developer tooling while documenting a
+**In short:** **FerretDB closes its CodeQL findings** across readiness logging,
+query-number handling and developer tooling while narrowly documenting a
 protocol-required legacy authentication exception. **Fulah translation** now
 covers its first activity-history and workspace controls with exact tokens, and
 **Rules** can again save current-date, cleared-date and add-member actions.
@@ -516,8 +516,10 @@ finish reactive rendering.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
+**FerretDB** - query values remain fixed-width until their bounds are proven.
+
 <details>
-<summary><a href="https://github.com/wekan/FerretDB/commit/298216d7">FerretDB closes its remaining CodeQL alerts</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/FerretDB/commit/298216d7">Remaining CodeQL alerts are closed</a>. Thanks to xet7.</summary>
 
 Readiness probes redact MongoDB credentials before any URI reaches a log.
 Aggregation array, string, date and conversion operators keep client-provided
@@ -528,6 +530,19 @@ narrowly documented and suppressed rather than changed incompatibly; new
 deployments retain SCRAM-SHA-256 as the stronger option. Native unit tests,
 extreme-value regressions, 32-bit cross-compilation, the FerretDB build, vet and
 the affected tools-module tests pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/4fa9e3b8">Newly reported integer-conversion paths are closed</a>. Thanks to xet7.</summary>
+
+Numeric aggregation type codes are compared without narrowing, every `$range`
+result is checked at its int32 conversion boundary, and array and code-point
+indexes retain int64 results when they exceed BSON's int32 range. The legacy
+SCRAM-SHA-1 compatibility path now performs its MongoDB-mandated MD5 preparation
+as one direct digest, placing its narrow CodeQL exception on the reported
+operation. Native boundary tests, vet and 32-bit cross-compilation pass for
+alerts 6, 11 and 38 through 42.
 
 </details>
 
