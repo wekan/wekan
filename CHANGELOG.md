@@ -84,8 +84,7 @@ never arrives - the reporter's own title says environment specific, and the send
 path needs a real SMTP server to tell a WeKan defect from a rejected or
 silently-dropped message; the code that composes and sends it is worth reading
 against a live log rather than guessed at),
-[#3707](https://github.com/wekan/wekan/issues/3707) &
-[#3700](https://github.com/wekan/wekan/issues/3700) (LDAP),
+[#3707](https://github.com/wekan/wekan/issues/3707) (LDAP),
 [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm),
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
@@ -479,8 +478,8 @@ stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
-source boards, and **multi-valued LDAP email attributes** create accounts
-without passing binary values into Meteor.
+source boards. **LDAP account creation and group restrictions** normalize
+directory values and fail closed on incomplete membership settings.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -687,6 +686,21 @@ uses the first as the account email, ignores empty values and removes duplicate
 aliases case-insensitively. Nine focused positive, negative and wiring tests
 pass, all LDAP tests pass, the package compiles in the live Meteor stack, and
 the related live Chromium suites pass 19 tests with one opt-in scenario skipped.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/433348c66">Incomplete group filters name their missing settings and fail closed</a>. Thanks to fgoe and xet7.</summary>
+
+Enabling LDAP group filtering without its member attribute could omit the only
+clause tying a group search to the current user. The directory then returned
+every group, and the logs did not explain which setting was absent. Every group
+consumer now requires the identifier, member attribute and member-value format;
+the login restriction additionally requires an allowed group. Missing values
+are named in the error and produce no groups or a refused login before an LDAP
+search begins. Six focused configuration and wiring tests pass, the full LDAP
+suite remains green, and the package compiles and starts in the live Meteor
+stack. FerretDB is not involved in the pre-login directory searches.
 
 </details>
 
