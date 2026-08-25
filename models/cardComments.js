@@ -144,17 +144,14 @@ CardComments.attachSchema(
 
 CardComments.helpers({
   copy(newCardId, newBoardId) {
-    this.cardId = newCardId;
-    // #5166: when a card is copied to another board, the copied comments must
-    // belong to the destination board too. Without this they kept the source
-    // board's boardId, so permission checks (which key off the comment's
-    // boardId) and any board-scoped queries used the wrong board. The author
-    // (userId) is intentionally preserved.
-    if (newBoardId) {
-      this.boardId = newBoardId;
-    }
-    delete this._id;
-    return CardComments.insertAsync(this);
+    const { buildCopiedComment } = require('./lib/copiedComment');
+    const copy = buildCopiedComment(this, newCardId, newBoardId || this.boardId);
+    if (!copy) return null;
+    // #1213: this is existing conversation history, not a newly posted
+    // comment. Preserve its author and dates, avoid mutating the cached source,
+    // and bypass the add-comment activity hook. Disabling auto-values prevents
+    // the schema from replacing createdAt with the time of the card copy.
+    return CardComments.direct.insertAsync(copy, { getAutoValues: false });
   },
 
   user() {

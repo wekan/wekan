@@ -416,13 +416,14 @@ test.describe('REST API: data + permissions', () => {
 
     // A comment on the source card, authored by a DIFFERENT user.
     const commentId = db.uid('cmt');
+    const originalCreatedAt = new Date('2017-01-02T03:04:05.000Z');
     db.insertOne('card_comments', {
       _id: commentId,
       boardId: board.boardId,
       cardId: srcCardId,
       userId: user2.id,
       text: 'original author comment',
-      createdAt: new Date(),
+      createdAt: originalCreatedAt,
       modifiedAt: new Date(),
     });
 
@@ -447,6 +448,8 @@ test.describe('REST API: data + permissions', () => {
       expect(copied[0].boardId).toBe(dest.boardId);
       expect(copied[0].boardId).not.toBe(board.boardId);
       expect(copied[0].userId).toBe(user2.id);
+      expect(new Date(copied[0].createdAt).toISOString())
+        .toBe(originalCreatedAt.toISOString());
     } finally {
       db.cleanup({ boardIds: [dest.boardId] });
     }
