@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first forty-two 50-value Central Kurdish batches
-then left **177,731 genuinely untranslated values across 83 locale files**,
-including 66 in Central Kurdish.
+all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
+final 66-value batch then translated all 2,166 Central Kurdish values, leaving
+**177,665 genuinely untranslated values across 82 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `otp` with
-`node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 42 are
-committed and the final batch has not been applied.
+Begin Chuvash at `accept` with
+`node releases/translations/fill-translations.mjs --list cv --limit 50`;
+Buryat, Cherokee and Central Kurdish are complete, and no Chuvash batch has been
+applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -501,16 +501,12 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Cherokee translation is complete**, covering card moves, activity,
-workspaces, board views, voting, member settings, account emails, exports,
-imports, privacy, branding, runtime metrics, automation, roles, templates, card
-views, global-search guidance, dependencies, locations, administrator reports,
-recovery, support requests, organizations, attachment storage, custom
-translations, accessibility and account protection. This continues the direct
-whole-file translation effort through migrations, security controls, backups
-and cloud storage while preserving human work and every code token. Below that:
-Central Kurdish activity and workspace translation has begun, while whole-locale
-placeholder and markup checks protect the new values.
+**In short:** **Cherokee and Central Kurdish translations are complete**,
+covering activity, workspaces, board and card views, imports and exports,
+privacy, automation, roles, search, dependencies, locations, reports,
+attachments, accessibility, account protection, migrations, security controls,
+backups and cloud storage. Whole-locale placeholder and markup checks preserve
+human work and every code token.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1364,6 +1360,17 @@ Bulk storage migration, batch size, CPU and delay thresholds, background
 migration state, monitoring, schedules, progress and attachment totals and
 minicard list/checklist visibility now use Central Kurdish. Numeric ranges,
 units and storage names remain exact, leaving 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d73cd195">The whole-file translation is complete</a>. Thanks to xet7.</summary>
+
+Accounts and repositories, problem and repair reporting, CPU and event details,
+filesystem integrity, scoped import/export and number-search guidance now use
+Central Kurdish. OTP, API, IP versions, product and format names, named tokens
+and pseudo-tags remain exact. All 2,166 formerly untranslated values are now
+translated, with zero English placeholders remaining.
 
 </details>
 
