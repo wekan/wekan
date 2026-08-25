@@ -643,6 +643,21 @@ nor mutated. This closing commit records that verified fix against issue 2306.
 
 </details>
 
+**All Boards** - each tile consistently respects its own counter and member
+visibility settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f702d535">The legacy-board card-counter report is closed with its existing regressions</a>. Thanks to Meeques, helioguardabaxo and xet7.</summary>
+
+The earlier startup-schema and tile-data fix restored card counters and member
+avatars without reactive cursor loops. The current suite verifies enabled and
+disabled counters independently, treats a missing legacy flag consistently as
+disabled, keeps boards and their lists isolated, and confirms that the template
+uses the resolved per-board settings. This closing commit records that verified
+fix against issue 4825.
+
+</details>
+
 **Linked cards** - safe snapshots remain usable across board boundaries.
 
 <details>
