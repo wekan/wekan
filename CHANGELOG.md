@@ -927,7 +927,7 @@ destination cards remain visible.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a68ad6797">Long lists scroll at the bottom edge and accept the dropped card</a>. Thanks to lenxeon and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5f16d1cbb">Long lists scroll at the bottom edge and accept the dropped card</a>. Thanks to lenxeon and xet7.</summary>
 
 The current drag handler scrolls the list body under the pointer, refreshes
 sortable geometry after scrolling, and keeps the board still until the list
