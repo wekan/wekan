@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2016);
+assert.equal(Object.keys(remaining).length, 1966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -80,3 +80,10 @@ assert.match(dzongkha['home-board-remove-confirm'], /བཏོན་ནི་མ
 assert.match(dzongkha['list-width-error-message'], /270/);
 assert.match(dzongkha['set-swimlane-height'], /ཆུ་ལམ/);
 assert.match(dzongkha['convertChecklistItemToCardPopup-title'], /ཤོག་བྱང/);
+assert.deepEqual(tokens(dzongkha['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(dzongkha['avatar-too-big']), ['__size__']);
+assert.deepEqual(tags(dzongkha['board-private-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.match(dzongkha['board-private-info'], /སྒེར/);
