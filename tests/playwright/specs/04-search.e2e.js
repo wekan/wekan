@@ -223,4 +223,38 @@ test.describe('Search', () => {
 
     await sp.clearFilters();
   });
+
+  test('#6632: Table view uses full width and remembers wrapped card titles', async ({
+    boardPage,
+    board,
+  }) => {
+    const longTitle = 'A very long card title '.repeat(12).trim();
+    db.updateOne(
+      'cards',
+      { boardId: board.boardId, title: 'Alpha Card' },
+      { $set: { title: longTitle } },
+    );
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.locator('.js-toggle-board-view').first().click();
+    await boardPage.locator('.pop-over .js-open-table-view').click();
+
+    const table = boardPage.locator('.table-view-table');
+    const titleCell = table.locator('.table-view-cell-card-title').first();
+    await expect(table).toBeVisible({ timeout: 10_000 });
+    const widths = await table.evaluate(element => ({
+      table: element.getBoundingClientRect().width,
+      parent: element.parentElement.getBoundingClientRect().width,
+    }));
+    expect(widths.table).toBeGreaterThan(widths.parent * 0.9);
+    await expect(titleCell).toHaveAttribute('title', longTitle);
+    await expect(titleCell.locator('.viewer p')).toHaveCSS('white-space', 'nowrap');
+    await expect(titleCell.locator('.viewer p')).toHaveCSS('text-overflow', 'ellipsis');
+
+    await boardPage.locator('.js-table-view-toggle-card-title-wrap').click();
+    await expect(titleCell.locator('.viewer p')).toHaveCSS('white-space', 'normal');
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    await expect(
+      boardPage.locator('.table-view-cell-card-title .viewer p').first(),
+    ).toHaveCSS('white-space', 'normal');
+  });
 });

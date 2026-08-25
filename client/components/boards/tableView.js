@@ -2,6 +2,10 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
 import { Filter } from '/client/lib/filter';
 import { tableViewCardsSelector } from '/models/lib/tableViewFilter';
+import {
+  readTableViewTitleWrap,
+  writeTableViewTitleWrap,
+} from '/models/lib/tableViewTitleMode';
 
 // Board "Table" view: lists every card of the current board in a table that
 // reuses the My Cards table styling (the .my-cards-board-table CSS classes in
@@ -18,6 +22,9 @@ Template.tableView.onCreated(function () {
   this.searchQuery = new ReactiveVar('');
   this.page = new ReactiveVar(1);
   this.filteredRows = new ReactiveVar([]);
+  this.wrapCardTitles = new ReactiveVar(
+    readTableViewTitleWrap(window.localStorage, Meteor.userId()),
+  );
 
   // Recompute the flat, filtered and sorted row list whenever the board cards,
   // board Filter or search query changes. Pagination is applied separately in
@@ -128,6 +135,10 @@ Template.tableView.helpers({
     return tpl.page.get() < totalPages;
   },
 
+  wrapCardTitles() {
+    return Template.instance().wrapCardTitles.get();
+  },
+
   // A date column is shown unless BOTH its "Show at Card" (allowsXxxDate) and
   // "Show at Minicard" (allowsXxxDateOnMinicard) board settings are unchecked.
   showReceivedColumn() {
@@ -180,6 +191,13 @@ Template.tableView.events({
     );
     const current = tpl.page.get();
     if (current < totalPages) tpl.page.set(current + 1);
+  },
+
+  'click .js-table-view-toggle-card-title-wrap'(event, tpl) {
+    event.preventDefault();
+    const wrap = !tpl.wrapCardTitles.get();
+    tpl.wrapCardTitles.set(wrap);
+    writeTableViewTitleWrap(window.localStorage, Meteor.userId(), wrap);
   },
 
   // Clicking the leftmost "Edit" link opens the Card Details popup on top of the

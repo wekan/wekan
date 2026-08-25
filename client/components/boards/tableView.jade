@@ -13,7 +13,9 @@ template(name="tableView")
           span.table-view-page-info {{currentPage}} / {{totalPages}}
           button.js-table-view-next-page(type="button" class="{{#unless hasNextPage}}disabled{{/unless}}" aria-label="{{_ 'next'}}")
             i.fa.fa-chevron-right
-      table.my-cards-board-table
+        button.js-table-view-toggle-card-title-wrap(type="button" class="{{#if wrapCardTitles}}active{{/if}}" title="{{_ 'card'}}" aria-label="{{_ 'card'}}" aria-pressed="{{wrapCardTitles}}")
+          i.fa(class="{{#if wrapCardTitles}}fa-align-left{{else}}fa-ellipsis-h{{/if}}")
+      table.my-cards-board-table.table-view-table(class="{{#if wrapCardTitles}}table-view-wrap-card-titles{{else}}table-view-ellipsis-card-titles{{/if}}")
         caption.sr-only {{currentBoard.title}}
         thead
           tr
@@ -40,7 +42,7 @@ template(name="tableView")
                 a.edit-card.js-table-view-edit-card(href=row.card.originRelativeUrl data-card-id=row.card._id title="{{_ 'edit'}}")
                   i.fa.fa-pencil-square-o
                   | {{_ 'edit'}}
-              td.table-view-cell-wrap
+              td.table-view-cell-wrap.table-view-cell-card-title(title=row.title)
                 unless isMiniScreen
                   .my-cards-board-badge(class=row.colorClass)
                 .my-cards-card-title-table

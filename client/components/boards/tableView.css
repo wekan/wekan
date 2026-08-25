@@ -63,6 +63,29 @@
   color: #333;
 }
 
+.table-view-controls .js-table-view-toggle-card-title-wrap {
+  width: 34px;
+  height: 30px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.table-view-controls .js-table-view-toggle-card-title-wrap.active {
+  background: #01628c;
+  color: #fff;
+}
+
+/* Consume the width the board view actually has. Column percentages are
+   preferences, not caps: optional date/member columns may still claim the room
+   their content needs. */
+.my-cards-board-table.table-view-table {
+  width: 100%;
+  max-width: none;
+  table-layout: auto;
+}
+
 /* Leftmost "Edit" cell: an Edit link (pencil icon + text) styled like the one
    on the Admin Panel / People page, opening the card when clicked. */
 .my-cards-board-table td.table-view-cell-edit {
@@ -77,13 +100,36 @@
   margin-inline-end: 4px;
 }
 
-/* Word-wrap the Card / List / Swimlane cells so long text breaks onto the next
-   line instead of overflowing across the other columns. */
+/* List and swimlane text may wrap, but no longer impose a fixed 250px ceiling
+   on a wide browser. */
 .my-cards-board-table td.table-view-cell-wrap {
-  max-width: 250px;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.my-cards-board-table td.table-view-cell-card-title {
+  width: 40%;
+}
+
+.my-cards-board-table td.table-view-cell-card-title .my-cards-card-title-table {
+  max-width: none;
+  min-width: 0;
+}
+
+.my-cards-board-table.table-view-ellipsis-card-titles
+  td.table-view-cell-card-title {
+  max-width: 0;
+}
+
+.my-cards-board-table.table-view-ellipsis-card-titles
+  td.table-view-cell-card-title .viewer,
+.my-cards-board-table.table-view-ellipsis-card-titles
+  td.table-view-cell-card-title .viewer p {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* The +viewer template wraps its markdown in a block-level .viewer div. Inside
