@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first seven 50-value Central Kurdish batches then
-left **179,481 genuinely untranslated values across 83 locale files**, including
-1,816 in Central Kurdish.
+all 2,166 Cherokee values. The first eight 50-value Central Kurdish batches then
+left **179,431 genuinely untranslated values across 83 locale files**, including
+1,766 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `changeSettingsPopup-title` with
+Resume Central Kurdish at `color-white` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 7 are
-committed and batch 8 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 8 are
+committed and batch 9 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1014,6 +1014,15 @@ Central Kurdish. Product names remain exact, leaving 1,866 values.
 Member popups, archive restoration, imported-user mapping, permissions, themes,
 fonts, text colors, avatars and language controls now use Central Kurdish. CAS,
 digits and whole-locale invariants remain exact, leaving 1,816 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e26e6b1a2">Navigation, card aging and colors gain 50 values</a>. Thanks to xet7.</summary>
+
+Starring, automatic list widths, card-aging tiers, keyboard-style movement,
+dialogs, archive recovery and twenty-three color names now use Central Kurdish.
+Digits and whole-locale invariants remain exact, leaving 1,766 values.
 
 </details>
 
