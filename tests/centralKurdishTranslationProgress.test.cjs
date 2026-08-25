@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 416);
+assert.equal(Object.keys(remaining).length, 366);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -294,3 +294,11 @@ assert.match(kurdish['accounts-lockout-known-users'], /وشەی نهێنی/);
 assert.match(kurdish['accounts-lockout-period'], /چرکە/);
 assert.match(kurdish['attachments-path-description'], /ڕێڕەو/);
 assert.match(kurdish['board-backup-scheduled'], /سەرکەوتوویی/);
+assert.match(kurdish['s3-force-path-style-description'], /MinIO/);
+assert.match(kurdish['s3-force-path-style-description'], /AWS/);
+assert.match(kurdish['s3-force-path-style-description'], /S3/);
+assert.deepEqual(tokens(kurdish['database-migration-confirm']), ['__db__']);
+assert.match(kurdish['database-migration-description'], /WEKAN_FERRETDB_URL/);
+assert.match(kurdish['database-migration-description'], /WEKAN_MONGODB_URL/);
+assert.match(kurdish['database-migration-description'], /MONGO_URL/);
+assert.match(kurdish['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
