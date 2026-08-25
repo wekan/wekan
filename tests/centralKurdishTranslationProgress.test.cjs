@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1266);
+assert.equal(Object.keys(remaining).length, 1216);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -180,3 +180,8 @@ assert.match(kurdish.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(kurdish.DDP_transport, /DDP_TRANSPORT/);
 assert.match(kurdish['org-domains-description'], /MULTITENANCY=true/);
 assert.match(kurdish['org-domains-description'], /a\.example\.com.*kanban\.example\.org/);
+assert.deepEqual(tokens(kurdish['default-subtasks-board']), ['__board__']);
+assert.match(kurdish['checklist-count'], /0\/0/);
+assert.match(kurdish['parent-card'], /باوک/);
+assert.match(kurdish['delete-board'], /تەختە/);
+assert.deepEqual(tokens(kurdish['activity-added-label']), ['%s', '%s']);
