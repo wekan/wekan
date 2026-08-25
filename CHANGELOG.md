@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first thirty-two 50-value Dzongkha batches then left **173,899
-genuinely untranslated values across 81 locale files**, including 566 in
+81 locale files**. The first thirty-three 50-value Dzongkha batches then left **173,849
+genuinely untranslated values across 81 locale files**, including 516 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `move-all-attachments-to-s3` with
+Resume Dzongkha at `board-status-loading-mode` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 32 are committed and batch 33 has not been applied.
+through 33 are committed and batch 34 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2111,6 +2111,16 @@ Team and organization controls, Node heap and memory diagnostics, legal
 notices, checklist movement and copying and filesystem, GridFS and S3 attachment
 storage actions now use Dzongkha. Technical storage and memory names and the
 checklist line example remain exact, leaving 566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b42afd56">Storage repair and compaction gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment relocation and location repair, avatar scopes, default storage,
+move progress and file counts, storage identifiers and MongoDB collection
+compaction now use Dzongkha. Backend names, identifiers and oplog terminology
+remain exact, leaving 516 values.
 
 </details>
 
