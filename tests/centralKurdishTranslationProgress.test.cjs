@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1116);
+assert.equal(Object.keys(remaining).length, 1066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -194,3 +194,6 @@ assert.deepEqual(tokens(kurdish['r-import-unmapped']), ['__count__']);
 assert.match(kurdish['r-schedule-weekday'], /دووشەممە.*هەینی/);
 assert.match(kurdish['r-unit-minutes'], /خولەک/);
 assert.match(kurdish['r-trigger'], /دەستپێکەر/);
+assert.match(kurdish['r-unarchived'], /ئەرشیف/);
+assert.match(kurdish['r-checklist'], /لیستی پشکنین/);
+assert.match(kurdish['r-send-email'], /ئیمەیڵ/);
