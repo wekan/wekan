@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 516);
+assert.equal(Object.keys(remaining).length, 466);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -275,3 +275,7 @@ assert.match(chuvash['attachment-repair-locations-description'], /GridFS/);
 assert.match(chuvash['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
 assert.match(chuvash['mongodb-compact-warning'], /oplog.*Meteor/i);
 assert.match(chuvash['gridfs-file-id'], /GridFS.*ID/);
+assert.match(chuvash['preview-pdf-not-supported'], /PDF/);
+assert.deepEqual(tokens(chuvash['drag-board-to-workspace']), ['__workspaces__']);
+assert.match(chuvash['show-week-of-year'], /ISO 8601/);
+assert.match(chuvash['import-board-zip'], /JSON.*\.zip/);
