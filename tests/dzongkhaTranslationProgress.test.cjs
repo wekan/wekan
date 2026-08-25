@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2116);
+assert.equal(Object.keys(remaining).length, 2066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -58,3 +58,20 @@ assert.deepEqual(tokens(dzongkha['act-removeChecklistItem']), [
 assert.match(dzongkha['act-createBoard'], /བྱང་གཞི/);
 assert.match(dzongkha['act-createSwimlane'], /ཆུ་ལམ/);
 assert.match(dzongkha['act-addComment'], /བསམ་བཀོད/);
+assert.deepEqual(tokens(dzongkha['act-moveCard']), [
+  '__board__',
+  '__card__',
+  '__list__',
+  '__oldList__',
+  '__oldSwimlane__',
+  '__swimlane__',
+]);
+assert.deepEqual(tokens(dzongkha['activity-checklist-completed-card']), [
+  '__board__',
+  '__card__',
+  '__checklist__',
+  '__list__',
+  '__swimlane__',
+]);
+assert.match(dzongkha['allboards.add-workspace'], /ལཱ་གི་ས་སྒོ/);
+assert.match(dzongkha['allboards.edit-workspace-icon'], /markdown/);
