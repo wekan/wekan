@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-thirty-four 50-value Chuvash batches then left **175,965 genuinely untranslated
-values across 82 locale files**, including 466 in Chuvash.
+thirty-five 50-value Chuvash batches then left **175,915 genuinely untranslated
+values across 82 locale files**, including 416 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `accessibility-title` with
+Resume Chuvash at `cron-job-delete-failed` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 34
-are committed and batch 35 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 35
+are committed and batch 36 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1704,6 +1704,16 @@ Board timing, uploads, file restrictions, custom translations, checklist
 display and support and accessibility pages now use Chuvash. Workspace tokens,
 PDF, ISO 8601, Markdown, JSON and ZIP terminology remains exact, leaving 466
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21b1d69c0">Account protection gains 50 values</a>. Thanks to xet7.</summary>
+
+Accessibility, brute-force lockouts, administrator user filters, scheduled
+jobs, storage paths and scheduled board archive, backup and cleanup operations
+now use Chuvash. Security distinctions and time units remain explicit, leaving
+416 values.
 
 </details>
 
