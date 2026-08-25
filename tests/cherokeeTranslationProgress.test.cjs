@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 566);
+assert.equal(Object.keys(remaining).length, 516);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -223,3 +223,8 @@ assert.match(cherokee['custom-legal-notice-link-url'], /URL/);
 assert.match(cherokee['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(cherokee['attachment-move-storage-s3'], /S3/);
 assert.match(cherokee.newLineNewItem, /=/);
+assert.match(cherokee['attachment-repair-locations-description'], /GridFS/);
+assert.match(cherokee['move-all-attachments-of-board-to-s3'], /S3/);
+assert.match(cherokee['gridfs-file-id'], /GridFS.*ID/);
+assert.match(cherokee['mongodb-compact-description'], /MongoDB.*GridFS.*Compact/);
+assert.match(cherokee['mongodb-compact-warning'], /Meteor/);
