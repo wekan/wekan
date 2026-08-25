@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1716);
+assert.equal(Object.keys(remaining).length, 1666);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -114,3 +114,17 @@ assert.match(dzongkha['comment-only'], /བསམ་བཀོད/);
 assert.match(dzongkha['read-only'], /ལྷག/);
 assert.equal(JSON.parse(dzongkha['copyManyCardsPopup-format']).length, 3);
 assert.match(dzongkha['custom-field-currency'], /དངུལ/);
+assert.deepEqual(tokens(dzongkha['email-enrollAccount-text']), [
+  '__url__',
+  '__user__',
+]);
+assert.deepEqual(tokens(dzongkha['email-invite-text']), [
+  '__board__',
+  '__inviter__',
+  '__url__',
+  '__user__',
+]);
+assert.equal(dzongkha['email-enrollAccount-text'].split('\n').length, 7);
+assert.match(dzongkha['error-json-malformed'], /JSON/);
+assert.match(dzongkha['error-csv-schema'], /CSV.*TSV/);
+assert.match(dzongkha['error-import-empty-board'], /WeKan/);
