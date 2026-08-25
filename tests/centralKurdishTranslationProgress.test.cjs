@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 966);
+assert.equal(Object.keys(remaining).length, 916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -217,3 +217,8 @@ assert.deepEqual(tokens(kurdish['act-atUserComment']), [
   '__list__',
   '__swimlane__',
 ]);
+assert.match(kurdish['submit-on-enter-description'], /Shift\+Enter/);
+assert.match(kurdish['submit-on-enter-description'], /Ctrl\/Cmd\+Enter/);
+assert.equal(kurdish.monday, 'دووشەممە');
+assert.equal(kurdish.friday, 'هەینی');
+assert.match(kurdish['roles-info'], /پانێڵی بەڕێوەبەر/);
