@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first thirty-seven 50-value
-Ewe batches then left **171,483 genuinely untranslated values across 80 locale
-files**, including 316 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first thirty-eight 50-value
+Ewe batches then left **171,433 genuinely untranslated values across 80 locale
+files**, including 266 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `backup-frequency` with
+Resume Ewe at `gridfs-enabled` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 37 are committed and batch 38 has not been applied.
+1 through 38 are committed and batch 39 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2589,6 +2589,16 @@ Sandstorm cleanup, adaptive card loading, plain-text link and code controls,
 import/export and avatar restrictions, user anonymization, activity,
 notification and watch controls and scoped backups now use Ewe. Environment
 names, markup, examples and backup paths remain exact, leaving 316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d51c30ef3">Cloud backups and restores gain 50 values</a>. Thanks to xet7.</summary>
+
+Backup frequency and restoration, Google Cloud credentials and permissions,
+AWS/S3, Azure and GCS setup paths, secret handling, connection tests and cloud
+attachment movement now use Ewe. Time formats, ranges, credential fields,
+roles, provider names and filenames remain exact, leaving 266 values.
 
 </details>
 
