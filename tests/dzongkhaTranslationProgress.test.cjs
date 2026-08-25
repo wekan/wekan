@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 866);
+assert.equal(Object.keys(remaining).length, 816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -246,3 +246,12 @@ assert.match(
 );
 assert.deepEqual(tokens(dzongkha['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(dzongkha['user-username-not-found']), ['%s']);
+assert.deepEqual(tokens(dzongkha['comment-not-found']), ['%s']);
+assert.deepEqual(tokens(dzongkha['n-cards-found']), ['%s']);
+assert.deepEqual(tokens(dzongkha['n-n-of-n-cards-found']), [
+  '__end__',
+  '__start__',
+  '__total__',
+]);
+assert.match(dzongkha['operator-customfield'], /སྡེ་ཚན/);
+assert.match(dzongkha['predicate-overdue'], /དུས་ཡོལ/);
