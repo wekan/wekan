@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first thirty-nine 50-value Central Kurdish
-batches then left **177,881 genuinely untranslated values across 83 locale
-files**, including 216 in Central Kurdish.
+all 2,166 Cherokee values. The first forty 50-value Central Kurdish batches then
+left **177,831 genuinely untranslated values across 83 locale files**, including
+166 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `comprehensive-board-migration` with
+Resume Central Kurdish at `step-analyze-lists` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 39 are
-committed and batch 40 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 40 are
+committed and batch 41 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1334,6 +1334,16 @@ GridFS, general migration progress and controls, CollectionFS moves, S3
 authentication and connectivity, scheduled board operations, writable paths
 and attachment and board migration settings now use Central Kurdish. Storage,
 region and transport names remain exact, leaving 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/136ff461b">Board repair gains 50 values</a>. Thanks to xet7.</summary>
+
+Comprehensive board migration, duplicate-list cleanup, lost and archived item
+recovery, missing-list and file/avatar URL repair, confirmations, progress and
+structural migration steps now use Central Kurdish. Field identifiers and URL
+terminology remain exact, leaving 166 values.
 
 </details>
 
