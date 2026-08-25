@@ -719,6 +719,19 @@ administrator removal and the negative non-admin permission path.
 
 </details>
 
+**Subtasks** - their own stored board remains a usable navigation target.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6eaaa737">The missing subtask board-ID navigation report is explicitly closed</a>. Thanks to xet7 and TNick.</summary>
+
+The existing navigation helper derives the card and board route from the
+subtask itself and falls back to its stored board ID when a cross-board deposit
+board is not loaded in the browser. Eleven loaded, unloaded, plain-document and
+malformed-data cases pass; truly broken references warn instead of throwing or
+routing to an undefined card.
+
+</details>
+
 **Linked cards** - safe snapshots remain usable across board boundaries.
 
 <details>
