@@ -783,6 +783,21 @@ server; FerretDB only stores the resulting user document.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/148525195">LDAP groups returned by broad searches are not imported as users</a>. Thanks to MiteNy and xet7.</summary>
+
+A base DN containing both people and groups could return Active Directory,
+OpenLDAP or POSIX group objects when `LDAP_USER_SEARCH_FILTER` was empty. Their
+name plus the configured default email domain was enough to create spurious
+WeKan accounts. Bulk import now skips known group object classes and account
+creation independently rejects them, case-insensitively and with string,
+Buffer or array attributes. Standard and custom user schemas remain accepted.
+Six focused positive, negative and wiring tests and every LDAP plain-Node suite
+pass, and Meteor compiles and starts. The guide also shows appropriate user
+filters. FerretDB only stores accounts after this validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7fb9ad1d7">LDAP encryption settings distinguish LDAPS, STARTTLS and unencrypted transport</a>. Thanks to robertdahlem and xet7.</summary>
 
 The maintained LDAP guide now recommends `true` for immediate TLS (LDAPS),
