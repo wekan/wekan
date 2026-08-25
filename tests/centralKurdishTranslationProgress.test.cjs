@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 866);
+assert.equal(Object.keys(remaining).length, 816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -227,3 +227,17 @@ assert.match(kurdish['shared-templates-info'], /ڕێکخراو.*تیم.*دۆمە
 assert.match(kurdish['dueCardsViewChange-choice-all-description'], /\*کۆتایی\*/);
 assert.deepEqual(tokens(kurdish['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(kurdish['label-color-not-found']), ['%s']);
+assert.deepEqual(tokens(kurdish['n-n-of-n-cards-found']), [
+  '__end__',
+  '__start__',
+  '__total__',
+]);
+for (const key of [
+  'operator-board',
+  'operator-customfield',
+  'operator-checklist-text',
+  'predicate-archived',
+  'predicate-checklist',
+]) {
+  assert.doesNotMatch(kurdish[key], /\s/, key);
+}
