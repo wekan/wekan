@@ -312,14 +312,15 @@ forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
 batch then translated all 2,166 Dzongkha values. Forty-two 50-value Ewe batches
-and a final 66-value batch then translated all 2,166 Ewe values, leaving
-**171,167 genuinely untranslated values across 79 locale files**.
+and a final 66-value batch then translated all 2,166 Ewe values. The first two
+50-value Fulah batches then translated 100 values, leaving **171,067 genuinely
+untranslated values across 79 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Begin Fulah at `accept` with
+Continue Fulah at `workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ff --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha and Ewe are complete, and
-no Fulah batch has been applied.
+2,066 Fulah values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -506,12 +507,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Fulah translation** now covers its first activity-history and
+workspace controls, with whole-locale checks preserving placeholders and
+markup. Further direct translation remains in progress.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -523,6 +521,30 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release improves the following translation:
+
+**Fulah** - direct whole-file translation using established Pulaar vocabulary.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/071a97d36">Activity history gains its first 50 Fulah values</a>. Thanks to xet7.</summary>
+
+Board membership, comments, dates, attachments, checklists, custom fields and
+imports now use Fulah. Named and percent placeholders and HTML tags remain
+exact, and whole-locale invariant coverage leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4c97c225">Activity summaries and workspaces gain 50 Fulah values</a>. Thanks to xet7.</summary>
+
+Card movement, activity summaries, checklist events and workspace controls now
+use Fulah. Named and percent placeholders, HTML tags and Markdown remain exact,
+leaving 2,066 values.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.12 2026-08-25 WeKan ® release
 
