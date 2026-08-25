@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1616);
+assert.equal(Object.keys(remaining).length, 1566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -131,3 +131,11 @@ assert.match(ewe['error-import-empty-board'], /WeKan/);
 assert.match(ewe['export-card-pdf'], /PDF/);
 assert.match(ewe['export-card-excel'], /Excel/);
 assert.match(ewe['export-card-excel-no-disk-space'], /Excel.*disk/);
+assert.match(ewe['advanced-filter-description'], /== != <= >= && \|\| \( \)/);
+assert.match(ewe['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(ewe['import-board-instruction-issues']), [
+  '__endpoint__',
+  '__sourceName__',
+]);
+assert.match(ewe['import-board-instruction-excel'], /WeKan.*\.xlsx.*Excel/);
+assert.match(ewe['import-trello-json-file-hint'], /Trello API key.*token/);
