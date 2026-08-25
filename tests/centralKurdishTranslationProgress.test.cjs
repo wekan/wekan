@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 166);
+assert.equal(Object.keys(remaining).length, 116);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -324,3 +324,7 @@ assert.match(kurdish['restore-lost-cards-migration-description'], /swimlaneId.*l
 assert.match(kurdish['fix-avatar-urls-migration-description'], /URL/);
 assert.match(kurdish['run-restore-all-archived-migration-confirm'], /ID/);
 assert.match(kurdish['step-ensure-per-swimlane-lists'], /ڕێڕەو/);
+assert.match(kurdish['step-fix-file-urls'], /URL/);
+assert.match(kurdish['cpu-cores'], /CPU/);
+assert.match(kurdish['every-30-minutes'], /30.*خولەک/);
+assert.match(kurdish['gridfs-attachments'], /GridFS/);
