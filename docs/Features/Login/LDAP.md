@@ -188,6 +188,12 @@ Wekan Organizations and Teams. They are read as environment variables (Docker /
 Source). On Snap use the lower-case dash-separated equivalent (for example
 `ldap-sync-organizations`).
 
+When the user base DN also contains LDAP groups, set
+`LDAP_USER_SEARCH_FILTER` to the directory's user class, for example
+`(objectClass=user)` for Active Directory or `(objectClass=inetOrgPerson)` for
+OpenLDAP. WeKan also refuses known group object classes returned by an
+over-broad search, so they cannot be imported as user accounts.
+
 - `LDAP_BACKGROUND_SYNC_DISABLE_NONEXISTANT_USERS` (default `false`) — when
   `true`, background sync disables Wekan users that a successful LDAP search
   confirms are no longer present, and re-enables them if they reappear. This

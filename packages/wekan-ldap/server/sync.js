@@ -9,6 +9,7 @@ import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { getLdapPhotoBuffer } from './ldapPhoto';
 import { ldapPresenceUpdate } from './presenceSync';
+import { isKnownLdapGroup } from './entryKind';
 import {
   ldapTextValue,
   ldapTextValues,
@@ -323,6 +324,16 @@ export async function syncUserData(user, ldapUser) {
 }
 
 export async function addLdapUser(ldapUser, username, password) {
+  // #4875: a broad base DN can return group objects alongside users when
+  // LDAP_USER_SEARCH_FILTER is empty. Never create an account for a known LDAP
+  // group, regardless of whether this path came from bulk import or login.
+  if (isKnownLdapGroup(ldapUser)) {
+    throw new Meteor.Error(
+      'LDAP-login-error',
+      'LDAP entry is a group, not a user account',
+    );
+  }
+
   const uniqueId = getLdapUserUniqueID(ldapUser);
 
   const userObject = {
@@ -406,6 +417,11 @@ export async function importNewUsers(ldap) {
 
     for (const ldapUser of ldapUsers) {
       count++;
+
+      if (isKnownLdapGroup(ldapUser)) {
+        log_warn('Skipping LDAP group returned by the user search');
+        continue;
+      }
 
       const uniqueId = getLdapUserUniqueID(ldapUser);
       // Look to see if user already exists
