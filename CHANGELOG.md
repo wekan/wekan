@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-thirteen 50-value Chuvash batches then left **177,015 genuinely untranslated
-values across 82 locale files**, including 1,516 in Chuvash.
+fourteen 50-value Chuvash batches then left **176,965 genuinely untranslated
+values across 82 locale files**, including 1,466 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `last-admin-desc` with
+Resume Chuvash at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 13
-are committed and batch 14 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 14
+are committed and batch 15 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1498,6 +1498,16 @@ Trello archive validation, workspaces, API credentials, board selection,
 progress, cancellation and recovery, imported-member mapping, date validation,
 keyboard shortcuts and label controls now use Chuvash. URLs, percent tokens and
 digits remain exact, leaving 1,516 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00c7c0c09">List actions and board roles gain 50 values</a>. Thanks to xet7.</summary>
+
+Board departure, list archive and movement, user, team and organization
+settings, swimlane actions, calendar, login, multi-selection, muted boards,
+archives and assigned-only roles now use Chuvash. The board-title token and
+file-format names remain exact, leaving 1,466 values.
 
 </details>
 
