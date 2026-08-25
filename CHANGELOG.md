@@ -1004,6 +1004,19 @@ card position to change.
 
 </details>
 
+**Outgoing webhooks** - activity notifications retain their translated values.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c2b7c4e8">The stale raw-placeholder report is closed against its completed canonical fix</a>. Thanks to sfahrenholz, chotaire and xet7.</summary>
+
+The canonical report, \#2226, is closed and the current activity builder resolves
+members, checklist items, cards, lists, swimlanes, boards and labels before the
+complete parameter object reaches `TAPi18n`. Focused regression coverage now
+protects that wiring and verifies that representative German activity strings
+remain translated while preserving the exact replaceable-token inventory.
+
+</details>
+
 and improves the following translation:
 
 **Fulah** - direct whole-file translation using established Pulaar vocabulary.
