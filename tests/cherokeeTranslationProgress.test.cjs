@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1666);
+assert.equal(Object.keys(remaining).length, 1616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -94,3 +94,6 @@ assert.deepEqual(tokens(cherokee['email-invite-text']), [
   '__user__',
 ]);
 assert.match(cherokee['error-import-empty-board'], /WeKan/);
+assert.match(cherokee['export-card-pdf'], /PDF/);
+assert.match(cherokee['export-card-excel'], /Excel/);
+assert.match(cherokee['filter-due-today'], /ᎪᎯ/);
