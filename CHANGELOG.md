@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first twenty-six 50-value
-Buryat batches then left **182,863 genuinely untranslated values across 85
-locale files**, including 866 in Buryat.
+16-value batch then translated all 2,166 values. The first twenty-seven
+50-value Buryat batches then left **182,813 genuinely untranslated values
+across 85 locale files**, including 816 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `comment-not-found` with
+Resume Buryat at `predicate-public` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 26 are committed and batch 27 has not been applied.
+batches 1 through 27 are committed and batch 28 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4654,6 +4654,17 @@ Checklist visibility, tasks, domains, shared templates, people and time scopes,
 My Cards sorting, Due Cards and global-search views and missing board-element
 errors now use Buryat. Domain examples, Markdown emphasis and percent tokens
 remain exact, and whole-locale invariant coverage leaves 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7808b8873">Buryat search operators gain 50 values</a>. Thanks to xet7.</summary>
+
+Missing comment, organization and team results, card-result counts and search
+operators for board structure, people, state, dates, text, attachments and
+checklists and their archived, open, overdue and time predicates now use
+Buryat. Result-boundary tokens remain exact, and whole-locale invariant
+coverage leaves 816 values.
 
 </details>
 
