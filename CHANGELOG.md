@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-nineteen 50-value Cherokee batches then left **181,047 genuinely untranslated
-values across 84 locale files**, including 1,216 in Cherokee.
+twenty 50-value Cherokee batches then left **180,997 genuinely untranslated
+values across 84 locale files**, including 1,166 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `activity-delete-attach` with
+Resume Cherokee at `r-workflow-format` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 19 are committed and batch 20
+Buryat is complete, Cherokee batches 1 through 20 are committed and batch 21
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,8 +501,8 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
-imports, privacy, branding, webhooks, runtime metrics, tenancy and card/subtask
-settings. This continues the direct whole-file translation effort while
+imports, privacy, branding, runtime metrics, tenancy, card settings and
+automation rules. This continues the direct whole-file translation effort while
 preserving human work and every code token. Below that: whole-locale placeholder
 and markup checks protect the new values.
 
@@ -702,6 +702,16 @@ notification deletion, duplicate-list cleanup, subtask destinations, minicard
 fields, attachment and checklist counts, parent paths and label activity now use
 Cherokee syllabary. Named and percent tokens and counters remain exact, leaving
 1,216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3723bef8f">Automation rules and activity gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment, label and custom-field activity, rule creation and selection, visual
+workflow construction, card, label, member, checklist, attachment and scheduled
+triggers and JSON, CSV and Trello Butler rule imports now use Cherokee syllabary.
+Named and percent tokens and format names remain exact, leaving 1,166 values.
 
 </details>
 
