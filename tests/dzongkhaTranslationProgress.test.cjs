@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1266);
+assert.equal(Object.keys(remaining).length, 1216);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -187,3 +187,8 @@ assert.match(dzongkha.OS_Cpus, /OS.*CPU/);
 assert.match(dzongkha['org-domains-description'], /a\.example\.com/);
 assert.match(dzongkha['org-domains-description'], /kanban\.example\.org/);
 assert.match(dzongkha['org-domains-description'], /MULTITENANCY=true/);
+assert.deepEqual(tokens(dzongkha['default-subtasks-board']), ['__board__']);
+assert.match(dzongkha['checklist-count-on-minicard'], /0\/0/);
+assert.deepEqual(tokens(dzongkha['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(dzongkha['activity-removed-label']), ['%s', '%s']);
+assert.match(dzongkha['delete-board-confirm-popup'], /ཕྱིར་བཤིག/);
