@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first twenty-five 50-value Central Kurdish
-batches then left **178,581 genuinely untranslated values across 83 locale
-files**, including 916 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty-six 50-value Central Kurdish batches
+then left **178,531 genuinely untranslated values across 83 locale files**,
+including 866 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `hide-checked-items` with
+Resume Central Kurdish at `comment-not-found` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 25 are
-committed and batch 26 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 26 are
+committed and batch 27 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1193,6 +1193,16 @@ Multi-window cards, editor submission, organization, team and user dialogs,
 notification filters, renaming, board-role permissions and status, weekdays,
 ownership, activity, voting and linked-card deletion now use Central Kurdish.
 Keyboard combinations remain exact, leaving 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a82cbc609">Shared templates and card views gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist visibility, tasks, domains, shared templates, people and time units,
+My Cards sorting, due-card and global-search views and missing-object messages
+now use Central Kurdish. Domain examples, Markdown and percent tokens remain
+exact, leaving 866 values.
 
 </details>
 
