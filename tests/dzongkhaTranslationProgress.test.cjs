@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1516);
+assert.equal(Object.keys(remaining).length, 1466);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -144,3 +144,8 @@ assert.match(dzongkha['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.match(dzongkha['trello-api-token'], /API/);
 assert.match(dzongkha['invalid-year'], /2026/);
 assert.deepEqual(tokens(dzongkha['label-default']), ['%s']);
+assert.deepEqual(tokens(dzongkha['leave-board-pop']), ['__boardTitle__']);
+assert.match(dzongkha['leave-board'], /བྱང་གཞི/);
+assert.match(dzongkha['list-archive-cards'], /ཡིག་མཛོད/);
+assert.match(dzongkha['multi-selection'], /སྣ་མང/);
+assert.match(dzongkha['normal-desc'], /སྒྲིག་འགོད/);
