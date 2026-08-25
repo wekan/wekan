@@ -1,5 +1,6 @@
 template(name="listBody")
-  .list-body(class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}")
+  .list-body(class="{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}"
+    role="region" tabindex="0" aria-label="{{_ 'list'}}: {{title}}")
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
       +inlinedForm(autoclose=false position="top")
         +addCardForm(listId=_id position="top")

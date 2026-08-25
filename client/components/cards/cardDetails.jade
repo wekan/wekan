@@ -9,7 +9,14 @@ template(name="cardDetails")
     minicard carries for the same reason: with a handle, the title is all edit
     target; without one, half of it is what the window is dragged by.
     client/components/cards/cardDetails.css
-  section.card-details.js-card-details.nodragscroll(class='{{#if cardMaximized}}card-details-maximized{{/if}}' class='{{#if isPopup}}card-details-popup{{/if}}' class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}' class='{{#if cardCollapsed}}card-details-collapsed{{/if}}' class='{{#if isTouchScreenOrShowDesktopDragHandles}}card-details-with-handle{{/if}}'): .card-details-canvas
+  section.card-details.js-card-details.nodragscroll(
+    class='{{#if cardMaximized}}card-details-maximized{{/if}}'
+    class='{{#if isPopup}}card-details-popup{{/if}}'
+    class='{{#unless isVerticalScrollbars}}no-scrollbars{{/unless}}'
+    class='{{#if cardCollapsed}}card-details-collapsed{{/if}}'
+    class='{{#if isTouchScreenOrShowDesktopDragHandles}}card-details-with-handle{{/if}}'
+    role="region" tabindex="0" aria-label="{{_ 'card'}}: {{title}}")
+    .card-details-canvas
     //- The whole header row is what the window is dragged by - not the heading
       inside it. A heading is only as wide as its own text, so with a short title
       "the right half of the title" was a few pixels, and the empty space beside
