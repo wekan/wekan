@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1616);
+assert.equal(Object.keys(remaining).length, 1566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -132,3 +132,11 @@ assert.match(chuvash['export-card-pdf'], /PDF/);
 assert.match(chuvash['export-card-excel'], /Excel/);
 assert.match(chuvash['export-card-field-board-info'], /Ҫул/);
 assert.match(chuvash['filter-due-today'], /Паян/);
+assert.match(chuvash['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(chuvash['import-board-instruction-issues']), [
+  '__endpoint__',
+  '__sourceName__',
+]);
+assert.match(chuvash['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
+assert.match(chuvash['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
+assert.match(chuvash['import-trello-json-file-hint'], /API/);
