@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 466);
+assert.equal(Object.keys(remaining).length, 416);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -309,3 +309,8 @@ assert.deepEqual(tokens(dzongkha['drag-board-to-workspace']), ['__workspaces__']
 assert.match(dzongkha['show-week-of-year'], /ISO 8601/);
 assert.match(dzongkha['convert-to-markdown'], /Markdown/);
 assert.match(dzongkha['import-board-zip'], /JSON.*\.zip/);
+assert.match(dzongkha['accounts-lockout-info'], /བཙན་འཛུལ/);
+assert.match(dzongkha['accounts-lockout-period'], /སྐར་ཆ/);
+assert.match(dzongkha['admin-people-user-active'], /སྤྱོད་མེད/);
+assert.match(dzongkha['board-backup-scheduled'], /གྲབས་ཉར/);
+assert.match(dzongkha['cron-migrations'], /སྤོ་སྒྱུར/);
