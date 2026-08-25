@@ -28,6 +28,86 @@ async function dbOrder(boardId, listId) {
 }
 
 test.describe('Card drag-sort reordering', () => {
+  test('#5421 a fast touch drag moves the card without opening it', async ({
+    loggedInPage,
+    user,
+    browserName,
+  }) => {
+    test.skip(browserName !== 'chromium', 'raw touch gesture uses Chromium CDP');
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'FastTouchDrag',
+      listCount: 2,
+      cardTitlesPerList: [['Touch Card'], ['Target Card']],
+    });
+    try {
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+      const source = loggedInPage
+        .locator('.js-minicard')
+        .filter({ hasText: 'Touch Card' })
+        .first();
+      const target = loggedInPage
+        .locator('.js-minicard')
+        .filter({ hasText: 'Target Card' })
+        .first();
+      await source.waitFor({ timeout: 30_000 });
+
+      const handle = source.locator('.handle');
+      const sourceBox = (await handle.count())
+        ? await handle.boundingBox()
+        : await source.boundingBox();
+      const targetBox = await target.boundingBox();
+      expect(sourceBox).not.toBeNull();
+      expect(targetBox).not.toBeNull();
+      const from = {
+        x: sourceBox.x + sourceBox.width / 2,
+        y: sourceBox.y + sourceBox.height / 2,
+      };
+      const to = {
+        x: targetBox.x + targetBox.width / 2,
+        y: targetBox.y + 6,
+      };
+      const cdp = await loggedInPage.context().newCDPSession(loggedInPage);
+      await cdp.send('Input.dispatchTouchEvent', {
+        type: 'touchStart',
+        touchPoints: [{ ...from, id: 1 }],
+      });
+      for (let i = 1; i <= 6; i++) {
+        await cdp.send('Input.dispatchTouchEvent', {
+          type: 'touchMove',
+          touchPoints: [
+            {
+              x: from.x + ((to.x - from.x) * i) / 6,
+              y: from.y + ((to.y - from.y) * i) / 6,
+              id: 1,
+            },
+          ],
+        });
+      }
+      await cdp.send('Input.dispatchTouchEvent', {
+        type: 'touchEnd',
+        touchPoints: [],
+      });
+
+      await expect
+        .poll(
+          () =>
+            db.findOne(
+              'cards',
+              { boardId: board.boardId, title: 'Touch Card' },
+              { listId: 1 },
+            ).listId,
+          { timeout: 15_000 },
+        )
+        .toBe(board.listIds[1]);
+      expect(loggedInPage.url()).not.toContain('/cards/');
+      await expect(loggedInPage.locator('.js-card-details')).toHaveCount(0);
+    } finally {
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#6430 a cross-list drop never leaves its target visually empty', async ({
     loggedInPage,
     user,
