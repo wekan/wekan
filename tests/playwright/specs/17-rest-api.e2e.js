@@ -57,6 +57,24 @@ async function createLabel(request, token, boardId, name, color) {
 }
 
 test.describe('REST API: data + permissions', () => {
+  test('#1437 logout revokes the presented REST token', async ({ request, user, board }) => {
+    const before = db.findOne('users', { _id: user.id });
+    expect(before.services.resume.loginTokens.length).toBeGreaterThan(0);
+
+    const logout = await request.post('/users/logout', {
+      headers: authHeaders(user.token, true),
+      data: {},
+    });
+    expect(logout.status()).toBe(200);
+
+    const after = db.findOne('users', { _id: user.id });
+    expect(after.services.resume.loginTokens).toHaveLength(0);
+    const rejected = await request.get(`/api/boards/${board.boardId}`, {
+      headers: authHeaders(user.token),
+    });
+    expect(rejected.status()).toBe(401);
+  });
+
   // ---- #4743 / #5813: bulk create, uniqueness, bulk delete ----------------
   test('#4743/#5813 bulk create assigns unique card numbers, bulk delete removes them', async ({ request, user, board }) => {
     const listId = board.listIds[0];
