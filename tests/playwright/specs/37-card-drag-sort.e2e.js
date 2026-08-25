@@ -46,12 +46,13 @@ test.describe('Card drag-sort reordering', () => {
       await waitForMeteor(loggedInPage);
       const list = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
       const body = list.locator('.list-body');
-      const source = list.locator('.js-minicard').filter({ hasText: titles[0] });
-      await expect(source).toBeVisible({ timeout: 20_000 });
-      const originalSort = db.findOne('cards', {
+      const sourceCard = db.findOne('cards', {
         boardId: board.boardId,
         title: titles[0],
-      }).sort;
+      });
+      const source = list.locator(`.js-minicard[data-card-id="${sourceCard._id}"]`);
+      await expect(source).toBeVisible({ timeout: 20_000 });
+      const originalSort = sourceCard.sort;
       const sourceBox = await source.boundingBox();
       const bodyBox = await body.boundingBox();
       expect(sourceBox).toBeTruthy();
