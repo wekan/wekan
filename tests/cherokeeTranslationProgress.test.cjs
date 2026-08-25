@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 316);
+assert.equal(Object.keys(remaining).length, 266);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -256,3 +256,8 @@ assert.deepEqual(
 assert.match(cherokee['always-show-code-as-text-description'], /<!-- -->/);
 assert.match(cherokee['disable-import-avatars-description'], /LDAP.*OIDC\/OAuth2/);
 assert.match(cherokee['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
+assert.match(cherokee['backup-time'], /HH:MM/);
+assert.match(cherokee['gcs-key-filename-description'], /JSON/);
+assert.match(cherokee['gcs-permissions-note'], /client_email.*Storage Object Admin/);
+assert.match(cherokee['s3-endpoint-menu-path'], /MinIO.*Cloudflare R2.*Backblaze B2/);
+assert.match(cherokee['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
