@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-sixteen 50-value Chuvash batches then left **176,865 genuinely untranslated
-values across 82 locale files**, including 1,366 in Chuvash.
+seventeen 50-value Chuvash batches then left **176,815 genuinely untranslated
+values across 82 locale files**, including 1,316 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `attachment-limits` with
+Resume Chuvash at `Database_commit` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 16
-are committed and batch 17 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 17
+are committed and batch 18 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1528,6 +1528,16 @@ Starred boards, subscriptions, time tracking, numeric shortcuts, uploads,
 custom branding and URL settings, imported usernames, watching, welcome and
 template boards, WIP limits and attachment/API limits now use Chuvash. Digits
 and URL/API terms remain exact, leaving 1,366 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b64302a2b">Attachment limits, SMTP and webhooks gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment and API transfer limits, avatar blocking, registration, invitations,
+SMTP configuration and testing, authorization, outgoing and bidirectional
+webhooks and package, database, Node and Meteor metadata now use Chuvash.
+Invitation tokens and protocol names remain exact, leaving 1,316 values.
 
 </details>
 
