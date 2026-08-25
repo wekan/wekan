@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-thirty-two 50-value Chuvash batches then left **176,065 genuinely untranslated
-values across 82 locale files**, including 566 in Chuvash.
+thirty-three 50-value Chuvash batches then left **176,015 genuinely untranslated
+values across 82 locale files**, including 516 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `move-all-attachments-to-s3` with
+Resume Chuvash at `board-status-loading-mode` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 32
-are committed and batch 33 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 33
+are committed and batch 34 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1685,6 +1685,15 @@ leaving 616 values.
 Team invitations, Node memory statistics, organizations, legal notices,
 checklist transformations and attachment-storage movement now use Chuvash. Node,
 heap, malloc, URL, GridFS and S3 terminology remains exact, leaving 566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a1f0ea17">Storage repair gains 50 values</a>. Thanks to xet7.</summary>
+
+Bulk attachment movement, storage discovery and repair, default backends, file
+counts and MongoDB compaction now use Chuvash. GridFS, S3, IDs, MongoDB, oplog,
+Meteor and Compact terminology remains exact, leaving 516 values.
 
 </details>
 
