@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 366);
+assert.equal(Object.keys(remaining).length, 316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -289,3 +289,9 @@ assert.match(chuvash['database-migration-description'], /WEKAN_FERRETDB_URL.*WEK
 assert.match(chuvash['database-migration-description'], /MONGO_URL/);
 assert.deepEqual(tokens(chuvash['database-migration-confirm']), ['__db__']);
 assert.match(chuvash['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
+assert.match(chuvash['cards-loading-description'], /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(chuvash['render-links-as-plain-text-description']), ['<a href>']);
+assert.match(chuvash['always-show-code-as-text-description'], /<!-- -->.*JavaScript/);
+assert.match(chuvash['disable-import-avatars-description'], /LDAP.*OIDC\/OAuth2/);
+assert.match(chuvash['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
+assert.match(chuvash['backup-description'], /S3\/MinIO.*Azure.*GCS/);
