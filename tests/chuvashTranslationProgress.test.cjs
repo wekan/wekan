@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1666);
+assert.equal(Object.keys(remaining).length, 1616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -128,3 +128,7 @@ assert.deepEqual(tokens(chuvash['email-invite-text']), [
 assert.match(chuvash['error-json-malformed'], /JSON/);
 assert.match(chuvash['error-csv-schema'], /CSV.*TSV/);
 assert.match(chuvash['error-import-empty-board'], /WeKan/);
+assert.match(chuvash['export-card-pdf'], /PDF/);
+assert.match(chuvash['export-card-excel'], /Excel/);
+assert.match(chuvash['export-card-field-board-info'], /Ҫул/);
+assert.match(chuvash['filter-due-today'], /Паян/);
