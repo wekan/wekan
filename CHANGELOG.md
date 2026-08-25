@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first thirty 50-value Central Kurdish batches
-then left **178,331 genuinely untranslated values across 83 locale files**,
-including 666 in Central Kurdish.
+all 2,166 Cherokee values. The first thirty-one 50-value Central Kurdish batches
+then left **178,281 genuinely untranslated values across 83 locale files**,
+including 616 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `office-shared` with
+Resume Central Kurdish at `add-teams-label` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 30 are
-committed and batch 31 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 31 are
+committed and batch 32 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1244,6 +1244,16 @@ swimlanes, string templates, creator fields and file, security, speed, test,
 database, rule, board, card, impersonation, recovery and office reports now use
 Central Kurdish. Commands, line breaks, entities and tokens remain exact,
 leaving 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad1201f28">Recovery and tickets gain 50 values</a>. Thanks to xet7.</summary>
+
+Office and API reporting, automatic recovery, swimlane copying, card creators,
+wait animations, card sizing, organization and team deletion warnings, ticket
+fields and statuses, requests, card sorting and details now use Central Kurdish.
+API settings and product names remain exact, leaving 616 values.
 
 </details>
 
