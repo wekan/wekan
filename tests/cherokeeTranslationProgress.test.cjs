@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1016);
+assert.equal(Object.keys(remaining).length, 966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -149,3 +149,16 @@ assert.match(cherokee['r-check-all'], /ᏂᎦᏛ/);
 assert.match(cherokee['r-items-list'], /^ᎪᏪᎵ1,ᎪᏪᎵ2,ᎪᏪᎵ3$/);
 assert.match(cherokee['custom-head-meta-tags'], /HTML/);
 assert.match(cherokee['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(cherokee['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tokens(cherokee['act-a-dueAt']), [
+  '__card__',
+  '__timeOldValue__',
+  '__timeValue__',
+]);
+assert.deepEqual(tokens(cherokee['act-atUserComment']), [
+  '__board__',
+  '__card__',
+  '__comment__',
+  '__list__',
+  '__swimlane__',
+]);
