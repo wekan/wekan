@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 966);
+assert.equal(Object.keys(remaining).length, 916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -211,3 +211,6 @@ assert.deepEqual(tokens(ewe['act-atUserComment']), [
   '__list__',
   '__swimlane__',
 ]);
+assert.match(ewe['submit-on-enter-description'], /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter.*Enter/);
+assert.equal(ewe.monday, 'Dzoɖa');
+assert.equal(ewe.sunday, 'Kɔsiɖa');
