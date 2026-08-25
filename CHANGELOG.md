@@ -695,6 +695,17 @@ old equal spacing above and below the actions from returning.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6cf4016d">Swimlane archive and restore are confirmed to preserve their cards</a>. Thanks to Maevabus, chirrut2 and xet7.</summary>
+
+The existing cascade archives a swimlane's active cards with the lane and
+restores exactly those cards later. Eleven positive, negative, legacy-data and
+repeated-round-trip cases pass: cards archived independently remain archived,
+other lanes remain untouched and no active card can be stranded beneath an
+archived swimlane.
+
+</details>
+
 **Board members** - invitation decisions and team grants stay consistent.
 
 <details>
