@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 966);
+assert.equal(Object.keys(remaining).length, 916);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -162,3 +162,6 @@ assert.deepEqual(tokens(cherokee['act-atUserComment']), [
   '__list__',
   '__swimlane__',
 ]);
+assert.match(cherokee['submit-on-enter-description'], /Shift\+Enter.*Ctrl\/Cmd\+Enter/);
+assert.match(cherokee.monday, /ᏔᎵᏁᎢᎦ/);
+assert.match(cherokee['roles-status-role'], /ᎢᏯᏛᏁᏗ/);
