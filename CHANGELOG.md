@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first nineteen 50-value Central Kurdish batches
-then left **178,881 genuinely untranslated values across 83 locale files**,
-including 1,216 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty 50-value Central Kurdish batches
+then left **178,831 genuinely untranslated values across 83 locale files**,
+including 1,166 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `activity-delete-attach` with
+Resume Central Kurdish at `r-workflow-format` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 19 are
-committed and batch 20 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 20 are
+committed and batch 21 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1133,6 +1133,16 @@ notification deletion, duplicate-list cleanup, subtask destinations, minicard
 fields, attachment and checklist counts, parent paths and label activity now use
 Central Kurdish. Named and percent tokens and counters remain exact, leaving
 1,216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6524de400">Activity and board rules gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment, label and custom-field activity, rule creation and selection,
+workflow editing, card/member/checklist triggers and JSON, CSV and Trello Butler
+rule transfer now use Central Kurdish. Named and percent tokens and product and
+format names remain exact, leaving 1,166 values.
 
 </details>
 
