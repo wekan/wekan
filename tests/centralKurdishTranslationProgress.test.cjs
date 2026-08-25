@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 466);
+assert.equal(Object.keys(remaining).length, 416);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -290,3 +290,7 @@ assert.deepEqual(tokens(kurdish['drag-board-to-workspace']), ['__workspaces__'])
 assert.match(kurdish['show-week-of-year'], /ISO 8601/);
 assert.match(kurdish['import-board-zip'], /\.zip.*JSON/);
 assert.match(kurdish.accessibility, /دەستڕاگەیشتن/);
+assert.match(kurdish['accounts-lockout-known-users'], /وشەی نهێنی/);
+assert.match(kurdish['accounts-lockout-period'], /چرکە/);
+assert.match(kurdish['attachments-path-description'], /ڕێڕەو/);
+assert.match(kurdish['board-backup-scheduled'], /سەرکەوتوویی/);
