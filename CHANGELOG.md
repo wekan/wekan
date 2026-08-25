@@ -308,14 +308,15 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-forty-two 50-value Chuvash batches then left **175,565 genuinely untranslated
-values across 82 locale files**, including 66 in Chuvash.
+forty-two 50-value Chuvash batches and a final 66-value batch then translated
+all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
+81 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `otp` with
-`node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 42
-are committed and the final 66-value batch has not been applied.
+Resume Dzongkha at `accept` with
+`node releases/translations/fill-translations.mjs --list dz --limit 50`;
+Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha has not
+started.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1782,6 +1783,17 @@ Attachment migration destinations, batch and CPU thresholds, background status,
 monitoring controls, schedules, storage distribution and system-resource totals
 now use Chuvash. GridFS, S3, CPU, percentages and numeric ranges remain exact,
 leaving 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42c58ae71">Account and diagnostics complete all 2,166 values</a>. Thanks to xet7.</summary>
+
+OTP and account flows, repositories, problem and repair reporting, CPU and event
+details, filesystem integrity, scoped import/export and number-search guidance
+now use Chuvash. Named tokens, pseudo-tags, IP versions, product names and file
+extensions remain exact. All 2,166 formerly untranslated values are translated,
+with zero English placeholders remaining.
 
 </details>
 
