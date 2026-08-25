@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-50-value Chuvash batch then left **177,615 genuinely untranslated values across
-82 locale files**, including 2,116 in Chuvash.
+two 50-value Chuvash batches then left **177,565 genuinely untranslated values
+across 82 locale files**, including 2,066 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `act-moveCard` with
+Resume Chuvash at `workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batch 1 is committed
-and batch 2 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 and 2 are
+committed and batch 3 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1385,6 +1385,15 @@ Board, list, swimlane, card, attachment, subtask, label, checklist, comment,
 custom-field, member, archive and import activity now uses Chuvash. Named and
 percent placeholders remain exact, and new whole-locale invariant coverage
 leaves 2,116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3099faaba">Activity and workspaces gain 50 values</a>. Thanks to xet7.</summary>
+
+Card moves, member changes, generic and checklist activity, comment and date
+changes and All Boards workspace controls now use Chuvash. Named and percent
+placeholders and Markdown terminology remain exact, leaving 2,066 values.
 
 </details>
 
