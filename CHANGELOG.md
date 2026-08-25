@@ -629,6 +629,20 @@ report cannot silently regress.
 
 </details>
 
+**Filters and bulk selection** - cached cards remain confined to the board being
+edited.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec9410a3a">The cross-board filter-selection report is closed with its existing regressions</a>. Thanks to Gobliins and xet7.</summary>
+
+The earlier board-scoping fix constrains both the filter-to-selection query and
+every subsequent bulk action to the current board. Its positive, negative and
+end-to-end selector tests reproduce two boards whose cards share the filtered
+member, then prove that the cached card from the other board is neither selected
+nor mutated. This closing commit records that verified fix against issue 2306.
+
+</details>
+
 **Linked cards** - safe snapshots remain usable across board boundaries.
 
 <details>
