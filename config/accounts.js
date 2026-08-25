@@ -290,6 +290,15 @@ if (!disableRegistration) {
 [
   'signIn',
   'enrollAccount',
+  // #1426: configuring the sender is not enough. communitypackages:flow-routing
+  // installs `/verify-email/:token`, rewrites Accounts.urls.verifyEmail and calls
+  // Accounts.verifyEmail only when this route is configured. Without it, every
+  // emailed link fell through to WeKan's protected catch-all and said "Must be
+  // Logged in" without consuming the token.
+  'verifyEmail',
+  // Keep the companion route available so an unverified user can request a new
+  // token rather than requiring an administrator to edit the database.
+  'resendVerificationEmail',
 ].forEach(routeName => AccountsTemplates.configureRoute(routeName));
 
 // We display the form to change the password in a popup window that already
