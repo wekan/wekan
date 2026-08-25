@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first twenty-eight 50-value Dzongkha batches then left **174,099
-genuinely untranslated values across 81 locale files**, including 766 in
+81 locale files**. The first twenty-nine 50-value Dzongkha batches then left **174,049
+genuinely untranslated values across 81 locale files**, including 716 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `label-colors` with
+Resume Dzongkha at `location-longitude` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 28 are committed and batch 29 has not been applied.
+through 29 are committed and batch 30 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2071,6 +2071,16 @@ Public, private, selector and projection predicates, validation errors,
 pagination and the complete global-search operator, status, presence, sorting,
 limit and composition guidance now use Dzongkha. Named tokens, pseudo-tags and
 Markdown examples remain exact, leaving 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a22a0e77c">Dependencies and locations gain 50 values</a>. Thanks to xet7.</summary>
+
+Labels, board and card sorting, completion, stickers, dependency relationships
+and JSON/SVG imports, board backgrounds and location fields now use Dzongkha.
+Sort markers, named import counts and the background-size token remain exact,
+leaving 716 values.
 
 </details>
 
