@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2116);
+assert.equal(Object.keys(remaining).length, 2066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -57,3 +57,29 @@ assert.deepEqual(tokens(ewe['act-removeChecklistItem']), [
 ]);
 assert.match(ewe['act-createBoard'], /kpekpeɖeŋu/);
 assert.match(ewe['act-addComment'], /nyaŋuɖoɖo/);
+assert.deepEqual(tokens(ewe['act-moveCard']), [
+  '__board__',
+  '__card__',
+  '__list__',
+  '__oldList__',
+  '__oldSwimlane__',
+  '__swimlane__',
+]);
+assert.deepEqual(tokens(ewe['act-moveCardToOtherBoard']), [
+  '__board__',
+  '__card__',
+  '__list__',
+  '__oldBoard__',
+  '__oldList__',
+  '__oldSwimlane__',
+  '__swimlane__',
+]);
+assert.deepEqual(tokens(ewe['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(ewe['activity-checklist-completed-card']), [
+  '__board__',
+  '__card__',
+  '__checklist__',
+  '__list__',
+  '__swimlane__',
+]);
+assert.match(ewe['allboards.edit-workspace-icon'], /markdown/);
