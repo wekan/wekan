@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first seventeen 50-value
-Ewe batches then left **172,483 genuinely untranslated values across 80 locale
-files**, including 1,316 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first nineteen 50-value
+Ewe batches then left **172,383 genuinely untranslated values across 80 locale
+files**, including 1,216 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `Database_commit` with
+Resume Ewe at `activity-delete-attach` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 17 are committed and batch 18 has not been applied.
+1 through 19 are committed and batch 20 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2393,6 +2393,26 @@ Attachment transfer limits, avatar uploads, registration, invitations,
 SMTP/TLS settings and test mail, webhooks and package, database, Node and Meteor
 labels now use Ewe. Named email tokens and technical names remain exact,
 leaving 1,316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24f2c2ee6">System and multitenancy labels gain 50 values</a>. Thanks to xet7.</summary>
+
+Database and FerretDB metadata, reactivity, DDP and operating-system metrics,
+custom fields, visibility, organizations, teams and multitenancy now use Ewe.
+Technical modes, environment names and example domains remain exact, leaving
+1,266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab595a8f8">Card settings and deletion gain 50 values</a>. Thanks to xet7.</summary>
+
+Received and end dates, color dialogs, permanent board and duplicate-list
+deletion, subtask and card settings, minicard fields, parent paths and label
+activity now use Ewe. Named and percent tokens and count examples remain exact,
+leaving 1,216 values.
 
 </details>
 
