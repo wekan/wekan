@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 766);
+assert.equal(Object.keys(remaining).length, 716);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -192,3 +192,11 @@ assert.deepEqual(
 );
 assert.match(cherokee['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(cherokee['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.match(cherokee['sort-boards-title-asc'], /A → Z/);
+assert.match(cherokee['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(cherokee['import-dependencies-done']), [
+  '__imported__',
+  '__unmatched__',
+]);
+assert.deepEqual(tokens(cherokee['background-too-big']), ['{{size}}']);
+assert.match(cherokee['location-open-map'], /ᎦᏙᎯ/);
