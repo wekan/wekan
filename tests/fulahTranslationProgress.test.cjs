@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ff'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2116);
+assert.equal(Object.keys(remaining).length, 2066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -57,3 +57,22 @@ assert.deepEqual(tokens(fulah['act-removeChecklistItem']), [
 ]);
 assert.match(fulah['act-createBoard'], /alluwal/);
 assert.match(fulah['act-addComment'], /yowre/);
+assert.deepEqual(tokens(fulah['act-moveCardToOtherBoard']), [
+  '__board__',
+  '__card__',
+  '__list__',
+  '__oldBoard__',
+  '__oldList__',
+  '__oldSwimlane__',
+  '__swimlane__',
+]);
+assert.deepEqual(tokens(fulah['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(fulah['activity-checklist-completed-card']), [
+  '__board__',
+  '__card__',
+  '__checklist__',
+  '__list__',
+  '__swimlane__',
+]);
+assert.match(fulah['allboards.add-workspace'], /nokku golle/);
+assert.match(fulah['allboards.edit-workspace-icon'], /markdown/);
