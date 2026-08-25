@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first twenty-six 50-value Central Kurdish batches
-then left **178,531 genuinely untranslated values across 83 locale files**,
-including 866 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty-seven 50-value Central Kurdish
+batches then left **178,481 genuinely untranslated values across 83 locale
+files**, including 816 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `comment-not-found` with
+Resume Central Kurdish at `predicate-public` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 26 are
-committed and batch 27 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 27 are
+committed and batch 28 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1203,6 +1203,16 @@ Checklist visibility, tasks, domains, shared templates, people and time units,
 My Cards sorting, due-card and global-search views and missing-object messages
 now use Central Kurdish. Domain examples, Markdown and percent tokens remain
 exact, leaving 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9872d3b7">Search operators gain 50 values</a>. Thanks to xet7.</summary>
+
+Missing comments, organizations and teams, card-result counts, search operators
+for board fields and predicates for status, dates and content now use Central
+Kurdish. Search tokens remain space-free and percent and range tokens remain
+exact, leaving 816 values.
 
 </details>
 
