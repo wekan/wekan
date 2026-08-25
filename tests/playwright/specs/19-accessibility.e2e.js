@@ -58,6 +58,31 @@ test.describe('Accessibility', () => {
     expect(family).not.toMatch(/Yu Gothic|Meiryo/i);
   });
 
+  test('#697 a resumed iframe publishes a fresh viewport measurement', async ({
+    loggedInPage,
+  }) => {
+    // Login itself focuses the page and may already have queued the shared
+    // next-frame refresh. Measure a separate resume cycle after that settles.
+    await loggedInPage.waitForTimeout(200);
+    const resizeCount = await loggedInPage.evaluate(() => new Promise(resolve => {
+      let count = 0;
+      const countResize = event => {
+        if (event.detail?.source === 'wekan-viewport-resume') count += 1;
+      };
+      window.addEventListener('resize', countResize);
+
+      // Sandstorm restores a preserved grain as a page-show lifecycle event;
+      // the app must translate that into the ordinary responsive resize path.
+      window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }));
+      window.setTimeout(() => {
+        window.removeEventListener('resize', countResize);
+        resolve(count);
+      }, 250);
+    }));
+
+    expect(resizeCount).toBeGreaterThan(0);
+  });
+
   test('a skip-to-content link points at the main landmark', async ({ loggedInPage }) => {
     const skip = loggedInPage.locator('a.skip-link').first();
     await expect(skip).toHaveCount(1);

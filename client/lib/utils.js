@@ -1070,6 +1070,52 @@ export const Utils = {
 // programming environments (eg, elm).
 $(window).on('resize', () => Utils.windowResizeDep.changed());
 
+// #697: Sandstorm keeps a grain iframe alive while the user visits another
+// page. If WeKan finishes its first render while that iframe is hidden, the
+// browser can report a zero/narrow viewport and responsive helpers cache the
+// compact layout. Returning to the grain does not consistently produce a
+// native resize event, so the sidebar and other viewport-bound elements could
+// remain laid out for the hidden frame and fall outside the visible iframe.
+//
+// Treat every way a preserved document resumes as a deferred resize. The next
+// animation frame is important: it lets the embedding page restore the iframe's
+// dimensions before Blaze, popups and header measurements read them. Coalescing
+// avoids doing the same work twice when visibilitychange, pageshow and focus
+// arrive together. This is safe outside Sandstorm too (for background tabs and
+// bfcache restores), and reuses the ordinary resize path rather than maintaining
+// a second list of responsive consumers.
+function refreshViewportAfterResume() {
+  if (document.hidden || window.__wekanViewportResumePending) return;
+  // First leave the lifecycle-event task so pageshow/focus/visibilitychange can
+  // all collect, then leave one animation frame so the iframe has its restored
+  // dimensions. Chromium may run an animation frame inside a synthetic
+  // pageshow dispatch, so rAF alone is not a sufficient coalescing boundary.
+  window.__wekanViewportResumePending = true;
+  window.setTimeout(() => {
+    const schedule = window.requestAnimationFrame || (callback => window.setTimeout(callback, 0));
+    schedule(() => {
+      window.__wekanViewportResumePending = false;
+      window.dispatchEvent(new CustomEvent('resize', {
+        detail: { source: 'wekan-viewport-resume' },
+      }));
+    });
+  }, 0);
+}
+
+// Meteor hot-module replacement can evaluate this module again without
+// recreating the document. Replace the previous instance instead of stacking
+// another set of listeners (and another resize) on every hot update.
+const previousViewportResume = window.__wekanViewportResumeHandler;
+if (previousViewportResume) {
+  document.removeEventListener('visibilitychange', previousViewportResume);
+  window.removeEventListener('pageshow', previousViewportResume);
+  window.removeEventListener('focus', previousViewportResume);
+}
+window.__wekanViewportResumeHandler = refreshViewportAfterResume;
+document.addEventListener('visibilitychange', refreshViewportAfterResume);
+window.addEventListener('pageshow', refreshViewportAfterResume);
+window.addEventListener('focus', refreshViewportAfterResume);
+
 // --wekan-header-height: how tall the two header bars actually are, right now.
 //
 // Anything laid out against the VIEWPORT rather than against the page flow -
