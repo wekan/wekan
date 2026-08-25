@@ -471,9 +471,9 @@ browser build to verify).
 **In short:** **FerretDB closes its CodeQL findings** while preserving required
 legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
-details** close when their card disappears, **card dragging** is visually
-stable, **mobile Search** returns directly to the board, and the first **Fulah
-translations** are present. **Email invitations** retain their collision and
+details** close when their card disappears, **legacy minicards** retain their
+creator choice, and **mobile Search** returns directly to the board. **Email
+invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
 source boards. **LDAP/OIDC account linking, login boundaries, provider
@@ -623,6 +623,22 @@ positive and negative checks pass. A production-mode Meteor server under
 without leaving the prefixed board URL. The Firefox browser regression is
 registered but could not run locally because its Playwright binary is absent.
 FerretDB and the service-worker 404 are unrelated to these client mutations.
+
+</details>
+
+**Minicards** - upgrades preserve whether creator avatars are displayed.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6af6db72d">Legacy boards keep minicard creators hidden until explicitly enabled</a>. Thanks to tamasberesoebb and xet7.</summary>
+
+Boards created before the dedicated minicard creator setting existed no longer
+inherit the separate opened-card creator setting in the Card Settings popup.
+Their checkbox and rendered cards now both remain off by default, while an
+explicit click persists the opt-in and shows the creator. Five focused
+positive, negative and wiring checks pass. A live Meteor development stack
+compiled and started, and Chromium reproduced the legacy missing field, checked
+the initial UI state, enabled it and observed the avatar appear. FerretDB only
+stores the board setting and is not involved in its interpretation.
 
 </details>
 
