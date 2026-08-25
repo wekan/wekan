@@ -14,9 +14,31 @@ function missingGroupLookupSettings(options) {
     .map(([, setting]) => setting);
 }
 
+function splitGroupNames(value) {
+  const seen = new Set();
+  return String(value || '')
+    .split(',')
+    .map(name => name.trim())
+    .filter(name => {
+      if (!name) return false;
+      const normalized = name.toLowerCase();
+      if (seen.has(normalized)) return false;
+      seen.add(normalized);
+      return true;
+    });
+}
+
+function loginGroupNames(options, adminSyncEnabled, adminGroupNames) {
+  const names = splitGroupNames(options.group_filter_group_name);
+  if (!adminSyncEnabled) return names;
+  return splitGroupNames([names.join(','), adminGroupNames].filter(Boolean).join(','));
+}
+
 function missingLoginGroupFilterSettings(options, adminGroupNames = '') {
   const missing = missingGroupLookupSettings(options);
-  if (!hasValue(options.group_filter_group_name) && !hasValue(adminGroupNames)) {
+  if (splitGroupNames(
+    [options.group_filter_group_name, adminGroupNames].filter(Boolean).join(','),
+  ).length === 0) {
     missing.push('LDAP_GROUP_FILTER_GROUP_NAME');
   }
   return missing;
@@ -25,4 +47,6 @@ function missingLoginGroupFilterSettings(options, adminGroupNames = '') {
 module.exports = {
   missingGroupLookupSettings,
   missingLoginGroupFilterSettings,
+  splitGroupNames,
+  loginGroupNames,
 };

@@ -5,6 +5,7 @@ import { buildUserIdFilter } from './userIdFilter';
 import {
   missingGroupLookupSettings,
   missingLoginGroupFilterSettings,
+  loginGroupNames,
 } from './groupFilterConfig';
 
 // #4158: warn about a deprecated/invalid LDAP_ENCRYPTION value only once per
@@ -612,13 +613,13 @@ export default class LDAP {
       // #4036: LDAP_GROUP_FILTER_GROUP_NAME accepts a comma-separated list, and
       // members of LDAP_SYNC_ADMIN_GROUPS may also log in when admin sync is on
       // (previously an admin only in the admin group was locked out entirely).
-      const names = String(this.options.group_filter_group_name || '')
-        .split(',').map((s) => s.trim()).filter(Boolean);
-      if (this.constructor.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
-        names.push(...String(this.constructor.settings_get('LDAP_SYNC_ADMIN_GROUPS') || '')
-          .split(',').map((s) => s.trim()).filter(Boolean));
-      }
-      const clauses = names.map((n) => `(${this.options.group_filter_group_id_attribute}=${n})`);
+      const names = loginGroupNames(
+        this.options,
+        this.constructor.settings_get('LDAP_SYNC_ADMIN_STATUS') === true,
+        this.constructor.settings_get('LDAP_SYNC_ADMIN_GROUPS'),
+      );
+      const clauses = names.map((name) =>
+        `(${this.options.group_filter_group_id_attribute}=${escapeLdapFilterValue(name)})`);
       if (clauses.length === 1) {
         filter.push(clauses[0]);
       } else if (clauses.length > 1) {

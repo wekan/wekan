@@ -6,6 +6,8 @@ const path = require('path');
 const {
   missingGroupLookupSettings,
   missingLoginGroupFilterSettings,
+  splitGroupNames,
+  loginGroupNames,
 } = require('../packages/wekan-ldap/server/groupFilterConfig');
 
 let passed = 0;
@@ -58,6 +60,35 @@ test('configured admin groups are also valid allowed login groups', () => {
   }, 'Domain Admins'), []);
 });
 
+test('#4036 admin-only users and every configured login group are admitted', () => {
+  assert.deepStrictEqual(loginGroupNames({
+    ...complete,
+    group_filter_group_name: 'Users A, Users B',
+  }, true, 'Domain Admins, Operators'), [
+    'Users A',
+    'Users B',
+    'Domain Admins',
+    'Operators',
+  ]);
+});
+
+test('#4036 disabled admin sync does not broaden the login groups', () => {
+  assert.deepStrictEqual(loginGroupNames(complete, false, 'Domain Admins'), [
+    'allowed-users',
+  ]);
+});
+
+test('group lists discard blanks and duplicate names case-insensitively', () => {
+  assert.deepStrictEqual(splitGroupNames('Users, , users,Admins,'), [
+    'Users',
+    'Admins',
+  ]);
+  assert.deepStrictEqual(missingLoginGroupFilterSettings({
+    ...complete,
+    group_filter_group_name: ' , ',
+  }, ',  ,'), ['LDAP_GROUP_FILTER_GROUP_NAME']);
+});
+
 test('source refuses before either LDAP group search when configuration is incomplete', () => {
   const source = fs.readFileSync(path.join(
     __dirname, '..', 'packages', 'wekan-ldap', 'server', 'ldap.js',
@@ -75,6 +106,8 @@ test('source refuses before either LDAP group search when configuration is incom
   assert.ok(login.indexOf('missingLoginGroupFilterSettings') < login.indexOf('searchAll('));
   assert.match(groups, /Answering with NO groups/);
   assert.match(login, /Refusing login/);
+  assert.match(login, /loginGroupNames\(/);
+  assert.match(login, /escapeLdapFilterValue\(name\)/);
 });
 
 console.log(`\n${passed} passed`);
