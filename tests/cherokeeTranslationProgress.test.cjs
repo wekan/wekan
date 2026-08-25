@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1516);
+assert.equal(Object.keys(remaining).length, 1466);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -106,3 +106,6 @@ assert.match(cherokee['import-board-instruction-openproject'], /GET \/api\/v3\/w
 assert.match(cherokee['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.deepEqual(tokens(cherokee['label-default']), ['%s']);
 assert.match(cherokee['invalid-year'], /2026/);
+assert.deepEqual(tokens(cherokee['leave-board-pop']), ['__boardTitle__']);
+assert.match(cherokee['listImportCardsTsvPopup-title'], /CSV\/TSV/);
+assert.match(cherokee['no-archived-swimlanes'], /ᏍᏫᎻᎴᏅ/);
