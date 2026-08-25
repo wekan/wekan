@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 666);
+assert.equal(Object.keys(remaining).length, 616);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -270,3 +270,8 @@ assert.deepEqual(tokens(kurdish['custom-field-stringtemplate-format']), [
 ]);
 assert.match(kurdish['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
 assert.match(kurdish['office-report-desc'], /IPv4.*IPv6/);
+assert.match(kurdish['api-report-desc'], /REST API/);
+assert.match(kurdish['api-no-calls'], /WITH_API=true/);
+assert.match(kurdish['recovery-report-desc'], /MongoDB/);
+assert.match(kurdish['carbon-copy'], /Cc:/);
+assert.equal(kurdish.resolved, 'چارەسەرکراو');
