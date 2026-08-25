@@ -705,6 +705,21 @@ stack. FerretDB is not involved in the pre-login directory searches.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/139bf4341">Admin-only and multiple LDAP groups retain exact login filtering</a>. Thanks to Hellnino18 and xet7.</summary>
+
+The existing fix already ORed ordinary login groups with admin-sync groups, so
+an administrator no longer had to be duplicated into the ordinary-user group.
+The closing audit now parses that combined list once, removes blank and
+case-insensitive duplicate names, escapes every LDAP assertion value and
+refuses a blank-only list before it can become a broad directory query. Nine
+positive, negative and wiring cases cover admin-only users, multiple groups,
+disabled admin sync and malformed lists; the full LDAP suite passes and the
+package compiles and starts in Meteor. A live bind still needs an external LDAP
+directory; FerretDB is not involved.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b294ecfb0">REST login authenticates LDAP credentials through their registered handler</a>. Thanks to mariogalan, ViViDboarder, mgiacomoli, HaKePlan and xet7.</summary>
 
 The REST route called Meteor's private bcrypt checker directly, so every LDAP
