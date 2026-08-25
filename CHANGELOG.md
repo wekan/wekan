@@ -493,13 +493,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **FerretDB closes its CodeQL findings** across readiness logging,
-query-number handling and developer tooling while narrowly documenting a
-protocol-required legacy authentication exception. **Fulah translation** now
-covers its first activity-history and workspace controls with exact tokens, and
-**Rules** can again save current-date, cleared-date and add-member actions.
-**Card moves** remain visible at their dropped position while large boards
-finish reactive rendering, and fast touch drags no longer open the moved card.
+**In short:** **FerretDB closes its CodeQL findings** while preserving required
+legacy compatibility. The **Board Table view** is responsive, sortable and can
+group cards by swimlane. **Rules** save date and member actions again, **card
+dragging** is visually stable, and the first **Fulah translations** are present.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -554,6 +551,45 @@ CodeQL annotations at the exact MD5 digest operation, documenting why replacing
 it would reject protocol-compatible credentials rather than improve security.
 Native boundary tests, vet and 32-bit cross-compilation pass for alerts 43 and
 44; the MongoDB-generated authentication vectors remain unchanged.
+
+</details>
+
+and adds the following new features:
+
+**Board Table view** - a responsive overview adapts to each reader's workflow.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad6a7b7c8">It uses the browser width and offers compact or wrapped card titles</a>. Thanks to rmb82 and xet7.</summary>
+
+Card, List and Swimlane cells no longer stop growing at a hardcoded 250 pixels.
+The table consumes its available container width, and card titles default to a
+single ellipsized line whose native tooltip retains the complete text. A toolbar
+control opts into wrapping, with the choice stored separately for each user.
+Unit coverage checks defaults, persistence and user isolation; a browser test
+checks width, tooltip, both modes and persistence across reload.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/828cb5e53">Its column headers sort rows in either direction</a>. Thanks to rmb82 and xet7.</summary>
+
+Card, List, Swimlane, people, label and date headers now toggle ascending and
+descending client-side sorting. Empty date values remain last in both
+directions, and card title provides deterministic ordering when selected values
+match. Comparator tests cover text, numeric titles, dates, nulls and state
+transitions; a browser regression checks header toggling and indicators.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0847af8ec">It optionally groups cards under swimlane sections</a>. Thanks to rmb82 and xet7.</summary>
+
+Flat rows remain the default. A per-user toolbar toggle groups cards in board
+swimlane order while retaining the selected column sort inside each lane.
+Section headers are inserted after pagination, so they never consume any of the
+25 card slots; a page beginning partway through a lane still names that lane.
+Unit coverage checks defaults, isolation and boundaries, and a browser scenario
+checks lane order, card count and persistence across reload.
 
 </details>
 
