@@ -111,14 +111,6 @@ feature or a wrapper change verified on a real snap install).
 <details>
 <summary>Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here.</summary>
 
-[#6430](https://github.com/wekan/wekan/issues/6430) (the ~1s card flicker left
-after the server-side half was fixed: on drop, list.js calls
-`$cards.sortable('cancel')` to put the DOM back BEFORE writing the move, so the
-card is drawn in its old place and then moved again by Blaze's re-render - which
-is the flicker, and why it shows on large boards and intermittently. Writing
-before cancelling, or reconciling without the cancel, is a change to the
-drag-drop reconciliation that has to be dragged in a browser to know it works;
-made blind it can break dropping entirely),
 [#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the
 All Boards page — the `boardLists`/`boardMembers` helpers in
 `client/components/boards/boardsList.js` were deliberately stubbed to `[]` to
@@ -148,11 +140,7 @@ it is scrolled to the bottom — drag-drop/scroll),
 into board B shows a blank view / freezes when the viewer has no rights on board
 A — the linked-card open resolves the real card the viewer cannot see; needs a
 runtime permission + reactive-close-on-no-access fix verified live),
-[#6430](https://github.com/wekan/wekan/issues/6430) (~1s card flicker when
-dragging to another list on LARGE boards — a drag/reactivity re-render; xet7
-already reduced it in commit 2e7c4ed but the reporter says it persists, so it
-needs a large board in a browser to profile; related to the #6480 adaptive card
-loading and #5421), [#6509](https://github.com/wekan/wekan/issues/6509) — which is a request to TEST
+[#6509](https://github.com/wekan/wekan/issues/6509) — which is a request to TEST
 FerretDB v1 on MySQL, MariaDB and SAP HANA, and is mostly answered: the
 conformance harness (`./build.sh` → Tests → All databases) runs one catalogue of
 100 queries against every backend with an image for the machine, and **MariaDB
@@ -512,6 +500,8 @@ logging, query-number handling and developer tooling while documenting a
 protocol-required legacy authentication exception. **Fulah translation** now
 covers its first activity-history and workspace controls with exact tokens, and
 **Rules** can again save current-date, cleared-date and add-member actions.
+**Card moves** remain visible at their dropped position while large boards
+finish reactive rendering.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -541,7 +531,9 @@ the affected tools-module tests pass.
 
 </details>
 
-and fixes the following bug:
+and fixes the following bugs:
+
+**Rules** - action descriptions stay in the schema that owns them.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea9002328">Date and add-member Rules save without schema errors</a>. Thanks to rmb82 and xet7.</summary>
@@ -554,6 +546,21 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+**Card movement** - drag-and-drop remains visually stable during reactive work.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b687f3727">Dropped cards stay visible while large boards reconcile the move</a>. Thanks to mimZD and xet7.</summary>
+
+The required jQuery UI cancellation used to draw a card back in its source list
+until Blaze finished rendering the database move, producing the intermittent
+one-second flicker reported on large boards. A presentation-only copy now holds
+the target slot until the real reactive card arrives; it cannot receive pointer
+events and is removed immediately on arrival or failure, with a safety timeout.
+A Chromium drag regression deliberately delays the model move and verifies the
+target remains occupied throughout before the real card replaces the preview.
 
 </details>
 
