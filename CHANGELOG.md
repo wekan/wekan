@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first three 50-value Dzongkha batches then left **175,349
-genuinely untranslated values across 81 locale files**, including 2,016 in
+81 locale files**. The first four 50-value Dzongkha batches then left **175,299
+genuinely untranslated values across 81 locale files**, including 1,966 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `added` with
+Resume Dzongkha at `board-public-info` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 3 are committed and batch 4 has not been applied.
+through 4 are committed and batch 5 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1827,6 +1827,16 @@ Workspace deletion, multi-board selection, Home boards, list widths, keyboard
 shortcuts, swimlane heights, templates, subtasks and checklist controls now use
 Dzongkha. Percent placeholders and numeric limits remain exact, leaving 2,016
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0930e60b5">Board administration and archives gain 50 values</a>. Thanks to xet7.</summary>
+
+Administrator announcements, offline recovery, archives, templates,
+attachments, backgrounds, member and assignee views and private-board notices
+now use Dzongkha. Named and percent tokens and HTML tags remain exact, leaving
+1,966 values.
 
 </details>
 
