@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 16);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -288,3 +288,15 @@ assert.deepEqual(tokens(cherokee['repair-broken-cards-done-unfixable']), [
   '__unfixable__',
 ]);
 assert.match(cherokee['problems-in-progress-help'], /CPU/);
+assert.match(cherokee['event-ipv4'], /IPv4/);
+assert.match(cherokee['event-ipv6'], /IPv6/);
+assert.deepEqual(
+  tokens(cherokee['globalSearch-instructions-operator-number']),
+  ['__operator_number__'],
+);
+assert.deepEqual(
+  tags(cherokee['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>'],
+);
+assert.match(cherokee['import-board-source'], /Trello.*Jira.*CSV.*Excel/);
+assert.match(cherokee['import-wekan-file'], /\.json.*\.zip/);
