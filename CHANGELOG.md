@@ -515,9 +515,9 @@ repaired strings. Ten Azerbaijani, Catalan and Russian tags restore another 60
 logical placeholder inventories. Below that: focused regression coverage and
 Italian, Venda and Volapük complete that tier. Below that: focused regression
 coverage, a repository-wide Transifex machine-marker repair, and native-speaker
-review notes for low-confidence direct translations. New **Haxe and Go rewrite
-designs** map WeKan's dependencies to realistic alternatives and incremental
-prototype paths.
+review notes for low-confidence direct translations. New **Haxe, Go and Free
+Pascal rewrite designs** map WeKan's dependencies to realistic alternatives and
+incremental prototype paths.
 Whole-file work begins with forty-three 50-value Amharic batches and a final
 16-value batch covering
 activity, boards, cards, members, navigation, roles, custom fields, email,
@@ -884,6 +884,19 @@ to Go standard-library facilities, maintained packages or explicitly custom
 compatibility work. It explains that Pug is Jade's JavaScript successor, while
 `html/template` and templ are Go-native rewrites, and recommends prototyping a
 standalone Go server before considering a browser rewrite or FerretDB merger.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d33681e5">Free Pascal rewrite options and dependency equivalents are documented</a>. Thanks to xet7.</summary>
+
+The Multiverse design derives its Free Pascal stack from the existing Omi and
+Wami prototypes: FCL `fphttpapp`, `httproute`, `fpjson`, statically linked
+SQLite, server-rendered HTML, optional `interact.js`, Caddy at the TLS edge and
+mORMot 2 or Brook only after measured scale requires them. It maps the current
+WeKan dependencies, distinguishes proven prototype choices from unimplemented
+integrations, and recommends extending Wami with production authentication and
+shared compatibility tests.
 
 </details>
 
