@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first forty-two 50-value
-Ewe batches then left **171,233 genuinely untranslated values across 80 locale
-files**, including 66 in Ewe.
+batch then translated all 2,166 Dzongkha values. Forty-two 50-value Ewe batches
+and a final 66-value batch then translated all 2,166 Ewe values, leaving
+**171,167 genuinely untranslated values across 79 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Finish Ewe at `otp` with
-`node releases/translations/fill-translations.mjs --list ee --limit 100`;
-Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 42 are committed and the final 66-value batch has not been applied.
+Begin Fulah at `accept` with
+`node releases/translations/fill-translations.mjs --list ff --limit 50`;
+Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha and Ewe are complete, and
+no Fulah batch has been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -510,8 +510,7 @@ browser build to verify).
 covering activity, workspaces, board and card views, imports and exports,
 privacy, automation, roles, search, dependencies, locations, reports,
 attachments, accessibility, account protection, migrations, security controls,
-backups and cloud storage. **Chuvash and Dzongkha are complete and Ewe is
-progressing**, while
+backups and cloud storage. **Chuvash, Dzongkha and Ewe are complete**, while
 whole-locale placeholder and markup checks preserve human work and every code
 token.
 
@@ -2639,6 +2638,17 @@ Attachment migration destinations, batch and CPU thresholds, background
 status, monitoring controls, schedules, storage distribution and system
 resources now use Ewe. GridFS, S3, CPU, percent signs and numeric ranges remain
 exact, leaving 66 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09279e95d">Repository and diagnostics translation completes Ewe</a>. Thanks to xet7.</summary>
+
+Repository authentication and uploads, problem monitoring, event diagnostics,
+broken-card repair and import/export controls now use Ewe. Named tokens,
+angle-bracket examples, inline code, emphasis, file extensions and product
+names remain exact. This final 66-value batch completes all 2,166 Ewe
+placeholders.
 
 </details>
 
