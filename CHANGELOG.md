@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-forty-one 50-value Cherokee batches then left **179,947 genuinely untranslated
-values across 84 locale files**, including 116 in Cherokee.
+forty-two 50-value Cherokee batches then left **179,897 genuinely untranslated
+values across 84 locale files**, including 66 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `migrate-all-to-filesystem` with
+Resume Cherokee at `otp` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 41 are committed and batch 42
+Buryat is complete, Cherokee batches 1 through 42 are committed and batch 43
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -915,6 +915,15 @@ confirmation punctuation remain exact, leaving 166 values.
 Board-conversion steps, scheduled-job monitoring, CPU and memory metrics and
 filesystem and GridFS statistics now use Cherokee syllabary. URLs, backend
 names, numeric intervals and identifiers remain exact, leaving 116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0cbbfbfcb">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Bulk attachment migration, throttling, monitoring and storage distribution now
+use Cherokee syllabary. Filesystem, GridFS, S3, units and numeric ranges remain
+exact, leaving 66 values.
 
 </details>
 
