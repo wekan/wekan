@@ -393,7 +393,12 @@ test.describe('Cards – operations', () => {
     db.cleanup({ boardIds: [emptyBoard.boardId] });
   });
 
-  test('#6613 links a card from another board and closes the popup', async ({ boardPage, board, user }) => {
+  test('#1946/#6613 linked source fields and member avatars survive reload', async ({
+    boardPage,
+    board,
+    user,
+    user2,
+  }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
@@ -410,6 +415,11 @@ test.describe('Cards – operations', () => {
       swimlanes: [{ title: 'Default', sort: 0, type: 'swimlane' }],
     });
     const sourceSwimlane = db.findOne('swimlanes', { boardId: sourceBoardId });
+    db.addBoardMember({ boardId: sourceBoardId, userId: user2.id });
+    const avatarUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"/%3E';
+    db.updateOne('users', { _id: user2.id }, {
+      $set: { 'profile.avatarUrl': avatarUrl },
+    });
     const sourceListId = db.uid('list');
     const sourceCardId = db.uid('card');
     const now = new Date();
@@ -422,7 +432,7 @@ test.describe('Cards – operations', () => {
       _id: sourceCardId, title: 'Cross-board source card', boardId: sourceBoardId,
       listId: sourceListId, swimlaneId: sourceSwimlane._id,
       type: 'cardType-card', archived: false, sort: 100,
-      members: [], labelIds: [], customFields: [], createdAt: now,
+      members: [user2.id], labelIds: [], customFields: [], createdAt: now,
       modifiedAt: now, dateLastActivity: now, userId: user.id,
     });
     const source = { boardId: sourceBoardId, slug: sourceSlug };
@@ -497,6 +507,13 @@ test.describe('Cards – operations', () => {
 
       await linked.click();
       await expect(boardPage.locator('.card-details')).toBeVisible();
+      const linkedMemberAvatar = boardPage.locator(
+        `.card-details a.member[title*="${user2.username}"] img.avatar-image`,
+      );
+      await expect(linkedMemberAvatar).toHaveAttribute(
+        'src',
+        avatarUrl,
+      );
       await expect(boardPage.locator(
         '.card-details .card-label[title="Source Label"]',
       )).toHaveAttribute(
