@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-ten 50-value Cherokee batches then left **181,497 genuinely untranslated values
-across 84 locale files**, including 1,666 in Cherokee.
+eleven 50-value Cherokee batches then left **181,447 genuinely untranslated
+values across 84 locale files**, including 1,616 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `error-user-doesNotExist` with
+Resume Cherokee at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 10 are committed and batch 11
+Buryat is complete, Cherokee batches 1 through 11 are committed and batch 12
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -500,8 +500,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Cherokee translation** now covers card moves, activity,
-workspaces, board views, voting, imports, member settings, navigation, custom
-fields and account emails. This continues the direct whole-file translation
+workspaces, board views, voting, imports, member settings, navigation, account
+emails, exports and filters. This continues the direct whole-file translation
 effort while preserving human work and every code token. Below that:
 whole-locale placeholder and markup checks protect the new values.
 
@@ -607,6 +607,16 @@ Custom-field text, permanent deletion, profiles, WIP limits, account enrollment,
 invitation, password-reset and verification emails and authorization, JSON, CSV,
 TSV and board-import errors now use Cherokee syllabary. Named email tokens and
 paragraph breaks remain exact, leaving 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bc8d8ce7">Card exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+Account errors, attachment-free board export, PDF and Excel card exports,
+attachment metadata, list sorting and due-date, label and member filters now use
+Cherokee syllabary. File-format and product names remain intact, and whole-locale
+invariant coverage leaves 1,616 values.
 
 </details>
 
