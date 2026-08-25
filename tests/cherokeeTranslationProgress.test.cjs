@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 366);
+assert.equal(Object.keys(remaining).length, 316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -245,3 +245,14 @@ assert.match(
   /mongodb:\/\/127\.0\.0\.1:27018.*WEKAN_FERRETDB_URL.*MONGO_URL/s,
 );
 assert.match(cherokee['sandstorm-migration-description'], /MongoDB 3.*SQLite/s);
+assert.match(
+  cherokee['cards-loading-description'],
+  /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/,
+);
+assert.deepEqual(
+  tags(cherokee['render-links-as-plain-text-description']),
+  ['<a href>'],
+);
+assert.match(cherokee['always-show-code-as-text-description'], /<!-- -->/);
+assert.match(cherokee['disable-import-avatars-description'], /LDAP.*OIDC\/OAuth2/);
+assert.match(cherokee['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
