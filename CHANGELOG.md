@@ -473,8 +473,9 @@ legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **legacy minicards** retain their
 creator choice, **Japanese controls** stay aligned, and **mobile Search**
-returns directly to the board. **Private linked cards** remain usable without
-exposing their source boards. **LDAP/OIDC account linking, login boundaries,
+returns directly to the board. **Speech scrolling** targets lists and cards.
+**Private linked cards** remain usable without exposing their source boards.
+**LDAP/OIDC account linking, login boundaries,
 provider endpoints and group restrictions** now preserve account data, resolve provider
 URLs consistently, use directory authentication consistently and fail closed
 when required.
@@ -883,6 +884,24 @@ a global rule that would damage Latin and long-URL wrapping. A live Meteor
 development stack compiled and started, and Chromium selected Japanese, opened
 the real add-card composer and measured every translated control as one line.
 FerretDB is not involved in client layout.
+
+</details>
+
+**Accessibility** - independently scrolling board regions can be targeted
+without a mouse.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb10b6160">Lists and opened cards are named, focusable scroll regions</a>. Thanks to ProdLead and xet7.</summary>
+
+Each list body and card-details window now exposes the standard `region` role,
+a translated accessible name and keyboard focus. Speech-recognition software
+can therefore target the intended scrollbar instead of guessing among the
+several independent regions on a board, and keyboard users gain the same
+control. Four focused positive, negative and wiring checks pass. A live Meteor
+development stack compiled and started, and Chromium focused overflowing list
+and card regions and scrolled each with Page Down. A Dragon installation was
+not available for its proprietary voice-command layer. FerretDB is not involved
+in client focus or scrolling.
 
 </details>
 
