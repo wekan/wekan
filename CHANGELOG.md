@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first thirty-eight
-50-value Buryat batches then left **182,263 genuinely untranslated values
-across 85 locale files**, including 266 in Buryat.
+16-value batch then translated all 2,166 values. The first thirty-nine 50-value
+Buryat batches then left **182,213 genuinely untranslated values across 85
+locale files**, including 216 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `gridfs-enabled` with
+Resume Buryat at `comprehensive-board-migration` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 38 are committed and batch 39 has not been applied.
+batches 1 through 39 are committed and batch 40 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4783,6 +4783,17 @@ permissions, AWS S3, Azure and GCS console paths, connection tests and cloud
 attachment moves now use Buryat. Time formats, JSON field names, console menu
 names, storage products and secret-key terminology remain exact, and
 whole-locale invariant coverage leaves 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8f5fc627">Buryat storage-migration controls gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS selection, migration lifecycle and progress, CollectionFS moves, S3
+credentials and connection tests, scheduled board operations, writable paths
+and attachment and board migration settings now use Buryat. MongoDB, GridFS,
+CollectionFS, AWS, MinIO, SSL/TLS and the example region remain exact, and
+whole-locale invariant coverage leaves 216 values.
 
 </details>
 
