@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first thirty-eight 50-value Central Kurdish
-batches then left **177,931 genuinely untranslated values across 83 locale
-files**, including 266 in Central Kurdish.
+all 2,166 Cherokee values. The first thirty-nine 50-value Central Kurdish
+batches then left **177,881 genuinely untranslated values across 83 locale
+files**, including 216 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `gridfs-enabled` with
+Resume Central Kurdish at `comprehensive-board-migration` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 38 are
-committed and batch 39 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 39 are
+committed and batch 40 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1324,6 +1324,16 @@ Backup schedules and restore modes, Google Cloud service accounts, S3, Azure
 and GCS configuration paths, secret handling, connection tests and attachment
 movement to cloud storage now use Central Kurdish. Time formats, console labels,
 key names and provider names remain exact, leaving 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd91f204f">Storage migration gains 50 values</a>. Thanks to xet7.</summary>
+
+GridFS, general migration progress and controls, CollectionFS moves, S3
+authentication and connectivity, scheduled board operations, writable paths
+and attachment and board migration settings now use Central Kurdish. Storage,
+region and transport names remain exact, leaving 216 values.
 
 </details>
 
