@@ -280,10 +280,13 @@ test('Upcoming opens with a short summary of the whole release', () => {
   const intro = (tableAt === -1 ? head : head.slice(0, tableAt)).join('\n').trim();
   assert.ok(intro.startsWith('**In short:**'),
     'the Upcoming section opens with an **In short:** paragraph');
-  // A summary, not a second list: no links, and long enough to be a summary.
+  // A compact release-level summary, not a second list or progress ledger.
   assert.ok(!/<details>|<summary>/.test(intro), 'prose, not entries');
   assert.ok(!/https?:\/\//.test(intro), 'and it links nothing - the entries do that');
   assert.ok(intro.length > 200, 'and it actually summarises the release');
+  const introWords = intro.replace(/^\*\*In short:\*\*\s*/, '').trim().split(/\s+/);
+  assert.ok(introWords.length <= 120,
+    `and stays high-level rather than becoming a ${introWords.length}-word ledger`);
 });
 
 test('Upcoming then says which binaries each platform ships', () => {
@@ -436,7 +439,8 @@ test('CLAUDE.md states these rules, so they are not folklore', () => {
   assert.ok(/Word-wrap both CHANGELOGs at 80 chars/.test(claude));
   assert.ok(/no `Thanks to` line/.test(claude), 'including the TODO Later exception');
   assert.ok(/The Upcoming section opens with an `\*\*In short:\*\*` paragraph/.test(claude));
-  assert.ok(/Inside a subsection, entries are GROUPED BY AREA/.test(claude));
+  assert.ok(/Inside a subsection, entries are GROUPED BY TOPIC\/AREA/.test(claude));
+  assert.ok(/release summary → topic summary → commit\s+detail/.test(claude));
 });
 
 console.log(`\n${passed} tests passed`);

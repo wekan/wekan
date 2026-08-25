@@ -391,16 +391,17 @@ as if it were human.
   subsection just keeps its single `This release …:` header. Use `and adds the following
   new features:`, `and fixes the following bugs:`, `and updates the following
   dependencies:`, etc., matching the verb to the subsection.
-- **The Upcoming section opens with an `**In short:**` paragraph.** One paragraph,
-  right under the `# Upcoming WeKan ® release` line and above the first
-  `This release …:` header, saying what the whole release amounts to — the areas
-  that changed and what changed about them, with the notable names in `**bold**`
-  so it can be skimmed. It is a SUMMARY, not a list: it does not link commits, it
-  does not repeat an entry's wording, and it ends by accounting for the rest in a
-  clause (`Below that: dependency updates, nine bug fixes … and the usual
-  documentation and translation work.`). Keep it current as entries are added —
-  it is the first thing a reader sees, so a stale one misdescribes the release.
-  A finished release keeps the paragraph it was written with.
+- **The Upcoming section opens with an `**In short:**` paragraph.** It must be
+  short: put one compact, high-level paragraph directly under the
+  `# Upcoming WeKan ® release` line. Aim for 2–4 sentences and no more than about
+  120 words, however many commits the release contains. Name only the release's
+  major outcomes or themes, with notable names in `**bold**` so it can be skimmed.
+  It is not a commit inventory, progress log or miniature changelog: do not list
+  batches, per-language counts, individual test fixes or every touched component,
+  do not link commits, and do not repeat entry wording. The topic groups and their
+  `<details>` blocks below carry that information. Keep the paragraph current as
+  topics change, and shorten it when added commits make it grow. A finished release
+  keeps the paragraph it was written with.
 - **Under the summary comes the BINARIES TABLE: what each platform ships.** So the
   top of a release section is, in order, (1) the `**In short:**` paragraph and
   (2) this table, and only then the `This release …:` subsections. A WeKan bundle
@@ -435,7 +436,7 @@ as if it were human.
   has no rows**, which is how the table also answers "why is there no i386 bundle
   this time": no source published a Node.js for it (see
   `releases/resolve-node-source.sh`).
-- **Inside a subsection, entries are GROUPED BY AREA.** A release touches a handful
+- **Inside a subsection, entries are GROUPED BY TOPIC/AREA.** A release touches a handful
   of areas and repeating the area's name in every summary is the noise this
   removes — twelve entries that each begin "All Boards:" say "All Boards" twelve
   times and the part that differs starts halfway through the line. Instead the area
@@ -463,15 +464,24 @@ as if it were human.
   …
   ```
 
-  The group line is `**Area** - short description.` on ONE line, wrapped at 80 like
-  everything else, with a blank line under it. It is NOT a heading: a `##` inside a
-  release breaks the version list (see above). Group labels are the areas of the
+  The group line is `**Topic** - short summary.` on ONE line where practical,
+  wrapped at 80 like everything else, with a blank line under it. This line is the
+  high-level summary of ALL commits in that topic: say what changed and why it
+  matters without copying a commit summary or enumerating implementation details.
+  The `<summary>` under it gives each commit's short outcome, and the expanded
+  `<details>` body carries the implementation, rationale and test evidence. In
+  other words, the release reads from release summary → topic summary → commit
+  detail, with each level adding information instead of repeating the level above.
+  The group line is NOT a heading: a `##` inside a release breaks the version list
+  (see above). Group labels are the areas of the
   app — `All Boards`, `The first header bar`, `The left menus`, `The Admin Panel`,
   `Board views`, `Public Boards`, `Member Settings`, `Board roles` — and the same
   label is reused across subsections when an area has both a feature and a fix.
   EVERY entry of a grouped subsection belongs to a group, including a group with
-  one entry: a section that is half grouped and half loose reads as a mistake. A
-  subsection with only one entry, and the dependency bullets, stay flat.
+  one entry: a section that is half grouped and half loose reads as a mistake. Put
+  each commit under the topic it actually changes; do not create a chronological
+  catch-all group. A subsection with only one entry, and the dependency bullets,
+  stay flat.
 - **CRITICAL security header — match the previous releases' wording.** A security release
   leads with `This release fixes the following CRITICAL SECURITY ISSUE of
   [Name](https://wekan.fi/hall-of-fame/namebleed/):` for a single named *Bleed, or
