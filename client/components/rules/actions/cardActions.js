@@ -62,7 +62,6 @@ Template.cardActions.events({
       triggerId,
       actionId,
       boardId,
-      desc,
     });
   },
 
@@ -88,7 +87,6 @@ Template.cardActions.events({
       triggerId,
       actionId,
       boardId,
-      desc,
     });
   },
   'click .js-add-label-action'(event, tpl) {
@@ -151,7 +149,6 @@ Template.cardActions.events({
         triggerId,
         actionId,
         boardId,
-        desc,
       });
     }
     if (actionSelected === 'remove') {

@@ -11,6 +11,7 @@
  */
 
 const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
 
 async function openRulesPage(page, board) {
   await page.goto(`/b/${board.boardId}/${board.slug}/rules`, { waitUntil: 'commit' });
@@ -55,6 +56,32 @@ test.describe('Rules', () => {
 
     // The new rule appears in the list.
     await expect(boardPage.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15_000 });
+  });
+
+  test('#6630: a current-date action stores its description only on the Action', async ({ boardPage, board }) => {
+    await openRulesPage(boardPage, board);
+
+    await boardPage.locator('#ruleTitle').fill('Set current due date');
+    await boardPage.locator('.js-goto-trigger').click();
+    await boardPage.locator('.js-add-create-trigger.js-goto-action').first().click();
+    await boardPage.locator('#setdate-datefield').selectOption('dueAt');
+    await boardPage.locator('.js-set-date-action.js-goto-rules').click();
+
+    await expect(boardPage.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15_000 });
+    await expect.poll(() => db.find('rules', {
+      boardId: board.boardId,
+      title: 'Set current due date',
+    })[0]).toBeTruthy();
+
+    const rule = db.find('rules', {
+      boardId: board.boardId,
+      title: 'Set current due date',
+    })[0];
+    const action = db.find('actions', { _id: rule.actionId })[0];
+    expect(rule).not.toHaveProperty('desc');
+    expect(action.desc).toBeTruthy();
+    expect(action.actionType).toBe('setDate');
+    expect(action.dateField).toBe('dueAt');
   });
 
   test('Import / Export dialog offers JSON and CSV export', async ({ boardPage, board }) => {
