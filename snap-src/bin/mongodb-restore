@@ -5,7 +5,7 @@ if [[ "$PATH" != *"$SNAP_INSTANCE_NAME"* ]]; then
 fi
 
 # get wekan/mongo settings
-source $SNAP/bin/wekan-read-settings
+source "$SNAP/bin/wekan-read-settings"
 
 # make sure we have set minimum env variables for locale
 if [ -z "$LANG" ]; then
@@ -21,6 +21,17 @@ export PATH=$SNAP/migratemongo/avx:$SNAP/usr/bin:$SNAP/bin:$PATH
 export LD_LIBRARY_PATH=$SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH
 
 # start mongodb restore
+if [[ $# -ne 1 ]]; then
+    echo "Usage: ${SNAP_INSTANCE_NAME:-wekan}.database-restore FULL-PATH-TO-BACKUP-FILENAME" >&2
+    exit 2
+fi
+
+archive=$1
+if [[ ! -f "$archive" ]]; then
+    echo "Backup archive does not exist or is not a file: $archive" >&2
+    exit 2
+fi
+
 [ "x" == "x${MONGODB_BIND_IP}" ] && MONGODB_BIND_IP="127.0.0.1"
 echo "using bind ip: $MONGODB_BIND_IP port: $MONGODB_PORT"
 # --drop: drop each collection before restoring to avoid IndexKeySpecsConflict
@@ -28,4 +39,4 @@ echo "using bind ip: $MONGODB_BIND_IP port: $MONGODB_PORT"
 # (e.g. unique flag mismatch after a schema migration).
 # Add --noIndexRestore instead of --drop if you need to preserve existing data
 # and are happy to let WeKan rebuild indexes on next startup.
-mongorestore --host $MONGODB_BIND_IP --port $MONGODB_PORT -d wekan --drop --gzip --archive=$1
+mongorestore --host "$MONGODB_BIND_IP" --port "$MONGODB_PORT" -d wekan --drop --gzip "--archive=$archive"
