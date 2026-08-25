@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first twenty 50-value Central Kurdish batches
-then left **178,831 genuinely untranslated values across 83 locale files**,
-including 1,166 in Central Kurdish.
+all 2,166 Cherokee values. The first twenty-one 50-value Central Kurdish batches
+then left **178,781 genuinely untranslated values across 83 locale files**,
+including 1,116 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `r-workflow-format` with
+Resume Central Kurdish at `r-list` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 20 are
-committed and batch 21 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 21 are
+committed and batch 22 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1143,6 +1143,16 @@ Attachment, label and custom-field activity, rule creation and selection,
 workflow editing, card/member/checklist triggers and JSON, CSV and Trello Butler
 rule transfer now use Central Kurdish. Named and percent tokens and product and
 format names remain exact, leaving 1,166 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca79fda24">Workflow schedules and actions gain 50 values</a>. Thanks to xet7.</summary>
+
+Visual-workflow imports, scheduled and button triggers, recurrence, due-date and
+list-duration conditions, sorting, completion, bulk movement and relative dates
+now use Central Kurdish. Named tokens, product names and weekday ranges remain
+exact, leaving 1,116 values.
 
 </details>
 
