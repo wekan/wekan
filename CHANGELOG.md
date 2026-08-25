@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first twenty-five 50-value
-Ewe batches then left **172,083 genuinely untranslated values across 80 locale
-files**, including 916 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first twenty-seven 50-value
+Ewe batches then left **171,983 genuinely untranslated values across 80 locale
+files**, including 816 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `hide-checked-items` with
+Resume Ewe at `predicate-public` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 25 are committed and batch 26 has not been applied.
+1 through 27 are committed and batch 28 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2472,6 +2472,24 @@ Multi-card windows, editor submission, organization, team and user dialogs,
 notification state, role permissions, weekdays, status, voting and linked-card
 deletion guidance now use Ewe. Keyboard combinations remain exact, leaving 916
 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ab13a132">Domains and search views gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist visibility, tasks, domains, shared templates, My Cards, Due Cards,
+global search views and not-found messages now use Ewe. Domain examples,
+Markdown emphasis and percent placeholders remain exact, leaving 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6ad5fc69">Search operators gain 50 values</a>. Thanks to xet7.</summary>
+
+Search result counts, operators and predicates for boards, swimlanes, lists,
+users, dates, attachments, descriptions and checklists now use Ewe. Named
+result-range and percent tokens remain exact, leaving 816 values.
 
 </details>
 
