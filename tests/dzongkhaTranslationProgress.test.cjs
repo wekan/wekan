@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1116);
+assert.equal(Object.keys(remaining).length, 1066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -205,3 +205,8 @@ assert.match(dzongkha['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
 assert.deepEqual(tokens(dzongkha['r-import-unmapped']), ['__count__']);
 assert.match(dzongkha['r-schedule-weekday'], /ཟླ་བ.*པ་སངས/);
 assert.match(dzongkha['r-for-n-days'], /N/);
+assert.match(dzongkha['r-unarchived'], /ཡིག་མཛོད.*སླར་གསོ/);
+assert.match(dzongkha['r-check-all'], /ཚང་མ/);
+assert.match(dzongkha['r-d-move-to-top-gen'], /རྩེ/);
+assert.match(dzongkha['r-d-move-to-bottom-gen'], /མཐིལ/);
+assert.match(dzongkha['r-send-email'], /གློག་འཕྲིན/);
