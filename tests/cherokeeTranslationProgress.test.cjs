@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 266);
+assert.equal(Object.keys(remaining).length, 216);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -261,3 +261,8 @@ assert.match(cherokee['gcs-key-filename-description'], /JSON/);
 assert.match(cherokee['gcs-permissions-note'], /client_email.*Storage Object Admin/);
 assert.match(cherokee['s3-endpoint-menu-path'], /MinIO.*Cloudflare R2.*Backblaze B2/);
 assert.match(cherokee['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
+assert.match(cherokee['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(cherokee['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(cherokee['s3-region-description'], /us-east-1/);
+assert.match(cherokee['s3-ssl-enabled-description'], /SSL\/TLS/);
+assert.match(cherokee['card-show-lists-on-minicard'], /ᎤᏍᏗ ᎪᏪᎵ/);
