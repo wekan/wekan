@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-fifteen 50-value Cherokee batches then left **181,247 genuinely untranslated
-values across 84 locale files**, including 1,416 in Cherokee.
+sixteen 50-value Cherokee batches then left **181,197 genuinely untranslated
+values across 84 locale files**, including 1,366 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `starred-boards-description` with
+Resume Cherokee at `attachment-limits` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 15 are committed and batch 16
+Buryat is complete, Cherokee batches 1 through 16 are committed and batch 17
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,10 +501,10 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, navigation, account emails,
-exports, filters, imports, lists, privacy and shortcuts. This continues the
-direct whole-file translation effort while preserving human work and every code
-token. Below that: whole-locale placeholder and markup checks protect the new
-values.
+exports, filters, imports, privacy, shortcuts, tracking and branding. This
+continues the direct whole-file translation effort while preserving human work
+and every code token. Below that: whole-locale placeholder and markup checks
+protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -659,6 +659,16 @@ Watched-board notices, private-page login, image previews, board visibility,
 member removal, card-description rescue, search, WIP limits, keyboard shortcuts,
 sidebars, signup and starred boards now use Cherokee syllabary. Named and
 percent tokens and link markup remain exact, leaving 1,416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/659fdd6e5">Tracking, branding and welcome boards gain 50 values</a>. Thanks to xet7.</summary>
+
+Starred boards, subscriptions, time tracking, numeric shortcuts, upload state,
+custom logo, help and URL settings, imported usernames, watching, welcome and
+template boards, WIP limits and attachment/API limits now use Cherokee
+syllabary. Digits and URL/API terms remain exact, leaving 1,366 values.
 
 </details>
 
