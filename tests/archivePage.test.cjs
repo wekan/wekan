@@ -59,6 +59,25 @@ test('and nothing opens it as a modal any more', () => {
   assert.deepStrictEqual(offenders, [], 'these still open the archive as a modal');
 });
 
+test('#1280 board Archived Items opens card/list archives, not archived boards', () => {
+  const sidebarJade = read('client/components/sidebar/sidebar.jade');
+  const menuAt = sidebarJade.indexOf('template(name="boardMenuPopup")');
+  const menu = sidebarJade.slice(menuAt, sidebarJade.indexOf('\ntemplate(', menuAt + 1));
+  assert.ok(/a\.js-open-archives[\s\S]*?archived-items/.test(menu),
+    'the board menu offers Archived Items');
+  assert.ok(!/js-open-archived-board/.test(menu),
+    'the board menu must not mislabel the separate archived-boards destination');
+
+  const sidebarJs = read('client/components/sidebar/sidebar.js');
+  const at = sidebarJs.indexOf("'click .js-open-archives'");
+  assert.notStrictEqual(at, -1, 'Archived Items has a click handler');
+  const handler = sidebarJs.slice(at, sidebarJs.indexOf('\n  },', at));
+  assert.ok(/Sidebar\.setView\('archives'\)/.test(handler),
+    'it opens the current board card/list/swimlane archive');
+  assert.ok(!/FlowRouter|SECTION_ARCHIVE|js-open-archived-board/.test(handler),
+    'it cannot redirect to the All Boards archive');
+});
+
 test('every entry point goes to the SECTION of All Boards', () => {
   // Three menus had the handler, and a fourth button had lost one.
   //
