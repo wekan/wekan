@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 816);
+assert.equal(Object.keys(remaining).length, 766);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -234,3 +234,16 @@ assert.deepEqual(tokens(chuvash['n-n-of-n-cards-found']), [
 assert.equal(chuvash['operator-board'], 'хӑма');
 assert.equal(chuvash['operator-swimlane'], 'ҫул');
 assert.equal(chuvash['predicate-overdue'], 'вӗҫленӳ вӑхӑчӗ иртнӗ');
+assert.deepEqual(tokens(chuvash['operator-number-expected']), [
+  '__operator__',
+  '__value__',
+]);
+assert.deepEqual(
+  tokens(chuvash['globalSearch-instructions-operator-has']),
+  tokens(english['globalSearch-instructions-operator-has']),
+);
+assert.deepEqual(
+  tags(chuvash['globalSearch-instructions-operator-board']),
+  ['<title>', '<title>'],
+);
+assert.equal(chuvash['globalSearch-instructions-notes-2'].split('\n').length, 2);
