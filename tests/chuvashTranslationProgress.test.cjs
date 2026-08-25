@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 216);
+assert.equal(Object.keys(remaining).length, 166);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -304,3 +304,7 @@ assert.match(chuvash['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(chuvash['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(chuvash['s3-region-description'], /us-east-1/);
 assert.match(chuvash['s3-ssl-enabled-description'], /SSL\/TLS/);
+assert.match(chuvash['restore-lost-cards-migration-description'], /swimlaneId.*listId/);
+assert.match(chuvash['fix-avatar-urls-migration-description'], /URL/);
+assert.match(chuvash['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(chuvash['step-fix-attachment-urls'], /URL/);
