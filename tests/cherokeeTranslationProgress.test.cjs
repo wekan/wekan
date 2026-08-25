@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2016);
+assert.equal(Object.keys(remaining).length, 1966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -62,3 +62,9 @@ assert.match(cherokee['workspace-settings'], /ᎠᏛᏁᏗ ᎦᏙᎯ/);
 assert.deepEqual(tokens(cherokee['activity-dueDate']), ['%s', '%s']);
 assert.match(cherokee['home-board-remove-confirm'], /ᎦᏍᎩᎸ/);
 assert.match(cherokee['setSwimlaneHeightPopup-title'], /ᏍᏫᎻᎴᏅ/);
+assert.deepEqual(tokens(cherokee['and-n-other-card']), ['__count__']);
+assert.deepEqual(tags(cherokee['board-private-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.match(cherokee['board-private-info'], /ᎤᏕᎵᏛ/);
