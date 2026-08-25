@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1416);
+assert.equal(Object.keys(remaining).length, 1366);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -158,3 +158,8 @@ assert.deepEqual(tokens(ewe['remove-member-pop']), [
 ]);
 assert.match(ewe['public-desc'], /Google/);
 assert.match(ewe['setWipLimitPopup-title'], /WIP/);
+assert.match(ewe['toggle-assignees'], /1-9/);
+assert.match(ewe['toggle-labels'], /1-9/);
+assert.match(ewe['custom-top-left-corner-logo-height'], /27/);
+assert.match(ewe['automatic-linked-url-schemes'], /URL.*URL/);
+assert.match(ewe['attachment-transfer-limits-title'], /API/);
