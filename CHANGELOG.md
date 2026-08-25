@@ -673,7 +673,8 @@ an administrator scrolls or pages.
 
 </details>
 
-**LDAP accounts** - directory email aliases remain valid Meteor account data.
+**LDAP accounts** - directory data, access filters and transport settings stay
+explicit and valid.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f12b0a59">Multi-valued email attributes are decoded before account creation</a>. Thanks to mlang38 and xet7.</summary>
@@ -716,6 +717,20 @@ positive, negative and wiring cases cover admin-only users, multiple groups,
 disabled admin sync and malformed lists; the full LDAP suite passes and the
 package compiles and starts in Meteor. A live bind still needs an external LDAP
 directory; FerretDB is not involved.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fb9ad1d7">LDAP encryption settings distinguish LDAPS, STARTTLS and unencrypted transport</a>. Thanks to robertdahlem and xet7.</summary>
+
+The maintained LDAP guide now recommends `true` for immediate TLS (LDAPS),
+`starttls` for an upgraded connection and `false` only for an unencrypted
+connection. It removes the obsolete claim that STARTTLS is inherently more
+secure than LDAPS and updates the FreeIPA example. Legacy `ssl` and `tls`
+values remain compatible with explicit deprecation warnings. Twenty-five
+positive, negative, wiring and documentation tests pass, and the package
+compiles and starts with Meteor's development MongoDB. A real TLS handshake
+still needs an external LDAP directory; FerretDB is not involved.
 
 </details>
 
