@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first thirty-seven 50-value Central Kurdish
-batches then left **177,981 genuinely untranslated values across 83 locale
-files**, including 316 in Central Kurdish.
+all 2,166 Cherokee values. The first thirty-eight 50-value Central Kurdish
+batches then left **177,931 genuinely untranslated values across 83 locale
+files**, including 266 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `backup-frequency` with
+Resume Central Kurdish at `gridfs-enabled` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 37 are
-committed and batch 38 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 38 are
+committed and batch 39 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1314,6 +1314,16 @@ Sandstorm cleanup, card-loading modes, safe link and code rendering, import,
 export, avatar and identity privacy, activities, notifications, watching and
 instance/organization backups now use Central Kurdish. HTML, code, environment
 variables, paths and cloud-provider names remain exact, leaving 316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/068031d3a">Backup and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Backup schedules and restore modes, Google Cloud service accounts, S3, Azure
+and GCS configuration paths, secret handling, connection tests and attachment
+movement to cloud storage now use Central Kurdish. Time formats, console labels,
+key names and provider names remain exact, leaving 266 values.
 
 </details>
 
