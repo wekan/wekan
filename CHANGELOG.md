@@ -928,6 +928,21 @@ user in, while an invalid token leaves both account and session unchanged.
 
 </details>
 
+**User profiles** - accounts without email metadata can add their first address.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac0d9a3cd">An account with no email field can save its own first address</a>. Thanks to jpfleury and xet7.</summary>
+
+Sandstorm and other SSO accounts may have no `emails` array. Profile submission
+now treats that state as an empty address instead of dereferencing a missing
+element, and the server honors the configured Allow Email Change setting for
+the authenticated user's own account. Global administrators retain their
+existing authority; cross-user and disabled-setting writes are rejected, and
+new addresses begin unverified. Focused regressions and live Chromium cover all
+three authorization paths and the complete missing-field save.
+
+</details>
+
 **Mobile navigation** - full-screen panels return readers to their board.
 
 <details>
