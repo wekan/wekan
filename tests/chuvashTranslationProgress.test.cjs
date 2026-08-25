@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1166);
+assert.equal(Object.keys(remaining).length, 1116);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -188,3 +188,7 @@ assert.deepEqual(tokens(chuvash['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(chuvash['r-import-done']), ['__count__']);
 assert.match(chuvash['r-board-rules'], /правил/i);
 assert.match(chuvash['r-workflow-view'], /Ӗҫ йӗрки/);
+assert.deepEqual(tokens(chuvash['r-import-unmapped']), ['__count__']);
+assert.match(chuvash['r-schedule-weekday'], /тунти кун.*эрне кун/);
+assert.match(chuvash['r-unit-minutes'], /минут/);
+assert.match(chuvash['r-trigger'], /Триггер/);
