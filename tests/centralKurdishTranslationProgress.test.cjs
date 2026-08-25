@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1716);
+assert.equal(Object.keys(remaining).length, 1666);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -117,3 +117,16 @@ assert.match(kurdish['comment-only'], /لێدوان/);
 assert.match(kurdish['read-only'], /خوێندنەوە/);
 assert.equal(JSON.parse(kurdish['copyManyCardsPopup-format']).length, 3);
 assert.match(kurdish['custom-field-currency'], /دراو/);
+assert.deepEqual(tokens(kurdish['email-enrollAccount-text']), [
+  '__url__',
+  '__user__',
+]);
+assert.deepEqual(tokens(kurdish['email-invite-text']), [
+  '__board__',
+  '__inviter__',
+  '__url__',
+  '__user__',
+]);
+assert.match(kurdish['error-json-malformed'], /JSON/);
+assert.match(kurdish['error-csv-schema'], /CSV.*TSV/);
+assert.match(kurdish['error-import-empty-board'], /WeKan/);
