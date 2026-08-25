@@ -472,8 +472,8 @@ browser build to verify).
 legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **legacy minicards** retain their
-creator choice, and **mobile Search** returns directly to the board. **Email
-invitations** retain their collision and
+creator choice, **Japanese controls** stay aligned, and **mobile Search**
+returns directly to the board. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
 source boards. **LDAP/OIDC account linking, login boundaries, provider
@@ -872,6 +872,19 @@ locale while retaining a validated per-user font override. Positive and
 negative source coverage protects all three boundaries. A live Chromium
 regression selects Chinese, requires `html[lang="zh-CN"]` and rejects both
 Japanese fonts from the computed default stack.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e10fc10c5">Japanese add-card labels are confirmed to remain on one line</a>. Thanks to arifer612, skye0402 and xet7.</summary>
+
+The earlier scoped CJK wrapping fix keeps Japanese words such as `追加` (Add)
+and `リンク` (Link) intact while allowing the footer to wrap between controls.
+Nine positive, negative and scope checks prevent either mid-word CJK breaks or
+a global rule that would damage Latin and long-URL wrapping. A live Meteor
+development stack compiled and started, and Chromium selected Japanese, opened
+the real add-card composer and measured every translated control as one line.
+FerretDB is not involved in client layout.
 
 </details>
 
