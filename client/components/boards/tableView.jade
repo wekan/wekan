@@ -20,21 +20,37 @@ template(name="tableView")
         thead
           tr
             th(scope="col")
-            th(scope="col") {{_ "card"}}
-            th(scope="col") {{_ "list"}}
-            th(scope="col") {{_ "swimlane"}}
+            th(scope="col")
+              button.js-table-view-sort(type="button" data-field="title")
+                | {{_ "card"}}
+                i.fa(class="{{sortIcon 'title'}}")
+            th(scope="col")
+              button.js-table-view-sort(type="button" data-field="listTitle")
+                | {{_ "list"}}
+                i.fa(class="{{sortIcon 'listTitle'}}")
+            th(scope="col")
+              button.js-table-view-sort(type="button" data-field="swimlaneTitle")
+                | {{_ "swimlane"}}
+                i.fa(class="{{sortIcon 'swimlaneTitle'}}")
             unless isMiniScreen
-              th(scope="col") {{_ "assignees"}}
-              th(scope="col") {{_ "members"}}
-              th(scope="col") {{_ "labels"}}
+              th(scope="col")
+                button.js-table-view-sort(type="button" data-field="assigneesKey") {{_ "assignees"}}
+              th(scope="col")
+                button.js-table-view-sort(type="button" data-field="membersKey") {{_ "members"}}
+              th(scope="col")
+                button.js-table-view-sort(type="button" data-field="labelsKey") {{_ "labels"}}
               if showReceivedColumn
-                th(scope="col") {{_ "card-received"}}
+                th(scope="col")
+                  button.js-table-view-sort(type="button" data-field="receivedAt") {{_ "card-received"}}
               if showStartColumn
-                th(scope="col") {{_ "card-start"}}
+                th(scope="col")
+                  button.js-table-view-sort(type="button" data-field="startAt") {{_ "card-start"}}
               if showDueColumn
-                th(scope="col") {{_ "card-due"}}
+                th(scope="col")
+                  button.js-table-view-sort(type="button" data-field="dueAt") {{_ "card-due"}}
               if showEndColumn
-                th(scope="col") {{_ "card-end"}}
+                th(scope="col")
+                  button.js-table-view-sort(type="button" data-field="endAt") {{_ "card-end"}}
         tbody
           each row in rows
             tr

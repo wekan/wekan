@@ -6,6 +6,10 @@ import {
   readTableViewTitleWrap,
   writeTableViewTitleWrap,
 } from '/models/lib/tableViewTitleMode';
+import {
+  compareTableViewRows,
+  nextTableViewSort,
+} from '/models/lib/tableViewSort';
 
 // Board "Table" view: lists every card of the current board in a table that
 // reuses the My Cards table styling (the .my-cards-board-table CSS classes in
@@ -25,6 +29,8 @@ Template.tableView.onCreated(function () {
   this.wrapCardTitles = new ReactiveVar(
     readTableViewTitleWrap(window.localStorage, Meteor.userId()),
   );
+  this.sortField = new ReactiveVar('title');
+  this.sortDirection = new ReactiveVar('asc');
 
   // Recompute the flat, filtered and sorted row list whenever the board cards,
   // board Filter or search query changes. Pagination is applied separately in
@@ -69,6 +75,9 @@ Template.tableView.onCreated(function () {
         dueAt: card.getDue() || null,
         endAt: card.getEnd() || null,
         labels,
+        assigneesKey: (card.assignees || []).join(' '),
+        membersKey: (card.members || []).join(' '),
+        labelsKey: labels.map(label => label.name).join(' '),
       });
     });
 
@@ -87,11 +96,11 @@ Template.tableView.onCreated(function () {
       });
     }
 
-    // Fixed order: by card title, ascending. (Column-header click-to-sort was
-    // removed; the Table view now always shows this stable order.)
-    filtered = filtered.slice().sort((a, b) =>
-      a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' }),
-    );
+    const sortField = this.sortField.get();
+    const sortDirection = this.sortDirection.get();
+    filtered = filtered
+      .slice()
+      .sort((a, b) => compareTableViewRows(a, b, sortField, sortDirection));
 
     this.filteredRows.set(filtered);
   });
@@ -137,6 +146,12 @@ Template.tableView.helpers({
 
   wrapCardTitles() {
     return Template.instance().wrapCardTitles.get();
+  },
+
+  sortIcon(field) {
+    const tpl = Template.instance();
+    if (tpl.sortField.get() !== field) return 'fa-sort';
+    return tpl.sortDirection.get() === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc';
   },
 
   // A date column is shown unless BOTH its "Show at Card" (allowsXxxDate) and
@@ -198,6 +213,20 @@ Template.tableView.events({
     const wrap = !tpl.wrapCardTitles.get();
     tpl.wrapCardTitles.set(wrap);
     writeTableViewTitleWrap(window.localStorage, Meteor.userId(), wrap);
+  },
+
+  'click .js-table-view-sort'(event, tpl) {
+    event.preventDefault();
+    const selectedField = event.currentTarget.dataset.field;
+    if (!selectedField) return;
+    const next = nextTableViewSort(
+      tpl.sortField.get(),
+      tpl.sortDirection.get(),
+      selectedField,
+    );
+    tpl.sortField.set(next.field);
+    tpl.sortDirection.set(next.direction);
+    tpl.page.set(1);
   },
 
   // Clicking the leftmost "Edit" link opens the Card Details popup on top of the

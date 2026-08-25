@@ -86,6 +86,21 @@
   table-layout: auto;
 }
 
+.table-view-table th .js-table-view-sort {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+  padding: 6px;
+  white-space: nowrap;
+}
+
+.table-view-table th .js-table-view-sort .fa {
+  margin-inline-start: 5px;
+}
+
 /* Leftmost "Edit" cell: an Edit link (pencil icon + text) styled like the one
    on the Admin Panel / People page, opening the card when clicked. */
 .my-cards-board-table td.table-view-cell-edit {

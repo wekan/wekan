@@ -491,11 +491,12 @@ test('no People pane keeps a pager of its own', () => {
 });
 
 // ── column-header sorting removed everywhere ────────────────────────────────
-test('clickable column-header sorting is removed from the board Table view', () => {
+test('the board Table view has one client-side sorting handler', () => {
   const jade = read('client/components/boards/tableView.jade');
   const js = read('client/components/boards/tableView.js');
-  assert.ok(!/js-table-view-sort/.test(jade) && !/js-table-view-sort/.test(js), 'no sortable headers/handler');
-  assert.ok(!/sortField|sortDirection|sortIndicator/.test(js), 'sort state/helper removed');
+  assert.ok(/js-table-view-sort/.test(jade) && /click \.js-table-view-sort/.test(js));
+  assert.strictEqual((js.match(/click \.js-table-view-sort/g) || []).length, 1);
+  assert.ok(/compareTableViewRows/.test(js), 'all columns share the tested comparator');
 });
 test('clickable column-header sorting is removed from the Admin Domains table', () => {
   const jade = read('client/components/settings/peopleBody.jade');

@@ -257,4 +257,34 @@ test.describe('Search', () => {
       boardPage.locator('.table-view-cell-card-title .viewer p').first(),
     ).toHaveCSS('white-space', 'normal');
   });
+
+  test('#6633: Table view headers toggle ascending and descending sorting', async ({
+    boardPage,
+  }) => {
+    await boardPage.locator('.js-toggle-board-view').first().click();
+    await boardPage.locator('.pop-over .js-open-table-view').click();
+    const titles = boardPage.locator(
+      '.table-view-cell-card-title .viewer p',
+    );
+    await expect(titles.first()).toHaveText('Alpha Card', { timeout: 10_000 });
+
+    await boardPage
+      .locator('.js-table-view-sort[data-field="title"]')
+      .click();
+    await expect(titles.first()).toHaveText('Gamma Card');
+    await expect(
+      boardPage.locator(
+        '.js-table-view-sort[data-field="title"] i.fa-sort-desc',
+      ),
+    ).toBeVisible();
+
+    await boardPage
+      .locator('.js-table-view-sort[data-field="listTitle"]')
+      .click();
+    await expect(
+      boardPage.locator(
+        '.js-table-view-sort[data-field="listTitle"] i.fa-sort-asc',
+      ),
+    ).toBeVisible();
+  });
 });
