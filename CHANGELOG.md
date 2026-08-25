@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-thirty-five 50-value Cherokee batches then left **180,247 genuinely
-untranslated values across 84 locale files**, including 416 in Cherokee.
+thirty-six 50-value Cherokee batches then left **180,197 genuinely
+untranslated values across 84 locale files**, including 366 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `cron-job-delete-failed` with
+Resume Cherokee at `sandstorm-disk-usage` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 35 are committed and batch 36
+Buryat is complete, Cherokee batches 1 through 36 are committed and batch 37
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -505,8 +505,9 @@ imports, privacy, branding, runtime metrics, automation, roles, templates, card
 views, global-search guidance, dependencies, locations, administrator reports,
 recovery, support requests, organizations, attachment storage, custom
 translations, accessibility and account protection. This continues the direct
-whole-file translation effort while preserving human work and every code token.
-Below that: whole-locale placeholder and markup checks protect the new values.
+whole-file translation effort through scheduled and database migrations while
+preserving human work and every code token. Below that: whole-locale placeholder
+and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -858,6 +859,16 @@ ISO 8601, Markdown, ZIP and JSON names remain exact, leaving 466 values.
 Accessibility content, brute-force lockouts, administrator user filters,
 attachment paths and scheduled board operations now use Cherokee syllabary.
 Whole-locale token and markup invariants remain exact, leaving 416 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a253eb3f">Storage and database migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+Scheduled migration recovery, filesystem, S3 and Azure storage, MongoDB and
+FerretDB migration and Sandstorm conversion now use Cherokee syllabary. URLs,
+ports, environment variables and database tokens remain exact, leaving 366
+values.
 
 </details>
 
