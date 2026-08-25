@@ -796,6 +796,18 @@ database, reproducing the navigation-dependent failure from issue 1554.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f6fe229a">Authorized source-member avatars remain visible after linked-card reloads</a>. Thanks to theonafor and xet7.</summary>
+
+The linked-source publication already sends the minimal username, name,
+initials and avatar fields only after source-board visibility filtering. Three
+field-parity and authorization checks pass. The cross-board browser regression
+now assigns a custom avatar to a second source member, leaves the picker
+subscription, reloads through the linking board and requires that image to
+remain rendered in card details.
+
+</details>
+
 **Card copying** - duplicated conversations remain recognizable as history.
 
 <details>
