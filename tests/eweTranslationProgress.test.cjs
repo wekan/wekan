@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1216);
+assert.equal(Object.keys(remaining).length, 1166);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -182,3 +182,7 @@ assert.deepEqual(tokens(ewe['default-subtasks-board']), ['__board__']);
 assert.match(ewe['checklist-count-on-minicard'], /0\/0/);
 assert.deepEqual(tokens(ewe['activity-added-label']), ['%s', '%s']);
 assert.deepEqual(tokens(ewe['activity-removed-label']), ['%s', '%s']);
+assert.deepEqual(tokens(ewe['activity-set-customfield']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(ewe['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(ewe['r-import-done']), ['__count__']);
+assert.match(ewe['r-import-paste'], /JSON.*CSV.*Trello Butler/);
