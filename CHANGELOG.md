@@ -733,6 +733,19 @@ close the snapshot normally without weakening source-board authorization.
 
 </details>
 
+**Board imports** - old Sandstorm exports retain their cards and dates.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb925445b">The missing Sandstorm card and date report is explicitly closed</a>. Thanks to xet7.</summary>
+
+The existing importer restores created, received, start, due and end dates and
+falls back to the exported card when an old or pruned board has no creation
+activity. Thirteen focused cases prove valid dates, missing fields and corrupt
+values; invalid optional dates become `null` rather than aborting insertion and
+hiding the entire card. Both WeKan import browser flows remain registered.
+
+</details>
+
 **Card copying** - duplicated conversations remain recognizable as history.
 
 <details>
