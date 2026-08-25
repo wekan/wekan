@@ -303,14 +303,15 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first forty-one 50-value
-Buryat batches then left **182,113 genuinely untranslated values across 85
-locale files**, including 116 in Buryat.
+16-value batch then translated all 2,166 values. The first forty-two 50-value
+Buryat batches then left **182,063 genuinely untranslated values across 85
+locale files**, including 66 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `migrate-all-to-filesystem` with
+Resume Buryat at `otp` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 41 are committed and batch 42 has not been applied.
+batches 1 through 42 are committed and the final 66-value batch has not been
+applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4814,6 +4815,17 @@ The remaining board-conversion steps, cleanup, database migrations, run
 intervals, export and attachment monitoring, filesystem and GridFS statistics,
 job queues, CPU and memory use now use Buryat. ID, URL, CPU and GridFS remain
 exact, and whole-locale invariant coverage leaves 116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c4e7cea1">Buryat migration tuning and monitoring gain 50 values</a>. Thanks to xet7.</summary>
+
+Attachment storage targets, batch size, CPU thresholds and delays, migration
+logs and lifecycle, monitoring refresh and export, schedules, progress,
+resource totals and minicard list and checklist settings now use Buryat.
+GridFS, S3, CPU, percent and millisecond ranges remain exact, and whole-locale
+invariant coverage leaves 66 values.
 
 </details>
 
