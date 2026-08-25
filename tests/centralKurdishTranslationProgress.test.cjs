@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 316);
+assert.equal(Object.keys(remaining).length, 266);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -310,3 +310,8 @@ assert.match(kurdish['always-show-code-as-text-description'], /<!-- -->/);
 assert.match(kurdish['disable-import-avatars-description'], /LDAP.*OIDC\/OAuth2/);
 assert.match(kurdish['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
 assert.match(kurdish['backup-description'], /S3\/MinIO.*Azure.*GCS/);
+assert.match(kurdish['backup-time'], /HH:MM/);
+assert.match(kurdish['backup-day-of-month'], /1-28/);
+assert.match(kurdish['gcs-permissions-note'], /client_email.*Storage Object Admin/);
+assert.match(kurdish['s3-endpoint-menu-path'], /Cloudflare R2.*Backblaze B2.*Wasabi/);
+assert.match(kurdish['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
