@@ -306,13 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values, leaving **179,831 genuinely untranslated values
-across 83 locale files**.
+all 2,166 Cherokee values. The first 50-value Central Kurdish batch then left
+**179,781 genuinely untranslated values across 83 locale files**, including
+2,116 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `accept` with
+Resume Central Kurdish at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, and no Central Kurdish batch has been applied.
+Buryat and Cherokee are complete, Central Kurdish batch 1 is committed and
+batch 2 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -943,6 +945,17 @@ Event network addresses, scoped import/export and number-search guidance now
 use Cherokee syllabary. IP versions, file formats, product names, named tokens
 and pseudo-tags remain exact. All 2,166 formerly untranslated values are now
 translated, with zero English placeholders remaining.
+
+</details>
+
+**Central Kurdish** - direct whole-file translation in Sorani Kurdish script.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61b98233b">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, list, swimlane, card, checklist, comment, member and archive activity now
+uses Central Kurdish. Named and percent placeholders remain exact, and new
+whole-locale invariant coverage leaves 2,116 values.
 
 </details>
 
