@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first six 50-value Dzongkha batches then left **175,199
-genuinely untranslated values across 81 locale files**, including 1,866 in
+81 locale files**. The first seven 50-value Dzongkha batches then left **175,149
+genuinely untranslated values across 81 locale files**, including 1,816 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `userPopup-title` with
+Resume Dzongkha at `changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 6 are committed and batch 7 has not been applied.
+through 7 are committed and batch 8 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1856,6 +1856,15 @@ values.
 Card membership and dates, voting, Planning Poker, dependencies, organizations,
 teams, backgrounds and checklist, swimlane, list, card and board imports now use
 Dzongkha. Product names remain exact, leaving 1,866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4be0d9b8">Member settings and appearance gain 50 values</a>. Thanks to xet7.</summary>
+
+Member popups, archive restoration, imported-user mapping, permissions, themes,
+fonts, text colors, avatars and language controls now use Dzongkha. CAS, digits
+and whole-locale invariants remain exact, leaving 1,816 values.
 
 </details>
 
