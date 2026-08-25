@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-twenty-six 50-value Cherokee batches then left **180,697 genuinely untranslated
-values across 84 locale files**, including 866 in Cherokee.
+twenty-seven 50-value Cherokee batches then left **180,647 genuinely
+untranslated values across 84 locale files**, including 816 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `comment-not-found` with
+Resume Cherokee at `predicate-public` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 26 are committed and batch 27
+Buryat is complete, Cherokee batches 1 through 27 are committed and batch 28
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,10 +501,10 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
-imports, privacy, branding, runtime metrics, automation, roles, templates and
-card views. This continues the direct whole-file translation effort while
-preserving human work and every code token. Below that: whole-locale placeholder
-and markup checks protect the new values.
+imports, privacy, branding, runtime metrics, automation, roles, templates, card
+views and global search. This continues the direct whole-file translation
+effort while preserving human work and every code token. Below that:
+whole-locale placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -774,6 +774,15 @@ Checklist visibility, tasks, domains, shared templates, people and time scopes,
 My Cards sorting, Due Cards and global-search views and missing board-element
 errors now use Cherokee syllabary. Domain examples, Markdown emphasis and
 percent tokens remain exact, leaving 866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e396f79c">Search operators and predicates gain 50 values</a>. Thanks to xet7.</summary>
+
+Missing organizations, teams, comments and cards, global-search result counts,
+search operators and date, state and card-content predicates now use Cherokee
+syllabary. Percent and pagination tokens remain exact, leaving 816 values.
 
 </details>
 
