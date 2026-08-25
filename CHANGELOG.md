@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first thirty-two 50-value Central Kurdish batches
-then left **178,231 genuinely untranslated values across 83 locale files**,
-including 566 in Central Kurdish.
+all 2,166 Cherokee values. The first thirty-three 50-value Central Kurdish
+batches then left **178,181 genuinely untranslated values across 83 locale
+files**, including 516 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `move-all-attachments-to-s3` with
+Resume Central Kurdish at `board-status-loading-mode` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 32 are
-committed and batch 33 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 33 are
+committed and batch 34 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1264,6 +1264,16 @@ Team and organization assignment, invitations, Node heap and memory metrics,
 legal notices, checklist copying and line conversion, card/subtask actions and
 attachment movement between filesystem, GridFS and S3 now use Central Kurdish.
 Runtime and storage names remain exact, leaving 566 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/089ab9eef">Storage maintenance gains 50 values</a>. Thanks to xet7.</summary>
+
+Attachment moves and location repair, avatar storage, default upload storage,
+file counts and identifiers, MongoDB GridFS compaction and board metadata now
+use Central Kurdish. Storage, database, runtime and oplog names remain exact,
+leaving 516 values.
 
 </details>
 
