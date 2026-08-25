@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2016);
+assert.equal(Object.keys(remaining).length, 1966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -81,3 +81,10 @@ assert.match(chuvash['home-board-remove-confirm'], /кӑларса пӑрахӑ�
 assert.match(chuvash['list-width-error-message'], /270/);
 assert.match(chuvash['set-swimlane-height'], /Ҫул/);
 assert.match(chuvash['convertChecklistItemToCardPopup-title'], /Карточк/);
+assert.deepEqual(tokens(chuvash['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(chuvash['avatar-too-big']), ['__size__']);
+assert.deepEqual(tags(chuvash['board-private-info']), [
+  '</strong>',
+  '<strong>',
+]);
+assert.match(chuvash['board-private-info'], /харпӑрлӑ/);
