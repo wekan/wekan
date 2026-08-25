@@ -58,6 +58,51 @@ test.describe('Accessibility', () => {
     expect(family).not.toMatch(/Yu Gothic|Meiryo/i);
   });
 
+  test('#4023 Japanese add-card controls do not split characters', async ({
+    boardPage,
+    board,
+    user,
+  }) => {
+    db.updateOne('users', { _id: user.id }, {
+      $set: { 'profile.language': 'ja' },
+    });
+    await boardPage.reload({ waitUntil: 'commit' });
+    await expect
+      .poll(
+        () => boardPage.evaluate(() => document.documentElement.lang),
+        { timeout: 15_000 },
+      )
+      .toMatch(/^ja(?:-|$)/i);
+
+    const list = boardPage.locator(`#js-list-${board.listIds[0]}`);
+    await list.locator('.js-add-card.list-header-plus-top').first().click();
+    const controls = list.locator('.js-inlined-form .add-controls');
+    await expect(controls.first()).toBeVisible();
+
+    const submit = controls.locator('button[type="submit"]');
+    await expect(submit).toHaveText('追加');
+    await expect(submit).toHaveCSS('white-space', 'nowrap');
+    await expect(controls.first()).toHaveCSS('word-break', 'keep-all');
+
+    const link = controls.locator('.js-link');
+    await expect(link).toHaveText('リンク');
+    const measurements = await controls.locator('.quiet').evaluateAll(elements =>
+      elements.map(element => {
+        const style = getComputedStyle(element);
+        return {
+          height: element.getBoundingClientRect().height,
+          lineHeight: parseFloat(style.lineHeight),
+          whiteSpace: style.whiteSpace,
+        };
+      }),
+    );
+    expect(measurements.length).toBeGreaterThan(0);
+    for (const value of measurements) {
+      expect(value.whiteSpace).toBe('nowrap');
+      expect(value.height).toBeLessThanOrEqual(value.lineHeight * 1.25);
+    }
+  });
+
   test('#697 a resumed iframe publishes a fresh viewport measurement', async ({
     loggedInPage,
   }) => {
