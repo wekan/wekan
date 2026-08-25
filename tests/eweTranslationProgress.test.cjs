@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 566);
+assert.equal(Object.keys(remaining).length, 516);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -258,3 +258,8 @@ assert.match(ewe.Node_memory_usage_rss, /Node.*resident set size/);
 assert.match(ewe['custom-legal-notice-link-url'], /URL/);
 assert.match(ewe['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(ewe['attachment-move-storage-s3'], /S3/);
+assert.match(ewe['move-all-attachments-of-board-to-gridfs'], /GridFS/);
+assert.match(ewe['move-all-attachments-of-board-to-s3'], /S3/);
+assert.match(ewe['gridfs-file-id'], /GridFS.*ID/);
+assert.match(ewe['mongodb-compact-description'], /MongoDB GridFS.*disk.*Compact/);
+assert.match(ewe['mongodb-compact-warning'], /Compact.*replica set.*oplog.*Meteor.*Compact/);
