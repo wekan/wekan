@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first thirty 50-value Dzongkha batches then left **173,999
-genuinely untranslated values across 81 locale files**, including 666 in
+81 locale files**. The first thirty-one 50-value Dzongkha batches then left **173,949
+genuinely untranslated values across 81 locale files**, including 616 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `office-shared` with
+Resume Dzongkha at `add-teams-label` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 30 are committed and batch 31 has not been applied.
+through 31 are committed and batch 32 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2091,6 +2091,16 @@ Map detection and providers, server troubleshooting, sorting, board activity,
 swimlane movement, string templates, file, security, speed, test, database,
 rule, recovery and office-login reports now use Dzongkha. Shell commands,
 entities, format tokens and IP versions remain exact, leaving 666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/160ac04b6">Recovery and tickets gain 50 values</a>. Thanks to xet7.</summary>
+
+Office and REST API reporting, data recovery and maintenance, swimlane copying,
+wait spinners, card sizing, organization and team deletion constraints and
+ticket and help-request workflows now use Dzongkha. API settings, database
+names and mail headers remain exact, leaving 616 values.
 
 </details>
 
