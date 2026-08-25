@@ -479,7 +479,8 @@ stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
 original history. **Private linked cards** remain usable without exposing their
-source boards.
+source boards, and **multi-valued LDAP email attributes** create accounts
+without passing binary values into Meteor.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -670,6 +671,22 @@ also receives its email, creation time and authentication method. Positive and
 negative coverage now names issue 4897 so unrelated cached user documents
 cannot make rows disappear, duplicate or display different account data while
 an administrator scrolls or pages.
+
+</details>
+
+**LDAP accounts** - directory email aliases remain valid Meteor account data.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f12b0a59">Multi-valued email attributes are decoded before account creation</a>. Thanks to mlang38 and xet7.</summary>
+
+LDAP servers can return one email as a Buffer or several aliases as an array of
+Buffers. Expanding a Buffer produced numeric byte values, while preserving an
+array passed binary objects into Meteor's string-only email schema and rejected
+the first login. WeKan now decodes every shape to UTF-8 text, keeps all aliases,
+uses the first as the account email, ignores empty values and removes duplicate
+aliases case-insensitively. Nine focused positive, negative and wiring tests
+pass, all LDAP tests pass, the package compiles in the live Meteor stack, and
+the related live Chromium suites pass 19 tests with one opt-in scenario skipped.
 
 </details>
 
