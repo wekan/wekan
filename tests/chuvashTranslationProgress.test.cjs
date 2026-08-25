@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1316);
+assert.equal(Object.keys(remaining).length, 1266);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -173,3 +173,8 @@ assert.match(chuvash['smtp-host'], /SMTP/);
 assert.match(chuvash['smtp-tls'], /TLS/);
 assert.match(chuvash.Node_version, /Node/);
 assert.match(chuvash.Meteor_version, /Meteor/);
+assert.match(chuvash.FerretDB_version, /FerretDB/);
+assert.match(chuvash.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(chuvash.DDP_transport, /DDP_TRANSPORT/);
+assert.match(chuvash['org-domains-description'], /MULTITENANCY=true/);
+assert.match(chuvash['org-domains-description'], /a\.example\.com.*kanban\.example\.org/);
