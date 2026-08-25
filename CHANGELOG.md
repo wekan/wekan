@@ -304,13 +304,15 @@ files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
-batches and a final 66-value batch then translated all 2,166 values, leaving
-**181,997 genuinely untranslated values across 84 locale files**.
+batches and a final 66-value batch then translated all 2,166 values. The first
+50-value Cherokee batch then left **181,947 genuinely untranslated values
+across 84 locale files**, including 2,116 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Start Cherokee at `accept` with
+Resume Cherokee at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete and the first Cherokee batch has not been applied.
+Buryat is complete, Cherokee batch 1 is committed and batch 2 has not been
+applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4836,6 +4838,16 @@ repair, CPU and event diagnostics, scoped import/export and search guidance.
 OTP, API, CPU, IP versions, file formats, `__fixed__`, `__unfixable__`,
 `__operator_number__` and `<number>` remain exact. Zero-backlog and whole-file
 invariant coverage now protect all 2,166 Buryat translations.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2d07af9f">Cherokee activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, card, list and swimlane deletion and creation, comments, due dates,
+attachments, subtasks, labels, checklists, custom fields, archiving and imports
+now use Cherokee syllabary. Named and percent placeholders remain exact, and
+whole-locale invariant coverage leaves 2,116 values.
 
 </details>
 
