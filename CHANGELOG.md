@@ -643,7 +643,7 @@ nor mutated. This closing commit records that verified fix against issue 2306.
 
 </details>
 
-**All Boards** - tiles respect visibility settings and stay stable.
+**All Boards** - tiles stay stable and every board-creation path sees templates.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f702d535">The legacy-board card-counter report is closed with its existing regressions</a>. Thanks to Meeques, helioguardabaxo and xet7.</summary>
@@ -665,6 +665,19 @@ names and card counts that were removed to stop board icons moving beneath the
 pointer. The positive regression now names issue 4959 and confirms that an
 enabled board receives every list in board order. Disabled, legacy and
 cross-board negative cases remain covered by the same suite.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cdc64d14">The top-bar plus creates boards from only the current templates</a>. Thanks to Jimmi61 and xet7.</summary>
+
+The top-bar Create Board control is restored and now classifies its nested
+picker as a board-template search, just like Add Board on the overview. The
+picker remains open while its template-container subscription becomes ready,
+instead of returning early with stale or empty data. Focused coverage protects
+both entry points, archived filtering and custom-field remapping. Live Chromium
+shows only the active `Std` template, excludes an archived old template and an
+ordinary card, creates the board and verifies its custom-field definition.
 
 </details>
 
