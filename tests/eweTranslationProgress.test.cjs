@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 66);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -306,3 +306,12 @@ assert.match(ewe['migration-batch-size-description'], /1-100/);
 assert.match(ewe['migration-cpu-threshold'], /CPU.*%/);
 assert.match(ewe['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(ewe['migration-delay-ms-description'], /100-10000/);
+assert.deepEqual(tokens(ewe['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(ewe['repair-broken-cards-done-unfixable']), [
+  '__fixed__',
+  '__unfixable__',
+]);
+assert.match(ewe['globalSearch-instructions-operator-number'], /`__operator_number__:<number>`/);
+assert.match(ewe['globalSearch-instructions-operator-number'], /\*<number>\*/);
+assert.match(ewe['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.match(ewe['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
