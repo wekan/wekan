@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1866);
+assert.equal(Object.keys(remaining).length, 1816);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -102,3 +102,7 @@ assert.match(chuvash['cardStartPlanningPokerPopup-title'], /Planning Poker/);
 assert.match(chuvash['cardDependenciesPopup-title'], /Ҫыхӑнулӑх/);
 assert.match(chuvash['addBoardOrgPopup-title'], /Организаци/);
 assert.match(chuvash['importSwimlanePopup-title'], /Ҫул/);
+assert.match(chuvash.casSignIn, /CAS/);
+assert.match(chuvash['map-to-existing-user-desc'], /ирӗк/);
+assert.match(chuvash['font-preview-text'], /0123456789/);
+assert.match(chuvash['changeLanguagePopup-title'], /Чӗлхе/);
