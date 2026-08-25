@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 766);
+assert.equal(Object.keys(remaining).length, 716);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -269,3 +269,11 @@ assert.deepEqual(
 );
 assert.match(dzongkha['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(dzongkha['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.match(dzongkha['sort-boards-title-asc'], /A → Z/);
+assert.match(dzongkha['sort-boards-title-desc'], /Z → A/);
+assert.match(dzongkha['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(dzongkha['import-dependencies-done']), [
+  '__imported__',
+  '__unmatched__',
+]);
+assert.deepEqual(tokens(dzongkha['background-too-big']), ['{{size}}']);
