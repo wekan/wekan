@@ -1,3 +1,5 @@
+import { resolveOidcEndpoint } from './endpoint';
+
 Oidc = {};
 
 // Request OpenID Connect credentials for the user
@@ -49,7 +51,10 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
         options.display = 'popup';
       }
 
-      var loginUrl = config.serverUrl + config.authorizationEndpoint;
+      var loginUrl = resolveOidcEndpoint(
+        config.serverUrl,
+        config.authorizationEndpoint,
+      );
       // check if the loginUrl already contains a "?"
       var first = loginUrl.indexOf('?') === -1;
       for (var k in options) {

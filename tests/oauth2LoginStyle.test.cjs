@@ -21,6 +21,9 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const {
+  resolveOidcEndpoint,
+} = require('../packages/wekan-oidc/endpoint');
 
 let passed = 0;
 function test(name, fn) {
@@ -30,14 +33,16 @@ function test(name, fn) {
 }
 
 // --- Load packages/wekan-oidc/oidc_client.js in a sandbox -------------------
-// The file is a classic Meteor package file (globals, no imports): it assigns
-// the `Oidc` global and only touches Meteor/OAuth/Random when
-// requestCredential() runs, so it can be evaluated with small stubs.
+// Strip the one relative module import because vm.Script evaluates scripts,
+// then inject that real helper into the sandbox. Everything else is the actual
+// Meteor client file.
 
-const clientSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'packages', 'wekan-oidc', 'oidc_client.js'),
-  'utf8',
-);
+const clientSrc = fs
+  .readFileSync(
+    path.join(__dirname, '..', 'packages', 'wekan-oidc', 'oidc_client.js'),
+    'utf8',
+  )
+  .replace(/^import \{ resolveOidcEndpoint \} from '\.\/endpoint';\n/m, '');
 
 // Faithful copy of Meteor's OAuth._loginStyle precedence (packages/oauth):
 // options.loginStyle || config.loginStyle || 'popup', with a popup fallback
@@ -79,6 +84,7 @@ const sandbox = {
   ServiceConfiguration: {
     ConfigError: class ConfigError extends Error {},
   },
+  resolveOidcEndpoint,
   console,
 };
 vm.createContext(sandbox);

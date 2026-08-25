@@ -4,6 +4,7 @@ import { URLSearchParams } from 'meteor/url';
 import { Buffer } from 'node:buffer';
 import https from 'https';
 import fs from 'fs';
+import { resolveOidcEndpoint } from './endpoint';
 
 Oidc = {};
 httpCa = false;
@@ -218,12 +219,10 @@ if (process.env.ORACLE_OIM_ENABLED !== 'true' && process.env.ORACLE_OIM_ENABLED 
   var getToken = async function (query) {
     var debug = process.env.DEBUG === 'true';
     var config = await getConfiguration();
-    var serverTokenEndpoint;
-    if(config.tokenEndpoint.includes('https://')){
-      serverTokenEndpoint = config.tokenEndpoint;
-    }else{
-      serverTokenEndpoint = config.serverUrl + config.tokenEndpoint;
-    }
+    var serverTokenEndpoint = resolveOidcEndpoint(
+      config.serverUrl,
+      config.tokenEndpoint,
+    );
 
     try {
       var body = new URLSearchParams({
@@ -273,12 +272,10 @@ if (process.env.ORACLE_OIM_ENABLED === 'true' || process.env.ORACLE_OIM_ENABLED 
   var getToken = async function (query) {
     var debug = process.env.DEBUG === 'true';
     var config = await getConfiguration();
-    var serverTokenEndpoint;
-    if(config.tokenEndpoint.includes('https://')){
-      serverTokenEndpoint = config.tokenEndpoint;
-    }else{
-      serverTokenEndpoint = config.serverUrl + config.tokenEndpoint;
-    }
+    var serverTokenEndpoint = resolveOidcEndpoint(
+      config.serverUrl,
+      config.tokenEndpoint,
+    );
 
     // OIM needs basic Authentication token in the header - ClientID + SECRET in base64
     var dataToken = process.env.OAUTH2_CLIENT_ID + ':' + process.env.OAUTH2_SECRET;
@@ -338,12 +335,10 @@ var getUserInfo = async function (accessToken) {
   var config = await getConfiguration();
   // Some userinfo endpoints use a different base URL than the authorization or token endpoints.
   // This logic allows the end user to override the setting by providing the full URL to userinfo in their config.
-  var serverUserinfoEndpoint;
-  if (config.userinfoEndpoint.includes("https://")) {
-    serverUserinfoEndpoint = config.userinfoEndpoint;
-  } else {
-    serverUserinfoEndpoint = config.serverUrl + config.userinfoEndpoint;
-  }
+  var serverUserinfoEndpoint = resolveOidcEndpoint(
+    config.serverUrl,
+    config.userinfoEndpoint,
+  );
 
   try {
     var fetchOptions = {

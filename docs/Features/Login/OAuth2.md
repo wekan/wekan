@@ -296,6 +296,33 @@ Username field: (empty)
 Merge users: [X] True
 ```
 
+# Spring Authorization Server
+
+Spring Authorization Server's default protocol paths differ from the generic
+Doorkeeper example. With an uncustomized server on port 9000, use:
+
+```text
+OAUTH2_SERVER_URL=http://localhost:9000
+OAUTH2_AUTH_ENDPOINT=/oauth2/authorize
+OAUTH2_TOKEN_ENDPOINT=/oauth2/token
+OAUTH2_USERINFO_ENDPOINT=/userinfo
+OAUTH2_REQUEST_PERMISSIONS=openid profile email
+OAUTH2_ID_MAP=sub
+OAUTH2_USERNAME_MAP=email
+OAUTH2_EMAIL_MAP=email
+OAUTH2_FULLNAME_MAP=name
+```
+
+Register `${ROOT_URL}/_oauth/oidc` as the redirect URI, for example
+`http://localhost:3000/_oauth/oidc`. A 404 at Spring's `/error` endpoint before
+the callback normally means an incorrect authorization endpoint. The UserInfo
+endpoint also has to be enabled in Spring Authorization Server, including its
+required JWT decoder/resource-server support.
+
+Endpoint settings may be paths relative to `OAUTH2_SERVER_URL` or complete
+`http://` / `https://` URLs. WeKan preserves complete URLs and joins relative
+paths with exactly one slash.
+
 # lemonldapng
 
 Official documentation : https://lemonldap-ng.org/documentation/latest/applications/wekan
