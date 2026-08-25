@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 216);
+assert.equal(Object.keys(remaining).length, 166);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -352,3 +352,8 @@ assert.match(dzongkha['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(dzongkha['s3-enabled-description'], /AWS S3.*MinIO/);
 assert.match(dzongkha['s3-region-description'], /us-east-1/);
 assert.match(dzongkha['s3-ssl-enabled-description'], /SSL\/TLS/);
+assert.match(dzongkha['restore-lost-cards-migration-description'], /swimlaneId.*listId/);
+assert.match(dzongkha['fix-avatar-urls-migration-description'], /URL/);
+assert.match(dzongkha['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(dzongkha['step-fix-attachment-urls'], /URL/);
+assert.match(dzongkha['migrations-admin-only'], /བདག་སྐྱོང/);
