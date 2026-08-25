@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 116);
+assert.equal(Object.keys(remaining).length, 66);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -312,3 +312,7 @@ assert.match(chuvash['step-fix-missing-ids'], /ID/);
 assert.match(chuvash['step-fix-file-urls'], /URL/);
 assert.match(chuvash['cpu-cores'], /CPU/);
 assert.match(chuvash['gridfs-attachments'], /GridFS/);
+assert.match(chuvash['migrate-all-to-gridfs'], /GridFS/);
+assert.match(chuvash['migrate-all-to-s3'], /S3/);
+assert.match(chuvash['migration-cpu-threshold'], /CPU.*%/);
+assert.match(chuvash['migration-delay-ms-description'], /100-10000/);
