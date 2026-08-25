@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1466);
+assert.equal(Object.keys(remaining).length, 1416);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -109,3 +109,10 @@ assert.match(cherokee['invalid-year'], /2026/);
 assert.deepEqual(tokens(cherokee['leave-board-pop']), ['__boardTitle__']);
 assert.match(cherokee['listImportCardsTsvPopup-title'], /CSV\/TSV/);
 assert.match(cherokee['no-archived-swimlanes'], /ᏍᏫᎻᎴᏅ/);
+assert.deepEqual(tokens(cherokee['page-maybe-private']), ['%s']);
+assert.deepEqual(tokens(cherokee['remove-member-pop']), [
+  '__boardTitle__',
+  '__name__',
+  '__username__',
+]);
+assert.deepEqual(tags(cherokee['page-maybe-private']), ["</a>", "<a href='%s'>"]);
