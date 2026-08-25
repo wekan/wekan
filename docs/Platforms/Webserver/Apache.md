@@ -4,7 +4,13 @@
 sudo a2enmod ssl proxy proxy_http proxy_wstunnel proxy_balancer
 ```
 
-[Apache Mod_Proxy documentation](http://httpd.apache.org/docs/current/mod/mod_proxy.html)
+[Apache Mod_Proxy documentation](https://httpd.apache.org/docs/current/mod/mod_proxy.html)
+
+WeKan needs a reverse proxy only. Never enable `ProxyRequests On`: that turns
+Apache into a forward proxy through which Internet clients can request arbitrary
+third-party hosts. `ProxyMaxForwards` limits a forwarding chain's length; it does
+not close an open proxy. The virtual-host examples below set `ProxyRequests Off`
+explicitly so an unsafe global setting cannot leak into the WeKan host.
 
 ## 2) Restart Apache
 
@@ -43,6 +49,7 @@ Config at `/etc/apache2/sites-available/example.com.conf`:
     SSLCertificateKeyFile   /etc/letsencrypt/live/example.com/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
     ServerSignature Off
+    ProxyRequests Off
 
     <Location />
      require all granted
@@ -51,13 +58,6 @@ Config at `/etc/apache2/sites-available/example.com.conf`:
     ProxyPassMatch   "^/(sockjs\/.*\/websocket)$" "ws://127.0.0.1:3001/$1"
     ProxyPass        "/" "http://127.0.0.1:3001/"
     ProxyPassReverse "/" "http://127.0.0.1:3001/"
-
-    <Proxy *>
-        Options FollowSymLinks MultiViews
-        AllowOverride All
-        Order allow,deny
-        allow from all
-    </Proxy>
 
 </VirtualHost>
 ```
@@ -77,17 +77,11 @@ Config at `/etc/apache2/sites-available/example.com.conf`:
     SSLCertificateKeyFile   /etc/letsencrypt/live/example.com/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
     ServerSignature Off
+    ProxyRequests Off
 
     ProxyPassMatch   "^/(sockjs\/.*\/websocket)$" "ws://127.0.0.1:3001/wekan/$1"
     ProxyPass        "/wekan" "http://127.0.0.1:3001/wekan"
     ProxyPassReverse "/wekan" "http://127.0.0.1:3001/wekan"
-
-    <Proxy *>
-        Options FollowSymLinks MultiViews
-        AllowOverride All
-        Order allow,deny
-        allow from all
-    </Proxy>
 
 </VirtualHost>
 ```
