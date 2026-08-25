@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first twenty-eight
-50-value Buryat batches then left **182,763 genuinely untranslated values
-across 85 locale files**, including 766 in Buryat.
+16-value batch then translated all 2,166 values. The first twenty-nine 50-value
+Buryat batches then left **182,713 genuinely untranslated values across 85
+locale files**, including 716 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `label-colors` with
+Resume Buryat at `location-longitude` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 28 are committed and batch 29 has not been applied.
+batches 1 through 29 are committed and batch 30 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4676,6 +4676,16 @@ global-search guide for board structure, people, dates, state, field presence,
 sorting, limits and operator composition now use Buryat. Search examples,
 named tokens and pseudo-tags remain exact, and whole-locale invariant coverage
 leaves 766 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e41b0e463">Buryat dependencies and backgrounds gain 50 values</a>. Thanks to xet7.</summary>
+
+Label metadata, board and card sorting, completion state, stickers, dependency
+types, filtering and JSON/SVG import, board backgrounds and location names,
+addresses and latitude now use Buryat. Import counts and the image-size token
+remain exact, and whole-locale invariant coverage leaves 716 values.
 
 </details>
 
