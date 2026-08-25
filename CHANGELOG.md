@@ -86,7 +86,6 @@ silently-dropped message; the code that composes and sends it is worth reading
 against a live log rather than guessed at),
 [#3707](https://github.com/wekan/wekan/issues/3707) &
 [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP),
-[#3575](https://github.com/wekan/wekan/issues/3575) (WebHooks),
 [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm),
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
 Sandstorm grain require a user-granted Powerbox network capability and a
@@ -1052,6 +1051,18 @@ members, checklist items, cards, lists, swimlanes, boards and labels before the
 complete parameter object reaches `TAPi18n`. Focused regression coverage now
 protects that wiring and verifies that representative German activity strings
 remain translated while preserving the exact replaceable-token inventory.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c08ea8a1">A receiver holding its response cannot delay the originating database change</a>. Thanks to n8ores, RyanHecht and xet7.</summary>
+
+The current activity hook starts each outgoing delivery without awaiting it,
+and its guard resolves both synchronous and asynchronous failures instead of
+propagating them into the database operation. New regressions hold a receiver
+promise open and prove the caller continues immediately, verify rejected
+delivery is isolated, and pin the non-awaited Meteor callback wiring. This
+closes the older custom-field report against the completed non-blocking path.
 
 </details>
 
