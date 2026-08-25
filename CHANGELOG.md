@@ -806,6 +806,18 @@ checks the database move and verifies that card details stay closed.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/500452f78">Cross-board moves keep unique finite positions and every destination card visible</a>. Thanks to rlach and xet7.</summary>
+
+The synchronous client no-cache lookup already prevents destination sort
+values from becoming `NaN`, overlapping existing cards and making them appear
+or disappear during later reordering. Eight focused positive and negative
+cases pass. A new browser regression moves a card into a populated list on
+another board, requires three distinct finite positions and verifies that all
+destination cards remain visible.
+
+</details>
+
 and improves the following translation:
 
 **Fulah** - direct whole-file translation using established Pulaar vocabulary.
