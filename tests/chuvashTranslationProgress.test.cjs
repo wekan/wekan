@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 66);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -316,3 +316,19 @@ assert.match(chuvash['migrate-all-to-gridfs'], /GridFS/);
 assert.match(chuvash['migrate-all-to-s3'], /S3/);
 assert.match(chuvash['migration-cpu-threshold'], /CPU.*%/);
 assert.match(chuvash['migration-delay-ms-description'], /100-10000/);
+assert.deepEqual(tokens(chuvash['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(chuvash['repair-broken-cards-done-unfixable']), [
+  '__fixed__',
+  '__unfixable__',
+]);
+assert.match(chuvash['event-ipv4'], /IPv4/);
+assert.match(chuvash['event-ipv6'], /IPv6/);
+assert.deepEqual(
+  tokens(chuvash['globalSearch-instructions-operator-number']),
+  ['__operator_number__'],
+);
+assert.deepEqual(
+  tags(chuvash['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>'],
+);
+assert.match(chuvash['import-wekan-file'], /\.json.*\.zip/);
