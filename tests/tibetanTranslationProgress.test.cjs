@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bo'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 316);
+assert.equal(Object.keys(remaining).length, 266);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const tibetan = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bo.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -25,6 +25,9 @@ assert.match(tibetan['database-migration-confirm'], /__db__/);
 assert.match(tibetan['cards-loading-description'], /CARDS_LOADING \(all\/lazy\/auto\)/);
 assert.match(tibetan['always-show-code-as-text-description'], /<!-- -->/);
 assert.match(tibetan['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
+assert.equal(tibetan['backup-frequency-daily'], 'ཉིན་རེ།');
+assert.match(tibetan['gcs-permissions-note'], /client_email/);
+assert.match(tibetan['gcs-credentials-menu-path'], /IAM & Admin/);
 assert.match(tibetan['act-addChecklistItem'], /ཞིབ་བཤེར་ཐོ.*ཁ་སྣོན/);
 for (const token of ['__checklistItem__', '__checklist__', '__card__', '__list__', '__swimlane__', '__board__']) {
   assert.match(tibetan['act-addChecklistItem'], new RegExp(token));
