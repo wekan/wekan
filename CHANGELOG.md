@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-thirty-seven 50-value Cherokee batches then left **180,147 genuinely
-untranslated values across 84 locale files**, including 316 in Cherokee.
+thirty-eight 50-value Cherokee batches then left **180,097 genuinely
+untranslated values across 84 locale files**, including 266 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `backup-frequency` with
+Resume Cherokee at `gridfs-enabled` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 37 are committed and batch 38
+Buryat is complete, Cherokee batches 1 through 38 are committed and batch 39
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -505,9 +505,9 @@ imports, privacy, branding, runtime metrics, automation, roles, templates, card
 views, global-search guidance, dependencies, locations, administrator reports,
 recovery, support requests, organizations, attachment storage, custom
 translations, accessibility and account protection. This continues the direct
-whole-file translation effort through migrations, security controls and backups
-while preserving human work and every code token. Below that: whole-locale
-placeholder and markup checks protect the new values.
+whole-file translation effort through migrations, security controls, backups
+and cloud storage while preserving human work and every code token. Below that:
+whole-locale placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -879,6 +879,15 @@ Sandstorm cleanup, lazy card loading, safe rich-text rendering, import/export
 privacy controls, activity suppression and backups now use Cherokee syllabary.
 HTML, environment variables, formats and identity-provider names remain exact,
 leaving 316 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36f538f94">Backup scheduling and cloud storage gain 50 values</a>. Thanks to xet7.</summary>
+
+Backup restoration and scheduling and Google Cloud, AWS S3 and Azure storage
+configuration now use Cherokee syllabary. Time formats, JSON fields, console
+paths, provider names and secret labels remain exact, leaving 266 values.
 
 </details>
 
