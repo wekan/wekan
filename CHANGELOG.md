@@ -310,13 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**.
+81 locale files**. The first 50-value Dzongkha batch then left **175,449
+genuinely untranslated values across 81 locale files**, including 2,116 in
+Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `accept` with
+Resume Dzongkha at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
-Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha has not
-started.
+Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batch 1 is
+committed and batch 2 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1794,6 +1796,18 @@ details, filesystem integrity, scoped import/export and number-search guidance
 now use Chuvash. Named tokens, pseudo-tags, IP versions, product names and file
 extensions remain exact. All 2,166 formerly untranslated values are translated,
 with zero English placeholders remaining.
+
+</details>
+
+**Dzongkha** - direct whole-file translation in Bhutanese Tibetan script.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f31871de">Activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, list, swimlane, card, attachment, subtask, label, checklist, comment,
+custom-field, member, archive and import activity now uses Dzongkha. Named and
+percent placeholders remain exact, and new whole-locale invariant coverage
+leaves 2,116 values.
 
 </details>
 
