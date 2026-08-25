@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first twenty-three 50-value
-Ewe batches then left **172,183 genuinely untranslated values across 80 locale
-files**, including 1,016 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first twenty-five 50-value
+Ewe batches then left **172,083 genuinely untranslated values across 80 locale
+files**, including 916 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `add-custom-html-after-body-start` with
+Resume Ewe at `hide-checked-items` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 23 are committed and batch 24 has not been applied.
+1 through 25 are committed and batch 26 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2452,6 +2452,26 @@ Automation actions, checklist construction, date-field updates, card links,
 authentication, custom HTML and JSON, web manifests, assetlinks and layout
 settings now use Ewe. Comma-separated examples, extensions and format names
 remain exact, leaving 1,016 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/462bb64cd">Authentication and activity gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom body HTML, LDAP and OIDC authentication, duplication, swimlane deletion,
+due-time activity and reminders, mentions, destructive confirmations and drag
+resizing now use Ewe. HTML tags, named and percent tokens, line breaks and
+keyboard terminology remain exact, leaving 966 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/23bba0578">Roles and calendar gain 50 values</a>. Thanks to xet7.</summary>
+
+Multi-card windows, editor submission, organization, team and user dialogs,
+notification state, role permissions, weekdays, status, voting and linked-card
+deletion guidance now use Ewe. Keyboard combinations remain exact, leaving 916
+values.
 
 </details>
 
