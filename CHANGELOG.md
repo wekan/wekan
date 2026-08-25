@@ -499,7 +499,8 @@ group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **card dragging** is visually
 stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
-case-normalization guarantees.
+case-normalization guarantees, and **copied conversations** retain their
+original history.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -611,6 +612,20 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+**Card copying** - duplicated conversations remain recognizable as history.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8dff96d7b">Copied comments preserve their original author and time</a>. Thanks to ocdtrekkie, 2martens, frmwrk123 and xet7.</summary>
+
+Comment authorship was already retained, and the copy dialog already prefilled
+the source title, but schema auto-values still replaced every copied comment's
+date with the copy time. Copies now re-home immutable comment data without
+mutating the cached source or emitting false new-comment activity. Unit tests
+cover preserved history and invalid input; the REST browser regression checks
+the original author, timestamp and destination board together.
 
 </details>
 
