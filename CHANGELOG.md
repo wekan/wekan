@@ -500,7 +500,8 @@ details** close when their card disappears, **card dragging** is visually
 stable, **mobile Search** returns directly to the board, and the first **Fulah
 translations** are present. **Email invitations** retain their collision and
 case-normalization guarantees, and **copied conversations** retain their
-original history.
+original history. **Private linked cards** remain usable without exposing their
+source boards.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -612,6 +613,20 @@ match every working handler by storing `desc` solely on the Action. Positive and
 negative source coverage protects all three branches, and a Playwright flow
 checks that the UI saves a date Rule without `desc` while its Action retains the
 description.
+
+</details>
+
+**Linked cards** - safe snapshots remain usable across board boundaries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9cdbe1a53">The private-source visibility report gains an authorization regression</a>. Thanks to TiibCD, t0mcat1337 and xet7.</summary>
+
+A member of the linking board must not inherit access to the private source
+board. Current source already filters the real card and all children by board
+visibility while falling back to the linked card's stored snapshot, avoiding
+the historical blank and frozen view. Unit coverage pins both sides of that
+boundary, and a browser scenario proves an unauthorized viewer can open and
+close the snapshot normally without weakening source-board authorization.
 
 </details>
 
