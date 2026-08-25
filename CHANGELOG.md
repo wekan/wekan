@@ -303,14 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values. The first twenty-five 50-value
-Buryat batches then left **182,913 genuinely untranslated values across 85
-locale files**, including 916 in Buryat.
+16-value batch then translated all 2,166 values. The first twenty-six 50-value
+Buryat batches then left **182,863 genuinely untranslated values across 85
+locale files**, including 866 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Buryat at `hide-checked-items` with
+Resume Buryat at `comment-not-found` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-batches 1 through 25 are committed and batch 26 has not been applied.
+batches 1 through 26 are committed and batch 27 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4644,6 +4644,16 @@ editing, notification state, rename and invitation permissions, board-role
 status, weekdays, ownership and linked-card deletion safeguards now use
 Buryat. Keyboard combinations remain exact, and whole-locale invariant
 coverage leaves 916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/941ab8b1d">Buryat shared templates and card views gain 50 values</a>. Thanks to xet7.</summary>
+
+Checklist visibility, tasks, domains, shared templates, people and time scopes,
+My Cards sorting, Due Cards and global-search views and missing board-element
+errors now use Buryat. Domain examples, Markdown emphasis and percent tokens
+remain exact, and whole-locale invariant coverage leaves 866 values.
 
 </details>
 
