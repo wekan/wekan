@@ -72,7 +72,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     assert.deepStrictEqual(sent[0][2], { ids: ['x'] });
   });
 
-  test('People: the server names the page with the publication\'s own window', () => {
+  test('#4897 People: the server names the page with the publication\'s own window', () => {
     const server = read('server/models/users.js');
     const at = server.indexOf('async getPeoplePageIds(');
     assert.ok(at !== -1, 'the method must exist');
@@ -93,7 +93,17 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     assert.ok(/fields: \{ _id: 1 \}/.test(method), 'ids only - the documents come from the publication');
   });
 
-  test('People: the table renders that page and nothing else', () => {
+  test('#4897 People: every row publishes stable identity and account fields', () => {
+    const pub = read('server/publications/people.js');
+    for (const field of ['emails', 'createdAt', 'authenticationMethod']) {
+      assert.ok(new RegExp(`\\b${field}: 1`).test(pub),
+        `the People publication must include ${field}`);
+    }
+    assert.ok(/sort: \{ createdAt: -1 \}/.test(pub),
+      'the publication order must stay stable while the admin scrolls or pages');
+  });
+
+  test('#4897 People: the table renders that page and nothing else', () => {
     const client = read('client/components/settings/peopleBody.js');
     assert.ok(/Meteor\.call\('getPeoplePageIds'/.test(client), 'it asks which users the page holds');
     assert.ok(/_id: \{ \$in: ids \}/.test(client), 'and looks up exactly those');
