@@ -682,6 +682,20 @@ an administrator scrolls or pages.
 
 </details>
 
+**Language and fonts** - CJK text follows the reader's selected locale.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6aa455fb6">Chinese text retains a neutral fallback instead of Japanese glyphs</a>. Thanks to ZhouMoHan-work and xet7.</summary>
+
+The Japanese-specific `Yu Gothic` and `Meiryo` defaults were removed in 2017,
+and the current client also synchronizes the document language with the selected
+locale while retaining a validated per-user font override. Positive and
+negative source coverage protects all three boundaries. A live Chromium
+regression selects Chinese, requires `html[lang="zh-CN"]` and rejects both
+Japanese fonts from the computed default stack.
+
+</details>
+
 **REST authentication** - clients can invalidate bearer tokens explicitly.
 
 <details>
