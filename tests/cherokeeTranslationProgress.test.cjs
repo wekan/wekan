@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1316);
+assert.equal(Object.keys(remaining).length, 1266);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -127,3 +127,6 @@ assert.deepEqual(tokens(cherokee['email-invite-register-text']), [
 ]);
 assert.match(cherokee['smtp-host'], /SMTP/);
 assert.match(cherokee.Database_type, /ᎧᏃᎮᏓ/);
+assert.match(cherokee.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(cherokee.DDP_transport, /DDP_TRANSPORT/);
+assert.match(cherokee['org-domains-description'], /MULTITENANCY=true/);
