@@ -506,10 +506,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **LDAP profiles retain Active Directory display names** even when
-the server restricts returned attributes. **Cherokee, Central Kurdish, Chuvash,
-Dzongkha and Ewe translations are complete**, with whole-locale placeholder and
-markup checks preserving human work and every code token.
+**In short:** **FerretDB board loading does substantially less polling work**
+through adaptive loading, narrower publications and indexed shared discovery.
+**LDAP profiles retain Active Directory display names** even with restricted
+attributes. **Cherokee, Central Kurdish, Chuvash, Dzongkha and Ewe translations
+are complete**, with whole-locale integrity checks preserving code tokens.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -524,8 +525,27 @@ markup checks preserving human work and every code token.
 
 This release fixes the following bug:
 
+**Board loading** - bounded, indexed work for FerretDB publications.
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/59f9b3116">LDAP profiles keep the configured display name</a>. Thanks to Nissulya and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/00026ff23">Board publications avoid repeated whole-collection polling</a>. Thanks to xet7.</summary>
+
+FerretDB launchers now default to adaptive card loading instead of forcing every
+board into eager mode. All Boards publishes only boards related to the signed-in
+user rather than every public board on the instance; direct public links and the
+Public Boards page remain available. Linked-card and parent discovery now uses
+two narrow indexed queries shared only among one composite parent evaluation,
+with no TTL or board-id authorization cache. Compound indexes cover those card
+queries and the common All Boards filter and ordering. Positive and negative
+coverage preserves assigned-only scoping, share revocation, direct public
+access, pagination parity and explicit loading-mode overrides.
+
+</details>
+
+**LDAP profiles** - directory names shown to signed-in users.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59f9b3116">They keep the configured display name</a>. Thanks to Nissulya and xet7.</summary>
 
 An LDAP user-attribute allowlist could omit `LDAP_FULLNAME_FIELD` even though
 `displayName` was configured separately. Active Directory then returned the
