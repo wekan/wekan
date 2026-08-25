@@ -506,13 +506,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Cherokee and Central Kurdish translations are complete**,
-covering activity, workspaces, board and card views, imports and exports,
-privacy, automation, roles, search, dependencies, locations, reports,
-attachments, accessibility, account protection, migrations, security controls,
-backups and cloud storage. **Chuvash, Dzongkha and Ewe are complete**, while
-whole-locale placeholder and markup checks preserve human work and every code
-token.
+**In short:** **LDAP profiles retain Active Directory display names** even when
+the server restricts returned attributes. **Cherokee, Central Kurdish, Chuvash,
+Dzongkha and Ewe translations are complete**, with whole-locale placeholder and
+markup checks preserving human work and every code token.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -525,7 +522,22 @@ token.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves the following translation:
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59f9b3116">LDAP profiles keep the configured display name</a>. Thanks to Nissulya and xet7.</summary>
+
+An LDAP user-attribute allowlist could omit `LDAP_FULLNAME_FIELD` even though
+`displayName` was configured separately. Active Directory then returned the
+login attribute but not the full name, leaving the profile header showing
+`sAMAccountName`. Restricted searches now merge in every configured identity
+attribute, including fields inside templates, with case-insensitive
+deduplication. Regression coverage requires the positive `displayName` request
+and rejects the old allowlist-only query.
+
+</details>
+
+and improves the following translation:
 
 **Cherokee** - direct whole-file translation in Cherokee syllabary.
 
