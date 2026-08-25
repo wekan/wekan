@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1166);
+assert.equal(Object.keys(remaining).length, 1116);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -140,3 +140,6 @@ assert.deepEqual(tokens(cherokee['activity-set-customfield']), [
 ]);
 assert.deepEqual(tokens(cherokee['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(cherokee['r-import-done']), ['__count__']);
+assert.deepEqual(tokens(cherokee['r-import-unmapped']), ['__count__']);
+assert.match(cherokee['r-import-workflow-note'], /n8n.*Node-RED/);
+assert.match(cherokee['r-for-n-days'], /N/);
