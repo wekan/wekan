@@ -308,14 +308,14 @@ batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
 all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
-forty-one 50-value Chuvash batches then left **175,615 genuinely untranslated
-values across 82 locale files**, including 116 in Chuvash.
+forty-two 50-value Chuvash batches then left **175,565 genuinely untranslated
+values across 82 locale files**, including 66 in Chuvash.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Chuvash at `migrate-all-to-filesystem` with
+Resume Chuvash at `otp` with
 `node releases/translations/fill-translations.mjs --list cv --limit 50`;
-Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 41
-are committed and batch 42 has not been applied.
+Buryat, Cherokee and Central Kurdish are complete, Chuvash batches 1 through 42
+are committed and the final 66-value batch has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1772,6 +1772,16 @@ Database field names, IDs and URLs remain exact, leaving 166 values.
 Board-repair steps, conversion progress, CPU and memory monitoring, schedules,
 filesystem and GridFS statistics and job queues now use Chuvash. IDs, URLs, CPU,
 GridFS and numeric intervals remain exact, leaving 116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84f7240d6">Migration tuning gains 50 values</a>. Thanks to xet7.</summary>
+
+Attachment migration destinations, batch and CPU thresholds, background status,
+monitoring controls, schedules, storage distribution and system-resource totals
+now use Chuvash. GridFS, S3, CPU, percentages and numeric ranges remain exact,
+leaving 66 values.
 
 </details>
 
