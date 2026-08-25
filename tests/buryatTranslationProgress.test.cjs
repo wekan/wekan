@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1616);
+assert.equal(Object.keys(remaining).length, 1566);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -50,3 +50,6 @@ assert.equal(buryat['error-user-disabled'], 'Энэ хэрэглэгчын бү�
 assert.equal(buryat['export-card-excel'], 'Карта Excel рүү гаргаха');
 assert.equal(buryat['filter-overdue'], 'Хугацаа үнгэрһэн');
 assert.equal(buryat['filter-no-member'], 'Гишүүнгүй');
+assert.deepEqual(tokens(buryat['import-board-instruction-issues']), ['__endpoint__', '__sourceName__']);
+assert.match(buryat['advanced-filter-description'], /F1 == V1 && \( F2 == V2 \|\| F2 == V3 \)/);
+assert.equal(buryat['import-trello-zip-too-many-files'], '.zip соо оруулхада хэтэрхы олон файл байна.');
