@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 466);
+assert.equal(Object.keys(remaining).length, 416);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -279,3 +279,7 @@ assert.match(chuvash['preview-pdf-not-supported'], /PDF/);
 assert.deepEqual(tokens(chuvash['drag-board-to-workspace']), ['__workspaces__']);
 assert.match(chuvash['show-week-of-year'], /ISO 8601/);
 assert.match(chuvash['import-board-zip'], /JSON.*\.zip/);
+assert.match(chuvash['accounts-lockout-known-users'], /пароль/);
+assert.match(chuvash['accounts-lockout-period'], /секунд/);
+assert.match(chuvash['accounts-lockout-confirm-unlock-all'], /Пур/);
+assert.match(chuvash['cron-migrations'], /миграци/);
