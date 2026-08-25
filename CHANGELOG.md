@@ -310,15 +310,15 @@ all 2,166 Cherokee values. Forty-two 50-value Central Kurdish batches and a
 final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
-81 locale files**. The first twenty-nine 50-value Dzongkha batches then left **174,049
-genuinely untranslated values across 81 locale files**, including 716 in
+81 locale files**. The first thirty 50-value Dzongkha batches then left **173,999
+genuinely untranslated values across 81 locale files**, including 666 in
 Dzongkha.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Dzongkha at `location-longitude` with
+Resume Dzongkha at `office-shared` with
 `node releases/translations/fill-translations.mjs --list dz --limit 50`;
 Buryat, Cherokee, Central Kurdish and Chuvash are complete; Dzongkha batches 1
-through 29 are committed and batch 30 has not been applied.
+through 30 are committed and batch 31 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2081,6 +2081,16 @@ Labels, board and card sorting, completion, stickers, dependency relationships
 and JSON/SVG imports, board backgrounds and location fields now use Dzongkha.
 Sort markers, named import counts and the background-size token remain exact,
 leaving 716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6f4b0129">Maps and reports gain 50 values</a>. Thanks to xet7.</summary>
+
+Map detection and providers, server troubleshooting, sorting, board activity,
+swimlane movement, string templates, file, security, speed, test, database,
+rule, recovery and office-login reports now use Dzongkha. Shell commands,
+entities, format tokens and IP versions remain exact, leaving 666 values.
 
 </details>
 
