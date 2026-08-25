@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 366);
+assert.equal(Object.keys(remaining).length, 316);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -325,3 +325,17 @@ assert.match(
   /WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL/,
 );
 assert.match(dzongkha['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
+assert.match(
+  dzongkha['cards-loading-description'],
+  /CARDS_LOADING.*all\/lazy\/auto.*CARDS_LOADING_LAZY_THRESHOLD/,
+);
+assert.deepEqual(
+  tags(dzongkha['render-links-as-plain-text-description']),
+  tags(english['render-links-as-plain-text-description']),
+);
+assert.match(dzongkha['always-show-code-as-text-description'], /<!-- -->/);
+assert.match(dzongkha['anonymize-import-users-description'], /user1, user2, \.\.\..*@username/s);
+assert.match(
+  dzongkha['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments/s,
+);
