@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'chr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 116);
+assert.equal(Object.keys(remaining).length, 66);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -275,3 +275,8 @@ assert.match(cherokee['cpu-cores'], /CPU/);
 assert.match(cherokee['filesystem-attachments'], /Filesystem/);
 assert.match(cherokee['gridfs-attachments'], /GridFS/);
 assert.match(cherokee['every-30-minutes'], /30/);
+assert.match(cherokee['migration-batch-size-description'], /1-100/);
+assert.match(cherokee['migration-cpu-threshold-description'], /10-90/);
+assert.match(cherokee['migration-delay-ms-description'], /100-10000/);
+assert.match(cherokee['migrate-all-to-gridfs'], /GridFS/);
+assert.match(cherokee['migrate-all-to-s3'], /S3/);
