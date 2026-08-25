@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1616);
+assert.equal(Object.keys(remaining).length, 1566);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -134,3 +134,11 @@ assert.match(kurdish['export-card-pdf'], /PDF/);
 assert.match(kurdish['export-card-excel'], /Excel/);
 assert.match(kurdish['export-card-field-board-info'], /ڕێڕەو/);
 assert.match(kurdish['filter-due-today'], /ئەمڕۆ/);
+assert.match(kurdish['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(kurdish['import-board-instruction-issues']), [
+  '__endpoint__',
+  '__sourceName__',
+]);
+assert.match(kurdish['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
+assert.match(kurdish['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
+assert.match(kurdish['import-trello-json-file-hint'], /API/);
