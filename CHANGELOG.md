@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first five 50-value Ewe
-batches then left **173,083 genuinely untranslated values across 80 locale
-files**, including 1,916 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first seven 50-value Ewe
+batches then left **172,983 genuinely untranslated values across 80 locale
+files**, including 1,816 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `card-members-title` with
+Resume Ewe at `changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 5 are committed and batch 6 has not been applied.
+1 through 7 are committed and batch 8 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2277,6 +2277,24 @@ Board rearrangement and workspace assignment, visibility and watch controls,
 desktop and mobile views, zoom, calendar navigation, archives and card editing
 now use Ewe. Named and percent tokens, strong markup and the zoom range remain
 exact, leaving 1,916 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/068c2fdef">Voting and imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Card membership, voting, Planning Poker, dependencies, organization and team
+assignment, backgrounds, account deletion, domains and board-part imports now
+use Ewe. Product terminology remains exact, leaving 1,866 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08423a6e8">Membership and appearance gain 50 values</a>. Thanks to xet7.</summary>
+
+Member dialogs, card and board links, imported-member mapping, themes, fonts,
+text colors, avatars, language and permission controls now use Ewe. CAS, email
+and the numeric font sample remain exact, leaving 1,816 values.
 
 </details>
 
