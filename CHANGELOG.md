@@ -303,13 +303,14 @@ values, leaving **188,495 genuinely untranslated values across 87 locale
 files**. Forty-three 50-value Bengali batches and a final 16-value batch then
 translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
-16-value batch then translated all 2,166 values, leaving **184,163 genuinely
-untranslated values across 85 locale files**.
+16-value batch then translated all 2,166 values. The first 50-value Buryat batch
+then left **184,113 genuinely untranslated values across 85 locale files**,
+including 2,116 in Buryat.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Begin Buryat at `accept` with
+Resume Buryat at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list bua --limit 50`;
-Tibetan is complete and the first Buryat batch has not been applied.
+batch 1 is committed and batch 2 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -4383,6 +4384,16 @@ repair, CPU and event diagnostics, scoped import/export and search guidance.
 OTP, API, CPU, IP versions, file formats, `__fixed__`, `__unfixable__`,
 `__operator_number__` and `<number>` remain exact. Zero-backlog and whole-file
 invariant coverage now protect all 2,166 Tibetan translations.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fc05e481">Buryat activity and board controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Board, card, list and swimlane deletion and creation, comments, due dates,
+attachments, subtasks, labels, checklists, custom fields, archiving and imports
+now use Buryat. Named and percent placeholders remain exact, and whole-locale
+invariant coverage leaves 2,116 values.
 
 </details>
 
