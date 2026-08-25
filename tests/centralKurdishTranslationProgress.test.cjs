@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 816);
+assert.equal(Object.keys(remaining).length, 766);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -241,3 +241,16 @@ for (const key of [
 ]) {
   assert.doesNotMatch(kurdish[key], /\s/, key);
 }
+assert.deepEqual(tokens(kurdish['operator-number-expected']), [
+  '__operator__',
+  '__value__',
+]);
+assert.deepEqual(
+  tags(kurdish['globalSearch-instructions-operator-board']),
+  ['<title>', '<title>'],
+);
+assert.deepEqual(
+  tokens(kurdish['globalSearch-instructions-operator-has']),
+  tokens(english['globalSearch-instructions-operator-has']),
+);
+assert.equal(kurdish['globalSearch-instructions-notes-2'].split('\n').length, 2);
