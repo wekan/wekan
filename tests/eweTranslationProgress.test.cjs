@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 816);
+assert.equal(Object.keys(remaining).length, 766);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -226,3 +226,14 @@ assert.deepEqual(tokens(ewe['n-n-of-n-cards-found']), [
 ]);
 assert.match(ewe['operator-board'], /kpekpeɖeŋu/);
 assert.match(ewe['operator-checklist-text'], /ŋkuɖodzinudzesi/);
+assert.deepEqual(tokens(ewe['operator-number-expected']), [
+  '__operator__',
+  '__value__',
+]);
+assert.match(ewe['globalSearch-instructions-description'], /`list:Blocked`.*`__operator_list__:\"To Review\"`/);
+assert.deepEqual(
+  tags(ewe['globalSearch-instructions-operator-board']),
+  tags(english['globalSearch-instructions-operator-board']),
+);
+assert.match(ewe['globalSearch-instructions-notes-2'], /\*OR\*/);
+assert.match(ewe['globalSearch-instructions-notes-3'], /\*AND\*/);
