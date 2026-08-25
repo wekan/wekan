@@ -19,6 +19,38 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Notifications & activity log', () => {
+  test('#1658 opening a card Activities section shows its persisted history', async ({
+    boardPage,
+    board,
+    user,
+  }) => {
+    const cardId = db.findCardIdByTitle({
+      boardId: board.boardId,
+      title: 'Alpha Card',
+    });
+    const activityId = db.uid('issue-1658-activity');
+    db.insertOne('activities', {
+      _id: activityId,
+      activityType: 'createCard',
+      boardId: board.boardId,
+      cardId,
+      userId: user.id,
+      listId: board.listIds[0],
+      createdAt: new Date(),
+    });
+
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+    const heading = cp.root.locator(
+      '.js-toggle-card-section[data-section="activities"]',
+    );
+    await expect(heading).toBeVisible();
+    await heading.click();
+    await expect(cp.root.locator(`.activity[data-id="${activityId}"]`)).toBeVisible();
+  });
+
   test('activity log shows board-level activities', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     await bp.openSidebar();
