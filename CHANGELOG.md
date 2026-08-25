@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-twenty-two 50-value Cherokee batches then left **180,897 genuinely untranslated
-values across 84 locale files**, including 1,066 in Cherokee.
+twenty-three 50-value Cherokee batches then left **180,847 genuinely
+untranslated values across 84 locale files**, including 1,016 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `r-d-send-email-message` with
+Resume Cherokee at `add-custom-html-after-body-start` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 22 are committed and batch 23
+Buryat is complete, Cherokee batches 1 through 23 are committed and batch 24
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -501,8 +501,8 @@ browser build to verify).
 
 **In short:** **Cherokee translation** now covers card moves, activity,
 workspaces, board views, voting, member settings, account emails, exports,
-imports, privacy, branding, runtime metrics, tenancy, card settings and
-automation. This continues the direct whole-file translation effort while
+imports, privacy, branding, runtime metrics, tenancy, card settings, automation
+and manifests. This continues the direct whole-file translation effort while
 preserving human work and every code token. Below that: whole-locale placeholder
 and markup checks protect the new values.
 
@@ -733,6 +733,17 @@ Card movement and archives, label, member, attachment and checklist conditions,
 checked states, card placement, member and label removal, colors, checklist
 actions and email subjects now use Cherokee syllabary. The composable rule
 fragments remain internally consistent, leaving 1,066 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5114f1e7">Automation and web manifests gain 50 values</a>. Thanks to xet7.</summary>
+
+Automation email, archive, labels, card creation, member, checklist and swimlane
+actions, relative date fields, authentication, product naming, custom head tags,
+web manifests, asset links, layout and member displays now use Cherokee
+syllabary. Comma-separated examples and HTML/JSON names remain exact, leaving
+1,016 values.
 
 </details>
 
