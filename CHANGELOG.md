@@ -306,15 +306,15 @@ across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
 forty-three 50-value Cherokee batches and a final 16-value batch then translated
-all 2,166 Cherokee values. The first forty-one 50-value Central Kurdish batches
-then left **177,781 genuinely untranslated values across 83 locale files**,
-including 116 in Central Kurdish.
+all 2,166 Cherokee values. The first forty-two 50-value Central Kurdish batches
+then left **177,731 genuinely untranslated values across 83 locale files**,
+including 66 in Central Kurdish.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Central Kurdish at `migrate-all-to-filesystem` with
+Resume Central Kurdish at `otp` with
 `node releases/translations/fill-translations.mjs --list ckb --limit 50`;
-Buryat and Cherokee are complete, Central Kurdish batches 1 through 41 are
-committed and batch 42 has not been applied.
+Buryat and Cherokee are complete, Central Kurdish batches 1 through 42 are
+committed and the final batch has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -1354,6 +1354,16 @@ Board repair steps, conversion notices, CPU and memory usage, database
 migrations, job schedules and queues, filesystem and GridFS monitoring and
 minicard list visibility now use Central Kurdish. Identifiers, intervals and
 storage names remain exact, leaving 116 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/07ae48ce8">Migration controls gain 50 values</a>. Thanks to xet7.</summary>
+
+Bulk storage migration, batch size, CPU and delay thresholds, background
+migration state, monitoring, schedules, progress and attachment totals and
+minicard list/checklist visibility now use Central Kurdish. Numeric ranges,
+units and storage names remain exact, leaving 66 values.
 
 </details>
 
