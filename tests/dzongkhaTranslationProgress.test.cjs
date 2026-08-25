@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1916);
+assert.equal(Object.keys(remaining).length, 1866);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -97,3 +97,7 @@ assert.deepEqual(
 );
 assert.match(dzongkha['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(dzongkha['card-comments-title']), ['%s']);
+assert.match(dzongkha['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(dzongkha['cardDependenciesPopup-title'], /བརྟེན་འབྲེལ/);
+assert.match(dzongkha['addBoardOrgPopup-title'], /ལས་སྡེ/);
+assert.match(dzongkha['importSwimlanePopup-title'], /ཆུ་ལམ/);
