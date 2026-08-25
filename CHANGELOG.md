@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first thirty-eight 50-value
-Ewe batches then left **171,433 genuinely untranslated values across 80 locale
-files**, including 266 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first forty 50-value Ewe
+batches then left **171,333 genuinely untranslated values across 80 locale
+files**, including 166 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `gridfs-enabled` with
+Resume Ewe at `step-analyze-lists` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 38 are committed and batch 39 has not been applied.
+1 through 40 are committed and batch 41 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2599,6 +2599,26 @@ Backup frequency and restoration, Google Cloud credentials and permissions,
 AWS/S3, Azure and GCS setup paths, secret handling, connection tests and cloud
 attachment movement now use Ewe. Time formats, ranges, credential fields,
 roles, provider names and filenames remain exact, leaving 266 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17a1c5f2f">Storage backends and migrations gain 50 values</a>. Thanks to xet7.</summary>
+
+GridFS storage, migration lifecycle controls, CollectionFS movement guidance,
+S3 credentials and connections, scheduled board operations, attachment
+monitoring and board migrations now use Ewe. Backend, region and transport
+names remain exact, leaving 216 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8808b2928">Board repair gains 50 values</a>. Thanks to xet7.</summary>
+
+Comprehensive board integrity checks, duplicate-list cleanup, lost-card and
+archive restoration, missing-list repair, avatar and file URL repair,
+confirmations, progress and migration steps now use Ewe. Schema identifiers,
+IDs and URLs remain exact, leaving 166 values.
 
 </details>
 
