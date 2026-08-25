@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1566);
+assert.equal(Object.keys(remaining).length, 1516);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -140,3 +140,7 @@ assert.deepEqual(tokens(chuvash['import-board-instruction-issues']), [
 assert.match(chuvash['import-board-instruction-openproject'], /GET \/api\/v3\/work_packages/);
 assert.match(chuvash['import-board-instruction-jira'], /GET \/rest\/api\/2\/search/);
 assert.match(chuvash['import-trello-json-file-hint'], /API/);
+assert.match(chuvash['trello-api-key'], /https:\/\/trello\.com\/app-key/);
+assert.match(chuvash['trello-api-token'], /API/);
+assert.match(chuvash['invalid-year'], /2026/);
+assert.deepEqual(tokens(chuvash['label-default']), ['%s']);
