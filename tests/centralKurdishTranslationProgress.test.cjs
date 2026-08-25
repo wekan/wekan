@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ckb'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1016);
+assert.equal(Object.keys(remaining).length, 966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -202,3 +202,18 @@ assert.match(kurdish['r-in-swimlane'], /ڕێڕەو/);
 assert.match(kurdish['authentication-method'], /پشتڕاستکردنەوە/);
 assert.match(kurdish['custom-head-meta-tags'], /HTML/);
 assert.match(kurdish['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(kurdish['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(kurdish['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(kurdish['act-a-dueAt']), [
+  '__card__',
+  '__timeOldValue__',
+  '__timeValue__',
+]);
+assert.equal(kurdish['act-a-dueAt'].split('\n').length, 4);
+assert.deepEqual(tokens(kurdish['act-atUserComment']), [
+  '__board__',
+  '__card__',
+  '__comment__',
+  '__list__',
+  '__swimlane__',
+]);
