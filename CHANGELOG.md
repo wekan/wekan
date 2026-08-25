@@ -88,14 +88,10 @@ against a live log rather than guessed at),
 [#3700](https://github.com/wekan/wekan/issues/3700) (LDAP),
 [#3575](https://github.com/wekan/wekan/issues/3575) (WebHooks),
 [#1192](https://github.com/wekan/wekan/issues/1192) (Sandstorm),
-[#1094](https://github.com/wekan/wekan/issues/1094) (Winston logger and the
-database do not work at the same time — needs the running server/log stack to
-reproduce), [#2445](https://github.com/wekan/wekan/issues/2445) (cannot enter an
-e-mail in Profile settings — environment-specific, no repro on a clean install),
-[#3001](https://github.com/wekan/wekan/issues/3001) (manipulated headers / high
-traffic behind an Apache reverse proxy — an Apache proxy-configuration concern,
-not reproducible from WeKan code alone; needs the reporter's proxy setup to
-investigate), [#6548](https://github.com/wekan/wekan/issues/6548) (LDAP
+[#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
+Sandstorm grain require a user-granted Powerbox network capability and a
+Node-24-compatible bridge implementation; direct HTTP is intentionally blocked
+by the grain sandbox), [#6548](https://github.com/wekan/wekan/issues/6548) (LDAP
 debug output not visible inside an LXC container — needs that container and an
 Active Directory to see what is logged and what is not),
 [#6549](https://github.com/wekan/wekan/issues/6549) (OAuth2 through
@@ -111,29 +107,12 @@ feature or a wrapper change verified on a real snap install).
 <details>
 <summary>Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here.</summary>
 
-[#4959](https://github.com/wekan/wekan/issues/4959) (per-list card counts on the
-All Boards page — the `boardLists`/`boardMembers` helpers in
-`client/components/boards/boardsList.js` were deliberately stubbed to `[]` to
-stop the #4214 "icons random dance"; re-enabling needs a non-reactive count
-source and a lists/cards subscription for the dashboard, verified live so #4214
-does not return), [#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
+[#6541](https://github.com/wekan/wekan/issues/6541) (users disappear from the
 Users collection while their id stays on the board, WeKan 6.09 / MongoDB 3.2 —
 nothing in the server log and no webhook, so there is no path to follow in the
 code; the deletion helpers since gained the cleanup that removes a user from
 every board they were on, so a repeat today would leave no orphan ids, but the
 disappearance itself has no reproduction),
-[#3576](https://github.com/wekan/wekan/issues/3576) (mobile back button after
-search returns to settings, not the board — router),
-[#3114](https://github.com/wekan/wekan/issues/3114) (mobile card view stays open
-but blank after another client deletes/moves the card — reactive
-close-on-remove), [#3070](https://github.com/wekan/wekan/issues/3070) (using a
-template from Add Board / the top bar — a deleted template still lists / custom
-fields not copied; needs the app to reproduce),
-[#1658](https://github.com/wekan/wekan/issues/1658) (activity list not showing
-in cards — a v1.01-era report; the activity feed has been rewritten since, so it
-needs live confirmation on current code),
-[#761](https://github.com/wekan/wekan/issues/761) (cannot drop into a list when
-it is scrolled to the bottom — drag-drop/scroll),
 [#1942](https://github.com/wekan/wekan/issues/1942) (a card linked from board A
 into board B shows a blank view / freezes when the viewer has no rights on board
 A — the linked-card open resolves the real card the viewer cannot see; needs a
