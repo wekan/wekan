@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'dz'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1016);
+assert.equal(Object.keys(remaining).length, 966);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -215,3 +215,18 @@ assert.match(dzongkha['custom-head-meta-tags'], /HTML/);
 assert.match(dzongkha['custom-head-manifest-content'], /JSON/);
 assert.match(dzongkha['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
 assert.match(dzongkha['r-link-card'], /ཤོག་བྱང/);
+assert.deepEqual(tags(dzongkha['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(dzongkha['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(dzongkha['act-a-dueAt']), [
+  '__card__',
+  '__timeOldValue__',
+  '__timeValue__',
+]);
+assert.deepEqual(tokens(dzongkha['act-atUserComment']), [
+  '__board__',
+  '__card__',
+  '__comment__',
+  '__list__',
+  '__swimlane__',
+]);
+assert.match(dzongkha['submit-on-enter'], /Enter/);
