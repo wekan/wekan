@@ -696,6 +696,20 @@ Japanese fonts from the computed default stack.
 
 </details>
 
+**Container logging** - startup remains independent of obsolete transports.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cae55dae4">The removed Winston logger can no longer be mistaken for a Docker option</a>. Thanks to zagoa, huneau and xet7.</summary>
+
+The Winston/Zulip database observer that replaced Meteor's default console
+transport was removed in 2017, restoring normal database startup. Docker
+guidance no longer advertises that obsolete integration. Focused regressions
+protect the removed startup files and dependencies while requiring the active
+container database URL; live Meteor runs also started logging and MongoDB
+together.
+
+</details>
+
 **REST authentication** - clients can invalidate bearer tokens explicitly.
 
 <details>
