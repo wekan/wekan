@@ -305,13 +305,13 @@ translated all 2,166 values, leaving **186,329 genuinely untranslated values
 across 86 locale files**. Forty-three 50-value Tibetan batches and a final
 16-value batch then translated all 2,166 values. Forty-two 50-value Buryat
 batches and a final 66-value batch then translated all 2,166 values. The first
-eleven 50-value Cherokee batches then left **181,447 genuinely untranslated
-values across 84 locale files**, including 1,616 in Cherokee.
+twelve 50-value Cherokee batches then left **181,397 genuinely untranslated
+values across 84 locale files**, including 1,566 in Cherokee.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Cherokee at `filter-assignee-label` with
+Resume Cherokee at `import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list chr --limit 50`;
-Buryat is complete, Cherokee batches 1 through 11 are committed and batch 12
+Buryat is complete, Cherokee batches 1 through 12 are committed and batch 13
 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
@@ -500,10 +500,10 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Cherokee translation** now covers card moves, activity,
-workspaces, board views, voting, imports, member settings, navigation, account
-emails, exports and filters. This continues the direct whole-file translation
-effort while preserving human work and every code token. Below that:
-whole-locale placeholder and markup checks protect the new values.
+workspaces, board views, voting, member settings, navigation, account emails,
+exports, filters and multi-source imports. This continues the direct whole-file
+translation effort while preserving human work and every code token. Below
+that: whole-locale placeholder and markup checks protect the new values.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -617,6 +617,16 @@ Account errors, attachment-free board export, PDF and Excel card exports,
 attachment metadata, list sorting and due-date, label and member filters now use
 Cherokee syllabary. File-format and product names remain intact, and whole-locale
 invariant coverage leaves 1,616 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/262cd206b">Advanced filters and board imports gain 50 values</a>. Thanks to xet7.</summary>
+
+Advanced custom-field filters, activity and imported-member states and Kanboard,
+NextCloud, OpenProject, issue, Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan
+imports now use Cherokee syllabary. Operators, regex, API paths, JSON properties,
+file extensions and named tokens remain exact, leaving 1,566 values.
 
 </details>
 
