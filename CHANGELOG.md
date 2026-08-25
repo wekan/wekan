@@ -510,7 +510,8 @@ browser build to verify).
 **In short:** **FerretDB closes its remaining CodeQL findings** across readiness
 logging, query-number handling and developer tooling while documenting a
 protocol-required legacy authentication exception. **Fulah translation** now
-covers its first activity-history and workspace controls with exact tokens.
+covers its first activity-history and workspace controls with exact tokens, and
+**Rules** can again save current-date, cleared-date and add-member actions.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -537,6 +538,22 @@ narrowly documented and suppressed rather than changed incompatibly; new
 deployments retain SCRAM-SHA-256 as the stronger option. Native unit tests,
 extreme-value regressions, 32-bit cross-compilation, the FerretDB build, vet and
 the affected tools-module tests pass.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea9002328">Date and add-member Rules save without schema errors</a>. Thanks to rmb82 and xet7.</summary>
+
+The three affected card-action handlers copied their generated description into
+both the Action and its schema-bound Rule, although `desc` belongs only to the
+Action. SimpleSchema rejected the unknown Rule key and returned the user to the
+add-rule screen. Current-date, remove-date-value and add-member actions now
+match every working handler by storing `desc` solely on the Action. Positive and
+negative source coverage protects all three branches, and a Playwright flow
+checks that the UI saves a date Rule without `desc` while its Action retains the
+description.
 
 </details>
 
