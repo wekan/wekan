@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ee'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 116);
+assert.equal(Object.keys(remaining).length, 66);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -300,3 +300,9 @@ assert.match(ewe['step-fix-file-urls'], /URL/);
 assert.match(ewe['cpu-cores'], /CPU/);
 assert.match(ewe['gridfs-attachments'], /GridFS/);
 assert.match(ewe['every-30-minutes'], /30/);
+assert.match(ewe['migrate-all-to-gridfs'], /GridFS/);
+assert.match(ewe['migrate-all-to-s3'], /S3/);
+assert.match(ewe['migration-batch-size-description'], /1-100/);
+assert.match(ewe['migration-cpu-threshold'], /CPU.*%/);
+assert.match(ewe['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(ewe['migration-delay-ms-description'], /100-10000/);
