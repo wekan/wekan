@@ -472,7 +472,7 @@ browser build to verify).
 legacy compatibility. The **Board Table view** is responsive, sortable and can
 group cards by swimlane. **Rules** save date and member actions again, **card
 details** close when their card disappears, **legacy minicards** retain their
-creator choice, **Japanese controls** stay aligned, and **mobile Search**
+creator choice, **email notifications** use recipient languages, and **mobile Search**
 returns directly to the board. **Speech scrolling** targets lists and cards.
 **Private linked cards** remain usable without exposing their source boards.
 **LDAP/OIDC account linking, login boundaries,
@@ -1122,6 +1122,23 @@ date with the copy time. Copies now re-home immutable comment data without
 mutating the cached source or emitting false new-comment activity. Unit tests
 cover preserved history and invalid input; the REST browser regression checks
 the original author, timestamp and destination board together.
+
+</details>
+
+**Email notifications** - translated messages follow their recipient's profile.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46609d3e8">French notification delivery is confirmed against the recipient-language fix</a>. Thanks to Sophalso and xet7.</summary>
+
+The earlier server-language loading fix ensures the recipient's translation
+bundle is present before notification subjects and activity descriptions are
+rendered, then carries that same language into buffered delivery. Six focused
+checks cover exact French prose, placeholder preservation, load order, the
+send-language handoff, supported-language fallback and rejection of the server
+default in this path; seven invitation-language tests also pass. The live
+Meteor development stack compiles and starts. An SMTP server was not required
+to verify content generation before transport, and FerretDB is not involved in
+localization.
 
 </details>
 
