@@ -311,15 +311,15 @@ final 66-value batch then translated all 2,166 Central Kurdish values. The first
 forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
-batch then translated all 2,166 Dzongkha values. The first nine 50-value Ewe
-batches then left **172,883 genuinely untranslated values across 80 locale
-files**, including 1,716 in Ewe.
+batch then translated all 2,166 Dzongkha values. The first eleven 50-value Ewe
+batches then left **172,783 genuinely untranslated values across 80 locale
+files**, including 1,616 in Ewe.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Ewe at `custom-field-text` with
+Resume Ewe at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ee --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash and Dzongkha are complete; Ewe batch
-1 through 9 are committed and batch 10 has not been applied.
+1 through 11 are committed and batch 12 has not been applied.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
@@ -2314,6 +2314,25 @@ Comment and read-only roles, deletion confirmations, link copying, multi-card
 templates, labels and custom-field types now use Ewe. The translated card
 template remains valid JSON and keyboard terminology remains exact, leaving
 1,716 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b30572ced">Email and validation gain 50 values</a>. Thanks to xet7.</summary>
+
+Custom-field text, permanent deletion, WIP limits, dates, reactions,
+notifications, account emails and board, user and import validation now use
+Ewe. Named email tokens, line breaks, WIP, JSON, CSV, TSV and WeKan remain
+exact, leaving 1,666 values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b709945c">Exports and filters gain 50 values</a>. Thanks to xet7.</summary>
+
+User and account errors, card exports, attachment metadata, free-space errors,
+sorting and date, label and member filters now use Ewe. PDF, Excel and disk
+terminology remain exact, leaving 1,616 values.
 
 </details>
 
