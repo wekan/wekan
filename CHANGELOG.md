@@ -695,6 +695,19 @@ old equal spacing above and below the actions from returning.
 
 </details>
 
+**Board members** - invitation decisions and team grants stay consistent.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f861c92de">The removal, decline and team-access report is explicitly closed</a>. Thanks to UCS, rainbowjaw, DVNBLMHC and xet7.</summary>
+
+The earlier invitation fix deactivates removed or declining members, clears the
+pending invitation and refuses to reactivate anyone who no longer has a real
+invite, while preserving the valid acceptance path. All 11 lifecycle cases and
+16 team-to-board propagation cases pass. Browser coverage also registers both
+administrator removal and the negative non-admin permission path.
+
+</details>
+
 **Linked cards** - safe snapshots remain usable across board boundaries.
 
 <details>
