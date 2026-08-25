@@ -544,6 +544,19 @@ alerts 6, 11 and 38 through 42.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/89a34e2a">Follow-up CodeQL conversion and compatibility alerts are resolved</a>. Thanks to xet7.</summary>
+
+Aggregation indexes are parsed directly at the requested BSON width instead of
+narrowing an architecture-dependent native integer. MongoDB's mandatory legacy
+SCRAM-SHA-1 password preparation carries both current and legacy query-specific
+CodeQL annotations at the exact MD5 digest operation, documenting why replacing
+it would reject protocol-compatible credentials rather than improve security.
+Native boundary tests, vet and 32-bit cross-compilation pass for alerts 43 and
+44; the MongoDB-generated authentication vectors remain unchanged.
+
+</details>
+
 and fixes the following bugs:
 
 **Rules** - action descriptions stay in the schema that owns them.
