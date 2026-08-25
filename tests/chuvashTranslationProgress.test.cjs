@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'cv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2116);
+assert.equal(Object.keys(remaining).length, 2066);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -59,3 +59,20 @@ assert.match(chuvash['act-createBoard'], /хӑм/);
 assert.match(chuvash['act-createSwimlane'], /ҫул/);
 assert.match(chuvash['act-addComment'], /хушса калан/);
 assert.match(chuvash['act-archivedCard'], /архив/);
+assert.deepEqual(tokens(chuvash['act-moveCard']), [
+  '__board__',
+  '__card__',
+  '__list__',
+  '__oldList__',
+  '__oldSwimlane__',
+  '__swimlane__',
+]);
+assert.deepEqual(tokens(chuvash['activity-checklist-completed-card']), [
+  '__board__',
+  '__card__',
+  '__checklist__',
+  '__list__',
+  '__swimlane__',
+]);
+assert.match(chuvash['allboards.add-workspace'], /Ӗҫ вырӑн/);
+assert.match(chuvash['allboards.edit-workspace-icon'], /markdown/);
