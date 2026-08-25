@@ -7,7 +7,7 @@ const fillScript = path.join(root, 'releases/translations/fill-translations.mjs'
 const result = spawnSync(process.execPath, [fillScript, '--list', 'bua'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 816);
+assert.equal(Object.keys(remaining).length, 766);
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const buryat = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/bua.i18n.json'), 'utf8'));
 const tokens = (value) => [...value.matchAll(/__[A-Za-z0-9]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g)].map(([token]) => token).sort();
@@ -98,3 +98,6 @@ assert.deepEqual(tokens(buryat['user-username-not-found']), ['%s']);
 assert.deepEqual(tokens(buryat['n-n-of-n-cards-found']), ['__end__', '__start__', '__total__']);
 assert.equal(buryat['operator-customfield'], 'тусхайталбар');
 assert.equal(buryat['predicate-overdue'], 'хугацааүнгэрһэн');
+assert.deepEqual(tokens(buryat['operator-number-expected']), ['__operator__', '__value__']);
+assert.match(buryat['globalSearch-instructions-description'], /`__operator_list__:\"To Review\"`/);
+assert.deepEqual(tags(buryat['globalSearch-instructions-operator-board']), ['<title>', '<title>']);
