@@ -1182,9 +1182,12 @@ registration email, SMTP setup, webhooks and runtime versions. This left
 The eighteenth 50-value Kazakh batch added runtime diagnostics, custom-field
 display, account controls, tenancy domains and organization roles. This left
 **144,342 genuinely untranslated values across 67 locale files**.
+The nineteenth 50-value Kazakh batch added received and end dates, destructive
+board controls, subtasks, minicard display and parent-card settings. This left
+**144,292 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `card-received` with
+Resume Kazakh at `activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
