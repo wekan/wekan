@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 642);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -127,3 +127,4 @@ assert.deepEqual(tokens(konkani['background-too-big']), ['{{size}}']);
 assert.deepEqual(tokens(konkani['custom-field-stringtemplate-format']),
   ['%{value}']);
 assert.equal(konkani['recoveryReportTitle'], 'पुनर्प्राप्ती');
+assert.equal(konkani['recovery-db'], 'म्हायतीकोश');
