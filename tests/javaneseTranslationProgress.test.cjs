@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -158,3 +158,6 @@ assert.match(javanese.Node_heap_malloced_memory, /malloc/);
 assert.equal(javanese.legalNotice, 'pawarta hukum');
 assert.equal(javanese['attachment-move-storage-gridfs'],
   'Pindhah lampiran menyang GridFS');
+assert.equal(javanese['attachment-repair-broken'], 'Ora ditemokake');
+assert.match(javanese['mongodb-compact-description'], /MongoDB GridFS/);
+assert.equal(javanese['gridfs-file-id'], 'ID Berkas GridFS');
