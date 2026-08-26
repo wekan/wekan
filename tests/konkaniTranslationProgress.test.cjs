@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 442);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -138,3 +138,4 @@ assert.deepEqual(tokens(konkani['drag-board-to-workspace']), ['__workspaces__'])
 assert.equal(konkani.progress, 'प्रगती');
 assert.equal(konkani.accessibility, 'प्रवेशसुलभताय');
 assert.equal(konkani['accounts-lockout-status'], 'स्थिती');
+assert.equal(konkani['cron-jobs'], 'वेळापत्रकी कामां');

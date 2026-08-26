@@ -1714,9 +1714,12 @@ genuinely untranslated values across 64 locale files**.
 The forty-fifth 50-value Konkani batch added custom translations, checklist
 display, support, accessibility and account-lockout controls. This left
 **137,016 genuinely untranslated values across 64 locale files**.
+The forty-sixth 25-value Konkani batch added account status, attachment paths
+and scheduled board operations and migrations. This left **136,991 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `admin-people-filter-locked` with
+Resume Konkani at `cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
