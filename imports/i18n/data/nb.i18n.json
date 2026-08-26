@@ -829,6 +829,7 @@
   "deleted-user": "Slettet bruker",
   "remove-member-from-card": "Fjern fra Kort",
   "remove-member-pop": "Fjern __name__ (__username__) fra __boardTitle__? Medlemmet vil bli fjernet fra alle kort på denne tavlen. Varsel vil bli sendt til medlemmet.",
+  "sandstorm-remove-member-warning": "Dette skjuler bare medlemmet i WeKan. Det opphever ikke tilgangen til Sandstorm-grainet. Opphev også tilgangen deres i dialogboksen Del tilgang i Sandstorm.",
   "removeMemberPopup-title": "Fjern Medlem?",
   "rename": "Omdøp",
   "rename-board": "Endre navn på tavlen",

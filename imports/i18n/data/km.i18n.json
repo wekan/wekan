@@ -829,6 +829,7 @@
   "deleted-user": "អ្នកប្រើប្រាស់ដែលបានលុប",
   "remove-member-from-card": "យកចេញពីកាត",
   "remove-member-pop": "ដក __name__ (__username__) ចេញពី __boardTitle__? សមាជិកនឹងត្រូវបានដកចេញពីកាតទាំងអស់នៅលើក្តារនេះ។ ពួកគេនឹងទទួលបានការជូនដំណឹង។",
+  "sandstorm-remove-member-warning": "វាគ្រាន់តែលាក់សមាជិកនៅក្នុង WeKan ប៉ុណ្ណោះ។ វាមិនដកហូតសិទ្ធិចូលប្រើ Sandstorm grain ទេ។ សូមដកហូតសិទ្ធិរបស់ពួកគេក្នុងប្រអប់ចែករំលែកសិទ្ធិចូលប្រើរបស់ Sandstorm ផងដែរ។",
   "removeMemberPopup-title": "ដកសមាជិកចេញ?",
   "rename": "ប្តូរឈ្មោះ",
   "rename-board": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",

@@ -829,6 +829,7 @@
   "deleted-user": "Ištrintas vartotojas",
   "remove-member-from-card": "Pašalinti iš kortelės",
   "remove-member-pop": "Pašalinti __name__ (__username__) iš __boardTitle__? Narys bus pašalintas iš visų kortelių šioje lentoje. Jie gaus pranešimą.",
+  "sandstorm-remove-member-warning": "Tai tik paslepia narį WeKan viduje. Prieiga prie Sandstorm grain neatšaukiama. Taip pat atšaukite jo prieigą Sandstorm prieigos bendrinimo dialogo lange.",
   "removeMemberPopup-title": "Pašalinti narį?",
   "rename": "Pervardyti",
   "rename-board": "Pervardyti valdybą",

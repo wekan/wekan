@@ -829,6 +829,7 @@
   "deleted-user": "삭제된 사용자",
   "remove-member-from-card": "카드에서 제거",
   "remove-member-pop": "__name__(__username__) 님을 __boardTitle__에서 제거하시겠습니까? 이 회원은 이 보드의 모든 카드에서 제거되며 알림을 받습니다.",
+  "sandstorm-remove-member-warning": "이 작업은 WeKan 내부에서 멤버를 숨길 뿐입니다. Sandstorm grain에 대한 접근 권한은 취소되지 않습니다. Sandstorm의 접근 공유 대화 상자에서도 해당 멤버의 접근 권한을 취소하세요.",
   "removeMemberPopup-title": "멤버를 제거합니까?",
   "rename": "새이름",
   "rename-board": "보드 이름 바꾸기",

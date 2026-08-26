@@ -829,6 +829,7 @@
   "deleted-user": "Dzēsts lietotājs",
   "remove-member-from-card": "Noņemt no kartiņas",
   "remove-member-pop": "Noņemt __name__ (__username__) no __boardTitle__? Dalībnieks tiks noņemts no visām kartiņām šajā dēlī. Dalībnieks saņems ziņojumu.",
+  "sandstorm-remove-member-warning": "Tas tikai paslēpj dalībnieku WeKan vidē. Tas neatsauc piekļuvi Sandstorm grain. Atsauciet šī dalībnieka piekļuvi arī Sandstorm piekļuves kopīgošanas dialoglodziņā.",
   "removeMemberPopup-title": "Noņemt dalībnieku?",
   "rename": "Pārsaukt",
   "rename-board": "Pārsaukt dēli",
