@@ -1636,9 +1636,12 @@ untranslated values across 64 locale files**.
 The nineteenth 50-value Konkani batch added notifications, board visibility,
 member removal, search, WIP limits and keyboard actions. This left **137,991
 genuinely untranslated values across 64 locale files**.
+The twentieth 25-value Konkani batch added starred boards, time tracking,
+assignee shortcuts and uploads. This left **137,966 genuinely untranslated
+values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `starred-boards` with
+Resume Konkani at `custom-top-left-corner-logo-image-url` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
