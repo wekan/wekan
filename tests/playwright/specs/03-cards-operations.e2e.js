@@ -225,66 +225,55 @@ test.describe('Cards – operations', () => {
   test('#2494 cross-board moves receive a unique finite position and stay visible', async ({
     boardPage,
     board,
-    user,
-    request,
   }) => {
-    const targetTitle = 'Issue 2494 Target';
-    const headers = {
-      Authorization: `Bearer ${user.token}`,
-      'Content-Type': 'application/json',
-    };
-    const createBoard = await request.post('/api/boards', {
-      headers,
-      data: { title: targetTitle },
-    });
-    expect(createBoard.status()).toBe(200);
-    const createdBoard = await createBoard.json();
-    const targetBoardId = createdBoard._id;
+    const targetTitle = `Issue 2494 Target ${db.uid('')}`;
+    await boardPage.locator('.js-create-board').first().click();
+    const createPopup = boardPage.locator('.js-pop-over');
+    await createPopup.locator('.js-new-board-title').fill(targetTitle);
+    await createPopup.locator('input[type="submit"]').click();
+    let targetBoardId;
+    await expect.poll(() => {
+      targetBoardId = db.findOne('boards', { title: targetTitle, type: 'board' })?._id;
+      return targetBoardId || null;
+    }, { timeout: 15_000 }).not.toBeNull();
     const targetBoard = db.findOne('boards', { _id: targetBoardId });
-    const targetSwimlane = db.findOne('swimlanes', {
-      _id: createdBoard.defaultSwimlaneId,
-    });
-    const createList = await request.post(`/api/boards/${targetBoardId}/lists`, {
-      headers,
-      data: { title: 'List A', swimlaneId: targetSwimlane._id },
-    });
-    expect(createList.status()).toBe(200);
-    const targetListId = (await createList.json())._id;
+    const targetSwimlane = db.findOne('swimlanes', { boardId: targetBoardId });
+    await boardPage.getByRole('link', { name: 'Add List' }).click();
+    const addListComposer = boardPage.locator('.js-add-list-inline-form');
+    await addListComposer.locator('.list-name-input').fill('List A');
+    await addListComposer.getByRole('button', { name: 'Save' }).click();
+    let targetListId;
+    await expect.poll(() => {
+      targetListId = db.findOne('lists', { boardId: targetBoardId, title: 'List A' })?._id;
+      return targetListId || null;
+    }, { timeout: 15_000 }).not.toBeNull();
     const target = {
       boardId: targetBoardId,
       slug: targetBoard.slug,
       swimlaneId: targetSwimlane._id,
       listIds: [targetListId],
     };
-    const seedCards = await request.post(
-      `/api/boards/${targetBoardId}/lists/${targetListId}/cards/bulk`,
-      {
-        headers,
-        data: {
-          authorId: user.id,
-          swimlaneId: targetSwimlane._id,
-          cards: [{ title: 'Existing One' }, { title: 'Existing Two' }],
-        },
-      },
-    );
-    expect(seedCards.status()).toBe(200);
     try {
-      const sourceCardId = db.findCardIdByTitle({
-        boardId: board.boardId,
-        title: 'Alpha Card',
-      });
-      const move = await request.put(
-        `/api/boards/${board.boardId}/lists/${board.listIds[0]}/cards/${sourceCardId}`,
-        {
-          headers,
-          data: {
-            newBoardId: target.boardId,
-            newSwimlaneId: target.swimlaneId,
-            newListId: target.listIds[0],
-          },
-        },
-      );
-      expect(move.status()).toBe(200);
+      const targetPage = new BoardPage(boardPage);
+      await targetPage.openAddCardTop(targetListId);
+      await targetPage.submitNewCard(targetListId, 'Existing One');
+      await targetPage.openAddCardTop(targetListId);
+      await targetPage.submitNewCard(targetListId, 'Existing Two');
+      await openBoard(boardPage, board.boardId, board.slug);
+      const bp = new BoardPage(boardPage);
+      const cp = new CardPage(boardPage);
+      await bp.clickCard(board.listIds[0], 'Alpha Card');
+      await cp.waitForOpen();
+      await cp.openActionsMenu();
+      await cp.clickAction('.js-move-card');
+      const movePopup = boardPage.locator('.js-pop-over');
+      const boardSelect = movePopup.locator('select.js-select-boards');
+      await expect(boardSelect.locator(`option[value="${targetBoardId}"]`)).toHaveText(targetTitle);
+      await boardSelect.selectOption(targetBoardId);
+      const listSelect = movePopup.locator('select.js-select-lists');
+      await expect(listSelect.locator(`option[value="${targetListId}"]`)).toContainText('List A');
+      await listSelect.selectOption(targetListId);
+      await movePopup.locator('button.js-done, button.primary.confirm').click();
 
       await expect.poll(() => db.findOne('cards', {
         boardId: target.boardId,
@@ -301,9 +290,9 @@ test.describe('Cards – operations', () => {
       expect(new Set(sorts).size).toBe(sorts.length);
 
       await openBoard(boardPage, target.boardId, target.slug);
-      const targetPage = new BoardPage(boardPage);
+      const movedPage = new BoardPage(boardPage);
       for (const title of ['Existing One', 'Existing Two', 'Alpha Card']) {
-        await expect(targetPage.minicard(target.listIds[0], title)).toBeVisible();
+        await expect(movedPage.minicard(target.listIds[0], title)).toBeVisible();
       }
     } finally {
       db.cleanup({ boardIds: [target.boardId] });

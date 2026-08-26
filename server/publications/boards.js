@@ -115,6 +115,23 @@ publishComposite('boards', function() {
   };
 });
 
+// Move/copy dialogs must not depend on the long-lived All Boards composite
+// subscription being populated. Publish exactly what their client-side picker
+// has always offered: non-archived boards where this user is an active member.
+Meteor.publish('boardDestinations', async function() {
+  const userId = this.userId;
+  if (!Match.test(userId, String) || !userId) return [];
+  return await ReactiveCache.getBoards(
+    {
+      archived: false,
+      type: 'board',
+      members: { $elemMatch: { userId, isActive: true } },
+    },
+    { sort: { sort: 1 }, fields: BOARD_LIST_FIELDS },
+    true,
+  );
+});
+
 // Template containers are numerous on long-lived LDAP instances and are only
 // needed by All Boards / Templates. Keep this live so imports appear without a
 // reload, but do not make every page poll and decode them.

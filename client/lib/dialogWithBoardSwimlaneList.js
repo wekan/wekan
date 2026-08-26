@@ -2,6 +2,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
+import Boards from '/models/boards';
 
 /**
  * Helper class for popup dialogs that let users select a board, swimlane, and list.
@@ -17,6 +18,9 @@ export class BoardSwimlaneListDialog {
    */
   constructor(tpl, callbacks = {}) {
     this.tpl = tpl;
+    // Do not depend on the long-lived All Boards composite subscription being
+    // populated. This picker-owned subscription stops with the popup.
+    this.tpl.subscribe('boardDestinations');
     this._getDialogOptions = callbacks.getDialogOptions || (() => undefined);
     this._setDone = callbacks.setDone || (() => {});
     if (callbacks.getDefaultOption) {
@@ -175,16 +179,19 @@ export class BoardSwimlaneListDialog {
 
   /** returns all available boards */
   boards() {
-    return ReactiveCache.getBoards(
+    // Query Minimongo directly so Blaze tracks the destination publication.
+    // DataCache can retain the empty result computed before that subscription
+    // becomes ready, leaving the real board selector blank.
+    return Boards.find(
       {
         archived: false,
-        'members.userId': Meteor.userId(),
+        members: { $elemMatch: { userId: Meteor.userId(), isActive: true } },
         _id: { $ne: ReactiveCache.getCurrentUser().getTemplatesBoardId() },
       },
       {
         sort: { sort: 1 },
       },
-    );
+    ).fetch();
   }
 
   /** returns all available swimlanes of the current board */
