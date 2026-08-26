@@ -380,16 +380,17 @@ Guarani values; `FerretDB commit` remains an invariant technical label. This lef
 **158,253 genuinely untranslated values across 77 locale files**. The first
 50-value Manx batch then added activity, deletion, comment, checklist, member
 and archive strings. The second 50-value Manx batch added movement, checklist
-activity and workspace strings. This left **158,153 genuinely
+activity and workspace strings. The third 50-value Manx batch added workspace
+selection, Home-board, sizing and checklist controls. This left **158,103 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Manx at `workspaceActionsPopup-title` with
+Continue Manx at `added` with
 `node releases/translations/fill-translations.mjs --list gv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete; Guarani is now complete apart from its invariant technical label, and
-2,067 Manx values remain.
+2,017 Manx values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
