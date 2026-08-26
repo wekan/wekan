@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -36,3 +36,7 @@ assert.equal(creole['set-list-width-value'], 'Lajè lis (piksèl)');
 assert.deepEqual(tokens(creole['and-n-other-card']), ['__count__']);
 assert.deepEqual(tags(creole['board-private-info']), ['</strong>', '<strong>']);
 assert.equal(creole['board-not-found'], 'Tablo pa jwenn');
+assert.deepEqual(tags(creole['board-public-info']), ['</strong>', '<strong>']);
+assert.deepEqual(tokens(creole['board-open-and-move-between-remaining-and-workspaces']),
+  ['__workspaces__']);
+assert.equal(creole['card-due'], 'Dat limit');
