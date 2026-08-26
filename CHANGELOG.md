@@ -307,12 +307,14 @@ is low confidence. Both Ukrainian variants, four Uzbek variants, three Venda
 variants and Vietnamese for Vietnam followed. The Uzbek Arabic and Venda wording
 is low confidence. Base Vietnamese, Flemish, Volapük, Wáray-Wáray, Walloon,
 Wolof, Wu Chinese, Yiddish, Yoruba and Cantonese followed. The Volapük,
-Wáray-Wáray, Walloon and Wolof wording is low confidence. This left **160,430 genuinely
+Wáray-Wáray, Walloon and Wolof wording is low confidence. Standard Moroccan
+Tamazight, eight Chinese variants and South African Zulu followed. The Tamazight
+wording is low confidence. This left **160,420 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Standard Moroccan Tamazight at `sandstorm-remove-member-warning` with
-`node releases/translations/fill-translations.mjs --list zgh --limit 50`;
+Continue Zulu at `sandstorm-remove-member-warning` with
+`node releases/translations/fill-translations.mjs --list zu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete.
