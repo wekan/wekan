@@ -318,15 +318,16 @@ and board-summary strings; the fifth added view, zoom, calendar, archive warning
 and card-editing strings; the sixth added voting, Planning Poker, dependency and
 import-dialog strings; the seventh added member mapping, theme, font and avatar
 controls; the eighth added starring, automatic sizing, card aging, navigation
-and color names. This left **160,019 genuinely
+and color names; the ninth added role permissions, copy actions and custom-field
+types. This left **159,969 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `color-white` with
+Continue Guarani at `custom-field-text` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 1,767 Guarani values remain.
+complete; 1,717 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
