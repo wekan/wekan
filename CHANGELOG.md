@@ -1441,9 +1441,12 @@ files**.
 The sixteenth 25-value Kannada batch added advanced-filter guidance and board
 import instructions. This left **140,323 genuinely untranslated values across
 65 locale files**.
+The seventeenth 25-value Kannada batch added Trello JSON, ZIP, workspace and API
+import guidance. This left **140,298 genuinely untranslated values across 65
+locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `import-csv-placeholder` with
+Resume Kannada at `trello-parent-workspace-top` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
