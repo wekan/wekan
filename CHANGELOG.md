@@ -365,15 +365,17 @@ filesystem and cloud storage settings, database migration and Sandstorm status.
 The thirty-seventh 50-value batch added Sandstorm cleanup, card-loading modes,
 secure rendering, import/export privacy controls and backup scopes. The
 thirty-eighth 50-value batch added backup schedules and restoration plus
-S3, Azure and Google Cloud storage setup guidance. This left **158,521 genuinely
+S3, Azure and Google Cloud storage setup guidance. The thirty-ninth 50-value
+batch added attachment storage targets, migration controls, S3 settings and
+scheduled board operations. This left **158,471 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `attachment-move-storage-azure` with
+Continue Guarani at `board-migrations` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 269 Guarani values remain.
+complete; 219 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
