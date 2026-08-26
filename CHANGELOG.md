@@ -1350,9 +1350,12 @@ genuinely untranslated values across 66 locale files**.
 The thirtieth 50-value Greenlandic batch added map detection, server
 troubleshooting, sorting, custom fields, reports and office activity. This left
 **141,575 genuinely untranslated values across 66 locale files**.
+The thirty-first 50-value Greenlandic batch added API and recovery reports,
+wait indicators, support tickets and card details. This left **141,525
+genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `office-last-seen` with
+Resume Greenlandic at `add-teams` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
