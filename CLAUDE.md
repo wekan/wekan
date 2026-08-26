@@ -85,7 +85,7 @@ When asked to fix an open issue (one issue at a time):
    - npm — https://www.npmjs.com
 4. **After fixing, add tests** — unit tests, negative tests, and UI tests where
    appropriate — and **run the new tests to verify they pass** (see Tests / the sandbox
-   build+test instructions in `docs/Security/Sandboxes/vscode/README.md`).
+   build+test instructions in `docs/Security/Sandboxes/vscodium/README.md`).
 5. **Commit** (maintainer only — when the current git user is `Lauri Ojansivu
    <x@xet7.org>`), with no "Co-Authored" / AI trailer, a message body ending:
 
@@ -248,7 +248,7 @@ as if it were human.
     | `.tools/sandstorm` | sandstorm-io/sandstorm | — | upstream Sandstorm, when present — somebody else's project, cloned for reference |
 
     **Unpacked toolchains and caches.** Downloads, not repositories — put there by
-    the sandbox instructions in `docs/Security/Sandboxes/vscode/README.md`, deleted
+    the sandbox instructions in `docs/Security/Sandboxes/vscodium/README.md`, deleted
     and re-fetched freely, never committed anywhere:
     `node-v<version>-linux-<arch>/` (the Node.js the test suites are run with),
     `go/` with `gopath/`, `gomodcache/` and `gocache/` (FerretDB's Go builds),
@@ -781,16 +781,16 @@ have cost a released section its accuracy:
 
 ## Environment
 
-- The editor (VSCode) runs inside a **Flatpak sandbox**, launched by
-  `docs/Security/Sandboxes/vscode/vscode-sandbox.sh`. What the sandbox allows/blocks and
-  how it is set up is documented in `docs/Security/Sandboxes/vscode/README.md` in that
+- The editor (VSCodium) runs inside a **Flatpak sandbox**, launched by
+  `docs/Security/Sandboxes/vscodium/vscodium-sandbox.sh`. What the sandbox allows/blocks and
+  how it is set up is documented in `docs/Security/Sandboxes/vscodium/README.md` in that
   same directory — read it when something behaves differently than a normal host (file
   access, network, running services).
 
 ### Flatpak sandbox: install task tools under `.tools/`
 
 - In the Flatpak sandbox launched by
-  `docs/Security/Sandboxes/vscode/vscodium-sandbox.sh` (or the VSCode variant),
+  `docs/Security/Sandboxes/vscodium/vscodium-sandbox.sh`,
   the repository may be the only writable/shared host directory. When a command
   needs a tool that is missing, install its binary, virtual environment, models
   and caches under the repository-local `.tools/` directory. Do not install it
@@ -805,8 +805,9 @@ have cost a released section its accuracy:
   scripts or module files. Use the architecture reported by `uname -m`. Reuse an
   existing matching `.tools` installation before downloading another copy.
 - Follow the complete, tested bootstrap commands and environment variables in
-  `docs/Security/Sandboxes/vscode/README.md`, especially its "From-scratch
-  toolchain in `.tools/`" section. Prefer repository setup helpers such as
+  `docs/Security/Sandboxes/vscodium/README.md`, especially its "Reuse same
+  in-sandbox toolchain" and test-runtime sections. Prefer repository setup
+  helpers such as
   `build.sh` and `releases/ensure-tools.sh` when they already install the needed
   pinned tool. Keep `HOME`, `PATH`, `GOROOT`, `GOPATH`, `GOCACHE`, `GOMODCACHE`
   and similar overrides scoped to the command or sandbox terminal; do not change
