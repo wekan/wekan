@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -26,3 +26,6 @@ for (const [key, value] of Object.entries(hausa)) {
 assert.equal(hausa.accept, 'Karɓa');
 assert.match(hausa['act-createBoard'], /allo/i);
 assert.match(hausa['act-createCard'], /kati/i);
+assert.equal(hausa.Database_type, "Nau'in ma'ajiyar bayanai");
+assert.match(hausa['org-domains-description'], /MULTITENANCY=true/);
+assert.equal(hausa['active-person'], 'Mutum mai aiki');
