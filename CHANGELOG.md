@@ -1567,9 +1567,12 @@ values across 65 locale files**.
 The fifty-eighth 50-value Kannada batch added board integrity, lost-item
 recovery, URL repair and migration progress. This left **138,917 genuinely
 untranslated values across 65 locale files**.
+The fifty-ninth 50-value Kannada batch added migration steps, board conversion,
+CPU status and filesystem monitoring. This left **138,867 genuinely
+untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `steps` with
+Resume Kannada at `gridfs-size` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
