@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -172,3 +172,6 @@ assert.equal(kazakh['filesystem-enabled'],
   'Файлдық жүйе қоймасы қосылған');
 assert.deepEqual(tokens(kazakh['database-migration-confirm']), ['__db__']);
 assert.equal(kazakh['sandstorm-migration-pending'], 'Әлі көшірілмеген');
+assert.equal(kazakh['sandstorm-storage-item'], 'Қойма');
+assert.match(kazakh['render-links-as-plain-text-description'], /<a href>/);
+assert.equal(kazakh['backup-done'], 'Сақтық көшірме аяқталды');

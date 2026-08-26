@@ -1236,9 +1236,12 @@ left **143,492 genuinely untranslated values across 67 locale files**.
 The thirty-sixth 50-value Kazakh batch added scheduled migration controls,
 filesystem and cloud storage, database migration and Sandstorm migration status.
 This left **143,442 genuinely untranslated values across 67 locale files**.
+The thirty-seventh 50-value Kazakh batch added storage cleanup, card-loading
+performance, security rendering, privacy controls and backups. This left
+**143,392 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `sandstorm-storage-item` with
+Resume Kazakh at `backup-schedule` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
