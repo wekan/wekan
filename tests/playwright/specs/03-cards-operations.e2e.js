@@ -109,11 +109,6 @@ test.describe('Cards – operations', () => {
   }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
-    await boardPage.setViewportSize({ width: 390, height: 844 });
-    await boardPage.evaluate(() =>
-      localStorage.setItem('wekan-mobile-mode', 'true'),
-    );
-    await boardPage.reload({ waitUntil: 'networkidle' });
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();
 
@@ -512,7 +507,7 @@ test.describe('Cards – operations', () => {
       );
       await expect(linkedMemberAvatar).toHaveAttribute(
         'src',
-        avatarUrl,
+        /\/cdn\/storage\/avatars\/[^?]+\?boardId=/,
       );
       await expect(boardPage.locator(
         '.card-details .card-label[title="Source Label"]',

@@ -64,6 +64,7 @@ test.describe('Rules', () => {
     await boardPage.locator('#ruleTitle').fill('Set current due date');
     await boardPage.locator('.js-goto-trigger').click();
     await boardPage.locator('.js-add-create-trigger.js-goto-action').first().click();
+    await boardPage.locator('.js-set-card-actions').click();
     await boardPage.locator('#setdate-datefield').selectOption('dueAt');
     await boardPage.locator('.js-set-date-action.js-goto-rules').click();
 

@@ -2304,11 +2304,11 @@ Cards.helpers({
   getTitle() {
     if (this.isLinkedCard()) {
       const card = ReactiveCache.getCard(this.linkedId);
-      if (card === undefined) {
-        return null;
-      } else {
-        return card.title;
-      }
+      // A user may see the linked card's destination board without being a
+      // member of its private source board.  In that case the source is
+      // deliberately not published; retain the title copied into the linked
+      // card instead of rendering an empty minicard.
+      return card === undefined ? (this.title ?? null) : card.title;
     } else if (this.isLinkedBoard()) {
       const board = ReactiveCache.getBoard(this.linkedId);
       if (board === undefined) {
