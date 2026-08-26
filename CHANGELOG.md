@@ -1774,9 +1774,12 @@ genuinely untranslated values across 63 locale files**.
 The ninth 50-value Kashmiri batch added board roles, deletion confirmations,
 clipboard actions, template copying and custom fields. This left **136,124
 genuinely untranslated values across 63 locale files**.
+The tenth 50-value Kashmiri batch added permanent deletion, profiles, dates,
+account emails, import validation and access errors. This left **136,074
+genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at `custom-field-text`
-with
+and exact tokens from `en.i18n.json`, resuming Kashmiri at
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
