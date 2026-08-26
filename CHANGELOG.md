@@ -1230,9 +1230,12 @@ genuinely untranslated values across 67 locale files**.
 The thirty-fourth 50-value Kazakh batch added board status, upload restrictions,
 custom translations, checklist display and support and accessibility pages.
 This left **143,542 genuinely untranslated values across 67 locale files**.
+The thirty-fifth 50-value Kazakh batch added login lockout controls, people
+filters, scheduled jobs, attachment paths and scheduled board operations. This
+left **143,492 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `accessibility-info-not-added-yet` with
+Resume Kazakh at `cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
