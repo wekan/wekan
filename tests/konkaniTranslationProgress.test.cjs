@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 342);
+assert.equal(Object.keys(remaining).length, 292);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -145,3 +145,5 @@ assert.equal(konkani['database-migration-done'],
 assert.deepEqual(tags(konkani['render-links-as-plain-text-description']),
   ['<a href>']);
 assert.equal(konkani['disable-all-export'], 'सगळी निर्यात बंद करात');
+assert.equal(konkani.backup, 'बॅकअप');
+assert.equal(konkani['backup-now'], 'आतां बॅकअप करात');
