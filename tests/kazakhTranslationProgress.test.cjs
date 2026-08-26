@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -168,3 +168,7 @@ assert.equal(kazakh.accessibility, 'Қолжетімділік');
 assert.equal(kazakh['accounts-lockout-status'], 'Күй');
 assert.equal(kazakh['attachments-path'], 'Тіркемелер жолы');
 assert.match(kazakh['board-backup-scheduled'], /сәтті/);
+assert.equal(kazakh['filesystem-enabled'],
+  'Файлдық жүйе қоймасы қосылған');
+assert.deepEqual(tokens(kazakh['database-migration-confirm']), ['__db__']);
+assert.equal(kazakh['sandstorm-migration-pending'], 'Әлі көшірілмеген');
