@@ -1176,9 +1176,12 @@ pages, member removal, search, WIP limits and keyboard shortcuts. This left
 The sixteenth 50-value Kazakh batch added tracking, time accounting, uploads,
 custom branding, starter templates and WIP warnings. This left **144,442
 genuinely untranslated values across 67 locale files**.
+The seventeenth 50-value Kazakh batch added attachment and API limits,
+registration email, SMTP setup, webhooks and runtime versions. This left
+**144,392 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `attachment-transfer-limits-title` with
+Resume Kazakh at `Database_type` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

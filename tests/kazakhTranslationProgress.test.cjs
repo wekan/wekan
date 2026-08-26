@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -96,3 +96,7 @@ assert.deepEqual(tokens(kazakh['remove-member-pop']),
 assert.equal(kazakh.tracking, 'Қадағалау');
 assert.match(kazakh['custom-top-left-corner-logo-height'], /27/);
 assert.equal(kazakh['upload-completed'], 'Жүктеу аяқталды');
+assert.deepEqual(tokens(kazakh['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.equal(kazakh.Database, 'Дерекқор');
+assert.equal(kazakh['attachment-limit-mode-unlimited'], 'Шектеусіз');
