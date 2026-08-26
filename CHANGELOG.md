@@ -407,16 +407,18 @@ metrics, field display, visibility, organization, team and multitenancy strings.
 The nineteenth 50-value Manx batch added card dates, deletion safeguards,
 subtask/card settings and parent-card display. The twentieth 50-value Manx batch
 added label/attachment activities and the visual rule workflow, triggers,
-imports and exports. This left **157,253 genuinely
+imports and exports. The twenty-first 50-value Manx batch added imported visual
+workflows, schedules, due-date triggers, rule buttons, relative dates and units.
+This left **157,203 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Manx at `r-import-workflow` with
+Continue Manx at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list gv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete; Guarani is now complete apart from its invariant technical label, and
-1,167 Manx values remain.
+1,117 Manx values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
