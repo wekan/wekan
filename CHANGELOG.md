@@ -1483,9 +1483,12 @@ across 65 locale files**.
 The thirtieth 50-value Kannada batch added automation member, checklist, card
 movement, label and email actions. This left **139,798 genuinely untranslated
 values across 65 locale files**.
+The thirty-first 25-value Kannada batch added checklist, swimlane and date-field
+automation actions. This left **139,773 genuinely untranslated values across 65
+locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `r-d-remove-member` with
+Resume Kannada at `r-remove-value-from` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
