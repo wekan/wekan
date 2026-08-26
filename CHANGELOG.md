@@ -372,15 +372,17 @@ board repairs, lost-card recovery and migration progress steps. The forty-first
 50-value batch added migration repair steps, board conversion,
 CPU and storage metrics, schedules and job-queue labels. The forty-second
 50-value batch added attachment migration controls, resource thresholds,
-monitoring, progress and storage statistics. This left **158,321 genuinely
+monitoring, progress and storage statistics. The forty-third 50-value batch
+added repositories, account access, problem reporting, card repair and event
+metrics. This left **158,271 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `weight` with
+Continue Guarani at `event-source` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 69 Guarani values remain.
+complete; 19 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
