@@ -704,15 +704,18 @@ operations. This left **152,160 genuinely untranslated values across 71 locale
 files**. The thirty-sixth 50-value Haitian Creole batch added scheduled-job and
 migration recovery, filesystem and cloud storage, database migration and
 Sandstorm migration status. This left **152,110 genuinely untranslated values
-across 71 locale files**.
+across 71 locale files**. The thirty-seventh 50-value Haitian Creole batch added
+Sandstorm cleanup, adaptive card loading, safe rich-text rendering, import and
+export privacy and streamed backups. This left **152,060 genuinely untranslated
+values across 71 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Haitian Creole at `sandstorm-storage-item` with
+Resume Haitian Creole at `backup-schedule` with
 `node releases/translations/fill-translations.mjs --list ht --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, including Hausa; 367 Haitian Creole values remain.
+now complete, including Hausa; 317 Haitian Creole values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
