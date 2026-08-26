@@ -1549,9 +1549,12 @@ values across 65 locale files**.
 The fifty-second 50-value Kannada batch added scheduled migrations, storage
 backends and database migration guidance. This left **139,107 genuinely
 untranslated values across 65 locale files**.
+The fifty-third 25-value Kannada batch added Sandstorm cleanup, card loading and
+secure text rendering and import/export controls. This left **139,082 genuinely
+untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `sandstorm-disk-usage` with
+Resume Kannada at `disable-import-avatars` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
