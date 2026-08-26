@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -163,3 +163,6 @@ assert.equal(icelandic['cloud-connection-success'], 'Tenging tókst');
 assert.equal(icelandic['gridfs-enabled'], 'GridFS virkt');
 assert.match(icelandic['s3-region-description'], /us-east-1/);
 assert.equal(icelandic['board-migrations'], 'Flutningar taflna');
+assert.equal(icelandic['lost-cards'], 'Týnd spjöld');
+assert.match(icelandic['restore-lost-cards-migration-description'], /swimlaneId/);
+assert.equal(icelandic['step-convert-shared-lists'], 'Umbreyta sameiginlegum listum');

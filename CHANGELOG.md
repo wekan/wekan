@@ -849,15 +849,18 @@ connection diagnostics. This left **149,843 genuinely untranslated values
 across 70 locale files**. The thirty-ninth 50-value Icelandic batch added GCS
 and GridFS storage, migration lifecycle controls, S3 configuration, scheduled
 board maintenance and attachment monitoring. This left **149,793 genuinely
-untranslated values across 70 locale files**.
+untranslated values across 70 locale files**. The fortieth 50-value Icelandic
+batch added comprehensive board repair, lost-card restoration, archive recovery,
+URL fixes, migration confirmations and progress steps. This left **149,743
+genuinely untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `card-show-lists-on-minicard` with
+Resume Icelandic at `step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 217 Icelandic values remain.
+and Haitian Creole are now complete; 167 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
