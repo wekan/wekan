@@ -751,15 +751,18 @@ mapping, themes, fonts and account preferences. This left **151,393 genuinely
 untranslated values across 70 locale files**. The eighth 50-value Icelandic
 batch added favorites, automatic list sizing, card aging, movement controls,
 accessible dialogs and color names. This left **151,343 genuinely untranslated
-values across 70 locale files**.
+values across 70 locale files**. The ninth 50-value Icelandic batch added
+restricted board roles, deletion warnings, clipboard actions, bulk card copying
+and custom-field controls. This left **151,293 genuinely untranslated values
+across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `color-white` with
+Resume Icelandic at `custom-field-text` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 1,767 Icelandic values remain.
+and Haitian Creole are now complete; 1,717 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
