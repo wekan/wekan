@@ -1726,9 +1726,12 @@ performance and security controls for links, code and imports. This left
 The forty-ninth 50-value Konkani batch added export security, anonymization,
 notifications, backups and Google Cloud storage settings. This left **136,866
 genuinely untranslated values across 64 locale files**.
+The fiftieth 25-value Konkani batch added S3, Azure and Google Cloud setup paths,
+connection tests and cloud storage moves. This left **136,841 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `azure-account-name-description` with
+Resume Konkani at `attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
