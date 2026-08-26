@@ -473,15 +473,17 @@ retaining the FerretDB product name. Guarani is now complete, leaving
 **156,077 genuinely untranslated values across 72 locale files**. The first
 50-value Hausa batch added activity history, organization restrictions,
 comments, checklists, labels and archive actions. This left **156,027 genuinely
-untranslated values across 72 locale files**.
+untranslated values across 72 locale files**. The second 50-value Hausa batch
+added movement history, activity summaries and workspace management. This left
+**155,977 genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Hausa at `act-moveCard` with
+Continue Hausa at `workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 2,117 Hausa values remain.
+now complete, and 2,067 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
