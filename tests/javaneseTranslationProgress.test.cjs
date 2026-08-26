@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -119,3 +119,8 @@ assert.equal(javanese['r-create-card'], 'Gawe kertu anyar');
 assert.match(javanese['r-items-list'], /item1,item2,item3/);
 assert.equal(javanese['custom-head-manifest-content'],
   'Isi manifest web kustom (JSON)');
+assert.deepEqual(tags(javanese['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tokens(javanese['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(javanese['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
