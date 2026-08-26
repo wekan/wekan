@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -99,3 +99,6 @@ assert.equal(icelandic['r-board-rules'], 'Töflureglur');
 assert.deepEqual(tokens(icelandic['r-import-unmapped']), ['__count__']);
 assert.equal(icelandic['r-schedule-weekday'], 'Alla virka daga (mán.–fös.)');
 assert.equal(icelandic['r-mark-complete'], 'Merkja spjald lokið');
+assert.equal(icelandic['r-unarchived'], 'Endurheimt úr safni');
+assert.equal(icelandic['r-remove-all'], 'Fjarlægja alla meðlimi af spjaldinu');
+assert.equal(icelandic['r-d-send-email'], 'Senda tölvupóst');
