@@ -545,15 +545,17 @@ labels. This left **154,827 genuinely untranslated values across 72 locale
 files**. The twenty-sixth 50-value Hausa batch added linked-card safeguards,
 shared templates, domain scopes, card views, global search and missing-item
 messages. This left **154,777 genuinely untranslated values across 72 locale
-files**.
+files**. The twenty-seventh 50-value Hausa batch added missing-result messages
+and Hausa search operators and predicates. This left **154,727 genuinely
+untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Hausa at `user-username-not-found` with
+Resume Hausa at `predicate-member` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 867 Hausa values remain.
+now complete, and 817 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

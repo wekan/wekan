@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -55,3 +55,7 @@ assert.match(hausa['roles-info'], /Shafin Gudanarwa/);
 assert.equal(hausa['globalSearchViewChange-choice-me'], 'Katunana');
 assert.deepEqual(tokens(hausa['board-title-not-found']), ['%s']);
 assert.match(hausa['shared-templates-info'], /Ƙungiya.*Tawaga/);
+assert.deepEqual(tokens(hausa['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(hausa['operator-board'], 'allo');
+assert.equal(hausa['predicate-overdue'], 'ya-wuce-lokaci');
