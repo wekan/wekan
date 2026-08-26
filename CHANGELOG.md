@@ -1408,9 +1408,12 @@ and archive controls. This left **140,733 genuinely untranslated values across
 The fifth 25-value Kannada batch added templates, attachments, backgrounds and
 board-member display settings. This left **140,708 genuinely untranslated
 values across 65 locale files**.
+The sixth 50-value Kannada batch added board views, zoom, calendar and archive
+guidance. This left **140,658 genuinely untranslated values across 65 locale
+files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `board-public-info` with
+Resume Kannada at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

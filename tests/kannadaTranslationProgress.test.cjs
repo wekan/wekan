@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -44,4 +44,9 @@ assert.equal(kannada['public-boards'], 'ಸಾರ್ವಜನಿಕ ಫಲಕಗ
 assert.deepEqual(tokens(kannada['and-n-other-card_plural']), ['__count__']);
 assert.deepEqual(tokens(kannada['avatar-too-big']), ['__size__']);
 assert.deepEqual(tags(kannada['board-private-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  kannada['board-open-and-move-between-remaining-and-workspaces']),
+  ['__workspaces__']);
+assert.deepEqual(tags(kannada['board-public-info']),
   ['</strong>', '<strong>']);
