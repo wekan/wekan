@@ -784,15 +784,18 @@ and team tenancy administration. This left **150,843 genuinely untranslated
 values across 70 locale files**. The nineteenth 50-value Icelandic batch added
 card lifecycle dates, destructive-action warnings, subtask placement, minicard
 metadata, parent relationships and label activity. This left **150,793 genuinely
-untranslated values across 70 locale files**.
+untranslated values across 70 locale files**. The twentieth 50-value Icelandic
+batch added label and custom-field activity, visual rule building, event
+triggers and JSON, CSV and Trello Butler rule exchange. This left **150,743
+genuinely untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `activity-removed-label` with
+Resume Icelandic at `r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 1,217 Icelandic values remain.
+and Haitian Creole are now complete; 1,167 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
