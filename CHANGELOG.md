@@ -896,15 +896,18 @@ permanent deletion and board-import validation errors. This left **149,076
 genuinely untranslated values across 69 locale files**. The eleventh 50-value
 Inuktitut batch added account-conflict errors, card exports, attachment fields,
 list sorting and due-date, label and member filters. This left **149,026
-genuinely untranslated values across 69 locale files**.
+genuinely untranslated values across 69 locale files**. The twelfth 50-value
+Inuktitut batch added advanced filtering, activity visibility, imported-member
+states and board-import guidance for supported sources and Trello ZIP files.
+This left **148,976 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `filter-assignee-label` with
+Resume Inuktitut at `import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 1,617 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 1,567 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
