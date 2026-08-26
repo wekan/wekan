@@ -1795,9 +1795,12 @@ left **135,824 genuinely untranslated values across 63 locale files**.
 The sixteenth 50-value Kashmiri batch added starred boards, time tracking,
 uploads, custom branding, welcome templates and WIP validation. This left
 **135,774 genuinely untranslated values across 63 locale files**.
+The seventeenth 50-value Kashmiri batch added attachment and API limits,
+registration, SMTP invitations, webhooks and runtime version labels. This left
+**135,724 genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
