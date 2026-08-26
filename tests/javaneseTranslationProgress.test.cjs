@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -168,3 +168,6 @@ assert.equal(javanese['accounts-lockout-failed-attempts'], 'Upaya Gagal');
 assert.equal(javanese['accounts-lockout-unlock-all'], 'Bukak Kabeh Kunci');
 assert.equal(javanese['board-backup-scheduled'],
   'Serep papan kasil dijadwalake');
+assert.deepEqual(tokens(javanese['database-migration-confirm']), ['__db__']);
+assert.match(javanese['database-migration-description'], /WEKAN_FERRETDB_URL/);
+assert.equal(javanese['sandstorm-migration-success'], 'Kasil');
