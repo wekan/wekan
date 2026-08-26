@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -129,3 +129,6 @@ assert.equal(creole['card-dependencies'], 'Depandans');
 assert.deepEqual(tokens(creole['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(creole['background-too-big']), ['{{size}}']);
+assert.equal(creole['location-latitude'], 'Latitid');
+assert.deepEqual(tokens(creole['custom-field-stringtemplate-format']), ['%{value}']);
+assert.match(creole['server-error-troubleshooting'], /sudo docker logs wekan-app/);
