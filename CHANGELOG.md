@@ -1624,9 +1624,12 @@ untranslated values across 64 locale files**.
 The fifteenth 50-value Konkani batch added advanced filters, activity controls
 and board import guidance and errors. This left **138,141 genuinely
 untranslated values across 64 locale files**.
+The sixteenth 25-value Konkani batch added Trello ZIP safety, API credentials,
+workspace selection and import cancellation. This left **138,116 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `import-trello-zip-file-too-large` with
+Resume Konkani at `trello-resume` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
