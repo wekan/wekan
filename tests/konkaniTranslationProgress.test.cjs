@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1242);
+assert.equal(Object.keys(remaining).length, 1192);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -87,3 +87,6 @@ assert.equal(konkani.Database, 'म्हायतीकोश');
 assert.equal(konkani['active-org'], 'सक्रिय संस्था');
 assert.equal(konkani['OS_Uptime'], 'OS चालू वेळ');
 assert.deepEqual(tokens(konkani['default-subtasks-board']), ['__board__']);
+assert.equal(konkani['r-board-rules'], 'फळो नेम');
+assert.deepEqual(tokens(konkani['activity-set-customfield']),
+  ['%s', '%s', '%s']);
