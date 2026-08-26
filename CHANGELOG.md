@@ -816,15 +816,18 @@ operator syntax, status, existence, sorting and date-search guidance. This left
 **150,343 genuinely untranslated values across 70 locale files**. The
 twenty-ninth 50-value Icelandic batch added board and card sorting, stickers,
 card dependency editing and imports, board backgrounds and location entry. This
-left **150,293 genuinely untranslated values across 70 locale files**.
+left **150,293 genuinely untranslated values across 70 locale files**. The
+thirtieth 50-value Icelandic batch added map detection, server troubleshooting,
+sorting, string templates, activity visibility and administration reports. This
+left **150,243 genuinely untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `location-latitude` with
+Resume Icelandic at `office-last-seen` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 717 Icelandic values remain.
+and Haitian Creole are now complete; 667 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
