@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 791);
+assert.equal(Object.keys(remaining).length, 777);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -95,3 +95,5 @@ assert.deepEqual(tokens(kannada['operator-number-expected']),
 assert.equal(kannada['next-page'], 'ಮುಂದಿನ ಪುಟ');
 assert.deepEqual(tokens(kannada['globalSearch-instructions-operator-hash']),
   ['__operator_label__', '__operator_label__', '__operator_label_abbrev__']);
+assert.deepEqual(tokens(kannada['globalSearch-instructions-operator-due']),
+  ['__operator_due__', '__operator_due__', '__predicate_overdue__']);
