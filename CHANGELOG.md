@@ -923,15 +923,18 @@ subtask settings, minicard fields, parent paths and label activity. This left
 **148,626 genuinely untranslated values across 69 locale files**. The twentieth
 50-value Inuktitut batch added activity phrases and the automation-rule editor,
 triggers, workflow builder and JSON, CSV and Trello Butler interchange. This
-left **148,576 genuinely untranslated values across 69 locale files**.
+left **148,576 genuinely untranslated values across 69 locale files**. The
+twenty-first 50-value Inuktitut batch added visual-workflow import, scheduled
+and due-date triggers, rule buttons, sorting, completion and relative dates.
+This left **148,526 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `r-import-workflow` with
+Resume Inuktitut at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 1,167 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 1,117 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

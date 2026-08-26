@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -110,3 +110,6 @@ assert.deepEqual(tokens(inuktitut['activity-set-customfield']),
   ['%s', '%s', '%s']);
 assert.deepEqual(tokens(inuktitut['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(inuktitut['r-import-done']), ['__count__']);
+assert.deepEqual(tokens(inuktitut['r-import-unmapped']), ['__count__']);
+assert.equal(inuktitut['r-schedule-daily'], 'ᐅᓪᓗᖅ ᑕᒫᑦ');
+assert.equal(inuktitut['r-trigger'], 'ᐱᒋᐊᖅᑎᑦᓯᔾᔪᑎ');
