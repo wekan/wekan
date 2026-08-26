@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 26);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -126,3 +126,7 @@ assert.equal(kannada['lost-cards'], 'ಕಳೆದುಹೋದ ಕಾರ್ಡ್
 assert.equal(kannada.steps, 'ಹಂತಗಳು');
 assert.equal(kannada['overall-progress'], 'ಒಟ್ಟಾರೆ ಪ್ರಗತಿ');
 assert.deepEqual(tokens(kannada['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(kannada['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.deepEqual(tokens(kannada['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
