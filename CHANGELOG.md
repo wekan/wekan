@@ -1684,9 +1684,12 @@ untranslated values across 64 locale files**.
 The thirty-fifth 50-value Konkani batch added global-search results, operators
 and predicates. This left **137,391 genuinely untranslated values across 64
 locale files**.
+The thirty-sixth 25-value Konkani batch added operator validation, paging and
+global-search guidance for boards, lists, labels and users. This left **137,366
+genuinely untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `predicate-member` with
+Resume Konkani at `globalSearch-instructions-operator-at` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
