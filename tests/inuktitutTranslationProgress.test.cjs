@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -126,3 +126,7 @@ assert.deepEqual(tokens(inuktitut['act-a-dueAt']),
   ['__card__', '__timeOldValue__', '__timeValue__']);
 assert.deepEqual(tokens(inuktitut['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.equal(inuktitut['roles-status-sees-assigned'],
+  'ᑎᓕᔭᐅᓯᒪᔪᑐᐊᑦ');
+assert.equal(inuktitut.monday, 'ᓇᒡᒐᔾᔭᐅ');
+assert.equal(inuktitut.sunday, 'ᓴᓇᑕᐃᓕ');
