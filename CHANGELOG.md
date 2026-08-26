@@ -1720,9 +1720,12 @@ untranslated values across 64 locale files**.
 The forty-seventh 50-value Konkani batch added scheduled-job recovery, storage
 backends and database and Sandstorm migration controls. This left **136,941
 genuinely untranslated values across 64 locale files**.
+The forty-eighth 25-value Konkani batch added Sandstorm cleanup, card-loading
+performance and security controls for links, code and imports. This left
+**136,916 genuinely untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `sandstorm-storage-item` with
+Resume Konkani at `disable-all-export-description` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 342);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -142,3 +142,6 @@ assert.equal(konkani['cron-jobs'], 'वेळापत्रकी कामा�
 assert.deepEqual(tokens(konkani['database-migration-confirm']), ['__db__']);
 assert.equal(konkani['database-migration-done'],
   'मजकूर-म्हायती स्थलांतर पुराय जालें.');
+assert.deepEqual(tags(konkani['render-links-as-plain-text-description']),
+  ['<a href>']);
+assert.equal(konkani['disable-all-export'], 'सगळी निर्यात बंद करात');
