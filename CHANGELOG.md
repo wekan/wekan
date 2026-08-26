@@ -279,16 +279,17 @@ batch then translated 2,165 actionable values. `Bucket` and `Log` are invariant
 product terms that need no translation, completing Fulah. Forty-three 50-value
 Fijian batches and a final 14-value batch then translated 2,164 actionable
 values. `Menu`, `Log` and `Server` are invariant product terms, completing
-Fijian. The first thirteen 50-value Faroese batches, twenty-four 49-value
-batches and six 48-value batches then left **164,801 genuinely
+Fijian. Thirteen 50-value Faroese batches, twenty-four 49-value batches, six
+48-value batches and a final 51-value batch then translated all 2,166
+actionable Faroese values. `Menu` and `Bucket` are invariant product terms,
+completing Faroese and leaving **164,750 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Faroese at `otp-required` with
-`node releases/translations/fill-translations.mjs --list fo --limit 50`;
-Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah and Fijian are
-complete, and 53 Faroese values remain. `Menu` and `Bucket` are invariant
-product terms.
+Continue Irish at `accept` with
+`node releases/translations/fill-translations.mjs --list ga --limit 50`;
+Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
+Faroese are complete, and 2,167 Irish values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
