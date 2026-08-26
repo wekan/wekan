@@ -446,6 +446,10 @@ rendering, import/export privacy controls and backup scopes. This left
 The thirty-eighth 20-value Manx batch added backup schedules, restoration
 controls and initial Google Cloud storage labels. This left **156,383 genuinely
 untranslated values across 77 locale files**.
+The final 47-value Manx batch added account validation, problem diagnostics,
+card repair reporting and scoped import/export instructions. Manx is now
+complete, leaving **156,086 genuinely untranslated values across 77 locale
+files**.
 The forty-second 50-value Manx batch added resource monitoring, job schedules,
 attachment storage migrations and throttling controls. This left **156,183
 genuinely untranslated values across 77 locale files**.
@@ -463,12 +467,12 @@ progress reporting and repair-step descriptions. This left **156,233 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Manx at `username-too-short` with
-`node releases/translations/fill-translations.mjs --list gv --limit 50`;
+Continue Scottish Gaelic at `log` with
+`node releases/translations/fill-translations.mjs --list gd --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; Guarani is now complete apart from its invariant technical label, and
-47 Manx values remain.
+complete apart from the newly exposed warning-only values; Guarani is complete
+apart from its invariant technical label, and Manx is now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
