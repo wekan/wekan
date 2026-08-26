@@ -1615,9 +1615,12 @@ untranslated values across 64 locale files**.
 The twelfth 25-value Konkani batch added permanent deletion, profile and WIP
 controls, date dialogs and enrollment email. This left **138,266 genuinely
 untranslated values across 64 locale files**.
+The thirteenth 50-value Konkani batch added account email, permission and
+import errors, and card exports. This left **138,216 genuinely untranslated
+values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `email-fail` with
+Resume Konkani at `export-card-excel-needed` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
