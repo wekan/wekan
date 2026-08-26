@@ -1128,9 +1128,12 @@ untranslated values across 68 locale files**.
 The final 17-value Javanese batch added event details, integrity reporting and
 scoped import and export guidance. Javanese is now complete, leaving **145,242
 genuinely untranslated values across 67 locale files**.
+The first 50-value Kazakh batch added board, card and checklist activity,
+membership restrictions, comments and archiving. This left **145,192 genuinely
+untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `accept` with
+Resume Kazakh at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
