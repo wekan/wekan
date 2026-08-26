@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -46,3 +46,7 @@ assert.deepEqual(tokens(inuktitut['and-n-other-card']), ['__count__']);
 assert.deepEqual(tokens(inuktitut['avatar-too-big']), ['__size__']);
 assert.deepEqual(tags(inuktitut['board-private-info']), ['</strong>', '<strong>']);
 assert.equal(inuktitut['board-not-found'], 'ᐊᓪᓚᕕᒃ ᓇᓂᔭᐅᖏᑦᑐᖅ');
+assert.deepEqual(tags(inuktitut['board-public-info']), ['</strong>', '<strong>']);
+assert.deepEqual(tokens(inuktitut['board-open-and-move-between-remaining-and-workspaces']),
+  ['__workspaces__']);
+assert.equal(inuktitut['card-due'], 'ᐱᔭᕇᕐᕕᐅᔪᒃᓴᖅ');
