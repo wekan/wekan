@@ -1738,9 +1738,12 @@ untranslated values across 64 locale files**.
 The fifty-third 50-value Konkani batch added migration confirmations, progress,
 repair steps, board conversion and CPU status. This left **136,716 genuinely
 untranslated values across 64 locale files**.
+The fifty-fourth 50-value Konkani batch added migration scheduling, monitoring,
+tuning, storage metrics and progress. This left **136,666 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `duration` with
+Resume Konkani at `page` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
