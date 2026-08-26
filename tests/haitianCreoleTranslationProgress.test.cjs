@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -84,3 +84,6 @@ assert.equal(creole['attachment-limit-mode-unlimited'], 'San limit');
 assert.deepEqual(tokens(creole['email-invite-register-text']),
   ['__icode__', '__inviter__', '__url__', '__user__']);
 assert.equal(creole.Database, 'Bazdone');
+assert.equal(creole.Database_type, 'Tip bazdone');
+assert.match(creole.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(creole['org-domains-description'], /MULTITENANCY=true/);
