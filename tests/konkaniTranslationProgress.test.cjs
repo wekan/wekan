@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1992);
+assert.equal(Object.keys(remaining).length, 1942);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -43,3 +43,9 @@ assert.equal(konkani['set-list-width'], 'रुंदाय थाराया�
 assert.equal(konkani['add-members'], 'वांगडी जोडात');
 assert.equal(konkani['public-boards'], 'भौशीक फळे');
 assert.deepEqual(tokens(konkani['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(konkani['avatar-too-big']), ['__size__']);
+assert.deepEqual(tags(konkani['board-private-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  konkani['board-open-and-move-between-remaining-and-workspaces']),
+  ['__workspaces__']);
