@@ -1113,14 +1113,17 @@ cloud credentials, provider setup paths and connection status. This left
 The thirty-ninth 50-value Javanese batch added attachment storage, migration
 controls, S3 setup and scheduled board operations. This left **145,459 genuinely
 untranslated values across 68 locale files**.
+The fortieth 50-value Javanese batch added board-integrity repair, lost-card
+restoration, file URL fixes and migration progress. This left **145,409 genuinely
+untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `card-show-lists-on-minicard` with
+Resume Javanese at `step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 217
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 167
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
