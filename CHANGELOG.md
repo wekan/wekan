@@ -1729,9 +1729,12 @@ genuinely untranslated values across 64 locale files**.
 The fiftieth 25-value Konkani batch added S3, Azure and Google Cloud setup paths,
 connection tests and cloud storage moves. This left **136,841 genuinely
 untranslated values across 64 locale files**.
+The fifty-first 50-value Konkani batch added GridFS and S3 settings, migration
+controls, scheduled operations and attachment monitoring. This left **136,791
+genuinely untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `attachment-move-storage-gcs` with
+Resume Konkani at `card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
