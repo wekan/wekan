@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -71,3 +71,6 @@ assert.equal(icelandic['import-trello-zip-too-large'],
 assert.equal(icelandic['trello-import-progress'], 'Framvinda innflutnings');
 assert.equal(icelandic['label-default'], '%s merki (sjálfgefið)');
 assert.deepEqual(tokens(icelandic['label-default']), ['%s']);
+assert.deepEqual(tokens(icelandic['leave-board-pop']), ['__boardTitle__']);
+assert.equal(icelandic['multi-selection'], 'Fjölval');
+assert.equal(icelandic['no-archived-swimlanes'], 'Engar sundbrautir í safni.');
