@@ -1161,9 +1161,12 @@ untranslated values across 67 locale files**.
 The eleventh 50-value Kazakh batch added account conflicts, card PDF and Excel
 exports, list sorting and date and member filters. This left **144,692 genuinely
 untranslated values across 67 locale files**.
+The twelfth 50-value Kazakh batch added advanced filtering, member state and
+board imports from issue trackers, spreadsheets and Trello archives. This left
+**144,642 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `filter-assignee-label` with
+Resume Kazakh at `import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
