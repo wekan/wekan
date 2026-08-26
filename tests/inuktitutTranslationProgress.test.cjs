@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -54,6 +54,11 @@ assert.equal(inuktitut['otp-required'], 'OTP ᓇᓗᓇᐃᒃᑯᑕᖅ ᐱᔭᕆ�
 assert.deepEqual(tokens(inuktitut['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.equal(inuktitut['event-source'], 'ᐱᒋᐊᕐᕕᖓ');
+assert.equal(inuktitut['event-ipv6'], 'IPv6 ᑐᕌᕈᑖ');
+assert.deepEqual(tokens(inuktitut['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(inuktitut['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
 assert.deepEqual(tokens(inuktitut['act-addChecklistItem']),
   ['__board__', '__card__', '__checklistItem__', '__checklist__', '__list__', '__swimlane__']);
 assert.deepEqual(tokens(inuktitut['act-setCustomField']),

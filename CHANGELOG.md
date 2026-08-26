@@ -993,14 +993,18 @@ This left **147,476 genuinely untranslated values across 69 locale files**.
 The forty-third 50-value Inuktitut batch added repository accounts, login
 validation, problem summaries, broken-card repair and event metadata. This left
 **147,426 genuinely untranslated values across 69 locale files**.
+The final 17-value Inuktitut batch added event network details, scoped
+import/export instructions and number-search syntax, completing Inuktitut. This
+left **147,409 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `event-detail` with
-`node releases/translations/fill-translations.mjs --list iu --limit 50`;
+Resume Javanese at `accept` with
+`node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 17 Inuktitut values remain.
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 2167
+values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
