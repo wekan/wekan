@@ -1459,9 +1459,12 @@ across 65 locale files**.
 The twenty-second 50-value Kannada batch added tracking, branding, templates,
 WIP errors and attachment limits. This left **140,098 genuinely untranslated
 values across 65 locale files**.
+The twenty-third 25-value Kannada batch added API limits, registration, SMTP
+and invitation email. This left **140,073 genuinely untranslated values across
+65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `api-upload-limit-label` with
+Resume Kannada at `error-notAuthorized` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

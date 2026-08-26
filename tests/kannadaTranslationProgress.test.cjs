@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1357);
+assert.equal(Object.keys(remaining).length, 1332);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -71,3 +71,5 @@ assert.deepEqual(tokens(kannada['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.equal(kannada.overtime, 'ಹೆಚ್ಚುವರಿ ಸಮಯ');
 assert.equal(kannada['upload-failed'], 'ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ');
+assert.deepEqual(tokens(kannada['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
