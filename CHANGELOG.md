@@ -1002,14 +1002,17 @@ lists, swimlanes, labels, checklists, comments and attachments. This left
 The second 50-value Javanese batch added movement history, concise activity
 phrases, checklist history and workspace navigation and editing. This left
 **147,309 genuinely untranslated values across 68 locale files**.
+The third 50-value Javanese batch added workspace deletion, multi-board actions,
+Home boards, list sizing, keyboard shortcuts and checklist creation. This left
+**147,259 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `workspaceActionsPopup-title` with
+Resume Javanese at `added` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 2067
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 2017
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
