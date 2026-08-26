@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -176,3 +176,8 @@ assert.equal(icelandic['repository'], 'Hirsla');
 assert.deepEqual(tokens(icelandic['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.equal(icelandic['event-source'], 'Uppruni');
+assert.equal(icelandic.integrityReportTitle, 'Heilleiki skráarkerfis');
+assert.deepEqual(tokens(icelandic['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(icelandic['globalSearch-instructions-operator-number']),
+  tags(english['globalSearch-instructions-operator-number']));
