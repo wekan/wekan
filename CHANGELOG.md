@@ -1648,9 +1648,12 @@ values across 64 locale files**.
 The twenty-third 50-value Konkani batch added database and system status,
 custom-field display, account visibility, organizations and teams. This left
 **137,841 genuinely untranslated values across 64 locale files**.
+The twenty-fourth 25-value Konkani batch added card dates and colors, deletion
+confirmations and default subtask boards. This left **137,816 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `card-received` with
+Resume Konkani at `queue` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
