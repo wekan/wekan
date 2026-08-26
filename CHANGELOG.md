@@ -1660,9 +1660,12 @@ untranslated values across 64 locale files**.
 The twenty-seventh 50-value Konkani batch added visual-workflow imports,
 schedules, due-date triggers, automation buttons and relative dates. This left
 **137,691 genuinely untranslated values across 64 locale files**.
+The twenty-eighth 25-value Konkani batch added automation movement, label,
+member, attachment and checklist conditions. This left **137,666 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `r-the-board` with
+Resume Konkani at `r-bottom-of` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
