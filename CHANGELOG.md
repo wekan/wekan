@@ -965,15 +965,18 @@ repair, storage statistics and MongoDB compaction guidance and status. This
 left **147,926 genuinely untranslated values across 69 locale files**. The
 thirty-fourth 50-value Inuktitut batch added board status, upload restrictions,
 custom translations, checklist display and support and accessibility pages.
-This left **147,876 genuinely untranslated values across 69 locale files**.
+This left **147,876 genuinely untranslated values across 69 locale files**. The
+thirty-fifth 50-value Inuktitut batch added login lockout controls, people
+filters, scheduled jobs, attachment paths and scheduled board operations. This
+left **147,826 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `accessibility-info-not-added-yet` with
+Resume Inuktitut at `cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 467 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 417 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

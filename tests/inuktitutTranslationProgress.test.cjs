@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -165,3 +165,7 @@ assert.equal(inuktitut['mongodb-compact-run'], 'MongoDB Compact ᐊᐅᓚᓪᓗ�
 assert.deepEqual(tokens(inuktitut['drag-board-to-workspace']), ['__workspaces__']);
 assert.equal(inuktitut.translation, 'ᑐᑭᓕᐅᕐᓂᖅ');
 assert.equal(inuktitut.accessibility, 'ᐊᑐᕈᓐᓇᕐᓂᖅ');
+assert.equal(inuktitut['accounts-lockout-locked-users'],
+  'ᐊᑐᖅᑏᑦ ᐸᕝᕕᓴᖅᑕᐅᔪᑦ');
+assert.equal(inuktitut['attachments-path'], 'ᐃᓚᒃᓴᑦ ᐊᖅᑯᑎᖓ');
+assert.equal(inuktitut['board-operations'], 'ᐊᓪᓚᕕᐅᑉ ᐱᓕᕆᐊᖏᑦ');
