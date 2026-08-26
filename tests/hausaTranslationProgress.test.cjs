@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -41,3 +41,6 @@ assert.equal(hausa['r-for-n-days'], 'na kwanaki N');
 assert.equal(hausa['r-d-move-to-top-gen'], 'Matsar da kati zuwa saman jerinsa');
 assert.equal(hausa['r-d-move-to-bottom-spec'], 'Matsar da kati zuwa ƙasan jeri');
 assert.equal(hausa['r-d-send-email'], 'Aika imel');
+assert.equal(hausa['r-items-list'], 'abu1,abu2,abu3');
+assert.match(hausa['custom-head-manifest-content'], /JSON/);
+assert.equal(hausa['authentication-method'], 'Hanyar tantancewa');
