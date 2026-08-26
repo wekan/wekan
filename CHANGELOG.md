@@ -282,14 +282,14 @@ values. `Menu`, `Log` and `Server` are invariant product terms, completing
 Fijian. Thirteen 50-value Faroese batches, twenty-four 49-value batches, six
 48-value batches and a final 51-value batch then translated all 2,166
 actionable Faroese values. `Menu` and `Bucket` are invariant product terms,
-completing Faroese. The first ten 50-value Irish batches then left **164,250 genuinely
+completing Faroese. The first eleven 50-value Irish batches then left **164,200 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Irish at `error-user-doesNotExist` with
+Continue Irish at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ga --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
-Faroese are complete, and 1,667 Irish values remain.
+Faroese are complete, and 1,617 Irish values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
