@@ -829,6 +829,7 @@
   "deleted-user": "Người dùng đã bị xóa",
   "remove-member-from-card": "Xóa khỏi Thẻ",
   "remove-member-pop": "Xóa __name__ (__username__) khỏi __boardTitle__? Thành viên sẽ bị xóa khỏi tất cả các thẻ trên bảng này. Họ sẽ nhận được một thông báo.",
+  "sandstorm-remove-member-warning": "Thao tác này chỉ ẩn thành viên bên trong WeKan. Nó không thu hồi quyền truy cập vào grain Sandstorm. Hãy thu hồi quyền truy cập của họ cả trong hộp thoại Chia sẻ quyền truy cập của Sandstorm.",
   "removeMemberPopup-title": "Xóa Thành Viên?",
   "rename": "Đổi tên",
   "rename-board": "Đổi tên bảng",

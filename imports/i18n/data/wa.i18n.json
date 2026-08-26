@@ -829,6 +829,7 @@
   "deleted-user": "Uzeu disfacé",
   "remove-member-from-card": "Supprimer de la carte",
   "remove-member-pop": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+  "sandstorm-remove-member-warning": "Çoula catche seulmint li mimbe dins WeKan. I n' ritoûne nén l' accès å grain Sandstorm. Ritoûrnez ossu si accès dins l' divize Partaedjî l' accès di Sandstorm.",
   "removeMemberPopup-title": "Supprimer le participant ?",
   "rename": "Renommer",
   "rename-board": "Renommer le tableau",

@@ -829,6 +829,7 @@
   "deleted-user": "已删除的用户",
   "remove-member-from-card": "從卡片中刪除",
   "remove-member-pop": "從__boardTitle__ 刪除__name__ (__username__) 嗎？該成員將從該板上的所有卡片中刪除。他們將收到通知。",
+  "sandstorm-remove-member-warning": "呢個操作只會喺 WeKan 入面隱藏該成員，唔會撤銷佢存取 Sandstorm grain 嘅權限。請亦喺 Sandstorm 嘅「分享存取權」對話框撤銷佢嘅權限。",
   "removeMemberPopup-title": "刪除會員？",
   "rename": "重新命名",
   "rename-board": "重命名板",

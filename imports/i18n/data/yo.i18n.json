@@ -829,6 +829,7 @@
   "deleted-user": "Olumulo ti a paarẹ",
   "remove-member-from-card": "Yọ kuro lati Kaadi",
   "remove-member-pop": "Yọ __name__ (__username__) kuro ni __boardTitle__? Omo egbe yoo wa ni kuro lati gbogbo awọn kaadi lori yi ọkọ. Wọn yoo gba iwifunni kan.",
+  "sandstorm-remove-member-warning": "Èyí kàn máa fi ọmọ ẹgbẹ́ náà pamọ́ sínú WeKan. Kò fagilé àṣẹ sí Sandstorm grain. Fagilé àṣẹ wọn pẹ̀lú nínú àpótí ìjíròrò Pín àṣẹ ti Sandstorm.",
   "removeMemberPopup-title": "Yọ Ọmọ ẹgbẹ kuro bi?",
   "rename": "Fun lorukọ mii",
   "rename-board": "Fun lorukọ mii Board",

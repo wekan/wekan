@@ -829,6 +829,7 @@
   "deleted-user": "Jëfandikukat bu ñu far",
   "remove-member-from-card": "Supprimer de la carte",
   "remove-member-pop": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+  "sandstorm-remove-member-warning": "Lii dafay nëbb rekk ki bokk ci biir WeKan. Du dindi sañ-sañu dugg ci grain bu Sandstorm. Dindil it sañ-sañam ci waxtaanu Sandstorm bi ñuy séddoo dugg.",
   "removeMemberPopup-title": "Supprimer le participant ?",
   "rename": "Renommer",
   "rename-board": "Renommer le tableau",

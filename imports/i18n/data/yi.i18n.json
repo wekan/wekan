@@ -829,6 +829,7 @@
   "deleted-user": "אויסגעמעקטער יוזער",
   "remove-member-from-card": "אַראָפּנעמען פון קאָרט",
   "remove-member-pop": "אַראָפּנעמען __name__ (__username__) פון __boardTitle__? דער מיטגליד וועט ווערן אַוועקגענומען פון אַלע קאַרדס אויף דעם ברעט. זיי וועלן באַקומען אַ אָנזאָג.",
+  "sandstorm-remove-member-warning": "דאָס באַהאַלט נאָר דעם מיטגליד אין WeKan. עס רופֿט נישט אָפּ דעם צוטריט צום Sandstorm grain. רופֿט אויך אָפּ זײַן צוטריט אינעם Sandstorm דיאַלאָג פֿאַר טיילן צוטריט.",
   "removeMemberPopup-title": "אַראָפּנעמען מיטגליד?",
   "rename": "רענאַמע",
   "rename-board": "רענאַמע באָרד",

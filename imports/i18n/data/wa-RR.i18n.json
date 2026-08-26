@@ -829,6 +829,7 @@
   "deleted-user": "Ginpara nga tagagamit",
   "remove-member-from-card": "Tangtanga tikang ha Card",
   "remove-member-pop": "Tangtangon hi __name__ (__username__) tikang ha __boardTitle__? Tatangtangon an membro tikang ha ngatanan nga card dinhi nga board. Makakakarawat hira hin pahibaro.",
+  "sandstorm-remove-member-warning": "Gintatago la hini an miyembro ha sulod han WeKan. Diri hini ginbabalewaray an access ha Sandstorm grain. Balewara liwat an ira access ha Share access dialog han Sandstorm.",
   "removeMemberPopup-title": "Tangtangon an Membro?",
   "rename": "Ngaran-i Utro",
   "rename-board": "Ngaran-i Utro an Board",

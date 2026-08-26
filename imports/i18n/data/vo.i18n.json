@@ -829,6 +829,7 @@
   "deleted-user": "Geban pemoüköl",
   "remove-member-from-card": "Forigi de karto",
   "remove-member-pop": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+  "sandstorm-remove-member-warning": "At te no lelogon limani ini WeKan. No moükon dälüli ad Sandstorm-grain. Moükol i dälüli omik pö dialod Sandstorm: Dälüli kobädön.",
   "removeMemberPopup-title": "Supprimer le participant ?",
   "rename": "Renomi",
   "rename-board": "Renomi tavolon",
