@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -43,3 +43,7 @@ assert.equal(creole['card-due'], 'Dat limit');
 assert.equal(creole['vote-for-it'], 'pou li');
 assert.match(creole['card-edit-planning-poker'], /Planning Poker/);
 assert.equal(creole['importSwimlanePopup-title'], 'Enpòte kouloir');
+assert.equal(creole['userPopup-title'], 'Manm');
+assert.equal(creole['map-to-existing-user-no-results'],
+  'Pa jwenn okenn itilizatè ki koresponn.');
+assert.equal(creole['changePermissionsPopup-title'], 'Chanje otorizasyon');
