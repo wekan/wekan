@@ -870,15 +870,18 @@ swimlanes, attachments, labels, checklists and comments. This left **149,526
 genuinely untranslated values across 69 locale files**. The second 50-value
 Inuktitut batch added card movement, compact activity summaries, checklist
 history and workspace management. This left **149,476 genuinely untranslated
+values across 69 locale files**. The third 50-value Inuktitut batch added
+workspace selection, Home boards, list sizing, keyboard shortcuts, swimlane
+heights and checklist controls. This left **149,426 genuinely untranslated
 values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `workspaceActionsPopup-title` with
+Resume Inuktitut at `added` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 2,067 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 2,017 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

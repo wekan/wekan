@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -37,3 +37,8 @@ assert.deepEqual(tokens(inuktitut['act-moveCardToOtherBoard']),
     '__oldSwimlane__', '__swimlane__']);
 assert.equal(inuktitut['allboards.workspaces'], 'ᐱᓕᕆᕖᑦ');
 assert.equal(inuktitut['workspace-settings'], 'ᐱᓕᕆᕕᐅᑉ ᐋᖅᑭᒃᓯᒪᓂᖏᑦ');
+assert.equal(inuktitut['home-board-badge'],
+  'ᐊᖏᕐᕋᒥ ᐊᓪᓚᕕᒃ (ᐃᓯᕐᓂᐅᑉ ᑭᖑᓂᐊᒍᑦ ᒪᑐᐃᖅᑐᖅ)');
+assert.equal(inuktitut['set-list-width-value'],
+  'ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ (pixels)');
+assert.equal(inuktitut['add-checklist'], 'ᓇᓗᓇᐃᖅᓯᕕᒻᒥᒃ ᐃᓚᓯᓗᑎᑦ');
