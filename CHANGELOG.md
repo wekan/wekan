@@ -273,16 +273,16 @@ forty-two 50-value Chuvash batches and a final 66-value batch then translated
 all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
 batch then translated all 2,166 Dzongkha values. Forty-two 50-value Ewe batches
-and a final 66-value batch then translated all 2,166 Ewe values. The first twenty-seven
-50-value Fulah batches then translated 1,350 values. A new English key added one
-placeholder to every second-tier locale in parallel, leaving **169,896 genuinely
+and a final 66-value batch then translated all 2,166 Ewe values. The first twenty-eight
+50-value Fulah batches then translated 1,400 values. A new English key added one
+placeholder to every second-tier locale in parallel, leaving **169,846 genuinely
 untranslated values across 79 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Fulah at `predicate-member` with
+Continue Fulah at `number` with
 `node releases/translations/fill-translations.mjs --list ff --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha and Ewe are complete, and
-817 Fulah values remain.
+767 Fulah values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
