@@ -96,6 +96,27 @@ function computePopupOffset(params) {
     };
   }
 
+  // #6636: date editors are forms, not menus attached to the date badge. Keep
+  // their fixed-width shell centred in the visible viewport. Anchoring one to a
+  // date near either card edge made the form look off-centre and, together with
+  // its formerly non-shrinking fields, exposed a horizontal scrollbar.
+  const DATE_EDITOR_POPUPS = [
+    'editCardReceivedDatePopup',
+    'editCardStartDatePopup',
+    'editCardDueDatePopup',
+    'editCardEndDatePopup',
+    'editVoteEndDatePopup',
+    'editPokerEndDatePopup',
+    'cardCustomField-datePopup',
+  ];
+  if (DATE_EDITOR_POPUPS.includes(popupName)) {
+    return {
+      left: Math.max(viewportPadding, (viewportWidth - popupWidth) / 2) + scrollLeft,
+      top: viewportPadding + scrollTop,
+      maxHeight: viewportHeight - viewportPadding * 2,
+    };
+  }
+
   // Card details popup: docked to the top of the viewport (CSS also forces
   // top:0) so it overlays the header bars instead of opening from the minicard.
   if (popupName === 'cardDetailsPopup') {

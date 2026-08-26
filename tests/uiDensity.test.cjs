@@ -92,7 +92,7 @@ test('card details default position docks to the END edge, not over the card', (
 });
 
 test('card details canvas padding is the 6.09 fixed 20px', () => {
-  assert.ok(/\.card-details \.card-details-canvas \{[\s\S]*?padding: 0 20px;/.test(cardDetails));
+  assert.ok(/\.card-details \.card-details-canvas \{[\s\S]*?box-sizing: border-box;[\s\S]*?min-width: 0;[\s\S]*?padding: 0 20px;/.test(cardDetails));
   assert.ok(!cardDetails.includes('padding: 0 2.5vw'), 'no ~48px viewport borders');
 });
 

@@ -252,11 +252,14 @@ test('copy sits above the top-right corner of every custom field editor', () => 
     /\.datepicker-container \.fields \{[\s\S]*?display: flex;[\s\S]*?gap: 15px;/,
     'the shared datepicker keeps Date, Time and Copy in one row for every popup name');
   assert.match(datepickerCss,
-    /\.fields \.left \{[\s\S]*?flex: 1;[\s\S]*?float: none;[\s\S]*?order: 1;[\s\S]*?width: auto;/,
+    /\.fields \.left \{[\s\S]*?flex: 1;[\s\S]*?min-width: 0;[\s\S]*?float: none;[\s\S]*?order: 1;[\s\S]*?width: auto;/,
     'Date is explicitly the first item in the row');
   assert.match(datepickerCss,
-    /\.fields \.right \{[\s\S]*?flex: 1;[\s\S]*?float: none;[\s\S]*?order: 2;[\s\S]*?width: auto;/,
+    /\.fields \.right \{[\s\S]*?flex: 1;[\s\S]*?min-width: 0;[\s\S]*?float: none;[\s\S]*?order: 2;[\s\S]*?width: auto;/,
     'Time is explicitly the second item in the row');
+  assert.match(datepickerCss,
+    /input\[type='date'\],[\s\S]*?input\[type='time'\][\s\S]*?box-sizing: border-box;[\s\S]*?max-width: 100%;[\s\S]*?width: 100%;/,
+    'date and time inputs shrink inside the popup instead of creating horizontal scroll');
   assert.match(datepickerCss,
     /\.custom-field-date-copy \{[\s\S]*?order: 3;/,
     'Copy is explicitly to the right of Time');

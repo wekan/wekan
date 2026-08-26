@@ -5,15 +5,23 @@
 }
 .datepicker-container .fields .left {
   flex: 1;
+  min-width: 0;
   float: none;
   order: 1;
   width: auto;
 }
 .datepicker-container .fields .right {
   flex: 1;
+  min-width: 0;
   float: none;
   order: 2;
   width: auto;
+}
+.datepicker-container .fields input[type='date'],
+.datepicker-container .fields input[type='time'] {
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
 }
 .datepicker-container .fields .custom-field-date-copy {
   align-items: center;

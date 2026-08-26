@@ -69,16 +69,33 @@ test('#5667: opener near the top of a scrolled page does not overflow the top', 
   assertFullyVisible(result, scrollTop, 'top+scrolled');
 });
 
-test('opener in the upper half opens below and stays visible', () => {
+test('an ordinary opener in the upper half opens below and stays visible', () => {
   const result = computePopupOffset({
     viewportWidth: VW,
     viewportHeight: VH,
     scrollTop: 0,
     opener: { top: 100, left: 300, height: 24 },
-    popupName: 'editCardDueDatePopup',
+    popupName: 'ordinaryPopup',
   });
   assert.strictEqual(result.top, 124, 'opens just below the opener (100+24)');
   assertFullyVisible(result, 0, 'upper-half');
+});
+
+test('#6636: every desktop date editor is centred in the viewport', () => {
+  for (const popupName of [
+    'editCardReceivedDatePopup', 'editCardStartDatePopup',
+    'editCardDueDatePopup', 'editCardEndDatePopup',
+    'editVoteEndDatePopup', 'editPokerEndDatePopup',
+    'cardCustomField-datePopup',
+  ]) {
+    const result = computePopupOffset({
+      viewportWidth: VW, viewportHeight: VH, scrollLeft: 300, scrollTop: 500,
+      opener: { top: 900, left: 1400, height: 24 }, popupName,
+    });
+    assert.strictEqual(result.left - 300, (VW - 380) / 2, popupName);
+    assert.strictEqual(result.top - 500, PAD, popupName);
+    assert.strictEqual(result.maxHeight, VH - PAD * 2, popupName);
+  }
 });
 
 test('all four card people pickers open immediately below their + button', () => {
@@ -103,7 +120,7 @@ test('scrollLeft keeps the popup within the viewport horizontally', () => {
     scrollTop: 0,
     scrollLeft: 500,
     opener: { top: 100, left: 500 + 1195, height: 24 }, // far right in viewport
-    popupName: 'editCardDueDatePopup',
+    popupName: 'ordinaryPopup',
   });
   const leftVp = result.left - 500;
   const popupWidth = Math.min(380, VW * 0.55);
@@ -231,7 +248,7 @@ test('an ordinary popup is unaffected by the wide-popup widths', () => {
   // WeKan moves.
   const opener = { top: 100, left: VW - 120, height: 24 };
   const plain = computePopupOffset({
-    viewportWidth: VW, viewportHeight: VH, opener, popupName: 'editCardDueDatePopup',
+    viewportWidth: VW, viewportHeight: VH, opener, popupName: 'ordinaryPopup',
   });
   assert.strictEqual(plain.left, VW - Math.min(380, VW * 0.55) - 10,
     'an ordinary popup still clamps against 380px');

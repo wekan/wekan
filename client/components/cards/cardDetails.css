@@ -246,6 +246,8 @@ body.desktop-mode .card-details.card-details-collapsed {
 }
 .card-details .card-details-canvas {
   width: auto;
+  box-sizing: border-box;
+  min-width: 0;
   /* #6465: fixed 20px as in 6.09 — 35px was ~48px of white border per side
      on a FullHD screen. */
   padding: 0 20px;

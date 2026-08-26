@@ -281,6 +281,40 @@ test.describe('Labels & due dates', () => {
     }).toMatch(/^2099-12-31T/);
   });
 
+  test('#6636 opened card keeps side gutters and date editor is centered without horizontal scroll', async ({ boardPage, board }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    const [listA] = board.listIds;
+    await bp.clickCard(listA, 'Alpha Card');
+    await cp.waitForOpen();
+
+    const gutters = await cp.root.locator('.card-details-canvas').evaluate(el => {
+      const style = getComputedStyle(el);
+      return {
+        left: parseFloat(style.paddingLeft),
+        right: parseFloat(style.paddingRight),
+        fits: el.scrollWidth <= el.clientWidth,
+      };
+    });
+    expect(gutters.left).toBeGreaterThanOrEqual(20);
+    expect(gutters.right).toBeGreaterThanOrEqual(20);
+    expect(gutters.fits).toBe(true);
+
+    await cp.openDueDateEditor();
+    const layout = await boardPage.locator('.js-pop-over').evaluate(el => {
+      const box = el.getBoundingClientRect();
+      const wrapper = el.querySelector('.content-wrapper');
+      return {
+        centerError: Math.abs((box.left + box.right) / 2 - innerWidth / 2),
+        shellFits: el.scrollWidth <= el.clientWidth,
+        contentFits: !wrapper || wrapper.scrollWidth <= wrapper.clientWidth,
+      };
+    });
+    expect(layout.centerError).toBeLessThanOrEqual(1);
+    expect(layout.shellFits).toBe(true);
+    expect(layout.contentFits).toBe(true);
+  });
+
   test('clicking an existing start date reopens and saves its editor', async ({ page, user }) => {
     const seeded = db.seedBoard({
       ownerId: user.id,
