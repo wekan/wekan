@@ -722,15 +722,18 @@ schedules and migration job monitoring. This left **151,860 genuinely
 untranslated values across 71 locale files**. The forty-second 50-value Haitian
 Creole batch added migration resource limits, background progress, monitoring
 controls, attachment statistics and operation scheduling. This left **151,810
+genuinely untranslated values across 71 locale files**. The forty-third 50-value
+Haitian Creole batch added repository access, account validation, problem
+summaries, card repair, CPU status and event fields. This left **151,760
 genuinely untranslated values across 71 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Haitian Creole at `current-step` with
+Resume Haitian Creole at `event-detail` with
 `node releases/translations/fill-translations.mjs --list ht --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, including Hausa; 67 Haitian Creole values remain.
+now complete, including Hausa; 17 Haitian Creole values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

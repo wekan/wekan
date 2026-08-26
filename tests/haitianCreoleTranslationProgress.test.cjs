@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -168,3 +168,7 @@ assert.equal(creole['job-queue'], 'Fil datant travay');
 assert.equal(creole['memory-usage'], 'Itilizasyon memwa');
 assert.equal(creole['migration-cpu-threshold'], 'Papòt CPU (%)');
 assert.equal(creole['unmigrated-boards'], 'Tablo ki poko migre');
+assert.equal(creole['current-step'], 'Etap aktyèl');
+assert.deepEqual(tokens(creole['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.equal(creole['event-source'], 'Sous');
