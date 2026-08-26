@@ -1489,9 +1489,12 @@ locale files**.
 The thirty-second 50-value Kannada batch added authentication, custom branding,
 archive placement and due-time activity. This left **139,723 genuinely
 untranslated values across 65 locale files**.
+The thirty-third 25-value Kannada batch added due reminders, account deletion,
+editor and multi-card settings. This left **139,698 genuinely untranslated
+values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `act-newDue` with
+Resume Kannada at `newTeamPopup-title` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

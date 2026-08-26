@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 982);
+assert.equal(Object.keys(remaining).length, 957);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -84,3 +84,5 @@ assert.equal(kannada['r-d-send-email'], 'ಇಮೇಲ್ ಕಳುಹಿಸಿ')
 assert.equal(kannada['r-add-swimlane'], 'ಪಥ ಸೇರಿಸಿ');
 assert.deepEqual(tokens(kannada['act-a-dueAt']),
   ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(kannada['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
