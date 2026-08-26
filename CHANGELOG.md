@@ -1200,9 +1200,12 @@ checklists, dates and links plus authentication, manifests and layout. This left
 The twenty-fourth 50-value Kazakh batch added custom HTML and authentication,
 due-date reminders, destructive account controls and resizable UI. This left
 **144,042 genuinely untranslated values across 67 locale files**.
+The twenty-fifth 50-value Kazakh batch added multi-card editing, notifications,
+board-role permissions, weekdays, ownership and voting. This left **143,992
+genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `open-many-cards-at-once` with
+Resume Kazakh at `delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
