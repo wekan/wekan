@@ -1266,9 +1266,12 @@ files**.
 The second 50-value Greenlandic batch added movement history, concise activity
 text and workspace navigation. This left **142,975 genuinely untranslated
 values across 66 locale files**.
+The third 50-value Greenlandic batch added workspace deletion, multi-board
+actions, personal layout sizing and checklist controls. This left **142,925
+genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `workspaceActionsPopup-title` with
+Resume Greenlandic at `added` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
