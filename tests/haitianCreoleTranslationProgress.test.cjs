@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -162,3 +162,6 @@ assert.match(creole['s3-region-description'], /us-east-1/);
 assert.equal(creole['lost-cards'], 'Kat pèdi');
 assert.match(creole['restore-lost-cards-migration-description'], /swimlaneId/);
 assert.equal(creole['step-validate-migration'], 'Valide migrasyon');
+assert.equal(creole['step-fix-attachment-urls'], 'Korije URL pyès jwenn');
+assert.equal(creole['every-6-hours'], 'Chak 6 èdtan');
+assert.equal(creole['job-queue'], 'Fil datant travay');
