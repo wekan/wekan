@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -32,6 +32,9 @@ assert.equal(inuktitut['sandstorm-storage-item'], 'ᑐᖅᑯᖅᓯᕕᒃ');
 assert.match(inuktitut['cards-loading-description'], /CARDS_LOADING_LAZY_THRESHOLD/);
 assert.deepEqual(tags(inuktitut['render-links-as-plain-text-description']),
   ['<a href>']);
+assert.equal(inuktitut['backup-frequency-daily'], 'ᖃᐅᑕᒫᑦ');
+assert.match(inuktitut['gcs-permissions-note'], /client_email/);
+assert.match(inuktitut['gcs-credentials-menu-path'], /JSON/);
 assert.deepEqual(tokens(inuktitut['act-addChecklistItem']),
   ['__board__', '__card__', '__checklistItem__', '__checklist__', '__list__', '__swimlane__']);
 assert.deepEqual(tokens(inuktitut['act-setCustomField']),

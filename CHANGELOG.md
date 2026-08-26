@@ -975,14 +975,17 @@ This left **147,776 genuinely untranslated values across 69 locale files**.
 The thirty-seventh 50-value Inuktitut batch added Sandstorm cleanup, card-loading
 modes, safe rich-text rendering, import/export privacy controls and backups. This
 left **147,726 genuinely untranslated values across 69 locale files**.
+The thirty-eighth 50-value Inuktitut batch added scheduled backups, restore
+modes, and Azure, S3 and Google Cloud storage setup and connection controls. This
+left **147,676 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `backup-schedule` with
+Resume Inuktitut at `attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 317 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 267 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
