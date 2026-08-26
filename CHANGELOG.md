@@ -1585,9 +1585,12 @@ files**.
 The second 50-value Konkani batch added movement, checklist activity and
 workspace navigation. This left **138,641 genuinely untranslated values across
 64 locale files**.
+The third 50-value Konkani batch added board selection, Home board and list and
+swimlane layout controls. This left **138,591 genuinely untranslated values
+across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `workspaceActionsPopup-title` with
+Resume Konkani at `added` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
