@@ -1369,9 +1369,12 @@ genuinely untranslated values across 66 locale files**.
 The thirty-sixth 50-value Greenlandic batch added scheduled migration controls,
 filesystem and cloud storage, database migration and Sandstorm status. This
 left **141,275 genuinely untranslated values across 66 locale files**.
+The thirty-seventh 50-value Greenlandic batch added storage cleanup,
+card-loading performance, security controls and backups. This left **141,225
+genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `sandstorm-storage-item` with
+Resume Greenlandic at `backup-schedule` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
