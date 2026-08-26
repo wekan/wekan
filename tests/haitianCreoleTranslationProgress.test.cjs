@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -69,3 +69,6 @@ assert.equal(creole['trello-import-progress'], 'Pwogrè enpòtasyon');
 assert.equal(creole['invalid-year'],
   'Ane pa valab. Tanpri tape tout kat chif yo, pa egzanp 2026.');
 assert.deepEqual(tokens(creole['label-default']), ['%s']);
+assert.deepEqual(tokens(creole['leave-board-pop']), ['__boardTitle__']);
+assert.equal(creole['multi-selection'], 'Seleksyon miltip');
+assert.equal(creole['no-archived-swimlanes'], 'Pa gen kouloir nan Achiv.');
