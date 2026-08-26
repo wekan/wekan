@@ -1573,9 +1573,12 @@ untranslated values across 65 locale files**.
 The sixtieth 50-value Kannada batch added migration tuning, monitoring,
 scheduling and minicard display. This left **138,817 genuinely untranslated
 values across 65 locale files**.
+The sixty-first 50-value Kannada batch added system status, repositories,
+accounts and problem repair. This left **138,767 genuinely untranslated values
+across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `step-progress` with
+Resume Kannada at `repair-broken-cards-done-unfixable` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
