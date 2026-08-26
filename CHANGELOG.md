@@ -1747,9 +1747,11 @@ values across 64 locale files**.
 The final 42-value Konkani batch added problem repair, event details, integrity
 and scoped import and export guidance. Konkani is now complete, leaving
 **136,574 genuinely untranslated values across 63 locale files**.
-Translation filling is paused after completing Konkani. When it resumes,
-continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Kashmiri at `accept` with
+The first 50-value Kashmiri batch added board, card, checklist and comment
+activity. This left **136,524 genuinely untranslated values across 63 locale
+files**.
+Continue filling English values directly while preserving human translations
+and exact tokens from `en.i18n.json`, resuming Kashmiri at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
