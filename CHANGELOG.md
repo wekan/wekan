@@ -1429,9 +1429,12 @@ locale files**.
 The twelfth 50-value Kannada batch added clipboard actions, custom fields,
 profiles and enrollment email. This left **140,433 genuinely untranslated
 values across 65 locale files**.
+The thirteenth 25-value Kannada batch added account email and import and
+permission errors. This left **140,408 genuinely untranslated values across 65
+locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `email-fail` with
+Resume Kannada at `error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
