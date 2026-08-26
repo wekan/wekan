@@ -290,12 +290,13 @@ variants, Xhosa, Acehnese, both Afrikaans variants, Amharic, three Arabic
 variants, Moroccan Arabic, Assamese, Asturian, three Azerbaijani variants,
 Bashkir, Belarusian, Bulgarian, Bhojpuri, Bambara, Bengali and Tibetan. Breton,
 Buryat, three Catalan variants, Cherokee, Central Kurdish, Mandarin and
-both Czech variants followed. This left **160,541 genuinely
+both Czech variants followed, then Chuvash, both Welsh variants, Danish, four
+German variants, Dzongkha and Ewe. This left **160,531 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Chuvash at `sandstorm-remove-member-warning` with
-`node releases/translations/fill-translations.mjs --list cv --limit 50`;
+Continue Greek at `sandstorm-remove-member-warning` with
+`node releases/translations/fill-translations.mjs --list el-GR --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete.

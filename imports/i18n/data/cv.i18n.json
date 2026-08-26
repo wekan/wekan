@@ -829,6 +829,7 @@
   "deleted-user": "Кӑларса пӑрахнӑ усӑҫӑ",
   "remove-member-from-card": "Карточкӑран кӑларас",
   "remove-member-pop": "__name__ (__username__) хутшӑнаканне __boardTitle__ хӑмаран кӑларас-и? Ӑна ҫак хӑмари пур карточкӑран кӑлараҫҫӗ. Вӑл пӗлтерӳ илет.",
+  "sandstorm-remove-member-warning": "Ку членa WeKan ӑшӗнче кӑна пытарать. Вӑл Sandstorm grain патне кӗме ирӗке пӑрахӑҫламасть. Sandstorm ирӗке пайлама диалогӗнче те унӑн ирӗкне пӑрахӑҫлӑр.",
   "removeMemberPopup-title": "Хутшӑнакан кӑларас-и?",
   "rename": "Ята улӑштарас",
   "rename-board": "Хӑма ятне улӑштарас",

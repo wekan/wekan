@@ -829,6 +829,7 @@
   "deleted-user": "Gelöschter Benutzer",
   "remove-member-from-card": "Von Karte entfernen",
   "remove-member-pop": "__name__ (__username__) von __boardTitle__ entfernen? Das Mitglied wird von allen Karten auf diesem Board entfernt. Es erhält eine Benachrichtigung.",
+  "sandstorm-remove-member-warning": "Dadurch wird das Mitglied nur innerhalb von WeKan ausgeblendet. Der Zugriff auf das Sandstorm-Grain wird nicht entzogen. Entziehen Sie den Zugriff zusätzlich im Sandstorm-Dialog „Zugriff teilen“.",
   "removeMemberPopup-title": "Mitglied entfernen?",
   "rename": "Umbenennen",
   "rename-board": "Board umbenennen",

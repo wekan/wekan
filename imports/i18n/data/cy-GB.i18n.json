@@ -829,6 +829,7 @@
   "deleted-user": "Defnyddiwr wedi'i ddileu",
   "remove-member-from-card": "Tynnu oddi ar Gerdyn",
   "remove-member-pop": "Tynnu __name__ (__username__) o __boardTitle__? Bydd yr aelod yn cael ei dynnu oddi ar bob cerdyn ar y bwrdd hwn. Byddant yn derbyn hysbysiad.",
+  "sandstorm-remove-member-warning": "Dim ond cuddio'r aelod o fewn WeKan mae hyn. Nid yw'n dirymu mynediad i grain Sandstorm. Dirymwch eu mynediad yn neialog Rhannu mynediad Sandstorm hefyd.",
   "removeMemberPopup-title": "Dileu Aelod?",
   "rename": "Ailenwi",
   "rename-board": "Ailenwi Bwrdd",
