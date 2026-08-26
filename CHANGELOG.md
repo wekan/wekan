@@ -1095,14 +1095,17 @@ left **145,809 genuinely untranslated values across 68 locale files**.
 The thirty-third 50-value Javanese batch added attachment storage migration and
 repair, storage statistics and MongoDB compaction guidance and status. This
 left **145,759 genuinely untranslated values across 68 locale files**.
+The thirty-fourth 50-value Javanese batch added board status, upload restrictions,
+custom translations, checklist display and support and accessibility pages.
+This left **145,709 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `board-status` with
+Resume Javanese at `accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 517
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 467
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label

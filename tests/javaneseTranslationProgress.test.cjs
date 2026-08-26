@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -161,3 +161,6 @@ assert.equal(javanese['attachment-move-storage-gridfs'],
 assert.equal(javanese['attachment-repair-broken'], 'Ora ditemokake');
 assert.match(javanese['mongodb-compact-description'], /MongoDB GridFS/);
 assert.equal(javanese['gridfs-file-id'], 'ID Berkas GridFS');
+assert.deepEqual(tokens(javanese['drag-board-to-workspace']), ['__workspaces__']);
+assert.match(javanese['show-week-of-year'], /ISO 8601/);
+assert.equal(javanese.accessibility, 'Aksesibilitas');
