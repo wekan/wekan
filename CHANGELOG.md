@@ -1417,9 +1417,12 @@ locale files**.
 The eighth 50-value Kannada batch added popup titles, imports, dependencies and
 imported-member mapping. This left **140,583 genuinely untranslated values
 across 65 locale files**.
+The ninth 25-value Kannada batch added theme, font, text color and profile
+settings. This left **140,558 genuinely untranslated values across 65 locale
+files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `change-settings` with
+Resume Kannada at `changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
