@@ -771,15 +771,18 @@ bulk selection, role descriptions and participation notifications. This left
 **151,043 genuinely untranslated values across 70 locale files**. The fifteenth
 50-value Icelandic batch added watch notifications, privacy explanations, member
 removal, card-description recovery, search, WIP and keyboard-shortcut controls.
-This left **150,993 genuinely untranslated values across 70 locale files**.
+This left **150,993 genuinely untranslated values across 70 locale files**. The
+sixteenth 50-value Icelandic batch added starring, time tracking, uploads,
+custom branding, watch states, starter templates and WIP validation. This left
+**150,943 genuinely untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `starred-boards` with
+Resume Icelandic at `attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 1,417 Icelandic values remain.
+and Haitian Creole are now complete; 1,367 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
