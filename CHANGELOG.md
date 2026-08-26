@@ -596,15 +596,18 @@ status and event fields. This left **153,927 genuinely untranslated values
 across 72 locale files**. The final 17-value Hausa batch added network event
 details, filesystem integrity, scoped import and export guidance and numeric
 search instructions. Hausa is now complete, leaving **153,910 genuinely
-untranslated values across 71 locale files**.
+untranslated values across 71 locale files**. The first 50-value Haitian Creole
+batch added activity history, organization restrictions, comments, checklists,
+labels and archive actions. This left **153,860 genuinely untranslated values
+across 71 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Haitian Creole at `accept` with
+Resume Haitian Creole at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ht --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, including Hausa; 2,167 Haitian Creole values remain.
+now complete, including Hausa; 2,117 Haitian Creole values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
