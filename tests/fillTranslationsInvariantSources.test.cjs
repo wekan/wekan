@@ -11,9 +11,8 @@ const list = language => JSON.parse(childProcess.execFileSync(
 const cantonese = list('yue_CN');
 assert.deepStrictEqual(cantonese, {}, 'invariant-only Cantonese values are not missing');
 const fullLocale = list('ee');
-assert.ok(!('act-withCardTitle' in fullLocale),
-  'placeholder-only display formats are invariant');
-assert.ok('no-boards-selected' in fullLocale, 'real English prose remains listed');
+assert.deepStrictEqual(fullLocale, {},
+  'completed Ewe contains only translations and invariant values');
 const hebrew = list('he');
 assert.deepStrictEqual(hebrew, {}, 'date-format masks are invariant');
 const finnish = list('fi');
