@@ -829,6 +829,7 @@
   "deleted-user": "Oʻchirilgan foydalanuvchi",
   "remove-member-from-card": "Kartadan olib tashlash",
   "remove-member-pop": "__name__ (__username__) __boardTitle__ dan olib tashlansinmi? A'zo ushbu kengashdagi barcha kartalardan o'chiriladi. Ular bildirishnoma oladilar.",
+  "sandstorm-remove-member-warning": "Bu faqat a'zoni WeKan ichida yashiradi. Sandstorm grainiga kirish huquqini bekor qilmaydi. Ularning kirish huquqini Sandstorm'ning Kirishni ulashish muloqot oynasida ham bekor qiling.",
   "removeMemberPopup-title": "Aʼzo oʻchirilsinmi?",
   "rename": "Nomini o'zgartirish",
   "rename-board": "Kengash nomini o‘zgartirish",

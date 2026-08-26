@@ -303,12 +303,14 @@ variants and three Portuguese variants followed. The underscored Portuguese
 locale, both Romanian variants, four Russian variants,
 Slovak and both Slovenian variants followed. Serbian, Swedish, Swahili, Tamil,
 Telugu, Thai, Turkmen, Klingon, Turkish and Uyghur followed. The Klingon wording
-is low confidence. This left **160,450 genuinely
+is low confidence. Both Ukrainian variants, four Uzbek variants, three Venda
+variants and Vietnamese for Vietnam followed. The Uzbek Arabic and Venda wording
+is low confidence. This left **160,440 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Ukrainian at `sandstorm-remove-member-warning` with
-`node releases/translations/fill-translations.mjs --list uk-UA --limit 50`;
+Continue Vietnamese at `sandstorm-remove-member-warning` with
+`node releases/translations/fill-translations.mjs --list vi --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete.

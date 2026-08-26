@@ -829,6 +829,7 @@
   "deleted-user": "اۉچیریلگن فایدلنووچی",
   "remove-member-from-card": "Kartadan olib tashlash",
   "remove-member-pop": "__name__ (__username__) __boardTitle__ dan olib tashlansinmi? A'zo ushbu kengashdagi barcha kartalardan o'chiriladi. Ular bildirishnoma oladilar.",
+  "sandstorm-remove-member-warning": "بو فقط اعضانى WeKan ایچیده یاشیرادی. Sandstorm grain گه کیریش حقینی بیکور قیلمایدی. اولارنینگ کیریش حقینی Sandstorm نینگ کیریشنی بولیشیش دیالوگیده هم بیکور قیلینگ.",
   "removeMemberPopup-title": "Aʼzo oʻchirilsinmi?",
   "rename": "Nomini o'zgartirish",
   "rename-board": "Kengash nomini o‘zgartirish",

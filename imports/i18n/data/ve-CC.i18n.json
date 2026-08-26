@@ -829,6 +829,7 @@
   "deleted-user": "Utente scancelà",
   "remove-member-from-card": "Rimuovi dalla scheda",
   "remove-member-pop": "Rimuovere __name__ (__username__) da __boardTitle__? L'utente sarà rimosso da tutte le schede in questa bacheca. Riceveranno una notifica.",
+  "sandstorm-remove-member-warning": "Hezwi zwi sokou dzumba muraḓo nga ngomu ha WeKan. A zwi fhelisi thendelo ya u swikelela grain ya Sandstorm. Fhelisani thendelo yavho na kha nyambedzano ya Sandstorm ya u kovhekana u swikelela.",
   "removeMemberPopup-title": "Rimuovere membro?",
   "rename": "Rinomina",
   "rename-board": "Rinomina bacheca",

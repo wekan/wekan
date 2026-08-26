@@ -829,6 +829,7 @@
   "deleted-user": "Видалений користувач",
   "remove-member-from-card": "Видалити з картки",
   "remove-member-pop": "Видалити __name__ (__username__) з __boardTitle__? Учасника буде видалено з усіх карток на цій дошці. Він отримає повідомлення.",
+  "sandstorm-remove-member-warning": "Це лише приховує учасника у WeKan. Доступ до grain Sandstorm не скасовується. Також скасуйте його доступ у діалоговому вікні спільного доступу Sandstorm.",
   "removeMemberPopup-title": "Видалити учасника?",
   "rename": "Перейменувати",
   "rename-board": "Перейменувати дошку",

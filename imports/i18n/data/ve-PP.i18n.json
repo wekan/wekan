@@ -829,6 +829,7 @@
   "deleted-user": "Hävitud kävutai",
   "remove-member-from-card": "Poista kortilta",
   "remove-member-pop": "Poista __name__ (__username__) taululta __boardTitle__? Jäsen poistetaan kaikilta taulun korteilta. Heille lähetetään ilmoitus.",
+  "sandstorm-remove-member-warning": "Hezwi zwi sokou dzumba muraḓo nga ngomu ha WeKan. A zwi fhelisi thendelo ya u swikelela grain ya Sandstorm. Fhelisani thendelo yavho na kha nyambedzano ya Sandstorm ya u kovhekana u swikelela.",
   "removeMemberPopup-title": "Poista jäsen?",
   "rename": "Nimeä uudelleen",
   "rename-board": "Nimeä taulu uudelleen",
