@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2042);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -39,3 +39,4 @@ assert.match(kannada['act-createBoard'], /ಫಲಕ/);
 assert.equal(kannada['workspace-settings'], 'ಕಾರ್ಯಕ್ಷೇತ್ರದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು');
 assert.deepEqual(tokens(kannada['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(kannada['set-list-width'], 'ಅಗಲವನ್ನು ಹೊಂದಿಸಿ');
