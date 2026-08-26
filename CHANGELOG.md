@@ -1125,15 +1125,17 @@ monitoring navigation, operation scheduling and system resources. This left
 The forty-third 50-value Javanese batch added repository accounts, login errors,
 problem repair status and system events. This left **145,259 genuinely
 untranslated values across 68 locale files**.
+The final 17-value Javanese batch added event details, integrity reporting and
+scoped import and export guidance. Javanese is now complete, leaving **145,242
+genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `event-detail` with
-`node releases/translations/fill-translations.mjs --list jv --limit 50`;
+Resume Kazakh at `accept` with
+`node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 17
-values remaining.
+Haitian Creole, Icelandic, Inuktitut and Javanese are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
