@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -61,3 +61,5 @@ assert.equal(icelandic['custom-field-text'], 'Texti');
 assert.deepEqual(tokens(icelandic['email-invite-text']),
   ['__board__', '__inviter__', '__url__', '__user__']);
 assert.equal(icelandic['error-list-doesNotExist'], 'Þessi listi er ekki til');
+assert.equal(icelandic['export-card'], 'Flytja spjald út');
+assert.equal(icelandic['filter-due-tomorrow'], 'Skil á morgun');
