@@ -315,15 +315,16 @@ card movement, checklist activity and workspace strings; the third added board
 selection, Home-board, sizing and checklist controls. The fourth 50-value batch
 added membership, administration, archive, background
 and board-summary strings; the fifth added view, zoom, calendar, archive warning
-and card-editing strings. This left **160,169 genuinely
+and card-editing strings; the sixth added voting, Planning Poker, dependency and
+import-dialog strings. This left **160,119 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `card-members-title` with
+Continue Guarani at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 1,917 Guarani values remain.
+complete; 1,867 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
