@@ -1149,9 +1149,12 @@ untranslated values across 67 locale files**.
 The seventh 50-value Kazakh batch added member mapping, linked cards, themes,
 fonts, avatars and permissions. This left **144,892 genuinely untranslated
 values across 67 locale files**.
+The eighth 50-value Kazakh batch added starring, automatic list widths, card
+aging, accessible navigation and colors. This left **144,842 genuinely
+untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `changeSettingsPopup-title` with
+Resume Kazakh at `color-white` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
