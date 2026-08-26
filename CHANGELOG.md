@@ -481,15 +481,17 @@ shortcuts and checklist controls. This left **155,927 genuinely untranslated
 values across 72 locale files**. The fourth 50-value Hausa batch added
 administration notices, archives, templates, background images, board-member
 summaries and privacy labels. This left **155,877 genuinely untranslated values
-across 72 locale files**.
+across 72 locale files**. The fifth 50-value Hausa batch added public-board
+guidance, display modes, calendars, archive safeguards and card editing. This
+left **155,827 genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Hausa at `board-public-info` with
+Continue Hausa at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 1,967 Hausa values remain.
+now complete, and 1,917 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
