@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -83,3 +83,6 @@ assert.equal(hausa['drag-board-to-workspace'],
   'Ja allo don sanya shi ga __workspaces__ (ajiye a wurin aiki cikin mashigin gefe)');
 assert.match(hausa['import-board-zip'], /\.zip.*JSON/);
 assert.equal(hausa.accessibility, 'Samun dama');
+assert.match(hausa['accounts-lockout-info'], /hare-haren/);
+assert.equal(hausa['accounts-lockout-period'], 'Lokacin kullewa (daƙiƙu)');
+assert.equal(hausa['cron-jobs'], 'Ayyukan da aka tsara');

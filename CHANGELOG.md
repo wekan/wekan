@@ -566,15 +566,18 @@ repair, file statistics and MongoDB compaction guidance. This left **154,427
 genuinely untranslated values across 72 locale files**. The thirty-fourth
 50-value Hausa batch added board status, upload rules, custom translations,
 checklist display, support and accessibility. This left **154,377 genuinely
-untranslated values across 72 locale files**.
+untranslated values across 72 locale files**. The thirty-fifth 50-value Hausa
+batch added accessibility content, login lockout protection, user status
+controls, attachment paths and scheduled board operations. This left **154,327
+genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Hausa at `accessibility-info-not-added-yet` with
+Resume Hausa at `cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 467 Hausa values remain.
+now complete, and 417 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
