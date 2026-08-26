@@ -1134,9 +1134,12 @@ untranslated values across 67 locale files**.
 The second 50-value Kazakh batch added movement history, concise activity text,
 checklist events and workspace navigation. This left **145,142 genuinely
 untranslated values across 67 locale files**.
+The third 50-value Kazakh batch added workspace deletion, multi-board actions,
+Home-board controls, list sizing and checklist editing. This left **145,092
+genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `workspaceActionsPopup-title` with
+Resume Kazakh at `added` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
