@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -110,3 +110,6 @@ assert.deepEqual(tokens(creole['act-atUserComment']),
 assert.equal(creole['open-many-cards-at-once'], 'Louvri plizyè kat anmenmtan');
 assert.equal(creole['roles-status-sees-assigned'], 'Sa ki asiyen sèlman');
 assert.equal(creole.sunday, 'Dimanch');
+assert.equal(creole['shared-templates'], 'Modèl pataje');
+assert.equal(creole['globalSearchViewChange-choice-me'], 'Kat mwen yo');
+assert.deepEqual(tokens(creole['label-color-not-found']), ['%s']);
