@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -60,3 +60,8 @@ assert.equal(creole['error-list-doesNotExist'], 'Lis sa a pa egziste');
 assert.equal(creole['export-card'], 'Ekspòte kat');
 assert.equal(creole['filter-overdue'], 'Anreta');
 assert.equal(creole['filter-no-member'], 'San manm');
+assert.equal(creole['filter-assignee-label'], 'Filtre pa moun ki asiyen');
+assert.deepEqual(tokens(creole['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.equal(creole['import-trello-zip-too-many-files'],
+  '.zip la gen twòp fichye pou enpòte.');
