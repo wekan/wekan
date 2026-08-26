@@ -829,6 +829,7 @@
   "deleted-user": "Ջնջված օգտվող",
   "remove-member-from-card": "Հեռացնել քարտից",
   "remove-member-pop": "Հեռացնե՞լ __name__ (__username__) __boardTitle__-ից: Անդամը կհեռացվի այս տախտակի բոլոր քարտերից: Նրանք ծանուցում կստանան։",
+  "sandstorm-remove-member-warning": "Սա միայն թաքցնում է անդամին WeKan-ի ներսում։ Այն չի չեղարկում Sandstorm grain-ի հասանելիությունը։ Չեղարկեք նրա հասանելիությունը նաև Sandstorm-ի «Կիսվել հասանելիությամբ» երկխոսության պատուհանում։",
   "removeMemberPopup-title": "Հեռացնե՞լ անդամին",
   "rename": "Վերանվանել",
   "rename-board": "Վերանվանել խորհուրդը",

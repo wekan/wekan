@@ -829,6 +829,7 @@
   "deleted-user": "削除されたユーザー",
   "remove-member-from-card": "カードから外す",
   "remove-member-pop": "__boardTitle__ から __name__ (__username__) を外しますか？メンバーはこのボードのすべてのカードから外れ、通知を受けます。",
+  "sandstorm-remove-member-warning": "これは WeKan 内でメンバーを非表示にするだけです。Sandstorm grain へのアクセスは取り消されません。Sandstorm の「アクセスを共有」ダイアログでもアクセスを取り消してください。",
   "removeMemberPopup-title": "メンバーを外しますか？",
   "rename": "名前変更",
   "rename-board": "ボード名の変更",

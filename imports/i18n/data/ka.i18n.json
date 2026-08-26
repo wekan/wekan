@@ -829,6 +829,7 @@
   "deleted-user": "წაშლილი მომხმარებელი",
   "remove-member-from-card": "ბარათიდან წაშლა",
   "remove-member-pop": "მოვხსნათ __name__ (__username__) დაფიდან __boardTitle__? წევრი მოიხსნება ამ დაფის ყველა ბარათიდან.",
+  "sandstorm-remove-member-warning": "ეს მხოლოდ მალავს წევრს WeKan-ში. ეს არ აუქმებს Sandstorm grain-ზე წვდომას. ასევე გააუქმეთ მისი წვდომა Sandstorm-ის წვდომის გაზიარების დიალოგში.",
   "removeMemberPopup-title": "ნამდვილად გსურთ წევრის წაშლა?",
   "rename": "სახელის შეცვლა",
   "rename-board": "დაფის სახელის ცვლილება",

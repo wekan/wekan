@@ -829,6 +829,7 @@
   "deleted-user": "Pengguna yang dihapus",
   "remove-member-from-card": "Hapus dari Kartu",
   "remove-member-pop": "Hapus __name__ (__username__) dari __boardTitle__? Anggota akan dihapus dari semua kartu pada papan ini dan akan menerima pemberitahuan.",
+  "sandstorm-remove-member-warning": "Ini hanya menyembunyikan anggota di dalam WeKan. Tindakan ini tidak mencabut akses ke grain Sandstorm. Cabut juga akses mereka melalui dialog Bagikan akses di Sandstorm.",
   "removeMemberPopup-title": "Hapus Anggota?",
   "rename": "Ganti Nama",
   "rename-board": "Ubah nama Panel",

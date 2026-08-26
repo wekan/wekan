@@ -829,6 +829,7 @@
   "deleted-user": "Utente eliminato",
   "remove-member-from-card": "Rimuovi dalla scheda",
   "remove-member-pop": "Rimuovere __name__ (__username__) da __boardTitle__? L'utente sarà rimosso da tutte le schede in questa bacheca. Riceveranno una notifica.",
+  "sandstorm-remove-member-warning": "Questo nasconde il membro solo all'interno di WeKan. Non revoca l'accesso al grain di Sandstorm. Revoca il suo accesso anche dalla finestra di dialogo Condividi accesso di Sandstorm.",
   "removeMemberPopup-title": "Rimuovere membro?",
   "rename": "Rinomina",
   "rename-board": "Rinomina bacheca",

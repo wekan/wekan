@@ -295,12 +295,13 @@ German variants, Dzongkha, Ewe, both Greek variants, Esperanto and seven Spanish
 variants. Base Spanish, Colombian Spanish, Estonian, Basque, both Persian
 variants, Finnish and three French variants followed, then two more French
 variants, both West Frisian variants, Gujarati, both Hebrew variants, both Hindi
-variants and Croatian. This left **160,501 genuinely
+variants and Croatian. Hungarian, Armenian, Indonesian, Igbo, Italian, three
+Japanese variants, Georgian and Cambodian Khmer followed. This left **160,490 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Hungarian at `sandstorm-remove-member-warning` with
-`node releases/translations/fill-translations.mjs --list hu --limit 50`;
+Continue Khmer at `sandstorm-remove-member-warning` with
+`node releases/translations/fill-translations.mjs --list km --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete.

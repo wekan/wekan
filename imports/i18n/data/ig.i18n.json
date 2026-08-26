@@ -829,6 +829,7 @@
   "deleted-user": "Onye ọrụ e hichapụrụ",
   "remove-member-from-card": "Wepu na Kaadị",
   "remove-member-pop": "Wepu __name__ (__username__) na __boardTitle__? A ga-ewepụ onye otu ahụ na kaadị niile dị na bọọdụ a. Ha ga-enweta ọkwa.",
+  "sandstorm-remove-member-warning": "Nke a na-ezo naanị onye otu n'ime WeKan. Ọ naghị ewepụ ikike ịbanye na grain Sandstorm. Wepụkwa ikike ha na mkparịta ụka Kekọrịta ohere nke Sandstorm.",
   "removeMemberPopup-title": "Wepu otu?",
   "rename": "Banye aha ọzọ",
   "rename-board": "Nyegharịa bọọdụ aha",
