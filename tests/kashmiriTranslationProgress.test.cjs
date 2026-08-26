@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -51,3 +51,5 @@ assert.deepEqual(tags(kashmiri['board-public-info']),
   ['</strong>', '<strong>']);
 assert.match(kashmiri['vote-question'], /راے شمٲری/);
 assert.match(kashmiri['importSwimlanePopup-title'], /وَتھ/);
+assert.match(kashmiri['map-to-existing-user-desc'], /اصلی صارف/);
+assert.equal(kashmiri['changeLanguagePopup-title'], 'زبان بدلٲویو');

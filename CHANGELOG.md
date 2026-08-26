@@ -1765,8 +1765,12 @@ values across 63 locale files**.
 The sixth 50-value Kashmiri batch added card membership, voting, planning poker,
 dependencies, organization and team controls and imports. This left **136,274
 genuinely untranslated values across 63 locale files**.
+The seventh 50-value Kashmiri batch added member mapping, linked items, themes,
+fonts, avatars and permission controls. This left **136,224 genuinely
+untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at `userPopup-title` with
+and exact tokens from `en.i18n.json`, resuming Kashmiri at
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
