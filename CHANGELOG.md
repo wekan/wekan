@@ -630,15 +630,18 @@ metadata, list sorting and card filters. This left **153,360 genuinely
 untranslated values across 71 locale files**. The twelfth 50-value Haitian
 Creole batch added advanced filtering, activity and member states, multi-source
 board imports and Trello archive diagnostics. This left **153,310 genuinely
+untranslated values across 71 locale files**. The thirteenth 50-value Haitian
+Creole batch added Trello API imports, job progress and cancellation, member
+mapping, input validation and label controls. This left **153,260 genuinely
 untranslated values across 71 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Haitian Creole at `import-trello-zip-file-too-large` with
+Resume Haitian Creole at `last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list ht --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, including Hausa; 1,567 Haitian Creole values remain.
+now complete, including Hausa; 1,517 Haitian Creole values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
