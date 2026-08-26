@@ -1699,9 +1699,12 @@ troubleshooting, string templates, reports and office locations. This left
 The fortieth 25-value Konkani batch added office and API metrics, recovery
 maintenance, swimlane copying and wait indicators. This left **137,216
 genuinely untranslated values across 64 locale files**.
+The forty-first 50-value Konkani batch added wait indicators, tickets, team
+invitations and Node memory metrics. This left **137,166 genuinely untranslated
+values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `Double-Bounce` with
+Resume Konkani at `add-organizations` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
