@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -42,3 +42,7 @@ assert.equal(inuktitut['home-board-badge'],
 assert.equal(inuktitut['set-list-width-value'],
   'ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ (pixels)');
 assert.equal(inuktitut['add-checklist'], 'ᓇᓗᓇᐃᖅᓯᕕᒻᒥᒃ ᐃᓚᓯᓗᑎᑦ');
+assert.deepEqual(tokens(inuktitut['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(inuktitut['avatar-too-big']), ['__size__']);
+assert.deepEqual(tags(inuktitut['board-private-info']), ['</strong>', '<strong>']);
+assert.equal(inuktitut['board-not-found'], 'ᐊᓪᓚᕕᒃ ᓇᓂᔭᐅᖏᑦᑐᖅ');
