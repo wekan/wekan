@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -85,3 +85,6 @@ assert.equal(kazakh['import-trello-failed'],
 assert.match(kazakh['trello-api-key'], /https:\/\/trello.com\/app-key/);
 assert.equal(kazakh['importMapMembersAddPopup-title'], 'Мүшені таңдау');
 assert.deepEqual(tokens(kazakh['label-default']), ['%s']);
+assert.deepEqual(tokens(kazakh['leave-board-pop']), ['__boardTitle__']);
+assert.equal(kazakh.calendar, 'Күнтізбе');
+assert.equal(kazakh['multi-selection'], 'Көптік таңдау');
