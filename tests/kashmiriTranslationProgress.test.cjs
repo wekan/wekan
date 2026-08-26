@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -62,3 +62,9 @@ assert.deepEqual(tokens(kashmiri['email-invite-text']),
 assert.match(kashmiri['error-import-empty-board'], /WeKan/);
 assert.match(kashmiri['export-card-field-board-info'], /وَتھ/);
 assert.equal(kashmiri['filter-no-member'], 'کانٛہہ ممبر نہٕ');
+for (const operator of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
+  assert.match(kashmiri['advanced-filter-description'],
+    new RegExp(operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+}
+assert.deepEqual(tokens(kashmiri['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
