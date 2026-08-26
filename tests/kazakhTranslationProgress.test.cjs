@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -159,3 +159,6 @@ assert.equal(kazakh['confirm-btn'], 'Растау');
 assert.match(kazakh.Node_heap_total_heap_size, /үйме/);
 assert.equal(kazakh['attachment-move-storage-fs'],
   'Тіркемені файлдық жүйеге жылжыту');
+assert.equal(kazakh['attachment-repair-done'], 'Жөндеу аяқталды.');
+assert.equal(kazakh['default-save-storage'], 'Әдепкі сақтау қоймасы');
+assert.match(kazakh['mongodb-compact-warning'], /Meteor/);
