@@ -984,14 +984,17 @@ This left **147,626 genuinely untranslated values across 69 locale files**.
 The fortieth 50-value Inuktitut batch added board-integrity migrations, lost-card
 recovery, URL repair, migration confirmations and progress steps. This left
 **147,576 genuinely untranslated values across 69 locale files**.
+The forty-first 50-value Inuktitut batch added migration repair steps, board
+conversion, scheduler intervals, resource monitoring and job details. This left
+**147,526 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `step-fix-attachment-urls` with
+Resume Inuktitut at `memory-usage` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 167 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 117 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
