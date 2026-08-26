@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1992);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -41,3 +41,5 @@ assert.deepEqual(tokens(konkani['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(konkani['set-list-width'], 'रुंदाय थारायात');
 assert.equal(konkani['add-members'], 'वांगडी जोडात');
+assert.equal(konkani['public-boards'], 'भौशीक फळे');
+assert.deepEqual(tokens(konkani['and-n-other-card_plural']), ['__count__']);
