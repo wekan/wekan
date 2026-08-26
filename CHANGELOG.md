@@ -1786,9 +1786,11 @@ imported members and board imports from twelve external formats. This left
 The thirteenth 50-value Kashmiri batch added Trello API and ZIP imports,
 workspace placement, member mapping, date validation and labels. This left
 **135,924 genuinely untranslated values across 63 locale files**.
+The fourteenth 50-value Kashmiri batch added board membership, list archives,
+swimlane actions, bulk selection, role descriptions and notifications. This
+left **135,874 genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`last-admin-desc` with
+and exact tokens from `en.i18n.json`, resuming Kashmiri at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
