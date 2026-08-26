@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -98,3 +98,9 @@ assert.equal(konkani['r-move-card-to'], 'कार्ड हांगा व्�
 assert.equal(konkani['r-d-send-email'], 'ईमेल धाडात');
 assert.equal(konkani['r-add-swimlane'], 'मार्ग जोडात');
 assert.equal(konkani['authentication-method'], 'प्रमाणीकरण पद्दत');
+assert.deepEqual(tokens(konkani['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(konkani['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.deepEqual(tags(konkani['add-custom-html-after-body-start']),
+  ['<body>']);
