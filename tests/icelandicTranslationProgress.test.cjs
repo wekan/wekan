@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -157,3 +157,6 @@ assert.deepEqual(tags(icelandic['render-links-as-plain-text-description']),
   tags(english['render-links-as-plain-text-description']));
 assert.match(icelandic['cards-loading-description'], /CARDS_LOADING_LAZY_THRESHOLD/);
 assert.equal(icelandic['backup-now'], 'Taka öryggisafrit núna');
+assert.equal(icelandic['backup-frequency-weekly'], 'Vikulega');
+assert.match(icelandic['gcs-permissions-note'], /client_email/);
+assert.equal(icelandic['cloud-connection-success'], 'Tenging tókst');
