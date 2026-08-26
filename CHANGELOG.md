@@ -829,15 +829,19 @@ attachment storage movement. This left **150,143 genuinely untranslated values
 across 70 locale files**. The thirty-third 50-value Icelandic batch added bulk
 attachment and avatar movement, storage-location repair, file statistics,
 storage defaults and MongoDB compaction guidance. This left **150,093 genuinely
-untranslated values across 70 locale files**.
+untranslated values across 70 locale files**. The thirty-fourth 50-value
+Icelandic batch added board timing, upload restrictions, PDF fallback, workspace
+dragging, custom translations, checklist display and support and accessibility
+pages. This left **150,043 genuinely untranslated values across 70 locale
+files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `board-status` with
+Resume Icelandic at `accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 517 Icelandic values remain.
+and Haitian Creole are now complete; 467 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
