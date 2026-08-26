@@ -1218,9 +1218,12 @@ untranslated values across 67 locale files**.
 The thirtieth 50-value Kazakh batch added map detection, server troubleshooting,
 custom string templates, diagnostics and office reports. This left **143,742
 genuinely untranslated values across 67 locale files**.
+The thirty-first 50-value Kazakh batch added API and recovery reports, wait
+indicators, organization safety, tickets and help requests. This left **143,692
+genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `office-last-seen` with
+Resume Kazakh at `add-teams` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
