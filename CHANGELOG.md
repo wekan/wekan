@@ -803,15 +803,19 @@ deletion confirmations and resizable layout controls. This left **150,543
 genuinely untranslated values across 70 locale files**. The twenty-fifth
 50-value Icelandic batch added multi-card windows, editor submission, entity
 dialogs, notification states, board-role permissions and weekday settings. This
-left **150,493 genuinely untranslated values across 70 locale files**.
+left **150,493 genuinely untranslated values across 70 locale files**. The
+twenty-sixth 50-value Icelandic batch added linked-list safeguards, tasks,
+domain-scoped shared templates, personal and due-card views, global search and
+missing-entity messages. This left **150,443 genuinely untranslated values
+across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `delete-linked-cards-before-this-list` with
+Resume Icelandic at `user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 917 Icelandic values remain.
+and Haitian Creole are now complete; 867 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
