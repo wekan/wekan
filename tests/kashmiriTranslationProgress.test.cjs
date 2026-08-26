@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -49,3 +49,5 @@ assert.deepEqual(tokens(kashmiri['board-open-and-move-between-remaining-and-work
   ['__workspaces__']);
 assert.deepEqual(tags(kashmiri['board-public-info']),
   ['</strong>', '<strong>']);
+assert.match(kashmiri['vote-question'], /راے شمٲری/);
+assert.match(kashmiri['importSwimlanePopup-title'], /وَتھ/);
