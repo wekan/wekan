@@ -321,15 +321,16 @@ controls; the eighth added starring, automatic sizing, card aging, navigation
 and color names; the ninth added role permissions, copy actions and custom-field
 types; the tenth added email templates, permanent deletion, WIP and import-error
 messages; the eleventh added card export, sorting and date/member filtering.
-This left **159,869 genuinely
+The twelfth added advanced filtering and board-import guidance for supported
+services and file formats. This left **159,819 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `filter-assignee-label` with
+Continue Guarani at `import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 1,617 Guarani values remain.
+complete; 1,567 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
