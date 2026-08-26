@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -74,3 +74,8 @@ assert.deepEqual(tokens(icelandic['label-default']), ['%s']);
 assert.deepEqual(tokens(icelandic['leave-board-pop']), ['__boardTitle__']);
 assert.equal(icelandic['multi-selection'], 'Fjölval');
 assert.equal(icelandic['no-archived-swimlanes'], 'Engar sundbrautir í safni.');
+assert.deepEqual(tokens(icelandic['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(icelandic['page-maybe-private']), ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(icelandic['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.equal(icelandic['rename-board'], 'Endurnefna töflu');
