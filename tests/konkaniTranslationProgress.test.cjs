@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 192);
+assert.equal(Object.keys(remaining).length, 142);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -151,3 +151,5 @@ assert.equal(konkani['cloud-connection-success'], 'जोडणी यशस्�
 assert.equal(konkani['migration-not-needed'], 'स्थलांतराची गरज ना');
 assert.equal(konkani['attachment-monitoring'], 'जोडणी देखरेख');
 assert.equal(konkani['lost-cards'], 'वगडिल्लीं कार्डां');
+assert.equal(konkani.steps, 'पांवडे');
+assert.equal(konkani['migration-progress-overall'], 'एकूण प्रगती');
