@@ -1939,9 +1939,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Nine translations are now complete**: Hausa, Haitian Creole,
-Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic, Kannada and Konkani. Their
-409 direct-translation batches replace 18,653 English placeholders while
+**In short:** Three **authentication boundaries** now prevent OIDC claim-based
+account takeover, logged-out membership discovery and account-recovery floods.
+Blocked metadata probes and recovery throttles appear in Problems. **Nine
+translations are now complete**, replacing 18,653 English placeholders while
 preserving human translations, format tokens and markup exactly.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -1955,7 +1956,57 @@ preserving human translations, format tokens and markup exactly.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release completes the following translations:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**OIDC identities** - access-token metadata cannot replace trusted account identity.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12f2fddc2">Whitelisted token claims cannot overwrite service-owned fields</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[ClaimBleed](https://wekan.fi/hall-of-fame/claimbleed/) blocked access-token
+claims from replacing the trusted userinfo id, username, email and related
+service-owned values, which could otherwise link an attacker's OIDC session to
+a victim. Prototype keys and WeKan's token bookkeeping are protected too,
+while ordinary whitelisted profile metadata continues to merge. There is no
+Problems event because every legitimate OIDC login uses this path and a bad
+claim cannot be distinguished from an administrator's mistaken whitelist.
+Positive behavioral coverage pins safe metadata and a negative whole-package
+scan prevents any bulk assignment into `serviceData`.
+
+</details>
+
+**User metadata** - sensitive membership and authentication fields require login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12f2fddc2">Logged-out clients cannot subscribe to authentication metadata</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[MembershipBleed](https://wekan.fi/hall-of-fame/membershipbleed/) made the
+`user-authenticationMethod` publication return ready without querying whenever
+the DDP connection has no authenticated user. This closes enumeration of
+authentication methods, teams and organizations. Denied probes are safely
+folded into one MembershipBleed summary in Admin Panel → Problems with their
+source address. Positive ordering coverage pins the guard before the query, and
+a negative scan requires every sensitive user publication to retain a login
+boundary.
+
+</details>
+
+**Account recovery** - unauthenticated email and token methods are bounded by address.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12f2fddc2">Recovery and verification DDP calls are rate-limited</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[ResetBleed](https://wekan.fi/hall-of-fame/resetbleed/) limits each source
+address to five `forgotPassword` or `resetPassword` calls and ten `verifyEmail`
+calls per minute, stopping unbounded email floods, enumeration loops and token
+guessing. Only refused requests are folded into a ResetBleed Problems summary;
+ordinary recovery use is never logged, and a logging failure cannot weaken the
+denial. Behavioral tests cover allowed and refused decisions, while negative
+source coverage prevents any recovery method from escaping the shared callback.
+
+</details>
+
+and completes the following translations:
 
 **Hausa** - every interface area now uses Hausa instead of English placeholders.
 
