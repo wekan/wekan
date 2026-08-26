@@ -13,7 +13,7 @@ assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
 // This explicit count makes a skipped or oversized batch visible. The token
 // and tag inventory checks below protect every translated value.
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1468);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
@@ -53,3 +53,4 @@ assert.deepEqual(tokens(faroese['act-removeChecklistItem']), [
 ]);
 assert.match(faroese['act-createBoard'], /talv/);
 assert.match(faroese['act-createCard'], /kort/);
+assert.equal(faroese.menu, 'Menu');
