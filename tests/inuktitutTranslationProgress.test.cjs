@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -155,3 +155,7 @@ assert.equal(inuktitut['office-address'], 'ᑐᕌᕈᑎ');
 assert.match(inuktitut['api-no-calls'], /WITH_API=true/);
 assert.equal(inuktitut['recovery-db'], 'ᑐᖅᑯᖅᓯᕕᒃ');
 assert.equal(inuktitut['help-request'], 'ᐃᑲᔪᖅᑕᐅᒍᒪᔾᔪᑎ');
+assert.equal(inuktitut['confirm-btn'], 'ᓇᓗᓇᐃᕐᓗᒍ');
+assert.match(inuktitut['Node_heap_total_heap_size'], /Node heap/);
+assert.equal(inuktitut['attachment-move-storage-s3'],
+  'ᐃᓚᒃᓴᖅ S3-ᒧᑦ ᓅᓪᓗᒍ');
