@@ -679,15 +679,19 @@ counts plus board, user, date, attachment and checklist query operators and
 predicates. This left **152,560 genuinely untranslated values across 71 locale
 files**. The twenty-eighth 50-value Haitian Creole batch added search predicate
 validation, pagination and detailed global-search operator documentation. This
-left **152,510 genuinely untranslated values across 71 locale files**.
+left **152,510 genuinely untranslated values across 71 locale files**. The
+twenty-ninth 50-value Haitian Creole batch added card and board sorting,
+stickers, dependency visualization and imports, board backgrounds and card
+locations. This left **152,460 genuinely untranslated values across 71 locale
+files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Haitian Creole at `number` with
+Resume Haitian Creole at `location-latitude` with
 `node releases/translations/fill-translations.mjs --list ht --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, including Hausa; 767 Haitian Creole values remain.
+now complete, including Hausa; 717 Haitian Creole values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
