@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -147,3 +147,6 @@ assert.match(icelandic['mongodb-compact-warning'], /oplog/);
 assert.equal(icelandic['board-status'], 'Staða töflu');
 assert.deepEqual(tokens(icelandic['drag-board-to-workspace']), ['__workspaces__']);
 assert.equal(icelandic.accessibility, 'Aðgengi');
+assert.equal(icelandic['accounts-lockout-locked-users'], 'Læstir notendur');
+assert.equal(icelandic['accounts-lockout-period'], 'Læsingartími (sekúndur)');
+assert.equal(icelandic['cron-jobs'], 'Tímasett verk');

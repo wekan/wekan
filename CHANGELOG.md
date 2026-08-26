@@ -833,15 +833,18 @@ untranslated values across 70 locale files**. The thirty-fourth 50-value
 Icelandic batch added board timing, upload restrictions, PDF fallback, workspace
 dragging, custom translations, checklist display and support and accessibility
 pages. This left **150,043 genuinely untranslated values across 70 locale
-files**.
+files**. The thirty-fifth 50-value Icelandic batch added accessibility content,
+brute-force lockout administration, scheduled jobs, attachment paths and
+scheduled board maintenance. This left **149,993 genuinely untranslated values
+across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `accessibility-info-not-added-yet` with
+Resume Icelandic at `cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 467 Icelandic values remain.
+and Haitian Creole are now complete; 417 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
