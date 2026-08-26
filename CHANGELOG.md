@@ -374,15 +374,18 @@ CPU and storage metrics, schedules and job-queue labels. The forty-second
 50-value batch added attachment migration controls, resource thresholds,
 monitoring, progress and storage statistics. The forty-third 50-value batch
 added repositories, account access, problem reporting, card repair and event
-metrics. This left **158,271 genuinely
+metrics. The final 18-value forty-fourth batch added event addresses, filesystem
+integrity, scoped export and board-import guidance, completing all actionable
+Guarani values; `FerretDB commit` remains an invariant technical label. This left
+**158,253 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `event-source` with
-`node releases/translations/fill-translations.mjs --list gn --limit 50`;
+Continue Manx at `accept` with
+`node releases/translations/fill-translations.mjs --list gv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 19 Guarani values remain.
+complete; Guarani is now complete apart from its invariant technical label.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
