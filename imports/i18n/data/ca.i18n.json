@@ -829,6 +829,7 @@
   "deleted-user": "Usuari esborrat",
   "remove-member-from-card": "Elimina de la fitxa",
   "remove-member-pop": "Eliminar __name__ (__username__) de __boardTitle__? El membre serà eliminat de totes les fitxes d'aquest tauler. Ells rebran una notificació.",
+  "sandstorm-remove-member-warning": "Això només amaga el membre dins de WeKan. No revoca l'accés al gra de Sandstorm. Revoqueu també el seu accés al diàleg Comparteix l'accés de Sandstorm.",
   "removeMemberPopup-title": "Vols suprimir el membre?",
   "rename": "Canvia el nom",
   "rename-board": "Canvia el nom del tauler",

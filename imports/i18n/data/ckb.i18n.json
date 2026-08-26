@@ -829,6 +829,7 @@
   "deleted-user": "بەکارهێنەری سڕاوە",
   "remove-member-from-card": "لە کارت لاببە",
   "remove-member-pop": "__name__ (__username__) لە __boardTitle__ لاببرێت؟ ئەندامەکە لە هەموو کارتەکانی ئەم تەختەیە لادەبرێت. ئاگادارکردنەوەیەکی بۆ دەنێردرێت.",
+  "sandstorm-remove-member-warning": "ئەمە تەنها ئەندامەکە لەناو WeKan دەشارێتەوە. دەستگەیشتن بە grainی Sandstorm هەڵناوەشێنێتەوە. دەستگەیشتنی ئەوان لە پەنجەرەی هاوبەشکردنی دەستگەیشتنی Sandstormیش هەڵبوەشێنەوە.",
   "removeMemberPopup-title": "ئەندام لاببرێت؟",
   "rename": "ناو گۆڕین",
   "rename-board": "ناوی تەختە بگۆڕە",

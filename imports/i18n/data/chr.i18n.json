@@ -829,6 +829,7 @@
   "deleted-user": "ᎬᏗᏍᎩ ᎠᎲᏍᏔᏅ",
   "remove-member-from-card": "ᎪᏪᎵ ᎤᏍᏗ ᎢᏗᏢ ᎯᎲᏍᏗ",
   "remove-member-pop": "__name__ (__username__) __boardTitle__ ᎢᏗᏢ ᎯᎲᏍᏗ? ᎠᎵᏏᎾᏓᏍᏗ ᎯᎠ ᎦᏍᎩᎸ ᏂᎦᏛ ᏗᎪᏪᎵ ᏗᏍᏗ ᎢᏗᏢ ᎠᎲᏍᏗ. ᎧᏃᎮᏓ ᎠᏥᏅᏍᏗ.",
+  "sandstorm-remove-member-warning": "ᎯᎠ ᎤᏩᏒ WeKan ᎭᏫᏂ ᎠᏑᏰᏛ ᎤᏕᎵᏍᏗ. Sandstorm grain ᏭᏴᎸᏍᏗ ᎥᏝ ᏱᎬᏲᎯᏍᏗ. Sandstorm ᎤᏙᏢᏒ ᏭᏴᎸᏍᏗ ᎠᏯᏙᎯᎲᏍᎩ ᎾᏍᏉ ᎯᎲᏏ.",
   "removeMemberPopup-title": "ᎠᎵᏏᎾᏓᏍᏗ ᎯᎲᏍᏗ?",
   "rename": "ᏚᏙᎥ ᎯᏁᏟᏴᏓ",
   "rename-board": "ᎦᏍᎩᎸ ᏔᎵᏁ ᎰᏑᎥᏍᏗ",

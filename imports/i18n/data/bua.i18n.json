@@ -829,6 +829,7 @@
   "deleted-user": "Усадхагдаһан хэрэглэгчэ",
   "remove-member-from-card": "Картаһаа гаргаха",
   "remove-member-pop": "__name__ (__username__)-ые __boardTitle__ самбарһаа гаргаха гү? Гишүүн энэ самбарай бүхы картануудһаа гаргагдаха. Тэрэ мэдээсэл абаха.",
+  "sandstorm-remove-member-warning": "Энэ гансал WeKan соо гэшүүниие нюуна. Sandstorm grain руу нэбтэрхэ эрхые болюулнагүй. Sandstorm-ой хандалса хубаалдаха диалог соо хандалгыень баһал болюулыт.",
   "removeMemberPopup-title": "Гишүүн гаргаха гү?",
   "rename": "Нэрэ һэлгэхэ",
   "rename-board": "Самбарай нэрэ хубилгаха",

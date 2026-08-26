@@ -829,6 +829,7 @@
   "deleted-user": "Implijer diverket",
   "remove-member-from-card": "Supprimer de la carte",
   "remove-member-pop": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+  "sandstorm-remove-member-warning": "Ne ra kement-mañ nemet kuzhat an ezel e-barzh WeKan. Ne denn ket e haeziñ ouzh grain Sandstorm. Tennit e haeziñ ivez e boest-emziviz Rannañ haeziñ Sandstorm.",
   "removeMemberPopup-title": "Supprimer le participant ?",
   "rename": "Renommer",
   "rename-board": "Renommer le tableau",

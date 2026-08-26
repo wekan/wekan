@@ -829,6 +829,7 @@
   "deleted-user": "Smazaný uživatel",
   "remove-member-from-card": "Odstranit z karty",
   "remove-member-pop": "Odstranit __name__ (__username__) z __boardTitle__? Uživatel bude odebrán ze všech karet na tomto tablu. Na tuto skutečnost bude upozorněn.",
+  "sandstorm-remove-member-warning": "Tímto se člen pouze skryje ve WeKanu. Jeho přístup ke grainu Sandstorm se nezruší. Zrušte mu přístup také v dialogu Sdílet přístup v Sandstormu.",
   "removeMemberPopup-title": "Odstranit člena?",
   "rename": "Přejmenovat",
   "rename-board": "Přejmenovat tablo",
