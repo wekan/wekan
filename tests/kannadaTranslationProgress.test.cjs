@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1507);
+assert.equal(Object.keys(remaining).length, 1482);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -66,3 +66,4 @@ assert.deepEqual(tokens(kannada['import-board-instruction-issues']),
   ['__endpoint__', '__sourceName__']);
 assert.equal(kannada['import-trello-zip-failed'], '.zip ಆಮದು ವಿಫಲವಾಗಿದೆ.');
 assert.deepEqual(tokens(kannada['leave-board-pop']), ['__boardTitle__']);
+assert.equal(kannada['multi-selection'], 'ಬಹು-ಆಯ್ಕೆ');
