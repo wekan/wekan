@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -40,3 +40,6 @@ assert.deepEqual(tags(creole['board-public-info']), ['</strong>', '<strong>']);
 assert.deepEqual(tokens(creole['board-open-and-move-between-remaining-and-workspaces']),
   ['__workspaces__']);
 assert.equal(creole['card-due'], 'Dat limit');
+assert.equal(creole['vote-for-it'], 'pou li');
+assert.match(creole['card-edit-planning-poker'], /Planning Poker/);
+assert.equal(creole['importSwimlanePopup-title'], 'Enpòte kouloir');
