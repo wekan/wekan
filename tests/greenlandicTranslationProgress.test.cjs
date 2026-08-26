@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -158,3 +158,7 @@ assert.deepEqual(tokens(greenlandic['globalSearch-instructions-operator-has']),
     '__predicate_end__', '__predicate_member__', '__predicate_start__']);
 assert.equal(greenlandic['link-to-search'],
   'Ujaasinermut matumunnga linki');
+assert.equal(greenlandic.number, 'Normu');
+assert.deepEqual(tokens(greenlandic['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(greenlandic['background-too-big']), ['{{size}}']);
