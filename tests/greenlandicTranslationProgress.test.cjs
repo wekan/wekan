@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 817);
+assert.equal(Object.keys(remaining).length, 767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -150,3 +150,11 @@ assert.deepEqual(tokens(greenlandic['n-n-of-n-cards-found']),
   ['__end__', '__start__', '__total__']);
 assert.equal(greenlandic['operator-board'], 'ilisarnaat');
 assert.equal(greenlandic['operator-swimlane'], 'aqqut');
+assert.deepEqual(tokens(greenlandic['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(greenlandic['globalSearch-instructions-operator-has']),
+  ['__operator_has__', '__predicate_assignee__', '__predicate_attachment__',
+    '__predicate_checklist__', '__predicate_description__', '__predicate_due__',
+    '__predicate_end__', '__predicate_member__', '__predicate_start__']);
+assert.equal(greenlandic['link-to-search'],
+  'Ujaasinermut matumunnga linki');
