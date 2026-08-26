@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -63,3 +63,7 @@ assert.deepEqual(tokens(hausa['operator-number-expected']),
   ['__operator__', '__value__']);
 assert.match(hausa['globalSearch-instructions-description'], /__operator_list__/);
 assert.match(hausa['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.deepEqual(tokens(hausa['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(hausa['background-too-big']), ['{{size}}']);
+assert.equal(hausa['dependency-type-blocks'], 'Yana hana');
