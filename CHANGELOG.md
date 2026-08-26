@@ -823,15 +823,18 @@ left **150,243 genuinely untranslated values across 70 locale files**. The
 thirty-first 50-value Icelandic batch added office and API metrics, recovery
 status, swimlane copying, wait indicators, deletion safeguards and service-ticket
 states. This left **150,193 genuinely untranslated values across 70 locale
-files**.
+files**. The thirty-second 50-value Icelandic batch added team and organization
+assignment, Node heap diagnostics, legal notices, checklist transformations and
+attachment storage movement. This left **150,143 genuinely untranslated values
+across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `add-teams` with
+Resume Icelandic at `move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 617 Icelandic values remain.
+and Haitian Creole are now complete; 567 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
