@@ -732,14 +732,15 @@ This release fixes the following bug:
 inside their visible bounds.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f9f3c66e4">Side gutters remain visible and date editors open centered without horizontal scrolling</a>. Thanks to Alishara and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/548add4fe">Side gutters remain visible and date editors open centered without horizontal scrolling</a>. Thanks to Alishara and xet7.</summary>
 
 The card canvas now uses border-box sizing so its 20-pixel inline padding is
 part of its available width instead of allowing content to consume the gutters.
 All seven shared date editors open at the horizontal center of the visible
-viewport. Their Date and Time flex columns may shrink, and their controls fit
-the columns, removing the bottom scrollbar introduced when those controls were
-placed on one row.
+viewport, using their rendered 400-pixel shell width in the offset calculation.
+Their Date and Time flex columns may shrink, and their controls fit the columns,
+removing the bottom scrollbar introduced when those controls were placed on one
+row.
 
 Pure geometry coverage checks every date editor while scrolled, positive CSS
 coverage pins the shrink and gutter contracts, and the existing ordinary-popup
