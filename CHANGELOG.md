@@ -1158,9 +1158,12 @@ genuinely untranslated values across 67 locale files**.
 The tenth 50-value Kazakh batch added profile and WIP controls, localized email,
 board permissions and import validation errors. This left **144,742 genuinely
 untranslated values across 67 locale files**.
+The eleventh 50-value Kazakh batch added account conflicts, card PDF and Excel
+exports, list sorting and date and member filters. This left **144,692 genuinely
+untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `error-user-doesNotExist` with
+Resume Kazakh at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -73,3 +73,7 @@ assert.equal(kazakh['date-format'], 'Күн пішімі');
 assert.deepEqual(tokens(kazakh['email-invite-text']),
   ['__board__', '__inviter__', '__url__', '__user__']);
 assert.equal(kazakh['error-list-doesNotExist'], 'Бұл тізім жоқ');
+assert.equal(kazakh['export-card-pdf'],
+  'Карточканы PDF файлына экспорттау');
+assert.equal(kazakh['filter-due-tomorrow'], 'Мерзімі ертең');
+assert.equal(kazakh['filter-no-member'], 'Мүше жоқ');
