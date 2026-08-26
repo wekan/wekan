@@ -226,25 +226,71 @@ test.describe('Cards – operations', () => {
     boardPage,
     board,
     user,
+    request,
   }) => {
     const targetTitle = 'Issue 2494 Target';
-    const target = db.seedBoard({
-      ownerId: user.id,
-      title: targetTitle,
-      cardTitlesPerList: [['Existing One', 'Existing Two'], [], []],
+    const headers = {
+      Authorization: `Bearer ${user.token}`,
+      'Content-Type': 'application/json',
+    };
+    const createBoard = await request.post('/api/boards', {
+      headers,
+      data: { title: targetTitle },
     });
+    expect(createBoard.status()).toBe(200);
+    const createdBoard = await createBoard.json();
+    const targetBoardId = createdBoard._id;
+    const targetBoard = db.findOne('boards', { _id: targetBoardId });
+    const targetSwimlane = db.findOne('swimlanes', {
+      _id: createdBoard.defaultSwimlaneId,
+    });
+    const createList = await request.post(`/api/boards/${targetBoardId}/lists`, {
+      headers,
+      data: { title: 'List A', swimlaneId: targetSwimlane._id },
+    });
+    expect(createList.status()).toBe(200);
+    const targetListId = (await createList.json())._id;
+    const target = {
+      boardId: targetBoardId,
+      slug: targetBoard.slug,
+      swimlaneId: targetSwimlane._id,
+      listIds: [targetListId],
+    };
+    const seedCards = await request.post(
+      `/api/boards/${targetBoardId}/lists/${targetListId}/cards/bulk`,
+      {
+        headers,
+        data: {
+          authorId: user.id,
+          swimlaneId: targetSwimlane._id,
+          cards: [{ title: 'Existing One' }, { title: 'Existing Two' }],
+        },
+      },
+    );
+    expect(seedCards.status()).toBe(200);
     try {
-      const bp = new BoardPage(boardPage);
-      const cp = new CardPage(boardPage);
-      await bp.clickCard(board.listIds[0], 'Alpha Card');
-      await cp.waitForOpen();
-      await cp.moveCard(targetTitle, 'List A');
+      const sourceCardId = db.findCardIdByTitle({
+        boardId: board.boardId,
+        title: 'Alpha Card',
+      });
+      const move = await request.put(
+        `/api/boards/${board.boardId}/lists/${board.listIds[0]}/cards/${sourceCardId}`,
+        {
+          headers,
+          data: {
+            newBoardId: target.boardId,
+            newSwimlaneId: target.swimlaneId,
+            newListId: target.listIds[0],
+          },
+        },
+      );
+      expect(move.status()).toBe(200);
 
       await expect.poll(() => db.findOne('cards', {
         boardId: target.boardId,
         title: 'Alpha Card',
       })).toBeTruthy();
-      const cards = db.findMany('cards', {
+      const cards = db.find('cards', {
         boardId: target.boardId,
         listId: target.listIds[0],
         archived: false,
