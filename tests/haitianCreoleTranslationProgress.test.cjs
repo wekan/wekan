@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -135,3 +135,6 @@ assert.match(creole['server-error-troubleshooting'], /sudo docker logs wekan-app
 assert.match(creole['api-no-calls'], /WITH_API=true/);
 assert.equal(creole['recovery-db'], 'Bazdone');
 assert.equal(creole['cardDetailsPopup-title'], 'Detay kat');
+assert.equal(creole['add-teams'], 'Ajoute ekip');
+assert.match(creole.Node_heap_total_heap_size, /Node/);
+assert.equal(creole['attachment-move-storage-s3'], 'Deplase pyès jwenn nan S3');
