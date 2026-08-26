@@ -1329,9 +1329,12 @@ genuinely untranslated values across 66 locale files**.
 The twenty-third 50-value Greenlandic batch added rule actions for cards,
 members, checklists and dates plus authentication and web branding. This left
 **141,925 genuinely untranslated values across 66 locale files**.
+The twenty-fourth 50-value Greenlandic batch added custom HTML,
+authentication, duplication, reminders, deletion and layout controls. This
+left **141,875 genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `board-member-list` with
+Resume Greenlandic at `open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
