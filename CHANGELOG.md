@@ -1314,9 +1314,12 @@ registration, SMTP invitations, webhooks and runtime versions. This left
 The eighteenth 50-value Greenlandic batch added runtime diagnostics,
 custom-field display, account controls and organization tenancy. This left
 **142,175 genuinely untranslated values across 66 locale files**.
+The nineteenth 50-value Greenlandic batch added received and end dates,
+destructive confirmations, subtasks, card display and parent links. This left
+**142,125 genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `card-received` with
+Resume Greenlandic at `activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
