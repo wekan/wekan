@@ -1390,14 +1390,18 @@ monitoring navigation, operation scheduling and system resources. This left
 The forty-third 50-value Greenlandic batch added repository accounts, login
 errors, problem repair status and system events. This left **140,925 genuinely
 untranslated values across 66 locale files**.
+The final 17-value Greenlandic batch added event details, integrity and scoped
+import and export guidance. Greenlandic is now complete, leaving **140,908
+genuinely untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `event-detail` with
-`node releases/translations/fill-translations.mjs --list kl --limit 50`;
+Resume Kannada at `accept` with
+`node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic, Inuktitut, Javanese and Kazakh are now complete.
+Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh and Greenlandic are now
+complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
