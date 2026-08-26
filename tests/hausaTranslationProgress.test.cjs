@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -90,3 +90,7 @@ assert.deepEqual(tokens(hausa['database-migration-confirm']), ['__db__']);
 assert.match(hausa['database-migration-description'],
   /WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL/);
 assert.match(hausa['sandstorm-migration-description'], /Sandstorm.*FerretDB/);
+assert.match(hausa['cards-loading-description'],
+  /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(hausa['render-links-as-plain-text-description']), ['<a href>']);
+assert.match(hausa['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
