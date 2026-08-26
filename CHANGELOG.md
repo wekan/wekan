@@ -864,15 +864,18 @@ card repair, CPU status and event fields. This left **149,593 genuinely
 untranslated values across 70 locale files**. The final 17-value Icelandic batch
 added network event details, filesystem integrity, scoped import and export
 guidance and numeric search instructions. Icelandic is now complete, leaving
-**149,576 genuinely untranslated values across 69 locale files**.
+**149,576 genuinely untranslated values across 69 locale files**. The first
+50-value Inuktitut batch added activity history for boards, cards, lists,
+swimlanes, attachments, labels, checklists and comments. This left **149,526
+genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `accept` with
+Resume Inuktitut at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 2,167 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 2,117 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
