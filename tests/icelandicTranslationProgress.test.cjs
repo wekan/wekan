@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -37,3 +37,6 @@ assert.equal(icelandic['home-board-badge'],
   'Heimatafla (opnast eftir innskráningu)');
 assert.equal(icelandic['set-list-width-value'], 'Breidd lista (dílar)');
 assert.equal(icelandic['add-checklist'], 'Bæta við gátlista');
+assert.deepEqual(tokens(icelandic['and-n-other-card']), ['__count__']);
+assert.equal(icelandic['board-not-found'], 'Tafla fannst ekki');
+assert.deepEqual(tags(icelandic['board-private-info']), ['</strong>', '<strong>']);
