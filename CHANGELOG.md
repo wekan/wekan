@@ -1450,9 +1450,12 @@ locale files**.
 The nineteenth 25-value Kannada batch added settings dialogs, list recovery and
 multi-selection controls. This left **140,223 genuinely untranslated values
 across 65 locale files**.
+The twentieth 50-value Kannada batch added notifications, board visibility,
+member removal and keyboard actions. This left **140,173 genuinely untranslated
+values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `multi-selection-member` with
+Resume Kannada at `shortcut-clear-filters` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
