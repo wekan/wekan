@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -135,3 +135,6 @@ assert.equal(icelandic['dependency-type-is-blocked-by'], 'Er hindrað af');
 assert.deepEqual(tokens(icelandic['custom-field-stringtemplate-format']), ['%{value}']);
 assert.match(icelandic['server-error-troubleshooting'], /sudo docker logs wekan-app/);
 assert.equal(icelandic.officeReportTitle, 'Skrifstofur');
+assert.match(icelandic['api-no-calls'], /WITH_API=true/);
+assert.equal(icelandic['recovery-db'], 'Gagnagrunnur');
+assert.equal(icelandic['copy-swimlane'], 'Afrita sundbraut');
