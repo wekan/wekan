@@ -996,14 +996,17 @@ validation, problem summaries, broken-card repair and event metadata. This left
 The final 17-value Inuktitut batch added event network details, scoped
 import/export instructions and number-search syntax, completing Inuktitut. This
 left **147,409 genuinely untranslated values across 68 locale files**.
+The first 50-value Javanese batch added activity history for boards, cards,
+lists, swimlanes, labels, checklists, comments and attachments. This left
+**147,359 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `accept` with
+Resume Javanese at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 2167
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 2117
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
