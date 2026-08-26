@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -170,3 +170,7 @@ assert.equal(greenlandic['cardsReportTitle'], 'Kortsit nalunaarusiaat');
 assert.match(greenlandic['api-no-calls'], /WITH_API=true/);
 assert.equal(greenlandic['recovery-db'], 'Paasissutissanik toqqorsivik');
 assert.equal(greenlandic['ticket-number'], 'Tikitip normua');
+assert.equal(greenlandic['confirm-btn'], 'Uppernarsaruk');
+assert.match(greenlandic.Node_heap_total_heap_size, /heap/);
+assert.equal(greenlandic['attachment-move-storage-fs'],
+  'Ilanngussaq filsystemimut nuuguk');
