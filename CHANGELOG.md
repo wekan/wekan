@@ -1074,14 +1074,17 @@ This left **146,159 genuinely untranslated values across 68 locale files**.
 The twenty-sixth 50-value Javanese batch added shared templates and domains, My
 Cards and Due Cards views, global search scopes and missing-resource messages.
 This left **146,109 genuinely untranslated values across 68 locale files**.
+The twenty-seventh 50-value Javanese batch added global-search result counts,
+missing-resource diagnostics and localized search operators and predicates. This
+left **146,059 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `user-username-not-found` with
+Resume Javanese at `predicate-member` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 867
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 817
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
