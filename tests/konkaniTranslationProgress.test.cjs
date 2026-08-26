@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -132,3 +132,5 @@ assert.equal(konkani['ticket-number'], 'तिकीट क्रमांक');
 assert.equal(konkani['Node_memory_usage_external'],
   'Node स्मृती वापर: भायली');
 assert.equal(konkani.copied, 'नकल केलें!');
+assert.equal(konkani['move-storage-fs'], 'फायल प्रणाली');
+assert.equal(konkani['mongodb-compact-run'], 'MongoDB Compact चलयात');
