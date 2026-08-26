@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -32,3 +32,6 @@ assert.equal(hausa['active-person'], 'Mutum mai aiki');
 assert.equal(hausa['default-subtasks-board'], 'Ƙananan ayyuka na allon __board__');
 assert.equal(hausa['boardDeletePopup-title'], 'A share allo?');
 assert.deepEqual(tokens(hausa['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(hausa['activity-set-customfield']), ['%s', '%s', '%s']);
+assert.equal(hausa['r-w-every-day-at'], 'Kowace rana da __time__');
+assert.equal(hausa['r-import-done'], "An shigo da ƙa'idoji __count__");
