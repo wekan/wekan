@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -36,3 +36,9 @@ assert.deepEqual(tokens(greenlandic['act-removeChecklistItem']),
   ['__board__', '__card__', '__checkList__', '__checklistItem__', '__list__',
     '__swimlane__']);
 assert.match(greenlandic['act-createBoard'], /ilisarnaat/);
+assert.equal(greenlandic.actions, 'Iliuutsit');
+assert.deepEqual(tokens(greenlandic['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.equal(greenlandic['workspace-settings'],
+  'Suliffiup aaqqissugaanera');
