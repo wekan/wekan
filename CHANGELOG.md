@@ -781,15 +781,18 @@ labels. This left **150,893 genuinely untranslated values across 70 locale
 files**. The eighteenth 50-value Icelandic batch added database and operating
 system diagnostics, custom-field display, account visibility and organization
 and team tenancy administration. This left **150,843 genuinely untranslated
-values across 70 locale files**.
+values across 70 locale files**. The nineteenth 50-value Icelandic batch added
+card lifecycle dates, destructive-action warnings, subtask placement, minicard
+metadata, parent relationships and label activity. This left **150,793 genuinely
+untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `card-received` with
+Resume Icelandic at `activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 1,267 Icelandic values remain.
+and Haitian Creole are now complete; 1,217 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
