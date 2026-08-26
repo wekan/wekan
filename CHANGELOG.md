@@ -1363,9 +1363,12 @@ The thirty-fourth 50-value Greenlandic batch added board status, upload
 restrictions, custom translations, checklist display, support and
 accessibility. This left **141,375 genuinely untranslated values across 66
 locale files**.
+The thirty-fifth 50-value Greenlandic batch added login lockout controls,
+people filtering, scheduled jobs and attachment paths. This left **141,325
+genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `accessibility-info-not-added-yet` with
+Resume Greenlandic at `cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
