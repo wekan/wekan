@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -73,3 +73,6 @@ assert.equal(javanese['date-format'], 'Format Tanggal');
 assert.deepEqual(tokens(javanese['email-invite-text']),
   ['__board__', '__inviter__', '__url__', '__user__']);
 assert.equal(javanese['error-list-doesNotExist'], 'Dhaptar iki ora ana');
+assert.equal(javanese['export-card-pdf'], 'Ekspor kertu menyang PDF');
+assert.equal(javanese['filter-due-tomorrow'], 'Tenggat sesuk');
+assert.equal(javanese['filter-no-member'], 'Tanpa anggota');
