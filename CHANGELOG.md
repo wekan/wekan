@@ -1438,9 +1438,12 @@ sorting and filters. This left **140,358 genuinely untranslated values across
 The fifteenth 10-value Kannada batch added assignee, custom-field and archive
 filters. This left **140,348 genuinely untranslated values across 65 locale
 files**.
+The sixteenth 25-value Kannada batch added advanced-filter guidance and board
+import instructions. This left **140,323 genuinely untranslated values across
+65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `advanced-filter-label` with
+Resume Kannada at `import-csv-placeholder` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

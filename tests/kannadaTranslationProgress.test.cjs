@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1607);
+assert.equal(Object.keys(remaining).length, 1582);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -62,3 +62,5 @@ assert.deepEqual(tokens(kannada['email-invite-text']),
   ['__board__', '__inviter__', '__url__', '__user__']);
 assert.equal(kannada['filter-overdue'], 'ಅವಧಿ ಮೀರಿದೆ');
 assert.equal(kannada['filter-no-assignee'], 'ನಿಯೋಜಿತರಿಲ್ಲ');
+assert.deepEqual(tokens(kannada['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
