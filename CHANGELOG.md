@@ -360,15 +360,17 @@ file statistics and MongoDB compaction guidance. The thirty-fourth 50-value
 batch added board status, upload rules, custom translations, checklist display,
 support and accessibility. The thirty-fifth 50-value batch added accessibility
 content, login lockout protection, attachment paths and scheduled board
-operations. This left **158,671 genuinely
+operations. The thirty-sixth 50-value batch added scheduled migration controls,
+filesystem and cloud storage settings, database migration and Sandstorm status.
+This left **158,621 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `cron-migrations` with
+Continue Guarani at `sandstorm-migration-pending` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 419 Guarani values remain.
+complete; 369 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
