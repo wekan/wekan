@@ -917,15 +917,18 @@ registration invitations, SMTP settings, webhooks and system-version labels.
 This left **148,726 genuinely untranslated values across 69 locale files**. The
 eighteenth 50-value Inuktitut batch added system diagnostics, time units,
 custom-field display, visibility and organization and team administration.
-This left **148,676 genuinely untranslated values across 69 locale files**.
+This left **148,676 genuinely untranslated values across 69 locale files**. The
+nineteenth 50-value Inuktitut batch added card dates and colors, board deletion,
+subtask settings, minicard fields, parent paths and label activity. This left
+**148,626 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `card-received` with
+Resume Inuktitut at `activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 1,267 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 1,217 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
