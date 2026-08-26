@@ -1477,9 +1477,12 @@ values across 65 locale files**.
 The twenty-eighth 50-value Kannada batch added rule imports, schedules, due-date
 triggers and automation buttons. This left **139,873 genuinely untranslated
 values across 65 locale files**.
+The twenty-ninth 25-value Kannada batch added relative dates, automation units
+and card movement conditions. This left **139,848 genuinely untranslated values
+across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `r-mark-incomplete` with
+Resume Kannada at `r-list-name` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
