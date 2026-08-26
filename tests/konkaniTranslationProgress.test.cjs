@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1842);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -52,3 +52,5 @@ assert.deepEqual(tokens(
 assert.equal(konkani['card-edit-members'], 'वांगडी संपादित करात');
 assert.equal(konkani['vote-question'], 'मतदानाचो प्रस्न');
 assert.equal(konkani['importCardPopup-title'], 'कार्ड आयात करात');
+assert.equal(konkani['map-to-existing-user-no-results'],
+  'जुळपी वापरपी मेळ्ळे ना.');
