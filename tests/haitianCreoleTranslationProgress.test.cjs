@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -172,3 +172,8 @@ assert.equal(creole['current-step'], 'Etap aktyèl');
 assert.deepEqual(tokens(creole['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.equal(creole['event-source'], 'Sous');
+assert.equal(creole['event-ipv6'], 'Adrès IPv6');
+assert.deepEqual(tokens(creole['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(creole['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
