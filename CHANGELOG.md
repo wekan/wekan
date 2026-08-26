@@ -1552,9 +1552,12 @@ untranslated values across 65 locale files**.
 The fifty-third 25-value Kannada batch added Sandstorm cleanup, card loading and
 secure text rendering and import/export controls. This left **139,082 genuinely
 untranslated values across 65 locale files**.
+The fifty-fourth 15-value Kannada batch added avatar controls, user
+anonymization and activity, notification and watch controls. This left
+**139,067 genuinely untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `disable-import-avatars` with
+Resume Kannada at `backup-description` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
