@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -127,3 +127,6 @@ assert.deepEqual(tokens(javanese['act-atUserComment']),
 assert.match(javanese['submit-on-enter-description'], /Shift\+Enter/);
 assert.equal(javanese['roles-status-sees-assigned'], 'Mung sing ditugasake');
 assert.equal(javanese.monday, 'Senin');
+assert.equal(javanese['create-task'], 'Gawe Tugas');
+assert.equal(javanese['globalSearchViewChange-choice-me'], 'Kertu kula');
+assert.deepEqual(tokens(javanese['board-title-not-found']), ['%s']);
