@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -47,3 +47,6 @@ assert.equal(creole['userPopup-title'], 'Manm');
 assert.equal(creole['map-to-existing-user-no-results'],
   'Pa jwenn okenn itilizatè ki koresponn.');
 assert.equal(creole['changePermissionsPopup-title'], 'Chanje otorizasyon');
+assert.equal(creole['auto-list-width'], 'Lajè otomatik lis');
+assert.equal(creole['move-card-up'], 'Deplase kat anlè');
+assert.equal(creole['color-sky'], 'ble syèl');
