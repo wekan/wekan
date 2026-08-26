@@ -829,6 +829,7 @@
   "deleted-user": "Umsebenzisi ocinyiweyo",
   "remove-member-from-card": "Susa kwiKhadi",
   "remove-member-pop": "Susa __name__ (__username__) ukusuka __boardTitle__? Ilungu liya kususwa kuwo onke amakhadi kule bhodi. Baya kufumana isaziso.",
+  "sandstorm-remove-member-warning": "Oku kufihla ilungu kuphela ngaphakathi kweWeKan. Akukurhoxisi ukufikelela kwi-grain yeSandstorm. Kurhoxise nokufikelela kwalo kwincoko kaSandstorm ethi Yabelana ngokufikelela.",
   "removeMemberPopup-title": "Susa iLungu?",
   "rename": "Thiya ngokutsha",
   "rename-board": "Qamba ngokutsha iBhodi",
