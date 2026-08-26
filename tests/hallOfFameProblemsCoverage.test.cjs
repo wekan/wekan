@@ -54,6 +54,9 @@ const DELIBERATE = {
     + 'event to attribute without logging ordinary use',
   SubtaskExportBleed: 'the fix scopes internal export queries and changes only what a legitimate '
     + 'export response carries; no request is denied, so logging exports would record ordinary use',
+  ClaimBleed: 'the fix ignores service-owned fields while processing every legitimate OIDC login; '
+    + 'there is no reliable way to distinguish a malicious claim from an administrator mistakenly '
+    + 'whitelisting an identity field without logging ordinary logins',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.

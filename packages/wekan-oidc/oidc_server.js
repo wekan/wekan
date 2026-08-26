@@ -5,6 +5,7 @@ import { Buffer } from 'node:buffer';
 import https from 'https';
 import fs from 'fs';
 import { resolveOidcEndpoint } from './endpoint';
+const { mergeWhitelistedClaims } = require('./serviceDataClaims');
 
 Oidc = {};
 httpCa = false;
@@ -150,10 +151,11 @@ OAuth.registerService('oidc', 2, null, async function (query) {
     var tokenContent = getTokenContent(accessToken);
     var config = await getConfiguration();
     if (tokenContent) {
-      var fields = Object.fromEntries(
-        Object.entries(tokenContent).filter(([k]) => (config.idTokenWhitelistFields || []).includes(k))
+      mergeWhitelistedClaims(
+        serviceData,
+        tokenContent,
+        config.idTokenWhitelistFields,
       );
-      Object.assign(serviceData, fields);
     }
   }
 

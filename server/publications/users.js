@@ -54,6 +54,18 @@ Meteor.publish('user-admin', function () {
 
 Meteor.publish('user-authenticationMethod', async function (match) {
   check(match, String);
+  if (!this.userId) {
+    try {
+      require('/server/lib/securityLog').record({
+        key: 'authn.authentication-method',
+        action: 'blocked',
+        source: 'user-authenticationMethod',
+        ip: this.connection && this.connection.clientAddress,
+        detail: 'unauthenticated user authentication metadata subscription',
+      });
+    } catch (e) { /* logging must never break the guard */ }
+    return this.ready();
+  }
   const ret = await ReactiveCache.getUsers(
     { $or: [{ _id: match }, { email: match }, { username: match }] },
     {

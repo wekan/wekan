@@ -24,6 +24,7 @@ import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
+const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
 // so invitation-code sign-up (and any other registration) attempts cannot be
@@ -48,6 +49,21 @@ if (Meteor.isServer) {
     20,
     10 * 1000,
   );
+  const accountRecoveryRateLimitCallback = (result, input) =>
+    recordAuthRateLimitDenial(result, input, event =>
+      require('/server/lib/securityLog').record(event));
+  for (const [name, attempts] of [
+    ['forgotPassword', 5],
+    ['resetPassword', 5],
+    ['verifyEmail', 10],
+  ]) {
+    DDPRateLimiter.addRule(
+      { type: 'method', name, clientAddress() { return true; } },
+      attempts,
+      60 * 1000,
+      accountRecoveryRateLimitCallback,
+    );
+  }
 }
 
 // Security (reported by meifukun): profile.avatarUrl is rendered as an <img src>

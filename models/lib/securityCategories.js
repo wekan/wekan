@@ -27,6 +27,7 @@ const CATALOG = {
   'auth-race.oidc':  { category: 'auth-race', bleed: 'OIDCBleed', severity: 'high', cwe: 'CWE-362' },
   'brute.invite':    { category: 'brute-force', bleed: 'InviteBleed', severity: 'high', cwe: 'CWE-307' },
   'brute.login':     { category: 'brute-force', bleed: 'BruteBleed', severity: 'medium', cwe: 'CWE-307' },
+  'brute.account-recovery': { category: 'brute-force', bleed: 'ResetBleed', severity: 'high', cwe: 'CWE-307' },
   // GHSA-rf3w-rj48-jxcc: the known-user lockout counted every failure against
   // the USER, so anyone who knew a username could lock its owner out from every
   // address - and a correct password was refused while the lock held. The
@@ -76,6 +77,7 @@ const CATALOG = {
   // Every call that reaches the refusal is an attempt: the admin has turned
   // registration off, so there is no legitimate caller.
   'authz.register':    { category: 'authz', bleed: 'SignupBleed', severity: 'critical', cwe: 'CWE-862' },
+  'authn.authentication-method': { category: 'authn', bleed: 'MembershipBleed', severity: 'high', cwe: 'CWE-200' },
   'injection.nosql': { category: 'injection', bleed: 'SelectorBleed', severity: 'high', cwe: 'CWE-943' },
   'injection.sql':   { category: 'injection', bleed: 'EscapeBleed', severity: 'critical', cwe: 'CWE-89' },
 };
