@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -53,3 +53,7 @@ assert.equal(creole['color-sky'], 'ble syèl');
 assert.equal(creole['comment-only'], 'Kòmantè sèlman');
 assert.equal(creole['copy-link-to-clipboard'], 'Kopye lyen nan papye-presse');
 assert.equal(creole['custom-field-number'], 'Nimewo');
+assert.equal(creole['custom-field-text'], 'Tèks');
+assert.deepEqual(tokens(creole['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.equal(creole['error-list-doesNotExist'], 'Lis sa a pa egziste');
