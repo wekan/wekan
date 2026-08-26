@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -57,3 +57,5 @@ assert.equal(konkani['map-to-existing-user-no-results'],
 assert.equal(konkani['font-size-largest'], 'सगळ्यांत व्हड');
 assert.equal(konkani['move-card-up'], 'कार्ड वयर व्हरात');
 assert.equal(konkani['color-sky'], 'आकाशी');
+assert.equal(konkani['read-only'], 'फकत वाचप');
+assert.equal(konkani['custom-field-number'], 'क्रमांक');
