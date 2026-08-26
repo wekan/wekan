@@ -1035,14 +1035,17 @@ This left **146,809 genuinely untranslated values across 68 locale files**.
 The thirteenth 50-value Javanese batch added Trello API imports, cancellation and
 recovery, member mapping, input validation, keyboard shortcuts and label actions.
 This left **146,759 genuinely untranslated values across 68 locale files**.
+The fourteenth 50-value Javanese batch added board departure, list archiving,
+user, team and organization settings, multi-selection, roles and notifications.
+This left **146,709 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `last-admin-desc` with
+Resume Javanese at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 1517
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 1467
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
