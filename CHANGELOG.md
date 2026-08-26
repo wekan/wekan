@@ -1732,9 +1732,12 @@ untranslated values across 64 locale files**.
 The fifty-first 50-value Konkani batch added GridFS and S3 settings, migration
 controls, scheduled operations and attachment monitoring. This left **136,791
 genuinely untranslated values across 64 locale files**.
+The fifty-second 25-value Konkani batch added board-integrity migrations, lost
+card recovery and file and avatar URL repair. This left **136,766 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `card-show-lists-on-minicard` with
+Resume Konkani at `no-issues-found` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
