@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -169,3 +169,6 @@ assert.equal(icelandic['step-convert-shared-lists'], 'Umbreyta sameiginlegum lis
 assert.equal(icelandic['step-fix-attachment-urls'], 'Lagfæra slóðir viðhengja');
 assert.equal(icelandic['cpu-cores'], 'Örgjörvakjarnar');
 assert.equal(icelandic['every-10-minutes'], 'Á 10 mínútna fresti');
+assert.equal(icelandic['memory-usage'], 'Minnisnotkun');
+assert.equal(icelandic['migration-cpu-threshold'], 'Örgjörvamörk (%)');
+assert.equal(icelandic['total-attachments'], 'Heildarfjöldi viðhengja');
