@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -144,3 +144,7 @@ assert.deepEqual(tokens(kazakh['globalSearch-instructions-operator-has']),
     '__predicate_checklist__', '__predicate_description__', '__predicate_due__',
     '__predicate_end__', '__predicate_member__', '__predicate_start__']);
 assert.equal(kazakh['link-to-search'], 'Осы іздеуге сілтеме');
+assert.equal(kazakh.number, 'Нөмір');
+assert.deepEqual(tokens(kazakh['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(kazakh['background-too-big']), ['{{size}}']);
