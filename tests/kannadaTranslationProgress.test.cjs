@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -54,3 +54,4 @@ assert.equal(kannada['vote-question'], 'ಮತದಾನದ ಪ್ರಶ್ನೆ
 assert.equal(kannada['map-to-existing-user-no-results'],
   'ಹೊಂದುವ ಬಳಕೆದಾರರು ಕಂಡುಬಂದಿಲ್ಲ.');
 assert.equal(kannada['font-size-largest'], 'ಅತ್ಯಂತ ದೊಡ್ಡದು');
+assert.equal(kannada['color-sky'], 'ಆಕಾಶ ನೀಲಿ');
