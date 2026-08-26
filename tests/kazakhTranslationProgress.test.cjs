@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -59,3 +59,7 @@ assert.equal(kazakh['card-due'], 'Мерзімі');
 assert.match(kazakh['card-edit-planning-poker'], /Planning Poker/);
 assert.equal(kazakh['addBoardOrgPopup-title'], 'Ұйым қосу');
 assert.equal(kazakh['importSwimlanePopup-title'], 'Swimlane импорттау');
+assert.equal(kazakh['userPopup-title'], 'Мүше');
+assert.equal(kazakh['map-to-existing-user-no-results'],
+  'Сәйкес пайдаланушылар табылмады.');
+assert.match(kazakh['font-preview-text'], /0123456789/);
