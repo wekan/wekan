@@ -31,7 +31,7 @@
 # $GITHUB_ENV when set) so the caller can record provenance:
 #     node_full=v24.19.0
 #     node_from=official
-#     node_url=https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz
+#     node_url=https://nodejs.org/dist/v24.20.0/node-v24.20.0-linux-x64.tar.xz
 #     node_sha256=<hex of the file that was downloaded and verified>
 #
 # Exit status: 0 embedded, 3 NO source has a Node.js for this platform - the

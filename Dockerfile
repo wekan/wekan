@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.source="https://github.com/wekan/wekan"
 # TARGETARCH and TARGETVARIANT are automatically provided by Docker Buildx
 ARG TARGETARCH
 ARG TARGETVARIANT
-ARG VERSION=11.14
+ARG VERSION=11.15
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essential git ca-certificates python3 unzip"
@@ -28,7 +28,7 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 ENV \
     DEBUG=false \
     DDP_TRANSPORT=sockjs \
-    NODE_VERSION=v24.19.0 \
+    NODE_VERSION=v24.20.0 \
     METEOR_RELEASE=METEOR@3.5-rc.2 \
     USE_EDGE=false \
     NPM_VERSION=11.12.1 \
