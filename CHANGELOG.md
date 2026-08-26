@@ -881,15 +881,18 @@ guidance, display modes, calendars, archive safeguards and card editing. This
 left **149,326 genuinely untranslated values across 69 locale files**. The sixth
 50-value Inuktitut batch added card membership, voting, Planning Poker,
 dependencies, organization links and import dialogs. This left **149,276
-genuinely untranslated values across 69 locale files**.
+genuinely untranslated values across 69 locale files**. The seventh 50-value
+Inuktitut batch added member dialogs, linked items, imported-user mapping,
+themes, fonts and account preferences. This left **149,226 genuinely
+untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `userPopup-title` with
+Resume Inuktitut at `changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 1,867 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 1,817 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
