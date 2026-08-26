@@ -1387,9 +1387,12 @@ conversion, runtime metrics, filesystem monitoring and job queues. This left
 The forty-second 50-value Greenlandic batch added migration tuning,
 monitoring navigation, operation scheduling and system resources. This left
 **140,975 genuinely untranslated values across 66 locale files**.
+The forty-third 50-value Greenlandic batch added repository accounts, login
+errors, problem repair status and system events. This left **140,925 genuinely
+untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `current-step` with
+Resume Greenlandic at `event-detail` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
