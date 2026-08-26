@@ -1465,9 +1465,12 @@ and invitation email. This left **140,073 genuinely untranslated values across
 The twenty-fourth 50-value Kannada batch added webhooks, system information,
 custom-field display and account settings. This left **140,023 genuinely
 untranslated values across 65 locale files**.
+The twenty-fifth 25-value Kannada batch added organization and team settings,
+card dates and color controls. This left **139,998 genuinely untranslated
+values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `active-org` with
+Resume Kannada at `setListColorPopup-title` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
