@@ -514,15 +514,18 @@ limits, keyboard shortcuts and default-board controls. This left **155,327
 genuinely untranslated values across 72 locale files**. The sixteenth 50-value
 Hausa batch added starred boards, time tracking, uploads, custom branding,
 welcome templates and WIP-limit guidance. This left **155,277 genuinely
-untranslated values across 72 locale files**.
+untranslated values across 72 locale files**. The seventeenth 50-value Hausa
+batch added attachment and API limits, registration, SMTP invitations,
+webhooks and runtime version labels. Translation work is paused after this
+commit with **155,227 genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Hausa at `attachment-transfer-limits-title` with
+Resume Hausa at `Database_type` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 1,367 Hausa values remain.
+now complete, and 1,317 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
