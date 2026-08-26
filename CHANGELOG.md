@@ -941,15 +941,18 @@ team and user dialogs, notifications, role permissions and weekday settings.
 This left **148,326 genuinely untranslated values across 69 locale files**. The
 twenty-sixth 50-value Inuktitut batch added linked-list safeguards, domains,
 shared templates, My Cards and due-card views, global search and missing items.
-This left **148,276 genuinely untranslated values across 69 locale files**.
+This left **148,276 genuinely untranslated values across 69 locale files**. The
+twenty-seventh 50-value Inuktitut batch added search-result counts and localized
+global-search operators and predicates for board, people, dates and content.
+This left **148,226 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `user-username-not-found` with
+Resume Inuktitut at `predicate-member` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 867 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 817 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -134,3 +134,7 @@ assert.equal(inuktitut.domain, 'ᐃᑭᐊᖅᑭᕕᐅᑉ ᐊᑎᖓ');
 assert.equal(inuktitut['dueCards-noResults-title'],
   'ᐱᔭᕇᖅᑕᐅᔪᒃᓴᒥᒃ ᐊᓪᓚᖅᓯᒪᔪᒥᒃ ᓇᓂᓯᙱᑦᑐᖅ');
 assert.deepEqual(tokens(inuktitut['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(inuktitut['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(inuktitut['operator-board'], 'ᐊᓪᓚᕕᒃ');
+assert.equal(inuktitut['predicate-quarter'], 'ᑕᖅᑮᑦ ᐱᖓᓱᑦ');
