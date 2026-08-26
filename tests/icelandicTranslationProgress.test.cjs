@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -150,3 +150,6 @@ assert.equal(icelandic.accessibility, 'Aðgengi');
 assert.equal(icelandic['accounts-lockout-locked-users'], 'Læstir notendur');
 assert.equal(icelandic['accounts-lockout-period'], 'Læsingartími (sekúndur)');
 assert.equal(icelandic['cron-jobs'], 'Tímasett verk');
+assert.deepEqual(tokens(icelandic['database-migration-confirm']), ['__db__']);
+assert.match(icelandic['database-migration-description'], /WEKAN_FERRETDB_URL/);
+assert.equal(icelandic['sandstorm-migration-success'], 'Tókst');
