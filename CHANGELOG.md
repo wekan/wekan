@@ -1555,9 +1555,12 @@ untranslated values across 65 locale files**.
 The fifty-fourth 15-value Kannada batch added avatar controls, user
 anonymization and activity, notification and watch controls. This left
 **139,067 genuinely untranslated values across 65 locale files**.
+The fifty-fifth 25-value Kannada batch added backup scope, scheduling, storage
+and restore modes. This left **139,042 genuinely untranslated values across 65
+locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `backup-description` with
+Resume Kannada at `backup-restore-confirm` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
