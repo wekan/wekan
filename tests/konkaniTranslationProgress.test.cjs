@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1092);
+assert.equal(Object.keys(remaining).length, 1042);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -95,3 +95,5 @@ assert.deepEqual(tokens(konkani['r-import-done']), ['__count__']);
 assert.deepEqual(tokens(konkani['r-import-unmapped']), ['__count__']);
 assert.equal(konkani['r-trigger'], 'चालक');
 assert.equal(konkani['r-move-card-to'], 'कार्ड हांगा व्हरात');
+assert.equal(konkani['r-d-send-email'], 'ईमेल धाडात');
+assert.equal(konkani['r-add-swimlane'], 'मार्ग जोडात');

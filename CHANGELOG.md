@@ -1663,9 +1663,12 @@ schedules, due-date triggers, automation buttons and relative dates. This left
 The twenty-eighth 25-value Konkani batch added automation movement, label,
 member, attachment and checklist conditions. This left **137,666 genuinely
 untranslated values across 64 locale files**.
+The twenty-ninth 50-value Konkani batch added automation card movement, member,
+label, checklist, swimlane and email actions. This left **137,616 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `r-bottom-of` with
+Resume Konkani at `r-checklist-note` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
