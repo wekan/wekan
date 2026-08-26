@@ -341,15 +341,17 @@ rule grammar for card movement, labels, members, attachments, checklists and
 email actions. The twenty-third 50-value batch added concrete rule actions,
 date fields, authentication and custom HTML/manifest settings. The twenty-fourth
 50-value batch added counters, layout positions, due-time notifications,
-account deletion safeguards and resize controls. This left **159,221 genuinely
+account deletion safeguards and resize controls. The twenty-fifth 50-value batch
+added editor behavior, management dialogs, notification filters, board-role
+permissions, weekdays and status labels. This left **159,171 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `submit-on-enter` with
+Continue Guarani at `delete-linked-card-before-this-card` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 969 Guarani values remain.
+complete; 919 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
