@@ -110,8 +110,12 @@ function computePopupOffset(params) {
     'cardCustomField-datePopup',
   ];
   if (DATE_EDITOR_POPUPS.includes(popupName)) {
+    // popup.css gives these forms a 400px desktop shell, wider than the
+    // ordinary 380px popup used above. Centre the width the browser actually
+    // renders; using the default width shifts the shell right by 10px.
+    const dateEditorWidth = Math.min(400, viewportWidth * 0.9);
     return {
-      left: Math.max(viewportPadding, (viewportWidth - popupWidth) / 2) + scrollLeft,
+      left: Math.max(viewportPadding, (viewportWidth - dateEditorWidth) / 2) + scrollLeft,
       top: viewportPadding + scrollTop,
       maxHeight: viewportHeight - viewportPadding * 2,
     };

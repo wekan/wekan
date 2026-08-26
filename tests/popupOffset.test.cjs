@@ -92,7 +92,8 @@ test('#6636: every desktop date editor is centred in the viewport', () => {
       viewportWidth: VW, viewportHeight: VH, scrollLeft: 300, scrollTop: 500,
       opener: { top: 900, left: 1400, height: 24 }, popupName,
     });
-    assert.strictEqual(result.left - 300, (VW - 380) / 2, popupName);
+    assert.strictEqual(result.left - 300, (VW - 400) / 2,
+      `${popupName} uses the date editor's real CSS width`);
     assert.strictEqual(result.top - 500, PAD, popupName);
     assert.strictEqual(result.maxHeight, VH - PAD * 2, popupName);
   }
