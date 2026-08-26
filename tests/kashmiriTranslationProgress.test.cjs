@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -83,3 +83,5 @@ assert.deepEqual(tokens(kashmiri['email-invite-register-text']),
 assert.match(kashmiri['attachment-transfer-limits-description'], /API/);
 assert.match(kashmiri.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(kashmiri['org-domains-description'], /MULTITENANCY=true/);
+assert.deepEqual(tokens(kashmiri['default-subtasks-board']), ['__board__']);
+assert.deepEqual(tokens(kashmiri['activity-added-label']), ['%s', '%s']);

@@ -1801,8 +1801,12 @@ registration, SMTP invitations, webhooks and runtime version labels. This left
 The eighteenth 50-value Kashmiri batch added database and operating-system
 diagnostics, custom-field display and organization and team tenancy. This left
 **135,674 genuinely untranslated values across 63 locale files**.
+The nineteenth 50-value Kashmiri batch added card dates, destructive cleanup,
+subtask routing, minicard presentation and parent-card paths. This left
+**135,624 genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at `card-received` with
+and exact tokens from `en.i18n.json`, resuming Kashmiri at
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
