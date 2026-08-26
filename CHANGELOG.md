@@ -709,12 +709,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Card details** retain their side gutters so content no longer
+crowds either edge. Every shared **date editor** opens centered in the visible
+viewport, and its Date and Time controls shrink within the available width
+instead of creating a horizontal scrollbar. Ordinary menus remain anchored to
+the controls that open them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -726,6 +725,31 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bug:
+
+**Card details** - opened cards and their date editors remain comfortably
+inside their visible bounds.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f9f3c66e4">Side gutters remain visible and date editors open centered without horizontal scrolling</a>. Thanks to Alishara and xet7.</summary>
+
+The card canvas now uses border-box sizing so its 20-pixel inline padding is
+part of its available width instead of allowing content to consume the gutters.
+All seven shared date editors open at the horizontal center of the visible
+viewport. Their Date and Time flex columns may shrink, and their controls fit
+the columns, removing the bottom scrollbar introduced when those controls were
+placed on one row.
+
+Pure geometry coverage checks every date editor while scrolled, positive CSS
+coverage pins the shrink and gutter contracts, and the existing ordinary-popup
+tests ensure menus remain anchored to their controls. A Playwright regression
+opens a card and its due-date editor, then checks both gutters, exact centering
+and the absence of horizontal overflow.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.13 2026-08-26 WeKan ® release
 
