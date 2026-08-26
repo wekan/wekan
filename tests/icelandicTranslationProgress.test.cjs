@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -51,3 +51,6 @@ assert.equal(icelandic['userPopup-title'], 'Meðlimur');
 assert.equal(icelandic['map-to-existing-user-no-results'],
   'Engir samsvarandi notendur fundust.');
 assert.equal(icelandic['changePermissionsPopup-title'], 'Breyta heimildum');
+assert.equal(icelandic['auto-list-width'], 'Sjálfvirk listabreidd');
+assert.equal(icelandic['move-card-up'], 'Færa spjald upp');
+assert.equal(icelandic['color-sky'], 'himinblár');
