@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -102,3 +102,6 @@ assert.equal(icelandic['r-mark-complete'], 'Merkja spjald lokið');
 assert.equal(icelandic['r-unarchived'], 'Endurheimt úr safni');
 assert.equal(icelandic['r-remove-all'], 'Fjarlægja alla meðlimi af spjaldinu');
 assert.equal(icelandic['r-d-send-email'], 'Senda tölvupóst');
+assert.equal(icelandic['r-d-unarchive'], 'Endurheimta spjald úr safni');
+assert.equal(icelandic['r-items-list'], 'atriði1,atriði2,atriði3');
+assert.equal(icelandic['authentication-method'], 'Auðkenningaraðferð');
