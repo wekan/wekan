@@ -14,7 +14,7 @@ const remaining = JSON.parse(result.stdout);
 // This decreases by exactly one for every directly filled placeholder. Keeping
 // the count explicit makes a skipped or oversized batch visible while the full
 // token and tag inventory checks below protect the translated values.
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
