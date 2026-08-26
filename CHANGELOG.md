@@ -1317,9 +1317,12 @@ custom-field display, account controls and organization tenancy. This left
 The nineteenth 50-value Greenlandic batch added received and end dates,
 destructive confirmations, subtasks, card display and parent links. This left
 **142,125 genuinely untranslated values across 66 locale files**.
+The twentieth 50-value Greenlandic batch added activity details and rule
+workflow triggers, actions, imports and exports. This left **142,075 genuinely
+untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `activity-removed-label` with
+Resume Greenlandic at `r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
