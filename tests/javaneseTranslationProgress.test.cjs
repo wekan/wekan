@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -86,3 +86,8 @@ assert.deepEqual(tokens(javanese['label-default']), ['%s']);
 assert.deepEqual(tokens(javanese['leave-board-pop']), ['__boardTitle__']);
 assert.equal(javanese.calendar, 'Tanggalan');
 assert.equal(javanese['multi-selection'], 'Pilihan Akeh');
+assert.deepEqual(tokens(javanese['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(javanese['page-maybe-private']),
+  ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(javanese['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
