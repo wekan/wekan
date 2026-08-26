@@ -274,17 +274,16 @@ all 2,166 Chuvash values, leaving **175,499 genuinely untranslated values across
 81 locale files**. Forty-two 50-value Dzongkha batches and a final 66-value
 batch then translated all 2,166 Dzongkha values. Forty-two 50-value Ewe batches
 and a final 66-value batch then translated all 2,166 Ewe values. The first
-forty-one 50-value Fulah batches and two 49-value batches then translated 2,148
-values. A new English key added one placeholder to every second-tier locale in
-parallel, leaving **169,098 genuinely untranslated values across 79 locale
-files**.
+forty-one 50-value Fulah batches, two 49-value batches and a final 17-value
+batch then translated 2,165 actionable values. `Bucket` and `Log` are invariant
+product terms that need no translation, completing Fulah and leaving **169,079
+genuinely untranslated values across 78 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Fulah at `event-detail` (`gcs-bucket` and `log` remain the invariant
-product terms `Bucket` and `Log`) with
-`node releases/translations/fill-translations.mjs --list ff --limit 50`;
-Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha and Ewe are complete, and
-19 Fulah values remain.
+Continue Fijian at `accept` with
+`node releases/translations/fill-translations.mjs --list fj --limit 50`;
+Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe and Fulah are
+complete, and 2,167 Fijian values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
