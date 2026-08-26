@@ -555,15 +555,17 @@ dependencies, board backgrounds and locations. This left **154,627 genuinely
 untranslated values across 72 locale files**. The thirtieth 50-value Hausa batch
 added map detection, server troubleshooting, custom-field templates, reports
 and office-login summaries. This left **154,577 genuinely untranslated values
-across 72 locale files**.
+across 72 locale files**. The thirty-first 50-value Hausa batch added API and
+recovery reports, wait indicators, safeguards, tickets and request statuses.
+This left **154,527 genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Hausa at `office-last-seen` with
+Resume Hausa at `add-teams` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 667 Hausa values remain.
+now complete, and 617 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
