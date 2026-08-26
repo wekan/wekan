@@ -1612,9 +1612,12 @@ files**.
 The eleventh 50-value Konkani batch added board roles, deletion confirmations,
 clipboard actions, templates and custom fields. This left **138,291 genuinely
 untranslated values across 64 locale files**.
+The twelfth 25-value Konkani batch added permanent deletion, profile and WIP
+controls, date dialogs and enrollment email. This left **138,266 genuinely
+untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `custom-field-text` with
+Resume Konkani at `email-fail` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
