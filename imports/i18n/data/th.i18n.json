@@ -829,6 +829,7 @@
   "deleted-user": "ผู้ใช้ที่ถูกลบ",
   "remove-member-from-card": "ลบจากการ์ด",
   "remove-member-pop": "ลบ __name__ (__username__) จาก __boardTitle__ หรือไม่ สมาชิกจะถูกลบออกจากการ์ดทั้งหมดบนบอร์ดนี้ และพวกเขาจะได้รับการแจ้งเตือน",
+  "sandstorm-remove-member-warning": "การดำเนินการนี้จะซ่อนสมาชิกภายใน WeKan เท่านั้น โดยไม่เพิกถอนสิทธิ์เข้าถึง Sandstorm grain โปรดเพิกถอนสิทธิ์ของสมาชิกในกล่องโต้ตอบแชร์สิทธิ์เข้าถึงของ Sandstorm ด้วย",
   "removeMemberPopup-title": "ลบสมาชิกหรือไม่",
   "rename": "ตั้งชื่อใหม่",
   "rename-board": "ตั้งชื่อบอร์ดใหม่",

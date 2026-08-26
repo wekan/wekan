@@ -829,6 +829,7 @@
   "deleted-user": "Öçürilen ulanyjy",
   "remove-member-from-card": "Kartdan aýyryň",
   "remove-member-pop": "__name__ (__username__) agzany __boardTitle__ tagtasyndan aýyrmalymy? Agza bu tagtadaky ähli kartoçkalardan aýrylar we duýduryş alar.",
+  "sandstorm-remove-member-warning": "Bu diňe agzany WeKan içinde gizleýär. Sandstorm grain-e giriş hukugyny ýatyrmaýar. Olaryň giriş hukugyny Sandstorm-yň Girişi paýlaş gepleşik penjiresinde-de ýatyryň.",
   "removeMemberPopup-title": "Agzany aýyrmalymy?",
   "rename": "Adyny üýtgetmek",
   "rename-board": "Tagtanyň adyny üýtgetmek",

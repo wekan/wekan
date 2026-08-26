@@ -301,12 +301,14 @@ Korean variants, Lithuanian, Latvian, Macedonian, Mongolian, both Malay variants
 and Norwegian Bokmål. Both Dutch variants, Occitan, Odia, Punjabi, both Polish
 variants and three Portuguese variants followed. The underscored Portuguese
 locale, both Romanian variants, four Russian variants,
-Slovak and both Slovenian variants followed. This left **160,460 genuinely
+Slovak and both Slovenian variants followed. Serbian, Swedish, Swahili, Tamil,
+Telugu, Thai, Turkmen, Klingon, Turkish and Uyghur followed. The Klingon wording
+is low confidence. This left **160,450 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Serbian at `sandstorm-remove-member-warning` with
-`node releases/translations/fill-translations.mjs --list sr --limit 50`;
+Continue Ukrainian at `sandstorm-remove-member-warning` with
+`node releases/translations/fill-translations.mjs --list uk-UA --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete.

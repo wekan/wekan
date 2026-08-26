@@ -829,6 +829,7 @@
   "deleted-user": "Mtumiaji aliyefutwa",
   "remove-member-from-card": "Ondoa kwenye Kadi",
   "remove-member-pop": "Ondoa __name__ (__username__) kutoka kwa __boardTitle__? Mwanachama ataondolewa kwenye kadi zote kwenye ubao huu. Watapokea arifa.",
+  "sandstorm-remove-member-warning": "Hii humficha mwanachama ndani ya WeKan pekee. Haiondoi ruhusa ya kufikia grain ya Sandstorm. Ondoa pia ruhusa yake kwenye kisanduku cha Shiriki ufikiaji cha Sandstorm.",
   "removeMemberPopup-title": "Ungependa kuondoa Mwanachama?",
   "rename": "Badilisha jina",
   "rename-board": "Badilisha Jina la Bodi",

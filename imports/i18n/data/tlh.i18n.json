@@ -829,6 +829,7 @@
   "deleted-user": "lo'wI' Qaw'lu'pu'",
   "remove-member-from-card": "Von Karte entfernen",
   "remove-member-pop": "__name__ (__username__) von __boardTitle__ entfernen? Das Mitglied wird von allen Karten auf diesem Board entfernt. Es erhält eine Benachrichtigung.",
+  "sandstorm-remove-member-warning": "WeKan qoD beq neH SoQmoH wanI'vam. Sandstorm grain naw' DIb qIlbe'. Sandstorm naw' wavmeH QorwaghDaq naw' DIbDaj qIl je.",
   "removeMemberPopup-title": "Mitglied entfernen?",
   "rename": "Umbenennen",
   "rename-board": "Board umbenennen",

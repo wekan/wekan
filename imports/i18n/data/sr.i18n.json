@@ -829,6 +829,7 @@
   "deleted-user": "Обрисани корисник",
   "remove-member-from-card": "Скини га са предмета",
   "remove-member-pop": "Да ли сте сигурни да желите да изузмете сарадника __name__ чије корисничко име је __username__ са свих предмета из списа __boardTitle__ ? Сарадник ће бити обавештен о свему.",
+  "sandstorm-remove-member-warning": "Ово само скрива члана унутар WeKan-а. Не укида приступ Sandstorm grain-у. Укините његов приступ и у Sandstorm дијалогу за дељење приступа.",
   "removeMemberPopup-title": "Потврди изузеће",
   "rename": "Преименуј",
   "rename-board": "Преименуј списе",

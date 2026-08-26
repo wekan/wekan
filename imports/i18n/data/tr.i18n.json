@@ -829,6 +829,7 @@
   "deleted-user": "Silinen kullanıcı",
   "remove-member-from-card": "Karttan Çıkar",
   "remove-member-pop": "__boardTitle__ panosundan __name__ (__username__) çıkarılsın mı? Üye, bu panodaki tüm kartlardan çıkarılacak. Panodan çıkarıldığı üyeye bildirilecektir.",
+  "sandstorm-remove-member-warning": "Bu işlem üyeyi yalnızca WeKan içinde gizler. Sandstorm grainine erişimi iptal etmez. Üyenin erişimini Sandstorm'un Erişimi paylaş iletişim kutusundan da iptal edin.",
   "removeMemberPopup-title": "Üye çıkarılsın mı?",
   "rename": "Yeniden adlandır",
   "rename-board": "Panonun Adını Değiştir",

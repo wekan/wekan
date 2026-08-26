@@ -829,6 +829,7 @@
   "deleted-user": "Raderad användare",
   "remove-member-from-card": "Ta bort från kort",
   "remove-member-pop": "Ta bort __name__ (__username__) från __boardTitle__? Medlemmen kommer att bli borttagen från alla kort i denna tavla. De kommer att få en notis.",
+  "sandstorm-remove-member-warning": "Detta döljer bara medlemmen i WeKan. Det återkallar inte åtkomsten till Sandstorm-grainen. Återkalla även åtkomsten i Sandstorms dialogruta Dela åtkomst.",
   "removeMemberPopup-title": "Ta bort medlem?",
   "rename": "Byt namn",
   "rename-board": "Byt namn på tavla",
