@@ -377,15 +377,18 @@ added repositories, account access, problem reporting, card repair and event
 metrics. The final 18-value forty-fourth batch added event addresses, filesystem
 integrity, scoped export and board-import guidance, completing all actionable
 Guarani values; `FerretDB commit` remains an invariant technical label. This left
-**158,253 genuinely
+**158,253 genuinely untranslated values across 77 locale files**. The first
+50-value Manx batch then added activity, deletion, comment, checklist, member
+and archive strings. This left **158,203 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Manx at `accept` with
+Continue Manx at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list gv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; Guarani is now complete apart from its invariant technical label.
+complete; Guarani is now complete apart from its invariant technical label, and
+2,117 Manx values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
