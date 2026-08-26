@@ -829,6 +829,7 @@
   "deleted-user": "Usunięty użytkownik",
   "remove-member-from-card": "Usuń z karty",
   "remove-member-pop": "Usunąć __name__ (__username__) z __boardTitle__? Użytkownik zostanie usunięty ze wszystkich kart na tej tablicy. Zostanie o tym powiadomiony.",
+  "sandstorm-remove-member-warning": "To tylko ukrywa członka w WeKanie. Nie odbiera mu dostępu do grainu Sandstorm. Odbierz mu dostęp również w oknie dialogowym Udostępnij dostęp w Sandstormie.",
   "removeMemberPopup-title": "Usunąć użytkownika?",
   "rename": "Zmień nazwę",
   "rename-board": "Zmień nazwę tablicy",

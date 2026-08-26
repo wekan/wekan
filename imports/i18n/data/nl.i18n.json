@@ -829,6 +829,7 @@
   "deleted-user": "Verwijderde gebruiker",
   "remove-member-from-card": "Verwijder van kaart",
   "remove-member-pop": "Verwijder __name__ (__username__) van __boardTitle__? Het lid zal verwijderd worden van alle kaarten op dit bord, en zal een notificatie ontvangen.",
+  "sandstorm-remove-member-warning": "Dit verbergt het lid alleen binnen WeKan. De toegang tot de Sandstorm-grain wordt niet ingetrokken. Trek de toegang ook in via het dialoogvenster Toegang delen van Sandstorm.",
   "removeMemberPopup-title": "Lid verwijderen?",
   "rename": "Hernoem",
   "rename-board": "Hernoem bord",
