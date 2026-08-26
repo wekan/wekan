@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -69,3 +69,7 @@ assert.equal(javanese['color-red'], 'abang');
 assert.equal(javanese['read-only'], 'Mung Waca');
 assert.equal(javanese.worker, 'Buruh');
 assert.equal(javanese['custom-field-number'], 'Wilangan');
+assert.equal(javanese['date-format'], 'Format Tanggal');
+assert.deepEqual(tokens(javanese['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.equal(javanese['error-list-doesNotExist'], 'Dhaptar iki ora ana');
