@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -46,3 +46,7 @@ assert.equal(kazakh['home-board-badge'],
   'Басты тақта (кіргеннен кейін ашылады)');
 assert.match(kazakh['list-width-error-message'], /270/);
 assert.equal(kazakh['add-checklist'], 'Тексеру тізімін қосу');
+assert.deepEqual(tokens(kazakh['avatar-too-big']), ['__size__']);
+assert.equal(kazakh['board-not-found'], 'Тақта табылмады');
+assert.deepEqual(tags(kazakh['board-private-info']),
+  ['</strong>', '<strong>']);
