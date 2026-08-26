@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 641);
+assert.equal(Object.keys(remaining).length, 591);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -109,3 +109,4 @@ assert.deepEqual(tokens(kannada['import-dependencies-done']),
 assert.deepEqual(tokens(kannada['custom-field-stringtemplate-format']),
   ['%{value}']);
 assert.equal(kannada['recovery-db'], 'ದತ್ತಸಂಚಯ');
+assert.equal(kannada['ticket-number'], 'ಟಿಕೆಟ್ ಸಂಖ್ಯೆ');
