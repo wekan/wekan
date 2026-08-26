@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -66,3 +66,6 @@ assert.match(kazakh['font-preview-text'], /0123456789/);
 assert.equal(kazakh['auto-list-width'], 'Тізімнің автоматты ені');
 assert.equal(kazakh['move-card-up'], 'Карточканы жоғары жылжыту');
 assert.equal(kazakh['color-red'], 'қызыл');
+assert.equal(kazakh['read-only'], 'Тек оқу');
+assert.equal(kazakh.worker, 'Жұмысшы');
+assert.equal(kazakh['custom-field-number'], 'Сан');
