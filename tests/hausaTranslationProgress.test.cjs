@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -103,3 +103,6 @@ assert.match(hausa['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
 assert.match(hausa['restore-lost-cards-migration-description'], /swimlaneId.*listId/);
 assert.match(hausa['run-restore-all-archived-migration-confirm'], /DUKKAN/);
 assert.equal(hausa['step-validate-migration'], 'Tabbatar da ingancin ƙaura');
+assert.equal(hausa['step-fix-missing-ids'], 'Gyara ID da suka ɓace');
+assert.equal(hausa['cpu-usage'], 'Amfani da CPU');
+assert.equal(hausa['gridfs-attachments'], 'Maƙalolin GridFS');
