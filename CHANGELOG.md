@@ -1519,9 +1519,12 @@ across 65 locale files**.
 The forty-second 30-value Kannada batch finished search notes and added sorting,
 stickers and card dependencies. This left **139,482 genuinely untranslated
 values across 65 locale files**.
+The forty-third 25-value Kannada batch added dependency imports, board
+backgrounds and card locations. This left **139,457 genuinely untranslated
+values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `dependency-icon` with
+Resume Kannada at `location-longitude` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
