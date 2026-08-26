@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -61,3 +61,7 @@ assert.match(greenlandic['card-edit-planning-poker'], /Planning Poker/);
 assert.equal(greenlandic['addBoardOrgPopup-title'],
   'Peqatigiiffik ilannguguk');
 assert.equal(greenlandic['importSwimlanePopup-title'], 'Aqqut eqquguk');
+assert.equal(greenlandic['userPopup-title'], 'Ilaasortaq');
+assert.equal(greenlandic['map-to-existing-user-no-results'],
+  'Atuisunik naleqquttunik nassaartoqanngilaq.');
+assert.match(greenlandic['font-preview-text'], /0123456789/);
