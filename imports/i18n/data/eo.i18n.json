@@ -829,6 +829,7 @@
   "deleted-user": "Forigita uzanto",
   "remove-member-from-card": "Forigi de karto",
   "remove-member-pop": "¿Eliminar __name__ (__username__) de __boardTitle__? El miembro será eliminado de todas las tarjetas de este tablero. En ellas se mostrará una notificación.",
+  "sandstorm-remove-member-warning": "Ĉi tio nur kaŝas la membron ene de WeKan. Ĝi ne nuligas la aliron al la Sandstorm-greno. Nuligu ankaŭ ties aliron en la dialogo Kunhavigi aliron de Sandstorm.",
   "removeMemberPopup-title": "¿Eliminar miembro?",
   "rename": "Renomi",
   "rename-board": "Renomi tavolon",

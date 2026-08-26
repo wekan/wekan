@@ -829,6 +829,7 @@
   "deleted-user": "Usuario eliminado",
   "remove-member-from-card": "Remover de Tarjeta",
   "remove-member-pop": "¿Remover __name__ (__username__) de __boardTitle__? Los miembros va a ser removido de todas las tarjetas en este tablero. Serán notificados.",
+  "sandstorm-remove-member-warning": "Esto solo oculta al miembro dentro de WeKan. No revoca el acceso al grain de Sandstorm. Revoque también su acceso en el diálogo Compartir acceso de Sandstorm.",
   "removeMemberPopup-title": "¿Remover Miembro?",
   "rename": "Renombrar",
   "rename-board": "Renombrar Tablero",
