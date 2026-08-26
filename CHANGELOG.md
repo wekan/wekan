@@ -858,15 +858,18 @@ recurring schedules and migration job monitoring. This left **149,693 genuinely
 untranslated values across 70 locale files**. The forty-second 50-value
 Icelandic batch added migration resource limits, background progress, monitoring
 controls, attachment statistics and operation scheduling. This left **149,643
-genuinely untranslated values across 70 locale files**.
+genuinely untranslated values across 70 locale files**. The forty-third 50-value
+Icelandic batch added repository access, account validation, problem summaries,
+card repair, CPU status and event fields. This left **149,593 genuinely
+untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `current-step` with
+Resume Icelandic at `event-detail` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 67 Icelandic values remain.
+and Haitian Creole are now complete; 17 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
