@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -90,3 +90,6 @@ assert.match(creole['org-domains-description'], /MULTITENANCY=true/);
 assert.deepEqual(tokens(creole['default-subtasks-board']), ['__board__']);
 assert.equal(creole['parent-card'], 'Kat paran');
 assert.deepEqual(tokens(creole['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(creole['activity-set-customfield']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(creole['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(creole['r-import-done']), ['__count__']);
