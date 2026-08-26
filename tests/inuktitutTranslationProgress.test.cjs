@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -62,3 +62,6 @@ assert.equal(inuktitut['auto-list-width'],
   'ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ ᐃᒻᒥᓂᒃ');
 assert.equal(inuktitut['move-card-up'], 'ᐊᓪᓚᖅᓯᒪᔪᖅ ᖁᒻᒧᑦ ᓅᓪᓗᒍ');
 assert.equal(inuktitut['color-red'], 'ᐊᐅᐸᖅᑐᖅ');
+assert.equal(inuktitut['read-only'], 'ᐅᖃᓕᒫᑐᐃᓐᓇᕐᓂᖅ');
+assert.equal(inuktitut['worker'], 'ᓴᓇᔨ');
+assert.equal(inuktitut['custom-field-number'], 'ᓈᓴᐅᑎ');
