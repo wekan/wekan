@@ -1029,14 +1029,17 @@ This left **146,909 genuinely untranslated values across 68 locale files**.
 The eleventh 50-value Javanese batch added account conflicts, card PDF and Excel
 exports, attachment metadata, list sorting and date, label and member filters.
 This left **146,859 genuinely untranslated values across 68 locale files**.
+The twelfth 50-value Javanese batch added advanced filtering, member state and
+impersonation, multi-source board imports and Trello ZIP validation and progress.
+This left **146,809 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `filter-assignee-label` with
+Resume Javanese at `import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 1617
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 1567
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
