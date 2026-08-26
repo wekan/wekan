@@ -283,15 +283,15 @@ Fijian. Thirteen 50-value Faroese batches, twenty-four 49-value batches, six
 48-value batches and a final 51-value batch then translated all 2,166
 actionable Faroese values. `Menu` and `Bucket` are invariant product terms,
 completing Faroese. Forty-three 50-value Irish batches and a final 17-value batch
-completed Irish. The first thirty-nine 50-value Scottish Gaelic batches then left
-**160,790 genuinely
+completed Irish. The first forty 50-value Scottish Gaelic batches then left
+**160,740 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Scottish Gaelic at `card-show-lists-on-minicard` with
+Continue Scottish Gaelic at `step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list gd --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
-Faroese and Irish are complete, and 217 Scottish Gaelic values remain.
+Faroese and Irish are complete, and 167 Scottish Gaelic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
