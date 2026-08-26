@@ -402,16 +402,18 @@ and keyboard-shortcut strings. The Sandstorm warning wording is low confidence.
 The sixteenth 50-value Manx batch added starring, time tracking, upload,
 custom-logo, welcome-board and WIP warning strings. The seventeenth 50-value
 Manx batch added attachment/API limits, SMTP invitations, webhooks and
-server-version labels. This left **157,403 genuinely
+server-version labels. The eighteenth 50-value Manx batch added database/OS
+metrics, field display, visibility, organization, team and multitenancy strings.
+This left **157,353 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Manx at `Database_type` with
+Continue Manx at `card-received` with
 `node releases/translations/fill-translations.mjs --list gv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete; Guarani is now complete apart from its invariant technical label, and
-1,317 Manx values remain.
+1,267 Manx values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
