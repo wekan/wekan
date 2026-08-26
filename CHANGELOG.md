@@ -1221,9 +1221,12 @@ genuinely untranslated values across 67 locale files**.
 The thirty-first 50-value Kazakh batch added API and recovery reports, wait
 indicators, organization safety, tickets and help requests. This left **143,692
 genuinely untranslated values across 67 locale files**.
+The thirty-second 50-value Kazakh batch added team and organization assignment,
+Node memory metrics, checklist actions and attachment storage moves. This left
+**143,642 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `add-teams` with
+Resume Kazakh at `move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
