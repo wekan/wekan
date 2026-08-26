@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -76,3 +76,6 @@ assert.equal(hausa['ticket-number'], 'Lambar tikiti');
 assert.match(hausa.Node_heap_total_heap_size, /Node/);
 assert.equal(hausa['attachment-move-storage-gridfs'], 'Matsar da maƙala zuwa GridFS');
 assert.equal(hausa['attachment-move-storage-s3'], 'Matsar da maƙala zuwa S3');
+assert.match(hausa['attachment-repair-locations-description'], /GridFS/);
+assert.match(hausa['mongodb-compact-warning'], /replica set.*oplog.*Meteor/);
+assert.equal(hausa['gridfs-file-id'], 'ID na fayil ɗin GridFS');

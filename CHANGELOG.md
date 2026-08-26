@@ -560,15 +560,18 @@ recovery reports, wait indicators, safeguards, tickets and request statuses.
 This left **154,527 genuinely untranslated values across 72 locale files**. The
 thirty-second 50-value Hausa batch added teams, organizations, Node memory
 metrics, legal notices, checklist actions and attachment storage. This left
-**154,477 genuinely untranslated values across 72 locale files**.
+**154,477 genuinely untranslated values across 72 locale files**. The
+thirty-third 50-value Hausa batch added bulk attachment movement, storage
+repair, file statistics and MongoDB compaction guidance. This left **154,427
+genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Hausa at `move-all-attachments-to-gridfs` with
+Resume Hausa at `board-status` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 567 Hausa values remain.
+now complete, and 517 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
