@@ -326,15 +326,17 @@ services and file formats; the thirteenth added Trello API/ZIP progress, member
 mapping and invitation strings; the fourteenth added archive, list movement,
 multi-selection, board role and notification controls; the fifteenth added
 privacy, member removal, search, rescue and keyboard-shortcut strings. The
-Sandstorm warning wording is low confidence. This left **159,669 genuinely
+Sandstorm warning wording is low confidence. The sixteenth added starring,
+time tracking, upload, custom-logo, welcome-board and WIP warning strings. This
+left **159,619 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `starred-boards` with
+Continue Guarani at `attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 1,417 Guarani values remain.
+complete; 1,367 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
