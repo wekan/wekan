@@ -1471,9 +1471,12 @@ values across 65 locale files**.
 The twenty-sixth 50-value Kannada batch added deletion, subtask, minicard,
 parent-card and activity settings. This left **139,948 genuinely untranslated
 values across 65 locale files**.
+The twenty-seventh 25-value Kannada batch added automation workflow controls
+and card, label and member triggers. This left **139,923 genuinely untranslated
+values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `r-board-rules` with
+Resume Kannada at `r-w-checklist-added` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
