@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -77,3 +77,6 @@ assert.deepEqual(tags(creole['page-maybe-private']), ["</a>", "<a href='%s'>"]);
 assert.deepEqual(tokens(creole['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.equal(creole['sidebar-close'], 'Fèmen ba lateral');
+assert.equal(creole['starred-boards'], 'Tablo favori');
+assert.equal(creole['upload-completed'], 'Voye a fini');
+assert.equal(creole['wipLimitErrorPopup-title'], 'Limit WIP pa valab');
