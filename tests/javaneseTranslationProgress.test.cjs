@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,3 +115,7 @@ assert.equal(javanese['r-unarchive'], 'Balekake saka Arsip');
 assert.equal(javanese['r-check-all'], 'Centhang kabeh');
 assert.equal(javanese['r-d-move-to-top-gen'],
   'Pindhah kertu menyang ndhuwur dhaptare');
+assert.equal(javanese['r-create-card'], 'Gawe kertu anyar');
+assert.match(javanese['r-items-list'], /item1,item2,item3/);
+assert.equal(javanese['custom-head-manifest-content'],
+  'Isi manifest web kustom (JSON)');
