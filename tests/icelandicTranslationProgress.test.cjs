@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -117,3 +117,7 @@ assert.equal(icelandic['roles-status-empty'], 'Engin töfluhlutverk.');
 assert.equal(icelandic['create-task'], 'Búa til verk');
 assert.equal(icelandic['shared-templates'], 'Sameiginleg sniðmát');
 assert.deepEqual(tokens(icelandic['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(icelandic['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(icelandic['operator-board'], 'tafla');
+assert.equal(icelandic['predicate-overdue'], 'komið fram yfir skiladag');
