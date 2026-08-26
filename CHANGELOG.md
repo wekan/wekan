@@ -950,15 +950,18 @@ full operator, status, sorting and combination instructions. This left
 **148,176 genuinely untranslated values across 69 locale files**. The
 twenty-ninth 50-value Inuktitut batch added sorting, card completion, stickers,
 dependency relations and import, board backgrounds and location fields. This
-left **148,126 genuinely untranslated values across 69 locale files**.
+left **148,126 genuinely untranslated values across 69 locale files**. The
+thirtieth 50-value Inuktitut batch added map detection, server troubleshooting,
+string templates and administration reports for files, security and offices.
+This left **148,076 genuinely untranslated values across 69 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Inuktitut at `location-latitude` with
+Resume Inuktitut at `office-last-seen` with
 `node releases/translations/fill-translations.mjs --list iu --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole and Icelandic are now complete; 717 Inuktitut values remain.
+Haitian Creole and Icelandic are now complete; 667 Inuktitut values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
