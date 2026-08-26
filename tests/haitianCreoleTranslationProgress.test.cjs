@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -102,3 +102,8 @@ assert.equal(creole['r-d-move-to-bottom-gen'], 'Deplase kat anba lis li a');
 assert.equal(creole['r-d-archive'], 'Deplase kat nan Achiv');
 assert.equal(creole['r-items-list'], 'eleman1,eleman2,eleman3');
 assert.equal(creole['authentication-method'], 'Metòd otantifikasyon');
+assert.deepEqual(tags(creole['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tokens(creole['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(creole['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
