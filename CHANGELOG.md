@@ -496,15 +496,18 @@ added board roles, deletion confirmations, clipboard actions, bulk card JSON
 and custom fields. This left **155,627 genuinely untranslated values across 72
 locale files**. The tenth 50-value Hausa batch added profile controls, email
 templates, WIP settings and detailed permission and import errors. This left
-**155,577 genuinely untranslated values across 72 locale files**.
+**155,577 genuinely untranslated values across 72 locale files**. The eleventh
+50-value Hausa batch added account conflicts, card exports, attachment metadata,
+sorting and date/member filters. This left **155,527 genuinely untranslated
+values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Hausa at `error-user-doesNotExist` with
+Continue Hausa at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 1,667 Hausa values remain.
+now complete, and 1,617 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
