@@ -787,15 +787,18 @@ metadata, parent relationships and label activity. This left **150,793 genuinely
 untranslated values across 70 locale files**. The twentieth 50-value Icelandic
 batch added label and custom-field activity, visual rule building, event
 triggers and JSON, CSV and Trello Butler rule exchange. This left **150,743
-genuinely untranslated values across 70 locale files**.
+genuinely untranslated values across 70 locale files**. The twenty-first
+50-value Icelandic batch added n8n and Node-RED workflow imports, scheduled and
+button triggers, due-date conditions and list and card automation actions. This
+left **150,693 genuinely untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `r-import-workflow` with
+Resume Icelandic at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 1,167 Icelandic values remain.
+and Haitian Creole are now complete; 1,117 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
