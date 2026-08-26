@@ -353,15 +353,17 @@ stickers, card dependencies, board backgrounds and locations. The thirtieth
 50-value batch added map detection, server troubleshooting, custom-field
 templates, reports and office-login summaries. The thirty-first 50-value batch
 added API and recovery reports, wait indicators, safeguards, tickets and request
-statuses. This left **158,871 genuinely
+statuses. The thirty-second 50-value batch added teams, organizations, Node
+memory metrics, legal notices, checklist actions and attachment storage. This
+left **158,821 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `cardDetailsPopup-title` with
+Continue Guarani at `move-all-attachments-to-fs` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete; 619 Guarani values remain.
+complete; 569 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
