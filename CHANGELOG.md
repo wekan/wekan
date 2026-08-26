@@ -1381,9 +1381,12 @@ migration controls, S3 setup and scheduled board operations. This left
 The fortieth 50-value Greenlandic batch added board-integrity repair,
 lost-card restoration, file URL fixes and migration progress. This left
 **141,075 genuinely untranslated values across 66 locale files**.
+The forty-first 50-value Greenlandic batch added migration steps, board
+conversion, runtime metrics, filesystem monitoring and job queues. This left
+**141,025 genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `step-fix-attachment-urls` with
+Resume Greenlandic at `memory-usage` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
