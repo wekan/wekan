@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -28,3 +28,8 @@ assert.deepEqual(tokens(icelandic['act-addChecklistItem']),
   ['__board__', '__card__', '__checklistItem__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(icelandic['act-createBoard'], 'bjó til töflu __board__');
 assert.match(icelandic['act-addAttachment'], /viðhengi/);
+assert.deepEqual(tokens(icelandic['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.equal(icelandic['allboards.workspaces'], 'Vinnusvæði');
+assert.equal(icelandic['workspace-settings'], 'Stillingar vinnusvæðis');
