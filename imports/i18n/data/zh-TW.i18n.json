@@ -829,6 +829,7 @@
   "deleted-user": "已刪除的使用者",
   "remove-member-from-card": "從該卡片中移除",
   "remove-member-pop": "確定從 __boardTitle__ 中移除 __name__ (__username__) 嗎? 該成員將被從該看板的所有卡片中移除，同時他會收到一則提醒。",
+  "sandstorm-remove-member-warning": "這只會在 WeKan 中隱藏該成員，不會撤銷其對 Sandstorm grain 的存取權限。請同時在 Sandstorm 的「分享存取權」對話框中撤銷其存取權限。",
   "removeMemberPopup-title": "移除成員？",
   "rename": "重新命名",
   "rename-board": "重新命名看板",
