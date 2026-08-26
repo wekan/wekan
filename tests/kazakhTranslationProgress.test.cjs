@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -122,3 +122,7 @@ assert.equal(kazakh['r-d-remove-all-member'],
   'Барлық мүшелерді алып тастау');
 assert.equal(kazakh['custom-product-name'], 'Арнайы өнім атауы');
 assert.equal(kazakh.layout, 'Орналасу');
+assert.deepEqual(tags(kazakh['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(kazakh['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(kazakh['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
