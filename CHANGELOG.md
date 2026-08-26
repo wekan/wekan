@@ -1759,8 +1759,11 @@ genuinely untranslated values across 63 locale files**.
 The fourth 50-value Kashmiri batch added administration, announcements,
 archives, board appearance, member views and privacy guidance. This left
 **136,374 genuinely untranslated values across 63 locale files**.
+The fifth 50-value Kashmiri batch added board views, display modes, calendars,
+archive guidance and card editing. This left **136,324 genuinely untranslated
+values across 63 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at `board-public-info`
+and exact tokens from `en.i18n.json`, resuming Kashmiri at `card-members-title`
 with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
