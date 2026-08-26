@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -141,3 +141,6 @@ assert.equal(creole['attachment-move-storage-s3'], 'Deplase pyès jwenn nan S3')
 assert.equal(creole['move-storage-fs'], 'Sistèm fichye');
 assert.equal(creole['attachment-repair-done'], 'Reparasyon fini.');
 assert.match(creole['mongodb-compact-warning'], /Meteor/);
+assert.equal(creole['board-status'], 'Estati tablo');
+assert.deepEqual(tokens(creole['drag-board-to-workspace']), ['__workspaces__']);
+assert.equal(creole['accessibility'], 'Aksesibilite');
