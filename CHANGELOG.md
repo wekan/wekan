@@ -426,16 +426,18 @@ dependencies, board backgrounds and locations. The thirtieth 50-value Manx
 batch added map detection, server troubleshooting, custom-field templates,
 reports and office-login summaries. The thirty-first 50-value Manx batch added
 API and recovery reports, wait indicators, safeguards, tickets and request
-statuses. This left **156,703 genuinely
+statuses. The thirty-second 50-value Manx batch added teams, organizations, Node
+memory metrics, legal notices, checklist actions and attachment storage. This
+left **156,653 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Manx at `add-teams` with
+Continue Manx at `move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list gv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete; Guarani is now complete apart from its invariant technical label, and
-617 Manx values remain.
+567 Manx values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
