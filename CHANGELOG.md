@@ -1068,14 +1068,17 @@ This left **146,259 genuinely untranslated values across 68 locale files**.
 The twenty-fourth 50-value Javanese batch added custom HTML and authentication,
 due-date activity and reminders, destructive account actions and layout controls.
 This left **146,209 genuinely untranslated values across 68 locale files**.
+The twenty-fifth 50-value Javanese batch added multi-card editing, notifications,
+rename and board-role permissions, weekdays, status and linked-card safeguards.
+This left **146,159 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `open-many-cards-at-once` with
+Resume Javanese at `delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 967
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 917
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
