@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -193,3 +193,7 @@ assert.equal(greenlandic['sandstorm-migration-success'], 'Iluatsippoq');
 assert.equal(greenlandic['cards-loading-all'], 'Kortsit tamarmik');
 assert.equal(greenlandic['anonymized-user'], 'atuisoq');
 assert.equal(greenlandic.backup, 'Backupi');
+assert.equal(greenlandic['backup-frequency-daily'], 'Ullut tamaasa');
+assert.equal(greenlandic['cloud-connection-success'], 'Attaveqaat iluatsippoq');
+assert.equal(greenlandic['attachment-move-storage-azure'],
+  'Ilanngussaq Azure Blob Storage-imut nuuguk');
