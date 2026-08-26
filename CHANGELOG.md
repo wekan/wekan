@@ -1564,9 +1564,12 @@ values across 65 locale files**.
 The fifty-seventh 25-value Kannada batch added migration lifecycle, S3 and
 scheduled board-operation controls. This left **138,967 genuinely untranslated
 values across 65 locale files**.
+The fifty-eighth 50-value Kannada batch added board integrity, lost-item
+recovery, URL repair and migration progress. This left **138,917 genuinely
+untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `add-job` with
+Resume Kannada at `steps` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
