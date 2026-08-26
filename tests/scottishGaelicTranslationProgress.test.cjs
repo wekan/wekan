@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'gd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const gaelic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/gd.i18n.json'), 'utf8'));
@@ -26,4 +26,4 @@ for (const [key, value] of Object.entries(gaelic)) {
 assert.equal(gaelic.accept, 'Gabh ris');
 assert.match(gaelic['act-createBoard'], /bòrd/);
 assert.match(gaelic['act-createCard'], /cairt/);
-assert.equal(gaelic.log, 'Log');
+assert.equal(gaelic.log, 'Loga');

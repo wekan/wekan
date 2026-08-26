@@ -11,13 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'fj'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-// Menu, Log, and Server are invariant product terms in Fijian. Everything
-// actionable is translated, and the token/tag checks below protect every value.
-assert.deepEqual(remaining, {
-  menu: 'Menu',
-  log: 'Log',
-  server: 'Server',
-});
+assert.deepEqual(remaining, {});
 
 const english = JSON.parse(
   fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'),
