@@ -829,6 +829,7 @@
   "deleted-user": "Изтрит потребител",
   "remove-member-from-card": "Премахни от картата",
   "remove-member-pop": "Изузећете __name__ (__username__) из списа __boardTitle__? Сарадник ће бити изузет са свих предмета у списима. Примиће обавештење о томе.",
+  "sandstorm-remove-member-warning": "Това само скрива члена в WeKan. То не отменя достъпа до grain на Sandstorm. Отменете достъпа му и в диалоговия прозорец за споделяне на достъп на Sandstorm.",
   "removeMemberPopup-title": "Желаете ли да премахнете членът?",
   "rename": "Преименуване",
   "rename-board": "Промени името на Таблото",

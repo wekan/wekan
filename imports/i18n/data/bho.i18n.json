@@ -829,6 +829,7 @@
   "deleted-user": "मेटावल उपयोगकर्ता",
   "remove-member-from-card": "कार्ड से हटाईं",
   "remove-member-pop": "__name__ (__username__) के __boardTitle__ से हटाईं? सदस्य एह बोर्ड के सभ कार्ड से हट जइहें। उनका के सूचना मिली।",
+  "sandstorm-remove-member-warning": "ई खाली WeKan के भीतर सदस्य के लुकावेला। ई Sandstorm grain के पहुँच रद्द ना करेला। Sandstorm के पहुँच साझा करे वाला संवाद में भी उनकर पहुँच रद्द करीं।",
   "removeMemberPopup-title": "सदस्य हटाईं?",
   "rename": "नाम बदलीं",
   "rename-board": "बोर्ड के नाँव बदलीं",

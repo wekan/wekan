@@ -829,6 +829,7 @@
   "deleted-user": "Silinmiş istifadəçi",
   "remove-member-from-card": "Kartdan çıxarın",
   "remove-member-pop": "__name__ (__username__) __boardTitle__ ünvanından silinsin? Üzv bu lövhədəki bütün kartlardan silinəcək. Onlar bildiriş alacaqlar.",
+  "sandstorm-remove-member-warning": "Bu, üzvü yalnız WeKan daxilində gizlədir. Bu, Sandstorm grain-ə girişi ləğv etmir. Onların girişini Sandstorm-un Girişi paylaş dialoqunda da ləğv edin.",
   "removeMemberPopup-title": "Üzv silinsin?",
   "rename": "Adını dəyişdirin",
   "rename-board": "İdarə Heyətinin adını dəyişdirin",
