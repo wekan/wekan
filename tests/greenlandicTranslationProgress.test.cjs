@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -81,3 +81,9 @@ assert.equal(greenlandic['export-card-pdf'], 'Kortsi PDF-imut anniguk');
 assert.equal(greenlandic['filter-due-tomorrow'],
   'Aqagu killigititaq');
 assert.equal(greenlandic['filter-no-member'], 'Ilaasortaqanngilaq');
+assert.equal(greenlandic['advanced-filter-label'],
+  'Immikkoortiterineq annertusisaq');
+assert.deepEqual(tokens(greenlandic['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.equal(greenlandic['import-trello-failed'],
+  'Trello-mit eqqussineq iluatsinngilaq.');
