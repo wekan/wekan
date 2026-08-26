@@ -1173,9 +1173,12 @@ settings, multi-card selection, roles and participation notifications. This left
 The fifteenth 50-value Kazakh batch added watched updates, private and public
 pages, member removal, search, WIP limits and keyboard shortcuts. This left
 **144,492 genuinely untranslated values across 67 locale files**.
+The sixteenth 50-value Kazakh batch added tracking, time accounting, uploads,
+custom branding, starter templates and WIP warnings. This left **144,442
+genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `starred-boards` with
+Resume Kazakh at `attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
