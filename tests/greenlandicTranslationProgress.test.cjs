@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -128,3 +128,8 @@ assert.equal(greenlandic['r-remove-all'],
 assert.equal(greenlandic['r-d-move-to-top-gen'],
   'Kortsi nammineq allattorsimaffiata qulaanut nuuguk');
 assert.equal(greenlandic['r-send-email'], 'Emailimik nassiussigit');
+assert.equal(greenlandic['r-d-remove-all-member'],
+  'Ilaasortat tamarmik piikkit');
+assert.equal(greenlandic['custom-product-name'],
+  'Produktip aqqa nammineq toqqagaq');
+assert.equal(greenlandic.layout, 'Inissititerineq');
