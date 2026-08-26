@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -40,3 +40,5 @@ assert.deepEqual(tokens(kashmiri['act-moveCardToOtherBoard']),
   ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
     '__oldSwimlane__', '__swimlane__']);
 assert.equal(kashmiri['workspace-settings'], 'کٲم جایہِ ترتیبات');
+assert.deepEqual(tokens(kashmiri['activity-dueDate']), ['%s', '%s']);
+assert.match(kashmiri['set-swimlane-height'], /وَتھ/);

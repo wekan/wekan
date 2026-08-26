@@ -1753,9 +1753,11 @@ files**.
 The second 50-value Kashmiri batch added card moves, activity history,
 checklists and workspace navigation. This left **136,474 genuinely untranslated
 values across 63 locale files**.
+The third 50-value Kashmiri batch added board selection, home-board controls,
+list sizing, swimlane sizing and checklist creation. This left **136,424
+genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`workspaceActionsPopup-title` with
+and exact tokens from `en.i18n.json`, resuming Kashmiri at `added` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
