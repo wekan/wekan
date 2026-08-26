@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1992);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -42,3 +42,6 @@ assert.deepEqual(tokens(kannada['activity-checklist-completed-card']),
 assert.equal(kannada['set-list-width'], 'ಅಗಲವನ್ನು ಹೊಂದಿಸಿ');
 assert.equal(kannada['public-boards'], 'ಸಾರ್ವಜನಿಕ ಫಲಕಗಳು');
 assert.deepEqual(tokens(kannada['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(kannada['avatar-too-big']), ['__size__']);
+assert.deepEqual(tags(kannada['board-private-info']),
+  ['</strong>', '<strong>']);
