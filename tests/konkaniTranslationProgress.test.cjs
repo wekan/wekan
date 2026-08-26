@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 942);
+assert.equal(Object.keys(remaining).length, 892);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -105,3 +105,5 @@ assert.deepEqual(tokens(konkani['act-atUserComment']),
 assert.deepEqual(tags(konkani['add-custom-html-after-body-start']),
   ['<body>']);
 assert.equal(konkani.roles, 'भूमिक्यो');
+assert.equal(konkani.monday, 'सोमार');
+assert.equal(konkani['shared-templates'], 'सामायिक नमुने');
