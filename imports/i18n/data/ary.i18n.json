@@ -829,6 +829,7 @@
   "deleted-user": "مستخدم محذوف",
   "remove-member-from-card": "حذف من البطاقة",
   "remove-member-pop": "حذف __name__ (__username__) من __boardTitle__ ? سيتم حذف هذا العضو من جميع بطاقة اللوحة مع إرسال إشعار له بذاك.",
+  "sandstorm-remove-member-warning": "هادشي غير كيخبي العضو داخل WeKan. ما كيلغيش الولوج للـgrain ديال Sandstorm. لغي حتى الولوج ديالو من مربع حوار مشاركة الولوج فـSandstorm.",
   "removeMemberPopup-title": "حذف العضو ?",
   "rename": "إعادة التسمية",
   "rename-board": "إعادة تسمية اللوحة",

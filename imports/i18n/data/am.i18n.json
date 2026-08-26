@@ -829,6 +829,7 @@
   "deleted-user": "የተሰረዘ ተጠቃሚ",
   "remove-member-from-card": "ከካርድ አስወግድ",
   "remove-member-pop": "__name__ (__username__) ከ__boardTitle__ ይወገድ? አባሉ በዚህ ሰሌዳ ላይ ካሉ ሁሉም ካርዶች ይወገዳል። ማሳወቂያ ይደርሰዋል።",
+  "sandstorm-remove-member-warning": "ይህ አባሉን በWeKan ውስጥ ብቻ ይደብቃል። ወደ Sandstorm grain ያለውን መዳረሻ አይሽርም። በSandstorm የመዳረሻ ማጋሪያ መገናኛ ውስጥም መዳረሻቸውን ይሻሩ።",
   "removeMemberPopup-title": "አባል ይወገድ?",
   "rename": "ስም ቀይር",
   "rename-board": "ሰሌዳን እንደገና ሰይም",

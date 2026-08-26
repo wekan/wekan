@@ -829,6 +829,7 @@
   "deleted-user": "মচা ব্যৱহাৰকাৰী",
   "remove-member-from-card": "কাৰ্ডৰ পৰা আঁতৰাওক",
   "remove-member-pop": "__name__ (__username__) ক __boardTitle__ ৰ পৰা আঁতৰাবনে? সদস্যজনক এই ব'ৰ্ডৰ সকলো কাৰ্ডৰ পৰা আঁতৰোৱা হ'ব। তেওঁ জাননী পাব।",
+  "sandstorm-remove-member-warning": "ই কেৱল WeKan-ৰ ভিতৰত সদস্যজনক লুকুৱায়। ই Sandstorm grain-লৈ প্ৰৱেশ বাতিল নকৰে। Sandstorm-ৰ প্ৰৱেশ ভাগ-বতৰা সংলাপতো তেওঁলোকৰ প্ৰৱেশ বাতিল কৰক।",
   "removeMemberPopup-title": "সদস্য আঁতৰাবনে?",
   "rename": "নাম সলনি কৰক",
   "rename-board": "ব'ৰ্ডৰ নাম সলনি কৰক",

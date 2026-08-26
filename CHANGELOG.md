@@ -286,14 +286,16 @@ completing Faroese. Forty-three 50-value Irish batches and a final 17-value batc
 completed Irish. Forty-two 50-value Scottish Gaelic batches, one 49-value batch
 and a final 17-value batch completed Scottish Gaelic. `Log` is an invariant
 technical term. One new Sandstorm warning was then translated in both Galician
-variants and Xhosa. This left **160,571 genuinely
+variants, Xhosa, Acehnese, both Afrikaans variants, Amharic, three Arabic
+variants, Moroccan Arabic, Assamese and Asturian. This left **160,561 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Acehnese at `sandstorm-remove-member-warning` with
-`node releases/translations/fill-translations.mjs --list ace --limit 50`;
+Continue Azerbaijani at `sandstorm-remove-member-warning` with
+`node releases/translations/fill-translations.mjs --list az-AZ --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
-Faroese, Irish, Scottish Gaelic, both Galician variants and Xhosa are complete.
+Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
+complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

@@ -829,6 +829,7 @@
   "deleted-user": "Usuariu elimináu",
   "remove-member-from-card": "Eliminar de la tarjeta",
   "remove-member-pop": "¿Eliminar __name__ (__username__) de __boardTitle__? El miembro será eliminado de todas las tarjetas de este tablero. En ellas se mostrará una notificación.",
+  "sandstorm-remove-member-warning": "Esto namái anubre al miembru dientro de WeKan. Nun revoca l'accesu al granu de Sandstorm. Revoca tamién el so accesu nel diálogu Compartir accesu de Sandstorm.",
   "removeMemberPopup-title": "¿Eliminar miembro?",
   "rename": "Renombrar",
   "rename-board": "Renombrar el tablero",

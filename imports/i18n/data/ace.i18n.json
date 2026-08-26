@@ -829,6 +829,7 @@
   "deleted-user": "Pengguna geuhapus",
   "remove-member-from-card": "Hapus dari Kartu",
   "remove-member-pop": "Geuhapus __name__ (__username__) nibak __boardTitle__? Anggota nyoe geuhapus nibak mandum kad bak papan nyoe dan jih geuteurimong peunot.",
+  "sandstorm-remove-member-warning": "Nyoe cuma peusom anggota lam WeKan. Nyoe hana peubateue hak akses u grain Sandstorm. Peubateue cit hak akses jih bak dialog Share access Sandstorm.",
   "removeMemberPopup-title": "Hapus Anggota?",
   "rename": "Ganti Nama",
   "rename-board": "Ubah nama Panel",

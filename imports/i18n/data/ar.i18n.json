@@ -829,6 +829,7 @@
   "deleted-user": "مستخدم محذوف",
   "remove-member-from-card": "حذف من البطاقة",
   "remove-member-pop": "حذف __name__ (__username__) من __boardTitle__ ? سيتم حذف هذا العضو من جميع بطاقة اللوحة مع إرسال إشعار له بذاك.",
+  "sandstorm-remove-member-warning": "هذا يخفي العضو داخل WeKan فقط. ولا يلغي صلاحية الوصول إلى حاوية Sandstorm. ألغِ أيضًا صلاحية وصوله من مربع حوار مشاركة الوصول في Sandstorm.",
   "removeMemberPopup-title": "حذف العضو ?",
   "rename": "إعادة التسمية",
   "rename-board": "إعادة تسمية اللوحة",
