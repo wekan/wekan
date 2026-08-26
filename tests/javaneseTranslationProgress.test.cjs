@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -63,3 +63,6 @@ assert.equal(javanese['userPopup-title'], 'Anggota');
 assert.equal(javanese['map-to-existing-user-no-results'],
   'Ora ana pangguna sing cocog.');
 assert.match(javanese['font-preview-text'], /0123456789/);
+assert.equal(javanese['auto-list-width'], 'Ambane dhaptar otomatis');
+assert.equal(javanese['move-card-up'], 'Pindhah kertu munggah');
+assert.equal(javanese['color-red'], 'abang');
