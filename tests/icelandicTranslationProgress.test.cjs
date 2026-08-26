@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 817);
+assert.equal(Object.keys(remaining).length, 767);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -121,3 +121,10 @@ assert.deepEqual(tokens(icelandic['n-n-of-n-cards-found']),
   ['__end__', '__start__', '__total__']);
 assert.equal(icelandic['operator-board'], 'tafla');
 assert.equal(icelandic['predicate-overdue'], 'komið fram yfir skiladag');
+assert.deepEqual(tokens(icelandic['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(icelandic['globalSearch-instructions-operator-has']),
+  tokens(english['globalSearch-instructions-operator-has']));
+assert.deepEqual(tags(icelandic['globalSearch-instructions-operator-board']),
+  tags(english['globalSearch-instructions-operator-board']));
+assert.equal(icelandic['link-to-search'], 'Tengill á þessa leit');

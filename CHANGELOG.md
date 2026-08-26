@@ -810,15 +810,18 @@ missing-entity messages. This left **150,443 genuinely untranslated values
 across 70 locale files**. The twenty-seventh 50-value Icelandic batch added
 search-result counts, missing user, comment, organization and team messages and
 localized search operators and predicates. This left **150,393 genuinely
-untranslated values across 70 locale files**.
+untranslated values across 70 locale files**. The twenty-eighth 50-value
+Icelandic batch added search predicate validation, pagination and complete
+operator syntax, status, existence, sorting and date-search guidance. This left
+**150,343 genuinely untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `predicate-member` with
+Resume Icelandic at `number` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 817 Icelandic values remain.
+and Haitian Creole are now complete; 767 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
