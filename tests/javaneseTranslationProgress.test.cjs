@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -101,3 +101,6 @@ assert.equal(javanese.Database, 'Basis data');
 assert.match(javanese.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.equal(javanese.OS_Cpus, 'Cacah CPU OS');
 assert.match(javanese['org-domains-description'], /MULTITENANCY=true/);
+assert.deepEqual(tokens(javanese['default-subtasks-board']), ['__board__']);
+assert.equal(javanese['attachment-count'], 'Cacah lampiran');
+assert.deepEqual(tokens(javanese['activity-added-label']), ['%s', '%s']);
