@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -56,3 +56,6 @@ assert.deepEqual(tokens(
   javanese['board-open-and-move-between-remaining-and-workspaces']),
 ['__workspaces__']);
 assert.equal(javanese['card-due'], 'Tenggat');
+assert.match(javanese['card-edit-planning-poker'], /Planning Poker/);
+assert.equal(javanese['addBoardOrgPopup-title'], 'Tambah Organisasi');
+assert.equal(javanese['importSwimlanePopup-title'], 'Impor swimlane');
