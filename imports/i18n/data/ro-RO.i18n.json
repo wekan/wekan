@@ -829,6 +829,7 @@
   "deleted-user": "Utilizator șters",
   "remove-member-from-card": "Rimuovi dalla scheda",
   "remove-member-pop": "Rimuovere __name__ (__username__) da __boardTitle__? L'utente sarà rimosso da tutte le schede in questa bacheca. Riceveranno una notifica.",
+  "sandstorm-remove-member-warning": "Aceasta doar ascunde membrul în WeKan. Nu îi revocă accesul la grain-ul Sandstorm. Revocați-i accesul și din dialogul Partajare acces al Sandstorm.",
   "removeMemberPopup-title": "Rimuovere membro?",
   "rename": "Rinomina",
   "rename-board": "Redenumește Tabla",
