@@ -852,15 +852,18 @@ board maintenance and attachment monitoring. This left **149,793 genuinely
 untranslated values across 70 locale files**. The fortieth 50-value Icelandic
 batch added comprehensive board repair, lost-card restoration, archive recovery,
 URL fixes, migration confirmations and progress steps. This left **149,743
-genuinely untranslated values across 70 locale files**.
+genuinely untranslated values across 70 locale files**. The forty-first 50-value
+Icelandic batch added repair-step progress, board conversion, CPU status,
+recurring schedules and migration job monitoring. This left **149,693 genuinely
+untranslated values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `step-fix-attachment-urls` with
+Resume Icelandic at `memory-usage` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 167 Icelandic values remain.
+and Haitian Creole are now complete; 117 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
