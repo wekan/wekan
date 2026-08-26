@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -105,3 +105,8 @@ assert.equal(icelandic['r-d-send-email'], 'Senda tölvupóst');
 assert.equal(icelandic['r-d-unarchive'], 'Endurheimta spjald úr safni');
 assert.equal(icelandic['r-items-list'], 'atriði1,atriði2,atriði3');
 assert.equal(icelandic['authentication-method'], 'Auðkenningaraðferð');
+assert.deepEqual(tags(icelandic['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(icelandic['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(icelandic['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.equal(icelandic['duplicate-board'], 'Afrita töflu');
