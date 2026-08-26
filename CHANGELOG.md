@@ -309,15 +309,17 @@ is low confidence. Base Vietnamese, Flemish, Volapük, Wáray-Wáray, Walloon,
 Wolof, Wu Chinese, Yiddish, Yoruba and Cantonese followed. The Volapük,
 Wáray-Wáray, Walloon and Wolof wording is low confidence. Standard Moroccan
 Tamazight, eight Chinese variants and South African Zulu followed. The Tamazight
-wording is low confidence. Base Zulu followed. This left **160,419 genuinely
+wording is low confidence. Base Zulu followed. The first 50-value Guarani batch
+then translated activity, member, comment and archive strings. This left
+**160,369 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Guarani at `accept` with
+Continue Guarani at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list gn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
-complete.
+complete; 2,117 Guarani values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
