@@ -491,15 +491,18 @@ Hausa batch added member mapping, themes, fonts, avatars and permissions. This
 left **155,727 genuinely untranslated values across 72 locale files**. The
 eighth 50-value Hausa batch added starring, automatic widths, card aging,
 keyboard movement, accessible dialogs and colors. This left **155,677 genuinely
-untranslated values across 72 locale files**.
+untranslated values across 72 locale files**. The ninth 50-value Hausa batch
+added board roles, deletion confirmations, clipboard actions, bulk card JSON
+and custom fields. This left **155,627 genuinely untranslated values across 72
+locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Hausa at `color-white` with
+Continue Hausa at `custom-field-text` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 1,767 Hausa values remain.
+now complete, and 1,717 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
