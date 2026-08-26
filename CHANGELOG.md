@@ -1672,9 +1672,12 @@ genuinely untranslated values across 64 locale files**.
 The thirty-first 50-value Konkani batch added board display, authentication,
 activity reminders, account deletion and desktop interaction settings. This
 left **137,541 genuinely untranslated values across 64 locale files**.
+The thirty-second 25-value Konkani batch added multi-window cards, inline
+editing, organization and user dialogs, notifications and role permissions.
+This left **137,516 genuinely untranslated values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `open-many-cards-at-once` with
+Resume Konkani at `board-admin` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
