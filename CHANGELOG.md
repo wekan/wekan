@@ -1215,9 +1215,12 @@ pagination, operator help, status scopes, sorting and search links. This left
 The twenty-ninth 50-value Kazakh batch added sorting, card completion, stickers,
 dependencies, board backgrounds and locations. This left **143,792 genuinely
 untranslated values across 67 locale files**.
+The thirtieth 50-value Kazakh batch added map detection, server troubleshooting,
+custom string templates, diagnostics and office reports. This left **143,742
+genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `location-latitude` with
+Resume Kazakh at `office-last-seen` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
