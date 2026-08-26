@@ -667,15 +667,18 @@ controls. This left **152,760 genuinely untranslated values across 71 locale
 files**. The twenty-fourth 50-value Haitian Creole batch added member lists,
 custom body HTML, authentication errors, date reminders, destructive account
 warnings and resizable navigation. This left **152,710 genuinely untranslated
-values across 71 locale files**.
+values across 71 locale files**. The twenty-fifth 50-value Haitian Creole batch
+added multi-window cards, organization and user dialogs, notification states,
+role permissions, weekdays and linked-card deletion guidance. This left
+**152,660 genuinely untranslated values across 71 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Haitian Creole at `open-many-cards-at-once` with
+Resume Haitian Creole at `delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list ht --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, including Hausa; 967 Haitian Creole values remain.
+now complete, including Hausa; 917 Haitian Creole values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
