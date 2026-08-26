@@ -1396,9 +1396,12 @@ genuinely untranslated values across 65 locale files**.
 The first 50-value Kannada batch added board, card, checklist and comment
 activity. This left **140,858 genuinely untranslated values across 65 locale
 files**.
+The second 50-value Kannada batch added movement, checklist activity and
+workspace navigation. This left **140,808 genuinely untranslated values across
+65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `act-moveCard` with
+Resume Kannada at `allboards.workspace-boards` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
