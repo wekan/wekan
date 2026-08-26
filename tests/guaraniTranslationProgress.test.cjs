@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'gn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const guarani = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/gn.i18n.json'), 'utf8'));

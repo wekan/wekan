@@ -985,7 +985,7 @@
   "Database_type": "Marandu renda mba'éichagua",
   "Database_commit": "Marandu renda commit",
   "FerretDB_version": "FerretDB mbojuehe",
-  "FerretDB_commit": "FerretDB commit",
+  "FerretDB_commit": "FerretDB ñemoambue ñongatupyre",
   "Reactivity_mode": "Jejapojey reko (changeStreams / oplog / polling)",
   "Reactivity_order": "Jejapojey ñemohenda (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "DDP ñembohasa (DDP_TRANSPORT)",

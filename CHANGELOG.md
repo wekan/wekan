@@ -453,6 +453,9 @@ files**.
 The warning-only follow-up translated eight newly exposed Scottish Gaelic,
 Fulah, Faroese and Fijian interface terms. Those locales are complete again,
 leaving **156,078 genuinely untranslated values across 73 locale files**.
+The final low-confidence Guarani technical label translated `commit` while
+retaining the FerretDB product name. Guarani is now complete, leaving
+**156,077 genuinely untranslated values across 72 locale files**.
 The forty-second 50-value Manx batch added resource monitoring, job schedules,
 attachment storage migrations and throttling controls. This left **156,183
 genuinely untranslated values across 77 locale files**.
@@ -470,8 +473,8 @@ progress reporting and repair-step descriptions. This left **156,233 genuinely
 untranslated values across 77 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue the next incomplete locale reported by
-`node releases/translations/fill-translations.mjs --missing`;
+Continue Hausa at `activity-added` with
+`node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani is complete
