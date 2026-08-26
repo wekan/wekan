@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -82,3 +82,7 @@ assert.equal(icelandic['rename-board'], 'Endurnefna töflu');
 assert.equal(icelandic['starred-boards'], 'Stjörnumerktar töflur');
 assert.equal(icelandic['upload-completed'], 'Upphleðslu lokið');
 assert.equal(icelandic['card-templates-swimlane'], 'Spjaldasniðmát');
+assert.equal(icelandic['attachment-limits'], 'Mörk');
+assert.deepEqual(tokens(icelandic['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.equal(icelandic.Database, 'Gagnagrunnur');
