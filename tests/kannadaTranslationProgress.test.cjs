@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 491);
+assert.equal(Object.keys(remaining).length, 441);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -113,3 +113,4 @@ assert.equal(kannada['ticket-number'], 'ಟಿಕೆಟ್ ಸಂಖ್ಯೆ');
 assert.equal(kannada.copied, 'ನಕಲಿಸಲಾಗಿದೆ!');
 assert.equal(kannada['move-storage-fs'], 'ಕಡತ ವ್ಯವಸ್ಥೆ');
 assert.deepEqual(tokens(kannada['drag-board-to-workspace']), ['__workspaces__']);
+assert.equal(kannada.accessibility, 'ಪ್ರವೇಶಸಾಧ್ಯತೆ');
