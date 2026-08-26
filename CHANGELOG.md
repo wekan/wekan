@@ -1531,9 +1531,12 @@ values across 65 locale files**.
 The forty-sixth 50-value Kannada batch added tickets, invitations, teams and
 Node memory diagnostics. This left **139,332 genuinely untranslated values
 across 65 locale files**.
+The forty-seventh 25-value Kannada batch added organizations, legal notices,
+checklist actions and attachment storage. This left **139,307 genuinely
+untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `add-organizations-label` with
+Resume Kannada at `move-all-attachments-to-s3` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
