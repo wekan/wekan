@@ -86,7 +86,7 @@ const translated = [
   'ja-JP',
   'ja',
   'ka',
-  'km-KH',
+  'km_KH',
   'gl',
   'gl-ES',
   'xh',
