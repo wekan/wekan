@@ -1209,9 +1209,12 @@ Cards, due-card views, global search and missing-item errors. This left
 The twenty-seventh 50-value Kazakh batch added global-search result counts,
 operators and date, status and content predicates. This left **143,892 genuinely
 untranslated values across 67 locale files**.
+The twenty-eighth 50-value Kazakh batch added global-search validation,
+pagination, operator help, status scopes, sorting and search links. This left
+**143,842 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `predicate-member` with
+Resume Kazakh at `number` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
