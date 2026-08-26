@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -41,6 +41,9 @@ assert.deepEqual(tokens(javanese['act-moveCardToOtherBoard']),
   ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
     '__oldSwimlane__', '__swimlane__']);
 assert.equal(javanese['allboards.workspaces'], 'Ruang kerja');
+assert.equal(javanese['sandstorm-storage-item'], 'Panyimpenan');
+assert.match(javanese['render-links-as-plain-text-description'], /<a href>/);
+assert.equal(javanese['backup-done'], 'Serep rampung');
 assert.equal(javanese['workspace-settings'], 'Setelan Ruang Kerja');
 assert.equal(javanese['home-board-badge'],
   'Papan Ngarep (dibukak sawise mlebu)');
