@@ -829,6 +829,7 @@
   "deleted-user": "Ezabatutako erabiltzailea",
   "remove-member-from-card": "Kendu txarteletik",
   "remove-member-pop": "Kendu __name__ (__username__) __boardTitle__ arbeletik? Kidea arbel honetako txartel guztietatik kenduko da. Jakinarazpenak bidaliko dira.",
+  "sandstorm-remove-member-warning": "Honek kidea WeKan barruan bakarrik ezkutatzen du. Ez du Sandstorm grain-erako sarbidea ezeztatzen. Ezeztatu haren sarbidea Sandstorm-en Sarbidea partekatu elkarrizketa-koadroan ere.",
   "removeMemberPopup-title": "Kendu kidea?",
   "rename": "Aldatu izena",
   "rename-board": "Aldatu izena arbelari",

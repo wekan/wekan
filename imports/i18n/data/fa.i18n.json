@@ -829,6 +829,7 @@
   "deleted-user": "کاربر حذف‌شده",
   "remove-member-from-card": "حذف از کارت",
   "remove-member-pop": "آیا __name__ (__username__) را از __boardTitle__ حذف می‌کنید؟ کاربر از تمام کارت‌ها در این برد حذف خواهد شد. آنها از این اقدام مطلع خواهند شد.",
+  "sandstorm-remove-member-warning": "این کار فقط عضو را در WeKan پنهان می‌کند و دسترسی به grain در Sandstorm را لغو نمی‌کند. دسترسی او را در پنجرهٔ اشتراک‌گذاری دسترسی Sandstorm نیز لغو کنید.",
   "removeMemberPopup-title": "آیا می خواهید کاربر را حذف کنید؟",
   "rename": "تغیر نام",
   "rename-board": "تغییر نام برد",

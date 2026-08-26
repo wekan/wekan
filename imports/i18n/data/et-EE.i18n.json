@@ -829,6 +829,7 @@
   "deleted-user": "Kustutatud kasutaja",
   "remove-member-from-card": "Eemalda kaardilt",
   "remove-member-pop": "Eemalda __name__ (__username__) __boardTitle__-st? Liige eemaldatakse kõigilt selle tahvli kaartidelt. Nad saavad teate.",
+  "sandstorm-remove-member-warning": "See peidab liikme ainult WeKanis. See ei tühista juurdepääsu Sandstormi grainile. Tühistage tema juurdepääs ka Sandstormi juurdepääsu jagamise dialoogis.",
   "removeMemberPopup-title": "Eemaldage liige?",
   "rename": "Nimetage ümber",
   "rename-board": "Boardi ümbernimetamine",

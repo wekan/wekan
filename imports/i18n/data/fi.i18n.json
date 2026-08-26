@@ -829,6 +829,7 @@
   "deleted-user": "Poistettu käyttäjä",
   "remove-member-from-card": "Poista kortilta",
   "remove-member-pop": "Poista __name__ (__username__) taululta __boardTitle__? Jäsen poistetaan kaikilta taulun korteilta. Heille lähetetään ilmoitus.",
+  "sandstorm-remove-member-warning": "Tämä vain piilottaa jäsenen WeKanissa. Se ei peruuta käyttöoikeutta Sandstorm-grainiin. Peruuta hänen käyttöoikeutensa myös Sandstormin Jaa käyttöoikeus -valintaikkunassa.",
   "removeMemberPopup-title": "Poista jäsen?",
   "rename": "Nimeä uudelleen",
   "rename-board": "Nimeä taulu uudelleen",
