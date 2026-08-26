@@ -1642,9 +1642,12 @@ values across 64 locale files**.
 The twenty-first 50-value Konkani batch added branding, welcome templates, WIP
 errors, attachment and API limits, registration and SMTP settings. This left
 **137,916 genuinely untranslated values across 64 locale files**.
+The twenty-second 25-value Konkani batch added SMTP tests, invitation email,
+webhooks and system version labels. This left **137,891 genuinely untranslated
+values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `smtp-port` with
+Resume Konkani at `Database_type` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
