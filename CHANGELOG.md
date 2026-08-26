@@ -1302,9 +1302,12 @@ cancellation, member mapping, validation and keyboard navigation. This left
 The fourteenth 50-value Greenlandic batch added board departure, list
 archiving, settings, selection and notification roles. This left **142,375
 genuinely untranslated values across 66 locale files**.
+The fifteenth 50-value Greenlandic batch added watched updates, private and
+public access, member removal, search and keyboard shortcuts. This left
+**142,325 genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `notify-watch` with
+Resume Greenlandic at `starred-boards` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
