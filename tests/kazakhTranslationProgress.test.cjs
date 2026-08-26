@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -160,6 +160,11 @@ assert.equal(kazakh.server, 'Сервер');
 assert.deepEqual(tokens(kazakh['repair-broken-cards-done']), ['__fixed__']);
 assert.deepEqual(tokens(kazakh['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
+assert.equal(kazakh['event-detail'], 'Мәлімет');
+assert.deepEqual(tokens(kazakh['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(kazakh['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
 assert.match(kazakh.Node_heap_total_heap_size, /үйме/);
 assert.equal(kazakh['attachment-move-storage-fs'],
   'Тіркемені файлдық жүйеге жылжыту');

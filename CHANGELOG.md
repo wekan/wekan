@@ -1257,14 +1257,17 @@ monitoring navigation, operation scheduling and system resources. This left
 The forty-third 50-value Kazakh batch added repository accounts, login errors,
 problem repair status and system events. This left **143,092 genuinely
 untranslated values across 67 locale files**.
+The final 17-value Kazakh batch added event details, integrity and scoped import
+and export guidance. Kazakh is now complete, leaving **143,075 genuinely
+untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `event-detail` with
-`node releases/translations/fill-translations.mjs --list kk --limit 50`;
+Resume Greenlandic at `accept` with
+`node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic, Inuktitut and Javanese are now complete.
+Haitian Creole, Icelandic, Inuktitut, Javanese and Kazakh are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
