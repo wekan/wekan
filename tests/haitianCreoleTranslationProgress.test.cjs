@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -147,3 +147,6 @@ assert.equal(creole['accessibility'], 'Aksesibilite');
 assert.equal(creole['accounts-lockout-unlock-all'], 'Debloke tout');
 assert.equal(creole['attachments-path'], 'Chemen pyès jwenn');
 assert.equal(creole['cron-migrations'], 'Migrasyon pwograme');
+assert.equal(creole['cron-job-deleted'], 'Travay pwograme a efase avèk siksè');
+assert.deepEqual(tokens(creole['database-migration-confirm']), ['__db__']);
+assert.match(creole['database-migration-description'], /WEKAN_FERRETDB_URL/);
