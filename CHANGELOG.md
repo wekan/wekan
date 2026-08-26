@@ -778,15 +778,18 @@ custom branding, watch states, starter templates and WIP validation. This left
 seventeenth 50-value Icelandic batch added attachment and API limits,
 registration invitations, SMTP configuration, webhooks and runtime version
 labels. This left **150,893 genuinely untranslated values across 70 locale
-files**.
+files**. The eighteenth 50-value Icelandic batch added database and operating
+system diagnostics, custom-field display, account visibility and organization
+and team tenancy administration. This left **150,843 genuinely untranslated
+values across 70 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Icelandic at `Database_type` with
+Resume Icelandic at `card-received` with
 `node releases/translations/fill-translations.mjs --list is --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-and Haitian Creole are now complete; 1,317 Icelandic values remain.
+and Haitian Creole are now complete; 1,267 Icelandic values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
