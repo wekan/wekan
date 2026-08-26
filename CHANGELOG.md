@@ -1185,9 +1185,12 @@ display, account controls, tenancy domains and organization roles. This left
 The nineteenth 50-value Kazakh batch added received and end dates, destructive
 board controls, subtasks, minicard display and parent-card settings. This left
 **144,292 genuinely untranslated values across 67 locale files**.
+The twentieth 50-value Kazakh batch added activity details and rule workflow
+creation, triggers, imports and exports. This left **144,242 genuinely
+untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `activity-removed-label` with
+Resume Kazakh at `r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
