@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -178,3 +178,6 @@ assert.equal(kazakh['backup-done'], 'Сақтық көшірме аяқталд�
 assert.equal(kazakh['backup-schedule'], 'Жоспарланған сақтық көшірмелер');
 assert.equal(kazakh['gcs-bucket'], 'Шелек');
 assert.match(kazakh['cloud-connection-success'], /сәтті/);
+assert.equal(kazakh['all-migrations'], 'Барлық көшірулер');
+assert.match(kazakh['migration-stopped'], /сәтті/);
+assert.equal(kazakh['board-migrations'], 'Тақта көшірулері');
