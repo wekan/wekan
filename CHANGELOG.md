@@ -1939,12 +1939,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Nine translations are now complete**: Hausa, Haitian Creole,
+Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic, Kannada and Konkani. Their
+409 direct-translation batches replace 18,653 English placeholders while
+preserving human translations, format tokens and markup exactly.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -1956,6 +1954,128 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release completes the following translations:
+
+**Hausa** - every interface area now uses Hausa instead of English placeholders.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f0c64191">The remaining Hausa interface is translated</a>. Thanks to xet7.</summary>
+
+Across 27 direct-translation batches, 1,317 remaining values gained Hausa
+activity, board, card, automation, account, search, report, storage, migration
+and problem-management vocabulary. Whole-locale regression coverage verifies
+that no English placeholders remain and that named and formatted tokens and
+HTML tags match English exactly; the human-preference suite proves a future
+Transifex translation still replaces a direct fill while existing human work
+cannot be overwritten.
+
+</details>
+
+**Haitian Creole** - the complete interface is available in Kreyòl ayisyen.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eec23e770">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 44 direct-translation batches, all 2,167 placeholders gained Haitian
+Creole wording for activity, workspaces, cards, imports, automation, search,
+administration, storage and migrations. Whole-locale regression coverage pins
+zero remaining placeholders and exact token and markup inventories, while the
+shared negative tests protect human translations from direct fills.
+
+</details>
+
+**Icelandic** - every interface area now has Icelandic wording.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0caf1e74b">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 44 direct-translation batches, all 2,167 placeholders gained Icelandic
+activity, board, import, automation, search, reporting, storage and migration
+terms. The locale regression proves completion and exact code-token and markup
+preservation; shared negative coverage ensures fills cannot replace human
+translations.
+
+</details>
+
+**Inuktitut** - the complete interface is available in Inuktitut syllabics.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e84873cea">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 44 direct-translation batches, all 2,167 placeholders gained Inuktitut
+wording spanning the full board, card, automation, search, administration,
+storage and migration interface. Regression coverage checks zero remaining
+English values, preserves the syllabic-script requirement and compares every
+code token and HTML tag with English, including negative human-preference tests.
+
+</details>
+
+**Javanese** - every interface area now uses Javanese.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2e027588">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 44 direct-translation batches, all 2,167 placeholders gained Javanese
+activity, workspace, board, import, automation, search, report, storage and
+migration vocabulary. Whole-locale regression coverage pins completion and
+exact placeholders and markup; shared negative tests protect human translations.
+
+</details>
+
+**Kazakh** - every interface area now uses Kazakh and its expected script.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/93f9ad02c">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 44 direct-translation batches, all 2,167 placeholders gained Kazakh
+wording throughout activity, boards, imports, automation, search, reporting,
+storage and migrations. The locale regression verifies completion, Cyrillic
+vocabulary and exact code-token and markup inventories; shared negative tests
+continue protecting human translations.
+
+</details>
+
+**Greenlandic** - the whole interface is now available in Kalaallisut.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8edba0949">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 44 direct-translation batches, all 2,167 placeholders gained Greenlandic
+activity, board, import, automation, search, reporting, storage and migration
+terms. Whole-locale coverage verifies zero English placeholders and exact token
+and markup inventories, with shared negative tests preventing replacement of
+human translations.
+
+</details>
+
+**Kannada** - every interface area now uses Kannada and its native script.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f2bcb319">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 62 direct-translation batches, all 2,167 placeholders gained Kannada
+wording for boards, cards, imports, automation, search, administration, storage
+and migration operations. Regression coverage verifies completion, Kannada
+script and exact token and markup preservation; shared negative tests protect
+human translations from direct fills.
+
+</details>
+
+**Konkani** - the complete interface now uses Devanagari Konkani.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d65e2773">Every remaining interface value is translated</a>. Thanks to xet7.</summary>
+
+Across 56 direct-translation batches, all 2,167 placeholders gained Konkani
+activity, board, import, automation, search, reporting, storage, migration and
+problem-repair vocabulary. The locale regression verifies completion,
+Devanagari vocabulary and every code token and HTML tag against English; shared
+negative coverage ensures direct fills cannot overwrite human translations.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.14 2026-08-26 WeKan ® release
 
