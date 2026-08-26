@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -95,3 +95,8 @@ assert.equal(inuktitut.team, 'ᐱᓕᕆᖃᑎᒌᑦ');
 assert.equal(inuktitut['upload-completed'],
   'ᖃᕆᑕᐅᔭᒧᑦ ᐃᓕᓂᖅ ᐱᔭᕇᖅᐳᖅ');
 assert.equal(inuktitut['welcome-board'], 'ᑐᙵᓱᒋᑦ ᐊᓪᓚᕕᒃ');
+assert.equal(inuktitut['attachment-limit-mode-unlimited'],
+  'ᑭᒡᓕᖃᙱᑦᑐᖅ');
+assert.deepEqual(tokens(inuktitut['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.equal(inuktitut.Database, 'ᑐᖅᑯᖅᓯᕕᒃ');
