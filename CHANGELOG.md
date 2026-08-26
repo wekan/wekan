@@ -1525,9 +1525,12 @@ values across 65 locale files**.
 The forty-fourth 50-value Kannada batch added map detection, server diagnostics,
 string templates and admin reports. This left **139,407 genuinely untranslated
 values across 65 locale files**.
+The forty-fifth 25-value Kannada batch added office, API and recovery reports,
+swimlane copying and wait spinners. This left **139,382 genuinely untranslated
+values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `office-shared` with
+Resume Kannada at `Rotateplane` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
