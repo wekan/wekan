@@ -157,6 +157,7 @@ const translated = [
   'zh',
   'zh_SG',
   'zu-ZA',
+  'zu',
   'gl',
   'gl-ES',
   'xh',
