@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -72,3 +72,8 @@ assert.deepEqual(tokens(creole['label-default']), ['%s']);
 assert.deepEqual(tokens(creole['leave-board-pop']), ['__boardTitle__']);
 assert.equal(creole['multi-selection'], 'Seleksyon miltip');
 assert.equal(creole['no-archived-swimlanes'], 'Pa gen kouloir nan Achiv.');
+assert.deepEqual(tokens(creole['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(creole['page-maybe-private']), ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(creole['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.equal(creole['sidebar-close'], 'Fèmen ba lateral');
