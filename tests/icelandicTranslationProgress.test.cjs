@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'is'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const icelandic = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/is.i18n.json'), 'utf8'));
@@ -141,3 +141,6 @@ assert.equal(icelandic['copy-swimlane'], 'Afrita sundbraut');
 assert.equal(icelandic['add-teams'], 'Bæta við teymum');
 assert.equal(icelandic.copyChecklist, 'Afrita gátlista');
 assert.equal(icelandic['attachment-move-storage-gridfs'], 'Færa viðhengi í GridFS');
+assert.equal(icelandic['move-storage-fs'], 'Skráarkerfi');
+assert.equal(icelandic['gridfs-file-id'], 'Auðkenni GridFS-skrár');
+assert.match(icelandic['mongodb-compact-warning'], /oplog/);
