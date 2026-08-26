@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -77,3 +77,7 @@ assert.deepEqual(tokens(greenlandic['email-invite-text']),
   ['__board__', '__inviter__', '__url__', '__user__']);
 assert.equal(greenlandic['error-list-doesNotExist'],
   'Allattorsimaffik taanna piunngilaq');
+assert.equal(greenlandic['export-card-pdf'], 'Kortsi PDF-imut anniguk');
+assert.equal(greenlandic['filter-due-tomorrow'],
+  'Aqagu killigititaq');
+assert.equal(greenlandic['filter-no-member'], 'Ilaasortaqanngilaq');
