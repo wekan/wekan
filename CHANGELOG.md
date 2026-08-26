@@ -1507,9 +1507,12 @@ locale files**.
 The thirty-eighth 6-value Kannada batch added pagination and global-search help
 headings. This left **139,542 genuinely untranslated values across 65 locale
 files**.
+The thirty-ninth 10-value Kannada batch added global-search syntax and board,
+list, swimlane, comment, label and user operators. This left **139,532 genuinely
+untranslated values across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `globalSearch-instructions-description` with
+Resume Kannada at `globalSearch-instructions-operator-member` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
