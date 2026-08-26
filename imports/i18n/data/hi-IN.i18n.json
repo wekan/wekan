@@ -829,6 +829,7 @@
   "deleted-user": "हटाया गया उपयोगकर्ता",
   "remove-member-from-card": "हटाएँ  से कार्ड",
   "remove-member-pop": "हटाएँ  __name__ (__username__) से __boardTitle__? इस बोर्ड पर सभी कार्ड से सदस्य हटा दिया जाएगा। उन्हें एक अधिसूचना प्राप्त होगी।",
+  "sandstorm-remove-member-warning": "यह केवल WeKan के अंदर सदस्य को छिपाता है। यह Sandstorm grain की पहुँच रद्द नहीं करता। Sandstorm के पहुँच साझा करें संवाद में भी उनकी पहुँच रद्द करें।",
   "removeMemberPopup-title": "हटाएँ  सदस्य?",
   "rename": "नाम बदलें",
   "rename-board": "बोर्ड का नाम बदलें",

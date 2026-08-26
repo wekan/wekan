@@ -829,6 +829,7 @@
   "deleted-user": "משתמש שנמחק",
   "remove-member-from-card": "הסרה מהכרטיס",
   "remove-member-pop": "להסיר את __name__ (__username__) מ__boardTitle__? התהליך יגרום להסרת החבר מכל הכרטיסים בלוח זה. תישלח הודעה אל החבר.",
+  "sandstorm-remove-member-warning": "פעולה זו רק מסתירה את החבר בתוך WeKan. היא אינה מבטלת את הגישה ל־grain של Sandstorm. יש לבטל את הגישה שלו גם בתיבת הדו־שיח שיתוף גישה של Sandstorm.",
   "removeMemberPopup-title": "להסיר חבר?",
   "rename": "שינוי שם",
   "rename-board": "שינוי שם ללוח",
