@@ -276,15 +276,15 @@ batch then translated all 2,166 Dzongkha values. Forty-two 50-value Ewe batches
 and a final 66-value batch then translated all 2,166 Ewe values. The first
 forty-one 50-value Fulah batches, two 49-value batches and a final 17-value
 batch then translated 2,165 actionable values. `Bucket` and `Log` are invariant
-product terms that need no translation, completing Fulah. The first five 50-value
-Fijian batches then left **168,829 genuinely untranslated values across 78 locale
+product terms that need no translation, completing Fulah. The first six 50-value
+Fijian batches then left **168,779 genuinely untranslated values across 78 locale
 files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Continue Fijian at `card-members-title` with
+Continue Fijian at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list fj --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe and Fulah are
-complete, and 1,917 Fijian values remain.
+complete, and 1,867 Fijian values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
