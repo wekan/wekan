@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -154,3 +154,7 @@ assert.match(javanese['office-report-desc'], /IPv4.*IPv6/);
 assert.match(javanese['api-no-calls'], /WITH_API=true/);
 assert.equal(javanese['recovery-db'], 'Basis data');
 assert.equal(javanese['ticket-number'], 'Nomer Tiket');
+assert.match(javanese.Node_heap_malloced_memory, /malloc/);
+assert.equal(javanese.legalNotice, 'pawarta hukum');
+assert.equal(javanese['attachment-move-storage-gridfs'],
+  'Pindhah lampiran menyang GridFS');
