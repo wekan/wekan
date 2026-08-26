@@ -1414,9 +1414,12 @@ files**.
 The seventh 25-value Kannada batch added card membership, voting and Planning
 Poker controls. This left **140,633 genuinely untranslated values across 65
 locale files**.
+The eighth 50-value Kannada batch added popup titles, imports, dependencies and
+imported-member mapping. This left **140,583 genuinely untranslated values
+across 65 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kannada at `deletePokerPopup-title` with
+Resume Kannada at `change-settings` with
 `node releases/translations/fill-translations.mjs --list kn --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

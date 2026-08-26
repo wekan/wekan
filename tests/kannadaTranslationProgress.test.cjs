@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kn'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1892);
+assert.equal(Object.keys(remaining).length, 1842);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -51,3 +51,5 @@ assert.deepEqual(tokens(
 assert.deepEqual(tags(kannada['board-public-info']),
   ['</strong>', '<strong>']);
 assert.equal(kannada['vote-question'], 'ಮತದಾನದ ಪ್ರಶ್ನೆ');
+assert.equal(kannada['map-to-existing-user-no-results'],
+  'ಹೊಂದುವ ಬಳಕೆದಾರರು ಕಂಡುಬಂದಿಲ್ಲ.');
