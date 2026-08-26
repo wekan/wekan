@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -106,3 +106,6 @@ assert.equal(hausa['step-validate-migration'], 'Tabbatar da ingancin ƙaura');
 assert.equal(hausa['step-fix-missing-ids'], 'Gyara ID da suka ɓace');
 assert.equal(hausa['cpu-usage'], 'Amfani da CPU');
 assert.equal(hausa['gridfs-attachments'], 'Maƙalolin GridFS');
+assert.match(hausa['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.equal(hausa['migration-delay-ms'], 'Jinkiri (ms)');
+assert.equal(hausa['total-attachments'], 'Jimillar maƙaloli');
