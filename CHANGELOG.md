@@ -1140,9 +1140,12 @@ genuinely untranslated values across 67 locale files**.
 The fourth 50-value Kazakh batch added administration announcements, archives,
 attachments, board appearance and member summaries. This left **145,042
 genuinely untranslated values across 67 locale files**.
+The fifth 50-value Kazakh batch added board views and zoom, public-board
+navigation, archive guidance and card editing. This left **144,992 genuinely
+untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `board-public-info` with
+Resume Kazakh at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

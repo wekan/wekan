@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -50,3 +50,9 @@ assert.deepEqual(tokens(kazakh['avatar-too-big']), ['__size__']);
 assert.equal(kazakh['board-not-found'], 'Тақта табылмады');
 assert.deepEqual(tags(kazakh['board-private-info']),
   ['</strong>', '<strong>']);
+assert.deepEqual(tags(kazakh['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  kazakh['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.equal(kazakh['card-due'], 'Мерзімі');
