@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'iu'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const inuktitut = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/iu.i18n.json'), 'utf8'));
@@ -39,6 +39,10 @@ assert.equal(inuktitut['gridfs-enabled'], 'GridFS ᐃᑭᒪᔪᖅ');
 assert.match(inuktitut['s3-region-description'], /us-east-1/);
 assert.equal(inuktitut['board-migration'],
   'ᐊᓪᓚᕕᒻᒥᒃ ᓅᑦᓯᓂᖅ');
+assert.equal(inuktitut['lost-cards'], 'ᐊᓯᐅᔪᑦ ᐊᓪᓚᖅᓯᒪᔪᑦ');
+assert.match(inuktitut['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.equal(inuktitut['migration-progress-status'], 'ᖃᓄᐃᓐᓂᖓ');
 assert.deepEqual(tokens(inuktitut['act-addChecklistItem']),
   ['__board__', '__card__', '__checklistItem__', '__checklist__', '__list__', '__swimlane__']);
 assert.deepEqual(tokens(inuktitut['act-setCustomField']),
