@@ -1690,9 +1690,12 @@ genuinely untranslated values across 64 locale files**.
 The thirty-seventh 50-value Konkani batch added global-search guidance for
 people, dates, status, fields and sorting, plus card dependencies. This left
 **137,316 genuinely untranslated values across 64 locale files**.
+The thirty-eighth 25-value Konkani batch added dependency imports, board
+backgrounds and card locations. This left **137,291 genuinely untranslated
+values across 64 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Konkani at `dependency-color` with
+Resume Konkani at `location-latitude` with
 `node releases/translations/fill-translations.mjs --list kok --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
