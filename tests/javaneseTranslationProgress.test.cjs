@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'jv'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -53,6 +53,9 @@ assert.equal(javanese['board-migrations'], 'Migrasi Papan');
 assert.equal(javanese['lost-cards'], 'Kertu Ilang');
 assert.equal(javanese['migration-progress-status'], 'Kahanan');
 assert.match(javanese['migrations-admin-only'], /administrator papan/);
+assert.equal(javanese['step-fix-attachment-urls'], 'Ndandani URL Lampiran');
+assert.equal(javanese['cpu-usage'], 'Panggunaan CPU');
+assert.equal(javanese['job-queue'], 'Antrean Tugas');
 assert.equal(javanese['workspace-settings'], 'Setelan Ruang Kerja');
 assert.equal(javanese['home-board-badge'],
   'Papan Ngarep (dibukak sawise mlebu)');
