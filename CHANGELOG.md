@@ -1056,14 +1056,17 @@ This left **146,459 genuinely untranslated values across 68 locale files**.
 The twentieth 50-value Javanese batch added activity details and rule workflow
 building, triggers, selection, and JSON, CSV and Trello Butler import and export.
 This left **146,409 genuinely untranslated values across 68 locale files**.
+The twenty-first 50-value Javanese batch added visual workflow imports,
+scheduled and button triggers, due-date conditions, sorting and card actions.
+This left **146,359 genuinely untranslated values across 68 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Javanese at `r-import-workflow` with
+Resume Javanese at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list jv --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 1167
+Haitian Creole, Icelandic and Inuktitut are now complete; Javanese has 1117
 values remaining.
 
 The newest per-key batch reused each language’s own translated IP-address label
