@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kk'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -113,3 +113,8 @@ assert.deepEqual(tokens(kazakh['r-import-unmapped']), ['__count__']);
 assert.equal(kazakh['r-schedule-weekday'], 'Әр жұмыс күні (Дс–Жм)');
 assert.equal(kazakh['r-mark-complete'],
   'Карточканы аяқталған деп белгілеу');
+assert.equal(kazakh['r-remove-all'],
+  'Карточкадан барлық мүшелерді алып тастау');
+assert.equal(kazakh['r-d-move-to-top-gen'],
+  'Карточканы өз тізімінің басына жылжыту');
+assert.equal(kazakh['r-send-email'], 'Электрондық хат жіберу');

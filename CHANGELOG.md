@@ -1191,9 +1191,12 @@ untranslated values across 67 locale files**.
 The twenty-first 50-value Kazakh batch added visual workflow imports,
 scheduled rules, due-date triggers, buttons and relative-date actions. This left
 **144,192 genuinely untranslated values across 67 locale files**.
+The twenty-second 50-value Kazakh batch added rule conditions for movement,
+labels, members, checklists and email actions. This left **144,142 genuinely
+untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `r-the-board` with
+Resume Kazakh at `r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
