@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kok'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -73,3 +73,7 @@ assert.equal(konkani['trello-import-progress'], 'आयात प्रगती
 assert.deepEqual(tokens(konkani['leave-board-pop']), ['__boardTitle__']);
 assert.equal(konkani['calendar'], 'दिनदर्शिका');
 assert.equal(konkani['multi-selection'], 'जायती निवड');
+assert.deepEqual(tokens(konkani['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.deepEqual(tags(konkani['page-maybe-private']),
+  ["</a>", "<a href='%s'>"]);
