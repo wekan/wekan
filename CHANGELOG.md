@@ -1335,9 +1335,12 @@ left **141,875 genuinely untranslated values across 66 locale files**.
 The twenty-fifth 50-value Greenlandic batch added multi-card editing,
 notifications, board roles, weekdays and ownership. This left **141,825
 genuinely untranslated values across 66 locale files**.
+The twenty-sixth 50-value Greenlandic batch added shared templates and domains,
+My Cards and due-card views, global search and missing-item errors. This left
+**141,775 genuinely untranslated values across 66 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Greenlandic at `delete-linked-cards-before-this-list` with
+Resume Greenlandic at `user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list kl --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
