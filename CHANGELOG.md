@@ -1239,9 +1239,12 @@ This left **143,442 genuinely untranslated values across 67 locale files**.
 The thirty-seventh 50-value Kazakh batch added storage cleanup, card-loading
 performance, security rendering, privacy controls and backups. This left
 **143,392 genuinely untranslated values across 67 locale files**.
+The thirty-eighth 50-value Kazakh batch added scheduled backup restoration,
+cloud credentials, provider setup paths and connection status. This left
+**143,342 genuinely untranslated values across 67 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Kazakh at `backup-schedule` with
+Resume Kazakh at `attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list kk --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
