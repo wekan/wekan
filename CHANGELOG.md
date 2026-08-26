@@ -578,15 +578,18 @@ secure rendering, import and export privacy controls and backup scopes. This
 left **154,227 genuinely untranslated values across 72 locale files**. The
 thirty-eighth 50-value Hausa batch added backup schedules, restoration controls,
 cloud credentials, provider-specific paths and connection tests. This left
-**154,177 genuinely untranslated values across 72 locale files**.
+**154,177 genuinely untranslated values across 72 locale files**. The
+thirty-ninth 50-value Hausa batch added GridFS and S3 settings, migration
+controls, scheduled board operations and attachment monitoring. This left
+**154,127 genuinely untranslated values across 72 locale files**.
 Continue filling those English values directly while preserving human
 translations and exact tokens from `en.i18n.json`.
-Resume Hausa at `attachment-move-storage-gcs` with
+Resume Hausa at `card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list ha --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani and Manx are
-now complete, and 267 Hausa values remain.
+now complete, and 217 Hausa values remain.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

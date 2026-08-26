@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ha'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const hausa = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ha.i18n.json'), 'utf8'));
@@ -97,3 +97,6 @@ assert.match(hausa['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backu
 assert.equal(hausa['gcs-bucket'], 'Rumbun ajiya');
 assert.match(hausa['gcs-permissions-note'], /client_email.*Storage Object Admin/);
 assert.match(hausa['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
+assert.equal(hausa['gridfs-enabled'], 'An kunna GridFS');
+assert.match(hausa['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(hausa['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
