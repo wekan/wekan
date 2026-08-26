@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kl'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -202,3 +202,7 @@ assert.equal(greenlandic['attachment-move-storage-gcs'],
 assert.equal(greenlandic['migration-status'], 'Nuussinerup killiffia');
 assert.equal(greenlandic['board-migrations'],
   'Ilisarnaatit nuunneqarneri');
+assert.equal(greenlandic['lost-cards'], 'Kortsit tammartut');
+assert.equal(greenlandic['migration-progress-status'], 'Killiffik');
+assert.equal(greenlandic['step-validate-migration'],
+  'Nuussineq uppernarsaruk');
