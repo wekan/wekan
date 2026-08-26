@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -76,3 +76,5 @@ assert.deepEqual(tokens(kashmiri['page-maybe-private']), ['%s']);
 assert.deepEqual(tags(kashmiri['page-maybe-private']), ['</a>', "<a href='%s'>"]);
 assert.deepEqual(tokens(kashmiri['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
+assert.match(kashmiri['welcome-swimlane'], /منزل/);
+assert.match(kashmiri['wipLimitErrorPopup-dialog-pt1'], /WIP/);
