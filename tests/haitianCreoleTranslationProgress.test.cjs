@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ht'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
 const creole = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/ht.i18n.json'), 'utf8'));
@@ -31,3 +31,5 @@ assert.deepEqual(tokens(creole['act-setCustomField']),
 assert.deepEqual(tokens(creole['act-moveCard']),
   ['__board__', '__card__', '__list__', '__oldList__', '__oldSwimlane__', '__swimlane__']);
 assert.equal(creole['allboards.workspaces'], 'Espas travay');
+assert.equal(creole['home-board-badge'], 'Tablo Akèy (ouvri apre koneksyon)');
+assert.equal(creole['set-list-width-value'], 'Lajè lis (piksèl)');
