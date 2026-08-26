@@ -1943,7 +1943,8 @@ browser build to verify).
 account takeover, logged-out membership discovery and account-recovery floods.
 Blocked metadata probes and recovery throttles appear in Problems. **Nine
 translations are now complete**, replacing 18,653 English placeholders while
-preserving human translations, format tokens and markup exactly.
+preserving human translations, format tokens and markup exactly. **Cross-board
+card moves** retain newly created destinations and assign stable positions.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2003,6 +2004,23 @@ guessing. Only refused requests are folded into a ResetBleed Problems summary;
 ordinary recovery use is never logged, and a logging failure cannot weaken the
 denial. Behavioral tests cover allowed and refused decisions, while negative
 source coverage prevents any recovery method from escaping the shared callback.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04bd60dd3">Move Card keeps newly created destination boards selectable</a>. Thanks to rlach and xet7.</summary>
+
+The Move Card and Copy Card dialogs now own an authorization-filtered live
+destination subscription and query its Minimongo results reactively. A board
+created through WeKan therefore remains in the selector instead of disappearing
+behind a cached empty result. The [#2494](https://github.com/wekan/wekan/issues/2494)
+regression creates the destination board, list and cards through the visible UI,
+uses the real Move Card dialog, verifies finite unique sort values in the
+database, and confirms every card remains visible in Chromium, Firefox and
+WebKit. A negative publication test also pins active membership and excludes
+unrelated public boards.
 
 </details>
 
