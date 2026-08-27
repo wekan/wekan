@@ -3426,6 +3426,7 @@ browser build to verify).
 **In short:** The **full release** now publishes AppImages automatically after
 its core bundles, while **32-bit AppImages** distinguish an unavailable runner
 from a broken package and keep i686 Node within its virtual-address-space limit.
+**Card details** regain their inner gutters, including on widened desktop panels.
 The table below is carried over from the release under this one, and is refilled
 from each build's provenance.tsv when this release is made.
 
@@ -3440,7 +3441,7 @@ from each build's provenance.tsv when this release is made.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
 
 **AppImage packaging** - 32-bit images start safely and runner limitations are
 reported accurately.
@@ -3491,6 +3492,24 @@ the work runs in parallel with the other post-release formats.
 Regression coverage pins the release dependency, reusable-workflow path, tag,
 publish flag and permission, while the workflow-interface guard proves the
 called workflow exists and accepts every supplied input.
+
+</details>
+
+**Card details** - visible card content remains comfortably inset from the
+opened panel edges at both standard and customized widths.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b26c6d3c5">Opened cards apply their side gutters to the visible content</a>. Thanks to rmb82 and xet7.</summary>
+
+An accessibility markup change accidentally made `.card-details-canvas` an
+empty sibling of the card header and body. Its computed 20-pixel padding still
+looked correct, but no visible content was inside it, so descriptions and custom
+fields touched the panel edges.
+
+The canvas once again owns the whole card body. Positive and negative source
+coverage pins that ownership and rejects the empty-sibling structure, while the
+Playwright regression reproduces an 1100-pixel desktop panel and verifies the
+actual content-to-edge gaps rather than trusting the wrapper's computed style.
 
 </details>
 
