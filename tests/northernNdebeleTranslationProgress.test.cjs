@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -339,5 +339,12 @@ assert.match(ndebele['restore-all-archived-migration-description'],
 assert.match(ndebele['fix-avatar-urls-migration-description'], /URL/);
 assert.match(ndebele['fix-all-file-urls-migration-description'], /URL/);
 assert.equal(ndebele['step-validate-migration'], 'Qinisekisa ukuthutha');
+assert.match(ndebele['step-fix-attachment-urls'], /URL/);
+assert.match(ndebele['step-fix-file-urls'], /URL/);
+assert.match(ndebele['step-fix-missing-ids'], /ID/);
+assert.match(ndebele['cpu-cores'], /CPU/);
+assert.match(ndebele['cpu-usage'], /CPU/);
+assert.match(ndebele['gridfs-attachments'], /GridFS/);
+assert.match(ndebele['gridfs-size'], /GridFS/);
 
 console.log('Northern Ndebele translation progress checks passed.');
