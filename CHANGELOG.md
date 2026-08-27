@@ -3449,9 +3449,15 @@ archive/delete guidance, due and spent time, and card attachment, field, label
 and member editing. These direct translations were completed with low confidence
 and welcome review by a Marathi speaker. This left **118,988 genuinely
 untranslated values across 55 locale files**.
+The sixth 50-value Marathi batch added card membership and dates, voting and
+Planning Poker, dependencies, organization/team/domain assignment, avatar and
+background administration, account deletion, member mapping, and checklist,
+swimlane, list, card and board imports. These direct translations were completed
+with low confidence and welcome review by a Marathi speaker. This left **118,938
+genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
