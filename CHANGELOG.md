@@ -4954,9 +4954,15 @@ Azure and GCS configuration paths, secret handling and connection tests. These
 direct translations were completed with low confidence and welcome review by a
 Northern Sotho speaker. This left **106,503 genuinely untranslated values across
 50 locale files**.
+The thirty-ninth 50-value Northern Sotho batch added Google Cloud Storage and
+GridFS targets, migration lifecycle controls, CollectionFS movement, AWS S3 and
+MinIO security settings, scheduled board operations and attachment monitoring.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sotho speaker. This left **106,453 genuinely untranslated values
+across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
