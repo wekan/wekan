@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -391,3 +391,9 @@ assert.match(cornish['problems-in-progress-help'], /CPU/);
 assert.deepEqual(tokens(cornish['repair-broken-cards-done']), ['__fixed__']);
 assert.deepEqual(tokens(cornish['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
+assert.match(cornish['event-ip'], /IP/);
+assert.match(cornish['event-ipv4'], /IPv4/);
+assert.match(cornish['event-ipv6'], /IPv6/);
+assert.match(cornish['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(cornish['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
