@@ -5498,9 +5498,14 @@ board status and elapsed-time summaries, uploads and account prompts. These
 direct translations were completed with low confidence and welcome review by
 an Oromo speaker. This left **102,407 genuinely untranslated values across 48
 locale files**.
+The fortieth 50-value Oromo batch added upload limits, PDF previews, workspace
+assignment, custom translations, checklist display, support and accessibility
+pages, and brute-force account-lockout settings. These direct translations
+were completed with low confidence and welcome review by an Oromo speaker.
+This left **102,357 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`minicardDetailsActionsPopup-title` with
+`accounts-lockout-locked-users-info` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
