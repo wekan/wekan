@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -320,3 +320,12 @@ assert.match(maithili['migration-cpu-threshold-description'],
   /CPU.*10-90/);
 assert.match(maithili['migration-delay-ms'], /ms/);
 assert.match(maithili['migration-delay-ms-description'], /100-10000/);
+assert.match(maithili.otp, /OTP/);
+assert.match(maithili['api-endpoints'], /API/);
+assert.match(maithili['username-too-short'], /3/);
+assert.match(maithili['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(maithili['repair-broken-cards-done']),
+  ['__fixed__']);
+assert.deepEqual(tokens(maithili['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.match(maithili['cpu-usage-current'], /CPU/);

@@ -2649,9 +2649,14 @@ pagination controls, schedules, system resources and aggregate statistics.
 These direct translations were completed with low confidence and welcome review
 by a Maithili speaker. This left **125,806 genuinely untranslated values across
 59 locale files**.
+The forty-third 50-value Maithili batch added repository accounts and uploads,
+OTP and login errors, problem status and acknowledgement, broken-card repair,
+CPU load and event details. These direct translations were completed with low
+confidence and welcome review by a Maithili speaker. This left **125,756
+genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
