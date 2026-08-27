@@ -3108,9 +3108,14 @@ movement, subtask and attachment actions and filesystem, GridFS and S3 storage
 movement. These direct translations were completed with low confidence and
 welcome review by a Māori speaker. This left **121,972 genuinely untranslated
 values across 57 locale files**.
+The thirty-third 50-value Māori batch added bulk attachment migration,
+file-location repair, storage selection and statistics, file identifiers and
+MongoDB Compact guidance and progress. These direct translations were completed
+with low confidence and welcome review by a Māori speaker. This left **121,922
+genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
