@@ -5928,9 +5928,16 @@ including JSON and ZIP inputs, attachments, progress and failure handling.
 These direct translations were completed with low confidence and welcome
 review by a Kirundi speaker. This left **99,135 genuinely untranslated values
 across 46 locale files**.
+The thirteenth 50-value Kirundi batch added Trello ZIP safety, personal and
+parent workspaces, direct Trello API credentials and imports, board selection,
+progress, cancellation, deletion, resumption and errors, member mapping,
+version and initials, date, time, year and user validation, invitations,
+keyboard shortcuts, label creation and deletion. These direct translations
+were completed with low confidence and welcome review by a Kirundi speaker.
+This left **99,085 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
