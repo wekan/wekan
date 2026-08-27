@@ -5158,9 +5158,15 @@ search instructions for operators, status, field existence, sorting, limits,
 combination and date periods. These direct translations were completed with
 low confidence and welcome review by a Chichewa speaker. This left **104,836
 genuinely untranslated values across 49 locale files**.
+The twenty-ninth 50-value Chichewa batch added label metadata, board and card
+sorting, completion, stickers, card-dependency relationships and JSON or SVG
+imports, board background images, and card locations. These direct
+translations were completed with low confidence and welcome review by a
+Chichewa speaker. This left **104,786 genuinely untranslated values across 49
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`number` with
+`location-latitude` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
