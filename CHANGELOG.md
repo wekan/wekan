@@ -5769,9 +5769,16 @@ attachment actions, and filesystem, GridFS and S3 attachment moves. These
 direct translations were completed with low confidence and welcome review by
 a Pashto speaker. This left **100,302 genuinely untranslated values across 47
 locale files**.
+The thirty-third 50-value Pashto batch added bulk attachment moves across
+filesystem, GridFS and S3 storage, attachment-location repair, avatar scope,
+default storage and move progress, file counts and identifiers, MongoDB
+Compact guidance and status, and file, storage and board metadata. These
+direct translations were completed with low confidence and welcome review by
+a Pashto speaker. This left **100,252 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
