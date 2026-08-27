@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 317);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -273,5 +273,13 @@ assert.match(nepali['disable-import-avatars-description'],
   /WeKan JSON.*Trello.*LDAP.*OIDC\/OAuth2/s);
 assert.match(nepali['backup-description'],
   /\.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(nepali['backup-time'], /HH:MM/);
+assert.match(nepali['backup-day-of-month'], /1-28/);
+assert.match(nepali['gcs-permissions-note'],
+  /WeKan.*Google Cloud Console.*Cloud Storage.*client_email.*Storage Object Admin/s);
+assert.match(nepali['s3-endpoint-menu-path'],
+  /AWS.*S3.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces.*URL/s);
+assert.match(nepali['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
+assert.match(nepali['attachment-move-storage-azure'], /Azure Blob Storage/);
 
 console.log('Nepali translation progress checks passed.');

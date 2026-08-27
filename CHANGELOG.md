@@ -4695,9 +4695,15 @@ import, export, avatar, activity, notification and watch controls, user
 anonymization and scoped streamed backups. These direct translations were
 completed with low confidence and welcome review by a Nepali speaker. This left
 **108,720 genuinely untranslated values across 51 locale files**.
+The thirty-eighth 50-value Nepali batch added scheduled backup frequency and
+restore modes, Google Cloud Storage credentials and permissions, and detailed
+AWS S3, compatible S3, Azure and GCS configuration paths, secret handling and
+connection tests. These direct translations were completed with low confidence
+and welcome review by a Nepali speaker. This left **108,670 genuinely
+untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
