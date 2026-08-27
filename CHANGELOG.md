@@ -6886,15 +6886,21 @@ creation and lockout messages, problem reporting, broken-card repair, CPU status
 and event metadata. These direct translations were completed with low confidence
 and welcome review by a Sindhi speaker. This left **91,084 genuinely untranslated
 values across 43 locale files**.
+The final 17-value Sindhi batch added network-event metadata, filesystem
+integrity, scoped export and WeKan, Trello, Jira, CSV and Excel import guidance.
+These direct translations were completed with low confidence and welcome review
+by a Sindhi speaker. Sindhi is now complete, leaving **91,067 genuinely
+untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `event-detail` with
-`node releases/translations/fill-translations.mjs --list sd --limit 50`;
+and exact tokens from `en.i18n.json`, starting Northern Sami with
+`node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
 Chichewa, Oromo, Pashto, Kirundi, Kinyarwanda and Sakha are now complete.
+Sindhi is also now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
