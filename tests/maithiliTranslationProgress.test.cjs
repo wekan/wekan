@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -45,3 +45,13 @@ assert.match(maithili['act-addChecklist'], /जाँचसूची/);
 assert.match(maithili['act-addComment'], /टिप्पणी/);
 assert.match(maithili['act-createCustomField'], /अनुकूलित क्षेत्र/);
 assert.match(maithili['act-archivedBoard'], /संग्रह/);
+assert.deepEqual(tokens(maithili['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(maithili['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(maithili['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.match(maithili['activity-subtask-added'], /उपकार्य/);
+assert.match(maithili['activity-editComment'], /टिप्पणी/);
+assert.equal(maithili['allboards.workspaces'], 'कार्यस्थान');
+assert.match(maithili['allboards.edit-workspace-icon'], /markdown/);
