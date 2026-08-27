@@ -4433,9 +4433,15 @@ activity, notification and watch suppression and streamed backup scopes. These
 direct translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **110,887 genuinely untranslated values
 across 52 locale files**.
+The thirty-eighth 50-value Northern Ndebele batch added backup scheduling and
+restoration, Google Cloud credentials, S3, Azure and GCS setup paths, cloud
+secrets and connection diagnostics and Azure attachment storage. These direct
+translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **110,837 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`backup-schedule`
+`attachment-move-storage-gcs`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

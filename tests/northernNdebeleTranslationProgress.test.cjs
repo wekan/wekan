@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -315,5 +315,13 @@ assert.match(ndebele['disable-import-avatars-description'],
   /WeKan JSON.*Trello.*LDAP.*OIDC\/OAuth2/s);
 assert.match(ndebele['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(ndebele['backup-time'], /HH:MM/);
+assert.match(ndebele['backup-day-of-month'], /1-28/);
+assert.match(ndebele['gcs-permissions-note'],
+  /WeKan.*Google Cloud Console.*client_email.*JSON.*Storage Object Admin/s);
+assert.match(ndebele['s3-endpoint-menu-path'],
+  /AWS.*S3.*Endpoint URL.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/s);
+assert.match(ndebele['gcs-credentials-menu-path'], /Google Cloud Console.*JSON/s);
+assert.match(ndebele['attachment-move-storage-azure'], /Azure Blob Storage/);
 
 console.log('Northern Ndebele translation progress checks passed.');
