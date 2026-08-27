@@ -4689,9 +4689,15 @@ FerretDB text-data migration and Sandstorm database and file migration status.
 These direct translations were completed with low confidence and welcome review
 by a Nepali speaker. This left **108,770 genuinely untranslated values across 51
 locale files**.
+The thirty-seventh 50-value Nepali batch added Sandstorm raw-database cleanup,
+automatic and lazy card loading, link and code rendering safeguards, global
+import, export, avatar, activity, notification and watch controls, user
+anonymization and scoped streamed backups. These direct translations were
+completed with low confidence and welcome review by a Nepali speaker. This left
+**108,720 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
