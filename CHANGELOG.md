@@ -3902,9 +3902,15 @@ notification and watch restrictions and instance or organization backups.
 These direct translations were completed with low confidence and welcome
 review by a Burmese speaker. This left **115,221 genuinely untranslated values
 across 54 locale files**.
+The thirty-eighth 50-value Burmese batch added scheduled backup and restore
+controls, Google Cloud Storage credentials and permissions, S3, Azure and GCS
+setup guidance, cloud-secret state, connection tests and Azure attachment
+migration. These direct translations were completed with low confidence and
+welcome review by a Burmese speaker. This left **115,171 genuinely untranslated
+values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
