@@ -5251,16 +5251,20 @@ protocol summaries, problem-review and repair status, broken-card repair, CPU
 metrics and event metadata. These direct translations were completed with low
 confidence and welcome review by a Chichewa speaker. This left **104,086
 genuinely untranslated values across 49 locale files**.
+The final 17-value Chichewa batch added event IP metadata, filesystem integrity,
+scoped WeKan JSON and ZIP import and export, and the numeric global-search
+operator and its syntax guidance. These direct translations were completed with
+low confidence and welcome review by a Chichewa speaker, completing Chichewa.
+This left **104,069 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Chichewa at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list ny --limit 50`;
+and exact tokens from `en.i18n.json`, starting Oromo at `accept` with
+`node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
-Manx, Hausa
-Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic, Kashmiri and
-Kurmanji Kurdish, Malagasy, Malayalam, Marathi and Burmese are now complete.
+Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
+Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
+Chichewa are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
