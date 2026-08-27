@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -305,5 +305,15 @@ assert.match(ndebele['database-migration-description'],
 assert.deepEqual(tokens(ndebele['database-migration-confirm']), ['__db__']);
 assert.match(ndebele['sandstorm-migration-description'],
   /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite/s);
+assert.match(ndebele['cards-loading-description'],
+  /WeKan.*CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(ndebele['render-links-as-plain-text-description']),
+  ['<a href>']);
+assert.match(ndebele['always-show-code-as-text-description'],
+  /HTML.*<!-- -->.*JavaScript/s);
+assert.match(ndebele['disable-import-avatars-description'],
+  /WeKan JSON.*Trello.*LDAP.*OIDC\/OAuth2/s);
+assert.match(ndebele['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
 
 console.log('Northern Ndebele translation progress checks passed.');
