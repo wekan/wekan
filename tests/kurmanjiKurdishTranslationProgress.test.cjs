@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -239,3 +239,19 @@ assert.match(kurmanji['dueCardsViewChange-choice-all-description'], /\*Dawî\*/)
 assert.match(kurmanji['globalSearchViewChange-choice-all-description'],
   /\*Kartên min\*/);
 assert.deepEqual(tokens(kurmanji['swimlane-title-not-found']), ['%s']);
+assert.deepEqual(tokens(kurmanji['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+for (const key of [
+  'operator-board', 'operator-swimlane', 'operator-list', 'operator-label',
+  'operator-user', 'operator-member', 'operator-assignee', 'operator-creator',
+  'operator-status', 'operator-due', 'operator-created', 'operator-modified',
+  'operator-sort', 'operator-comment', 'operator-has', 'operator-limit',
+  'operator-debug', 'operator-org', 'operator-team', 'operator-title',
+  'operator-description', 'operator-customfield', 'operator-attachment-text',
+  'operator-checklist-text',
+]) {
+  assert.doesNotMatch(kurmanji[key], /\s/,
+    `${key} must remain one search token`);
+}
+assert.equal(kurmanji['operator-swimlane'], 'rêç');
+assert.equal(kurmanji['predicate-overdue'], 'derbasbûyî');
