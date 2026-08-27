@@ -3364,9 +3364,14 @@ upload rules, custom translations, checklist display, support and accessibility.
 These direct translations were completed with low confidence and welcome review
 by a Malayalam speaker. This left **119,705 genuinely untranslated values across
 56 locale files**.
+The thirty-fifth 50-value Malayalam batch added accessibility copy, brute-force
+lockout administration, scheduled jobs, attachment and avatar paths, and board
+archive, backup and cleanup scheduling. These direct translations were completed
+with low confidence and welcome review by a Malayalam speaker. This left
+**119,655 genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

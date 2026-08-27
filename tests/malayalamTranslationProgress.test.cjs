@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -110,6 +110,11 @@ assert.match(malayalam['show-week-of-year'], /ISO 8601/);
 assert.match(malayalam['import-board-zip'], /JSON/);
 assert.match(malayalam['import-board-zip'], /\.zip/);
 assert.equal(malayalam.accessibility, 'പ്രാപ്യത');
+assert.match(malayalam['accounts-lockout-settings'], /ബ്രൂട്ട് ഫോഴ്‌സ്/);
+assert.match(malayalam['accounts-lockout-period'], /സെക്കൻഡുകൾ/);
+assert.equal(malayalam['admin-people-filter-active'], 'സജീവം');
+assert.match(malayalam['attachment-storage-configuration'], /അറ്റാച്ച്മെന്റ്/);
+assert.match(malayalam['board-backup-scheduled'], /ബാക്കപ്പ്/);
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
