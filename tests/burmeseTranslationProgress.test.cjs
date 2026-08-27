@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -90,6 +90,11 @@ assert.deepEqual(tokens(burmese['operator-number-expected']),
 assert.deepEqual(tokens(burmese['globalSearch-instructions-operator-has']),
   tokens(english['globalSearch-instructions-operator-has']));
 assert.match(burmese['globalSearch-instructions-heading'], /ရှာဖွေ/);
+assert.deepEqual(tokens(burmese['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(burmese['background-too-big']), ['{{size}}']);
+assert.equal(burmese['card-dependencies'], 'မှီခိုမှုများ');
+assert.equal(burmese.location, 'တည်နေရာ');
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
