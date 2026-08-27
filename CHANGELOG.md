@@ -4289,9 +4289,16 @@ keyboard shortcuts and label creation and deletion. These direct translations
 were completed with low confidence and welcome review by a Northern Ndebele
 speaker. This left **112,087 genuinely untranslated values across 52 locale
 files**.
+The fourteenth 50-value Northern Ndebele batch added last-admin protection,
+leaving boards, list archiving and movement, user, team and organization
+settings, swimlane actions, card imports, list deletion, calendar and login,
+multi-card selection, muted boards, archives, normal roles and participation
+notices. These direct translations were completed with low confidence and
+welcome review by a Northern Ndebele speaker. This left **112,037 genuinely
+untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`last-admin-desc`
+`notify-watch`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
