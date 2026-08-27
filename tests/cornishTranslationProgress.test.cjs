@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -317,3 +317,11 @@ assert.match(cornish['mongodb-compact-description'],
   /MongoDB GridFS.*Compact/);
 assert.match(cornish['mongodb-compact-warning'], /Compact.*oplog.*Meteor/);
 assert.equal(cornish['board-title'], 'Titel estyllen');
+assert.equal(cornish['board-status'], 'Studh estyllen');
+assert.match(cornish.Mongo_sessions_count, /Mongo/);
+assert.match(cornish['preview-pdf-not-supported'], /PDF/);
+assert.deepEqual(tokens(cornish['drag-board-to-workspace']),
+  ['__workspaces__']);
+assert.match(cornish['show-week-of-year'], /ISO 8601/);
+assert.match(cornish['import-board-zip'], /\.zip.*JSON/);
+assert.equal(cornish.accessibility, 'Hedhadewder');
