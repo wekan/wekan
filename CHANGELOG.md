@@ -4734,8 +4734,15 @@ addresses, filesystem integrity, export selection, import feedback and the
 numeric card-search operator. These direct translations were completed with low
 confidence and welcome review by a Nepali speaker. Nepali is now complete,
 leaving **108,403 genuinely untranslated values across 50 locale files**.
+The first 50-value Northern Sotho batch added activity history for boards,
+lists, swimlanes, cards, attachments, labels, checklists, comments, custom
+fields and members, together with organization and team restrictions. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **108,353 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Northern Sotho at `accept` with
+and exact tokens from `en.i18n.json`, resuming Northern Sotho at `act-moveCard`
+with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
