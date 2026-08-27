@@ -5314,9 +5314,16 @@ containers, labels and number, currency, checkbox and dropdown custom fields.
 These direct translations were completed with low confidence and welcome
 review by an Oromo speaker. This left **103,619 genuinely untranslated values
 across 48 locale files**.
+The tenth 50-value Oromo batch added date formats, permanent deletion, custom
+field and label actions, WIP limits, profiles, notification editing, account
+enrollment, invitation, password-reset and verification emails, scrollbars,
+board permissions, JSON, CSV and TSV validation, empty-board import recovery,
+linked-card safety and disabled-account errors. These direct translations were
+completed with low confidence and welcome review by an Oromo speaker. This
+left **103,569 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
