@@ -2011,9 +2011,13 @@ The twenty-ninth 50-value Kurmanji Kurdish batch added board and card sorting,
 stickers, dependency editing and JSON or SVG imports, board backgrounds and
 location entry. This left **132,957 genuinely untranslated values across 62
 locale files**.
+The thirtieth 50-value Kurmanji Kurdish batch added map detection, server
+troubleshooting, sorting, string templates, invisible filenames, administration
+reports, recovery and office-login summaries. This left **132,907 genuinely
+untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
