@@ -6077,9 +6077,15 @@ management, subtask and checklist display, ZIP imports, support and
 accessibility settings. These direct translations were completed with low
 confidence and welcome review by a Kirundi speaker. This left **98,035
 genuinely untranslated values across 46 locale files**.
+The thirty-fifth 50-value Kirundi batch added accessibility content, brute
+force login protection, locked-user administration, scheduled jobs,
+attachment-storage paths and scheduled board archive, backup and cleanup
+operations. These direct translations were completed with low confidence and
+welcome review by a Kirundi speaker. This left **97,985 genuinely untranslated
+values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
