@@ -3420,9 +3420,15 @@ scoped export/import, the numbered-card search operator and WeKan import formats
 These direct translations were completed with low confidence and welcome review
 by a Malayalam speaker. Malayalam is now complete, leaving **119,238 genuinely
 untranslated values across 55 locale files**.
+The first 50-value Marathi batch added core activity history for boards, lists,
+swimlanes, cards, labels, checklists, comments, attachments, subtasks and custom
+fields, plus organization/team membership and due-date wording. These direct
+translations were completed with low confidence and welcome review by a Marathi
+speaker. This left **119,188 genuinely untranslated values across 55 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`accept` with
+`act-moveCard` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
