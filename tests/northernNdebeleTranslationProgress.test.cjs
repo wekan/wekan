@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -144,5 +144,13 @@ assert.match(ndebele['sandstorm-remove-member-warning'], /Sandstorm/);
 assert.match(ndebele['sandstorm-remove-member-warning'], /WeKan/);
 assert.match(ndebele['search-example'], /Enter/);
 assert.match(ndebele['setWipLimitPopup-title'], /WIP/);
+assert.equal(ndebele['starred-boards'], 'Amabhodi afakwe inkanyezi');
+assert.equal(ndebele['subscribe'], 'Bhalisa');
+assert.equal(ndebele.team, 'Iqembu');
+assert.equal(ndebele.upload, 'Layisha');
+assert.match(ndebele['custom-help-link-url'], /URL/);
+assert.match(ndebele['automatic-linked-url-schemes'], /URL/);
+assert.equal(ndebele['welcome-list1'], 'Okuyisisekelo');
+assert.match(ndebele['wipLimitErrorPopup-title'], /WIP/);
 
 console.log('Northern Ndebele translation progress checks passed.');
