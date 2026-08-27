@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -52,3 +52,10 @@ assert.deepEqual(tokens(maori['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(maori['allboards.workspaces'], 'Ngā mokowāmahi');
 assert.match(maori['allboards.edit-workspace-icon'], /markdown/);
+assert.equal(maori['workspaceActionsPopup-title'],
+  'Ngā Tautuhinga Mokowāmahi');
+assert.deepEqual(tokens(maori['activity-dueDate']), ['%s', '%s']);
+assert.match(maori['list-width-error-message'], /270/);
+assert.match(maori['set-list-width-value'], /pika/);
+assert.match(maori['set-swimlane-height-value'], /pika/);
+assert.equal(maori['add-checklist'], 'Tāpiri Rārangi Arowhai');
