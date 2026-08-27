@@ -5152,9 +5152,15 @@ single-token search operators and predicates for boards, cards, people, dates,
 content and status. These direct translations were completed with low
 confidence and welcome review by a Chichewa speaker. This left **104,886
 genuinely untranslated values across 49 locale files**.
+The twenty-eighth 50-value Chichewa batch added the remaining search
+predicates, query validation errors, paging, and complete localized global
+search instructions for operators, status, field existence, sorting, limits,
+combination and date periods. These direct translations were completed with
+low confidence and welcome review by a Chichewa speaker. This left **104,836
+genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
