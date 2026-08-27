@@ -3161,10 +3161,15 @@ thresholds, logs, monitoring navigation, attachment totals, storage
 distribution and minicard display. These direct translations were completed
 with low confidence and welcome review by a Māori speaker. This left **121,472
 genuinely untranslated values across 57 locale files**.
+The final 67-value Māori batch added account and repository access, problem and
+repair reporting, CPU and event metadata, filesystem integrity, scoped import
+and export and numeric global search. These direct translations were completed
+with low confidence and welcome review by a Māori speaker. This completed Māori
+and left **121,405 genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at
-`current-step` with
-`node releases/translations/fill-translations.mjs --list mi --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Malayalam at
+`accept` with
+`node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,

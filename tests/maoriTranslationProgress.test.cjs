@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -317,3 +317,14 @@ assert.match(maori['migration-batch-size-description'], /1-100/);
 assert.match(maori['migration-cpu-threshold'], /CPU.*%/);
 assert.match(maori['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(maori['migration-delay-ms-description'], /100-10000/);
+assert.equal(maori.otp, 'Waehere OTP');
+assert.match(maori['api-endpoints'], /API/);
+assert.deepEqual(tokens(maori['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(maori['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.equal(maori['event-ip'], 'Wāhitau IP');
+assert.equal(maori['event-ipv4'], 'Wāhitau IPv4');
+assert.equal(maori['event-ipv6'], 'Wāhitau IPv6');
+assert.deepEqual(tokens(maori['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.match(maori['import-here-instruction'], /\.json.*\.zip/);
