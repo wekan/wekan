@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -197,3 +197,9 @@ assert.match(kyrgyz['dueCardsViewChange-choice-all-description'],
   /\*Бүтүрүү\*/);
 assert.deepEqual(tokens(kyrgyz['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(kyrgyz['label-color-not-found']), ['%s']);
+assert.deepEqual(tokens(kyrgyz['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(kyrgyz['operator-board'], 'такта');
+assert.equal(kyrgyz['operator-swimlane'], 'жол');
+assert.equal(kyrgyz['operator-checklist-text'], 'текшерүүтизмеси');
+assert.equal(kyrgyz['predicate-overdue'], 'мөөнөтүөткөн');
