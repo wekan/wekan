@@ -5943,9 +5943,17 @@ archived-item emptiness, normal and assigned-only roles, invitations and
 participation notifications. These direct translations were completed with
 low confidence and welcome review by a Kirundi speaker. This left **99,035
 genuinely untranslated values across 46 locale files**.
+The fifteenth 50-value Kirundi batch added watch notifications, private-page
+login markup, previews, public and private board descriptions, quick access,
+member removal including Sandstorm access guidance, description rescue,
+search, WIP limits, keyboard shortcuts, filter, search and board sidebars,
+signup, starred boards and automatic post-login opening. These direct
+translations were completed with low confidence and welcome review by a
+Kirundi speaker. This left **98,985 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
