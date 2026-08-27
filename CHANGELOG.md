@@ -3948,8 +3948,15 @@ checklist, custom-field, comment, archive and import changes. These direct
 translations were completed with low confidence and welcome review by a Nahuatl
 speaker. This left **114,854 genuinely untranslated values across 53 locale
 files**.
+The second 50-value Nahuatl batch added card movement and membership activity,
+general activity phrases, checklist and comment changes, received and start
+dates and workspace names, subworkspaces, editing and menus. These direct
+translations were completed with low confidence and welcome review by a Nahuatl
+speaker. This left **114,804 genuinely untranslated values across 53 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Nahuatl at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Nahuatl at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

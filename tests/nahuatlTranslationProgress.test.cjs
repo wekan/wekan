@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -43,5 +43,13 @@ assert.deepEqual(tokens(nahuatl['act-setCustomField']),
     '__list__', '__swimlane__']);
 assert.match(nahuatl['act-createBoard'], /huapalli/);
 assert.match(nahuatl['act-createCard'], /amatlapalli/);
+assert.deepEqual(tokens(nahuatl['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(nahuatl['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(nahuatl['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(nahuatl['allboards.workspaces'], 'Tequitiloyan');
+assert.match(nahuatl['allboards.edit-workspace-icon'], /markdown/);
 
 console.log('Nahuatl translation progress checks passed.');
