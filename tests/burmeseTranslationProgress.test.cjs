@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -52,5 +52,10 @@ assert.deepEqual(tokens(burmese['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(burmese['allboards.workspaces'], 'လုပ်ငန်းနေရာများ');
 assert.match(burmese['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(burmese['activity-dueDate']), ['%s', '%s']);
+assert.match(burmese['list-width-error-message'], /270/);
+assert.match(burmese['set-list-width-value'], /ပစ်ဇယ်/);
+assert.match(burmese['set-swimlane-height-value'], /ပစ်ဇယ်/);
+assert.equal(burmese['add-checklist'], 'စစ်ဆေးစာရင်း ထည့်ရန်');
 
 console.log('Burmese translation progress checks passed.');
