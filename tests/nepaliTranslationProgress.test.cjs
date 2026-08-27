@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1417);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -133,5 +133,11 @@ assert.deepEqual(tokens(nepali['remove-member-pop']),
 assert.match(nepali['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(nepali['public-desc'], /Google/);
 assert.match(nepali['setWipLimitPopup-title'], /WIP/);
+assert.match(nepali['toggle-assignees'], /1-9/);
+assert.match(nepali['toggle-labels'], /1-9/);
+assert.match(nepali['custom-top-left-corner-logo-height'], /27/);
+assert.match(nepali['automatic-linked-url-schemes'], /URL.*URL/);
+assert.match(nepali['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(nepali['wipLimitErrorPopup-dialog-pt2'], /WIP/);
 
 console.log('Nepali translation progress checks passed.');
