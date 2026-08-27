@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -100,5 +100,16 @@ assert.deepEqual(JSON.parse(ndebele['copyManyCardsPopup-format']).map(card =>
   ['description', 'title'],
 ]);
 assert.match(ndebele['custom-field-dropdown-options-placeholder'], /Enter/);
+assert.match(ndebele['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(ndebele['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(ndebele['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(ndebele['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(ndebele['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(ndebele['error-json-malformed'], /JSON/);
+assert.match(ndebele['error-csv-schema'], /CSV.*TSV/);
 
 console.log('Northern Ndebele translation progress checks passed.');

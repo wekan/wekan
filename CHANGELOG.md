@@ -4262,9 +4262,16 @@ copying, multi-card JSON templates, labels and checkbox, currency, dropdown and
 numeric custom fields. These direct translations were completed with low
 confidence and welcome review by a Northern Ndebele speaker. This left **112,287
 genuinely untranslated values across 52 locale files**.
+The tenth 50-value Northern Ndebele batch added text and date fields, permanent
+deletion, profile and WIP settings, card dates and reactions, enrollment,
+invitation, password-reset and verification email, scrolling and board, role,
+JSON, CSV, import, linked-card and account errors. These direct translations
+were completed with low confidence and welcome review by a Northern Ndebele
+speaker. This left **112,237 genuinely untranslated values across 52 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`custom-field-text`
+`error-user-doesNotExist`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
