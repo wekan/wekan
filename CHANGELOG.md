@@ -3195,9 +3195,15 @@ and deletion guidance, dates, time and card attachment, custom-field, label and
 member editing. These direct translations were completed with low confidence
 and welcome review by a Malayalam speaker. This left **121,155 genuinely
 untranslated values across 56 locale files**.
+The sixth 50-value Malayalam batch added card members and dates, voting and
+Planning Poker, dependencies, organization, team and domain dialogs, avatars,
+backgrounds, accounts, imported-member mapping and checklist, swimlane, list,
+card and board imports. These direct translations were completed with low
+confidence and welcome review by a Malayalam speaker. This left **121,105
+genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

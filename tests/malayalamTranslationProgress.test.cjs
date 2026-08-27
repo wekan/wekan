@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -77,3 +77,12 @@ assert.match(malayalam['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(malayalam['card-comments-title']), ['%s']);
 assert.equal(malayalam['card-edit-custom-fields'],
   'ഇഷ്ടാനുസൃത ഫീൽഡുകൾ തിരുത്തുക');
+assert.match(malayalam['cardStartPlanningPokerPopup-title'],
+  /Planning Poker/);
+assert.match(malayalam['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.equal(malayalam['importDependenciesPopup-title'],
+  'ആശ്രിതത്വങ്ങൾ ഇറക്കുമതി ചെയ്യുക');
+assert.equal(malayalam['exportChecklistPopup-title'],
+  'ചെക്ക്‌ലിസ്റ്റ് കയറ്റുമതി ചെയ്യുക');
+assert.equal(malayalam['importSwimlanePopup-title'],
+  'സ്വിംലെയിൻ ഇറക്കുമതി ചെയ്യുക');
