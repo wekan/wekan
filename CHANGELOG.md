@@ -4713,9 +4713,14 @@ avatar and file URL correction, confirmations, progress and board-structure
 repair steps. These direct translations were completed with low confidence and
 welcome review by a Nepali speaker. This left **108,570 genuinely untranslated
 values across 51 locale files**.
+The forty-first 50-value Nepali batch added board-repair steps, conversion
+status, CPU and storage metrics, schedules, export monitoring, filesystem and
+GridFS totals and job details and queues. These direct translations were
+completed with low confidence and welcome review by a Nepali speaker. This left
+**108,520 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

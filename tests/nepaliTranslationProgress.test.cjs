@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 167);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -294,5 +294,12 @@ assert.match(nepali['restore-all-archived-migration-description'],
 assert.match(nepali['fix-avatar-urls-migration-description'], /URL/);
 assert.match(nepali['fix-all-file-urls-migration-description'], /URL/);
 assert.match(nepali['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(nepali['step-fix-attachment-urls'], /URL/);
+assert.match(nepali['step-fix-missing-ids'], /ID/);
+assert.match(nepali['cpu-cores'], /CPU/);
+assert.match(nepali['cpu-usage'], /CPU/);
+assert.match(nepali['gridfs-attachments'], /GridFS/);
+assert.match(nepali['gridfs-size'], /GridFS/);
+assert.match(nepali['every-30-minutes'], /30/);
 
 console.log('Nepali translation progress checks passed.');
