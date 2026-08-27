@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -283,3 +283,13 @@ assert.match(maori['anonymize-import-users-description'],
   /user1, user2, \.\.\..*@username.*requested-by.*assigned-by.*\x60user\x60/s);
 assert.match(maori['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(maori['backup-time'], /HH:MM/);
+assert.match(maori['backup-day-of-month'], /1-28/);
+assert.match(maori['gcs-permissions-note'],
+  /Google Cloud Console.*Cloud Storage.*Buckets.*Permissions.*Grant access.*New principals.*client_email.*JSON.*Storage Object Admin.*Save/s);
+assert.match(maori['s3-endpoint-menu-path'],
+  /AWS.*Endpoint URL.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/s);
+assert.match(maori['gcs-credentials-menu-path'],
+  /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*Add key.*Create new key.*JSON.*Create/s);
+assert.match(maori['attachment-move-storage-azure'],
+  /Azure Blob Storage/);

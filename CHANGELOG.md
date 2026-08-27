@@ -3134,9 +3134,15 @@ anonymization, activity, notification and watch controls and scoped backups.
 These direct translations were completed with low confidence and welcome review
 by a Māori speaker. This left **121,722 genuinely untranslated values across 57
 locale files**.
+The thirty-eighth 50-value Māori batch added backup scheduling and restoration,
+Google Cloud service accounts, S3, Azure and GCS credential guidance, console
+navigation, connection testing and Azure attachment storage. These direct
+translations were completed with low confidence and welcome review by a Māori
+speaker. This left **121,672 genuinely untranslated values across 57 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
