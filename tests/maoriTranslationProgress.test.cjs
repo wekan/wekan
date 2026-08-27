@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -133,3 +133,11 @@ assert.match(maori['listImportCardPopup-title'], /Trello/);
 assert.match(maori['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(maori.normal, 'Pūnoa');
 assert.equal(maori['multi-selection'], 'Tīpakonga-maha');
+assert.deepEqual(tokens(maori['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(maori['page-maybe-private']),
+  ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(maori['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(maori['sandstorm-remove-member-warning'],
+  /WeKan.*Sandstorm.*Sandstorm/);
+assert.match(maori['setWipLimitPopup-title'], /WIP/);
