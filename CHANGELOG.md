@@ -4879,9 +4879,15 @@ reminders, destructive safeguards, selection placement and resize controls.
 These direct translations were completed with low confidence and welcome review
 by a Northern Sotho speaker. This left **107,203 genuinely untranslated values
 across 50 locale files**.
+The twenty-fifth 50-value Northern Sotho batch added multi-window card editing,
+organization, team and user dialogs, notification filters, board-role
+permissions, weekdays, status labels and linked-card deletion guidance. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **107,153 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
