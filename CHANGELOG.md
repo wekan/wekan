@@ -3113,9 +3113,14 @@ file-location repair, storage selection and statistics, file identifiers and
 MongoDB Compact guidance and progress. These direct translations were completed
 with low confidence and welcome review by a Māori speaker. This left **121,922
 genuinely untranslated values across 57 locale files**.
+The thirty-fourth 50-value Māori batch added board status and transfer progress,
+upload and avatar limits, board dragging, custom translations, checklist
+display, support and accessibility. These direct translations were completed
+with low confidence and welcome review by a Māori speaker. This left **121,872
+genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
