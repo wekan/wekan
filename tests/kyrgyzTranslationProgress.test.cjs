@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -152,3 +152,7 @@ assert.match(kyrgyz.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(kyrgyz.DDP_transport, /DDP.*DDP_TRANSPORT/);
 assert.match(kyrgyz['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
+assert.deepEqual(tokens(kyrgyz['default-subtasks-board']), ['__board__']);
+assert.match(kyrgyz['checklist-count-on-minicard'], /0\/0/);
+assert.equal(kyrgyz['parent-card'], 'Ата-эне карточка');
+assert.deepEqual(tokens(kyrgyz['activity-added-label']), ['%s', '%s']);

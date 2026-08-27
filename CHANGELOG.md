@@ -2317,9 +2317,13 @@ The eighteenth 50-value Kyrgyz batch added database and runtime diagnostics,
 reactivity, DDP and OS metrics, custom-field display, account changes, board
 visibility and organization and team tenancy controls. This left **129,173
 genuinely untranslated values across 60 locale files**.
+The nineteenth 50-value Kyrgyz batch added received and end dates, colors and
+attribution, destructive board and notification actions, subtask settings,
+minicard display, parent paths and label activity. This left **129,123 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
