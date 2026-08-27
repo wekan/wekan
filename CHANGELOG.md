@@ -5835,16 +5835,22 @@ attachment totals, storage distribution and board-migration progress. These
 direct translations were completed with low confidence and welcome review by
 a Pashto speaker. This left **99,802 genuinely untranslated values across 47
 locale files**.
+The forty-third and final 67-value Pashto batch added migration resource
+controls, account creation and authentication, code repositories, API
+endpoints, Admin Panel problem and event details, broken-card repair, and
+scoped WeKan import and export controls. These direct translations were
+completed with low confidence and welcome review by a Pashto speaker. Pashto
+is now complete, leaving **99,735 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at
-`current-step` with
-`node releases/translations/fill-translations.mjs --list ps --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Kirundi at `accept` with
+`node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
-Chichewa and Oromo are now complete.
+Chichewa, Oromo and Pashto are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
