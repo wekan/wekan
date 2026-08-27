@@ -2916,8 +2916,14 @@ scoped WeKan imports and exports, numeric global search and import choices. Thes
 direct translations were completed with low confidence and welcome review by a
 Malagasy speaker. This completed Malagasy and left **123,572 genuinely
 untranslated values across 57 locale files**.
+The first 50-value Māori batch added board membership rules, replies and due
+dates, and detailed activity messages for attachments, subtasks, labels,
+checklists, comments, custom fields, members, archives and imports. These direct
+translations were completed with low confidence and welcome review by a Māori
+speaker. This left **123,522 genuinely untranslated values across 57 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Māori with
+and exact tokens from `en.i18n.json`, resuming Māori at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
