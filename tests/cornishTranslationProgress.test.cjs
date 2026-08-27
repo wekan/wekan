@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -105,3 +105,13 @@ assert.equal(cornish['checklistDeletePopup-title'],
 assert.doesNotThrow(() => JSON.parse(cornish['copyManyCardsPopup-format']));
 assert.match(cornish['copyManyCardsPopup-instructions'], /JSON/);
 assert.equal(cornish['custom-field-currency-option'], 'Kod arghans');
+assert.match(cornish['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(cornish['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(cornish['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(cornish['email-resetPassword-subject']),
+  ['__siteName__']);
+assert.match(cornish['error-json-schema'], /JSON/);
+assert.match(cornish['error-csv-schema'], /CSV.*TSV/);
+assert.match(cornish['error-import-empty-board'], /WeKan/);
