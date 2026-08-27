@@ -6101,9 +6101,15 @@ GCS console paths, cloud-secret states, connection tests and Azure attachment
 movement. These direct translations were completed with low confidence and
 welcome review by a Kirundi speaker. This left **97,835 genuinely untranslated
 values across 46 locale files**.
+The thirty-ninth 50-value Kirundi batch added Google Cloud and GridFS storage,
+migration lifecycle and status, CollectionFS movement, S3 credentials and
+connections, scheduled board operations, writable paths and attachment and
+board migration settings. These direct translations were completed with low
+confidence and welcome review by a Kirundi speaker. This left **97,785
+genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
