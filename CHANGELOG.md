@@ -3067,9 +3067,15 @@ notification states, rename and board-role controls, weekdays, status,
 ownership, activity and voting. These direct translations were completed with
 low confidence and welcome review by a Māori speaker. This left **122,322
 genuinely untranslated values across 57 locale files**.
+The twenty-sixth 50-value Māori batch added linked-list safeguards, tasks,
+domains, shared templates, names, people and time units, My Cards and Due Cards
+views and sorting, global-search scope and board, swimlane, list and label lookup
+errors. These direct translations were completed with low confidence and
+welcome review by a Māori speaker. This left **122,272 genuinely untranslated
+values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

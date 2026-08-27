@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -199,3 +199,9 @@ assert.match(maori['roles-info'], /Paewhiri Kaiwhakahaere/);
 assert.equal(maori.monday, 'Mane');
 assert.equal(maori.sunday, 'Rātapu');
 assert.equal(maori.voting, 'Pōti');
+assert.match(maori['invalid-domain'], /example\.com.*@/);
+assert.equal(maori.person, 'Tangata');
+assert.match(maori['dueCardsViewChange-choice-all-description'],
+  /\*Tika\*/);
+assert.deepEqual(tokens(maori['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(maori['label-color-not-found']), ['%s']);
