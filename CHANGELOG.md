@@ -7080,9 +7080,14 @@ progress, file restrictions, custom translations, checklist display controls,
 and support and accessibility pages. These direct translations were completed
 with low confidence and welcome review by a Northern Sami speaker. This left
 **89,367 genuinely untranslated values across 42 locale files**.
+The thirty-fifth 50-value Northern Sami batch added accessibility content,
+brute-force login protection and account unlocking, scheduled jobs, attachment
+paths and scheduled board maintenance. These direct translations were completed
+with low confidence and welcome review by a Northern Sami speaker. This left
+**89,317 genuinely untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
