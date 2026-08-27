@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -178,3 +178,8 @@ assert.match(kashmiri['drag-board-to-workspace'], /__workspaces__/);
 assert.match(kashmiri['show-week-of-year'], /ISO 8601/);
 assert.match(kashmiri['import-board-zip'], /JSON.*\.zip/);
 assert.equal(kashmiri.accessibility, 'رسٲیی');
+assert.match(kashmiri['accounts-lockout-settings'], /Brute Force/);
+assert.equal(kashmiri['accounts-lockout-status'], 'حالت');
+assert.match(kashmiri['attachment-storage-configuration'], /اٹیچمنٹ ذخیرٕ/);
+assert.match(kashmiri['board-backup-scheduled'], /کامیٲبی/);
+assert.equal(kashmiri['cron-migrations'], 'مقرر شُدٕ منتقلی');

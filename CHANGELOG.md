@@ -1858,9 +1858,13 @@ The thirty-fourth 50-value Kashmiri batch added board status and upload progress
 file limits, custom translations, checklist display, Support and Accessibility
 pages. This left **134,874 genuinely untranslated values across 63 locale
 files**.
+The thirty-fifth 50-value Kashmiri batch added Accessibility content, brute-force
+lockout settings, Admin Panel user status, storage paths and scheduled board
+operations. This left **134,824 genuinely untranslated values across 63 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
