@@ -3166,9 +3166,15 @@ repair reporting, CPU and event metadata, filesystem integrity, scoped import
 and export and numeric global search. These direct translations were completed
 with low confidence and welcome review by a Māori speaker. This completed Māori
 and left **121,405 genuinely untranslated values across 56 locale files**.
+The first 50-value Malayalam batch added organization and team membership,
+replies, due-date changes and detailed board, swimlane, list, card, attachment,
+subtask, label, checklist, comment, custom-field, archive and import activity.
+These direct translations were completed with low confidence and welcome review
+by a Malayalam speaker. This left **121,355 genuinely untranslated values
+across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`accept` with
+`act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
