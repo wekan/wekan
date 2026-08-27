@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -286,6 +286,17 @@ assert.equal(kyrgyz['every-10-minutes'], 'Ар 10 мүнөт сайын');
 assert.match(kyrgyz['gridfs-attachments'], /GridFS/);
 assert.match(kyrgyz['gridfs-size'], /GridFS/);
 assert.equal(kyrgyz['job-queue'], 'Иштер кезеги');
+assert.match(kyrgyz['migrate-all-to-gridfs'], /GridFS/);
+assert.match(kyrgyz['migrate-all-to-s3'], /S3/);
+assert.match(kyrgyz['migration-batch-size-description'], /1-100/);
+assert.match(kyrgyz['migration-cpu-threshold'], /CPU.*%/);
+assert.match(kyrgyz['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(kyrgyz['migration-delay-ms-description'], /100-10000/);
+assert.match(kyrgyz['migration-info-text'],
+  /бир жолу.*иштөө ылдамдыгын.*фондо/);
+assert.equal(kyrgyz['showChecklistAtMinicard'],
+  'Миникарточкада текшерүү тизмесин көрсөтүү');
+assert.equal(kyrgyz['unmigrated-boards'], 'Көчүрүлбөгөн такталар');
 assert.match(kyrgyz['database-migration-description'],
   /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
 assert.deepEqual(tokens(kyrgyz['database-migration-confirm']), ['__db__']);

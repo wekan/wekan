@@ -2409,9 +2409,13 @@ The forty-first 50-value Kyrgyz batch added migration step labels, board
 conversion status, CPU and runtime monitoring, recurring schedules,
 filesystem and GridFS metrics and job-queue controls. This left **128,023
 genuinely untranslated values across 60 locale files**.
+The forty-second 50-value Kyrgyz batch added attachment migration targets and
+tuning, CPU and memory limits, background-migration guidance, monitoring,
+pagination, scheduling and progress totals. This left **127,973 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
