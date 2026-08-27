@@ -5848,8 +5848,16 @@ and board, card, list, swimlane, attachment, subtask, label, checklist,
 comment, custom-field, archive and import activities. These direct translations
 were completed with low confidence and welcome review by a Kirundi speaker.
 This left **99,685 genuinely untranslated values across 46 locale files**.
+The second 50-value Kirundi batch added card movement and restoration,
+membership changes, compact activity phrases for creation, movement, imports,
+attachments and checklists, comment and date edits, starred and remaining
+boards, and workspace creation, naming, icons, menus and settings. These direct
+translations were completed with low confidence and welcome review by a
+Kirundi speaker. This left **99,635 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kirundi at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Kirundi at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
