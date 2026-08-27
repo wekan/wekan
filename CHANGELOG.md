@@ -3502,9 +3502,15 @@ list imports, login, selection and multi-selection actions, muted watching,
 archives, normal roles and participation notifications. These direct translations
 were completed with low confidence and welcome review by a Marathi speaker. This
 left **118,538 genuinely untranslated values across 55 locale files**.
+The fifteenth 50-value Marathi batch added watch notifications, private-page
+login, image previews, public/private descriptions, member removal including
+Sandstorm access, unsaved-description rescue, search, WIP limits, keyboard
+shortcuts, sidebars, signup and default-board behavior. These direct translations
+were completed with low confidence and welcome review by a Marathi speaker. This
+left **118,488 genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
