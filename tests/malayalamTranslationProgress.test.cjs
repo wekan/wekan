@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -147,3 +147,10 @@ assert.match(malayalam['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(malayalam['multi-selection'], 'ഒന്നിലധികം തിരഞ്ഞെടുക്കൽ');
 assert.equal(malayalam['no-archived-cards'], 'ആർക്കൈവിൽ കാർഡുകളില്ല.');
 assert.equal(malayalam.normal, 'സാധാരണ');
+assert.deepEqual(tokens(malayalam['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(malayalam['page-maybe-private']), ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(malayalam['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(malayalam['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.match(malayalam['setWipLimitPopup-title'], /WIP/);
+assert.equal(malayalam['sidebar-open'], 'സൈഡ്ബാർ തുറക്കുക');

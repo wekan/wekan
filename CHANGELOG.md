@@ -3249,9 +3249,15 @@ copying, multi-selection, muted watching, archive-empty states, board roles and
 participation notifications. These direct translations were completed with low
 confidence and welcome review by a Malayalam speaker. This left **120,705
 genuinely untranslated values across 56 locale files**.
+The fifteenth 50-value Malayalam batch added watching and participation,
+private/public page guidance, previews, board-member removal, Sandstorm access,
+card-description rescue, board search, WIP limits, keyboard shortcuts, sidebars,
+account creation and starred/default-board controls. These direct translations
+were completed with low confidence and welcome review by a Malayalam speaker.
+This left **120,655 genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
