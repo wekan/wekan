@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -142,3 +142,9 @@ assert.deepEqual(tokens(malagasy['remove-member-pop']),
 assert.match(malagasy['sandstorm-remove-member-warning'],
   /WeKan.*Sandstorm.*Sandstorm/);
 assert.match(malagasy['setWipLimitPopup-title'], /WIP/);
+assert.match(malagasy['toggle-assignees'], /1-9/);
+assert.match(malagasy['custom-top-left-corner-logo-height'], /27/);
+assert.match(malagasy['automatic-linked-url-schemes'], /URL.*URL/);
+assert.equal(malagasy['board-templates-swimlane'],
+  'Lasitry ny solaitra');
+assert.match(malagasy['wipLimitErrorPopup-dialog-pt1'], /WIP/);

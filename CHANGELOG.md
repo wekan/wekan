@@ -2749,9 +2749,15 @@ sidebars, signup and starred and default-board controls. These direct
 translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **124,989 genuinely untranslated values across 58
 locale files**.
+The sixteenth 50-value Malagasy batch added starred boards and subscriptions,
+spent time and overtime, numbered assignee and label shortcuts, tracking,
+uploads, custom logos and URL schemes, username imports, watching, welcome and
+template boards and WIP limit errors. These direct translations were completed
+with low confidence and welcome review by a Malagasy speaker. This left
+**124,939 genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
