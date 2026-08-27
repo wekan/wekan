@@ -3213,9 +3213,15 @@ closing and navigation controls and most of the board color palette. These
 direct translations were completed with low confidence and welcome review by a
 Malayalam speaker. This left **121,005 genuinely untranslated values across 56
 locale files**.
+The ninth 50-value Malayalam batch completed the initial color palette and added
+comment, read-only and worker roles, subtask and checklist deletion, list
+movement, clipboard links, bulk-card JSON, templates, labels and custom-field
+types. These direct translations were completed with low confidence and welcome
+review by a Malayalam speaker. This left **120,955 genuinely untranslated
+values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
