@@ -2365,9 +2365,13 @@ The thirtieth 50-value Kyrgyz batch added map detection, server troubleshooting,
 sorting, board activity, string templates, file diagnostics, security, speed,
 database, recovery, impersonation and office reports. This left **128,573
 genuinely untranslated values across 60 locale files**.
+The thirty-first 50-value Kyrgyz batch added office and API reporting, automatic
+data recovery and MongoDB remediation, swimlane copying, wait spinners,
+organization and team safeguards, ticket and request states and card details.
+This left **128,523 genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
