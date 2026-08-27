@@ -3320,9 +3320,15 @@ search views and missing board, swimlane, list and label results. These direct
 translations were completed with low confidence and welcome review by a
 Malayalam speaker. This left **120,105 genuinely untranslated values across 56
 locale files**.
+The twenty-seventh 50-value Malayalam batch added missing user, comment,
+organization and team results, card-result totals and Malayalam global-search
+operators and predicates for boards, members, dates, text, attachments and
+checklists. These direct translations were completed with low confidence and
+welcome review by a Malayalam speaker. This left **120,055 genuinely
+untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

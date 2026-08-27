@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -227,3 +227,9 @@ for (const key of ['board-title-not-found', 'swimlane-title-not-found',
   'list-title-not-found', 'label-not-found', 'label-color-not-found']) {
   assert.deepEqual(tokens(malayalam[key]), ['%s'], key);
 }
+assert.deepEqual(tokens(malayalam['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(malayalam['operator-board'], 'ബോർഡ്');
+assert.equal(malayalam['operator-customfield'], 'ഇഷ്ടാനുസൃതഫീൽഡ്');
+assert.equal(malayalam['predicate-overdue'], 'കാലഹരണപ്പെട്ടത്');
+assert.equal(malayalam['predicate-quarter'], 'പാദവർഷം');
