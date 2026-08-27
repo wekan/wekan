@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -104,3 +104,13 @@ assert.match(kurmanji['confirm-move-list-to-swimlane'], /rêça din/);
 assert.doesNotThrow(() => JSON.parse(kurmanji['copyManyCardsPopup-format']));
 assert.match(kurmanji['copyManyCardsPopup-instructions'], /JSON/);
 assert.equal(kurmanji['custom-field-number'], 'Hejmar');
+assert.match(kurmanji['enable-permanent-delete-description'],
+  /Rêveberên Giştî.*bi tena serê xwe/);
+assert.match(kurmanji['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(kurmanji['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(kurmanji['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(kurmanji['email-verifyEmail-subject']), ['__siteName__']);
+assert.match(kurmanji['error-csv-schema'], /CSV.*TSV/);
+assert.match(kurmanji['error-import-empty-board'], /WeKan/);

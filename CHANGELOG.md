@@ -1931,9 +1931,13 @@ The ninth 50-value Kurmanji Kurdish batch added permission roles, comment
 visibility, deletion confirmations, clipboard and template copying, valid JSON
 examples, labels and custom-field types. This left **133,957 genuinely
 untranslated values across 62 locale files**.
+The tenth 50-value Kurmanji Kurdish batch added permanent-delete controls,
+profile and WIP dialogs, transactional email templates, authorization errors,
+import schemas, empty-export recovery and linked-card safety. This left
+**133,907 genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
