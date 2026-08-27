@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -168,5 +168,10 @@ assert.match(nahuatl['checklist-count-on-minicard'], /0\/0/);
 assert.match(nahuatl['checklist-count'], /0\/0/);
 assert.deepEqual(tokens(nahuatl['activity-added-label']), ['%s', '%s']);
 assert.equal(nahuatl['parent-card'], 'Tetah amatlapalli');
+assert.deepEqual(tokens(nahuatl['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(nahuatl['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(nahuatl['r-import-done']), ['__count__']);
+assert.match(nahuatl['r-import-paste'], /JSON.*CSV.*Trello Butler/);
 
 console.log('Nahuatl translation progress checks passed.');
