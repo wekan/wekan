@@ -2992,9 +2992,14 @@ member mapping, version and validation labels, invitations, keyboard shortcuts
 and labels. These direct translations were completed with low confidence and
 welcome review by a Māori speaker. This left **122,922 genuinely untranslated
 values across 57 locale files**.
+The fourteenth 50-value Māori batch added board leaving, list archive and
+bulk-card actions, user, team and organization settings, Trello and Excel
+imports, list deletion, navigation, multi-selection, notification muting,
+archives and normal roles. These direct translations were completed with low
+confidence and welcome review by a Māori speaker. This left **122,872 genuinely
+untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at
-`last-admin-desc` with
+and exact tokens from `en.i18n.json`, resuming Māori at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
