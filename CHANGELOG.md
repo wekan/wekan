@@ -2265,9 +2265,13 @@ The fifth 50-value Kyrgyz batch added public-board guidance, board movement and
 appearance, mobile and desktop views, zoom and calendar controls, archive
 warnings and card dates and editing actions. This left **129,823 genuinely
 untranslated values across 60 locale files**.
+The sixth 50-value Kyrgyz batch added voting and Planning Poker, card
+dependencies, organization and team dialogs, account and background
+administration and checklist, swimlane, list and card imports. This left
+**129,773 genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

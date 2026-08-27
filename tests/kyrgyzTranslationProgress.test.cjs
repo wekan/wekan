@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -72,3 +72,10 @@ assert.match(kyrgyz['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(kyrgyz['card-comments-title']), ['%s']);
 assert.equal(kyrgyz['card-edit-custom-fields'],
   'Ыңгайлаштырылган талааларды өзгөртүү');
+assert.match(kyrgyz['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(kyrgyz['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.equal(kyrgyz['importDependenciesPopup-title'],
+  'Көз карандылыктарды импорттоо');
+assert.equal(kyrgyz['exportChecklistPopup-title'],
+  'Текшерүү тизмесин экспорттоо');
+assert.equal(kyrgyz['importSwimlanePopup-title'], 'Жолду импорттоо');
