@@ -3984,9 +3984,15 @@ theme categories, fonts, text colors, avatars, language and permissions. These
 direct translations were completed with low confidence and welcome review by a
 Nahuatl speaker. This left **114,554 genuinely untranslated values across 53
 locale files**.
+The eighth 50-value Nahuatl batch added settings, subtasks, board and page
+stars, automatic list width, clipboard input, three-tier card aging, keyboard
+movement, dialog navigation, board and card closing and 23 color names. These
+direct translations were completed with low confidence and welcome review by a
+Nahuatl speaker. This left **114,504 genuinely untranslated values across 53
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

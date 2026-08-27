@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -85,5 +85,10 @@ assert.match(nahuatl.casSignIn, /CAS/);
 assert.equal(nahuatl['change-permissions'], 'Xicpatla cahuiliztin');
 assert.match(nahuatl['font-preview-text'], /0123456789/);
 assert.equal(nahuatl['font-size-largest'], 'Cenca hueyi');
+assert.match(nahuatl['card-aging-days'], /3/);
+assert.equal(nahuatl['color-black'], 'tliltic');
+assert.equal(nahuatl['color-green'], 'xoxoctic');
+assert.equal(nahuatl['color-red'], 'chichiltic');
+assert.equal(nahuatl['color-sky'], 'ilhuicac texotictic');
 
 console.log('Nahuatl translation progress checks passed.');
