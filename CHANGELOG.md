@@ -7026,9 +7026,15 @@ card-date activity and reminders, positioning and desktop interaction controls.
 These direct translations were completed with low confidence and welcome review
 by a Northern Sami speaker. This left **89,867 genuinely untranslated values
 across 42 locale files**.
+The twenty-fifth 50-value Northern Sami batch added multi-card windows, editor
+keyboard behavior, organization, team and user dialogs, notification filters,
+board-role permissions and status, weekdays and linked-card deletion guidance.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sami speaker. This left **89,817 genuinely untranslated values
+across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
