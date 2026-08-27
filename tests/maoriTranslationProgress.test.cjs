@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -265,3 +265,9 @@ assert.notEqual(maori['accounts-lockout-period'],
   maori['accounts-lockout-failure-window']);
 assert.equal(maori['admin-people-filter-active'], 'Hohe');
 assert.equal(maori['cron-migrations'], 'Ngā Hekenga Kua Hōtaka');
+assert.match(maori['s3-force-path-style-description'], /MinIO.*S3.*AWS/);
+assert.match(maori['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*snap set wekan database=ferretdb.*=mongodb/s);
+assert.deepEqual(tokens(maori['database-migration-confirm']), ['__db__']);
+assert.match(maori['sandstorm-migration-description'],
+  /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/s);

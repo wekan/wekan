@@ -3123,9 +3123,14 @@ lockout policy and unlock actions, active-user filtering, scheduled jobs,
 attachment paths and scheduled board operations. These direct translations were
 completed with low confidence and welcome review by a Māori speaker. This left
 **121,822 genuinely untranslated values across 57 locale files**.
+The thirty-sixth 50-value Māori batch added scheduled-job and migration
+controls, filesystem, S3 and Azure storage, MongoDB and FerretDB migration and
+Sandstorm migration status. These direct translations were completed with low
+confidence and welcome review by a Māori speaker. This left **121,772 genuinely
+untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
