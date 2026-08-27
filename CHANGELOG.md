@@ -6581,8 +6581,14 @@ troubleshooting, activity visibility, string templates, file and system reports,
 impersonation, recovery and office-login reporting. These direct translations
 were completed with low confidence and welcome review by a Sakha speaker. This
 left **93,901 genuinely untranslated values across 44 locale files**.
+The thirty-first 50-value Sakha batch added office and REST API reporting,
+database recovery status, swimlane copying, wait spinners, organization and team
+deletion safeguards, tickets, requests and card-detail dialogs. These direct
+translations were completed with low confidence and welcome review by a Sakha
+speaker. This left **93,851 genuinely untranslated values across 44 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `office-last-seen` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `add-teams` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
