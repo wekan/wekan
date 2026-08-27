@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -94,5 +94,15 @@ assert.deepEqual(JSON.parse(burmese['copyManyCardsPopup-format']).map(card =>
 ]);
 assert.match(burmese['copyManyCardsPopup-instructions'], /JSON/);
 assert.match(burmese['custom-field-dropdown-options-placeholder'], /Enter/);
+assert.match(burmese['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(burmese['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(burmese['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(burmese['email-resetPassword-text']),
+  ['__url__', '__user__']);
+for (const literal of ['JSON', 'CSV', 'TSV', 'WeKan']) {
+  assert.ok(Object.values(burmese).some(value => value.includes(literal)));
+}
 
 console.log('Burmese translation progress checks passed.');

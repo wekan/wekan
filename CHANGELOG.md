@@ -3732,9 +3732,15 @@ bulk-copied cards, template and label creation and custom-field types and
 options. These direct translations were completed with low confidence and
 welcome review by a Burmese speaker. This left **116,621 genuinely untranslated
 values across 54 locale files**.
+The tenth 50-value Burmese batch added permanent deletion, WIP limits, dates,
+reactions, notifications, account enrollment, invitations, password reset and
+email verification, scrolling and detailed board, role, import and linked-card
+errors. These direct translations were completed with low confidence and
+welcome review by a Burmese speaker. This left **116,571 genuinely untranslated
+values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
