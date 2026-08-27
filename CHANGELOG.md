@@ -1911,9 +1911,13 @@ The fourth 50-value Kurmanji Kurdish batch added administration announcements,
 archive and template actions, reconnection guidance, board backgrounds, member
 summaries and privacy. This left **134,207 genuinely untranslated values across
 62 locale files**.
+The fifth 50-value Kurmanji Kurdish batch added board visibility and navigation,
+mobile and desktop views, zoom, calendar modes and card, list and swimlane archive
+guidance. This left **134,157 genuinely untranslated values across 62 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

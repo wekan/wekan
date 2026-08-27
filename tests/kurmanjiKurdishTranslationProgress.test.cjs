@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -67,3 +67,12 @@ assert.deepEqual(tags(kurmanji['board-private-info']),
   ['</strong>', '<strong>']);
 assert.match(kurmanji['board-private-info'], /taybet/);
 assert.equal(kurmanji['public-boards'], 'Depoyên giştî');
+assert.deepEqual(tags(kurmanji['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  kurmanji['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.match(kurmanji['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(kurmanji['card-comments-title']), ['%s']);
+assert.match(kurmanji['swimlane-archive-suggest'], /rêç.*arşîv/);
+assert.equal(kurmanji['board-view-table'], 'Tablo');
