@@ -6725,8 +6725,14 @@ workspace and board selection, resumable import jobs, member mapping, date and
 year validation, keyboard shortcuts and label deletion. These direct translations
 were completed with low confidence and welcome review by a Sindhi speaker. This
 left **92,584 genuinely untranslated values across 43 locale files**.
+The fourteenth 50-value Sindhi batch added board departure and roles, list archive
+and movement actions, user, team and organization settings, multi-selection,
+muting, archived-item states and participation notifications. These direct
+translations were completed with low confidence and welcome review by a Sindhi
+speaker. This left **92,534 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `last-admin-desc` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
