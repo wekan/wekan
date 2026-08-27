@@ -7054,9 +7054,15 @@ preserving all data-format names and runtime tokens. These direct translations
 were completed with low confidence and welcome review by a Northern Sami
 speaker. This left **89,617 genuinely untranslated values across 42 locale
 files**.
+The thirtieth 50-value Northern Sami batch added map-location detection,
+server-error troubleshooting, activity and swimlane controls, string templates,
+and administration reports for files, security, performance and office logins.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sami speaker. This left **89,567 genuinely untranslated values
+across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
