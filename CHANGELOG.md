@@ -6412,8 +6412,14 @@ import guidance. Across 44 direct-translation batches, all remaining
 Kinyarwanda placeholders are now translated. These direct translations were
 completed with low confidence and welcome review by a Kinyarwanda speaker.
 This left **95,401 genuinely untranslated values across 44 locale files**.
+The first 50-value Sakha batch added activity changes, same-organization and
+same-team membership, comment replies, due dates and activity records for
+attachments, subtasks, labels, checklists, comments, boards, cards, lists,
+swimlanes and members. These direct translations were completed with low
+confidence and welcome review by a Sakha speaker. This left **95,351 genuinely
+untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `accept` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
