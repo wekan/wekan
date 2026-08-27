@@ -6279,9 +6279,17 @@ checking and unchecking, email actions and generated top and bottom movement
 descriptions. These direct translations were completed with low confidence and
 welcome review by a Kinyarwanda speaker. This left **96,468 genuinely
 untranslated values across 45 locale files**.
+The twenty-third 50-value Kinyarwanda batch added generated email, archive,
+label, card, member and checklist actions, comma-separated checklist items,
+swimlane creation, empty-field guidance, date-field updates, card links,
+authentication methods and custom product naming, HTML head tags, web
+manifests, assetlinks.json, layout and card counters. These direct translations
+were completed with low confidence and welcome review by a Kinyarwanda
+speaker. This left **96,418 genuinely untranslated values across 45 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
