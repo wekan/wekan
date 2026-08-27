@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -298,3 +298,14 @@ assert.equal(kurmanji['copyChecklist'], 'Lîsteya kontrolê kopî bike');
 assert.equal(kurmanji['attachment-move-storage-gridfs'],
   'Pêvekê bibe GridFS');
 assert.equal(kurmanji['attachment-move-storage-s3'], 'Pêvekê bibe S3');
+assert.equal(kurmanji['move-all-attachments-to-gridfs'],
+  'Hemû pêvekan bibe GridFS');
+assert.equal(kurmanji['move-all-attachments-to-s3'],
+  'Hemû pêvekan bibe S3');
+assert.match(kurmanji['attachment-repair-locations-description'],
+  /GridFS.*ewr/);
+assert.match(kurmanji['gridfs-file-id'], /ID.*GridFS/);
+assert.match(kurmanji['mongodb-compact-description'],
+  /MongoDB GridFS.*Compact/);
+assert.match(kurmanji['mongodb-compact-warning'], /Compact.*oplog.*Meteor/);
+assert.equal(kurmanji['board-title'], 'Sernavê depoyê');

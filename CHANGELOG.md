@@ -2023,9 +2023,13 @@ The thirty-second 50-value Kurmanji Kurdish batch added team invitations, Node
 memory diagnostics, organization controls, legal notices, checklist actions and
 attachment storage targets. This left **132,807 genuinely untranslated values
 across 62 locale files**.
+The thirty-third 50-value Kurmanji Kurdish batch added bulk attachment moves,
+storage repair, default backends, progress and file statistics, MongoDB Compact
+guidance and resource identifiers. This left **132,757 genuinely untranslated
+values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
