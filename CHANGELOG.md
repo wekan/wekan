@@ -6272,9 +6272,16 @@ due-date and list-duration triggers, card and board buttons, list sorting,
 completion, bulk moves and relative dates. These direct translations were
 completed with low confidence and welcome review by a Kinyarwanda speaker.
 This left **96,518 genuinely untranslated values across 45 locale files**.
+The twenty-second 50-value Kinyarwanda batch added rule phrases for boards,
+lists, movement, archives, labels, members, attachments, checklists and
+checklist items, card positioning, restoration, member removal, colors,
+checking and unchecking, email actions and generated top and bottom movement
+descriptions. These direct translations were completed with low confidence and
+welcome review by a Kinyarwanda speaker. This left **96,468 genuinely
+untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
