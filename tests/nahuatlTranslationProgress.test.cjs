@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -232,5 +232,10 @@ assert.match(nahuatl['server-error-troubleshooting'],
 assert.match(nahuatl['server-error-troubleshooting'],
   /sudo docker logs wekan-app/);
 assert.match(nahuatl['office-report-desc'], /IPv4.*IPv6/);
+assert.match(nahuatl['api-report-desc'], /REST API/);
+assert.match(nahuatl['api-no-calls'], /WITH_API=true/);
+assert.match(nahuatl['recovery-report-desc'], /MongoDB/);
+assert.equal(nahuatl['copy-swimlane'], 'Xiccopina ohtli');
+assert.equal(nahuatl.ticket, 'Tlapalehuilamatl');
 
 console.log('Nahuatl translation progress checks passed.');

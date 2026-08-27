@@ -4126,9 +4126,15 @@ templates and the files, security, performance, test, database, rules, board,
 card, impersonation, recovery and office reports. These direct translations
 were completed with low confidence and welcome review by a Nahuatl speaker.
 This left **113,404 genuinely untranslated values across 53 locale files**.
+The thirty-first 50-value Nahuatl batch added Office, REST API and recovery
+report details, recovery maintenance, swimlane copying, wait-spinner styles,
+card sizing, organization and team deletion warnings and support-ticket status
+and requests. These direct translations were completed with low confidence and
+welcome review by a Nahuatl speaker. This left **113,354 genuinely untranslated
+values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
