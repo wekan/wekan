@@ -3966,9 +3966,15 @@ attachments, board backgrounds, All Boards display, member and assignee scopes,
 stars and private-board information. These direct translations were completed
 with low confidence and welcome review by a Nahuatl speaker. This left
 **114,704 genuinely untranslated values across 53 locale files**.
+The fifth 50-value Nahuatl batch added public-board information, board opening
+and workspace assignment, colors, backgrounds, views and zoom, calendar
+navigation, archive and deletion guidance, due and spent time and card
+attachment, field, label and member editing. These direct translations were
+completed with low confidence and welcome review by a Nahuatl speaker. This
+left **114,654 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
