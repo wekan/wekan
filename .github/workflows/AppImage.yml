@@ -1,7 +1,9 @@
 name: AppImage
 
 # Build WeKan as an AppImage for every CPU an AppImage runtime exists for, and
-# attach them to the newest WeKan release.
+# attach them to a WeKan release. The ordinary full-release path calls this
+# workflow from release-all.yml with the exact tag after its core bundles are
+# published; workflow_dispatch remains available for rebuilding an AppImage.
 #
 # WHAT IS INSIDE IS WHAT WEKAN ALREADY SHIPS. release-all.yml already produces a
 # bundle that runs offline with nothing installed: the Meteor server (main.js),

@@ -10,6 +10,7 @@ const fs = require('fs');
 
 const launcher = fs.readFileSync('releases/ferretdb/start-wekan.sh', 'utf8');
 const workflow = fs.readFileSync('.github/workflows/AppImage.yml', 'utf8');
+const releaseAll = fs.readFileSync('.github/workflows/release-all.yml', 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -45,6 +46,16 @@ test('a runnable inner Node is still followed by the real HTTP smoke test', () =
   const launch = workflow.indexOf('APPIMAGE_EXTRACT_AND_RUN=1 "$app" > smoke.log');
   const curl = workflow.indexOf('http://localhost:8080/sign-in');
   assert.ok(probe >= 0 && probe < launch && launch < curl);
+});
+
+test('the full release calls AppImage only after publishing its core bundles', () => {
+  const job = releaseAll.match(/^  appimage:\n([\s\S]*?)(?=^  \S)/m);
+  assert.ok(job, 'release-all.yml must contain an appimage job');
+  assert.match(job[1], /needs: \[prepare, release\]/);
+  assert.match(job[1], /uses: \.\/\.github\/workflows\/AppImage\.yml/);
+  assert.match(job[1], /contents: write/);
+  assert.match(job[1], /tag: v\$\{\{ needs\.prepare\.outputs\.version \}\}/);
+  assert.match(job[1], /publish: true/);
 });
 
 console.log(`\nappImageRuntime: ${passed} tests passed`);

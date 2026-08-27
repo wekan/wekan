@@ -39,6 +39,9 @@ name: Release All Platforms
 #              not compiled here) and embeds it
 #   - release: creates the GitHub Release with the newest CHANGELOG.md notes and
 #              uploads the core wekan-<version>-{amd64,arm64}.zip bundles
+#   - appimage: AFTER release, calls AppImage.yml to wrap those two core bundles
+#              for every AppImage runtime architecture they can serve, smoke-tests
+#              the runnable images and attaches them to the same GitHub Release
 #   - build-win64 / build-win-arm64 / build-mac-arm64 / build-extra-arches: built
 #     AFTER release, each
 #              rebuilds the amd64 bundle's native modules for its platform (Windows,
@@ -1136,6 +1139,24 @@ jobs:
           if [ "${{ job.status }}" = "failure" ]; then
             echo "::error::release FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
+
+  # ─── 7a. Wrap the published core bundles as AppImages ──────────────────────
+  # AppImage.yml does not rebuild WeKan: it downloads the amd64 and arm64 ZIPs
+  # that `release` just attached and wraps them for every AppImage runtime
+  # architecture they can serve. Put the reusable call HERE, after `release`,
+  # because before that job the ZIP URLs return 404. It runs in parallel with
+  # the other post-release formats because none of them produces an AppImage
+  # input. Passing the exact tag prevents a newer concurrent release from being
+  # selected by AppImage.yml's standalone "newest release" fallback.
+  appimage:
+    name: AppImages
+    needs: [prepare, release]
+    uses: ./.github/workflows/AppImage.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
 
   # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
