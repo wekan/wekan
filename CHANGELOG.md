@@ -5602,9 +5602,15 @@ imported-member mapping, themes, font previews and sizes, text colors, avatars,
 languages and permissions. These direct translations were completed with low
 confidence and welcome review by a Pashto speaker. This left **101,552
 genuinely untranslated values across 47 locale files**.
+The eighth 50-value Pashto batch added settings, subtasks, board and page
+stars, automatic list widths, clipboard input, three-tier card aging,
+directional movement, dialog accessibility, board closure and twenty-three
+color names. These direct translations were completed with low confidence and
+welcome review by a Pashto speaker. This left **101,502 genuinely untranslated
+values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
