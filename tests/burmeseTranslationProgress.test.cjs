@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -168,5 +168,11 @@ assert.deepEqual(tokens(burmese['r-import-done']), ['__count__']);
 for (const literal of ['JSON', 'CSV', 'Trello Butler']) {
   assert.ok(Object.values(burmese).some(value => value.includes(literal)));
 }
+assert.deepEqual(tokens(burmese['r-import-unmapped']), ['__count__']);
+for (const literal of ['n8n', 'Node-RED', 'WeKan']) {
+  assert.ok(burmese['r-import-workflow-note'].includes(literal));
+}
+assert.match(burmese['r-schedule-weekday'], /Mon–Fri/);
+assert.match(burmese['r-for-n-days'], /N/);
 
 console.log('Burmese translation progress checks passed.');

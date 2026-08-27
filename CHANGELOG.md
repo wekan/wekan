@@ -3802,9 +3802,16 @@ member, checklist, attachment and daily triggers and JSON, CSV and Trello Butler
 rule transfer. These direct translations were completed with low confidence and
 welcome review by a Burmese speaker. This left **116,071 genuinely untranslated
 values across 54 locale files**.
+The twenty-first 50-value Burmese batch added n8n and Node-RED visual-workflow
+imports, scheduled and button triggers, daily, weekday, weekly and monthly
+schedules, due-date and list-duration triggers, card and board buttons, list
+sorting, completion, bulk movement, relative dates and time units. These direct
+translations were completed with low confidence and welcome review by a Burmese
+speaker. This left **116,021 genuinely untranslated values across 54 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
