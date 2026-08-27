@@ -212,6 +212,7 @@ jobs:
         run: |
           set -euo pipefail
           version='${{ needs.release.outputs.version }}'
+          arch='${{ matrix.appimage_arch }}'
           rm -rf AppDir
           mkdir -p AppDir/usr/lib/wekan AppDir/usr/share/applications \
                    AppDir/usr/share/icons/hicolor/512x512/apps
@@ -269,8 +270,21 @@ jobs:
           echo "bundled FerretDB."
           echo
 
+          # A missing AppImage may be rebuilt around an ALREADY-PUBLISHED base
+          # bundle. In that case its start-wekan.sh predates fixes in this
+          # checkout. Keep the 32-bit V8 address-space ceiling in AppRun too,
+          # so an i686/armhf AppImage made for an older release can start. An
+          # administrator's explicit NODE_OPTIONS remains authoritative.
+          case "@APPIMAGE_ARCH@" in
+            i686|armhf)
+              : "${NODE_OPTIONS:=--max-old-space-size=1024}"
+              export NODE_OPTIONS
+              ;;
+          esac
+
           exec "$BUNDLE/start-wekan.sh" "$@"
           APPRUN
+          sed -i "s/@APPIMAGE_ARCH@/$arch/" AppDir/AppRun
           chmod +x AppDir/AppRun
 
       - name: Pack the AppImage

@@ -24,6 +24,15 @@ test('32-bit bundled Node gets a safe automatic V8 heap ceiling', () => {
 
 test('explicit NODE_OPTIONS still overrides every automatic ceiling', () => {
   assert.match(launcher, /export NODE_OPTIONS="\$\{NODE_OPTIONS:---max-old-space-size=\$_heap_mb\}"/);
+  assert.match(workflow, /\$\{NODE_OPTIONS:=--max-old-space-size=1024\}/,
+    'AppRun must use assignment only when NODE_OPTIONS is unset or empty');
+});
+
+test('AppRun protects 32-bit images even when their published bundle predates the launcher fix', () => {
+  assert.match(workflow, /case "@APPIMAGE_ARCH@" in\s*\n\s*i686\|armhf\)/);
+  assert.match(workflow, /sed -i "s\/@APPIMAGE_ARCH@\/\$arch\/" AppDir\/AppRun/);
+  assert.ok(workflow.indexOf('${NODE_OPTIONS:=--max-old-space-size=1024}')
+    < workflow.indexOf('exec "$BUNDLE/start-wekan.sh" "$@"'));
 });
 
 test('AppImage smoke test probes the bundled runtime, not only its wrapper', () => {
