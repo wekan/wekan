@@ -2660,8 +2660,14 @@ also replaced one Latin-only API label exposed by the script audit. These direct
 translations were completed with low confidence and welcome review by a
 Maithili speaker. This completed Maithili and left **125,739 genuinely
 untranslated values across 58 locale files**.
+The first 50-value Malagasy batch added board membership rules, replies and due
+dates, and detailed activity messages for attachments, subtasks, labels,
+checklists, comments, custom fields, members, archives and imports. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **125,689 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Malagasy at `accept` with
+and exact tokens from `en.i18n.json`, resuming Malagasy at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
