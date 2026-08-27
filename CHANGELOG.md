@@ -5509,9 +5509,14 @@ archive, backup and cleanup operations, and scheduled-job and migration
 statuses. These direct translations were completed with low confidence and
 welcome review by an Oromo speaker. This left **102,307 genuinely untranslated
 values across 48 locale files**.
+The forty-second 50-value Oromo batch added scheduled-migration recovery,
+filesystem, S3 and Azure storage settings, MongoDB–FerretDB database migration,
+Sandstorm grain migration and cleanup, and automatic card-loading modes. These
+direct translations were completed with low confidence and welcome review by
+an Oromo speaker. This left **102,257 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at
-`cron-error-severity` with
+and exact tokens from `en.i18n.json`, resuming Oromo at `cards-loading-all` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
