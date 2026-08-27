@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -84,5 +84,15 @@ assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
 assert.equal(burmese['color-sky'], 'ကောင်းကင်ပြာ');
+assert.equal(burmese['color-white'], 'အဖြူ');
+assert.equal(burmese['color-yellow'], 'အဝါ');
+assert.deepEqual(JSON.parse(burmese['copyManyCardsPopup-format']).map(card =>
+  Object.keys(card).sort()), [
+  ['description', 'title'],
+  ['description', 'title'],
+  ['description', 'title'],
+]);
+assert.match(burmese['copyManyCardsPopup-instructions'], /JSON/);
+assert.match(burmese['custom-field-dropdown-options-placeholder'], /Enter/);
 
 console.log('Burmese translation progress checks passed.');
