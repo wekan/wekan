@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1167);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -166,5 +166,9 @@ assert.deepEqual(tokens(nepali['activity-unset-customfield']), ['%s', '%s']);
 assert.deepEqual(tokens(nepali['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(nepali['r-import-done']), ['__count__']);
 assert.match(nepali['r-import-paste'], /JSON.*CSV.*Trello Butler/);
+assert.match(nepali['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(nepali['r-import-unmapped']), ['__count__']);
+assert.match(nepali['r-schedule-weekday'], /सोम–शुक्र/);
+assert.match(nepali['r-for-n-days'], /N/);
 
 console.log('Nepali translation progress checks passed.');

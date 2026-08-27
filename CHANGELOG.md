@@ -4594,9 +4594,15 @@ daily triggers, JSON and CSV rule import and export and Trello Butler command
 mapping. These direct translations were completed with low confidence and
 welcome review by a Nepali speaker. This left **109,570 genuinely untranslated
 values across 51 locale files**.
+The twenty-first 50-value Nepali batch added n8n and Node-RED workflow imports,
+scheduled and button triggers, one-time, daily, weekday, weekly and monthly
+schedules, due-date and list-duration conditions, sorting, completion, bulk
+movement and relative-date actions and time units. These direct translations
+were completed with low confidence and welcome review by a Nepali speaker. This
+left **109,520 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
