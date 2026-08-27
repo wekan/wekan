@@ -5307,9 +5307,16 @@ movement, dialog navigation, board restoration and twenty-three color names.
 These direct translations were completed with low confidence and welcome
 review by an Oromo speaker. This left **103,669 genuinely untranslated values
 across 48 locale files**.
+The ninth 50-value Oromo batch added the remaining basic colors, comment and
+read-only roles, worker permissions, deletion confirmations, list movement,
+clipboard links, bulk template copying with intact JSON field names, template
+containers, labels and number, currency, checkbox and dropdown custom fields.
+These direct translations were completed with low confidence and welcome
+review by an Oromo speaker. This left **103,619 genuinely untranslated values
+across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
