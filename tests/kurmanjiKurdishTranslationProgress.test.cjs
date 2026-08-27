@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -178,3 +178,9 @@ assert.match(kurmanji.OS_Cpus, /CPU.*OS/);
 assert.match(kurmanji['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
 assert.match(kurmanji['org-admins-description'], /Rêveberê seranserê malperê/);
+assert.match(kurmanji['delete-board-confirm-popup'], /Veger tune/);
+assert.deepEqual(tokens(kurmanji['default-subtasks-board']), ['__board__']);
+assert.match(kurmanji['checklist-count-on-minicard'], /0\/0/);
+assert.equal(kurmanji['parent-card'], 'Karta dêûbav');
+assert.equal(kurmanji['source-board'], 'Depoya çavkanî');
+assert.deepEqual(tokens(kurmanji['activity-added-label']), ['%s', '%s']);
