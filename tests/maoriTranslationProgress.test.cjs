@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -234,3 +234,8 @@ assert.deepEqual(tokens(maori['custom-field-stringtemplate-format']),
   ['%{value}']);
 assert.equal(maori['reports'], 'Ngā Pūrongo');
 assert.match(maori['office-report-desc'], /IPv4.*IPv6/);
+assert.match(maori['api-report-desc'], /REST API/);
+assert.match(maori['api-no-calls'], /WITH_API=true/);
+assert.match(maori['recovery-report-desc'], /MongoDB/);
+assert.equal(maori['carbon-copy'], 'Tārua Waro (Cc:)');
+assert.equal(maori['help-request'], 'Tono Āwhina');

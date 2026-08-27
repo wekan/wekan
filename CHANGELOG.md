@@ -3096,9 +3096,15 @@ file, security, speed, test, CPU, database, rule, board, card, impersonation,
 recovery and office reports. These direct translations were completed with low
 confidence and welcome review by a Māori speaker. This left **122,072 genuinely
 untranslated values across 57 locale files**.
+The thirty-first 50-value Māori batch added office, API and recovery report
+details, recovery maintenance, swimlane copying, wait animations,
+organization and team deletion safeguards and support-ticket states. These
+direct translations were completed with low confidence and welcome review by a
+Māori speaker. This left **122,022 genuinely untranslated values across 57
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
