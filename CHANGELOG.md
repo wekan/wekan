@@ -5503,9 +5503,15 @@ assignment, custom translations, checklist display, support and accessibility
 pages, and brute-force account-lockout settings. These direct translations
 were completed with low confidence and welcome review by an Oromo speaker.
 This left **102,357 genuinely untranslated values across 48 locale files**.
+The forty-first 50-value Oromo batch added locked-user administration,
+active-user filtering, attachment and avatar storage paths, scheduled board
+archive, backup and cleanup operations, and scheduled-job and migration
+statuses. These direct translations were completed with low confidence and
+welcome review by an Oromo speaker. This left **102,307 genuinely untranslated
+values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`accounts-lockout-locked-users-info` with
+`cron-error-severity` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
