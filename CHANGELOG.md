@@ -5583,8 +5583,14 @@ Boards settings, member and assignee summaries, star counts and private-board
 guidance. These direct translations were completed with low confidence and
 welcome review by a Pashto speaker. This left **101,702 genuinely untranslated
 values across 47 locale files**.
+The fifth 50-value Pashto batch added public-board guidance, drag-and-drop
+workspace assignment, board appearance and views, mobile, desktop and zoom
+controls, calendar navigation, archive guidance, card dates, attachments,
+custom fields, labels and members. These direct translations were completed
+with low confidence and welcome review by a Pashto speaker. This left
+**101,652 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `board-public-info` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
