@@ -2079,6 +2079,9 @@ each build's provenance.tsv when this release is made.
 
 This release fixes the following bug:
 
+**AppImage packaging** - 32-bit images start safely and runner limitations are
+reported accurately.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8b6003e7">The 32-bit AppImages pass the right startup checks</a>. Thanks to xet7.</summary>
 
@@ -2093,6 +2096,22 @@ lacks `/lib/ld-linux-armhf.so.3` therefore uploads the package with an honest
 unchecked warning; a runnable Node must still pass the real HTTP smoke test.
 Positive and negative plain-Node coverage pins the heap ceiling, override,
 inner-runtime probe and smoke-test ordering.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/404a79e00">Rebuilt 32-bit AppImages also protect older release bundles</a>. Thanks to xet7.</summary>
+
+The v11.15 rerun proved that fixing the bundle launcher alone was insufficient:
+an AppImage wraps the ZIP already attached to that release, so its bundled
+`start-wekan.sh` still predated the fix and i686 again died with `GC during
+deserialization`.
+
+The generated `AppRun` now supplies the same 1 GiB V8 ceiling for i686 and armhf
+before invoking the bundle launcher. This makes a missing AppImage safely
+rebuildable around an older published ZIP, while `${NODE_OPTIONS}` supplied by
+an administrator still wins. Regression coverage pins that old-bundle boundary
+and the architecture substitution.
 
 </details>
 
