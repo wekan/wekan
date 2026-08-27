@@ -2980,9 +2980,15 @@ validation, card PDF and Excel exports and attachment metadata, list sorting and
 date, label and member filters. These direct translations were completed with
 low confidence and welcome review by a Māori speaker. This left **123,022
 genuinely untranslated values across 57 locale files**.
+The twelfth 50-value Māori batch added assignee, custom-field and archive
+filters, advanced filter syntax, member states and impersonation, Kanboard,
+NextCloud Deck, OpenProject, Asana, ZenKit, Trello, Jira, Excel and WeKan board
+imports and safe Trello ZIP handling. These direct translations were completed
+with low confidence and welcome review by a Māori speaker. This left **122,972
+genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
