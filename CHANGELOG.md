@@ -3856,9 +3856,15 @@ state, stickers, card dependency relations and imports, board backgrounds and
 map locations. These direct translations were completed with low confidence
 and welcome review by a Burmese speaker. This left **115,621 genuinely
 untranslated values across 54 locale files**.
+The thirtieth 50-value Burmese batch added map coordinates and detection,
+server-error troubleshooting, sorting, board activity, swimlane movement,
+string templates and administration reports for security, performance, data,
+impersonation, recovery and login locations. These direct translations were
+completed with low confidence and welcome review by a Burmese speaker. This
+left **115,571 genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
