@@ -4783,9 +4783,15 @@ keyboard movement and dialog navigation, board restoration guidance and 23
 interface colors. These direct translations were completed with low confidence
 and welcome review by a Northern Sotho speaker. This left **108,003 genuinely
 untranslated values across 50 locale files**.
+The ninth 50-value Northern Sotho batch added colors, comment and read-only
+roles, worker permissions, deletion confirmations, swimlane moves, clipboard
+links, bulk card-template JSON, labels and custom-field types and options. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **107,953 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
