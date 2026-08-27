@@ -4015,9 +4015,15 @@ Trello, CSV, Jira, Excel and WeKan, including Trello ZIP validation. These
 direct translations were completed with low confidence and welcome review by a
 Nahuatl speaker. This left **114,304 genuinely untranslated values across 53
 locale files**.
+The thirteenth 50-value Nahuatl batch added Trello ZIP safety, workspace
+placement and direct API imports, saved credentials, board selection, progress,
+cancellation and results, imported-member mapping, validation, keyboard
+shortcuts and label creation and deletion. These direct translations were
+completed with low confidence and welcome review by a Nahuatl speaker. This
+left **114,254 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

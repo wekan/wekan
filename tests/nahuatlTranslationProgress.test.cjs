@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1567);
+assert.equal(Object.keys(remaining).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -125,5 +125,10 @@ assert.match(nahuatl['import-board-instruction-openproject'],
 assert.match(nahuatl['import-board-instruction-jira'],
   /GET \/rest\/api\/2\/search/);
 assert.match(nahuatl['import-trello-json-file-hint'], /API key.*token/);
+assert.match(nahuatl['trello-api-key'],
+  /https:\/\/trello\.com\/app-key/);
+assert.match(nahuatl['trello-api-import-desc'], /API key.*token/);
+assert.match(nahuatl['invalid-year'], /2026/);
+assert.deepEqual(tokens(nahuatl['label-default']), ['%s']);
 
 console.log('Nahuatl translation progress checks passed.');
