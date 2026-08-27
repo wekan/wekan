@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -250,3 +250,9 @@ assert.match(maithili['mongodb-compact-description'],
 assert.match(maithili['mongodb-compact-warning'],
   /Compact.*oplog.*Meteor/);
 assert.match(maithili['mongodb-compact-run'], /MongoDB Compact/);
+assert.deepEqual(tokens(maithili['drag-board-to-workspace']),
+  ['__workspaces__']);
+assert.match(maithili['preview-pdf-not-supported'], /PDF/);
+assert.match(maithili['show-week-of-year'], /ISO 8601/);
+assert.match(maithili['import-board-zip'], /.zip.*JSON/);
+assert.equal(maithili.accessibility, 'अभिगम्यता');

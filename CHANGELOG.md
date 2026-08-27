@@ -2596,9 +2596,14 @@ storage repair and statistics, default storage, file IDs and MongoDB GridFS
 compaction guidance and status. These direct translations were completed with
 low confidence and welcome review by a Maithili speaker. This left **126,256
 genuinely untranslated values across 59 locale files**.
+The thirty-fourth 50-value Maithili batch added board time status, upload
+progress and limits, account prompts, custom translations, board dragging,
+checklist display, support and accessibility settings. These direct translations
+were completed with low confidence and welcome review by a Maithili speaker.
+This left **126,206 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
