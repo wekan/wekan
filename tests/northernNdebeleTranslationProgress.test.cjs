@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -182,5 +182,11 @@ assert.deepEqual(tokens(ndebele['r-w-every-day-at']), ['__time__']);
 assert.match(ndebele['r-export-json'], /JSON/);
 assert.match(ndebele['r-import-csv'], /CSV/);
 assert.deepEqual(tokens(ndebele['r-import-done']), ['__count__']);
+assert.match(ndebele['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(ndebele['r-import-unmapped']), ['__count__']);
+assert.match(ndebele['r-schedule-weekday'], /Mvu.*Hla/);
+assert.match(ndebele['r-for-n-days'], /N/);
+assert.equal(ndebele['r-trigger'], 'Isiqalisi');
+assert.equal(ndebele['r-action'], 'Isenzo');
 
 console.log('Northern Ndebele translation progress checks passed.');
