@@ -4375,9 +4375,15 @@ statuses, sorting, comments, custom fields, attachments and checklists. These
 direct translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **111,387 genuinely untranslated values
 across 52 locale files**.
+The twenty-eighth 50-value Northern Ndebele batch added search validation,
+paging, available-operator guidance and detailed examples for board structure,
+people, dates, statuses, fields, sorting, limits and combined conditions. These
+direct translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **111,337 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`predicate-member`
+`number`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
