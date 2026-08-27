@@ -4863,9 +4863,14 @@ scheduled and button triggers, due-date conditions, list sorting, completion,
 relative dates and rule units and fragments. These direct translations were
 completed with low confidence and welcome review by a Northern Sotho speaker.
 This left **107,353 genuinely untranslated values across 50 locale files**.
+The twenty-second 50-value Northern Sotho batch added visual-rule grammar for
+card movement and archiving, labels, members, attachments, checklists and email
+actions. These direct translations were completed with low confidence and
+welcome review by a Northern Sotho speaker. This left **107,303 genuinely
+untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
