@@ -4966,9 +4966,15 @@ repair, avatar and file URL repair, confirmations and migration progress. These
 direct translations were completed with low confidence and welcome review by a
 Northern Sotho speaker. This left **106,403 genuinely untranslated values across
 50 locale files**.
+The forty-first 50-value Northern Sotho batch added board-repair steps,
+conversion status, CPU and storage metrics, recurring schedules, export
+monitoring, filesystem and GridFS totals and job details and queues. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **106,353 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
