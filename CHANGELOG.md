@@ -2701,9 +2701,15 @@ mapping, themes, fonts, text colors, avatars, languages and permissions. These
 direct translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **125,389 genuinely untranslated values across 58
 locale files**.
+The eighth 50-value Malagasy batch added starring, automatic list widths,
+clipboard actions, card aging, keyboard movement, accessible dialog controls,
+board restoration and most of the board color palette. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **125,339 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

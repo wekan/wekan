@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -89,3 +89,10 @@ assert.match(malagasy['map-to-existing-user-desc'],
 assert.equal(malagasy['map-to-existing-user-no-results'],
   'Tsy nahitana mpampiasa mifanaraka.');
 assert.match(malagasy['font-preview-text'], /0123456789/);
+assert.equal(malagasy['auto-list-width'],
+  "Sakan'ny lisitra mandeha ho azy");
+assert.match(malagasy['card-aging-days'], /3/);
+assert.equal(malagasy['move-card-up'], 'Afindrao miakatra ny karatra');
+assert.equal(malagasy['color-red'], 'mena');
+assert.equal(malagasy['color-silver'], 'volafotsy');
+assert.equal(malagasy['color-magenta'], 'mena volomparasy');
