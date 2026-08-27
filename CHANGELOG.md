@@ -4718,9 +4718,15 @@ status, CPU and storage metrics, schedules, export monitoring, filesystem and
 GridFS totals and job details and queues. These direct translations were
 completed with low confidence and welcome review by a Nepali speaker. This left
 **108,520 genuinely untranslated values across 51 locale files**.
+The forty-second 50-value Nepali batch added attachment migration targets,
+batch and resource thresholds, migration logs and lifecycle controls,
+monitoring, navigation, minicard display and storage and operation totals. These
+direct translations were completed with low confidence and welcome review by a
+Nepali speaker. This left **108,470 genuinely untranslated values across 51
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

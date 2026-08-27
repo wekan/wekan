@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 117);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -301,5 +301,12 @@ assert.match(nepali['cpu-usage'], /CPU/);
 assert.match(nepali['gridfs-attachments'], /GridFS/);
 assert.match(nepali['gridfs-size'], /GridFS/);
 assert.match(nepali['every-30-minutes'], /30/);
+assert.match(nepali['migrate-all-to-gridfs'], /GridFS/);
+assert.match(nepali['migrate-all-to-s3'], /S3/);
+assert.match(nepali['migration-batch-size-description'], /1-100/);
+assert.match(nepali['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(nepali['migration-delay-ms-description'], /100-10000/);
+assert.equal(nepali['show-list-on-minicard'],
+  'सानो कार्डमा सूची देखाउनुहोस्');
 
 console.log('Nepali translation progress checks passed.');
