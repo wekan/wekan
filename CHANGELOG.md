@@ -5545,8 +5545,14 @@ filesystem, GridFS and S3 migration targets, and migration batch, CPU and delay
 limits. These direct translations were completed with low confidence and
 welcome review by an Oromo speaker. This left **102,007 genuinely untranslated
 values across 48 locale files**.
+The forty-eighth 50-value Oromo batch added migration logs and controls,
+monitoring export and refresh, operation progress, attachment totals, system
+resources, OTP account creation and repository listings. These direct
+translations were completed with low confidence and welcome review by an
+Oromo speaker. This left **101,957 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at `migration-info-text` with
+and exact tokens from `en.i18n.json`, resuming Oromo at `upload-repository` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
