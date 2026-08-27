@@ -3846,9 +3846,14 @@ team lookup results, card result totals, global-search operators and predicates
 for board content, people, dates, status and sorting. These direct translations
 were completed with low confidence and welcome review by a Burmese speaker.
 This left **115,721 genuinely untranslated values across 54 locale files**.
+The twenty-eighth 50-value Burmese batch added search validation errors,
+pagination and complete global-search instructions for operators, status,
+fields, sorting, limits and Boolean matching. These direct translations were
+completed with low confidence and welcome review by a Burmese speaker. This
+left **115,671 genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
