@@ -5571,9 +5571,15 @@ start dates, and workspace and subworkspace controls. These direct
 translations were completed with low confidence and welcome review by a Pashto
 speaker. This left **101,802 genuinely untranslated values across 47 locale
 files**.
+The third 50-value Pashto batch added workspace deletion and multi-selection,
+Home boards, due and end dates, templates, personal and fixed list widths,
+keyboard shortcuts, swimlane heights, subtasks, checklists, covers, labels and
+members. These direct translations were completed with low confidence and
+welcome review by a Pashto speaker. This left **101,752 genuinely untranslated
+values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
