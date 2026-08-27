@@ -2840,9 +2840,15 @@ security, speed, test, CPU, database, rule, board, card, impersonation, recovery
 and office reports. These direct translations were completed with low confidence
 and welcome review by a Malagasy speaker. This left **124,239 genuinely
 untranslated values across 58 locale files**.
+The thirty-first 50-value Malagasy batch added office and REST API reporting,
+automatic data recovery and MongoDB remediation, swimlane copying, wait
+spinners, organization and team safeguards, mail copies, ticket and request
+states, sorting and card details. These direct translations were completed with
+low confidence and welcome review by a Malagasy speaker. This left **124,189
+genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
