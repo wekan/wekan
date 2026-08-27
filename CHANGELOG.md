@@ -5527,8 +5527,15 @@ Cloud and GridFS attachment storage, and migration controls. These direct
 translations were completed with low confidence and welcome review by an
 Oromo speaker. This left **102,157 genuinely untranslated values across 48
 locale files**.
+The forty-fifth 50-value Oromo batch added migration lifecycle and CollectionFS
+guidance, AWS S3 authentication, scheduled board operations, attachment and
+board migrations, duplicate-list cleanup, and restoration of lost or archived
+items. These direct translations were completed with low confidence and
+welcome review by an Oromo speaker. This left **102,107 genuinely untranslated
+values across 48 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at `migration-paused` with
+and exact tokens from `en.i18n.json`, resuming Oromo at
+`fix-missing-lists-migration-description` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
