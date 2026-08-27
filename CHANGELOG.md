@@ -2165,9 +2165,13 @@ The twenty-fourth 50-value Cornish batch added authentication display, board
 duplication, custom body HTML, lifecycle activity, due reminders, deletion
 confirmations and resizable layout controls. This left **131,040 genuinely
 untranslated values across 61 locale files**.
+The twenty-fifth 50-value Cornish batch added multi-card windows, editor
+submission shortcuts, entity dialogs, notification states, rename and invite
+permissions, board-role status, weekdays, ownership and voting. This left
+**130,990 genuinely untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

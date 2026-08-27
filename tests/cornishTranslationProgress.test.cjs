@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -225,3 +225,11 @@ assert.deepEqual(tokens(cornish['act-newDue']),
 assert.deepEqual(tokens(cornish['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.match(cornish['submit-on-enter'], /Enter/);
+assert.match(cornish['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter.*Enter/);
+assert.match(cornish['open-many-cards-at-once-description'], /fenester y honan/);
+assert.match(cornish['roles-info'], /Panel Menystrer.*menystroryon oll/);
+assert.equal(cornish['roles-status-role'], 'Rann');
+assert.equal(cornish.monday, "Dy'Lun");
+assert.equal(cornish.sunday, "Dy'Sul");
+assert.equal(cornish.voting, 'Votya');
