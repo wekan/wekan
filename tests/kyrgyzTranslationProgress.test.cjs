@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -91,3 +91,8 @@ assert.match(kyrgyz['card-aging-days'], /3/);
 assert.equal(kyrgyz['move-card-up'], 'Карточканы өйдө жылдыруу');
 assert.equal(kyrgyz['color-red'], 'кызыл');
 assert.equal(kyrgyz['color-silver'], 'күмүш');
+assert.equal(kyrgyz['read-only'], 'Окуу үчүн гана');
+assert.equal(kyrgyz.worker, 'Жумушчу');
+const bulkCardExample = JSON.parse(kyrgyz['copyManyCardsPopup-format']);
+assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
+assert.equal(kyrgyz['custom-field-number'], 'Сан');

@@ -2277,9 +2277,13 @@ The eighth 50-value Kyrgyz batch added starring, automatic list widths, card
 aging tiers, keyboard movement and navigation, archive restoration guidance and
 the board color palette. This left **129,673 genuinely untranslated values
 across 60 locale files**.
+The ninth 50-value Kyrgyz batch added restricted board roles, deletion
+confirmations, clipboard and card-link actions, bulk JSON card copying,
+template and label creation and custom-field types. This left **129,623 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
