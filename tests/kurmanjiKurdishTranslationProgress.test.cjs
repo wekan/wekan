@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -162,3 +162,11 @@ assert.match(kurmanji['automatic-linked-url-schemes'], /URL.*URL/);
 assert.equal(kurmanji['welcome-swimlane'], 'Qonaxa 1');
 assert.match(kurmanji['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 assert.match(kurmanji['wipLimitErrorPopup-dialog-pt2'], /WIP/);
+assert.match(kurmanji['attachment-transfer-limits-title'], /API/);
+assert.match(kurmanji['smtp-tls-description'], /TLS.*SMTP/);
+assert.deepEqual(tokens(kurmanji['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(kurmanji['email-smtp-test-subject'], /SMTP/);
+assert.equal(kurmanji['bidirectional-webhooks'], 'Webhookên du-alî');
+assert.match(kurmanji.Node_version, /Node/);
+assert.match(kurmanji.Meteor_version, /Meteor/);
