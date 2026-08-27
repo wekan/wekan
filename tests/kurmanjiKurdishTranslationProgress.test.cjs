@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -97,3 +97,10 @@ assert.equal(kurmanji['move-list-right'], 'Lîsteyê bibe rastê');
 assert.match(kurmanji['close-board-pop'], /Arşîv/);
 assert.equal(kurmanji['color-sky'], 'ezmanî');
 assert.equal(kurmanji['color-darkgreen'], 'keskê tarî');
+assert.equal(kurmanji['read-only'], 'Tenê xwendin');
+assert.match(kurmanji['read-only-desc'], /Nikarî biguherînî/);
+assert.match(kurmanji['worker-desc'], /kartan bar bikî/);
+assert.match(kurmanji['confirm-move-list-to-swimlane'], /rêça din/);
+assert.doesNotThrow(() => JSON.parse(kurmanji['copyManyCardsPopup-format']));
+assert.match(kurmanji['copyManyCardsPopup-instructions'], /JSON/);
+assert.equal(kurmanji['custom-field-number'], 'Hejmar');
