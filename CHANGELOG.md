@@ -6036,9 +6036,15 @@ and predicates for boards, card properties, dates, attachments and checklists.
 These direct translations were completed with low confidence and welcome
 review by a Kirundi speaker. This left **98,385 genuinely untranslated values
 across 46 locale files**.
+The twenty-eighth 50-value Kirundi batch added advanced-search predicate
+labels, validation feedback, paging and the complete operator, status, sorting,
+limit and Boolean-combination guidance with its query examples. These direct
+translations were completed with low confidence and welcome review by a
+Kirundi speaker. This left **98,335 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
