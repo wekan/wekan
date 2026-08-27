@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -174,5 +174,13 @@ assert.deepEqual(tokens(ndebele['default-subtasks-board']), ['__board__']);
 assert.equal(ndebele['card-settings'], 'Izilungiselelo zekhadi');
 assert.match(ndebele['checklist-count-on-minicard'], /0\/0/);
 assert.deepEqual(tokens(ndebele['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(ndebele['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.equal(ndebele['r-rule'], 'Umthetho');
+assert.equal(ndebele['r-add-trigger'], 'Engeza isiqalisi');
+assert.deepEqual(tokens(ndebele['r-w-every-day-at']), ['__time__']);
+assert.match(ndebele['r-export-json'], /JSON/);
+assert.match(ndebele['r-import-csv'], /CSV/);
+assert.deepEqual(tokens(ndebele['r-import-done']), ['__count__']);
 
 console.log('Northern Ndebele translation progress checks passed.');
