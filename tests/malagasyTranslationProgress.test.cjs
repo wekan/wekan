@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,3 +115,12 @@ assert.match(malagasy['export-card-excel-fields'], /Excel/);
 assert.match(malagasy['export-card-excel-no-disk-space'], /Excel/);
 assert.equal(malagasy['filter-due-tomorrow'], 'Voatondro rahampitso');
 assert.equal(malagasy['filter-no-member'], 'Tsy misy mpikambana');
+assert.match(malagasy['advanced-filter-description'],
+  /== != <= >= && \|\| \( \).*Field1 == Value1.*'Field 1' == 'Value 1'.*Field1 == I\\'m.*F1 == V1 \|\| F1 == V2.*F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(malagasy['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(malagasy['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(malagasy['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search.*automationRules/);
+assert.match(malagasy['import-excel-file'], /.xlsx/);
