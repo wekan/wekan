@@ -2761,9 +2761,16 @@ settings and test mail, localized registration email, authorization, webhooks,
 packages, database and Node and Meteor versions. These direct translations were
 completed with low confidence and welcome review by a Malagasy speaker. This
 left **124,889 genuinely untranslated values across 58 locale files**.
+The eighteenth 50-value Malagasy batch added database and FerretDB identity,
+reactivity and DDP configuration, operating-system diagnostics, time units,
+custom-field display, account changes, visibility and organization and team
+tenancy, domain, administration and synchronization settings. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **124,839 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
