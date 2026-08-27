@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -225,5 +225,12 @@ assert.deepEqual(tokens(nahuatl['import-dependencies-done']),
 assert.deepEqual(tokens(nahuatl['background-too-big']), ['{{size}}']);
 assert.equal(nahuatl['card-dependencies'], 'Tlaneltoquiliztin');
 assert.equal(nahuatl.location, 'Canin');
+assert.deepEqual(tokens(nahuatl['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(nahuatl['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan/);
+assert.match(nahuatl['server-error-troubleshooting'],
+  /sudo docker logs wekan-app/);
+assert.match(nahuatl['office-report-desc'], /IPv4.*IPv6/);
 
 console.log('Nahuatl translation progress checks passed.');
