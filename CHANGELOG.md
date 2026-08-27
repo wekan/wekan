@@ -6348,9 +6348,15 @@ file identifiers and MongoDB Compact maintenance guidance. These direct
 translations were completed with low confidence and welcome review by a
 Kinyarwanda speaker. This left **95,918 genuinely untranslated values across
 45 locale files**.
+The thirty-fourth 50-value Kinyarwanda batch added board status and time
+summaries, upload progress and limits, custom translations, workspace dragging,
+checklist display, board ZIP import, support and accessibility settings. These
+direct translations were completed with low confidence and welcome review by
+a Kinyarwanda speaker. This left **95,868 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
