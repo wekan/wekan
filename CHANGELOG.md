@@ -7070,9 +7070,14 @@ management, Node memory diagnostics, legal-notice labels, checklist actions and
 attachment storage moves. These direct translations were completed with low
 confidence and welcome review by a Northern Sami speaker. This left **89,467
 genuinely untranslated values across 42 locale files**.
+The thirty-third 50-value Northern Sami batch added attachment storage moves,
+location repair, storage statistics and MongoDB Compact administration. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sami speaker. This left **89,417 genuinely untranslated values across
+42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
