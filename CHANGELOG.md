@@ -4543,9 +4543,15 @@ for Kanboard, Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, Jira,
 Excel and WeKan, and Trello ZIP validation. These direct translations were
 completed with low confidence and welcome review by a Nepali speaker. This left
 **109,970 genuinely untranslated values across 51 locale files**.
+The thirteenth 50-value Nepali batch added Trello ZIP path and size validation,
+workspace placement, direct API imports and resumable import-job controls,
+member mapping, date and user validation, invitations, keyboard shortcuts and
+label creation and deletion. These direct translations were completed with low
+confidence and welcome review by a Nepali speaker. This left **109,920 genuinely
+untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
