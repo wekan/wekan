@@ -5876,9 +5876,16 @@ guidance, due and spent time, and attachment, custom-field, label and member
 editing. These direct translations were completed with low confidence and
 welcome review by a Kirundi speaker. This left **99,485 genuinely untranslated
 values across 46 locale files**.
+The sixth 50-value Kirundi batch added card membership and dates, attachments,
+custom fields, voting and Planning Poker, estimation, card actions and
+dependencies, organization and team membership, avatars and backgrounds,
+duplicate-list and account deletion, domains, imported-member mapping and
+checklist, swimlane, list, card and board imports. These direct translations
+were completed with low confidence and welcome review by a Kirundi speaker.
+This left **99,435 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
