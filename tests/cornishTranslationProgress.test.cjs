@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -76,3 +76,11 @@ assert.deepEqual(tokens(
 assert.match(cornish['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(cornish['card-comments-title']), ['%s']);
 assert.equal(cornish['card-edit-custom-fields'], 'Chanjya meys a-vusur');
+assert.equal(cornish['vote-question'], 'Govynn votya');
+assert.match(cornish['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(cornish['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.equal(cornish['importDependenciesPopup-title'],
+  'Ynperthi omgemmysow');
+assert.equal(cornish['exportChecklistPopup-title'],
+  'Esperthi rol checkya');
+assert.equal(cornish['importSwimlanePopup-title'], 'Ynperthi hyns');

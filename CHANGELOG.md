@@ -2089,9 +2089,13 @@ The fifth 50-value Cornish batch added board visibility and navigation, mobile
 and desktop views, zoom, calendar modes and card, list and swimlane archive
 guidance. This left **131,990 genuinely untranslated values across 61 locale
 files**.
+The sixth 50-value Cornish batch added card membership, voting and Planning
+Poker, dependencies, board organization, team and domain assignment,
+backgrounds and import dialogs. This left **131,940 genuinely untranslated
+values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
