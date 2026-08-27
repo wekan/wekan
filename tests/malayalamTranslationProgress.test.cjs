@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -45,3 +45,12 @@ assert.deepEqual(tokens(malayalam['act-setCustomField']),
   ['__board__', '__card__', '__customFieldValue__', '__customField__',
     '__list__', '__swimlane__']);
 assert.match(malayalam['act-archivedBoard'], /ആർക്കൈവ/);
+assert.deepEqual(tokens(malayalam['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(malayalam['activity-imported']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(malayalam['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(malayalam['allboards.workspaces'], 'പ്രവർത്തനസ്ഥലങ്ങൾ');
+assert.match(malayalam['allboards.edit-workspace-icon'], /markdown/);
