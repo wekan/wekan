@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -360,3 +360,8 @@ assert.match(cornish['s3-secret-key-menu-path'],
   /Access key ID.*Secret access key.*Download \.csv/);
 assert.match(cornish['gcs-credentials-menu-path'],
   /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*Add key.*Create new key.*JSON.*Create/);
+assert.match(cornish['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(cornish['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(cornish['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(cornish['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+assert.equal(cornish['board-migrations'], 'Ymigransow estyllen');
