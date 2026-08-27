@@ -6635,8 +6635,13 @@ duplicate-list cleanup, lost-card and archive restoration, file URL repair,
 confirmation dialogs and migration progress steps. These direct translations
 were completed with low confidence and welcome review by a Sakha speaker. This
 left **93,401 genuinely untranslated values across 44 locale files**.
+The forty-first 50-value Sakha batch added migration repair steps, board
+conversion, CPU and filesystem monitoring, recurring intervals, job queues and
+concurrency status. These direct translations were completed with low confidence
+and welcome review by a Sakha speaker. This left **93,351 genuinely untranslated
+values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `step-fix-attachment-urls` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `memory-usage` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
