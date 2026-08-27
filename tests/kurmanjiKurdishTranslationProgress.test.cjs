@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -114,3 +114,9 @@ assert.deepEqual(tokens(kurmanji['email-invite-text']),
 assert.deepEqual(tokens(kurmanji['email-verifyEmail-subject']), ['__siteName__']);
 assert.match(kurmanji['error-csv-schema'], /CSV.*TSV/);
 assert.match(kurmanji['error-import-empty-board'], /WeKan/);
+assert.match(kurmanji['export-card-pdf'], /PDF/);
+assert.match(kurmanji['export-card-excel'], /Excel/);
+assert.match(kurmanji['export-card-field-board-info'], /Depo.*Lîste.*Rêç/);
+assert.match(kurmanji['export-card-excel-no-disk-space'], /Excel.*dîskê/);
+assert.equal(kurmanji['filter-overdue'], 'Dema wê derbasbûyî');
+assert.equal(kurmanji['filter-no-member'], 'Endam tune');
