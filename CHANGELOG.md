@@ -2063,9 +2063,13 @@ The forty-second 50-value Kurmanji Kurdish batch added storage migration targets
 and tuning, CPU limits, background migration guidance, monitoring controls,
 progress, scheduling and resource totals. This left **132,307 genuinely
 untranslated values across 62 locale files**.
+The forty-third 50-value Kurmanji Kurdish batch added OTP account access,
+repository management, API endpoints, login errors, problem reporting, card
+repair, CPU status and event metadata. This left **132,257 genuinely
+untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

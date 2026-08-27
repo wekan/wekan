@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -387,3 +387,12 @@ assert.match(kurmanji['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(kurmanji['migration-delay-ms-description'], /100-10000/);
 assert.match(kurmanji['migration-info-text'], /paşperdeyê/);
 assert.equal(kurmanji['system-resources'], 'Çavkaniyên pergalê');
+assert.equal(kurmanji.otp, 'Koda OTP');
+assert.match(kurmanji['api-endpoints'], /API/);
+assert.match(kurmanji['username-too-short'], /3/);
+assert.match(kurmanji['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(kurmanji['repair-broken-cards-done']),
+  ['__fixed__']);
+assert.deepEqual(tokens(kurmanji['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.equal(kurmanji['event-source'], 'Çavkanî');
