@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -315,5 +315,12 @@ assert.match(nahuatl['migrate-all-to-s3'], /S3/);
 assert.match(nahuatl['migration-batch-size-description'], /1-100/);
 assert.match(nahuatl['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(nahuatl['migration-delay-ms-description'], /100-10000/);
+assert.match(nahuatl.otp, /OTP/);
+assert.match(nahuatl['api-endpoints'], /API/);
+assert.match(nahuatl['username-too-short'], /3/);
+assert.deepEqual(tokens(nahuatl['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(nahuatl['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.match(nahuatl['cpu-usage-current'], /CPU/);
 
 console.log('Nahuatl translation progress checks passed.');
