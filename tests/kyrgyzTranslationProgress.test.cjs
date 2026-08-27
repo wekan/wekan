@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -109,3 +109,12 @@ assert.equal(kyrgyz['export-card-pdf'],
 assert.match(kyrgyz['export-card-excel-fields'], /Excel/);
 assert.equal(kyrgyz['filter-due-tomorrow'], 'Мөөнөтү эртең');
 assert.equal(kyrgyz['filter-no-member'], 'Мүчө жок');
+assert.match(kyrgyz['advanced-filter-description'],
+  /== != <= >= && \|\| \( \).*Field1 == Value1.*'Field 1' == 'Value 1'.*Field1 == I\\'m.*F1 == V1 \|\| F1 == V2.*F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(kyrgyz['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(kyrgyz['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(kyrgyz['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search.*automationRules/);
+assert.match(kyrgyz['import-excel-file'], /\.xlsx/);
