@@ -7014,9 +7014,15 @@ conditions, plus move, restore, color, membership, checklist and email actions.
 These direct translations were completed with low confidence and welcome review
 by a Northern Sami speaker. This left **89,967 genuinely untranslated values
 across 42 locale files**.
+The twenty-third 50-value Northern Sami batch added further rule actions for
+email, archive, labels, cards, members, checklists, swimlanes and date fields,
+plus authentication, custom product metadata, web manifests, asset links and
+layout controls. These direct translations were completed with low confidence
+and welcome review by a Northern Sami speaker. This left **89,917 genuinely
+untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
