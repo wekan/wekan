@@ -6441,8 +6441,14 @@ and deletion guidance, due and spent time and card attachments, fields, labels
 and members. These direct translations were completed with low confidence and
 welcome review by a Sakha speaker. This left **95,151 genuinely untranslated
 values across 44 locale files**.
+The sixth 50-value Sakha batch added card members and dates, voting and
+Planning Poker, card actions and dependencies, organizations, teams, avatars,
+backgrounds, domains, imported-member mapping and checklist, swimlane, list,
+card and board imports. These direct translations were completed with low
+confidence and welcome review by a Sakha speaker. This left **95,101 genuinely
+untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `card-members-title` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
