@@ -5295,9 +5295,15 @@ list and account deletion, domains, imported-member mapping, and checklist,
 swimlane, list, card and board imports. These direct translations were
 completed with low confidence and welcome review by an Oromo speaker. This
 left **103,769 genuinely untranslated values across 48 locale files**.
+The seventh 50-value Oromo batch added member and sticker popups, list sorting,
+archive restoration, rule transfer, linked cards and boards, safe mapping of
+imported members to real users, theme and font controls, text colors, avatars,
+language selection and permissions. These direct translations were completed
+with low confidence and welcome review by an Oromo speaker. This left
+**103,719 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
