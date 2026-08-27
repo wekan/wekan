@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -271,3 +271,15 @@ assert.match(maori['database-migration-description'],
 assert.deepEqual(tokens(maori['database-migration-confirm']), ['__db__']);
 assert.match(maori['sandstorm-migration-description'],
   /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/s);
+assert.match(maori['cards-loading-description'],
+  /CARDS_LOADING.*all\/lazy\/auto.*CARDS_LOADING_LAZY_THRESHOLD/s);
+assert.match(maori['render-links-as-plain-text-description'],
+  /\[label\]\(url\).*<a href>/s);
+assert.match(maori['always-show-code-as-text-description'],
+  /<!-- -->.*JavaScript/s);
+assert.match(maori['disable-all-import-description'],
+  /WeKan JSON.*Trello.*CSV\/Excel.*Jira.*Kanboard.*NextCloud Deck.*OpenProject.*GitHub.*GitLab.*Gitea.*Forgejo/s);
+assert.match(maori['anonymize-import-users-description'],
+  /user1, user2, \.\.\..*@username.*requested-by.*assigned-by.*\x60user\x60/s);
+assert.match(maori['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/s);
