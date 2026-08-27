@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -106,3 +106,10 @@ assert.match(kashmiri['r-when-a-card-is-moved'], /دۄیمہِ فہرست/);
 assert.equal(kashmiri['r-df-due-at'], 'آخری تٲریخ');
 assert.match(kashmiri['authentication-method'], /توثیق/);
 assert.match(kashmiri['custom-head-manifest-content'], /JSON/);
+assert.deepEqual(tags(kashmiri['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(kashmiri['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(kashmiri['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(kashmiri['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(kashmiri['swimlaneDeletePopup-title'], /وَتھ/);
