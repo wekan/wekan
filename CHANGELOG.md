@@ -5988,9 +5988,17 @@ triggers, JSON and CSV import/export, Trello Butler command mapping, targets,
 workspaces and all-board scope. These direct translations were completed with
 low confidence and welcome review by a Kirundi speaker. This left **98,735
 genuinely untranslated values across 46 locale files**.
+The twenty-first 50-value Kirundi batch added visual workflow imports from n8n
+and Node-RED, unmapped-node reporting, scheduled and button triggers, one-time,
+daily, weekday, weekly and monthly schedules, due and overdue conditions,
+card age in lists, card and board buttons, list sorting, completion states,
+bulk movement, relative dates, time units and core trigger/action phrases.
+These direct translations were completed with low confidence and welcome
+review by a Kirundi speaker. This left **98,685 genuinely untranslated values
+across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
