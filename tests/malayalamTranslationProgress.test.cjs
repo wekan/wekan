@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,6 +115,16 @@ assert.match(malayalam['accounts-lockout-period'], /സെക്കൻഡുക�
 assert.equal(malayalam['admin-people-filter-active'], 'സജീവം');
 assert.match(malayalam['attachment-storage-configuration'], /അറ്റാച്ച്മെന്റ്/);
 assert.match(malayalam['board-backup-scheduled'], /ബാക്കപ്പ്/);
+assert.deepEqual(tokens(malayalam['database-migration-confirm']), ['__db__']);
+for (const literal of ['mongodb://127.0.0.1:27018',
+  'mongodb://127.0.0.1:27019', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL',
+  'MONGO_URL']) {
+  assert.match(malayalam['database-migration-description'],
+    new RegExp(literal.replaceAll('.', '\\.')));
+}
+assert.match(malayalam['sandstorm-migration-description'],
+  /files\/attachments/);
+assert.match(malayalam['sandstorm-migration-description'], /files\/avatars/);
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
