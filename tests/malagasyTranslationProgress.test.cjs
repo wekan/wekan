@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -82,3 +82,10 @@ assert.equal(malagasy['importDependenciesPopup-title'],
 assert.equal(malagasy['exportChecklistPopup-title'],
   'Manondrana lisitra fanamarinana');
 assert.equal(malagasy['importSwimlanePopup-title'], 'Manafatra lalana');
+assert.match(malagasy.casSignIn, /CAS/);
+assert.equal(malagasy['cardType-linkedBoard'], 'Solaitra mifandray');
+assert.match(malagasy['map-to-existing-user-desc'],
+  /karatra.*fanamarihana.*hetsika/);
+assert.equal(malagasy['map-to-existing-user-no-results'],
+  'Tsy nahitana mpampiasa mifanaraka.');
+assert.match(malagasy['font-preview-text'], /0123456789/);
