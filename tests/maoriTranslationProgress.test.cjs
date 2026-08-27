@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -94,3 +94,9 @@ assert.equal(maori['move-card-up'], 'Neke kāri ki runga');
 assert.equal(maori['color-red'], 'whero');
 assert.equal(maori['color-silver'], 'hiriwa');
 assert.equal(maori['color-magenta'], 'whero waiporoporo');
+assert.equal(maori['color-white'], 'mā');
+assert.equal(maori['read-only'], 'Pānui Anake');
+assert.equal(maori.worker, 'Kaimahi');
+const bulkCardExample = JSON.parse(maori['copyManyCardsPopup-format']);
+assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
+assert.equal(maori['custom-field-number'], 'Tau');
