@@ -1843,9 +1843,13 @@ The thirtieth 50-value Kashmiri batch added map coordinates and detection,
 server troubleshooting, string templates, board activity, Problems reports and
 office login reporting. This left **135,074 genuinely untranslated values across
 63 locale files**.
+The thirty-first 50-value Kashmiri batch added Office and API report details,
+data recovery status, swimlane copying, wait indicators, ticket states and card
+detail dialogs. This left **135,024 genuinely untranslated values across 63
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
