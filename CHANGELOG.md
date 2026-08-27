@@ -2389,9 +2389,13 @@ The thirty-sixth 50-value Kyrgyz batch added scheduled-job controls and
 migration errors, filesystem, S3 and Azure storage, MongoDB and FerretDB database
 migration and Sandstorm migration status. This left **128,273 genuinely
 untranslated values across 60 locale files**.
+The thirty-seventh 50-value Kyrgyz batch added Sandstorm storage cleanup,
+card-loading modes, secure plain-text rendering, import and export privacy
+controls, notification controls and backup scope and storage. This left
+**128,223 genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

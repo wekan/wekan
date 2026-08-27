@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -263,3 +263,13 @@ assert.match(kyrgyz['database-migration-description'],
 assert.deepEqual(tokens(kyrgyz['database-migration-confirm']), ['__db__']);
 assert.match(kyrgyz['sandstorm-migration-description'],
   /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/);
+assert.match(kyrgyz['cards-loading-description'],
+  /WeKan.*CARDS_LOADING \(all\/lazy\/auto\).*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.match(kyrgyz['render-links-as-plain-text-description'],
+  /\[label\]\(url\).*<a href>/);
+assert.match(kyrgyz['always-show-code-as-text-description'],
+  /HTML.*<!-- -->.*JavaScript/);
+assert.match(kyrgyz['disable-all-import-description'],
+  /WeKan JSON.*Trello.*CSV\/Excel.*Jira.*Kanboard.*NextCloud Deck.*OpenProject.*GitHub.*GitLab.*Gitea.*Forgejo/);
+assert.match(kyrgyz['backup-description'],
+  /\.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/);
