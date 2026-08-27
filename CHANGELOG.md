@@ -2193,9 +2193,13 @@ The thirty-first 50-value Cornish batch added office and API activity, recovery
 health and maintenance, swimlane copying, loading-spinner styles, card sizing,
 deletion safeguards, tickets, requests, sorting and card details. This left
 **130,690 genuinely untranslated values across 61 locale files**.
+The thirty-second 50-value Cornish batch added team invitations, Node memory
+diagnostics, organization controls, legal notices, checklist actions and
+attachment storage targets. This left **130,640 genuinely untranslated values
+across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

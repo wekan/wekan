@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -296,3 +296,13 @@ assert.equal(cornish['copy-swimlane'], 'Kopia hyns');
 assert.match(cornish['Double-Bounce'], /Double Bounce/);
 assert.match(cornish['carbon-copy'], /Cc:/);
 assert.equal(cornish['cardDetailsPopup-title'], 'Manylyon karten');
+assert.equal(cornish['confirm-btn'], 'Afydhya');
+assert.match(cornish.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(cornish.Node_memory_usage_rss, /Node/);
+assert.match(cornish['custom-legal-notice-link-url'], /URL/);
+assert.equal(cornish.legalNotice, 'gwaytyans laghel');
+assert.equal(cornish.copyChecklist, 'Kopia rol checkya');
+assert.equal(cornish['attachment-move-storage-gridfs'],
+  'Gwaya stagell dhe GridFS');
+assert.equal(cornish['attachment-move-storage-s3'],
+  'Gwaya stagell dhe S3');
