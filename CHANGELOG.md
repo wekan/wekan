@@ -2261,9 +2261,13 @@ The fourth 50-value Kyrgyz batch added administrator announcements, archive and
 restore flows, template containers, attachment handling, background images,
 All Boards display choices and board membership summaries. This left **129,873
 genuinely untranslated values across 60 locale files**.
+The fifth 50-value Kyrgyz batch added public-board guidance, board movement and
+appearance, mobile and desktop views, zoom and calendar controls, archive
+warnings and card dates and editing actions. This left **129,823 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
