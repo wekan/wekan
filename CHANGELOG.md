@@ -5427,9 +5427,16 @@ role permissions, weekday settings, ownership and activity metadata, voting
 and linked-card deletion protection. These direct translations were completed
 with low confidence and welcome review by an Oromo speaker. This left
 **102,819 genuinely untranslated values across 48 locale files**.
+The twenty-sixth 50-value Oromo batch added linked-list deletion protection,
+checklist visibility, tasks, board domains and validation, shared templates by
+organization, team and domain, organization identity, My Cards sorting, Due
+Cards and global search views, and board, swimlane, list and label not-found
+errors. These direct translations were completed with low confidence and
+welcome review by an Oromo speaker. This left **102,769 genuinely untranslated
+values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
