@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -355,3 +355,11 @@ assert.match(kurmanji['gcs-credentials-menu-path'],
   /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*Add key.*Create new key.*JSON.*Create/);
 assert.equal(kurmanji['attachment-move-storage-azure'],
   'Pêvekê bibe Azure Blob Storage');
+assert.equal(kurmanji['attachment-move-storage-gcs'],
+  'Pêvekê bibe Google Cloud Storage');
+assert.match(kurmanji['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(kurmanji['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(kurmanji['s3-enabled-description'], /AWS S3.*MinIO/);
+assert.match(kurmanji['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(kurmanji['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
+assert.equal(kurmanji['board-migrations'], 'Koçberiyên depoyê');
