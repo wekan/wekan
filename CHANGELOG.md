@@ -5913,9 +5913,16 @@ validation, empty exports, linked-card safety and disabled users. These direct
 translations were completed with low confidence and welcome review by a
 Kirundi speaker. This left **99,235 genuinely untranslated values across 46
 locale files**.
+The eleventh 50-value Kirundi batch added user, username, organization, team
+and email errors, board exports without attachments, card exports to PDF and
+Excel, people, board, date and attachment export fields, disk-space errors,
+list sorting, and card, list, date, due-state, label and member filters. These
+direct translations were completed with low confidence and welcome review by
+a Kirundi speaker. This left **99,185 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
