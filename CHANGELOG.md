@@ -1813,9 +1813,13 @@ scheduled and button triggers, due-date conditions and list actions. This left
 The twenty-second 50-value Kashmiri batch added movement and archive conditions,
 label, member and checklist triggers, card positioning and email actions. This
 left **135,474 genuinely untranslated values across 63 locale files**.
+The twenty-third 50-value Kashmiri batch added rule action descriptions,
+checklist and swimlane creation, date-field actions, authentication and custom
+branding. This left **135,424 genuinely untranslated values across 63 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

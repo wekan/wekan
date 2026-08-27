@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -101,3 +101,8 @@ assert.match(kashmiri['r-unarchived'], /واپس انٲو/);
 assert.equal(kashmiri['r-checklist'], 'چیک لسٹ');
 assert.match(kashmiri['r-remove-all'], /سٲری ممبر ہٹٲویو/);
 assert.match(kashmiri['r-d-move-to-top-gen'], /پنٕنۍ فہرست/);
+assert.equal(kashmiri['r-in-swimlane'], 'وَتھ منٛز');
+assert.match(kashmiri['r-when-a-card-is-moved'], /دۄیمہِ فہرست/);
+assert.equal(kashmiri['r-df-due-at'], 'آخری تٲریخ');
+assert.match(kashmiri['authentication-method'], /توثیق/);
+assert.match(kashmiri['custom-head-manifest-content'], /JSON/);
