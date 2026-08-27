@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -147,3 +147,9 @@ assert.deepEqual(tokens(kashmiri['globalSearch-instructions-operator-has']), [
 ]);
 assert.match(kashmiri['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.equal(kashmiri['link-to-search'], 'یَتھ تلاشس لنک کریو');
+assert.equal(kashmiri['sort-cards'], 'کارڈ ترتیب دِیو');
+assert.match(kashmiri['drag-to-connect'], /دۄیمس کارڈس/);
+assert.deepEqual(tokens(kashmiri['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(kashmiri['background-too-big']), ['{{size}}']);
+assert.equal(kashmiri.location, 'جاے');
