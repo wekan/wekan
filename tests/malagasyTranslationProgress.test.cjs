@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -129,3 +129,8 @@ assert.match(malagasy['trello-api-key'],
 assert.match(malagasy['trello-api-import-desc'], /Trello API/);
 assert.match(malagasy['invalid-year'], /2026/);
 assert.deepEqual(tokens(malagasy['label-default']), ['%s']);
+assert.deepEqual(tokens(malagasy['leave-board-pop']), ['__boardTitle__']);
+assert.match(malagasy['listImportCardPopup-title'], /Trello/);
+assert.match(malagasy['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.equal(malagasy.normal, 'Mahazatra');
+assert.equal(malagasy['multi-selection'], 'Safidy maro');
