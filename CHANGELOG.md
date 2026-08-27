@@ -5349,9 +5349,16 @@ archive empty states, normal roles and participation notifications. These
 direct translations were completed with low confidence and welcome review by
 an Oromo speaker. This left **103,369 genuinely untranslated values across 48
 locale files**.
+The fifteenth 50-value Oromo batch added watch notifications, private-page
+login links, image pasting and previews, public and private board guidance,
+quick access, covers, member removal including Sandstorm access guidance,
+description recovery, search, WIP limits, keyboard shortcuts, sidebars, account
+creation and default-board controls. These direct translations were completed
+with low confidence and welcome review by an Oromo speaker. This left
+**103,319 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
