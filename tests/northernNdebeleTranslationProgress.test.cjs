@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -91,5 +91,14 @@ assert.equal(ndebele['color-black'], 'mnyama');
 assert.equal(ndebele['color-green'], 'luhlaza');
 assert.equal(ndebele['color-red'], 'bomvu');
 assert.equal(ndebele['color-sky'], 'sibhakabhaka');
+assert.equal(ndebele['color-white'], 'mhlophe');
+assert.equal(ndebele['color-yellow'], 'phuzi');
+assert.deepEqual(JSON.parse(ndebele['copyManyCardsPopup-format']).map(card =>
+  Object.keys(card).sort()), [
+  ['description', 'title'],
+  ['description', 'title'],
+  ['description', 'title'],
+]);
+assert.match(ndebele['custom-field-dropdown-options-placeholder'], /Enter/);
 
 console.log('Northern Ndebele translation progress checks passed.');

@@ -4256,9 +4256,15 @@ keyboard movement, dialog navigation, board and card closing and 23 color names.
 These direct translations were completed with low confidence and welcome review
 by a Northern Ndebele speaker. This left **112,337 genuinely untranslated values
 across 52 locale files**.
+The ninth 50-value Northern Ndebele batch added the final colors, comment and
+read-only roles, worker permissions, deletion confirmations, clipboard and link
+copying, multi-card JSON templates, labels and checkbox, currency, dropdown and
+numeric custom fields. These direct translations were completed with low
+confidence and welcome review by a Northern Ndebele speaker. This left **112,287
+genuinely untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`color-white`
+`custom-field-text`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
