@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -85,3 +85,9 @@ assert.match(kashmiri.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(kashmiri['org-domains-description'], /MULTITENANCY=true/);
 assert.deepEqual(tokens(kashmiri['default-subtasks-board']), ['__board__']);
 assert.deepEqual(tokens(kashmiri['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(kashmiri['activity-set-customfield']), ['%s', '%s', '%s']);
+assert.match(kashmiri['r-board-rules'], /بورڈ اصول/);
+assert.match(kashmiri['r-workflow-view'], /کٲم بہاؤ/);
+assert.deepEqual(tokens(kashmiri['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(kashmiri['r-import-done']), ['__count__']);
+assert.equal(kashmiri['r-all-boards'], 'سٲری بورڈ');
