@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -146,3 +146,9 @@ assert.deepEqual(tokens(kyrgyz['email-invite-register-text']),
 assert.match(kyrgyz['email-smtp-test-subject'], /SMTP/);
 assert.match(kyrgyz.Node_version, /Node/);
 assert.match(kyrgyz.Meteor_version, /Meteor/);
+assert.match(kyrgyz.FerretDB_version, /FerretDB/);
+assert.match(kyrgyz.Reactivity_mode, /changeStreams.*oplog.*polling/);
+assert.match(kyrgyz.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(kyrgyz.DDP_transport, /DDP.*DDP_TRANSPORT/);
+assert.match(kyrgyz['org-domains-description'],
+  /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
