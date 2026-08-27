@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -177,5 +177,10 @@ assert.match(nahuatl['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
 assert.deepEqual(tokens(nahuatl['r-import-unmapped']), ['__count__']);
 assert.match(nahuatl['r-schedule-weekday'], /Lunes–Viernes/);
 assert.match(nahuatl['r-for-n-days'], /N/);
+assert.equal(nahuatl['r-the-board'], 'in huapalli');
+assert.equal(nahuatl['r-list'], 'tocatlahtolli');
+assert.equal(nahuatl['r-card'], 'amatlapalli');
+assert.equal(nahuatl['r-label'], 'machiotl');
+assert.equal(nahuatl['r-member'], 'tlacatl');
 
 console.log('Nahuatl translation progress checks passed.');
