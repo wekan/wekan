@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -118,3 +118,8 @@ assert.match(kashmiri['submit-on-enter-description'], /Shift\+Enter/);
 assert.equal(kashmiri['roles-status-role'], 'کردار');
 assert.equal(kashmiri.monday, 'سوموار');
 assert.equal(kashmiri.voting, 'راے شمٲری');
+assert.equal(kashmiri.task, 'کام');
+assert.match(kashmiri['shared-templates-info'], /ای میل ڈومین/);
+assert.equal(kashmiri['myCardsViewChange-choice-table'], 'جدول');
+assert.match(kashmiri['dueCardsViewChange-choice-all-description'], /\*آخری تٲریخ\*/);
+assert.deepEqual(tokens(kashmiri['swimlane-title-not-found']), ['%s']);
