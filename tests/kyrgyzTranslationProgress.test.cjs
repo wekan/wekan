@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -86,3 +86,8 @@ assert.match(kyrgyz['map-to-existing-user-desc'],
 assert.equal(kyrgyz['map-to-existing-user-no-results'],
   'Дал келген колдонуучулар табылган жок.');
 assert.match(kyrgyz['font-preview-text'], /0123456789/);
+assert.equal(kyrgyz['auto-list-width'], 'Тизменин автоматтык туурасы');
+assert.match(kyrgyz['card-aging-days'], /3/);
+assert.equal(kyrgyz['move-card-up'], 'Карточканы өйдө жылдыруу');
+assert.equal(kyrgyz['color-red'], 'кызыл');
+assert.equal(kyrgyz['color-silver'], 'күмүш');
