@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -362,5 +362,16 @@ assert.deepEqual(tokens(ndebele['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.match(ndebele['cpu-usage-current'], /CPU/);
 assert.equal(ndebele['event-source'], 'Umthombo');
+assert.equal(ndebele['event-detail'], 'Imininingwane');
+assert.match(ndebele['event-ip'], /IP/);
+assert.match(ndebele['event-ipv4'], /IPv4/);
+assert.match(ndebele['event-ipv6'], /IPv6/);
+assert.match(ndebele['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(ndebele[
+  'globalSearch-instructions-operator-number']), ['__operator_number__']);
+assert.deepEqual(tags(ndebele[
+  'globalSearch-instructions-operator-number']),
+['<number>', '<number>']);
+assert.match(ndebele['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
 console.log('Northern Ndebele translation progress checks passed.');
