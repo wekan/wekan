@@ -5935,9 +5935,17 @@ version and initials, date, time, year and user validation, invitations,
 keyboard shortcuts, label creation and deletion. These direct translations
 were completed with low confidence and welcome review by a Kirundi speaker.
 This left **99,085 genuinely untranslated values across 46 locale files**.
+The fourteenth 50-value Kirundi batch added last-administrator protection,
+leaving boards, card and list links, bulk list archive, move and selection,
+user, team and organization settings, swimlane actions, Trello and Excel
+imports, list deletion, calendar and login, multi-selection, muted boards,
+archived-item emptiness, normal and assigned-only roles, invitations and
+participation notifications. These direct translations were completed with
+low confidence and welcome review by a Kirundi speaker. This left **99,035
+genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
