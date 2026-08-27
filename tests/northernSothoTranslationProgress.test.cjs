@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2117);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -41,5 +41,13 @@ assert.match(sotho['act-createBoard'], /boto/);
 assert.match(sotho['act-createCard'], /karata/);
 assert.match(sotho['act-createList'], /lenaneo/);
 assert.match(sotho['act-addChecklist'], /lenaneo la go hlahloba/);
+assert.deepEqual(tokens(sotho['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(sotho['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(sotho['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(sotho['allboards.workspaces'], 'Mafelo a mošomo');
+assert.match(sotho['allboards.edit-workspace-icon'], /markdown/);
 
 console.log('Northern Sotho translation progress checks passed.');
