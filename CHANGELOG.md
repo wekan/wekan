@@ -2449,9 +2449,14 @@ and appearance, mobile and desktop views, zoom and calendar controls, archive
 warnings and card dates and editing actions. These direct translations were
 completed with low confidence and welcome review by a Maithili speaker. This
 left **127,656 genuinely untranslated values across 59 locale files**.
+The sixth 50-value Maithili batch added voting and Planning Poker, card
+dependencies, organization and team dialogs, account and background
+administration and checklist, swimlane, list and card imports. These direct
+translations were completed with low confidence and welcome review by a
+Maithili speaker. This left **127,606 genuinely untranslated values across 59
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Maithili at `card-members-title`
-with
+and exact tokens from `en.i18n.json`, resuming Maithili at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
