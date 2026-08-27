@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -241,3 +241,9 @@ assert.deepEqual(tokens(malayalam['globalSearch-instructions-notes-3-2']),
   tokens(english['globalSearch-instructions-notes-3-2']));
 assert.match(malayalam['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(malayalam['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.equal(malayalam['card-dependencies'], 'ആശ്രിതത്വങ്ങൾ');
+assert.match(malayalam['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(malayalam['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(malayalam['background-too-big']), ['{{size}}']);
+assert.equal(malayalam['location-open-map'], 'മാപ്പിൽ തുറക്കുക');
