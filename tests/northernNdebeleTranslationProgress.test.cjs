@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1567);
+assert.equal(Object.keys(remaining).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -126,5 +126,10 @@ assert.match(ndebele['import-board-instruction-openproject'],
 assert.match(ndebele['import-board-instruction-jira'],
   /GET \/rest\/api\/2\/search/);
 assert.match(ndebele['import-trello-json-file-hint'], /API/);
+assert.match(ndebele['trello-api-key'],
+  /https:\/\/trello\.com\/app-key/);
+assert.match(ndebele['trello-api-import-desc'], /Trello API/);
+assert.match(ndebele['invalid-year'], /2026/);
+assert.deepEqual(tokens(ndebele['label-default']), ['%s']);
 
 console.log('Northern Ndebele translation progress checks passed.');
