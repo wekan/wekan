@@ -1869,9 +1869,13 @@ locale files**.
 The thirty-seventh 50-value Kashmiri batch added Sandstorm cleanup, adaptive card
 loading, safe text rendering, import and export privacy controls and backup scope.
 This left **134,724 genuinely untranslated values across 63 locale files**.
+The thirty-eighth 50-value Kashmiri batch added backup scheduling and restore,
+Google Cloud credentials, S3, Azure and GCS setup guidance and cloud connection
+status. This left **134,674 genuinely untranslated values across 63 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -195,3 +195,8 @@ assert.deepEqual(tags(kashmiri['render-links-as-plain-text-description']), ['<a 
 assert.match(kashmiri['disable-all-import-description'], /GitHub.*Forgejo/);
 assert.match(kashmiri['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
 assert.equal(kashmiri['backup-done'], 'بیک اپ مکمل گٔے');
+assert.match(kashmiri['backup-time'], /HH:MM/);
+assert.match(kashmiri['gcs-key-filename-description'], /JSON/);
+assert.match(kashmiri['gcs-permissions-note'], /client_email.*Storage Object Admin/);
+assert.match(kashmiri['s3-endpoint-menu-path'], /MinIO.*Cloudflare R2.*Backblaze B2/);
+assert.match(kashmiri['attachment-move-storage-azure'], /Azure Blob Storage/);
