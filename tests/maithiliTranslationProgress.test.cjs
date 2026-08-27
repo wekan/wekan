@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -243,3 +243,10 @@ assert.match(maithili.Node_memory_usage_rss, /Node/);
 assert.match(maithili['custom-legal-notice-link-url'], /URL/);
 assert.match(maithili['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(maithili['attachment-move-storage-s3'], /S3/);
+assert.match(maithili['attachment-repair-locations-description'], /GridFS/);
+assert.match(maithili['gridfs-file-id'], /GridFS.*ID/);
+assert.match(maithili['mongodb-compact-description'],
+  /MongoDB GridFS.*Compact/);
+assert.match(maithili['mongodb-compact-warning'],
+  /Compact.*oplog.*Meteor/);
+assert.match(maithili['mongodb-compact-run'], /MongoDB Compact/);
