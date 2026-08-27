@@ -4948,9 +4948,15 @@ avatar, activity, notification and watch controls, anonymization and backup
 scopes. These direct translations were completed with low confidence and welcome
 review by a Northern Sotho speaker. This left **106,553 genuinely untranslated
 values across 50 locale files**.
+The thirty-eighth 50-value Northern Sotho batch added scheduled backups and
+restore modes, Google Cloud credentials and permissions, and detailed AWS S3,
+Azure and GCS configuration paths, secret handling and connection tests. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **106,503 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
