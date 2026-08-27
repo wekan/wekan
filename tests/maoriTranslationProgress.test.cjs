@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -108,3 +108,8 @@ assert.deepEqual(tokens(maori['email-invite-text']),
 assert.deepEqual(tokens(maori['email-verifyEmail-text']),
   ['__url__', '__user__']);
 assert.match(maori['error-import-empty-board'], /WeKan/);
+assert.equal(maori['export-card-pdf'], 'Kaweake kāri ki PDF');
+assert.match(maori['export-card-excel-fields'], /Excel/);
+assert.match(maori['export-card-excel-no-disk-space'], /Excel/);
+assert.equal(maori['filter-due-tomorrow'], 'Ka tika āpōpō');
+assert.equal(maori['filter-no-member'], 'Kāore he mema');
