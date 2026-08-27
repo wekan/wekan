@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1317);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -148,5 +148,12 @@ assert.deepEqual(tokens(nepali['email-invite-register-text']),
 assert.match(nepali['email-smtp-test-subject'], /SMTP/);
 assert.match(nepali.Node_version, /Node/);
 assert.match(nepali.Meteor_version, /Meteor/);
+assert.match(nepali.FerretDB_version, /FerretDB/);
+assert.match(nepali.Reactivity_mode, /changeStreams.*oplog.*polling/);
+assert.match(nepali.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(nepali.DDP_transport, /DDP.*DDP_TRANSPORT/);
+assert.match(nepali.OS_Cpus, /OS.*CPU/);
+assert.match(nepali['org-domains-description'],
+  /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
 
 console.log('Nepali translation progress checks passed.');
