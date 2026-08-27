@@ -3302,9 +3302,15 @@ labels, custom product/head/manifest/assetlinks settings, layout and card
 counters. These direct translations were completed with low confidence and
 welcome review by a Malayalam speaker. This left **120,255 genuinely
 untranslated values across 56 locale files**.
+The twenty-fourth 50-value Malayalam batch added member lists, custom body HTML,
+authentication display, board duplication, entity counts, swimlane deletion,
+card date reminders and placement, account deletion safeguards and resize/input
+controls. These direct translations were completed with low confidence and
+welcome review by a Malayalam speaker. This left **120,205 genuinely
+untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
