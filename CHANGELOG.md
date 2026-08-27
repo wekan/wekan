@@ -3744,9 +3744,15 @@ diagnostics, list sorting and card, list, date, due-date, label and member
 filters. These direct translations were completed with low confidence and
 welcome review by a Burmese speaker. This left **116,521 genuinely untranslated
 values across 54 locale files**.
+The twelfth 50-value Burmese batch added assignee and advanced custom-field
+filters, activity visibility, imported-member state, impersonation and detailed
+Kanboard, NextCloud Deck, OpenProject, issue, Asana, ZenKit, Trello, CSV/TSV,
+Jira, Excel and WeKan board imports. These direct translations were completed
+with low confidence and welcome review by a Burmese speaker. This left **116,471
+genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
