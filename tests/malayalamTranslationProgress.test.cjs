@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -265,3 +265,9 @@ assert.match(malayalam['custom-legal-notice-link-url'], /URL/);
 assert.equal(malayalam.copyChecklist, 'ചെക്ക്‌ലിസ്റ്റ് പകർത്തുക');
 assert.match(malayalam['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(malayalam['attachment-move-storage-s3'], /S3/);
+assert.match(malayalam['attachment-repair-locations-description'],
+  /GridFS.*ക്ലൗഡ്/);
+assert.match(malayalam['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
+assert.match(malayalam['mongodb-compact-warning'], /oplog.*Meteor/);
+assert.equal(malayalam['gridfs-file-id'], 'GridFS ഫയൽ ID');
+assert.equal(malayalam['board-title'], 'ബോർഡ് ശീർഷകം');
