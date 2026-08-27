@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -120,3 +120,15 @@ assert.match(kurmanji['export-card-field-board-info'], /Depo.*Lîste.*Rêç/);
 assert.match(kurmanji['export-card-excel-no-disk-space'], /Excel.*dîskê/);
 assert.equal(kurmanji['filter-overdue'], 'Dema wê derbasbûyî');
 assert.equal(kurmanji['filter-no-member'], 'Endam tune');
+assert.equal(kurmanji['filter-no-assignee'], 'Berpirs tune');
+for (const operator of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
+  assert.match(kurmanji['advanced-filter-description'],
+    new RegExp(operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+}
+assert.deepEqual(tokens(kurmanji['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(kurmanji['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(kurmanji['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search.*automationRules/);
+assert.match(kurmanji['import-trello-json-file-hint'], /Trello API/);

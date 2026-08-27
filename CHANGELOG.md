@@ -1939,9 +1939,13 @@ The eleventh 50-value Kurmanji Kurdish batch added account-conflict errors, card
 exports to PDF and Excel, disk-space diagnostics, attachment metadata, sorting
 and date, label and member filters. This left **133,857 genuinely untranslated
 values across 62 locale files**.
+The twelfth 50-value Kurmanji Kurdish batch added assignee and advanced filters,
+member status and impersonation, multi-source board import guidance and secure
+Trello JSON and ZIP handling. This left **133,807 genuinely untranslated values
+across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
