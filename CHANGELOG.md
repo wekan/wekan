@@ -1851,9 +1851,12 @@ The thirty-second 50-value Kashmiri batch added team and organization assignment
 Node memory diagnostics, legal notices, checklist actions and attachment storage
 moves. This left **134,974 genuinely untranslated values across 63 locale
 files**.
+The thirty-third 50-value Kashmiri batch added bulk attachment migration, storage
+repair and progress, file statistics, storage identifiers and MongoDB compaction.
+This left **134,924 genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
