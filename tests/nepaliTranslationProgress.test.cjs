@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2117);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -41,5 +41,13 @@ assert.match(nepali['act-createBoard'], /बोर्ड/);
 assert.match(nepali['act-createCard'], /कार्ड/);
 assert.match(nepali['act-addChecklist'], /जाँचसूची/);
 assert.match(nepali['act-addAttachment'], /संलग्नक/);
+assert.deepEqual(tokens(nepali['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(nepali['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(nepali['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(nepali['allboards.workspaces'], 'कार्यस्थानहरू');
+assert.match(nepali['allboards.edit-workspace-icon'], /markdown/);
 
 console.log('Nepali translation progress checks passed.');
