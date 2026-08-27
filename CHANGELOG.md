@@ -2043,9 +2043,13 @@ The thirty-seventh 50-value Kurmanji Kurdish batch added Sandstorm cleanup, card
 loading performance, secure plain-text rendering, import and export restrictions,
 identity anonymization, activity controls and streamed backups. This left
 **132,557 genuinely untranslated values across 62 locale files**.
+The thirty-eighth 50-value Kurmanji Kurdish batch added backup schedules and
+restore modes, Google Cloud credentials and permissions, S3, Azure and GCS setup
+paths, secret retention and cloud connection status. This left **132,507
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
