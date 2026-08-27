@@ -5268,9 +5268,15 @@ starred and remaining boards, and workspace creation, editing, icons and
 settings. These direct translations were completed with low confidence and
 welcome review by an Oromo speaker. This left **103,969 genuinely untranslated
 values across 48 locale files**.
+The third 50-value Oromo batch added workspace settings and deletion, board
+multi-selection, starred and Home boards, card dates and templates, personal
+and fixed list widths, keyboard shortcuts, swimlane height, subtasks,
+checklists, covers, labels and members. These direct translations were
+completed with low confidence and welcome review by an Oromo speaker. This left
+**103,919 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
