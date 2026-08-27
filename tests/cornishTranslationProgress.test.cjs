@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -51,3 +51,12 @@ assert.deepEqual(tokens(cornish['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(cornish['allboards.workspaces'], 'Leow ober');
 assert.match(cornish['allboards.edit-workspace-icon'], /markdown/);
+assert.match(cornish['archive-permanent-delete-disabled-hint'],
+  /Admin Panel.*Problems.*Delete/);
+assert.match(cornish['archive-permanent-delete-disabled-hint'],
+  /Enable permanent delete for Global Admin/);
+assert.deepEqual(tokens(cornish['activity-dueDate']), ['%s', '%s']);
+assert.match(cornish['list-width-error-message'], /270/);
+assert.match(cornish['set-swimlane-height-value'], /picselow/);
+assert.equal(cornish['add-checklist'], 'Keworra rol checkya');
+assert.equal(cornish['add-members'], 'Keworra eseli');
