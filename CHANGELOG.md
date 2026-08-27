@@ -3090,9 +3090,15 @@ stickers, dependency relationships and imports, board backgrounds and card
 locations. These direct translations were completed with low confidence and
 welcome review by a Māori speaker. This left **122,122 genuinely untranslated
 values across 57 locale files**.
+The thirtieth 50-value Māori batch added map coordinates and detection, server
+troubleshooting, activity visibility, swimlane movement, string templates and
+file, security, speed, test, CPU, database, rule, board, card, impersonation,
+recovery and office reports. These direct translations were completed with low
+confidence and welcome review by a Māori speaker. This left **122,072 genuinely
+untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

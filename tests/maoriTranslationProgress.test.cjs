@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -227,3 +227,10 @@ assert.deepEqual(tokens(maori['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(maori['background-too-big']), ['{{size}}']);
 assert.equal(maori['location-address'], 'Wāhitau');
+assert.equal(maori['location-latitude'], 'Ahopae');
+assert.match(maori['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.deepEqual(tokens(maori['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.equal(maori['reports'], 'Ngā Pūrongo');
+assert.match(maori['office-report-desc'], /IPv4.*IPv6/);
