@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -256,3 +256,8 @@ assert.match(maithili['preview-pdf-not-supported'], /PDF/);
 assert.match(maithili['show-week-of-year'], /ISO 8601/);
 assert.match(maithili['import-board-zip'], /.zip.*JSON/);
 assert.equal(maithili.accessibility, 'अभिगम्यता');
+assert.match(maithili['accounts-lockout-info'], /प्रवेश.*आक्रमण/);
+assert.match(maithili['accounts-lockout-known-users'], /उपयोगकर्ता नाम.*कूटशब्द/);
+assert.match(maithili['accounts-lockout-period'], /सेकंड/);
+assert.equal(maithili['active-cron-jobs'], 'सक्रिय निर्धारित कार्य');
+assert.equal(maithili['board-operations'], 'बोर्ड कार्रवाई');
