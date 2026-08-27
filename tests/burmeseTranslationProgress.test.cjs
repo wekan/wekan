@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -188,5 +188,10 @@ assert.deepEqual(tokens(burmese['act-a-dueAt']),
 assert.deepEqual(tokens(burmese['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.match(burmese['submit-on-enter'], /Enter/);
+for (const literal of ['Enter', 'Shift+Enter', 'Ctrl/Cmd+Enter']) {
+  assert.ok(burmese['submit-on-enter-description'].includes(literal));
+}
+assert.equal(burmese.monday, 'တနင်္လာ');
+assert.equal(burmese.sunday, 'တနင်္ဂနွေ');
 
 console.log('Burmese translation progress checks passed.');
