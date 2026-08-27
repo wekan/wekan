@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -148,6 +148,14 @@ assert.deepEqual(tokens(burmese['email-invite-register-text']),
   ['__icode__', '__inviter__', '__url__', '__user__']);
 for (const literal of ['SMTP', 'TLS', 'Webhook', 'Node', 'Meteor']) {
   assert.ok(Object.values(burmese).some(value => value.includes(literal)));
+}
+for (const literal of ['FerretDB', 'changeStreams', 'oplog', 'polling',
+  'METEOR_REACTIVITY_ORDER', 'DDP_TRANSPORT', 'OS', 'CPU']) {
+  assert.ok(Object.values(burmese).some(value => value.includes(literal)));
+}
+for (const literal of ['a.example.com', 'kanban.example.org',
+  'MULTITENANCY=true']) {
+  assert.ok(burmese['org-domains-description'].includes(literal));
 }
 
 console.log('Burmese translation progress checks passed.');
