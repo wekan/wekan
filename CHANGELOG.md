@@ -4960,9 +4960,15 @@ MinIO security settings, scheduled board operations and attachment monitoring.
 These direct translations were completed with low confidence and welcome review
 by a Northern Sotho speaker. This left **106,453 genuinely untranslated values
 across 50 locale files**.
+The fortieth 50-value Northern Sotho batch added comprehensive board integrity
+checks, duplicate-list cleanup, lost-card and archive restoration, missing-list
+repair, avatar and file URL repair, confirmations and migration progress. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **106,403 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
