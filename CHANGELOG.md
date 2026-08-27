@@ -2792,9 +2792,15 @@ states, color, member and checklist actions, email and detailed top and bottom
 card moves. These direct translations were completed with low confidence and
 welcome review by a Malagasy speaker. This left **124,639 genuinely untranslated
 values across 58 locale files**.
+The twenty-third 50-value Malagasy batch added detailed rule actions for email,
+archive, labels, members, checklists, cards, swimlanes and relative dates,
+authentication, product naming, custom head HTML, web manifests,
+`assetlinks.json`, layout and card counters. These direct translations were
+completed with low confidence and welcome review by a Malagasy speaker. This
+left **124,589 genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
