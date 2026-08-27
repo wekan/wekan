@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -84,3 +84,10 @@ assert.equal(maithili['importDependenciesPopup-title'],
 assert.equal(maithili['exportChecklistPopup-title'],
   'जाँचसूची निर्यात करू');
 assert.equal(maithili['importSwimlanePopup-title'], 'स्विमलेन आयात करू');
+assert.match(maithili.casSignIn, /CAS/);
+assert.equal(maithili['cardType-linkedBoard'], 'जुड़ल बोर्ड');
+assert.match(maithili['map-to-existing-user-desc'],
+  /कार्ड.*टिप्पणी.*गतिविधि/);
+assert.equal(maithili['map-to-existing-user-no-results'],
+  'मिलैत उपयोगकर्ता नहि भेटल।');
+assert.match(maithili['font-preview-text'], /0123456789/);
