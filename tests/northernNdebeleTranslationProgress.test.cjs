@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -47,5 +47,13 @@ assert.match(ndebele['act-createList'], /uluhlu/);
 assert.match(ndebele['act-createSwimlane'], /umzila/);
 assert.match(ndebele['act-addAttachment'], /okunamathiselweyo/);
 assert.match(ndebele['act-addChecklist'], /uluhlu lokuhlola/);
+assert.deepEqual(tokens(ndebele['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(ndebele['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(ndebele['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(ndebele['allboards.workspaces'], 'Izindawo zokusebenza');
+assert.match(ndebele['allboards.edit-workspace-icon'], /markdown/);
 
 console.log('Northern Ndebele translation progress checks passed.');

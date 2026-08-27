@@ -4213,8 +4213,15 @@ subtasks, checklists, custom fields, comments, archives and imports. These
 direct translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **112,687 genuinely untranslated values
 across 52 locale files**.
+The second 50-value Northern Ndebele batch added card movement and membership
+activity, general activity phrases, checklist and comment changes, received and
+start dates and workspace names, subworkspaces, editing and menus. These direct
+translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **112,637 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Northern Ndebele at `act-moveCard`
+and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
+`workspaceActionsPopup-title`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
