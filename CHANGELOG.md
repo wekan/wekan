@@ -3291,9 +3291,14 @@ sorting, completion, bulk movement, relative dates and rule time units. These
 direct translations were completed with low confidence and welcome review by a
 Malayalam speaker. This left **120,355 genuinely untranslated values across 56
 locale files**.
+The twenty-second 50-value Malayalam batch added visual-rule grammar for card
+movement and archives, labels, members, attachments, checklists and items,
+colors, list positions and email actions. These direct translations were
+completed with low confidence and welcome review by a Malayalam speaker. This
+left **120,305 genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

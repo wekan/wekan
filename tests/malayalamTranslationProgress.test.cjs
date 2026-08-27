@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -191,3 +191,10 @@ assert.match(malayalam['r-schedule-weekday'], /തിങ്കൾ–വെള്
 assert.equal(malayalam['r-mark-complete'],
   'കാർഡ് പൂർത്തിയായതായി അടയാളപ്പെടുത്തുക');
 assert.equal(malayalam['r-unit-weeks'], 'ആഴ്ച');
+assert.equal(malayalam['r-unarchived'], 'ആർക്കൈവിൽ നിന്ന് പുനഃസ്ഥാപിച്ചു');
+assert.equal(malayalam['r-remove-all'],
+  'കാർഡിൽ നിന്ന് എല്ലാ അംഗങ്ങളെയും നീക്കുക');
+assert.equal(malayalam['r-check-all'], 'എല്ലാം അടയാളപ്പെടുത്തുക');
+assert.equal(malayalam['r-d-move-to-top-gen'],
+  'കാർഡ് അതിന്റെ പട്ടികയുടെ മുകളിലേക്ക് മാറ്റുക');
+assert.equal(malayalam['r-d-send-email'], 'ഇമെയിൽ അയയ്ക്കുക');
