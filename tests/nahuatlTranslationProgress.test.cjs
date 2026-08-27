@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -273,5 +273,15 @@ assert.match(nahuatl['database-migration-description'],
 assert.deepEqual(tokens(nahuatl['database-migration-confirm']), ['__db__']);
 assert.match(nahuatl['sandstorm-migration-description'],
   /WeKan.*Sandstorm grain.*MongoDB 3.*FerretDB v1 \(SQLite\)/);
+assert.match(nahuatl['cards-loading-description'],
+  /CARDS_LOADING.*all\/lazy\/auto.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(nahuatl['render-links-as-plain-text-description']),
+  ['<a href>']);
+assert.match(nahuatl['always-show-code-as-text-description'],
+  /HTML.*<!-- -->.*JavaScript/);
+assert.match(nahuatl['disable-all-import-description'],
+  /WeKan JSON.*Trello.*CSV\/Excel.*Forgejo/);
+assert.match(nahuatl['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/);
 
 console.log('Nahuatl translation progress checks passed.');
