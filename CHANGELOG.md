@@ -2768,9 +2768,15 @@ tenancy, domain, administration and synchronization settings. These direct
 translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **124,839 genuinely untranslated values across 58
 locale files**.
+The nineteenth 50-value Malagasy batch added received and end dates, colors,
+assignment metadata, card sorting, permanent board and notification deletion,
+duplicate-list cleanup, subtask and card settings, minicard fields, attachment
+and checklist counts, parent paths and label activity. These direct translations
+were completed with low confidence and welcome review by a Malagasy speaker.
+This left **124,789 genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

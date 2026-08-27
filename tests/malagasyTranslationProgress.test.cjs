@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -161,3 +161,7 @@ assert.match(malagasy.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(malagasy.DDP_transport, /DDP.*DDP_TRANSPORT/);
 assert.match(malagasy['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
+assert.deepEqual(tokens(malagasy['default-subtasks-board']), ['__board__']);
+assert.match(malagasy['checklist-count-on-minicard'], /0\/0/);
+assert.equal(malagasy['parent-card'], 'Karatra ray aman-dreny');
+assert.deepEqual(tokens(malagasy['activity-added-label']), ['%s', '%s']);
