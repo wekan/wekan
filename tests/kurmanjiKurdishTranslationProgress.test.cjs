@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -139,3 +139,10 @@ assert.match(kurmanji['trello-api-token'], /Trello API/);
 assert.match(kurmanji['trello-cancel-delete-confirm'], /nikare vegere/);
 assert.match(kurmanji['invalid-year'], /2026/);
 assert.deepEqual(tokens(kurmanji['label-default']), ['%s']);
+assert.deepEqual(tokens(kurmanji['leave-board-pop']), ['__boardTitle__']);
+assert.match(kurmanji['list-archive-cards-pop'], /Menu.*Arşîv/);
+assert.match(kurmanji['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.equal(kurmanji['no-archived-swimlanes'],
+  'Di arşîvê de tu rêç tune.');
+assert.equal(kurmanji.normal, 'Asayî');
+assert.match(kurmanji['normal-desc'], /Nikar[eî] mîhengan biguherîne/);

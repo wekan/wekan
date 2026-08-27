@@ -1947,9 +1947,13 @@ The thirteenth 50-value Kurmanji Kurdish batch added ZIP path safety, workspace
 placement, direct Trello API import and job controls, member mapping, validation,
 keyboard shortcuts and label lifecycle. This left **133,757 genuinely
 untranslated values across 62 locale files**.
+The fourteenth 50-value Kurmanji Kurdish batch added last-admin protection,
+leaving boards, list and card archive actions, settings and import dialogs,
+multi-selection, notification modes and normal roles. This left **133,707
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
