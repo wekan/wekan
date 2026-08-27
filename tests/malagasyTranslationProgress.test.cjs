@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -148,3 +148,10 @@ assert.match(malagasy['automatic-linked-url-schemes'], /URL.*URL/);
 assert.equal(malagasy['board-templates-swimlane'],
   'Lasitry ny solaitra');
 assert.match(malagasy['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(malagasy['attachment-transfer-limits-title'], /API/);
+assert.match(malagasy['smtp-tls-description'], /TLS.*SMTP/);
+assert.deepEqual(tokens(malagasy['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(malagasy['email-smtp-test-subject'], /SMTP/);
+assert.match(malagasy.Node_version, /Node/);
+assert.match(malagasy.Meteor_version, /Meteor/);

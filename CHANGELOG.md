@@ -2755,9 +2755,15 @@ uploads, custom logos and URL schemes, username imports, watching, welcome and
 template boards and WIP limit errors. These direct translations were completed
 with low confidence and welcome review by a Malagasy speaker. This left
 **124,939 genuinely untranslated values across 58 locale files**.
+The seventeenth 50-value Malagasy batch added attachment and API transfer
+limits, avatar upload blocking, registration and invitations, SMTP and TLS
+settings and test mail, localized registration email, authorization, webhooks,
+packages, database and Node and Meteor versions. These direct translations were
+completed with low confidence and welcome review by a Malagasy speaker. This
+left **124,889 genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
