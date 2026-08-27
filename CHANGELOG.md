@@ -6952,9 +6952,14 @@ Excel exports, attachment metadata and disk-space errors, list sorting and date,
 label and member filters. These direct translations were completed with low
 confidence and welcome review by a Northern Sami speaker. This left **90,517
 genuinely untranslated values across 42 locale files**.
+The twelfth 50-value Northern Sami batch added advanced filters, imported-member
+status and Kanboard, NextCloud Deck, OpenProject, Asana, ZenKit, Trello, Jira,
+Excel, CSV and WeKan board-import instructions. These direct translations were
+completed with low confidence and welcome review by a Northern Sami speaker.
+This left **90,467 genuinely untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
