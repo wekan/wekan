@@ -5951,9 +5951,16 @@ signup, starred boards and automatic post-login opening. These direct
 translations were completed with low confidence and welcome review by a
 Kirundi speaker. This left **98,985 genuinely untranslated values across 46
 locale files**.
+The sixteenth 50-value Kirundi batch added starred boards, subscriptions,
+teams, spent and overtime tracking, numbered assignee and label shortcuts,
+uploads, custom logos and URL schemes, imported usernames, archived-list
+warnings, welcome content, card, list and board templates, and WIP-limit
+errors. These direct translations were completed with low confidence and
+welcome review by a Kirundi speaker. This left **98,935 genuinely untranslated
+values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
