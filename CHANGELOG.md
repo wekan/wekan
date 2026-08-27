@@ -4683,9 +4683,15 @@ scheduled jobs, attachment and avatar paths and scheduled board archive, backup
 and cleanup operations. These direct translations were completed with low
 confidence and welcome review by a Nepali speaker. This left **108,820 genuinely
 untranslated values across 51 locale files**.
+The thirty-sixth 50-value Nepali batch added scheduled-job and migration
+controls and errors, filesystem, S3 and Azure storage settings, MongoDB and
+FerretDB text-data migration and Sandstorm database and file migration status.
+These direct translations were completed with low confidence and welcome review
+by a Nepali speaker. This left **108,770 genuinely untranslated values across 51
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 417);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -257,5 +257,11 @@ assert.match(nepali['accounts-lockout-period'], /सेकेन्ड/);
 assert.equal(nepali['accounts-lockout-unlock-all'], 'सबै खोल्नुहोस्');
 assert.equal(nepali['attachments-path'], 'संलग्नक मार्ग');
 assert.equal(nepali['cron-migrations'], 'तालिकाबद्ध स्थानान्तरणहरू');
+assert.match(nepali['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.match(nepali['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*snap set wekan database=ferretdb.*=mongodb/s);
+assert.deepEqual(tokens(nepali['database-migration-confirm']), ['__db__']);
+assert.match(nepali['sandstorm-migration-description'],
+  /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/s);
 
 console.log('Nepali translation progress checks passed.');
