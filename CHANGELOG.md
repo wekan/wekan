@@ -4978,9 +4978,14 @@ monitoring, pagination, minicard display and storage and operation totals. These
 direct translations were completed with low confidence and welcome review by a
 Northern Sotho speaker. This left **106,303 genuinely untranslated values across
 50 locale files**.
+The forty-third 50-value Northern Sotho batch added repositories, account and
+OTP access, login validation, Problems status and guidance, broken-card repair,
+CPU metrics and diagnostic event fields. These direct translations were
+completed with low confidence and welcome review by a Northern Sotho speaker.
+This left **106,253 genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
