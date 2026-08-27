@@ -1854,9 +1854,13 @@ files**.
 The thirty-third 50-value Kashmiri batch added bulk attachment migration, storage
 repair and progress, file statistics, storage identifiers and MongoDB compaction.
 This left **134,924 genuinely untranslated values across 63 locale files**.
+The thirty-fourth 50-value Kashmiri batch added board status and upload progress,
+file limits, custom translations, checklist display, Support and Accessibility
+pages. This left **134,874 genuinely untranslated values across 63 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

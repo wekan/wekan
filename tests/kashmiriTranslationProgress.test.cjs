@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -173,3 +173,8 @@ assert.equal(kashmiri['move-progress-pause'], 'رُکٲویو');
 assert.match(kashmiri['gridfs-file-id'], /GridFS.*ID/);
 assert.match(kashmiri['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
 assert.equal(kashmiri.action, 'کارروٲیی');
+assert.equal(kashmiri['board-status'], 'بورڈ حالت');
+assert.match(kashmiri['drag-board-to-workspace'], /__workspaces__/);
+assert.match(kashmiri['show-week-of-year'], /ISO 8601/);
+assert.match(kashmiri['import-board-zip'], /JSON.*\.zip/);
+assert.equal(kashmiri.accessibility, 'رسٲیی');
