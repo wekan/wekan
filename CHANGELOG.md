@@ -6844,9 +6844,14 @@ login protection and user unlocking, people filters, scheduled jobs, attachment
 paths and scheduled board operations. These direct translations were completed
 with low confidence and welcome review by a Sindhi speaker. This left **91,484
 genuinely untranslated values across 43 locale files**.
+The thirty-sixth 50-value Sindhi batch added scheduled-job and migration
+recovery, filesystem and cloud storage settings, MongoDB-to-FerretDB migration
+instructions and Sandstorm migration status. These direct translations were
+completed with low confidence and welcome review by a Sindhi speaker. This left
+**91,434 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sindhi at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
