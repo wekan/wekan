@@ -2878,9 +2878,15 @@ activity, notification and watch controls and scoped cloud backups. These direct
 translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **123,889 genuinely untranslated values across 58
 locale files**.
+The thirty-eighth 50-value Malagasy batch added scheduled backups, restore
+modes, Google Cloud credentials and permissions, detailed AWS S3, Azure and
+Google Cloud setup paths, connection tests and Azure attachment storage. These
+direct translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **123,839 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

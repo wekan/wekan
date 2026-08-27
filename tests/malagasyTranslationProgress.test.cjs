@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -286,3 +286,12 @@ assert.match(malagasy['disable-all-import-description'],
   /WeKan JSON.*Trello.*CSV\/Excel.*Forgejo/s);
 assert.match(malagasy['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(malagasy['backup-time'], /HH:MM/);
+assert.match(malagasy['gcs-permissions-note'],
+  /WeKan.*Google Cloud Console.*client_email.*Storage Object Admin/s);
+assert.match(malagasy['s3-endpoint-menu-path'],
+  /AWS.*S3.*URL.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/s);
+assert.match(malagasy['gcs-credentials-menu-path'],
+  /Google Cloud Console.*IAM & Admin.*JSON/s);
+assert.equal(malagasy['attachment-move-storage-azure'],
+  "Afindrao any amin'ny Azure Blob Storage ny rakitra miaraka");
