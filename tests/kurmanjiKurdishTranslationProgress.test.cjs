@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -289,3 +289,12 @@ assert.equal(kurmanji['copy-swimlane'], 'Rêçê kopî bike');
 assert.match(kurmanji['Double-Bounce'], /Double Bounce/);
 assert.match(kurmanji['carbon-copy'], /Cc:/);
 assert.equal(kurmanji['cardDetailsPopup-title'], 'Hûrguliyên kartê');
+assert.equal(kurmanji['confirm-btn'], 'Piştrast bike');
+assert.match(kurmanji.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(kurmanji.Node_memory_usage_rss, /Node/);
+assert.match(kurmanji['custom-legal-notice-link-url'], /URL/);
+assert.equal(kurmanji.legalNotice, 'agahdariya qanûnî');
+assert.equal(kurmanji['copyChecklist'], 'Lîsteya kontrolê kopî bike');
+assert.equal(kurmanji['attachment-move-storage-gridfs'],
+  'Pêvekê bibe GridFS');
+assert.equal(kurmanji['attachment-move-storage-s3'], 'Pêvekê bibe S3');
