@@ -5486,9 +5486,15 @@ and team deletion warnings, support tickets and requests, card details, team
 membership, invitations and Node heap labels. These direct translations were
 completed with low confidence and welcome review by an Oromo speaker. This
 left **102,507 genuinely untranslated values across 48 locale files**.
+The thirty-eighth 50-value Oromo batch added Node heap and memory metrics,
+organization membership, legal notices, checklist and subtask actions, and
+bulk attachment movement among filesystem, GridFS and S3 storage. These direct
+translations were completed with low confidence and welcome review by an
+Oromo speaker. This left **102,457 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`Node_heap_total_physical_size` with
+`attachment-repair-locations-description` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
