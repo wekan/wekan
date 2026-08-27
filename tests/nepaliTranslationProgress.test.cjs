@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 767);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -218,5 +218,11 @@ assert.deepEqual(tokens(nepali['globalSearch-instructions-notes-3-2']),
     '__predicate_year__']);
 assert.match(nepali['globalSearch-instructions-notes-2'], /OR/);
 assert.match(nepali['globalSearch-instructions-notes-3'], /AND/);
+assert.match(nepali['sort-boards-title-asc'], /A → Z/);
+assert.match(nepali['sort-boards-title-desc'], /Z → A/);
+assert.match(nepali['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(nepali['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(nepali['background-too-big']), ['{{size}}']);
 
 console.log('Nepali translation progress checks passed.');
