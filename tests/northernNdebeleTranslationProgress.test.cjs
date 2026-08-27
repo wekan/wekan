@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -354,5 +354,13 @@ assert.match(ndebele['migration-delay-ms-description'], /100-10000/);
 assert.equal(ndebele['show-list-on-minicard'],
   'Bonisa uluhlu ekhadini elincane');
 assert.equal(ndebele.weight, 'Isisindo');
+assert.match(ndebele.otp, /OTP/);
+assert.match(ndebele['api-endpoints'], /API/);
+assert.match(ndebele['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(ndebele['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(ndebele['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.match(ndebele['cpu-usage-current'], /CPU/);
+assert.equal(ndebele['event-source'], 'Umthombo');
 
 console.log('Northern Ndebele translation progress checks passed.');
