@@ -5024,8 +5024,15 @@ organization and team membership, account and background deletion, domains and
 checklist, swimlane, list, card and board imports. These direct translations were
 completed with low confidence and welcome review by a Chichewa speaker. This
 left **105,936 genuinely untranslated values across 49 locale files**.
+The seventh 50-value Chichewa batch added member, sticker and invitation
+dialogs, list sorting and archive restoration, linked cards and boards, secure
+mapping of imported members, themes, fonts, text colors, avatars, languages and
+permissions. These direct translations were completed with low confidence and
+welcome review by a Chichewa speaker. This left **105,886 genuinely untranslated
+values across 49 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Chichewa at `userPopup-title` with
+and exact tokens from `en.i18n.json`, resuming Chichewa at
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
