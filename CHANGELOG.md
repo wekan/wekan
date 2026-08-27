@@ -6776,8 +6776,13 @@ labels, members, attachments and checklists plus archive, movement, color,
 checklist and email actions. These direct translations were completed with low
 confidence and welcome review by a Sindhi speaker. This left **92,134 genuinely
 untranslated values across 43 locale files**.
+The twenty-third 50-value Sindhi batch added further rule actions and notes,
+checklist item examples, date fields, authentication, custom product metadata,
+web manifests, asset links and layout controls. These direct translations were
+completed with low confidence and welcome review by a Sindhi speaker. This left
+**92,084 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `r-d-send-email-subject` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `board-member-list` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
