@@ -4822,9 +4822,16 @@ team and organization settings, multi-selection, muted notifications, archive
 empty states and normal and assigned-only roles. These direct translations were
 completed with low confidence and welcome review by a Northern Sotho speaker.
 This left **107,703 genuinely untranslated values across 50 locale files**.
+The fifteenth 50-value Northern Sotho batch added watched-item notifications,
+private-page login, image previews, public and private board descriptions,
+member removal including Sandstorm guidance, unsaved-description rescue, board
+search, WIP limits, keyboard shortcuts, sidebars, signup and default-board
+controls. These direct translations were completed with low confidence and
+welcome review by a Northern Sotho speaker. This left **107,653 genuinely
+untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

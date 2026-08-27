@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1467);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -111,5 +111,10 @@ assert.deepEqual(tokens(sotho['leave-board-pop']), ['__boardTitle__']);
 assert.match(sotho['swimlaneAddPopup-title'], /tsela ya go sesa/);
 assert.equal(sotho.menu, 'Lenaneotirišo');
 assert.match(sotho['normal-desc'], /dipeakanyo/);
+assert.deepEqual(tokens(sotho['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(sotho['page-maybe-private']), ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(sotho['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.equal(sotho['signupPopup-title'], 'Hlama akhaonto');
 
 console.log('Northern Sotho translation progress checks passed.');
