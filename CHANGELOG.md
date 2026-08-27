@@ -3225,9 +3225,14 @@ scrolling and board, JSON, CSV, TSV, import, linked-card and user errors. These
 direct translations were completed with low confidence and welcome review by a
 Malayalam speaker. This left **120,905 genuinely untranslated values across 56
 locale files**.
+The eleventh 50-value Malayalam batch added user, organization, team and email
+validation, card PDF and Excel exports and attachment metadata, list sorting
+and date, label and member filters. These direct translations were completed
+with low confidence and welcome review by a Malayalam speaker. This left
+**120,855 genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

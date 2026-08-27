@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,3 +115,9 @@ assert.deepEqual(tokens(malayalam['email-verifyEmail-text']),
   ['__url__', '__user__']);
 assert.match(malayalam['error-import-empty-board'], /WeKan/);
 assert.match(malayalam['error-csv-schema'], /CSV.*TSV/);
+assert.equal(malayalam['export-card-pdf'],
+  'കാർഡ് PDF ആയി കയറ്റുമതി ചെയ്യുക');
+assert.match(malayalam['export-card-excel-fields'], /Excel/);
+assert.match(malayalam['export-card-excel-no-disk-space'], /Excel/);
+assert.equal(malayalam['filter-due-tomorrow'], 'നാളെ അവസാനിക്കുന്നു');
+assert.equal(malayalam['filter-no-member'], 'അംഗമില്ല');
