@@ -5102,9 +5102,15 @@ subtask and card settings, minicard content, parent-card paths and label
 activity. These direct translations were completed with low confidence and
 welcome review by a Chichewa speaker. This left **105,286 genuinely
 untranslated values across 49 locale files**.
+The twentieth 50-value Chichewa batch added label, attachment and custom-field
+activity, visual rule construction, card, label, member, checklist and
+attachment triggers, scheduling, and JSON, CSV and Trello Butler rule import
+and export. These direct translations were completed with low confidence and
+welcome review by a Chichewa speaker. This left **105,236 genuinely
+untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
