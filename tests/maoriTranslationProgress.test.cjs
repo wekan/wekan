@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -170,3 +170,8 @@ assert.deepEqual(tokens(maori['r-import-done']), ['__count__']);
 assert.match(maori['r-import-trello-note'], /Trello/);
 assert.equal((maori['r-import-trello-note'].match(/Butler/g) || []).length, 2);
 assert.equal(maori['r-workspace'], 'Mokowāmahi');
+assert.match(maori['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(maori['r-import-unmapped']), ['__count__']);
+assert.match(maori['r-schedule-weekday'], /Mane–Paraire/);
+assert.match(maori['r-for-n-days'], /N/);
+assert.equal(maori['r-card-button'], 'Pātene kāri');

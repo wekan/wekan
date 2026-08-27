@@ -3036,9 +3036,14 @@ schedule triggers and JSON, CSV and Trello Butler rule exchange. These direct
 translations were completed with low confidence and welcome review by a Māori
 speaker. This left **122,572 genuinely untranslated values across 57 locale
 files**.
+The twenty-first 50-value Māori batch added n8n and Node-RED workflow imports,
+scheduled and button triggers, due-date and list-duration conditions, card and
+board buttons, list sorting, completion and movement actions, relative dates and
+rule phrase units. These direct translations were completed with low confidence
+and welcome review by a Māori speaker. This left **122,522 genuinely
+untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at
-`r-import-workflow` with
+and exact tokens from `en.i18n.json`, resuming Māori at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
