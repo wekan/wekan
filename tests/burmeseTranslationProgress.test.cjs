@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -57,5 +57,12 @@ assert.match(burmese['list-width-error-message'], /270/);
 assert.match(burmese['set-list-width-value'], /ပစ်ဇယ်/);
 assert.match(burmese['set-swimlane-height-value'], /ပစ်ဇယ်/);
 assert.equal(burmese['add-checklist'], 'စစ်ဆေးစာရင်း ထည့်ရန်');
+assert.deepEqual(tokens(burmese['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(burmese['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(burmese['avatar-too-big']), ['__size__']);
+assert.match(burmese['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(burmese['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(burmese['board-private-info']),
+  ['</strong>', '<strong>']);
 
 console.log('Burmese translation progress checks passed.');
