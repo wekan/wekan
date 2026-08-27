@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 817);
+assert.equal(Object.keys(remaining).length, 767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -233,3 +233,11 @@ assert.equal(malayalam['operator-board'], 'ബോർഡ്');
 assert.equal(malayalam['operator-customfield'], 'ഇഷ്ടാനുസൃതഫീൽഡ്');
 assert.equal(malayalam['predicate-overdue'], 'കാലഹരണപ്പെട്ടത്');
 assert.equal(malayalam['predicate-quarter'], 'പാദവർഷം');
+assert.deepEqual(tokens(malayalam['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(malayalam['globalSearch-instructions-operator-has']),
+  tokens(english['globalSearch-instructions-operator-has']));
+assert.deepEqual(tokens(malayalam['globalSearch-instructions-notes-3-2']),
+  tokens(english['globalSearch-instructions-notes-3-2']));
+assert.match(malayalam['globalSearch-instructions-notes-2'], /\*OR\*/);
+assert.match(malayalam['globalSearch-instructions-notes-3'], /\*AND\*/);
