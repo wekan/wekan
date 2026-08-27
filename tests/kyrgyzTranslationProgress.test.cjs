@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -162,3 +162,8 @@ assert.deepEqual(tokens(kyrgyz['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(kyrgyz['r-import-done']), ['__count__']);
 assert.match(kyrgyz['r-import-trello-note'], /Trello.*Butler.*Butler/);
 assert.equal(kyrgyz['r-workspace'], 'Иш мейкиндиги');
+assert.match(kyrgyz['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(kyrgyz['r-import-unmapped']), ['__count__']);
+assert.match(kyrgyz['r-schedule-weekday'], /Дүй–Жума/);
+assert.match(kyrgyz['r-for-n-days'], /N/);
+assert.equal(kyrgyz['r-card-button'], 'Карточка баскычы');

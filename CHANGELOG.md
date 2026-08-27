@@ -2325,9 +2325,13 @@ The twentieth 50-value Kyrgyz batch added label, attachment and custom-field
 activity, visual rule editing, card and checklist triggers, scheduled rules and
 JSON, CSV and Trello Butler rule exchange. This left **129,073 genuinely
 untranslated values across 60 locale files**.
+The twenty-first 50-value Kyrgyz batch added n8n and Node-RED workflow imports,
+schedule and due-date triggers, card and board buttons, list sorting, completion
+and movement actions, relative dates and rule units. This left **129,023
+genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
