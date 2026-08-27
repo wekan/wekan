@@ -6119,9 +6119,15 @@ filesystem and GridFS statistics, forced scans and job queue details. These
 direct translations were completed with low confidence and welcome review by
 a Kirundi speaker. This left **97,685 genuinely untranslated values across 46
 locale files**.
+The forty-second 50-value Kirundi batch added memory and storage migration,
+batch, CPU and delay controls, migration logs and warnings, monitoring,
+schedules, scan and progress state, minicard display and system resource and
+attachment totals. These direct translations were completed with low
+confidence and welcome review by a Kirundi speaker. This left **97,635
+genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
