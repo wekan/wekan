@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1617);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -105,5 +105,15 @@ assert.match(nepali['export-card-excel'], /Excel/);
 assert.match(nepali['export-card-excel-no-disk-space'], /Excel/);
 assert.equal(nepali['filter-overdue'], 'म्याद नाघेको');
 assert.equal(nepali['filter-no-member'], 'सदस्य छैन');
+assert.match(nepali['advanced-filter-description'],
+  /==.*!=.*<=.*>=.*&&.*\|\|.*\/Tes\.\*\/i/);
+assert.deepEqual(tokens(nepali['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(nepali['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(nepali['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search/);
+assert.match(nepali['import-board-instruction-excel'], /\.xlsx.*Excel/);
+assert.match(nepali['import-trello-zip-file-hint'], /\.json.*\.zip/);
 
 console.log('Nepali translation progress checks passed.');
