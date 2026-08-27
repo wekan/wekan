@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -44,3 +44,11 @@ assert.match(malagasy['act-addAttachment'], /rakitra/);
 assert.match(malagasy['act-addChecklist'], /lisitra fanamarinana/);
 assert.match(malagasy['act-createCustomField'], /saha namboarina/);
 assert.match(malagasy['act-archivedBoard'], /arisiva/);
+assert.deepEqual(tokens(malagasy['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(malagasy['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(malagasy['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(malagasy['allboards.workspaces'], 'Toeram-piasana');
+assert.match(malagasy['allboards.edit-workspace-icon'], /markdown/);
