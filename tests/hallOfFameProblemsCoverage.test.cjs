@@ -46,6 +46,10 @@ const DELIBERATE = {
     + 'in what the answer CARRIED, so a log line would fire on normal use and say '
     + 'nothing about an attacker (GHSA-6qpx-x7vr-p9w6, and securityCategories.js '
     + 'records the same reason)',
+  HostnameBleed: 'the incomplete hostname regular expressions existed only in a '
+    + 'source-reading translation regression test over hardcoded examples; no '
+    + 'application request reaches it, so there is no runtime attempt to deny, '
+    + 'attribute or record (CodeQL alerts #435 and #436)',
   RouteBleed: 'the incomplete regular-expression escaping existed only in a source-reading '
     + 'test over its own hardcoded route table; no application request reaches it, so there '
     + 'is no runtime attempt to deny, attribute or record (CodeQL alert #434)',

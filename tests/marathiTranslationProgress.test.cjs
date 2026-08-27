@@ -159,7 +159,8 @@ assert.match(marathi.DDP_transport, /DDP_TRANSPORT/);
 assert.match(marathi.OS_Cpus, /OS CPU/);
 for (const literal of ['a.example.com', 'kanban.example.org',
   'MULTITENANCY=true']) {
-  assert.match(marathi['org-domains-description'], new RegExp(literal));
+  assert.ok(marathi['org-domains-description'].includes(literal),
+    `org-domains-description must preserve literal ${literal}`);
 }
 assert.deepEqual(tokens(marathi['default-subtasks-board']), ['__board__']);
 assert.match(marathi['checklist-count-on-minicard'], /0\/0/);

@@ -64,6 +64,7 @@ const GUARDED = {
   dnsbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   exportbleed: ['tests/exportHTMLXss.test.cjs'],
   followbleed: ['tests/followbleed.test.cjs'],
+  hostnamebleed: ['tests/hostnameBleed.test.cjs'],
   identitybleed: ['tests/noIdentityReplacement.test.cjs'],
   importbleed: [
     'tests/importBleed.test.cjs',
@@ -236,7 +237,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 61, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 62, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the five newest advisories are guarded, not recorded', () => {
