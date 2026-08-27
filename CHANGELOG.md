@@ -2337,9 +2337,13 @@ The twenty-third 50-value Kyrgyz batch added detailed rule actions and date
 fields, authentication controls, custom product and head tags, web manifests,
 asset links, layout, logo and card counters. This left **128,923 genuinely
 untranslated values across 60 locale files**.
+The twenty-fourth 50-value Kyrgyz batch added custom body HTML, authentication
+display, board duplication, destructive swimlane and account actions, date
+activity and reminders, relative placement and resizable navigation. This left
+**128,873 genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
