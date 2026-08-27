@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -120,5 +120,11 @@ assert.match(burmese['trello-api-key'], /https:\/\/trello\.com\/app-key/);
 assert.match(burmese['trello-api-import'], /API.*token/);
 assert.match(burmese['invalid-year'], /2026/);
 assert.deepEqual(tokens(burmese['label-default']), ['%s']);
+assert.deepEqual(tokens(burmese['leave-board-pop']), ['__boardTitle__']);
+for (const literal of ['Trello', 'Excel', 'CSV', 'TSV']) {
+  assert.ok(burmese['listImportCardPopup-title'].includes(literal)
+    || burmese['listImportCardsTsvPopup-title'].includes(literal));
+}
+assert.equal(burmese['multi-selection'], 'အများရွေးချယ်မှု');
 
 console.log('Burmese translation progress checks passed.');
