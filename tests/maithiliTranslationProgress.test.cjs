@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -91,3 +91,8 @@ assert.match(maithili['map-to-existing-user-desc'],
 assert.equal(maithili['map-to-existing-user-no-results'],
   'मिलैत उपयोगकर्ता नहि भेटल।');
 assert.match(maithili['font-preview-text'], /0123456789/);
+assert.equal(maithili['auto-list-width'], 'स्वचालित सूची चौड़ाइ');
+assert.match(maithili['card-aging-days'], /3/);
+assert.equal(maithili['move-card-up'], 'कार्ड ऊपर लऽ जाउ');
+assert.equal(maithili['color-red'], 'लाल');
+assert.equal(maithili['color-silver'], 'चानी');

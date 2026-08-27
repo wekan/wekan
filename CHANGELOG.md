@@ -2460,9 +2460,14 @@ linked cards and boards, safe imported-user mapping, themes, fonts, colors,
 avatars, language and permissions. These direct translations were completed
 with low confidence and welcome review by a Maithili speaker. This left
 **127,556 genuinely untranslated values across 59 locale files**.
+The eighth 50-value Maithili batch added starring, automatic list widths, card
+aging tiers, keyboard movement and navigation, archive restoration guidance and
+most of the board color palette. These direct translations were completed with
+low confidence and welcome review by a Maithili speaker. This left **127,506
+genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
