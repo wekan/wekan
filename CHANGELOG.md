@@ -2321,9 +2321,13 @@ The nineteenth 50-value Kyrgyz batch added received and end dates, colors and
 attribution, destructive board and notification actions, subtask settings,
 minicard display, parent paths and label activity. This left **129,123 genuinely
 untranslated values across 60 locale files**.
+The twentieth 50-value Kyrgyz batch added label, attachment and custom-field
+activity, visual rule editing, card and checklist triggers, scheduled rules and
+JSON, CSV and Trello Butler rule exchange. This left **129,073 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -156,3 +156,9 @@ assert.deepEqual(tokens(kyrgyz['default-subtasks-board']), ['__board__']);
 assert.match(kyrgyz['checklist-count-on-minicard'], /0\/0/);
 assert.equal(kyrgyz['parent-card'], 'Ата-эне карточка');
 assert.deepEqual(tokens(kyrgyz['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(kyrgyz['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(kyrgyz['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(kyrgyz['r-import-done']), ['__count__']);
+assert.match(kyrgyz['r-import-trello-note'], /Trello.*Butler.*Butler/);
+assert.equal(kyrgyz['r-workspace'], 'Иш мейкиндиги');
