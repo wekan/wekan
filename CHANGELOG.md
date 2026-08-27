@@ -5647,9 +5647,15 @@ imports, login, multi-selection, muted boards, archives, board roles and
 participation notifications. These direct translations were completed with
 low confidence and welcome review by a Pashto speaker. This left **101,202
 genuinely untranslated values across 47 locale files**.
+The fifteenth 50-value Pashto batch added watch notifications, private-page
+login, image previews, public and private board descriptions, quick access,
+member removal including Sandstorm access guidance, card-description rescue,
+search, WIP limits, keyboard shortcuts, sidebars, account creation and starred
+and default-board behavior. These direct translations were completed with low
+confidence and welcome review by a Pashto speaker. This left **101,152
+genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at
-`notify-watch` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `starred-boards` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
