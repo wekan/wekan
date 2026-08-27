@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -91,3 +91,8 @@ assert.match(kashmiri['r-workflow-view'], /کٲم بہاؤ/);
 assert.deepEqual(tokens(kashmiri['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(kashmiri['r-import-done']), ['__count__']);
 assert.equal(kashmiri['r-all-boards'], 'سٲری بورڈ');
+assert.deepEqual(tokens(kashmiri['r-import-unmapped']), ['__count__']);
+assert.match(kashmiri['r-import-workflow'], /بصری کٲم بہاؤ/);
+assert.match(kashmiri['r-set-scheduled-triggers'], /مقرر شُدٕ محرک/);
+assert.equal(kashmiri['r-sort-due'], 'آخری تٲریخ');
+assert.equal(kashmiri['r-trigger'], 'محرک');

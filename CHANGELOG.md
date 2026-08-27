@@ -1807,9 +1807,12 @@ subtask routing, minicard presentation and parent-card paths. This left
 The twentieth 50-value Kashmiri batch added activity labels, custom fields,
 automation-rule editing, workflow triggers and rule import and export. This left
 **135,574 genuinely untranslated values across 63 locale files**.
+The twenty-first 50-value Kashmiri batch added visual-workflow imports,
+scheduled and button triggers, due-date conditions and list actions. This left
+**135,524 genuinely untranslated values across 63 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
