@@ -82,6 +82,10 @@ import Org from "../../models/org";
 import Team from "../../models/team";
 const { boardCardScope } = require('/models/lib/boardCardScope');
 const { retainRankedCard } = require('/models/lib/cardSearchRanking');
+const {
+  ownedSearchSessionSelector,
+  recordLoggedOutPaginationProbe,
+} = require('/models/lib/searchPaginationAuthorization');
 
 Meteor.publish('card', async function(cardId) {
   check(cardId, String);
@@ -1191,7 +1195,14 @@ Meteor.methods({
 Meteor.publish('nextPage', async function(sessionId) {
   check(sessionId, String);
 
-  const session = await ReactiveCache.getSessionData({ sessionId });
+  const sessionSelector = ownedSearchSessionSelector(this.userId, sessionId);
+  if (!sessionSelector) {
+    recordLoggedOutPaginationProbe(this, 'nextPage', event =>
+      require('/server/lib/securityLog').record(event));
+    return this.ready();
+  }
+  const session = await ReactiveCache.getSessionData(sessionSelector);
+  if (!session) return this.ready();
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
@@ -1203,7 +1214,14 @@ Meteor.publish('nextPage', async function(sessionId) {
 Meteor.publish('previousPage', async function(sessionId) {
   check(sessionId, String);
 
-  const session = await ReactiveCache.getSessionData({ sessionId });
+  const sessionSelector = ownedSearchSessionSelector(this.userId, sessionId);
+  if (!sessionSelector) {
+    recordLoggedOutPaginationProbe(this, 'previousPage', event =>
+      require('/server/lib/securityLog').record(event));
+    return this.ready();
+  }
+  const session = await ReactiveCache.getSessionData(sessionSelector);
+  if (!session) return this.ready();
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 

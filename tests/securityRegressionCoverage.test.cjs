@@ -99,6 +99,7 @@ const GUARDED = {
   ],
   sortbleed: ['server/lib/tests/boards.security.tests.js'],
   sourcebleed: ['tests/securityMeifukun.test.cjs'],
+  sessionbleed: ['tests/searchPaginationAuthorization.test.cjs'],
   transitbleed: ['tests/transitbleed.test.cjs'],
   webhookbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   zipbleed: ['tests/zipbleed.test.cjs'],
@@ -235,13 +236,14 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 60, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 61, 'the Hall of Fame and this list disagree on how many there are');
 });
 
-test('the four newest advisories are guarded, not recorded', () => {
+test('the five newest advisories are guarded, not recorded', () => {
   // The ones this round fixed. If any of these ever slips into RECORDED, the
   // fix has lost its test.
-  ['pathbleed', 'revokebleed', 'parentbleed', 'commentbleed'].forEach(v => {
+  ['pathbleed', 'revokebleed', 'parentbleed', 'commentbleed',
+    'sessionbleed'].forEach(v => {
     assert.ok(v in GUARDED, `${v} must stay guarded`);
   });
 });

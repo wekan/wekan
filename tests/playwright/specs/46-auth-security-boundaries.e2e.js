@@ -37,6 +37,27 @@ test.describe('Authentication security boundaries', () => {
       }), adminUser.id);
       expect(probe).toEqual({ ready: true, exposed: null });
 
+      const paginationProbe = await page.evaluate(sessionId =>
+        new Promise(resolve => {
+          const subscription = window.Meteor.subscribe('nextPage', sessionId, {
+            onReady() {
+              let exposed = [];
+              try {
+                const store = window.Meteor.connection._stores.cards;
+                exposed = store._getCollection().find().fetch();
+              } catch (error) {
+                exposed = [{ diagnostic: error.message }];
+              }
+              subscription.stop();
+              resolve({ ready: true, exposed });
+            },
+            onStop(error) {
+              if (error) resolve({ ready: false, error: error.message });
+            },
+          });
+        }), `${adminUser.id}-00000000000000000000000000000000`);
+      expect(paginationProbe).toEqual({ ready: true, exposed: [] });
+
       const recovery = await page.evaluate(async email => {
         const results = [];
         for (let attempt = 0; attempt < 6; attempt += 1) {
@@ -65,6 +86,9 @@ test.describe('Authentication security boundaries', () => {
         timeout: 15_000,
       });
       await expect(page.locator('body')).toContainText('ResetBleed', {
+        timeout: 15_000,
+      });
+      await expect(page.locator('body')).toContainText('SessionBleed', {
         timeout: 15_000,
       });
     });
