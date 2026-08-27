@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -106,3 +106,12 @@ assert.equal(malayalam.worker, 'തൊഴിലാളി');
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
+assert.match(malayalam['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(malayalam['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(malayalam['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(malayalam['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(malayalam['error-import-empty-board'], /WeKan/);
+assert.match(malayalam['error-csv-schema'], /CSV.*TSV/);
