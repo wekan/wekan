@@ -2933,8 +2933,14 @@ swimlane heights, subtasks, checklists, covers, labels and members. These direct
 translations were completed with low confidence and welcome review by a Māori
 speaker. This left **123,422 genuinely untranslated values across 57 locale
 files**.
+The fourth 50-value Māori batch added administrator roles and announcements,
+public boards, offline recovery, board, list and swimlane archives, templates,
+attachments, backgrounds and All Boards member and assignee settings. These
+direct translations were completed with low confidence and welcome review by a
+Māori speaker. This left **123,372 genuinely untranslated values across 57
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at `added` with
+and exact tokens from `en.i18n.json`, resuming Māori at `board-public-info` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
