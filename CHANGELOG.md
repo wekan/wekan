@@ -2774,9 +2774,15 @@ duplicate-list cleanup, subtask and card settings, minicard fields, attachment
 and checklist counts, parent paths and label activity. These direct translations
 were completed with low confidence and welcome review by a Malagasy speaker.
 This left **124,789 genuinely untranslated values across 58 locale files**.
+The twentieth 50-value Malagasy batch added label, attachment and custom-field
+activity, visual rule editing, card, label, member, checklist, attachment and
+schedule triggers and JSON, CSV and Trello Butler rule exchange. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **124,739 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
