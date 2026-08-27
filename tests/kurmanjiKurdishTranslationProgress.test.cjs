@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -52,3 +52,11 @@ assert.deepEqual(tokens(kurmanji['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(kurmanji['allboards.workspaces'], 'Cihên xebatê');
 assert.match(kurmanji['allboards.edit-workspace-icon'], /markdown/);
+assert.match(kurmanji['archive-permanent-delete-disabled-hint'],
+  /Panela rêveber.*Rêveberê Giştî/);
+assert.match(kurmanji['home-board-empty'], /yek depo/);
+assert.deepEqual(tokens(kurmanji['activity-dueDate']), ['%s', '%s']);
+assert.match(kurmanji['list-width-error-message'], /270/);
+assert.equal(kurmanji['set-swimlane-height'],
+  'Bilindahiya rêçê saz bike');
+assert.match(kurmanji['keyboard-shortcuts-enabled'], /klavyeyê/);

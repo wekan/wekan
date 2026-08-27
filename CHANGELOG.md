@@ -1903,9 +1903,13 @@ swimlane, list, card, checklist, label, attachment and comment changes. This lef
 The second 50-value Kurmanji Kurdish batch added card movement, membership,
 checklist and date activity plus workspace creation and editing. This left
 **134,307 genuinely untranslated values across 62 locale files**.
+The third 50-value Kurmanji Kurdish batch added workspace bulk actions, Home-board
+selection, list widths, keyboard shortcuts, swimlane height and creation
+controls. This left **134,257 genuinely untranslated values across 62 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
