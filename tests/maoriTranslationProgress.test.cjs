@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -66,3 +66,11 @@ assert.match(maori['board-background-image-url'], /URL/);
 assert.deepEqual(tokens(maori['board-nb-stars']), ['%s']);
 assert.deepEqual(tags(maori['board-private-info']),
   ['</strong>', '<strong>']);
+assert.deepEqual(tags(maori['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  maori['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.match(maori['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(maori['card-comments-title']), ['%s']);
+assert.equal(maori['card-edit-custom-fields'], 'Whakatika āpure ritenga');
