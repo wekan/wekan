@@ -1839,9 +1839,13 @@ This left **135,174 genuinely untranslated values across 63 locale files**.
 The twenty-ninth 50-value Kashmiri batch added board and card sorting, stickers,
 card dependencies, dependency imports, board backgrounds and card locations.
 This left **135,124 genuinely untranslated values across 63 locale files**.
+The thirtieth 50-value Kashmiri batch added map coordinates and detection,
+server troubleshooting, string templates, board activity, Problems reports and
+office login reporting. This left **135,074 genuinely untranslated values across
+63 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -153,3 +153,8 @@ assert.deepEqual(tokens(kashmiri['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(kashmiri['background-too-big']), ['{{size}}']);
 assert.equal(kashmiri.location, 'جاے');
+assert.match(kashmiri['server-error-troubleshooting'], /sudo snap logs wekan\.wekan/);
+assert.equal(kashmiri['move-swimlane'], 'وَتھ پکنٲویو');
+assert.deepEqual(tokens(kashmiri['custom-field-stringtemplate-format']), ['%{value}']);
+assert.match(kashmiri['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+assert.match(kashmiri['office-report-desc'], /IPv4.*IPv6/);
