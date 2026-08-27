@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -111,5 +111,9 @@ assert.deepEqual(tokens(ndebele['email-verifyEmail-text']),
   ['__url__', '__user__']);
 assert.match(ndebele['error-json-malformed'], /JSON/);
 assert.match(ndebele['error-csv-schema'], /CSV.*TSV/);
+assert.match(ndebele['export-card-pdf'], /PDF/);
+assert.match(ndebele['export-card-excel'], /Excel/);
+assert.match(ndebele['export-card-excel-no-disk-space'], /Excel.*diski/);
+assert.equal(ndebele['filter-due-tomorrow'], 'Kuphela kusasa');
 
 console.log('Northern Ndebele translation progress checks passed.');
