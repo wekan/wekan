@@ -4514,9 +4514,15 @@ cards and boards, imported-member mapping safeguards, themes, font previews and
 sizes, text colors, avatars, language and permissions. These direct translations
 were completed with low confidence and welcome review by a Nepali speaker. This
 left **110,220 genuinely untranslated values across 51 locale files**.
+The eighth 50-value Nepali batch added starring, automatic list widths,
+clipboard input, three-tier card aging, directional movement, accessible dialog
+navigation, board restoration guidance and the board color palette. These
+direct translations were completed with low confidence and welcome review by a
+Nepali speaker. This left **110,170 genuinely untranslated values across 51
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

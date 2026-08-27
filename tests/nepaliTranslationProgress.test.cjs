@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1817);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -75,5 +75,11 @@ assert.match(nepali.casSignIn, /CAS/);
 assert.match(nepali['font-preview-text'], /0123456789/);
 assert.equal(nepali['change-permissions'], 'अनुमतिहरू परिवर्तन गर्नुहोस्');
 assert.equal(nepali['changeLanguagePopup-title'], 'भाषा परिवर्तन गर्नुहोस्');
+assert.match(nepali['card-aging-days'], /3/);
+assert.match(nepali['card-aging-tier1'], /1/);
+assert.match(nepali['card-aging-tier2'], /2/);
+assert.match(nepali['card-aging-tier3'], /3/);
+assert.equal(nepali['color-blue'], 'निलो');
+assert.equal(nepali['color-red'], 'रातो');
 
 console.log('Nepali translation progress checks passed.');
