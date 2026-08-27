@@ -2305,9 +2305,13 @@ The fifteenth 50-value Kyrgyz batch added watched updates, private-page login,
 board visibility, member removal and Sandstorm warnings, rescue and search
 behavior, WIP limits, shortcuts, sidebars and default-board controls. This left
 **129,323 genuinely untranslated values across 60 locale files**.
+The sixteenth 50-value Kyrgyz batch added starring and subscriptions, time and
+overtime tracking, numeric shortcuts, uploads, custom branding and URL schemes,
+welcome and template boards and WIP-limit errors. This left **129,273 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

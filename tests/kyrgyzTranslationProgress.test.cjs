@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -134,3 +134,8 @@ assert.deepEqual(tokens(kyrgyz['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.match(kyrgyz['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(kyrgyz['setWipLimitPopup-title'], /WIP/);
+assert.match(kyrgyz['toggle-assignees'], /1-9/);
+assert.match(kyrgyz['custom-top-left-corner-logo-height'], /27/);
+assert.match(kyrgyz['automatic-linked-url-schemes'], /URL.*URL/);
+assert.match(kyrgyz['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.equal(kyrgyz['board-templates-swimlane'], 'Такта үлгүлөрү');
