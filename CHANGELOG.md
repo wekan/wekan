@@ -6287,9 +6287,16 @@ manifests, assetlinks.json, layout and card counters. These direct translations
 were completed with low confidence and welcome review by a Kinyarwanda
 speaker. This left **96,418 genuinely untranslated values across 45 locale
 files**.
+The twenty-fourth 50-value Kinyarwanda batch added board membership, custom
+body HTML, authentication, board duplication, organization and team totals,
+swimlane deletion, restoration, activity timestamps, card placement, due
+reminders, account deletion confirmations and drag-and-submit settings. These
+direct translations were completed with low confidence and welcome review by
+a Kinyarwanda speaker. This left **96,368 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
