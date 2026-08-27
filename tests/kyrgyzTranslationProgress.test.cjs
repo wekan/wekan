@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -43,3 +43,11 @@ assert.match(kyrgyz['act-addAttachment'], /тиркемесин/);
 assert.match(kyrgyz['act-addChecklist'], /текшерүү тизмесин/);
 assert.match(kyrgyz['act-addComment'], /комментарий/);
 assert.match(kyrgyz['act-archivedBoard'], /Архивге/);
+assert.deepEqual(tokens(kyrgyz['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(kyrgyz['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.deepEqual(tokens(kyrgyz['activity-imported']), ['%s', '%s', '%s']);
+assert.equal(kyrgyz['allboards.workspaces'], 'Иш мейкиндиктери');
+assert.match(kyrgyz['allboards.edit-workspace-icon'], /markdown/);
