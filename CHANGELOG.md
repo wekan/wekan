@@ -3646,9 +3646,15 @@ AWS, Azure and GCS setup paths, connection tests and Azure attachment movement.
 These direct translations were completed with low confidence and welcome review
 by a Marathi speaker. This left **117,338 genuinely untranslated values across 55
 locale files**.
+The thirty-ninth 50-value Marathi batch added GCS attachment movement, GridFS and
+CollectionFS settings, migration controls and progress, S3 authentication and
+connection settings, scheduled board operations and attachment monitoring. These
+direct translations were completed with low confidence and welcome review by a
+Marathi speaker. This left **117,288 genuinely untranslated values across 55
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
