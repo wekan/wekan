@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -266,3 +266,10 @@ assert.deepEqual(tokens(kurmanji['globalSearch-instructions-operator-has']), [
 assert.match(kurmanji['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(kurmanji['globalSearch-instructions-notes-3'], /\*AND\*/);
 assert.equal(kurmanji['link-to-search'], 'Girêdan bi vê lêgerînê');
+assert.equal(kurmanji['sort-cards'], 'Kartan rêz bike');
+assert.match(kurmanji['drag-to-connect'], /karteke din/);
+assert.match(kurmanji['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(kurmanji['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(kurmanji['background-too-big']), ['{{size}}']);
+assert.equal(kurmanji.location, 'Cih');

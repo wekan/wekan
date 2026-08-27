@@ -2007,9 +2007,13 @@ The twenty-eighth 50-value Kurmanji Kurdish batch added predicate validation,
 pagination and complete global-search operator syntax, status, existence,
 sorting, limits, boolean combinations and date guidance. This left **133,007
 genuinely untranslated values across 62 locale files**.
+The twenty-ninth 50-value Kurmanji Kurdish batch added board and card sorting,
+stickers, dependency editing and JSON or SVG imports, board backgrounds and
+location entry. This left **132,957 genuinely untranslated values across 62
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`number` with
+`location-latitude` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
