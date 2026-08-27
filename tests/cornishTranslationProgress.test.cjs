@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -365,3 +365,11 @@ assert.match(cornish['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(cornish['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(cornish['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
 assert.equal(cornish['board-migrations'], 'Ymigransow estyllen');
+assert.match(cornish['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(cornish['restore-all-archived-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(cornish['fix-avatar-urls-migration-description'], /URLow avatar/);
+assert.match(cornish['run-restore-lost-cards-migration-confirm'],
+  /swimlaneId.*listId/);
+assert.equal(cornish['step-validate-migration'], 'Gwirhe ymigrans');
