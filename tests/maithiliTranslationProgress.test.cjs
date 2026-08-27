@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -173,3 +173,9 @@ assert.deepEqual(tokens(maithili['r-import-unmapped']), ['__count__']);
 assert.match(maithili['r-schedule-weekday'], /सोम–शुक्र/);
 assert.match(maithili['r-for-n-days'], /N/);
 assert.equal(maithili['r-card-button'], 'कार्ड बटन');
+assert.equal(maithili['r-card'], 'कार्ड');
+assert.equal(maithili['r-list'], 'सूची');
+assert.equal(maithili['r-checklist'], 'जाँचसूची');
+assert.equal(maithili['r-d-move-to-top-gen'],
+  'कार्ड केँ अपन सूचीक ऊपर लऽ जाउ');
+assert.equal(maithili['r-d-send-email'], 'ईमेल पठाउ');
