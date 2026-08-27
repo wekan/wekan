@@ -4995,8 +4995,14 @@ comments, custom fields and members, together with organization and team
 restrictions. These direct translations were completed with low confidence and
 welcome review by a Chichewa speaker. This left **106,186 genuinely untranslated
 values across 49 locale files**.
+The second 50-value Chichewa batch added card movement and restoration,
+activity summaries, checklist and comment history, received and start dates,
+and All Boards workspace names, menus and settings. These direct translations
+were completed with low confidence and welcome review by a Chichewa speaker.
+This left **106,136 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Chichewa at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Chichewa at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
