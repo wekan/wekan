@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -280,3 +280,12 @@ assert.deepEqual(tokens(cornish['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(cornish['background-too-big']), ['{{size}}']);
 assert.equal(cornish.location, 'Tyller');
+assert.match(cornish['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.equal(cornish['move-swimlane'], 'Gwaya hyns');
+assert.deepEqual(tokens(cornish['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(cornish['custom-field-stringtemplate-separator'],
+  /&#32;.*&nbsp;/);
+assert.match(cornish.cpuReportTitle, /CPU/);
+assert.match(cornish['office-report-desc'], /IPv4.*IPv6/);

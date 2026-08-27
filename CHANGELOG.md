@@ -2185,9 +2185,13 @@ The twenty-ninth 50-value Cornish batch added board and card sorting, stickers,
 dependency editing and JSON or SVG imports, board backgrounds and location
 entry. This left **130,790 genuinely untranslated values across 61 locale
 files**.
+The thirtieth 50-value Cornish batch added map detection, server troubleshooting,
+sorting, string templates, invisible filenames, administration reports, recovery
+and office-login summaries. This left **130,740 genuinely untranslated values
+across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
