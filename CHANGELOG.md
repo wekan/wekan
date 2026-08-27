@@ -6996,9 +6996,15 @@ settings, minicard badges, parent paths and label activity. These direct
 translations were completed with low confidence and welcome review by a Northern
 Sami speaker. This left **90,117 genuinely untranslated values across 42 locale
 files**.
+The twentieth 50-value Northern Sami batch added label and custom-field activity,
+automation rule editing and workflow views, card, label, member, checklist and
+attachment triggers and JSON, CSV and Trello Butler rule exchange. These direct
+translations were completed with low confidence and welcome review by a Northern
+Sami speaker. This left **90,067 genuinely untranslated values across 42 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
