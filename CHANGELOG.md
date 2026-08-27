@@ -2502,9 +2502,14 @@ behavior, WIP limits, shortcuts, sidebars and default-board controls. These
 direct translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **127,156 genuinely untranslated values across 59
 locale files**.
+The sixteenth 50-value Maithili batch added starring and subscriptions, time and
+overtime tracking, numeric shortcuts, uploads, custom branding and URL schemes,
+welcome and template boards and WIP-limit errors. These direct translations were
+completed with low confidence and welcome review by a Maithili speaker. This
+left **127,106 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

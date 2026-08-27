@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -140,3 +140,8 @@ assert.deepEqual(tokens(maithili['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.match(maithili['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(maithili['setWipLimitPopup-title'], /WIP/);
+assert.match(maithili['toggle-assignees'], /1-9/);
+assert.match(maithili['custom-top-left-corner-logo-height'], /27/);
+assert.match(maithili['automatic-linked-url-schemes'], /URL.*URL/);
+assert.match(maithili['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.equal(maithili['board-templates-swimlane'], 'बोर्ड नमूना');
