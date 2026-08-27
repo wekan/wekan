@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -297,6 +297,16 @@ assert.match(kyrgyz['migration-info-text'],
 assert.equal(kyrgyz['showChecklistAtMinicard'],
   'Миникарточкада текшерүү тизмесин көрсөтүү');
 assert.equal(kyrgyz['unmigrated-boards'], 'Көчүрүлбөгөн такталар');
+assert.match(kyrgyz.otp, /OTP/);
+assert.match(kyrgyz['api-endpoints'], /API/);
+assert.match(kyrgyz['otp-required'], /OTP/);
+assert.match(kyrgyz['username-too-short'], /3/);
+assert.match(kyrgyz['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(kyrgyz['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(kyrgyz['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.match(kyrgyz['cpu-usage-current'], /CPU/);
+assert.equal(kyrgyz['event-severity'], 'Оордук деңгээли');
 assert.match(kyrgyz['database-migration-description'],
   /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
 assert.deepEqual(tokens(kyrgyz['database-migration-confirm']), ['__db__']);
