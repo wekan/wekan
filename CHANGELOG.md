@@ -5589,8 +5589,15 @@ controls, calendar navigation, archive guidance, card dates, attachments,
 custom fields, labels and members. These direct translations were completed
 with low confidence and welcome review by a Pashto speaker. This left
 **101,652 genuinely untranslated values across 47 locale files**.
+The sixth 50-value Pashto batch added card membership, custom-field dates,
+voting and Planning Poker, dependencies, organization, team, avatar and board
+background dialogs, duplicate-list and account deletion, domains, imported
+member mapping, and checklist, swimlane, list, card and board imports. These
+direct translations were completed with low confidence and welcome review by
+a Pashto speaker. This left **101,602 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `card-members-title` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
