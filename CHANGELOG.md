@@ -2055,9 +2055,13 @@ The fortieth 50-value Kurmanji Kurdish batch added comprehensive board repair,
 duplicate-list cleanup, lost and archived item recovery, file URL fixes,
 migration confirmations, progress and validation steps. This left **132,407
 genuinely untranslated values across 62 locale files**.
+The forty-first 50-value Kurmanji Kurdish batch added attachment and missing-ID
+repair steps, board conversion, CPU and timing status, scheduled intervals,
+filesystem and GridFS monitoring and job-queue details. This left **132,357
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
