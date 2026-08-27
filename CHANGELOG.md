@@ -5716,9 +5716,16 @@ organization deletion, resizing and Enter submission. These direct
 translations were completed with low confidence and welcome review by a Pashto
 speaker. This left **100,702 genuinely untranslated values across 47 locale
 files**.
+The twenty-fifth 50-value Pashto batch added simultaneous card windows, Enter,
+Shift+Enter and Ctrl/Cmd+Enter editor behavior, card detail display,
+organization, team and user editing, notification read states, renaming and
+role permissions, weekday settings, ownership and activity metadata, voting
+and linked-card deletion protection. These direct translations were completed
+with low confidence and welcome review by a Pashto speaker. This left
+**100,652 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
