@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2067);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -49,5 +49,10 @@ assert.deepEqual(tokens(nepali['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(nepali['allboards.workspaces'], 'कार्यस्थानहरू');
 assert.match(nepali['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(nepali['activity-dueDate']), ['%s', '%s']);
+assert.match(nepali['set-list-width-value'], /पिक्सेल/);
+assert.match(nepali['list-width-error-message'], /270/);
+assert.match(nepali['set-swimlane-height-value'], /पिक्सेल/);
+assert.equal(nepali['add-checklist'], 'जाँचसूची थप्नुहोस्');
 
 console.log('Nepali translation progress checks passed.');
