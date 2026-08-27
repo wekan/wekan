@@ -1955,9 +1955,13 @@ The fifteenth 50-value Kurmanji Kurdish batch added watched updates, private-pag
 login markup, previews, visibility, member removal and Sandstorm access, rescue
 dialogs, search, WIP limits, shortcuts and default-board behavior. This left
 **133,657 genuinely untranslated values across 62 locale files**.
+The sixteenth 50-value Kurmanji Kurdish batch added starred boards, time tracking,
+assignee and label shortcuts, uploads, custom logos and URL schemes, welcome and
+template boards and WIP-limit guidance. This left **133,607 genuinely
+untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

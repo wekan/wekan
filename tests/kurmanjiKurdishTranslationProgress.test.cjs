@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -155,3 +155,10 @@ assert.deepEqual(tokens(kurmanji['remove-member-pop']),
 assert.match(kurmanji['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(kurmanji['setWipLimitPopup-title'], /WIP/);
 assert.match(kurmanji['search-example'], /Enter/);
+assert.match(kurmanji['toggle-assignees'], /1-9/);
+assert.match(kurmanji['toggle-labels'], /1-9.*1-9/);
+assert.match(kurmanji['custom-top-left-corner-logo-height'], /27/);
+assert.match(kurmanji['automatic-linked-url-schemes'], /URL.*URL/);
+assert.equal(kurmanji['welcome-swimlane'], 'Qonaxa 1');
+assert.match(kurmanji['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(kurmanji['wipLimitErrorPopup-dialog-pt2'], /WIP/);
