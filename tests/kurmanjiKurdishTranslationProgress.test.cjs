@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -76,3 +76,10 @@ assert.match(kurmanji['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(kurmanji['card-comments-title']), ['%s']);
 assert.match(kurmanji['swimlane-archive-suggest'], /rêç.*arşîv/);
 assert.equal(kurmanji['board-view-table'], 'Tablo');
+assert.match(kurmanji['vote-question'], /dengdanê/);
+assert.match(kurmanji['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(kurmanji['poker-delete-pop'], /Planning Poker/);
+assert.equal(kurmanji['cardDependenciesPopup-title'],
+  'Girêdayîbûnê zêde bike');
+assert.equal(kurmanji['importSwimlanePopup-title'], 'Rêçê têxe');
+assert.match(kurmanji['mapImportedMemberPopup-title'], /bikarhênerê heyî/);
