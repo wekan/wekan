@@ -3576,9 +3576,16 @@ templates, My Cards and Due Cards views/sorting, global search scope and missing
 board/swimlane/list/label diagnostics. These direct translations were completed
 with low confidence and welcome review by a Marathi speaker. This left **117,938
 genuinely untranslated values across 55 locale files**.
+The twenty-seventh 50-value Marathi batch added username/comment/organization/
+team diagnostics, paginated search counts, global-search operators for entities,
+status, dates, text and fields, and predicates for archive/open state, due ranges,
+dates, attachments, descriptions, checklists and assignees. These direct
+translations were completed with low confidence and welcome review by a Marathi
+speaker. This left **117,888 genuinely untranslated values across 55 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

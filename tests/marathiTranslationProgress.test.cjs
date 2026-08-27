@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -206,5 +206,11 @@ for (const key of ['board-title-not-found', 'swimlane-title-not-found',
   'list-title-not-found', 'label-not-found', 'label-color-not-found']) {
   assert.deepEqual(tokens(marathi[key]), ['%s']);
 }
+assert.deepEqual(tokens(marathi['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(marathi['operator-board'], 'फलक');
+assert.equal(marathi['operator-customfield'], 'सानुकूल क्षेत्र');
+assert.equal(marathi['predicate-overdue'], 'मुदत उलटलेले');
+assert.equal(marathi['predicate-quarter'], 'तिमाही');
 
 console.log('Marathi translation progress checks passed.');
