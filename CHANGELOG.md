@@ -6881,8 +6881,13 @@ monitoring, CPU and memory thresholds, scheduling, progress, storage distributio
 and board scanning. These direct translations were completed with low confidence
 and welcome review by a Sindhi speaker. This left **91,134 genuinely untranslated
 values across 43 locale files**.
+The forty-third 50-value Sindhi batch added repository authentication, account
+creation and lockout messages, problem reporting, broken-card repair, CPU status
+and event metadata. These direct translations were completed with low confidence
+and welcome review by a Sindhi speaker. This left **91,084 genuinely untranslated
+values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `current-step` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `event-detail` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
