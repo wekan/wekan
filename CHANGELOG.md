@@ -2117,9 +2117,13 @@ The twelfth 50-value Cornish batch added assignee and advanced filters, member
 status and impersonation, multi-source board import guidance and secure Trello
 JSON and ZIP handling. This left **131,640 genuinely untranslated values across
 61 locale files**.
+The thirteenth 50-value Cornish batch added ZIP path safety, workspace placement,
+direct Trello API import and job controls, member mapping, validation, keyboard
+shortcuts and label lifecycle. This left **131,590 genuinely untranslated values
+across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

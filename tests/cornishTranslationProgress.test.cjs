@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1567);
+assert.equal(Object.keys(remaining).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -135,3 +135,10 @@ assert.match(cornish['import-board-instruction-excel'], /\.xlsx.*Excel/);
 assert.match(cornish['import-trello-json-file-hint'], /Trello API/);
 assert.match(cornish['import-attachments-zip'],
   /Trello Card Attachments Downloader/);
+assert.match(cornish['trello-api-key'],
+  /Trello API.*https:\/\/trello\.com\/app-key/);
+assert.match(cornish['trello-api-token'], /Trello API/);
+assert.match(cornish['trello-cancel-delete-confirm'], /Ny yll.*distreylys/);
+assert.match(cornish['invalid-year'], /2026/);
+assert.deepEqual(tokens(cornish['label-default']), ['%s']);
+assert.equal(cornish['keyboard-shortcuts'], 'Berrfordhow bysowek');
