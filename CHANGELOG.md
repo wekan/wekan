@@ -3821,9 +3821,16 @@ authentication labels, custom product names, HTML head tags, web manifests,
 assetlinks, layout, logos and card counters. These direct translations were
 completed with low confidence and welcome review by a Burmese speaker. This
 left **115,921 genuinely untranslated values across 54 locale files**.
+The twenty-fourth 50-value Burmese batch added custom body HTML, LDAP and OIDC
+authentication, board duplication, organization, team and people totals,
+swimlane deletion, card date activity and reminders, selected-item placement,
+mentions, account, team and organization deletion, minicard labels, drag handles
+and Enter submission. These direct translations were completed with low
+confidence and welcome review by a Burmese speaker. This left **115,871
+genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

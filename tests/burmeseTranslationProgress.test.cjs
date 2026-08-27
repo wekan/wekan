@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -181,5 +181,12 @@ assert.equal(burmese['r-items-list'].split(',').length, 3);
 for (const literal of ['HTML', 'JSON', 'assetlinks.json', 'web manifest']) {
   assert.ok(Object.values(burmese).some(value => value.includes(literal)));
 }
+assert.deepEqual(tags(burmese['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(burmese['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(burmese['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(burmese['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(burmese['submit-on-enter'], /Enter/);
 
 console.log('Burmese translation progress checks passed.');
