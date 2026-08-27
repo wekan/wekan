@@ -3926,9 +3926,15 @@ monitoring, GridFS statistics and scheduled-job details. These direct
 translations were completed with low confidence and welcome review by a Burmese
 speaker. This left **115,021 genuinely untranslated values across 54 locale
 files**.
+The forty-second 50-value Burmese batch added attachment migration tuning,
+resource thresholds, migration logs and lifecycle controls, monitoring,
+navigation, minicard display and storage and operation totals. These direct
+translations were completed with low confidence and welcome review by a Burmese
+speaker. This left **114,971 genuinely untranslated values across 54 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
