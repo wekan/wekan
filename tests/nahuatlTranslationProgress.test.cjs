@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -143,5 +143,11 @@ assert.match(nahuatl['sandstorm-remove-member-warning'], /Sandstorm/);
 assert.match(nahuatl['sandstorm-remove-member-warning'], /WeKan/);
 assert.match(nahuatl['search-example'], /Enter/);
 assert.match(nahuatl['setWipLimitPopup-title'], /WIP/);
+assert.match(nahuatl['toggle-assignees'], /1-9/);
+assert.match(nahuatl['toggle-labels'], /1-9/);
+assert.match(nahuatl['custom-top-left-corner-logo-image-url'], /URL/);
+assert.match(nahuatl['custom-top-left-corner-logo-height'], /27/);
+assert.match(nahuatl['automatic-linked-url-schemes'], /URL/);
+assert.match(nahuatl['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 
 console.log('Nahuatl translation progress checks passed.');

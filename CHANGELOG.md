@@ -4034,9 +4034,15 @@ Sandstorm guidance, rescue dialogs, search, WIP limits, keyboard shortcuts,
 sidebar controls, signup and default-board behavior. These direct translations
 were completed with low confidence and welcome review by a Nahuatl speaker.
 This left **114,154 genuinely untranslated values across 53 locale files**.
+The sixteenth 50-value Nahuatl batch added starred boards, subscriptions,
+tracking, spent and overtime status, assignee and label shortcuts, uploads,
+custom logo and help links, URL schemes, watching, welcome-board templates and
+WIP limit errors. These direct translations were completed with low confidence
+and welcome review by a Nahuatl speaker. This left **114,104 genuinely
+untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
