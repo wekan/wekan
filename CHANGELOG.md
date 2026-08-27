@@ -4659,9 +4659,15 @@ wait spinners, organization and team deletion safeguards, and ticket and help
 request fields and states. These direct translations were completed with low
 confidence and welcome review by a Nepali speaker. This left **109,020 genuinely
 untranslated values across 51 locale files**.
+The thirty-second 50-value Nepali batch added team and organization membership,
+registration invitations and email domains, Node heap and memory metrics, legal
+notices, checklist movement and copying, and attachment actions and filesystem,
+GridFS and S3 storage moves. These direct translations were completed with low
+confidence and welcome review by a Nepali speaker. This left **108,970 genuinely
+untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
