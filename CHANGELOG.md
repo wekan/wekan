@@ -2297,9 +2297,13 @@ The thirteenth 50-value Kyrgyz batch added safe Trello ZIP and API imports,
 import cancellation and cleanup, member mapping, date and user validation,
 keyboard shortcuts and label creation. This left **129,423 genuinely
 untranslated values across 60 locale files**.
+The fourteenth 50-value Kyrgyz batch added board leaving, list archive and
+deletion flows, user, team and organization settings, swimlane actions, bulk
+selection, notification muting and normal board roles. This left **129,373
+genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
