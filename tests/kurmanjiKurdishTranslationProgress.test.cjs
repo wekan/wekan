@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -170,3 +170,11 @@ assert.match(kurmanji['email-smtp-test-subject'], /SMTP/);
 assert.equal(kurmanji['bidirectional-webhooks'], 'Webhookên du-alî');
 assert.match(kurmanji.Node_version, /Node/);
 assert.match(kurmanji.Meteor_version, /Meteor/);
+assert.match(kurmanji.FerretDB_version, /FerretDB/);
+assert.match(kurmanji.Reactivity_mode, /changeStreams.*oplog.*polling/);
+assert.match(kurmanji.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(kurmanji.DDP_transport, /DDP_TRANSPORT/);
+assert.match(kurmanji.OS_Cpus, /CPU.*OS/);
+assert.match(kurmanji['org-domains-description'],
+  /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
+assert.match(kurmanji['org-admins-description'], /Rêveberê seranserê malperê/);
