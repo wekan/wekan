@@ -5126,9 +5126,16 @@ links, plus authentication, custom HTML, web manifest and assetlinks settings,
 layout and card counters. These direct translations were completed with low
 confidence and welcome review by a Chichewa speaker. This left **105,086
 genuinely untranslated values across 49 locale files**.
+The twenty-fourth 50-value Chichewa batch added board members, custom body
+HTML, authentication display, board duplication, organization counts,
+swimlane deletion, date-change and due-reminder activity, account deletion,
+minicard labels, desktop drag handles, resizable menus and editor submission.
+These direct translations were completed with low confidence and welcome
+review by a Chichewa speaker. This left **105,036 genuinely untranslated values
+across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
