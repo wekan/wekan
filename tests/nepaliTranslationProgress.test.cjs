@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1267);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -155,5 +155,10 @@ assert.match(nepali.DDP_transport, /DDP.*DDP_TRANSPORT/);
 assert.match(nepali.OS_Cpus, /OS.*CPU/);
 assert.match(nepali['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
+assert.deepEqual(tokens(nepali['default-subtasks-board']), ['__board__']);
+assert.match(nepali['checklist-count-on-minicard'], /0\/0/);
+assert.match(nepali['checklist-count'], /0\/0/);
+assert.deepEqual(tokens(nepali['activity-added-label']), ['%s', '%s']);
+assert.equal(nepali['parent-card'], 'अभिभावक कार्ड');
 
 console.log('Nepali translation progress checks passed.');
