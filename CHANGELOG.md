@@ -4457,9 +4457,15 @@ filesystem and GridFS totals and job details and queues. These direct
 translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **110,687 genuinely untranslated values
 across 52 locale files**.
+The forty-second 50-value Northern Ndebele batch added attachment migration
+targets, batch and resource thresholds, migration logs and lifecycle controls,
+monitoring, navigation, minicard display and storage and operation totals. These
+direct translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **110,637 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`memory-usage`
+`current-step`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

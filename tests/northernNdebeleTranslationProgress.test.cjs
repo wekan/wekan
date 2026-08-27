@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -346,5 +346,13 @@ assert.match(ndebele['cpu-cores'], /CPU/);
 assert.match(ndebele['cpu-usage'], /CPU/);
 assert.match(ndebele['gridfs-attachments'], /GridFS/);
 assert.match(ndebele['gridfs-size'], /GridFS/);
+assert.match(ndebele['migrate-all-to-gridfs'], /GridFS/);
+assert.match(ndebele['migrate-all-to-s3'], /S3/);
+assert.match(ndebele['migration-batch-size-description'], /1-100/);
+assert.match(ndebele['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(ndebele['migration-delay-ms-description'], /100-10000/);
+assert.equal(ndebele['show-list-on-minicard'],
+  'Bonisa uluhlu ekhadini elincane');
+assert.equal(ndebele.weight, 'Isisindo');
 
 console.log('Northern Ndebele translation progress checks passed.');
