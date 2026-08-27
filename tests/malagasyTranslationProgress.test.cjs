@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -200,3 +200,9 @@ assert.match(malagasy['roles-info'], /Tontonana mpitantana/);
 assert.equal(malagasy.monday, 'Alatsinainy');
 assert.equal(malagasy.sunday, 'Alahady');
 assert.equal(malagasy.voting, 'Fifidianana');
+assert.match(malagasy['invalid-domain'], /example\.com.*@/);
+assert.equal(malagasy.person, 'Olona');
+assert.match(malagasy['dueCardsViewChange-choice-all-description'],
+  /\*Voatondro\*/);
+assert.deepEqual(tokens(malagasy['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(malagasy['label-color-not-found']), ['%s']);

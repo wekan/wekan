@@ -2811,9 +2811,15 @@ notification states, rename and board-role controls, weekdays, status,
 ownership, activity and voting. These direct translations were completed with
 low confidence and welcome review by a Malagasy speaker. This left **124,489
 genuinely untranslated values across 58 locale files**.
+The twenty-sixth 50-value Malagasy batch added linked-list safeguards, tasks,
+domains, shared templates, names, people and time units, My Cards and Due Cards
+views and sorting, global-search scope and board, swimlane, list and label lookup
+errors. These direct translations were completed with low confidence and
+welcome review by a Malagasy speaker. This left **124,439 genuinely untranslated
+values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
