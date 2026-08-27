@@ -2861,9 +2861,15 @@ progress and limits, account prompts, custom translations, board dragging,
 checklist display, support and accessibility settings. These direct translations
 were completed with low confidence and welcome review by a Malagasy speaker.
 This left **124,039 genuinely untranslated values across 58 locale files**.
+The thirty-fifth 50-value Malagasy batch added accessibility content,
+brute-force login protection and locked-user administration, scheduled jobs,
+attachment and avatar paths and scheduled board maintenance. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **123,989 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

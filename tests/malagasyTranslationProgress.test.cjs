@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -259,3 +259,9 @@ assert.match(malagasy['preview-pdf-not-supported'], /PDF/);
 assert.match(malagasy['show-week-of-year'], /ISO 8601/);
 assert.match(malagasy['import-board-zip'], /.zip.*JSON/);
 assert.equal(malagasy.accessibility, 'Fahafahana miditra');
+assert.match(malagasy['accounts-lockout-info'], /fidirana.*fanafihana/);
+assert.match(malagasy['accounts-lockout-known-users'],
+  /solonanarana.*tenimiafina/);
+assert.match(malagasy['accounts-lockout-period'], /segondra/);
+assert.equal(malagasy['active-cron-jobs'], 'Asa voalahatra mavitrika');
+assert.equal(malagasy['board-operations'], 'Hetsiky ny solaitra');
