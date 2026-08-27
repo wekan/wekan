@@ -5905,9 +5905,17 @@ cards and lists, a translated JSON card template, template containers, labels,
 custom fields, currency, dropdowns and numbers. These direct translations were
 completed with low confidence and welcome review by a Kirundi speaker. This
 left **99,285 genuinely untranslated values across 46 locale files**.
+The tenth 50-value Kirundi batch added text and date formats, permanent-delete
+administration, custom-field and label deletion, WIP limits, card dates,
+reactions, notifications, enrollment, invitation, password-reset and
+verification emails, scrollbars, board-role errors, JSON, CSV and TSV import
+validation, empty exports, linked-card safety and disabled users. These direct
+translations were completed with low confidence and welcome review by a
+Kirundi speaker. This left **99,235 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
