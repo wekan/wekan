@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -60,3 +60,10 @@ assert.match(cornish['list-width-error-message'], /270/);
 assert.match(cornish['set-swimlane-height-value'], /picselow/);
 assert.equal(cornish['add-checklist'], 'Keworra rol checkya');
 assert.equal(cornish['add-members'], 'Keworra eseli');
+assert.deepEqual(tokens(cornish['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(cornish['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(cornish['avatar-too-big']), ['__size__']);
+assert.deepEqual(tokens(cornish['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(cornish['board-private-info']),
+  ['</strong>', '<strong>']);
+assert.match(cornish['board-private-info'], /privedh/);
