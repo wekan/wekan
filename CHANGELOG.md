@@ -5614,9 +5614,16 @@ copying with JSON examples, templates, labels and custom-field types and
 options. These direct translations were completed with low confidence and
 welcome review by a Pashto speaker. This left **101,452 genuinely untranslated
 values across 47 locale files**.
+The tenth 50-value Pashto batch added date and avatar settings, permanent
+deletion, WIP limits, profile, field, reaction, time, label and notification
+editing, account, invitation, reset and verification emails, and board, JSON,
+CSV, TSV, import, list, linked-card and disabled-user errors. These direct
+translations were completed with low confidence and welcome review by a Pashto
+speaker. This left **101,402 genuinely untranslated values across 47 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
