@@ -5890,9 +5890,17 @@ font sizes, text colors, avatar deletion, language and permission settings.
 These direct translations were completed with low confidence and welcome
 review by a Kirundi speaker. This left **99,385 genuinely untranslated values
 across 46 locale files**.
+The eighth 50-value Kirundi batch added settings, subtasks, starred boards and
+pages, automatic list width, clipboard drag-and-drop, three-tier card aging,
+card and list movement, accessible dialog navigation, board and card closing,
+and twenty-three color names. Three shared English color loanwords were made
+explicit Kirundi phrases so they no longer remain placeholders. These direct
+translations were completed with low confidence and welcome review by a
+Kirundi speaker. This left **99,335 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
