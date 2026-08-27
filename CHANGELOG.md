@@ -4386,9 +4386,15 @@ and card sorting, completion, stickers, card dependencies and JSON/SVG imports,
 board backgrounds and card locations. These direct translations were completed
 with low confidence and welcome review by a Northern Ndebele speaker. This left
 **111,287 genuinely untranslated values across 52 locale files**.
+The thirtieth 50-value Northern Ndebele batch added map detection, server-log
+troubleshooting, title and date sorting, activities, swimlane movement, string
+templates, file diagnostics, Problems reports, impersonation, recovery and
+office-login summaries. These direct translations were completed with low
+confidence and welcome review by a Northern Ndebele speaker. This left
+**111,237 genuinely untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`location-latitude`
+`office-last-seen`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
