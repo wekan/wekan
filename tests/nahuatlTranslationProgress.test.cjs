@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -51,5 +51,11 @@ assert.deepEqual(tokens(nahuatl['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(nahuatl['allboards.workspaces'], 'Tequitiloyan');
 assert.match(nahuatl['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(nahuatl['activity-dueDate']), ['%s', '%s']);
+assert.match(nahuatl['set-list-width-value'], /pixels/);
+assert.match(nahuatl['list-width-error-message'], /270/);
+assert.match(nahuatl['set-swimlane-height-value'], /pixels/);
+assert.equal(nahuatl['add-checklist'],
+  'Xicaquiti tlanextiliztocatlahtolli');
 
 console.log('Nahuatl translation progress checks passed.');
