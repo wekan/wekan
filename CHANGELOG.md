@@ -3960,9 +3960,15 @@ personal and fixed list widths, keyboard shortcuts, swimlane height, subtasks,
 checklists, covers, labels and members. These direct translations were
 completed with low confidence and welcome review by a Nahuatl speaker. This
 left **114,754 genuinely untranslated values across 53 locale files**.
+The fourth 50-value Nahuatl batch added administrator permissions and
+announcements, public and archived boards, offline recovery, templates,
+attachments, board backgrounds, All Boards display, member and assignee scopes,
+stars and private-board information. These direct translations were completed
+with low confidence and welcome review by a Nahuatl speaker. This left
+**114,704 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

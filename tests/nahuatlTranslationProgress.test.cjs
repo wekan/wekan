@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -57,5 +57,12 @@ assert.match(nahuatl['list-width-error-message'], /270/);
 assert.match(nahuatl['set-swimlane-height-value'], /pixels/);
 assert.equal(nahuatl['add-checklist'],
   'Xicaquiti tlanextiliztocatlahtolli');
+assert.deepEqual(tokens(nahuatl['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(nahuatl['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(nahuatl['avatar-too-big']), ['__size__']);
+assert.match(nahuatl['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(nahuatl['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(nahuatl['board-private-info']),
+  ['</strong>', '<strong>']);
 
 console.log('Nahuatl translation progress checks passed.');
