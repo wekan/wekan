@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -179,3 +179,8 @@ assert.equal(maithili['r-checklist'], 'जाँचसूची');
 assert.equal(maithili['r-d-move-to-top-gen'],
   'कार्ड केँ अपन सूचीक ऊपर लऽ जाउ');
 assert.equal(maithili['r-d-send-email'], 'ईमेल पठाउ');
+assert.equal(maithili['r-items-list'], 'मद1,मद2,मद3');
+assert.equal(maithili['r-add-swimlane'], 'स्विमलेन जोड़ू');
+assert.match(maithili['custom-head-meta-tags'], /HTML/);
+assert.match(maithili['custom-head-manifest-content'], /JSON/);
+assert.match(maithili['custom-assetlinks-content'], /assetlinks\.json.*JSON/);

@@ -2537,9 +2537,14 @@ card, label, member, attachment and checklist triggers and card movement,
 membership, color, checklist and email actions. These direct translations were
 completed with low confidence and welcome review by a Maithili speaker. This
 left **126,806 genuinely untranslated values across 59 locale files**.
+The twenty-third 50-value Maithili batch added detailed rule actions and date
+fields, authentication controls, custom product and head tags, web manifests,
+asset links, layout, logo and card counters. These direct translations were
+completed with low confidence and welcome review by a Maithili speaker. This
+left **126,756 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
