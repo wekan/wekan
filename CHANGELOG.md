@@ -3073,9 +3073,15 @@ views and sorting, global-search scope and board, swimlane, list and label looku
 errors. These direct translations were completed with low confidence and
 welcome review by a Māori speaker. This left **122,272 genuinely untranslated
 values across 57 locale files**.
+The twenty-seventh 50-value Māori batch added user, comment, organization and
+team lookup errors, card-search result counts and global-search operators and
+predicates for boards, swimlanes, lists, users, dates, content, status and time
+ranges. These direct translations were completed with low confidence and
+welcome review by a Māori speaker. This left **122,222 genuinely untranslated
+values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
