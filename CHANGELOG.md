@@ -2491,9 +2491,14 @@ import cancellation and cleanup, member mapping, date and user validation,
 keyboard shortcuts and label creation. These direct translations were completed
 with low confidence and welcome review by a Maithili speaker. This left
 **127,256 genuinely untranslated values across 59 locale files**.
+The fourteenth 50-value Maithili batch added board leaving, list archive and
+deletion flows, user, team and organization settings, swimlane actions, bulk
+selection, notification muting and normal board roles. These direct translations
+were completed with low confidence and welcome review by a Maithili speaker.
+This left **127,206 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -128,3 +128,8 @@ assert.match(maithili['trello-api-key'],
 assert.match(maithili['trello-api-import-desc'], /Trello API/);
 assert.match(maithili['invalid-year'], /2026/);
 assert.deepEqual(tokens(maithili['label-default']), ['%s']);
+assert.deepEqual(tokens(maithili['leave-board-pop']), ['__boardTitle__']);
+assert.match(maithili['listImportCardPopup-title'], /Trello/);
+assert.match(maithili['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.equal(maithili.normal, 'सामान्य');
+assert.equal(maithili['multi-selection'], 'बहु-चयन');
