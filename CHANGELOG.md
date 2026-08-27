@@ -5596,8 +5596,15 @@ member mapping, and checklist, swimlane, list, card and board imports. These
 direct translations were completed with low confidence and welcome review by
 a Pashto speaker. This left **101,602 genuinely untranslated values across 47
 locale files**.
+The seventh 50-value Pashto batch added member, sticker, invitation, sorting,
+archive restoration, rule transfer, templates, CAS login, linked items,
+imported-member mapping, themes, font previews and sizes, text colors, avatars,
+languages and permissions. These direct translations were completed with low
+confidence and welcome review by a Pashto speaker. This left **101,552
+genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `userPopup-title` with
+and exact tokens from `en.i18n.json`, resuming Pashto at
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
