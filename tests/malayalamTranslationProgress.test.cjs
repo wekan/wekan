@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -154,3 +154,9 @@ assert.deepEqual(tokens(malayalam['remove-member-pop']),
 assert.match(malayalam['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(malayalam['setWipLimitPopup-title'], /WIP/);
 assert.equal(malayalam['sidebar-open'], 'സൈഡ്ബാർ തുറക്കുക');
+assert.equal(malayalam['starred-boards'], 'നക്ഷത്രമിട്ട ബോർഡുകൾ');
+assert.match(malayalam['toggle-assignees'], /1-9/);
+assert.match(malayalam['custom-top-left-corner-logo-height'], /27/);
+assert.match(malayalam['automatic-linked-url-schemes'], /URL/);
+assert.equal(malayalam['welcome-swimlane'], 'നാഴികക്കല്ല് 1');
+assert.match(malayalam['wipLimitErrorPopup-dialog-pt1'], /WIP/);
