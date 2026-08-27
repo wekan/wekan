@@ -2353,9 +2353,13 @@ The twenty-seventh 50-value Kyrgyz batch added missing user, comment,
 organization and team results, paginated card counts and localized global-search
 operator and predicate vocabulary. This left **128,723 genuinely untranslated
 values across 60 locale files**.
+The twenty-eighth 50-value Kyrgyz batch added search predicate validation,
+pagination and detailed operator guidance for board, list, member, status,
+existence, sorting, limits and combined searches. This left **128,673 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
