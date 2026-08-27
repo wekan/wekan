@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -160,5 +160,12 @@ assert.match(ndebele['smtp-tls'], /TLS/);
 assert.deepEqual(tokens(ndebele['email-invite-register-text']),
   ['__icode__', '__inviter__', '__url__', '__user__']);
 assert.equal(ndebele.Database, 'Isizindalwazi');
+assert.match(ndebele.Database_type, /sizindalwazi/);
+assert.match(ndebele.FerretDB_version, /FerretDB/);
+assert.match(ndebele.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(ndebele.DDP_transport, /DDP_TRANSPORT/);
+assert.equal(ndebele.days, 'izinsuku');
+assert.equal(ndebele.visibility, 'Ukubonakala');
+assert.match(ndebele['org-domains-description'], /MULTITENANCY=true/);
 
 console.log('Northern Ndebele translation progress checks passed.');
