@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -213,3 +213,13 @@ assert.match(kurmanji['r-when-a-card-is-moved'], /lîsteyeke din/);
 assert.match(kurmanji['custom-head-meta-tags'], /HTML/);
 assert.match(kurmanji['custom-head-manifest-content'], /JSON/);
 assert.match(kurmanji['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(kurmanji['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(kurmanji['add-custom-html-before-body-end']), ['</body>']);
+assert.match(kurmanji['oidc-button-text'], /OIDC/);
+assert.deepEqual(tokens(kurmanji['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(kurmanji['act-newDue']),
+  ['__board__', '__card__', '__list__']);
+assert.deepEqual(tokens(kurmanji['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(kurmanji['submit-on-enter'], /Enter/);

@@ -1987,9 +1987,13 @@ The twenty-third 50-value Kurmanji Kurdish batch added detailed rule actions for
 cards, checklists, swimlanes and dates plus authentication, custom product HTML
 and JSON metadata, layout and counters. This left **133,257 genuinely
 untranslated values across 62 locale files**.
+The twenty-fourth 50-value Kurmanji Kurdish batch added authentication display,
+board duplication, custom body HTML, lifecycle activity, due reminders,
+deletion confirmations and resizable layout controls. This left **133,207
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
