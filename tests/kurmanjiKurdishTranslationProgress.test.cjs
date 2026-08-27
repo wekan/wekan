@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -363,3 +363,12 @@ assert.match(kurmanji['s3-enabled-description'], /AWS S3.*MinIO/);
 assert.match(kurmanji['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(kurmanji['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
 assert.equal(kurmanji['board-migrations'], 'Koçberiyên depoyê');
+assert.match(kurmanji['comprehensive-board-migration-description'],
+  /rêzkirina lîsteyan.*cihên kartan.*rêçan/);
+assert.match(kurmanji['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId.*Kartên wenda/);
+assert.match(kurmanji['fix-avatar-urls-migration-description'], /URL/);
+assert.match(kurmanji['run-restore-all-archived-migration-confirm'],
+  /HEMÛ.*ID/);
+assert.equal(kurmanji['step-fix-orphaned-cards'],
+  'Kartên bêxwedî sererast bike');

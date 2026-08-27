@@ -2051,9 +2051,13 @@ The thirty-ninth 50-value Kurmanji Kurdish batch added GridFS and GCS storage,
 migration lifecycle controls, CollectionFS movement, S3 authentication and TLS,
 scheduled board operations and attachment monitoring. This left **132,457
 genuinely untranslated values across 62 locale files**.
+The fortieth 50-value Kurmanji Kurdish batch added comprehensive board repair,
+duplicate-list cleanup, lost and archived item recovery, file URL fixes,
+migration confirmations, progress and validation steps. This left **132,407
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
