@@ -7065,9 +7065,14 @@ recovery reporting, loading indicators, card sizing, organization and team
 deletion safeguards, and ticket workflow states. These direct translations were
 completed with low confidence and welcome review by a Northern Sami speaker.
 This left **89,517 genuinely untranslated values across 42 locale files**.
+The thirty-second 50-value Northern Sami batch added team and organization
+management, Node memory diagnostics, legal-notice labels, checklist actions and
+attachment storage moves. These direct translations were completed with low
+confidence and welcome review by a Northern Sami speaker. This left **89,467
+genuinely untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
