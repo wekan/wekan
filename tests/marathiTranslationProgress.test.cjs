@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -153,5 +153,13 @@ assert.deepEqual(tokens(marathi['email-invite-register-text']),
 assert.match(marathi['email-smtp-test-subject'], /SMTP/);
 assert.match(marathi.Node_version, /Node/);
 assert.match(marathi.Meteor_version, /Meteor/);
+assert.match(marathi.FerretDB_version, /FerretDB/);
+assert.match(marathi.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(marathi.DDP_transport, /DDP_TRANSPORT/);
+assert.match(marathi.OS_Cpus, /OS CPU/);
+for (const literal of ['a.example.com', 'kanban.example.org',
+  'MULTITENANCY=true']) {
+  assert.match(marathi['org-domains-description'], new RegExp(literal));
+}
 
 console.log('Marathi translation progress checks passed.');
