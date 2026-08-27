@@ -5245,9 +5245,15 @@ and checklist display, system resources and attachment totals. These direct
 translations were completed with low confidence and welcome review by a
 Chichewa speaker. This left **104,136 genuinely untranslated values across 49
 locale files**.
+The forty-third 50-value Chichewa batch added OTP account creation and login,
+repository listing and upload, account validation and lockout, server and
+protocol summaries, problem-review and repair status, broken-card repair, CPU
+metrics and event metadata. These direct translations were completed with low
+confidence and welcome review by a Chichewa speaker. This left **104,086
+genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
