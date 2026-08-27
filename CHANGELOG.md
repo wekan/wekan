@@ -3770,9 +3770,15 @@ shortcuts, sidebars, signup, starring and default-board controls. These direct
 translations were completed with low confidence and welcome review by a Burmese
 speaker. This left **116,321 genuinely untranslated values across 54 locale
 files**.
+The sixteenth 50-value Burmese batch added starred boards, time tracking,
+assignee and label shortcuts, uploads, custom branding and URL schemes,
+watching, welcome-board content, card, list and board templates and WIP-limit
+errors. These direct translations were completed with low confidence and
+welcome review by a Burmese speaker. This left **116,271 genuinely untranslated
+values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
