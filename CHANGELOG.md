@@ -4110,9 +4110,14 @@ team lookup results, card result totals, global-search operators and predicates
 for board content, people, dates, status and sorting. These direct translations
 were completed with low confidence and welcome review by a Nahuatl speaker.
 This left **113,554 genuinely untranslated values across 53 locale files**.
+The twenty-eighth 50-value Nahuatl batch added search validation errors,
+pagination and complete global-search instructions for operators, status,
+fields, sorting, limits and Boolean matching. These direct translations were
+completed with low confidence and welcome review by a Nahuatl speaker. This
+left **113,504 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
