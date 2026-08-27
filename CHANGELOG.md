@@ -5096,9 +5096,15 @@ board visibility controls, and organization and team tenancy, domains,
 administrators and membership synchronization. These direct translations were
 completed with low confidence and welcome review by a Chichewa speaker. This
 left **105,336 genuinely untranslated values across 49 locale files**.
+The nineteenth 50-value Chichewa batch added received and end dates, color and
+sorting controls, permanent board, notification and duplicate-list deletion,
+subtask and card settings, minicard content, parent-card paths and label
+activity. These direct translations were completed with low confidence and
+welcome review by a Chichewa speaker. This left **105,286 genuinely
+untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
