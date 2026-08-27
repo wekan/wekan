@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -188,5 +188,15 @@ assert.match(nahuatl['custom-head-link-tags'], /HTML/);
 assert.match(nahuatl['custom-head-manifest-content'], /JSON/);
 assert.match(nahuatl['custom-assetlinks-enabled'], /assetlinks\.json/);
 assert.match(nahuatl['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(nahuatl['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(nahuatl['add-custom-html-before-body-end']), ['</body>']);
+assert.match(nahuatl['oidc-button-text'], /OIDC/);
+assert.deepEqual(tokens(nahuatl['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(nahuatl['act-newDue']),
+  ['__board__', '__card__', '__list__']);
+assert.deepEqual(tokens(nahuatl['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(nahuatl['submit-on-enter'], /Enter/);
 
 console.log('Nahuatl translation progress checks passed.');
