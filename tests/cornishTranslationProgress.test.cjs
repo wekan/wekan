@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -351,3 +351,12 @@ assert.match(cornish['disable-all-import-description'],
   /WeKan JSON.*Trello.*CSV\/Excel.*Jira.*Kanboard.*NextCloud Deck.*OpenProject.*GitHub.*GitLab.*Gitea.*Forgejo/);
 assert.match(cornish['backup-description'],
   /\.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/);
+assert.match(cornish['backup-time'], /HH:MM/);
+assert.match(cornish['gcs-permissions-note'],
+  /WeKan.*Google Cloud Console.*Cloud Storage.*Buckets.*Permissions.*Grant access.*New principals.*client_email.*Storage Object Admin.*Save/);
+assert.match(cornish['s3-endpoint-menu-path'],
+  /AWS.*S3.*Endpoint URL.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
+assert.match(cornish['s3-secret-key-menu-path'],
+  /Access key ID.*Secret access key.*Download \.csv/);
+assert.match(cornish['gcs-credentials-menu-path'],
+  /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*Add key.*Create new key.*JSON.*Create/);
