@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,5 +115,16 @@ assert.match(ndebele['export-card-pdf'], /PDF/);
 assert.match(ndebele['export-card-excel'], /Excel/);
 assert.match(ndebele['export-card-excel-no-disk-space'], /Excel.*diski/);
 assert.equal(ndebele['filter-due-tomorrow'], 'Kuphela kusasa');
+for (const literal of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
+  assert.match(ndebele['advanced-filter-description'],
+    new RegExp(literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+}
+assert.deepEqual(tokens(ndebele['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(ndebele['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(ndebele['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search/);
+assert.match(ndebele['import-trello-json-file-hint'], /API/);
 
 console.log('Northern Ndebele translation progress checks passed.');

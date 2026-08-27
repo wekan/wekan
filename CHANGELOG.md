@@ -4275,9 +4275,16 @@ errors, list sorting and card and list filters for dates, labels and members.
 These direct translations were completed with low confidence and welcome review
 by a Northern Ndebele speaker. This left **112,187 genuinely untranslated
 values across 52 locale files**.
+The twelfth 50-value Northern Ndebele batch added assignee and custom-field
+filters, advanced expression filtering, activity visibility, imported-member
+states and board import guidance for Kanboard, Deck, OpenProject, issues, Asana,
+ZenKit, Trello, CSV, Jira, Excel and WeKan, including Trello ZIP validation.
+These direct translations were completed with low confidence and welcome review
+by a Northern Ndebele speaker. This left **112,137 genuinely untranslated
+values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`filter-assignee-label`
+`import-trello-zip-file-too-large`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
