@@ -3490,9 +3490,15 @@ OpenProject, issues, Asana, ZenKit, Trello, CSV/TSV, Jira, Excel and WeKan impor
 guidance, files and failures. These direct translations were completed with low
 confidence and welcome review by a Marathi speaker. This left **118,638 genuinely
 untranslated values across 55 locale files**.
+The thirteenth 50-value Marathi batch added Trello ZIP safety and workspace
+placement, direct API imports and credentials, selection, progress, cancellation
+and cleanup, imported-member mapping, validity messages, invitations, keyboard
+shortcuts and label creation/deletion. These direct translations were completed
+with low confidence and welcome review by a Marathi speaker. This left **118,588
+genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
