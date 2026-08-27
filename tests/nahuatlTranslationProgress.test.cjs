@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -134,5 +134,14 @@ assert.deepEqual(tokens(nahuatl['leave-board-pop']), ['__boardTitle__']);
 assert.match(nahuatl['listImportCardPopup-title'], /Trello/);
 assert.match(nahuatl['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(nahuatl['my-boards'], 'Nohuapaltin');
+assert.deepEqual(tokens(nahuatl['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(nahuatl['page-maybe-private']),
+  ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(nahuatl['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(nahuatl['sandstorm-remove-member-warning'], /Sandstorm/);
+assert.match(nahuatl['sandstorm-remove-member-warning'], /WeKan/);
+assert.match(nahuatl['search-example'], /Enter/);
+assert.match(nahuatl['setWipLimitPopup-title'], /WIP/);
 
 console.log('Nahuatl translation progress checks passed.');

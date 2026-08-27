@@ -4028,9 +4028,15 @@ selection, muted boards, archives, normal roles and participation notices.
 These direct translations were completed with low confidence and welcome
 review by a Nahuatl speaker. This left **114,204 genuinely untranslated values
 across 53 locale files**.
+The fifteenth 50-value Nahuatl batch added watch notices, private-page login,
+image previews, public and private board descriptions, member removal including
+Sandstorm guidance, rescue dialogs, search, WIP limits, keyboard shortcuts,
+sidebar controls, signup and default-board behavior. These direct translations
+were completed with low confidence and welcome review by a Nahuatl speaker.
+This left **114,154 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
