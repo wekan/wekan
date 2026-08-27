@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -165,3 +165,11 @@ assert.match(cornish['automatic-linked-url-schemes'], /URL.*URL/);
 assert.equal(cornish['welcome-swimlane'], 'Karrek ven 1');
 assert.match(cornish['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 assert.match(cornish['wipLimitErrorPopup-dialog-pt2'], /WIP/);
+assert.match(cornish['attachment-transfer-limits-title'], /API/);
+assert.match(cornish['smtp-tls-description'], /TLS.*SMTP/);
+assert.deepEqual(tokens(cornish['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(cornish['email-smtp-test-subject'], /SMTP/);
+assert.equal(cornish['bidirectional-webhooks'], 'Webhookow diwfordh');
+assert.match(cornish.Node_version, /Node/);
+assert.match(cornish.Meteor_version, /Meteor/);
