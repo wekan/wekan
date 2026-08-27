@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -205,3 +205,13 @@ assert.match(kashmiri['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(kashmiri['s3-region-description'], /us-east-1/);
 assert.match(kashmiri['s3-ssl-enabled-description'], /SSL\/TLS/);
 assert.equal(kashmiri['board-migration'], 'بورڈ منتقلی');
+assert.equal(kashmiri['card-show-lists-on-minicard'],
+  'لۄکٹس کارڈس پؠٹھ فہرست ہٲویو');
+assert.match(kashmiri['comprehensive-board-migration-description'],
+  /فہرست ترتیب.*کارڈ جاے.*وَتھ ساخت/);
+assert.match(kashmiri['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId.*گُم کارڈ/);
+assert.match(kashmiri['fix-avatar-urls-migration-description'], /اوتار URL/);
+assert.match(kashmiri['fix-all-file-urls-migration-description'], /فایل.*URL/);
+assert.match(kashmiri['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(kashmiri['step-ensure-per-swimlane-lists'], /ہر وَتھ/);
