@@ -4338,9 +4338,15 @@ list-duration conditions, sorting, completion, relative dates and rule units.
 These direct translations were completed with low confidence and welcome review
 by a Northern Ndebele speaker. This left **111,687 genuinely untranslated
 values across 52 locale files**.
+The twenty-second 50-value Northern Ndebele batch added rule grammar for board
+and list movement, archive restoration, labels, members, attachments,
+checklists, checklist items, colors, card placement and email actions. These
+direct translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **111,637 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`r-the-board`
+`r-d-send-email-subject`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
