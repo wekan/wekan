@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -102,3 +102,11 @@ assert.equal(malagasy.worker, 'Mpiasa');
 const bulkCardExample = JSON.parse(malagasy['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malagasy['custom-field-number'], 'Isa');
+assert.match(malagasy['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(malagasy['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(malagasy['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(malagasy['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(malagasy['error-import-empty-board'], /WeKan/);
