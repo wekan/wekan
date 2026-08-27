@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -325,3 +325,11 @@ assert.deepEqual(tokens(cornish['drag-board-to-workspace']),
 assert.match(cornish['show-week-of-year'], /ISO 8601/);
 assert.match(cornish['import-board-zip'], /\.zip.*JSON/);
 assert.equal(cornish.accessibility, 'Hedhadewder');
+assert.equal(cornish['accessibility-title'], 'Titel hedhadewder');
+assert.match(cornish['accounts-lockout-info'], /assayow omgelmi/);
+assert.equal(cornish['accounts-lockout-period'],
+  'Termyn alhwedha (eylennow)');
+assert.equal(cornish['admin-people-filter-active'], 'Byw');
+assert.match(cornish['active-cron-jobs'], /Cron/);
+assert.equal(cornish['attachments-path'], 'Hyns stagellow');
+assert.match(cornish['board-backup-scheduled'], /estyllen.*sowen/);
