@@ -2281,9 +2281,13 @@ The ninth 50-value Kyrgyz batch added restricted board roles, deletion
 confirmations, clipboard and card-link actions, bulk JSON card copying,
 template and label creation and custom-field types. This left **129,623 genuinely
 untranslated values across 60 locale files**.
+The tenth 50-value Kyrgyz batch added permanent deletion and WIP controls,
+profile and date dialogs, enrollment, invitation, reset and verification emails
+and board, import and linked-card errors. This left **129,573 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
