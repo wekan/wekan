@@ -6576,8 +6576,13 @@ stickers, dependency relationships and JSON/SVG imports, board backgrounds and
 card locations. These direct translations were completed with low confidence
 and welcome review by a Sakha speaker. This left **93,951 genuinely untranslated
 values across 44 locale files**.
+The thirtieth 50-value Sakha batch added map coordinates and providers, server
+troubleshooting, activity visibility, string templates, file and system reports,
+impersonation, recovery and office-login reporting. These direct translations
+were completed with low confidence and welcome review by a Sakha speaker. This
+left **93,901 genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `location-latitude` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `office-last-seen` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
