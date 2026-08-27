@@ -2872,9 +2872,15 @@ controls, filesystem, S3 and Azure storage, MongoDB and FerretDB migration and
 Sandstorm migration status. These direct translations were completed with low
 confidence and welcome review by a Malagasy speaker. This left **123,939
 genuinely untranslated values across 58 locale files**.
+The thirty-seventh 50-value Malagasy batch added Sandstorm storage cleanup,
+card-loading performance, safe rich-text rendering, import, export, avatar,
+activity, notification and watch controls and scoped cloud backups. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **123,889 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
