@@ -6487,8 +6487,14 @@ member mapping, version and date validation, keyboard shortcuts and label
 creation and deletion. These direct translations were completed with low
 confidence and welcome review by a Sakha speaker. This left **94,751 genuinely
 untranslated values across 44 locale files**.
+The fourteenth 50-value Sakha batch added last-administrator protection, board
+departure, card and list links, archive guidance, user, team and organization
+settings, swimlane actions, selection movement and copying, muted and normal
+roles and participation notifications. These direct translations were
+completed with low confidence and welcome review by a Sakha speaker. This left
+**94,701 genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `last-admin-desc` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
