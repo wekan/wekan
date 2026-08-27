@@ -6313,9 +6313,15 @@ and predicates for boards, card properties, dates, attachments and checklists.
 These direct translations were completed with low confidence and welcome
 review by a Kinyarwanda speaker. This left **96,218 genuinely untranslated
 values across 45 locale files**.
+The twenty-eighth 50-value Kinyarwanda batch added advanced-search predicates,
+validation errors, paging and detailed operator guidance for boards, lists,
+swimlanes, users, organizations, teams, dates, status, fields, sorting and
+limits. These direct translations were completed with low confidence and
+welcome review by a Kinyarwanda speaker. This left **96,168 genuinely
+untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
