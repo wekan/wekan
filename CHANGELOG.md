@@ -5654,8 +5654,16 @@ search, WIP limits, keyboard shortcuts, sidebars, account creation and starred
 and default-board behavior. These direct translations were completed with low
 confidence and welcome review by a Pashto speaker. This left **101,152
 genuinely untranslated values across 47 locale files**.
+The sixteenth 50-value Pashto batch added starred boards, subscriptions, time
+tracking and overtime, numeric assignee and label shortcuts, uploads, custom
+logo and help URLs, automatic URL schemes, archive warnings, watching,
+welcome-board labels, card, list and board templates and WIP-limit errors.
+These direct translations were completed with low confidence and welcome
+review by a Pashto speaker. This left **101,102 genuinely untranslated values
+across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `starred-boards` with
+and exact tokens from `en.i18n.json`, resuming Pashto at
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
