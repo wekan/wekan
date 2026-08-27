@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -142,3 +142,10 @@ assert.match(cornish['trello-cancel-delete-confirm'], /Ny yll.*distreylys/);
 assert.match(cornish['invalid-year'], /2026/);
 assert.deepEqual(tokens(cornish['label-default']), ['%s']);
 assert.equal(cornish['keyboard-shortcuts'], 'Berrfordhow bysowek');
+assert.deepEqual(tokens(cornish['leave-board-pop']), ['__boardTitle__']);
+assert.match(cornish['list-archive-cards-pop'], /Rol.*Kovskrifva/);
+assert.match(cornish['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.equal(cornish['no-archived-swimlanes'],
+  'Hyns vyth y\'n kovskrifva.');
+assert.equal(cornish.normal, 'Usadow');
+assert.match(cornish['normal-desc'], /Ny yll chanjya settyansow/);
