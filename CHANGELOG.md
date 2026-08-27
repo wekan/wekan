@@ -4054,9 +4054,16 @@ shared templates, authentication sync, multitenancy domains and organization
 administrators. These direct translations were completed with low confidence
 and welcome review by a Nahuatl speaker. This left **114,004 genuinely
 untranslated values across 53 locale files**.
+The nineteenth 50-value Nahuatl batch added received and end dates, card, list,
+swimlane and selection colors, assignment provenance, board and notification
+deletion, duplicate-list cleanup, subtask and card settings, minicard fields,
+checklist and attachment counts, parent-card paths and label activity. These
+direct translations were completed with low confidence and welcome review by a
+Nahuatl speaker. This left **113,954 genuinely untranslated values across 53
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

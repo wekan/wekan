@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -163,5 +163,10 @@ assert.match(nahuatl.DDP_transport, /DDP_TRANSPORT/);
 assert.match(nahuatl['org-domains-description'], /a\.example\.com/);
 assert.match(nahuatl['org-domains-description'], /kanban\.example\.org/);
 assert.match(nahuatl['org-domains-description'], /MULTITENANCY=true/);
+assert.deepEqual(tokens(nahuatl['default-subtasks-board']), ['__board__']);
+assert.match(nahuatl['checklist-count-on-minicard'], /0\/0/);
+assert.match(nahuatl['checklist-count'], /0\/0/);
+assert.deepEqual(tokens(nahuatl['activity-added-label']), ['%s', '%s']);
+assert.equal(nahuatl['parent-card'], 'Tetah amatlapalli');
 
 console.log('Nahuatl translation progress checks passed.');
