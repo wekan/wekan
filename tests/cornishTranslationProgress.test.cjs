@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,3 +115,10 @@ assert.deepEqual(tokens(cornish['email-resetPassword-subject']),
 assert.match(cornish['error-json-schema'], /JSON/);
 assert.match(cornish['error-csv-schema'], /CSV.*TSV/);
 assert.match(cornish['error-import-empty-board'], /WeKan/);
+assert.match(cornish['export-card-pdf'], /PDF/);
+assert.match(cornish['export-card-excel-fields'], /Excel/);
+assert.match(cornish['export-card-field-board-info'],
+  /Estyllen.*Rol.*Hyns/);
+assert.match(cornish['export-card-excel-no-disk-space'], /Excel/);
+assert.equal(cornish['filter-no-due-date'], 'Dedhyas termyn vyth');
+assert.equal(cornish['filter-no-member'], 'Esel vyth');
