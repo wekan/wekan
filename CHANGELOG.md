@@ -5627,9 +5627,15 @@ board, date and attachment fields, disk-space reporting, list sorting and date,
 title, label and member filters. These direct translations were completed with
 low confidence and welcome review by a Pashto speaker. This left **101,352
 genuinely untranslated values across 47 locale files**.
+The twelfth 50-value Pashto batch added assignee, custom-field, archive and
+advanced filters, activity visibility, imported-member states and Kanboard,
+NextCloud Deck, OpenProject, issue, Asana, ZenKit, Trello, CSV, TSV, Jira,
+Excel and WeKan import guidance and ZIP errors. These direct translations were
+completed with low confidence and welcome review by a Pashto speaker. This
+left **101,302 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
