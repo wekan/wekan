@@ -2145,9 +2145,13 @@ The nineteenth 50-value Cornish batch added card lifecycle dates, colors and
 attribution, destructive-action safeguards, subtask placement, minicard
 metadata, parent paths and label activity. This left **131,290 genuinely
 untranslated values across 61 locale files**.
+The twentieth 50-value Cornish batch added label and custom-field activity,
+visual rule building, event triggers and JSON, CSV and Trello Butler rule
+exchange. This left **131,240 genuinely untranslated values across 61 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

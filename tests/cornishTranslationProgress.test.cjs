@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -187,3 +187,11 @@ assert.match(cornish['checklist-count-on-minicard'], /0\/0/);
 assert.equal(cornish['parent-card'], 'Karten gerens');
 assert.equal(cornish['source-board'], 'Estyllen bennfenten');
 assert.deepEqual(tokens(cornish['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(cornish['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.equal(cornish['r-board-rules'], 'Reulayow estyllen');
+assert.match(cornish['r-workflow-view'], /ros ober/);
+assert.deepEqual(tokens(cornish['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(cornish['r-import-done']), ['__count__']);
+assert.match(cornish['r-import-paste'], /JSON.*CSV.*Trello Butler/);
+assert.equal(cornish['r-all-boards'], 'Pub estyllen');
