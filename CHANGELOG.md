@@ -6749,8 +6749,14 @@ invitation email, authorization feedback, webhooks and database, Node and Meteor
 version labels. These direct translations were completed with low confidence and
 welcome review by a Sindhi speaker. This left **92,384 genuinely untranslated
 values across 43 locale files**.
+The eighteenth 50-value Sindhi batch added database and FerretDB diagnostics,
+reactivity and DDP configuration, OS resources and uptime, custom-field display,
+account and board visibility, organization tenancy, domains and administrators
+and shared team templates. These direct translations were completed with low
+confidence and welcome review by a Sindhi speaker. This left **92,334 genuinely
+untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `Database_type` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `card-received` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
