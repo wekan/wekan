@@ -4630,9 +4630,15 @@ Cards views and sorting, global search scope and board, swimlane, list and label
 not-found errors. These direct translations were completed with low confidence
 and welcome review by a Nepali speaker. This left **109,270 genuinely
 untranslated values across 51 locale files**.
+The twenty-seventh 50-value Nepali batch added username, comment, organization
+and team search errors, result counts and pagination, and localized global
+search operators and predicates for board structure, people, status, dates,
+text, attachments and checklists. These direct translations were completed with
+low confidence and welcome review by a Nepali speaker. This left **109,220
+genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

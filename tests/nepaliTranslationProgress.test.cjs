@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 867);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -199,5 +199,12 @@ assert.deepEqual(tokens(nepali['swimlane-title-not-found']), ['%s']);
 assert.deepEqual(tokens(nepali['list-title-not-found']), ['%s']);
 assert.deepEqual(tokens(nepali['label-not-found']), ['%s']);
 assert.deepEqual(tokens(nepali['label-color-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['user-username-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['comment-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['n-cards-found']), ['%s']);
+assert.deepEqual(tokens(nepali['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(nepali['operator-customfield'], 'अनुकूल फिल्ड');
+assert.equal(nepali['predicate-overdue'], 'म्याद नाघेको');
 
 console.log('Nepali translation progress checks passed.');
