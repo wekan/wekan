@@ -6813,8 +6813,14 @@ state, stickers, card dependencies and their imports, board backgrounds and
 basic location fields. These direct translations were completed with low
 confidence and welcome review by a Sindhi speaker. This left **91,784 genuinely
 untranslated values across 43 locale files**.
+The thirtieth 50-value Sindhi batch added map-based locations, server-error
+troubleshooting, custom string templates, board activity controls and
+administrative file, security, performance, impersonation and office reports.
+These direct translations were completed with low confidence and welcome review
+by a Sindhi speaker. This left **91,734 genuinely untranslated values across 43
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `location-latitude` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `office-last-seen` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
