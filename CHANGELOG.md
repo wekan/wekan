@@ -6406,16 +6406,21 @@ also replaced an existing Kirundi loading message with Kinyarwanda. These
 direct translations were completed with low confidence and welcome review by
 a Kinyarwanda speaker. This left **95,418 genuinely untranslated values across
 45 locale files**.
+The final 17-value Kinyarwanda batch added event addresses, filesystem
+integrity, scoped import and export, the search number operator and WeKan file
+import guidance. Across 44 direct-translation batches, all remaining
+Kinyarwanda placeholders are now translated. These direct translations were
+completed with low confidence and welcome review by a Kinyarwanda speaker.
+This left **95,401 genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list rw --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Sakha at `accept` with
+`node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
-Chichewa, Oromo, Pashto and Kirundi are now complete.
+Chichewa, Oromo, Pashto, Kirundi and Kinyarwanda are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
