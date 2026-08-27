@@ -3443,9 +3443,15 @@ All Boards display, member and assignee summaries, star counts and private-board
 visibility. These direct translations were completed with low confidence and
 welcome review by a Marathi speaker. This left **119,038 genuinely untranslated
 values across 55 locale files**.
+The fifth 50-value Marathi batch added public-board visibility, board opening and
+workspace movement, appearance and view modes, zoom, calendar navigation,
+archive/delete guidance, due and spent time, and card attachment, field, label
+and member editing. These direct translations were completed with low confidence
+and welcome review by a Marathi speaker. This left **118,988 genuinely
+untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
