@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -341,3 +341,13 @@ assert.match(cornish['database-migration-description'],
 assert.deepEqual(tokens(cornish['database-migration-confirm']), ['__db__']);
 assert.match(cornish['sandstorm-migration-description'],
   /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/);
+assert.match(cornish['cards-loading-description'],
+  /WeKan.*CARDS_LOADING \(all\/lazy\/auto\).*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.match(cornish['render-links-as-plain-text-description'],
+  /\[label\]\(url\).*<a href>/);
+assert.match(cornish['always-show-code-as-text-description'],
+  /HTML.*<!-- -->.*JavaScript/);
+assert.match(cornish['disable-all-import-description'],
+  /WeKan JSON.*Trello.*CSV\/Excel.*Jira.*Kanboard.*NextCloud Deck.*OpenProject.*GitHub.*GitLab.*Gitea.*Forgejo/);
+assert.match(cornish['backup-description'],
+  /\.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/);
