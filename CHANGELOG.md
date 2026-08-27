@@ -6974,9 +6974,14 @@ access guidance, search, WIP and keyboard shortcuts and default-board controls.
 These direct translations were completed with low confidence and welcome review
 by a Northern Sami speaker. This left **90,317 genuinely untranslated values
 across 42 locale files**.
+The sixteenth 50-value Northern Sami batch added starred boards, time tracking,
+assignee and label shortcuts, upload status, custom logo and URL branding,
+welcome-board templates and WIP validation. These direct translations were
+completed with low confidence and welcome review by a Northern Sami speaker.
+This left **90,267 genuinely untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
