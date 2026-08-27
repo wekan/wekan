@@ -4185,9 +4185,15 @@ avatar and attachment URLs and their confirmation and progress states. These
 direct translations were completed with low confidence and welcome review by a
 Nahuatl speaker. This left **112,904 genuinely untranslated values across 53
 locale files**.
+The forty-first 50-value Nahuatl batch added board repair steps, one-time board
+conversion, CPU and filesystem monitoring, recurring intervals, export
+monitoring, GridFS statistics and scheduled-job details. These direct
+translations were completed with low confidence and welcome review by a Nahuatl
+speaker. This left **112,854 genuinely untranslated values across 53 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

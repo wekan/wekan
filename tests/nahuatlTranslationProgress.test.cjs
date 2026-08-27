@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -305,5 +305,10 @@ assert.match(nahuatl['fix-all-file-urls-migration-description'], /URL/);
 assert.match(nahuatl['run-restore-all-archived-migration-confirm'], /ID/);
 assert.equal(nahuatl['step-validate-migration'],
   'Xicneltili mijcueniliztli');
+assert.match(nahuatl['step-fix-attachment-urls'], /URL/);
+assert.match(nahuatl['step-fix-missing-ids'], /ID/);
+assert.match(nahuatl['step-fix-file-urls'], /URL/);
+assert.equal(nahuatl['cpu-usage'], 'CPU tequitiliztli');
+assert.match(nahuatl['gridfs-attachments'], /GridFS/);
 
 console.log('Nahuatl translation progress checks passed.');
