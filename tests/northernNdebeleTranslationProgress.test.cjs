@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -264,5 +264,12 @@ assert.match(ndebele['custom-field-stringtemplate-separator'],
 assert.equal(ndebele.reports, 'Imibiko');
 assert.match(ndebele.cpuReportTitle, /CPU/);
 assert.match(ndebele['office-report-desc'], /IPv4.*IPv6/);
+assert.match(ndebele['api-report-desc'], /REST API/);
+assert.match(ndebele['api-no-calls'], /WITH_API=true/);
+assert.match(ndebele['recovery-report-desc'], /MongoDB/);
+assert.equal(ndebele['recovery-db'], 'Isizindalwazi');
+assert.equal(ndebele['copy-swimlane'], 'Kopela umzila');
+assert.match(ndebele['carbon-copy'], /Cc:/);
+assert.equal(ndebele['cardDetailsPopup-title'], 'Imininingwane yekhadi');
 
 console.log('Northern Ndebele translation progress checks passed.');
