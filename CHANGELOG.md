@@ -6003,9 +6003,17 @@ unchecking, email actions and generated top and bottom movement descriptions.
 These direct translations were completed with low confidence and welcome
 review by a Kirundi speaker. This left **98,635 genuinely untranslated values
 across 46 locale files**.
+The twenty-third 50-value Kirundi batch added generated rule descriptions for
+email, archive, labels, cards, members and checklists, comma-separated item
+syntax, swimlane creation, empty-field and checklist guidance, date-field
+updates and card links, authentication methods, custom product naming, HTML
+head tags, web manifests, assetlinks.json, layout and card counters. These
+direct translations were completed with low confidence and welcome review by
+a Kirundi speaker. This left **98,585 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
