@@ -3151,9 +3151,14 @@ lists, lost cards, archives, missing structures and file and avatar URLs, with
 confirmations, progress and individual repair steps. These direct translations
 were completed with low confidence and welcome review by a Māori speaker. This
 left **121,572 genuinely untranslated values across 57 locale files**.
+The forty-first 50-value Māori batch added remaining migration steps, board
+conversion, CPU and timing metrics, monitoring, filesystem and GridFS
+statistics and job-queue details. These direct translations were completed with
+low confidence and welcome review by a Māori speaker. This left **121,522
+genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
