@@ -6849,9 +6849,14 @@ recovery, filesystem and cloud storage settings, MongoDB-to-FerretDB migration
 instructions and Sandstorm migration status. These direct translations were
 completed with low confidence and welcome review by a Sindhi speaker. This left
 **91,434 genuinely untranslated values across 43 locale files**.
+The thirty-seventh 50-value Sindhi batch added Sandstorm cleanup, adaptive card
+loading, secure rich-text rendering, import and export controls, identity
+anonymization, activity and notification controls and backup scope. These direct
+translations were completed with low confidence and welcome review by a Sindhi
+speaker. This left **91,384 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at
-`sandstorm-storage-item` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `backup-schedule` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
