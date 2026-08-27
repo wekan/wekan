@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -261,3 +261,10 @@ assert.match(maithili['accounts-lockout-known-users'], /उपयोगकर्
 assert.match(maithili['accounts-lockout-period'], /सेकंड/);
 assert.equal(maithili['active-cron-jobs'], 'सक्रिय निर्धारित कार्य');
 assert.equal(maithili['board-operations'], 'बोर्ड कार्रवाई');
+assert.match(maithili['s3-force-path-style-description'],
+  /MinIO.*AWS.*S3/);
+assert.match(maithili['database-migration-description'],
+  /MongoDB.*FerretDB v1 \(SQLite\).*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*Snap.*snap set wekan database=ferretdb.*=mongodb/s);
+assert.deepEqual(tokens(maithili['database-migration-confirm']), ['__db__']);
+assert.match(maithili['sandstorm-migration-description'],
+  /WeKan.*Sandstorm grain.*MongoDB 3.*FerretDB v1 \(SQLite\).*files\/attachments.*files\/avatars/s);
