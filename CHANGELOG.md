@@ -1995,9 +1995,13 @@ The twenty-fifth 50-value Kurmanji Kurdish batch added multi-card windows, edito
 submission shortcuts, entity dialogs, notification states, rename and invite
 permissions, board-role status, weekdays, ownership and voting. This left
 **133,157 genuinely untranslated values across 62 locale files**.
+The twenty-sixth 50-value Kurmanji Kurdish batch added linked-list safeguards,
+tasks, domain-scoped shared templates, personal and due-card views, global search
+scopes and missing board, swimlane, list and label messages. This left **133,107
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

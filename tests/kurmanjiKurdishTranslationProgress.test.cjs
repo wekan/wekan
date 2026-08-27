@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -231,3 +231,11 @@ assert.equal(kurmanji['roles-status-role'], 'Rol');
 assert.equal(kurmanji.monday, 'Duşem');
 assert.equal(kurmanji.sunday, 'Yekşem');
 assert.equal(kurmanji.voting, 'Dengdan');
+assert.equal(kurmanji.task, 'Erk');
+assert.match(kurmanji['invalid-domain'], /example\.com.*@/);
+assert.match(kurmanji['shared-templates-info'], /Rêxistin.*Tîm.*e-nameyê/);
+assert.equal(kurmanji['myCardsViewChange-choice-table'], 'Tablo');
+assert.match(kurmanji['dueCardsViewChange-choice-all-description'], /\*Dawî\*/);
+assert.match(kurmanji['globalSearchViewChange-choice-all-description'],
+  /\*Kartên min\*/);
+assert.deepEqual(tokens(kurmanji['swimlane-title-not-found']), ['%s']);
