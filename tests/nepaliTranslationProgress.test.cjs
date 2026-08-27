@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1517);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -121,5 +121,10 @@ assert.match(nepali['trello-api-import'], /API/);
 assert.match(nepali['trello-api-token'], /API/);
 assert.match(nepali['invalid-year'], /2026/);
 assert.deepEqual(tokens(nepali['label-default']), ['%s']);
+assert.deepEqual(tokens(nepali['leave-board-pop']), ['__boardTitle__']);
+assert.match(nepali['listImportCardPopup-title'], /Trello/);
+assert.match(nepali['listImportCardsTsvPopup-title'], /Excel.*CSV\/TSV/);
+assert.equal(nepali['multi-selection'], 'बहु-चयन');
+assert.equal(nepali['no-archived-swimlanes'], 'अभिलेखमा स्विमलेन छैन।');
 
 console.log('Nepali translation progress checks passed.');
