@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -141,5 +141,10 @@ assert.deepEqual(tokens(marathi['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.match(marathi['sandstorm-remove-member-warning'], /Sandstorm/);
 assert.match(marathi['setWipLimitPopup-title'], /WIP/);
+assert.match(marathi['toggle-assignees'], /1-9/);
+assert.match(marathi['toggle-labels'], /1-9/);
+assert.match(marathi['custom-top-left-corner-logo-height'], /27/);
+assert.match(marathi['automatic-linked-url-schemes'], /URL/);
+assert.match(marathi['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 
 console.log('Marathi translation progress checks passed.');

@@ -3508,9 +3508,15 @@ Sandstorm access, unsaved-description rescue, search, WIP limits, keyboard
 shortcuts, sidebars, signup and default-board behavior. These direct translations
 were completed with low confidence and welcome review by a Marathi speaker. This
 left **118,488 genuinely untranslated values across 55 locale files**.
+The sixteenth 50-value Marathi batch added starring and tracking, spent/overtime
+hours, keyboard assignee and label slots, uploads, custom logo/help URLs and URL
+schemes, welcome/template boards and lists, archived-card warnings, watching and
+WIP-limit errors. These direct translations were completed with low confidence
+and welcome review by a Marathi speaker. This left **118,438 genuinely
+untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
