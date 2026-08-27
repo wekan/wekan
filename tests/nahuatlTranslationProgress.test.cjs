@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 317);
+assert.equal(Object.keys(remaining).length, 267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -283,5 +283,14 @@ assert.match(nahuatl['disable-all-import-description'],
   /WeKan JSON.*Trello.*CSV\/Excel.*Forgejo/);
 assert.match(nahuatl['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/);
+assert.match(nahuatl['backup-time'], /HH:MM/);
+assert.match(nahuatl['backup-day-of-month'], /1-28/);
+assert.match(nahuatl['gcs-permissions-note'],
+  /Google Cloud Console.*client_email.*Storage Object Admin/);
+assert.match(nahuatl['s3-endpoint-menu-path'],
+  /AWS.*S3.*Endpoint URL.*MinIO.*Cloudflare R2.*Backblaze B2/);
+assert.match(nahuatl['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
+assert.match(nahuatl['attachment-move-storage-azure'],
+  /Azure Blob Storage/);
 
 console.log('Nahuatl translation progress checks passed.');
