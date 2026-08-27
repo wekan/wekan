@@ -6829,9 +6829,13 @@ invitation messages, Node memory metrics, legal notices, checklist actions and
 attachment-storage moves. These direct translations were completed with low
 confidence and welcome review by a Sindhi speaker. This left **91,634 genuinely
 untranslated values across 43 locale files**.
+The thirty-third 50-value Sindhi batch added attachment and avatar storage
+migration, location repair, file counts and identifiers, MongoDB Compact
+guidance and storage metadata. These direct translations were completed with
+low confidence and welcome review by a Sindhi speaker. This left **91,584
+genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at
-`move-all-attachments-to-gridfs` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `board-status` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
