@@ -3267,9 +3267,15 @@ mail, authorization errors, webhook controls and runtime package, database,
 Node and Meteor labels. These direct translations were completed with low
 confidence and welcome review by a Malayalam speaker. This left **120,555
 genuinely untranslated values across 56 locale files**.
+The eighteenth 50-value Malayalam batch added database, FerretDB, reactivity,
+DDP, operating-system and time metrics, custom-field display, account changes,
+board visibility and organization/team tenancy controls. These direct
+translations were completed with low confidence and welcome review by a
+Malayalam speaker. This left **120,505 genuinely untranslated values across 56
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
