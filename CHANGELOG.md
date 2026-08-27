@@ -2067,15 +2067,18 @@ The forty-third 50-value Kurmanji Kurdish batch added OTP account access,
 repository management, API endpoints, login errors, problem reporting, card
 repair, CPU status and event metadata. This left **132,257 genuinely
 untranslated values across 62 locale files**.
+The forty-fourth and final 17-value Kurmanji Kurdish batch added IP event fields,
+filesystem integrity, scoped import and export controls and numeric search
+syntax. Kurmanji Kurdish is complete, leaving **132,240 genuinely untranslated
+values across 61 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list ku --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Cornish at `accept` with
+`node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic and Kashmiri
-are now complete.
+Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic, Kashmiri and
+Kurmanji Kurdish are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

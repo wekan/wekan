@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -396,3 +396,13 @@ assert.deepEqual(tokens(kurmanji['repair-broken-cards-done']),
 assert.deepEqual(tokens(kurmanji['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.equal(kurmanji['event-source'], 'Çavkanî');
+assert.equal(kurmanji['event-ip'], 'Navnîşana IP');
+assert.equal(kurmanji['event-ipv4'], 'Navnîşana IPv4');
+assert.equal(kurmanji['event-ipv6'], 'Navnîşana IPv6');
+assert.match(kurmanji['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(kurmanji['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(kurmanji['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
+assert.match(kurmanji['import-board-source'],
+  /Trello.*Jira.*WeKan.*CSV.*Excel/);
