@@ -6651,15 +6651,20 @@ account validation, problem and repair reporting, CPU load and operational event
 fields. These direct translations were completed with low confidence and welcome
 review by a Sakha speaker. This left **93,251 genuinely untranslated values
 across 44 locale files**.
+The final 17-value Sakha batch added event network addresses, filesystem
+integrity, scoped export choices, WeKan import validation and card-number search.
+These direct translations were completed with low confidence and welcome review
+by a Sakha speaker. This completed Sakha and left **93,234 genuinely untranslated
+values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `event-detail` with
-`node releases/translations/fill-translations.mjs --list sah --limit 50`;
+and exact tokens from `en.i18n.json`, starting Sindhi at `accept` with
+`node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
-Chichewa, Oromo, Pashto, Kirundi and Kinyarwanda are now complete.
+Chichewa, Oromo, Pashto, Kirundi, Kinyarwanda and Sakha are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
