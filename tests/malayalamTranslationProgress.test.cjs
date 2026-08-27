@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1567);
+assert.equal(Object.keys(remaining).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -133,3 +133,11 @@ assert.match(malayalam['import-board-instruction-trello'], /Trello/);
 assert.match(malayalam['import-board-instruction-csv'], /CSV.*TSV/);
 assert.equal(malayalam['import-trello-zip-progress'],
   '.zip-ൽ നിന്ന് ബോർഡുകൾ ഇറക്കുമതി ചെയ്യുന്നു, ദയവായി കാത്തിരിക്കുക…');
+assert.match(malayalam['trello-api-key'], /Trello API.*https:\/\/trello\.com\/app-key/);
+assert.equal(malayalam['trello-import-selected'],
+  'തിരഞ്ഞെടുത്ത ബോർഡുകൾ ഇറക്കുമതി ചെയ്യുക');
+assert.equal(malayalam['trello-cancel-delete'],
+  'റദ്ദാക്കി ഇറക്കുമതി ചെയ്തവ ഇല്ലാതാക്കുക');
+assert.equal(malayalam['import-map-members'], 'അംഗങ്ങളെ പൊരുത്തപ്പെടുത്തുക');
+assert.match(malayalam['invalid-year'], /2026/);
+assert.deepEqual(tokens(malayalam['label-default']), ['%s']);

@@ -3237,9 +3237,15 @@ Jira, Excel and WeKan. It also translated Trello JSON/ZIP validation, progress,
 timeout and failure messages. These direct translations were completed with low
 confidence and welcome review by a Malayalam speaker. This left **120,805
 genuinely untranslated values across 56 locale files**.
+The thirteenth 50-value Malayalam batch added Trello API credentials,
+workspace and multi-board selection, import progress, cancellation, recovery
+and error controls. It also added imported-member mapping, date/time validation,
+invitations, keyboard shortcuts and label management. These direct translations
+were completed with low confidence and welcome review by a Malayalam speaker.
+This left **120,755 genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
