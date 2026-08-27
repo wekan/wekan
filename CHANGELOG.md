@@ -3533,9 +3533,15 @@ subtask and card settings, minicard attachment/checklist display, parent-card
 paths and label activity. These direct translations were completed with low
 confidence and welcome review by a Marathi speaker. This left **118,288 genuinely
 untranslated values across 55 locale files**.
+The twentieth 50-value Marathi batch added label, attachment and custom-field
+activity, rule creation and workflow/list builders, card/label/member/checklist
+and attachment triggers, daily scheduling, received dates, JSON/CSV and Trello
+Butler rule transfer, workspaces and all-board scope. These direct translations
+were completed with low confidence and welcome review by a Marathi speaker. This
+left **118,238 genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
