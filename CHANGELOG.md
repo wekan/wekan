@@ -5790,9 +5790,15 @@ scheduled board archive, backup and cleanup operations. These direct
 translations were completed with low confidence and welcome review by a
 Pashto speaker. This left **100,152 genuinely untranslated values across 47
 locale files**.
+The thirty-sixth 50-value Pashto batch added scheduled-job lifecycle and
+migration errors, filesystem and S3 storage settings, Azure credentials, and
+MongoDB, FerretDB v1 and Sandstorm data-migration guidance and status. These
+direct translations were completed with low confidence and welcome review by
+a Pashto speaker. This left **100,102 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
