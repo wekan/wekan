@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -253,5 +253,11 @@ assert.match(nahuatl['move-all-attachments-of-board-to-s3'], /S3/);
 assert.match(nahuatl['mongodb-compact-description'], /MongoDB GridFS/);
 assert.match(nahuatl['mongodb-compact-warning'], /replica sets.*oplog.*Meteor/);
 assert.match(nahuatl['mongodb-compact-run'], /MongoDB Compact/);
+assert.deepEqual(tokens(nahuatl['drag-board-to-workspace']),
+  ['__workspaces__']);
+assert.match(nahuatl['preview-pdf-not-supported'], /PDF/);
+assert.match(nahuatl['show-week-of-year'], /ISO 8601/);
+assert.match(nahuatl['import-board-zip'], /.zip.*JSON/);
+assert.equal(nahuatl.support, 'Tlapalehuiliztli');
 
 console.log('Nahuatl translation progress checks passed.');

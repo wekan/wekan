@@ -4144,9 +4144,15 @@ storage, migration progress and file statistics and MongoDB Compact guidance
 and results. These direct translations were completed with low confidence and
 welcome review by a Nahuatl speaker. This left **113,254 genuinely untranslated
 values across 53 locale files**.
+The thirty-fourth 50-value Nahuatl batch added board status and time summaries,
+upload progress, password confirmation, Mongo sessions, file and avatar upload
+limits, PDF fallback, workspace dragging, custom translations, subtasks,
+checklist display, support and accessibility pages. These direct translations
+were completed with low confidence and welcome review by a Nahuatl speaker.
+This left **113,204 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
