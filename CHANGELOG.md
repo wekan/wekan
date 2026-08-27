@@ -5398,9 +5398,16 @@ buttons, list sorting, completion actions, bulk card movement, relative dates
 and rule time units. These direct translations were completed with low
 confidence and welcome review by an Oromo speaker. This left **103,019
 genuinely untranslated values across 48 locale files**.
+The twenty-second 50-value Oromo batch added rule phrases for board and list
+movement, archiving and restoration, label, member, attachment, checklist and
+checklist-item conditions, completion and checkbox states, moving cards within
+lists, removing members, setting colors, checklist actions and sending email.
+These direct translations were completed with low confidence and welcome
+review by an Oromo speaker. This left **102,969 genuinely untranslated values
+across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
