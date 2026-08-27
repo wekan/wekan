@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -198,3 +198,9 @@ assert.equal(malayalam['r-check-all'], 'എല്ലാം അടയാളപ്
 assert.equal(malayalam['r-d-move-to-top-gen'],
   'കാർഡ് അതിന്റെ പട്ടികയുടെ മുകളിലേക്ക് മാറ്റുക');
 assert.equal(malayalam['r-d-send-email'], 'ഇമെയിൽ അയയ്ക്കുക');
+assert.equal(malayalam['r-items-list'], 'ഇനം1,ഇനം2,ഇനം3');
+assert.match(malayalam['r-checklist-note'], /കോമ/);
+assert.equal(malayalam['authentication-method'], 'പ്രാമാണീകരണ രീതി');
+assert.match(malayalam['custom-head-meta-tags'], /HTML/);
+assert.match(malayalam['custom-head-manifest-content'], /JSON/);
+assert.match(malayalam['custom-assetlinks-content'], /assetlinks\.json.*JSON/);

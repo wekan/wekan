@@ -3296,9 +3296,15 @@ movement and archives, labels, members, attachments, checklists and items,
 colors, list positions and email actions. These direct translations were
 completed with low confidence and welcome review by a Malayalam speaker. This
 left **120,305 genuinely untranslated values across 56 locale files**.
+The twenty-third 50-value Malayalam batch added concrete rule actions,
+checklist/swimlane creation, date-field updates and card links, authentication
+labels, custom product/head/manifest/assetlinks settings, layout and card
+counters. These direct translations were completed with low confidence and
+welcome review by a Malayalam speaker. This left **120,255 genuinely
+untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
