@@ -5559,8 +5559,14 @@ genuinely untranslated values across 48 locale files**. The fiftieth and final
 completing Oromo. These direct translations were completed with low confidence
 and welcome review by an Oromo speaker. This left **101,902 genuinely
 untranslated values across 47 locale files**.
+The first 50-value Pashto batch added title and description changes, board,
+list, swimlane and card deletion, member restrictions, due dates, comments,
+attachments, subtasks, labels, checklists, custom fields, archiving and
+imports. These direct translations were completed with low confidence and
+welcome review by a Pashto speaker. This left **101,852 genuinely untranslated
+values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Pashto at `accept` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
