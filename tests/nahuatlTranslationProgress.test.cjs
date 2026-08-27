@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -114,5 +114,16 @@ assert.match(nahuatl['export-card-pdf'], /PDF/);
 assert.match(nahuatl['export-card-excel'], /Excel/);
 assert.match(nahuatl['export-card-excel-no-disk-space'], /Excel.*disk/);
 assert.equal(nahuatl['filter-due-tomorrow'], 'Tlamiz moztla');
+for (const literal of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
+  assert.match(nahuatl['advanced-filter-description'],
+    new RegExp(literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+}
+assert.deepEqual(tokens(nahuatl['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(nahuatl['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(nahuatl['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search/);
+assert.match(nahuatl['import-trello-json-file-hint'], /API key.*token/);
 
 console.log('Nahuatl translation progress checks passed.');

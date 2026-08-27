@@ -4008,9 +4008,16 @@ list sorting and card and list filters for dates, labels and members. These
 direct translations were completed with low confidence and welcome review by a
 Nahuatl speaker. This left **114,354 genuinely untranslated values across 53
 locale files**.
+The twelfth 50-value Nahuatl batch added assignee and custom-field filters,
+advanced expression filtering, activity visibility, imported-member states and
+board import guidance for Kanboard, Deck, OpenProject, issues, Asana, ZenKit,
+Trello, CSV, Jira, Excel and WeKan, including Trello ZIP validation. These
+direct translations were completed with low confidence and welcome review by a
+Nahuatl speaker. This left **114,304 genuinely untranslated values across 53
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
