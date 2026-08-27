@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -52,3 +52,10 @@ assert.deepEqual(tokens(malagasy['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(malagasy['allboards.workspaces'], 'Toeram-piasana');
 assert.match(malagasy['allboards.edit-workspace-icon'], /markdown/);
+assert.equal(malagasy['workspaceActionsPopup-title'],
+  'Fikirana toeram-piasana');
+assert.deepEqual(tokens(malagasy['activity-dueDate']), ['%s', '%s']);
+assert.match(malagasy['list-width-error-message'], /270/);
+assert.match(malagasy['set-list-width-value'], /piksel/);
+assert.match(malagasy['set-swimlane-height-value'], /piksel/);
+assert.equal(malagasy['add-checklist'], 'Ampio lisitra fanamarinana');

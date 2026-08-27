@@ -2671,9 +2671,15 @@ parameterized activity messages, checklist events, received and start dates and
 workspace navigation and settings. These direct translations were completed
 with low confidence and welcome review by a Malagasy speaker. This left
 **125,639 genuinely untranslated values across 58 locale files**.
+The third 50-value Malagasy batch added workspace deletion, multi-board
+selection and Home boards, due and end dates, templates, list widths, keyboard
+shortcuts, swimlane heights, subtasks, checklists, covers, labels and members.
+These direct translations were completed with low confidence and welcome review
+by a Malagasy speaker. This left **125,589 genuinely untranslated values across
+58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
