@@ -6238,9 +6238,16 @@ custom branding and help URLs, automatic URL schemes, welcome and template
 content and WIP-limit errors. These direct translations were completed with low
 confidence and welcome review by a Kinyarwanda speaker. This left **96,768
 genuinely untranslated values across 45 locale files**.
+The seventeenth 50-value Kinyarwanda batch added attachment and API transfer
+limits, avatar upload blocking, registration and invitations, SMTP settings
+and test and invitation emails, authorization feedback, outgoing and
+bidirectional webhooks and package, database, Node and Meteor versions. These
+direct translations were completed with low confidence and welcome review by
+a Kinyarwanda speaker. This left **96,718 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
