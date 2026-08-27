@@ -5356,9 +5356,16 @@ description recovery, search, WIP limits, keyboard shortcuts, sidebars, account
 creation and default-board controls. These direct translations were completed
 with low confidence and welcome review by an Oromo speaker. This left
 **103,319 genuinely untranslated values across 48 locale files**.
+The sixteenth 50-value Oromo batch added starred boards, subscriptions, spent
+and overtime tracking, assignee and label shortcuts, participation tracking,
+uploads, custom logo and help URLs, automatic URL schemes, imported usernames,
+archive warnings, watching, welcome-board content, template swimlanes and WIP
+limit errors. These direct translations were completed with low confidence and
+welcome review by an Oromo speaker. This left **103,269 genuinely untranslated
+values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
