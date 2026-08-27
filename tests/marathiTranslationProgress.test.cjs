@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -52,5 +52,11 @@ assert.deepEqual(tokens(marathi['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(marathi['allboards.workspaces'], 'कार्यस्थाने');
 assert.match(marathi['allboards.edit-workspace-icon'], /markdown/);
+assert.equal(marathi['workspaceActionsPopup-title'], 'कार्यस्थान सेटिंग्ज');
+assert.deepEqual(tokens(marathi['activity-dueDate']), ['%s', '%s']);
+assert.match(marathi['list-width-error-message'], /270/);
+assert.match(marathi['set-list-width-value'], /पिक्सेल/);
+assert.match(marathi['set-swimlane-height-value'], /पिक्सेल/);
+assert.equal(marathi['add-checklist'], 'तपासणीसूची जोडा');
 
 console.log('Marathi translation progress checks passed.');
