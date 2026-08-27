@@ -6179,9 +6179,15 @@ member mapping, themes, font previews and sizes, text colors and avatar,
 language and permission controls. These direct translations were completed
 with low confidence and welcome review by a Kinyarwanda speaker. This left
 **97,218 genuinely untranslated values across 45 locale files**.
+The eighth 50-value Kinyarwanda batch added settings, subtasks, page and board
+stars, automatic list width, clipboard and drag-and-drop, card aging tiers,
+keyboard movement, dialog accessibility and board closing plus the first 23
+color names. These direct translations were completed with low confidence and
+welcome review by a Kinyarwanda speaker. This left **97,168 genuinely
+untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
