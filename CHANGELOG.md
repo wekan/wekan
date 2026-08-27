@@ -6855,8 +6855,15 @@ anonymization, activity and notification controls and backup scope. These direct
 translations were completed with low confidence and welcome review by a Sindhi
 speaker. This left **91,384 genuinely untranslated values across 43 locale
 files**.
+The thirty-eighth 50-value Sindhi batch added backup scheduling and restoration,
+Google Cloud credentials and permissions, AWS S3, Azure and Google Cloud console
+paths and cloud connection status. External console labels remain exact. These
+direct translations were completed with low confidence and welcome review by a
+Sindhi speaker. This left **91,334 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `backup-schedule` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
