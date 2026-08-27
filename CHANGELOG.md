@@ -6342,9 +6342,15 @@ subtasks and attachment-storage movement for filesystem, GridFS and S3.
 These direct translations were completed with low confidence and welcome
 review by a Kinyarwanda speaker. This left **95,968 genuinely untranslated
 values across 45 locale files**.
+The thirty-third 50-value Kinyarwanda batch added bulk attachment movement,
+storage-location repair, avatars, default storage and progress statistics,
+file identifiers and MongoDB Compact maintenance guidance. These direct
+translations were completed with low confidence and welcome review by a
+Kinyarwanda speaker. This left **95,918 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
