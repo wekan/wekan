@@ -4207,8 +4207,14 @@ integrity, scoped export and import, numeric global search and supported board
 import sources. These direct translations were completed with low confidence
 and welcome review by a Nahuatl speaker. Nahuatl is now complete. This left
 **112,737 genuinely untranslated values across 52 locale files**.
+The first 50-value Northern Ndebele batch added activity messages for titles,
+descriptions, boards, swimlanes, lists, cards, members, labels, attachments,
+subtasks, checklists, custom fields, comments, archives and imports. These
+direct translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **112,687 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, beginning Northern Ndebele at `accept`
+and exact tokens from `en.i18n.json`, resuming Northern Ndebele at `act-moveCard`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
