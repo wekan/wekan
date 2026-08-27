@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -210,5 +210,13 @@ assert.deepEqual(tokens(ndebele['act-a-dueAt']),
 assert.deepEqual(tokens(ndebele['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.match(ndebele['submit-on-enter'], /Enter/);
+assert.match(ndebele['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter/);
+assert.equal(ndebele['show-on-card'], 'Bonisa ekhadini');
+assert.equal(ndebele.roles, 'Izindima');
+assert.match(ndebele['roles-info'], /Phaneli yomlawuli/);
+assert.equal(ndebele.monday, 'UMvulo');
+assert.equal(ndebele.sunday, 'ISonto');
+assert.equal(ndebele.owner, 'Umnikazi');
 
 console.log('Northern Ndebele translation progress checks passed.');

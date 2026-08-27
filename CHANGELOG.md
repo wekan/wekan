@@ -4357,9 +4357,15 @@ minicard labels, resize handles and Enter submission. These direct translations
 were completed with low confidence and welcome review by a Northern Ndebele
 speaker. This left **111,537 genuinely untranslated values across 52 locale
 files**.
+The twenty-fifth 50-value Northern Ndebele batch added multi-card windows,
+Enter editor behavior, organization, team and user dialogs, notification
+filters, rename controls, board-role permissions and status, weekdays, ownership
+and linked-card deletion guidance. These direct translations were completed
+with low confidence and welcome review by a Northern Ndebele speaker. This left
+**111,487 genuinely untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`open-many-cards-at-once`
+`delete-linked-cards-before-this-list`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
