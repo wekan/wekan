@@ -5238,9 +5238,16 @@ job intervals, export monitoring, filesystem and GridFS statistics, minicard
 list visibility and job queue details. These direct translations were completed
 with low confidence and welcome review by a Chichewa speaker. This left
 **104,186 genuinely untranslated values across 49 locale files**.
+The forty-second 50-value Chichewa batch added memory usage, bulk filesystem,
+GridFS and S3 migration, batch size, CPU and delay controls, migration logs,
+warnings and progress, monitoring refresh and export, schedules, minicard list
+and checklist display, system resources and attachment totals. These direct
+translations were completed with low confidence and welcome review by a
+Chichewa speaker. This left **104,136 genuinely untranslated values across 49
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
