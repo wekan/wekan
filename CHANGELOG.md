@@ -6787,8 +6787,14 @@ card-date activity and reminders, positioning and desktop interaction controls.
 These direct translations were completed with low confidence and welcome review
 by a Sindhi speaker. This left **92,034 genuinely untranslated values across 43
 locale files**.
+The twenty-fifth 50-value Sindhi batch added multi-card windows, editor keyboard
+behavior, organization, team and user dialogs, notification filters, board-role
+permissions and status, weekdays and linked-card deletion guidance. These direct
+translations were completed with low confidence and welcome review by a Sindhi
+speaker. This left **91,984 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `open-many-cards-at-once` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
