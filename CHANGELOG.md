@@ -2817,9 +2817,15 @@ views and sorting, global-search scope and board, swimlane, list and label looku
 errors. These direct translations were completed with low confidence and
 welcome review by a Malagasy speaker. This left **124,439 genuinely untranslated
 values across 58 locale files**.
+The twenty-seventh 50-value Malagasy batch added user, comment, organization and
+team lookup errors, card-search result counts and global-search operators and
+predicates for boards, swimlanes, lists, users, dates, content, status and time
+ranges. These direct translations were completed with low confidence and
+welcome review by a Malagasy speaker. This left **124,389 genuinely untranslated
+values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

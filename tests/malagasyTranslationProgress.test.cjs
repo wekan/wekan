@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -206,3 +206,9 @@ assert.match(malagasy['dueCardsViewChange-choice-all-description'],
   /\*Voatondro\*/);
 assert.deepEqual(tokens(malagasy['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(malagasy['label-color-not-found']), ['%s']);
+assert.deepEqual(tokens(malagasy['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(malagasy['operator-board'], 'solaitra');
+assert.equal(malagasy['operator-swimlane'], 'lalana');
+assert.equal(malagasy['operator-checklist-text'], 'lisitra-fanamarinana');
+assert.equal(malagasy['predicate-overdue'], 'tara');
