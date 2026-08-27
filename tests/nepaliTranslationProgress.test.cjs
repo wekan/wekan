@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 817);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -206,5 +206,17 @@ assert.deepEqual(tokens(nepali['n-n-of-n-cards-found']),
   ['__end__', '__start__', '__total__']);
 assert.equal(nepali['operator-customfield'], 'अनुकूल फिल्ड');
 assert.equal(nepali['predicate-overdue'], 'म्याद नाघेको');
+assert.deepEqual(tokens(nepali['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(nepali[
+  'globalSearch-instructions-operator-has']),
+['__operator_has__', '__predicate_assignee__', '__predicate_attachment__',
+  '__predicate_checklist__', '__predicate_description__', '__predicate_due__',
+  '__predicate_end__', '__predicate_member__', '__predicate_start__']);
+assert.deepEqual(tokens(nepali['globalSearch-instructions-notes-3-2']),
+  ['__predicate_month__', '__predicate_quarter__', '__predicate_week__',
+    '__predicate_year__']);
+assert.match(nepali['globalSearch-instructions-notes-2'], /OR/);
+assert.match(nepali['globalSearch-instructions-notes-3'], /AND/);
 
 console.log('Nepali translation progress checks passed.');

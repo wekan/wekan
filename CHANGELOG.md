@@ -4636,9 +4636,15 @@ search operators and predicates for board structure, people, status, dates,
 text, attachments and checklists. These direct translations were completed with
 low confidence and welcome review by a Nepali speaker. This left **109,220
 genuinely untranslated values across 51 locale files**.
+The twenty-eighth 50-value Nepali batch added the remaining search predicates,
+operator validation, pagination and detailed global-search instructions for
+board structure, users, organizations, teams, dates, status, field existence,
+sorting, result limits and AND and OR combinations. These direct translations
+were completed with low confidence and welcome review by a Nepali speaker. This
+left **109,170 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
