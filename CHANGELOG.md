@@ -3423,7 +3423,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** The **full release** now publishes AppImages automatically after
+**In short:** **Search pagination** now binds every stored query to its
+authenticated owner, closing cross-board card disclosure through reused session
+IDs. The **full release** now publishes AppImages automatically after
 its core bundles, while **32-bit AppImages** distinguish an unavailable runner
 from a broken package and keep i686 Node within its virtual-address-space limit.
 **Card details** regain their inner gutters, including on widened desktop panels.
@@ -3441,10 +3443,30 @@ from each build's provenance.tsv when this release is made.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bugs:
+This release fixes the following CRITICAL SECURITY ISSUE of
+[SessionBleed](https://wekan.fi/hall-of-fame/sessionbleed/):
 
-**AppImage packaging** - 32-bit images start safely and runner limitations are
-reported accurately.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18bcbdd0d">Search pagination sessions cannot be reused across users</a>. Thanks to crypto-nidh and xet7.</summary>
+
+The `nextPage` and `previousPage` DDP publications accepted a client-supplied
+global-search session ID, loaded its stored board selector without checking its
+owner, and could return private card titles, descriptions and custom-field
+values to a logged-out or different user. The session ID had to be obtained
+first, but neither publication enforced the authentication boundary.
+
+Both paths now refuse logged-out clients and perform one owner-scoped lookup
+using the authenticated user and session ID together. Missing or foreign
+sessions complete without publishing data. Attributable logged-out probes are
+folded into a bounded SessionBleed summary in Admin Panel &rarr; Problems; ordinary
+authenticated pagination is never logged. Positive decision tests, a negative
+whole-publication scan and a live Chromium DDP test cover the boundary.
+
+</details>
+
+and fixes the following bugs:
+
+**AppImage packaging** - 32-bit images start safely and report runner limits.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8b6003e7">The 32-bit AppImages pass the right startup checks</a>. Thanks to xet7.</summary>
@@ -3495,8 +3517,7 @@ called workflow exists and accepts every supplied input.
 
 </details>
 
-**Card details** - visible card content remains comfortably inset from the
-opened panel edges at both standard and customized widths.
+**Card details** - visible content stays inset at standard and custom widths.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b26c6d3c5">Opened cards apply their side gutters to the visible content</a>. Thanks to rmb82 and xet7.</summary>
