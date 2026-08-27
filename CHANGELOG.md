@@ -2377,9 +2377,13 @@ The thirty-third 50-value Kyrgyz batch added bulk attachment and avatar moves,
 storage repair and statistics, default storage, file IDs and MongoDB GridFS
 compaction guidance and status. This left **128,423 genuinely untranslated
 values across 60 locale files**.
+The thirty-fourth 50-value Kyrgyz batch added board and upload status, account
+and file limits, workspace dragging, custom translations, checklist display,
+support and accessibility. This left **128,373 genuinely untranslated values
+across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
