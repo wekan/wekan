@@ -5492,9 +5492,15 @@ bulk attachment movement among filesystem, GridFS and S3 storage. These direct
 translations were completed with low confidence and welcome review by an
 Oromo speaker. This left **102,457 genuinely untranslated values across 48
 locale files**.
+The thirty-ninth 50-value Oromo batch added attachment location repair,
+storage selection and progress, file identifiers, MongoDB GridFS compaction,
+board status and elapsed-time summaries, uploads and account prompts. These
+direct translations were completed with low confidence and welcome review by
+an Oromo speaker. This left **102,407 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`attachment-repair-locations-description` with
+`minicardDetailsActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
