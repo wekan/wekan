@@ -4612,9 +4612,15 @@ custom product names, HTML head metadata, web manifests, asset links and layout
 controls. These direct translations were completed with low confidence and
 welcome review by a Nepali speaker. This left **109,420 genuinely untranslated
 values across 51 locale files**.
+The twenty-fourth 50-value Nepali batch added custom body HTML, authentication
+errors and OIDC labels, board duplication and entity totals, swimlane deletion,
+card placement, due reminders and user mentions, account, team and organization
+deletion and desktop and menu resizing. These direct translations were
+completed with low confidence and welcome review by a Nepali speaker. This left
+**109,370 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

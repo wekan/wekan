@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1017);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -179,5 +179,12 @@ assert.match(nepali['custom-head-meta-tags'], /HTML/);
 assert.match(nepali['custom-head-link-tags'], /HTML/);
 assert.match(nepali['custom-head-manifest-content'], /JSON/);
 assert.match(nepali['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(nepali['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(nepali['add-custom-html-before-body-end']), ['</body>']);
+assert.match(nepali['oidc-button-text'], /OIDC/);
+assert.deepEqual(tokens(nepali['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(nepali['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 
 console.log('Nepali translation progress checks passed.');
