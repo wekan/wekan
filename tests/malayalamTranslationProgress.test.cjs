@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -54,3 +54,10 @@ assert.deepEqual(tokens(malayalam['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(malayalam['allboards.workspaces'], 'പ്രവർത്തനസ്ഥലങ്ങൾ');
 assert.match(malayalam['allboards.edit-workspace-icon'], /markdown/);
+assert.equal(malayalam['workspaceActionsPopup-title'],
+  'പ്രവർത്തനസ്ഥല ക്രമീകരണങ്ങൾ');
+assert.deepEqual(tokens(malayalam['activity-dueDate']), ['%s', '%s']);
+assert.match(malayalam['list-width-error-message'], /270/);
+assert.match(malayalam['set-list-width-value'], /പിക്സൽ/);
+assert.match(malayalam['set-swimlane-height-value'], /പിക്സൽ/);
+assert.equal(malayalam['add-checklist'], 'ചെക്ക്‌ലിസ്റ്റ് ചേർക്കുക');

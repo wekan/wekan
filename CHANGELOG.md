@@ -3177,9 +3177,15 @@ parameterized activity, checklist, comment, received-date and start-date events
 and workspace navigation and settings. These direct translations were completed
 with low confidence and welcome review by a Malayalam speaker. This left
 **121,305 genuinely untranslated values across 56 locale files**.
+The third 50-value Malayalam batch added workspace deletion, multi-board
+selection, Home-board controls, due and end dates, templates, list widths,
+keyboard shortcuts, swimlane height, subtasks, checklists, covers, labels and
+members. These direct translations were completed with low confidence and
+welcome review by a Malayalam speaker. This left **121,255 genuinely
+untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
