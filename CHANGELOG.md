@@ -6218,9 +6218,16 @@ invitations, shortcuts and label creation and deletion. These direct
 translations were completed with low confidence and welcome review by a
 Kinyarwanda speaker. This left **96,918 genuinely untranslated values across
 45 locale files**.
+The fourteenth 50-value Kinyarwanda batch added last-administrator protection,
+board departure, list archive and deletion, user, team and organization
+settings, swimlane and import dialogs, list links, multi-selection, muted and
+normal roles, archive emptiness and participation notifications. These direct
+translations were completed with low confidence and welcome review by a
+Kinyarwanda speaker. This left **96,868 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
