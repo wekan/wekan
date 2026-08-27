@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 17);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -316,5 +316,14 @@ assert.deepEqual(tokens(nepali['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.match(nepali['cpu-usage-current'], /CPU/);
 assert.equal(nepali['event-source'], 'स्रोत');
+assert.match(nepali['event-ip'], /IP/);
+assert.match(nepali['event-ipv4'], /IPv4/);
+assert.match(nepali['event-ipv6'], /IPv6/);
+assert.match(nepali['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(nepali[
+  'globalSearch-instructions-operator-number']), ['__operator_number__']);
+assert.deepEqual(tags(nepali[
+  'globalSearch-instructions-operator-number']), ['<number>', '<number>']);
+assert.match(nepali['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
 console.log('Nepali translation progress checks passed.');
