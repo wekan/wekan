@@ -4745,9 +4745,14 @@ detailed activity history, checklist actions and All Boards workspace names,
 menus and settings. These direct translations were completed with low
 confidence and welcome review by a Northern Sotho speaker. This left **108,303
 genuinely untranslated values across 50 locale files**.
+The third 50-value Northern Sotho batch added workspace deletion and board
+selection, Home-board controls, due and end dates, list-width preferences,
+keyboard shortcuts, swimlane heights, subtasks, checklists, covers, labels and
+members. These direct translations were completed with low confidence and
+welcome review by a Northern Sotho speaker. This left **108,253 genuinely
+untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`workspaceActionsPopup-title` with
+and exact tokens from `en.i18n.json`, resuming Northern Sotho at `added` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
