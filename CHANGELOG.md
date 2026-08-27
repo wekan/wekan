@@ -4099,9 +4099,15 @@ role capabilities, week-start days, status, ownership, activity and voting.
 These direct translations were completed with low confidence and welcome
 review by a Nahuatl speaker. This left **113,654 genuinely untranslated values
 across 53 locale files**.
+The twenty-sixth 50-value Nahuatl batch added linked-list deletion safety,
+checklist hiding, tasks, board domains, shared templates, domain-based users,
+My Cards and Due Cards views and sorting, permission-scoped global search and
+board, swimlane, list and label not-found errors. These direct translations
+were completed with low confidence and welcome review by a Nahuatl speaker.
+This left **113,604 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

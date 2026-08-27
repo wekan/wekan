@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -204,5 +204,11 @@ assert.equal(nahuatl['editOrgPopup-title'], 'Xicpatla nechicoliztli');
 assert.equal(nahuatl['editTeamPopup-title'], 'Xicpatla tlanechicolli');
 assert.equal(nahuatl.monday, 'Lunes');
 assert.equal(nahuatl.sunday, 'Domingo');
+assert.match(nahuatl['invalid-domain'], /example\.com.*@/);
+assert.equal(nahuatl.domain, 'Tlalnemachiyotl');
+assert.deepEqual(tokens(nahuatl['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(nahuatl['swimlane-title-not-found']), ['%s']);
+assert.deepEqual(tokens(nahuatl['list-title-not-found']), ['%s']);
+assert.deepEqual(tokens(nahuatl['label-not-found']), ['%s']);
 
 console.log('Nahuatl translation progress checks passed.');
