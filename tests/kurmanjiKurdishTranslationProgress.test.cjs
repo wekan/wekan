@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -309,3 +309,11 @@ assert.match(kurmanji['mongodb-compact-description'],
   /MongoDB GridFS.*Compact/);
 assert.match(kurmanji['mongodb-compact-warning'], /Compact.*oplog.*Meteor/);
 assert.equal(kurmanji['board-title'], 'Sernavê depoyê');
+assert.equal(kurmanji['board-status'], 'Rewşa depoyê');
+assert.match(kurmanji['Mongo_sessions_count'], /Mongo/);
+assert.match(kurmanji['preview-pdf-not-supported'], /PDF/);
+assert.deepEqual(tokens(kurmanji['drag-board-to-workspace']),
+  ['__workspaces__']);
+assert.match(kurmanji['show-week-of-year'], /ISO 8601/);
+assert.match(kurmanji['import-board-zip'], /\.zip.*JSON/);
+assert.equal(kurmanji.accessibility, 'Gihîştinbarî');
