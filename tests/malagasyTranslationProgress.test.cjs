@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -295,3 +295,9 @@ assert.match(malagasy['gcs-credentials-menu-path'],
   /Google Cloud Console.*IAM & Admin.*JSON/s);
 assert.equal(malagasy['attachment-move-storage-azure'],
   "Afindrao any amin'ny Azure Blob Storage ny rakitra miaraka");
+assert.equal(malagasy['attachment-move-storage-gcs'],
+  "Afindrao any amin'ny Google Cloud Storage ny rakitra miaraka");
+assert.match(malagasy['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(malagasy['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(malagasy['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(malagasy['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
