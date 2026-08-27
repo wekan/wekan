@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -307,3 +307,9 @@ assert.match(maithili['fix-all-file-urls-migration-description'], /URL/);
 assert.match(maithili['run-restore-lost-cards-migration-confirm'],
   /swimlaneId.*listId/);
 assert.match(maithili['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(maithili['step-fix-attachment-urls'], /URL/);
+assert.match(maithili['step-fix-missing-ids'], /ID/);
+assert.match(maithili['step-fix-file-urls'], /URL/);
+assert.match(maithili['cpu-cores'], /CPU/);
+assert.match(maithili['gridfs-attachments'], /GridFS/);
+assert.match(maithili['gridfs-size'], /GridFS/);
