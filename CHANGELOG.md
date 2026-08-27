@@ -5179,9 +5179,10 @@ browser build to verify).
 **In short:** **HostnameBleed**, found by GitHub CodeQL, makes tenant-hostname
 translation coverage compare example domains as exact text instead of permissive
 regular expressions. A repository-wide negative guard prevents the same test
-fault from returning. The table below is carried over from the release under
-this one, and is refilled from each build's provenance.tsv when this release is
-made.
+fault from returning. The **REST API** now confirms user deletion from the
+database result, reports missing users as 404 and publishes both response
+contracts. The table below is carried over from the release under this one, and
+is refilled from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -5216,6 +5217,29 @@ The test now uses exact `includes()` comparisons. Positive and negative cases
 prove literal dots are required, while a repository-wide source guard detects
 the reported loop-to-`RegExp` shape and confirms it exists nowhere else in
 tracked first-party JavaScript.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/891b95bf">Deleting a user confirms that one account was removed</a>. Thanks to AhmedLukman and xet7.</summary>
+
+`DELETE /api/users/:userId` returned the requested id even when no account
+matched it, because the route discarded the removal count and built its success
+response from the URL alone. Callers therefore could not distinguish a deletion
+from a no-op.
+
+The route now returns `200` with the id only when exactly one account was
+removed. A missing user returns `404` with `{"error":"User not found"}`. The
+route's source annotation declares both response bodies, and the generated
+OpenAPI document preserves that contract.
+
+Fast regression coverage executes the registered handler for success, missing,
+unexpected-count and unauthorized cases. The live REST test also creates a
+disposable user, deletes it with an administrator's Bearer token, verifies its
+absence directly in MongoDB and requires the repeated request to return the
+documented 404 response.
 
 </details>
 
