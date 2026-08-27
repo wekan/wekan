@@ -2329,9 +2329,13 @@ The twenty-first 50-value Kyrgyz batch added n8n and Node-RED workflow imports,
 schedule and due-date triggers, card and board buttons, list sorting, completion
 and movement actions, relative dates and rule units. This left **129,023
 genuinely untranslated values across 60 locale files**.
+The twenty-second 50-value Kyrgyz batch added rule phrases for board, list,
+card, label, member, attachment and checklist triggers and card movement,
+membership, color, checklist and email actions. This left **128,973 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
