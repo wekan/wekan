@@ -1893,15 +1893,18 @@ The forty-third 50-value Kashmiri batch added repository and account access,
 authentication errors, problem reporting, card repair, CPU status and event
 metadata. This left **134,424 genuinely untranslated values across 63 locale
 files**.
+The forty-fourth and final 17-value Kashmiri batch added IP event fields,
+filesystem integrity, scoped import and export controls and numeric search
+syntax. Kashmiri is complete, leaving **134,407 genuinely untranslated values
+across 62 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list ks --limit 50`;
+and exact tokens from `en.i18n.json`, beginning Kurmanji Kurdish at `accept` with
+`node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
 complete including the newly exposed warning-only values; Guarani, Manx, Hausa
-Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh and Greenlandic are now
-complete.
+Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic and Kashmiri
+are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

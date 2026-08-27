@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -242,3 +242,13 @@ assert.deepEqual(tokens(kashmiri['repair-broken-cards-done']), ['__fixed__']);
 assert.deepEqual(tokens(kashmiri['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.equal(kashmiri['event-datetime'], 'تٲریخ تہٕ وقت');
+assert.match(kashmiri['event-ipv4'], /IPv4/);
+assert.match(kashmiri['event-ipv6'], /IPv6/);
+assert.match(kashmiri.integrityReportTitle, /فایل سسٹم سالمیت/);
+assert.match(kashmiri['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.equal(kashmiri['operator-number'], 'نمبر');
+assert.deepEqual(tokens(kashmiri['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(kashmiri['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
+assert.match(kashmiri['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
