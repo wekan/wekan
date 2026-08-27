@@ -3282,12 +3282,17 @@ paths:
             200 response
     delete:
       operationId: delete_user
+      summary: Delete a user and confirm that one account was removed
+      description: |
+        Global administrators receive the deleted id; a missing id
+         returns HTTP 404 without reporting a deletion.
       tags:
         - Users
       parameters:
         - name: user
           in: path
-          description: the user value
+          description: |
+            the id of the user to delete
           type: string
           required: true
       produces:
@@ -3298,6 +3303,19 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+        '404':
+          description: |-
+            No user matched the requested id.
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
   # ───────────────────────────────────────────────────────────────────────────
   # Attachment / file API (server/routes/attachmentApi.js)
   #
