@@ -2742,9 +2742,16 @@ imports, list deletion, navigation, multi-selection, notification muting,
 archives and normal roles. These direct translations were completed with low
 confidence and welcome review by a Malagasy speaker. This left **125,039
 genuinely untranslated values across 58 locale files**.
+The fifteenth 50-value Malagasy batch added watched updates, private-page login,
+image previews, board visibility, quick access, member removal and Sandstorm
+guidance, unsaved-description rescue, search, WIP limits, keyboard shortcuts,
+sidebars, signup and starred and default-board controls. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **124,989 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

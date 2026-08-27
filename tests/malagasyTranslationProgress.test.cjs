@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -134,3 +134,11 @@ assert.match(malagasy['listImportCardPopup-title'], /Trello/);
 assert.match(malagasy['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(malagasy.normal, 'Mahazatra');
 assert.equal(malagasy['multi-selection'], 'Safidy maro');
+assert.deepEqual(tokens(malagasy['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(malagasy['page-maybe-private']),
+  ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(malagasy['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(malagasy['sandstorm-remove-member-warning'],
+  /WeKan.*Sandstorm.*Sandstorm/);
+assert.match(malagasy['setWipLimitPopup-title'], /WIP/);
