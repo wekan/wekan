@@ -6705,8 +6705,13 @@ subtask safeguards, clipboard links, bulk-card JSON examples, labels and custom
 field types and dropdown options. These direct translations were completed with
 low confidence and welcome review by a Sindhi speaker. This left **92,784
 genuinely untranslated values across 43 locale files**.
+The tenth 50-value Sindhi batch added permanent deletion, WIP limits, profile and
+date dialogs, localized account emails and validation for permissions, JSON,
+CSV/TSV imports, empty boards and linked cards. These direct translations were
+completed with low confidence and welcome review by a Sindhi speaker. This left
+**92,734 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `custom-field-text` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
