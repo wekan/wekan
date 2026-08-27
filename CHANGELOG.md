@@ -2137,9 +2137,13 @@ The seventeenth 50-value Cornish batch added attachment and API limits,
 avatar-upload blocking, registration and invitations, SMTP and TLS setup, test
 mail, webhooks and runtime version labels. This left **131,390 genuinely
 untranslated values across 61 locale files**.
+The eighteenth 50-value Cornish batch added database and FerretDB diagnostics,
+reactivity, DDP and OS metrics, custom-field display, account changes,
+visibility and organization and team multitenancy administration. This left
+**131,340 genuinely untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
