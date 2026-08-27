@@ -6984,9 +6984,15 @@ limits, avatar blocking, registration and SMTP invitations, webhook controls and
 runtime package and version labels. These direct translations were completed
 with low confidence and welcome review by a Northern Sami speaker. This left
 **90,217 genuinely untranslated values across 42 locale files**.
+The eighteenth 50-value Northern Sami batch added database, FerretDB, reactivity,
+DDP and operating-system diagnostics, custom-field display, account visibility,
+organization tenancy, domains, administrators and membership synchronization.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sami speaker. This left **90,167 genuinely untranslated values
+across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
