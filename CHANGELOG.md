@@ -3602,9 +3602,15 @@ templates, file/security/speed/test/database reports, problem acknowledgement,
 impersonation/recovery and office-login summaries. These direct translations were
 completed with low confidence and welcome review by a Marathi speaker. This left
 **117,738 genuinely untranslated values across 55 locale files**.
+The thirty-first 50-value Marathi batch added office and REST API reports,
+recovery status and maintenance, swimlane copying, wait spinners, card window
+size, organization/team deletion safeguards, tickets, requests and status
+labels. These direct translations were completed with low confidence and welcome
+review by a Marathi speaker. This left **117,688 genuinely untranslated values
+across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
