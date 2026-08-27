@@ -3437,9 +3437,15 @@ keyboard shortcuts, swimlane height, subtasks, checklists, covers, labels and
 members. These direct translations were completed with low confidence and
 welcome review by a Marathi speaker. This left **119,088 genuinely untranslated
 values across 55 locale files**.
+The fourth 50-value Marathi batch added administration and announcements,
+archives, templates, attachment deletion, automatic watching, board backgrounds,
+All Boards display, member and assignee summaries, star counts and private-board
+visibility. These direct translations were completed with low confidence and
+welcome review by a Marathi speaker. This left **119,038 genuinely untranslated
+values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

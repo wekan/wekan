@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -58,5 +58,12 @@ assert.match(marathi['list-width-error-message'], /270/);
 assert.match(marathi['set-list-width-value'], /पिक्सेल/);
 assert.match(marathi['set-swimlane-height-value'], /पिक्सेल/);
 assert.equal(marathi['add-checklist'], 'तपासणीसूची जोडा');
+assert.deepEqual(tokens(marathi['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(marathi['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(marathi['avatar-too-big']), ['__size__']);
+assert.match(marathi['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(marathi['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(marathi['board-private-info']),
+  ['</strong>', '<strong>']);
 
 console.log('Marathi translation progress checks passed.');
