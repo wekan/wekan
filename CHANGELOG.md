@@ -5802,9 +5802,15 @@ avatar, activity, notification and watch controls, imported and exported user
 anonymization, and instance or organization backups. These direct translations
 were completed with low confidence and welcome review by a Pashto speaker.
 This left **100,052 genuinely untranslated values across 47 locale files**.
+The thirty-eighth 50-value Pashto batch added scheduled backup frequency and
+restore modes, Google Cloud service-account credentials and permissions,
+Azure, AWS S3 and compatible-provider configuration paths, cloud connection
+tests, and Azure Blob Storage attachment moves. These direct translations were
+completed with low confidence and welcome review by a Pashto speaker. This
+left **100,002 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
