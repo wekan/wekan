@@ -3054,9 +3054,16 @@ authentication, product naming, custom head HTML, web manifests,
 `assetlinks.json`, layout and card counters. These direct translations were
 completed with low confidence and welcome review by a Māori speaker. This left
 **122,422 genuinely untranslated values across 57 locale files**.
+The twenty-fourth 50-value Māori batch added custom body HTML, authentication
+and OIDC controls, board duplication, organization, team and person counts,
+swimlane deletion, card placement, due-date activity and reminders, account,
+team and organization deletion and editor and layout controls. These direct
+translations were completed with low confidence and welcome review by a Māori
+speaker. This left **122,372 genuinely untranslated values across 57 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
