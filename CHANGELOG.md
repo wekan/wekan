@@ -2834,9 +2834,15 @@ completion, stickers, dependency relationships and JSON and SVG imports, board
 backgrounds, upload limits and card locations. These direct translations were
 completed with low confidence and welcome review by a Malagasy speaker. This
 left **124,289 genuinely untranslated values across 58 locale files**.
+The thirtieth 50-value Malagasy batch added map detection, server
+troubleshooting, sorting, board activity, string templates, file diagnostics,
+security, speed, test, CPU, database, rule, board, card, impersonation, recovery
+and office reports. These direct translations were completed with low confidence
+and welcome review by a Malagasy speaker. This left **124,239 genuinely
+untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
