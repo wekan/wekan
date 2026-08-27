@@ -2,7 +2,7 @@
 
 // DELETE /api/users/:userId used to discard removeAsync's result and echo the
 // requested id even when no user matched. Execute the actual registered route
-// with controlled collaborators to pin both responses and the authorization
+// with controlled collaborators to pin its deletion outcomes and authorization
 // boundary without requiring a running Meteor server.
 //
 // Run: node tests/restUserDelete.test.cjs
@@ -52,7 +52,13 @@ const context = {
     },
   },
   publicErrorData(error) {
-    return { code: error.statusCode || 500, data: error };
+    const status = error.statusCode || 500;
+    return {
+      code: status,
+      data: {
+        error: status >= 500 ? 'Internal server error' : error.message,
+      },
+    };
   },
   sendJsonResult(_res, response) {
     responses.push(response);
@@ -114,7 +120,7 @@ function jsonValue(value) {
     ]);
   });
 
-  await test('an unexpected removal count is not reported as success', async () => {
+  await test('an unexpected removal count returns an internal error', async () => {
     reset();
     checkUserId = async () => {};
     removeAsync = async () => 2;
@@ -125,7 +131,24 @@ function jsonValue(value) {
     );
 
     assert.deepStrictEqual(jsonValue(responses), [
-      { code: 404, data: { error: 'User not found' } },
+      { code: 500, data: { error: 'Internal server error' } },
+    ]);
+  });
+
+  await test('a database failure returns an internal error', async () => {
+    reset();
+    checkUserId = async () => {};
+    removeAsync = async () => {
+      throw new Error('database unavailable');
+    };
+
+    await handler(
+      { userId: 'admin-id', params: { userId: 'existing-user' } },
+      {},
+    );
+
+    assert.deepStrictEqual(jsonValue(responses), [
+      { code: 500, data: { error: 'Internal server error' } },
     ]);
   });
 
@@ -145,7 +168,9 @@ function jsonValue(value) {
       {},
     );
 
-    assert.deepStrictEqual(responses, [{ code: 403, data: denied }]);
+    assert.deepStrictEqual(jsonValue(responses), [
+      { code: 403, data: { error: 'Forbidden' } },
+    ]);
   });
 
   console.log(`\n${passed} tests passed`);

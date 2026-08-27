@@ -2309,9 +2309,12 @@ WebApp.handlers.delete('/api/users/:userId', async function(req, res) {
     await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
     const removed = await Meteor.users.removeAsync({ _id: id });
-    if (removed !== 1) {
+    if (removed === 0) {
       sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
       return;
+    }
+    if (removed !== 1) {
+      throw new Error(`Unexpected user deletion count: ${removed}`);
     }
     sendJsonResult(res, { code: 200, data: { _id: id } });
   } catch (error) {
