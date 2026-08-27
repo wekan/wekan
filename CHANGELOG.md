@@ -3670,9 +3670,14 @@ navigation, scheduled operations, minicard display, storage distribution and
 system-resource totals. These direct translations were completed with low
 confidence and welcome review by a Marathi speaker. This left **117,138 genuinely
 untranslated values across 55 locale files**.
+The forty-third 50-value Marathi batch added account and OTP flows, repositories
+and API endpoints, login failure handling, problem acknowledgement, broken-card
+repair, CPU load and event-log fields. These direct translations were completed
+with low confidence and welcome review by a Marathi speaker. This left **117,088
+genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
