@@ -6155,9 +6155,15 @@ personal list widths, keyboard shortcuts, swimlane height and checklist,
 cover, label and member controls. These direct translations were completed
 with low confidence and welcome review by a Kinyarwanda speaker. This left
 **97,418 genuinely untranslated values across 45 locale files**.
+The fourth 50-value Kinyarwanda batch added administrator announcements,
+offline recovery, archive and template controls, attachment deletion, board
+backgrounds, All Boards display, member and assignee summaries and private
+board visibility. These direct translations were completed with low confidence
+and welcome review by a Kinyarwanda speaker. This left **97,368 genuinely
+untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
