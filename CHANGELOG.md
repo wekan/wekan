@@ -5412,9 +5412,17 @@ head and link tags, JSON web manifests and asset links, layout, logo visibility
 and card counters. These direct translations were completed with low
 confidence and welcome review by an Oromo speaker. This left **102,919
 genuinely untranslated values across 48 locale files**.
+The twenty-fourth 50-value Oromo batch added board member lists, custom HTML
+body insertion, LDAP and OIDC authentication settings, board duplication,
+organization, team and people counts, swimlane deletion and restoration,
+multiline card-date activity and reminders, relative insertion positions,
+account, team and organization deletion, resizing and Enter submission. These
+direct translations were completed with low confidence and welcome review by
+an Oromo speaker. This left **102,869 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
