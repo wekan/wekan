@@ -4847,9 +4847,15 @@ display, account changes, board visibility and organization and team tenancy.
 These direct translations were completed with low confidence and welcome review
 by a Northern Sotho speaker. This left **107,503 genuinely untranslated values
 across 50 locale files**.
+The nineteenth 50-value Northern Sotho batch added card receipt and end dates,
+colors, requester and assigner labels, board and notification deletion
+safeguards, subtask and card settings, minicard display and parent-card paths.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sotho speaker. This left **107,453 genuinely untranslated values
+across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
