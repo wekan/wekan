@@ -5028,12 +5028,12 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **HostnameBleed**, found by GitHub CodeQL, makes tenant-hostname
+translation coverage compare example domains as exact text instead of permissive
+regular expressions. A repository-wide negative guard prevents the same test
+fault from returning. The table below is carried over from the release under
+this one, and is refilled from each build's provenance.tsv when this release is
+made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -5045,6 +5045,34 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
+scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5a36bd3a">HostnameBleed: tenant hostname examples are compared as exact text</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+
+[HostnameBleed](https://wekan.fi/hall-of-fame/hostnamebleed/) covers code
+scanning alerts \#435 and \#436, rule `js/incomplete-hostname-regexp` (CWE-20),
+in `tests/marathiTranslationProgress.test.cjs`. The test passed
+`a.example.com` and `kanban.example.org` directly to `RegExp`, so each dot acted
+as a wildcard. A wrong hostname such as `aXexampleXcom` could therefore satisfy
+coverage that was meant to require the exact documentation example.
+
+The affected code runs only in a translation regression test over hardcoded
+strings. It is not shipped in the server or browser bundle, accepts no request
+or user input and denies no operation, so there is no attributable runtime
+attempt to record in Admin Panel &rarr; Problems.
+
+The test now uses exact `includes()` comparisons. Positive and negative cases
+prove literal dots are required, while a repository-wide source guard detects
+the reported loop-to-`RegExp` shape and confirms it exists nowhere else in
+tracked first-party JavaScript.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.16 2026-08-27 WeKan ® release
 
