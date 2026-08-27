@@ -7130,8 +7130,13 @@ integrity, scoped import and export, and the number search operator. These direc
 translations were completed with low confidence and welcome review by a
 Northern Sami speaker. Northern Sami is now complete, leaving **88,900 genuinely
 untranslated values across 41 locale files**.
+The first 50-value Sinhala batch added board activity messages for cards,
+attachments, subtasks, labels, checklists, comments, members and archive and
+import operations. These direct translations were completed with low confidence
+and welcome review by a Sinhala speaker. This left **88,850 genuinely
+untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Sinhala at `accept` with
+and exact tokens from `en.i18n.json`, resuming Sinhala at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
