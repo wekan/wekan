@@ -5855,9 +5855,16 @@ boards, and workspace creation, naming, icons, menus and settings. These direct
 translations were completed with low confidence and welcome review by a
 Kirundi speaker. This left **99,635 genuinely untranslated values across 46
 locale files**.
+The third 50-value Kirundi batch added workspace deletion, multi-board
+selection, permanent-delete guidance, starred and Home-board controls, due and
+end dates, templates, card insertion, shared, personal and fixed list widths,
+keyboard shortcuts, swimlane height, subtasks, checklists, covers, labels and
+members. These direct translations were completed with low confidence and
+welcome review by a Kirundi speaker. This left **99,585 genuinely untranslated
+values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
