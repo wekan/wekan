@@ -4079,9 +4079,15 @@ actions for movement, archives, members, colors, checklist state and email.
 These direct translations were completed with low confidence and welcome
 review by a Nahuatl speaker. This left **113,804 genuinely untranslated values
 across 53 locale files**.
+The twenty-third 50-value Nahuatl batch added rule actions for email, archives,
+labels, cards, members, checklists, swimlanes, date fields and linked cards,
+authentication labels, custom product names, HTML head tags, web manifests,
+assetlinks, layout, logos and card counters. These direct translations were
+completed with low confidence and welcome review by a Nahuatl speaker. This
+left **113,754 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
