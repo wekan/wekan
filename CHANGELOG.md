@@ -6533,8 +6533,13 @@ and button triggers, due-date and list-duration conditions, sorting, completion
 and relative-date actions and time units. These direct translations were
 completed with low confidence and welcome review by a Sakha speaker. This left
 **94,351 genuinely untranslated values across 44 locale files**.
+The twenty-second 50-value Sakha batch added rule filters for board, list,
+labels, members, attachments and checklists plus archive, movement, color,
+checklist and email actions. These direct translations were completed with low
+confidence and welcome review by a Sakha speaker. This left **94,301 genuinely
+untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `r-the-board` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
