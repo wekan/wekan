@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1667);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -100,5 +100,10 @@ assert.deepEqual(tokens(nepali['email-verifyEmail-text']),
 assert.match(nepali['error-json-malformed'], /JSON/);
 assert.match(nepali['error-csv-schema'], /CSV.*TSV/);
 assert.match(nepali['error-import-empty-board'], /WeKan/);
+assert.match(nepali['export-card-pdf'], /PDF/);
+assert.match(nepali['export-card-excel'], /Excel/);
+assert.match(nepali['export-card-excel-no-disk-space'], /Excel/);
+assert.equal(nepali['filter-overdue'], 'म्याद नाघेको');
+assert.equal(nepali['filter-no-member'], 'सदस्य छैन');
 
 console.log('Nepali translation progress checks passed.');

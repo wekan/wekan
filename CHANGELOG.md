@@ -4532,9 +4532,14 @@ verification emails, board authorization errors and JSON, CSV, TSV and import
 validation. These direct translations were completed with low confidence and
 welcome review by a Nepali speaker. This left **110,070 genuinely untranslated
 values across 51 locale files**.
+The eleventh 50-value Nepali batch added account and naming errors, card exports
+to PDF and Excel with attachment and disk-space details, list sorting and card
+and list filters for dates, labels and members. These direct translations were
+completed with low confidence and welcome review by a Nepali speaker. This left
+**110,020 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
