@@ -4905,9 +4905,14 @@ completion, stickers, card dependencies and their imports, board backgrounds
 and card locations. These direct translations were completed with low
 confidence and welcome review by a Northern Sotho speaker. This left **106,953
 genuinely untranslated values across 50 locale files**.
+The thirtieth 50-value Northern Sotho batch added map detection, server
+troubleshooting, board activity, custom-field string templates, administration
+reports and office-login summaries. These direct translations were completed
+with low confidence and welcome review by a Northern Sotho speaker. This left
+**106,903 genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
