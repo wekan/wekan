@@ -3874,9 +3874,14 @@ checklist operations and attachment storage migration. These direct
 translations were completed with low confidence and welcome review by a Burmese
 speaker. This left **115,471 genuinely untranslated values across 54 locale
 files**.
+The thirty-third 50-value Burmese batch added bulk attachment and avatar
+storage migration, location repair, storage statistics, file identifiers and
+MongoDB compaction guidance and status. These direct translations were
+completed with low confidence and welcome review by a Burmese speaker. This
+left **115,421 genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

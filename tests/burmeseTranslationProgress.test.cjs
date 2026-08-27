@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -110,6 +110,11 @@ assert.match(burmese.Node_heap_total_heap_size, /Node heap/);
 assert.match(burmese['custom-legal-notice-link-url'], /URL/);
 assert.match(burmese['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(burmese['attachment-move-storage-s3'], /S3/);
+assert.match(burmese['attachment-repair-locations-description'],
+  /GridFS.*cloud/);
+assert.match(burmese['mongodb-compact-description'], /MongoDB GridFS/);
+assert.match(burmese['mongodb-compact-warning'], /Meteor/);
+assert.equal(burmese['gridfs-file-id'], 'GridFS ဖိုင် ID');
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
