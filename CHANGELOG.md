@@ -5762,8 +5762,16 @@ and ticket, request, history, sorting and card-detail controls. These direct
 translations were completed with low confidence and welcome review by a
 Pashto speaker. This left **100,352 genuinely untranslated values across 47
 locale files**.
+The thirty-second 50-value Pashto batch added team and organization membership,
+invitations, card-title filtering, Node heap and memory diagnostics, custom
+legal notices, checklist movement and copying, card-list display, subtask and
+attachment actions, and filesystem, GridFS and S3 attachment moves. These
+direct translations were completed with low confidence and welcome review by
+a Pashto speaker. This left **100,302 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `add-teams` with
+and exact tokens from `en.i18n.json`, resuming Pashto at
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
