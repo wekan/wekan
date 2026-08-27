@@ -4802,9 +4802,16 @@ attachment metadata and disk-space errors, list sorting and date, label and
 member filters. These direct translations were completed with low confidence
 and welcome review by a Northern Sotho speaker. This left **107,853 genuinely
 untranslated values across 50 locale files**.
+The twelfth 50-value Northern Sotho batch added assignee and advanced filters,
+activity and imported-member states and board-import guidance for Kanboard,
+NextCloud Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, CSV, Jira,
+Excel and WeKan, including Trello JSON, ZIP, timeout, size and file-count errors.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sotho speaker. This left **107,803 genuinely untranslated values
+across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
