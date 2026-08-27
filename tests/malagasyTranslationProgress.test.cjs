@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -310,3 +310,8 @@ assert.match(malagasy['run-restore-lost-cards-migration-confirm'],
   /Karatra very.*swimlaneId.*listId/s);
 assert.equal(malagasy['step-fix-orphaned-cards'],
   'Amboary ny karatra kamboty');
+assert.match(malagasy['step-fix-attachment-urls'], /URL/);
+assert.match(malagasy['step-fix-missing-ids'], /ID/);
+assert.match(malagasy['cpu-cores'], /CPU/);
+assert.equal(malagasy['every-30-minutes'], 'Isaky ny 30 minitra');
+assert.match(malagasy['gridfs-attachments'], /GridFS/);
