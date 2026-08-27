@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -291,3 +291,10 @@ assert.match(maithili['gcs-credentials-menu-path'],
   /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*JSON/s);
 assert.match(maithili['attachment-move-storage-azure'],
   /Azure Blob Storage/);
+assert.match(maithili['attachment-move-storage-gcs'],
+  /Google Cloud Storage/);
+assert.match(maithili['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(maithili['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(maithili['s3-enabled-description'], /AWS S3.*MinIO/);
+assert.match(maithili['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(maithili['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
