@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -184,3 +184,11 @@ assert.match(kurmanji['checklist-count-on-minicard'], /0\/0/);
 assert.equal(kurmanji['parent-card'], 'Karta dêûbav');
 assert.equal(kurmanji['source-board'], 'Depoya çavkanî');
 assert.deepEqual(tokens(kurmanji['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(kurmanji['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.equal(kurmanji['r-board-rules'], 'Rêbazên depoyê');
+assert.match(kurmanji['r-workflow-view'], /herikîna karê/);
+assert.deepEqual(tokens(kurmanji['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(kurmanji['r-import-done']), ['__count__']);
+assert.match(kurmanji['r-import-paste'], /JSON.*CSV.*Trello Butler/);
+assert.equal(kurmanji['r-all-boards'], 'Hemû depo');
