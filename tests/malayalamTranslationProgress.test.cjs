@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -260,3 +260,8 @@ assert.match(malayalam['recovery-report-desc'], /MongoDB/);
 assert.equal(malayalam['copy-swimlane'], 'സ്വിംലെയിൻ പകർത്തുക');
 assert.match(malayalam['carbon-copy'], /Cc:/);
 assert.equal(malayalam['cardDetailsPopup-title'], 'കാർഡ് വിശദാംശങ്ങൾ');
+assert.match(malayalam.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(malayalam['custom-legal-notice-link-url'], /URL/);
+assert.equal(malayalam.copyChecklist, 'ചെക്ക്‌ലിസ്റ്റ് പകർത്തുക');
+assert.match(malayalam['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(malayalam['attachment-move-storage-s3'], /S3/);
