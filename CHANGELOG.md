@@ -4092,9 +4092,16 @@ mentions, account, team and organization deletion, minicard labels, drag
 handles and Enter submission. These direct translations were completed with
 low confidence and welcome review by a Nahuatl speaker. This left **113,704
 genuinely untranslated values across 53 locale files**.
+The twenty-fifth 50-value Nahuatl batch added multi-card windows, Enter-based
+editor behavior, card and minicard detail display, organization, team and user
+editing, notification read state, rename and invitation permissions, live board
+role capabilities, week-start days, status, ownership, activity and voting.
+These direct translations were completed with low confidence and welcome
+review by a Nahuatl speaker. This left **113,654 genuinely untranslated values
+across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

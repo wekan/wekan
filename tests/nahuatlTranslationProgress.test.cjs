@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -198,5 +198,11 @@ assert.deepEqual(tokens(nahuatl['act-newDue']),
 assert.deepEqual(tokens(nahuatl['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.match(nahuatl['submit-on-enter'], /Enter/);
+assert.match(nahuatl['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter/);
+assert.equal(nahuatl['editOrgPopup-title'], 'Xicpatla nechicoliztli');
+assert.equal(nahuatl['editTeamPopup-title'], 'Xicpatla tlanechicolli');
+assert.equal(nahuatl.monday, 'Lunes');
+assert.equal(nahuatl.sunday, 'Domingo');
 
 console.log('Nahuatl translation progress checks passed.');
