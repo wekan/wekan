@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -385,3 +385,9 @@ assert.match(cornish['migration-cpu-threshold-description'],
 assert.match(cornish['migration-delay-ms-description'], /100-10000/);
 assert.equal(cornish['showChecklistAtMinicard'],
   'Diskwedhes rol checkya war garten vyghan');
+assert.match(cornish.otp, /OTP/);
+assert.match(cornish['api-endpoints'], /API/);
+assert.match(cornish['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(cornish['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(cornish['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
