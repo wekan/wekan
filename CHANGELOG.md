@@ -3201,9 +3201,15 @@ backgrounds, accounts, imported-member mapping and checklist, swimlane, list,
 card and board imports. These direct translations were completed with low
 confidence and welcome review by a Malayalam speaker. This left **121,105
 genuinely untranslated values across 56 locale files**.
+The seventh 50-value Malayalam batch added member and restoration dialogs, rule
+exchange, bookmarks, templates, CAS, linked cards and boards, safe
+imported-member mapping, themes, fonts, text colors, avatars, language and
+permissions. These direct translations were completed with low confidence and
+welcome review by a Malayalam speaker. This left **121,055 genuinely
+untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -86,3 +86,10 @@ assert.equal(malayalam['exportChecklistPopup-title'],
   'ചെക്ക്‌ലിസ്റ്റ് കയറ്റുമതി ചെയ്യുക');
 assert.equal(malayalam['importSwimlanePopup-title'],
   'സ്വിംലെയിൻ ഇറക്കുമതി ചെയ്യുക');
+assert.match(malayalam.casSignIn, /CAS/);
+assert.equal(malayalam['cardType-linkedBoard'], 'ബന്ധിപ്പിച്ച ബോർഡ്');
+assert.match(malayalam['map-to-existing-user-desc'],
+  /കാർഡുകളും.*അഭിപ്രായങ്ങളും.*പ്രവർത്തനവും/);
+assert.equal(malayalam['map-to-existing-user-no-results'],
+  'പൊരുത്തപ്പെടുന്ന ഉപയോക്താക്കളെ കണ്ടെത്തിയില്ല.');
+assert.match(malayalam['font-preview-text'], /0123456789/);
