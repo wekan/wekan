@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -249,3 +249,9 @@ assert.match(kyrgyz['show-week-of-year'], /ISO 8601/);
 assert.match(kyrgyz['import-board-zip'], /\.zip/);
 assert.match(kyrgyz['import-board-zip'], /JSON/);
 assert.equal(kyrgyz.accessibility, 'Жеткиликтүүлүк');
+assert.match(kyrgyz['accounts-lockout-info'], /brute force/);
+assert.match(kyrgyz['accounts-lockout-period'], /секунд/);
+assert.equal(kyrgyz['admin-people-filter-active'], 'Активдүү');
+assert.match(kyrgyz['active-cron-jobs'], /пландаштырылган/);
+assert.equal(kyrgyz['attachments-path'], 'Тиркемелердин жолу');
+assert.match(kyrgyz['board-backup-scheduled'], /ийгиликтүү/);
