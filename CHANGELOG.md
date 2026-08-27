@@ -6523,8 +6523,13 @@ settings, minicard fields, parent-card paths and label activity. These direct
 translations were completed with low confidence and welcome review by a Sakha
 speaker. This left **94,451 genuinely untranslated values across 44 locale
 files**.
+The twentieth 50-value Sakha batch added label, attachment and custom-field
+activity, rule management and views, workflow triggers and rule interchange in
+JSON, CSV and Trello Butler formats. These direct translations were completed
+with low confidence and welcome review by a Sakha speaker. This left **94,401
+genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `activity-removed-label` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
