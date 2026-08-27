@@ -7043,9 +7043,14 @@ and localized global-search operators and predicates for boards, people, dates,
 content and status. These direct translations were completed with low confidence
 and welcome review by a Northern Sami speaker. This left **89,717 genuinely
 untranslated values across 42 locale files**.
+The twenty-eighth 50-value Northern Sami batch completed the localized Global
+Search operator reference, validation messages, paging and notes while
+preserving all query examples and runtime tokens. These direct translations were
+completed with low confidence and welcome review by a Northern Sami speaker.
+This left **89,667 genuinely untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
