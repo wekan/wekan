@@ -5321,9 +5321,15 @@ board permissions, JSON, CSV and TSV validation, empty-board import recovery,
 linked-card safety and disabled-account errors. These direct translations were
 completed with low confidence and welcome review by an Oromo speaker. This
 left **103,569 genuinely untranslated values across 48 locale files**.
+The eleventh 50-value Oromo batch added user, organization, team and email
+conflict errors, attachment-free board export, card export to PDF and Excel,
+field and attachment metadata, disk-space errors, list sorting and filters for
+dates, titles, labels and members. These direct translations were completed
+with low confidence and welcome review by an Oromo speaker. This left
+**103,519 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
