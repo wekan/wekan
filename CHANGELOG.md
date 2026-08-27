@@ -4244,9 +4244,15 @@ imported-member mapping and board-item imports and exports. These direct
 translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **112,437 genuinely untranslated values
 across 52 locale files**.
+The seventh 50-value Northern Ndebele batch added member, sticker, sorting,
+restoration, rule, shortcut and linked-item dialogs, CAS sign-in,
+imported-member mapping, theme categories, fonts, text colors, avatars, language
+and permissions. These direct translations were completed with low confidence
+and welcome review by a Northern Ndebele speaker. This left **112,387 genuinely
+untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`userPopup-title`
+`changeSettingsPopup-title`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

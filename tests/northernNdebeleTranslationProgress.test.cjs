@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -81,5 +81,10 @@ assert.match(ndebele['editPokerEndDatePopup-title'], /Planning Poker/);
 assert.equal(ndebele['importDependenciesPopup-title'], 'Ngenisa ukuncika');
 assert.equal(ndebele['addBoardOrgPopup-title'], 'Engeza inhlangano');
 assert.equal(ndebele['addBoardTeamPopup-title'], 'Engeza iqembu');
+assert.match(ndebele.casSignIn, /CAS/);
+assert.equal(ndebele['change-permissions'], 'Tshintsha izimvumo');
+assert.match(ndebele['font-preview-text'], /0123456789/);
+assert.equal(ndebele['font-size-largest'], 'Okukhulu kulakho konke');
+assert.equal(ndebele['changeLanguagePopup-title'], 'Tshintsha ulimi');
 
 console.log('Northern Ndebele translation progress checks passed.');
