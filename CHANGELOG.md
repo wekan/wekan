@@ -6630,8 +6630,13 @@ storage, migration lifecycle controls, scheduled board operations and attachment
 monitoring and migration settings. These direct translations were completed with
 low confidence and welcome review by a Sakha speaker. This left **93,451
 genuinely untranslated values across 44 locale files**.
+The fortieth 50-value Sakha batch added comprehensive board-integrity migration,
+duplicate-list cleanup, lost-card and archive restoration, file URL repair,
+confirmation dialogs and migration progress steps. These direct translations
+were completed with low confidence and welcome review by a Sakha speaker. This
+left **93,401 genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `card-show-lists-on-minicard` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
