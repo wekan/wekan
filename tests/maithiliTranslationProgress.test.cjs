@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -329,3 +329,15 @@ assert.deepEqual(tokens(maithili['repair-broken-cards-done']),
 assert.deepEqual(tokens(maithili['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.match(maithili['cpu-usage-current'], /CPU/);
+assert.match(maithili['event-ip'], /IP/);
+assert.match(maithili['event-ipv4'], /IPv4/);
+assert.match(maithili['event-ipv6'], /IPv6/);
+assert.match(maithili['import-here-instruction'], /WeKan.*.json.*.zip/);
+assert.deepEqual(tokens(
+  maithili['globalSearch-instructions-operator-number']),
+['__operator_number__']);
+assert.deepEqual(tags(
+  maithili['globalSearch-instructions-operator-number']),
+['<number>', '<number>']);
+assert.match(maithili['import-board-source'],
+  /Trello.*Jira.*WeKan.*CSV.*Excel/);

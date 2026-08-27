@@ -2654,10 +2654,15 @@ OTP and login errors, problem status and acknowledgement, broken-card repair,
 CPU load and event details. These direct translations were completed with low
 confidence and welcome review by a Maithili speaker. This left **125,756
 genuinely untranslated values across 59 locale files**.
+The final 17-value Maithili batch added IP event details, filesystem integrity,
+scoped WeKan imports and exports, numeric global search and import choices. It
+also replaced one Latin-only API label exposed by the script audit. These direct
+translations were completed with low confidence and welcome review by a
+Maithili speaker. This completed Maithili and left **125,739 genuinely
+untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Maithili at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list mai --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Malagasy at `accept` with
+`node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
