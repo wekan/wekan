@@ -3978,9 +3978,15 @@ avatars, backgrounds, duplicate lists, accounts, domains, imported-member
 mapping and board-item imports and exports. These direct translations were
 completed with low confidence and welcome review by a Nahuatl speaker. This
 left **114,604 genuinely untranslated values across 53 locale files**.
+The seventh 50-value Nahuatl batch added member, sticker, sorting, restoration,
+rule, shortcut and linked-item dialogs, CAS sign-in, imported-member mapping,
+theme categories, fonts, text colors, avatars, language and permissions. These
+direct translations were completed with low confidence and welcome review by a
+Nahuatl speaker. This left **114,554 genuinely untranslated values across 53
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
