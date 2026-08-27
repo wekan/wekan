@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -135,5 +135,14 @@ assert.deepEqual(tokens(ndebele['leave-board-pop']), ['__boardTitle__']);
 assert.match(ndebele['listImportCardPopup-title'], /Trello/);
 assert.match(ndebele['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(ndebele['my-boards'], 'Amabhodi ami');
+assert.deepEqual(tokens(ndebele['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(ndebele['page-maybe-private']),
+  ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(ndebele['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(ndebele['sandstorm-remove-member-warning'], /Sandstorm/);
+assert.match(ndebele['sandstorm-remove-member-warning'], /WeKan/);
+assert.match(ndebele['search-example'], /Enter/);
+assert.match(ndebele['setWipLimitPopup-title'], /WIP/);
 
 console.log('Northern Ndebele translation progress checks passed.');

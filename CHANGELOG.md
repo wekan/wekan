@@ -4296,9 +4296,16 @@ multi-card selection, muted boards, archives, normal roles and participation
 notices. These direct translations were completed with low confidence and
 welcome review by a Northern Ndebele speaker. This left **112,037 genuinely
 untranslated values across 52 locale files**.
+The fifteenth 50-value Northern Ndebele batch added watch notices, private-page
+login, image previews, public and private board descriptions, member removal
+including Sandstorm guidance, rescue dialogs, search, WIP limits, keyboard
+shortcuts, sidebar controls, signup and default-board behavior. These direct
+translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **111,987 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`notify-watch`
+`starred-boards`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
