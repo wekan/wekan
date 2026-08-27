@@ -3675,16 +3675,21 @@ and API endpoints, login failure handling, problem acknowledgement, broken-card
 repair, CPU load and event-log fields. These direct translations were completed
 with low confidence and welcome review by a Marathi speaker. This left **117,088
 genuinely untranslated values across 55 locale files**.
+The final 17-value Marathi batch added event IP fields, filesystem integrity,
+scoped export/import, the numbered-card search operator and WeKan import formats.
+These direct translations were completed with low confidence and welcome review
+by a Marathi speaker. Marathi is now complete, leaving **117,071 genuinely
+untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Marathi at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list mr --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Burmese at
+`accept` with
+`node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa
 Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic, Kashmiri and
-Kurmanji Kurdish, Malagasy and Malayalam are now complete.
+Kurmanji Kurdish, Malagasy, Malayalam and Marathi are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
