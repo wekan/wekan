@@ -5755,8 +5755,15 @@ security, speed, test, CPU, database, rule, board, card, impersonation,
 recovery and office reports. These direct translations were completed with
 low confidence and welcome review by a Pashto speaker. This left **100,402
 genuinely untranslated values across 47 locale files**.
+The thirty-first 50-value Pashto batch added office and REST API activity,
+database-recovery status and maintenance, swimlane copying, card-creator and
+wait-spinner settings, card sizing, organization and team deletion warnings,
+and ticket, request, history, sorting and card-detail controls. These direct
+translations were completed with low confidence and welcome review by a
+Pashto speaker. This left **100,352 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `office-last-seen` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `add-teams` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
