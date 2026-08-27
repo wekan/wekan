@@ -5675,8 +5675,16 @@ activity, shared templates, authentication synchronization, multitenancy,
 domains and organization administrators. These direct translations were
 completed with low confidence and welcome review by a Pashto speaker. This
 left **101,002 genuinely untranslated values across 47 locale files**.
+The nineteenth 50-value Pashto batch added received and end dates, card, list,
+swimlane and selection colors, assignment metadata, board and notification
+deletion, duplicate-list cleanup, subtask and card settings, minicard parent,
+description, cover, attachment, sorting and checklist displays and card-parent
+paths. These direct translations were completed with low confidence and
+welcome review by a Pashto speaker. This left **100,952 genuinely untranslated
+values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `card-received` with
+and exact tokens from `en.i18n.json`, resuming Pashto at
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
