@@ -6125,9 +6125,14 @@ schedules, scan and progress state, minicard display and system resource and
 attachment totals. These direct translations were completed with low
 confidence and welcome review by a Kirundi speaker. This left **97,635
 genuinely untranslated values across 46 locale files**.
+The forty-third 50-value Kirundi batch added repository account and upload
+controls, OTP and credential feedback, problem summaries, repair progress and
+results, CPU load and event metadata. These direct translations were completed
+with low confidence and welcome review by a Kirundi speaker. This left
+**97,585 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
