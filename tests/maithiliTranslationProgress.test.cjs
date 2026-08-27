@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -102,3 +102,11 @@ assert.equal(maithili.worker, 'कार्यकर्ता');
 const bulkCardExample = JSON.parse(maithili['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(maithili['custom-field-number'], 'संख्या');
+assert.match(maithili['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(maithili['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(maithili['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(maithili['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(maithili['error-import-empty-board'], /WeKan/);
