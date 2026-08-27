@@ -5965,9 +5965,17 @@ outgoing, bidirectional and global webhooks, card-title filtering, and package,
 database, Node and Meteor version labels. These direct translations were
 completed with low confidence and welcome review by a Kirundi speaker. This
 left **98,885 genuinely untranslated values across 46 locale files**.
+The eighteenth 50-value Kirundi batch added database, FerretDB, reactivity,
+DDP and operating-system diagnostics, time units, custom-field display and
+sums, account changes, private-board visibility, creation and modification
+metadata, active teams, organizations and people, shared templates, member
+propagation and authentication synchronization, multitenant organization
+domains and delegated administrators. These direct translations were
+completed with low confidence and welcome review by a Kirundi speaker. This
+left **98,835 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
