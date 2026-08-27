@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -237,5 +237,15 @@ assert.match(nahuatl['api-no-calls'], /WITH_API=true/);
 assert.match(nahuatl['recovery-report-desc'], /MongoDB/);
 assert.equal(nahuatl['copy-swimlane'], 'Xiccopina ohtli');
 assert.equal(nahuatl.ticket, 'Tlapalehuilamatl');
+assert.match(nahuatl['email-domain-allowed-to-invite'], /correo/i);
+for (const key of [
+  'Node_heap_total_heap_size',
+  'Node_memory_usage_rss',
+]) assert.match(nahuatl[key], /Node/);
+assert.match(nahuatl['custom-legal-notice-link-url'], /URL/);
+assert.equal(nahuatl.moveChecklist,
+  'Xicmijcueni tlanextiliztocatlahtolli');
+assert.match(nahuatl['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(nahuatl['attachment-move-storage-s3'], /S3/);
 
 console.log('Nahuatl translation progress checks passed.');
