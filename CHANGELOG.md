@@ -5177,9 +5177,15 @@ waiting animations, card sizing, organization and team deletion warnings, and
 support-ticket details, states and requests. These direct translations were
 completed with low confidence and welcome review by a Chichewa speaker. This
 left **104,686 genuinely untranslated values across 49 locale files**.
+The thirty-second 50-value Chichewa batch added team and organization
+membership, invitations and legal notices, Node heap and memory diagnostics,
+checklist movement and copying, subtask and attachment actions, and filesystem,
+GridFS and S3 attachment storage movement. These direct translations were
+completed with low confidence and welcome review by a Chichewa speaker. This
+left **104,636 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
