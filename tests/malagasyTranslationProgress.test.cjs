@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -176,3 +176,9 @@ assert.deepEqual(tokens(malagasy['r-import-unmapped']), ['__count__']);
 assert.match(malagasy['r-schedule-weekday'], /Alats–Zoma/);
 assert.match(malagasy['r-for-n-days'], /N/);
 assert.equal(malagasy['r-card-button'], 'Bokotra karatra');
+assert.equal(malagasy['r-card'], 'karatra');
+assert.equal(malagasy['r-list'], 'lisitra');
+assert.equal(malagasy['r-checklist'], 'lisitra fanamarinana');
+assert.equal(malagasy['r-d-move-to-top-gen'],
+  "Afindrao eo an-tampon'ny lisiny ny karatra");
+assert.equal(malagasy['r-d-send-email'], 'Mandefasa mailaka');
