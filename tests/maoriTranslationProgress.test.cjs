@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -299,3 +299,10 @@ assert.match(maori['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(maori['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(maori['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(maori['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+assert.match(maori['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId.*'Ngā Kāri Ngaro'/);
+assert.match(maori['fix-all-file-urls-migration-description'], /URL/);
+assert.match(maori['run-restore-all-archived-migration-confirm'],
+  /KATOA.*ID/);
+assert.equal(maori['step-convert-shared-lists'],
+  'Tahuri Rārangi Tiritahi');
