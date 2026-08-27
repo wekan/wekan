@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -128,3 +128,9 @@ assert.match(kyrgyz['listImportCardPopup-title'], /Trello/);
 assert.match(kyrgyz['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(kyrgyz.normal, 'Кадимки');
 assert.equal(kyrgyz['multi-selection'], 'Көп тандоо');
+assert.deepEqual(tokens(kyrgyz['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(kyrgyz['page-maybe-private']), ["</a>", "<a href='%s'>"]);
+assert.deepEqual(tokens(kyrgyz['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(kyrgyz['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.match(kyrgyz['setWipLimitPopup-title'], /WIP/);
