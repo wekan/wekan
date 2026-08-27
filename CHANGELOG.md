@@ -5862,9 +5862,16 @@ keyboard shortcuts, swimlane height, subtasks, checklists, covers, labels and
 members. These direct translations were completed with low confidence and
 welcome review by a Kirundi speaker. This left **99,585 genuinely untranslated
 values across 46 locale files**.
+The fourth 50-value Kirundi batch added administrators and announcements,
+public boards, offline recovery, archive and restore controls, template
+containers, assignment, attachment deletion, automatic watching, avatar size,
+board colors and backgrounds, All Boards settings, member and assignee groups,
+stars, missing-board errors and private-board markup. These direct translations
+were completed with low confidence and welcome review by a Kirundi speaker.
+This left **99,535 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
