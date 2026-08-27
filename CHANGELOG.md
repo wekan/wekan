@@ -5140,9 +5140,15 @@ names, ownership and voting labels, and linked-card deletion guidance. These
 direct translations were completed with low confidence and welcome review by a
 Chichewa speaker. This left **104,986 genuinely untranslated values across 49
 locale files**.
+The twenty-sixth 50-value Chichewa batch added linked-list deletion guidance,
+checklist visibility, tasks, domains and shared templates, My Cards and Due
+Cards views and sorting, global search scopes, and missing board, swimlane,
+list and label errors. These direct translations were completed with low
+confidence and welcome review by a Chichewa speaker. This left **104,936
+genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
