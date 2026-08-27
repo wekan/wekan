@@ -2245,9 +2245,13 @@ The final 17-value Cornish batch added event network details, filesystem
 integrity, scoped WeKan imports and exports and numeric search guidance. Cornish
 is now complete. This left **130,073 genuinely untranslated values across 60
 locale files**.
+The first 50-value Kyrgyz batch added board membership rules, replies and due
+dates and detailed activity messages for attachments, subtasks, labels,
+checklists, comments, boards, cards, lists and archives. This left **130,023
+genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`accept` with
+`act-moveCard` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
