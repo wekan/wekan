@@ -6839,9 +6839,14 @@ and file policy, custom translations, checklist display, board ZIP imports,
 support and accessibility settings. These direct translations were completed
 with low confidence and welcome review by a Sindhi speaker. This left **91,534
 genuinely untranslated values across 43 locale files**.
+The thirty-fifth 50-value Sindhi batch added accessibility content, brute-force
+login protection and user unlocking, people filters, scheduled jobs, attachment
+paths and scheduled board operations. These direct translations were completed
+with low confidence and welcome review by a Sindhi speaker. This left **91,484
+genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sindhi at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
