@@ -7020,9 +7020,15 @@ plus authentication, custom product metadata, web manifests, asset links and
 layout controls. These direct translations were completed with low confidence
 and welcome review by a Northern Sami speaker. This left **89,917 genuinely
 untranslated values across 42 locale files**.
+The twenty-fourth 50-value Northern Sami batch added member lists, custom HTML
+placement, authentication errors, duplication and deletion confirmations,
+card-date activity and reminders, positioning and desktop interaction controls.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sami speaker. This left **89,867 genuinely untranslated values
+across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
