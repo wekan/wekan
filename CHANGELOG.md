@@ -5883,9 +5883,16 @@ duplicate-list and account deletion, domains, imported-member mapping and
 checklist, swimlane, list, card and board imports. These direct translations
 were completed with low confidence and welcome review by a Kirundi speaker.
 This left **99,435 genuinely untranslated values across 46 locale files**.
+The seventh 50-value Kirundi batch added member, sticker, invite, sorting,
+width, height, archive-restore, rule import/export, bookmark and template
+dialogs, CAS sign-in, linked items, imported-member mapping, themes, fonts and
+font sizes, text colors, avatar deletion, language and permission settings.
+These direct translations were completed with low confidence and welcome
+review by a Kirundi speaker. This left **99,385 genuinely untranslated values
+across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
