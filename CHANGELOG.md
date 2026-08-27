@@ -4191,9 +4191,15 @@ monitoring, GridFS statistics and scheduled-job details. These direct
 translations were completed with low confidence and welcome review by a Nahuatl
 speaker. This left **112,854 genuinely untranslated values across 53 locale
 files**.
+The forty-second 50-value Nahuatl batch added attachment migration tuning,
+resource thresholds, migration logs and lifecycle controls, monitoring,
+navigation, minicard display and storage and operation totals. These direct
+translations were completed with low confidence and welcome review by a Nahuatl
+speaker. This left **112,804 genuinely untranslated values across 53 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
