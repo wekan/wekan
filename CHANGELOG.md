@@ -2257,9 +2257,13 @@ The third 50-value Kyrgyz batch added workspace deletion, multi-board selection,
 Home behavior, date activity, shared and personal list widths, keyboard
 shortcuts, swimlane sizing and checklist controls. This left **129,923 genuinely
 untranslated values across 60 locale files**.
+The fourth 50-value Kyrgyz batch added administrator announcements, archive and
+restore flows, template containers, attachment handling, background images,
+All Boards display choices and board membership summaries. This left **129,873
+genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -57,3 +57,9 @@ assert.deepEqual(tokens(kyrgyz['activity-dueDate']), ['%s', '%s']);
 assert.match(kyrgyz['list-width-error-message'], /270/);
 assert.match(kyrgyz['set-swimlane-height-value'], /пиксел/);
 assert.equal(kyrgyz['add-checklist'], 'Текшерүү тизмесин кошуу');
+assert.deepEqual(tokens(kyrgyz['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(kyrgyz['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(kyrgyz['avatar-too-big']), ['__size__']);
+assert.deepEqual(tokens(kyrgyz['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(kyrgyz['board-private-info']),
+  ['</strong>', '<strong>']);
