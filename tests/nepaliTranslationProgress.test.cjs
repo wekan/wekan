@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 517);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -247,5 +247,10 @@ assert.match(nepali['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
 assert.match(nepali['mongodb-compact-warning'],
   /Compact.*replica set.*secondary.*primary.*oplog.*Meteor/s);
 assert.match(nepali['mongodb-compact-run'], /MongoDB Compact/);
+assert.match(nepali.Mongo_sessions_count, /Mongo/);
+assert.match(nepali['preview-pdf-not-supported'], /PDF/);
+assert.deepEqual(tokens(nepali['drag-board-to-workspace']), ['__workspaces__']);
+assert.match(nepali['show-week-of-year'], /ISO 8601/);
+assert.match(nepali['import-board-zip'], /JSON.*\.zip/);
 
 console.log('Nepali translation progress checks passed.');
