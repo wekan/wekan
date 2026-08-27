@@ -5821,9 +5821,16 @@ missing-list repair, avatar and attachment URL repair, confirmation dialogs,
 progress reporting and structural migration steps. These direct translations
 were completed with low confidence and welcome review by a Pashto speaker.
 This left **99,902 genuinely untranslated values across 47 locale files**.
+The forty-first 50-value Pashto batch added the remaining board-repair steps,
+old-job cleanup, one-time board conversion, CPU and migration monitoring,
+scheduled intervals, export and filesystem/GridFS statistics, forced board
+scans, minicard list visibility and job-queue metadata. These direct
+translations were completed with low confidence and welcome review by a
+Pashto speaker. This left **99,852 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
