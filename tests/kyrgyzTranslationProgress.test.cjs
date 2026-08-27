@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -258,6 +258,21 @@ assert.match(kyrgyz['board-backup-scheduled'], /ийгиликтүү/);
 assert.equal(kyrgyz['cron-job-deleted'],
   'Пландаштырылган иш ийгиликтүү өчүрүлдү');
 assert.match(kyrgyz['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.equal(kyrgyz['comprehensive-board-migration'],
+  'Тактанын комплекстүү көчүрүлүшү');
+assert.match(kyrgyz['comprehensive-board-migration-description'],
+  /тизмелердин иретин.*карточкалардын орундарын.*жолдордун түзүмүн/);
+assert.match(kyrgyz['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId.*Жоголгон карточкалар/);
+assert.match(kyrgyz['restore-all-archived-migration-description'],
+  /жолдорду.*тизмелерди.*карточкаларды.*swimlaneId.*listId/);
+assert.match(kyrgyz['fix-avatar-urls-migration-description'], /URL/);
+assert.match(kyrgyz['fix-all-file-urls-migration-description'], /URL/);
+assert.equal(kyrgyz['migration-successful'],
+  'Көчүрүү ийгиликтүү аяктады');
+assert.match(kyrgyz['run-restore-all-archived-migration-confirm'],
+  /БАРДЫК.*ID.*Улантасызбы/);
+assert.equal(kyrgyz['step-validate-migration'], 'Көчүрүүнү текшерүү');
 assert.match(kyrgyz['database-migration-description'],
   /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
 assert.deepEqual(tokens(kyrgyz['database-migration-confirm']), ['__db__']);
