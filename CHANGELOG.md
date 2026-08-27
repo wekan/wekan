@@ -3478,9 +3478,15 @@ emails, scrollbars, role and existence errors, JSON/CSV/TSV validation, empty
 imports and linked-card safeguards. These direct translations were completed with
 low confidence and welcome review by a Marathi speaker. This left **118,738
 genuinely untranslated values across 55 locale files**.
+The eleventh 50-value Marathi batch added user/name conflicts, card PDF/Excel
+exports and disk-space reporting, people, board, date and attachment export
+fields, list sorting, and date, title, label and member filters. These direct
+translations were completed with low confidence and welcome review by a Marathi
+speaker. This left **118,688 genuinely untranslated values across 55 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
