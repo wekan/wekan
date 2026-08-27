@@ -6464,8 +6464,15 @@ copying, linked cards, multi-card JSON templates and custom-field types and
 options. These direct translations were completed with low confidence and
 welcome review by a Sakha speaker. This left **94,951 genuinely untranslated
 values across 44 locale files**.
+The tenth 50-value Sakha batch added date and deletion settings, WIP limits,
+profiles, reactions, notifications, enrollment, invitation, password-reset and
+verification email, scrolling and validation errors for boards, users, JSON,
+CSV, TSV, imports and linked cards. These direct translations were completed
+with low confidence and welcome review by a Sakha speaker. This left **94,901
+genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `custom-field-text` with
+and exact tokens from `en.i18n.json`, resuming Sakha at
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
