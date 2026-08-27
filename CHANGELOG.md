@@ -5441,9 +5441,14 @@ sorting, comments, organizations, teams, text, custom fields, attachments and
 checklists. These direct translations were completed with low confidence and
 welcome review by an Oromo speaker. This left **102,719 genuinely untranslated
 values across 48 locale files**.
+The twenty-eighth 16-value Oromo batch added the remaining member, visibility
+and query predicates, operator validation errors, pagination and global-search
+instruction headings. These direct translations were completed with low
+confidence and welcome review by an Oromo speaker. This left **102,703
+genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`predicate-member` with
+`globalSearch-instructions-description` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
