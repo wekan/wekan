@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -238,3 +238,8 @@ assert.match(maithili['api-no-calls'], /REST API.*WITH_API=true.*API/);
 assert.match(maithili['recovery-report-desc'], /MongoDB/);
 assert.equal(maithili['copy-swimlane'], 'स्विमलेन कॉपी करू');
 assert.match(maithili['carbon-copy'], /Cc:/);
+assert.match(maithili.Node_heap_malloced_memory, /Node heap.*malloc/);
+assert.match(maithili.Node_memory_usage_rss, /Node/);
+assert.match(maithili['custom-legal-notice-link-url'], /URL/);
+assert.match(maithili['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(maithili['attachment-move-storage-s3'], /S3/);

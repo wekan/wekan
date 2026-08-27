@@ -2586,8 +2586,14 @@ spinners, organization and team safeguards, ticket and request states and card
 details. These direct translations were completed with low confidence and
 welcome review by a Maithili speaker. This left **126,356 genuinely untranslated
 values across 59 locale files**.
+The thirty-second 50-value Maithili batch added team invitations, Node memory
+diagnostics, organization management, legal notices, checklist transformations
+and attachment storage moves. These direct translations were completed with low
+confidence and welcome review by a Maithili speaker. This left **126,306
+genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Maithili at `add-teams` with
+and exact tokens from `en.i18n.json`, resuming Maithili at
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
