@@ -4835,9 +4835,15 @@ corner logos, URL schemes, watching, welcome and template boards and WIP-limit
 errors. These direct translations were completed with low confidence and
 welcome review by a Northern Sotho speaker. This left **107,603 genuinely
 untranslated values across 50 locale files**.
+The seventeenth 50-value Northern Sotho batch added attachment and API transfer
+limits, avatar upload controls, registration and invitations, SMTP settings and
+test messages, webhooks, card-title filtering and runtime component labels.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sotho speaker. This left **107,553 genuinely untranslated values
+across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
