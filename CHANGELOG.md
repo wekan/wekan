@@ -6475,9 +6475,15 @@ Excel, export fields and attachment metadata, disk-space feedback, list sorting
 and card, list, date, label and member filters. These direct translations were
 completed with low confidence and welcome review by a Sakha speaker. This left
 **94,851 genuinely untranslated values across 44 locale files**.
+The twelfth 50-value Sakha batch added assignee and custom-field filters,
+advanced-filter syntax, activity and member state and imports from Kanboard,
+NextCloud Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, CSV, TSV,
+Jira, Excel and WeKan. These direct translations were completed with low
+confidence and welcome review by a Sakha speaker. This left **94,801 genuinely
+untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `filter-assignee-label`
-with
+and exact tokens from `en.i18n.json`, resuming Sakha at
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
