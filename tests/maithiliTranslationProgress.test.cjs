@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -110,3 +110,7 @@ assert.deepEqual(tokens(maithili['email-invite-text']),
 assert.deepEqual(tokens(maithili['email-verifyEmail-text']),
   ['__url__', '__user__']);
 assert.match(maithili['error-import-empty-board'], /WeKan/);
+assert.equal(maithili['export-card-pdf'], 'कार्ड PDF मे निर्यात करू');
+assert.match(maithili['export-card-excel-fields'], /Excel/);
+assert.equal(maithili['filter-due-tomorrow'], 'काल्हि नियत');
+assert.equal(maithili['filter-no-member'], 'कोनो सदस्य नहि');
