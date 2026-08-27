@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 867);
+assert.equal(Object.keys(remaining).length, 817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -203,3 +203,9 @@ assert.match(maithili['dueCardsViewChange-choice-all-description'],
   /\*नियत\*/);
 assert.deepEqual(tokens(maithili['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(maithili['label-color-not-found']), ['%s']);
+assert.deepEqual(tokens(maithili['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(maithili['operator-board'], 'बोर्ड');
+assert.equal(maithili['operator-swimlane'], 'स्विमलेन');
+assert.equal(maithili['operator-checklist-text'], 'जाँचसूची');
+assert.equal(maithili['predicate-overdue'], 'समयबीतल');
