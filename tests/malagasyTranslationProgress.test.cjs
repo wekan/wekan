@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -301,3 +301,12 @@ assert.match(malagasy['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(malagasy['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(malagasy['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(malagasy['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+assert.match(malagasy['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId.*Karatra very/s);
+assert.match(malagasy['restore-all-archived-migration-description'],
+  /swimlaneId.*listId/s);
+assert.match(malagasy['fix-avatar-urls-migration-description'], /URL/);
+assert.match(malagasy['run-restore-lost-cards-migration-confirm'],
+  /Karatra very.*swimlaneId.*listId/s);
+assert.equal(malagasy['step-fix-orphaned-cards'],
+  'Amboary ny karatra kamboty');

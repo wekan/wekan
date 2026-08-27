@@ -2890,9 +2890,15 @@ scheduled board operations, writable paths and attachment monitoring. These
 direct translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **123,789 genuinely untranslated values across 58
 locale files**.
+The fortieth 50-value Malagasy batch added comprehensive board repairs,
+duplicate-list cleanup, lost-card and archive recovery, missing-list and file
+URL fixes, migration confirmations, progress and structure-repair steps. These
+direct translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **123,739 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
