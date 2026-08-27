@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -199,3 +199,10 @@ assert.match(kurmanji['r-schedule-weekday'], /Duşem–În/);
 assert.match(kurmanji['r-for-n-days'], /N rojan/);
 assert.equal(kurmanji['r-trigger'], 'Destpêker');
 assert.equal(kurmanji['r-action'], 'Kiryar');
+assert.equal(kurmanji['r-list'], 'lîste');
+assert.equal(kurmanji['r-card'], 'kart');
+assert.match(kurmanji['r-unarchived'], /arşîvê vegerand/);
+assert.equal(kurmanji['r-checklist'], 'lîsteya kontrolê');
+assert.match(kurmanji['r-remove-all'], /Hemû endaman.*kartê/);
+assert.match(kurmanji['r-d-move-to-top-gen'], /serê lîsteya wê/);
+assert.equal(kurmanji['r-d-send-email'], 'E-name bişîne');

@@ -1979,9 +1979,13 @@ The twenty-first 50-value Kurmanji Kurdish batch added n8n and Node-RED workflow
 imports, scheduled and button triggers, due-date conditions, list and card
 automation, relative dates, units and movement phrases. This left **133,357
 genuinely untranslated values across 62 locale files**.
+The twenty-second 50-value Kurmanji Kurdish batch added rule phrases for board
+and list movement, archive restoration, labels, members, attachments,
+checklists, card positioning, colors and email actions. This left **133,307
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
