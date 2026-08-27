@@ -5973,9 +5973,17 @@ propagation and authentication synchronization, multitenant organization
 domains and delegated administrators. These direct translations were
 completed with low confidence and welcome review by a Kirundi speaker. This
 left **98,835 genuinely untranslated values across 46 locale files**.
+The nineteenth 50-value Kirundi batch added received and end dates, color
+dialogs, assigned and requested metadata, numbered card sorting, board,
+notification and duplicate-list deletion, default and deposited subtasks,
+card and subtask settings, parent-card display, minicard descriptions, covers,
+attachment and checklist counts, full-path and parent prefixes, source boards
+and label activities. These direct translations were completed with low
+confidence and welcome review by a Kirundi speaker. This left **98,785
+genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
