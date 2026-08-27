@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -212,3 +212,10 @@ assert.deepEqual(tokens(malayalam['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.equal(malayalam['submit-on-enter'],
   'Enter അമർത്തി എഡിറ്ററുകൾ സമർപ്പിക്കുക');
+assert.match(malayalam['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter/);
+assert.equal(malayalam['roles-status-sees-assigned'],
+  'ചുമതലപ്പെടുത്തിയവ മാത്രം');
+assert.equal(malayalam.monday, 'തിങ്കളാഴ്ച');
+assert.equal(malayalam.sunday, 'ഞായറാഴ്ച');
+assert.equal(malayalam.voting, 'വോട്ടെടുപ്പ്');
