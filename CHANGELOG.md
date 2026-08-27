@@ -2613,9 +2613,15 @@ database migration and Sandstorm grain migration status. These direct
 translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **126,106 genuinely untranslated values across 59
 locale files**.
+The thirty-seventh 50-value Maithili batch added Sandstorm storage cleanup,
+adaptive card loading, safe link and code rendering, import, export, avatar,
+activity, notification and watch controls, user anonymization and backups. These
+direct translations were completed with low confidence and welcome review by a
+Maithili speaker. This left **126,056 genuinely untranslated values across 59
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

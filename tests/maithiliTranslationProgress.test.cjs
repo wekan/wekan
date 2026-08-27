@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -268,3 +268,15 @@ assert.match(maithili['database-migration-description'],
 assert.deepEqual(tokens(maithili['database-migration-confirm']), ['__db__']);
 assert.match(maithili['sandstorm-migration-description'],
   /WeKan.*Sandstorm grain.*MongoDB 3.*FerretDB v1 \(SQLite\).*files\/attachments.*files\/avatars/s);
+assert.match(maithili['cards-loading-description'],
+  /WeKan.*CARDS_LOADING \(all\/lazy\/auto\).*CARDS_LOADING_LAZY_THRESHOLD/s);
+assert.deepEqual(tags(maithili['render-links-as-plain-text-description']),
+  ['<a href>']);
+assert.match(maithili['always-show-code-as-text-description'],
+  /HTML.*<!-- -->.*JavaScript/);
+assert.match(maithili['disable-all-import-description'],
+  /WeKan JSON.*Trello.*CSV\/Excel.*Jira.*Kanboard.*NextCloud Deck.*OpenProject.*GitHub.*GitLab.*Gitea.*Forgejo/s);
+assert.match(maithili['disable-import-avatars-description'],
+  /WeKan JSON.*Trello.*LDAP.*OIDC\/OAuth2/s);
+assert.match(maithili['backup-description'],
+  /.zip.*backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup.zip.*YYYY_MM_DD-HH_MM_SS\/attachments.*\/avatars.*\/data.*S3\/MinIO.*Azure.*GCS/s);
