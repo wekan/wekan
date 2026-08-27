@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -233,3 +233,11 @@ assert.equal(cornish['roles-status-role'], 'Rann');
 assert.equal(cornish.monday, "Dy'Lun");
 assert.equal(cornish.sunday, "Dy'Sul");
 assert.equal(cornish.voting, 'Votya');
+assert.equal(cornish.task, 'Oberenn');
+assert.match(cornish['invalid-domain'], /example\.com.*@/);
+assert.match(cornish['shared-templates-info'], /Kowethas.*Bagas.*ebost/);
+assert.equal(cornish['myCardsViewChange-choice-table'], 'Tavolen');
+assert.match(cornish['dueCardsViewChange-choice-all-description'],
+  /\*Termyn\*/);
+assert.match(cornish['globalSearchViewChange-choice-all-description'],
+  /\*Ow kartennow\*/);

@@ -2169,9 +2169,13 @@ The twenty-fifth 50-value Cornish batch added multi-card windows, editor
 submission shortcuts, entity dialogs, notification states, rename and invite
 permissions, board-role status, weekdays, ownership and voting. This left
 **130,990 genuinely untranslated values across 61 locale files**.
+The twenty-sixth 50-value Cornish batch added linked-list safeguards, tasks,
+domain-scoped shared templates, personal and due-card views, global search scopes
+and missing board, swimlane, list and label messages. This left **130,940
+genuinely untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
