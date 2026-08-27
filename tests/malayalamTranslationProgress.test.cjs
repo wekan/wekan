@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 517);
+assert.equal(Object.keys(remaining).length, 467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -103,6 +103,13 @@ assert.equal(malayalam['color-magenta'], 'മജന്ത');
 assert.equal(malayalam['color-white'], 'വെള്ള');
 assert.equal(malayalam['read-only'], 'വായിക്കാൻ മാത്രം');
 assert.equal(malayalam.worker, 'തൊഴിലാളി');
+assert.deepEqual(tokens(malayalam['drag-board-to-workspace']),
+  ['__workspaces__']);
+assert.match(malayalam['preview-pdf-not-supported'], /PDF/);
+assert.match(malayalam['show-week-of-year'], /ISO 8601/);
+assert.match(malayalam['import-board-zip'], /JSON/);
+assert.match(malayalam['import-board-zip'], /\.zip/);
+assert.equal(malayalam.accessibility, 'പ്രാപ്യത');
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
