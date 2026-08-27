@@ -6232,9 +6232,15 @@ description rescue, board search, WIP, keyboard shortcuts, sidebars, signup
 and automatic board opening. These direct translations were completed with low
 confidence and welcome review by a Kinyarwanda speaker. This left **96,818
 genuinely untranslated values across 45 locale files**.
+The sixteenth 50-value Kinyarwanda batch added starred boards, subscription,
+time and overtime tracking, keyboard assignee and label toggles, uploads,
+custom branding and help URLs, automatic URL schemes, welcome and template
+content and WIP-limit errors. These direct translations were completed with low
+confidence and welcome review by a Kinyarwanda speaker. This left **96,768
+genuinely untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
