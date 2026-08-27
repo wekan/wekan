@@ -6941,9 +6941,15 @@ deletion confirmations, clipboard links, multi-card JSON templates, labels and
 custom-field types and options. These direct translations were completed with
 low confidence and welcome review by a Northern Sami speaker. This left **90,617
 genuinely untranslated values across 42 locale files**.
+The tenth 50-value Northern Sami batch added permanent deletion, profile and WIP
+controls, account enrollment, invitation, password-reset and verification
+emails, and board, user, JSON, CSV and linked-card validation. These direct
+translations were completed with low confidence and welcome review by a Northern
+Sami speaker. This left **90,567 genuinely untranslated values across 42 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
