@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -139,3 +139,10 @@ assert.match(kyrgyz['custom-top-left-corner-logo-height'], /27/);
 assert.match(kyrgyz['automatic-linked-url-schemes'], /URL.*URL/);
 assert.match(kyrgyz['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 assert.equal(kyrgyz['board-templates-swimlane'], 'Такта үлгүлөрү');
+assert.match(kyrgyz['attachment-transfer-limits-title'], /API/);
+assert.match(kyrgyz['smtp-tls-description'], /SMTP.*TLS/);
+assert.deepEqual(tokens(kyrgyz['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(kyrgyz['email-smtp-test-subject'], /SMTP/);
+assert.match(kyrgyz.Node_version, /Node/);
+assert.match(kyrgyz.Meteor_version, /Meteor/);

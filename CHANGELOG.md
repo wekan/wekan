@@ -2309,9 +2309,13 @@ The sixteenth 50-value Kyrgyz batch added starring and subscriptions, time and
 overtime tracking, numeric shortcuts, uploads, custom branding and URL schemes,
 welcome and template boards and WIP-limit errors. This left **129,273 genuinely
 untranslated values across 60 locale files**.
+The seventeenth 50-value Kyrgyz batch added attachment and API transfer limits,
+registration and invitations, SMTP setup and test emails, outgoing webhooks and
+database, Node and Meteor version labels. This left **129,223 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
