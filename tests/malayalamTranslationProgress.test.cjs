@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -93,3 +93,10 @@ assert.match(malayalam['map-to-existing-user-desc'],
 assert.equal(malayalam['map-to-existing-user-no-results'],
   'പൊരുത്തപ്പെടുന്ന ഉപയോക്താക്കളെ കണ്ടെത്തിയില്ല.');
 assert.match(malayalam['font-preview-text'], /0123456789/);
+assert.equal(malayalam['auto-list-width'],
+  'പട്ടികയുടെ സ്വയമേവയുള്ള വീതി');
+assert.match(malayalam['card-aging-days'], /3/);
+assert.equal(malayalam['move-card-up'], 'കാർഡ് മുകളിലേക്ക് മാറ്റുക');
+assert.equal(malayalam['color-red'], 'ചുവപ്പ്');
+assert.equal(malayalam['color-silver'], 'വെള്ളിനിറം');
+assert.equal(malayalam['color-magenta'], 'മജന്ത');

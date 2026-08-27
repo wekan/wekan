@@ -3207,9 +3207,15 @@ imported-member mapping, themes, fonts, text colors, avatars, language and
 permissions. These direct translations were completed with low confidence and
 welcome review by a Malayalam speaker. This left **121,055 genuinely
 untranslated values across 56 locale files**.
+The eighth 50-value Malayalam batch added starring, automatic list widths,
+clipboard and drag-and-drop actions, card aging, keyboard movement, accessible
+closing and navigation controls and most of the board color palette. These
+direct translations were completed with low confidence and welcome review by a
+Malayalam speaker. This left **121,005 genuinely untranslated values across 56
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
