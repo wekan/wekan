@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 667);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -231,5 +231,10 @@ assert.deepEqual(tokens(nepali['custom-field-stringtemplate-format']),
 assert.match(nepali['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
 assert.match(nepali.cpuReportTitle, /CPU/);
 assert.match(nepali['office-report-desc'], /IPv4.*IPv6/);
+assert.match(nepali['api-report-desc'], /REST API/);
+assert.match(nepali['api-no-calls'], /REST API.*WITH_API=true.*API/);
+assert.match(nepali['recovery-report-desc'], /MongoDB/);
+assert.match(nepali['carbon-copy'], /Cc:/);
+assert.equal(nepali['ticket-number'], 'टिकट सङ्ख्या');
 
 console.log('Nepali translation progress checks passed.');
