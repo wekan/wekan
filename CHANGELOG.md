@@ -3990,9 +3990,15 @@ movement, dialog navigation, board and card closing and 23 color names. These
 direct translations were completed with low confidence and welcome review by a
 Nahuatl speaker. This left **114,504 genuinely untranslated values across 53
 locale files**.
+The ninth 50-value Nahuatl batch added the final colors, comment and read-only
+roles, worker permissions, deletion confirmations, clipboard and link copying,
+multi-card JSON templates, labels and checkbox, currency, dropdown and numeric
+custom fields. These direct translations were completed with low confidence
+and welcome review by a Nahuatl speaker. This left **114,454 genuinely
+untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
