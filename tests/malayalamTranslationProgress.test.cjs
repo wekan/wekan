@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -168,6 +168,14 @@ assert.deepEqual(tokens(malayalam['repair-broken-cards-done']), ['__fixed__']);
 assert.deepEqual(tokens(malayalam['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.match(malayalam['cpu-usage-current'], /CPU/);
+assert.match(malayalam['event-ip'], /IP/);
+assert.match(malayalam['event-ipv4'], /IPv4/);
+assert.match(malayalam['event-ipv6'], /IPv6/);
+assert.deepEqual(tokens(malayalam['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(malayalam['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
+assert.match(malayalam['import-wekan-file'], /\.json.*\.zip/);
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
