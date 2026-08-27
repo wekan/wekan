@@ -3608,9 +3608,15 @@ size, organization/team deletion safeguards, tickets, requests and status
 labels. These direct translations were completed with low confidence and welcome
 review by a Marathi speaker. This left **117,688 genuinely untranslated values
 across 55 locale files**.
+The thirty-second 50-value Marathi batch added team/organization invitations,
+Node heap and memory metrics, legal notices, checklist actions and text splitting,
+subtasks and attachment movement across filesystem, GridFS and S3 storage. These
+direct translations were completed with low confidence and welcome review by a
+Marathi speaker. This left **117,638 genuinely untranslated values across 55
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

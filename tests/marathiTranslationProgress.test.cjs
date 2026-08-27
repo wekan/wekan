@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -240,5 +240,11 @@ assert.match(marathi['api-no-calls'], /WITH_API=true/);
 assert.match(marathi['recovery-report-desc'], /MongoDB/);
 assert.match(marathi['Cube-Grid'], /Cube-Grid/);
 assert.match(marathi['carbon-copy'], /Cc:/);
+assert.match(marathi.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(marathi.Node_memory_usage_rss, /Node.*resident set/);
+assert.match(marathi['custom-legal-notice-link-url'], /URL/);
+assert.equal(marathi['originOrder'], 'मूळ क्रम');
+assert.match(marathi['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(marathi['attachment-move-storage-s3'], /S3/);
 
 console.log('Marathi translation progress checks passed.');
