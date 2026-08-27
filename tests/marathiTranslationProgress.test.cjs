@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -271,5 +271,13 @@ for (const literal of ['mongodb://127.0.0.1:27018',
 }
 assert.match(marathi['sandstorm-migration-description'],
   /files\/attachments.*files\/avatars/);
+for (const literal of ['CARDS_LOADING', 'CARDS_LOADING_LAZY_THRESHOLD']) {
+  assert.ok(marathi['cards-loading-description'].includes(literal));
+}
+assert.deepEqual(tags(marathi['render-links-as-plain-text-description']),
+  ['<a href>']);
+assert.match(marathi['always-show-code-as-text-description'], /<!-- -->/);
+assert.match(marathi['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
 
 console.log('Marathi translation progress checks passed.');

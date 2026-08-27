@@ -3634,9 +3634,15 @@ recovery, filesystem, S3 and Azure storage settings, database migration, and
 Sandstorm migration status. These direct translations were completed with low
 confidence and welcome review by a Marathi speaker. This left **117,438 genuinely
 untranslated values across 55 locale files**.
+The thirty-seventh 50-value Marathi batch added Sandstorm disk cleanup, card
+loading modes, secure plain-text rendering, import/export privacy controls,
+activity and notification controls, and backup scope and storage. These direct
+translations were completed with low confidence and welcome review by a Marathi
+speaker. This left **117,388 genuinely untranslated values across 55 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
