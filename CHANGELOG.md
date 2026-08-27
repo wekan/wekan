@@ -5213,9 +5213,15 @@ activity, notification and watch controls, user anonymization, and instance or
 organization backups to local and cloud storage. These direct translations were
 completed with low confidence and welcome review by a Chichewa speaker. This
 left **104,386 genuinely untranslated values across 49 locale files**.
+The thirty-eighth 50-value Chichewa batch added scheduled backup frequency and
+restore modes, Google Cloud service-account configuration and permissions, AWS
+S3, MinIO-compatible, Azure and Google Cloud console guidance, cloud-secret and
+connection states, and Azure Blob Storage movement. These direct translations
+were completed with low confidence and welcome review by a Chichewa speaker.
+This left **104,336 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
