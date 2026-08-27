@@ -4771,9 +4771,15 @@ checklist, swimlane, list, card and board imports. These direct translations
 were completed with low confidence and welcome review by a Northern Sotho
 speaker. This left **108,103 genuinely untranslated values across 50 locale
 files**.
+The seventh 50-value Northern Sotho batch added member, sticker and invitation
+dialogs, list sorting and archive restoration, linked cards and boards, secure
+mapping of imported members, themes, fonts, text colors, avatars, languages and
+permissions. These direct translations were completed with low confidence and
+welcome review by a Northern Sotho speaker. This left **108,053 genuinely
+untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
