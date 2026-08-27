@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 717);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -224,5 +224,12 @@ assert.match(nepali['import-dependencies-file'], /JSON.*SVG/);
 assert.deepEqual(tokens(nepali['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(nepali['background-too-big']), ['{{size}}']);
+assert.match(nepali['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.deepEqual(tokens(nepali['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(nepali['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+assert.match(nepali.cpuReportTitle, /CPU/);
+assert.match(nepali['office-report-desc'], /IPv4.*IPv6/);
 
 console.log('Nepali translation progress checks passed.');
