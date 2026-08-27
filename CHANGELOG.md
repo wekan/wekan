@@ -4873,9 +4873,15 @@ cards, checklists, swimlanes and dates, authentication labels, custom product
 and web metadata and layout controls. These direct translations were completed
 with low confidence and welcome review by a Northern Sotho speaker. This left
 **107,253 genuinely untranslated values across 50 locale files**.
+The twenty-fourth 50-value Northern Sotho batch added board-member lists,
+custom body HTML, authentication and duplication controls, activity dates and
+reminders, destructive safeguards, selection placement and resize controls.
+These direct translations were completed with low confidence and welcome review
+by a Northern Sotho speaker. This left **107,203 genuinely untranslated values
+across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
