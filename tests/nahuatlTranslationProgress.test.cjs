@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -265,5 +265,13 @@ assert.match(nahuatl['accounts-lockout-failure-window'], /segundos/);
 assert.equal(nahuatl['accounts-lockout-unlock-all'],
   'Xiquintlapo mochtin');
 assert.equal(nahuatl['cron-migrations'], 'Tlanahuatilli mijcueniliztin');
+assert.match(nahuatl['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.match(nahuatl['database-migration-description'],
+  /MongoDB.*FerretDB v1 \(SQLite\).*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL/);
+assert.match(nahuatl['database-migration-description'],
+  /MONGO_URL.*WeKan.*Snap/);
+assert.deepEqual(tokens(nahuatl['database-migration-confirm']), ['__db__']);
+assert.match(nahuatl['sandstorm-migration-description'],
+  /WeKan.*Sandstorm grain.*MongoDB 3.*FerretDB v1 \(SQLite\)/);
 
 console.log('Nahuatl translation progress checks passed.');
