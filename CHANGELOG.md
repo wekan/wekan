@@ -5808,9 +5808,16 @@ Azure, AWS S3 and compatible-provider configuration paths, cloud connection
 tests, and Azure Blob Storage attachment moves. These direct translations were
 completed with low confidence and welcome review by a Pashto speaker. This
 left **100,002 genuinely untranslated values across 47 locale files**.
+The thirty-ninth 50-value Pashto batch added Google Cloud Storage moves,
+GridFS and CollectionFS storage, migration lifecycle and progress, AWS S3 and
+MinIO credentials and connections, scheduled board operations, writable
+storage paths, and attachment and board migration settings. These direct
+translations were completed with low confidence and welcome review by a
+Pashto speaker. This left **99,952 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
