@@ -2945,8 +2945,14 @@ deletion, archives, dates, time and card attachment, field, label and member
 editing. These direct translations were completed with low confidence and
 welcome review by a Māori speaker. This left **123,322 genuinely untranslated
 values across 57 locale files**.
+The sixth 50-value Māori batch added card members and dates, voting and Planning
+Poker, dependencies, organizations, teams, avatars, backgrounds, duplicate
+lists, accounts, domains, imported-member mapping and checklist, swimlane, list,
+card and board imports. These direct translations were completed with low
+confidence and welcome review by a Māori speaker. This left **123,272 genuinely
+untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at `card-members-title` with
+and exact tokens from `en.i18n.json`, resuming Māori at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

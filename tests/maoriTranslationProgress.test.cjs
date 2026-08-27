@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -74,3 +74,10 @@ assert.deepEqual(tokens(
 assert.match(maori['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(maori['card-comments-title']), ['%s']);
 assert.equal(maori['card-edit-custom-fields'], 'Whakatika āpure ritenga');
+assert.match(maori['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(maori['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.equal(maori['importDependenciesPopup-title'],
+  'Kawemai whirinakitanga');
+assert.equal(maori['exportChecklistPopup-title'],
+  'Kaweake rārangi arowhai');
+assert.equal(maori['importSwimlanePopup-title'], 'Kawemai kauhanga');
