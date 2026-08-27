@@ -5688,9 +5688,15 @@ checklist, attachment, scheduled-time and received-date triggers and JSON, CSV
 and Trello Butler rule transfer. These direct translations were completed with
 low confidence and welcome review by a Pashto speaker. This left **100,902
 genuinely untranslated values across 47 locale files**.
+The twenty-first 50-value Pashto batch added n8n and Node-RED visual-workflow
+imports, scheduled and button triggers, recurring schedules, due-date and
+list-duration conditions, card and board buttons, list sorting, completion,
+bulk movement, relative dates, time units and movement triggers. These direct
+translations were completed with low confidence and welcome review by a Pashto
+speaker. This left **100,852 genuinely untranslated values across 47 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at
-`r-import-workflow` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
