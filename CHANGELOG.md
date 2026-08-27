@@ -5842,8 +5842,14 @@ scoped WeKan import and export controls. These direct translations were
 completed with low confidence and welcome review by a Pashto speaker. Pashto
 is now complete, leaving **99,735 genuinely untranslated values across 46
 locale files**.
+The first 50-value Kirundi batch added acceptance, title, description and due
+date changes, organization and team membership rules, replies, notifications,
+and board, card, list, swimlane, attachment, subtask, label, checklist,
+comment, custom-field, archive and import activities. These direct translations
+were completed with low confidence and welcome review by a Kirundi speaker.
+This left **99,685 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kirundi at `accept` with
+and exact tokens from `en.i18n.json`, resuming Kirundi at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
