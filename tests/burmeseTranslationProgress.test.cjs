@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -161,6 +161,10 @@ assert.match(burmese['restore-lost-cards-migration-description'],
 assert.match(burmese['fix-avatar-urls-migration'], /URL/);
 assert.match(burmese['fix-all-file-urls-migration'], /URL/);
 assert.match(burmese['run-restore-all-archived-migration-confirm'], /ID/);
+assert.match(burmese['step-fix-attachment-urls'], /URL/);
+assert.match(burmese['step-fix-missing-ids'], /ID/);
+assert.match(burmese['cpu-cores'], /CPU/);
+assert.match(burmese['gridfs-attachments'], /GridFS/);
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
