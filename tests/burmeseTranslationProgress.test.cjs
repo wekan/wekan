@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -44,5 +44,13 @@ assert.deepEqual(tokens(burmese['act-setCustomField']),
     '__list__', '__swimlane__']);
 assert.match(burmese['board-members-same-org-only'], /အဖွဲ့အစည်း/);
 assert.match(burmese['board-members-same-team-only'], /အဖွဲ့/);
+assert.deepEqual(tokens(burmese['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(burmese['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(burmese['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(burmese['allboards.workspaces'], 'လုပ်ငန်းနေရာများ');
+assert.match(burmese['allboards.edit-workspace-icon'], /markdown/);
 
 console.log('Burmese translation progress checks passed.');

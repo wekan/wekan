@@ -3685,9 +3685,14 @@ comment and due-date controls, and detailed board, card, list, swimlane,
 attachment, label and checklist activity messages. These direct translations
 were completed with low confidence and welcome review by a Burmese speaker.
 This left **117,021 genuinely untranslated values across 54 locale files**.
+The second 50-value Burmese batch added cross-list and cross-board card movement,
+compact activity messages, checklist status changes and workspace creation,
+editing and navigation. These direct translations were completed with low
+confidence and welcome review by a Burmese speaker. This left **116,971
+genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`act-moveCard` with
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
