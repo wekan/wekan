@@ -4707,9 +4707,15 @@ AWS S3 and MinIO credentials and SSL/TLS, scheduled board operations, writable
 paths and attachment and board migration settings. These direct translations
 were completed with low confidence and welcome review by a Nepali speaker. This
 left **108,620 genuinely untranslated values across 51 locale files**.
+The fortieth 50-value Nepali batch added comprehensive board migration,
+duplicate-list cleanup, lost-card and archive restoration, missing-list repair,
+avatar and file URL correction, confirmations, progress and board-structure
+repair steps. These direct translations were completed with low confidence and
+welcome review by a Nepali speaker. This left **108,570 genuinely untranslated
+values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
