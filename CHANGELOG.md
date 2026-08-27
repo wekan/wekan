@@ -3140,9 +3140,15 @@ navigation, connection testing and Azure attachment storage. These direct
 translations were completed with low confidence and welcome review by a Māori
 speaker. This left **121,672 genuinely untranslated values across 57 locale
 files**.
+The thirty-ninth 50-value Māori batch added Google Cloud and GridFS storage,
+migration lifecycle controls, CollectionFS guidance, S3 credentials and TLS,
+scheduled board operations, writable paths and attachment and board migration
+settings. These direct translations were completed with low confidence and
+welcome review by a Māori speaker. This left **121,622 genuinely untranslated
+values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -293,3 +293,9 @@ assert.match(maori['gcs-credentials-menu-path'],
   /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*Add key.*Create new key.*JSON.*Create/s);
 assert.match(maori['attachment-move-storage-azure'],
   /Azure Blob Storage/);
+assert.match(maori['attachment-move-storage-gcs'],
+  /Google Cloud Storage/);
+assert.match(maori['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(maori['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(maori['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(maori['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
