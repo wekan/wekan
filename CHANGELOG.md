@@ -3932,9 +3932,14 @@ navigation, minicard display and storage and operation totals. These direct
 translations were completed with low confidence and welcome review by a Burmese
 speaker. This left **114,971 genuinely untranslated values across 54 locale
 files**.
+The forty-third 50-value Burmese batch added repositories and account creation,
+OTP and login validation, problem-report guidance, broken-card repair results,
+CPU load and diagnostic event fields. These direct translations were completed
+with low confidence and welcome review by a Burmese speaker. This left
+**114,921 genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

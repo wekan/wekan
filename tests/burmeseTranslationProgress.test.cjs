@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -169,6 +169,12 @@ assert.match(burmese['migrate-all-to-gridfs'], /GridFS/);
 assert.match(burmese['migrate-all-to-s3'], /S3/);
 assert.match(burmese['migration-cpu-threshold-description'], /10-90/);
 assert.match(burmese['migration-delay-ms-description'], /100-10000/);
+assert.match(burmese.otp, /OTP/);
+assert.match(burmese['api-endpoints'], /API/);
+assert.deepEqual(tokens(burmese['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(burmese['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.match(burmese['cpu-usage-current'], /CPU/);
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
