@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 567);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -241,5 +241,11 @@ assert.match(nepali.Node_memory_usage_rss, /Node.*resident set/);
 assert.match(nepali['custom-legal-notice-link-url'], /URL/);
 assert.match(nepali['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(nepali['attachment-move-storage-s3'], /S3/);
+assert.match(nepali['attachment-repair-locations-description'], /GridFS/);
+assert.match(nepali['gridfs-file-id'], /GridFS.*ID/);
+assert.match(nepali['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
+assert.match(nepali['mongodb-compact-warning'],
+  /Compact.*replica set.*secondary.*primary.*oplog.*Meteor/s);
+assert.match(nepali['mongodb-compact-run'], /MongoDB Compact/);
 
 console.log('Nepali translation progress checks passed.');
