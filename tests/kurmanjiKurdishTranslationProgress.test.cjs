@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -282,3 +282,10 @@ assert.match(kurmanji['custom-field-stringtemplate-separator'],
   /&#32;.*&nbsp;/);
 assert.match(kurmanji.cpuReportTitle, /CPU/);
 assert.match(kurmanji['office-report-desc'], /IPv4.*IPv6/);
+assert.match(kurmanji['api-report-desc'], /REST API/);
+assert.match(kurmanji['api-no-calls'], /WITH_API=true/);
+assert.match(kurmanji['recovery-report-desc'], /MongoDB/);
+assert.equal(kurmanji['copy-swimlane'], 'Rêçê kopî bike');
+assert.match(kurmanji['Double-Bounce'], /Double Bounce/);
+assert.match(kurmanji['carbon-copy'], /Cc:/);
+assert.equal(kurmanji['cardDetailsPopup-title'], 'Hûrguliyên kartê');
