@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -60,5 +60,12 @@ assert.match(ndebele['set-list-width-value'], /amaphikseli/);
 assert.match(ndebele['list-width-error-message'], /270/);
 assert.match(ndebele['set-swimlane-height-value'], /amaphikseli/);
 assert.equal(ndebele['add-checklist'], 'Engeza uluhlu lokuhlola');
+assert.deepEqual(tokens(ndebele['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(ndebele['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(ndebele['avatar-too-big']), ['__size__']);
+assert.match(ndebele['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(ndebele['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(ndebele['board-private-info']),
+  ['</strong>', '<strong>']);
 
 console.log('Northern Ndebele translation progress checks passed.');
