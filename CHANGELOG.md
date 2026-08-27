@@ -6252,9 +6252,16 @@ state plus tenant domains, administrators and member propagation. These direct
 translations were completed with low confidence and welcome review by a
 Kinyarwanda speaker. This left **96,668 genuinely untranslated values across
 45 locale files**.
+The nineteenth 50-value Kinyarwanda batch added received and end dates, color
+dialogs, requester and assignee attribution, permanent board and notification
+deletion, duplicate-list cleanup, subtask and card settings, minicard content,
+attachment and checklist counts and parent-card paths and activity. These
+direct translations were completed with low confidence and welcome review by
+a Kinyarwanda speaker. This left **96,618 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
