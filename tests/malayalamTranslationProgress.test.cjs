@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -157,6 +157,11 @@ assert.match(malayalam['step-fix-missing-ids'], /ID/);
 assert.match(malayalam['cpu-cores'], /CPU/);
 assert.match(malayalam['gridfs-attachments'], /GridFS/);
 assert.match(malayalam['every-30-minutes'], /30/);
+assert.match(malayalam['migrate-all-to-gridfs'], /GridFS/);
+assert.match(malayalam['migrate-all-to-s3'], /S3/);
+assert.match(malayalam['migration-batch-size-description'], /1-100/);
+assert.match(malayalam['migration-cpu-threshold-description'], /10-90/);
+assert.match(malayalam['migration-delay-ms-description'], /100-10000/);
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');

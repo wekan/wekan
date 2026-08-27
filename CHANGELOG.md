@@ -3404,9 +3404,15 @@ monitoring, filesystem and GridFS sizes, board scans and job-queue details. Thes
 direct translations were completed with low confidence and welcome review by a
 Malayalam speaker. This left **119,355 genuinely untranslated values across 56
 locale files**.
+The forty-second 50-value Malayalam batch added bulk storage migrations, batch,
+CPU and delay thresholds, migration logs and background status, monitoring
+navigation, scheduled operations, minicard display, storage distribution and
+system-resource totals. These direct translations were completed with low
+confidence and welcome review by a Malayalam speaker. This left **119,305
+genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
