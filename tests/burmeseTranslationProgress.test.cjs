@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -125,6 +125,16 @@ assert.match(burmese['accounts-lockout-settings'], /ကာကွယ်ရေး/
 assert.equal(burmese['accounts-lockout-unlock-all'], 'အားလုံး ပြန်ဖွင့်ရန်');
 assert.equal(burmese['attachments-path'], 'ပူးတွဲဖိုင် လမ်းကြောင်း');
 assert.match(burmese['board-backup-scheduled'], /အောင်မြင်စွာ/);
+assert.match(burmese['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.deepEqual(tokens(burmese['database-migration-confirm']), ['__db__']);
+for (const literal of ['mongodb://127.0.0.1:27018',
+  'mongodb://127.0.0.1:27019', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL',
+  'MONGO_URL']) {
+  assert.match(burmese['database-migration-description'],
+    new RegExp(literal.replaceAll('.', '\\.')));
+}
+assert.match(burmese['sandstorm-migration-description'], /files\/attachments/);
+assert.match(burmese['sandstorm-migration-description'], /files\/avatars/);
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');

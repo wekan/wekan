@@ -3891,9 +3891,14 @@ jobs, attachment paths and scheduled board archive, backup and cleanup results.
 These direct translations were completed with low confidence and welcome
 review by a Burmese speaker. This left **115,321 genuinely untranslated values
 across 54 locale files**.
+The thirty-sixth 50-value Burmese batch added scheduled-job and migration
+controls, filesystem, S3 and Azure storage settings, MongoDB and FerretDB data
+migration and Sandstorm grain migration status. These direct translations were
+completed with low confidence and welcome review by a Burmese speaker. This
+left **115,271 genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
