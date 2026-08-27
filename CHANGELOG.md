@@ -7150,9 +7150,14 @@ and template controls, attachment and background settings, board-member views
 and private-board status. These direct translations were completed with low
 confidence and welcome review by a Sinhala speaker. This left **88,700 genuinely
 untranslated values across 41 locale files**.
+The fifth 50-value Sinhala batch added public-board status, board views and zoom,
+calendar navigation, archive guidance and card dates, time and editing controls.
+These direct translations were completed with low confidence and welcome review
+by a Sinhala speaker. This left **88,650 genuinely untranslated values across 41
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
