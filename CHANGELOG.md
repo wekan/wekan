@@ -3551,9 +3551,15 @@ state, card movement, member removal, colors, checklist actions, email and
 generated rule descriptions. These direct translations were completed with low
 confidence and welcome review by a Marathi speaker. This left **118,138 genuinely
 untranslated values across 55 locale files**.
+The twenty-third 50-value Marathi batch added generated email, archive, label,
+member and checklist rule actions, card/swimlane creation, checklist item syntax,
+date-field changes and card links, authentication, custom product/head/manifest/
+assetlinks settings, layout, logo and card counters. These direct translations
+were completed with low confidence and welcome review by a Marathi speaker. This
+left **118,088 genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

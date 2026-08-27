@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -182,5 +182,10 @@ assert.equal(marathi['r-list'], 'यादी');
 assert.equal(marathi['r-unarchive'], 'संग्रहातून पुनर्संचयित करा');
 assert.equal(marathi['r-checklist'], 'तपासणीसूची');
 assert.equal(marathi['r-d-send-email'], 'ईमेल पाठवा');
+assert.match(marathi['r-items-list'], /घटक1,घटक2,घटक3/);
+assert.match(marathi['r-checklist-note'], /स्वल्पविरामाने विभक्त/);
+assert.match(marathi['custom-head-meta-tags'], /HTML/);
+assert.match(marathi['custom-head-manifest-content'], /JSON/);
+assert.match(marathi['custom-assetlinks-enabled'], /assetlinks\.json/);
 
 console.log('Marathi translation progress checks passed.');
