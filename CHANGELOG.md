@@ -6866,9 +6866,14 @@ settings, attachment and board migration controls, migration progress and
 scheduled board operations. These direct translations were completed with low
 confidence and welcome review by a Sindhi speaker. This left **91,284 genuinely
 untranslated values across 43 locale files**.
+The fortieth 50-value Sindhi batch added board-integrity migration checks,
+duplicate-list cleanup, lost-card and archive restoration, URL repair,
+confirmations and migration progress steps. These direct translations were
+completed with low confidence and welcome review by a Sindhi speaker. This left
+**91,234 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sindhi at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
