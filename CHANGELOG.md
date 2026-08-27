@@ -5363,9 +5363,16 @@ archive warnings, watching, welcome-board content, template swimlanes and WIP
 limit errors. These direct translations were completed with low confidence and
 welcome review by an Oromo speaker. This left **103,269 genuinely untranslated
 values across 48 locale files**.
+The seventeenth 50-value Oromo batch added attachment and API transfer limits,
+avatar-upload blocking, registration and invitations, SMTP configuration and
+testing, invitation emails and authorization errors, outgoing, bidirectional
+and global webhooks, card-title filters and package, database, Node and Meteor
+version labels. These direct translations were completed with low confidence
+and welcome review by an Oromo speaker. This left **103,219 genuinely
+untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
