@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -121,6 +121,10 @@ assert.deepEqual(tokens(burmese['drag-board-to-workspace']),
 assert.match(burmese['show-week-of-year'], /ISO 8601/);
 assert.match(burmese['import-board-zip'], /\.zip/);
 assert.match(burmese['import-board-zip'], /JSON/);
+assert.match(burmese['accounts-lockout-settings'], /ကာကွယ်ရေး/);
+assert.equal(burmese['accounts-lockout-unlock-all'], 'အားလုံး ပြန်ဖွင့်ရန်');
+assert.equal(burmese['attachments-path'], 'ပူးတွဲဖိုင် လမ်းကြောင်း');
+assert.match(burmese['board-backup-scheduled'], /အောင်မြင်စွာ/);
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
