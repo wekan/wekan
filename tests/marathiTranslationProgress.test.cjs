@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -301,5 +301,10 @@ assert.match(marathi['step-fix-missing-ids'], /ID/);
 assert.match(marathi['cpu-cores'], /CPU/);
 assert.match(marathi['gridfs-attachments'], /GridFS/);
 assert.match(marathi['every-30-minutes'], /30/);
+assert.match(marathi['migrate-all-to-gridfs'], /GridFS/);
+assert.match(marathi['migrate-all-to-s3'], /S3/);
+assert.match(marathi['migration-batch-size-description'], /1-100/);
+assert.match(marathi['migration-cpu-threshold-description'], /10-90/);
+assert.match(marathi['migration-delay-ms-description'], /100-10000/);
 
 console.log('Marathi translation progress checks passed.');
