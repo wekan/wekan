@@ -2643,9 +2643,15 @@ statistics, export monitoring and background-job details. These direct
 translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **125,856 genuinely untranslated values across 59
 locale files**.
+The forty-second 50-value Maithili batch added attachment migration targets,
+batch, CPU and delay controls, migration logs and lifecycle, monitoring and
+pagination controls, schedules, system resources and aggregate statistics.
+These direct translations were completed with low confidence and welcome review
+by a Maithili speaker. This left **125,806 genuinely untranslated values across
+59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
