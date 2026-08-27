@@ -5370,9 +5370,16 @@ and global webhooks, card-title filters and package, database, Node and Meteor
 version labels. These direct translations were completed with low confidence
 and welcome review by an Oromo speaker. This left **103,219 genuinely
 untranslated values across 48 locale files**.
+The eighteenth 50-value Oromo batch added database, FerretDB, reactivity, DDP
+and operating-system diagnostics, time units, custom-field card display,
+account changes, board visibility, activity states, organization and team
+templates, membership propagation and authentication synchronization, and
+multitenant organization domains and administration. These direct translations
+were completed with low confidence and welcome review by an Oromo speaker.
+This left **103,169 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
