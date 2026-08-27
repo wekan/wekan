@@ -4404,9 +4404,15 @@ subtask actions, card list display and attachment movement to filesystems,
 GridFS and S3. These direct translations were completed with low confidence and
 welcome review by a Northern Ndebele speaker. This left **111,137 genuinely
 untranslated values across 52 locale files**.
+The thirty-third 50-value Northern Ndebele batch added bulk attachment movement,
+storage source and destination controls, attachment and avatar repair, file
+statistics and identifiers, MongoDB GridFS compaction guidance and board-file
+table fields. These direct translations were completed with low confidence and
+welcome review by a Northern Ndebele speaker. This left **111,087 genuinely
+untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`move-all-attachments-to-gridfs`
+`board-status`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

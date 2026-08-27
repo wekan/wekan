@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 567);
+assert.equal(Object.keys(remaining).length, 517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -278,5 +278,11 @@ assert.match(ndebele['custom-legal-notice-link-url'], /URL/);
 assert.equal(ndebele.copyChecklist, 'Kopela uluhlu lokuhlola');
 assert.match(ndebele['attachment-move-storage-gridfs'], /GridFS/);
 assert.match(ndebele['attachment-move-storage-s3'], /S3/);
+assert.match(ndebele['move-all-attachments-of-board-to-gridfs'], /GridFS/);
+assert.equal(ndebele['move-scope-avatars'], 'Izithombe zabasebenzisi');
+assert.match(ndebele['gridfs-file-id'], /GridFS/);
+assert.match(ndebele['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
+assert.match(ndebele['mongodb-compact-warning'], /oplog.*Meteor/);
+assert.equal(ndebele.action, 'Isenzo');
 
 console.log('Northern Ndebele translation progress checks passed.');
