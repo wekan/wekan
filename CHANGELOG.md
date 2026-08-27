@@ -5783,9 +5783,16 @@ ISO week display, Markdown and ZIP imports, checklist collapsing, support and
 accessibility settings. These direct translations were completed with low
 confidence and welcome review by a Pashto speaker. This left **100,202
 genuinely untranslated values across 47 locale files**.
+The thirty-fifth 50-value Pashto batch added accessibility content, brute-force
+account-lockout settings and user controls, Admin Panel people status filters,
+scheduled jobs and migrations, attachment and avatar storage paths, and
+scheduled board archive, backup and cleanup operations. These direct
+translations were completed with low confidence and welcome review by a
+Pashto speaker. This left **100,152 genuinely untranslated values across 47
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
