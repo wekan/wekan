@@ -5695,8 +5695,15 @@ bulk movement, relative dates, time units and movement triggers. These direct
 translations were completed with low confidence and welcome review by a Pashto
 speaker. This left **100,852 genuinely untranslated values across 47 locale
 files**.
+The twenty-second 50-value Pashto batch added board and list rule targets,
+movement, archive, label, member, attachment, checklist and checklist-item
+triggers and actions, card positioning, membership removal, colors, checklist
+completion and email actions. These direct translations were completed with
+low confidence and welcome review by a Pashto speaker. This left **100,802
+genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `r-the-board` with
+and exact tokens from `en.i18n.json`, resuming Pashto at
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
