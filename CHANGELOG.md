@@ -5474,9 +5474,14 @@ dependencies and imports, board backgrounds, map locations, server-error
 troubleshooting and alphabetical title sorting. These direct translations
 were completed with low confidence and welcome review by an Oromo speaker.
 This left **102,607 genuinely untranslated values across 48 locale files**.
+The thirty-sixth 50-value Oromo batch added creation sorting, links, board
+activity visibility, swimlane movement, custom-field string templates,
+administrative file, security, speed, rules, board, card, impersonation,
+office, API and recovery reports. These direct translations were completed
+with low confidence and welcome review by an Oromo speaker. This left
+**102,557 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at
-`created-at-newest-first` with
+and exact tokens from `en.i18n.json`, resuming Oromo at `recovery-detail` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
