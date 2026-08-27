@@ -6211,9 +6211,16 @@ CSV/TSV, Jira, Excel and WeKan board import and ZIP feedback. These direct
 translations were completed with low confidence and welcome review by a
 Kinyarwanda speaker. This left **96,968 genuinely untranslated values across
 45 locale files**.
+The thirteenth 50-value Kinyarwanda batch added Trello ZIP safety and personal
+workspaces, direct API imports, saved credentials, board selection, progress,
+cancellation and cleanup, member mapping, version and date validation,
+invitations, shortcuts and label creation and deletion. These direct
+translations were completed with low confidence and welcome review by a
+Kinyarwanda speaker. This left **96,918 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
