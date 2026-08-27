@@ -7120,9 +7120,14 @@ logs, monitoring refresh and export, pagination, resource usage and storage
 distribution. These direct translations were completed with low confidence and
 welcome review by a Northern Sami speaker. This left **88,967 genuinely
 untranslated values across 42 locale files**.
+The forty-third 50-value Northern Sami batch added repository accounts and
+authentication, problem reporting, broken-card repair, CPU status and event-log
+fields. These direct translations were completed with low confidence and
+welcome review by a Northern Sami speaker. This left **88,917 genuinely
+untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
