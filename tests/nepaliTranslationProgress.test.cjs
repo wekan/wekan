@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 67);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -308,5 +308,13 @@ assert.match(nepali['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(nepali['migration-delay-ms-description'], /100-10000/);
 assert.equal(nepali['show-list-on-minicard'],
   'सानो कार्डमा सूची देखाउनुहोस्');
+assert.match(nepali.otp, /OTP/);
+assert.match(nepali['api-endpoints'], /API/);
+assert.match(nepali['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(nepali['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(nepali['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.match(nepali['cpu-usage-current'], /CPU/);
+assert.equal(nepali['event-source'], 'स्रोत');
 
 console.log('Nepali translation progress checks passed.');
