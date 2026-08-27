@@ -6678,8 +6678,14 @@ All Boards display and board membership and privacy summaries. These direct
 translations were completed with low confidence and welcome review by a Sindhi
 speaker. This left **93,034 genuinely untranslated values across 43 locale
 files**.
+The fifth 50-value Sindhi batch added public-board and workspace navigation,
+board appearance and view modes, zoom and calendars, archive guidance, deletion
+safeguards and card dates, attachments, custom fields, labels and members. These
+direct translations were completed with low confidence and welcome review by a
+Sindhi speaker. This left **92,984 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `board-public-info` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
