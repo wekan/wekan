@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -114,3 +114,12 @@ assert.equal(maithili['export-card-pdf'], 'कार्ड PDF मे निर�
 assert.match(maithili['export-card-excel-fields'], /Excel/);
 assert.equal(maithili['filter-due-tomorrow'], 'काल्हि नियत');
 assert.equal(maithili['filter-no-member'], 'कोनो सदस्य नहि');
+assert.match(maithili['advanced-filter-description'],
+  /== != <= >= && \|\| \( \).*Field1 == Value1.*'Field 1' == 'Value 1'.*Field1 == I\\'m.*F1 == V1 \|\| F1 == V2.*F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(maithili['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(maithili['import-board-instruction-openproject'],
+  /GET \/api\/v3\/work_packages/);
+assert.match(maithili['import-board-instruction-jira'],
+  /GET \/rest\/api\/2\/search.*automationRules/);
+assert.match(maithili['import-excel-file'], /\.xlsx/);
