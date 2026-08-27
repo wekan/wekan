@@ -6143,8 +6143,15 @@ checklist, comment, creation, archive and import activity. These direct
 translations were completed with low confidence and welcome review by a
 Kinyarwanda speaker. This left **97,518 genuinely untranslated values across
 45 locale files**.
+The second 50-value Kinyarwanda batch added card movement and restoration,
+member removal, generic and checklist activity phrases, received and start
+dates and All Boards workspace, subworkspace, menu and settings controls.
+These direct translations were completed with low confidence and welcome
+review by a Kinyarwanda speaker. This left **97,468 genuinely untranslated
+values across 45 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kinyarwanda at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
