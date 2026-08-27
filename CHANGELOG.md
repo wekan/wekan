@@ -2554,9 +2554,14 @@ role permissions, weekdays, status, ownership and voting. These direct
 translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **126,656 genuinely untranslated values across 59
 locale files**.
+The twenty-sixth 50-value Maithili batch added linked-list safeguards, tasks,
+domain and shared-template management, My Cards and Due Cards views, global
+search scope and missing board-item messages. These direct translations were
+completed with low confidence and welcome review by a Maithili speaker. This
+left **126,606 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
