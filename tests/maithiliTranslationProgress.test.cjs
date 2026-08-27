@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -55,3 +55,9 @@ assert.match(maithili['activity-subtask-added'], /उपकार्य/);
 assert.match(maithili['activity-editComment'], /टिप्पणी/);
 assert.equal(maithili['allboards.workspaces'], 'कार्यस्थान');
 assert.match(maithili['allboards.edit-workspace-icon'], /markdown/);
+assert.equal(maithili['workspaceActionsPopup-title'], 'कार्यस्थान सेटिंग');
+assert.deepEqual(tokens(maithili['activity-dueDate']), ['%s', '%s']);
+assert.match(maithili['list-width-error-message'], /270/);
+assert.match(maithili['set-list-width-value'], /पिक्सेल/);
+assert.match(maithili['set-swimlane-height-value'], /पिक्सेल/);
+assert.equal(maithili['add-checklist'], 'जाँचसूची जोड़ू');
