@@ -4890,9 +4890,14 @@ shared-template domains, personal and due-card views, global search and
 missing-board, swimlane, list and label messages. These direct translations were
 completed with low confidence and welcome review by a Northern Sotho speaker.
 This left **107,103 genuinely untranslated values across 50 locale files**.
+The twenty-seventh 50-value Northern Sotho batch added missing-result and card
+counts plus compact global-search operators and predicates for boards, users,
+dates, attachments, checklists and card metadata. These direct translations were
+completed with low confidence and welcome review by a Northern Sotho speaker.
+This left **107,053 genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
