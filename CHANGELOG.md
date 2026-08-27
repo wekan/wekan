@@ -5446,9 +5446,13 @@ and query predicates, operator validation errors, pagination and global-search
 instruction headings. These direct translations were completed with low
 confidence and welcome review by an Oromo speaker. This left **102,703
 genuinely untranslated values across 48 locale files**.
+The twenty-ninth Oromo batch translated the global-search syntax introduction
+with its code examples intact. This direct translation was completed with low
+confidence and welcomes review by an Oromo speaker. This left **102,702
+genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`globalSearch-instructions-description` with
+`globalSearch-instructions-operators` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

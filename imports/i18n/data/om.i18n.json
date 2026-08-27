@@ -1550,7 +1550,7 @@
   "previous-page": "Fuula Darbe",
   "heading-notes": "Hubachiisawwan",
   "globalSearch-instructions-heading": "Qajeelfama Barbaadaa",
-  "globalSearch-instructions-description": "Searches can include operators to refine the search.  Operators are specified by writing the operator name and value separated by a colon.  For example, an operator specification of `list:Blocked` would limit the search to cards that are contained in a list named *Blocked*.  If the value contains spaces or special characters it must be enclosed in quotation marks (e.g. `__operator_list__:\"To Review\"`).",
+  "globalSearch-instructions-description": "Barbaacha sirreessuuf hojii raawwataawwan dabaluu dandeessa. Hojii raawwataan maqaa fi gatii hojii raawwataa tuqaa-lamaan addaan baasuun barreeffama. Fakkeenyaaf, `list:Blocked` barbaacha gara kaardiiwwan tarree *Blocked* jedhamu keessa jiraniitti daangessa. Gatiin iddoo duwwaa yookaan mallattoo addaa yoo qabaate mallattoo waraabbii keessa galuu qaba (fkn. `__operator_list__:\"To Review\"`).",
   "globalSearch-instructions-operators": "Available operators:",
   "globalSearch-instructions-operator-board": "`__operator_board__:<title>` - cards in boards matching the specified *<title>*",
   "globalSearch-instructions-operator-list": "`__operator_list__:<title>` - cards in lists matching the specified *<title>*",
