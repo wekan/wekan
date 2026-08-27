@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 817);
+assert.equal(Object.keys(remaining).length, 767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -255,3 +255,14 @@ for (const key of [
 }
 assert.equal(kurmanji['operator-swimlane'], 'rêç');
 assert.equal(kurmanji['predicate-overdue'], 'derbasbûyî');
+assert.deepEqual(tokens(kurmanji['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.match(kurmanji['operator-limit-invalid'], /hejmareke tam a erênî/);
+assert.deepEqual(tokens(kurmanji['globalSearch-instructions-operator-has']), [
+  '__operator_has__', '__predicate_assignee__', '__predicate_attachment__',
+  '__predicate_checklist__', '__predicate_description__', '__predicate_due__',
+  '__predicate_end__', '__predicate_member__', '__predicate_start__',
+]);
+assert.match(kurmanji['globalSearch-instructions-notes-2'], /\*OR\*/);
+assert.match(kurmanji['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.equal(kurmanji['link-to-search'], 'Girêdan bi vê lêgerînê');
