@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -162,3 +162,9 @@ assert.deepEqual(tokens(maithili['default-subtasks-board']), ['__board__']);
 assert.match(maithili['checklist-count-on-minicard'], /0\/0/);
 assert.equal(maithili['parent-card'], 'मूल कार्ड');
 assert.deepEqual(tokens(maithili['activity-added-label']), ['%s', '%s']);
+assert.deepEqual(tokens(maithili['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(maithili['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(maithili['r-import-done']), ['__count__']);
+assert.match(maithili['r-import-trello-note'], /Trello.*Butler.*Butler/);
+assert.equal(maithili['r-workspace'], 'कार्यस्थान');

@@ -2522,9 +2522,14 @@ attribution, destructive board and notification actions, subtask settings,
 minicard display, parent paths and label activity. These direct translations
 were completed with low confidence and welcome review by a Maithili speaker.
 This left **126,956 genuinely untranslated values across 59 locale files**.
+The twentieth 50-value Maithili batch added label, attachment and custom-field
+activity, visual rule editing, card and checklist triggers, scheduled rules and
+JSON, CSV and Trello Butler rule exchange. These direct translations were
+completed with low confidence and welcome review by a Maithili speaker. This
+left **126,906 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
