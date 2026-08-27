@@ -2986,9 +2986,15 @@ NextCloud Deck, OpenProject, Asana, ZenKit, Trello, Jira, Excel and WeKan board
 imports and safe Trello ZIP handling. These direct translations were completed
 with low confidence and welcome review by a Māori speaker. This left **122,972
 genuinely untranslated values across 57 locale files**.
+The thirteenth 50-value Māori batch added Trello ZIP path safeguards,
+workspace placement, direct API imports, cancellable and resumable import jobs,
+member mapping, version and validation labels, invitations, keyboard shortcuts
+and labels. These direct translations were completed with low confidence and
+welcome review by a Māori speaker. This left **122,922 genuinely untranslated
+values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
