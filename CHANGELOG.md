@@ -6731,8 +6731,14 @@ muting, archived-item states and participation notifications. These direct
 translations were completed with low confidence and welcome review by a Sindhi
 speaker. This left **92,534 genuinely untranslated values across 43 locale
 files**.
+The fifteenth 50-value Sindhi batch added watch notifications, private-page
+login, previews, board visibility, member removal, unsaved-description rescue,
+search, WIP limits, keyboard shortcuts, sidebars and default boards. These direct
+translations were completed with low confidence and welcome review by a Sindhi
+speaker. This left **92,484 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `notify-watch` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `starred-boards` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
