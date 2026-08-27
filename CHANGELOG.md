@@ -6354,9 +6354,15 @@ checklist display, board ZIP import, support and accessibility settings. These
 direct translations were completed with low confidence and welcome review by
 a Kinyarwanda speaker. This left **95,868 genuinely untranslated values across
 45 locale files**.
+The thirty-fifth 50-value Kinyarwanda batch added accessibility content,
+account lockout and brute-force protection, user-status filtering, scheduled
+jobs, attachment paths and scheduled board archive, backup and cleanup
+operations. These direct translations were completed with low confidence and
+welcome review by a Kinyarwanda speaker. This left **95,818 genuinely
+untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
