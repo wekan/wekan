@@ -5455,9 +5455,12 @@ and board, list, swimlane, comment, label, user and member syntax guidance with
 its code and Markdown examples intact. These direct translations were
 completed with low confidence and welcome review by an Oromo speaker. This
 left **102,692 genuinely untranslated values across 48 locale files**.
+The thirty-first 5-value Oromo batch translated assignee, creator,
+organization, team and due-date search guidance with syntax intact. This left
+**102,687 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`globalSearch-instructions-operator-assignee` with
+`globalSearch-instructions-operator-created` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
