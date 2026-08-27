@@ -5256,8 +5256,14 @@ scoped WeKan JSON and ZIP import and export, and the numeric global-search
 operator and its syntax guidance. These direct translations were completed with
 low confidence and welcome review by a Chichewa speaker, completing Chichewa.
 This left **104,069 genuinely untranslated values across 48 locale files**.
+The first 50-value Oromo batch added deletion, organization and team membership,
+comment replies, due-date changes, activity notifications, attachments,
+subtasks, labels, checklists, comments, creation, archiving and imports. These
+direct translations were completed with low confidence and welcome review by an
+Oromo speaker. This left **104,019 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Oromo at `accept` with
+and exact tokens from `en.i18n.json`, resuming Oromo at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
