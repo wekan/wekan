@@ -5920,9 +5920,17 @@ list sorting, and card, list, date, due-state, label and member filters. These
 direct translations were completed with low confidence and welcome review by
 a Kirundi speaker. This left **99,185 genuinely untranslated values across 46
 locale files**.
+The twelfth 50-value Kirundi batch added assignee, custom-field, archive,
+empty-list and advanced-expression filters, activities and member states,
+impersonation, and board imports from Kanboard, NextCloud Deck, OpenProject,
+issue trackers, Asana, ZenKit, Trello, CSV, TSV, Jira, Excel and WeKan,
+including JSON and ZIP inputs, attachments, progress and failure handling.
+These direct translations were completed with low confidence and welcome
+review by a Kirundi speaker. This left **99,135 genuinely untranslated values
+across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
