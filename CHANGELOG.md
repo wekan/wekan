@@ -5262,8 +5262,15 @@ subtasks, labels, checklists, comments, creation, archiving and imports. These
 direct translations were completed with low confidence and welcome review by an
 Oromo speaker. This left **104,019 genuinely untranslated values across 48
 locale files**.
+The second 50-value Oromo batch added card movement and restoration, member
+removal, generic and checklist activity history, comment and card dates,
+starred and remaining boards, and workspace creation, editing, icons and
+settings. These direct translations were completed with low confidence and
+welcome review by an Oromo speaker. This left **103,969 genuinely untranslated
+values across 48 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Oromo at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
