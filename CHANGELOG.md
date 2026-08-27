@@ -4972,9 +4972,15 @@ monitoring, filesystem and GridFS totals and job details and queues. These
 direct translations were completed with low confidence and welcome review by a
 Northern Sotho speaker. This left **106,353 genuinely untranslated values across
 50 locale files**.
+The forty-second 50-value Northern Sotho batch added attachment migration
+targets, batch and CPU thresholds, migration logs and lifecycle controls,
+monitoring, pagination, minicard display and storage and operation totals. These
+direct translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **106,303 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
