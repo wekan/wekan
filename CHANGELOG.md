@@ -3942,8 +3942,14 @@ integrity, scoped export and import, numeric global search and supported board
 import sources. These direct translations were completed with low confidence
 and welcome review by a Burmese speaker. Burmese is now complete. This left
 **114,904 genuinely untranslated values across 53 locale files**.
+The first 50-value Nahuatl batch added activity messages for title,
+description, board, swimlane, list, card, member, label, attachment, subtask,
+checklist, custom-field, comment, archive and import changes. These direct
+translations were completed with low confidence and welcome review by a Nahuatl
+speaker. This left **114,854 genuinely untranslated values across 53 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Nahuatl at `accept` with
+and exact tokens from `en.i18n.json`, resuming Nahuatl at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
