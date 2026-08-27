@@ -5776,9 +5776,16 @@ Compact guidance and status, and file, storage and board metadata. These
 direct translations were completed with low confidence and welcome review by
 a Pashto speaker. This left **100,252 genuinely untranslated values across 47
 locale files**.
+The thirty-fourth 50-value Pashto batch added board time status, upload
+progress, account prompts, Mongo sessions, upload and avatar file constraints,
+PDF fallback, workspace dragging, custom translation management, subtasks,
+ISO week display, Markdown and ZIP imports, checklist collapsing, support and
+accessibility settings. These direct translations were completed with low
+confidence and welcome review by a Pashto speaker. This left **100,202
+genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
