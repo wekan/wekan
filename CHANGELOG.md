@@ -4491,9 +4491,15 @@ keyboard shortcuts, swimlane heights and common card actions. These direct
 translations were completed with low confidence and welcome review by a Nepali
 speaker. This left **110,420 genuinely untranslated values across 51 locale
 files**.
+The fourth 50-value Nepali batch added administrator announcements, offline
+reconnection, archives, board visibility and restoration, attachment deletion,
+background images, board summaries, members and assignees. These direct
+translations were completed with low confidence and welcome review by a Nepali
+speaker. This left **110,370 genuinely untranslated values across 51 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

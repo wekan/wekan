@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2017);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -54,5 +54,12 @@ assert.match(nepali['set-list-width-value'], /पिक्सेल/);
 assert.match(nepali['list-width-error-message'], /270/);
 assert.match(nepali['set-swimlane-height-value'], /पिक्सेल/);
 assert.equal(nepali['add-checklist'], 'जाँचसूची थप्नुहोस्');
+assert.deepEqual(tokens(nepali['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(nepali['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(nepali['avatar-too-big']), ['__size__']);
+assert.match(nepali['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(nepali['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(nepali['board-private-info']),
+  ['</strong>', '<strong>']);
 
 console.log('Nepali translation progress checks passed.');
