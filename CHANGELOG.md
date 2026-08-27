@@ -2580,9 +2580,14 @@ security, speed, database, recovery, impersonation and office reports. These
 direct translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **126,406 genuinely untranslated values across 59
 locale files**.
+The thirty-first 50-value Maithili batch added office and API reporting,
+automatic data recovery and MongoDB remediation, swimlane copying, wait
+spinners, organization and team safeguards, ticket and request states and card
+details. These direct translations were completed with low confidence and
+welcome review by a Maithili speaker. This left **126,356 genuinely untranslated
+values across 59 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Maithili at `office-last-seen`
-with
+and exact tokens from `en.i18n.json`, resuming Maithili at `add-teams` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -233,3 +233,8 @@ assert.match(maithili['custom-field-stringtemplate-separator'],
   /&#32;.*&nbsp;/);
 assert.match(maithili['office-report-desc'], /IPv4.*IPv6/);
 assert.match(maithili.cpuReportTitle, /CPU/);
+assert.match(maithili['api-report-desc'], /REST API/);
+assert.match(maithili['api-no-calls'], /REST API.*WITH_API=true.*API/);
+assert.match(maithili['recovery-report-desc'], /MongoDB/);
+assert.equal(maithili['copy-swimlane'], 'स्विमलेन कॉपी करू');
+assert.match(maithili['carbon-copy'], /Cc:/);
