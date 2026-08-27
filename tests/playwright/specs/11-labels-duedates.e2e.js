@@ -281,24 +281,43 @@ test.describe('Labels & due dates', () => {
     }).toMatch(/^2099-12-31T/);
   });
 
-  test('#6636 opened card keeps side gutters and date editor is centered without horizontal scroll', async ({ boardPage, board }) => {
+  test('#6636/#6638 widened card keeps real content in its gutters and centers the date editor', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
+    // Reproduce #6638's wide desktop card. The regression left a correctly
+    // padded but empty canvas beside all visible content, so computed padding
+    // alone was a false positive.
+    await cp.root.evaluate(el => {
+      el.style.setProperty('width', 'min(1100px, 90vw)', 'important');
+      el.style.setProperty('max-width', '90vw', 'important');
+    });
+
     const gutters = await cp.root.locator('.card-details-canvas').evaluate(el => {
       const style = getComputedStyle(el);
+      const content = el.querySelector('.card-details-items');
+      const canvasBox = el.getBoundingClientRect();
+      const contentBox = content?.getBoundingClientRect();
       return {
         left: parseFloat(style.paddingLeft),
         right: parseFloat(style.paddingRight),
         fits: el.scrollWidth <= el.clientWidth,
+        ownsHeader: Boolean(el.querySelector(':scope > .card-details-header')),
+        ownsContent: Boolean(content),
+        contentLeft: contentBox ? contentBox.left - canvasBox.left : 0,
+        contentRight: contentBox ? canvasBox.right - contentBox.right : 0,
       };
     });
     expect(gutters.left).toBeGreaterThanOrEqual(20);
     expect(gutters.right).toBeGreaterThanOrEqual(20);
     expect(gutters.fits).toBe(true);
+    expect(gutters.ownsHeader).toBe(true);
+    expect(gutters.ownsContent).toBe(true);
+    expect(gutters.contentLeft).toBeGreaterThanOrEqual(20);
+    expect(gutters.contentRight).toBeGreaterThanOrEqual(20);
 
     await cp.openDueDateEditor();
     const layout = await boardPage.locator('.js-pop-over').evaluate(el => {
