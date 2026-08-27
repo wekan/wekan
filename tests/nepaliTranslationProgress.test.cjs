@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1367);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -139,5 +139,14 @@ assert.match(nepali['custom-top-left-corner-logo-height'], /27/);
 assert.match(nepali['automatic-linked-url-schemes'], /URL.*URL/);
 assert.match(nepali['wipLimitErrorPopup-dialog-pt1'], /WIP/);
 assert.match(nepali['wipLimitErrorPopup-dialog-pt2'], /WIP/);
+assert.match(nepali['attachment-transfer-limits-title'], /API/);
+assert.match(nepali['smtp-host-description'], /SMTP/);
+assert.match(nepali['smtp-tls-description'], /SMTP/);
+assert.match(nepali['smtp-tls-description'], /TLS/);
+assert.deepEqual(tokens(nepali['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(nepali['email-smtp-test-subject'], /SMTP/);
+assert.match(nepali.Node_version, /Node/);
+assert.match(nepali.Meteor_version, /Meteor/);
 
 console.log('Nepali translation progress checks passed.');

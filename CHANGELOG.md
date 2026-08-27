@@ -4569,9 +4569,15 @@ schemes, welcome-board and template names, archive warnings and WIP-limit
 feedback. These direct translations were completed with low confidence and
 welcome review by a Nepali speaker. This left **109,770 genuinely untranslated
 values across 51 locale files**.
+The seventeenth 50-value Nepali batch added attachment and API transfer limits,
+avatar upload controls, registration and invitation emails, SMTP and TLS
+settings and testing, authorization errors, outgoing and two-way webhooks and
+runtime package, database, Node and Meteor labels. These direct translations
+were completed with low confidence and welcome review by a Nepali speaker. This
+left **109,720 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
