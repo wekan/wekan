@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -219,3 +219,10 @@ assert.deepEqual(tokens(kyrgyz['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(kyrgyz['background-too-big']), ['{{size}}']);
 assert.equal(kyrgyz['location-open-map'], 'Картадан ачуу');
+assert.match(kyrgyz['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.deepEqual(tokens(kyrgyz['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(kyrgyz['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+assert.match(kyrgyz['office-report-desc'], /IPv4.*IPv6/);
+assert.match(kyrgyz.cpuReportTitle, /CPU/);
