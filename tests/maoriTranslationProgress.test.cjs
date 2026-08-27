@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1817);
+assert.equal(Object.keys(remaining).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -88,3 +88,9 @@ assert.match(maori['map-to-existing-user-desc'],
 assert.equal(maori['map-to-existing-user-no-results'],
   'Kāore i kitea he kaiwhakamahi ōrite.');
 assert.match(maori['font-preview-text'], /0123456789/);
+assert.equal(maori['auto-list-width'], 'Whānui rārangi aunoa');
+assert.match(maori['card-aging-days'], /3/);
+assert.equal(maori['move-card-up'], 'Neke kāri ki runga');
+assert.equal(maori['color-red'], 'whero');
+assert.equal(maori['color-silver'], 'hiriwa');
+assert.equal(maori['color-magenta'], 'whero waiporoporo');

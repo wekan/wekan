@@ -2957,9 +2957,15 @@ mapping, themes, fonts, text colors, avatars, languages and permissions. These
 direct translations were completed with low confidence and welcome review by a
 Māori speaker. This left **123,222 genuinely untranslated values across 57
 locale files**.
+The eighth 50-value Māori batch added starring, automatic list widths,
+clipboard actions, card aging, keyboard movement, accessible dialog controls,
+board restoration and most of the board color palette. These direct
+translations were completed with low confidence and welcome review by a Māori
+speaker. This left **123,172 genuinely untranslated values across 57 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
