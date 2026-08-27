@@ -45,6 +45,14 @@ NODE="$DIR/node"
 _memory_mb=$(awk '/^MemTotal:/{print int($2/1024)}' /proc/meminfo 2>/dev/null || echo 2048)
 for _f in /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory/memory.limit_in_bytes; do [ -r "$_f" ] || continue; _b=$(cat "$_f" 2>/dev/null || true); case "$_b" in ''|max|*[!0-9]*) continue;; esac; _m=$((_b/1048576)); [ "$_m" -gt 0 ] && [ "$_m" -lt "$_memory_mb" ] && _memory_mb=$_m; break; done
 _heap_mb=$((_memory_mb*3/5)); [ "$_heap_mb" -gt 4096 ] && _heap_mb=4096
+# A 32-bit Node has only a 4 GiB virtual address space for the executable,
+# shared libraries, stacks and V8. Asking it for the 4 GiB 64-bit ceiling can
+# make V8 die while deserializing its startup snapshot, before main.js runs.
+# `file` describes the binary itself (unlike getconf/uname, which describe the
+# host and are 64-bit when an i386 bundle runs on x86_64).
+if command -v file >/dev/null 2>&1 && file "$NODE" | grep -q 'ELF 32-bit'; then
+  [ "$_heap_mb" -gt 1024 ] && _heap_mb=1024
+fi
 _go_mb=$((_memory_mb/5)); [ "$_go_mb" -gt 1024 ] && _go_mb=1024
 export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=$_heap_mb}"
 export GOMEMLIMIT="${GOMEMLIMIT:-${_go_mb}MiB}"

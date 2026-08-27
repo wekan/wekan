@@ -313,19 +313,16 @@ jobs:
           # is caught here rather than by whoever downloads it.
           export WRITABLE_PATH="$PWD/smoke-data" PORT=8080
 
-          # A CHECK THAT CANNOT RUN IS NOT A FAILED CHECK. The 32-bit builds are
-          # packed on a 64-bit runner, which executes them only if the kernel and
-          # loader for that word size are present - GitHub promises neither. If
-          # the binary cannot be executed AT ALL, the AppImage is as good as
-          # anything here knows and the release must not be withheld for it; say
-          # so and move on. Anything else - it starts and does not answer - is
-          # the bug this step exists for and still fails.
-          if ! APPIMAGE_EXTRACT_AND_RUN=1 "$app" --appimage-help >/dev/null 2>&1 \
-             && ! APPIMAGE_EXTRACT_AND_RUN=1 "$app" --help >/dev/null 2>&1; then
-            if ! file "$app" | grep -q "$(uname -m)"; then
-              echo "::warning::this runner cannot execute a ${{ matrix.appimage_arch }} binary, so the AppImage was packed but not started. It is uploaded unchecked."
-              exit 0
-            fi
+          # A CHECK THAT CANNOT RUN IS NOT A FAILED CHECK. Probe the INNER Node,
+          # not the AppImage runtime: on the arm64 runner the armhf AppImage
+          # runtime itself executes, while its bundled hard-float Node cannot
+          # when /lib/ld-linux-armhf.so.3 is absent. Probing the outer wrapper
+          # misclassified that missing loader as an application startup bug.
+          # AppDir is the exact tree just packed, so this also avoids extracting
+          # the large image merely to make the capability decision.
+          if ! AppDir/usr/lib/wekan/bundle/node --version >/dev/null 2>&1; then
+            echo "::warning::this runner cannot execute the bundled ${{ matrix.appimage_arch }} Node binary, so the AppImage was packed but not started. It is uploaded unchecked."
+            exit 0
           fi
 
           APPIMAGE_EXTRACT_AND_RUN=1 "$app" > smoke.log 2>&1 &
