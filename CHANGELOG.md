@@ -4816,9 +4816,15 @@ time and user validation, keyboard shortcuts and label lifecycle. These direct
 translations were completed with low confidence and welcome review by a
 Northern Sotho speaker. This left **107,753 genuinely untranslated values across
 50 locale files**.
+The fourteenth 50-value Northern Sotho batch added last-administrator and board
+departure safeguards, list and swimlane archiving, movement and imports, user,
+team and organization settings, multi-selection, muted notifications, archive
+empty states and normal and assigned-only roles. These direct translations were
+completed with low confidence and welcome review by a Northern Sotho speaker.
+This left **107,703 genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
