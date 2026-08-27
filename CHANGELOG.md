@@ -3720,9 +3720,15 @@ imported-member mapping, themes, fonts, text colors, avatars, language and
 permissions. These direct translations were completed with low confidence and
 welcome review by a Burmese speaker. This left **116,721 genuinely untranslated
 values across 54 locale files**.
+The eighth 50-value Burmese batch added subtask and starring controls,
+automatic list widths, clipboard input, three-tier card aging, keyboard-friendly
+movement and dialog navigation, board closing and 23 color names. These direct
+translations were completed with low confidence and welcome review by a Burmese
+speaker. This left **116,671 genuinely untranslated values across 54 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
