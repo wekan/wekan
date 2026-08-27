@@ -5469,8 +5469,14 @@ search links, numbers, label metadata, archive timestamps and card and board
 sorting controls with syntax and examples intact. These direct translations
 were completed with low confidence and welcome review by an Oromo speaker.
 This left **102,657 genuinely untranslated values across 48 locale files**.
+The thirty-fifth 50-value Oromo batch added completion states, stickers, card
+dependencies and imports, board backgrounds, map locations, server-error
+troubleshooting and alphabetical title sorting. These direct translations
+were completed with low confidence and welcome review by an Oromo speaker.
+This left **102,607 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at `due-complete` with
+and exact tokens from `en.i18n.json`, resuming Oromo at
+`created-at-newest-first` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
