@@ -1975,9 +1975,13 @@ The twentieth 50-value Kurmanji Kurdish batch added label and custom-field
 activity, visual rule building, event triggers and JSON, CSV and Trello Butler
 rule exchange. This left **133,407 genuinely untranslated values across 62
 locale files**.
+The twenty-first 50-value Kurmanji Kurdish batch added n8n and Node-RED workflow
+imports, scheduled and button triggers, due-date conditions, list and card
+automation, relative dates, units and movement phrases. This left **133,357
+genuinely untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
