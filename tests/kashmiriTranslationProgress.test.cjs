@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -234,3 +234,11 @@ assert.match(kashmiri['migration-cpu-threshold-description'], /10-90/);
 assert.match(kashmiri['migration-delay-ms-description'], /100-10000/);
 assert.equal(kashmiri['show-list-on-minicard'],
   'لۄکٹس کارڈس پؠٹھ فہرست ہٲویو');
+assert.equal(kashmiri.otp, 'OTP کوڈ');
+assert.match(kashmiri['api-endpoints'], /API/);
+assert.match(kashmiri['username-too-short'], /3/);
+assert.match(kashmiri['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(kashmiri['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(kashmiri['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.equal(kashmiri['event-datetime'], 'تٲریخ تہٕ وقت');

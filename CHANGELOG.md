@@ -1889,9 +1889,13 @@ The forty-second 50-value Kashmiri batch added attachment migration targets and
 tuning, CPU limits, migration monitoring, progress controls, storage statistics
 and pagination. This left **134,474 genuinely untranslated values across 63
 locale files**.
+The forty-third 50-value Kashmiri batch added repository and account access,
+authentication errors, problem reporting, card repair, CPU status and event
+metadata. This left **134,424 genuinely untranslated values across 63 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
