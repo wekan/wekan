@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1417);
+assert.equal(Object.keys(remaining).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -158,3 +158,10 @@ assert.deepEqual(tokens(cornish['remove-member-pop']),
 assert.match(cornish['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(cornish['setWipLimitPopup-title'], /WIP/);
 assert.match(cornish['search-example'], /Enter/);
+assert.match(cornish['toggle-assignees'], /1-9/);
+assert.match(cornish['toggle-labels'], /1-9.*1-9/);
+assert.match(cornish['custom-top-left-corner-logo-height'], /27/);
+assert.match(cornish['automatic-linked-url-schemes'], /URL.*URL/);
+assert.equal(cornish['welcome-swimlane'], 'Karrek ven 1');
+assert.match(cornish['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(cornish['wipLimitErrorPopup-dialog-pt2'], /WIP/);

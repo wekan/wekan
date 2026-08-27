@@ -2129,9 +2129,13 @@ The fifteenth 50-value Cornish batch added watched updates, private-page login
 markup, previews, visibility, member removal and Sandstorm access, rescue
 dialogs, search, WIP limits, shortcuts and default-board behavior. This left
 **131,490 genuinely untranslated values across 61 locale files**.
+The sixteenth 50-value Cornish batch added starred boards, time tracking,
+assignee and label shortcuts, uploads, custom logos and URL schemes, welcome and
+template boards and WIP-limit guidance. This left **131,440 genuinely
+untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
