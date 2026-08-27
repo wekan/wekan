@@ -2153,9 +2153,13 @@ The twenty-first 50-value Cornish batch added n8n and Node-RED workflow imports,
 scheduled and button triggers, due-date conditions, list and card automation,
 relative dates, units and movement phrases. This left **131,190 genuinely
 untranslated values across 61 locale files**.
+The twenty-second 50-value Cornish batch added rule phrases for board and list
+movement, archive restoration, labels, members, attachments, checklists, card
+positioning, colors and email actions. This left **131,140 genuinely untranslated
+values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
