@@ -1983,9 +1983,13 @@ The twenty-second 50-value Kurmanji Kurdish batch added rule phrases for board
 and list movement, archive restoration, labels, members, attachments,
 checklists, card positioning, colors and email actions. This left **133,307
 genuinely untranslated values across 62 locale files**.
+The twenty-third 50-value Kurmanji Kurdish batch added detailed rule actions for
+cards, checklists, swimlanes and dates plus authentication, custom product HTML
+and JSON metadata, layout and counters. This left **133,257 genuinely
+untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

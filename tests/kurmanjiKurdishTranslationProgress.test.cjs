@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -206,3 +206,10 @@ assert.equal(kurmanji['r-checklist'], 'lîsteya kontrolê');
 assert.match(kurmanji['r-remove-all'], /Hemû endaman.*kartê/);
 assert.match(kurmanji['r-d-move-to-top-gen'], /serê lîsteya wê/);
 assert.equal(kurmanji['r-d-send-email'], 'E-name bişîne');
+assert.equal(kurmanji['r-in-swimlane'], 'di rêçê de');
+assert.equal(kurmanji['r-items-list'], 'hêman1,hêman2,hêman3');
+assert.match(kurmanji['r-checklist-note'], /bêhnok veqetandî/);
+assert.match(kurmanji['r-when-a-card-is-moved'], /lîsteyeke din/);
+assert.match(kurmanji['custom-head-meta-tags'], /HTML/);
+assert.match(kurmanji['custom-head-manifest-content'], /JSON/);
+assert.match(kurmanji['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
