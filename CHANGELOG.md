@@ -2253,9 +2253,13 @@ The second 50-value Kyrgyz batch added card moves and restoration, compact
 activity phrases, checklist and comment activity and workspace navigation and
 settings. This left **129,973 genuinely untranslated values across 60 locale
 files**.
+The third 50-value Kyrgyz batch added workspace deletion, multi-board selection,
+Home behavior, date activity, shared and personal list widths, keyboard
+shortcuts, swimlane sizing and checklist controls. This left **129,923 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

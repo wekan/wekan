@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -51,3 +51,9 @@ assert.deepEqual(tokens(kyrgyz['activity-checklist-completed-card']),
 assert.deepEqual(tokens(kyrgyz['activity-imported']), ['%s', '%s', '%s']);
 assert.equal(kyrgyz['allboards.workspaces'], 'Иш мейкиндиктери');
 assert.match(kyrgyz['allboards.edit-workspace-icon'], /markdown/);
+assert.equal(kyrgyz['workspaceActionsPopup-title'],
+  'Иш мейкиндигинин жөндөөлөрү');
+assert.deepEqual(tokens(kyrgyz['activity-dueDate']), ['%s', '%s']);
+assert.match(kyrgyz['list-width-error-message'], /270/);
+assert.match(kyrgyz['set-swimlane-height-value'], /пиксел/);
+assert.equal(kyrgyz['add-checklist'], 'Текшерүү тизмесин кошуу');
