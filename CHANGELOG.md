@@ -4900,9 +4900,14 @@ operator validation, pagination and detailed global-search syntax, status,
 field, sorting and combination guidance. These direct translations were
 completed with low confidence and welcome review by a Northern Sotho speaker.
 This left **107,003 genuinely untranslated values across 50 locale files**.
+The twenty-ninth 50-value Northern Sotho batch added card and board sorting,
+completion, stickers, card dependencies and their imports, board backgrounds
+and card locations. These direct translations were completed with low
+confidence and welcome review by a Northern Sotho speaker. This left **106,953
+genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`number` with
+`location-latitude` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
