@@ -2677,9 +2677,15 @@ shortcuts, swimlane heights, subtasks, checklists, covers, labels and members.
 These direct translations were completed with low confidence and welcome review
 by a Malagasy speaker. This left **125,589 genuinely untranslated values across
 58 locale files**.
+The fourth 50-value Malagasy batch added administrator roles and announcements,
+public boards, offline recovery, board, list and swimlane archives, templates,
+attachments, backgrounds and All Boards member and assignee settings. These
+direct translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **125,539 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
