@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1067);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -174,5 +174,10 @@ assert.equal(nepali['r-unarchive'], 'अभिलेखबाट पुनर्
 assert.equal(nepali['r-check-all'], 'सबैमा चिन्ह लगाउनुहोस्');
 assert.equal(nepali['r-uncheck-all'], 'सबैबाट चिन्ह हटाउनुहोस्');
 assert.equal(nepali['r-d-send-email'], 'इमेल पठाउनुहोस्');
+assert.match(nepali['r-items-list'], /^वस्तु1,वस्तु2,वस्तु3$/);
+assert.match(nepali['custom-head-meta-tags'], /HTML/);
+assert.match(nepali['custom-head-link-tags'], /HTML/);
+assert.match(nepali['custom-head-manifest-content'], /JSON/);
+assert.match(nepali['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
 
 console.log('Nepali translation progress checks passed.');

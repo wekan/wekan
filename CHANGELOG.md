@@ -4606,9 +4606,15 @@ movement and restoration, labels, members, colors and checklist actions, and
 email and movement rule descriptions. These direct translations were completed
 with low confidence and welcome review by a Nepali speaker. This left **109,470
 genuinely untranslated values across 51 locale files**.
+The twenty-third 50-value Nepali batch added automation email, archive, label,
+member, checklist, swimlane, date-field and card-link actions, authentication,
+custom product names, HTML head metadata, web manifests, asset links and layout
+controls. These direct translations were completed with low confidence and
+welcome review by a Nepali speaker. This left **109,420 genuinely untranslated
+values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
