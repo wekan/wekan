@@ -3342,9 +3342,15 @@ templates, file/security/speed/test/database reports and office-login summaries.
 These direct translations were completed with low confidence and welcome review
 by a Malayalam speaker. This left **119,905 genuinely untranslated values
 across 56 locale files**.
+The thirty-first 50-value Malayalam batch added Office and REST API reports,
+recovery status and maintenance, swimlane copying, wait spinners, card window
+size, organization/team deletion safeguards, tickets, requests and status
+labels. These direct translations were completed with low confidence and
+welcome review by a Malayalam speaker. This left **119,855 genuinely
+untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
