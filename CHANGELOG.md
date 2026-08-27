@@ -5207,9 +5207,15 @@ FerretDB v1 text-data migration, and Sandstorm grain migration status and disk
 cleanup guidance. These direct translations were completed with low confidence
 and welcome review by a Chichewa speaker. This left **104,436 genuinely
 untranslated values across 49 locale files**.
+The thirty-seventh 50-value Chichewa batch added Sandstorm raw MongoDB cleanup,
+adaptive card loading, link and code rendering security, import, export, avatar,
+activity, notification and watch controls, user anonymization, and instance or
+organization backups to local and cloud storage. These direct translations were
+completed with low confidence and welcome review by a Chichewa speaker. This
+left **104,386 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
