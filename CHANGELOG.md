@@ -5730,9 +5730,16 @@ Cards and global search views, and board, swimlane, list and label not-found
 errors. These direct translations were completed with low confidence and
 welcome review by a Pashto speaker. This left **100,602 genuinely untranslated
 values across 47 locale files**.
+The twenty-seventh 50-value Pashto batch added username, comment, organization
+and team lookup errors, card result counts and localized global-search
+operators and predicates for boards, swimlanes, lists, people, status, dates,
+sorting, comments, organizations, teams, text, custom fields, attachments and
+checklists. These direct translations were completed with low confidence and
+welcome review by a Pashto speaker. This left **100,552 genuinely untranslated
+values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
