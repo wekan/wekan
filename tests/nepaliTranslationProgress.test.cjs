@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1217);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -160,5 +160,11 @@ assert.match(nepali['checklist-count-on-minicard'], /0\/0/);
 assert.match(nepali['checklist-count'], /0\/0/);
 assert.deepEqual(tokens(nepali['activity-added-label']), ['%s', '%s']);
 assert.equal(nepali['parent-card'], 'अभिभावक कार्ड');
+assert.deepEqual(tokens(nepali['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(nepali['activity-unset-customfield']), ['%s', '%s']);
+assert.deepEqual(tokens(nepali['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(nepali['r-import-done']), ['__count__']);
+assert.match(nepali['r-import-paste'], /JSON.*CSV.*Trello Butler/);
 
 console.log('Nepali translation progress checks passed.');

@@ -4588,9 +4588,15 @@ confirmations, duplicate-list cleanup, subtask and card settings, minicard
 details and parent-card paths and labels. These direct translations were
 completed with low confidence and welcome review by a Nepali speaker. This left
 **109,620 genuinely untranslated values across 51 locale files**.
+The twentieth 50-value Nepali batch added label, attachment and custom-field
+activity, visual rule building, card, label, member, checklist, attachment and
+daily triggers, JSON and CSV rule import and export and Trello Butler command
+mapping. These direct translations were completed with low confidence and
+welcome review by a Nepali speaker. This left **109,570 genuinely untranslated
+values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
