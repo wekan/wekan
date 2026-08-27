@@ -2177,9 +2177,13 @@ The twenty-seventh 50-value Cornish batch added missing user, comment,
 organization and team results, result counts and space-free localized global
 search operators and predicates. This left **130,890 genuinely untranslated
 values across 61 locale files**.
+The twenty-eighth 50-value Cornish batch added predicate validation, pagination
+and complete global-search operator syntax, status, existence, sorting, limits,
+boolean combinations and date guidance. This left **130,840 genuinely
+untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
