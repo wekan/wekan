@@ -4115,9 +4115,14 @@ pagination and complete global-search instructions for operators, status,
 fields, sorting, limits and Boolean matching. These direct translations were
 completed with low confidence and welcome review by a Nahuatl speaker. This
 left **113,504 genuinely untranslated values across 53 locale files**.
+The twenty-ninth 50-value Nahuatl batch added board and card sorting, completion
+state, stickers, card dependency relations and imports, board backgrounds and
+map locations. These direct translations were completed with low confidence
+and welcome review by a Nahuatl speaker. This left **113,454 genuinely
+untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`number` with
+`location-latitude` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
