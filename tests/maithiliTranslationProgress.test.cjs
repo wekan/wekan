@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -298,3 +298,12 @@ assert.match(maithili['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(maithili['s3-enabled-description'], /AWS S3.*MinIO/);
 assert.match(maithili['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(maithili['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
+assert.match(maithili['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(maithili['restore-all-archived-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(maithili['fix-avatar-urls-migration-description'], /URL/);
+assert.match(maithili['fix-all-file-urls-migration-description'], /URL/);
+assert.match(maithili['run-restore-lost-cards-migration-confirm'],
+  /swimlaneId.*listId/);
+assert.match(maithili['run-restore-all-archived-migration-confirm'], /ID/);
