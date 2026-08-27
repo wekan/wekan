@@ -4526,9 +4526,15 @@ cards, JSON bulk-card input and custom-field types and options. These direct
 translations were completed with low confidence and welcome review by a Nepali
 speaker. This left **110,120 genuinely untranslated values across 51 locale
 files**.
+The tenth 50-value Nepali batch added permanent-delete safeguards, WIP limits,
+profile and card-field editing, account, invitation, password-reset and
+verification emails, board authorization errors and JSON, CSV, TSV and import
+validation. These direct translations were completed with low confidence and
+welcome review by a Nepali speaker. This left **110,070 genuinely untranslated
+values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

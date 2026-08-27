@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1717);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -88,5 +88,17 @@ const cardCopyExample = JSON.parse(nepali['copyManyCardsPopup-format']);
 assert.equal(cardCopyExample.length, 3);
 assert.deepEqual(Object.keys(cardCopyExample[0]), ['title', 'description']);
 assert.equal(nepali['custom-field-currency-option'], 'मुद्रा कोड');
+assert.match(nepali['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(nepali['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(nepali['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(nepali['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(nepali['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(nepali['error-json-malformed'], /JSON/);
+assert.match(nepali['error-csv-schema'], /CSV.*TSV/);
+assert.match(nepali['error-import-empty-board'], /WeKan/);
 
 console.log('Nepali translation progress checks passed.');
