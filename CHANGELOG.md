@@ -6294,9 +6294,16 @@ reminders, account deletion confirmations and drag-and-submit settings. These
 direct translations were completed with low confidence and welcome review by
 a Kinyarwanda speaker. This left **96,368 genuinely untranslated values across
 45 locale files**.
+The twenty-fifth 50-value Kinyarwanda batch added multi-card windows, inline
+editor submission, organization, team and user dialogs, notification
+filtering, renaming permissions, board-role rights and status, weekdays,
+ownership, activity, voting and linked-card deletion guidance. These direct
+translations were completed with low confidence and welcome review by a
+Kinyarwanda speaker. This left **96,318 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
