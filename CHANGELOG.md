@@ -5898,9 +5898,16 @@ explicit Kirundi phrases so they no longer remain placeholders. These direct
 translations were completed with low confidence and welcome review by a
 Kirundi speaker. This left **99,335 genuinely untranslated values across 46
 locale files**.
+The ninth 50-value Kirundi batch added the remaining colors, comment-only and
+read-only roles, assigned-card restrictions, worker permissions, subtask and
+checklist deletion, list movement, clipboard links and text, linked and copied
+cards and lists, a translated JSON card template, template containers, labels,
+custom fields, currency, dropdowns and numbers. These direct translations were
+completed with low confidence and welcome review by a Kirundi speaker. This
+left **99,285 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
