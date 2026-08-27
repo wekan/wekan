@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -187,3 +187,10 @@ assert.equal(malagasy['r-add-swimlane'], 'Ampio lalana');
 assert.match(malagasy['custom-head-meta-tags'], /HTML/);
 assert.match(malagasy['custom-head-manifest-content'], /JSON/);
 assert.match(malagasy['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(malagasy['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(malagasy['add-custom-html-before-body-end']), ['</body>']);
+assert.match(malagasy['oidc-button-text'], /OIDC/);
+assert.deepEqual(tokens(malagasy['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(malagasy['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);

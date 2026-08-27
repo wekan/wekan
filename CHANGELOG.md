@@ -2798,9 +2798,16 @@ authentication, product naming, custom head HTML, web manifests,
 `assetlinks.json`, layout and card counters. These direct translations were
 completed with low confidence and welcome review by a Malagasy speaker. This
 left **124,589 genuinely untranslated values across 58 locale files**.
+The twenty-fourth 50-value Malagasy batch added custom body HTML, authentication
+and OIDC controls, board duplication, organization, team and person counts,
+swimlane deletion, card placement, due-date activity and reminders, account,
+team and organization deletion and editor and layout controls. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **124,539 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
