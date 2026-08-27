@@ -2393,9 +2393,13 @@ The thirty-seventh 50-value Kyrgyz batch added Sandstorm storage cleanup,
 card-loading modes, secure plain-text rendering, import and export privacy
 controls, notification controls and backup scope and storage. This left
 **128,223 genuinely untranslated values across 60 locale files**.
+The thirty-eighth 50-value Kyrgyz batch added scheduled backups, restore modes,
+Google Cloud Storage credentials and permissions, S3 and Azure setup guidance,
+cloud connection tests and Azure attachment moves. This left **128,173 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
