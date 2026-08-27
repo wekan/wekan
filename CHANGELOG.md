@@ -1862,9 +1862,13 @@ The thirty-fifth 50-value Kashmiri batch added Accessibility content, brute-forc
 lockout settings, Admin Panel user status, storage paths and scheduled board
 operations. This left **134,824 genuinely untranslated values across 63 locale
 files**.
+The thirty-sixth 50-value Kashmiri batch added scheduled-job lifecycle and error
+handling, filesystem and cloud storage, database migration and Sandstorm
+migration status. This left **134,774 genuinely untranslated values across 63
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

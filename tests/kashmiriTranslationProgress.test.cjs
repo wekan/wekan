@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -183,3 +183,9 @@ assert.equal(kashmiri['accounts-lockout-status'], 'حالت');
 assert.match(kashmiri['attachment-storage-configuration'], /اٹیچمنٹ ذخیرٕ/);
 assert.match(kashmiri['board-backup-scheduled'], /کامیٲبی/);
 assert.equal(kashmiri['cron-migrations'], 'مقرر شُدٕ منتقلی');
+assert.match(kashmiri['s3-force-path-style-description'], /MinIO.*AWS S3/);
+assert.match(kashmiri['database-migration-description'],
+  /WEKAN_FERRETDB_URL \/ WEKAN_MONGODB_URL/);
+assert.match(kashmiri['database-migration-description'], /MONGO_URL/);
+assert.deepEqual(tokens(kashmiri['database-migration-confirm']), ['__db__']);
+assert.match(kashmiri['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
