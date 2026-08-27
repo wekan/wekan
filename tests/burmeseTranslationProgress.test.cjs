@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1117);
+assert.equal(Object.keys(remaining).length, 1067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -174,5 +174,8 @@ for (const literal of ['n8n', 'Node-RED', 'WeKan']) {
 }
 assert.match(burmese['r-schedule-weekday'], /Mon–Fri/);
 assert.match(burmese['r-for-n-days'], /N/);
+assert.equal(burmese['r-check-all'], 'အားလုံး အမှန်ခြစ်ရန်');
+assert.equal(burmese['r-uncheck-all'], 'အားလုံး အမှန်ခြစ်ဖြုတ်ရန်');
+assert.equal(burmese['r-d-send-email'], 'အီးမေးလ် ပို့ရန်');
 
 console.log('Burmese translation progress checks passed.');
