@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1317);
+assert.equal(Object.keys(remaining).length, 1267);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -152,3 +152,9 @@ assert.deepEqual(tokens(maithili['email-invite-register-text']),
 assert.match(maithili['email-smtp-test-subject'], /SMTP/);
 assert.match(maithili.Node_version, /Node/);
 assert.match(maithili.Meteor_version, /Meteor/);
+assert.match(maithili.FerretDB_version, /FerretDB/);
+assert.match(maithili.Reactivity_mode, /changeStreams.*oplog.*polling/);
+assert.match(maithili.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(maithili.DDP_transport, /DDP.*DDP_TRANSPORT/);
+assert.match(maithili['org-domains-description'],
+  /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
