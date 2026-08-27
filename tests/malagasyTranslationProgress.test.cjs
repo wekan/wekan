@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -96,3 +96,9 @@ assert.equal(malagasy['move-card-up'], 'Afindrao miakatra ny karatra');
 assert.equal(malagasy['color-red'], 'mena');
 assert.equal(malagasy['color-silver'], 'volafotsy');
 assert.equal(malagasy['color-magenta'], 'mena volomparasy');
+assert.equal(malagasy['color-white'], 'fotsy');
+assert.equal(malagasy['read-only'], 'Vakiana ihany');
+assert.equal(malagasy.worker, 'Mpiasa');
+const bulkCardExample = JSON.parse(malagasy['copyManyCardsPopup-format']);
+assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
+assert.equal(malagasy['custom-field-number'], 'Isa');

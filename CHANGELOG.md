@@ -2707,9 +2707,15 @@ board restoration and most of the board color palette. These direct
 translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **125,339 genuinely untranslated values across 58
 locale files**.
+The ninth 50-value Malagasy batch completed the board color palette and added
+comment and read-only roles, worker permissions, subtask and checklist deletion,
+clipboard links, bulk card JSON, templates, labels and custom-field types and
+options. These direct translations were completed with low confidence and
+welcome review by a Malagasy speaker. This left **125,289 genuinely untranslated
+values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
