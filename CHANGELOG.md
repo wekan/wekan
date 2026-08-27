@@ -6336,9 +6336,15 @@ organization and team deletion safeguards, tickets, requests and card details.
 These direct translations were completed with low confidence and welcome
 review by a Kinyarwanda speaker. This left **96,018 genuinely untranslated
 values across 45 locale files**.
+The thirty-second 50-value Kinyarwanda batch added team and organization
+management, Node memory metrics, legal notices, checklist actions, card lists,
+subtasks and attachment-storage movement for filesystem, GridFS and S3.
+These direct translations were completed with low confidence and welcome
+review by a Kinyarwanda speaker. This left **95,968 genuinely untranslated
+values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
