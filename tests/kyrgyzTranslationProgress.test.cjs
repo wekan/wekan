@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -307,6 +307,16 @@ assert.deepEqual(tokens(kyrgyz['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.match(kyrgyz['cpu-usage-current'], /CPU/);
 assert.equal(kyrgyz['event-severity'], 'Оордук деңгээли');
+assert.match(kyrgyz['event-ip'], /IP/);
+assert.match(kyrgyz['event-ipv4'], /IPv4/);
+assert.match(kyrgyz['event-ipv6'], /IPv6/);
+assert.match(kyrgyz['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(kyrgyz['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(kyrgyz['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
+assert.match(kyrgyz['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
+assert.match(kyrgyz['import-wekan-file'], /\.json.*\.zip/);
 assert.match(kyrgyz['database-migration-description'],
   /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
 assert.deepEqual(tokens(kyrgyz['database-migration-confirm']), ['__db__']);

@@ -2417,10 +2417,13 @@ The forty-third 50-value Kyrgyz batch added account and repository access,
 authentication errors, system-problem reporting, broken-card repair results,
 CPU load and event metadata. This left **127,923 genuinely untranslated values
 across 60 locale files**.
+The final 17-value Kyrgyz batch added event network details, filesystem
+integrity, scoped WeKan imports and exports and numeric search guidance. Kyrgyz
+is now complete. This left **127,906 genuinely untranslated values across 59
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list ky --limit 50`;
+and exact tokens from `en.i18n.json`, starting Maithili at `accept` with
+`node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
