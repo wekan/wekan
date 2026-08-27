@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -44,3 +44,11 @@ assert.match(maori['act-addAttachment'], /āpitihanga/);
 assert.match(maori['act-addChecklist'], /rārangi arowhai/);
 assert.match(maori['act-createCustomField'], /āpure ritenga/);
 assert.match(maori['act-archivedBoard'], /Pūranga/);
+assert.deepEqual(tokens(maori['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(maori['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(maori['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(maori['allboards.workspaces'], 'Ngā mokowāmahi');
+assert.match(maori['allboards.edit-workspace-icon'], /markdown/);
