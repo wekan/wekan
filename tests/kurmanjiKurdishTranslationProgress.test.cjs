@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -223,3 +223,11 @@ assert.deepEqual(tokens(kurmanji['act-newDue']),
 assert.deepEqual(tokens(kurmanji['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.match(kurmanji['submit-on-enter'], /Enter/);
+assert.match(kurmanji['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter.*Enter/);
+assert.match(kurmanji['open-many-cards-at-once-description'], /paceya xwe/);
+assert.match(kurmanji['roles-info'], /Panela Rêveber.*rêveberên giştî/);
+assert.equal(kurmanji['roles-status-role'], 'Rol');
+assert.equal(kurmanji.monday, 'Duşem');
+assert.equal(kurmanji.sunday, 'Yekşem');
+assert.equal(kurmanji.voting, 'Dengdan');
