@@ -4910,9 +4910,15 @@ troubleshooting, board activity, custom-field string templates, administration
 reports and office-login summaries. These direct translations were completed
 with low confidence and welcome review by a Northern Sotho speaker. This left
 **106,903 genuinely untranslated values across 50 locale files**.
+The thirty-first 50-value Northern Sotho batch added office and API reporting,
+database recovery, loading indicators, card display controls, organization and
+team safeguards, support tickets and request statuses. These direct translations
+were completed with low confidence and welcome review by a Northern Sotho
+speaker. This left **106,853 genuinely untranslated values across 50 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
