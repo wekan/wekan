@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -200,3 +200,8 @@ assert.match(kashmiri['gcs-key-filename-description'], /JSON/);
 assert.match(kashmiri['gcs-permissions-note'], /client_email.*Storage Object Admin/);
 assert.match(kashmiri['s3-endpoint-menu-path'], /MinIO.*Cloudflare R2.*Backblaze B2/);
 assert.match(kashmiri['attachment-move-storage-azure'], /Azure Blob Storage/);
+assert.match(kashmiri['attachment-move-storage-gcs'], /Google Cloud Storage/);
+assert.match(kashmiri['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(kashmiri['s3-region-description'], /us-east-1/);
+assert.match(kashmiri['s3-ssl-enabled-description'], /SSL\/TLS/);
+assert.equal(kashmiri['board-migration'], 'بورڈ منتقلی');
