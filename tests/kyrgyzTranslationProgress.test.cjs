@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -255,3 +255,11 @@ assert.equal(kyrgyz['admin-people-filter-active'], 'Активдүү');
 assert.match(kyrgyz['active-cron-jobs'], /пландаштырылган/);
 assert.equal(kyrgyz['attachments-path'], 'Тиркемелердин жолу');
 assert.match(kyrgyz['board-backup-scheduled'], /ийгиликтүү/);
+assert.equal(kyrgyz['cron-job-deleted'],
+  'Пландаштырылган иш ийгиликтүү өчүрүлдү');
+assert.match(kyrgyz['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.match(kyrgyz['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
+assert.deepEqual(tokens(kyrgyz['database-migration-confirm']), ['__db__']);
+assert.match(kyrgyz['sandstorm-migration-description'],
+  /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/);
