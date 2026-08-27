@@ -6065,9 +6065,15 @@ checklist copying and movement, subtask and attachment actions and filesystem,
 GridFS and S3 storage moves. These direct translations were completed with low
 confidence and welcome review by a Kirundi speaker. This left **98,135
 genuinely untranslated values across 46 locale files**.
+The thirty-third 50-value Kirundi batch added bulk attachment moves, storage
+repair, avatar scope, default storage, move progress and file counts, storage
+identifiers and MongoDB GridFS compaction guidance and results. These direct
+translations were completed with low confidence and welcome review by a
+Kirundi speaker. This left **98,085 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
