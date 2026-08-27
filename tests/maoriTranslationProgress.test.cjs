@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -311,3 +311,9 @@ assert.match(maori['step-fix-missing-ids'], /ID/);
 assert.equal(maori['cpu-cores'], 'Ngā Uho CPU');
 assert.equal(maori['every-30-minutes'], 'Ia 30 meneti');
 assert.match(maori['gridfs-attachments'], /GridFS/);
+assert.match(maori['migrate-all-to-gridfs'], /GridFS/);
+assert.match(maori['migrate-all-to-s3'], /S3/);
+assert.match(maori['migration-batch-size-description'], /1-100/);
+assert.match(maori['migration-cpu-threshold'], /CPU.*%/);
+assert.match(maori['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(maori['migration-delay-ms-description'], /100-10000/);
