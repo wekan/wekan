@@ -5461,9 +5461,12 @@ organization, team and due-date search guidance with syntax intact. This left
 The thirty-second 5-value Oromo batch translated created, modified and status
 search guidance. This left **102,682 genuinely untranslated values across 48
 locale files**.
+The thirty-third 5-value Oromo batch translated ended, public, private,
+field-existence and sorting search guidance with syntax intact. This left
+**102,677 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`globalSearch-instructions-status-ended` with
+`globalSearch-instructions-operator-limit` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
