@@ -5301,9 +5301,15 @@ imported members to real users, theme and font controls, text colors, avatars,
 language selection and permissions. These direct translations were completed
 with low confidence and welcome review by an Oromo speaker. This left
 **103,719 genuinely untranslated values across 48 locale files**.
+The eighth 50-value Oromo batch added settings, subtasks, board and page stars,
+automatic list width, clipboard input, three-tier card aging, card and list
+movement, dialog navigation, board restoration and twenty-three color names.
+These direct translations were completed with low confidence and welcome
+review by an Oromo speaker. This left **103,669 genuinely untranslated values
+across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
