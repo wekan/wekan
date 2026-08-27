@@ -5668,9 +5668,15 @@ card-title filtering and package, database, Node and Meteor labels. These
 direct translations were completed with low confidence and welcome review by
 a Pashto speaker. This left **101,052 genuinely untranslated values across 47
 locale files**.
+The eighteenth 50-value Pashto batch added database and FerretDB metadata,
+reactivity and DDP settings, operating-system resources, time units,
+custom-field display, account changes, board visibility, organization and team
+activity, shared templates, authentication synchronization, multitenancy,
+domains and organization administrators. These direct translations were
+completed with low confidence and welcome review by a Pashto speaker. This
+left **101,002 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at
-`Database_type` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `card-received` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
