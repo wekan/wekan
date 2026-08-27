@@ -2101,9 +2101,13 @@ The eighth 50-value Cornish batch added starring, automatic list widths,
 card-aging tiers, keyboard movement, accessible dialog controls and 23 color
 names. This left **131,840 genuinely untranslated values across 61 locale
 files**.
+The ninth 50-value Cornish batch added permission roles, comment visibility,
+deletion confirmations, clipboard and template copying, valid JSON examples,
+labels and custom-field types. This left **131,790 genuinely untranslated values
+across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

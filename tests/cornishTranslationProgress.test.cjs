@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -98,3 +98,10 @@ assert.equal(cornish['close-dialog'], 'Degea keskows');
 assert.equal(cornish['color-indigo'], 'glas indigo');
 assert.equal(cornish['color-magenta'], 'rudh magenta');
 assert.equal(cornish['color-sky'], 'ebron');
+assert.equal(cornish['comment-only'], 'Kampoellyans hepken');
+assert.match(cornish['read-only-desc'], /Ny yll chanjya/);
+assert.equal(cornish['checklistDeletePopup-title'],
+  'Dilea rol checkya?');
+assert.doesNotThrow(() => JSON.parse(cornish['copyManyCardsPopup-format']));
+assert.match(cornish['copyManyCardsPopup-instructions'], /JSON/);
+assert.equal(cornish['custom-field-currency-option'], 'Kod arghans');
