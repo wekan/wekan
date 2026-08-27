@@ -5981,9 +5981,16 @@ attachment and checklist counts, full-path and parent prefixes, source boards
 and label activities. These direct translations were completed with low
 confidence and welcome review by a Kirundi speaker. This left **98,785
 genuinely untranslated values across 46 locale files**.
+The twentieth 50-value Kirundi batch added label, attachment and custom-field
+activities, rule triggers, actions, workflow and list views, drag-and-drop
+building, card, label, member, checklist, attachment, daily and received-date
+triggers, JSON and CSV import/export, Trello Butler command mapping, targets,
+workspaces and all-board scope. These direct translations were completed with
+low confidence and welcome review by a Kirundi speaker. This left **98,735
+genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
