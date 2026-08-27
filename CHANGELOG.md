@@ -4369,9 +4369,15 @@ and Due Cards views, global search scopes and missing board-item messages. These
 direct translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **111,437 genuinely untranslated values
 across 52 locale files**.
+The twenty-seventh 50-value Northern Ndebele batch added missing-result messages
+and global-search operators and predicates for board structure, people, dates,
+statuses, sorting, comments, custom fields, attachments and checklists. These
+direct translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **111,387 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`user-username-not-found`
+`predicate-member`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
