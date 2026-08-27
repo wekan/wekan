@@ -6107,9 +6107,15 @@ connections, scheduled board operations, writable paths and attachment and
 board migration settings. These direct translations were completed with low
 confidence and welcome review by a Kirundi speaker. This left **97,785
 genuinely untranslated values across 46 locale files**.
+The fortieth 50-value Kirundi batch added comprehensive board-integrity
+migration, duplicate-list cleanup, lost-card and archived-item restoration,
+missing-list repair, avatar and attachment URL repair, confirmations, progress
+and migration steps. These direct translations were completed with low
+confidence and welcome review by a Kirundi speaker. This left **97,735
+genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
