@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -282,3 +282,8 @@ assert.match(kyrgyz['s3-secret-key-menu-path'],
   /Access key ID.*Secret access key.*Download \.csv/);
 assert.match(kyrgyz['gcs-credentials-menu-path'],
   /Google Cloud Console.*IAM & Admin.*Service accounts.*Keys.*Add key.*Create new key.*JSON.*Create/);
+assert.match(kyrgyz['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(kyrgyz['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(kyrgyz['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(kyrgyz['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
+assert.equal(kyrgyz['board-migrations'], 'Такталарды көчүрүү');

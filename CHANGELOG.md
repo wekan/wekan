@@ -2397,9 +2397,13 @@ The thirty-eighth 50-value Kyrgyz batch added scheduled backups, restore modes,
 Google Cloud Storage credentials and permissions, S3 and Azure setup guidance,
 cloud connection tests and Azure attachment moves. This left **128,173 genuinely
 untranslated values across 60 locale files**.
+The thirty-ninth 50-value Kyrgyz batch added GridFS and attachment migration,
+migration lifecycle controls, S3 authentication and connection settings,
+scheduled board operations and writable storage paths. This left **128,123
+genuinely untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
