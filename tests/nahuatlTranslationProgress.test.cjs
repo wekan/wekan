@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -259,5 +259,11 @@ assert.match(nahuatl['preview-pdf-not-supported'], /PDF/);
 assert.match(nahuatl['show-week-of-year'], /ISO 8601/);
 assert.match(nahuatl['import-board-zip'], /.zip.*JSON/);
 assert.equal(nahuatl.support, 'Tlapalehuiliztli');
+assert.match(nahuatl['accounts-lockout-info'], /calaquiliztli/);
+assert.match(nahuatl['accounts-lockout-period'], /segundos/);
+assert.match(nahuatl['accounts-lockout-failure-window'], /segundos/);
+assert.equal(nahuatl['accounts-lockout-unlock-all'],
+  'Xiquintlapo mochtin');
+assert.equal(nahuatl['cron-migrations'], 'Tlanahuatilli mijcueniliztin');
 
 console.log('Nahuatl translation progress checks passed.');

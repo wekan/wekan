@@ -4150,9 +4150,15 @@ limits, PDF fallback, workspace dragging, custom translations, subtasks,
 checklist display, support and accessibility pages. These direct translations
 were completed with low confidence and welcome review by a Nahuatl speaker.
 This left **113,204 genuinely untranslated values across 53 locale files**.
+The thirty-fifth 50-value Nahuatl batch added accessibility content, brute-force
+lockout settings, known and unknown user controls, locked-user administration,
+scheduled jobs, attachment paths and scheduled board archive, backup and
+cleanup results. These direct translations were completed with low confidence
+and welcome review by a Nahuatl speaker. This left **113,154 genuinely
+untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
