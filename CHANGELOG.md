@@ -3914,9 +3914,15 @@ scheduled board operations and attachment and board migration navigation. These
 direct translations were completed with low confidence and welcome review by a
 Burmese speaker. This left **115,121 genuinely untranslated values across 54
 locale files**.
+The fortieth 50-value Burmese batch added comprehensive board integrity
+migrations for duplicate lists, lost and archived items, missing lists, broken
+avatar and attachment URLs and their confirmation and progress states. These
+direct translations were completed with low confidence and welcome review by a
+Burmese speaker. This left **115,071 genuinely untranslated values across 54
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
