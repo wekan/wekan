@@ -6625,8 +6625,13 @@ Google Cloud credentials and permissions, and guided AWS S3, Azure and GCS
 storage configuration and connection tests. These direct translations were
 completed with low confidence and welcome review by a Sakha speaker. This left
 **93,501 genuinely untranslated values across 44 locale files**.
+The thirty-ninth 50-value Sakha batch added Google Cloud, GridFS and S3 attachment
+storage, migration lifecycle controls, scheduled board operations and attachment
+monitoring and migration settings. These direct translations were completed with
+low confidence and welcome review by a Sakha speaker. This left **93,451
+genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `attachment-move-storage-gcs` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
