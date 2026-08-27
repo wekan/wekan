@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1417);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -116,5 +116,9 @@ assert.deepEqual(tags(sotho['page-maybe-private']), ['</a>', "<a href='%s'>"]);
 assert.deepEqual(tokens(sotho['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.equal(sotho['signupPopup-title'], 'Hlama akhaonto');
+assert.match(sotho['toggle-assignees'], /1-9/);
+assert.match(sotho['custom-top-left-corner-logo-height'], /27/);
+assert.match(sotho['automatic-linked-url-schemes'], /URL/);
+assert.equal(sotho['what-to-do'], 'O nyaka go dira eng?');
 
 console.log('Northern Sotho translation progress checks passed.');
