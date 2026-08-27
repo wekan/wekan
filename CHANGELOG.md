@@ -6266,9 +6266,15 @@ JSON/CSV and Trello Butler rule imports and exports. These direct translations
 were completed with low confidence and welcome review by a Kinyarwanda
 speaker. This left **96,568 genuinely untranslated values across 45 locale
 files**.
+The twenty-first 50-value Kinyarwanda batch added n8n and Node-RED workflow
+imports, scheduled and button triggers, daily, weekly and monthly schedules,
+due-date and list-duration triggers, card and board buttons, list sorting,
+completion, bulk moves and relative dates. These direct translations were
+completed with low confidence and welcome review by a Kinyarwanda speaker.
+This left **96,518 genuinely untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
