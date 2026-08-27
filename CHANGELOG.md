@@ -7125,17 +7125,21 @@ authentication, problem reporting, broken-card repair, CPU status and event-log
 fields. These direct translations were completed with low confidence and
 welcome review by a Northern Sami speaker. This left **88,917 genuinely
 untranslated values across 42 locale files**.
+The final 17-value Northern Sami batch added event network fields, filesystem
+integrity, scoped import and export, and the number search operator. These direct
+translations were completed with low confidence and welcome review by a
+Northern Sami speaker. Northern Sami is now complete, leaving **88,900 genuinely
+untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list se --limit 50`;
+and exact tokens from `en.i18n.json`, starting Sinhala at `accept` with
+`node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
 Chichewa, Oromo, Pashto, Kirundi, Kinyarwanda and Sakha are now complete.
-Sindhi is also now complete.
+Sindhi and Northern Sami are also now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
