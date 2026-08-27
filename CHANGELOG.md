@@ -6024,9 +6024,15 @@ renaming permissions, board-role rights and status, weekdays, ownership,
 activity, voting and linked-card deletion guidance. These direct translations
 were completed with low confidence and welcome review by a Kirundi speaker.
 This left **98,485 genuinely untranslated values across 46 locale files**.
+The twenty-sixth 50-value Kirundi batch added linked-list deletion safety,
+checklist visibility, tasks, domains, shared templates, names and time spans,
+My Cards and Due Cards views, global search and missing-item messages. These
+direct translations were completed with low confidence and welcome review by
+a Kirundi speaker. This left **98,435 genuinely untranslated values across 46
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
