@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -380,3 +380,10 @@ assert.match(kurmanji['conversion-info-text'], /performansê/);
 assert.match(kurmanji['cpu-cores'], /CPU/);
 assert.match(kurmanji['gridfs-attachments'], /GridFS/);
 assert.equal(kurmanji['max-concurrent'], 'Herî zêde hevdem');
+assert.equal(kurmanji['migrate-all-to-gridfs'], 'Hemûyan bibe GridFS');
+assert.equal(kurmanji['migrate-all-to-s3'], 'Hemûyan bibe S3');
+assert.match(kurmanji['migration-batch-size-description'], /1-100/);
+assert.match(kurmanji['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(kurmanji['migration-delay-ms-description'], /100-10000/);
+assert.match(kurmanji['migration-info-text'], /paşperdeyê/);
+assert.equal(kurmanji['system-resources'], 'Çavkaniyên pergalê');
