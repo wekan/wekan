@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1567);
+assert.equal(Object.keys(remaining).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -116,5 +116,9 @@ for (const literal of ['Kanboard', 'NextCloud Deck', 'OpenProject', 'Asana',
   'ZenKit', 'Trello', 'Jira Cloud REST API', '.xlsx', '.json', '.zip']) {
   assert.ok(Object.values(burmese).some(value => value.includes(literal)));
 }
+assert.match(burmese['trello-api-key'], /https:\/\/trello\.com\/app-key/);
+assert.match(burmese['trello-api-import'], /API.*token/);
+assert.match(burmese['invalid-year'], /2026/);
+assert.deepEqual(tokens(burmese['label-default']), ['%s']);
 
 console.log('Burmese translation progress checks passed.');

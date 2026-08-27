@@ -3750,9 +3750,15 @@ Kanboard, NextCloud Deck, OpenProject, issue, Asana, ZenKit, Trello, CSV/TSV,
 Jira, Excel and WeKan board imports. These direct translations were completed
 with low confidence and welcome review by a Burmese speaker. This left **116,471
 genuinely untranslated values across 54 locale files**.
+The thirteenth 50-value Burmese batch added Trello ZIP safety and workspaces,
+API-key imports, selection, progress, cancellation and recovery, clipboard and
+job states, imported-member mapping, validation, invitations, keyboard
+shortcuts and label creation and deletion. These direct translations were
+completed with low confidence and welcome review by a Burmese speaker. This
+left **116,421 genuinely untranslated values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
