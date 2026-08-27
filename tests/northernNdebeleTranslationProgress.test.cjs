@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -291,5 +291,12 @@ assert.match(ndebele['show-week-of-year'], /ISO 8601/);
 assert.match(ndebele['import-board-zip'], /.zip.*JSON/);
 assert.equal(ndebele.support, 'Ukusekela');
 assert.equal(ndebele.accessibility, 'Ukufinyeleleka');
+assert.match(ndebele['accounts-lockout-settings'], /ekuhlaselweni ngamandla/);
+assert.match(ndebele['accounts-lockout-period'], /imizuzwana/);
+assert.equal(ndebele['admin-people-filter-all'], 'Bonke abasebenzisi');
+assert.equal(ndebele['accounts-lockout-unlock-all'], 'Vula bonke');
+assert.equal(ndebele['cron-jobs'], 'Imisebenzi ehleliweyo');
+assert.match(ndebele['attachments-path-description'], /okunamathiselweyo/);
+assert.match(ndebele['avatars-path-description'], /zithombe zabasebenzisi/);
 
 console.log('Northern Ndebele translation progress checks passed.');
