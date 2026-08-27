@@ -5049,9 +5049,14 @@ JSON, CSV, TSV, empty-board, linked-card and disabled-account errors. These
 direct translations were completed with low confidence and welcome review by a
 Chichewa speaker. This left **105,736 genuinely untranslated values across 49
 locale files**.
+The eleventh 50-value Chichewa batch added user and organization validation,
+card exports to PDF and Excel, attachment metadata, list sorting, and date,
+label and member filters. These direct translations were completed with low
+confidence and welcome review by a Chichewa speaker. This left **105,686
+genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
