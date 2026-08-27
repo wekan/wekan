@@ -5796,9 +5796,15 @@ MongoDB, FerretDB v1 and Sandstorm data-migration guidance and status. These
 direct translations were completed with low confidence and welcome review by
 a Pashto speaker. This left **100,102 genuinely untranslated values across 47
 locale files**.
+The thirty-seventh 50-value Pashto batch added Sandstorm legacy-file cleanup,
+adaptive card loading, safe plain-text rendering, global import, export,
+avatar, activity, notification and watch controls, imported and exported user
+anonymization, and instance or organization backups. These direct translations
+were completed with low confidence and welcome review by a Pashto speaker.
+This left **100,052 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
