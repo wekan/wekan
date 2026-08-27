@@ -6389,9 +6389,14 @@ repair, avatar and attachment URL repair and migration progress steps. These
 direct translations were completed with low confidence and welcome review by
 a Kinyarwanda speaker. This left **95,568 genuinely untranslated values across
 45 locale files**.
+The forty-first 50-value Kinyarwanda batch added remaining board-migration
+steps, conversion status, scheduled intervals, CPU and filesystem monitoring,
+GridFS statistics and job queue details. These direct translations were
+completed with low confidence and welcome review by a Kinyarwanda speaker.
+This left **95,518 genuinely untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
