@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -149,5 +149,12 @@ assert.match(nahuatl['custom-top-left-corner-logo-image-url'], /URL/);
 assert.match(nahuatl['custom-top-left-corner-logo-height'], /27/);
 assert.match(nahuatl['automatic-linked-url-schemes'], /URL/);
 assert.match(nahuatl['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(nahuatl['attachment-transfer-limits-title'], /API/);
+assert.match(nahuatl['smtp-tls-description'], /TLS.*SMTP/);
+assert.deepEqual(tokens(nahuatl['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(nahuatl['email-smtp-test-subject'], /SMTP/);
+assert.match(nahuatl.Node_version, /Node/);
+assert.match(nahuatl.Meteor_version, /Meteor/);
 
 console.log('Nahuatl translation progress checks passed.');

@@ -4040,9 +4040,16 @@ custom logo and help links, URL schemes, watching, welcome-board templates and
 WIP limit errors. These direct translations were completed with low confidence
 and welcome review by a Nahuatl speaker. This left **114,104 genuinely
 untranslated values across 53 locale files**.
+The seventeenth 50-value Nahuatl batch added attachment and API transfer limits,
+avatar upload blocking, registration and invitations, SMTP settings and tests,
+invitation email, authorization errors, outgoing, bidirectional and global
+webhooks and package, database, Node.js and Meteor labels. These direct
+translations were completed with low confidence and welcome review by a Nahuatl
+speaker. This left **114,054 genuinely untranslated values across 53 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
