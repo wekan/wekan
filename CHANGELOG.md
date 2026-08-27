@@ -5533,9 +5533,15 @@ board migrations, duplicate-list cleanup, and restoration of lost or archived
 items. These direct translations were completed with low confidence and
 welcome review by an Oromo speaker. This left **102,107 genuinely untranslated
 values across 48 locale files**.
+The forty-sixth 50-value Oromo batch added missing-list repair, avatar and file
+URL repair, board-integrity migration confirmations and progress, shared-list
+conversion, orphaned-card repair, and lost-item restoration steps. These direct
+translations were completed with low confidence and welcome review by an Oromo
+speaker. This left **102,057 genuinely untranslated values across 48 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`fix-missing-lists-migration-description` with
+`step-scan-files` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
