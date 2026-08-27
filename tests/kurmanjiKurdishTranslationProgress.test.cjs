@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -83,3 +83,10 @@ assert.equal(kurmanji['cardDependenciesPopup-title'],
   'Girêdayîbûnê zêde bike');
 assert.equal(kurmanji['importSwimlanePopup-title'], 'Rêçê têxe');
 assert.match(kurmanji['mapImportedMemberPopup-title'], /bikarhênerê heyî/);
+assert.equal(kurmanji['restoreArchivedListToSwimlanePopup-title'],
+  'Lîsteyê vegerîne rêçê');
+assert.match(kurmanji.casSignIn, /CAS/);
+assert.match(kurmanji['map-to-existing-user-desc'], /virtual.*destûr/);
+assert.match(kurmanji['map-to-existing-user-search'], /e-nameyê/);
+assert.match(kurmanji['font-preview-text'], /0123456789/);
+assert.equal(kurmanji['font-size-largest'], 'Herî mezin');

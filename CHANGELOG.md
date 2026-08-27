@@ -1919,9 +1919,13 @@ The sixth 50-value Kurmanji Kurdish batch added card membership, voting and
 Planning Poker, dependencies, board organization, team and domain assignment,
 backgrounds and import dialogs. This left **134,107 genuinely untranslated
 values across 62 locale files**.
+The seventh 50-value Kurmanji Kurdish batch added member and restore dialogs,
+linked items, safe imported-member mapping, themes, fonts, text colors, avatars,
+language and permissions. This left **134,057 genuinely untranslated values
+across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
