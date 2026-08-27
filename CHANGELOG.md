@@ -3005,8 +3005,15 @@ sidebars, signup and starred and default-board controls. These direct
 translations were completed with low confidence and welcome review by a Māori
 speaker. This left **122,822 genuinely untranslated values across 57 locale
 files**.
+The sixteenth 50-value Māori batch added starred boards and subscriptions,
+spent time and overtime, numbered assignee and label shortcuts, tracking,
+uploads, custom logos and URL schemes, username imports, watching, welcome and
+template boards and WIP limit errors. These direct translations were completed
+with low confidence and welcome review by a Māori speaker. This left **122,772
+genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at `starred-boards` with
+and exact tokens from `en.i18n.json`, resuming Māori at
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
