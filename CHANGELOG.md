@@ -5405,9 +5405,16 @@ lists, removing members, setting colors, checklist actions and sending email.
 These direct translations were completed with low confidence and welcome
 review by an Oromo speaker. This left **102,969 genuinely untranslated values
 across 48 locale files**.
+The twenty-third 50-value Oromo batch added rule email fields, archive, label,
+member, checklist, swimlane, card-creation and date-field actions, comma-
+separated checklist input, authentication labels, custom product naming, HTML
+head and link tags, JSON web manifests and asset links, layout, logo visibility
+and card counters. These direct translations were completed with low
+confidence and welcome review by an Oromo speaker. This left **102,919
+genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
