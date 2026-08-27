@@ -6593,8 +6593,13 @@ actions and attachment moves between filesystem, GridFS and S3 storage. These
 direct translations were completed with low confidence and welcome review by a
 Sakha speaker. This left **93,801 genuinely untranslated values across 44 locale
 files**.
+The thirty-third 50-value Sakha batch added bulk attachment and avatar storage
+migration, location repair, progress and counts, storage identifiers and MongoDB
+Compact guidance. These direct translations were completed with low confidence
+and welcome review by a Sakha speaker. This left **93,751 genuinely untranslated
+values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `move-all-attachments-to-gridfs` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `board-status` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
