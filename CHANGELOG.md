@@ -4138,9 +4138,15 @@ subtask actions and filesystem, GridFS and S3 attachment movement. These direct
 translations were completed with low confidence and welcome review by a Nahuatl
 speaker. This left **113,304 genuinely untranslated values across 53 locale
 files**.
+The thirty-third 50-value Nahuatl batch added bulk attachment movement between
+the filesystem, GridFS and S3, storage-location repair, avatar scope, default
+storage, migration progress and file statistics and MongoDB Compact guidance
+and results. These direct translations were completed with low confidence and
+welcome review by a Nahuatl speaker. This left **113,254 genuinely untranslated
+values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
