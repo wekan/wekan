@@ -6672,8 +6672,14 @@ Home boards, list widths, keyboard shortcuts, swimlane heights and checklist,
 cover, label and member actions. These direct translations were completed with
 low confidence and welcome review by a Sindhi speaker. This left **93,084
 genuinely untranslated values across 43 locale files**.
+The fourth 50-value Sindhi batch added administrator roles and announcements,
+offline recovery, board archiving, templates, attachment safeguards, backgrounds,
+All Boards display and board membership and privacy summaries. These direct
+translations were completed with low confidence and welcome review by a Sindhi
+speaker. This left **93,034 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `added` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `board-public-info` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
