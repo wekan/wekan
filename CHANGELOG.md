@@ -6198,9 +6198,15 @@ board, role, JSON/CSV import and linked-card errors. These direct translations
 were completed with low confidence and welcome review by a Kinyarwanda
 speaker. This left **97,068 genuinely untranslated values across 45 locale
 files**.
+The eleventh 50-value Kinyarwanda batch added account-conflict errors, card
+PDF/Excel export and selected fields, attachment metadata and disk-space
+feedback, list sorting and date, title, label and member filters. These direct
+translations were completed with low confidence and welcome review by a
+Kinyarwanda speaker. This left **97,018 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
