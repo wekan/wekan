@@ -6908,9 +6908,15 @@ templates, subtasks, checklists, labels and members. These direct translations
 were completed with low confidence and welcome review by a Northern Sami
 speaker. This left **90,917 genuinely untranslated values across 42 locale
 files**.
+The fourth 50-value Northern Sami batch added administration and announcements,
+archive and template controls, attachment warnings, board appearance, All Boards
+settings, member and assignee summaries and private-board status. These direct
+translations were completed with low confidence and welcome review by a Northern
+Sami speaker. This left **90,867 genuinely untranslated values across 42 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sami at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
