@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 817);
+assert.equal(Object.keys(remaining).length, 767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -212,5 +212,14 @@ assert.equal(marathi['operator-board'], 'फलक');
 assert.equal(marathi['operator-customfield'], 'सानुकूल क्षेत्र');
 assert.equal(marathi['predicate-overdue'], 'मुदत उलटलेले');
 assert.equal(marathi['predicate-quarter'], 'तिमाही');
+assert.deepEqual(tokens(marathi['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(marathi['globalSearch-instructions-operator-has']),
+  ['__operator_has__', '__predicate_assignee__', '__predicate_attachment__',
+    '__predicate_checklist__', '__predicate_description__', '__predicate_due__',
+    '__predicate_end__', '__predicate_member__', '__predicate_start__']);
+assert.deepEqual(tokens(marathi['globalSearch-instructions-notes-3-2']),
+  ['__predicate_month__', '__predicate_quarter__', '__predicate_week__',
+    '__predicate_year__']);
 
 console.log('Marathi translation progress checks passed.');

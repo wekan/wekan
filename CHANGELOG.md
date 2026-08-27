@@ -3583,9 +3583,16 @@ dates, attachments, descriptions, checklists and assignees. These direct
 translations were completed with low confidence and welcome review by a Marathi
 speaker. This left **117,888 genuinely untranslated values across 55 locale
 files**.
+The twenty-eighth 50-value Marathi batch added remaining search predicates,
+operator validation and pagination, complete global-search syntax for boards,
+lists, swimlanes, text, labels, users, organizations, teams, dates, status,
+presence, sorting and limits, plus combination and date-range notes. These direct
+translations were completed with low confidence and welcome review by a Marathi
+speaker. This left **117,838 genuinely untranslated values across 55 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
