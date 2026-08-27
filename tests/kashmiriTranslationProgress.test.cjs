@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -163,3 +163,8 @@ assert.match(kashmiri['recovery-report-desc'], /MongoDB/);
 assert.equal(kashmiri['copy-swimlane'], 'وَتھ نقل کریو');
 assert.match(kashmiri['carbon-copy'], /Cc:/);
 assert.equal(kashmiri['cardDetailsPopup-title'], 'کارڈ تفصیل');
+assert.match(kashmiri.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(kashmiri.Node_memory_usage_rss, /resident set/);
+assert.equal(kashmiri.moveChecklist, 'چیک لسٹ پکنٲویو');
+assert.match(kashmiri['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(kashmiri['attachment-move-storage-s3'], /S3/);
