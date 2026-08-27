@@ -5183,9 +5183,15 @@ checklist movement and copying, subtask and attachment actions, and filesystem,
 GridFS and S3 attachment storage movement. These direct translations were
 completed with low confidence and welcome review by a Chichewa speaker. This
 left **104,636 genuinely untranslated values across 49 locale files**.
+The thirty-third 50-value Chichewa batch added bulk attachment movement across
+filesystem, GridFS and S3, storage-location repair, default storage and file
+counts, card, attachment, board and GridFS identifiers, MongoDB Compact
+maintenance and file metadata. These direct translations were completed with
+low confidence and welcome review by a Chichewa speaker. This left **104,586
+genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
