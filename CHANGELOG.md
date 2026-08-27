@@ -5012,8 +5012,14 @@ archiving, templates, attachments, background images, All Boards display and
 board member and assignee summaries. These direct translations were completed
 with low confidence and welcome review by a Chichewa speaker. This left
 **106,036 genuinely untranslated values across 49 locale files**.
+The fifth 50-value Chichewa batch added board visibility, drag-and-drop,
+background, title, watch and view controls, desktop and mobile modes, zoom,
+calendar navigation, archive guidance and card dates, time, attachments, custom
+fields, labels and members. These direct translations were completed with low
+confidence and welcome review by a Chichewa speaker. This left **105,986
+genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Chichewa at `board-public-info`
+and exact tokens from `en.i18n.json`, resuming Chichewa at `card-members-title`
 with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
