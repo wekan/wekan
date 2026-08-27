@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1967);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -61,5 +61,12 @@ assert.deepEqual(tokens(sotho['board-nb-stars']), ['%s']);
 assert.deepEqual(tags(sotho['board-private-info']),
   ['</strong>', '<strong>']);
 assert.equal(sotho['board-not-found'], 'Boto ga se ya hwetšwa');
+assert.deepEqual(tags(sotho['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  sotho['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.match(sotho['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(sotho['card-comments-title']), ['%s']);
 
 console.log('Northern Sotho translation progress checks passed.');
