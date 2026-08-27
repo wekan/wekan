@@ -6640,8 +6640,14 @@ conversion, CPU and filesystem monitoring, recurring intervals, job queues and
 concurrency status. These direct translations were completed with low confidence
 and welcome review by a Sakha speaker. This left **93,351 genuinely untranslated
 values across 44 locale files**.
+The forty-second 50-value Sakha batch added attachment migration tuning,
+background progress and logs, monitoring refresh and export, scheduling,
+resource totals and minicard list and checklist visibility. These direct
+translations were completed with low confidence and welcome review by a Sakha
+speaker. This left **93,301 genuinely untranslated values across 44 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `memory-usage` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `current-step` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
