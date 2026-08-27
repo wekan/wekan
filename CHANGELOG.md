@@ -5737,9 +5737,14 @@ sorting, comments, organizations, teams, text, custom fields, attachments and
 checklists. These direct translations were completed with low confidence and
 welcome review by a Pashto speaker. This left **100,552 genuinely untranslated
 values across 47 locale files**.
+The twenty-eighth 50-value Pashto batch added the remaining member, visibility
+and query predicates, operator validation errors, pagination and complete
+global-search syntax, operator, status, field, sorting, limit and composition
+guidance with code and Markdown examples intact. These direct translations
+were completed with low confidence and welcome review by a Pashto speaker.
+This left **100,502 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at
-`predicate-member` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `number` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
