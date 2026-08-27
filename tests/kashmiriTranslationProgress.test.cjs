@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -225,3 +225,12 @@ assert.match(kashmiri['gridfs-attachments'], /GridFS/);
 assert.equal(kashmiri['hide-list-on-minicard'],
   'لۄکٹس کارڈس پؠٹھ فہرست ژھپاویو');
 assert.match(kashmiri['job-queue'], /قطار/);
+assert.match(kashmiri['migrate-all-to-filesystem'], /فایل سسٹم/);
+assert.match(kashmiri['migrate-all-to-gridfs'], /GridFS/);
+assert.match(kashmiri['migrate-all-to-s3'], /S3/);
+assert.match(kashmiri['migration-batch-size-description'], /1-100/);
+assert.match(kashmiri['migration-cpu-threshold'], /CPU.*%/);
+assert.match(kashmiri['migration-cpu-threshold-description'], /10-90/);
+assert.match(kashmiri['migration-delay-ms-description'], /100-10000/);
+assert.equal(kashmiri['show-list-on-minicard'],
+  'لۄکٹس کارڈس پؠٹھ فہرست ہٲویو');
