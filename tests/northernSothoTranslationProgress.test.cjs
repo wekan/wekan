@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1667);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -92,5 +92,9 @@ assert.deepEqual(tokens(sotho['email-invite-text']),
 assert.match(sotho['error-import-empty-board'], /WeKan/);
 assert.equal(sotho['error-user-disabled'],
   'Akhaonto ye ya modiriši e timilwe');
+assert.match(sotho['export-card-field-board-info'], /Tsela ya go sesa/);
+assert.match(sotho['export-card-excel-no-disk-space'], /tisiking/);
+assert.equal(sotho['filter-due-tomorrow'], 'Di swanetše gosasa');
+assert.equal(sotho['filter-no-member'], 'Ga go leloko');
 
 console.log('Northern Sotho translation progress checks passed.');
