@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 967);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -186,5 +186,11 @@ assert.deepEqual(tokens(nepali['act-a-dueAt']),
   ['__card__', '__timeOldValue__', '__timeValue__']);
 assert.deepEqual(tokens(nepali['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(nepali['submit-on-enter-description'], /Shift\+Enter/);
+assert.match(nepali['submit-on-enter-description'], /Ctrl\/Cmd\+Enter/);
+assert.match(nepali['submit-on-enter-description'], /Enter ले/);
+assert.equal(nepali.monday, 'सोमबार');
+assert.equal(nepali.sunday, 'आइतबार');
+assert.equal(nepali['roles-status-sees-assigned'], 'तोकिएका मात्र');
 
 console.log('Nepali translation progress checks passed.');

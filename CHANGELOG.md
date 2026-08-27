@@ -4618,9 +4618,15 @@ card placement, due reminders and user mentions, account, team and organization
 deletion and desktop and menu resizing. These direct translations were
 completed with low confidence and welcome review by a Nepali speaker. This left
 **109,370 genuinely untranslated values across 51 locale files**.
+The twenty-fifth 50-value Nepali batch added multi-window cards, Enter and
+modifier-key editing, organization, team and user forms, notification actions,
+rename and board-role permissions and status, week-start days, ownership and
+activity metadata and linked-card deletion guidance. These direct translations
+were completed with low confidence and welcome review by a Nepali speaker. This
+left **109,320 genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
