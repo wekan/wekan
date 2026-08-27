@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -194,3 +194,9 @@ assert.deepEqual(tokens(malagasy['act-a-dueAt']),
   ['__card__', '__timeOldValue__', '__timeValue__']);
 assert.deepEqual(tokens(malagasy['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(malagasy['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter.*Enter/);
+assert.match(malagasy['roles-info'], /Tontonana mpitantana/);
+assert.equal(malagasy.monday, 'Alatsinainy');
+assert.equal(malagasy.sunday, 'Alahady');
+assert.equal(malagasy.voting, 'Fifidianana');

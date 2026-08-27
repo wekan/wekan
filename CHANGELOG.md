@@ -2805,9 +2805,15 @@ team and organization deletion and editor and layout controls. These direct
 translations were completed with low confidence and welcome review by a
 Malagasy speaker. This left **124,539 genuinely untranslated values across 58
 locale files**.
+The twenty-fifth 50-value Malagasy batch added multi-card windows, editor
+shortcuts, card and minicard fields, organization, team and user dialogs,
+notification states, rename and board-role controls, weekdays, status,
+ownership, activity and voting. These direct translations were completed with
+low confidence and welcome review by a Malagasy speaker. This left **124,489
+genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
