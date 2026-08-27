@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -174,3 +174,8 @@ assert.match(malayalam.DDP_transport, /DDP_TRANSPORT/);
 assert.match(malayalam['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
 assert.equal(malayalam['org-admin'], 'സംഘടനാ അഡ്മിൻ');
+assert.deepEqual(tokens(malayalam['default-subtasks-board']), ['__board__']);
+assert.match(malayalam['checklist-count-on-minicard'], /0\/0/);
+assert.equal(malayalam['parent-card'], 'പാരന്റ് കാർഡ്');
+assert.deepEqual(tokens(malayalam['activity-added-label']), ['%s', '%s']);
+assert.equal(malayalam['boardDeletePopup-title'], 'ബോർഡ് ഇല്ലാതാക്കണോ?');
