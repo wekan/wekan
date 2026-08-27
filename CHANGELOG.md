@@ -4439,9 +4439,15 @@ secrets and connection diagnostics and Azure attachment storage. These direct
 translations were completed with low confidence and welcome review by a
 Northern Ndebele speaker. This left **110,837 genuinely untranslated values
 across 52 locale files**.
+The thirty-ninth 50-value Northern Ndebele batch added Google Cloud and GridFS
+attachment storage, migration controls and status, S3 credentials and
+connections, scheduled board operations, writable paths and attachment and
+board migration settings. These direct translations were completed with low
+confidence and welcome review by a Northern Ndebele speaker. This left
+**110,787 genuinely untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`attachment-move-storage-gcs`
+`card-show-lists-on-minicard`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
