@@ -2619,9 +2619,15 @@ activity, notification and watch controls, user anonymization and backups. These
 direct translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **126,056 genuinely untranslated values across 59
 locale files**.
+The thirty-eighth 50-value Maithili batch added scheduled backup and restore
+settings, Google Cloud Storage credentials and permissions, and detailed AWS
+S3, Azure and Google Cloud configuration paths and connection status. These
+direct translations were completed with low confidence and welcome review by a
+Maithili speaker. This left **126,006 genuinely untranslated values across 59
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
