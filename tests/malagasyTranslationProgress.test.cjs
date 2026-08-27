@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1567);
+assert.equal(Object.keys(remaining).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -124,3 +124,8 @@ assert.match(malagasy['import-board-instruction-openproject'],
 assert.match(malagasy['import-board-instruction-jira'],
   /GET \/rest\/api\/2\/search.*automationRules/);
 assert.match(malagasy['import-excel-file'], /.xlsx/);
+assert.match(malagasy['trello-api-key'],
+  /https:\/\/trello\.com\/app-key/);
+assert.match(malagasy['trello-api-import-desc'], /Trello API/);
+assert.match(malagasy['invalid-year'], /2026/);
+assert.deepEqual(tokens(malagasy['label-default']), ['%s']);
