@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1717);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -85,5 +85,12 @@ assert.equal(sotho['color-white'], 'tšhweu');
 assert.match(sotho['worker-desc'], /dikarata/);
 assert.doesNotThrow(() => JSON.parse(sotho['copyManyCardsPopup-format']));
 assert.equal(sotho['custom-field-number'], 'Palo');
+assert.deepEqual(tokens(sotho['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(sotho['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.match(sotho['error-import-empty-board'], /WeKan/);
+assert.equal(sotho['error-user-disabled'],
+  'Akhaonto ye ya modiriši e timilwe');
 
 console.log('Northern Sotho translation progress checks passed.');
