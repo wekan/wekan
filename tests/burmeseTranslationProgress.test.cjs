@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1867);
+assert.equal(Object.keys(remaining).length, 1817);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -77,5 +77,8 @@ assert.match(burmese['cardStartPlanningPokerPopup-title'], /Planning Poker/);
 assert.match(burmese['editPokerEndDatePopup-title'], /Planning Poker/);
 assert.equal(burmese['importDependenciesPopup-title'],
   'မှီခိုမှုများ တင်သွင်းရန်');
+assert.match(burmese.casSignIn, /CAS/);
+assert.match(burmese['font-preview-text'], /0123456789/);
+assert.equal(burmese['change-permissions'], 'ခွင့်ပြုချက်များ ပြောင်းရန်');
 
 console.log('Burmese translation progress checks passed.');

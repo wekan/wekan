@@ -3714,9 +3714,15 @@ background and account deletion, imported-member mapping and checklist, board,
 swimlane, list and card imports. These direct translations were completed with
 low confidence and welcome review by a Burmese speaker. This left **116,771
 genuinely untranslated values across 54 locale files**.
+The seventh 50-value Burmese batch added member and template dialogs, archived
+item restoration, rule transfer, CAS sign-in, linked cards and boards,
+imported-member mapping, themes, fonts, text colors, avatars, language and
+permissions. These direct translations were completed with low confidence and
+welcome review by a Burmese speaker. This left **116,721 genuinely untranslated
+values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
