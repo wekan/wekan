@@ -6710,8 +6710,13 @@ date dialogs, localized account emails and validation for permissions, JSON,
 CSV/TSV imports, empty boards and linked cards. These direct translations were
 completed with low confidence and welcome review by a Sindhi speaker. This left
 **92,734 genuinely untranslated values across 43 locale files**.
+The eleventh 50-value Sindhi batch added account uniqueness errors, PDF and Excel
+card exports, attachment metadata, list sorting and card, date, label and member
+filters. These direct translations were completed with low confidence and welcome
+review by a Sindhi speaker. This left **92,684 genuinely untranslated values
+across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `error-user-doesNotExist` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
