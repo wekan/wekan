@@ -3472,9 +3472,15 @@ multi-card JSON templates, labels, custom-field creation, currencies, dropdowns
 and numbers. These direct translations were completed with low confidence and
 welcome review by a Marathi speaker. This left **118,788 genuinely untranslated
 values across 55 locale files**.
+The tenth 50-value Marathi batch added permanent-delete controls, profile and WIP
+settings, dates and notifications, account/invitation/password/verification
+emails, scrollbars, role and existence errors, JSON/CSV/TSV validation, empty
+imports and linked-card safeguards. These direct translations were completed with
+low confidence and welcome review by a Marathi speaker. This left **118,738
+genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

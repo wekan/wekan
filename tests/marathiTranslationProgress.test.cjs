@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1717);
+assert.equal(Object.keys(remaining).length, 1667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -100,5 +100,14 @@ assert.equal(marathi.worker, 'कार्यकर्ता');
 const bulkCardExample = JSON.parse(marathi['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(marathi['custom-field-number'], 'संख्या');
+assert.match(marathi['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(marathi['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(marathi['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(marathi['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.match(marathi['error-json-malformed'], /JSON/);
+assert.match(marathi['error-csv-schema'], /CSV.*TSV/);
 
 console.log('Marathi translation progress checks passed.');
