@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 917);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -192,5 +192,12 @@ assert.match(nepali['submit-on-enter-description'], /Enter ले/);
 assert.equal(nepali.monday, 'सोमबार');
 assert.equal(nepali.sunday, 'आइतबार');
 assert.equal(nepali['roles-status-sees-assigned'], 'तोकिएका मात्र');
+assert.match(nepali['invalid-domain'], /example\.com.*@/);
+assert.equal(nepali['myCardsSortChange-choice-board'], 'बोर्डअनुसार');
+assert.deepEqual(tokens(nepali['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['swimlane-title-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['list-title-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['label-not-found']), ['%s']);
+assert.deepEqual(tokens(nepali['label-color-not-found']), ['%s']);
 
 console.log('Nepali translation progress checks passed.');
