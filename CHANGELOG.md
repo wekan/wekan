@@ -6018,9 +6018,15 @@ reminders, account deletion confirmations and drag-and-submit settings. These
 direct translations were completed with low confidence and welcome review by
 a Kirundi speaker. This left **98,535 genuinely untranslated values across 46
 locale files**.
+The twenty-fifth 50-value Kirundi batch added multi-card windows, inline editor
+submission, organization, team and user dialogs, notification filtering,
+renaming permissions, board-role rights and status, weekdays, ownership,
+activity, voting and linked-card deletion guidance. These direct translations
+were completed with low confidence and welcome review by a Kirundi speaker.
+This left **98,485 genuinely untranslated values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
