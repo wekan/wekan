@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -200,5 +200,11 @@ for (const literal of ['Enter', 'Shift+Enter', 'Ctrl/Cmd+Enter']) {
 assert.equal(marathi['roles-status-role'], 'भूमिका');
 assert.equal(marathi.monday, 'सोमवार');
 assert.equal(marathi.sunday, 'रविवार');
+assert.match(marathi['invalid-domain'], /example\.com/);
+assert.equal(marathi['globalSearchViewChange-choice-me'], 'माझी कार्डे');
+for (const key of ['board-title-not-found', 'swimlane-title-not-found',
+  'list-title-not-found', 'label-not-found', 'label-color-not-found']) {
+  assert.deepEqual(tokens(marathi[key]), ['%s']);
+}
 
 console.log('Marathi translation progress checks passed.');

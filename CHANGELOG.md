@@ -3570,9 +3570,15 @@ board-role permissions/status, week-start weekdays, ownership/activity status,
 voting and linked-card deletion safety. These direct translations were completed
 with low confidence and welcome review by a Marathi speaker. This left **117,988
 genuinely untranslated values across 55 locale files**.
+The twenty-sixth 50-value Marathi batch added linked-list deletion safety,
+checklist visibility, tasks, domain validation and user assignment, scoped shared
+templates, My Cards and Due Cards views/sorting, global search scope and missing
+board/swimlane/list/label diagnostics. These direct translations were completed
+with low confidence and welcome review by a Marathi speaker. This left **117,938
+genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
