@@ -6161,9 +6161,15 @@ backgrounds, All Boards display, member and assignee summaries and private
 board visibility. These direct translations were completed with low confidence
 and welcome review by a Kinyarwanda speaker. This left **97,368 genuinely
 untranslated values across 45 locale files**.
+The fifth 50-value Kinyarwanda batch added public-board visibility, board
+opening and workspace movement, backgrounds, fonts and views, mobile and
+desktop zoom, archive and deletion guidance, dates, time spent and attachment,
+custom-field, label and member editing. These direct translations were
+completed with low confidence and welcome review by a Kinyarwanda speaker.
+This left **97,318 genuinely untranslated values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
