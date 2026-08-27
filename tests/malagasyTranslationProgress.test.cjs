@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 117);
+assert.equal(Object.keys(remaining).length, 67);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -315,3 +315,8 @@ assert.match(malagasy['step-fix-missing-ids'], /ID/);
 assert.match(malagasy['cpu-cores'], /CPU/);
 assert.equal(malagasy['every-30-minutes'], 'Isaky ny 30 minitra');
 assert.match(malagasy['gridfs-attachments'], /GridFS/);
+assert.match(malagasy['migrate-all-to-gridfs'], /GridFS/);
+assert.match(malagasy['migrate-all-to-s3'], /S3/);
+assert.match(malagasy['migration-cpu-threshold'], /CPU.*%/);
+assert.match(malagasy['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(malagasy['migration-delay-ms-description'], /100-10000/);

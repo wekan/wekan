@@ -2901,9 +2901,14 @@ conversion, CPU and filesystem metrics, schedules, GridFS monitoring and job
 queue details. These direct translations were completed with low confidence and
 welcome review by a Malagasy speaker. This left **123,689 genuinely untranslated
 values across 58 locale files**.
+The forty-second 50-value Malagasy batch added attachment migration targets,
+batch and resource thresholds, background processing, monitoring, schedules,
+progress and storage statistics. These direct translations were completed with
+low confidence and welcome review by a Malagasy speaker. This left **123,639
+genuinely untranslated values across 58 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
