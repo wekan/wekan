@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2067);
+assert.equal(Object.keys(remaining).length, 2017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -55,5 +55,10 @@ assert.deepEqual(tokens(ndebele['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(ndebele['allboards.workspaces'], 'Izindawo zokusebenza');
 assert.match(ndebele['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(ndebele['activity-dueDate']), ['%s', '%s']);
+assert.match(ndebele['set-list-width-value'], /amaphikseli/);
+assert.match(ndebele['list-width-error-message'], /270/);
+assert.match(ndebele['set-swimlane-height-value'], /amaphikseli/);
+assert.equal(ndebele['add-checklist'], 'Engeza uluhlu lokuhlola');
 
 console.log('Northern Ndebele translation progress checks passed.');
