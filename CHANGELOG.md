@@ -5006,9 +5006,15 @@ shortcuts, swimlane heights, subtasks, checklists, covers, labels and members.
 These direct translations were completed with low confidence and welcome review
 by a Chichewa speaker. This left **106,086 genuinely untranslated values across
 49 locale files**.
+The fourth 50-value Chichewa batch added administrator announcements and
+permissions, public-board labels, connection recovery, board and selection
+archiving, templates, attachments, background images, All Boards display and
+board member and assignee summaries. These direct translations were completed
+with low confidence and welcome review by a Chichewa speaker. This left
+**106,036 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Chichewa at
-`added` with
+and exact tokens from `en.i18n.json`, resuming Chichewa at `board-public-info`
+with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
