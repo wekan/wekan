@@ -6095,9 +6095,15 @@ user anonymization, activity, notification and watch controls and instance or
 organization backups. These direct translations were completed with low
 confidence and welcome review by a Kirundi speaker. This left **97,885
 genuinely untranslated values across 46 locale files**.
+The thirty-eighth 50-value Kirundi batch added scheduled backup frequency and
+restore modes, Google Cloud Storage credentials and permissions, S3, Azure and
+GCS console paths, cloud-secret states, connection tests and Azure attachment
+movement. These direct translations were completed with low confidence and
+welcome review by a Kirundi speaker. This left **97,835 genuinely untranslated
+values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
