@@ -6030,9 +6030,15 @@ My Cards and Due Cards views, global search and missing-item messages. These
 direct translations were completed with low confidence and welcome review by
 a Kirundi speaker. This left **98,435 genuinely untranslated values across 46
 locale files**.
+The twenty-seventh 50-value Kirundi batch added missing-user, comment,
+organization and team feedback, card-result counts, advanced-search operators
+and predicates for boards, card properties, dates, attachments and checklists.
+These direct translations were completed with low confidence and welcome
+review by a Kirundi speaker. This left **98,385 genuinely untranslated values
+across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
