@@ -4868,9 +4868,14 @@ card movement and archiving, labels, members, attachments, checklists and email
 actions. These direct translations were completed with low confidence and
 welcome review by a Northern Sotho speaker. This left **107,303 genuinely
 untranslated values across 50 locale files**.
+The twenty-third 50-value Northern Sotho batch added concrete rule actions for
+cards, checklists, swimlanes and dates, authentication labels, custom product
+and web metadata and layout controls. These direct translations were completed
+with low confidence and welcome review by a Northern Sotho speaker. This left
+**107,253 genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
