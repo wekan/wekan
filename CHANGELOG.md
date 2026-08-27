@@ -6191,9 +6191,16 @@ linked cards, multi-card template JSON and custom-field creation, deletion and
 option types. These direct translations were completed with low confidence and
 welcome review by a Kinyarwanda speaker. This left **97,118 genuinely
 untranslated values across 45 locale files**.
+The tenth 50-value Kinyarwanda batch added date and permanent-delete settings,
+custom-field and label dialogs, profile and WIP controls, account enrollment,
+invitation, password-reset and verification email templates, scrolling and
+board, role, JSON/CSV import and linked-card errors. These direct translations
+were completed with low confidence and welcome review by a Kinyarwanda
+speaker. This left **97,068 genuinely untranslated values across 45 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
