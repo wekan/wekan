@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1767);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -81,5 +81,12 @@ assert.match(nepali['card-aging-tier2'], /2/);
 assert.match(nepali['card-aging-tier3'], /3/);
 assert.equal(nepali['color-blue'], 'निलो');
 assert.equal(nepali['color-red'], 'रातो');
+assert.equal(nepali['color-white'], 'सेतो');
+assert.equal(nepali['color-yellow'], 'पहेंलो');
+assert.match(nepali['copyManyCardsPopup-instructions'], /JSON/);
+const cardCopyExample = JSON.parse(nepali['copyManyCardsPopup-format']);
+assert.equal(cardCopyExample.length, 3);
+assert.deepEqual(Object.keys(cardCopyExample[0]), ['title', 'description']);
+assert.equal(nepali['custom-field-currency-option'], 'मुद्रा कोड');
 
 console.log('Nepali translation progress checks passed.');
