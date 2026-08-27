@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1917);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -68,5 +68,9 @@ assert.deepEqual(tokens(
 ['__workspaces__']);
 assert.match(sotho['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(sotho['card-comments-title']), ['%s']);
+assert.equal(sotho['cardStartVotingPopup-title'], 'Thoma go bouta');
+assert.match(sotho['poker-delete-pop'], /Planning Poker/);
+assert.match(sotho['exportChecklistPopup-title'], /lenaneo la go hlahloba/);
+assert.equal(sotho['importCardPopup-title'], 'Tliša karata');
 
 console.log('Northern Sotho translation progress checks passed.');
