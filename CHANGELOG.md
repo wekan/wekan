@@ -6130,16 +6130,21 @@ controls, OTP and credential feedback, problem summaries, repair progress and
 results, CPU load and event metadata. These direct translations were completed
 with low confidence and welcome review by a Kirundi speaker. This left
 **97,585 genuinely untranslated values across 46 locale files**.
+The final 17-value Kirundi batch added event details and IP addresses,
+filesystem-integrity reporting, scoped export choices, WeKan JSON/ZIP import
+feedback, numeric search and board-import source guidance. Kirundi is now
+complete. These direct translations were completed with low confidence and
+welcome review by a Kirundi speaker. This left **97,568 genuinely untranslated
+values across 45 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Kirundi at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list rn --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Kinyarwanda at `accept` with
+`node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
-Chichewa, Oromo and Pashto are now complete.
+Chichewa, Oromo, Pashto and Kirundi are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
