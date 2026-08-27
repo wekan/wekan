@@ -3243,9 +3243,15 @@ and error controls. It also added imported-member mapping, date/time validation,
 invitations, keyboard shortcuts and label management. These direct translations
 were completed with low confidence and welcome review by a Malayalam speaker.
 This left **120,755 genuinely untranslated values across 56 locale files**.
+The fourteenth 50-value Malayalam batch added board departure, list archival,
+swimlane and organization settings, card/list links, selection movement and
+copying, multi-selection, muted watching, archive-empty states, board roles and
+participation notifications. These direct translations were completed with low
+confidence and welcome review by a Malayalam speaker. This left **120,705
+genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
