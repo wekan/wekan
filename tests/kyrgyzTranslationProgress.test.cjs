@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -213,3 +213,9 @@ assert.deepEqual(tokens(kyrgyz['globalSearch-instructions-operator-has']),
     '__predicate_end__', '__predicate_member__', '__predicate_start__']);
 assert.match(kyrgyz['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(kyrgyz['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.match(kyrgyz['sort-boards-title-asc'], /A → Z/);
+assert.match(kyrgyz['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(kyrgyz['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(kyrgyz['background-too-big']), ['{{size}}']);
+assert.equal(kyrgyz['location-open-map'], 'Картадан ачуу');
