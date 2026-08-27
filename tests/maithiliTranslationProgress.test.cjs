@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1967);
+assert.equal(Object.keys(remaining).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -68,3 +68,12 @@ assert.deepEqual(tokens(maithili['board-nb-stars']), ['%s']);
 assert.match(maithili['board-background-image-url'], /URL/);
 assert.deepEqual(tags(maithili['board-private-info']),
   ['</strong>', '<strong>']);
+assert.deepEqual(tags(maithili['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  maithili['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.match(maithili['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(maithili['card-comments-title']), ['%s']);
+assert.equal(maithili['card-edit-custom-fields'],
+  'अनुकूलित क्षेत्र संपादित करू');
