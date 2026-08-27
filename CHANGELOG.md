@@ -5701,9 +5701,16 @@ triggers and actions, card positioning, membership removal, colors, checklist
 completion and email actions. These direct translations were completed with
 low confidence and welcome review by a Pashto speaker. This left **100,802
 genuinely untranslated values across 47 locale files**.
+The twenty-third 50-value Pashto batch added rule email, archive, label,
+member, checklist, card, swimlane and date-field actions, authentication,
+custom product naming, HTML head and link tags, JSON web manifests and
+assetlinks, layout, logo visibility and card counters. These direct
+translations were completed with low confidence and welcome review by a Pashto
+speaker. This left **100,752 genuinely untranslated values across 47 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
