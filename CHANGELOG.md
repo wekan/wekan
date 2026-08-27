@@ -4503,9 +4503,15 @@ calendar navigation, archive guidance and card editing. These direct
 translations were completed with low confidence and welcome review by a Nepali
 speaker. This left **110,320 genuinely untranslated values across 51 locale
 files**.
+The sixth 50-value Nepali batch added card membership and custom fields,
+voting, Planning Poker, dependencies, organizations, teams, backgrounds,
+domains, imported-member mapping and checklist and board-item imports. These
+direct translations were completed with low confidence and welcome review by a
+Nepali speaker. This left **110,270 genuinely untranslated values across 51
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
