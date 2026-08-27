@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -221,3 +221,9 @@ assert.deepEqual(tokens(maori['globalSearch-instructions-operator-has']),
     '__predicate_end__', '__predicate_member__', '__predicate_start__']);
 assert.match(maori['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(maori['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.equal(maori['number'], 'Tau');
+assert.equal(maori['card-dependencies'], 'Ngā Whirinakitanga');
+assert.deepEqual(tokens(maori['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(maori['background-too-big']), ['{{size}}']);
+assert.equal(maori['location-address'], 'Wāhitau');
