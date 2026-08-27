@@ -5748,8 +5748,15 @@ card sorting, completion states, stickers, card dependency relationships and
 imports, board backgrounds, and location fields. These direct translations
 were completed with low confidence and welcome review by a Pashto speaker.
 This left **100,452 genuinely untranslated values across 47 locale files**.
+The thirtieth 50-value Pashto batch added map-coordinate detection, server
+troubleshooting, title and creation sorting, board activities, swimlane moves,
+custom-field string templates, creator metadata, and administrative file,
+security, speed, test, CPU, database, rule, board, card, impersonation,
+recovery and office reports. These direct translations were completed with
+low confidence and welcome review by a Pashto speaker. This left **100,402
+genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `location-latitude` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `office-last-seen` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
