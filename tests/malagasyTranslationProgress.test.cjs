@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -326,3 +326,10 @@ assert.match(malagasy['problems-in-progress-help'], /CPU/);
 assert.deepEqual(tokens(malagasy['repair-broken-cards-done']), ['__fixed__']);
 assert.deepEqual(tokens(malagasy['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
+assert.equal(malagasy['event-ipv4'], 'Adiresy IPv4');
+assert.equal(malagasy['event-ipv6'], 'Adiresy IPv6');
+assert.match(malagasy['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(malagasy['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.match(malagasy['import-board-source'],
+  /Trello.*Jira.*WeKan.*CSV.*Excel/);
