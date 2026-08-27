@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 967);
+assert.equal(Object.keys(remaining).length, 917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -191,3 +191,9 @@ assert.deepEqual(tokens(maithili['act-a-dueAt']),
   ['__card__', '__timeOldValue__', '__timeValue__']);
 assert.deepEqual(tokens(maithili['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(maithili['submit-on-enter-description'],
+  /Enter.*Shift\+Enter.*Ctrl\/Cmd\+Enter.*Enter/);
+assert.match(maithili['roles-info'], /व्यवस्थापक पैनल/);
+assert.equal(maithili.monday, 'सोमवार');
+assert.equal(maithili.sunday, 'रविवार');
+assert.equal(maithili.voting, 'मतदान');
