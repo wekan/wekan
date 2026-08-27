@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -146,3 +146,10 @@ assert.match(maori['custom-top-left-corner-logo-height'], /27/);
 assert.match(maori['automatic-linked-url-schemes'], /URL.*URL/);
 assert.equal(maori['board-templates-swimlane'], 'Ngā Tātauira Papa');
 assert.match(maori['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(maori['attachment-transfer-limits-title'], /API/);
+assert.match(maori['smtp-tls-description'], /TLS.*SMTP/);
+assert.deepEqual(tokens(maori['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(maori['email-smtp-test-subject'], /SMTP/);
+assert.match(maori.Node_version, /Node/);
+assert.match(maori.Meteor_version, /Meteor/);
