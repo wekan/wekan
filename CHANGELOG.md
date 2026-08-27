@@ -6684,8 +6684,14 @@ safeguards and card dates, attachments, custom fields, labels and members. These
 direct translations were completed with low confidence and welcome review by a
 Sindhi speaker. This left **92,984 genuinely untranslated values across 43 locale
 files**.
+The sixth 50-value Sindhi batch added card membership and custom fields, voting
+and Planning Poker, dependency dialogs, organization, team and domain assignment,
+backgrounds and checklist, swimlane, list, card and board imports. These direct
+translations were completed with low confidence and welcome review by a Sindhi
+speaker. This left **92,934 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `card-members-title` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `userPopup-title` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
