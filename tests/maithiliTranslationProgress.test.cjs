@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 717);
+assert.equal(Object.keys(remaining).length, 667);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -225,3 +225,11 @@ assert.deepEqual(tokens(maithili['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(maithili['background-too-big']), ['{{size}}']);
 assert.equal(maithili['location-open-map'], 'मानचित्रमे खोलू');
+assert.match(maithili['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.deepEqual(tokens(maithili['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(maithili['custom-field-stringtemplate-separator'],
+  /&#32;.*&nbsp;/);
+assert.match(maithili['office-report-desc'], /IPv4.*IPv6/);
+assert.match(maithili.cpuReportTitle, /CPU/);
