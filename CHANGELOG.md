@@ -5708,9 +5708,17 @@ assetlinks, layout, logo visibility and card counters. These direct
 translations were completed with low confidence and welcome review by a Pashto
 speaker. This left **100,752 genuinely untranslated values across 47 locale
 files**.
+The twenty-fourth 50-value Pashto batch added board member lists, custom HTML
+body insertion, LDAP and OIDC authentication, board duplication, organization,
+team and people counts, swimlane deletion and restoration, multiline card-date
+activity and reminders, relative insertion positions, account, team and
+organization deletion, resizing and Enter submission. These direct
+translations were completed with low confidence and welcome review by a Pashto
+speaker. This left **100,702 genuinely untranslated values across 47 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Pashto at
-`board-member-list` with
+`open-many-cards-at-once` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
