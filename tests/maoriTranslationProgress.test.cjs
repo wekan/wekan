@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mi'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 467);
+assert.equal(Object.keys(remaining).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -257,3 +257,11 @@ assert.deepEqual(tokens(maori['drag-board-to-workspace']), ['__workspaces__']);
 assert.match(maori['show-week-of-year'], /ISO 8601/);
 assert.match(maori['import-board-zip'], /\.zip.*JSON/);
 assert.equal(maori['accessibility'], 'Āheitanga');
+assert.match(maori['accounts-lockout-known-users'],
+  /ingoa kaiwhakamahi tika.*kupuhipa hē/);
+assert.match(maori['accounts-lockout-unknown-users'],
+  /ingoa kaiwhakamahi kāore i te tīariari/);
+assert.notEqual(maori['accounts-lockout-period'],
+  maori['accounts-lockout-failure-window']);
+assert.equal(maori['admin-people-filter-active'], 'Hohe');
+assert.equal(maori['cron-migrations'], 'Ngā Hekenga Kua Hōtaka');
