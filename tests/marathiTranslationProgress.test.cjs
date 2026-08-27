@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -44,5 +44,13 @@ assert.deepEqual(tokens(marathi['act-setCustomField']),
     '__list__', '__swimlane__']);
 assert.match(marathi['board-members-same-org-only'], /संस्थेतील/);
 assert.match(marathi['board-members-same-team-only'], /संघातील/);
+assert.deepEqual(tokens(marathi['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(marathi['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(marathi['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(marathi['allboards.workspaces'], 'कार्यस्थाने');
+assert.match(marathi['allboards.edit-workspace-icon'], /markdown/);
 
 console.log('Marathi translation progress checks passed.');
