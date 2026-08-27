@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1567);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1517);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -102,5 +102,10 @@ assert.deepEqual(tokens(sotho['import-board-instruction-issues']),
 assert.match(sotho['import-board-instruction-openproject'],
   /GET \/api\/v3\/work_packages/);
 assert.match(sotho['import-trello-zip-too-many-files'], /\.zip/);
+assert.match(sotho['trello-api-key'],
+  /https:\/\/trello\.com\/app-key/);
+assert.match(sotho['invalid-year'], /2026/);
+assert.deepEqual(tokens(sotho['label-default']), ['%s']);
+assert.equal(sotho['keyboard-shortcuts'], 'Dikgaoletšo tša khiiboto');
 
 console.log('Northern Sotho translation progress checks passed.');

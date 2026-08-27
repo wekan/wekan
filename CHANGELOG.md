@@ -4809,9 +4809,16 @@ Excel and WeKan, including Trello JSON, ZIP, timeout, size and file-count errors
 These direct translations were completed with low confidence and welcome review
 by a Northern Sotho speaker. This left **107,803 genuinely untranslated values
 across 50 locale files**.
+The thirteenth 50-value Northern Sotho batch added Trello ZIP path and size
+validation, workspace placement, direct API import credentials, board selection,
+progress, cancellation, resumption and cleanup, imported-member mapping, date,
+time and user validation, keyboard shortcuts and label lifecycle. These direct
+translations were completed with low confidence and welcome review by a
+Northern Sotho speaker. This left **107,753 genuinely untranslated values across
+50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
