@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1667);
+assert.equal(Object.keys(remaining).length, 1617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -104,3 +104,8 @@ assert.deepEqual(tokens(kyrgyz['email-invite-text']),
 assert.deepEqual(tokens(kyrgyz['email-verifyEmail-text']),
   ['__url__', '__user__']);
 assert.match(kyrgyz['error-import-empty-board'], /WeKan/);
+assert.equal(kyrgyz['export-card-pdf'],
+  'Карточканы PDF форматына экспорттоо');
+assert.match(kyrgyz['export-card-excel-fields'], /Excel/);
+assert.equal(kyrgyz['filter-due-tomorrow'], 'Мөөнөтү эртең');
+assert.equal(kyrgyz['filter-no-member'], 'Мүчө жок');

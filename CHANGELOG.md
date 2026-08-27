@@ -2285,9 +2285,13 @@ The tenth 50-value Kyrgyz batch added permanent deletion and WIP controls,
 profile and date dialogs, enrollment, invitation, reset and verification emails
 and board, import and linked-card errors. This left **129,573 genuinely
 untranslated values across 60 locale files**.
+The eleventh 50-value Kyrgyz batch added account validation errors, card PDF and
+Excel exports, attachment metadata, list sorting and date, label and member
+filters. This left **129,523 genuinely untranslated values across 60 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
