@@ -5171,9 +5171,15 @@ board, card, impersonation and recovery reports, and office-login locations.
 These direct translations were completed with low confidence and welcome
 review by a Chichewa speaker. This left **104,736 genuinely untranslated values
 across 49 locale files**.
+The thirty-first 50-value Chichewa batch added office and REST API activity,
+automatic data recovery and maintenance, swimlane copying, card creators,
+waiting animations, card sizing, organization and team deletion warnings, and
+support-ticket details, states and requests. These direct translations were
+completed with low confidence and welcome review by a Chichewa speaker. This
+left **104,686 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
