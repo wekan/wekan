@@ -2074,8 +2074,12 @@ values across 61 locale files**.
 The first 50-value Cornish batch added activity history for board, swimlane,
 list, card, checklist, label, attachment, comment and member changes. This left
 **132,190 genuinely untranslated values across 61 locale files**.
+The second 50-value Cornish batch added card movement, membership, checklist and
+date activity plus workspace creation and editing. This left **132,140 genuinely
+untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Cornish at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Cornish at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

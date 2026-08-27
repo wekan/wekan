@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2117);
+assert.equal(Object.keys(remaining).length, 2067);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -43,3 +43,11 @@ assert.match(cornish['act-addAttachment'], /stagell/);
 assert.match(cornish['act-addChecklist'], /rol checkya/);
 assert.match(cornish['act-addComment'], /kampoellys/);
 assert.match(cornish['act-archivedBoard'], /kovskrifva/);
+assert.deepEqual(tokens(cornish['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(cornish['activity-added']), ['%s', '%s']);
+assert.deepEqual(tokens(cornish['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(cornish['allboards.workspaces'], 'Leow ober');
+assert.match(cornish['allboards.edit-workspace-icon'], /markdown/);
