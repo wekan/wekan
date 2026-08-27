@@ -5743,8 +5743,13 @@ global-search syntax, operator, status, field, sorting, limit and composition
 guidance with code and Markdown examples intact. These direct translations
 were completed with low confidence and welcome review by a Pashto speaker.
 This left **100,502 genuinely untranslated values across 47 locale files**.
+The twenty-ninth 50-value Pashto batch added numbers, label metadata, board and
+card sorting, completion states, stickers, card dependency relationships and
+imports, board backgrounds, and location fields. These direct translations
+were completed with low confidence and welcome review by a Pashto speaker.
+This left **100,452 genuinely untranslated values across 47 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Pashto at `number` with
+and exact tokens from `en.i18n.json`, resuming Pashto at `location-latitude` with
 `node releases/translations/fill-translations.mjs --list ps --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
