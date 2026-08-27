@@ -3314,9 +3314,15 @@ permissions, weekdays, status/ownership labels, voting and linked-card deletion
 safeguards. These direct translations were completed with low confidence and
 welcome review by a Malayalam speaker. This left **120,155 genuinely
 untranslated values across 56 locale files**.
+The twenty-sixth 50-value Malayalam batch added linked-card safeguards,
+checklist display, domain-scoped shared templates, My Cards/Due Cards/global
+search views and missing board, swimlane, list and label results. These direct
+translations were completed with low confidence and welcome review by a
+Malayalam speaker. This left **120,105 genuinely untranslated values across 56
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
