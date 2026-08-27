@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -265,3 +265,14 @@ assert.match(malagasy['accounts-lockout-known-users'],
 assert.match(malagasy['accounts-lockout-period'], /segondra/);
 assert.equal(malagasy['active-cron-jobs'], 'Asa voalahatra mavitrika');
 assert.equal(malagasy['board-operations'], 'Hetsiky ny solaitra');
+assert.equal(malagasy['cron-job-deleted'],
+  'Voafafa soa aman-tsara ny asa voalahatra');
+assert.match(malagasy['s3-force-path-style-description'], /MinIO.*S3.*AWS/);
+assert.match(malagasy['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*Snap/s);
+assert.deepEqual(tokens(malagasy['database-migration-confirm']), ['__db__']);
+for (const term of ['Sandstorm', 'WeKan', 'MongoDB 3', 'FerretDB v1',
+  'SQLite', 'files/attachments', 'files/avatars']) {
+  assert.match(malagasy['sandstorm-migration-description'],
+    new RegExp(term.replace('/', '\\/')));
+}
