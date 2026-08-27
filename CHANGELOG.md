@@ -4885,9 +4885,14 @@ permissions, weekdays, status labels and linked-card deletion guidance. These
 direct translations were completed with low confidence and welcome review by a
 Northern Sotho speaker. This left **107,153 genuinely untranslated values across
 50 locale files**.
+The twenty-sixth 50-value Northern Sotho batch added linked-list safeguards,
+shared-template domains, personal and due-card views, global search and
+missing-board, swimlane, list and label messages. These direct translations were
+completed with low confidence and welcome review by a Northern Sotho speaker.
+This left **107,103 genuinely untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
