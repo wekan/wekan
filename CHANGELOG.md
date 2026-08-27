@@ -6566,8 +6566,13 @@ errors plus global-search operators and predicates for boards, people, dates,
 status, attachments, descriptions and checklists. These direct translations
 were completed with low confidence and welcome review by a Sakha speaker. This
 left **94,051 genuinely untranslated values across 44 locale files**.
+The twenty-eighth 50-value Sakha batch added global-search validation,
+pagination and complete operator instructions covering query syntax, status,
+field presence, sorting, limits and Boolean matching. These direct translations
+were completed with low confidence and welcome review by a Sakha speaker. This
+left **94,001 genuinely untranslated values across 44 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `predicate-member` with
+and exact tokens from `en.i18n.json`, resuming Sakha at `number` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
