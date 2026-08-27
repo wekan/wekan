@@ -4250,9 +4250,15 @@ imported-member mapping, theme categories, fonts, text colors, avatars, language
 and permissions. These direct translations were completed with low confidence
 and welcome review by a Northern Ndebele speaker. This left **112,387 genuinely
 untranslated values across 52 locale files**.
+The eighth 50-value Northern Ndebele batch added settings, subtasks, board and
+page stars, automatic list width, clipboard input, three-tier card aging,
+keyboard movement, dialog navigation, board and card closing and 23 color names.
+These direct translations were completed with low confidence and welcome review
+by a Northern Ndebele speaker. This left **112,337 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`changeSettingsPopup-title`
+`color-white`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
