@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 267);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -281,5 +281,11 @@ assert.match(nepali['s3-endpoint-menu-path'],
   /AWS.*S3.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces.*URL/s);
 assert.match(nepali['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
 assert.match(nepali['attachment-move-storage-azure'], /Azure Blob Storage/);
+assert.match(nepali['attachment-move-storage-gcs'], /Google Cloud Storage/);
+assert.match(nepali['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(nepali['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(nepali['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(nepali['s3-ssl-enabled-description'], /S3/);
+assert.match(nepali['s3-ssl-enabled-description'], /SSL\/TLS/);
 
 console.log('Nepali translation progress checks passed.');
