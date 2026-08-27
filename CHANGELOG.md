@@ -5480,8 +5480,15 @@ administrative file, security, speed, rules, board, card, impersonation,
 office, API and recovery reports. These direct translations were completed
 with low confidence and welcome review by an Oromo speaker. This left
 **102,557 genuinely untranslated values across 48 locale files**.
+The thirty-seventh 50-value Oromo batch added recovery status, swimlane
+copying, card creator display, wait-spinner styles, card sizing, organization
+and team deletion warnings, support tickets and requests, card details, team
+membership, invitations and Node heap labels. These direct translations were
+completed with low confidence and welcome review by an Oromo speaker. This
+left **102,507 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Oromo at `recovery-detail` with
+and exact tokens from `en.i18n.json`, resuming Oromo at
+`Node_heap_total_physical_size` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
