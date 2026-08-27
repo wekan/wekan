@@ -5327,9 +5327,16 @@ field and attachment metadata, disk-space errors, list sorting and filters for
 dates, titles, labels and members. These direct translations were completed
 with low confidence and welcome review by an Oromo speaker. This left
 **103,519 genuinely untranslated values across 48 locale files**.
+The twelfth 50-value Oromo batch added assignee and custom-field filters,
+archive visibility, advanced filter syntax, activity and member states, user
+impersonation, and board import guidance for Kanboard, NextCloud Deck,
+OpenProject, issue trackers, Asana, ZenKit, Trello, Jira, Excel and WeKan,
+including Trello ZIP progress and failure messages. These direct translations
+were completed with low confidence and welcome review by an Oromo speaker.
+This left **103,469 genuinely untranslated values across 48 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
