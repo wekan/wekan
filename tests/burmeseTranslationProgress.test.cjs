@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -139,5 +139,15 @@ for (const key of ['toggle-assignees', 'toggle-labels',
 }
 assert.match(burmese['custom-top-left-corner-logo-height'], /27/);
 assert.match(burmese['automatic-linked-url-schemes'], /URL Scheme/);
+for (const key of ['attachment-transfer-limits-title',
+  'attachment-transfer-limits-description', 'api-upload-limit-label',
+  'api-download-limit-label']) {
+  assert.match(burmese[key], /API/);
+}
+assert.deepEqual(tokens(burmese['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+for (const literal of ['SMTP', 'TLS', 'Webhook', 'Node', 'Meteor']) {
+  assert.ok(Object.values(burmese).some(value => value.includes(literal)));
+}
 
 console.log('Burmese translation progress checks passed.');
