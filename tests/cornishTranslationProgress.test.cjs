@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -289,3 +289,10 @@ assert.match(cornish['custom-field-stringtemplate-separator'],
   /&#32;.*&nbsp;/);
 assert.match(cornish.cpuReportTitle, /CPU/);
 assert.match(cornish['office-report-desc'], /IPv4.*IPv6/);
+assert.match(cornish['api-report-desc'], /REST API/);
+assert.match(cornish['api-no-calls'], /WITH_API=true/);
+assert.match(cornish['recovery-report-desc'], /MongoDB/);
+assert.equal(cornish['copy-swimlane'], 'Kopia hyns');
+assert.match(cornish['Double-Bounce'], /Double Bounce/);
+assert.match(cornish['carbon-copy'], /Cc:/);
+assert.equal(cornish['cardDetailsPopup-title'], 'Manylyon karten');
