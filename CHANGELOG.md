@@ -2143,10 +2143,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **32-bit AppImages** now distinguish an unavailable runner from a
-broken package, and i686 Node starts within its virtual-address-space limit. The
-table below is carried over from the release under this one, and is refilled from
-each build's provenance.tsv when this release is made.
+**In short:** The **full release** now publishes AppImages automatically after
+its core bundles, while **32-bit AppImages** distinguish an unavailable runner
+from a broken package and keep i686 Node within its virtual-address-space limit.
+The table below is carried over from the release under this one, and is refilled
+from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -2194,6 +2195,22 @@ before invoking the bundle launcher. This makes a missing AppImage safely
 rebuildable around an older published ZIP, while `${NODE_OPTIONS}` supplied by
 an administrator still wins. Regression coverage pins that old-bundle boundary
 and the architecture substitution.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfe73ab69">The full release publishes its AppImages automatically</a>. Thanks to xet7.</summary>
+
+`release-all.yml` built and published the core ZIP bundles but never called the
+reusable AppImage workflow, leaving AppImages to a separate manual or
+missing-assets run. It now calls `AppImage.yml` immediately after the core
+GitHub Release has attached its amd64 and arm64 ZIPs. The exact new tag is
+passed explicitly, release-asset write permission is scoped to the call, and
+the work runs in parallel with the other post-release formats.
+
+Regression coverage pins the release dependency, reusable-workflow path, tag,
+publish flag and permission, while the workflow-interface guard proves the
+called workflow exists and accepts every supplied input.
 
 </details>
 
