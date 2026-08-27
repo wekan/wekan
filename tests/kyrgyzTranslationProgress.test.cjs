@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ky'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 617);
+assert.equal(Object.keys(remaining).length, 567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -231,3 +231,8 @@ assert.match(kyrgyz['api-no-calls'], /REST API.*WITH_API=true.*API/);
 assert.match(kyrgyz['recovery-report-desc'], /MongoDB/);
 assert.equal(kyrgyz['copy-swimlane'], 'Жолду көчүрүү');
 assert.match(kyrgyz['carbon-copy'], /Cc:/);
+assert.match(kyrgyz.Node_heap_malloced_memory, /Node heap.*malloc/);
+assert.match(kyrgyz.Node_memory_usage_rss, /Node/);
+assert.match(kyrgyz['custom-legal-notice-link-url'], /URL/);
+assert.match(kyrgyz['attachment-move-storage-gridfs'], /GridFS/);
+assert.match(kyrgyz['attachment-move-storage-s3'], /S3/);
