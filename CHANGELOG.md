@@ -4422,9 +4422,14 @@ attachment and avatar paths and scheduled board archive, backup and cleanup
 operations. These direct translations were completed with low confidence and
 welcome review by a Northern Ndebele speaker. This left **110,987 genuinely
 untranslated values across 52 locale files**.
+The thirty-sixth 50-value Northern Ndebele batch added scheduled-job and
+migration recovery, filesystem, S3 and Azure storage, MongoDB–FerretDB transfer
+and Sandstorm migration status. These direct translations were completed with
+low confidence and welcome review by a Northern Ndebele speaker. This left
+**110,937 genuinely untranslated values across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`cron-job-delete-confirm`
+`sandstorm-storage-item`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

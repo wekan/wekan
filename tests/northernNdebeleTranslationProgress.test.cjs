@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -298,5 +298,12 @@ assert.equal(ndebele['accounts-lockout-unlock-all'], 'Vula bonke');
 assert.equal(ndebele['cron-jobs'], 'Imisebenzi ehleliweyo');
 assert.match(ndebele['attachments-path-description'], /okunamathiselweyo/);
 assert.match(ndebele['avatars-path-description'], /zithombe zabasebenzisi/);
+assert.equal(ndebele['cron-error-message'], 'Umlayezo wephutha');
+assert.match(ndebele['s3-force-path-style-description'], /MinIO.*S3.*AWS/);
+assert.match(ndebele['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL/s);
+assert.deepEqual(tokens(ndebele['database-migration-confirm']), ['__db__']);
+assert.match(ndebele['sandstorm-migration-description'],
+  /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite/s);
 
 console.log('Northern Ndebele translation progress checks passed.');
