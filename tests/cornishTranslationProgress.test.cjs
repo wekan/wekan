@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1267);
+assert.equal(Object.keys(remaining).length, 1217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -181,3 +181,9 @@ assert.match(cornish.OS_Cpus, /CPU.*OS/);
 assert.match(cornish['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/);
 assert.match(cornish['org-admins-description'], /Menystrer dre'n wias oll/);
+assert.match(cornish['delete-board-confirm-popup'], /Nyns eus distrei/);
+assert.deepEqual(tokens(cornish['default-subtasks-board']), ['__board__']);
+assert.match(cornish['checklist-count-on-minicard'], /0\/0/);
+assert.equal(cornish['parent-card'], 'Karten gerens');
+assert.equal(cornish['source-board'], 'Estyllen bennfenten');
+assert.deepEqual(tokens(cornish['activity-added-label']), ['%s', '%s']);
