@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 267);
+assert.equal(Object.keys(remaining).length, 217);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -151,6 +151,11 @@ assert.match(burmese['gcs-permissions-note'], /client_email/);
 assert.match(burmese['gcs-permissions-note'], /Storage Object Admin/);
 assert.match(burmese['s3-secret-key-menu-path'], /\.csv/);
 assert.match(burmese['attachment-move-storage-azure'], /Azure Blob Storage/);
+assert.match(burmese['attachment-move-storage-gcs'], /Google Cloud Storage/);
+assert.match(burmese['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(burmese['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(burmese['s3-region-description'], /us-east-1/);
+assert.match(burmese['s3-ssl-enabled-description'], /SSL\/TLS/);
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');

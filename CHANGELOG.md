@@ -3908,9 +3908,15 @@ setup guidance, cloud-secret state, connection tests and Azure attachment
 migration. These direct translations were completed with low confidence and
 welcome review by a Burmese speaker. This left **115,171 genuinely untranslated
 values across 54 locale files**.
+The thirty-ninth 50-value Burmese batch added Google Cloud and GridFS attachment
+storage, migration lifecycle controls, S3 credentials and connection settings,
+scheduled board operations and attachment and board migration navigation. These
+direct translations were completed with low confidence and welcome review by a
+Burmese speaker. This left **115,121 genuinely untranslated values across 54
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`attachment-move-storage-gcs` with
+`card-show-lists-on-minicard` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
