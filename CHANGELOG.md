@@ -4926,9 +4926,14 @@ storage-location repair, file counts and identifiers, and MongoDB compaction
 status and guidance. These direct translations were completed with low
 confidence and welcome review by a Northern Sotho speaker. This left **106,753
 genuinely untranslated values across 50 locale files**.
+The thirty-fourth 50-value Northern Sotho batch added board status, upload
+rules, custom translations, checklist display, support and accessibility
+controls. These direct translations were completed with low confidence and
+welcome review by a Northern Sotho speaker. This left **106,703 genuinely
+untranslated values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
