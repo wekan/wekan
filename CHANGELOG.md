@@ -2035,9 +2035,13 @@ The thirty-fifth 50-value Kurmanji Kurdish batch added accessibility content,
 brute-force lockout administration, active-user filters, scheduled Cron jobs,
 attachment paths and scheduled board maintenance. This left **132,657 genuinely
 untranslated values across 62 locale files**.
+The thirty-sixth 50-value Kurmanji Kurdish batch added scheduled-job controls and
+migration errors, filesystem, S3 and Azure storage, MongoDB and FerretDB database
+migration and Sandstorm migration status. This left **132,607 genuinely
+untranslated values across 62 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kurmanji Kurdish at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list ku --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

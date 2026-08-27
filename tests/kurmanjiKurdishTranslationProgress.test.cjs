@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ku'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 417);
+assert.equal(Object.keys(remaining).length, 367);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -324,3 +324,11 @@ assert.equal(kurmanji['admin-people-filter-active'], 'Çalak');
 assert.match(kurmanji['active-cron-jobs'], /Cron/);
 assert.equal(kurmanji['attachments-path'], 'Rêça pêvekan');
 assert.match(kurmanji['board-backup-scheduled'], /depoyê.*serkeftî/);
+assert.equal(kurmanji['cron-job-deleted'],
+  'Karê demkirî bi serkeftî hat jêbirin');
+assert.match(kurmanji['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.match(kurmanji['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*mongodb:\/\/127\.0\.0\.1:27018.*mongodb:\/\/127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*WeKan.*Snap.*snap set wekan database=ferretdb.*=mongodb/);
+assert.deepEqual(tokens(kurmanji['database-migration-confirm']), ['__db__']);
+assert.match(kurmanji['sandstorm-migration-description'],
+  /WeKan.*Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/);
