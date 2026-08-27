@@ -6897,9 +6897,14 @@ labels, checklists, attachments and membership restrictions. These direct
 translations were completed with low confidence and welcome review by a Northern
 Sami speaker. This left **91,017 genuinely untranslated values across 42 locale
 files**.
+The second 50-value Northern Sami batch added card moves and restoration,
+activity summaries for imports, checklists and dates, starred-board views and
+workspace creation and settings. These direct translations were completed with
+low confidence and welcome review by a Northern Sami speaker. This left **90,967
+genuinely untranslated values across 42 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Northern Sami at `act-moveCard`
-with
+and exact tokens from `en.i18n.json`, resuming Northern Sami at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
