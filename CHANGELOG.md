@@ -3702,9 +3702,15 @@ All Boards display settings and member and assignee summaries. These direct
 translations were completed with low confidence and welcome review by a Burmese
 speaker. This left **116,871 genuinely untranslated values across 54 locale
 files**.
+The fifth 50-value Burmese batch added board visibility and workspace movement,
+mobile and desktop views, zoom and calendar controls, archive guidance, card
+deletion safety, dates, time, attachments, custom fields, labels and members.
+These direct translations were completed with low confidence and welcome review
+by a Burmese speaker. This left **116,821 genuinely untranslated values across
+54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
