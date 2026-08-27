@@ -6891,8 +6891,15 @@ integrity, scoped export and WeKan, Trello, Jira, CSV and Excel import guidance.
 These direct translations were completed with low confidence and welcome review
 by a Sindhi speaker. Sindhi is now complete, leaving **91,067 genuinely
 untranslated values across 42 locale files**.
+The first 50-value Northern Sami batch added activity records for board, card,
+list and swimlane creation, deletion, archiving and imports, plus comments,
+labels, checklists, attachments and membership restrictions. These direct
+translations were completed with low confidence and welcome review by a Northern
+Sami speaker. This left **91,017 genuinely untranslated values across 42 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, starting Northern Sami with
+and exact tokens from `en.i18n.json`, resuming Northern Sami at `act-moveCard`
+with
 `node releases/translations/fill-translations.mjs --list se --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
