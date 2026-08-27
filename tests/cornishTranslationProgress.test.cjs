@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1467);
+assert.equal(Object.keys(remaining).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -149,3 +149,12 @@ assert.equal(cornish['no-archived-swimlanes'],
   'Hyns vyth y\'n kovskrifva.');
 assert.equal(cornish.normal, 'Usadow');
 assert.match(cornish['normal-desc'], /Ny yll chanjya settyansow/);
+assert.deepEqual(tokens(cornish['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(cornish['page-maybe-private']),
+  ['</a>', "<a href='%s'>"]);
+assert.match(cornish['public-desc'], /Google/);
+assert.deepEqual(tokens(cornish['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(cornish['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.match(cornish['setWipLimitPopup-title'], /WIP/);
+assert.match(cornish['search-example'], /Enter/);

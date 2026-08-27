@@ -2125,9 +2125,13 @@ The fourteenth 50-value Cornish batch added last-admin protection, leaving
 boards, list and card archive actions, settings and import dialogs,
 multi-selection, notification modes and normal roles. This left **131,540
 genuinely untranslated values across 61 locale files**.
+The fifteenth 50-value Cornish batch added watched updates, private-page login
+markup, previews, visibility, member removal and Sandstorm access, rescue
+dialogs, search, WIP limits, shortcuts and default-board behavior. This left
+**131,490 genuinely untranslated values across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
