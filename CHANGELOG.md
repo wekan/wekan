@@ -2293,9 +2293,13 @@ The twelfth 50-value Kyrgyz batch added advanced filtering, member-state labels
 and Kanboard, NextCloud Deck, OpenProject, issue, Asana, ZenKit, Trello, CSV,
 Jira, Excel and WeKan board imports. This left **129,473 genuinely untranslated
 values across 60 locale files**.
+The thirteenth 50-value Kyrgyz batch added safe Trello ZIP and API imports,
+import cancellation and cleanup, member mapping, date and user validation,
+keyboard shortcuts and label creation. This left **129,423 genuinely
+untranslated values across 60 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kyrgyz at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list ky --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
