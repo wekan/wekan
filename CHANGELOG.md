@@ -6245,9 +6245,16 @@ bidirectional webhooks and package, database, Node and Meteor versions. These
 direct translations were completed with low confidence and welcome review by
 a Kinyarwanda speaker. This left **96,718 genuinely untranslated values across
 45 locale files**.
+The eighteenth 50-value Kinyarwanda batch added database, FerretDB, reactivity,
+DDP and operating-system diagnostics, elapsed-time units, custom-field display,
+account changes, board visibility and active team, organization and person
+state plus tenant domains, administrators and member propagation. These direct
+translations were completed with low confidence and welcome review by a
+Kinyarwanda speaker. This left **96,668 genuinely untranslated values across
+45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
