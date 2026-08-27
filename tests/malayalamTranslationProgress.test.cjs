@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -160,3 +160,11 @@ assert.match(malayalam['custom-top-left-corner-logo-height'], /27/);
 assert.match(malayalam['automatic-linked-url-schemes'], /URL/);
 assert.equal(malayalam['welcome-swimlane'], 'നാഴികക്കല്ല് 1');
 assert.match(malayalam['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(malayalam['attachment-transfer-limits-title'], /API/);
+assert.match(malayalam['smtp-host-description'], /SMTP/);
+assert.match(malayalam['smtp-tls-description'], /SMTP.*TLS/);
+assert.deepEqual(tokens(malayalam['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.equal(malayalam['outgoing-webhooks'], 'പുറത്തേക്കുള്ള വെബ്‌ഹുക്കുകൾ');
+assert.match(malayalam.Node_version, /Node/);
+assert.match(malayalam.Meteor_version, /Meteor/);

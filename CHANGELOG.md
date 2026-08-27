@@ -3261,9 +3261,15 @@ watching, welcome and template boards, and WIP-limit warnings. These direct
 translations were completed with low confidence and welcome review by a
 Malayalam speaker. This left **120,605 genuinely untranslated values across 56
 locale files**.
+The seventeenth 50-value Malayalam batch added attachment and API transfer
+limits, avatar upload policy, registration and invitations, SMTP setup and test
+mail, authorization errors, webhook controls and runtime package, database,
+Node and Meteor labels. These direct translations were completed with low
+confidence and welcome review by a Malayalam speaker. This left **120,555
+genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
