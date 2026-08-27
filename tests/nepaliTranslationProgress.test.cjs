@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 467);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -252,5 +252,10 @@ assert.match(nepali['preview-pdf-not-supported'], /PDF/);
 assert.deepEqual(tokens(nepali['drag-board-to-workspace']), ['__workspaces__']);
 assert.match(nepali['show-week-of-year'], /ISO 8601/);
 assert.match(nepali['import-board-zip'], /JSON.*\.zip/);
+assert.match(nepali['accounts-lockout-info'], /ब्रुट फोर्स/);
+assert.match(nepali['accounts-lockout-period'], /सेकेन्ड/);
+assert.equal(nepali['accounts-lockout-unlock-all'], 'सबै खोल्नुहोस्');
+assert.equal(nepali['attachments-path'], 'संलग्नक मार्ग');
+assert.equal(nepali['cron-migrations'], 'तालिकाबद्ध स्थानान्तरणहरू');
 
 console.log('Nepali translation progress checks passed.');
