@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -122,3 +122,16 @@ assert.match(cornish['export-card-field-board-info'],
 assert.match(cornish['export-card-excel-no-disk-space'], /Excel/);
 assert.equal(cornish['filter-no-due-date'], 'Dedhyas termyn vyth');
 assert.equal(cornish['filter-no-member'], 'Esel vyth');
+for (const operator of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
+  assert.match(cornish['advanced-filter-description'],
+    new RegExp(operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+}
+assert.deepEqual(tokens(cornish['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(cornish['import-board-instruction-openproject'],
+  /OpenProject.*GET \/api\/v3\/work_packages/);
+assert.match(cornish['import-board-instruction-excel'], /WeKan/);
+assert.match(cornish['import-board-instruction-excel'], /\.xlsx.*Excel/);
+assert.match(cornish['import-trello-json-file-hint'], /Trello API/);
+assert.match(cornish['import-attachments-zip'],
+  /Trello Card Attachments Downloader/);
