@@ -3738,9 +3738,15 @@ email verification, scrolling and detailed board, role, import and linked-card
 errors. These direct translations were completed with low confidence and
 welcome review by a Burmese speaker. This left **116,571 genuinely untranslated
 values across 54 locale files**.
+The eleventh 50-value Burmese batch added account and invitation errors,
+attachment-free board exports, card PDF and Excel exports with disk-space
+diagnostics, list sorting and card, list, date, due-date, label and member
+filters. These direct translations were completed with low confidence and
+welcome review by a Burmese speaker. This left **116,521 genuinely untranslated
+values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
