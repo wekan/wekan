@@ -6720,8 +6720,13 @@ impersonation plus Kanboard, NextCloud Deck, OpenProject, issue, Asana, ZenKit,
 Trello, CSV/TSV, Jira, Excel and WeKan board imports. These direct translations
 were completed with low confidence and welcome review by a Sindhi speaker. This
 left **92,634 genuinely untranslated values across 43 locale files**.
+The thirteenth 50-value Sindhi batch added Trello ZIP validation, API credentials,
+workspace and board selection, resumable import jobs, member mapping, date and
+year validation, keyboard shortcuts and label deletion. These direct translations
+were completed with low confidence and welcome review by a Sindhi speaker. This
+left **92,584 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `import-trello-zip-file-too-large` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
