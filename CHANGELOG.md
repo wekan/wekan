@@ -6793,9 +6793,15 @@ permissions and status, weekdays and linked-card deletion guidance. These direct
 translations were completed with low confidence and welcome review by a Sindhi
 speaker. This left **91,984 genuinely untranslated values across 43 locale
 files**.
+The twenty-sixth 50-value Sindhi batch added linked-card safety, checklist
+visibility, tasks, domains and shared templates, My Cards and Due Cards views,
+global search choices and missing-item messages. These direct translations were
+completed with low confidence and welcome review by a Sindhi speaker. This left
+**91,934 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `delete-linked-cards-before-this-list` with
-`node releases/translations/fill-translations.mjs --list sd --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Sindhi at the next untranslated
+value with `node releases/translations/fill-translations.mjs --list sd --limit
+50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
