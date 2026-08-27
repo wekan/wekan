@@ -5869,9 +5869,16 @@ board colors and backgrounds, All Boards settings, member and assignee groups,
 stars, missing-board errors and private-board markup. These direct translations
 were completed with low confidence and welcome review by a Kirundi speaker.
 This left **99,535 genuinely untranslated values across 46 locale files**.
+The fifth 50-value Kirundi batch added public-board markup, board dragging and
+workspace assignment, colors, fonts, visibility, watching and views, mobile,
+desktop and zoom modes, calendar navigation, archive and permanent-delete
+guidance, due and spent time, and attachment, custom-field, label and member
+editing. These direct translations were completed with low confidence and
+welcome review by a Kirundi speaker. This left **99,485 genuinely untranslated
+values across 46 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kirundi at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list rn --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
