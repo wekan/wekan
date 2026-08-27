@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -135,6 +135,16 @@ for (const literal of ['mongodb://127.0.0.1:27018',
 }
 assert.match(burmese['sandstorm-migration-description'], /files\/attachments/);
 assert.match(burmese['sandstorm-migration-description'], /files\/avatars/);
+assert.match(burmese['cards-loading-description'], /CARDS_LOADING/);
+assert.match(burmese['cards-loading-description'],
+  /CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(burmese['render-links-as-plain-text-description']),
+  tags(english['render-links-as-plain-text-description']));
+for (const literal of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip',
+  'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data']) {
+  assert.match(burmese['backup-description'],
+    new RegExp(literal.replaceAll('/', '\\/').replaceAll('.', '\\.')));
+}
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');

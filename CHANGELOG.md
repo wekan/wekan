@@ -3896,9 +3896,15 @@ controls, filesystem, S3 and Azure storage settings, MongoDB and FerretDB data
 migration and Sandstorm grain migration status. These direct translations were
 completed with low confidence and welcome review by a Burmese speaker. This
 left **115,271 genuinely untranslated values across 54 locale files**.
+The thirty-seventh 50-value Burmese batch added Sandstorm cleanup, automatic
+card loading, secure rich-text display, import, export, identity, activity,
+notification and watch restrictions and instance or organization backups.
+These direct translations were completed with low confidence and welcome
+review by a Burmese speaker. This left **115,221 genuinely untranslated values
+across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
