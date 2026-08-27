@@ -4363,9 +4363,15 @@ filters, rename controls, board-role permissions and status, weekdays, ownership
 and linked-card deletion guidance. These direct translations were completed
 with low confidence and welcome review by a Northern Ndebele speaker. This left
 **111,487 genuinely untranslated values across 52 locale files**.
+The twenty-sixth 50-value Northern Ndebele batch added linked-list safeguards,
+checklists, tasks, domains, shared templates, people and time periods, My Cards
+and Due Cards views, global search scopes and missing board-item messages. These
+direct translations were completed with low confidence and welcome review by a
+Northern Ndebele speaker. This left **111,437 genuinely untranslated values
+across 52 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Ndebele at
-`delete-linked-cards-before-this-list`
+`user-username-not-found`
 with `node releases/translations/fill-translations.mjs --list nd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

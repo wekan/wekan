@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nd'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 917);
+assert.equal(Object.keys(remaining).length, 867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -218,5 +218,14 @@ assert.match(ndebele['roles-info'], /Phaneli yomlawuli/);
 assert.equal(ndebele.monday, 'UMvulo');
 assert.equal(ndebele.sunday, 'ISonto');
 assert.equal(ndebele.owner, 'Umnikazi');
+assert.equal(ndebele.domains, 'Izizinda');
+assert.match(ndebele['invalid-domain'], /example\.com.*@/);
+assert.equal(ndebele['myCardsViewChange-choice-table'], 'Ithebula');
+assert.match(ndebele['dueCardsViewChange-choice-all-description'],
+  /\*Lokuphela\*/);
+assert.match(ndebele['globalSearchViewChange-choice-all-description'],
+  /\*Amakhadi ami\*/);
+assert.deepEqual(tokens(ndebele['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(ndebele['label-color-not-found']), ['%s']);
 
 console.log('Northern Ndebele translation progress checks passed.');
