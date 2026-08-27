@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1517);
+assert.equal(Object.keys(remaining).length, 1467);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -129,5 +129,10 @@ assert.match(marathi['trello-api-import-desc'], /API/);
 assert.match(marathi['invalid-year'], /2026/);
 assert.deepEqual(tokens(marathi['label-default']), ['%s']);
 assert.equal(marathi['keyboard-shortcuts'], 'कीबोर्ड शॉर्टकट');
+assert.deepEqual(tokens(marathi['leave-board-pop']), ['__boardTitle__']);
+assert.match(marathi['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.equal(marathi['moveCardToTop-title'], 'शीर्षस्थानी हलवा');
+assert.equal(marathi['multi-selection'], 'बहु-निवड');
+assert.equal(marathi['my-boards'], 'माझे फलक');
 
 console.log('Marathi translation progress checks passed.');

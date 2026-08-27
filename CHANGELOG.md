@@ -3496,9 +3496,15 @@ and cleanup, imported-member mapping, validity messages, invitations, keyboard
 shortcuts and label creation/deletion. These direct translations were completed
 with low confidence and welcome review by a Marathi speaker. This left **118,588
 genuinely untranslated values across 55 locale files**.
+The fourteenth 50-value Marathi batch added last-admin and leave-board safety,
+bulk list archive/movement, user, team and organization settings, swimlane and
+list imports, login, selection and multi-selection actions, muted watching,
+archives, normal roles and participation notifications. These direct translations
+were completed with low confidence and welcome review by a Marathi speaker. This
+left **118,538 genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
