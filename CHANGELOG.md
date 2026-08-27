@@ -3796,9 +3796,15 @@ attachments, numbering and checklist counts and parent-card paths. These direct
 translations were completed with low confidence and welcome review by a Burmese
 speaker. This left **116,121 genuinely untranslated values across 54 locale
 files**.
+The twentieth 50-value Burmese batch added label, attachment and custom-field
+activity, board-rule creation, selection and workflow editing, card, label,
+member, checklist, attachment and daily triggers and JSON, CSV and Trello Butler
+rule transfer. These direct translations were completed with low confidence and
+welcome review by a Burmese speaker. This left **116,071 genuinely untranslated
+values across 54 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
