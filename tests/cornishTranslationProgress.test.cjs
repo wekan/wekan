@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1017);
+assert.equal(Object.keys(remaining).length, 967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -215,3 +215,13 @@ assert.match(cornish['r-when-a-card-is-moved'], /rol aral/);
 assert.match(cornish['custom-head-meta-tags'], /HTML/);
 assert.match(cornish['custom-head-manifest-content'], /JSON/);
 assert.match(cornish['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(cornish['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(cornish['add-custom-html-before-body-end']), ['</body>']);
+assert.match(cornish['oidc-button-text'], /OIDC/);
+assert.deepEqual(tokens(cornish['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(cornish['act-newDue']),
+  ['__board__', '__card__', '__list__']);
+assert.deepEqual(tokens(cornish['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(cornish['submit-on-enter'], /Enter/);
