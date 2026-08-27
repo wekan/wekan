@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -152,6 +152,11 @@ for (const key of ['restore-lost-cards-migration-description',
   assert.match(malayalam[key], /listId/);
 }
 assert.match(malayalam['fix-avatar-urls-migration'], /URL/);
+assert.match(malayalam['step-fix-attachment-urls'], /URL/);
+assert.match(malayalam['step-fix-missing-ids'], /ID/);
+assert.match(malayalam['cpu-cores'], /CPU/);
+assert.match(malayalam['gridfs-attachments'], /GridFS/);
+assert.match(malayalam['every-30-minutes'], /30/);
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
