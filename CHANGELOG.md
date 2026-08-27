@@ -2496,9 +2496,15 @@ deletion flows, user, team and organization settings, swimlane actions, bulk
 selection, notification muting and normal board roles. These direct translations
 were completed with low confidence and welcome review by a Maithili speaker.
 This left **127,206 genuinely untranslated values across 59 locale files**.
+The fifteenth 50-value Maithili batch added watched updates, private-page login,
+board visibility, member removal and Sandstorm warnings, rescue and search
+behavior, WIP limits, shortcuts, sidebars and default-board controls. These
+direct translations were completed with low confidence and welcome review by a
+Maithili speaker. This left **127,156 genuinely untranslated values across 59
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
