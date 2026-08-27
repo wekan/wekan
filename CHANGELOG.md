@@ -5164,9 +5164,16 @@ imports, board background images, and card locations. These direct
 translations were completed with low confidence and welcome review by a
 Chichewa speaker. This left **104,786 genuinely untranslated values across 49
 locale files**.
+The thirtieth 50-value Chichewa batch added map coordinates and link detection,
+server-error troubleshooting, sorting and activity labels, swimlane movement,
+custom string templates, file, security, speed, test, CPU, database, rule,
+board, card, impersonation and recovery reports, and office-login locations.
+These direct translations were completed with low confidence and welcome
+review by a Chichewa speaker. This left **104,736 genuinely untranslated values
+across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
