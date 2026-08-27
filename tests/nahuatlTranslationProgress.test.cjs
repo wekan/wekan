@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1917);
+assert.equal(Object.keys(remaining).length, 1867);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -73,5 +73,13 @@ assert.match(nahuatl['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(nahuatl['card-comments-title']), ['%s']);
 assert.equal(nahuatl['card-edit-custom-fields'],
   'Xiquinpatla monemac tlaltin');
+assert.match(nahuatl['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(nahuatl['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.equal(nahuatl['importDependenciesPopup-title'],
+  'Xiquincalaqui tlaneltoquiliztin');
+assert.equal(nahuatl['addBoardOrgPopup-title'],
+  'Xicaquiti nechicoliztli');
+assert.equal(nahuatl['addBoardTeamPopup-title'],
+  'Xicaquiti tlanechicolli');
 
 console.log('Nahuatl translation progress checks passed.');
