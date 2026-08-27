@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1967);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1917);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -61,5 +61,11 @@ assert.match(nepali['board-background-image-url'], /URL/);
 assert.deepEqual(tokens(nepali['board-nb-stars']), ['%s']);
 assert.deepEqual(tags(nepali['board-private-info']),
   ['</strong>', '<strong>']);
+assert.deepEqual(tags(nepali['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(nepali[
+  'board-open-and-move-between-remaining-and-workspaces']), ['__workspaces__']);
+assert.match(nepali['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(nepali['card-comments-title']), ['%s']);
 
 console.log('Nepali translation progress checks passed.');
