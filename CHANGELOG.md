@@ -5195,9 +5195,15 @@ custom translation strings, subtask and calendar display, ZIP board imports,
 checklist folding, support pages and accessibility. These direct translations
 were completed with low confidence and welcome review by a Chichewa speaker.
 This left **104,536 genuinely untranslated values across 49 locale files**.
+The thirty-fifth 50-value Chichewa batch added accessibility information,
+brute-force login protection and locked-user administration, active-user
+filters, scheduled jobs, attachment and avatar paths, and scheduled board
+archive, backup and cleanup operations. These direct translations were
+completed with low confidence and welcome review by a Chichewa speaker. This
+left **104,486 genuinely untranslated values across 49 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Chichewa at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list ny --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
