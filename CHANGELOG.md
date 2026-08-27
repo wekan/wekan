@@ -3102,9 +3102,15 @@ organization and team deletion safeguards and support-ticket states. These
 direct translations were completed with low confidence and welcome review by a
 Māori speaker. This left **122,022 genuinely untranslated values across 57
 locale files**.
+The thirty-second 50-value Māori batch added team and organization management,
+Node heap and memory diagnostics, legal notices, checklist conversion and
+movement, subtask and attachment actions and filesystem, GridFS and S3 storage
+movement. These direct translations were completed with low confidence and
+welcome review by a Māori speaker. This left **121,972 genuinely untranslated
+values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
