@@ -2527,9 +2527,14 @@ activity, visual rule editing, card and checklist triggers, scheduled rules and
 JSON, CSV and Trello Butler rule exchange. These direct translations were
 completed with low confidence and welcome review by a Maithili speaker. This
 left **126,906 genuinely untranslated values across 59 locale files**.
+The twenty-first 50-value Maithili batch added n8n and Node-RED workflow imports,
+schedule and due-date triggers, card and board buttons, list sorting, completion
+and movement actions, relative dates and rule units. These direct translations
+were completed with low confidence and welcome review by a Maithili speaker.
+This left **126,856 genuinely untranslated values across 59 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Maithili at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
