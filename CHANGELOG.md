@@ -4047,9 +4047,16 @@ webhooks and package, database, Node.js and Meteor labels. These direct
 translations were completed with low confidence and welcome review by a Nahuatl
 speaker. This left **114,054 genuinely untranslated values across 53 locale
 files**.
+The eighteenth 50-value Nahuatl batch added database, FerretDB, reactivity, DDP
+and operating-system diagnostics, duration units, card-field display, account
+changes, board visibility and active organization, team and person settings,
+shared templates, authentication sync, multitenancy domains and organization
+administrators. These direct translations were completed with low confidence
+and welcome review by a Nahuatl speaker. This left **114,004 genuinely
+untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nahuatl at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
