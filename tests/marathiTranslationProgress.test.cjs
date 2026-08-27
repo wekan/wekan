@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -172,5 +172,10 @@ assert.deepEqual(tokens(marathi['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(marathi['r-import-done']), ['__count__']);
 assert.match(marathi['r-import-paste'], /JSON.*CSV.*Trello Butler/);
 assert.equal(marathi['r-all-boards'], 'सर्व फलक');
+assert.match(marathi['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(marathi['r-import-unmapped']), ['__count__']);
+assert.match(marathi['r-schedule-weekday'], /सोम–शुक्र/);
+assert.match(marathi['r-for-n-days'], /N/);
+assert.equal(marathi['r-unit-weeks'], 'आठवडे');
 
 console.log('Marathi translation progress checks passed.');

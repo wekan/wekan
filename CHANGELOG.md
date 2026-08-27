@@ -3539,9 +3539,15 @@ and attachment triggers, daily scheduling, received dates, JSON/CSV and Trello
 Butler rule transfer, workspaces and all-board scope. These direct translations
 were completed with low confidence and welcome review by a Marathi speaker. This
 left **118,238 genuinely untranslated values across 55 locale files**.
+The twenty-first 50-value Marathi batch added n8n/Node-RED workflow imports,
+scheduled and button triggers, one-time/daily/weekday/weekly/monthly schedules,
+due and list-age conditions, card/board buttons, sorting, completion, bulk moves,
+relative dates and time units. These direct translations were completed with low
+confidence and welcome review by a Marathi speaker. This left **118,188 genuinely
+untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
