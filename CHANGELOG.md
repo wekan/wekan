@@ -3466,9 +3466,15 @@ dialog navigation, board restoration guidance and 23 interface colors. These
 direct translations were completed with low confidence and welcome review by a
 Marathi speaker. This left **118,838 genuinely untranslated values across 55
 locale files**.
+The ninth 50-value Marathi batch added remaining colors, comment/read/worker
+roles, deletion and swimlane movement confirmations, clipboard actions,
+multi-card JSON templates, labels, custom-field creation, currencies, dropdowns
+and numbers. These direct translations were completed with low confidence and
+welcome review by a Marathi speaker. This left **118,788 genuinely untranslated
+values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

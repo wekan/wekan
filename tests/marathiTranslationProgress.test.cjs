@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1767);
+assert.equal(Object.keys(remaining).length, 1717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -94,5 +94,11 @@ assert.equal(marathi['move-card-up'], 'कार्ड वर हलवा');
 assert.equal(marathi['color-red'], 'लाल');
 assert.equal(marathi['color-silver'], 'चंदेरी');
 assert.equal(marathi['color-magenta'], 'मॅजेंटा');
+assert.equal(marathi['color-white'], 'पांढरा');
+assert.equal(marathi['read-only'], 'फक्त वाचन');
+assert.equal(marathi.worker, 'कार्यकर्ता');
+const bulkCardExample = JSON.parse(marathi['copyManyCardsPopup-format']);
+assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
+assert.equal(marathi['custom-field-number'], 'संख्या');
 
 console.log('Marathi translation progress checks passed.');
