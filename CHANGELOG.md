@@ -6330,9 +6330,15 @@ speed, test, CPU and database reports, impersonation, recovery and office login
 reports. These direct translations were completed with low confidence and
 welcome review by a Kinyarwanda speaker. This left **96,068 genuinely
 untranslated values across 45 locale files**.
+The thirty-first 50-value Kinyarwanda batch added office and REST API reports,
+data-recovery status, swimlane copying, wait-spinner styles, card sizing,
+organization and team deletion safeguards, tickets, requests and card details.
+These direct translations were completed with low confidence and welcome
+review by a Kinyarwanda speaker. This left **96,018 genuinely untranslated
+values across 45 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kinyarwanda at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list rw --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
