@@ -6499,8 +6499,15 @@ Sandstorm access guidance, search, WIP limits, keyboard shortcuts, sidebars,
 signup and default-board controls. These direct translations were completed
 with low confidence and welcome review by a Sakha speaker. This left **94,651
 genuinely untranslated values across 44 locale files**.
+The sixteenth 50-value Sakha batch added starred boards, subscriptions, time
+tracking, assignee and label shortcuts, uploads, custom logo and help URLs,
+linked URL schemes, welcome and template boards and WIP-limit feedback. These
+direct translations were completed with low confidence and welcome review by
+a Sakha speaker. This left **94,601 genuinely untranslated values across 44
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sakha at `starred-boards` with
+and exact tokens from `en.i18n.json`, resuming Sakha at
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list sah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
