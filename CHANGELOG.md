@@ -6737,8 +6737,14 @@ search, WIP limits, keyboard shortcuts, sidebars and default boards. These direc
 translations were completed with low confidence and welcome review by a Sindhi
 speaker. This left **92,484 genuinely untranslated values across 43 locale
 files**.
+The sixteenth 50-value Sindhi batch added starred boards, subscriptions, time
+tracking, assignee and label shortcuts, uploads, custom logo and help URLs,
+linked URL schemes, welcome and template boards and WIP-limit feedback. These
+direct translations were completed with low confidence and welcome review by a
+Sindhi speaker. This left **92,434 genuinely untranslated values across 43 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `starred-boards` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
