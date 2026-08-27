@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -121,3 +121,15 @@ assert.match(malayalam['export-card-excel-fields'], /Excel/);
 assert.match(malayalam['export-card-excel-no-disk-space'], /Excel/);
 assert.equal(malayalam['filter-due-tomorrow'], 'നാളെ അവസാനിക്കുന്നു');
 assert.equal(malayalam['filter-no-member'], 'അംഗമില്ല');
+assert.equal(malayalam['filter-assignee-label'],
+  'ചുമതലപ്പെടുത്തിയ വ്യക്തി പ്രകാരം ഫിൽട്ടർ ചെയ്യുക');
+assert.match(malayalam['advanced-filter-description'],
+  /== != <= >= && \|\| \( \).*Field1 == Value1/);
+assert.deepEqual(tokens(malayalam['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(malayalam['import-board-instruction-kanboard'], /Kanboard/);
+assert.match(malayalam['import-board-instruction-openproject'], /OpenProject/);
+assert.match(malayalam['import-board-instruction-trello'], /Trello/);
+assert.match(malayalam['import-board-instruction-csv'], /CSV.*TSV/);
+assert.equal(malayalam['import-trello-zip-progress'],
+  '.zip-ൽ നിന്ന് ബോർഡുകൾ ഇറക്കുമതി ചെയ്യുന്നു, ദയവായി കാത്തിരിക്കുക…');

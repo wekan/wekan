@@ -3230,9 +3230,16 @@ validation, card PDF and Excel exports and attachment metadata, list sorting
 and date, label and member filters. These direct translations were completed
 with low confidence and welcome review by a Malayalam speaker. This left
 **120,855 genuinely untranslated values across 56 locale files**.
+The twelfth 50-value Malayalam batch added assignment and custom-field filters,
+activity visibility, imported-member states and detailed board-import guidance
+for Kanboard, Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, CSV/TSV,
+Jira, Excel and WeKan. It also translated Trello JSON/ZIP validation, progress,
+timeout and failure messages. These direct translations were completed with low
+confidence and welcome review by a Malayalam speaker. This left **120,805
+genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
