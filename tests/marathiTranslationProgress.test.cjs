@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1367);
+assert.equal(Object.keys(remaining).length, 1317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -146,5 +146,12 @@ assert.match(marathi['toggle-labels'], /1-9/);
 assert.match(marathi['custom-top-left-corner-logo-height'], /27/);
 assert.match(marathi['automatic-linked-url-schemes'], /URL/);
 assert.match(marathi['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(marathi['attachment-transfer-limits-title'], /API/);
+assert.match(marathi['smtp-tls-description'], /SMTP.*TLS/);
+assert.deepEqual(tokens(marathi['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(marathi['email-smtp-test-subject'], /SMTP/);
+assert.match(marathi.Node_version, /Node/);
+assert.match(marathi.Meteor_version, /Meteor/);
 
 console.log('Marathi translation progress checks passed.');
