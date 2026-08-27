@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'nah'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -298,5 +298,12 @@ assert.match(nahuatl['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(nahuatl['s3-enabled-description'], /AWS S3.*MinIO/);
 assert.match(nahuatl['s3-region-description'], /us-east-1/);
 assert.match(nahuatl['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+assert.match(nahuatl['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(nahuatl['fix-avatar-urls-migration-description'], /URL/);
+assert.match(nahuatl['fix-all-file-urls-migration-description'], /URL/);
+assert.match(nahuatl['run-restore-all-archived-migration-confirm'], /ID/);
+assert.equal(nahuatl['step-validate-migration'],
+  'Xicneltili mijcueniliztli');
 
 console.log('Nahuatl translation progress checks passed.');
