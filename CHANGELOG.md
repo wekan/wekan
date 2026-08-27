@@ -3279,9 +3279,15 @@ duplicate-list cleanup, subtask/card settings, minicard badges and parent-card
 display. These direct translations were completed with low confidence and
 welcome review by a Malayalam speaker. This left **120,455 genuinely
 untranslated values across 56 locale files**.
+The twentieth 50-value Malayalam batch added label, attachment and custom-field
+activities plus visual rule creation, triggers, workflow/list views, card,
+label, member, checklist and attachment events, and JSON, CSV and Trello Butler
+rule import/export. These direct translations were completed with low
+confidence and welcome review by a Malayalam speaker. This left **120,405
+genuinely untranslated values across 56 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

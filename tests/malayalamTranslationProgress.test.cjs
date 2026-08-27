@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1217);
+assert.equal(Object.keys(remaining).length, 1167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -179,3 +179,9 @@ assert.match(malayalam['checklist-count-on-minicard'], /0\/0/);
 assert.equal(malayalam['parent-card'], 'പാരന്റ് കാർഡ്');
 assert.deepEqual(tokens(malayalam['activity-added-label']), ['%s', '%s']);
 assert.equal(malayalam['boardDeletePopup-title'], 'ബോർഡ് ഇല്ലാതാക്കണോ?');
+assert.deepEqual(tokens(malayalam['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(malayalam['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(malayalam['r-import-done']), ['__count__']);
+assert.match(malayalam['r-import-paste'], /JSON.*CSV.*Trello Butler/);
+assert.equal(malayalam['r-all-boards'], 'എല്ലാ ബോർഡുകളും');
