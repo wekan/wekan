@@ -3564,9 +3564,15 @@ account/team/organization deletion and resizable navigation. These direct
 translations were completed with low confidence and welcome review by a Marathi
 speaker. This left **118,038 genuinely untranslated values across 55 locale
 files**.
+The twenty-fifth 50-value Marathi batch added multi-card windows, Enter-key
+editing, organization/team/user dialogs, notification read state, renaming and
+board-role permissions/status, week-start weekdays, ownership/activity status,
+voting and linked-card deletion safety. These direct translations were completed
+with low confidence and welcome review by a Marathi speaker. This left **117,988
+genuinely untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
