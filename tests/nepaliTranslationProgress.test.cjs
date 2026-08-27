@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'ne'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1467);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1417);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -126,5 +126,12 @@ assert.match(nepali['listImportCardPopup-title'], /Trello/);
 assert.match(nepali['listImportCardsTsvPopup-title'], /Excel.*CSV\/TSV/);
 assert.equal(nepali['multi-selection'], 'बहु-चयन');
 assert.equal(nepali['no-archived-swimlanes'], 'अभिलेखमा स्विमलेन छैन।');
+assert.deepEqual(tokens(nepali['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(nepali['page-maybe-private']), ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(nepali['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(nepali['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.match(nepali['public-desc'], /Google/);
+assert.match(nepali['setWipLimitPopup-title'], /WIP/);
 
 console.log('Nepali translation progress checks passed.');
