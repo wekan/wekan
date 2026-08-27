@@ -6766,8 +6766,13 @@ activity, rule management and views, workflow triggers and rule interchange in
 JSON, CSV and Trello Butler formats. These direct translations were completed
 with low confidence and welcome review by a Sindhi speaker. This left **92,234
 genuinely untranslated values across 43 locale files**.
+The twenty-first 50-value Sindhi batch added visual-workflow imports, scheduled
+and button triggers, due-date and list-duration conditions, sorting, completion
+and relative-date actions and time units. These direct translations were
+completed with low confidence and welcome review by a Sindhi speaker. This left
+**92,184 genuinely untranslated values across 43 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sindhi at `r-import-workflow` with
+and exact tokens from `en.i18n.json`, resuming Sindhi at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list sd --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
