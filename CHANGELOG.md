@@ -1881,9 +1881,13 @@ The fortieth 50-value Kashmiri batch added board-integrity migrations,
 duplicate-list cleanup, lost-card and archive recovery, missing-list and file URL
 repairs, migration confirmations and progress steps. This left **134,574
 genuinely untranslated values across 63 locale files**.
+The forty-first 50-value Kashmiri batch added migration repair steps, one-time
+board conversion, CPU and storage monitoring, recurring schedules and job-queue
+labels. This left **134,524 genuinely untranslated values across 63 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Kashmiri at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list ks --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are

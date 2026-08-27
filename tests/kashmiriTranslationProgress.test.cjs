@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -215,3 +215,13 @@ assert.match(kashmiri['fix-avatar-urls-migration-description'], /اوتار URL/
 assert.match(kashmiri['fix-all-file-urls-migration-description'], /فایل.*URL/);
 assert.match(kashmiri['run-restore-all-archived-migration-confirm'], /ID/);
 assert.match(kashmiri['step-ensure-per-swimlane-lists'], /ہر وَتھ/);
+assert.equal(kashmiri['step-fix-attachment-urls'],
+  'اٹیچمنٹ URL درست کریو');
+assert.match(kashmiri['step-ensure-lost-cards-swimlane'], /گُم کارڈ وَتھ/);
+assert.match(kashmiri['conversion-info-text'], /ہر بورڈس.*کارکردگی/);
+assert.match(kashmiri['cpu-usage'], /CPU/);
+assert.match(kashmiri['filesystem-storage'], /فایل سسٹم/);
+assert.match(kashmiri['gridfs-attachments'], /GridFS/);
+assert.equal(kashmiri['hide-list-on-minicard'],
+  'لۄکٹس کارڈس پؠٹھ فہرست ژھپاویو');
+assert.match(kashmiri['job-queue'], /قطار/);
