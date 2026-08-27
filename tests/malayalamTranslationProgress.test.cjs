@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 217);
+assert.equal(Object.keys(remaining).length, 167);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -145,6 +145,13 @@ assert.match(malayalam['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(malayalam['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(malayalam['s3-region-description'], /us-east-1/);
 assert.match(malayalam['s3-ssl-enabled-description'], /SSL\/TLS/);
+for (const key of ['restore-lost-cards-migration-description',
+  'restore-all-archived-migration-description',
+  'run-restore-lost-cards-migration-confirm']) {
+  assert.match(malayalam[key], /swimlaneId/);
+  assert.match(malayalam[key], /listId/);
+}
+assert.match(malayalam['fix-avatar-urls-migration'], /URL/);
 const bulkCardExample = JSON.parse(malayalam['copyManyCardsPopup-format']);
 assert.deepEqual(Object.keys(bulkCardExample[0]), ['title', 'description']);
 assert.equal(malayalam['custom-field-number'], 'സംഖ്യ');
