@@ -3183,9 +3183,15 @@ keyboard shortcuts, swimlane height, subtasks, checklists, covers, labels and
 members. These direct translations were completed with low confidence and
 welcome review by a Malayalam speaker. This left **121,255 genuinely
 untranslated values across 56 locale files**.
+The fourth 50-value Malayalam batch added administrator roles and announcements,
+public and offline states, board, list and swimlane archives, templates,
+attachments, backgrounds and All Boards member and assignee settings. These
+direct translations were completed with low confidence and welcome review by a
+Malayalam speaker. This left **121,205 genuinely untranslated values across 56
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

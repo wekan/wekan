@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -61,3 +61,10 @@ assert.match(malayalam['list-width-error-message'], /270/);
 assert.match(malayalam['set-list-width-value'], /പിക്സൽ/);
 assert.match(malayalam['set-swimlane-height-value'], /പിക്സൽ/);
 assert.equal(malayalam['add-checklist'], 'ചെക്ക്‌ലിസ്റ്റ് ചേർക്കുക');
+assert.deepEqual(tokens(malayalam['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(malayalam['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(malayalam['avatar-too-big']), ['__size__']);
+assert.match(malayalam['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(malayalam['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(malayalam['board-private-info']),
+  ['</strong>', '<strong>']);
