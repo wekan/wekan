@@ -4942,9 +4942,15 @@ controls, filesystem, S3 and Azure storage, MongoDB and FerretDB text-data
 migration, and Sandstorm migration status. These direct translations were
 completed with low confidence and welcome review by a Northern Sotho speaker.
 This left **106,603 genuinely untranslated values across 50 locale files**.
+The thirty-seventh 50-value Northern Sotho batch added Sandstorm cleanup,
+automatic and lazy card loading, safe link and code rendering, import, export,
+avatar, activity, notification and watch controls, anonymization and backup
+scopes. These direct translations were completed with low confidence and welcome
+review by a Northern Sotho speaker. This left **106,553 genuinely untranslated
+values across 50 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Northern Sotho at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
