@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 167);
+assert.equal(Object.keys(remaining).length, 117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -373,3 +373,8 @@ assert.match(cornish['fix-avatar-urls-migration-description'], /URLow avatar/);
 assert.match(cornish['run-restore-lost-cards-migration-confirm'],
   /swimlaneId.*listId/);
 assert.equal(cornish['step-validate-migration'], 'Gwirhe ymigrans');
+assert.match(cornish['step-fix-attachment-urls'], /URLow stagell/);
+assert.match(cornish['step-fix-missing-ids'], /IDow/);
+assert.match(cornish['cpu-cores'], /CPU/);
+assert.match(cornish['gridfs-attachments'], /GridFS/);
+assert.equal(cornish['every-30-minutes'], 'Pub 30 mynysen');
