@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ks'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 367);
+assert.equal(Object.keys(remaining).length, 317);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -189,3 +189,9 @@ assert.match(kashmiri['database-migration-description'],
 assert.match(kashmiri['database-migration-description'], /MONGO_URL/);
 assert.deepEqual(tokens(kashmiri['database-migration-confirm']), ['__db__']);
 assert.match(kashmiri['sandstorm-migration-description'], /files\/attachments.*files\/avatars/);
+assert.match(kashmiri['cards-loading-description'],
+  /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(kashmiri['render-links-as-plain-text-description']), ['<a href>']);
+assert.match(kashmiri['disable-all-import-description'], /GitHub.*Forgejo/);
+assert.match(kashmiri['backup-description'], /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip/);
+assert.equal(kashmiri['backup-done'], 'بیک اپ مکمل گٔے');
