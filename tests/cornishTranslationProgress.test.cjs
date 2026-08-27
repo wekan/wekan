@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'kw'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1067);
+assert.equal(Object.keys(remaining).length, 1017);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -208,3 +208,10 @@ assert.equal(cornish['r-checklist'], 'rol checkya');
 assert.match(cornish['r-remove-all'], /pub esel.*garten/);
 assert.match(cornish['r-d-move-to-top-gen'], /benn y rol/);
 assert.equal(cornish['r-d-send-email'], 'Danvon ebost');
+assert.equal(cornish['r-in-swimlane'], 'yn hyns');
+assert.equal(cornish['r-items-list'], 'taklen1,taklen2,taklen3');
+assert.match(cornish['r-checklist-note'], /komma/);
+assert.match(cornish['r-when-a-card-is-moved'], /rol aral/);
+assert.match(cornish['custom-head-meta-tags'], /HTML/);
+assert.match(cornish['custom-head-manifest-content'], /JSON/);
+assert.match(cornish['custom-assetlinks-content'], /assetlinks\.json.*JSON/);

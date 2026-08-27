@@ -2157,9 +2157,13 @@ The twenty-second 50-value Cornish batch added rule phrases for board and list
 movement, archive restoration, labels, members, attachments, checklists, card
 positioning, colors and email actions. This left **131,140 genuinely untranslated
 values across 61 locale files**.
+The twenty-third 50-value Cornish batch added detailed rule actions for cards,
+checklists, swimlanes and dates plus authentication, custom product HTML and JSON
+metadata, layout and counters. This left **131,090 genuinely untranslated values
+across 61 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Cornish at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list kw --limit 50`;
 Buryat, Cherokee, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah, Fijian and
 Faroese, Irish, Scottish Gaelic and the just-listed warning-only locales are
