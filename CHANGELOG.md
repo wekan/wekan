@@ -3937,16 +3937,20 @@ OTP and login validation, problem-report guidance, broken-card repair results,
 CPU load and diagnostic event fields. These direct translations were completed
 with low confidence and welcome review by a Burmese speaker. This left
 **114,921 genuinely untranslated values across 54 locale files**.
+The final 17-value Burmese batch added diagnostic event addresses, filesystem
+integrity, scoped export and import, numeric global search and supported board
+import sources. These direct translations were completed with low confidence
+and welcome review by a Burmese speaker. Burmese is now complete. This left
+**114,904 genuinely untranslated values across 53 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Burmese at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list my --limit 50`;
+and exact tokens from `en.i18n.json`, starting Nahuatl at `accept` with
+`node releases/translations/fill-translations.mjs --list nah --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa
 Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic, Kashmiri and
-Kurmanji Kurdish, Malagasy, Malayalam and Marathi are now complete.
+Kurmanji Kurdish, Malagasy, Malayalam, Marathi and Burmese are now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347

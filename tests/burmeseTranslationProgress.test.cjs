@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 17);
+assert.equal(Object.keys(remaining).length, 0);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -175,6 +175,12 @@ assert.deepEqual(tokens(burmese['repair-broken-cards-done']), ['__fixed__']);
 assert.deepEqual(tokens(burmese['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.match(burmese['cpu-usage-current'], /CPU/);
+assert.match(burmese['event-ip'], /IP/);
+assert.match(burmese['event-ipv4'], /IPv4/);
+assert.match(burmese['event-ipv6'], /IPv6/);
+assert.deepEqual(tokens(burmese['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.match(burmese['import-wekan-file'], /\.json.*\.zip/);
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');
