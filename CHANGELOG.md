@@ -5281,9 +5281,16 @@ display, member and assignee summaries, stars and private-board status. These
 direct translations were completed with low confidence and welcome review by an
 Oromo speaker. This left **103,869 genuinely untranslated values across 48
 locale files**.
+The fifth 50-value Oromo batch added public-board guidance, board reordering,
+workspace assignment, background and visibility controls, desktop and mobile
+views, zooming, calendar navigation, archive warnings, deletion consequences,
+due and spent time, attachments, custom fields, labels and members. These
+direct translations were completed with low confidence and welcome review by
+an Oromo speaker. This left **103,819 genuinely untranslated values across 48
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Oromo at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list om --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
