@@ -2906,9 +2906,14 @@ batch and resource thresholds, background processing, monitoring, schedules,
 progress and storage statistics. These direct translations were completed with
 low confidence and welcome review by a Malagasy speaker. This left **123,639
 genuinely untranslated values across 58 locale files**.
+The forty-third 50-value Malagasy batch added repositories, account access,
+problem reporting, broken-card repair and CPU and event metrics. These direct
+translations were completed with low confidence and welcome review by a
+Malagasy speaker. This left **123,589 genuinely untranslated values across 58
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malagasy at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list mg --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

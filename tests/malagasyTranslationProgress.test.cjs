@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 67);
+assert.equal(Object.keys(remaining).length, 17);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -320,3 +320,9 @@ assert.match(malagasy['migrate-all-to-s3'], /S3/);
 assert.match(malagasy['migration-cpu-threshold'], /CPU.*%/);
 assert.match(malagasy['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(malagasy['migration-delay-ms-description'], /100-10000/);
+assert.match(malagasy.otp, /OTP/);
+assert.match(malagasy['api-endpoints'], /API/);
+assert.match(malagasy['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(malagasy['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(malagasy['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
