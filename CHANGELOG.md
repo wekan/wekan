@@ -3285,9 +3285,15 @@ label, member, checklist and attachment events, and JSON, CSV and Trello Butler
 rule import/export. These direct translations were completed with low
 confidence and welcome review by a Malayalam speaker. This left **120,405
 genuinely untranslated values across 56 locale files**.
+The twenty-first 50-value Malayalam batch added imported n8n/Node-RED visual
+workflows, scheduled and button triggers, due-date events, card/list buttons,
+sorting, completion, bulk movement, relative dates and rule time units. These
+direct translations were completed with low confidence and welcome review by a
+Malayalam speaker. This left **120,355 genuinely untranslated values across 56
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Malayalam at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list ml --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

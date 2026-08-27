@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'ml'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1167);
+assert.equal(Object.keys(remaining).length, 1117);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -185,3 +185,9 @@ assert.deepEqual(tokens(malayalam['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(malayalam['r-import-done']), ['__count__']);
 assert.match(malayalam['r-import-paste'], /JSON.*CSV.*Trello Butler/);
 assert.equal(malayalam['r-all-boards'], 'എല്ലാ ബോർഡുകളും');
+assert.deepEqual(tokens(malayalam['r-import-unmapped']), ['__count__']);
+assert.match(malayalam['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.match(malayalam['r-schedule-weekday'], /തിങ്കൾ–വെള്ളി/);
+assert.equal(malayalam['r-mark-complete'],
+  'കാർഡ് പൂർത്തിയായതായി അടയാളപ്പെടുത്തുക');
+assert.equal(malayalam['r-unit-weeks'], 'ആഴ്ച');
