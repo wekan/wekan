@@ -4751,8 +4751,16 @@ keyboard shortcuts, swimlane heights, subtasks, checklists, covers, labels and
 members. These direct translations were completed with low confidence and
 welcome review by a Northern Sotho speaker. This left **108,253 genuinely
 untranslated values across 50 locale files**.
+The fourth 50-value Northern Sotho batch added administrator announcements and
+permissions, public-board labels, connection recovery, board and selection
+archiving, templates, attachments, background images, All Boards display
+settings and board member and assignee summaries. These direct translations
+were completed with low confidence and welcome review by a Northern Sotho
+speaker. This left **108,203 genuinely untranslated values across 50 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Northern Sotho at `added` with
+and exact tokens from `en.i18n.json`, resuming Northern Sotho at
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list nso --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

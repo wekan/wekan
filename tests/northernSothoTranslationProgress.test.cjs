@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2017);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -55,5 +55,11 @@ assert.deepEqual(tokens(sotho['activity-dueDate']), ['%s', '%s']);
 assert.match(sotho['list-width-error-message'], /270/);
 assert.match(sotho['set-swimlane-height-value'], /dipiksele/);
 assert.equal(sotho['add-members'], 'Oketša maloko');
+assert.deepEqual(tokens(sotho['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(sotho['avatar-too-big']), ['__size__']);
+assert.deepEqual(tokens(sotho['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(sotho['board-private-info']),
+  ['</strong>', '<strong>']);
+assert.equal(sotho['board-not-found'], 'Boto ga se ya hwetšwa');
 
 console.log('Northern Sotho translation progress checks passed.');
