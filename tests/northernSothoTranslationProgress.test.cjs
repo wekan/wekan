@@ -10,7 +10,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'nso'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1817);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 1767);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -77,5 +77,9 @@ assert.match(sotho['restoreArchivedListToSwimlanePopup-title'],
 assert.match(sotho['map-to-existing-user-desc'], /ditumelelo/);
 assert.match(sotho['font-preview-text'], /0123456789/);
 assert.equal(sotho['changeLanguagePopup-title'], 'Fetoša leleme');
+assert.match(sotho['card-aging-days'], /3/);
+assert.match(sotho['close-board-pop'], /Bobolokelo/);
+assert.equal(sotho['color-black'], 'ntsho');
+assert.equal(sotho['color-magenta'], 'makenta');
 
 console.log('Northern Sotho translation progress checks passed.');
