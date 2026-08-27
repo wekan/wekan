@@ -3048,9 +3048,15 @@ states, color, member and checklist actions, email and detailed top and bottom
 card moves. These direct translations were completed with low confidence and
 welcome review by a Māori speaker. This left **122,472 genuinely untranslated
 values across 57 locale files**.
+The twenty-third 50-value Māori batch added detailed rule actions for email,
+archive, labels, members, checklists, cards, swimlanes and relative dates,
+authentication, product naming, custom head HTML, web manifests,
+`assetlinks.json`, layout and card counters. These direct translations were
+completed with low confidence and welcome review by a Māori speaker. This left
+**122,422 genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Māori at
-`r-d-send-email-subject` with
+`board-member-list` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
