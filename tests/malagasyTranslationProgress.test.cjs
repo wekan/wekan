@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mg'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 767);
+assert.equal(Object.keys(remaining).length, 717);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -222,3 +222,9 @@ assert.deepEqual(tokens(malagasy['globalSearch-instructions-operator-has']),
     '__predicate_end__', '__predicate_member__', '__predicate_start__']);
 assert.match(malagasy['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(malagasy['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.match(malagasy['sort-boards-title-asc'], /A → Z/);
+assert.match(malagasy['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(malagasy['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(malagasy['background-too-big']), ['{{size}}']);
+assert.equal(malagasy['location-open-map'], "Sokafy amin'ny sarintany");
