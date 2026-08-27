@@ -14,7 +14,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'my'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 667);
+assert.equal(Object.keys(remaining).length, 617);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -102,6 +102,10 @@ assert.match(burmese['server-error-troubleshooting'],
 assert.match(burmese['server-error-troubleshooting'],
   /sudo docker logs wekan-app/);
 assert.match(burmese['office-report-desc'], /IPv4.*IPv6/);
+assert.match(burmese['api-report-desc'], /REST API/);
+assert.match(burmese['api-no-calls'], /WITH_API=true/);
+assert.match(burmese['recovery-report-desc'], /MongoDB/);
+assert.equal(burmese['help-request'], 'အကူအညီတောင်းဆိုချက်');
 assert.match(burmese['card-aging-days'], /3/);
 assert.equal(burmese['color-black'], 'အနက်');
 assert.equal(burmese['color-red'], 'အနီ');

@@ -3862,9 +3862,15 @@ string templates and administration reports for security, performance, data,
 impersonation, recovery and login locations. These direct translations were
 completed with low confidence and welcome review by a Burmese speaker. This
 left **115,571 genuinely untranslated values across 54 locale files**.
+The thirty-first 50-value Burmese batch added Office and REST API reporting,
+database recovery status, swimlane copying, wait-spinner styles, organization
+and team deletion safeguards, support tickets, requests and card details. These
+direct translations were completed with low confidence and welcome review by a
+Burmese speaker. This left **115,521 genuinely untranslated values across 54
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Burmese at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list my --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
