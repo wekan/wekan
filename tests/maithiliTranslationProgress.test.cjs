@@ -11,7 +11,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mai'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 2017);
+assert.equal(Object.keys(remaining).length, 1967);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -61,3 +61,10 @@ assert.match(maithili['list-width-error-message'], /270/);
 assert.match(maithili['set-list-width-value'], /पिक्सेल/);
 assert.match(maithili['set-swimlane-height-value'], /पिक्सेल/);
 assert.equal(maithili['add-checklist'], 'जाँचसूची जोड़ू');
+assert.deepEqual(tokens(maithili['and-n-other-card']), ['__count__']);
+assert.deepEqual(tokens(maithili['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(maithili['avatar-too-big']), ['__size__']);
+assert.deepEqual(tokens(maithili['board-nb-stars']), ['%s']);
+assert.match(maithili['board-background-image-url'], /URL/);
+assert.deepEqual(tags(maithili['board-private-info']),
+  ['</strong>', '<strong>']);

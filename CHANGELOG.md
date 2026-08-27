@@ -2438,8 +2438,15 @@ keyboard shortcuts, swimlane sizing and checklist controls. These direct
 translations were completed with low confidence and welcome review by a
 Maithili speaker. This left **127,756 genuinely untranslated values across 59
 locale files**.
+The fourth 50-value Maithili batch added administrator announcements, archive
+and restore flows, template containers, attachment handling, background images,
+All Boards display choices and board membership summaries. These direct
+translations were completed with low confidence and welcome review by a
+Maithili speaker. This left **127,706 genuinely untranslated values across 59
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Maithili at `added` with
+and exact tokens from `en.i18n.json`, resuming Maithili at `board-public-info`
+with
 `node releases/translations/fill-translations.mjs --list mai --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
