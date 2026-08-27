@@ -4600,9 +4600,15 @@ schedules, due-date and list-duration conditions, sorting, completion, bulk
 movement and relative-date actions and time units. These direct translations
 were completed with low confidence and welcome review by a Nepali speaker. This
 left **109,520 genuinely untranslated values across 51 locale files**.
+The twenty-second 50-value Nepali batch added rule-builder fragments for card,
+label, member, attachment, checklist and checklist-item conditions, card
+movement and restoration, labels, members, colors and checklist actions, and
+email and movement rule descriptions. These direct translations were completed
+with low confidence and welcome review by a Nepali speaker. This left **109,470
+genuinely untranslated values across 51 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Nepali at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list ne --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
