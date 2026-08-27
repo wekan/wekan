@@ -3484,9 +3484,15 @@ fields, list sorting, and date, title, label and member filters. These direct
 translations were completed with low confidence and welcome review by a Marathi
 speaker. This left **118,688 genuinely untranslated values across 55 locale
 files**.
+The twelfth 50-value Marathi batch added assignee/custom-field filtering,
+advanced-filter syntax, activity and imported-member status, and Kanboard, Deck,
+OpenProject, issues, Asana, ZenKit, Trello, CSV/TSV, Jira, Excel and WeKan import
+guidance, files and failures. These direct translations were completed with low
+confidence and welcome review by a Marathi speaker. This left **118,638 genuinely
+untranslated values across 55 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Marathi at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list mr --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only

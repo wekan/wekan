@@ -12,7 +12,7 @@ const result = spawnSync(process.execPath, [fillScript, '--list', 'mr'], {
 });
 assert.equal(result.status, 0, result.stderr);
 const remaining = JSON.parse(result.stdout);
-assert.equal(Object.keys(remaining).length, 1617);
+assert.equal(Object.keys(remaining).length, 1567);
 
 const english = JSON.parse(fs.readFileSync(
   path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
@@ -115,5 +115,14 @@ assert.match(marathi['export-card-field-board-info'],
   /फलक.*यादी.*स्विमलेन/);
 assert.equal(marathi['filter-overdue'], 'मुदत उलटलेले');
 assert.equal(marathi['filter-no-member'], 'सदस्य नाही');
+for (const operator of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
+  assert.match(marathi['advanced-filter-description'],
+    new RegExp(operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+}
+assert.deepEqual(tokens(marathi['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(marathi['import-board-instruction-excel'], /\.xlsx/);
+assert.match(marathi['import-csv-placeholder'], /CSV\/TSV/);
+assert.match(marathi['import-trello-zip-file-hint'], /\.json.*\.zip/);
 
 console.log('Marathi translation progress checks passed.');
