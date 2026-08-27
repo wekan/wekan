@@ -3024,8 +3024,15 @@ tenancy, domain, administration and synchronization settings. These direct
 translations were completed with low confidence and welcome review by a Māori
 speaker. This left **122,672 genuinely untranslated values across 57 locale
 files**.
+The nineteenth 50-value Māori batch added received and end dates, colors,
+assignment metadata, card sorting, permanent board and notification deletion,
+duplicate-list cleanup, subtask and card settings, minicard fields, attachment
+and checklist counts, parent paths and label activity. These direct translations
+were completed with low confidence and welcome review by a Māori speaker. This
+left **122,622 genuinely untranslated values across 57 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Māori at `card-received` with
+and exact tokens from `en.i18n.json`, resuming Māori at
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list mi --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
