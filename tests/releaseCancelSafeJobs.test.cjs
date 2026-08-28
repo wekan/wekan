@@ -37,6 +37,8 @@ const path = require('path');
 const repoRoot = path.resolve(__dirname, '..');
 const workflow = fs.readFileSync(
   path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8');
+const appImageWorkflow = fs.readFileSync(
+  path.join(repoRoot, '.github/workflows/AppImage.yml'), 'utf8');
 
 function job(name) {
   const start = workflow.indexOf(`\n  ${name}:\n`);
@@ -115,10 +117,30 @@ test('every job has a timeout, so no job needs a human to cancel it', () => {
     .map(m => m[1])
     .filter(n => n !== 'jobs');
   assert.ok(names.length > 10, `expected the job list, got ${names.length}`);
-  const untimed = names.filter(n => !/^ {4}timeout-minutes:\s*\d+\s*$/m.test(job(n)));
+  // GitHub forbids timeout-minutes on a reusable-workflow call (`uses:` at job
+  // level). Its jobs carry their own timeouts in the called workflow instead.
+  const untimed = names.filter(n =>
+    !/^ {4}uses:\s*/m.test(job(n)) &&
+    !/^ {4}timeout-minutes:\s*\d+\s*$/m.test(job(n)));
   assert.deepStrictEqual(untimed, [],
     `these jobs have no timeout-minutes, so they can hang for GitHub's 6-hour ` +
     `default and only a hand cancellation ends them: ${untimed.join(', ')}`);
+});
+
+test('the reusable AppImage workflow bounds every job it runs', () => {
+  const names = [...appImageWorkflow.matchAll(/^ {2}([a-z0-9-]+):$/gm)]
+    .map(match => match[1])
+    .filter(name => name !== 'jobs');
+  const body = name => {
+    const start = appImageWorkflow.indexOf(`\n  ${name}:\n`);
+    const rest = appImageWorkflow.slice(start + 1);
+    const next = rest.search(/\n  [a-z0-9-]+:\n/);
+    return next === -1 ? rest : rest.slice(0, next);
+  };
+  const untimed = names.filter(name =>
+    !/^ {4}timeout-minutes:\s*\d+\s*$/m.test(body(name)));
+  assert.deepStrictEqual(untimed, [],
+    `AppImage reusable-workflow jobs without a timeout: ${untimed.join(', ')}`);
 });
 
 test('charts waits on docker, so the chart never points at an image that is not pushed', () => {

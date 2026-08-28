@@ -82,6 +82,7 @@ jobs:
   release:
     name: find the release
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     outputs:
       tag: ${{ steps.find.outputs.tag }}
       version: ${{ steps.find.outputs.version }}
@@ -366,6 +367,7 @@ jobs:
           if-no-files-found: error
 
   publish:
+    timeout-minutes: 30
     name: attach to the release
     needs: [release, build]
     if: ${{ !cancelled() && inputs.publish != false }}

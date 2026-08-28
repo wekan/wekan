@@ -40,6 +40,15 @@ test.describe('#2499 focusable speech-scroll regions', () => {
     await expect(listBody).toHaveAttribute('role', 'region');
     await expect(listBody).toHaveAttribute('tabindex', '0');
     await expect(listBody).toHaveAttribute('aria-label', /List/i);
+    // Board layouts may grow the list to fit its cards at this viewport. Give
+    // the speech target a deterministic overflow boundary so Page Down itself,
+    // rather than an incidental responsive layout, is what this test measures.
+    await listBody.evaluate(element => {
+      element.style.maxHeight = '200px';
+    });
+    await expect
+      .poll(() => listBody.evaluate(element => element.scrollHeight - element.clientHeight))
+      .toBeGreaterThan(0);
     await listBody.focus();
     await boardPage.keyboard.press('PageDown');
     await expect.poll(() => listBody.evaluate(element => element.scrollTop)).toBeGreaterThan(0);

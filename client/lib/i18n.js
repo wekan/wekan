@@ -33,29 +33,20 @@ Meteor.startup(() => {
   });
 });
 
-Meteor.startup(async () => {
-  let currentUser = ReactiveCache.getCurrentUser();
-  // If we're still logging in, wait (#4967)
-  if (!currentUser && Meteor.loggingIn()) {
-    await new Promise((resolve) => {
-      Tracker.autorun(() => {
-        if (!Meteor.loggingIn()) {
-          resolve();
-        }
-      });
-    });
-    currentUser = ReactiveCache.getCurrentUser();
-  }
-  // Select first available language
-  const [language] = [
-    // User profile
-    currentUser?.profile?.language,
-    // Browser locale
-    navigator.languages?.at(0),
-    navigator.language,
-    navigator.userLanguage,
-  ].filter(Boolean);
-  if (language) {
+Meteor.startup(() => {
+  // A stored login token can begin resuming after startup has run. Keep this
+  // reactive so the persisted profile language wins when that user arrives,
+  // rather than leaving a resumed session in the browser's language.
+  Tracker.autorun(() => {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const [language] = [
+      currentUser?.profile?.language,
+      navigator.languages?.at(0),
+      navigator.language,
+      navigator.userLanguage,
+    ].filter(Boolean);
+    if (!language) return;
+
     // Match the browser tag, then progressively strip trailing subtags until a supported
     // language is found: e.g. 'zh-Hans-CN' -> 'zh-Hans', 'zh-Hant-TW' -> 'zh-Hant',
     // 'ja-JP' -> 'ja-JP', bare 'zh' -> 'zh-Hans' (via alias). isLanguageSupported is
@@ -63,11 +54,13 @@ Meteor.startup(async () => {
     let candidate = language;
     while (candidate) {
       if (TAPi18n.isLanguageSupported(candidate)) {
-        TAPi18n.setLanguage(candidate);
+        Promise.resolve(TAPi18n.setLanguage(candidate)).catch(error => {
+          console.error(`Could not load language ${candidate}:`, error);
+        });
         break;
       }
       const cut = candidate.lastIndexOf('-');
       candidate = cut > 0 ? candidate.slice(0, cut) : '';
     }
-  }
+  });
 });
