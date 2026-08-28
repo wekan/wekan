@@ -1558,9 +1558,15 @@ const autoAddOrgsByDomain = async user => {
 };
 
 Accounts.onCreateUser(async (options, user) => {
-  const usersCursor = await ReactiveCache.getUsers({}, {}, true);
-  const userCount = typeof usersCursor.countAsync === 'function' ? await usersCursor.countAsync() : usersCursor.count();
-  user.isAdmin = userCount === 0;
+  // Only existence matters: the very first account becomes administrator.
+  // Counting every user made sign-up decode the entire users collection on
+  // FerretDB; a restored 14k-user instance took almost a minute, so the client
+  // timed out and showed failure although the account was eventually created.
+  const existingUser = await ReactiveCache.getUser(
+    {},
+    { fields: { _id: 1 } },
+  );
+  user.isAdmin = !existingUser;
 
   // A custom login handler is allowed to supply a valid user document without
   // a `services` object. WeKan's CAS handler does exactly that: its verified
