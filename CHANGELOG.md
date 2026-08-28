@@ -7816,9 +7816,14 @@ logs and controls, monitoring navigation, recurring runs, progress, storage
 distribution and system resource totals. These direct translations were
 completed with low confidence and welcome review by a Somali speaker. This left
 **82,466 genuinely untranslated values across 39 locale files**.
+The forty-third 50-value Somali batch added repository management,
+authentication and account errors, problem summaries, broken-card repair, CPU
+load and event metadata. These direct translations were completed with low
+confidence and welcome review by a Somali speaker. This left **82,416 genuinely
+untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
