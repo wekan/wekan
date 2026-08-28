@@ -639,14 +639,14 @@ Meteor.methods({
   },
 });
 
-Boards.before.insert((userId, doc) => {
-  // New boards belong at the end, but finding the global maximum made every
-  // insert sort and decode the entire Boards collection. That took 27 seconds
-  // on a restored 45k-board FerretDB database. Epoch milliseconds are
-  // monotonic for interactive inserts, naturally sort after legacy sequential
-  // values, and do not require a database read. Equal values are harmless: the
-  // board order is not unique and users may reorder it afterward.
-  doc.sort = Date.now();
+Boards.before.insert(async (userId, doc) => {
+  const lastBoard = await ReactiveCache.getBoard(
+    { sort: { $exists: true } },
+    { sort: { sort: -1 } },
+  );
+  if (lastBoard && typeof lastBoard.sort !== 'undefined') {
+    doc.sort = lastBoard.sort + 1;
+  }
 });
 
 Meteor.startup(async () => {
