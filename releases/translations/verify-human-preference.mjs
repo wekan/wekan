@@ -69,6 +69,8 @@ check('pull NEVER pushes translations to Transifex',
   /^[ \t]*(?!#).*\btx\s+(?:--config\s+\S+\s+)?push\b/m.test(pullScript), false);
 check('pull repairs protected-token markers without replacing the human prose',
   /repair-machine-placeholders\.mjs --apply/.test(pullScript), true);
+check('pull restores reviewed human values AFTER protected markers are decoded',
+  /repair-machine-placeholders\.mjs --apply[\s\S]+restore-pre-machine-humans\.mjs --apply/.test(pullScript), true);
 
 const mergeScript = fs.readFileSync('releases/translations/merge-translations.mjs', 'utf8');
 check('same-script Mongolian values are checked against the known Russian seed',

@@ -44,6 +44,10 @@ if command -v node >/dev/null 2>&1; then
   # literally. Restore the corresponding source code/HTML tokens while keeping
   # the surrounding human translation.
   node releases/translations/repair-machine-placeholders.mjs --apply
+  # Some known bad Transifex values can only be recognized after @PH markers
+  # become their real tokens. Restore the reviewed pre-fill human values last,
+  # while leaving every newer valid human translation untouched.
+  node releases/translations/restore-pre-machine-humans.mjs --apply
 
   # After the merge, the ONLY English-valued strings left are placeholders untranslated
   # everywhere (incl. every string of a language that has no translation at all). Those are
