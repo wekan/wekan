@@ -7651,9 +7651,15 @@ NextCloud Deck, OpenProject, issue, Asana, ZenKit, Trello, CSV, Jira, Excel and
 WeKan board imports. These direct translations were completed with low
 confidence and welcome review by a Somali speaker. This left **83,966 genuinely
 untranslated values across 39 locale files**.
+The thirteenth 50-value Somali batch added Trello API imports and credentials,
+selectable and resumable import jobs, cancellation and deletion safeguards,
+member mapping, date and user validation, keyboard shortcuts and label creation
+and deletion. These direct translations were completed with low confidence and
+welcome review by a Somali speaker. This left **83,916 genuinely untranslated
+values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
