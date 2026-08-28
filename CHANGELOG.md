@@ -8249,7 +8249,8 @@ browser build to verify).
 **Database launchers** use FerretDB's write-notified OpLog with an explicit
 standalone fallback, while **DEBUGSPEED diagnostics** make comparative
 MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
-self-cleaning minute ticker, **database selectors** no longer accommodate
+self-cleaning minute ticker, **translations** render bundled English without
+waiting for database overrides, **database selectors** no longer accommodate
 FerretDB query-planner gaps, and **Snap assembly** uses the correct extracted
 release bundle on every architecture.
 
@@ -8474,6 +8475,21 @@ for a projection such as `services.resume.loginTokens.$` when the query matches
 `services.resume.loginTokens.hashedToken`, so Meteor's standard authentication
 path works unchanged. FerretDB unit tests cover a matching token and a negative
 no-match case.
+
+</details>
+
+and fixes the following client startup bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8b6c6a5a">Render bundled English before loading database translation overrides</a>. Thanks to xet7.</summary>
+
+English is already part of the client bundle, but i18n readiness still waited
+up to ten seconds for the optional custom-translation DDP subscription. A busy
+restored database therefore printed a default-language timeout even though the
+English data was present and usable. Bundled English now becomes ready
+immediately; database overrides load asynchronously and invalidate translation
+helpers when they arrive. Positive and negative loader tests pin the ordering,
+fallback and late reactive update.
 
 </details>
 
