@@ -8046,8 +8046,14 @@ also replaced bare Zulu-style `ibhodi` in the new settings tail with Swati
 checking every format token and HTML tag against English. These direct
 translations were completed with low confidence and welcome review by a Swati
 speaker.
+The first 50-value Sesotho batch translated core board activity for titles,
+descriptions, members, comments, dates, attachments, labels, checklists,
+custom fields and archive/import actions while preserving every activity
+placeholder. This left **80,182 genuinely untranslated values across 37 locale
+files**. These direct translations were completed with low confidence and
+welcome review by a Sesotho speaker.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sesotho at its first value with
+and exact tokens from `en.i18n.json`, resuming Sesotho at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list st --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
