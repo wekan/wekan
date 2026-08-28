@@ -8375,6 +8375,22 @@ path; a negative guard prevents enabling payload-bearing debug logging.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/525912731">Supervise diagnostic instrumentation and keep its measurements in files</a>. Thanks to xet7.</summary>
+
+`debug-speed-server.sh` now owns separate process groups for WeKan/Meteor,
+FerretDB, terminal log following and a resource watcher. One Ctrl-C stops and
+reaps all of them, including Meteor's child processes. The watcher records
+timestamped CPU, RSS, process state, load, available memory and disk space in
+`resources.tsv` without command arguments or environments. WeKan console output
+goes to `wekan.log`, while bounded structured timings go only to the private
+`wekan-debugspeed.jsonl` file beside it, never to Admin Panel → Problems.
+FerretDB continues to use `ferretdb.log`. Static positive and data-exposure
+guards cover supervision, file routing and the absence of the Problems logger;
+shell syntax and a live watcher smoke test cover the executable paths.
+
+</details>
+
 and fixes the following release tooling bug:
 
 <details>
