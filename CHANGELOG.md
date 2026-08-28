@@ -8398,7 +8398,7 @@ and improves the following developer tooling:
 running against the intended versions.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/104017065">The WeKan matrix covers resumed languages, speech scrolling and AppImage timeouts reliably</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f011debe3">The WeKan matrix covers resumed languages, speech scrolling and AppImage timeouts reliably</a>. Thanks to xet7.</summary>
 
 Persisted profile languages now apply reactively when a stored login finishes
 resuming, so Chinese and Japanese accessibility checks observe the user's real
@@ -8413,7 +8413,7 @@ unbounded release lookup and publishing jobs are limited to 15 and 30 minutes.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/351176505">Tests retain an installed local Node across Dockerfile version bumps</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8122c84a4">Tests retain an installed local Node across Dockerfile version bumps</a>. Thanks to xet7.</summary>
 
 The test runner previously added only the exact Node version named by the
 Dockerfile to `PATH`. When that version had just advanced beyond the toolchain
