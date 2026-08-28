@@ -127,6 +127,15 @@ test('#6639: links are above no edit overlay and keep their own click', () => {
     'and its click never reaches the editable title container');
 });
 
+test('#6641: the sortable cancels mouse drags from the inline title editor', () => {
+  const listJs = read('client/components/lists/list.js');
+  const sortable = listJs.slice(listJs.indexOf('$cards.sortable({'));
+  assert.match(sortable.slice(0, 1000),
+    /cancel: ['"]\.js-minicard-title-form, input, textarea, button, select, option['"]/);
+  assert.match(minicardCss,
+    /textarea\.minicard-title-editor \{[^}]*user-select: text/);
+});
+
 test('a label on a minicard opens the labels, and only that (negative)', () => {
   // It opened the card details as well: the click reached the minicard behind
   // the popup, so one click did two things and the one you did not ask for was
@@ -181,6 +190,15 @@ test('the drag handler steps aside for the half that edits (negative)', () => {
     'and the drag handle keeps its own handler, so one press moves the window once');
   assert.ok(/markCardDetailsUserMoved\(\$card\)/.test(body),
     'while a real drag still marks the window as user-placed');
+});
+
+test('#6641: the opened-card drag bar steps aside for its live title editor', () => {
+  const handler = cardJs.slice(cardJs.indexOf("'mousedown .js-card-title-drag-handle'"));
+  const body = handler.slice(0, handler.indexOf('\n  },'));
+  assert.match(body, /a, input, textarea, button, select, option, \.js-card-details-title/);
+  assert.ok(/return;/.test(body), 'native mouse text selection returns before preventDefault');
+  assert.ok(body.indexOf('return;') < body.indexOf('event.preventDefault()'),
+    'the editor guard runs before the window drag suppresses browser selection');
 });
 
 test('the handle appears only when drag handles are on', () => {

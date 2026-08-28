@@ -265,6 +265,9 @@ Template.list.onRendered(function () {
 
   $cards.sortable({
     connectWith: '.js-minicards:not(.js-list-full)',
+    // #6641: an inline title editor lives inside the otherwise draggable card.
+    // Never let a mouse selection that starts in that form arm the sortable.
+    cancel: '.js-minicard-title-form, input, textarea, button, select, option',
     tolerance: 'pointer',
     appendTo: '.board-canvas',
     helper(evt, item) {

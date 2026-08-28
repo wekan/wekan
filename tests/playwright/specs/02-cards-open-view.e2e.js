@@ -184,6 +184,38 @@ test.describe('Cards – open & view modes', () => {
       .toContain('https://example.invalid/card-title-link');
   });
 
+  test('#6641: mouse dragging selects an opened card title without moving the card', async ({
+    boardPage,
+    board,
+  }) => {
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+    await cp.root.locator('.card-details-title-edit-zone').click();
+    const editor = cp.root.locator('textarea.js-edit-card-title');
+    await expect(editor).toBeVisible({ timeout: 5_000 });
+    await editor.fill('Select this title with the mouse');
+
+    const before = await cp.root.boundingBox();
+    const box = await editor.boundingBox();
+    await boardPage.mouse.move(box.x + 12, box.y + box.height / 2);
+    await boardPage.mouse.down();
+    await boardPage.mouse.move(box.x + Math.min(box.width - 12, 150), box.y + box.height / 2, {
+      steps: 8,
+    });
+    await boardPage.mouse.up();
+
+    const selection = await editor.evaluate(el => ({
+      start: el.selectionStart,
+      end: el.selectionEnd,
+    }));
+    expect(selection.end).toBeGreaterThan(selection.start);
+    const after = await cp.root.boundingBox();
+    expect(Math.abs(after.x - before.x)).toBeLessThan(2);
+    expect(Math.abs(after.y - before.y)).toBeLessThan(2);
+  });
+
   test('a blank inline minicard title is rejected (negative)', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;

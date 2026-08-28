@@ -919,8 +919,15 @@ Template.cardDetails.events({
   },
   'mousedown .js-card-title-drag-handle'(event) {
     // The title bar drags the window. Don't interfere with text selection.
-    if (event.target.tagName === 'A' || $(event.target).closest('a').length > 0) {
-      return; // Don't drag if clicking on links
+    if (
+      $(event.target).closest(
+        'a, input, textarea, button, select, option, .js-card-details-title',
+      ).length > 0
+    ) {
+      // #6641: while the editor replaces the header, a textarea press still
+      // bubbles to this drag bar. Leave it to the browser so mouse dragging
+      // selects text instead of moving the card window.
+      return;
     }
     // ...and don't drag from the half that EDITS. The title is split like a
     // minicard's: the leading half opens the editor, the trailing half is what

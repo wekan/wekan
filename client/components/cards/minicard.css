@@ -291,6 +291,7 @@
   margin-bottom: 4px;
   overflow-y: auto;
   resize: none;
+  user-select: text;
   /* Same bidi isolation as the title it stands in for. */
   unicode-bidi: isolate;
 }
