@@ -75,7 +75,9 @@ if [ "$DB_CHOICE" = ferretdb ]; then
   echo 'Building FerretDB from .tools/FerretDB ...'
   "$FERRET_DIR/build.sh" build 2>&1 | tee "$LOG_DIR/ferretdb-build.log"
   echo "Starting FerretDB at 127.0.0.1:$FERRET_PORT (state: $FERRET_STATE)"
+  echo "FerretDB diagnostics: $LOG_DIR/ferretdb.log"
   DEBUGSPEED=true FERRETDB_HANDLER=sqlite \
+    FERRETDB_LOG_LEVEL="${DEBUGSPEED_FERRETDB_LOG_LEVEL:-info}" \
     FERRETDB_SQLITE_URL="file:$FERRET_STATE/" \
     FERRETDB_LISTEN_ADDR="127.0.0.1:$FERRET_PORT" \
     FERRETDB_TELEMETRY=disable \

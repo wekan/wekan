@@ -14,12 +14,15 @@ assert.match(observer, /process\.env\.DEBUGSPEED === 'true'/);
 assert.match(observer, /speedRecord\(/);
 assert.match(server, /export DEBUGSPEED=true/);
 assert.match(server, /DEBUGSPEED=true FERRETDB_HANDLER=sqlite/);
+assert.match(server, /FERRETDB_LOG_LEVEL="\$\{DEBUGSPEED_FERRETDB_LOG_LEVEL:-info\}"/);
+assert.match(server, /FerretDB diagnostics:.*ferretdb\.log/);
 assert.match(server, /\.tools\/\.meteor\/meteor/);
 
 // Negative/security: diagnostics describe query/handler SHAPES. They must not
 // record DDP arguments or put the supplied password in output.
 assert.doesNotMatch(observer, /JSON\.stringify\(args\)|detail:\s*args/);
 assert.doesNotMatch(traffic, /console\.log\([^\n]*password|console\.error\([^\n]*password/);
+assert.doesNotMatch(server, /DEBUGSPEED_FERRETDB_LOG_LEVEL:-debug/);
 
 // The MongoDB choice must let Meteor start its own database; FerretDB is
 // standalone polling and must never receive an OpLog URL.
