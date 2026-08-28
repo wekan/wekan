@@ -89,6 +89,25 @@ test('every platform in snapcraft.yaml is built by some snap job', () => {
   assert.deepStrictEqual(missing, [], 'these platforms are in no snap job');
 });
 
+test('the snap copies the extracted bundle from its actual working directory', () => {
+  const partsAt = snapcraft.indexOf('\nparts:\n');
+  const partAt = snapcraft.indexOf('\n    wekan:\n', partsAt);
+  assert.notStrictEqual(partAt, -1, 'snapcraft.yaml has no wekan part');
+  const nextPart = snapcraft.indexOf('\n    caddy:\n', partAt);
+  const part = code(snapcraft.slice(partAt, nextPart));
+
+  assert.ok(/mkdir \.build[\s\S]*?cd \.build/.test(part),
+    'the part creates and enters .build before extracting the release bundle');
+  assert.ok(/unzip "\$\{WEKAN_ZIP\}"/.test(part),
+    'the release archive is extracted in that working directory');
+  assert.ok(/cp -p bundle\/node \$SNAPCRAFT_PART_INSTALL\/bin\/node/.test(part),
+    'the embedded Node.js is copied from .build/bundle relative to that directory');
+  assert.ok(/cp -r bundle\/\* \$SNAPCRAFT_PART_INSTALL\//.test(part),
+    'the rest of the bundle is copied from the same extracted directory');
+  assert.ok(!/cp .*\.build\/bundle/.test(part),
+    'after cd .build, .build/bundle would incorrectly mean .build/.build/bundle');
+});
+
 test('the mainstream arches build natively, the exotic ones on Launchpad', () => {
   const native = job('snap-native');
   assert.ok(/arch: amd64\s+runner: ubuntu-24\.04\b/.test(native), 'amd64 on a native runner');
@@ -368,7 +387,7 @@ test('snap assembly reuses prebuilt bundles instead of rebuilding npm dependenci
       `${file}: Launchpad must not repeat the npm work completed by build-extra-arches`);
     assert.doesNotMatch(part, /rm -rf node_modules/,
       `${file}: the completed architecture-correct dependency tree must be retained`);
-    assert.match(part, /cp -r \.build\/bundle\/\* \$SNAPCRAFT_PART_INSTALL\//,
+    assert.match(part, /cp -r bundle\/\* \$SNAPCRAFT_PART_INSTALL\//,
       `${file}: the prebuilt bundle is still copied into the snap`);
 
     const buildPackages = part.slice(part.indexOf('build-packages:'),

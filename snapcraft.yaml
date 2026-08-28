@@ -713,10 +713,10 @@ parts:
             # for riscv64), so the snap needs no separate node download and works on
             # every arch the bundle is built for.
             mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-            cp -p .build/bundle/node $SNAPCRAFT_PART_INSTALL/bin/node
+            cp -p bundle/node $SNAPCRAFT_PART_INSTALL/bin/node
             chmod +x $SNAPCRAFT_PART_INSTALL/bin/node
-            cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
-            cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
+            cp -r bundle/* $SNAPCRAFT_PART_INSTALL/
+            cp bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
             # The snap uses its own bin/node (copied from the bundle above) and
             # wekan-control, so drop the bundle's root-level node + self-contained
