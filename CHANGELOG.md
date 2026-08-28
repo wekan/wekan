@@ -7945,9 +7945,14 @@ scheduled and due-date triggers, card and board buttons, list sorting,
 completion, bulk card movement and relative dates. These direct translations
 were completed with low confidence and welcome review by a Swati speaker. This
 left **81,349 genuinely untranslated values across 38 locale files**.
+The twenty-second 50-value Swati batch added automation conditions for cards,
+lists, archives, labels, members, attachments and checklists plus movement,
+member, color, checklist and email actions. These direct translations were
+completed with low confidence and welcome review by a Swati speaker. This left
+**81,299 genuinely untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
