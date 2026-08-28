@@ -8249,6 +8249,7 @@ browser build to verify).
 filenames through a shell, resolving two CodeQL command-injection findings in
 standalone tooling. **Launchpad snap assembly** reuses completed per-architecture
 bundles and packs them with faster compression, reducing work on scarce builders.
+**Large boards** now show card edits and moves immediately without a browser reload.
 The table below is carried over from the release under this one, and is refilled
 from each build's provenance.tsv when this release is made.
 
@@ -8278,6 +8279,25 @@ Both scripts now invoke Git directly with separate arguments and consume its
 changed-file list with NUL delimiters. Positive coverage retains normal
 translation restoration and regression reporting; negative coverage uses a
 locale filename containing shell syntax and proves neither script executes it.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29fd50331">Large boards refresh after card edits and moves</a>. Thanks to hmeunier95 and xet7.</summary>
+
+Lazy card loading kept each sorted, limited window as a one-time snapshot to
+avoid a FerretDB cursor hang. The snapshot rendered initially, but later card
+edits and cross-list moves did not publish changes to an already-open board, so
+the browser showed stale cards until a forced reload.
+
+Each window now observes its unrestricted indexed selector and fetches a new
+bounded snapshot only when a matching card changes. It diffs that snapshot and
+publishes additions, field changes and removals without overlapping refreshes;
+the problematic limited live cursor remains unused. Unit coverage checks every
+diff outcome, including removed fields and unchanged cards, and a forced-lazy
+browser scenario checks a remote title edit and cross-list move without reload.
 
 </details>
 
