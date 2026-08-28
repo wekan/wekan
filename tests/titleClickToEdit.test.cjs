@@ -42,10 +42,13 @@ test('the minicard title text opens an editor in its place', () => {
   assert.ok(/\+editMinicardTitleForm/.test(minicardJade), 'holding the card title form');
   assert.ok(/template\(name="editMinicardTitleForm"\)/.test(minicardJade),
     'which exists');
-  assert.ok(/span\.minicard-title-text\(class="\{\{#if canModifyCard\}\}is-editable\{\{\/if\}\}"\)/
+  assert.ok(/span\.minicard-title-text\([\s\S]*is-editable js-open-inlined-form/
     .test(minicardJade), 'the title TEXT is where it happens');
-  assert.ok(/a\.minicard-title-edit-zone\.js-open-inlined-form/.test(minicardJade),
-    'and a keyboard-focusable zone over it is what opens it');
+  assert.ok(!/minicard-title-edit-zone/.test(minicardJade),
+    'and no transparent edit overlay can cover links rendered inside it');
+  assert.ok(/role="\{\{#if canModifyCard\}\}button/.test(minicardJade)
+    && /tabindex="\{\{#if canModifyCard\}\}0/.test(minicardJade),
+    'the overlay removal does not remove keyboard access');
 });
 
 test('the editor is a textarea, a Save and a way out', () => {
@@ -107,33 +110,21 @@ test('the wrapper link does not navigate mid-edit, but Save still submits (negat
 test('the title text is a block, so the line is the target', () => {
   assert.ok(/\.minicard \.minicard-title \.minicard-title-text \{[^}]*display: block/.test(minicardCss),
     'a click after a short title is still a click on the title');
-  assert.ok(/\.minicard-title-edit-zone \{[^}]*cursor: text/.test(minicardCss),
+  assert.ok(/\.minicard-title-text\.is-editable \{[^}]*cursor: text/.test(minicardCss),
     'and the cursor says it can be typed in');
 });
 
-test('with no drag handles the edit target is the LEADING half', () => {
-  // The card is then dragged by its own body, so a title that is entirely an
-  // edit target leaves nowhere on that line to take hold of: a grab that moves a
-  // few pixels is a click, and the editor opens instead of the card moving.
-  const zone = minicardCss.slice(minicardCss.indexOf('.minicard-title-edit-zone {'));
-  const body = zone.slice(0, zone.indexOf('}'));
-  assert.ok(/width: 50%/.test(body), 'half of the title');
-  assert.ok(/inset-inline-start: 0/.test(body),
-    'the LEADING half - left in English, right in Arabic, from one logical edge');
-  assert.ok(!/left: 0|right: 0/.test(body), 'nothing physical to mirror by hand');
-  assert.ok(/position: absolute/.test(body) && /z-index: 1/.test(body),
-    'an overlay, so the sentence under it is not cut in two');
-});
-
-test('with drag handles on, the whole title edits again (negative)', () => {
-  // The handle is then the only drag source, so no part of the title has to be
-  // reserved for dragging.
-  assert.ok(/\.minicard\.minicard-with-handle \.minicard-title \.minicard-title-edit-zone \{[^}]*width: 100%/
-    .test(minicardCss), 'the zone covers the title');
-  assert.ok(/minicard-with-handle/.test(minicardJade), 'and that class is set by the handle');
-  const handle = minicardJs.slice(minicardJs.indexOf('showMinicardHandle()'));
-  assert.ok(/Utils\.canMoveCard\(\) && Utils\.showDragHandles\(\)/.test(handle.slice(0, 200)),
-    'which is exactly "may move it AND handles are on"');
+test('#6639: links are above no edit overlay and keep their own click', () => {
+  assert.ok(!/\.minicard-title-edit-zone/.test(minicardCss),
+    'CSS cannot recreate the fixed overlay that swallowed short links');
+  assert.ok(/\.minicard-title-text\.is-editable \{[^}]*cursor: text/.test(minicardCss),
+    'ordinary title text still advertises inline editing');
+  const viewerEvents = read('client/components/main/editor.js');
+  const linkHandler = viewerEvents.slice(viewerEvents.indexOf("'click a'(event"));
+  assert.ok(/window\.open\(href, '_blank'\)/.test(linkHandler.slice(0, 1000)),
+    'the rendered link still opens its destination');
+  assert.ok(/event\.stopPropagation\(\)/.test(linkHandler.slice(0, 1200)),
+    'and its click never reaches the editable title container');
 });
 
 test('a label on a minicard opens the labels, and only that (negative)', () => {
@@ -183,7 +174,7 @@ test('the drag handler steps aside for the half that edits (negative)', () => {
   const body = handler.slice(0, handler.indexOf('\n  },'));
   assert.ok(/closest\('\.card-details-title-edit-zone'\)\.length > 0/.test(body),
     'a press inside the zone is not a drag');
-  assert.ok(/closest\('a'\)\.length > 0/.test(body),
+  assert.ok(/closest\([\s\S]*a, input, textarea, button, select, option/.test(body),
     'and a link is still a link - which is what the close, maximise and menu '
     + 'buttons in that row are');
   assert.ok(/closest\('\.js-card-drag-handle'\)\.length > 0/.test(body),

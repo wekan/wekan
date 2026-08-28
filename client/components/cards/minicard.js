@@ -288,6 +288,18 @@ function moveCardBy(card, delta) {
 }
 
 Template.minicard.events({
+  'keydown .minicard-title-text.js-open-inlined-form'(event) {
+    // The title container replaced an anchor overlay in #6639 so markdown
+    // anchors can receive clicks. Retain the overlay's keyboard behavior on
+    // the container itself without turning nested rendered links into editors.
+    if (
+      event.target === event.currentTarget &&
+      (event.key === 'Enter' || event.key === ' ')
+    ) {
+      event.preventDefault();
+      event.currentTarget.click();
+    }
+  },
   // #4990: the title is edited in place. The minicard sits inside the wrapper
   // LINK to the card, so every click inside the open form would otherwise
   // navigate away mid-edit. Cancelling the click's default stops that - except

@@ -276,32 +276,11 @@
   position: relative;
 }
 
-/* ...and with no drag handles, only HALF of it. The card is then dragged by its
-   own body, so a title that is entirely an edit target leaves nowhere on that
-   line to take hold of - a grab that moves a few pixels is a click, and the
-   editor opens instead of the card moving.
-
-   The zone is an overlay rather than a split of the text, because the text is a
-   `.viewer` and cutting it in two would cut the SENTENCE in two. It sits on the
-   LEADING half - `inset-inline-start`, so it is the left in English and the
-   right in Arabic without a second rule - and the trailing half is left for
-   dragging. Dragging still works over the zone too (jQuery UI sortable's handle
-   is the whole `.minicard`); what the zone decides is where a CLICK edits. */
-.minicard .minicard-title .minicard-title-edit-zone {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  inset-inline-start: 0;
-  width: 50%;
+/* #6639: the title text itself is the edit target. A transparent overlay must
+   not sit above the viewer: it intercepts rendered markdown links, especially
+   short links whose entire text fits inside the old fixed-width overlay. */
+.minicard .minicard-title .minicard-title-text.is-editable {
   cursor: text;
-  /* Above the text, so the click lands here and not on the `.viewer`. */
-  z-index: 1;
-}
-
-/* With handles ON the handle is the only drag source, so nothing has to be
-   reserved and the whole title is the edit target again. */
-.minicard.minicard-with-handle .minicard-title .minicard-title-edit-zone {
-  width: 100%;
 }
 /* The editor replaces the title in place and is the width of the card. */
 .minicard .js-minicard-title-form textarea.minicard-title-editor {

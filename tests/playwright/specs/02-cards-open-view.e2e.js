@@ -144,7 +144,7 @@ test.describe('Cards – open & view modes', () => {
     const card = bp.minicard(listA, 'Alpha Card');
     const cardId = await card.getAttribute('data-card-id');
 
-    await card.locator('.minicard-title-edit-zone').click();
+    await card.locator('.minicard-title-text').click();
     const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
     const editor = editingCard.locator('textarea.js-edit-minicard-title');
     await expect(editor).toBeVisible({ timeout: 5_000 });
@@ -157,13 +157,40 @@ test.describe('Cards – open & view modes', () => {
     await expect(boardPage.locator('.js-card-details')).not.toBeVisible();
   });
 
+  test('#6639: a markdown link in a minicard title opens instead of editing', async ({
+    boardPage,
+    board,
+  }) => {
+    const bp = new BoardPage(boardPage);
+    const [listA] = board.listIds;
+    const card = bp.minicard(listA, 'Alpha Card');
+    await card.locator('.minicard-title-text').click();
+    const editor = card.locator('textarea.js-edit-minicard-title');
+    await expect(editor).toBeVisible({ timeout: 5_000 });
+    await editor.fill('[Wekan](https://example.invalid/card-title-link)');
+    await card.locator('button.js-submit-edit-minicard-title').click();
+
+    const linkedCard = bp.list(listA).locator('.js-minicard', { hasText: 'Wekan' });
+    const link = linkedCard.locator('.minicard-title-text .viewer a');
+    await expect(link).toBeVisible({ timeout: 8_000 });
+    await boardPage.evaluate(() => {
+      window.__wekanTitleLinkOpened = null;
+      window.open = href => { window.__wekanTitleLinkOpened = href; return null; };
+    });
+    await link.click();
+
+    await expect(linkedCard.locator('textarea.js-edit-minicard-title')).not.toBeVisible();
+    expect(await boardPage.evaluate(() => window.__wekanTitleLinkOpened))
+      .toContain('https://example.invalid/card-title-link');
+  });
+
   test('a blank inline minicard title is rejected (negative)', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
     const cardId = await card.getAttribute('data-card-id');
 
-    await card.locator('.minicard-title-edit-zone').click();
+    await card.locator('.minicard-title-text').click();
     const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
     const editor = editingCard.locator('textarea.js-edit-minicard-title');
     await expect(editor).toBeVisible({ timeout: 5_000 });

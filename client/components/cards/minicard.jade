@@ -100,22 +100,16 @@ template(name="minicard")
         if getArchived
           span.linked-icon.linked-archived
             i.fa.fa-archive
-        //- Only the TEXT is the edit target, and only for somebody who may
-          write: the checkbox, the linked-card icons and the card number keep
-          doing what they did.
-        //-
-          And only HALF of the text, when there are no drag handles. With handles
-          off the card is dragged by its own body, so a title that is entirely an
-          edit target leaves nowhere on that line to take hold of: a grab that
-          moves a few pixels is a click, and the editor opens instead of the card
-          moving. The edit target is the LEADING half - left in English, right in
-          Arabic, because it is an inline edge - and the trailing half is there to
-          drag from. With handles ON the handle is the only drag source, so
-          nothing has to be reserved and the whole title edits.
-          client/components/cards/minicard.css
-        span.minicard-title-text(class="{{#if canModifyCard}}is-editable{{/if}}")
-          if canModifyCard
-            a.minicard-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
+        //- #6639: the title container opens the editor, but a rendered markdown
+          anchor inside its viewer handles and stops its own click first. The old
+          fixed 50% overlay sat above short links and made every visible pixel of
+          them an edit target. With no overlay, links remain links and clicking
+          ordinary title text still edits in place.
+        span.minicard-title-text(
+          class="{{#if canModifyCard}}is-editable js-open-inlined-form{{/if}}"
+          role="{{#if canModifyCard}}button{{/if}}"
+          tabindex="{{#if canModifyCard}}0{{/if}}"
+          title="{{#if canModifyCard}}{{_ 'edit'}}{{/if}}")
           +viewer
             if showCardNumber
               span.card-number
