@@ -8322,6 +8322,21 @@ window did not move.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce5ef7fde">Card interaction regressions use stable browser targets</a>. Thanks to jullbo, rmb82 and xet7.</summary>
+
+Specs that open a card now activate the shared wrapper-link helper instead of
+clicking title text, whose intended action is inline editing. The Firefox mouse
+selection regression keeps both drag coordinates over rendered title text, and
+the failed-copy negative check uses the stable board canvas rather than a
+strict union that fails when both healthy regions are visible.
+
+The affected title-selection, failed-copy, LTR/RTL card-panel and board-comment
+paths pass together in a fresh Chromium run. Firefox and WebKit remain covered
+by the full Docker browser matrix.
+
+</details>
+
 **Comments and Activities** - one markdown render cannot blank surrounding UI.
 
 <details>
