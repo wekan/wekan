@@ -7367,9 +7367,14 @@ Boards workspace creation, editing and navigation controls. These direct
 translations were completed with low confidence and welcome review by a Samoan
 speaker. This left **86,633 genuinely untranslated values across 40 locale
 files**.
+The third 50-value Samoan batch added workspace selection, Home-board behavior,
+list widths, swimlane height, keyboard shortcuts and checklist and card actions.
+These direct translations were completed with low confidence and welcome review
+by a Samoan speaker. This left **86,583 genuinely untranslated values across 40
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`workspaceActionsPopup-title` with
+`added` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
