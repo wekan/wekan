@@ -7608,9 +7608,14 @@ display, members and assignees and private-board status. These direct
 translations were completed with low confidence and welcome review by a Somali
 speaker. This left **84,366 genuinely untranslated values across 39 locale
 files**.
+The fifth 50-value Somali batch added public-board status, board movement,
+desktop and mobile modes, zoom and alternate views plus card, list and swimlane
+archive and deletion guidance. These direct translations were completed with low
+confidence and welcome review by a Somali speaker. This left **84,316 genuinely
+untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
