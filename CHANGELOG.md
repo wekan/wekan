@@ -7528,9 +7528,15 @@ storage statistics, file identifiers and MongoDB compaction controls and safety
 guidance. These direct translations were completed with low confidence and
 welcome review by a Samoan speaker. This left **85,083 genuinely untranslated
 values across 40 locale files**.
+The thirty-fourth 50-value Samoan batch added board timing and status, uploads,
+account prompts, Mongo sessions, file policies, workspace dragging, custom
+translations, checklist display, support and accessibility. These direct
+translations were completed with low confidence and welcome review by a Samoan
+speaker. This left **85,033 genuinely untranslated values across 40 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
