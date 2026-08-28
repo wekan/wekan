@@ -8217,11 +8217,12 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **HostnameBleed**, found by GitHub CodeQL, makes tenant-hostname
-translation coverage compare example domains as exact text instead of permissive
-regular expressions. A repository-wide negative guard prevents the same test
-fault from returning. The table below is carried over from the release under
-this one, and is refilled from each build's provenance.tsv when this release is
-made.
+translation coverage compare example domains as exact text. **Card titles**
+keep markdown links clickable and mouse text selection native, while comment
+markdown retains its per-render fallback. **REST user deletion** now reports
+the database-confirmed outcome and documents both success and missing-user
+responses. The table below is carried over from the release under this one, and
+is refilled from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8256,6 +8257,70 @@ The test now uses exact `includes()` comparisons. Positive and negative cases
 prove literal dots are required, while a repository-wide source guard detects
 the reported loop-to-`RegExp` shape and confirms it exists nowhere else in
 tracked first-party JavaScript.
+
+</details>
+
+and fixes the following bugs:
+
+**Card titles** - links, editing and mouse selection remain distinct gestures.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/052aa291a">Markdown links in minicard titles remain clickable</a>. Thanks to jullbo and xet7.</summary>
+
+The fixed-width transparent edit overlay previously covered the leading half of
+every title, which swallowed every pixel of a short rendered markdown link. The
+title container itself is now the edit target, while nested viewer links receive
+and stop their own click before editing can open.
+
+Keyboard access remains on the title container, and its focus semantics are
+preserved. Positive and negative source tests cover the event boundary; a live
+Chromium regression edits a title to a markdown link, clicks it, and proves that
+the editor stays closed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8528e30c">Mouse dragging in card title editors selects text</a>. Thanks to rmb82 and xet7.</summary>
+
+Card sorting and opened-card window dragging previously claimed mouse gestures
+that began inside a title textarea. Those editors and their controls are now
+excluded from sorting, and the window-drag handler returns before suppressing
+the browser's native selection behavior.
+
+Source regressions pin both drag boundaries. A live Chromium test drags across
+an opened-card title, verifies a non-empty selection range and confirms the card
+window did not move.
+
+</details>
+
+**Comments and Activities** - one markdown render cannot blank surrounding UI.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73eb57cb3">Comment markdown retains its independent rendering fallback</a>. Thanks to rmb82 and xet7.</summary>
+
+The per-render exception boundary already added in `75a23b76a` catches markdown
+or sanitization failures and returns safe escaped text, so one bad comment does
+not abort the card comment list or Activities rendering. The reported French
+emphasis, list and literal greater-than forms now run through the real shipped
+markdown configuration as explicit regression coverage.
+
+</details>
+
+**REST API** - user deletion responses reflect the authoritative database result.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6acfb396e">User deletion confirms removal and reports missing users</a>. Thanks to AhmedLukman and xet7.</summary>
+
+The route previously discarded `removeAsync`'s result and returned the requested
+id even when no account matched. It now returns 200 only when exactly one user
+was removed, returns a deterministic 404 for zero matches and treats unexpected
+counts or database failures as internal errors.
+
+Repeatable response annotations let the OpenAPI generator document the exact
+200 and 404 response bodies. Unit and negative tests cover authorization and
+every removal outcome, regenerated YAML matches the route source byte for byte,
+and a live Chromium API test confirms deletion in MongoDB before repeating the
+request and receiving 404.
 
 </details>
 
