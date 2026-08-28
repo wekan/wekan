@@ -99,9 +99,7 @@ publishComposite('boards', function() {
         // see", everywhere. This used to be a hand-written copy of the same
         // array - and the `board` publication's copy was the one that forgot
         // isActive and served revoked shares.
-        // Avoid a single-clause $or: FerretDB can push the direct membership
-        // predicate into its backend when it remains at the top level.
-        ...(clauses.length === 1 ? clauses[0] : { $or: clauses }),
+        $or: clauses,
       };
       return await ReactiveCache.getBoards(
         selector,

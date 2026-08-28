@@ -2,12 +2,8 @@
 
 // Tests for models/lib/boardCardScope.js and its use in the card publications.
 //
-// 10.22: boards loaded their lists/columns but never their CARDS on FerretDB v1
-// (SQLite). Root cause: card queries used `{ boardId: { $in: [board._id,
-// board.subtasksDefaultBoardId] } }`, and subtasksDefaultBoardId defaults to null;
-// a $in that contains null does NOT push down on FerretDB, so the whole cards table
-// was full-scanned + sjson-decoded on every poll while lists (plain equality) stayed
-// index-backed. boardCardScope() builds the scope WITHOUT null and prefers equality.
+// These helpers retain the normal MongoDB selector shapes. Compatibility databases
+// must optimize those shapes rather than requiring application-specific rewrites.
 // Run: node tests/boardCardScope.test.cjs
 
 const assert = require('assert');
@@ -24,15 +20,16 @@ const {
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-check('a board with no subtasks-default board -> plain equality (index-backed)', () => {
-  assert.deepStrictEqual(boardScopeIds({ _id: 'B' }), ['B']);
-  assert.deepStrictEqual(boardCardScope({ _id: 'B' }), { boardId: 'B' });
+check('a board with no subtasks-default board keeps the null $in member', () => {
+  assert.deepStrictEqual(boardScopeIds({ _id: 'B' }), ['B', null]);
+  assert.deepStrictEqual(boardCardScope({ _id: 'B' }), { boardId: { $in: ['B', null] } });
 });
 
-check('null / undefined / "" subtasksDefaultBoardId is NEVER put in the $in', () => {
-  assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: null }), { boardId: 'B' });
-  assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: '' }), { boardId: 'B' });
-  assert.deepStrictEqual(boardCardScope({ _id: 'B' }), { boardId: 'B' });
+check('null and undefined subtasksDefaultBoardId use the same MongoDB selector', () => {
+  assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: null }),
+    { boardId: { $in: ['B', null] } });
+  assert.deepStrictEqual(boardCardScope({ _id: 'B' }),
+    { boardId: { $in: ['B', null] } });
 });
 
 check('a real subtasks-default board -> an all-string $in (still pushes down)', () => {
@@ -41,10 +38,11 @@ check('a real subtasks-default board -> an all-string $in (still pushes down)', 
     { boardId: { $in: ['B', 'S'] } });
 });
 
-check('tolerates a missing/invalid board', () => {
+check('tolerates a missing board', () => {
   assert.deepStrictEqual(boardScopeIds(undefined), []);
   assert.deepStrictEqual(boardScopeIds({}), []);
-  assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: 5 }), { boardId: 'B' });
+  assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: 5 }),
+    { boardId: { $in: ['B', 5] } });
 });
 
 // ── source guards: no card query still uses the null-containing $in ────────────
@@ -61,18 +59,16 @@ check('board/card publications use boardCardScope, not the null-in-$in literal',
   }
 });
 
-check('the lazy window scopes the board at TOP level (not inside a $and)', () => {
-  // The default (non-colliding) path merges the server scope at the top level so
-  // it pushes down; the collision guard is checked below. This used to be spelled
-  // out inline in the publication and is now mergeCardScope, so the behaviour is
-  // tested rather than the text.
+check('the lazy window keeps ordinary MongoDB conjunction semantics', () => {
   assert.deepStrictEqual(
     mergeCardScope({ listId: 'L', swimlaneId: 'S' }, { boardId: 'B', archived: false }),
-    { listId: 'L', swimlaneId: 'S', boardId: 'B', archived: false });
+    { $and: [
+      { listId: 'L', swimlaneId: 'S' },
+      { boardId: 'B', archived: false },
+    ] });
 
   const src = fs.readFileSync(path.join(__dirname, '..', 'server', 'publications', 'cardsWindow.js'), 'utf8');
   assert.ok(/mergeCardScope\(safe, \{/.test(src), 'the window selector merges through it');
-  assert.ok(!/\$and: \[safe,/.test(src), 'and no longer wraps unconditionally');
 });
 
 // ── assigned-only members ─────────────────────────────────────────────────────
@@ -145,16 +141,16 @@ check('the restriction survives a client selector that filters by assignee', () 
   });
 });
 
-check('an unrestricted member keeps the fast top-level merge', () => {
-  // The restriction must not cost the index pushdown for everybody else.
+check('an unrestricted member also keeps client and server selectors separate', () => {
   const board = boardWith(member('ada'));
   const merged = mergeCardScope({ listId: 'L' }, {
     boardId: 'B',
     archived: false,
     ...assignedOnlyCardScope(board, 'ada'),
   });
-  assert.deepStrictEqual(merged, { listId: 'L', boardId: 'B', archived: false });
-  assert.ok(!merged.$and);
+  assert.deepStrictEqual(merged, {
+    $and: [{ listId: 'L' }, { boardId: 'B', archived: false }],
+  });
 });
 
 check('both the window and its COUNT are narrowed', () => {

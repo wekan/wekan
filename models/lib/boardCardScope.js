@@ -3,36 +3,16 @@
 // The selector matching cards that belong to a board: the board itself, plus its
 // subtasks-default board when one is configured.
 //
-// Why this helper exists (10.22 "boards load lists/columns but never cards"):
-// the card queries used `{ boardId: { $in: [board._id, board.subtasksDefaultBoardId] } }`,
-// and `subtasksDefaultBoardId` defaults to `null`. On FerretDB v1 (SQLite) a `$in`
-// list that contains a non-string element (the `null`) does NOT push down at all,
-// so the WHERE clause is dropped and the whole `cards` collection is full-scanned
-// and sjson-decoded in Go on EVERY poll-and-diff cycle. Lists/swimlanes use a plain
-// `boardId` equality, which is index-backed and fast — hence columns appear but
-// cards never do. Build the id list WITHOUT null, and use a plain equality when
-// only the board itself is in scope, so the card query stays index-backed like the
-// lists selector.
+// Keep the ordinary MongoDB selector shape. FerretDB is responsible for pushing
+// the null-containing `$in` into its backend without requiring clients to rewrite it.
 function boardScopeIds(board) {
-  const ids = [];
-  if (board && typeof board._id === 'string' && board._id.length > 0) {
-    ids.push(board._id);
-  }
-  if (board && typeof board.subtasksDefaultBoardId === 'string' && board.subtasksDefaultBoardId.length > 0) {
-    ids.push(board.subtasksDefaultBoardId);
-  }
-  return ids;
+  if (!board || typeof board._id !== 'string' || board._id.length === 0) return [];
+  return [board._id, board.subtasksDefaultBoardId ?? null];
 }
 
-// Returns a Mongo selector fragment `{ boardId: <id> }` (equality, index-backed)
-// or `{ boardId: { $in: [id1, id2] } }` — never an $in that contains null. Spread
-// it into a card selector: `{ ...boardCardScope(board), archived: false }`.
+// Spread this into a card selector: `{ ...boardCardScope(board), archived: false }`.
 function boardCardScope(board) {
-  const ids = boardScopeIds(board);
-  if (ids.length <= 1) {
-    return { boardId: ids[0] };
-  }
-  return { boardId: { $in: ids } };
+  return { boardId: { $in: boardScopeIds(board) } };
 }
 
 // Is this user an ASSIGNED-ONLY member of this board? Three board-member flags
@@ -66,21 +46,12 @@ function assignedOnlyCardScope(board, userId) {
 
 // Merge a server-side scope into a card selector the CLIENT supplied.
 //
-// Merging at the top level (rather than wrapping both in a `$and`) is what keeps
-// `boardId`/`archived` pushing down to FerretDB v1 (SQLite)'s index: FerretDB does
-// NOT push down a top-level `$and`, so the wrapped form full-scans the whole
-// `cards` table on every poll. But a top-level merge can only be used when the
-// two do not both speak for the same key — otherwise one would silently replace
-// the other, and for the assigned-only clause that direction decides whether a
-// restriction is enforced or dropped. So: merge when the keys are disjoint, and
-// fall back to `$and` when they are not, where BOTH still hold.
+// Keep both selectors as ordinary MongoDB conjuncts. This also prevents a client
+// key from replacing a server-enforced scope key.
 function mergeCardScope(clientSelector, scope) {
   const client = clientSelector || {};
   const server = scope || {};
-  const collides = Object.keys(server).some(key =>
-    Object.prototype.hasOwnProperty.call(client, key),
-  );
-  return collides ? { $and: [client, server] } : { ...client, ...server };
+  return { $and: [client, server] };
 }
 
 module.exports = {

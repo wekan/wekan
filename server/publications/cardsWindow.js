@@ -95,15 +95,8 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
   // are narrowed with it rather than leaking the children of cards whose minicard
   // is not published.
   //
-  // mergeCardScope keeps the scope at the TOP level whenever it can: FerretDB v1
-  // (SQLite) does NOT push a top-level `$and` down to its index, so the wrapped
-  // form full-scanned the whole `cards` table on every poll and the window never
-  // became ready — cards never loaded on a big (lazy) board (10.22). It falls back
-  // to `$and` only when the client selector already speaks for one of the scope's
-  // keys, where a merge would silently replace one with the other — which for
-  // `assignees` is the difference between enforcing the restriction and dropping
-  // it, since the board Filter has an assignee filter of its own. The in-Go filter
-  // remains the authority either way.
+  // Keep the client filter and server authorization scope as separate MongoDB
+  // conjuncts so neither can replace the other.
   const windowSel = board =>
     mergeCardScope(safe, {
       boardId: board._id,
