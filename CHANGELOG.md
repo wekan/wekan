@@ -7800,9 +7800,15 @@ settings, scheduled board operations and attachment monitoring. These direct
 translations were completed with low confidence and welcome review by a Somali
 speaker. This left **82,616 genuinely untranslated values across 39 locale
 files**.
+The fortieth 50-value Somali batch added comprehensive board integrity
+migrations, lost-card and archived-item recovery, duplicate and missing-list
+repair, file URL fixes, confirmations and progress steps. These direct
+translations were completed with low confidence and welcome review by a Somali
+speaker. This left **82,566 genuinely untranslated values across 39 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
