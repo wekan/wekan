@@ -8450,6 +8450,18 @@ the SQL constraints and index choices.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e71f04d39">Use Meteor's standard resume-login query and projection</a>. Thanks to xet7.</summary>
+
+WeKan no longer replaces Meteor's resume-login handler to avoid a FerretDB
+positional-projection error. FerretDB now correctly selects an array element
+for a projection such as `services.resume.loginTokens.$` when the query matches
+`services.resume.loginTokens.hashedToken`, so Meteor's standard authentication
+path works unchanged. FerretDB unit tests cover a matching token and a negative
+no-match case.
+
+</details>
+
 and fixes the following release tooling bug:
 
 <details>
