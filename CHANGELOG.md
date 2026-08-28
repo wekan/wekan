@@ -8247,6 +8247,8 @@ browser build to verify).
 
 **In short:** **HostnameBleed** regression coverage now checks documented hostnames
 as exact parsed tokens, resolving two follow-up CodeQL findings in test-only code.
+**Test-matrix reliability** covers resumed profile languages, speech scrolling,
+local Node discovery and bounded reusable AppImage jobs.
 The table below is carried over from the release under this one, and is refilled
 from each build's provenance.tsv when this release is made.
 
@@ -8272,6 +8274,41 @@ no request, user input or runtime application path reached these assertions.
 Parsing the example list and comparing its complete tokens avoids ambiguous URL
 substring checks while retaining positive coverage and a negative check for the
 wildcard lookalikes that the original HostnameBleed fix rejects.
+
+</details>
+
+and improves the following developer tooling:
+
+**Test matrix** - local tool discovery and bounded workflows keep every stage
+running against the intended versions.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f011debe3">The WeKan matrix covers resumed languages, speech scrolling and AppImage timeouts reliably</a>. Thanks to xet7.</summary>
+
+Persisted profile languages now apply reactively when a stored login finishes
+resuming, so Chinese and Japanese accessibility checks observe the user's real
+locale instead of the browser default. The speech-command regression gives its
+focusable list a deterministic overflow boundary before testing Page Down.
+
+GitHub does not allow `timeout-minutes` on a job that calls a reusable workflow,
+so the release guard now recognizes that syntax and separately proves every job
+inside the called AppImage workflow has its own timeout. The previously
+unbounded release lookup and publishing jobs are limited to 15 and 30 minutes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8122c84a4">Tests retain an installed local Node across Dockerfile version bumps</a>. Thanks to xet7.</summary>
+
+The test runner previously added only the exact Node version named by the
+Dockerfile to `PATH`. When that version had just advanced beyond the toolchain
+already downloaded under `.tools`, the plain import stage could not find Node
+and Playwright version discovery silently selected its obsolete 1.60 fallback
+for dependencies that required 1.62.1.
+
+It now selects the newest installed architecture-matching local Node until setup
+downloads the exact release. A regression pins the fallback, version-aware
+ordering and exported path used by every subsequent test stage.
 
 </details>
 
@@ -8352,8 +8389,7 @@ markdown retains its per-render fallback. **REST user deletion** now reports
 the database-confirmed outcome and documents both success and missing-user
 responses. **Translations** complete Swati, begin Sesotho and raise the measured
 essentially-complete total to 197 while protecting target-language vocabulary
-and code tokens. **Test-matrix reliability** covers resumed profile languages,
-speech scrolling and reusable AppImage timeouts. The table below is carried over
+and code tokens. The table below is carried over
 from the release under this one, and is refilled from each build's provenance.tsv
 when this release is made.
 
@@ -8469,41 +8505,6 @@ Repeatable response annotations let the OpenAPI generator document the exact
 every removal outcome, regenerated YAML matches the route source byte for byte,
 and a live Chromium API test confirms deletion in MongoDB before repeating the
 request and receiving 404.
-
-</details>
-
-and improves the following developer tooling:
-
-**Test matrix** - local tool discovery and bounded workflows keep every stage
-running against the intended versions.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f011debe3">The WeKan matrix covers resumed languages, speech scrolling and AppImage timeouts reliably</a>. Thanks to xet7.</summary>
-
-Persisted profile languages now apply reactively when a stored login finishes
-resuming, so Chinese and Japanese accessibility checks observe the user's real
-locale instead of the browser default. The speech-command regression gives its
-focusable list a deterministic overflow boundary before testing Page Down.
-
-GitHub does not allow `timeout-minutes` on a job that calls a reusable workflow,
-so the release guard now recognizes that syntax and separately proves every job
-inside the called AppImage workflow has its own timeout. The previously
-unbounded release lookup and publishing jobs are limited to 15 and 30 minutes.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/8122c84a4">Tests retain an installed local Node across Dockerfile version bumps</a>. Thanks to xet7.</summary>
-
-The test runner previously added only the exact Node version named by the
-Dockerfile to `PATH`. When that version had just advanced beyond the toolchain
-already downloaded under `.tools`, the plain import stage could not find Node
-and Playwright version discovery silently selected its obsolete 1.60 fallback
-for dependencies that required 1.62.1.
-
-It now selects the newest installed architecture-matching local Node until setup
-downloads the exact release. A regression pins the fallback, version-aware
-ordering and exported path used by every subsequent test stage.
 
 </details>
 
