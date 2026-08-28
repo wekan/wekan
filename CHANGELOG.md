@@ -7640,9 +7640,14 @@ invitation email templates and board, import and linked-card errors. These
 direct translations were completed with low confidence and welcome review by a
 Somali speaker. This left **84,066 genuinely untranslated values across 39
 locale files**.
+The eleventh 50-value Somali batch added account conflicts, card export to PDF
+and Excel, attachment metadata and disk-space failures plus list sorting and
+date, label and member filters. These direct translations were completed with
+low confidence and welcome review by a Somali speaker. This left **84,016
+genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
