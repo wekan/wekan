@@ -1,14 +1,16 @@
-// Opt-in performance diagnostics for Admin Panel -> Problems -> Speed.
+// Opt-in performance diagnostics for a local JSONL file.
 //
 // DEBUGSPEED=true is deliberately required: sampling and wrapping DDP handlers
 // adds work of its own.  Query values, arguments, user ids and URLs are never
-// recorded; a speed report must be safe to share with a bug report.
+// recorded; a speed report must be safe to share with a bug report. These
+// diagnostics never write to Admin Panel -> Problems.
 
 import { Meteor } from 'meteor/meteor';
+import { appendFileSync } from 'node:fs';
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks';
-import { record as speedRecord } from '/server/lib/speedLog';
 
 const ENABLED = process.env.DEBUGSPEED === 'true';
+const LOG_FILE = process.env.DEBUGSPEED_LOG_FILE || '';
 const SLOW_MS = Math.max(1, Number.parseInt(process.env.DEBUGSPEED_SLOW_MS || '250', 10));
 const SAMPLE_MS = Math.max(5000, Number.parseInt(process.env.DEBUGSPEED_SAMPLE_MS || '30000', 10));
 
@@ -19,7 +21,21 @@ function recordBounded(source, detail, severity = 'low') {
   const now = Date.now();
   if (now - (lastRecorded.get(source) || 0) < SAMPLE_MS) return;
   lastRecorded.set(source, now);
-  speedRecord({ category: 'debug-speed', action: 'measured', source, detail, severity });
+  if (!LOG_FILE) return;
+  try {
+    appendFileSync(LOG_FILE, `${JSON.stringify({
+      timestamp: new Date(now).toISOString(),
+      category: 'debug-speed',
+      action: 'measured',
+      source,
+      detail,
+      severity,
+    })}\n`, { encoding: 'utf8', mode: 0o600 });
+  } catch (error) {
+    // Report a fixed message only; paths and error objects may expose local
+    // details. The diagnostic must never disrupt the measured operation.
+    console.error('[DEBUGSPEED] Could not append the diagnostic log.'); // eslint-disable-line no-console
+  }
 }
 
 function wrapHandlers(registry, kind) {
@@ -80,8 +96,6 @@ if (ENABLED) {
       const cpuPercent = elapsedMicros > 0 ? ((cpu.user + cpu.system) / elapsedMicros) * 100 : 0;
       const p99ms = Number(loop.percentile(99)) / 1e6;
       const detail = `cpu=${cpuPercent.toFixed(1)}% rss=${Math.round(memory.rss / 1048576)}MiB heap=${Math.round(memory.heapUsed / 1048576)}MiB event-loop-p99=${p99ms.toFixed(1)}ms`;
-      // Console retains every sample; the folded Admin Panel row stays bounded.
-      console.log(`[DEBUGSPEED] ${detail}`); // eslint-disable-line no-console
       recordBounded('wekan.process', detail, cpuPercent >= 100 || p99ms >= 250 ? 'medium' : 'info');
       loop.reset();
     }, SAMPLE_MS);
