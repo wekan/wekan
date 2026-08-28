@@ -7463,8 +7463,14 @@ scheduled and due-date triggers, card and board buttons, list sorting, completio
 actions and relative dates. These direct translations were completed with low
 confidence and welcome review by a Samoan speaker. This left **85,683 genuinely
 untranslated values across 40 locale files**.
+The twenty-second 50-value Samoan batch added automation conditions for cards,
+labels, members, attachments and checklists plus move, archive, color, member,
+checklist and email actions. These direct translations were completed with low
+confidence and welcome review by a Samoan speaker. This left **85,633 genuinely
+untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at `r-the-board` with
+and exact tokens from `en.i18n.json`, resuming Samoan at
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
