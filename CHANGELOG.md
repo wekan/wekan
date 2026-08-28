@@ -7994,9 +7994,15 @@ and file, security, performance, impersonation, recovery and office reports.
 These direct translations were completed with low confidence and welcome
 review by a Swati speaker. This left **80,899 genuinely untranslated values
 across 38 locale files**.
+The thirty-first 50-value Swati batch completed office reporting and added REST
+API usage, recovery events and maintenance, swimlane copying, wait-spinner
+styles, card sizing, organization and team deletion warnings and help tickets.
+These direct translations were completed with low confidence and welcome
+review by a Swati speaker. This left **80,849 genuinely untranslated values
+across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
