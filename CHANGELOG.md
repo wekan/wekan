@@ -7892,9 +7892,15 @@ Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, Jira, Excel and WeKan,
 including Trello ZIP handling. These direct translations were completed with
 low confidence and welcome review by a Swati speaker. This left **81,799
 genuinely untranslated values across 38 locale files**.
+The thirteenth 50-value Swati batch added secure Trello ZIP handling, workspace
+placement, API-key imports, selection, cancellation and progress, imported
+member mapping, version and date validation, keyboard shortcuts and label
+creation and deletion. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **81,749 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
