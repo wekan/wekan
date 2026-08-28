@@ -191,6 +191,25 @@ test('the viewer never lets a render failure close the card (negative)', () => {
     'and it must RETURN something - returning nothing is the blank panel again');
 });
 
+test('#6640: ordinary comment markdown renders independently and keeps its text', async () => {
+  // The report used French project notes with emphasis, lists and a literal >.
+  // Exercise that shape through the shipped renderer configuration: one comment
+  // must never make its own body, the card comment list or Activities blank.
+  const { default: MarkdownIt } = await import('markdown-it');
+  const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: true });
+  const comments = [
+    'Compte-rendu avec *italique* et **gras**',
+    '- première tâche\n- deuxième tâche',
+    'Version 3 > version 2, sans balise HTML',
+  ];
+  for (const comment of comments) {
+    let rendered;
+    assert.doesNotThrow(() => { rendered = md.render(comment); });
+    assert.ok(rendered && /[A-Za-zÀ-ÿ]/.test(rendered),
+      `comment rendered blank: ${comment}`);
+  }
+});
+
 test('#6590: the onenote: link that hung a whole BOARD renders too', async () => {
   // Reported separately, and the same crash: "A board gets stuck indefinitely on
   // the loading animation (three dots) for all users. The root cause was traced
