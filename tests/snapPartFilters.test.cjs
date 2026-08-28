@@ -146,14 +146,17 @@ test('every path a part stages or primes is one that part can produce', () => {
     'snapcraft fails the whole build on it:\n  ' + problems.join('\n  '));
 });
 
-test('the wekan part retries npm install, which is what the build farm drops', () => {
-  const part = allParts.wekan;
-  assert.ok(/for attempt in 1 2 3; do/.test(part),
-    'npm install must be retried: on Launchpad every request goes through the ' +
-    'build farm proxy and a single tarball can be cut mid-stream (ECONNRESET), ' +
-    'which ended the riscv64 snap in v10.80 after half an hour of building');
-  assert.ok(/npm install failed three times in a row/.test(part),
-    'and after three tries it must fail loudly rather than retry forever');
+test('the wekan part never repeats npm work through the build farm proxy', () => {
+  const part = allParts.wekan.split('\n')
+    .filter(line => !/^\s*#/.test(line)).join('\n');
+  assert.ok(/plugin: nil/.test(part),
+    'the architecture-specific release bundle is complete, so snap assembly ' +
+    'must use the no-op plugin instead of installing an npm toolchain');
+  assert.ok(!/\bnpm (?:install|pack)\b/.test(part),
+    'Launchpad must make zero npm registry requests: retrying reduced transient ' +
+    'failures but still repeated an already completed install on slow builders');
+  assert.ok(!/rm -rf node_modules/.test(part),
+    'the completed dependency tree from build-extra-arches must not be deleted');
 });
 
 test('the job error message points at the log instead of guessing', () => {

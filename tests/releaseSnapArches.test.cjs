@@ -354,6 +354,39 @@ test('the next base declares the same architectures as the current one', () => {
     + 'or moving to that base silently drops the ones it forgot');
 });
 
+test('snap assembly reuses prebuilt bundles instead of rebuilding npm dependencies', () => {
+  for (const file of ['snapcraft.yaml', 'snapcraft-core26.yaml']) {
+    const yaml = read(file);
+    const partAt = yaml.indexOf('\n    wekan:\n');
+    assert.notStrictEqual(partAt, -1, `${file} has no wekan part`);
+    const nextPart = yaml.indexOf('\n    helpers:\n', partAt);
+    const part = code(yaml.slice(partAt, nextPart));
+
+    assert.match(part, /\n\s+plugin: nil\n/,
+      `${file}: a prebuilt bundle needs no npm plugin toolchain`);
+    assert.doesNotMatch(part, /npm-node-version|npm-include-node|\bnpm (?:install|pack)\b/,
+      `${file}: Launchpad must not repeat the npm work completed by build-extra-arches`);
+    assert.doesNotMatch(part, /rm -rf node_modules/,
+      `${file}: the completed architecture-correct dependency tree must be retained`);
+    assert.match(part, /cp -r \.build\/bundle\/\* \$SNAPCRAFT_PART_INSTALL\//,
+      `${file}: the prebuilt bundle is still copied into the snap`);
+
+    const buildPackages = part.slice(part.indexOf('build-packages:'),
+      part.indexOf('stage-packages:'));
+    for (const unnecessary of ['build-essential', 'python3', 'g++', 'capnproto', 'nodejs', 'npm']) {
+      assert.doesNotMatch(buildPackages, new RegExp(`- ${unnecessary.replace('+', '\\+')}(?:\\s|$)`),
+        `${file}: ${unnecessary} is unnecessary when Launchpad only unpacks the bundle`);
+    }
+  }
+});
+
+test('large snaps use faster LZO compression', () => {
+  for (const file of ['snapcraft.yaml', 'snapcraft-core26.yaml']) {
+    assert.match(read(file), /^compression: lzo$/m,
+      `${file}: default XZ spends avoidable CPU time packing the large WeKan tree`);
+  }
+});
+
 test('the mongodb part cannot stage bin as a symlink', () => {
   // The s390x build died right after "Staging mongodb":
   //     /build/.../stage/bin: Is a directory

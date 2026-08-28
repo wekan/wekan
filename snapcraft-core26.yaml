@@ -19,6 +19,7 @@ base: core26
 build-base: devel
 confinement: strict
 grade: devel
+compression: lzo
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -260,21 +261,14 @@ parts:
 
     wekan:
         source: .
-        plugin: npm
-        npm-node-version: 24.18.0
-        npm-include-node: true
+        # The release bundle is already rebuilt for this architecture, pruned,
+        # and carries its own Node.js. Launchpad used to delete its completed
+        # node_modules tree and repeat npm install on the slow exotic builder.
+        plugin: nil
         build-packages:
-            - build-essential
             - ca-certificates
-            - apt-utils
-            - python3
-            - g++
-            - capnproto
-            - curl
             - wget
             - unzip
-            - nodejs
-            - npm
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -296,24 +290,6 @@ parts:
             wget "https://github.com/wekan/wekan/releases/download/v9.85/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
-            # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-            # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
-            BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
-            if [ -d "$BCRYPT_DIR" ]; then
-              rm -rf "$BCRYPT_DIR"
-              TMP=$(mktemp -d)
-              pushd "$TMP" > /dev/null
-              npm pack bcrypt@6.0.0
-              mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-              cd bcrypt && npm install --ignore-scripts && cd ..
-              popd > /dev/null
-              cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
-              rm -rf "$TMP"
-            fi
-            cd bundle/programs/server
-            rm -rf node_modules
-            npm install
-            cd ../../../..
             # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
             # wekan-<arch>.zip already ships the right node for this platform
             # (nodejs.org for amd64/arm64/s390x/ppc64le, unofficial-builds.nodejs.org

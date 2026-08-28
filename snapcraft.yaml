@@ -23,6 +23,7 @@ version: '11.19'
 base: core24
 confinement: strict
 grade: stable
+compression: lzo
 summary: Open Source kanban
 description: |
    WeKan ® is an Open Source and collaborative kanban board application.
@@ -670,21 +671,14 @@ parts:
 
     wekan:
         source: .
-        plugin: npm
-        npm-node-version: 24.20.0
-        npm-include-node: true
+        # The release bundle is already rebuilt for this architecture, pruned,
+        # and carries its own Node.js. Launchpad used to delete its completed
+        # node_modules tree and repeat npm install on the slow exotic builder.
+        plugin: nil
         build-packages:
-            - build-essential
             - ca-certificates
-            - apt-utils
-            - python3
-            - g++
-            - capnproto
-            - curl
             - wget
             - unzip
-            - nodejs
-            - npm
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -713,48 +707,6 @@ parts:
               "https://github.com/wekan/wekan/releases/download/v11.19/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
-            # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-            # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
-            BCRYPT_DIR="bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
-            if [ -d "$BCRYPT_DIR" ]; then
-              rm -rf "$BCRYPT_DIR"
-              TMP=$(mktemp -d)
-              pushd "$TMP" > /dev/null
-              npm pack bcrypt@6.0.0
-              mkdir bcrypt && tar xzf bcrypt-*.tgz --strip-components=1 -C bcrypt
-              cd bcrypt && npm install --ignore-scripts && cd ..
-              popd > /dev/null
-              cp -a "$TMP/bcrypt" "$BCRYPT_DIR"
-              rm -rf "$TMP"
-            fi
-            cd bundle/programs/server
-            rm -rf node_modules
-            # Retried, because on Launchpad this is the step that loses the race
-            # with the network. Every request goes through the build farm's proxy,
-            # and one tarball out of a couple of thousand can simply be cut:
-            #
-            #   npm ERR! code ECONNRESET
-            #   npm ERR! network request to https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz
-            #             failed, reason: socket hang up
-            #   'override-build' in part 'wekan' failed with code 1.
-            #
-            # which is what ended the riscv64 snap in v10.80 after it had already
-            # built for half an hour. Nothing is wrong with the build when that
-            # happens and asking again fixes it; npm's own --fetch-retries only
-            # covers the request, not a socket dropped mid-stream. Three tries,
-            # then it is a real failure and the log says so.
-            for attempt in 1 2 3; do
-                if npm install; then
-                    break
-                fi
-                if [ "$attempt" = 3 ]; then
-                    echo "npm install failed three times in a row - this is not the network." >&2
-                    exit 1
-                fi
-                echo "npm install failed (attempt ${attempt}/3); retrying in 15s."
-                sleep 15
-            done
-            cd ../../../..
             # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
             # wekan-<arch>.zip already ships the right node for this platform
             # (nodejs.org for amd64/arm64/s390x/ppc64le, unofficial-builds.nodejs.org
