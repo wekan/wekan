@@ -8340,8 +8340,11 @@ actually appends an OpLog record and emits directly applicable replacement
 updates, eliminating the SQLite query loop and invalid whole-document `$set`
 that previously made polling the safer default. Setting
 `wekan-ferretdb-oplog=false` retains the standalone polling fallback. The
-[FerretDB fix](https://github.com/wekan/FerretDB/commit/d0d4717e) has broadcast,
-gate, update-shape and full unit coverage; launcher tests pin both modes.
+[FerretDB write notification fix](https://github.com/wekan/FerretDB/commit/d0d4717e)
+has broadcast, gate and update-shape coverage. Its follow-up
+[idle-tail fix](https://github.com/wekan/FerretDB/commit/de4495e1) makes cursors
+wait before querying and repairs the logical timestamp index on older OpLogs;
+launcher tests pin both modes.
 
 </details>
 
