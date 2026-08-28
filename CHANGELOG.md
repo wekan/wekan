@@ -8346,8 +8346,11 @@ has broadcast, gate and update-shape coverage. Its follow-up
 wait before querying and repairs the logical timestamp index on older OpLogs;
 the [projection fix](https://github.com/wekan/FerretDB/commit/99f33658) avoids
 recursively decoding unrequested large fields during selective collection
-scans. Launcher tests pin both modes, while FerretDB unit tests cover projected
-decoding and every query field retained for filtering and sorting.
+scans, and its [ID follow-up](https://github.com/wekan/FerretDB/commit/ad9bb910)
+retains MongoDB's implicit `_id` through the internal projection pipeline.
+Launcher tests pin both modes, while FerretDB unit tests cover projected
+decoding, implicit and excluded IDs, and every query field retained for
+filtering and sorting.
 
 </details>
 
