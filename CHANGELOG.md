@@ -7848,9 +7848,15 @@ All Boards display, members and assignees and private-board status. These direct
 translations were completed with low confidence and welcome review by a Swati
 speaker. This left **82,199 genuinely untranslated values across 38 locale
 files**.
+The fifth 50-value Swati batch added public-board status, board navigation,
+background and view controls, desktop and mobile zoom, calendar navigation,
+archive guidance, deletion warnings, dates and card editing controls. These
+direct translations were completed with low confidence and welcome review by a
+Swati speaker. This left **82,149 genuinely untranslated values across 38
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`board-public-info` with
+`card-members-title` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
