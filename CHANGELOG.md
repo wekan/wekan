@@ -7190,9 +7190,14 @@ status, and import guidance for Kanboard, Deck, OpenProject, issue trackers,
 Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan. These direct translations
 were completed with low confidence and welcome review by a Sinhala speaker.
 This left **88,300 genuinely untranslated values across 41 locale files**.
+The thirteenth 50-value Sinhala batch added safe Trello archive and API imports,
+workspace placement, import cancellation and member mapping, date validation,
+invitations, keyboard shortcuts and label deletion. These direct translations
+were completed with low confidence and welcome review by a Sinhala speaker.
+This left **88,250 genuinely untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
