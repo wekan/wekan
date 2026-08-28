@@ -100,6 +100,7 @@ import '/models/server/ExporterExcelCard';
 import '/models/server/ExporterExcel';
 import '/models/server/metrics';
 import '/server/lib/speedMiddleware';
+import '/server/lib/debugSpeed';
 import '/server/lib/cpuMonitor';
 import '/server/lib/selfChecks';
 import '/server/models/actions';
