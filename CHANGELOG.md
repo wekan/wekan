@@ -7703,9 +7703,14 @@ scheduled and due-date triggers, card and board buttons, list sorting,
 completion, bulk card movement and relative dates. These direct translations
 were completed with low confidence and welcome review by a Somali speaker. This
 left **83,516 genuinely untranslated values across 39 locale files**.
+The twenty-second 50-value Somali batch added automation conditions for cards,
+lists, archives, labels, members, attachments and checklists plus movement,
+member, color, checklist and email actions. These direct translations were
+completed with low confidence and welcome review by a Somali speaker. This left
+**83,466 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`r-the-board` with
+`r-d-send-email-subject` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
