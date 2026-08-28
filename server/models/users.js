@@ -2293,11 +2293,29 @@ WebApp.handlers.post('/api/users/', async function(req, res) {
   }
 });
 
+/**
+ * @operation delete_user
+ * @summary Delete a user and confirm that one account was removed
+ *
+ * @description Global administrators receive the deleted id; a missing id
+ * returns HTTP 404 without reporting a deletion.
+ *
+ * @param {string} userId the id of the user to delete
+ * @return_type {_id: string}
+ * @response 404 {error: string} No user matched the requested id.
+ */
 WebApp.handlers.delete('/api/users/:userId', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
     const id = req.params.userId;
-    await Meteor.users.removeAsync({ _id: id });
+    const removed = await Meteor.users.removeAsync({ _id: id });
+    if (removed === 0) {
+      sendJsonResult(res, { code: 404, data: { error: 'User not found' } });
+      return;
+    }
+    if (removed !== 1) {
+      throw new Error(`Unexpected user deletion count: ${removed}`);
+    }
     sendJsonResult(res, { code: 200, data: { _id: id } });
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));

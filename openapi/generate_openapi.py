@@ -249,6 +249,7 @@ class EntryPoint(object):
          *    optional by adding square brackets around its name
          *
          * @return Documents a return value
+         * @response 404 {error: string} Documents an additional HTTP response
          */
 
         Notes:
@@ -324,6 +325,52 @@ class EntryPoint(object):
                 return
 
             # 'return' tag is json
+            if tag == 'response':
+                try:
+                    code, response_data = data.split(maxsplit=1)
+                except ValueError:
+                    self.warn('response needs an HTTP status and description')
+                    return
+
+                if code != 'default' and not re.fullmatch(r'\d{3}', code):
+                    self.warn('invalid HTTP response status {}'.format(code))
+                    return
+
+                response_data = response_data.strip()
+                response_schema = None
+                if response_data.startswith(('{', '[')):
+                    opening = response_data[0]
+                    closing = '}' if opening == '{' else ']'
+                    depth = 0
+                    schema_end = None
+                    for index, char in enumerate(response_data):
+                        if char == opening:
+                            depth += 1
+                        elif char == closing:
+                            depth -= 1
+                            if depth == 0:
+                                schema_end = index + 1
+                                break
+                    if schema_end is None:
+                        self.warn('unterminated response schema for HTTP {}'.format(code))
+                        return
+                    schema_data = response_data[:schema_end]
+                    response_data = response_data[schema_end:].strip()
+                    try:
+                        response_schema = load_return_type_jsdoc_json(schema_data)
+                    except json.decoder.JSONDecodeError:
+                        self.warn('invalid response schema for HTTP {}'.format(code))
+                        return
+
+                if not response_data:
+                    self.warn('response needs a description for HTTP {}'.format(code))
+                    return
+                self._doc.setdefault('responses', {})[code] = {
+                    'description': response_data,
+                    'schema': response_schema,
+                }
+                return
+
             if tag == 'return_type':
                 try:
                     data = load_return_type_jsdoc_json(data)
@@ -347,7 +394,7 @@ class EntryPoint(object):
             if line.lstrip().startswith('@'):
                 tag, data = line.lstrip().split(maxsplit=1)
 
-                if tag in ['@operation', '@summary', '@description', '@param', '@return_type', '@tag']:
+                if tag in ['@operation', '@summary', '@description', '@param', '@return_type', '@response', '@tag']:
                     # store the current data
                     store_tag(current_tag, current_data)
 
@@ -409,6 +456,10 @@ class EntryPoint(object):
         return None
 
     @property
+    def responses(self):
+        return self._doc.get('responses', {})
+
+    @property
     def tags(self):
         tags = []
         if self.schema.fields is not None:
@@ -437,6 +488,15 @@ class EntryPoint(object):
             if obj == self.schema.name:
                 rtype = '$ref: "#/definitions/{}"'.format(obj)
             print('{}{}'.format(' ' * indent, rtype))
+
+    def print_openapi_response(self, code, description, schema=None):
+        print("        '{}':".format(code))
+        print('          description: |-')
+        for line in description.split('\n'):
+            print('            {}'.format(line))
+        if schema is not None:
+            print('          schema:')
+            self.print_openapi_return(schema, 12)
 
     def print_openapi(self):
         parameters = [token[1:-2] if token.endswith('Id') else token[1:]
@@ -485,13 +545,18 @@ class EntryPoint(object):
         - application/json
       security:
           - UserSecurity: []
-      responses:
-        '200':
-          description: |-
-            200 response''')
-        if self.returns is not None:
-            print('          schema:')
-            self.print_openapi_return(self.returns, 12)
+      responses:''')
+        response_200 = self.responses.get('200')
+        if response_200 is None:
+            self.print_openapi_response('200', '200 response', self.returns)
+        else:
+            self.print_openapi_response(
+                '200', response_200['description'], response_200['schema'])
+        for code, response in self.responses.items():
+            if code == '200':
+                continue
+            self.print_openapi_response(
+                code, response['description'], response['schema'])
 
 
 class SchemaProperty(object):

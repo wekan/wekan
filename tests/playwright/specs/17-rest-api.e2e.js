@@ -17,6 +17,7 @@
  *  - copy a card to a 0-based position (deep copy)
  *  - #3062  board card settings GET/PUT
  *  - #4815  GET /api/user/cards (My Cards / Due Cards)
+ *  - DELETE /api/users/:userId confirms deletion and reports missing users
  *
  * The API requires WITH_API=true (the build.sh "Run tests" server sets it).
  * The Bearer token is the user's MongoDB resume token (seedUser returns the raw
@@ -73,6 +74,35 @@ test.describe('REST API: data + permissions', () => {
       headers: authHeaders(user.token),
     });
     expect(rejected.status()).toBe(401);
+  });
+
+  // ---- DELETE /api/users/:userId: confirm the authoritative result --------
+  test('user deletion confirms removal and reports a repeat as 404', async ({ request, adminUser }) => {
+    const target = db.seedUser();
+    try {
+      expect(db.findOne('users', { _id: target.id })).not.toBeNull();
+
+      const deleted = await request.delete(`/api/users/${target.id}`, {
+        headers: authHeaders(adminUser.token),
+      });
+      expect(deleted.status()).toBe(200);
+      expect(await deleted.json()).toEqual({ _id: target.id });
+
+      // Independently poll MongoDB so the response cannot merely echo the id.
+      await expect.poll(
+        () => db.findOne('users', { _id: target.id }),
+        { message: 'the deleted user should be absent from MongoDB' },
+      ).toBeNull();
+
+      const missing = await request.delete(`/api/users/${target.id}`, {
+        headers: authHeaders(adminUser.token),
+        failOnStatusCode: false,
+      });
+      expect(missing.status()).toBe(404);
+      expect(await missing.json()).toEqual({ error: 'User not found' });
+    } finally {
+      db.deleteOne('users', { _id: target.id });
+    }
   });
 
   // ---- #4743 / #5813: bulk create, uniqueness, bulk delete ----------------
