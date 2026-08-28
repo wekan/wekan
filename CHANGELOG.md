@@ -8250,7 +8250,7 @@ as exact parsed tokens, resolving two follow-up CodeQL findings in test-only cod
 **Test-matrix reliability** covers resumed profile languages, speech scrolling,
 local Node discovery and bounded reusable AppImage jobs. **Translations** now
 merge valid Transifex human work over local fills without uploading machine
-translations as human.
+translations as human, and recover human values displaced after mass filling.
 The table below is carried over from the release under this one, and is refilled
 from each build's provenance.tsv when this release is made.
 
@@ -8316,6 +8316,9 @@ ordering and exported path used by every subsequent test stage.
 
 and improves the translation workflow:
 
+**Translation precedence** - human work stays preferred without trusting
+wrong-language or provenance-unknown values.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0e12a467a">Transifex human translations safely take precedence over local fills</a>. Thanks to translators and xet7.</summary>
 
@@ -8335,6 +8338,24 @@ The interrupted pull merged 47 non-English human values across 29 locale files
 and four new source keys into eleven English variants. All available local
 fallbacks remain; the result has zero detected wrong-script values, placeholder
 markers or local translations lost to English.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57c1fcabf">Pre-fill human translations displaced by bad Transifex values return</a>. Thanks to translators and xet7.</summary>
+
+A history audit compared every non-English value at the final pre-mass-fill
+boundary with the current locale files. Of 31 differences, seventeen are newer
+valid Spanish, Kinyarwanda or Traditional Chinese human translations and remain
+preferred. Fourteen older human values had regressed: Breton, Occitan, Volapük,
+Walloon, Wolof and Tamazight received French; Welsh retained an English word;
+Xhosa gained malformed prose; and three French variants received a broken
+placeholder example.
+
+Those fourteen exact historical values are restored. A reproducible audit pins
+the reviewed boundary and keys, while the pull merge rejects the known bad
+fingerprints on recurrence without blocking a future corrected Transifex human
+translation.
 
 </details>
 
