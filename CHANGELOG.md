@@ -8251,7 +8251,9 @@ configuration. The multitenancy setup now initializes its replica set
 idempotently and creates database users through MongoDB's localhost exception,
 keeping first-time installation compatible with authorization enabled.
 **Card date badges** now share one self-cleaning minute ticker instead of
-creating a timer for every rendered badge.
+creating a timer for every rendered badge. **Snap assembly** now copies each
+prebuilt release bundle from its actual extraction directory on every native
+and Launchpad architecture.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8286,6 +8288,19 @@ Card dates and date custom fields subscribe to one reactive clock. Each view
 unsubscribes when destroyed; duplicate cleanup is harmless, the interval remains
 for other subscribers, and the final unsubscribe stops it. Regression tests
 exercise teardown and later restart as well as rejecting per-badge intervals.
+
+</details>
+
+and fixes the following release tooling bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d976d8d13">Build snaps from the extracted release bundle</a>. Thanks to xet7.</summary>
+
+Snapcraft entered `.build` and extracted the archive as `bundle/`, but then
+looked for `.build/bundle/`, effectively asking for `.build/.build/bundle/`.
+That made native, variant and Launchpad snap jobs fail while copying Node.js.
+The Core 24 and staged Core 26 definitions now use the correct relative path,
+with a regression test that pins the working-directory transition.
 
 </details>
 
