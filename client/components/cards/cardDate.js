@@ -27,6 +27,7 @@ import {
   calendar
 } from '/imports/lib/dateUtils';
 import { dueDateClass } from '/client/lib/dueDateColor';
+import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 
 // --- DatePicker popups (edit date forms) ---
 
@@ -145,10 +146,9 @@ function openDateEditor(name) {
 // Shared onCreated logic for card date badge templates
 function cardDateOnCreated(tpl) {
   tpl.date = new ReactiveVar();
-  tpl.now = new ReactiveVar(now());
-  window.setInterval(() => {
-    tpl.now.set(now());
-  }, 60000);
+  const dateNowTicker = subscribeDateNowTicker();
+  tpl.now = dateNowTicker.now;
+  tpl.view.onViewDestroyed(dateNowTicker.unsubscribe);
 }
 
 // Shared helpers for card date badge templates

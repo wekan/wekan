@@ -30,6 +30,7 @@ import { CustomFieldStringTemplate } from '/client/lib/customFields'
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { formatNumberValue } from '/imports/lib/customNumberFormat';
 import { Utils } from '/client/lib/utils';
+import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 
 Template.customFieldCopyButton.events({
   'click .js-copy-custom-field'(event, tpl) {
@@ -307,10 +308,9 @@ Template['cardCustomField-date'].onCreated(function () {
   this.customFieldId = Template.currentData()._id;
   const self = this;
   self.date = ReactiveVar();
-  self.now = ReactiveVar(now());
-  window.setInterval(() => {
-    self.now.set(now());
-  }, 60000);
+  const dateNowTicker = subscribeDateNowTicker();
+  self.now = dateNowTicker.now;
+  self.view.onViewDestroyed(dateNowTicker.unsubscribe);
 
   self.autorun(() => {
     self.date.set(new Date(Template.currentData().value));
