@@ -1,9 +1,10 @@
 'use strict';
 
-// HostnameBleed (CodeQL alerts #435 and #436): a hostname example used as a
-// RegExp pattern must not silently turn its dots into wildcards. The reported
-// code was test-only, but a permissive regression test can claim that required
-// security guidance is present when the exact hostname is not.
+// HostnameBleed (CodeQL alerts #435-#438): a hostname example used as a RegExp
+// pattern must not silently turn its dots into wildcards. The original reports
+// and the follow-up substring-sanitization reports were test-only, but a
+// permissive regression test can claim that required security guidance is
+// present when the exact hostname is not.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -38,10 +39,14 @@ test('the guard recognizes the reported incomplete hostname pattern', () => {
 
 test('literal hostname checks require exact dots (positive and negative)', () => {
   const value = 'Examples: a.example.com, kanban.example.org';
-  assert.equal(value.includes('a.example.com'), true);
-  assert.equal(value.includes('kanban.example.org'), true);
-  assert.equal(value.includes('aXexampleXcom'), false);
-  assert.equal(value.includes('kanbanXexampleXorg'), false);
+  const hostnames = value.replace(/^Examples:\s*/, '').split(/,\s*/);
+  assert.deepEqual(hostnames, ['a.example.com', 'kanban.example.org']);
+
+  const wildcardLookalikes =
+    'Examples: aXexampleXcom, kanbanXexampleXorg'
+      .replace(/^Examples:\s*/, '')
+      .split(/,\s*/);
+  assert.notDeepEqual(wildcardLookalikes, hostnames);
 });
 
 test('no tracked JavaScript constructs a RegExp from looped hostname literals', () => {
