@@ -7788,9 +7788,15 @@ anonymization, activity and notification controls and instance or organization
 backups. These direct translations were completed with low confidence and
 welcome review by a Somali speaker. This left **82,716 genuinely untranslated
 values across 39 locale files**.
+The thirty-eighth 50-value Somali batch added scheduled backup timing and
+restore modes, Google Cloud credentials and permissions, S3, Azure and GCS
+console guidance, cloud connection tests and Azure attachment movement. These
+direct translations were completed with low confidence and welcome review by a
+Somali speaker. This left **82,666 genuinely untranslated values across 39
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
