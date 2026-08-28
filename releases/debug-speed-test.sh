@@ -27,6 +27,15 @@ if [ -z "$NODE_BIN" ] || [ ! -x "$NODE_BIN" ]; then
   echo 'Node.js was not found; install it with the repository sandbox instructions.' >&2
   exit 1
 fi
+NPM_BIN="$(dirname "$NODE_BIN")/npm"
+if [ ! -x "$NPM_BIN" ]; then
+  echo "npm was not found beside $NODE_BIN" >&2
+  exit 1
+fi
+
+# Keep the browser paired with this checkout instead of depending on (or
+# filling) ~/.cache. The normal Playwright configuration uses the same path.
+export PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-$WEKAN_DIR/.tools/ms-playwright}"
 
 if ! curl -fsS "$DEBUGSPEED_URL" >/dev/null; then
   echo "WeKan is not responding at $DEBUGSPEED_URL" >&2
@@ -35,12 +44,22 @@ fi
 
 if [ ! -f "$WEKAN_DIR/tests/playwright/node_modules/playwright/index.mjs" ]; then
   echo 'Installing the repository Playwright dependencies ...'
-  NPM_BIN="$(dirname "$NODE_BIN")/npm"
-  if [ ! -x "$NPM_BIN" ]; then
-    echo "npm was not found beside $NODE_BIN" >&2
+  (cd "$WEKAN_DIR/tests/playwright" && "$NPM_BIN" install)
+fi
+
+CHROMIUM_PATH="$("$NODE_BIN" --input-type=module -e \
+  "import { chromium } from './tests/playwright/node_modules/playwright/index.mjs'; console.log(chromium.executablePath())" \
+  2>/dev/null || true)"
+if [ -z "$CHROMIUM_PATH" ] || [ ! -x "$CHROMIUM_PATH" ]; then
+  echo "Installing the repository Playwright Chromium in $PLAYWRIGHT_BROWSERS_PATH ..."
+  (cd "$WEKAN_DIR/tests/playwright" && \
+    "$NODE_BIN" node_modules/playwright/cli.js install chromium)
+  CHROMIUM_PATH="$("$NODE_BIN" --input-type=module -e \
+    "import { chromium } from './tests/playwright/node_modules/playwright/index.mjs'; console.log(chromium.executablePath())")"
+  if [ ! -x "$CHROMIUM_PATH" ]; then
+    echo "Playwright Chromium was not installed at $CHROMIUM_PATH" >&2
     exit 1
   fi
-  (cd "$WEKAN_DIR/tests/playwright" && "$NPM_BIN" install)
 fi
 
 echo "Running $DEBUGSPEED_CLIENTS browser clients for $DEBUGSPEED_SECONDS seconds."

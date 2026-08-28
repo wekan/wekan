@@ -9,6 +9,7 @@ const server = read('releases/debug-speed-server.sh');
 const ferretOnly = read('releases/debug-speed-ferretdb.sh');
 const watcher = read('releases/debug-speed-watch.sh');
 const traffic = read('releases/debug-speed-traffic.mjs');
+const testLauncher = read('releases/debug-speed-test.sh');
 
 // Positive: one opt-in switch reaches WeKan and the local FerretDB process, and
 // writes measurements beside their console logs rather than into the database.
@@ -65,5 +66,12 @@ assert.match(ferretOnly, /stop_process "\$FERRET_PID" "\$FERRET_GROUP"/);
 assert.match(ferretOnly, /trap interrupted INT TERM/);
 assert.doesNotMatch(ferretOnly, /meteor run|WEKAN_PID|wekan\.log|MONGO_OPLOG_URL/);
 assert.doesNotMatch(ferretOnly, /DEBUGSPEED_FERRETDB_LOG_LEVEL:-debug/);
+
+// The traffic launcher owns its matching browser dependency and keeps the
+// download inside the checkout instead of assuming ~/.cache is populated.
+assert.match(testLauncher, /PLAYWRIGHT_BROWSERS_PATH.*\.tools\/ms-playwright/);
+assert.match(testLauncher, /chromium\.executablePath\(\)/);
+assert.match(testLauncher, /playwright\/cli\.js install chromium/);
+assert.match(testLauncher, /\[ ! -x "\$CHROMIUM_PATH" \]/);
 
 console.log('debugSpeed: opt-in, redaction and database modes verified');
