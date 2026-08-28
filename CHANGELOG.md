@@ -7881,9 +7881,14 @@ invitation, password-reset and verification emails and board, JSON, CSV and
 linked-card errors. These direct translations were completed with low
 confidence and welcome review by a Swati speaker. This left **81,899 genuinely
 untranslated values across 38 locale files**.
+The eleventh 50-value Swati batch added account uniqueness errors, card export
+to PDF and Excel, export fields and disk-space status, list sorting and date,
+label and member filters. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **81,849 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`error-user-doesNotExist` with
+`filter-assignee-label` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
