@@ -6,13 +6,20 @@
 # source. So a partially-translated language (or one whose strings were only ever
 # edited directly in git, never entered on Transifex) silently loses translations
 # back to English on every pull.
+# Preserve every local value, including uncommitted direct fills, before tx
+# overwrites the files. The merge uses this snapshot only as a fallback for
+# keys Transifex still returns as English.
+before_dir=$(mktemp -d "${TMPDIR:-/tmp}/wekan-i18n-before-pull.XXXXXX")
+trap 'rm -rf "$before_dir"' EXIT HUP INT TERM
+cp -a imports/i18n/data/. "$before_dir/"
+
 ../tx --config .tx/config pull -a -f
 
 # After pulling, find the language files where a previously-translated string
 # reverted to English (untranslated on Transifex). Needs node + git.
 if command -v node >/dev/null 2>&1; then
   # Human-readable report for the log (which strings reverted to English on the pull).
-  node releases/translations/report-english-regressions.mjs || true
+  node releases/translations/report-english-regressions.mjs --before-dir "$before_dir" || true
 
   # Per-KEY merge — the policy: never overwrite a human translation with a machine
   # (English) one, but always keep the newest Transifex translations. For every
@@ -28,16 +35,15 @@ if command -v node >/dev/null 2>&1; then
   #                                                  used, so a separate machine-
   #                                                  translation step can fill just those
   #                                                  and can never clobber a human one.
-  # The script prints each restored language code; push those back to Transifex (force,
-  # or the timestamp guard skips it) so they stop reverting on future pulls.
-  restored_langs=$(node releases/translations/merge-translations.mjs)
-  if [ -n "$restored_langs" ]; then
-    echo "$restored_langs" | while IFS= read -r lang; do
-      [ -n "$lang" ] || continue
-      echo "[i18n] push restored $lang back to Transifex (so it stops reverting)"
-      ../tx push -t -l "$lang" -f
-    done
-  fi
+  # This is deliberately ONE-WAY. A pulled non-English Transifex value wins;
+  # when Transifex has only English, the pre-pull local value is restored.
+  # Never push here: the fallback may be a direct machine/LLM fill, and without
+  # provenance metadata it must not be uploaded as if it were human.
+  node releases/translations/merge-translations.mjs --before-dir "$before_dir"
+  # Transifex can return its protected-token markers (for example @PH0@)
+  # literally. Restore the corresponding source code/HTML tokens while keeping
+  # the surrounding human translation.
+  node releases/translations/repair-machine-placeholders.mjs --apply
 
   # After the merge, the ONLY English-valued strings left are placeholders untranslated
   # everywhere (incl. every string of a language that has no translation at all). Those are

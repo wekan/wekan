@@ -61,7 +61,7 @@
   "activity": "Actividad",
   "activity-added": "ha añadido %s a %s",
   "activity-archived": "%s se ha archivado",
-  "activity-attached": "adjuntado(s) %s a %s",
+  "activity-attached": "ha adjuntado %s a %s",
   "activity-created": "ha creado %s",
   "activity-changedListTitle": "lista renombrada como %s",
   "activity-customfield-created": "creó el campo personalizado %s",

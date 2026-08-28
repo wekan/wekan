@@ -11,8 +11,8 @@
  * placeholders for strings untranslated everywhere (value === the English source, or the
  * key is missing). A string "counts" as translatable here ONLY when it is such a
  * placeholder, so a human translation (value !== English) is never selected and never
- * overwritten. Filled strings stay LOCAL — they are NOT pushed to Transifex as human
- * translations (only merge-translations.mjs pushes the restored human languages back).
+ * overwritten. Filled strings stay LOCAL — the pull/merge workflow never pushes
+ * translations to Transifex.
  *
  * Usage (run from the repo root):
  *   node releases/translations/fill-translations.mjs --list <lang> [--limit N]

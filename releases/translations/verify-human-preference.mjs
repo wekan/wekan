@@ -3,22 +3,22 @@
  * Self-contained proof that machine/LLM/fill strings can NEVER overwrite a human
  * translation — for BOTH directions of the Transifex round-trip:
  *
- *   PULL  (merge-translations.mjs): a Transifex pull that reverts a human translation to
- *         English is undone — the committed human translation is restored; a real new
- *         Transifex translation is kept; only a string untranslated EVERYWHERE stays
- *         English. Human is preferred and merged.
+ *   PULL  (merge-translations.mjs): a real new Transifex translation is kept; when
+ *         Transifex returns English, the pre-pull local translation is restored. The
+ *         local fallback may be human or directly machine/LLM translated.
  *   FILL  (fill-translations.mjs --apply): a fill writes ONLY into English-placeholder
  *         keys; a key that already holds a human translation is skipped. So the local
  *         fill step never clobbers a human string.
- *   PUSH: only merge-restored (human) languages are pushed to Transifex; filled strings
- *         stay local. This test asserts the two mechanisms above; the push side is that
- *         fill output is never handed to `tx push` (see pull-translations.sh).
+ *   PUSH: pull-translations.sh contains no translation push. Without provenance, a
+ *         restored local value must never be uploaded as if it were human.
  *
  * Pure logic re-implementation of the two merge/apply rules over synthetic data — no git,
  * no files, no network. Run: node releases/translations/verify-human-preference.mjs
  */
 
 // --- the merge rule (per key), copied 1:1 from merge-translations.mjs ---
+import fs from 'node:fs';
+
 function mergeKey({ enV, oldV, newV }) {
   if (typeof newV !== 'string') return newV;              // untouched
   if (typeof enV === 'string' && newV !== enV) return newV;               // keep newest Transifex human
@@ -59,6 +59,20 @@ check('fill NEVER overwrites an existing human translation',
 check('fill ignores a provided value equal to English',
                                               fillKey({ enV: 'Board', curV: 'Board', provided: 'Board' }), 'Board');
 check('fill ignores an empty provided value', fillKey({ enV: 'Board', curV: 'Board', provided: '   ' }), 'Board');
+
+const pullScript = fs.readFileSync('releases/translations/pull-translations.sh', 'utf8');
+check('pull snapshots local translations before Transifex overwrites them',
+  /cp -a imports\/i18n\/data\/\..+before_dir/.test(pullScript), true);
+check('pull merges against the pre-pull snapshot',
+  /merge-translations\.mjs --before-dir/.test(pullScript), true);
+check('pull NEVER pushes translations to Transifex',
+  /^[ \t]*(?!#).*\btx\s+(?:--config\s+\S+\s+)?push\b/m.test(pullScript), false);
+check('pull repairs protected-token markers without replacing the human prose',
+  /repair-machine-placeholders\.mjs --apply/.test(pullScript), true);
+
+const mergeScript = fs.readFileSync('releases/translations/merge-translations.mjs', 'utf8');
+check('same-script Mongolian values are checked against the known Russian seed',
+  /WRONG_LANGUAGE_REFERENCES = \{ mn: \['ru\.i18n\.json'\] \}/.test(mergeScript), true);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

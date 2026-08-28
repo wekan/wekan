@@ -118,18 +118,20 @@ replaced with the language named by that tag.**
   - Transifex has a real translation in the locale's declared language (pulled value
     differs from English) → **keep it** (the newest correct-language human translation
     always wins);
-  - the pull reverted it to English but a correct-language human translation is
-    committed in git → **restore the committed translation** (a pull never reverts a
-    correct-language human translation, even in files that also received real new
-    Transifex translations);
+  - the pull returned English but the pre-pull local file has a translation →
+    **restore the local translation as the fallback**. It may be human or a direct
+    machine/LLM fill; either way it remains local, while a real correct-language
+    Transifex translation takes precedence;
   - **no translation anywhere** (untranslated on Transifex AND never committed) → leave
     the English source as a placeholder. **This is the only case a non-human value is
     used.** A separate fill step may fill *only* these English placeholders, so a filled
     string can never overwrite a human translation.
 - After the merge, audit for mixed or wrong-language values. A value that differs from
   English can still be wrong for its locale; replace it directly as described below.
-- Restored correct-language translations are pushed back to Transifex so they stop
-  reverting.
+- **The pull workflow never pushes translations to Transifex.** It cannot distinguish a
+  restored human translation from a committed direct fill, so automatic push-back would
+  misrepresent machine/LLM translations as human. Push only separately reviewed,
+  provenance-known human translations with an explicit push command.
 
 ### Filling the remaining untranslated strings — directly, no translation service
 
@@ -206,13 +208,12 @@ earlier `machine-translate.mjs` that called LibreTranslate/DeepL is removed on p
 
 **Both directions are safe, and it is verified:**
 `node releases/translations/verify-human-preference.mjs` proves (pure-logic, no network)
-that the pull-merge keeps/restores human translations and that a fill only touches
-placeholders. Filled strings stay **local** — they are **NOT** pushed to Transifex (only
-the merge-restored human languages are pushed), so a filled string can never masquerade
-as human there. So: **only missing strings are ever filled, only when missing
-everywhere, correct-language human strings are always preferred and merged**, while
-wrong-language values are corrected directly; nothing you fill is pushed to Transifex
-as if it were human.
+that a real Transifex translation wins, the pre-pull local translation fills only an
+English result, a fill only touches placeholders, and the pull script contains no push.
+Thus **correct-language Transifex human strings are preferred and merged**, remaining
+keys retain their local human or machine/LLM translations, and nothing restored or
+filled is pushed to Transifex as if it were human. Wrong-language values are corrected
+directly after the merge.
 
 ## General practices (from .tools/log/v10/Claude.txt)
 

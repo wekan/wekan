@@ -1561,7 +1561,7 @@
   "globalSearch-instructions-operator-user": "`__operator_user__:<username>` - ​​amakhadi apho *<username>* ililungu* okanye *umbelwe*",
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - ​​shorthand ka `user:<username>`",
   "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - ​​amakhadi apho *<username>* ililungu*",
-  "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - amakhadi apho *<username>* ingumntu owabelweyo",
+  "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - ​​amakhadi apho *<username>* ngumsebenzi *",
   "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - ​​amakhadi apho *<username>* ngumenzi wekhadi",
   "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - ​​amakhadi ebhodi eyabelwe umbutho *<name>*",
   "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - ​​amakhadi ebhodi eyabelwe iqela *<name>*",
