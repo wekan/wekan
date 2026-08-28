@@ -7910,9 +7910,15 @@ guidance, unsaved-description rescue, search, WIP limits, keyboard shortcuts,
 sidebars, signup and default boards. These direct translations were completed
 with low confidence and welcome review by a Swati speaker. This left **81,649
 genuinely untranslated values across 38 locale files**.
+The sixteenth 50-value Swati batch added starred boards, subscriptions, time
+tracking and overtime, keyboard toggles, upload status, custom logo and URL
+settings, welcome and template boards and WIP-limit errors. These direct
+translations were completed with low confidence and welcome review by a Swati
+speaker. This left **81,599 genuinely untranslated values across 38 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
