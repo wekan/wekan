@@ -8250,8 +8250,10 @@ translation coverage compare example domains as exact text. **Card titles**
 keep markdown links clickable and mouse text selection native, while comment
 markdown retains its per-render fallback. **REST user deletion** now reports
 the database-confirmed outcome and documents both success and missing-user
-responses. The table below is carried over from the release under this one, and
-is refilled from each build's provenance.tsv when this release is made.
+responses. **Translations** complete Swati, begin Sesotho and raise the measured
+essentially-complete total to 197 while protecting target-language vocabulary
+and code tokens. The table below is carried over from the release under this
+one, and is refilled from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8365,6 +8367,46 @@ Repeatable response annotations let the OpenAPI generator document the exact
 every removal outcome, regenerated YAML matches the route source byte for byte,
 and a live Chromium API test confirms deletion in MongoDB before repeating the
 request and receiving 404.
+
+</details>
+
+and improves the following translations:
+
+**Translations** - Swati reaches completion, Sesotho begins and measured
+completion assertions stay current.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87d527c89">Swati is complete</a>. Thanks to xet7.</summary>
+
+The remaining 417 Swati strings now cover jobs, storage, migrations, backups,
+privacy, monitoring, repositories and imports. A same-script vocabulary audit
+also replaces the Zulu word `ibhodi` with the Swati `libhodi`.
+
+Regression coverage proves the locale has no English placeholders, preserves
+the exact source placeholder and HTML inventories and uses Swati vocabulary.
+These direct translations have lower confidence than reviewed human work and
+remain open to correction by Swati speakers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac8006417">Sesotho translation begins with core board activity</a>. Thanks to xet7.</summary>
+
+The first 50 Sesotho strings translate activity titles and descriptions,
+members, comments, dates, attachments, labels, checklists, custom fields,
+archives and imports. Source placeholders remain exact, and a language-specific
+regression checks Sesotho vocabulary while recording the 2,117 strings still
+untranslated at this commit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd694a164">Translation completion assertions match the measured files</a>. Thanks to xet7.</summary>
+
+The translation documentation now reports 197 essentially complete locales,
+and the Northern Sotho regression expects its measured zero remaining English
+placeholders. Tests calculate these values from the locale files so stale
+completion claims fail visibly.
 
 </details>
 
