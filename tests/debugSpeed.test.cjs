@@ -49,8 +49,9 @@ assert.match(watcher, /ps -eo pid=,ppid=,pcpu=,pmem=,rss=,vsz=,stat=,comm=/);
 // The MongoDB choice must let Meteor start its own database; FerretDB is
 // standalone polling and must never receive an OpLog URL.
 assert.match(server, /unset MONGO_URL MONGO_OPLOG_URL/);
-assert.match(server, /unset MONGO_OPLOG_URL/);
-assert.match(server, /METEOR_REACTIVITY_ORDER=polling/);
+assert.match(server, /--repl-set-name=rs0/);
+assert.match(server, /MONGO_OPLOG_URL="mongodb:\/\/127\.0\.0\.1:\$FERRET_PORT\/local\?replicaSet=rs0"/);
+assert.match(server, /METEOR_REACTIVITY_ORDER=oplog,polling/);
 
 // A restore-safe launcher runs the same instrumented FerretDB without starting
 // Meteor/WeKan. It owns and reaps FerretDB, its watcher and its log follower.

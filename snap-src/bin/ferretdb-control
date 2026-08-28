@@ -91,7 +91,7 @@ if [ "sqlite" != "${FERRETDB_HANDLER}" ]; then
 
     # Same OpLog gate as the sqlite path: create the replica set / OpLog only when the
     # admin opts in (wekan-ferretdb-oplog=true); otherwise run standalone (polling).
-    if [ "true" = "${WEKAN_FERRETDB_OPLOG:-false}" ]; then
+    if [ "true" = "${WEKAN_FERRETDB_OPLOG:-true}" ]; then
         REPL_SET_ARGS=(--repl-set-name="${WEKAN_FERRETDB_REPL_SET:-rs0}")
         OPLOG_MODE="OpLog enabled (replSet ${WEKAN_FERRETDB_REPL_SET:-rs0})"
     else
@@ -122,17 +122,11 @@ export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 # #6480/#6481: a replica-set name makes FerretDB v1 auto-create the capped
 # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's Meteor
 # CAN tail the OpLog. But the OpLog is only useful when WeKan is ACTUALLY tailing it
-# (WEKAN_FERRETDB_OPLOG=true). In the default polling-only mode (wekan/wekan#6503)
-# maintaining the OpLog is pure overhead: a second write per mutation, a
-# once-a-minute capped-cleanup ticker, and — worst — a leftover tailable cursor
-# whose SQLite awaitData re-scan can peg FerretDB CPU (300%+) even while node is
-# idle. So enable the replica set / OpLog ONLY in OpLog mode; in polling-only mode
-# run FerretDB STANDALONE, with no OpLog at all. This matches the WEKAN_FERRETDB_OPLOG
-# gate in wekan-control (which unsets MONGO_OPLOG_URL in the same mode), so neither
-# side keeps an OpLog alive by default. Repl-set name overridable via
-# WEKAN_FERRETDB_REPL_SET.
+# OpLog mode is the default now that FerretDB wakes awaitData tails from backend
+# write notifications instead of repeatedly polling SQLite. The explicit false
+# setting remains available as a standalone polling fallback.
 REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
-if [ "true" = "${WEKAN_FERRETDB_OPLOG:-false}" ]; then
+if [ "true" = "${WEKAN_FERRETDB_OPLOG:-true}" ]; then
     REPL_SET_ARGS=(--repl-set-name="${REPL_SET_NAME}")
     OPLOG_MODE="OpLog enabled (replSet ${REPL_SET_NAME})"
 else

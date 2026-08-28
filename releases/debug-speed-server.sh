@@ -129,14 +129,14 @@ if [ "$DB_CHOICE" = ferretdb ]; then
   export FERRETDB_SQLITE_URL="file:$FERRET_STATE/"
   export FERRETDB_LISTEN_ADDR="127.0.0.1:$FERRET_PORT"
   export FERRETDB_TELEMETRY=disable
-  start_isolated "$FERRET_DIR/bin/ferretdb" \
+  start_isolated "$FERRET_DIR/bin/ferretdb" --repl-set-name=rs0 \
     >"$LOG_DIR/ferretdb.log" 2>&1
   FERRET_PID=$STARTED_PID
   FERRET_GROUP=$STARTED_GROUP
-  export MONGO_URL="mongodb://127.0.0.1:$FERRET_PORT/wekan"
-  unset MONGO_OPLOG_URL
-  export DEFAULT_METEOR_REACTIVITY_ORDER=polling
-  export METEOR_REACTIVITY_ORDER=polling
+  export MONGO_URL="mongodb://127.0.0.1:$FERRET_PORT/wekan?replicaSet=rs0"
+  export MONGO_OPLOG_URL="mongodb://127.0.0.1:$FERRET_PORT/local?replicaSet=rs0"
+  export DEFAULT_METEOR_REACTIVITY_ORDER=oplog,polling
+  export METEOR_REACTIVITY_ORDER=oplog,polling
 else
   # With no MONGO_URL, `meteor run` starts the MongoDB shipped in ~/.meteor.
   unset MONGO_URL MONGO_OPLOG_URL

@@ -157,8 +157,8 @@ DEFAULT_DISABLE_MONGODB="false"
 KEY_DISABLE_MONGODB="disable-mongodb"
 
 
-DESCRIPTION_WEKAN_FERRETDB_OPLOG="FerretDB reactivity mode. 'false' (default) = polling only, which keeps FerretDB CPU low; 'true' = tail the FerretDB OpLog (real-time), but on the SQLite backend the tail can pin FerretDB CPU and stall loading (wekan/wekan#6503). Only applies when database=ferretdb. Force polling: snap set ${SNAP_NAME} wekan-ferretdb-oplog=false ; opt into OpLog: snap set ${SNAP_NAME} wekan-ferretdb-oplog=true"
-DEFAULT_WEKAN_FERRETDB_OPLOG="false"
+DESCRIPTION_WEKAN_FERRETDB_OPLOG="FerretDB reactivity mode. 'true' (default) = tail the write-notified FerretDB OpLog for real-time updates; 'false' = standalone polling fallback. Only applies when database=ferretdb. Force polling: snap set ${SNAP_NAME} wekan-ferretdb-oplog=false ; enable OpLog: snap set ${SNAP_NAME} wekan-ferretdb-oplog=true"
+DEFAULT_WEKAN_FERRETDB_OPLOG="true"
 KEY_WEKAN_FERRETDB_OPLOG="wekan-ferretdb-oplog"
 
 DESCRIPTION_WEKAN_FERRETDB_HANDLER="FerretDB v1 storage backend. 'sqlite' (default) = the embedded, zero-dependency SQLite backend (data under \$SNAP_COMMON/files/db). 'postgresql' / 'mysql' = an EXTERNAL PostgreSQL / MySQL server that YOU run (the snap does not bundle one); set its address with wekan-ferretdb-url. Only applies when database=ferretdb."

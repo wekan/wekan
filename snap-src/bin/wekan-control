@@ -382,7 +382,7 @@ fi
 # 10 s) hammered FerretDB; calmer defaults re-poll at most every 2 s / 30 s. Own
 # writes still show instantly (local cache); only OTHER users' changes wait ~2 s.
 if [ "ferretdb" = "${DATABASE}" ]; then
-    WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-false}"
+    WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-true}"
     if [ "true" = "${WEKAN_FERRETDB_OPLOG}" ]; then
         if [ -z "${MONGO_OPLOG_URL}" ]; then
             REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"

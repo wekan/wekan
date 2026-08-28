@@ -2,9 +2,8 @@
 
 // Source guard for the FerretDB high-CPU fix (10.16-10.21 reports: the ferretdb
 // process pegging ~2 cores while node is idle). ferretdb-control must enable the
-// replica set / OpLog ONLY when WEKAN_FERRETDB_OPLOG=true; in the default
-// polling-only mode it must run FerretDB STANDALONE, so no OpLog is maintained and
-// nothing can spin on tailing it. Matches the gate in wekan-control.
+// replica set / OpLog by default, while an explicit false still runs FerretDB
+// standalone as a polling fallback. Matches the gate in wekan-control.
 // Run: node tests/ferretdbOplogGating.test.cjs
 
 const assert = require('assert');
@@ -18,8 +17,8 @@ const ctl = fs.readFileSync(
   path.join(__dirname, '..', 'snap-src', 'bin', 'ferretdb-control'), 'utf8');
 
 check('replica-set args are gated on WEKAN_FERRETDB_OPLOG', () => {
-  assert.ok(/if \[ "true" = "\$\{WEKAN_FERRETDB_OPLOG:-false\}" \]; then/.test(ctl),
-    'must branch on WEKAN_FERRETDB_OPLOG (default false)');
+  assert.ok(/if \[ "true" = "\$\{WEKAN_FERRETDB_OPLOG:-true\}" \]; then/.test(ctl),
+    'must branch on WEKAN_FERRETDB_OPLOG (default true)');
   assert.ok(/REPL_SET_ARGS=\(--repl-set-name="\$\{REPL_SET_NAME\}"\)/.test(ctl),
     'oplog mode: pass --repl-set-name');
   assert.ok(/REPL_SET_ARGS=\(\)/.test(ctl),
@@ -40,7 +39,7 @@ check('the exec uses the gated args, not an unconditional --repl-set-name', () =
     'the exec must NOT hard-code --repl-set-name (it comes from the gated array)');
 });
 
-check('default (polling) mode is reflected in the startup log', () => {
+check('both reactivity modes are reflected in the startup log', () => {
   assert.ok(/polling only \(standalone, no OpLog\)/.test(ctl),
     'must log standalone/polling mode');
   assert.ok(/OpLog enabled \(replSet /.test(ctl), 'must log oplog mode when enabled');
