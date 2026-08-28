@@ -7352,17 +7352,21 @@ authentication errors, Problems status, card repair and event-report fields.
 These direct translations were completed with low confidence and welcome review
 by a Sinhala speaker. This left **86,750 genuinely untranslated values across 41
 locale files**.
+The final 17-value Sinhala batch added event-address and filesystem-integrity
+labels, scoped import and export guidance, and the Global Search card-number
+operator. These direct translations were completed with low confidence and
+welcome review by a Sinhala speaker. Sinhala is now complete, leaving **86,733
+genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Sinhala at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list si --limit 50`;
+and exact tokens from `en.i18n.json`, beginning Samoan at `accept` with
+`node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
 Chichewa, Oromo, Pashto, Kirundi, Kinyarwanda and Sakha are now complete.
-Sindhi and Northern Sami are also now complete.
+Sindhi, Northern Sami and Sinhala are also now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
