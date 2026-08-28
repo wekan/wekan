@@ -8245,12 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Translation maintenance commands** no longer pass repository
+filenames through a shell, resolving two CodeQL command-injection findings in
+standalone tooling. The table below is carried over from the release under this
+one, and is refilled from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8260,26 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e17ecbc7">Translation Git commands treat repository filenames only as arguments</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+
+CodeQL alerts #439 and #440 found that the translation merge and English-
+regression report interpolated Git revisions and locale paths into shell command
+strings. The supported pull path supplied a snapshot directory and did not
+reach these commands, but standalone use could interpret shell metacharacters
+from a contributor-controlled locale filename.
+
+Both scripts now invoke Git directly with separate arguments and consume its
+changed-file list with NUL delimiters. Positive coverage retains normal
+translation restoration and regression reporting; negative coverage uses a
+locale filename containing shell syntax and proves neither script executes it.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.19 2026-08-28 WeKan ® release
 
