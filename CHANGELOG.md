@@ -7357,8 +7357,13 @@ labels, scoped import and export guidance, and the Global Search card-number
 operator. These direct translations were completed with low confidence and
 welcome review by a Sinhala speaker. Sinhala is now complete, leaving **86,733
 genuinely untranslated values across 40 locale files**.
+The first 50-value Samoan batch added activity history for board, card, list,
+swimlane, attachment, label, checklist, comment, custom-field and member changes.
+These direct translations were completed with low confidence and welcome review
+by a Samoan speaker. This left **86,683 genuinely untranslated values across 40
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, beginning Samoan at `accept` with
+and exact tokens from `en.i18n.json`, resuming Samoan at `act-moveCard` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
