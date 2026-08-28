@@ -28,18 +28,8 @@ generate_password() {
 
 # --- STEP 1: CHECK ADMIN-USER AND PASSWORDLESS MONGODB STATE ---
 
-# Check is there already authorization enabled at mongod.conf
-IS_AUTH_ENABLED=$(grep -A 5 "^security:" "$CONFIG_FILE" 2>/dev/null | grep "authorization:" | grep -q "enabled"; echo $?)
-
 if [ ! -f "$ADMIN_FILE" ]; then
-    # If admin.txt is missing, but database already requires auth, passwordless usage is not possible
-    if [ "$IS_AUTH_ENABLED" -eq 0 ]; then
-        echo "Error: MongoDB is already protected (authorization: enabled), but file $ADMIN_FILE is missing."
-        echo "Script can not create admin-user without access to database. Exiting."
-        exit 1
-    fi
-
-    echo "--- There is no Admin yet. Creating Admin to passwordless database... ---"
+    echo "--- There is no Admin yet. Creating Admin with the MongoDB localhost exception... ---"
     
     ADMIN_USER="admin_root"
     ADMIN_PASS=$(generate_password)
@@ -162,7 +152,7 @@ mongosh --port $MONGO_PORT \
 
 if [ $? -eq 0 ]; then
     # Creating also ready MONGO_OPLOG_URL to output / file for ease of use
-    TARGET_URL="mongodb://${DB_NAME}_user:${TARGET_PASS}@${MONGO_HOST}:${MONGO_PORT}/${DB_NAME}?authSource=${DB_NAME}"
+    TARGET_URL="mongodb://${DB_NAME}_user:${TARGET_PASS}@${MONGO_HOST}:${MONGO_PORT}/${DB_NAME}?replicaSet=rs0&authSource=${DB_NAME}"
     OPLOG_URL="mongodb://${DB_NAME}_user:${TARGET_PASS}@${MONGO_HOST}:${MONGO_PORT}/local?replicaSet=rs0&authSource=${DB_NAME}"
     
     echo "MONGO_URL=${TARGET_URL}" > "$TARGET_FILE"

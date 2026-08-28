@@ -75,6 +75,12 @@ Create MongoDB key:
 ```
 ./keys.sh
 ```
+After installing `mongo/mongod.conf` and starting MongoDB, initialize its
+single-node replica set. The command is idempotent and waits for a writable
+primary:
+```
+./mongo/init-replica-set.sh
+```
 1) Adding new user, it saves MongoDB connection string to username.txt:
 ```
 ./1createdb.sh username

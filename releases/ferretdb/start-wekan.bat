@@ -31,38 +31,11 @@ REM every docker-compose set this; the two bundle launchers were the only
 REM platforms that did not. Set WITH_API=false to turn the REST API off.
 if not defined WITH_API set "WITH_API=true"
 if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
-REM  #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (started below with
-REM  --repl-set-name), but on the SQLite backend the tail keeps FerretDB CPU
-REM  pinned (~190-390% even idle) and stalls loading, so the DEFAULT is now
-REM  POLLING ONLY. Opt into OpLog tailing with WEKAN_FERRETDB_OPLOG=true.
-if not defined WEKAN_FERRETDB_OPLOG set "WEKAN_FERRETDB_OPLOG=false"
-if not defined WEKAN_FERRETDB_REPL_SET set "WEKAN_FERRETDB_REPL_SET=rs0"
-set "FERRET_REPL_ARG="
-if /I "%WEKAN_FERRETDB_OPLOG%"=="true" (
-  set "FERRET_REPL_ARG=--repl-set-name=%WEKAN_FERRETDB_REPL_SET%"
-  if not defined MONGO_OPLOG_URL set "MONGO_OPLOG_URL=mongodb://127.0.0.1:27017/local?replicaSet=%WEKAN_FERRETDB_REPL_SET%"
-  REM  Prefer OpLog but ALWAYS keep polling as the final fallback: Meteor uses
-  REM  OpLog only when tailing works, otherwise polling. Admin Panel / Version
-  REM  ("Reactivity mode") shows which one is live.
-  if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=oplog,polling"
-  if not defined DEFAULT_METEOR_REACTIVITY_ORDER set "DEFAULT_METEOR_REACTIVITY_ORDER=oplog,polling"
-) else (
-  if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=polling"
-  if not defined DEFAULT_METEOR_REACTIVITY_ORDER set "DEFAULT_METEOR_REACTIVITY_ORDER=polling"
-)
-REM  FerretDB (v1 SQLite fork) does NOT implement MongoDB change streams: a
-REM  $changeStream aggregate returns "not implemented" and Meteor busy-loops
-REM  retrying it (high FerretDB CPU, cards never open). Force changeStreams out
-REM  of the reactivity order however it was passed in (done at top level, not in
-REM  the parentheses above, so each set sees the previous line's result).
-set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStreams,=%"
-set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:,changeStreams=%"
-set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStreams=%"
-set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStream,=%"
-set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:,changeStream=%"
-set "METEOR_REACTIVITY_ORDER=%METEOR_REACTIVITY_ORDER:changeStream=%"
-if not defined METEOR_REACTIVITY_ORDER set "METEOR_REACTIVITY_ORDER=oplog,polling"
-if "%METEOR_REACTIVITY_ORDER%"=="" set "METEOR_REACTIVITY_ORDER=oplog,polling"
+REM FerretDB v1 SQLite is standalone and polling-only. Replica sets and OpLog
+REM tailing are reserved for real MongoDB deployments.
+set "MONGO_OPLOG_URL="
+set "METEOR_REACTIVITY_ORDER=polling"
+set "DEFAULT_METEOR_REACTIVITY_ORDER=polling"
 REM  Card loading: "all" (default, every card into the browser) or "lazy" (each
 REM  list loads only the visible cards on demand, for very large boards). Also
 REM  changeable at runtime in Admin Panel / Features.
@@ -93,7 +66,7 @@ if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=%WEKAN_RUNTIM
 if not defined GOMEMLIMIT set "GOMEMLIMIT=%WEKAN_GO_HEAP_MB%MiB"
 :wekan_loop
 echo Starting bundled FerretDB v1 (SQLite) on 127.0.0.1:27017 (data: %FERRETDB_SQLITE_DIR%) ...
-start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 %FERRET_REPL_ARG% --telemetry=disable
+start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 --telemetry=disable
 
 echo Starting WeKan on %ROOT_URL% (port %PORT%), files under %WRITABLE_PATH% ...
 "%DIR%node.exe" "%DIR%main.js"

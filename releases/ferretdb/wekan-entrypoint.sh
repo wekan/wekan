@@ -84,42 +84,11 @@ if [ "$want_ferret" = true ]; then
   fi
   export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
   mkdir -p "$FERRETDB_SQLITE_DIR"
-  # #6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (auto-created capped
-  # local.oplog.rs + replica-set hello handshake), but on the SQLite backend the
-  # tailable+awaitData tail keeps FerretDB CPU pinned (~190–390% even idle) and a
-  # struggling tail shows as "oplog catching up took too long" and stalls loading,
-  # so the DEFAULT is now POLLING ONLY. Opt into OpLog tailing with
-  # WEKAN_FERRETDB_OPLOG=true if you specifically want it.
-  WEKAN_FERRETDB_OPLOG="${WEKAN_FERRETDB_OPLOG:-false}"
-  REPL_SET_NAME="${WEKAN_FERRETDB_REPL_SET:-rs0}"
-  if [ "$WEKAN_FERRETDB_OPLOG" = "true" ]; then
-    export MONGO_OPLOG_URL="${MONGO_OPLOG_URL:-mongodb://$FERRETDB_LISTEN_ADDR/local?replicaSet=$REPL_SET_NAME}"
-    # Prefer OpLog but ALWAYS keep polling as the final fallback: Meteor uses
-    # OpLog only when tailing actually works, otherwise polling — a broken/absent
-    # OpLog never stops WeKan starting. Admin Panel / Version ("Reactivity mode")
-    # shows which one is live.
-    # FerretDB (v1 SQLite fork) does NOT implement MongoDB change streams: a
-    # $changeStream aggregate returns "not implemented" and Meteor busy-loops
-    # retrying it (high FerretDB CPU, cards never open). Force changeStreams out
-    # of the reactivity order no matter how it was passed in, keeping oplog,polling.
-    _reactivity="${METEOR_REACTIVITY_ORDER:-oplog,polling}"
-    _reactivity="$(printf '%s' "${_reactivity}" | tr ',' '\n' | grep -vixE 'changeStreams?' | tr '\n' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')"
-    [ -z "${_reactivity}" ] && _reactivity="oplog,polling"
-    export METEOR_REACTIVITY_ORDER="${_reactivity}"
-    export DEFAULT_METEOR_REACTIVITY_ORDER="oplog,polling"
-  else
-    # FerretDB has no change streams; polling-only here, but still strip any
-    # changeStreams that was passed in so it can never enter the order.
-    # #6498: also UNSET MONGO_OPLOG_URL — merely having it set makes Meteor start an
-    # OpLog tail at boot that polls FerretDB continuously (high CPU even with no
-    # clients), regardless of the reactivity order. Clearing it makes polling-only real.
-    unset MONGO_OPLOG_URL
-    _reactivity="${METEOR_REACTIVITY_ORDER:-polling}"
-    _reactivity="$(printf '%s' "${_reactivity}" | tr ',' '\n' | grep -vixE 'changeStreams?' | tr '\n' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')"
-    [ -z "${_reactivity}" ] && _reactivity="polling"
-    export METEOR_REACTIVITY_ORDER="${_reactivity}"
-    export DEFAULT_METEOR_REACTIVITY_ORDER="polling"
-  fi
+  # Bundled FerretDB v1 SQLite is standalone and polling-only. Replica sets,
+  # change streams and OpLog tailing are reserved for external MongoDB.
+  unset MONGO_OPLOG_URL
+  export METEOR_REACTIVITY_ORDER="polling"
+  export DEFAULT_METEOR_REACTIVITY_ORDER="polling"
   # Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
   # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
   export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
@@ -172,16 +141,7 @@ if [ "$want_ferret" = true ]; then
     printf '{"type":"backup-created","db":"wekan","severity":"info","source":"startup","detail":"Backed up wekan.sqlite to backup/","ts":"%s"}\n' \
       "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')" >> "$FERRETDB_SQLITE_DIR/recovery-events.jsonl" 2>/dev/null || true
   fi
-  # #6492: reset the simulated OpLog (the transient `local` database) before starting
-  # FerretDB so a bloated/corrupt OpLog can never persist and drive FerretDB CPU to
-  # 300%+. Boards/cards live in wekan.sqlite, NOT local.sqlite, so this is safe;
-  # FerretDB recreates a fresh, correctly-capped OpLog. Set
-  # WEKAN_FERRETDB_RESET_OPLOG=false to keep the existing OpLog.
-  if [ "${WEKAN_FERRETDB_RESET_OPLOG:-true}" = "true" ] && [ -n "$FERRETDB_SQLITE_DIR" ]; then
-    rm -f "$FERRETDB_SQLITE_DIR/local.sqlite" "$FERRETDB_SQLITE_DIR/local.sqlite-wal" \
-          "$FERRETDB_SQLITE_DIR/local.sqlite-shm" "$FERRETDB_SQLITE_DIR/local.sqlite-journal"
-  fi
-  echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (replSet $REPL_SET_NAME, OpLog enabled) ..."
+  echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (standalone polling) ..."
   # #6458: /build/cpu-exec runs a binary through the bundled same-arch
   # qemu-user when the CPU lacks features the binary declares (via
   # WEKAN_REQUIRED_CPU_FEATURES, e.g. "x86_64=avx"). node and ferretdb are
@@ -192,7 +152,6 @@ if [ "$want_ferret" = true ]; then
       --handler=sqlite \
       --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
       --listen-addr="$FERRETDB_LISTEN_ADDR" \
-      --repl-set-name="$REPL_SET_NAME" \
       --telemetry=disable \
       --log-level=error &
   else
@@ -200,7 +159,6 @@ if [ "$want_ferret" = true ]; then
       --handler=sqlite \
       --sqlite-url="file:$FERRETDB_SQLITE_DIR/" \
       --listen-addr="$FERRETDB_LISTEN_ADDR" \
-      --repl-set-name="$REPL_SET_NAME" \
       --telemetry=disable \
       --log-level=error &
   fi

@@ -354,7 +354,7 @@ services:
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
       #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - MONGO_URL=mongodb://wekandb:27017/wekan?replicaSet=rs0
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====

@@ -69,15 +69,11 @@ services:
           chmod +x "$$BIN"
         fi
         mkdir -p /data/files/db
-        # #6480/#6481: --repl-set-name makes FerretDB v1 auto-create the capped
-        # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's
-        # Meteor can TAIL the OpLog instead of poll-and-diff (fixes high CPU on
-        # busy boards). Pair with MONGO_OPLOG_URL in the wekan service below.
+        # FerretDB v1 SQLite is standalone; WeKan observes it with polling.
         exec "$$BIN" \
           --handler=sqlite \
           --sqlite-url=file:/data/files/db/ \
           --listen-addr=0.0.0.0:27017 \
-          --repl-set-name=rs0 \
           --telemetry=disable \
           --log-level=error
     # Healthy only once FerretDB is actually accepting connections on 27017 — i.e.
@@ -145,20 +141,8 @@ services:
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
       - 80:8080
     environment:
-      #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
-      # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
-      #- METEOR_REACTIVITY_ORDER=polling
-      # https://forums.meteor.com/t/meteor-3-5-beta-change-streams-performance-improvements/64461#change-streams-setup-3
-      # https://github.com/meteor/meteor/blob/release-3.5/v3-docs/docs/performance/change-streams-observer-driver.md#choosing-the-reactivity-driver-order
-      # Keep oplog/polling fallback available for deployments that cannot use Change Streams:
-      # https://github.com/wekan/wekan/issues/6307#issuecomment-4299349231
-      # wekan/wekan#6503/#6480/#6481: FerretDB v1 CAN tail an OpLog (the ferretdb
-      # service above runs with --repl-set-name=rs0). On the SQLite backend that
-      # tail keeps FerretDB CPU pinned (~190–390% even idle) and a struggling tail
-      # shows as "oplog catching up took too long" and stalls loading; on this
-      # backend it is simply UNVERIFIED. Either way FerretDB has no MongoDB change
-      # streams, so the DEFAULT here is POLLING ONLY. To try OpLog tailing, set both
-      # to `oplog,polling` and uncomment MONGO_OPLOG_URL in the wekan service below.
+      # FerretDB v1 deployments are polling-only. Use docker-compose-mongodb-v7.yml
+      # for MongoDB replica-set/change-stream reactivity.
       - DEFAULT_METEOR_REACTIVITY_ORDER=polling
       - METEOR_REACTIVITY_ORDER=polling
       # uws does not work at s390x. sockjs works.
@@ -179,18 +163,8 @@ services:
       #- S3_SECRET_FILE=/run/secrets/s3_secret
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
-      # directConnection=true is REQUIRED (wekan/wekan#6582). The ferretdb service
-      # above runs with --repl-set-name=rs0, so its handshake advertises a replica
-      # set whose only member is its own LISTEN address, 0.0.0.0:27017. Without
-      # directConnection the MongoDB driver does replica-set discovery: it drops the
-      # host written here and dials the advertised 0.0.0.0:27017 instead, which
-      # inside the wekan container is the wekan container itself — that is the
-      # "MongoServerSelectionError: connect ECONNREFUSED 0.0.0.0:27017" a fresh
-      # `docker compose up` died with. directConnection=true keeps the driver on
-      # exactly this host. OpLog tailing is unaffected: Meteor only needs setName in
-      # the handshake, which is still there.
-      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan?directConnection=true
-      - MONGO_URL=mongodb://ferretdb:27017/wekan?directConnection=true
+      #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
+      - MONGO_URL=mongodb://ferretdb:27017/wekan
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -227,26 +201,6 @@ services:
       #   - NODE_OPTIONS="--max_old_space_size=4096"
       # Add more stack, this is done at Dockerfile:
       #   bash -c "ulimit -s 65500; exec node --stack-size=65500 main.js"
-      #---------------------------------------------------------------
-      # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
-      # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
-      # HIGHLY RECOMMENDED for pub/sub performance!
-      # MongoDB oplog is used by Meteor for real-time data synchronization.
-      # Without oplog, Meteor falls back to polling which increases:
-      #   - CPU usage by 3-5x
-      #   - Network traffic significantly
-      #   - Latency from 50ms to 2000ms
-      # Must configure MongoDB replica set first
-      # See: https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
-      # FerretDB v1 CAN emulate the OpLog via --repl-set-name=rs0 (set on the
-      # ferretdb service above). On the SQLite backend that tail keeps FerretDB CPU
-      # pinned and stalls loading (wekan/wekan#6503); on this backend it is
-      # UNVERIFIED, so it is DISABLED by default here too. Merely SETTING
-      # MONGO_OPLOG_URL makes Meteor start an OpLog tail regardless of the
-      # reactivity order (#6498), so it is commented out. To try OpLog tailing,
-      # uncomment the next line AND set METEOR_REACTIVITY_ORDER=oplog,polling above.
-      # directConnection=true for the same reason as MONGO_URL above (#6582).
-      #- MONGO_OPLOG_URL=mongodb://ferretdb:27017/local?replicaSet=rs0&directConnection=true
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/edemaine/kadira-compose

@@ -26,11 +26,7 @@ const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
 console.log('ferretdbOplogReset:');
 
 // Every FerretDB launch path that starts the bundled/snap FerretDB.
-const SCRIPTS = [
-  'snap-src/bin/ferretdb-control',
-  'releases/ferretdb/start-wekan.sh',
-  'releases/ferretdb/wekan-entrypoint.sh',
-];
+const SCRIPTS = ['snap-src/bin/ferretdb-control'];
 
 for (const rel of SCRIPTS) {
   const src = read(rel);
@@ -80,6 +76,15 @@ for (const rel of SCRIPTS) {
       /\[ -n "?\$\{?(SQLITE_DIR|FERRETDB_SQLITE_DIR)\}?"? \]/.test(src),
       'reset must require a non-empty SQLite dir before deleting',
     );
+  });
+}
+
+for (const rel of [
+  'releases/ferretdb/start-wekan.sh',
+  'releases/ferretdb/wekan-entrypoint.sh',
+]) {
+  test(`${rel}: standalone polling has no simulated OpLog reset`, () => {
+    assert.ok(!/local\.sqlite|WEKAN_FERRETDB_RESET_OPLOG/.test(read(rel)));
   });
 }
 
