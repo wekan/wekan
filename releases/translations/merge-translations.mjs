@@ -30,7 +30,7 @@
  *
  * Run from the repo root. Needs git.
  */
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -42,7 +42,7 @@ const beforeDir = beforeArg >= 0 ? process.argv[beforeArg + 1] : null;
 const parse = t => { try { return JSON.parse(t); } catch { return null; } };
 const readFile = p => { try { return parse(fs.readFileSync(p, 'utf8')); } catch { return null; } };
 const gitShow = (ref, p) => {
-  try { return execSync(`git show ${ref}:${p}`, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }); }
+  try { return execFileSync('git', ['show', `${ref}:${p}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }); }
   catch { return null; } // file did not exist at that ref (new language) → treat as empty
 };
 
@@ -82,8 +82,8 @@ if (beforeDir) {
     .map(name => path.join(DATA_DIR, name));
 } else {
   try {
-    changed = execSync(`git diff --name-only -- ${DATA_DIR}`, { encoding: 'utf8' })
-      .split('\n').map(s => s.trim()).filter(Boolean)
+    changed = execFileSync('git', ['diff', '--name-only', '-z', '--', DATA_DIR], { encoding: 'utf8' })
+      .split('\0').filter(Boolean)
       .filter(f => f.endsWith('.i18n.json') && path.basename(f) !== 'en.i18n.json');
   } catch { /* not a git repo / no git → nothing to merge */ }
 }
