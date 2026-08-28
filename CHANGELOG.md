@@ -7757,9 +7757,14 @@ database recovery status, swimlane copying, wait-spinner styles, organization
 warnings and help-desk tickets and requests. These direct translations were
 completed with low confidence and welcome review by a Somali speaker. This left
 **83,016 genuinely untranslated values across 39 locale files**.
+The thirty-second 50-value Somali batch added team and organization management,
+invitations, Node memory diagnostics, legal notices, checklist conversion and
+copying, and attachment storage movement. These direct translations were
+completed with low confidence and welcome review by a Somali speaker. This left
+**82,966 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
