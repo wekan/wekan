@@ -8249,7 +8249,8 @@ browser build to verify).
 **Database launchers** separate standalone FerretDB polling from MongoDB 7
 replica sets and multitenancy, while **DEBUGSPEED diagnostics** make comparative
 MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
-self-cleaning minute ticker, and **Snap assembly** uses the correct extracted
+self-cleaning minute ticker, **database selectors** no longer accommodate
+FerretDB query-planner gaps, and **Snap assembly** uses the correct extracted
 release bundle on every architecture.
 
 | Platform | Binary | From | Version | SHA256 |
@@ -8431,6 +8432,21 @@ but the browser timed out and incorrectly displayed “Something went wrong.” 
 projected one-document lookup now preserves the first-administrator rule
 without work proportional to the instance's user count. Positive and negative
 regression checks pin the bounded lookup and forbid a full count in the hook.
+
+</details>
+
+and removes the following database-specific application workarounds:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43a76fcdc">Send ordinary MongoDB selectors to every compatible database</a>. Thanks to xet7.</summary>
+
+Board card scopes again use their normal null-containing `$in`, client and
+authorization selectors remain explicit `$and` conjuncts, activity predicates
+are not flattened, and one-branch visibility still uses `$or`. The matching
+FerretDB backend fixes now push null and empty `$in`, booleans, `$or`, `$and`,
+and indexed single-field or compound equality constraints into SQLite. WeKan's
+tests pin the database-independent selector shapes; FerretDB's unit suite pins
+the SQL constraints and index choices.
 
 </details>
 
