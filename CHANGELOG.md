@@ -7777,9 +7777,14 @@ login protection and unlocking, user status filters, scheduled jobs, attachment
 paths and scheduled board maintenance. These direct translations were
 completed with low confidence and welcome review by a Somali speaker. This left
 **82,816 genuinely untranslated values across 39 locale files**.
+The thirty-sixth 50-value Somali batch added scheduled-job and migration
+controls, filesystem, S3 and Azure storage configuration, MongoDB and FerretDB
+database migration and Sandstorm migration status. These direct translations
+were completed with low confidence and welcome review by a Somali speaker. This
+left **82,766 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
