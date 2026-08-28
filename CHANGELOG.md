@@ -7983,9 +7983,14 @@ pagination and the full localized search grammar, operator reference, examples
 and notes. These direct translations were completed with low confidence and
 welcome review by a Swati speaker. This left **80,999 genuinely untranslated
 values across 38 locale files**.
+The twenty-ninth 50-value Swati batch added card and board sorting, completion,
+stickers, card dependencies and their import, board backgrounds and the start
+of card locations. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **80,949 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`number` with
+`location-latitude` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
