@@ -8248,7 +8248,9 @@ browser build to verify).
 **In short:** **HostnameBleed** regression coverage now checks documented hostnames
 as exact parsed tokens, resolving two follow-up CodeQL findings in test-only code.
 **Test-matrix reliability** covers resumed profile languages, speech scrolling,
-local Node discovery and bounded reusable AppImage jobs.
+local Node discovery and bounded reusable AppImage jobs. **Translations** now
+merge valid Transifex human work over local fills without uploading machine
+translations as human.
 The table below is carried over from the release under this one, and is refilled
 from each build's provenance.tsv when this release is made.
 
@@ -8309,6 +8311,30 @@ for dependencies that required 1.62.1.
 It now selects the newest installed architecture-matching local Node until setup
 downloads the exact release. A regression pins the fallback, version-aware
 ordering and exported path used by every subsequent test stage.
+
+</details>
+
+and improves the translation workflow:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e12a467a">Transifex human translations safely take precedence over local fills</a>. Thanks to translators and xet7.</summary>
+
+The pull previously treated every committed non-English value as human and
+force-pushed restored languages, so direct machine/LLM fills could be uploaded
+to Transifex under false provenance. It also compared against `HEAD`, allowing
+an uncommitted local fill to be lost before the merge saw it.
+
+The workflow now snapshots the complete pre-pull tree, keeps each valid
+target-language Transifex value, and restores the snapshot wherever Transifex
+returns English or malformed code tokens. Nothing is pushed automatically.
+Known Russian-seeded Mongolian values are rejected even though both languages
+use Cyrillic, and protected `@PH…@` markers are restored without discarding the
+surrounding human prose.
+
+The interrupted pull merged 47 non-English human values across 29 locale files
+and four new source keys into eleven English variants. All available local
+fallbacks remain; the result has zero detected wrong-script values, placeholder
+markers or local translations lost to English.
 
 </details>
 
