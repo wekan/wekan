@@ -8006,9 +8006,14 @@ subtask actions and the start of attachment-storage movement. These direct
 translations were completed with low confidence and welcome review by a Swati
 speaker. This left **80,799 genuinely untranslated values across 38 locale
 files**.
+The thirty-third 50-value Swati batch completed attachment migration and added
+storage selection, repair and progress, file statistics and identifiers and
+MongoDB compaction guidance and status. These direct translations were
+completed with low confidence and welcome review by a Swati speaker. This left
+**80,749 genuinely untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
