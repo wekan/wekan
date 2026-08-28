@@ -7657,9 +7657,15 @@ member mapping, date and user validation, keyboard shortcuts and label creation
 and deletion. These direct translations were completed with low confidence and
 welcome review by a Somali speaker. This left **83,916 genuinely untranslated
 values across 39 locale files**.
+The fourteenth 50-value Somali batch added last-admin protection, leaving and
+linking boards and lists, list archiving and imports, settings dialogs,
+multi-selection, muted notifications, archive status and normal board roles.
+These direct translations were completed with low confidence and welcome review
+by a Somali speaker. This left **83,866 genuinely untranslated values across 39
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`last-admin-desc` with
+`notify-watch` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
