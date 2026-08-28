@@ -7619,9 +7619,14 @@ account deletion and checklist, swimlane, list, card and board imports. These
 direct translations were completed with low confidence and welcome review by a
 Somali speaker. This left **84,266 genuinely untranslated values across 39
 locale files**.
+The seventh 50-value Somali batch added member and linked-card dialogs, safe
+mapping of imported virtual users, themes, fonts, avatars, language and
+permission controls. These direct translations were completed with low
+confidence and welcome review by a Somali speaker. This left **84,216 genuinely
+untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
