@@ -8016,9 +8016,15 @@ upload progress and limits, custom translations, checklist display, support
 pages and the start of accessibility settings. These direct translations were
 completed with low confidence and welcome review by a Swati speaker. This left
 **80,699 genuinely untranslated values across 38 locale files**.
+The thirty-fifth 50-value Swati batch completed accessibility settings and
+added brute-force lockout administration, people filters, scheduled jobs,
+attachment paths and scheduled board archive, backup and cleanup operations.
+These direct translations were completed with low confidence and welcome
+review by a Swati speaker. This left **80,649 genuinely untranslated values
+across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
