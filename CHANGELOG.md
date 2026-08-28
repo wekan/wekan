@@ -8359,6 +8359,18 @@ translation.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38ed4a0d4">Reviewed human values are restored after Transifex markers are decoded</a>. Thanks to translators and xet7.</summary>
+
+The first corrected live pull exposed an ordering edge case: eight known bad
+Welsh, French and Xhosa values arrived with protected `@PH…@` markers, so their
+bad-value fingerprints did not exist until marker repair ran after the merge.
+The workflow now performs the reviewed historical-human restoration after that
+decoding step. The eight regressions from the run were restored, and a test pins
+the required stage order.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.18 2026-08-28 WeKan ® release
