@@ -7213,9 +7213,14 @@ template boards, archive warnings and WIP-limit errors. These direct
 translations were completed with low confidence and welcome review by a Sinhala
 speaker. This left **88,100 genuinely untranslated values across 41 locale
 files**.
+The seventeenth 50-value Sinhala batch added attachment and API limits,
+registration and invitations, SMTP configuration and test email, Webhooks and
+server component labels. These direct translations were completed with low
+confidence and welcome review by a Sinhala speaker. This left **88,050 genuinely
+untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
