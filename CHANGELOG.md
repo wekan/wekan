@@ -8272,8 +8272,10 @@ markdown retains its per-render fallback. **REST user deletion** now reports
 the database-confirmed outcome and documents both success and missing-user
 responses. **Translations** complete Swati, begin Sesotho and raise the measured
 essentially-complete total to 197 while protecting target-language vocabulary
-and code tokens. The table below is carried over from the release under this
-one, and is refilled from each build's provenance.tsv when this release is made.
+and code tokens. **Test-matrix reliability** covers resumed profile languages,
+speech scrolling and reusable AppImage timeouts. The table below is carried over
+from the release under this one, and is refilled from each build's provenance.tsv
+when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8387,6 +8389,23 @@ Repeatable response annotations let the OpenAPI generator document the exact
 every removal outcome, regenerated YAML matches the route source byte for byte,
 and a live Chromium API test confirms deletion in MongoDB before repeating the
 request and receiving 404.
+
+</details>
+
+and improves the following developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/104017065">The WeKan matrix covers resumed languages, speech scrolling and AppImage timeouts reliably</a>. Thanks to xet7.</summary>
+
+Persisted profile languages now apply reactively when a stored login finishes
+resuming, so Chinese and Japanese accessibility checks observe the user's real
+locale instead of the browser default. The speech-command regression gives its
+focusable list a deterministic overflow boundary before testing Page Down.
+
+GitHub does not allow `timeout-minutes` on a job that calls a reusable workflow,
+so the release guard now recognizes that syntax and separately proves every job
+inside the called AppImage workflow has its own timeout. The previously
+unbounded release lookup and publishing jobs are limited to 15 and 30 minutes.
 
 </details>
 
