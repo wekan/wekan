@@ -7988,9 +7988,15 @@ stickers, card dependencies and their import, board backgrounds and the start
 of card locations. These direct translations were completed with low
 confidence and welcome review by a Swati speaker. This left **80,949 genuinely
 untranslated values across 38 locale files**.
+The thirtieth 50-value Swati batch completed card locations and added map and
+server diagnostics, sorting, swimlane movement, custom-field string templates
+and file, security, performance, impersonation, recovery and office reports.
+These direct translations were completed with low confidence and welcome
+review by a Swati speaker. This left **80,899 genuinely untranslated values
+across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
