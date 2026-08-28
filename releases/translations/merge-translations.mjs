@@ -55,7 +55,24 @@ const hasSourceTokens = (value, source) =>
 // Script checks cannot distinguish Russian from Mongolian Cyrillic. Transifex's
 // Mongolian resource is historically seeded from Russian, so an exact Russian
 // value is wrong-language data, not a human Mongolian translation.
-const WRONG_LANGUAGE_REFERENCES = { mn: ['ru.i18n.json'] };
+const WRONG_LANGUAGE_REFERENCES = {
+  mn: ['ru.i18n.json'],
+  br: ['fr.i18n.json'], oc: ['fr.i18n.json'], vo: ['fr.i18n.json'],
+  wa: ['fr.i18n.json'], wo: ['fr.i18n.json'], zgh: ['fr.i18n.json'],
+};
+const KNOWN_WRONG_VALUES = {
+  'cy-GB': {
+    'board-public-info': 'Y bwrdd hwn fydd <strong>public</strong>.',
+    'page-maybe-private': "Gall y dudalen hon fod yn breifat. Mae’n bosibl y gallwch ei weld gan <a href='%s'>logio i mewn</a>.",
+  },
+  cy: {
+    'board-public-info': 'Y bwrdd hwn fydd <strong>public</strong>.',
+    'page-maybe-private': "Gall y dudalen hon fod yn breifat. Mae’n bosibl y gallwch ei weld gan <a href='%s'>logio i mewn</a>.",
+  },
+  xh: {
+    'globalSearch-instructions-operator-assignee': '`__operator_assignee__:<username>` - ​​amakhadi apho *<username>* ngumsebenzi *',
+  },
+};
 
 // Language data files the pull changed (working tree vs HEAD), excluding English.
 let changed = [];
@@ -88,7 +105,7 @@ for (const f of changed) {
   const newJson = readFile(f);
   if (!newJson) continue;
   const wrongLanguageDocs = (WRONG_LANGUAGE_REFERENCES[lang] || [])
-    .map(name => readFile(path.join(beforeDir || DATA_DIR, name)) || {});
+    .map(name => readFile(path.join(DATA_DIR, name)) || {});
 
   let restored = 0;
   for (const key of Object.keys(newJson)) {
@@ -100,7 +117,8 @@ for (const f of changed) {
     // Transifex gave a real translation with intact code tokens → keep the newest one.
     // If its placeholders are malformed, prefer the valid pre-pull local translation.
     if (typeof enV === 'string' && newV !== enV) {
-      const knownWrongLanguage = wrongLanguageDocs.some(doc => doc[key] === newV);
+      const knownWrongLanguage = wrongLanguageDocs.some(doc => doc[key] === newV)
+        || KNOWN_WRONG_VALUES[lang]?.[key] === newV;
       if (knownWrongLanguage && typeof oldV === 'string') {
         newJson[key] = oldV;
         if (oldV !== newV) restored += 1;

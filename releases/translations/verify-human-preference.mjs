@@ -72,7 +72,11 @@ check('pull repairs protected-token markers without replacing the human prose',
 
 const mergeScript = fs.readFileSync('releases/translations/merge-translations.mjs', 'utf8');
 check('same-script Mongolian values are checked against the known Russian seed',
-  /WRONG_LANGUAGE_REFERENCES = \{ mn: \['ru\.i18n\.json'\] \}/.test(mergeScript), true);
+  /mn: \['ru\.i18n\.json'\]/.test(mergeScript), true);
+check('known French-seeded locales are checked against pulled French',
+  /br: \['fr\.i18n\.json'\].+zgh: \['fr\.i18n\.json'\]/s.test(mergeScript), true);
+check('same-language-script bad fingerprints do not block future corrected values',
+  /const KNOWN_WRONG_VALUES/.test(mergeScript), true);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
