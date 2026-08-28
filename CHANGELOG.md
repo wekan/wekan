@@ -7772,9 +7772,14 @@ file restrictions, custom translations, workspace dragging, checklist display,
 support and accessibility settings. These direct translations were completed
 with low confidence and welcome review by a Somali speaker. This left **82,866
 genuinely untranslated values across 39 locale files**.
+The thirty-fifth 50-value Somali batch added accessibility content, brute-force
+login protection and unlocking, user status filters, scheduled jobs, attachment
+paths and scheduled board maintenance. These direct translations were
+completed with low confidence and welcome review by a Somali speaker. This left
+**82,816 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`accessibility-info-not-added-yet` with
+`cron-job-delete-confirm` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
