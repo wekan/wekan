@@ -8246,8 +8246,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **File responses and board writes** close three security gaps.
-**Database launchers** separate standalone FerretDB polling from MongoDB 7
-replica sets and multitenancy, while **DEBUGSPEED diagnostics** make comparative
+**Database launchers** use FerretDB's write-notified OpLog with an explicit
+standalone fallback, while **DEBUGSPEED diagnostics** make comparative
 MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
 self-cleaning minute ticker, **database selectors** no longer accommodate
 FerretDB query-planner gaps, and **Snap assembly** uses the correct extracted
@@ -8326,6 +8326,21 @@ now clear inherited OpLog settings and start without replica-set arguments.
 MongoDB 7 keeps its explicit `rs0` connection, while the Meteor 3 multitenancy
 guide gains an idempotent replica-set initializer and scoped OpLog credentials.
 Positive and negative regression tests pin the separation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efda2d56a">Enable FerretDB's write-notified OpLog reactivity by default</a>. Thanks to xet7.</summary>
+
+The Snap and DEBUGSPEED launcher now start FerretDB as a single-node replica
+set and give Meteor an OpLog URL, using `oplog,polling` without attempting
+unsupported change streams. FerretDB wakes idle `awaitData` tails when a write
+actually appends an OpLog record and emits directly applicable replacement
+updates, eliminating the SQLite query loop and invalid whole-document `$set`
+that previously made polling the safer default. Setting
+`wekan-ferretdb-oplog=false` retains the standalone polling fallback. The
+[FerretDB fix](https://github.com/wekan/FerretDB/commit/d0d4717e) has broadcast,
+gate, update-shape and full unit coverage; launcher tests pin both modes.
 
 </details>
 
