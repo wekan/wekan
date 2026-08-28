@@ -7513,9 +7513,14 @@ reports, impersonation, recovery and login-office data. These direct
 translations were completed with low confidence and welcome review by a Samoan
 speaker. This left **85,233 genuinely untranslated values across 40 locale
 files**.
+The thirty-first 50-value Samoan batch added office, API and recovery reporting,
+swimlane copying, loading-spinner styles, card sizing, organization and team
+deletion guards and support tickets. These direct translations were completed
+with low confidence and welcome review by a Samoan speaker. This left **85,183
+genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`office-last-seen` with
+`add-teams` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
