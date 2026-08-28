@@ -7565,9 +7565,14 @@ duplicate-list cleanup, lost and archived item restoration, file URL repairs,
 migration confirmations, progress and repair steps. These direct translations
 were completed with low confidence and welcome review by a Samoan speaker. This
 left **84,733 genuinely untranslated values across 40 locale files**.
+The forty-first 50-value Samoan batch added detailed repair steps, one-time board
+conversion, CPU metrics, recurring job intervals, migration monitoring,
+filesystem and GridFS statistics and job-queue fields. These direct translations
+were completed with low confidence and welcome review by a Samoan speaker. This
+left **84,683 genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
