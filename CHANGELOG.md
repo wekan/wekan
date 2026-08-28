@@ -7362,8 +7362,14 @@ swimlane, attachment, label, checklist, comment, custom-field and member changes
 These direct translations were completed with low confidence and welcome review
 by a Samoan speaker. This left **86,683 genuinely untranslated values across 40
 locale files**.
+The second 50-value Samoan batch completed core activity sentences and added All
+Boards workspace creation, editing and navigation controls. These direct
+translations were completed with low confidence and welcome review by a Samoan
+speaker. This left **86,633 genuinely untranslated values across 40 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at `act-moveCard` with
+and exact tokens from `en.i18n.json`, resuming Samoan at
+`workspaceActionsPopup-title` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
