@@ -8391,6 +8391,20 @@ shell syntax and a live watcher smoke test cover the executable paths.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6d77c58d">Run instrumented FerretDB alone for database restores</a>. Thanks to xet7.</summary>
+
+`debug-speed-ferretdb.sh` builds and starts the same DEBUGSPEED-enabled local
+FerretDB used by the comparative launcher, but deliberately leaves WeKan and
+Meteor stopped so `mongorestore` does not compete with application writes for
+SQLite's single write lock. It preserves the existing port, state-directory,
+log-level and log-directory overrides, records `ferretdb.log`, build output and
+resource samples together, and stops all supervised processes on one Ctrl-C.
+Positive tests pin the shared options and cleanup; negative tests ensure the
+restore-safe launcher cannot start Meteor or enable payload-bearing debug logs.
+
+</details>
+
 and fixes the following release tooling bug:
 
 <details>
