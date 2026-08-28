@@ -7550,9 +7550,14 @@ notification and watch restrictions and instance or organization backups. These
 direct translations were completed with low confidence and welcome review by a
 Samoan speaker. This left **84,883 genuinely untranslated values across 40
 locale files**.
+The thirty-eighth 50-value Samoan batch added scheduled backups, restore modes,
+Google Cloud credentials and permissions, S3 and Azure console navigation,
+secret handling and cloud connection testing. These direct translations were
+completed with low confidence and welcome review by a Samoan speaker. This left
+**84,833 genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`backup-schedule` with
+`attachment-move-storage-gcs` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
