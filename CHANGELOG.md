@@ -8296,6 +8296,16 @@ database value disappear.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34a1cc9e1">The location-removal browser regression checks the authoritative card</a>. Thanks to majo1989 and xet7.</summary>
+
+The live test names issue 6644 and locates the seeded card by its board and
+title before checking its stored locations array. This keeps the final database
+assertion independent of fixture-only convenience fields while still proving
+the X removed the same location that disappeared from the UI.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
