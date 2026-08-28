@@ -7674,9 +7674,15 @@ and overtime tracking, label and assignee shortcuts, uploads, custom logo and
 help URLs, welcome templates and WIP limit errors. These direct translations
 were completed with low confidence and welcome review by a Somali speaker. This
 left **83,766 genuinely untranslated values across 39 locale files**.
+The seventeenth 50-value Somali batch added attachment and API transfer limits,
+avatar blocking, registration invitations, SMTP and TLS settings, invitation
+emails, webhooks and database, Node and Meteor version labels. These direct
+translations were completed with low confidence and welcome review by a Somali
+speaker. This left **83,716 genuinely untranslated values across 39 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
