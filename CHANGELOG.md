@@ -7544,9 +7544,15 @@ recovery controls, filesystem, S3 and Azure storage settings and MongoDB,
 FerretDB and Sandstorm database migration guidance. These direct translations
 were completed with low confidence and welcome review by a Samoan speaker. This
 left **84,933 genuinely untranslated values across 40 locale files**.
+The thirty-seventh 50-value Samoan batch added Sandstorm cleanup, card-loading
+modes, safe plain-text rendering, import, export, identity, activity,
+notification and watch restrictions and instance or organization backups. These
+direct translations were completed with low confidence and welcome review by a
+Samoan speaker. This left **84,883 genuinely untranslated values across 40
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
