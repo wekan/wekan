@@ -7421,9 +7421,13 @@ member mapping, validation, keyboard shortcuts and label management. These direc
 translations were completed with low confidence and welcome review by a Samoan
 speaker. This left **86,083 genuinely untranslated values across 40 locale
 files**.
+The fourteenth 50-value Samoan batch added last-admin protection, leaving boards,
+list and archive actions, settings dialogs, imports, multi-selection, board roles
+and notification preferences. These direct translations were completed with low
+confidence and welcome review by a Samoan speaker. This left **86,033 genuinely
+untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at
-`last-admin-desc` with
+and exact tokens from `en.i18n.json`, resuming Samoan at `notify-watch` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
