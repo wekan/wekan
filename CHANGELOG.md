@@ -7396,9 +7396,13 @@ aging, navigation and accessibility controls, and localized color names. These
 direct translations were completed with low confidence and welcome review by a
 Samoan speaker. This left **86,333 genuinely untranslated values across 40 locale
 files**.
+The ninth 50-value Samoan batch added board roles, deletion confirmations,
+clipboard and link actions, bulk template-copy JSON and custom fields. These
+direct translations were completed with low confidence and welcome review by a
+Samoan speaker. This left **86,283 genuinely untranslated values across 40 locale
+files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at
-`color-white` with
+and exact tokens from `en.i18n.json`, resuming Samoan at `custom-field-text` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
