@@ -7854,9 +7854,14 @@ archive guidance, deletion warnings, dates and card editing controls. These
 direct translations were completed with low confidence and welcome review by a
 Swati speaker. This left **82,149 genuinely untranslated values across 38
 locale files**.
+The sixth 50-value Swati batch added card membership, voting and Planning Poker,
+dependencies, organization, team and domain dialogs, board backgrounds, account
+deletion and checklist and board-item imports. These direct translations were
+completed with low confidence and welcome review by a Swati speaker. This left
+**82,099 genuinely untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`card-members-title` with
+`userPopup-title` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
