@@ -8367,7 +8367,12 @@ Welsh, French and Xhosa values arrived with protected `@PH…@` markers, so thei
 bad-value fingerprints did not exist until marker repair ran after the merge.
 The workflow now performs the reviewed historical-human restoration after that
 decoding step. The eight regressions from the run were restored, and a test pins
-the required stage order.
+the required stage order. A subsequent clean live run pulled all 147 Transifex
+locales, restored 4,976 local fallback values across 124 files, decoded 43
+protected markers in 31 values and restored the eight reviewed human values.
+It pushed nothing, left no working-tree difference and finished with zero
+displaced historical translations, machine markers or detected wrong-script
+values.
 
 </details>
 
