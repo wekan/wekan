@@ -7401,8 +7401,14 @@ clipboard and link actions, bulk template-copy JSON and custom fields. These
 direct translations were completed with low confidence and welcome review by a
 Samoan speaker. This left **86,283 genuinely untranslated values across 40 locale
 files**.
+The tenth 50-value Samoan batch added deletion policy, WIP settings, profile and
+date dialogs, account and invitation emails, and import and permission errors.
+These direct translations were completed with low confidence and welcome review
+by a Samoan speaker. This left **86,233 genuinely untranslated values across 40
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at `custom-field-text` with
+and exact tokens from `en.i18n.json`, resuming Samoan at
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
