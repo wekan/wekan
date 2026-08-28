@@ -7426,8 +7426,13 @@ list and archive actions, settings dialogs, imports, multi-selection, board role
 and notification preferences. These direct translations were completed with low
 confidence and welcome review by a Samoan speaker. This left **86,033 genuinely
 untranslated values across 40 locale files**.
+The fifteenth 50-value Samoan batch added watch notifications, private and public
+page guidance, previews, member removal, description recovery, search, WIP,
+keyboard shortcuts and default-board controls. These direct translations were
+completed with low confidence and welcome review by a Samoan speaker. This left
+**85,983 genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at `notify-watch` with
+and exact tokens from `en.i18n.json`, resuming Samoan at `starred-boards` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
