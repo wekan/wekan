@@ -7170,9 +7170,14 @@ aging, keyboard movement and navigation, dialog controls and color names. These
 direct translations were completed with low confidence and welcome review by a
 Sinhala speaker. This left **88,500 genuinely untranslated values across 41
 locale files**.
+The ninth 50-value Sinhala batch added comment and read-only roles, deletion
+confirmations, clipboard actions, bulk card-copy JSON and custom-field types.
+These direct translations were completed with low confidence and welcome review
+by a Sinhala speaker. This left **88,450 genuinely untranslated values across 41
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
