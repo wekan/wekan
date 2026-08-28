@@ -7416,9 +7416,14 @@ advanced-filter syntax, activity display and imports from kanban, issue-tracker,
 spreadsheet and Trello sources. These direct translations were completed with
 low confidence and welcome review by a Samoan speaker. This left **86,133
 genuinely untranslated values across 40 locale files**.
+The thirteenth 50-value Samoan batch added Trello API imports and job controls,
+member mapping, validation, keyboard shortcuts and label management. These direct
+translations were completed with low confidence and welcome review by a Samoan
+speaker. This left **86,083 genuinely untranslated values across 40 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`import-trello-zip-file-too-large` with
+`last-admin-desc` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
