@@ -7916,9 +7916,15 @@ settings, welcome and template boards and WIP-limit errors. These direct
 translations were completed with low confidence and welcome review by a Swati
 speaker. This left **81,599 genuinely untranslated values across 38 locale
 files**.
+The seventeenth 50-value Swati batch added attachment and API transfer limits,
+avatar upload blocking, registration and invitations, SMTP configuration and
+test email, authorization, outgoing and bidirectional webhooks and database,
+Node and Meteor metadata. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **81,549 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`attachment-transfer-limits-title` with
+`Database_type` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
