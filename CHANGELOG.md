@@ -7767,9 +7767,14 @@ repair, avatars, default storage and file statistics plus MongoDB GridFS space
 reclamation and compact status. These direct translations were completed with
 low confidence and welcome review by a Somali speaker. This left **82,916
 genuinely untranslated values across 39 locale files**.
+The thirty-fourth 50-value Somali batch added board timing and upload status,
+file restrictions, custom translations, workspace dragging, checklist display,
+support and accessibility settings. These direct translations were completed
+with low confidence and welcome review by a Somali speaker. This left **82,866
+genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`board-status` with
+`accessibility-info-not-added-yet` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
