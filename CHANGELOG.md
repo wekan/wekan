@@ -7580,17 +7580,21 @@ errors, problem reporting, broken-card repair outcomes, CPU details and event
 fields. These direct translations were completed with low confidence and welcome
 review by a Samoan speaker. This left **84,583 genuinely untranslated values
 across 40 locale files**.
+The final 17-value Samoan batch added event network fields, filesystem integrity,
+scoped import and export controls and numeric global-search instructions. These
+direct translations were completed with low confidence and welcome review by a
+Samoan speaker. Samoan is now complete. This left **84,566 genuinely
+untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list sm --limit 50`;
+and exact tokens from `en.i18n.json`, starting Somali at `accept` with
+`node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
 Manx, Hausa, Haitian Creole, Icelandic, Inuktitut, Javanese, Kazakh, Greenlandic,
 Kashmiri and Kurmanji Kurdish, Malagasy, Malayalam, Marathi, Burmese and
 Chichewa, Oromo, Pashto, Kirundi, Kinyarwanda and Sakha are now complete.
-Sindhi, Northern Sami and Sinhala are also now complete.
+Sindhi, Northern Sami, Sinhala and Samoan are also now complete.
 
 The newest per-key batch reused each language’s own translated IP-address label
 for **282 IPv4 and IPv6 labels** across 141 language tags. It also reset 347
