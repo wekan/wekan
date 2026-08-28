@@ -7496,9 +7496,15 @@ plus the board, member, date, content and status vocabulary shown by global
 search operators and predicates. These direct translations were completed with
 low confidence and welcome review by a Samoan speaker. This left **85,383
 genuinely untranslated values across 40 locale files**.
+The twenty-eighth 50-value Samoan batch added global-search predicates,
+validation errors, pagination and detailed operator instructions for boards,
+lists, people, dates, status, fields, sorting and limits. These direct
+translations were completed with low confidence and welcome review by a Samoan
+speaker. This left **85,333 genuinely untranslated values across 40 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
