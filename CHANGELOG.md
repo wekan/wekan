@@ -7680,9 +7680,15 @@ emails, webhooks and database, Node and Meteor version labels. These direct
 translations were completed with low confidence and welcome review by a Somali
 speaker. This left **83,716 genuinely untranslated values across 39 locale
 files**.
+The eighteenth 50-value Somali batch added database, FerretDB, reactivity, DDP
+and operating-system diagnostics, custom-field display, account settings and
+organization and team tenancy, domains, administrators and member propagation.
+These direct translations were completed with low confidence and welcome review
+by a Somali speaker. This left **83,666 genuinely untranslated values across 39
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
