@@ -8264,7 +8264,7 @@ from each build's provenance.tsv when this release is made.
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/75a8c28fb">It compares hostname examples as exact parsed tokens</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5fb0a77bf">It compares hostname examples as exact parsed tokens</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
 
 CodeQL alerts #437 and #438 reported incomplete URL substring sanitization in
 the HostnameBleed regression test. The findings were limited to fixed test data:
