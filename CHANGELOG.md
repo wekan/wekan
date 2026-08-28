@@ -7207,9 +7207,15 @@ search, WIP limits, keyboard shortcuts and default-board controls. These direct
 translations were completed with low confidence and welcome review by a Sinhala
 speaker. This left **88,150 genuinely untranslated values across 41 locale
 files**.
+The sixteenth 50-value Sinhala batch added starred boards, time tracking,
+assignee and label shortcuts, uploads, custom logos and URL schemes, welcome and
+template boards, archive warnings and WIP-limit errors. These direct
+translations were completed with low confidence and welcome review by a Sinhala
+speaker. This left **88,100 genuinely untranslated values across 41 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`starred-boards` with
+`attachment-transfer-limits-title` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
