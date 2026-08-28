@@ -7886,9 +7886,15 @@ to PDF and Excel, export fields and disk-space status, list sorting and date,
 label and member filters. These direct translations were completed with low
 confidence and welcome review by a Swati speaker. This left **81,849 genuinely
 untranslated values across 38 locale files**.
+The twelfth 50-value Swati batch added assignee and custom-field filters,
+advanced filter syntax, imported-member status and board imports from Kanboard,
+Deck, OpenProject, issue trackers, Asana, ZenKit, Trello, Jira, Excel and WeKan,
+including Trello ZIP handling. These direct translations were completed with
+low confidence and welcome review by a Swati speaker. This left **81,799
+genuinely untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
