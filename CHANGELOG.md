@@ -8418,6 +8418,22 @@ failures.
 
 </details>
 
+and fixes the following registration bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85ef41977">Registration checks one user instead of scanning every account</a>. Thanks to xet7.</summary>
+
+The account-creation hook needs only to know whether any account already exists
+so it can make the first one administrator, but it counted and decoded the
+entire users collection. On a restored 14,631-user FerretDB database that made
+registration take 55 seconds: the account and verification email were created,
+but the browser timed out and incorrectly displayed “Something went wrong.” A
+projected one-document lookup now preserves the first-administrator rule
+without work proportional to the instance's user count. Positive and negative
+regression checks pin the bounded lookup and forbid a full count in the hook.
+
+</details>
+
 and fixes the following release tooling bug:
 
 <details>
