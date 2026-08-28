@@ -107,6 +107,16 @@ case "$(uname -m 2>/dev/null)" in
 	*) _wekan_node_arch="" ;;
 esac
 _wekan_local_node="$WEKAN_TOOLS_DIR/node-v${_wekan_node_version}-linux-${_wekan_node_arch}/bin"
+if { [ -z "$_wekan_node_version" ] || [ -z "$_wekan_node_arch" ] ||
+	[ ! -x "$_wekan_local_node/node" ]; } && [ -n "$_wekan_node_arch" ]; then
+	# A freshly bumped Dockerfile can be one patch ahead of the toolchain already
+	# installed for tests. Keep plain Node stages and Playwright version discovery
+	# working with the newest repository-local Node until setup fetches the exact
+	# release; Meteor builds still use Meteor's own pinned dev-bundle Node.
+	_wekan_local_node="$(find "$WEKAN_TOOLS_DIR" -maxdepth 1 -type d \
+		-name "node-v*-linux-${_wekan_node_arch}" -print 2>/dev/null |
+		sort -V | tail -n 1)/bin"
+fi
 if [ -n "$_wekan_node_version" ] && [ -n "$_wekan_node_arch" ] && [ -x "$_wekan_local_node/node" ]; then
 	PATH="$_wekan_local_node:$PATH"
 fi

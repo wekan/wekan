@@ -632,6 +632,15 @@ test('test runtimes cannot inherit the build tool half-of-RAM heap', () => {
     'Meteor test keeps the larger build heap because it compiles a test application');
 });
 
+test('a Dockerfile Node bump does not hide an already installed test Node', () => {
+  assert.match(sh, /node-v\*-linux-\$\{_wekan_node_arch\}/,
+    'build.sh must fall back to an installed repository-local Node version');
+  assert.match(sh, /sort -V \| tail -n 1/,
+    'the fallback must choose the newest installed version deterministically');
+  assert.match(sh, /PATH="\$_wekan_local_node:\$PATH"[\s\S]*export PATH/,
+    'plain Node stages and Playwright version discovery must receive that PATH');
+});
+
 
 test('EVERYTHING bounds FerretDB compilation and skips the redundant dependency preload', () => {
   const start = sh.indexOf('function run_everything(){');
