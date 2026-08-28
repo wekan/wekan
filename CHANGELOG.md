@@ -7731,9 +7731,14 @@ tasks, email domains, shared templates, personal and due-card views, global
 search and missing board-item messages. These direct translations were
 completed with low confidence and welcome review by a Somali speaker. This left
 **83,266 genuinely untranslated values across 39 locale files**.
+The twenty-seventh 50-value Somali batch added missing-user, comment,
+organization and team messages, search-result counts and localized search
+operators and predicates. These direct translations were completed with low
+confidence and welcome review by a Somali speaker. This left **83,216 genuinely
+untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
