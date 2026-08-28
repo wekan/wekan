@@ -7160,9 +7160,14 @@ Poker, dependencies, organizations and teams, account and background dialogs,
 and board-item import and export. These direct translations were completed with
 low confidence and welcome review by a Sinhala speaker. This left **88,600
 genuinely untranslated values across 41 locale files**.
+The seventh 50-value Sinhala batch added member and import dialogs, identity
+mapping, themes, fonts, text colors, avatars, language and permission controls.
+These direct translations were completed with low confidence and welcome review
+by a Sinhala speaker. This left **88,550 genuinely untranslated values across 41
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`userPopup-title` with
+`changeSettingsPopup-title` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
