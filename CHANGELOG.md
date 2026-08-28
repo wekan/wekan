@@ -7298,9 +7298,14 @@ Node memory diagnostics, legal notices, checklist actions and attachment-storage
 moves. These direct translations were completed with low confidence and welcome
 review by a Sinhala speaker. This left **87,300 genuinely untranslated values
 across 41 locale files**.
+The thirty-third 50-value Sinhala batch added attachment-storage migration,
+location repair, storage statistics and MongoDB compaction controls. These direct
+translations were completed with low confidence and welcome review by a Sinhala
+speaker. This left **87,250 genuinely untranslated values across 41 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`move-all-attachments-to-gridfs` with
+`board-status` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
