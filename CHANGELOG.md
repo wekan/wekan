@@ -8245,7 +8245,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **FerretDB deployments** now consistently use standalone polling,
+**In short:** **Avatar and legacy attachment responses** now neutralize stored
+browser-executable MIME types, and **board write permissions** prevent read-only
+members from creating swimlanes. **FerretDB deployments** consistently use standalone polling,
 while MongoDB 7 and Meteor 3 multitenancy retain explicit, verified replica-set
 configuration. The multitenancy setup now initializes its replica set
 idempotently and creates database users through MongoDB's localhost exception,
@@ -8266,7 +8268,59 @@ and Launchpad architecture.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves the following database deployment configuration:
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+**File responses** - stored MIME metadata cannot turn downloads into active content.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a487d2293">Avatar MIME metadata cannot serve browser-executable content</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[AvatarMimeBleed](https://wekan.fi/hall-of-fame/avatarmimebleed/) -
+[GHSA-4mjm-vj9f-p629](https://github.com/wekan/wekan/security/advisories/GHSA-4mjm-vj9f-p629),
+Moderate, CWE-79 and CWE-434. Both current and CollectionFS-compatible avatar
+routes trusted their stored MIME type. HTML, XML, SVG or JavaScript content
+could therefore render under the WeKan origin. A shared policy now serves every
+browser-executable type as a sandboxed opaque download with `nosniff` and frame
+denial, while safe images remain inline. No Problems event is emitted because
+legitimate avatar views use this path and cannot attribute old metadata to an
+attacker. Behavioral tests cover every dangerous family, and a whole-route
+negative scan forbids stored MIME fields from reaching `Content-Type` directly.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a487d2293">Legacy attachments apply security headers beyond SVG files</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[LegacyAttachBleed](https://wekan.fi/hall-of-fame/legacyattachbleed/) -
+[GHSA-xcxp-hx9w-q5q9](https://github.com/wekan/wekan/security/advisories/GHSA-xcxp-hx9w-q5q9),
+Moderate, CWE-79 and CWE-693. The legacy attachment route forced downloads but
+applied CSP, `nosniff` and frame denial only to SVG filenames, leaving stored
+HTML, XML and JavaScript MIME types active. It now uses the same centralized
+opaque-download policy as avatars. There is no attributable Problems event:
+ordinary legacy downloads use the same path, and logging would blame a viewer
+for metadata supplied earlier. Positive MIME decisions and the repository-wide
+negative response-header scan cover the fix.
+
+</details>
+
+**Board structure** - creating a swimlane requires the shared write capability.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a487d2293">Read-only members cannot create default swimlanes</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[SwimlaneBleed](https://wekan.fi/hall-of-fame/swimlanebleed/) -
+[GHSA-2x89-6mq2-834r](https://github.com/wekan/wekan/security/advisories/GHSA-2x89-6mq2-834r),
+Moderate, CWE-862. `ensureDefaultSwimlane` authorized an insertion with read
+membership, bypassing the collection's write rule and allowing read-only roles
+to alter board structure. The method now requires the same shared write
+capability as every swimlane mutation. Rejected direct calls are bounded and
+summarized as SwimlaneBleed in Admin Panel → Problems, and logging failure
+cannot weaken the denial. Tests pin the guard before insertion and forbid read
+membership or public visibility from authorizing the method.
+
+</details>
+
+and improves the following database deployment configuration:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c3140f1a85a9685206b96178afee1eac4ac299ca">Keep FerretDB launchers standalone and polling-only</a>. Thanks to xet7.</summary>

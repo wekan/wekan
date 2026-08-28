@@ -61,7 +61,7 @@ const DELIBERATE = {
   ClaimBleed: 'the fix ignores service-owned fields while processing every legitimate OIDC login; '
     + 'there is no reliable way to distinguish a malicious claim from an administrator mistakenly '
     + 'whitelisting an identity field without logging ordinary logins',
-  AvatarBleed: 'the fix changes response headers for every avatar whose stored MIME type is browser-executable; '
+  AvatarMimeBleed: 'the fix changes response headers for every avatar whose stored MIME type is browser-executable; '
     + 'serving an existing avatar is legitimate use and does not identify who originally supplied its metadata, '
     + 'so recording the download would log viewers rather than an attributable attack',
   LegacyAttachBleed: 'the fix changes response headers for legitimate legacy attachment downloads; the request '
@@ -71,7 +71,7 @@ const DELIBERATE = {
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.
 const PENDING = [
-  'AdminBleed', 'AnchorBleed', 'AuthBleed', 'BFLABleed',
+  'AdminBleed', 'AnchorBleed', 'AuthBleed', 'AvatarBleed', 'BFLABleed',
   'BypassBleed', 'CloneBleed', 'CrashBleed', 'DUEBleed', 'ExcelBleed',
   'ExportBleed', 'FieldBleed', 'FollowBleed', 'FrameBleed', 'IdentityBleed',
   'InvisibleBleed', 'LDAPBleed', 'LockoutBleed', 'MegaBleed',
