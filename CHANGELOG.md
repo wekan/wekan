@@ -7539,9 +7539,14 @@ lockout policy and user controls, scheduled jobs, attachment paths and board
 archive, backup and cleanup scheduling. These direct translations were completed
 with low confidence and welcome review by a Samoan speaker. This left **84,983
 genuinely untranslated values across 40 locale files**.
+The thirty-sixth 50-value Samoan batch added scheduled-job and migration
+recovery controls, filesystem, S3 and Azure storage settings and MongoDB,
+FerretDB and Sandstorm database migration guidance. These direct translations
+were completed with low confidence and welcome review by a Samoan speaker. This
+left **84,933 genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`cron-job-delete-confirm` with
+`sandstorm-storage-item` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
