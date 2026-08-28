@@ -7347,9 +7347,14 @@ The forty-second 50-value Sinhala batch added attachment-migration tuning,
 monitoring, scheduling and system-resource status. These direct translations
 were completed with low confidence and welcome review by a Sinhala speaker. This
 left **86,800 genuinely untranslated values across 41 locale files**.
+The forty-third 50-value Sinhala batch added repository management,
+authentication errors, Problems status, card repair and event-report fields.
+These direct translations were completed with low confidence and welcome review
+by a Sinhala speaker. This left **86,750 genuinely untranslated values across 41
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`current-step` with
+`event-detail` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
