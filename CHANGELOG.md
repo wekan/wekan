@@ -7864,9 +7864,15 @@ restoration, rule transfer, imported-member mapping, themes, fonts, preview text
 text colors, avatars, languages and permissions. These direct translations were
 completed with low confidence and welcome review by a Swati speaker. This left
 **82,049 genuinely untranslated values across 38 locale files**.
+The eighth 50-value Swati batch added settings, starring, automatic list width,
+card aging, movement and accessible dialog navigation plus a broad color
+palette. Four color names that matched English were replaced directly with
+descriptive Swati terms. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **81,999 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`changeSettingsPopup-title` with
+`color-white` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
