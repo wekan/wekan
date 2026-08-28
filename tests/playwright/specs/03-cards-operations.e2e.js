@@ -23,6 +23,49 @@ const { loginWithToken, openBoard } = require('../helpers/auth');
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
 test.describe('Cards – operations', () => {
+  test('#6645: a lazy board receives remote card edits and moves without reload', async ({
+    page,
+    user,
+    board,
+  }) => {
+    const [listA, listB] = board.listIds;
+    const card = db.findOne('cards', {
+      boardId: board.boardId,
+      title: 'Alpha Card',
+    });
+    const filler = Array.from({ length: 498 }, (_, index) => ({
+      ...card,
+      _id: db.uid('lazy'),
+      title: `Lazy filler ${index}`,
+      cardNumber: 1000 + index,
+      sort: 1000 + index,
+    }));
+    db.insertMany('cards', filler);
+
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const original = page.locator(`.js-minicard[data-card-id="${card._id}"]`);
+    await expect(original).toContainText('Alpha Card');
+
+    db.updateOne('cards', { _id: card._id }, {
+      $set: { title: 'Alpha Card refreshed remotely' },
+    });
+    await expect(original).toContainText('Alpha Card refreshed remotely', {
+      timeout: 10_000,
+    });
+
+    db.updateOne('cards', { _id: card._id }, {
+      $set: { listId: listB, sort: 50 },
+    });
+    await expect(
+      page.locator(`#js-list-${listA} .js-minicard[data-card-id="${card._id}"]`),
+    ).toHaveCount(0, { timeout: 10_000 });
+    await expect(
+      page.locator(`#js-list-${listB} .js-minicard[data-card-id="${card._id}"]`),
+    ).toContainText('Alpha Card refreshed remotely', { timeout: 10_000 });
+  });
+
   test('#1942: a private-source linked card opens and closes from its snapshot', async ({
     browser,
     user,

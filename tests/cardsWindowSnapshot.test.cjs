@@ -10,7 +10,7 @@ const source = fs.readFileSync(
   'utf8',
 );
 
-test('the limited card window is fetched as a snapshot, not live-observed', () => {
+test('the limited card window refreshes snapshots instead of live-observing', () => {
   const start = source.indexOf('// The window\'s cards.');
   const end = source.indexOf('// The window\'s comments', start);
   const child = source.slice(start, end);
@@ -18,6 +18,11 @@ test('the limited card window is fetched as a snapshot, not live-observed', () =
   assert.match(child, /\{ sort: sortOpt, limit: lim \},\s*false/);
   assert.doesNotMatch(child, /\{ sort: sortOpt, limit: lim \},\s*true/);
   assert.match(child, /publication\.added\('cards', _id, fields\)/);
+  assert.match(child, /publication\.changed\('cards', card\._id, card\.fields\)/);
+  assert.match(child, /publication\.removed\('cards', cardId\)/);
+  assert.match(child, /Cards\.find\(windowSel\(board\)\)\.observeChangesAsync/);
+  assert.doesNotMatch(child, /setInterval/);
+  assert.match(child, /observerHandle\.stop\(\)/);
   assert.match(child, /return null;/);
 });
 

@@ -19,6 +19,7 @@ const {
   mergeCardScope,
 } = require('/models/lib/boardCardScope');
 const { sortWithIdTiebreaker } = require('/models/lib/cardSortTiebreaker');
+const { diffCardWindow } = require('/models/lib/cardWindowDiff');
 const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
@@ -69,6 +70,7 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
 
   const userId = this.userId;
   const publication = this;
+  let windowStarted = false;
   const lim = Math.max(1, Math.min(Math.floor(limit) || 1, MAX_WINDOW));
   const safe = selectorIsInjection(cardSelector, 'boardCardsWindow')
     ? { _id: { $in: [] } }
@@ -149,15 +151,80 @@ publishComposite('boardCardsWindow', function(boardId, cardSelector, sort, limit
       // The window's cards.
       {
         async find(board) {
-          const cards = await ReactiveCache.getCards(
-            windowSel(board),
-            { sort: sortOpt, limit: lim },
-            false,
-          );
-          for (const card of cards || []) {
-            const { _id, ...fields } = card;
-            publication.added('cards', _id, fields);
+          // FerretDB cannot reliably establish the sorted, limited live cursor
+          // that publish-composite normally observes, so keep fetching snapshots.
+          // A one-time snapshot, however, made every later move/edit invisible
+          // until reload (#6645). Diff successive bounded snapshots and emit the
+          // same DDP added/changed/removed messages a live cursor would produce.
+          if (windowStarted) return null;
+          windowStarted = true;
+          let stopped = false;
+          let refreshing = false;
+          let refreshQueued = false;
+          let initializingObserver = true;
+          let observerHandle;
+          let cards = [];
+
+          const refresh = async () => {
+            refreshQueued = true;
+            if (stopped || refreshing) return;
+            refreshing = true;
+            try {
+              // An event can arrive while the bounded query is running. Keep
+              // one follow-up queued rather than losing that change or running
+              // overlapping queries for a burst of card updates.
+              while (refreshQueued && !stopped) {
+                refreshQueued = false;
+                const next = (await ReactiveCache.getCards(
+                  windowSel(board),
+                  { sort: sortOpt, limit: lim },
+                  false,
+                )) || [];
+                if (stopped) return;
+
+                const diff = diffCardWindow(cards, next);
+                for (const card of diff.added) {
+                  const { _id, ...fields } = card;
+                  publication.added('cards', _id, fields);
+                }
+                for (const card of diff.changed) {
+                  publication.changed('cards', card._id, card.fields);
+                }
+                for (const cardId of diff.removed) {
+                  publication.removed('cards', cardId);
+                }
+                cards = next;
+              }
+            } finally {
+              refreshing = false;
+            }
+          };
+
+          await refresh();
+          publication.onStop(() => {
+            stopped = true;
+            if (observerHandle) observerHandle.stop();
+          });
+
+          // Observe the unrestricted selector, not the sorted/limited cursor
+          // that stalls on FerretDB. Any matching card change asks refresh() to
+          // fetch and diff the small visible window. Initial observer additions
+          // are ignored because the first snapshot is already published.
+          observerHandle = await Cards.find(windowSel(board)).observeChangesAsync({
+            added: () => {
+              if (initializingObserver) return;
+              return refresh().catch(error => publication.error(error));
+            },
+            changed: () => refresh().catch(error => publication.error(error)),
+            removed: () => refresh().catch(error => publication.error(error)),
+          });
+          if (stopped) {
+            observerHandle.stop();
+            return null;
           }
+          initializingObserver = false;
+          // Close the small race between the initial snapshot and observer setup.
+          await refresh();
           return null;
         },
       },
