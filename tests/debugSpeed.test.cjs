@@ -6,6 +6,7 @@ const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const observer = read('server/lib/debugSpeed.js');
 const server = read('releases/debug-speed-server.sh');
+const ferretOnly = read('releases/debug-speed-ferretdb.sh');
 const watcher = read('releases/debug-speed-watch.sh');
 const traffic = read('releases/debug-speed-traffic.mjs');
 
@@ -49,5 +50,20 @@ assert.match(watcher, /ps -eo pid=,ppid=,pcpu=,pmem=,rss=,vsz=,stat=,comm=/);
 assert.match(server, /unset MONGO_URL MONGO_OPLOG_URL/);
 assert.match(server, /unset MONGO_OPLOG_URL/);
 assert.match(server, /METEOR_REACTIVITY_ORDER=polling/);
+
+// A restore-safe launcher runs the same instrumented FerretDB without starting
+// Meteor/WeKan. It owns and reaps FerretDB, its watcher and its log follower.
+assert.match(ferretOnly, /export DEBUGSPEED=true/);
+assert.match(ferretOnly, /export FERRETDB_HANDLER=sqlite/);
+assert.match(ferretOnly, /DEBUGSPEED_FERRETDB_PORT:-37017/);
+assert.match(ferretOnly, /DEBUGSPEED_FERRETDB_STATE:-\$FERRET_DIR\/state-debug-speed/);
+assert.match(ferretOnly, /DEBUGSPEED_FERRETDB_LOG_LEVEL:-info/);
+assert.match(ferretOnly, /debug-speed-watch\.sh/);
+assert.match(ferretOnly, /stop_process "\$WATCH_PID" "\$WATCH_GROUP"/);
+assert.match(ferretOnly, /stop_process "\$TAIL_PID" "\$TAIL_GROUP"/);
+assert.match(ferretOnly, /stop_process "\$FERRET_PID" "\$FERRET_GROUP"/);
+assert.match(ferretOnly, /trap interrupted INT TERM/);
+assert.doesNotMatch(ferretOnly, /meteor run|WEKAN_PID|wekan\.log|MONGO_OPLOG_URL/);
+assert.doesNotMatch(ferretOnly, /DEBUGSPEED_FERRETDB_LOG_LEVEL:-debug/);
 
 console.log('debugSpeed: opt-in, redaction and database modes verified');
