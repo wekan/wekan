@@ -146,7 +146,6 @@ import '/config/search-const';
 // ----------------------------------------------------------------------------
 import '/server/00checkStartup';
 import '/server/accounts-common';
-import '/server/accounts-resume-login';
 import '/server/accounts-lockout-config';
 // Fold the per-event eventlog rows an older WeKan wrote into problem summaries
 // (server/lib/eventLogSummaryMigration.js). Idempotent and once.
