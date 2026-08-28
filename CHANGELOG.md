@@ -8342,6 +8342,8 @@ exercise teardown and later restart as well as rejecting per-badge intervals.
 
 and adds the following performance diagnostic tooling:
 
+**DEBUGSPEED** - opt-in measurements and failure logs explain local database behavior.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/414f1e1a0">Compare MongoDB and FerretDB with opt-in speed diagnostics</a>. Thanks to xet7.</summary>
 
@@ -8356,6 +8358,20 @@ add SQLite query-shape, candidate-row and separate SQL/decode timings while keep
 small indexed lookups silent. Static positive/negative guards, FerretDB unit
 tests, both database startup modes and an anonymous browser traffic run cover
 the workflow.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8012ec1b">Capture FerretDB connection failures in diagnostic logs</a>. Thanks to xet7.</summary>
+
+`debug-speed-server.sh` now explicitly starts FerretDB at the safe `info` log
+level and prints the exact `ferretdb.log` path. The
+[matching FerretDB change](https://github.com/wekan/FerretDB/commit/a3625856)
+makes `DEBUGSPEED=true` select that level itself, so connection warnings,
+errors and existing bounded query-shape diagnostics reach the log even outside
+this launcher. Debug-level wire messages remain disabled because they may
+contain user data. Positive launcher and FerretDB unit tests pin the level and
+path; a negative guard prevents enabling payload-bearing debug logging.
 
 </details>
 
