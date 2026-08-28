@@ -7698,9 +7698,14 @@ times and JSON, CSV and Trello Butler rule import and export. These direct
 translations were completed with low confidence and welcome review by a Somali
 speaker. This left **83,566 genuinely untranslated values across 39 locale
 files**.
+The twenty-first 50-value Somali batch added n8n and Node-RED workflow imports,
+scheduled and due-date triggers, card and board buttons, list sorting,
+completion, bulk card movement and relative dates. These direct translations
+were completed with low confidence and welcome review by a Somali speaker. This
+left **83,516 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
