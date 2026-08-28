@@ -8250,6 +8250,8 @@ while MongoDB 7 and Meteor 3 multitenancy retain explicit, verified replica-set
 configuration. The multitenancy setup now initializes its replica set
 idempotently and creates database users through MongoDB's localhost exception,
 keeping first-time installation compatible with authorization enabled.
+**Card date badges** now share one self-cleaning minute ticker instead of
+creating a timer for every rendered badge.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8272,6 +8274,18 @@ now clear inherited OpLog settings and start without replica-set arguments.
 MongoDB 7 keeps its explicit `rs0` connection, while the Meteor 3 multitenancy
 guide gains an idempotent replica-set initializer and scoped OpLog credentials.
 Positive and negative regression tests pin the separation.
+
+</details>
+
+and improves the following client performance behavior:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/99d533f4cecbfb726b4bd541a662b64158f6c48d">Share one minute ticker between card date badges</a>. Thanks to xet7.</summary>
+
+Card dates and date custom fields subscribe to one reactive clock. Each view
+unsubscribes when destroyed; duplicate cleanup is harmless, the interval remains
+for other subscribers, and the final unsubscribe stops it. Regression tests
+exercise teardown and later restart as well as rejecting per-badge intervals.
 
 </details>
 
