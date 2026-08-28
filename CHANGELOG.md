@@ -7720,9 +7720,15 @@ card-date activity and reminders, positioning and desktop interaction controls.
 These direct translations were completed with low confidence and welcome review
 by a Somali speaker. This left **83,366 genuinely untranslated values across 39
 locale files**.
+The twenty-fifth 50-value Somali batch added multi-card windows, inline editor
+behavior, organization, team and user dialogs, unread controls, board-role
+permissions and status, weekdays, ownership, activity and voting. These direct
+translations were completed with low confidence and welcome review by a Somali
+speaker. This left **83,316 genuinely untranslated values across 39 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`open-many-cards-at-once` with
+`delete-linked-cards-before-this-list` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
