@@ -1208,14 +1208,16 @@ Template.cardDetails.events({
       dataContextIfCurrentDataIsUndefined: card,
     });
   },
-  'click .js-remove-location'(event) {
+  async 'click .js-remove-location'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const locationId = event.currentTarget.dataset.locationId;
-    const card = Template.currentData();
+    // The X is rendered inside `each getLocations`, so Template.currentData()
+    // is the location row, not the surrounding card (#6644).
+    const card = getCurrentCardFromContext();
     if (card && locationId) {
-      card.removeLocation(locationId);
+      await card.removeLocation(locationId);
     }
   },
   'click .js-received-date': Popup.open('editCardReceivedDate'),

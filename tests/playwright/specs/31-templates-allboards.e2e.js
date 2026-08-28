@@ -82,6 +82,27 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     }
   });
 
+  test('#6643: Archive shows an archived subtasks helper board', async ({ page, user }) => {
+    const helper = db.seedBoard({
+      ownerId: user.id,
+      title: '^Subtasks for archived card^',
+      cardTitlesPerList: [[]],
+    });
+    db.updateOne('boards', { _id: helper.boardId }, {
+      $set: { archived: true, archivedAt: new Date() },
+    });
+
+    await page.addInitScript(() => {
+      window.localStorage.setItem('wekan-all-boards-view', 'lists');
+    });
+    await loginWithToken(page, user.id, user.token);
+    await page.goto(`${BASE_URL}/allboards/archive`, { waitUntil: 'commit' });
+
+    await expect
+      .poll(() => boardListNames(page), { timeout: 15_000 })
+      .toContain('^Subtasks for archived card^');
+  });
+
   test('ensureTemplatesBoard creates the templates container and is idempotent', async ({ page, user }) => {
     let templatesBoardId;
     try {

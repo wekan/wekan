@@ -40,6 +40,8 @@ test('the Archive is drawn with board icons, like every other section', () => {
     'the archive section is recognised');
   assert.ok(/\{ archived: showsArchive \}/.test(body),
     'and the query follows it rather than being hard-coded to false');
+  assert.ok(/if \(!showsArchive\) query\.\$and\.push\(\{ title: notHelperBoardTitle\(\) \}\)/.test(body),
+    '#6643: active views hide helper boards, but Archive keeps them reachable');
 
   // The menu filter must not then filter them away. A workspace assignment
   // survives archiving, so the workspace branch would hide most of an archive.

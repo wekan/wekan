@@ -502,9 +502,12 @@ function boardsForView(tpl) {
     $and: [
       { archived: showsArchive },
       { type: { $in: ['board', 'template-container'] } },
-      { title: notHelperBoardTitle() },
     ],
   };
+  // Active helper boards stay out of ordinary board lists, but an archived
+  // helper board must remain reachable here so its owner can restore or
+  // permanently delete it (#6643).
+  if (!showsArchive) query.$and.push({ title: notHelperBoardTitle() });
   const membershipOrs = [];
 
   let allowPrivateVisibilityOnly = TableVisibilityModeSettings.findOne(

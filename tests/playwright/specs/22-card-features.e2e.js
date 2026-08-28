@@ -73,6 +73,13 @@ test.describe('Card & list features', () => {
       'WeKan HQ',
       { timeout: 10_000 },
     );
+
+    // #6644: this X is inside the location row's Blaze data context. It must
+    // resolve the surrounding card before removing the row.
+    await boardPage.locator('.js-remove-location').click();
+    await expect(boardPage.locator('.card-locations .card-location')).toHaveCount(0);
+    await expect.poll(() => (db.getCard(board.cardIds[0]).locations || []).length)
+      .toBe(0);
   });
 
   test('the minicard complete checkbox toggles', async ({ boardPage, board }) => {
