@@ -16,6 +16,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const BoardPage = require('../pages/BoardPage');
 
 test.describe('Board publication – comments/attachments (#6480)', () => {
   test('a card comment (carrying boardId) is published and shown when the card is opened', async ({ boardPage, board }) => {
@@ -42,7 +43,8 @@ test.describe('Board publication – comments/attachments (#6480)', () => {
 
     // Open the card (its minicard) so the card detail — with the comments — renders.
     await boardPage.reload({ waitUntil: 'networkidle' });
-    await boardPage.locator('.js-minicard').filter({ hasText: 'Alpha Card' }).first().click();
+    const bp = new BoardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
 
     // The comment reaches the client via the board-level CardComments cursor.
     await expect(boardPage.getByText(commentText)).toBeVisible({ timeout: 15_000 });
@@ -71,7 +73,8 @@ test.describe('Board publication – comments/attachments (#6480)', () => {
     ]);
 
     await boardPage.reload({ waitUntil: 'networkidle' });
-    await boardPage.locator('.js-minicard').filter({ hasText: 'Beta Card' }).first().click();
+    const bp = new BoardPage(boardPage);
+    await bp.clickCard(board.listIds[1], 'Beta Card');
 
     // The foreign-board comment must NOT appear.
     await expect(boardPage.getByText(foreignText)).toHaveCount(0, { timeout: 10_000 });

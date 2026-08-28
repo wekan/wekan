@@ -199,13 +199,16 @@ test.describe('Cards – open & view modes', () => {
     await cp.root.locator('.card-details-title-edit-zone').click();
     const editor = cp.root.locator('textarea.js-edit-card-title');
     await expect(editor).toBeVisible({ timeout: 5_000 });
-    await editor.fill('Select this title with the mouse');
+    // Keep text under both drag coordinates in every browser. Firefox maps a
+    // click beyond the rendered text to the existing end caret, so a short
+    // title made both ends equal even though native mouse selection was free.
+    await editor.fill('Select this title with the mouse '.repeat(8));
 
     const before = await cp.root.boundingBox();
     const box = await editor.boundingBox();
-    await boardPage.mouse.move(box.x + 12, box.y + box.height / 2);
+    await boardPage.mouse.move(box.x + 20, box.y + 12);
     await boardPage.mouse.down();
-    await boardPage.mouse.move(box.x + Math.min(box.width - 12, 150), box.y + box.height / 2, {
+    await boardPage.mouse.move(box.x + Math.min(box.width - 20, 240), box.y + 12, {
       steps: 8,
     });
     await boardPage.mouse.up();

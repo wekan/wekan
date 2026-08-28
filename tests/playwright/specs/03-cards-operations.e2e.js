@@ -414,7 +414,10 @@ test.describe('Cards – operations', () => {
         expect(listOptions).toBeGreaterThanOrEqual(0);
 
         // The page must still be functional (no crash / white screen).
-        await expect(boardPage.locator('.board-canvas, .js-card-details')).toBeVisible({ timeout: 5_000 });
+        // Both may be visible when the copy dialog leaves the source card open;
+        // a union locator is then a Playwright strict-mode error, not an app
+        // crash. The board canvas alone is the stable functional-page guard.
+        await expect(boardPage.locator('.board-canvas').first()).toBeVisible({ timeout: 5_000 });
       }
     }
 

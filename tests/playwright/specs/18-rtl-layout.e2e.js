@@ -154,7 +154,7 @@ for (const { lang, dir, label } of LANGS) {
       await openBoard(page, board.boardId, board.slug);
 
       const bp = new BoardPage(page);
-      await bp.minicard(board.listIds[0], 'Alpha Card').click();
+      await bp.clickCard(board.listIds[0], 'Alpha Card');
 
       const cp = new CardPage(page);
       await cp.waitForOpen();
