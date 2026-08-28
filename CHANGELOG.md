@@ -7377,8 +7377,13 @@ recovery, archives, templates, attachments, backgrounds, All Boards display and
 member and assignee summaries. These direct translations were completed with low
 confidence and welcome review by a Samoan speaker. This left **86,533 genuinely
 untranslated values across 40 locale files**.
+The fifth 50-value Samoan batch added public-board and workspace navigation,
+appearance and responsive views, zoom, calendars, archive warnings and card
+metadata. These direct translations were completed with low confidence and
+welcome review by a Samoan speaker. This left **86,483 genuinely untranslated
+values across 40 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at `board-public-info` with
+and exact tokens from `en.i18n.json`, resuming Samoan at `card-members-title` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
