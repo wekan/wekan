@@ -8247,8 +8247,10 @@ browser build to verify).
 
 **In short:** **Translation maintenance commands** no longer pass repository
 filenames through a shell, resolving two CodeQL command-injection findings in
-standalone tooling. The table below is carried over from the release under this
-one, and is refilled from each build's provenance.tsv when this release is made.
+standalone tooling. **Launchpad snap assembly** reuses completed per-architecture
+bundles and packs them with faster compression, reducing work on scarce builders.
+The table below is carried over from the release under this one, and is refilled
+from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8276,6 +8278,25 @@ Both scripts now invoke Git directly with separate arguments and consume its
 changed-file list with NUL delimiters. Positive coverage retains normal
 translation restoration and regression reporting; negative coverage uses a
 locale filename containing shell syntax and proves neither script executes it.
+
+</details>
+
+and improves the following developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/40cab94e3">Launchpad assembles snaps without rebuilding completed bundles</a>. Thanks to xet7.</summary>
+
+The s390x, riscv64 and other Launchpad jobs previously downloaded bundles whose
+dependencies had already been rebuilt and pruned for their target architecture,
+deleted that completed dependency tree, installed an npm build toolchain and
+repeated the entire installation through the build-farm proxy.
+
+Snap assembly now uses the no-op plugin, retains the prepared dependency tree
+and omits the unnecessary compiler and npm packages. Both maintained base
+definitions also select LZO instead of the slower default XZ compression for
+the large final SquashFS, trading a larger download for faster packing and cold
+startup. Regression coverage pins the prebuilt-bundle boundary, the absent npm
+commands and build packages, and the compression choice.
 
 </details>
 
