@@ -8348,9 +8348,11 @@ the [projection fix](https://github.com/wekan/FerretDB/commit/99f33658) avoids
 recursively decoding unrequested large fields during selective collection
 scans, and its [ID follow-up](https://github.com/wekan/FerretDB/commit/ad9bb910)
 retains MongoDB's implicit `_id` through the internal projection pipeline.
-Launcher tests pin both modes, while FerretDB unit tests cover projected
-decoding, implicit and excluded IDs, and every query field retained for
-filtering and sorting.
+The [distinct optimization](https://github.com/wekan/FerretDB/commit/dcd7e4b1)
+also decodes only its result path and filter fields instead of every complete
+candidate document. Launcher tests pin both modes, while FerretDB unit tests
+cover projected and distinct decoding, implicit and excluded IDs, and every
+query field retained for filtering and sorting.
 
 </details>
 
