@@ -7746,9 +7746,15 @@ sorting, completion controls, stickers, card dependencies and imports, board
 backgrounds and location fields. These direct translations were completed with
 low confidence and welcome review by a Somali speaker. This left **83,116
 genuinely untranslated values across 39 locale files**.
+The thirtieth 50-value Somali batch added map detection, server troubleshooting,
+sorting, board activity, string templates and administrative files, security,
+performance, impersonation, recovery and office reports. These direct
+translations were completed with low confidence and welcome review by a Somali
+speaker. This left **83,066 genuinely untranslated values across 39 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
