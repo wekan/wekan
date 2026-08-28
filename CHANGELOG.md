@@ -7842,9 +7842,15 @@ keyboard shortcuts, swimlane height and checklist and member controls. These
 direct translations were completed with low confidence and welcome review by a
 Swati speaker. This left **82,249 genuinely untranslated values across 38
 locale files**.
+The fourth 50-value Swati batch added member administration, announcements,
+offline recovery, archives, templates, attachment deletion, board backgrounds,
+All Boards display, members and assignees and private-board status. These direct
+translations were completed with low confidence and welcome review by a Swati
+speaker. This left **82,199 genuinely untranslated values across 38 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`added` with
+`board-public-info` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
