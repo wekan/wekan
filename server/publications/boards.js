@@ -981,7 +981,13 @@ publishComposite('board', async function(boardId, isArchived, generation) {
               return scoped.cursor || scoped;
             }
           }
-          const result = await ReactiveCache.getAttachments({ 'meta.boardId': { $in: boardIds } }, {}, true);
+          // Scalar equality lets FerretDB select the restored meta.boardId
+          // index for the normal one-board case. A one-element $in caused every
+          // poll of an empty board to decode the whole attachments collection.
+          const attachmentSelector = boardIds.length === 1
+            ? { 'meta.boardId': boardIds[0] }
+            : { 'meta.boardId': { $in: boardIds } };
+          const result = await ReactiveCache.getAttachments(attachmentSelector, {}, true);
           return result.cursor || result;
         }
       },
@@ -1212,14 +1218,22 @@ publishComposite('board', async function(boardId, isArchived, generation) {
             // Board members. This publication also includes former board members that
             // aren't members anymore but may have some activities attached to them in
             // the history.
-            const memberIds = board.members.map(x => x.userId);
+            const memberIds = board.members
+              .map(x => x.userId)
+              .filter(x => x !== thisUserId);
+
+            // A new private board contains only the current user, who is
+            // already published separately. Do not issue `_id: { $in: [] }`:
+            // FerretDB cannot use an index for that shape and decoded every
+            // user on every poll before returning no rows.
+            if (memberIds.length === 0) return null;
 
             // We omit the current user because the client should already have that data,
             // and sending it triggers a subtle bug:
             // https://github.com/wefork/wekan/issues/15
             return await ReactiveCache.getUsers(
               {
-                _id: { $in: memberIds.filter(x => x !== thisUserId) },
+                _id: { $in: memberIds },
               },
               {
                 fields: {
