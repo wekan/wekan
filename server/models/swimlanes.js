@@ -8,7 +8,7 @@ import Swimlanes from '/models/swimlanes';
 import Activities from '/models/activities';
 import Cards from '/models/cards';
 import { ensureIndex } from '/server/lib/mongoStartup';
-import { computeSortForIndex } from '/server/lib/utils';
+import { allowIsBoardMemberWithWriteAccess, computeSortForIndex } from '/server/lib/utils';
 import { nextSwimlaneSort } from '/models/lib/swimlaneSort';
 
 Meteor.methods({
@@ -20,8 +20,18 @@ Meteor.methods({
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    if (!board.isPublic?.() && (!this.userId || !board.isMember?.(this.userId))) {
-      throw new Meteor.Error('not-authorized');
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, board)) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.swimlane-create',
+          action: 'blocked',
+          source: 'ensureDefaultSwimlane',
+          userId: this.userId,
+          ip: this.connection?.clientAddress,
+          detail: `write access denied for board ${boardId}`,
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('not-authorized', 'Write access required');
     }
 
     const existingSwimlane = await Swimlanes.findOneAsync(

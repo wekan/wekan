@@ -10,6 +10,18 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory } from '/models/avatars.server';
 import { getOldAttachmentData, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
+const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
+
+function setAvatarResponseHeaders(res, type) {
+  const policy = fileResponsePolicy(type || 'image/jpeg');
+  res.setHeader('Content-Type', policy.contentType);
+  for (const [name, value] of Object.entries(policy.headers)) {
+    res.setHeader(name, value);
+  }
+  if (policy.forceDownload) {
+    res.setHeader('Content-Disposition', 'attachment');
+  }
+}
 
 // Serve a legacy CollectionFS avatar (cfs.avatars.filerecord + cfs_gridfs.avatars
 // bucket) in place, without migrating it. Returns true when it handled the
@@ -23,7 +35,7 @@ async function serveLegacyAvatar(fileId, req, res) {
   if (!stream) {
     return false;
   }
-  res.setHeader('Content-Type', legacy.type || 'image/jpeg');
+  setAvatarResponseHeaders(res, legacy.type);
   if (legacy.size) res.setHeader('Content-Length', legacy.size);
   res.setHeader('Cache-Control', 'public, max-age=31536000');
   res.setHeader('ETag', `"${legacy._id}"`);
@@ -133,7 +145,7 @@ WebApp.handlers.use('/cdn/storage/avatars/:fileName', async (req, res, next) => 
     }
 
     // Set appropriate headers
-    res.setHeader('Content-Type', avatar.type || 'image/jpeg');
+    setAvatarResponseHeaders(res, avatar.type);
     res.setHeader('Content-Length', avatar.size || 0);
     res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
     res.setHeader('ETag', `"${avatar._id}"`);
