@@ -8350,9 +8350,12 @@ scans, and its [ID follow-up](https://github.com/wekan/FerretDB/commit/ad9bb910)
 retains MongoDB's implicit `_id` through the internal projection pipeline.
 The [distinct optimization](https://github.com/wekan/FerretDB/commit/dcd7e4b1)
 also decodes only its result path and filter fields instead of every complete
-candidate document. Launcher tests pin both modes, while FerretDB unit tests
-cover projected and distinct decoding, implicit and excluded IDs, and every
-query field retained for filtering and sorting.
+candidate document. Its [SQLite pushdown](https://github.com/wekan/FerretDB/commit/27803d83)
+now constructs minimal result documents and collapses duplicate top-level keys
+before they cross into Go. Launcher tests pin both modes, while FerretDB unit
+tests cover projected and distinct decoding, SQL filtering and missing keys,
+implicit and excluded IDs, and every query field retained for filtering and
+sorting.
 
 </details>
 
