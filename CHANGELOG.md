@@ -7634,9 +7634,15 @@ read-only roles, deletion confirmations, clipboard actions, bulk-card JSON and
 custom-field types and options. These direct translations were completed with
 low confidence and welcome review by a Somali speaker. This left **84,116
 genuinely untranslated values across 39 locale files**.
+The tenth 50-value Somali batch added custom-field text and dates, permanent
+deletion controls, WIP limits, profile and reaction dialogs, account and
+invitation email templates and board, import and linked-card errors. These
+direct translations were completed with low confidence and welcome review by a
+Somali speaker. This left **84,066 genuinely untranslated values across 39
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
