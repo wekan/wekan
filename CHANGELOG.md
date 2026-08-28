@@ -8022,10 +8022,33 @@ attachment paths and scheduled board archive, backup and cleanup operations.
 These direct translations were completed with low confidence and welcome
 review by a Swati speaker. This left **80,649 genuinely untranslated values
 across 38 locale files**.
+The thirty-sixth 49-value Swati batch completed scheduled-job results and
+migration errors, filesystem and cloud-storage basics, database migration and
+the start of Sandstorm migration status. This left **80,600 genuinely
+untranslated values across 38 locale files**.
+The thirty-seventh and thirty-eighth 55-value Swati batches completed Sandstorm
+migration and card-loading settings, rich-text safety, import/export and avatar
+privacy, activity and notification controls, backups and the AWS, Azure and
+Google Cloud storage guidance. This left **80,490 genuinely untranslated values
+across 38 locale files**.
+The thirty-ninth 55-value Swati batch added migration controls, S3 settings,
+scheduled board operations and the board repair and recovery migrations. This
+left **80,435 genuinely untranslated values across 38 locale files**.
+The fortieth through forty-second 60-value Swati batches completed board and
+file repair migrations, progress steps, resource and attachment monitoring,
+job schedules and queues, repository accounts and Problems reporting. This
+left **80,255 genuinely untranslated values across 38 locale files**.
+The final 23-value Swati batch completed security-event fields and scoped board
+import/export guidance. Swati is now complete, leaving **80,232 genuinely
+untranslated values across 37 locale files**. A same-script vocabulary audit
+also replaced bare Zulu-style `ibhodi` in the new settings tail with Swati
+`libhodi`; the completion regression rejects those wrong-language forms while
+checking every format token and HTML tag against English. These direct
+translations were completed with low confidence and welcome review by a Swati
+speaker.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Swati at
-`cron-job-delete-confirm` with
-`node releases/translations/fill-translations.mjs --list ss --limit 50`;
+and exact tokens from `en.i18n.json`, resuming Sesotho at its first value with
+`node releases/translations/fill-translations.mjs --list st --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
