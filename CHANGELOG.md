@@ -7458,9 +7458,13 @@ activity plus visual rule workflows, triggers, actions, received-date scheduling
 and JSON, CSV and Trello Butler rule import and export. These direct translations
 were completed with low confidence and welcome review by a Samoan speaker. This
 left **85,733 genuinely untranslated values across 40 locale files**.
+The twenty-first 50-value Samoan batch added n8n and Node-RED workflow imports,
+scheduled and due-date triggers, card and board buttons, list sorting, completion
+actions and relative dates. These direct translations were completed with low
+confidence and welcome review by a Samoan speaker. This left **85,683 genuinely
+untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Samoan at
-`r-import-workflow` with
+and exact tokens from `en.i18n.json`, resuming Samoan at `r-the-board` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
