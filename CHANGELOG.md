@@ -7821,10 +7821,15 @@ authentication and account errors, problem summaries, broken-card repair, CPU
 load and event metadata. These direct translations were completed with low
 confidence and welcome review by a Somali speaker. This left **82,416 genuinely
 untranslated values across 39 locale files**.
+The final 17-value Somali batch added event network metadata, filesystem
+integrity, scoped export details, import sources and numeric search syntax. This
+completed all **2,166 Somali values** with low confidence and welcomes review by
+a Somali speaker, leaving **82,399 genuinely untranslated values across 38
+locale files**.
 Continue filling English values directly while preserving human translations
-and exact tokens from `en.i18n.json`, resuming Somali at
-`event-detail` with
-`node releases/translations/fill-translations.mjs --list so --limit 50`;
+and exact tokens from `en.i18n.json`, starting Swati at
+`accept` with
+`node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
 locales are complete including the newly exposed warning-only values; Guarani,
