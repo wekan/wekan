@@ -7663,9 +7663,15 @@ multi-selection, muted notifications, archive status and normal board roles.
 These direct translations were completed with low confidence and welcome review
 by a Somali speaker. This left **83,866 genuinely untranslated values across 39
 locale files**.
+The fifteenth 50-value Somali batch added watched notifications, public and
+private access, member removal and Sandstorm warnings, unsaved-card rescue,
+search, WIP, keyboard shortcuts, sidebars, signup and default-board behavior.
+These direct translations were completed with low confidence and welcome review
+by a Somali speaker. This left **83,816 genuinely untranslated values across 39
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
