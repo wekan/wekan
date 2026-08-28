@@ -7806,9 +7806,14 @@ repair, file URL fixes, confirmations and progress steps. These direct
 translations were completed with low confidence and welcome review by a Somali
 speaker. This left **82,566 genuinely untranslated values across 39 locale
 files**.
+The forty-first 50-value Somali batch added board-repair steps, conversion and
+cleanup status, CPU and database monitoring, recurring intervals, filesystem
+and GridFS statistics and scheduled-job details. These direct translations were
+completed with low confidence and welcome review by a Somali speaker. This left
+**82,516 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`step-fix-attachment-urls` with
+`memory-usage` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
