@@ -7235,9 +7235,14 @@ visual rule workflows, triggers and actions, scheduled received dates, and rule
 import and export through JSON, CSV and Trello Butler. These direct translations
 were completed with low confidence and welcome review by a Sinhala speaker.
 This left **87,900 genuinely untranslated values across 41 locale files**.
+The twenty-first 50-value Sinhala batch added n8n and Node-RED workflow import,
+scheduled and due-date triggers, card and board buttons, list sorting, completion
+actions and relative dates. These direct translations were completed with low
+confidence and welcome review by a Sinhala speaker. This left **87,850 genuinely
+untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`r-import-workflow` with
+`r-the-board` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
