@@ -7268,9 +7268,14 @@ visibility, tasks, domains and shared templates, My Cards and Due Cards views,
 Global Search choices and missing-item messages. These direct translations were
 completed with low confidence and welcome review by a Sinhala speaker. This
 left **87,600 genuinely untranslated values across 41 locale files**.
+The twenty-seventh 50-value Sinhala batch added missing-result messages and
+localized Global Search operators and predicates for boards, people, dates,
+content and status. These direct translations were completed with low
+confidence and welcome review by a Sinhala speaker. This left **87,550 genuinely
+untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
