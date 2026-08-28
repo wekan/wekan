@@ -8405,6 +8405,19 @@ restore-safe launcher cannot start Meteor or enable payload-bearing debug logs.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf5bcfae3">Install the matching DEBUGSPEED Chromium automatically</a>. Thanks to xet7.</summary>
+
+`debug-speed-test.sh` now verifies Playwright's actual Chromium executable, not
+only its installed npm module, and downloads the matching browser revision when
+it is absent. The browser cache lives under `.tools/ms-playwright`, consistently
+with the main Playwright configuration, instead of depending on a populated
+home-directory cache. Static tests cover detection, installation and the local
+cache path; a live one-client traffic run completed 17 iterations with no
+failures.
+
+</details>
+
 and fixes the following release tooling bug:
 
 <details>
