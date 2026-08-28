@@ -8245,12 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Archive** keeps archived subtask helper boards reachable for
+restoration or permanent deletion, and **Card locations** can again be removed
+with their X button. The table below is carried over from the release under this
+one, and is refilled from each build's provenance.tsv when this release is made.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8260,44 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Archive** - every counted archived board remains visible and manageable.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dd3673c5">Archived subtask helper boards appear in Archive</a>. Thanks to majo1989 and xet7.</summary>
+
+Ordinary board lists deliberately hide internal helper boards whose titles are
+wrapped in carets. The shared client query also applied that filter to Archive,
+even though the archived-board publication and count included those boards, so
+the counter increased while the tile stayed invisible.
+
+Archive now keeps published helper boards in its tile query, allowing their
+owners to restore or permanently delete them, while active views continue to
+hide them. Positive, negative and live browser regressions cover both sides of
+that boundary.
+
+</details>
+
+**Card locations** - location controls act on the surrounding card.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dd3673c5">The X button removes its card location</a>. Thanks to majo1989 and xet7.</summary>
+
+Each location row has its own Blaze data context, so the X handler previously
+mistook that row for the card and never reached the removal model method. It now
+resolves the open card, awaits removal by the location's stable id and retains
+the separate legacy-location cleanup path.
+
+Source regressions prove the nested context cannot return, and a live browser
+test adds a map location, removes it and confirms both the rendered row and
+database value disappear.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.17 2026-08-28 WeKan ® release
 
