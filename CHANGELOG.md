@@ -7629,9 +7629,14 @@ widths, card aging, movement and accessibility controls, dialog actions and the
 first color-palette values. These direct translations were completed with low
 confidence and welcome review by a Somali speaker. This left **84,166 genuinely
 untranslated values across 39 locale files**.
+The ninth 50-value Somali batch completed the color palette and added comment and
+read-only roles, deletion confirmations, clipboard actions, bulk-card JSON and
+custom-field types and options. These direct translations were completed with
+low confidence and welcome review by a Somali speaker. This left **84,116
+genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`color-white` with
+`custom-field-text` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
