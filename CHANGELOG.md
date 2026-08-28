@@ -7570,9 +7570,14 @@ conversion, CPU metrics, recurring job intervals, migration monitoring,
 filesystem and GridFS statistics and job-queue fields. These direct translations
 were completed with low confidence and welcome review by a Samoan speaker. This
 left **84,683 genuinely untranslated values across 40 locale files**.
+The forty-second 50-value Samoan batch added migration storage targets, batch,
+CPU and delay limits, background-processing guidance, monitoring, navigation,
+resource statistics and operation controls. These direct translations were
+completed with low confidence and welcome review by a Samoan speaker. This left
+**84,633 genuinely untranslated values across 40 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Samoan at
-`memory-usage` with
+`current-step` with
 `node releases/translations/fill-translations.mjs --list sm --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
