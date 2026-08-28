@@ -34,7 +34,7 @@ test.describe('Card & list features', () => {
     });
   });
 
-  test('a location can be added to a card', async ({ boardPage, board }) => {
+  test('#6644: a location can be added to and removed from a card', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
@@ -78,7 +78,13 @@ test.describe('Card & list features', () => {
     // resolve the surrounding card before removing the row.
     await boardPage.locator('.js-remove-location').click();
     await expect(boardPage.locator('.card-locations .card-location')).toHaveCount(0);
-    await expect.poll(() => (db.getCard(board.cardIds[0]).locations || []).length)
+    await expect.poll(() => {
+      const card = db.findOne('cards', {
+        boardId: board.boardId,
+        title: 'Alpha Card',
+      });
+      return (card.locations || []).length;
+    })
       .toBe(0);
   });
 
