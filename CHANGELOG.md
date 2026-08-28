@@ -7333,9 +7333,14 @@ migration lifecycle controls and scheduled board operations. These direct
 translations were completed with low confidence and welcome review by a Sinhala
 speaker. This left **86,950 genuinely untranslated values across 41 locale
 files**.
+The fortieth 50-value Sinhala batch added board-integrity migrations for lists,
+lost cards, archives, avatar and attachment URLs, plus detailed progress steps.
+These direct translations were completed with low confidence and welcome review
+by a Sinhala speaker. This left **86,900 genuinely untranslated values across 41
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`card-show-lists-on-minicard` with
+`step-fix-attachment-urls` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
