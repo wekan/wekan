@@ -7934,9 +7934,15 @@ cleanup, subtask routing, minicard counters, cover and parent display and label
 activity. These direct translations were completed with low confidence and
 welcome review by a Swati speaker. This left **81,449 genuinely untranslated
 values across 38 locale files**.
+The twentieth 50-value Swati batch added label, attachment and custom-field
+activity plus automation rule building, card and member triggers, scheduled
+times and JSON, CSV and Trello Butler rule import and export. These direct
+translations were completed with low confidence and welcome review by a Swati
+speaker. This left **81,399 genuinely untranslated values across 38 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`activity-removed-label` with
+`r-import-workflow` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
