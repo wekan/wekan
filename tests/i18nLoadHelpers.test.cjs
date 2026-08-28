@@ -78,13 +78,14 @@ check('tap.js init registers bundled English and always sets ready (source guard
   const src = fs.readFileSync(path.join(__dirname, '..', 'imports', 'i18n', 'tap.js'), 'utf8');
   assert.ok(/import enData from '\.\/data\/en\.i18n\.json'/.test(src),
     'the default English must be statically imported');
-  assert.ok(/promiseWithTimeout\(\s*TAPi18n\.loadLanguage\(DEFAULT_LANGUAGE\)/.test(src),
-    'the default dynamic load must be bounded by a timeout');
-  // ready.set(true) must sit OUTSIDE the try, after the catch, so every path reaches it.
-  const idx = src.indexOf('this.ready.set(true);');
-  const catchIdx = src.lastIndexOf('} catch (e) {', idx);
-  assert.ok(idx > -1 && catchIdx > -1 && idx > catchIdx,
-    'ready.set(true) must run after the try/catch (reached in every path)');
+  assert.ok(!/promiseWithTimeout\(\s*TAPi18n\.loadLanguage\(DEFAULT_LANGUAGE\)/.test(src),
+    'optional database overrides must not hold default-language readiness');
+  const readyIdx = src.indexOf('this.ready.set(true);');
+  const loadIdx = src.indexOf('void TAPi18n.loadLanguage(DEFAULT_LANGUAGE)');
+  assert.ok(readyIdx > -1 && loadIdx > readyIdx,
+    'bundled English must become ready before custom overrides start loading');
+  assert.ok(/TAPi18n\.revision\.set\(TAPi18n\.revision\.get\(\) \+ 1\)/.test(src),
+    'late custom overrides must invalidate translation helpers');
 });
 
 Promise.all(pending).then(() => {

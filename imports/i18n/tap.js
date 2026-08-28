@@ -3,7 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import i18next from 'i18next';
 import sprintf from 'i18next-sprintf-postprocessor';
 import languages from './languages';
-import { unwrapI18nModule, promiseWithTimeout } from './loadHelpers';
+import { unwrapI18nModule } from './loadHelpers';
 // #6503: STATICALLY bundle the default English translations. Every other
 // language still loads lazily via `import('./data/<tag>.i18n.json')`, but the
 // default must never depend on a dynamic import: if dynamic import() is broken
@@ -11,10 +11,6 @@ import { unwrapI18nModule, promiseWithTimeout } from './loadHelpers';
 // stuck showing raw i18n keys forever. With English in the main bundle the UI is
 // always readable and `TAPi18n.ready` always resolves.
 import enData from './data/en.i18n.json';
-
-// How long to wait for the default language's dynamic load before falling back
-// to the bundled English so readiness is never blocked by a hung import (#6503).
-const DEFAULT_LANGUAGE_LOAD_TIMEOUT_MS = 10000;
 
 const DEFAULT_NAMESPACE = 'translation';
 const DEFAULT_LANGUAGE = 'en';
@@ -50,6 +46,7 @@ export const TAPi18n = {
   i18n: null,
   current: new ReactiveVar(DEFAULT_LANGUAGE),
   ready: new ReactiveVar(false),
+  revision: new ReactiveVar(0),
   // Normalise a Wekan language tag to the code i18next stores/looks up under.
   // See the comment above for why both transforms are needed (#5756).
   toI18nCode(language) {
@@ -98,23 +95,19 @@ export const TAPi18n = {
       if (Meteor.isClient) console.error('TAPi18n.init: failed to register bundled English', e);
     }
 
-    // Then load the current language data the normal way (this also layers any
-    // custom DB translations on top of the built-in English). A failed or HUNG
-    // dynamic import must never leave i18n permanently unready — bound it with a
-    // timeout and swallow the error; the bundled English above still applies.
-    try {
-      await promiseWithTimeout(
-        TAPi18n.loadLanguage(DEFAULT_LANGUAGE),
-        DEFAULT_LANGUAGE_LOAD_TIMEOUT_MS,
-        'TAPi18n: default language load timed out',
-      );
-    } catch (e) {
-      if (Meteor.isClient) {
-        console.error('TAPi18n.init: default language dynamic load failed; using bundled English', e);
-      }
-    }
-    // ALWAYS reached now, in every path, so the UI never gets stuck on raw keys.
+    // Bundled English is sufficient for first paint. Optional custom English
+    // overrides live in the database and may arrive slowly on a restored, busy
+    // instance; layer them asynchronously instead of holding i18n readiness and
+    // printing a false timeout error. A later successful load replaces/extends
+    // the same resource bundle and the UI remains reactive through current/ready.
     this.ready.set(true);
+    void TAPi18n.loadLanguage(DEFAULT_LANGUAGE)
+      .then(() => TAPi18n.revision.set(TAPi18n.revision.get() + 1))
+      .catch(e => {
+        if (Meteor.isClient) {
+          console.error('TAPi18n.init: custom English overrides failed to load', e);
+        }
+      });
   },
   // Resolve an arbitrary language string to the canonical Wekan tag (a key in
   // languages.js), CASE-INSENSITIVELY (e.g. 'zh-hant' -> 'zh-Hant', 'JA-JP' -> 'ja-JP'),
@@ -241,6 +234,7 @@ export const TAPi18n = {
   // Return translation by key
   __(key, options, language) {
     this.current.dep.depend();
+    this.revision.get();
 
     // The global sprintf post-processor (`postProcess: ["sprintf"]`) throws when
     // a translation value contains a '%' sequence it cannot parse, e.g. the
