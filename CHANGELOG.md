@@ -8248,10 +8248,9 @@ browser build to verify).
 **In short:** **File responses and board writes** close three security gaps.
 **Database launchers** separate standalone FerretDB polling from MongoDB 7
 replica sets and multitenancy, while **DEBUGSPEED diagnostics** make comparative
-MongoDB/FerretDB traffic runs measurable and remove full-instance scans from
-**empty-board creation**. **Card date badges** share one self-cleaning minute
-ticker, and **Snap assembly** uses the correct extracted release bundle on every
-architecture.
+MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
+self-cleaning minute ticker, and **Snap assembly** uses the correct extracted
+release bundle on every architecture.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8338,22 +8337,6 @@ Card dates and date custom fields subscribe to one reactive clock. Each view
 unsubscribes when destroyed; duplicate cleanup is harmless, the interval remains
 for other subscribers, and the final unsubscribe stops it. Regression tests
 exercise teardown and later restart as well as rejecting per-badge intervals.
-
-</details>
-
-and fixes the following board performance bug:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/8229e1709">Open a new empty board without scanning the restored instance</a>. Thanks to xet7.</summary>
-
-Creating a board found the global maximum `sort`, which made FerretDB decode and
-sort 45,639 boards before inserting one; its method took 29 seconds. New boards
-now receive a monotonic millisecond sort without a database read. The empty
-board publication also stops before querying `_id in []` when its only member
-is the already-published current user, and uses scalar `meta.boardId` equality
-so the common attachment query can select its restored index instead of
-decoding 23,915 attachments on every poll. Positive and negative regression
-guards pin all three bounded paths.
 
 </details>
 
