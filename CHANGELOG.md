@@ -7263,9 +7263,14 @@ board-role permissions and status, weekdays and linked-card deletion guidance.
 These direct translations were completed with low confidence and welcome review
 by a Sinhala speaker. This left **87,650 genuinely untranslated values across 41
 locale files**.
+The twenty-sixth 50-value Sinhala batch added linked-card safety, checklist
+visibility, tasks, domains and shared templates, My Cards and Due Cards views,
+Global Search choices and missing-item messages. These direct translations were
+completed with low confidence and welcome review by a Sinhala speaker. This
+left **87,600 genuinely untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`delete-linked-cards-before-this-list` with
+`user-username-not-found` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
