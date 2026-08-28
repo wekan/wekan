@@ -7736,9 +7736,14 @@ organization and team messages, search-result counts and localized search
 operators and predicates. These direct translations were completed with low
 confidence and welcome review by a Somali speaker. This left **83,216 genuinely
 untranslated values across 39 locale files**.
+The twenty-eighth 50-value Somali batch added search predicates, validation
+messages, pagination and the full operator reference with examples, status
+filters, sorting, limits and search notes. These direct translations were
+completed with low confidence and welcome review by a Somali speaker. This left
+**83,166 genuinely untranslated values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`predicate-member` with
+`number` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
