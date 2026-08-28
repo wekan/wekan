@@ -7782,9 +7782,15 @@ controls, filesystem, S3 and Azure storage configuration, MongoDB and FerretDB
 database migration and Sandstorm migration status. These direct translations
 were completed with low confidence and welcome review by a Somali speaker. This
 left **82,766 genuinely untranslated values across 39 locale files**.
+The thirty-seventh 50-value Somali batch added Sandstorm cleanup, adaptive card
+loading, safe plain-text rendering, import and export restrictions,
+anonymization, activity and notification controls and instance or organization
+backups. These direct translations were completed with low confidence and
+welcome review by a Somali speaker. This left **82,716 genuinely untranslated
+values across 39 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Somali at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list so --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
