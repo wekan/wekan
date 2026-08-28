@@ -7224,9 +7224,15 @@ board visibility and organization and team tenancy controls. These direct
 translations were completed with low confidence and welcome review by a Sinhala
 speaker. This left **88,000 genuinely untranslated values across 41 locale
 files**.
+The nineteenth 50-value Sinhala batch added received and end dates, card and
+selection colors, destructive board and notification actions, subtask and card
+settings, minicard metadata, parent paths and label activity. These direct
+translations were completed with low confidence and welcome review by a Sinhala
+speaker. This left **87,950 genuinely untranslated values across 41 locale
+files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
