@@ -7922,9 +7922,15 @@ test email, authorization, outgoing and bidirectional webhooks and database,
 Node and Meteor metadata. These direct translations were completed with low
 confidence and welcome review by a Swati speaker. This left **81,549 genuinely
 untranslated values across 38 locale files**.
+The eighteenth 50-value Swati batch added database, FerretDB, reactivity, DDP
+and operating-system diagnostics, custom-field display, account changes, board
+visibility and organization and team tenancy, domains, administrators and
+member synchronization. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **81,499 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`Database_type` with
+`card-received` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
