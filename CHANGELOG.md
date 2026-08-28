@@ -8266,7 +8266,7 @@ from each build's provenance.tsv when this release is made.
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4e17ecbc7">Translation Git commands treat repository filenames only as arguments</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/27395417e">Translation Git commands treat repository filenames only as arguments</a>. Thanks to GitHub CodeQL code scanning and xet7.</summary>
 
 CodeQL alerts #439 and #440 found that the translation merge and English-
 regression report interpolated Git revisions and locale paths into shell command
@@ -8284,7 +8284,7 @@ locale filename containing shell syntax and proves neither script executes it.
 and improves the following developer tooling:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/40cab94e3">Launchpad assembles snaps without rebuilding completed bundles</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6c12a9c96">Launchpad assembles snaps without rebuilding completed bundles</a>. Thanks to xet7.</summary>
 
 The s390x, riscv64 and other Launchpad jobs previously downloaded bundles whose
 dependencies had already been rebuilt and pruned for their target architecture,
