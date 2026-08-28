@@ -7185,9 +7185,14 @@ to PDF and Excel, attachment metadata, list sorting and due-date, label and
 member filters. These direct translations were completed with low confidence
 and welcome review by a Sinhala speaker. This left **88,350 genuinely
 untranslated values across 41 locale files**.
+The twelfth 50-value Sinhala batch added assignee and advanced filters, member
+status, and import guidance for Kanboard, Deck, OpenProject, issue trackers,
+Asana, ZenKit, Trello, CSV, Jira, Excel and WeKan. These direct translations
+were completed with low confidence and welcome review by a Sinhala speaker.
+This left **88,300 genuinely untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`filter-assignee-label` with
+`import-trello-zip-file-too-large` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
