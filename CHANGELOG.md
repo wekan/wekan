@@ -7928,9 +7928,15 @@ visibility and organization and team tenancy, domains, administrators and
 member synchronization. These direct translations were completed with low
 confidence and welcome review by a Swati speaker. This left **81,499 genuinely
 untranslated values across 38 locale files**.
+The nineteenth 50-value Swati batch added received and end dates, color dialogs,
+assignment metadata, destructive board and notification actions, duplicate-list
+cleanup, subtask routing, minicard counters, cover and parent display and label
+activity. These direct translations were completed with low confidence and
+welcome review by a Swati speaker. This left **81,449 genuinely untranslated
+values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`card-received` with
+`activity-removed-label` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
