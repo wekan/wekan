@@ -7973,9 +7973,14 @@ visibility, tasks, domains and shared templates, My Cards and Due Cards views,
 global search and not-found errors. These direct translations were completed
 with low confidence and welcome review by a Swati speaker. This left **81,099
 genuinely untranslated values across 38 locale files**.
+The twenty-seventh 50-value Swati batch added not-found messages, card-result
+counts and the localized operators and predicates for advanced card searches.
+These direct translations were completed with low confidence and welcome
+review by a Swati speaker. This left **81,049 genuinely untranslated values
+across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`user-username-not-found` with
+`predicate-member` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
