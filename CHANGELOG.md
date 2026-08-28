@@ -7293,9 +7293,14 @@ swimlane copying, loading animations, organization safeguards and support-ticket
 fields. These direct translations were completed with low confidence and welcome
 review by a Sinhala speaker. This left **87,350 genuinely untranslated values
 across 41 locale files**.
+The thirty-second 50-value Sinhala batch added team and organization controls,
+Node memory diagnostics, legal notices, checklist actions and attachment-storage
+moves. These direct translations were completed with low confidence and welcome
+review by a Sinhala speaker. This left **87,300 genuinely untranslated values
+across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`add-teams` with
+`move-all-attachments-to-gridfs` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
