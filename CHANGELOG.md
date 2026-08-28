@@ -8245,17 +8245,12 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Avatar and legacy attachment responses** now neutralize stored
-browser-executable MIME types, and **board write permissions** prevent read-only
-members from creating swimlanes. **FerretDB deployments** consistently use standalone polling,
-while MongoDB 7 and Meteor 3 multitenancy retain explicit, verified replica-set
-configuration. The multitenancy setup now initializes its replica set
-idempotently and creates database users through MongoDB's localhost exception,
-keeping first-time installation compatible with authorization enabled.
-**Card date badges** now share one self-cleaning minute ticker instead of
-creating a timer for every rendered badge. **Snap assembly** now copies each
-prebuilt release bundle from its actual extraction directory on every native
-and Launchpad architecture.
+**In short:** **File responses and board writes** close three security gaps.
+**Database launchers** separate standalone FerretDB polling from MongoDB 7
+replica sets and multitenancy, while **DEBUGSPEED diagnostics** make comparative
+MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
+self-cleaning minute ticker, and **Snap assembly** uses the correct extracted
+release bundle on every architecture.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8342,6 +8337,25 @@ Card dates and date custom fields subscribe to one reactive clock. Each view
 unsubscribes when destroyed; duplicate cleanup is harmless, the interval remains
 for other subscribers, and the final unsubscribe stops it. Regression tests
 exercise teardown and later restart as well as rejecting per-badge intervals.
+
+</details>
+
+and adds the following performance diagnostic tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/414f1e1a0">Compare MongoDB and FerretDB with opt-in speed diagnostics</a>. Thanks to xet7.</summary>
+
+`DEBUGSPEED=true` records bounded process, event-loop and slow DDP handler
+measurements in Admin Panel → Problems → Speed without recording arguments,
+credentials or query values. `debug-speed-server.sh` starts WeKan on a chosen
+localhost port with either Meteor's MongoDB or a freshly compiled FerretDB, and
+keeps their raw logs together; `debug-speed-test.sh` drives repeatable anonymous
+or authenticated browser traffic. The
+[matching FerretDB diagnostics](https://github.com/wekan/FerretDB/commit/83ef2caa)
+add SQLite query-shape, candidate-row and separate SQL/decode timings while keeping
+small indexed lookups silent. Static positive/negative guards, FerretDB unit
+tests, both database startup modes and an anonymous browser traffic run cover
+the workflow.
 
 </details>
 
