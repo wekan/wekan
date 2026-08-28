@@ -7904,9 +7904,15 @@ imports, movement and multi-selection, muted notifications, archived-item empty
 states and board roles. These direct translations were completed with low
 confidence and welcome review by a Swati speaker. This left **81,699 genuinely
 untranslated values across 38 locale files**.
+The fifteenth 50-value Swati batch added watched-item notifications, private and
+public page handling, previews, quick access, member removal, Sandstorm access
+guidance, unsaved-description rescue, search, WIP limits, keyboard shortcuts,
+sidebars, signup and default boards. These direct translations were completed
+with low confidence and welcome review by a Swati speaker. This left **81,649
+genuinely untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`notify-watch` with
+`starred-boards` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
