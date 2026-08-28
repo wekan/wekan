@@ -7875,9 +7875,15 @@ read-only roles, deletion confirmations, clipboard actions, bulk template-card
 JSON, labels and custom-field types and options. These direct translations were
 completed with low confidence and welcome review by a Swati speaker. This left
 **81,949 genuinely untranslated values across 38 locale files**.
+The tenth 50-value Swati batch added custom-field text and date settings,
+permanent deletion, WIP limits, profile and notification dialogs, enrollment,
+invitation, password-reset and verification emails and board, JSON, CSV and
+linked-card errors. These direct translations were completed with low
+confidence and welcome review by a Swati speaker. This left **81,899 genuinely
+untranslated values across 38 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Swati at
-`custom-field-text` with
+`error-user-doesNotExist` with
 `node releases/translations/fill-translations.mjs --list ss --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
