@@ -105,7 +105,9 @@ class BoardPage {
   // --- Opening a card ---
 
   async clickCard(listId, titleSubstring) {
-    await this.minicard(listId, titleSubstring).click();
+    // Title text deliberately opens inline editing. Activate the enclosing
+    // card link itself so this helper keeps its promise to open card details.
+    await this.minicard(listId, titleSubstring).evaluate(card => card.click());
     await this.page.locator('.js-card-details').first().waitFor({ timeout: 15_000 });
   }
 

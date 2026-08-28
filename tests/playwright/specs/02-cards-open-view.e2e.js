@@ -164,11 +164,15 @@ test.describe('Cards – open & view modes', () => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
+    const cardId = await card.getAttribute('data-card-id');
     await card.locator('.minicard-title-text').click();
-    const editor = card.locator('textarea.js-edit-minicard-title');
+    // Once editing starts the title is a textarea value, not descendant text,
+    // so a hasText-based card locator no longer matches. Keep the stable id.
+    const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
+    const editor = editingCard.locator('textarea.js-edit-minicard-title');
     await expect(editor).toBeVisible({ timeout: 5_000 });
     await editor.fill('[Wekan](https://example.invalid/card-title-link)');
-    await card.locator('button.js-submit-edit-minicard-title').click();
+    await editingCard.locator('button.js-submit-edit-minicard-title').click();
 
     const linkedCard = bp.list(listA).locator('.js-minicard', { hasText: 'Wekan' });
     const link = linkedCard.locator('.minicard-title-text .viewer a');
