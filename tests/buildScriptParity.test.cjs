@@ -199,10 +199,13 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + 'that is not the language\'s own - a fault no menu option can act on in bulk, '
       + 'because each replacement is a translation somebody has to write. Run with '
       + '--count / --list / --apply while working through a language',
-    'translations/sync-transifex-languages.mjs': 'push-all-translations.sh runs it '
-      + 'as its first step, to add the languages the project does not have yet - '
-      + 'without which `tx push -t` silently skips them. Runnable on its own with '
-      + '--dry-run or --list, but not a menu action of its own',
+    'translations/sync-transifex-languages.mjs': 'audits which repository locales '
+      + 'are missing from the Transifex project. Translation push scripts were '
+      + 'removed because local files contain provenance-unknown direct fills; run '
+      + 'this audit on its own with --dry-run or --list',
+    'translations/restore-pre-machine-humans.mjs': 'a pull-translations.sh helper '
+      + 'that restores the reviewed historical human values after protected-token '
+      + 'markers are decoded, not a standalone menu action',
     'ferretdb/start-wekan.sh': 'runs INSIDE the built snap/bundle, not here',
     'ferretdb/wekan-entrypoint.sh': 'the Docker image entrypoint',
     'ferretdb/recovery-bridge.mjs': 'runs inside the running server',

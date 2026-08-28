@@ -8376,6 +8376,21 @@ values.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89698bf46">Unsafe translation push scripts are removed</a>. Thanks to xet7.</summary>
+
+The bulk, single-locale and English-copy helpers all force-pushed complete local
+locale files to Transifex. Because those files intentionally combine human work
+with direct machine/LLM fallbacks, the helpers could publish provenance-unknown
+values as human translations and overwrite newer community work.
+
+Removing them makes the supported workflow pull-only for target translations;
+the separate English-source upload remains available. Regression coverage
+rejects any translation shell script that invokes a target-translation push and
+also pins the intentional source-only command.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.18 2026-08-28 WeKan ® release
