@@ -7283,9 +7283,14 @@ card dependency relations and imports, board backgrounds, and location fields.
 These direct translations were completed with low confidence and welcome review
 by a Sinhala speaker. This left **87,450 genuinely untranslated values across 41
 locale files**.
+The thirtieth 50-value Sinhala batch added map detection, server troubleshooting,
+board activity controls, custom-field string templates and Admin Panel reports.
+These direct translations were completed with low confidence and welcome review
+by a Sinhala speaker. This left **87,400 genuinely untranslated values across 41
+locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`location-latitude` with
+`office-last-seen` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
