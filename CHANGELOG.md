@@ -7318,9 +7318,14 @@ filesystem, S3 and Azure storage, database migration and Sandstorm migration
 status. These direct translations were completed with low confidence and welcome
 review by a Sinhala speaker. This left **87,100 genuinely untranslated values
 across 41 locale files**.
+The thirty-seventh 50-value Sinhala batch added Sandstorm cleanup, adaptive card
+loading, safe text rendering, privacy controls for imports and exports, and
+backup creation. These direct translations were completed with low confidence
+and welcome review by a Sinhala speaker. This left **87,050 genuinely
+untranslated values across 41 locale files**.
 Continue filling English values directly while preserving human translations
 and exact tokens from `en.i18n.json`, resuming Sinhala at
-`sandstorm-storage-item` with
+`backup-schedule` with
 `node releases/translations/fill-translations.mjs --list si --limit 50`;
 Buryat, Cherokee, Cornish, Central Kurdish, Chuvash, Dzongkha, Ewe, Fulah,
 Fijian and Faroese, Irish, Scottish Gaelic and the just-listed warning-only
