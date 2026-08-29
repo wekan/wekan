@@ -54,7 +54,7 @@
   "act-removeBoardMember": "poistettu jäsen __member__ taululta __board__",
   "act-restoredCard": "palautettu kortti __card__ listalle __list__ uimaradalla __swimlane__ taululla __board__",
   "act-unjoinMember": "poistettu jäsen __member__ kortilta __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-  "act-withBoardTitle": "__board__",
+  "act-withBoardTitle": "__laud__",
   "act-withCardTitle": "[__board__] __card__",
   "actions": "Toimet",
   "activities": "Toimet",

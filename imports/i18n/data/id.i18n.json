@@ -55,7 +55,7 @@
   "act-restoredCard": "memulihkan kartu __card__ ke daftar __list__ di swimlane __swimlane__ di papan __board__",
   "act-unjoinMember": "menghapus anggota __member__ dari kartu __card__ di daftar __list__ di swimlane __swimlane__ di papan __board__",
   "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
+  "act-withCardTitle": "__kartu__[__Panel__]",
   "actions": "Daftar Tindakan",
   "activities": "Aktifitas",
   "activity": "Kegiatan",

@@ -55,7 +55,7 @@
   "act-restoredCard": "đã khôi phục thẻ __card__ vào danh sách __list__ tại làn ngang __swimlane__ tại bảng __board__",
   "act-unjoinMember": "đã xóa thành viên __member__ từ thẻ __card__ tại danh sách __list__ tại làn ngang __swimlane__ tại bảng __board__",
   "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
+  "act-withCardTitle": "__kartu__[__Panel__]",
   "actions": "Hành Động",
   "activities": "Hoạt Động",
   "activity": "Hoạt Động",
