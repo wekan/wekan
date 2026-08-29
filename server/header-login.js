@@ -21,7 +21,7 @@ async function issueLoginTokenCookies(userId, req, res) {
     { $push: { 'services.resume.loginTokens': hashedToken } },
   );
 
-  const cookieBase = ['Path=/', 'SameSite=Lax'];
+  const cookieBase = ['Path=/', 'SameSite=Lax', 'HttpOnly'];
   if (req?.headers?.['x-forwarded-proto'] === 'https' || req?.socket?.encrypted) {
     cookieBase.push('Secure');
   }

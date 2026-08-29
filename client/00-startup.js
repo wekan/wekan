@@ -70,100 +70,10 @@ import { Utils } from '/client/lib/utils';
 
 // Custom head tags
 
-// Mirror Meteor login token into a cookie for server-side file route auth
-// This enables cookie-based auth for /cdn/storage/* without leaking ROOT_URL
-// Token already lives in localStorage; cookie adds same-origin send-on-request semantics
-Meteor.startup(() => {
-  const COOKIE_NAME = 'meteor_login_token';
-  const USER_ID_COOKIE = 'meteor_user_id';
-  const TOKEN_EXPIRES_COOKIE = 'meteor_login_token_expires';
-
-  const getCookie = (name) => {
-    try {
-      const parts = document.cookie ? document.cookie.split(';') : [];
-      for (const part of parts) {
-        const [k, ...rest] = part.trim().split('=');
-        if (decodeURIComponent(k) === name) {
-          return decodeURIComponent(rest.join('='));
-        }
-      }
-    } catch (_) {}
-    return '';
-  };
-
-  const cookieAttrs = () => {
-    const attrs = ['Path=/', 'SameSite=Lax'];
-    try {
-      if (window.location && window.location.protocol === 'https:') {
-        attrs.push('Secure');
-      }
-    } catch (_) {}
-    return attrs.join('; ');
-  };
-
-  const setCookie = (name, value) => {
-    if (!value) return;
-    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${cookieAttrs()}`;
-  };
-  const clearCookie = (name) => {
-    document.cookie = `${encodeURIComponent(name)}=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; ${cookieAttrs()}`;
-  };
-
-  const syncCookie = () => {
-    try {
-      const token = Accounts && typeof Accounts._storedLoginToken === 'function' ? Accounts._storedLoginToken() : null;
-      if (token) setCookie(COOKIE_NAME, token); else clearCookie(COOKIE_NAME);
-    } catch (e) {
-      // ignore
-    }
-  };
-
-  const bootstrapTokenFromCookie = () => {
-    try {
-      const currentToken = Accounts && typeof Accounts._storedLoginToken === 'function'
-        ? Accounts._storedLoginToken()
-        : null;
-      if (currentToken) {
-        return;
-      }
-
-      const token = getCookie(COOKIE_NAME);
-      const userId = getCookie(USER_ID_COOKIE);
-      const tokenExpiresRaw = getCookie(TOKEN_EXPIRES_COOKIE);
-      const tokenExpires = tokenExpiresRaw ? new Date(tokenExpiresRaw) : null;
-
-      if (!token || !userId || !tokenExpires || Number.isNaN(tokenExpires.getTime())) {
-        return;
-      }
-
-      if (Accounts && typeof Accounts._storeLoginToken === 'function') {
-        Accounts._storeLoginToken(userId, token, tokenExpires);
-        if (Meteor.status && !Meteor.status().connected && typeof Meteor.reconnect === 'function') {
-          Meteor.reconnect();
-        }
-      }
-    } catch (_) {
-      // ignore
-    }
-  };
-
-  bootstrapTokenFromCookie();
-
-  // Initial sync on startup
-  syncCookie();
-
-  // Keep cookie in sync on login/logout
-  if (Accounts && typeof Accounts.onLogin === 'function') Accounts.onLogin(syncCookie);
-  if (Accounts && typeof Accounts.onLogout === 'function') Accounts.onLogout(syncCookie);
-
-  // Sync across tabs/windows when localStorage changes
-  window.addEventListener('storage', (ev) => {
-    if (ev && typeof ev.key === 'string' && ev.key.indexOf('Meteor.loginToken') !== -1) {
-      syncCookie();
-    }
-  });
-
-});
+// Meteor 3's native session flow keeps the persistent resume token in an
+// HttpOnly cookie and only the active tab's credential in memory. Configure it
+// before Accounts startup; the server has the same options in accounts-common.
+Accounts.config({ clientStorage: 'none', useHttpOnlyCookies: true });
 
 // Subscribe to per-user small publications
 Meteor.startup(() => {
