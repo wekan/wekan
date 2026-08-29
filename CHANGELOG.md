@@ -8354,7 +8354,11 @@ candidate document. Its [SQLite pushdown](https://github.com/wekan/FerretDB/comm
 now constructs minimal result documents and collapses duplicate top-level keys
 before they cross into Go. Its [indexed follow-up](https://github.com/wekan/FerretDB/commit/42df9f82)
 selects an existing distinct-key index and labels slow query shapes by their
-originating command. The [full-document decoder optimization](https://github.com/wekan/FerretDB/commit/6acac87c)
+originating command. The [linear deduplication follow-up](https://github.com/wekan/FerretDB/commit/72204026)
+sorts once and compacts adjacent equal BSON values instead of repeatedly
+scanning the growing result array; 45,640 unique values now compact in about
+5–18 milliseconds instead of consuming 15–17 seconds. The [full-document
+decoder optimization](https://github.com/wekan/FerretDB/commit/6acac87c)
 reuses bounded parsed schemas and avoids a streaming decoder allocation for
 each common scalar. Its [allocation follow-up](https://github.com/wekan/FerretDB/commit/99b02d10)
 uses direct full-document JSON parsing, strict scalar conversion and
