@@ -8398,7 +8398,12 @@ appends internal BSON schema expressions to eligible SQLite indexes while
 retaining their original value prefix and Mongo-visible definition. Existing
 indexes are upgraded transactionally once. The restored 299,539-card
 `distinct(listId)` SQL falls from 2.96 seconds to 45 milliseconds using a
-covering scan, while unique, compound and dotted indexes remain unchanged.
+covering scan, while unique and dotted indexes remain unchanged. Its
+[compound-index follow-up](https://github.com/wekan/FerretDB/commit/5e5d08c4)
+also covers every top-level logical key and selects the narrowest index
+containing the distinct and filter fields. The restored filtered
+`distinct(swimlaneId, archived)` SQL becomes a 176-millisecond covering scan;
+its live non-covering stage previously took about 12.2 seconds.
 The DEBUGSPEED launcher now waits for FerretDB to finish one-time database
 preparation and accept connections before starting Meteor, reporting progress
 every ten seconds and failing clearly if FerretDB exits or exceeds its bounded
