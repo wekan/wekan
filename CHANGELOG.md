@@ -8404,6 +8404,11 @@ also covers every top-level logical key and selects the narrowest index
 containing the distinct and filter fields. The restored filtered
 `distinct(swimlaneId, archived)` SQL becomes a 176-millisecond covering scan;
 its live non-covering stage previously took about 12.2 seconds.
+FerretDB now also creates a private scalar access path when a numeric corruption
+check targets a field already present in a declared compound index. SQLite
+cannot seek a non-leading compound key; the restored 299,539-card `sort` check
+instead falls from 1.31 seconds to 17 milliseconds after a 1.26-second one-time
+index build, without changing the MongoDB query or visible index definition.
 The DEBUGSPEED launcher now waits for FerretDB to finish one-time database
 preparation and accept connections before starting Meteor, reporting progress
 every ten seconds and failing clearly if FerretDB exits or exceeds its bounded
