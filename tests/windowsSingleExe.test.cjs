@@ -10,8 +10,10 @@ const expected = fs.readFileSync('releases/expected-assets.sh', 'utf8');
 const launcher = fs.readFileSync('releases/windows-single-exe-launcher.c', 'utf8');
 const batch = fs.readFileSync('releases/ferretdb/start-wekan.bat', 'utf8');
 
-assert.match(workflow, /enigmaprotector\.com\/assets\/files\/enigmavb\.exe/,
-  'the workflow downloads the official Enigma Virtual Box installer');
+assert.match(workflow, /github\.com\/wekan\/wekan\/releases\/download\/v11\.25\/enigmavb\.exe/,
+  'the workflow downloads the reviewed Enigma Virtual Box installer archived in v11.25');
+assert.doesNotMatch(workflow, /enigmaprotector\.com\/assets\/files\/enigmavb\.exe/,
+  'a vendor update must not silently replace the reviewed build tool');
 assert.match(workflow, /ab743f5e3dd927a288e126bbb053d367f270592e89378c9a06b7f3b15fa1ee35/,
   'the downloaded executable must be pinned to its reviewed SHA256');
 assert.doesNotMatch(workflow, /assets\/files\/enigma(?:32|64)\.exe/i,
@@ -41,4 +43,4 @@ assert.match(missing, /uses: \.\/\.github\/workflows\/windows\.yml/,
 assert.match(expected, /windows win64 WeKan-\$\{v\}-win64\.exe sums/,
   'release completeness must include the EXE and its checksum');
 
-console.log('windowsSingleExe: 15 assertions passed');
+console.log('windowsSingleExe: 16 assertions passed');

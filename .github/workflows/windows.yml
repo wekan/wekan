@@ -108,16 +108,16 @@ jobs:
           cl /nologo /O2 /MT /W4 /DUNICODE /D_UNICODE
           releases\windows-single-exe-launcher.c /Fe:wekan-launcher.exe
 
-      - name: Download and verify Enigma Virtual Box 11.30 FREEWARE
+      - name: Download and verify the archived Enigma Virtual Box 11.30 FREEWARE
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $url = 'https://enigmaprotector.com/assets/files/enigmavb.exe'
+          $url = 'https://github.com/wekan/wekan/releases/download/v11.25/enigmavb.exe'
           Invoke-WebRequest -Uri $url -OutFile enigmavb-installer.exe
           $expected = 'ab743f5e3dd927a288e126bbb053d367f270592e89378c9a06b7f3b15fa1ee35'
           $actual = (Get-FileHash enigmavb-installer.exe -Algorithm SHA256).Hash.ToLowerInvariant()
           if ($actual -ne $expected) {
-            throw "Official Enigma Virtual Box installer SHA256 changed: expected $expected, got $actual. Verify the new official download before updating windows.yml."
+            throw "Archived Enigma Virtual Box installer SHA256 changed: expected $expected, got $actual. Restore the reviewed v11.25 asset instead of running an unknown executable."
           }
           $process = Start-Process .\enigmavb-installer.exe -Wait -PassThru `
             -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-'

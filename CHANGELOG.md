@@ -8289,7 +8289,8 @@ This release adds the following new feature:
 <summary><a href="https://github.com/wekan/wekan/commit/a02d4a499">Windows gets a portable single-file WeKan</a>. Thanks to xet7.</summary>
 
 The release workflow wraps the already verified win64 bundle with the freeware
-Enigma Virtual Box, producing `WeKan-<version>-win64.exe` and its SHA256. A small
+Enigma Virtual Box archived in the WeKan v11.25 release, verifies its pinned
+SHA256, and produces `WeKan-<version>-win64.exe` with its own SHA256. A small
 native entry point launches the bundle's existing `start-wekan.bat`, which starts
 Node.js, FerretDB's embedded SQLite backend and WeKan together. Persistent SQLite
 data, attachments and avatars remain outside the virtual executable in
