@@ -8269,7 +8269,7 @@ This release fixes the following login bug:
 Meteor's standard resume-token query requires.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/24b8ade4d70f245fb3e4e40420741df3d18159be">Persistent login survives page refreshes with FerretDB</a>. Thanks to majo1989 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7ac958888414c118a25c68a6a5f45fafecf97dcd">Persistent login survives page refreshes with FerretDB</a>. Thanks to majo1989 and xet7.</summary>
 
 WeKan 11.24 restored Meteor's standard resume-login query, but its release
 delivery could retain a FerretDB binary from before nested positional
@@ -8285,7 +8285,7 @@ board tests cover reloads through the UI.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/29e5f669654d510525516fcdbe753e147ec965f0">Release workflows always select the newest published binaries</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2258d8228959aaa2ac6f731d3a640ca94217f5b7">Release workflows always select the newest published binaries</a>. Thanks to xet7.</summary>
 
 Docker resolves the newest FerretDB release on every start, verifies its
 published checksum and atomically replaces a differently tagged cached binary.
@@ -8297,7 +8297,7 @@ maintained Node versions newest-first and uses the matching newest available
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2ecc36a79">Every FerretDB v1 Compose backend refreshes its cached binary</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ab8c70613">Every FerretDB v1 Compose backend refreshes its cached binary</a>. Thanks to xet7.</summary>
 
 The PostgreSQL, MySQL, MariaDB and SAP HANA Compose variants previously
 downloaded FerretDB only when their persistent volume had no executable. They
