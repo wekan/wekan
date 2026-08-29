@@ -8267,7 +8267,8 @@ when this release is made.
 
 **In short:** **RuleBleed** closes the server-side automation path that could
 write cards into an inaccessible private board. Its browser regression now uses
-isolated rule data so repeated and interrupted test runs remain deterministic.
+isolated rule data, while **Snap and multi-architecture builds** resolve their
+inputs reliably across working directories and transient registry responses.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8295,6 +8296,22 @@ This protects legacy, imported and scheduled rules while removing the private
 list/swimlane oracle. Denied attempts are bounded and summarized as RuleBleed in
 Admin Panel → Problems. Positive, negative, legacy-path, REST-preservation and
 rendered-browser regressions cover both authorization layers.
+
+</details>
+
+and fixes the following release build failures:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21ec491ee">Snap and extra-architecture builds find and verify their inputs reliably</a>. Thanks to xet7.</summary>
+
+Snapcraft enters `.build` before assembling the downloaded bundle, so all six
+native and variant Snap jobs looked for the MongoDB-to-FerretDB migrator under
+the nonexistent `.build/releases` directory. The Core 24 and staged Core 26
+recipes now step back to the repository before copying it. The extra-architecture
+preflight also retries a Docker registry manifest request five times, writing to
+a temporary file so a partial response is never parsed. A persistent registry
+failure still stops the build. Focused Snap, ARM-container and Node-source tests
+cover both fixes.
 
 </details>
 
