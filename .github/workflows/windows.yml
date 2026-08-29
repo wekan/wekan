@@ -1,0 +1,214 @@
+name: Windows single EXE
+
+# Wrap the already-published self-contained win64 ZIP as one Windows executable.
+# Enigma Virtual Box is the FREEWARE download, not Enigma Protector's DEMO. The
+# ZIP remains the source of truth: this workflow embeds its exact Node.js,
+# FerretDB, MongoDB Database Tools and Meteor server without rebuilding them.
+# Persistent data remains outside the virtual filesystem, in a real wekan-files/
+# directory beside the EXE, so the EXE and its data can be moved together.
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: false
+        type: string
+      publish:
+        required: false
+        default: true
+        type: boolean
+
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to wrap and attach to (empty = newest release)'
+        required: false
+        type: string
+      publish:
+        description: 'Attach the single EXE to the release'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wekan-windows-exe-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: find the release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      tag: ${{ steps.find.outputs.tag }}
+      version: ${{ steps.find.outputs.version }}
+      available: ${{ steps.find.outputs.available }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - id: find
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag='${{ inputs.tag }}'
+          [ -n "$tag" ] || tag="$(gh release list --repo "${{ github.repository }}" \
+            --limit 1 --json tagName --jq '.[0].tagName')"
+          [ -n "$tag" ] || { echo "::error::No release to wrap."; exit 1; }
+          version="${tag#v}"
+          available=false
+          if gh release view "$tag" --repo "${{ github.repository }}" --json assets \
+               --jq '.assets[].name' | grep -qx "wekan-${version}-win64.zip"; then
+            available=true
+          else
+            echo "::notice::wekan-${version}-win64.zip is not published; there is no Windows bundle to wrap."
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "available=$available" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Enigma Virtual Box win64
+    needs: release
+    if: ${{ needs.release.outputs.available == 'true' }}
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Fetch and verify the published win64 bundle
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $zip = 'wekan-${{ needs.release.outputs.version }}-win64.zip'
+          $assets = gh release view '${{ needs.release.outputs.tag }}' `
+            --repo '${{ github.repository }}' --json assets --jq '.assets[].name'
+          if ($assets -notcontains $zip) {
+            throw "$zip is not on ${{ needs.release.outputs.tag }}. The single EXE can only wrap a published win64 bundle."
+          }
+          gh release download '${{ needs.release.outputs.tag }}' `
+            --repo '${{ github.repository }}' --pattern $zip --clobber
+          Expand-Archive -LiteralPath $zip -DestinationPath . -Force
+          foreach ($file in @('main.js', 'node.exe', 'ferretdb.exe', 'start-wekan.bat')) {
+            if (-not (Test-Path "bundle/$file" -PathType Leaf)) {
+              throw "$zip has no bundle/$file; it is not a self-contained WeKan bundle."
+            }
+          }
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compile the small native launcher
+        shell: cmd
+        run: >-
+          cl /nologo /O2 /MT /W4 /DUNICODE /D_UNICODE
+          releases\windows-single-exe-launcher.c /Fe:wekan-launcher.exe
+
+      - name: Download and verify Enigma Virtual Box 11.30 FREEWARE
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $url = 'https://enigmaprotector.com/assets/files/enigmavb.exe'
+          Invoke-WebRequest -Uri $url -OutFile enigmavb-installer.exe
+          $expected = 'ab743f5e3dd927a288e126bbb053d367f270592e89378c9a06b7f3b15fa1ee35'
+          $actual = (Get-FileHash enigmavb-installer.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $expected) {
+            throw "Official Enigma Virtual Box installer SHA256 changed: expected $expected, got $actual. Verify the new official download before updating windows.yml."
+          }
+          $process = Start-Process .\enigmavb-installer.exe -Wait -PassThru `
+            -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-'
+          if ($process.ExitCode -ne 0) {
+            throw "Enigma Virtual Box installer exited $($process.ExitCode)."
+          }
+          $console = Get-ChildItem @(${env:ProgramFiles}, ${env:ProgramFiles(x86)}) `
+            -Filter enigmavbconsole.exe -Recurse -ErrorAction SilentlyContinue `
+            | Select-Object -First 1 -ExpandProperty FullName
+          if (-not $console) { throw 'The official installer did not install enigmavbconsole.exe.' }
+          "EVB_CONSOLE=$console" | Out-File $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Generate and build the virtual-box project
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force dist | Out-Null
+          $output = (Resolve-Path dist).Path + '\WeKan-${{ needs.release.outputs.version }}-win64.exe'
+          npx --yes '@insco/enigma-virtualbox@1.3.4' generate bundle `
+            --input (Resolve-Path wekan-launcher.exe).Path `
+            --output $output `
+            --project-name wekan.evb `
+            --evbOptions.compressFiles False `
+            --evbOptions.deleteExtractedOnExit True `
+            --evbOptions.shareVirtualSystem True `
+            --evbOptions.mapExecutableWithTemporaryFile True `
+            --evbOptions.allowRunningOfVirtualExeFiles True `
+            --evbOptions.processesOfAnyPlatforms True
+          & $env:EVB_CONSOLE (Resolve-Path wekan.evb).Path
+          if ($LASTEXITCODE -ne 0) { throw "enigmavbconsole.exe exited $LASTEXITCODE." }
+          if (-not (Test-Path $output -PathType Leaf)) { throw 'Enigma produced no EXE.' }
+          if ((Get-Item $output).Length -lt 10MB) { throw 'The EXE is too small to contain WeKan.' }
+          $hash = (Get-FileHash $output -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  WeKan-${{ needs.release.outputs.version }}-win64.exe" |
+            Out-File "$output.sha256sum" -Encoding ascii
+          Get-ChildItem dist | Format-Table Name,Length
+
+      - name: Check that the single EXE starts
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:WRITABLE_PATH = "$pwd\smoke-data"
+          $env:PORT = '8080'
+          $env:ROOT_URL = 'http://localhost:8080'
+          $exe = (Resolve-Path 'dist/WeKan-${{ needs.release.outputs.version }}-win64.exe').Path
+          $process = Start-Process $exe -PassThru -RedirectStandardOutput smoke.log `
+            -RedirectStandardError smoke-error.log
+          $ready = $false
+          try {
+            for ($attempt = 0; $attempt -lt 90; $attempt++) {
+              if ($process.HasExited) { break }
+              try {
+                Invoke-WebRequest http://localhost:8080/sign-in -UseBasicParsing -TimeoutSec 3 | Out-Null
+                $ready = $true
+                break
+              } catch {}
+              Start-Sleep -Seconds 2
+            }
+          } finally {
+            if (-not $process.HasExited) { taskkill /PID $process.Id /T /F | Out-Null }
+          }
+          if (-not $ready) {
+            Get-Content smoke.log -Tail 100 -ErrorAction SilentlyContinue
+            Get-Content smoke-error.log -Tail 100 -ErrorAction SilentlyContinue
+            throw 'The packaged EXE did not answer on port 8080.'
+          }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: windows-single-exe-win64
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    name: attach to the release
+    needs: [release, build]
+    if: ${{ !cancelled() && needs.build.result == 'success' && inputs.publish != false }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: windows-single-exe-win64
+          path: assets
+
+      - name: Upload the EXE and checksum
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release upload '${{ needs.release.outputs.tag }}' assets/* \
+            --repo '${{ github.repository }}' --clobber
+          gh release view '${{ needs.release.outputs.tag }}' \
+            --repo '${{ github.repository }}' --json url --jq .url

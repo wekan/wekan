@@ -19,6 +19,9 @@ set "DIR=%~dp0"
 if not defined WRITABLE_PATH set "WRITABLE_PATH=%DIR%data"
 REM Files layout: <files>\attachments, <files>\avatars, <files>\db (FerretDB SQLite).
 set "FILES=%WRITABLE_PATH%\files"
+REM The Enigma Virtual Box single-EXE launcher sets WRITABLE_PATH directly to
+REM its portable wekan-files directory. Do not append another files component.
+for %%I in ("%WRITABLE_PATH%") do if /I "%%~nxI"=="wekan-files" set "FILES=%WRITABLE_PATH%"
 set "FERRETDB_SQLITE_DIR=%FILES%\db"
 if not defined PORT set "PORT=8080"
 if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"

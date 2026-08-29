@@ -71,6 +71,7 @@ jobs:
       extra: ${{ steps.plan.outputs.extra }}
       appimage: ${{ steps.plan.outputs.appimage }}
       flatpak: ${{ steps.plan.outputs.flatpak }}
+      windows: ${{ steps.plan.outputs.windows }}
       manual: ${{ steps.plan.outputs.manual }}
       total: ${{ steps.plan.outputs.total }}
     steps:
@@ -114,7 +115,7 @@ jobs:
           total="$(wc -l < missing.txt | tr -d ' ')"
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
-          for kind in extra appimage flatpak; do
+          for kind in extra appimage flatpak windows; do
             sels="$(awk -v k="$kind" '$1 == k { print $2 }' missing.txt)"
             json="$(printf '%s\n' $sels | sed '/^$/d' | jq -R . | jq -sc .)"
             [ -n "$json" ] || json='[]'
@@ -283,6 +284,17 @@ jobs:
       tag: v${{ needs.plan.outputs.version }}
       publish: true
       only: ${{ needs.plan.outputs.flatpak }}
+
+  windows-exe:
+    name: Windows single EXE
+    needs: plan
+    if: ${{ needs.plan.outputs.windows != '[]' }}
+    uses: ./.github/workflows/windows.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      publish: true
 
 
   # ─── The Helm chart, for a release that never got one ───────────────────────

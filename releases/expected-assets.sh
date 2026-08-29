@@ -16,6 +16,7 @@
 #   extra      the six architectures nobody else builds for, repacked under
 #              QEMU by releases/repack-bundle-for-arch.sh.
 #   appimage   AppImage.yml
+#   windows    windows.yml
 #   flatpak    Flatpak.yml
 #   sandstorm  the .spk
 #
@@ -64,5 +65,9 @@ done
 for arch in x86_64 aarch64; do
     echo "flatpak ${arch} WeKan-${v}-${arch}.flatpak sums"
 done
+
+# Enigma Virtual Box supports Windows x86/x64 PE files. The release currently
+# wraps the self-contained win64 bundle; Windows ARM64 is not an EVB target.
+echo "windows win64 WeKan-${v}-win64.exe sums"
 
 echo "sandstorm sandstorm wekan-${v}-sandstorm.spk nosums"

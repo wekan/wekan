@@ -1158,6 +1158,19 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  # The Windows single-file package wraps the win64 ZIP after that job has
+  # attached it. windows.yml smoke-tests the final EXE, including the bundled
+  # start-wekan.bat -> FerretDB SQLite + Node.js startup chain.
+  windows-exe:
+    name: Windows single EXE
+    needs: [prepare, release, build-win64]
+    uses: ./.github/workflows/windows.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   # ─── 7b. Extra-platform bundles (win64, mac-arm64, s390x, ppc64le) ───────────
   # Every bundle below is built AFTER `release` and attaches its own .zip to the
   # already-created GitHub Release with `gh release upload --clobber`, rather than
