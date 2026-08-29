@@ -8255,7 +8255,8 @@ remaining delay. **Card date badges** share one self-cleaning minute ticker,
 **minicard composers and board creation** save from the form the user submitted,
 **database selectors** no longer accommodate FerretDB query-planner gaps, and
 **Snap assembly** uses the correct extracted release bundle on every
-architecture.
+architecture. **Regression coverage** now preserves translation placeholders
+and accepts the bounded delivery time observed with a restored database.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8321,6 +8322,8 @@ membership or public visibility from authorizing the method.
 </details>
 
 and improves the following database deployment configuration:
+
+**Database launchers** - bundled processes use the correct reactive mode.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ecfbd0bf66c4e72d0b9c7d95047d339c43260ada">Keep FerretDB launchers standalone and polling-only</a>. Thanks to xet7.</summary>
@@ -8444,6 +8447,8 @@ and excluded IDs, and every query field retained for filtering and sorting.
 
 and improves the following client performance behavior:
 
+**Card date badges** - one shared clock replaces per-card timers.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ebf1ca6143b5b5043f966461aea35ac553aae497">Share one minute ticker between card date badges</a>. Thanks to xet7.</summary>
 
@@ -8455,6 +8460,8 @@ exercise teardown and later restart as well as rejecting per-badge intervals.
 </details>
 
 and fixes the following minicard bug:
+
+**Minicard composers** - saving targets the form the user submitted.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dbbc2fd9e">Save the title from the submitted top or bottom composer</a>. Thanks to xet7.</summary>
@@ -8471,6 +8478,8 @@ Playwright add-card flow covers the rendered save behavior.
 </details>
 
 and fixes the following board creation bug:
+
+**Shared board forms** - every rendered variant submits through its owner.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e1fa6ce71">Create Board submits from the shared rendered form</a>. Thanks to xet7.</summary>
@@ -8565,6 +8574,8 @@ failures.
 
 and fixes the following registration bug:
 
+**Account creation** - first-user detection stays bounded on large databases.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ea301d7e">Registration checks one user instead of scanning every account</a>. Thanks to xet7.</summary>
 
@@ -8580,6 +8591,8 @@ regression checks pin the bounded lookup and forbid a full count in the hook.
 </details>
 
 and removes the following database-specific application workarounds:
+
+**Database compatibility** - ordinary selectors work without client exceptions.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca2838ab2">Send ordinary MongoDB selectors to every compatible database</a>. Thanks to xet7.</summary>
@@ -8608,6 +8621,8 @@ no-match case.
 
 and fixes the following client startup bug:
 
+**Language startup** - bundled text renders before optional overrides arrive.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92d25f750">Render bundled English before loading database translation overrides</a>. Thanks to xet7.</summary>
 
@@ -8623,6 +8638,8 @@ fallback and late reactive update.
 
 and fixes the following release tooling bug:
 
+**Snap releases** - assembly consumes the bundle produced for the release.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4122588b3">Build snaps from the extracted release bundle</a>. Thanks to xet7.</summary>
 
@@ -8631,6 +8648,25 @@ looked for `.build/bundle/`, effectively asking for `.build/.build/bundle/`.
 That made native, variant and Launchpad snap jobs fail while copying Node.js.
 The Core 24 and staged Core 26 definitions now use the correct relative path,
 with a regression test that pins the working-directory transition.
+
+</details>
+
+and fixes the following regression-suite failures:
+
+**Test reliability** - assertions follow current behavior without weakening product checks.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/357bdc1e9">The complete suite distinguishes defects from valid runtime behavior</a>. Thanks to xet7.</summary>
+
+Protected activity placeholders are restored in sixteen locale files, and a
+repository-wide token inventory confirms that every locale now matches English.
+The Traditional Chinese check accepts correct human wording while still
+rejecting the wrong script. Source guards recognize the current FerretDB
+`$or`/`$and` pushdown and board publication shapes, while runtime-only files and
+DEBUGSPEED diagnostics are excluded from documentation and release-menu parity
+checks. The lazy-board browser test allows 30 seconds for a remote update and
+move: its focused Chromium run passed in 22.2 seconds, matching Firefox's valid
+slow path instead of failing at the former ten-second bound.
 
 </details>
 
