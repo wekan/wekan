@@ -13,16 +13,23 @@ const binaries = read('releases/require-binaries.sh');
 
 assert.match(
   compose,
-  /FERRETDB_RELEASE: \$\{FERRETDB_RELEASE:-download\/v1\.63\.0\}/,
-  'the default Docker backend must include the published resume-login fix',
+  /FERRETDB_RELEASE: \$\{FERRETDB_RELEASE:-latest\/download\}/,
+  'the default Docker backend must follow the newest published release',
 );
 assert.match(
   compose,
-  /\[ "\$\$CACHED_RELEASE" != "\$\$FERRETDB_RELEASE" \]/,
+  /github\.com\/wekan\/FerretDB\/releases\/latest/,
+  'Docker must resolve latest to a concrete release on every start',
+);
+assert.match(
+  compose,
+  /\[ "\$\$CACHED_RELEASE" != "\$\$REQUIRED_RELEASE" \]/,
   'a cached older Docker binary must be replaced',
 );
 assert.match(compose, /mv "\$\$BIN\.new" "\$\$BIN"/,
   'the replacement must become visible atomically after a successful download');
+assert.match(compose, /"\$\$ACTUAL" = "\$\$EXPECTED"/,
+  'Docker must verify the newest binary against its published checksum');
 assert.match(compose, /> "\$\$RELEASE_FILE"/,
   'the cache must record which release its binary contains');
 
@@ -45,4 +52,4 @@ assert.match(
   'bundle preflight must apply the version gate to FerretDB assets',
 );
 
-console.log('ferretdbPersistentLoginDelivery: 9 assertions passed');
+console.log('ferretdbPersistentLoginDelivery: 11 assertions passed');
