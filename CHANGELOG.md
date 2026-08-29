@@ -8357,8 +8357,12 @@ selects an existing distinct-key index and labels slow query shapes by their
 originating command. The [linear deduplication follow-up](https://github.com/wekan/FerretDB/commit/72204026)
 sorts once and compacts adjacent equal BSON values instead of repeatedly
 scanning the growing result array; 45,640 unique values now compact in about
-5–18 milliseconds instead of consuming 15–17 seconds. The [full-document
-decoder optimization](https://github.com/wekan/FerretDB/commit/6acac87c)
+5–18 milliseconds instead of consuming 15–17 seconds. The [raw-value SQLite
+follow-up](https://github.com/wekan/FerretDB/commit/019b354e) deduplicates
+schema/value pairs before constructing SJSON, reducing the restored
+299,539-card `distinct(listId)` SQL workload from 3.60 to 2.94 seconds while
+preserving all 41,875 BSON-distinct values. The [full-document decoder
+optimization](https://github.com/wekan/FerretDB/commit/6acac87c)
 reuses bounded parsed schemas and avoids a streaming decoder allocation for
 each common scalar. Its [allocation follow-up](https://github.com/wekan/FerretDB/commit/99b02d10)
 uses direct full-document JSON parsing, strict scalar conversion and
