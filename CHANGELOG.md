@@ -8248,7 +8248,9 @@ browser build to verify).
 **In short:** **MailTitleBleed** prevents stored board, list, card and other
 activity text from becoming active HTML in notification emails. The completed
 localized message is escaped at the final HTML boundary, and notification
-subjects cannot inject additional mail headers.
+subjects cannot inject additional mail headers. **CookieTokenBleed** moves
+persistent resume authentication from JavaScript-readable cookies and Web
+Storage into Meteor's native HttpOnly cookie flow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8261,8 +8263,7 @@ subjects cannot inject additional mail headers.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following CRITICAL SECURITY ISSUE of
-[MailTitleBleed](https://wekan.fi/hall-of-fame/mailtitlebleed/):
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0a257d7ec">Notification activity text remains text in HTML email</a>. Thanks to binary-lover and xet7.</summary>
@@ -8280,6 +8281,27 @@ text or the plain-text notification mode. The subject formatter also removes
 newlines so stored values cannot create additional mail headers. Positive and
 negative unit coverage exercises active markup, ordinary titles, header
 newlines, the final output wiring and all 246 locale bundles.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c02c3f0e">Persistent resume tokens are unavailable to browser scripts</a>. Thanks to binary-lover and xet7.</summary>
+
+[CookieTokenBleed](https://wekan.fi/hall-of-fame/cookietokenbleed/) -
+[GHSA-8phm-9rqm-v9hc](https://github.com/wekan/wekan/security/advisories/GHSA-8phm-9rqm-v9hc),
+Moderate, CWE-1004. WeKan's custom file-route authentication mirror wrote the
+Meteor resume token into a cookie from browser JavaScript, which cannot apply
+the `HttpOnly` attribute. Meteor also kept its original token in Local Storage,
+so script running in the WeKan origin could read either persistent copy.
+
+WeKan now enables Meteor 3.5's maintained HttpOnly resume-cookie flow on both
+client and server with persistent Web Storage disabled. The custom readable
+cookie synchronization and bootstrap code is removed, leaving only an
+in-memory credential in the active tab. Header login applies `HttpOnly` as well
+as `SameSite=Lax` and HTTPS `Secure` to the cookies it issues. Positive and
+negative regression coverage pins both configurations, the absence of browser
+cookie/token copying and retention of the Secure header-login path; existing
+request-auth and session-isolation suites remain green.
 
 </details>
 
