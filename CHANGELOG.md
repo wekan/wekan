@@ -8268,9 +8268,9 @@ when this release is made.
 **In short:** **Persistent login** survives page refreshes again on FerretDB
 deployments. Docker replaces an incompatible cached database binary instead of
 retaining it indefinitely across every FerretDB v1 backend, and Helm refreshes
-its moving database image. Release preflight also prevents Snap and other bundles
-from shipping a FerretDB version older than the nested positional projection
-support required by Meteor's standard resume-token query.
+its moving database image. **Portable Windows WeKan** packages Node.js, FerretDB
+SQLite and the server into one executable with its data beside it. Release
+preflight also prevents bundles from shipping an incompatible FerretDB version.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8283,7 +8283,25 @@ support required by Meteor's standard resume-token query.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following login bug:
+This release adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a02d4a499">Windows gets a portable single-file WeKan</a>. Thanks to xet7.</summary>
+
+The release workflow wraps the already verified win64 bundle with the freeware
+Enigma Virtual Box, producing `WeKan-<version>-win64.exe` and its SHA256. A small
+native entry point launches the bundle's existing `start-wekan.bat`, which starts
+Node.js, FerretDB's embedded SQLite backend and WeKan together. Persistent SQLite
+data, attachments and avatars remain outside the virtual executable in
+`wekan-files` beside it, so moving the EXE and directory together keeps the
+installation portable. The final packed executable must answer its HTTP
+sign-in route before it can be attached to a release. Full and missing-asset
+release workflows both publish it, with regression coverage for the complete
+startup and delivery chain.
+
+</details>
+
+and fixes the following login bug:
 
 **Persistent sessions** - deployment paths deliver the FerretDB behavior that
 Meteor's standard resume-token query requires.
