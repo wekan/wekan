@@ -300,6 +300,9 @@ function setupCreateBoardState(tpl) {
 
 function createBoardHelpers() {
   return {
+    createBoardOwner() {
+      return Template.instance();
+    },
     visibilityMenuIsOpen() {
       return Template.instance().visibilityMenuIsOpen.get();
     },
@@ -317,7 +320,9 @@ function createBoardHelpers() {
 
 async function createBoardSubmit(tpl, event) {
   event.preventDefault();
-  const title = tpl.find('.js-new-board-title').value;
+  const titleInput = event.currentTarget.querySelector('.js-new-board-title');
+  if (!titleInput) return;
+  const title = titleInput.value;
   const slug = getSlug(title) || 'board';
 
   // #5850: template boards are created via the dedicated "Add Template Board"
@@ -378,22 +383,35 @@ async function createBoardSubmit(tpl, event) {
   }
 }
 
-function createBoardEvents() {
-  return {
-    'click .js-select-visibility'(event, tpl) {
-      tpl.visibility.set(this);
-      tpl.visibilityMenuIsOpen.set(false);
-    },
-    'click .js-change-visibility'(event, tpl) {
-      tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
-    },
-    async 'submit'(event, tpl) {
-      await createBoardSubmit(tpl, event);
-    },
-    'click .js-import-board': Popup.open('chooseBoardSource'),
-    'click .js-board-template': Popup.open('searchElement'),
-  };
+function createBoardOwner(tpl) {
+  return tpl.data && tpl.data.owner;
 }
+
+// Blaze events are scoped to the template whose rendered DOM contains the
+// selector. The form is an included child template, so attaching submit to its
+// parent popup leaves the Create button inert. Keep state on the parent, but
+// attach the shared form's events here and explicitly pass its owner in.
+Template.createBoardForm.events({
+  'click .js-select-visibility'(event, tpl) {
+    const owner = createBoardOwner(tpl);
+    owner.visibility.set(this);
+    owner.visibilityMenuIsOpen.set(false);
+  },
+  'click .js-change-visibility'(event, tpl) {
+    const owner = createBoardOwner(tpl);
+    owner.visibilityMenuIsOpen.set(!owner.visibilityMenuIsOpen.get());
+  },
+  async submit(event, tpl) {
+    const owner = createBoardOwner(tpl);
+    const starAfterCreate = tpl.data.starAfterCreate === true;
+    await createBoardSubmit(owner, event);
+    if (starAfterCreate) {
+      await ReactiveCache.getCurrentUser().toggleBoardStar(owner.boardId.get());
+    }
+  },
+  'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-board-template': Popup.open('searchElement'),
+});
 
 // createBoard (non-popup version)
 Template.createBoard.onCreated(function () {
@@ -402,16 +420,12 @@ Template.createBoard.onCreated(function () {
 
 Template.createBoard.helpers(createBoardHelpers());
 
-Template.createBoard.events(createBoardEvents());
-
 // createBoardPopup
 Template.createBoardPopup.onCreated(function () {
   setupCreateBoardState(this);
 });
 
 Template.createBoardPopup.helpers(createBoardHelpers());
-
-Template.createBoardPopup.events(createBoardEvents());
 
 // createTemplateContainerPopup
 Template.createTemplateContainerPopup.onCreated(function () {
@@ -425,31 +439,12 @@ Template.createTemplateContainerPopup.onRendered(function () {
 
 Template.createTemplateContainerPopup.helpers(createBoardHelpers());
 
-Template.createTemplateContainerPopup.events(createBoardEvents());
-
 // headerBarCreateBoardPopup
 Template.headerBarCreateBoardPopup.onCreated(function () {
   setupCreateBoardState(this);
 });
 
 Template.headerBarCreateBoardPopup.helpers(createBoardHelpers());
-
-Template.headerBarCreateBoardPopup.events({
-  'click .js-select-visibility'(event, tpl) {
-    tpl.visibility.set(this);
-    tpl.visibilityMenuIsOpen.set(false);
-  },
-  'click .js-change-visibility'(event, tpl) {
-    tpl.visibilityMenuIsOpen.set(!tpl.visibilityMenuIsOpen.get());
-  },
-  async submit(event, tpl) {
-    await createBoardSubmit(tpl, event);
-    // Immediately star boards created with the headerbar popup.
-    await ReactiveCache.getCurrentUser().toggleBoardStar(tpl.boardId.get());
-  },
-  'click .js-import-board': Popup.open('chooseBoardSource'),
-  'click .js-board-template': Popup.open('searchElement'),
-});
 
 Template.boardVisibilityList.helpers({
   notAllowPrivateVisibilityOnly() {

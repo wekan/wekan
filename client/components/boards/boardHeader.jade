@@ -199,10 +199,8 @@ template(name="boardChangeViewPopup")
   flag rather than with different markup.
 //-
 //- The two things it shows about visibility are passed IN. The state itself
-  (setupCreateBoardState) and the handlers stay with each of the four: an event
-  in here bubbles to whichever one included it, which is the one holding the
-  state, and that is what keeps `createTemplateContainerPopup` creating a
-  template board and the others an ordinary one.
+  stays with each of the four owners and is passed in explicitly. Blaze scopes
+  events to this included template, so this form owns the handlers.
   client/components/boards/boardHeader.js
 template(name="createBoardForm")
   form
@@ -232,17 +230,17 @@ template(name="createBoardForm")
       a.js-board-template {{_ 'template'}}
 
 template(name="createBoard")
-  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
+  +createBoardForm(owner=createBoardOwner visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 template(name="createBoardPopup")
-  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
+  +createBoardForm(owner=createBoardOwner visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 template(name="headerBarCreateBoardPopup")
-  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
+  +createBoardForm(owner=createBoardOwner visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen starAfterCreate=true)
 
 // New popup for Template Container creation; shares the same form content
 template(name="createTemplateContainerPopup")
-  +createBoardForm(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
+  +createBoardForm(owner=createBoardOwner visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen)
 
 //template(name="listsortPopup")
 //

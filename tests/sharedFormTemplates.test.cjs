@@ -19,7 +19,8 @@
 //
 // In all three the JavaScript was already one piece - BoardSwimlaneListCardDialog
 // with registerCardDialogTemplate, registerListDialogTemplate, and
-// createBoardHelpers/createBoardEvents - so a behaviour change was one edit
+// createBoardHelpers/Template.createBoardForm.events - so a behaviour change
+// is one edit
 // while a markup change was four.
 //
 // What each shared template needs is passed IN, because a helper is looked up
@@ -28,9 +29,9 @@
 // inside `each boards` the data context is a board, so a helper reaching into
 // the context for it would find nothing there.
 //
-// The EVENTS stay with the popups. An event inside an included template bubbles
-// to the one that includes it, which is the one holding the state - that is
-// what keeps four popups doing four different things with one form.
+// The create-board EVENTS stay with the included form because Blaze scopes
+// event maps to the template that rendered the matching DOM. Its owner is
+// passed explicitly so the one form can update each parent's state.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -87,8 +88,8 @@ test('the create board form is written once', () => {
     'createTemplateContainerPopup']) {
     const at = boardJade.indexOf(`template(name="${tpl}")`);
     assert.ok(at !== -1, `${tpl} still exists`);
-    assert.ok(/\+createBoardForm\(visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen\)/
-      .test(boardJade.slice(at, at + 200)), `${tpl} includes it`);
+    assert.ok(/\+createBoardForm\(owner=createBoardOwner visibility=visibility visibilityMenuIsOpen=visibilityMenuIsOpen/
+      .test(boardJade.slice(at, at + 240)), `${tpl} includes it with its owner`);
   }
 });
 
@@ -118,6 +119,14 @@ test('the popups keep their own state and handlers (negative)', () => {
     'createTemplateContainerPopup']) {
     assert.ok(boardJs.includes(`Template.${tpl}.onCreated`), `${tpl} sets up its own state`);
   }
+  assert.ok(/Template\.createBoardForm\.events\(\{[\s\S]*async submit\(event, tpl\)/
+    .test(boardJs), 'the rendered form owns its submit event');
+  assert.ok(/const owner = createBoardOwner\(tpl\);[\s\S]{0,200}createBoardSubmit\(owner, event\)/
+    .test(boardJs), 'the form submits through its explicitly passed owner');
+  assert.ok(!/Template\.createBoard(?:Popup)?\.events\(createBoardEvents/.test(boardJs),
+    'parent templates do not rely on child events bubbling');
+  assert.ok(/headerBarCreateBoardPopup[\s\S]{0,180}starAfterCreate=true/.test(boardJade),
+    'the header popup still requests starring after creation');
   assert.ok(/Template\.createTemplateContainerPopup\.onRendered[\s\S]{0,300}createBoardAsTemplate/
     .test(boardJs),
     'and the template-board one still says so - a Session flag, not other markup');
