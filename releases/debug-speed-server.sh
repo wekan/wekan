@@ -98,6 +98,34 @@ start_isolated() {
   STARTED_PID=$!
 }
 
+wait_for_ferretdb() {
+  local timeout="${DEBUGSPEED_FERRETDB_READY_TIMEOUT:-1800}"
+  local started=$SECONDS
+  local last_report=$SECONDS
+  case "$timeout" in *[!0-9]*|'') echo 'FerretDB readiness timeout must be seconds.' >&2; return 2 ;; esac
+
+  echo "Waiting for FerretDB readiness (timeout: ${timeout}s) ..."
+  while true; do
+    if ! kill -0 "$FERRET_PID" 2>/dev/null; then
+      echo "FerretDB exited before becoming ready. See $LOG_DIR/ferretdb.log" >&2
+      return 1
+    fi
+    if (exec 3<>"/dev/tcp/127.0.0.1/$FERRET_PORT") 2>/dev/null; then
+      echo 'FerretDB is ready; starting WeKan.'
+      return 0
+    fi
+    if (( SECONDS - started >= timeout )); then
+      echo "FerretDB was not ready after ${timeout}s. See $LOG_DIR/ferretdb.log" >&2
+      return 1
+    fi
+    if (( SECONDS - last_report >= 10 )); then
+      echo 'FerretDB is still preparing its database; waiting before starting WeKan ...'
+      last_report=$SECONDS
+    fi
+    sleep 1
+  done
+}
+
 cd "$WEKAN_DIR"
 export DEBUGSPEED=true
 export DEBUG=true
@@ -133,6 +161,7 @@ if [ "$DB_CHOICE" = ferretdb ]; then
     >"$LOG_DIR/ferretdb.log" 2>&1
   FERRET_PID=$STARTED_PID
   FERRET_GROUP=$STARTED_GROUP
+  wait_for_ferretdb
   export MONGO_URL="mongodb://127.0.0.1:$FERRET_PORT/wekan?replicaSet=rs0"
   export MONGO_OPLOG_URL="mongodb://127.0.0.1:$FERRET_PORT/local?replicaSet=rs0"
   export DEFAULT_METEOR_REACTIVITY_ORDER=oplog,polling

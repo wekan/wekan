@@ -8399,6 +8399,11 @@ retaining their original value prefix and Mongo-visible definition. Existing
 indexes are upgraded transactionally once. The restored 299,539-card
 `distinct(listId)` SQL falls from 2.96 seconds to 45 milliseconds using a
 covering scan, while unique, compound and dotted indexes remain unchanged.
+The DEBUGSPEED launcher now waits for FerretDB to finish one-time database
+preparation and accept connections before starting Meteor, reporting progress
+every ten seconds and failing clearly if FerretDB exits or exceeds its bounded
+readiness timeout. This prevents OpLog startup from crashing WeKan while an
+index-format migration is still running.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
 SQL filtering and missing keys, numeric and logical fallback safety, implicit

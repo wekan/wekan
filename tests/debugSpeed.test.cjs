@@ -52,6 +52,12 @@ assert.match(server, /unset MONGO_URL MONGO_OPLOG_URL/);
 assert.match(server, /--repl-set-name=rs0/);
 assert.match(server, /MONGO_OPLOG_URL="mongodb:\/\/127\.0\.0\.1:\$FERRET_PORT\/local\?replicaSet=rs0"/);
 assert.match(server, /METEOR_REACTIVITY_ORDER=oplog,polling/);
+assert.match(server, /DEBUGSPEED_FERRETDB_READY_TIMEOUT:-1800/);
+assert.match(server, /FerretDB is ready; starting WeKan/);
+assert.ok(
+  server.indexOf('wait_for_ferretdb\n') < server.indexOf('start_isolated "$METEOR_BIN" run'),
+  'FerretDB must accept connections before Meteor starts',
+);
 
 // A restore-safe launcher runs the same instrumented FerretDB without starting
 // Meteor/WeKan. It owns and reaps FerretDB, its watcher and its log follower.
