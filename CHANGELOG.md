@@ -8354,9 +8354,12 @@ candidate document. Its [SQLite pushdown](https://github.com/wekan/FerretDB/comm
 now constructs minimal result documents and collapses duplicate top-level keys
 before they cross into Go. Its [indexed follow-up](https://github.com/wekan/FerretDB/commit/42df9f82)
 selects an existing distinct-key index and labels slow query shapes by their
-originating command. Launcher tests pin both modes, while FerretDB unit tests
-cover projected and distinct decoding, SQL filtering and missing keys, implicit
-and excluded IDs, and every query field retained for filtering and sorting.
+originating command. The [full-document decoder optimization](https://github.com/wekan/FerretDB/commit/6acac87c)
+reuses bounded parsed schemas and avoids a streaming decoder allocation for
+each common scalar. Launcher tests pin both modes, while FerretDB unit tests and
+benchmarks cover projected, distinct and complete decoding, SQL filtering and
+missing keys, implicit and excluded IDs, and every query field retained for
+filtering and sorting.
 
 </details>
 
