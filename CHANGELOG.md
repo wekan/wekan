@@ -8250,7 +8250,8 @@ browser build to verify).
 standalone fallback, while **DEBUGSPEED diagnostics** make comparative
 MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
 self-cleaning minute ticker, **translations** render bundled English without
-waiting for database overrides, **database selectors** no longer accommodate
+waiting for database overrides, **minicard composers** save from the form the
+user submitted, **database selectors** no longer accommodate
 FerretDB query-planner gaps, and **Snap assembly** uses the correct extracted
 release bundle on every architecture.
 
@@ -8442,6 +8443,22 @@ Card dates and date custom fields subscribe to one reactive clock. Each view
 unsubscribes when destroyed; duplicate cleanup is harmless, the interval remains
 for other subscribers, and the final unsubscribe stops it. Regression tests
 exercise teardown and later restart as well as rejecting per-badge intervals.
+
+</details>
+
+and fixes the following minicard bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88230dff2">Save the title from the submitted top or bottom composer</a>. Thanks to xet7.</summary>
+
+Each list renders independent add-card composers above and below its cards, but
+the bubbled submit handler read the first textarea under the whole list. Saving
+the visible bottom composer therefore read the hidden top composer's empty
+title, closed the form and sent no database insert. The handler now resolves
+the actual submitted form and obtains its title, position, labels, members and
+custom fields from that same form. Regression coverage pins both positive form
+targeting and the absence of list-wide first-textarea lookup; the existing
+Playwright add-card flow covers the rendered save behavior.
 
 </details>
 
