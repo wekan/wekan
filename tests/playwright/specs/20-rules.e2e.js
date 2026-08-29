@@ -58,6 +58,68 @@ test.describe('Rules', () => {
     await expect(boardPage.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15_000 });
   });
 
+  test('RuleBleed: cross-board actions require destination write access', async ({
+    boardPage,
+    board,
+    user,
+    user2,
+  }) => {
+    const privateTarget = db.seedBoard({ ownerId: user2.id, title: 'Private target' });
+    const writableTarget = db.seedBoard({ ownerId: user.id, title: 'Writable target' });
+    const trigger = { activityType: 'createCard' };
+    const actionFor = target => ({
+      actionType: 'moveCardToTop',
+      boardId: target.boardId,
+      listName: 'List A',
+      swimlaneName: 'Default',
+    });
+
+    try {
+      const denied = await boardPage.evaluate(
+        async ({ boardId, triggerDoc, actionDoc }) => {
+          try {
+            await Meteor.callAsync(
+              'rules.createRule',
+              boardId,
+              'Denied cross-board rule',
+              triggerDoc,
+              actionDoc,
+            );
+            return null;
+          } catch (error) {
+            return error.error;
+          }
+        },
+        {
+          boardId: board.boardId,
+          triggerDoc: trigger,
+          actionDoc: actionFor(privateTarget),
+        },
+      );
+      expect(denied).toBe('not-authorized');
+      expect(db.countDocuments('rules', { title: 'Denied cross-board rule' })).toBe(0);
+
+      const allowed = await boardPage.evaluate(
+        ({ boardId, triggerDoc, actionDoc }) => Meteor.callAsync(
+          'rules.createRule',
+          boardId,
+          'Allowed cross-board rule',
+          triggerDoc,
+          actionDoc,
+        ),
+        {
+          boardId: board.boardId,
+          triggerDoc: trigger,
+          actionDoc: actionFor(writableTarget),
+        },
+      );
+      expect(allowed._id).toBeTruthy();
+      expect(db.countDocuments('rules', { _id: allowed._id })).toBe(1);
+    } finally {
+      db.cleanup({ boardIds: [privateTarget.boardId, writableTarget.boardId] });
+    }
+  });
+
   test('#6630: a current-date action stores its description only on the Action', async ({ boardPage, board }) => {
     await openRulesPage(boardPage, board);
 

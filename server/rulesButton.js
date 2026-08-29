@@ -6,6 +6,8 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { tripCanary } from '/server/lib/canary';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -67,7 +69,6 @@ Meteor.methods({
       return rest;
     };
 
-    const triggerId = await Triggers.insertAsync({ ...clean(trigger), boardId });
     // #5536: an action's own boardId is the DESTINATION board (e.g. "move card
     // to board X" / "link card to board X"). Let it win over the source boardId
     // so cross-board move/link rules created through this method keep their
@@ -77,6 +78,20 @@ Meteor.methods({
     // fallback and make every list lookup in the action fail silently.
     const actionDoc = { boardId, ...clean(action) };
     if (!actionDoc.boardId) actionDoc.boardId = boardId;
+    // RuleBleed (GHSA-9w4x-hf2r-hc9v): automation actions execute on the
+    // server, where collection allow/deny callbacks do not run. Do not persist
+    // a cross-board destination unless the rule creator can write there.
+    if (actionDoc.boardId !== boardId) {
+      const destination = await ReactiveCache.getBoard(actionDoc.boardId);
+      if (!allowIsBoardMemberWithWriteAccess(this.userId, destination)) {
+        tripCanary('rule.cross-board-write', { userId: this.userId });
+        throw new Meteor.Error(
+          'not-authorized',
+          'Must have write access to the destination board',
+        );
+      }
+    }
+    const triggerId = await Triggers.insertAsync({ ...clean(trigger), boardId });
     const actionId = await Actions.insertAsync(actionDoc);
     const ruleDoc = {
       title: title || 'Rule',

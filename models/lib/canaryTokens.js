@@ -99,6 +99,10 @@ const CANARIES = {
     key: 'authz.assigned',
     what: 'tried to mutate board content without the board write capability',
   },
+  'rule.cross-board-write': {
+    key: 'authz.rule-destination',
+    what: 'tried to run an automation action on a board they cannot write to',
+  },
   'tenant.mutate-without-admin': {
     key: 'authz.tenant',
     what: 'tried to mutate Organization or Team configuration without site-admin access',

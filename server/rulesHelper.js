@@ -10,6 +10,8 @@ import Swimlanes from '/models/swimlanes';
 import { relativeDateOffset } from '/models/lib/relativeDateOffset';
 import { resolveRuleSwimlaneId, resolveRuleListId } from '/models/lib/ruleActionResolve';
 import { cardTitleMatchList } from '/models/lib/ruleCardTitleFilter';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { tripCanary } from '/server/lib/canary';
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -174,6 +176,25 @@ export const RulesHelper = {
     const boardLevelActions = ['createCard', 'addSwimlane', 'moveAllCardsInList'];
     if (!card && !boardLevelActions.includes(action.actionType)) return;
     const boardId = activity.boardId;
+    // RuleBleed (GHSA-9w4x-hf2r-hc9v): server-side rule actions bypass the
+    // Cards collection deny hooks. Check the destination before resolving any
+    // of its list/swimlane names, both to block writes and to remove the old
+    // private-board structure oracle. This execution-time gate also protects
+    // legacy, imported and directly stored actions that predate validation.
+    const crossBoardActions = [
+      'moveCardToTop',
+      'moveCardToBottom',
+      'linkCard',
+      'moveAllCardsInList',
+    ];
+    const actionBoardId = action.boardId || boardId;
+    if (crossBoardActions.includes(action.actionType) && actionBoardId !== boardId) {
+      const destination = await ReactiveCache.getBoard(actionBoardId);
+      if (!allowIsBoardMemberWithWriteAccess(activity.userId, destination)) {
+        tripCanary('rule.cross-board-write', { userId: activity.userId });
+        return;
+      }
+    }
     // #2475: variables available for substitution in action text fields.
     const ruleVars = await buildRuleVars(activity, card);
     if (
