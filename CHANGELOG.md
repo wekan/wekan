@@ -8247,7 +8247,8 @@ browser build to verify).
 
 **In short:** **Release builds** now wait for every AppImage input, hand a slow
 riscv64 Launchpad build off cleanly, and start the Enigma-packaged Windows EXE
-despite its false legacy-Windows version result.
+despite its false legacy-Windows version result. AWS storage, PDF generation,
+browser automation and Playwright's MongoDB driver are also updated.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8260,7 +8261,17 @@ despite its false legacy-Windows version result.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following developer-tooling bugs:
+This release updates the following dependencies:
+
+- **@aws-sdk/client-s3 3.1117.0 → 3.1119.0** — the Amazon S3 client.
+- **@aws-sdk/lib-storage 3.1114.0 → 3.1119.0** — managed multipart uploads to S3.
+- **mongodb 7.5.0 → 7.6.0** — the Playwright test database driver.
+- **pdfkit 0.19.1 → 0.20.1** — PDF generation.
+- **puppeteer 25.8.0 → 25.9.0** — browser automation.
+
+Thanks to dependabot.
+
+and fixes the following developer-tooling bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9129125f4">Release builds keep every scheduled artifact path healthy</a>. Thanks to xet7.</summary>
