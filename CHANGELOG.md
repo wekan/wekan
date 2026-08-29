@@ -8389,6 +8389,10 @@ uses the document's existing key-count map to distinguish new fields from
 replacements instead of searching all previously appended fields. The restored
 299,539-card collection averages 31.3 fields per document; a representative
 40-field decode improves by about 8% without adding allocations.
+The [SQLite iterator follow-up](https://github.com/wekan/FerretDB/commit/56bb6c6e)
+also resolves result-column metadata once per query instead of requesting and
+comparing it for every row. Full card scans avoid nearly 300,000 redundant
+metadata calls, and each distinct scan avoids one call per returned key.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
 SQL filtering and missing keys, numeric and logical fallback safety, implicit
