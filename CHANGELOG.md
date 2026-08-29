@@ -8245,12 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **MailTitleBleed** prevents stored board, list, card and other
+activity text from becoming active HTML in notification emails. The completed
+localized message is escaped at the final HTML boundary, and notification
+subjects cannot inject additional mail headers.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8260,31 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following CRITICAL SECURITY ISSUE of
+[MailTitleBleed](https://wekan.fi/hall-of-fame/mailtitlebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a257d7ec">Notification activity text remains text in HTML email</a>. Thanks to binary-lover and xet7.</summary>
+
+[GHSA-hp9m-vff5-7pvw](https://github.com/wekan/wekan/security/advisories/GHSA-hp9m-vff5-7pvw),
+Moderate, CWE-79. Stored board, list and card titles and other activity values
+were interpolated into localized notification prose before that prose was used
+as an HTML email body. A writable member could therefore place active markup in
+a title and have it delivered to another member's mail client.
+
+The complete localized notification is now HTML-escaped once at the final
+output boundary, before its plain-text newlines become HTML line breaks. This
+protects every current and future activity parameter without changing ordinary
+text or the plain-text notification mode. The subject formatter also removes
+newlines so stored values cannot create additional mail headers. Positive and
+negative unit coverage exercises active markup, ordinary titles, header
+newlines, the final output wiring and all 246 locale bundles.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.27 2026-08-29 WeKan ® release
 
