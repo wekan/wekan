@@ -8248,12 +8248,14 @@ browser build to verify).
 **In short:** **File responses and board writes** close three security gaps.
 **Database launchers** use FerretDB's write-notified OpLog with an explicit
 standalone fallback, while **DEBUGSPEED diagnostics** make comparative
-MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
-self-cleaning minute ticker, **translations** render bundled English without
-waiting for database overrides, **minicard composers and board creation** save
-from the form the user submitted, **database selectors** no longer accommodate
-FerretDB query-planner gaps, and **Snap assembly** uses the correct extracted
-release bundle on every architecture.
+MongoDB/FerretDB traffic runs measurable, and **FerretDB board creation and
+loading** now complete reliably on a restored large dataset despite a small
+remaining delay. **Card date badges** share one self-cleaning minute ticker,
+**translations** render bundled English without waiting for database overrides,
+**minicard composers and board creation** save from the form the user submitted,
+**database selectors** no longer accommodate FerretDB query-planner gaps, and
+**Snap assembly** uses the correct extracted release bundle on every
+architecture.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8347,8 +8349,11 @@ has broadcast, gate and update-shape coverage. Its follow-up
 wait before querying and repairs the logical timestamp index on older OpLogs.
 The [filled-batch fix](https://github.com/wekan/FerretDB/commit/f7aec79e)
 returns a notified OpLog batch before waiting for another write, so reactive
-board lists and newly opened boards cannot remain one mutation behind;
-the [projection fix](https://github.com/wekan/FerretDB/commit/99f33658) avoids
+board lists and newly opened boards cannot remain one mutation behind. A
+restored large-dataset run confirms that creating a board, receiving its tile
+and opening it now work reliably; a small query delay remains but does not
+prevent completion. The
+[projection fix](https://github.com/wekan/FerretDB/commit/99f33658) avoids
 recursively decoding unrequested large fields during selective collection
 scans, and its [ID follow-up](https://github.com/wekan/FerretDB/commit/ad9bb910)
 retains MongoDB's implicit `_id` through the internal projection pipeline.
