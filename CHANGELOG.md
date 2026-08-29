@@ -8250,8 +8250,8 @@ browser build to verify).
 standalone fallback, while **DEBUGSPEED diagnostics** make comparative
 MongoDB/FerretDB traffic runs measurable. **Card date badges** share one
 self-cleaning minute ticker, **translations** render bundled English without
-waiting for database overrides, **minicard composers** save from the form the
-user submitted, **database selectors** no longer accommodate
+waiting for database overrides, **minicard composers and board creation** save
+from the form the user submitted, **database selectors** no longer accommodate
 FerretDB query-planner gaps, and **Snap assembly** uses the correct extracted
 release bundle on every architecture.
 
@@ -8459,6 +8459,21 @@ the actual submitted form and obtains its title, position, labels, members and
 custom fields from that same form. Regression coverage pins both positive form
 targeting and the absence of list-wide first-textarea lookup; the existing
 Playwright add-card flow covers the rendered save behavior.
+
+</details>
+
+and fixes the following board creation bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc56fcfc7">Create Board submits from the shared rendered form</a>. Thanks to xet7.</summary>
+
+The All Boards and popup variants render one included form, but their submit
+events remained attached to the parent templates. Blaze scopes an event map to
+the template that rendered the matching DOM, so clicking Create never called
+the server method and no board reached MongoDB or FerretDB. The shared form now
+owns its events and receives its state owner explicitly, preserving visibility,
+template-board and header-star behavior. Positive and negative regression
+checks pin the event owner, submitted form and all four callers.
 
 </details>
 
