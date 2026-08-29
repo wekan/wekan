@@ -34,8 +34,16 @@ if [ "$#" -eq 0 ]; then
 fi
 
 missing=0
+ferretdb_checked=0
 
 for url in "$@"; do
+    case "$url" in
+      https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-*)
+        if [ "$ferretdb_checked" -eq 0 ]; then
+            bash "$(dirname "$0")/require-ferretdb-resume-login.sh" || exit 1
+            ferretdb_checked=1
+        fi ;;
+    esac
     name="${url##*/}"
     # -I: the headers answer "does it exist"; the body is tens of megabytes and
     # this runs once per file per build.

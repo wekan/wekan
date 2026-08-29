@@ -38,7 +38,8 @@ services:
 
   # FerretDB v1 with the embedded SQLite backend (MongoDB-compatible on :27017).
   # A tiny Debian container fetches the wekan/FerretDB v1 release binary for its
-  # architecture (cached on the volume so restarts do not re-download) and runs it.
+  # architecture (cached on the volume and replaced when this required release
+  # changes) and runs it.
   # SQLite data lives in /data/sqlite on the ferretdb-data volume.
   ferretdb:
     image: debian:bookworm-slim
@@ -47,25 +48,31 @@ services:
     environment:
       DO_NOT_TRACK: "1"
       FERRETDB_TELEMETRY: disable
-      # Pin a specific release instead of the newest by setting e.g.
-      #   FERRETDB_RELEASE=download/v1.24.2
-      FERRETDB_RELEASE: ${FERRETDB_RELEASE:-latest/download}
+      # This minimum includes the nested positional projection Meteor uses to
+      # resume login tokens (#6646). Set another download/vX.Y.Z only when it is
+      # at least this new; the marker below upgrades an older cached binary.
+      FERRETDB_RELEASE: ${FERRETDB_RELEASE:-download/v1.63.0}
     command:
       - sh
       - -c
       - |
         set -eu
         BIN=/data/bin/ferretdb
-        if [ ! -x "$$BIN" ]; then
-          echo "Fetching FerretDB v1 from the wekan/FerretDB release ..."
+        RELEASE_FILE=/data/bin/ferretdb.release
+        CACHED_RELEASE="$$(cat "$$RELEASE_FILE" 2>/dev/null || true)"
+        if [ ! -x "$$BIN" ] || [ "$$CACHED_RELEASE" != "$$FERRETDB_RELEASE" ]; then
+          echo "Fetching FerretDB v1 $${FERRETDB_RELEASE} from the wekan/FerretDB release ..."
           apt-get update -qq
           apt-get install -y -qq --no-install-recommends curl ca-certificates >/dev/null
           arch="$$(dpkg --print-architecture)"
           case "$$arch" in ppc64el) arch=ppc64le ;; esac
           mkdir -p /data/bin
           # Download only this arch's binary (per-arch release assets, no ferretdb.zip).
-          curl -fSL --retry 5 -o "$$BIN" \
+          curl -fSL --retry 5 -o "$$BIN.new" \
             "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
+          chmod +x "$$BIN.new"
+          mv "$$BIN.new" "$$BIN"
+          printf '%s\n' "$$FERRETDB_RELEASE" > "$$RELEASE_FILE"
           chmod +x "$$BIN"
         fi
         mkdir -p /data/files/db
