@@ -80,6 +80,7 @@ import { QueryErrors, QueryParams, Query } from '/config/query-classes';
 import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
+import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
 const { boardCardScope } = require('/models/lib/boardCardScope');
 const { retainRankedCard } = require('/models/lib/cardSearchRanking');
 const {
@@ -451,7 +452,23 @@ async function buildSelector(queryParams, userId) {
   let selector = {};
 
   if (queryParams.selector) {
-    selector = queryParams.selector;
+    selector = selectorIsInjection(queryParams.selector, 'globalSearch')
+      ? MATCH_NOTHING
+      : {
+        $and: [
+          queryParams.selector,
+          {
+            boardId: {
+              $in: await Boards.userBoardIds(
+                userId,
+                null,
+                {},
+                SEARCH_BOARD_SCOPE,
+              ),
+            },
+          },
+        ],
+      };
   } else {
     const boardsSelector = {};
 
@@ -1231,6 +1248,25 @@ Meteor.publish('previousPage', async function(sessionId) {
 });
 
 async function findCards(sessionId, query, userId) {
+  // SessionData replays selectors for pagination. Scope again here so a session
+  // written by an older vulnerable release cannot retain cross-board access,
+  // and reject execution operators before either MongoDB or FerretDB sees them.
+  const authorizedBoardIds = await Boards.userBoardIds(
+    userId,
+    null,
+    {},
+    SEARCH_BOARD_SCOPE,
+  );
+  const storedSelector = selectorIsInjection(
+    query.selector,
+    'globalSearch.pagination',
+  )
+    ? MATCH_NOTHING
+    : query.selector;
+  const databaseSelector = storedSelector === MATCH_NOTHING
+    ? MATCH_NOTHING
+    : { $and: [storedSelector, { boardId: { $in: authorizedBoardIds } }] };
+
   let textMatches = query.getQueryParams().text;
   let isTextSearch = !!textMatches;
   let dbProjection = query.projection;
@@ -1243,7 +1279,7 @@ async function findCards(sessionId, query, userId) {
     delete dbProjection.skip;
   }
 
-  let cards = await ReactiveCache.getCards(query.selector, dbProjection, true);
+  let cards = await ReactiveCache.getCards(databaseSelector, dbProjection, true);
   let totalCardsCount = cards ? (typeof cards.countAsync === 'function' ? await cards.countAsync() : cards.count()) : 0;
   let orderedIds = [];
 
@@ -1276,7 +1312,7 @@ async function findCards(sessionId, query, userId) {
       lastHit: 0,
       resultsCount: 0,
       cards: [],
-      selector: SessionData.pickle(query.selector),
+      selector: SessionData.pickle(storedSelector),
       projection: SessionData.pickle(query.projection),
       errors: query.errors(),
       modifiedAt: new Date()
