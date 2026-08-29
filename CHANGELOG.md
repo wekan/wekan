@@ -8277,7 +8277,8 @@ remaining delay. **Card date badges** share one self-cleaning minute ticker,
 **database selectors** no longer accommodate FerretDB query-planner gaps, and
 **Snap assembly** uses the correct extracted release bundle on every
 architecture. **Regression coverage** now preserves translation placeholders
-and accepts the bounded delivery time observed with a restored database.
+and isolates browser fixtures while accepting the bounded delivery time observed
+with a restored database.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8708,6 +8709,18 @@ DEBUGSPEED diagnostics are excluded from documentation and release-menu parity
 checks. The lazy-board browser test allows 30 seconds for a remote update and
 move: its focused Chromium run passed in 22.2 seconds, matching Firefox's valid
 slow path instead of failing at the former ten-second bound.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/33bcbe745">Rule authorization checks use isolated browser data</a>. Thanks to xet7.</summary>
+
+The RuleBleed browser regression correctly received `not-authorized`, but its
+global count by a non-unique human-readable title found a stale rule left by an
+earlier interrupted run. The assertion now scopes its query to the current
+fixture board. Board cleanup also removes its rules, triggers and actions, so
+one browser project or interrupted run cannot contaminate the next. A source
+regression pins all three cleanup paths.
 
 </details>
 
