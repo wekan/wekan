@@ -8266,7 +8266,7 @@ Storage into Meteor's native HttpOnly cookie flow.
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0a257d7ec">Notification activity text remains text in HTML email</a>. Thanks to binary-lover and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/96b42c3d3">Notification activity text remains text in HTML email</a>. Thanks to binary-lover and xet7.</summary>
 
 [GHSA-hp9m-vff5-7pvw](https://github.com/wekan/wekan/security/advisories/GHSA-hp9m-vff5-7pvw),
 Moderate, CWE-79. Stored board, list and card titles and other activity values
@@ -8285,7 +8285,7 @@ newlines, the final output wiring and all 246 locale bundles.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1c02c3f0e">Persistent resume tokens are unavailable to browser scripts</a>. Thanks to binary-lover and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/78a3a21c3">Persistent resume tokens are unavailable to browser scripts</a>. Thanks to binary-lover and xet7.</summary>
 
 [CookieTokenBleed](https://wekan.fi/hall-of-fame/cookietokenbleed/) -
 [GHSA-8phm-9rqm-v9hc](https://github.com/wekan/wekan/security/advisories/GHSA-8phm-9rqm-v9hc),
