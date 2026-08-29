@@ -52,7 +52,7 @@ test('while it does not, the page holds the web port', () => {
     'the bridge serves the database reason');
   assert.ok(/PORT="\$\{PORT:-8080\}" PRODUCT_NAME=/.test(entrypoint),
     'on the web port');
-  assert.ok(/WEKAN_BRIDGE_REASON === 'database'/.test(bridge), 'which the bridge knows');
+  assert.ok(/REASON === 'database'/.test(bridge), 'which the bridge knows');
   assert.ok(/is waiting for its database/.test(bridge), 'and says so');
   assert.ok(/503/.test(bridge), 'as a 503, so a proxy and a crawler read it right');
   assert.ok(/http-equiv="refresh"/.test(bridge), 'and it comes back by itself');
@@ -100,7 +100,7 @@ test('the recovery page it shares still says recovery (negative)', () => {
   // One bridge, two reasons; the older one must not have changed.
   assert.ok(/is recovering your data/.test(bridge), 'the recovery wording is intact');
   assert.ok(/RECOVERY_IN_PROGRESS/.test(entrypoint), 'and its own trigger still stands');
-  assert.ok(/REASON = process\.env\.WEKAN_BRIDGE_REASON === 'database' \? 'database' : 'recovery'/
+  assert.ok(/\['database', 'migration'\]\.includes\(requestedReason\) \? requestedReason : 'recovery'/
     .test(bridge), 'recovery is what an unset reason means');
 });
 

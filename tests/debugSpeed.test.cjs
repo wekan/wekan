@@ -56,6 +56,8 @@ assert.match(server, /DEBUGSPEED_FERRETDB_READY_TIMEOUT:-1800/);
 assert.match(server, /FerretDB is ready; starting WeKan/);
 assert.match(server, /start_migration_dashboard/);
 assert.match(server, /WEKAN_BRIDGE_REASON=migration/);
+assert.match(server, /FERRETDB_INDEX_MIGRATION_STATUS_FILE="\$LOG_DIR\/index-migration\.json"/);
+assert.match(server, /MIGRATION_STATUS_FILE="\$FERRETDB_INDEX_MIGRATION_STATUS_FILE"/);
 assert.match(server, /migration-dashboard\.log/);
 assert.match(server, /stop_migration_dashboard/);
 assert.match(server, /\.productname\.txt/);

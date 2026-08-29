@@ -97,6 +97,7 @@ start_migration_dashboard() {
   echo "Serving $product Migration Progress at $ROOT_URL while FerretDB prepares indexes."
   start_isolated env PORT="$WEKAN_PORT" PRODUCT_NAME="$product" \
     WEKAN_BRIDGE_REASON=migration \
+    MIGRATION_STATUS_FILE="$FERRETDB_INDEX_MIGRATION_STATUS_FILE" \
     "$METEOR_BIN" node "$WEKAN_DIR/releases/ferretdb/recovery-bridge.mjs" \
     >"$LOG_DIR/migration-dashboard.log" 2>&1
   BRIDGE_PID=$STARTED_PID
@@ -184,6 +185,7 @@ if [ "$DB_CHOICE" = ferretdb ]; then
   export FERRETDB_SQLITE_URL="file:$FERRET_STATE/"
   export FERRETDB_LISTEN_ADDR="127.0.0.1:$FERRET_PORT"
   export FERRETDB_TELEMETRY=disable
+  export FERRETDB_INDEX_MIGRATION_STATUS_FILE="$LOG_DIR/index-migration.json"
   start_isolated "$FERRET_DIR/bin/ferretdb" --repl-set-name=rs0 \
     >"$LOG_DIR/ferretdb.log" 2>&1
   FERRET_PID=$STARTED_PID

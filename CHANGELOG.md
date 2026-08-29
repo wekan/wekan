@@ -8410,9 +8410,13 @@ every ten seconds and failing clearly if FerretDB exits or exceeds its bounded
 readiness timeout. This prevents OpLog startup from crashing WeKan while an
 index-format migration is still running. During that wait, the normal WeKan
 port serves the existing blue migration page with the Admin Panel Product name,
-a rebuilding-indexes explanation and automatic refresh. The standalone page is
-stopped and its port released before Meteor starts; source runs keep the Product
-name current in their writable cache just as Snap already does.
+a rebuilding-indexes explanation and automatic refresh. FerretDB publishes its
+current database, collection and index atomically, and the page turns that into
+a progress bar, percentage, current step and total, elapsed time, and estimated
+time remaining. A configured Product name replaces both application names in
+all user-facing migration text. The standalone page is stopped and its port
+released before Meteor starts; source runs keep the Product name current in
+their writable cache just as Snap already does.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
 SQL filtering and missing keys, numeric and logical fallback safety, implicit
