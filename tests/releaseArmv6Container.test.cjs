@@ -160,6 +160,15 @@ test('the base-image preflight compares the ARM variant, not just the architectu
     'userlands, not near neighbours');
 });
 
+test('the base-image manifest probe retries transient registry failures safely', () => {
+  assert.ok(/for attempt in 1 2 3 4 5/.test(preflight),
+    'one transient Docker Hub response must not fail an otherwise complete build');
+  assert.ok(/>"\$manifest_tmp"[\s\S]*?mv "\$manifest_tmp" \/tmp\/manifest\.json/.test(preflight),
+    'only a complete successful response may replace the manifest being parsed');
+  assert.ok(/\[ "\$manifest_ok" = true \]/.test(preflight),
+    'five failed attempts must still fail closed');
+});
+
 // The preflight's platform match is small enough to run here directly, against
 // the manifest shapes it really sees: debian:trixie's index, an arm64 index
 // (published as arm64/v8 but always written linux/arm64), and a single-platform

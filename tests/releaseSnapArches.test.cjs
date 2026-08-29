@@ -20,6 +20,7 @@ const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 
 const workflow = read('.github/workflows/release-all.yml');
 const snapcraft = read('snapcraft.yaml');
+const snapcraftCore26 = read('snapcraft-core26.yaml');
 
 let passed = 0;
 function test(name, fn) {
@@ -106,6 +107,22 @@ test('the snap copies the extracted bundle from its actual working directory', (
     'the rest of the bundle is copied from the same extracted directory');
   assert.ok(!/cp .*\.build\/bundle/.test(part),
     'after cd .build, .build/bundle would incorrectly mean .build/.build/bundle');
+});
+
+test('snap builds copy the repository migrator from inside .build', () => {
+  for (const [name, source] of [
+    ['core24', snapcraft],
+    ['core26', snapcraftCore26],
+  ]) {
+    assert.ok(
+      /cd \.build[\s\S]*?cp \.\.\/releases\/migrate-mongodb-to-ferretdb\.mjs/.test(source),
+      `${name} must step back out of .build to find the migration script`,
+    );
+    assert.ok(
+      !/^[ \t]*cp releases\/migrate-mongodb-to-ferretdb\.mjs/m.test(source),
+      `${name} must not look for a releases directory inside .build`,
+    );
+  }
 });
 
 test('the mainstream arches build natively, the exotic ones on Launchpad', () => {

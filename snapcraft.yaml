@@ -731,7 +731,10 @@ parts:
             done
             # Bundle the MongoDB -> FerretDB migrator (run by migration-control on
             # first boot when upgrading from an old MongoDB-based snap).
-            cp releases/migrate-mongodb-to-ferretdb.mjs $SNAPCRAFT_PART_INSTALL/bin/
+            # override-build is currently inside .build, so the repository's
+            # releases directory is one level up (the bundle paths above are
+            # intentionally relative to .build).
+            cp ../releases/migrate-mongodb-to-ferretdb.mjs $SNAPCRAFT_PART_INSTALL/bin/
 
         organize:
             README: README.wekan

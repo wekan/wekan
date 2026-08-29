@@ -103,7 +103,24 @@ have() {
 if [ -n "$image" ] && [ -n "$platform" ]; then
     want_arch="$(printf '%s' "$platform" | cut -d/ -f2)"
     want_variant="$(printf '%s' "$platform" | cut -d/ -f3-)"
-    if docker manifest inspect "$image" >/tmp/manifest.json 2>/dev/null; then
+    # Docker Hub occasionally refuses one unauthenticated manifest request
+    # while all binary hosts answer normally. One attempt made that transient
+    # registry response fail an otherwise complete architecture matrix. Retry
+    # into a temporary file so a partial response can never be parsed as the
+    # manifest. The bounded loop still fails closed when the registry remains
+    # unavailable.
+    manifest_ok=false
+    manifest_tmp="/tmp/manifest.$$.json"
+    for attempt in 1 2 3 4 5; do
+        if docker manifest inspect "$image" >"$manifest_tmp" 2>/dev/null; then
+            mv "$manifest_tmp" /tmp/manifest.json
+            manifest_ok=true
+            break
+        fi
+        [ "$attempt" -eq 5 ] || sleep "$((attempt * 2))"
+    done
+    rm -f "$manifest_tmp"
+    if [ "$manifest_ok" = true ]; then
         if ! WANT_ARCH="$want_arch" WANT_VARIANT="$want_variant" python3 - <<'PYEOF'
 import json, os, sys
 
