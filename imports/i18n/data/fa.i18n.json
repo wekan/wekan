@@ -54,7 +54,7 @@
   "act-removeBoardMember": "عضو __member__ را از برد __board__ حذف کرد",
   "act-restoredCard": "کارت __card__ را به لیست __list__ در مسیر __swimlane__ در برد __board__ بازگرداند",
   "act-unjoinMember": "عضو __member__ را از کارت __card__ در لیست __list__ در مسیر __swimlane__ در برد __board__ حذف کرد",
-  "act-withBoardTitle": "__لوح__",
+  "act-withBoardTitle": "__board__",
   "act-withCardTitle": "[__board__] __card__",
   "actions": "اعمال",
   "activities": "فعالیت‌ها",
