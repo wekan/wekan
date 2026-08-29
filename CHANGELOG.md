@@ -8273,7 +8273,7 @@ This release fixes the following CRITICAL SECURITY ISSUES:
 **File responses** - stored MIME metadata cannot turn downloads into active content.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a487d2293">Avatar MIME metadata cannot serve browser-executable content</a>. Thanks to crypto-nidh and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d427583e">Avatar MIME metadata cannot serve browser-executable content</a>. Thanks to crypto-nidh and xet7.</summary>
 
 [AvatarMimeBleed](https://wekan.fi/hall-of-fame/avatarmimebleed/) -
 [GHSA-4mjm-vj9f-p629](https://github.com/wekan/wekan/security/advisories/GHSA-4mjm-vj9f-p629),
@@ -8289,7 +8289,7 @@ negative scan forbids stored MIME fields from reaching `Content-Type` directly.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a487d2293">Legacy attachments apply security headers beyond SVG files</a>. Thanks to crypto-nidh and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d427583e">Legacy attachments apply security headers beyond SVG files</a>. Thanks to crypto-nidh and xet7.</summary>
 
 [LegacyAttachBleed](https://wekan.fi/hall-of-fame/legacyattachbleed/) -
 [GHSA-xcxp-hx9w-q5q9](https://github.com/wekan/wekan/security/advisories/GHSA-xcxp-hx9w-q5q9),
@@ -8306,7 +8306,7 @@ negative response-header scan cover the fix.
 **Board structure** - creating a swimlane requires the shared write capability.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a487d2293">Read-only members cannot create default swimlanes</a>. Thanks to crypto-nidh and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8d427583e">Read-only members cannot create default swimlanes</a>. Thanks to crypto-nidh and xet7.</summary>
 
 [SwimlaneBleed](https://wekan.fi/hall-of-fame/swimlanebleed/) -
 [GHSA-2x89-6mq2-834r](https://github.com/wekan/wekan/security/advisories/GHSA-2x89-6mq2-834r),
@@ -8323,7 +8323,7 @@ membership or public visibility from authorizing the method.
 and improves the following database deployment configuration:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c3140f1a85a9685206b96178afee1eac4ac299ca">Keep FerretDB launchers standalone and polling-only</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ecfbd0bf66c4e72d0b9c7d95047d339c43260ada">Keep FerretDB launchers standalone and polling-only</a>. Thanks to xet7.</summary>
 
 The bundle, Windows, container entrypoint and every FerretDB v1 Compose backend
 now clear inherited OpLog settings and start without replica-set arguments.
@@ -8334,7 +8334,7 @@ Positive and negative regression tests pin the separation.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/efda2d56a">Enable FerretDB's write-notified OpLog reactivity by default</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cacf4049c">Enable FerretDB's write-notified OpLog reactivity by default</a>. Thanks to xet7.</summary>
 
 The Snap and DEBUGSPEED launcher now start FerretDB as a single-node replica
 set and give Meteor an OpLog URL, using `oplog,polling` without attempting
@@ -8445,7 +8445,7 @@ and excluded IDs, and every query field retained for filtering and sorting.
 and improves the following client performance behavior:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/99d533f4cecbfb726b4bd541a662b64158f6c48d">Share one minute ticker between card date badges</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ebf1ca6143b5b5043f966461aea35ac553aae497">Share one minute ticker between card date badges</a>. Thanks to xet7.</summary>
 
 Card dates and date custom fields subscribe to one reactive clock. Each view
 unsubscribes when destroyed; duplicate cleanup is harmless, the interval remains
@@ -8457,7 +8457,7 @@ exercise teardown and later restart as well as rejecting per-badge intervals.
 and fixes the following minicard bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/88230dff2">Save the title from the submitted top or bottom composer</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dbbc2fd9e">Save the title from the submitted top or bottom composer</a>. Thanks to xet7.</summary>
 
 Each list renders independent add-card composers above and below its cards, but
 the bubbled submit handler read the first textarea under the whole list. Saving
@@ -8473,7 +8473,7 @@ Playwright add-card flow covers the rendered save behavior.
 and fixes the following board creation bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dc56fcfc7">Create Board submits from the shared rendered form</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e1fa6ce71">Create Board submits from the shared rendered form</a>. Thanks to xet7.</summary>
 
 The All Boards and popup variants render one included form, but their submit
 events remained attached to the parent templates. Blaze scopes an event map to
@@ -8490,7 +8490,7 @@ and adds the following performance diagnostic tooling:
 **DEBUGSPEED** - opt-in measurements and failure logs explain local database behavior.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/414f1e1a0">Compare MongoDB and FerretDB with opt-in speed diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/186035df5">Compare MongoDB and FerretDB with opt-in speed diagnostics</a>. Thanks to xet7.</summary>
 
 `DEBUGSPEED=true` records bounded process, event-loop and slow DDP handler
 measurements in Admin Panel → Problems → Speed without recording arguments,
@@ -8507,7 +8507,7 @@ the workflow.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c8012ec1b">Capture FerretDB connection failures in diagnostic logs</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/350ec9000">Capture FerretDB connection failures in diagnostic logs</a>. Thanks to xet7.</summary>
 
 `debug-speed-server.sh` now explicitly starts FerretDB at the safe `info` log
 level and prints the exact `ferretdb.log` path. The
@@ -8521,7 +8521,7 @@ path; a negative guard prevents enabling payload-bearing debug logging.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/525912731">Supervise diagnostic instrumentation and keep its measurements in files</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3240ddd1b">Supervise diagnostic instrumentation and keep its measurements in files</a>. Thanks to xet7.</summary>
 
 `debug-speed-server.sh` now owns separate process groups for WeKan/Meteor,
 FerretDB, terminal log following and a resource watcher. One Ctrl-C stops and
@@ -8537,7 +8537,7 @@ shell syntax and a live watcher smoke test cover the executable paths.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c6d77c58d">Run instrumented FerretDB alone for database restores</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5b9b90f52">Run instrumented FerretDB alone for database restores</a>. Thanks to xet7.</summary>
 
 `debug-speed-ferretdb.sh` builds and starts the same DEBUGSPEED-enabled local
 FerretDB used by the comparative launcher, but deliberately leaves WeKan and
@@ -8551,7 +8551,7 @@ restore-safe launcher cannot start Meteor or enable payload-bearing debug logs.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bf5bcfae3">Install the matching DEBUGSPEED Chromium automatically</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cae03f7af">Install the matching DEBUGSPEED Chromium automatically</a>. Thanks to xet7.</summary>
 
 `debug-speed-test.sh` now verifies Playwright's actual Chromium executable, not
 only its installed npm module, and downloads the matching browser revision when
@@ -8566,7 +8566,7 @@ failures.
 and fixes the following registration bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/85ef41977">Registration checks one user instead of scanning every account</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0ea301d7e">Registration checks one user instead of scanning every account</a>. Thanks to xet7.</summary>
 
 The account-creation hook needs only to know whether any account already exists
 so it can make the first one administrator, but it counted and decoded the
@@ -8582,7 +8582,7 @@ regression checks pin the bounded lookup and forbid a full count in the hook.
 and removes the following database-specific application workarounds:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/43a76fcdc">Send ordinary MongoDB selectors to every compatible database</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ca2838ab2">Send ordinary MongoDB selectors to every compatible database</a>. Thanks to xet7.</summary>
 
 Board card scopes again use their normal null-containing `$in`, client and
 authorization selectors remain explicit `$and` conjuncts, activity predicates
@@ -8595,7 +8595,7 @@ the SQL constraints and index choices.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e71f04d39">Use Meteor's standard resume-login query and projection</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aedcb600b">Use Meteor's standard resume-login query and projection</a>. Thanks to xet7.</summary>
 
 WeKan no longer replaces Meteor's resume-login handler to avoid a FerretDB
 positional-projection error. FerretDB now correctly selects an array element
@@ -8609,7 +8609,7 @@ no-match case.
 and fixes the following client startup bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b8b6c6a5a">Render bundled English before loading database translation overrides</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/92d25f750">Render bundled English before loading database translation overrides</a>. Thanks to xet7.</summary>
 
 English is already part of the client bundle, but i18n readiness still waited
 up to ten seconds for the optional custom-translation DDP subscription. A busy
@@ -8624,7 +8624,7 @@ fallback and late reactive update.
 and fixes the following release tooling bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d976d8d13">Build snaps from the extracted release bundle</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4122588b3">Build snaps from the extracted release bundle</a>. Thanks to xet7.</summary>
 
 Snapcraft entered `.build` and extracted the archive as `bundle/`, but then
 looked for `.build/bundle/`, effectively asking for `.build/.build/bundle/`.
