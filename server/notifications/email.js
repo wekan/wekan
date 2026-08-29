@@ -5,6 +5,10 @@ import { TAPi18n } from '/imports/i18n';
 import EmailLocalization from '../lib/emailLocalization';
 import { Notifications } from '/server/notifications/notifications';
 import { formatActivityNotificationTitle } from '/server/lib/activityNotificationTitle';
+const {
+  escapeEmailHtml,
+  safeEmailSubject,
+} = require('/models/lib/emailNotificationSafety');
 
 // buffer each user's email text in a queue, then flush them in single email
 Meteor.startup(() => {
@@ -35,12 +39,12 @@ Meteor.startup(() => {
       });
 
       const lan = user.getLanguage();
-      const subject = formatActivityNotificationTitle(
+      const subject = safeEmailSubject(formatActivityNotificationTitle(
         title,
         params,
         TAPi18n.__.bind(TAPi18n),
         lan,
-      );
+      ));
       const existing = user.getEmailBuffer().length > 0;
       const htmlEnabled =
         Meteor.settings.public &&
@@ -50,7 +54,9 @@ Meteor.startup(() => {
         actorName
       } ${TAPi18n.__(description, quoteParams, lan)}\n${params.url}`;
 
-      user.addEmailBuffer(htmlEnabled ? text.replace(/\n/g, '<br/>') : text);
+      user.addEmailBuffer(
+        htmlEnabled ? escapeEmailHtml(text).replace(/\n/g, '<br/>') : text,
+      );
 
       const userId = user._id;
       Meteor.setTimeout(async () => {
