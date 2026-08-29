@@ -8365,10 +8365,16 @@ replaces the cache's periodic full flush with a bounded 4,096-entry LRU; across
 the restored 299,539-card dataset it reduced isolated complete decoding from
 35.1 seconds to 17.2–19.0 seconds. It also makes SQLite updates and deletes use
 the existing unique `_id` expression index instead of scanning the collection.
+The [non-finite numeric pushdown](https://github.com/wekan/FerretDB/commit/48e2d938)
+keeps the unchanged numeric `$type` plus negated-range repair query inside
+SQLite: across five restored ordered collections containing about 747,000
+documents, it returns zero candidates in 1.9 seconds instead of spending about
+30 seconds decoding every document. Ambiguous values remain candidates for the
+authoritative MongoDB-compatible filter.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
-SQL filtering and missing keys, implicit and excluded IDs, and every query
-field retained for filtering and sorting.
+SQL filtering and missing keys, numeric and logical fallback safety, implicit
+and excluded IDs, and every query field retained for filtering and sorting.
 
 </details>
 
