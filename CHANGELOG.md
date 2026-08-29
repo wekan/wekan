@@ -8247,7 +8247,20 @@ browser build to verify).
 
 **In short:** The **Windows single-EXE** CI smoke test no longer fails with
 port-binding errors for FerretDB (ports 27017 and 8088) on GitHub Actions
-runners that ship MongoDB 7 as a pre-installed system service.
+runners that ship MongoDB 7 as a pre-installed system service. The release also
+corrects the GitHub issue-closing metadata for the persistent-login fix shipped
+in WeKan 11.25.
+
+| Platform | Binary | From | Version | SHA256 |
+| --- | --- | --- | --- | --- |
+| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
+| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
+| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
+| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
+| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
+| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
+| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
+| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following CI reliability issue:
 
@@ -8256,8 +8269,7 @@ Windows runner ships MongoDB Server 7.0 as a running system service that holds
 port 27017 (the same port the bundled FerretDB needs) and optionally port 8088.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER">Stop MongoDB system service on runner before Windows EXE smoke test to
-free ports 27017 and 8088 needed by embedded FerretDB</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f0ecb1434">Free FerretDB ports before the Windows EXE smoke test</a>. Thanks to xet7.</summary>
 
 The GitHub Actions `windows-latest` runner ships MongoDB Server 7.0 as a
 running Windows service. The bundled FerretDB inside the packaged WeKan EXE
@@ -8272,23 +8284,17 @@ remaining process holding ports 27017 or 8088 before the smoke EXE is
 launched. This is CI-only and has no effect on the packaged EXE behavior for
 end-users.
 
-Failing run: https://github.com/wekan/wekan/actions/runs/33253053694
+[The failing run](https://github.com/wekan/wekan/actions/runs/33253053694)
+shows the port collision and timeout this change addresses.
 
 </details>
 
+and corrects the following release metadata:
+
+- [Close the persistent-login report with valid GitHub metadata](https://github.com/wekan/wekan/commit/a1b93526d523c5a3976d4d5681e784176f6ee4d7). Thanks to majo1989 and xet7.
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
-
-| Platform | Binary | From | Version | SHA256 |
-| --- | --- | --- | --- | --- |
-| amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `14b342e71204f811bde6153be8e04b62aef63c236fef92b55f9c83154b409647` |
-| amd64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-amd64) | v1.53.0 | `eae1f0a8f73bfc979738bfff7284d40fd1bc55de2cc56514721fc155c3624f7d` |
-| arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-arm64.tar.xz) | v24.19.0 | `01443c1e1a29e531ccad5a46fefa6df490d2189c49f7955904aecdbb0fe86fdc` |
-| arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-arm64) | v1.53.0 | `bdc50caee3ac28495b42d2130b94a042a9dd6d3a38f732cac02b648f36c891da` |
-| mac-arm64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-arm64.tar.xz) | v24.19.0 | `3f1cf157479c1480352083105e13faf9d008ede98e7e157746b6df940d197b94` |
-| mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
-| mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
-| mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 # v11.25 2026-08-29 WeKan ® release
 
