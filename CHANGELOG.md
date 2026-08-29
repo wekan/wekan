@@ -8245,12 +8245,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Release builds** now wait for every AppImage input, hand a slow
+riscv64 Launchpad build off cleanly, and start the Enigma-packaged Windows EXE
+despite its false legacy-Windows version result.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8259,25 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following developer-tooling bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9129125f4">Release builds keep every scheduled artifact path healthy</a>. Thanks to xet7.</summary>
+
+The AppImage workflow now waits for the i386 and armhf bundles before deciding
+whether those images can be built. The riscv64 Launchpad waiter uses an isolated
+timeout process group, so its five-hour limit returns the status handled as a
+pending remote build instead of cancelling the Actions step. The Windows
+single-EXE launcher also sets Node's platform-check escape hatch when Enigma's
+virtualization reports a false legacy Windows version, while preserving an
+explicit administrator value. Static positive and negative regression tests
+pin all three build paths; the platform-specific builds remain verified by
+their workflow smoke tests.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.28 2026-08-29 WeKan ® release
 
