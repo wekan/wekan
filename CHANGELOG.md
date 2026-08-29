@@ -8393,6 +8393,12 @@ The [SQLite iterator follow-up](https://github.com/wekan/FerretDB/commit/56bb6c6
 also resolves result-column metadata once per query instead of requesting and
 comparing it for every row. Full card scans avoid nearly 300,000 redundant
 metadata calls, and each distinct scan avoids one call per returned key.
+The [schema-covering index optimization](https://github.com/wekan/FerretDB/commit/4e0b3894)
+appends internal BSON schema expressions to eligible SQLite indexes while
+retaining their original value prefix and Mongo-visible definition. Existing
+indexes are upgraded transactionally once. The restored 299,539-card
+`distinct(listId)` SQL falls from 2.96 seconds to 45 milliseconds using a
+covering scan, while unique, compound and dotted indexes remain unchanged.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
 SQL filtering and missing keys, numeric and logical fallback safety, implicit
