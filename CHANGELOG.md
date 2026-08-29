@@ -8247,9 +8247,10 @@ browser build to verify).
 
 **In short:** **Persistent login** survives page refreshes again on FerretDB
 deployments. Docker replaces an incompatible cached database binary instead of
-retaining it indefinitely, while release preflight prevents Snap and other
-bundles from shipping a FerretDB version older than the nested positional
-projection support required by Meteor's standard resume-token query.
+retaining it indefinitely across every FerretDB v1 backend, and Helm refreshes
+its moving database image. Release preflight also prevents Snap and other bundles
+from shipping a FerretDB version older than the nested positional projection
+support required by Meteor's standard resume-token query.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8292,6 +8293,28 @@ Regression coverage also audits the release workflow: FerretDB and MongoDB
 Database Tools come from their `latest` releases, while the Node resolver walks
 maintained Node versions newest-first and uses the matching newest available
 `node-patches` binary when the official sources do not publish that platform.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ecc36a79">Every FerretDB v1 Compose backend refreshes its cached binary</a>. Thanks to xet7.</summary>
+
+The PostgreSQL, MySQL, MariaDB and SAP HANA Compose variants previously
+downloaded FerretDB only when their persistent volume had no executable. They
+now resolve the concrete newest release on every start, compare it with a release
+marker, verify the replacement's published SHA256 and move it into place only
+after verification. Regression coverage applies the same cache, checksum and
+atomic-replacement requirements to all five FerretDB v1 Compose files.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/charts/commit/7970ae5">Helm refreshes its moving FerretDB image on pod start</a>. Thanks to xet7.</summary>
+
+The chart deliberately uses `ghcr.io/wekan/ferretdb:latest`, but
+`IfNotPresent` allowed Kubernetes to reuse an older image already cached on a
+node. Its FerretDB container now uses `Always`, so every newly started pod asks
+the registry for the current image. Chart regression coverage pins that policy.
 
 </details>
 
