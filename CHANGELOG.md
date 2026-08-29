@@ -8344,7 +8344,10 @@ that previously made polling the safer default. Setting
 [FerretDB write notification fix](https://github.com/wekan/FerretDB/commit/d0d4717e)
 has broadcast, gate and update-shape coverage. Its follow-up
 [idle-tail fix](https://github.com/wekan/FerretDB/commit/de4495e1) makes cursors
-wait before querying and repairs the logical timestamp index on older OpLogs;
+wait before querying and repairs the logical timestamp index on older OpLogs.
+The [filled-batch fix](https://github.com/wekan/FerretDB/commit/f7aec79e)
+returns a notified OpLog batch before waiting for another write, so reactive
+board lists and newly opened boards cannot remain one mutation behind;
 the [projection fix](https://github.com/wekan/FerretDB/commit/99f33658) avoids
 recursively decoding unrequested large fields during selective collection
 scans, and its [ID follow-up](https://github.com/wekan/FerretDB/commit/ad9bb910)
