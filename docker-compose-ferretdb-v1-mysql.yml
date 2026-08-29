@@ -96,17 +96,34 @@ services:
       - |
         set -eu
         BIN=/data/bin/ferretdb
-        if [ ! -x "$$BIN" ]; then
-          echo "Fetching FerretDB v1 from the wekan/FerretDB release ..."
+        RELEASE_FILE=/data/bin/ferretdb.release
+        if ! command -v curl >/dev/null 2>&1; then
           apt-get update -qq
           apt-get install -y -qq --no-install-recommends curl ca-certificates >/dev/null
+        fi
+        DOWNLOAD_RELEASE="$$FERRETDB_RELEASE"
+        REQUIRED_RELEASE="$$FERRETDB_RELEASE"
+        if [ "$$FERRETDB_RELEASE" = latest/download ]; then
+          LATEST_URL="$$(curl -fsSIL --retry 5 -o /dev/null -w '%{url_effective}' https://github.com/wekan/FerretDB/releases/latest)"
+          REQUIRED_RELEASE="$${LATEST_URL##*/}"
+          [ -n "$$REQUIRED_RELEASE" ]
+          DOWNLOAD_RELEASE="download/$$REQUIRED_RELEASE"
+        fi
+        CACHED_RELEASE="$$(cat "$$RELEASE_FILE" 2>/dev/null || true)"
+        if [ ! -x "$$BIN" ] || [ "$$CACHED_RELEASE" != "$$REQUIRED_RELEASE" ]; then
+          echo "Fetching newest FerretDB v1 $${REQUIRED_RELEASE} from the wekan/FerretDB release ..."
           arch="$$(dpkg --print-architecture)"
           case "$$arch" in ppc64el) arch=ppc64le ;; esac
           mkdir -p /data/bin
-          # Download only this arch's binary (per-arch release assets, no ferretdb.zip).
-          curl -fSL --retry 5 -o "$$BIN" \
-            "https://github.com/wekan/FerretDB/releases/$${FERRETDB_RELEASE}/ferretdb-$${arch}"
-          chmod +x "$$BIN"
+          curl -fSL --retry 5 -o "$$BIN.new" "https://github.com/wekan/FerretDB/releases/$${DOWNLOAD_RELEASE}/ferretdb-$${arch}"
+          curl -fSL --retry 5 -o "$$BIN.new.sha256sum" "https://github.com/wekan/FerretDB/releases/$${DOWNLOAD_RELEASE}/ferretdb-$${arch}.sha256sum"
+          EXPECTED="$$(awk '{print $$1; exit}' "$$BIN.new.sha256sum")"
+          ACTUAL="$$(sha256sum "$$BIN.new" | awk '{print $$1}')"
+          [ -n "$$EXPECTED" ] && [ "$$ACTUAL" = "$$EXPECTED" ]
+          chmod +x "$$BIN.new"
+          mv "$$BIN.new" "$$BIN"
+          rm "$$BIN.new.sha256sum"
+          printf '%s\n' "$$REQUIRED_RELEASE" > "$$RELEASE_FILE"
         fi
         # FerretDB runs standalone; WeKan uses polling reactivity with this backend.
         exec "$$BIN" \

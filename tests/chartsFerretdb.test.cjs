@@ -81,6 +81,8 @@ test('the default image is one of the registries that publish it, publicly', () 
   assert.ok(PUBLISHED.includes(repo),
     `the default is ${repo}, which is not one of the registries wekan/FerretDB pushes to`);
   assert.ok(/tag: latest/.test(section));
+  assert.ok(/pullPolicy: Always/.test(section),
+    'a moving latest tag must be checked at every pod start instead of reusing an old node cache');
   const statefulset = read('templates/ferretdb-statefulset.yaml');
   for (const registry of PUBLISHED) {
     assert.ok(statefulset.includes(registry),
