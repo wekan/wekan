@@ -11,6 +11,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { safeDeliver } from '/server/lib/webhookGuard';
 import { labelDisplayName } from '/models/lib/labelDisplayName';
 import { getFeatureFlags } from '/models/lib/featureFlags';
+import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
 
 function normalizeActivityText(value, fallback = '') {
   return typeof value === 'string' ? value : fallback;
@@ -95,7 +96,7 @@ Activities.after.insert(async (userId, doc) => {
 
   if (activity.boardId) {
     params.board = normalizeActivityText(board?.title);
-    title = 'act-withBoardTitle';
+    title = ACTIVITY_NOTIFICATION_TITLE.BOARD;
     if (board && typeof board.absoluteUrl === 'function') {
       params.url = board.absoluteUrl();
     }
@@ -160,7 +161,7 @@ Activities.after.insert(async (userId, doc) => {
       ])];
       watchers = [...new Set([...watchers, ...(card.watchers || [])])];
       params.card = normalizeActivityText(card.title);
-      title = 'act-withCardTitle';
+      title = ACTIVITY_NOTIFICATION_TITLE.CARD;
       if (typeof card.absoluteUrl === 'function') {
         // Pass the already-awaited board: on the server card.board() returns an
         // unawaited Promise, which produced '/b/undefined/board/<cardId>' in

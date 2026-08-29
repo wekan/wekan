@@ -54,8 +54,6 @@
   "act-removeBoardMember": "אראפגענומען מיטגליד __member__ פון ברעט __board__",
   "act-restoredCard": "געזונט קאָרט __card__ צו רשימה __list__ ביי סווימליין __swimlane__ ביי ברעט __board__",
   "act-unjoinMember": "אַוועקגענומען מיטגליד __member__ פון קאָרט __card__ ביי רשימה __list__ ביי סווימליין __swimlane__ ביי ברעט __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "אַקשאַנז",
   "activities": "אַקטיוויטעטן",
   "activity": "אַקטיוויטעט",

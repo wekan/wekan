@@ -34,7 +34,9 @@ test('#5438 notification preparation loads the recipient language first', () => 
     'await TAPi18n.ensureLanguageLoaded(user.getLanguage())',
   );
   const language = notification.indexOf('const lan = user.getLanguage()');
-  const subject = notification.indexOf('TAPi18n.__(title, params, lan)');
+  const subject = notification.indexOf(
+    'formatActivityNotificationTitle(',
+  );
   const body = notification.indexOf(
     'TAPi18n.__(description, quoteParams, lan)',
   );

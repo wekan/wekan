@@ -54,8 +54,6 @@
   "act-removeBoardMember": "구성원 __member__ 을(를) 보드 __board__ 에서 제거했습니다",
   "act-restoredCard": "카드 __card__ 을(를) 보드 __board__ 의 스윔레인 __swimlane__ 의 리스트 __list__ 로 복원했습니다",
   "act-unjoinMember": "구성원 __member__ 을(를) 보드 __board__ 의 스윔레인 __swimlane__ 의 리스트 __list__ 의 카드 __card__ 에서 제거했습니다",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "동작",
   "activities": "활동 내역",
   "activity": "활동 상태",

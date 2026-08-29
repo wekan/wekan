@@ -54,8 +54,6 @@
   "act-removeBoardMember": "i tango i te mema __member__ mai i te papa __board__",
   "act-restoredCard": "i whakahoki i te kāri __card__ ki te rārangi __list__ i te kauhanga __swimlane__ i te papa __board__",
   "act-unjoinMember": "i tango i te mema __member__ mai i te kāri __card__ i te rārangi __list__ i te kauhanga __swimlane__ i te papa __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ngā hohenga",
   "activities": "Ngā mahi",
   "activity": "Mahi",

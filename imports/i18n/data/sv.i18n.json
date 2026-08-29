@@ -54,8 +54,6 @@
   "act-removeBoardMember": "tog bort medlem __member__ från tavla __board__",
   "act-restoredCard": "återställde kort __card__ till lista __list__ i simbana __swimlane__ på tavla __board__",
   "act-unjoinMember": "radera medlem __member__ från kort __card__ på listan __list__ på simbanan __swimlane__ på tavlan __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Händelser",
   "activities": "Aktiviteter",
   "activity": "Aktivitet",

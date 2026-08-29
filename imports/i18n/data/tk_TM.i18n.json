@@ -54,8 +54,6 @@
   "act-removeBoardMember": "agzany __member__ tagtadan aýyrdy __board__",
   "act-restoredCard": "dikeldilen kartoçka __card__ sanawda __list__ ​​ýüzmek üçin __swimlane__ tagtada __board__",
   "act-unjoinMember": "agzany __member__ kartoçkadan aýyrdy __card__ ​​sanawda __list__ ýüzmekde __swimlane__ tagtada __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Hereketler",
   "activities": "Çäreler",
   "activity": "Iş",

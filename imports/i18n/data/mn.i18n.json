@@ -54,8 +54,6 @@
   "act-removeBoardMember": "удалил участника __member__ с доски __board__",
   "act-restoredCard": "восстановил карточку __card__ в список __list__ на дорожку __swimlane__ доски __board__",
   "act-unjoinMember": "удалил участника __member__ из карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Действия",
   "activities": "История действий",
   "activity": "Действия участников",

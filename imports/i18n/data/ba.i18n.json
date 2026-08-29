@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__board__ таҡтаһынан __member__ ағзаһын алып ташланы",
   "act-restoredCard": "__card__ карточкаһын __board__ таҡтаһындағы __swimlane__ юлдың __list__ исемлегенә тергеҙҙе",
   "act-unjoinMember": "__board__ таҡтаһындағы __swimlane__ юлдың __list__ исемлегендәге __card__ карточкаһынан __member__ ағзаһын алып ташланы",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ғәмәлдәр",
   "activities": "Эшмәкәрлек",
   "activity": "Эш",

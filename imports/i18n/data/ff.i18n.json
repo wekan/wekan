@@ -54,8 +54,6 @@
   "act-removeBoardMember": "momti tergal __member__ e alluwal __board__",
   "act-restoredCard": "artiri kartal __card__ e doggol __list__ e laawol __swimlane__ e alluwal __board__",
   "act-unjoinMember": "momti tergal __member__ e kartal __card__ e doggol __list__ e laawol __swimlane__ e alluwal __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Baɗe",
   "activities": "Golle",
   "activity": "Gollal",

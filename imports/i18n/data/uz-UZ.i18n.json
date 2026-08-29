@@ -54,8 +54,6 @@
   "act-removeBoardMember": "a'zo __member__ kengashdan __board__ olib tashlandi",
   "act-restoredCard": "qayta tiklangan karta __card__ roʻyxatga olish uchun __list__ swimlane __swimlane__ bortda __board__",
   "act-unjoinMember": "a'zo __member__ kartadan __card__ roʻyxatda __list__ swimlane __swimlane__ bortda __board__ olib tashlandi.",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Harakatlar",
   "activities": "Faoliyatlar",
   "activity": "Faoliyat",

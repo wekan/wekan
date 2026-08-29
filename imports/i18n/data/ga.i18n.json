@@ -54,8 +54,6 @@
   "act-removeBoardMember": "bhain ball __member__ de chlár __board__",
   "act-restoredCard": "d'athchóirigh cárta __card__ go liosta __list__ i lána snámha __swimlane__ ar chlár __board__",
   "act-unjoinMember": "bhain ball __member__ de chárta __card__ i liosta __list__ i lána snámha __swimlane__ ar chlár __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Gníomhartha",
   "activities": "Gníomhaíochtaí",
   "activity": "Gníomhaíocht",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "wuxuu xubinta __member__ ka saaray sabuuradda __board__",
   "act-restoredCard": "wuxuu kaarka __card__ ku soo celiyay liiska __list__ ee waddada __swimlane__ ee sabuuradda __board__",
   "act-unjoinMember": "wuxuu xubinta __member__ ka saaray kaarka __card__ ee liiska __list__ ee waddada __swimlane__ ee sabuuradda __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ficillada",
   "activities": "Dhaqdhaqaaqyo",
   "activity": "Dhaqdhaqaaq",

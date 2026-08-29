@@ -54,8 +54,6 @@
   "act-removeBoardMember": "válddii eret lahtu __member__ távvalis __board__",
   "act-restoredCard": "máhcahii goartta __card__ listui __list__, bálgái __swimlane__, távvalii __board__",
   "act-unjoinMember": "válddii eret lahtu __member__ goartas __card__, listtus __list__, bálgás __swimlane__, távvalis __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Doaimmat",
   "activities": "Doaimmat",
   "activity": "Doaibma",

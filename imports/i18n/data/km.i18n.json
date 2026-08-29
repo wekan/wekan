@@ -54,8 +54,6 @@
   "act-removeBoardMember": "បានដកសមាជិក __member__ ចេញពីក្រុមប្រឹក្សាភិបាល __board__",
   "act-restoredCard": "កាតដែលបានស្តារឡើងវិញ __card__ ដើម្បីរាយ __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
   "act-unjoinMember": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្រុមប្រឹក្សាភិបាល __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "សកម្មភាព",
   "activities": "សកម្មភាព",
   "activity": "សកម្មភាព",

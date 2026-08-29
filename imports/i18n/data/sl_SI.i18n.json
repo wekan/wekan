@@ -54,8 +54,6 @@
   "act-removeBoardMember": "odstranil člana __member__ iz table __board__",
   "act-restoredCard": "obnovil kartico __card__ na seznam __list__ na plavalni stezi __swimlane__ na tabli __board__",
   "act-unjoinMember": "odstranil člana __member__ iz kartice __card__ na seznamu __list__ na plavalni stezi __swimlane__ na tabli __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Dejanja",
   "activities": "Aktivnosti",
   "activity": "Aktivnost",

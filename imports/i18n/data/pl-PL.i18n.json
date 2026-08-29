@@ -54,8 +54,6 @@
   "act-removeBoardMember": "usunął użytkownika __member__ z tablicy __board__",
   "act-restoredCard": "przywrócił(a) kartę __card__ na listę __list__ na ścieżce __swimlane__ na tablicy __board__",
   "act-unjoinMember": "usunął użytkownika __member__ z karty __card__ na liście __list__ na ścieżce __swimlane__ na tablicy __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Reakcje",
   "activities": "Ostatnia aktywność",
   "activity": "Aktywność",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "thug e ball __member__ far bòrd __board__",
   "act-restoredCard": "dh'aisig e cairt __card__ dhan liosta __list__ san t-sreath-snàmh __swimlane__ air bòrd __board__",
   "act-unjoinMember": "thug e ball __member__ far cairt __card__ san liosta __list__ san t-sreath-snàmh __swimlane__ air bòrd __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Gnìomhan",
   "activities": "Gnìomhachdan",
   "activity": "Gnìomhachd",

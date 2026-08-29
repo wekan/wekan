@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ya cire memba __member__ daga allo __board__",
   "act-restoredCard": "ya dawo da kati __card__ zuwa jeri __list__ a layin iyo __swimlane__ a allo __board__",
   "act-unjoinMember": "ya cire memba __member__ daga kati __card__ a jeri __list__ a layin iyo __swimlane__ a allo __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ayyuka",
   "activities": "Ayyuka",
   "activity": "Aiki",

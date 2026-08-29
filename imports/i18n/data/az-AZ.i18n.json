@@ -54,8 +54,6 @@
   "act-removeBoardMember": "üzvü __member__ şuradan çıxarıldı __board__",
   "act-restoredCard": "bərpa edilmiş kart __card__ siyahıya __list__ at swimlane __swimlane__ at board __board__",
   "act-unjoinMember": "üzv __member__ kartdan çıxarıldı __card__ siyahıda __list__ swimlane __swimlane__ lövhədə __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Fəaliyyətlər",
   "activities": "Fəaliyyətlər",
   "activity": "Fəaliyyət",

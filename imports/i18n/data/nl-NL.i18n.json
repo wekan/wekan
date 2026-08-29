@@ -54,8 +54,6 @@
   "act-removeBoardMember": "heeft lid __member__ verwijderd van bord __board__",
   "act-restoredCard": "heeft kaart __card__ teruggehaald naar lijst __list__ in swimlane __swimlane__ op bord __board__",
   "act-unjoinMember": "heeft lid __member__ verwijderd van kaart __card__ van lijst __list__ uit swimlane __swimlane__ op bord __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Acties",
   "activities": "Activiteiten",
   "activity": "Activiteit",

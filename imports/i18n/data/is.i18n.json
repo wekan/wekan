@@ -54,8 +54,6 @@
   "act-removeBoardMember": "fjarlægði meðlim __member__ af töflu __board__",
   "act-restoredCard": "endurheimti spjald __card__ í lista __list__ á sundbraut __swimlane__ á töflu __board__",
   "act-unjoinMember": "fjarlægði meðlim __member__ af spjaldi __card__ í lista __list__ á sundbraut __swimlane__ á töflu __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Aðgerðir",
   "activities": "Virkni",
   "activity": "Virkni",

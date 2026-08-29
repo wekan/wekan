@@ -54,8 +54,6 @@
   "act-removeBoardMember": "tynnu aelod __member__ o fwrdd __board__",
   "act-restoredCard": "cerdyn wedi'i adfer __card__ i restr __list__ yn swimlane __swimlane__ ar fwrdd __board__",
   "act-unjoinMember": "tynnu aelod __member__ o gerdyn __card__ ar y rhestr __list__ yn swimlane __swimlane__ ar fwrdd __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Gweithredoedd",
   "activities": "Gweithgareddau",
   "activity": "Gweithgaredd",

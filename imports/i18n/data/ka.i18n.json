@@ -54,8 +54,6 @@
   "act-removeBoardMember": "მოხსნა წევრი __member__ დაფიდან __board__",
   "act-restoredCard": "აღადგინა ბარათი __card__ სიაში __list__, ბილიკი __swimlane__, დაფა __board__",
   "act-unjoinMember": "მოხსნა წევრი __member__ ბარათიდან __card__, სია __list__, ბილიკი __swimlane__, დაფა __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "მოქმედებები",
   "activities": "აქტივეობები",
   "activity": "აქტივობები",

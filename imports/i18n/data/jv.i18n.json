@@ -54,8 +54,6 @@
   "act-removeBoardMember": "mbusak anggota __member__ saka papan __board__",
   "act-restoredCard": "mulihake kertu __card__ menyang dhaptar __list__ ing swimlane __swimlane__ ing papan __board__",
   "act-unjoinMember": "mbusak anggota __member__ saka kertu __card__ ing dhaptar __list__ ing swimlane __swimlane__ ing papan __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Tumindak",
   "activities": "Kegiyatan",
   "activity": "Kegiyatan",

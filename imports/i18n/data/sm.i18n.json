@@ -54,8 +54,6 @@
   "act-removeBoardMember": "aveese le sui __member__ mai le laupapa __board__",
   "act-restoredCard": "toe faafoi le pepa __card__ i le lisi __list__ i le ala __swimlane__ i le laupapa __board__",
   "act-unjoinMember": "aveese le sui __member__ mai le pepa __card__ i le lisi __list__ i le ala __swimlane__ i le laupapa __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Gaoioiga",
   "activities": "Gaoioiga",
   "activity": "Gaoioiga",

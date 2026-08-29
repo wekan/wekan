@@ -54,8 +54,6 @@
   "act-removeBoardMember": "غړی __member__ يې له تختې __board__ څخه لرې کړ",
   "act-restoredCard": "کارت __card__ يې د تختې __board__ د کرښې __swimlane__ لړليک __list__ ته بېرته راوست",
   "act-unjoinMember": "غړی __member__ يې د تختې __board__ د کرښې __swimlane__ په لړليک __list__ کې له کارت __card__ څخه لرې کړ",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "کړنې",
   "activities": "فعاليتونه",
   "activity": "فعاليت",

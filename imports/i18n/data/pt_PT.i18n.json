@@ -54,8 +54,6 @@
   "act-removeBoardMember": "removeuo membro __member__ do quadro __board__",
   "act-restoredCard": "restaurou o cartão __card__ para a lista __list__ na pista __swimlane__ no quadro __board__",
   "act-unjoinMember": "removeu o membro __member__ do cartão __card__ na lista __list__ na pista __swimlane__ no quadro __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ações",
   "activities": "Actividades",
   "activity": "Atividade",

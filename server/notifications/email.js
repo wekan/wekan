@@ -4,6 +4,7 @@ import { TAPi18n } from '/imports/i18n';
 
 import EmailLocalization from '../lib/emailLocalization';
 import { Notifications } from '/server/notifications/notifications';
+import { formatActivityNotificationTitle } from '/server/lib/activityNotificationTitle';
 
 // buffer each user's email text in a queue, then flush them in single email
 Meteor.startup(() => {
@@ -34,7 +35,12 @@ Meteor.startup(() => {
       });
 
       const lan = user.getLanguage();
-      const subject = TAPi18n.__(title, params, lan);
+      const subject = formatActivityNotificationTitle(
+        title,
+        params,
+        TAPi18n.__.bind(TAPi18n),
+        lan,
+      );
       const existing = user.getEmailBuffer().length > 0;
       const htmlEnabled =
         Meteor.settings.public &&

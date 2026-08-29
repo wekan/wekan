@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ئەندامی __member__ی لە تەختەی __board__ لابرد",
   "act-restoredCard": "کارتی __card__ی گەڕاندەوە بۆ لیستی __list__ لە ڕێڕەوی __swimlane__ لە تەختەی __board__",
   "act-unjoinMember": "ئەندامی __member__ی لە کارتی __card__ لە لیستی __list__ لە ڕێڕەوی __swimlane__ لە تەختەی __board__ لابرد",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "کردارەکان",
   "activities": "چالاکییەکان",
   "activity": "چالاکی",

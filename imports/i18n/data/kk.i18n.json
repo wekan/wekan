@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__board__ тақтасынан __member__ мүшесін алып тастады",
   "act-restoredCard": "__card__ карточкасын __board__ тақтасындағы __swimlane__ жолының __list__ тізіміне қалпына келтірді",
   "act-unjoinMember": "__board__ тақтасындағы __swimlane__ жолының __list__ тізіміндегі __card__ карточкасынан __member__ мүшесін алып тастады",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Әрекеттер",
   "activities": "Әрекеттер",
   "activity": "Әрекет",

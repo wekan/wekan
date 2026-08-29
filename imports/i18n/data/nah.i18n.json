@@ -54,8 +54,6 @@
   "act-removeBoardMember": "oquiquixti tlacatl __member__ ipan huapalli __board__",
   "act-restoredCard": "oquicuepa amatlapalli __card__ ipan tocatlahtolli __list__, ohtli __swimlane__, huapalli __board__",
   "act-unjoinMember": "oquiquixti tlacatl __member__ ipan amatlapalli __card__, tocatlahtolli __list__, ohtli __swimlane__, huapalli __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Tlachihualtin",
   "activities": "Tequitiliztli",
   "activity": "Tequitl",

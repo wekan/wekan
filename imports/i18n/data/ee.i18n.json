@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ɖe dzola __member__ ɖa le kpekpeɖeŋu __board__ dzi",
   "act-restoredCard": "gbugbɔ kaɖi __card__ ɖo xexlẽdzesi __list__ me le tsiƒuƒu __swimlane__ me le kpekpeɖeŋu __board__ dzi",
   "act-unjoinMember": "ɖe dzola __member__ ɖa le kaɖi __card__ ŋu le xexlẽdzesi __list__ me le tsiƒuƒu __swimlane__ me le kpekpeɖeŋu __board__ dzi",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Nuwɔnaɖoanyiwo",
   "activities": "Dɔwɔwɔwo",
   "activity": "Dɔwɔwɔ",

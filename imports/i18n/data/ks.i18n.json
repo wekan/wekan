@@ -54,8 +54,6 @@
   "act-removeBoardMember": "بورڈ __board__ پؠٹھ ممبر __member__ ہٹٲو",
   "act-restoredCard": "بورڈ __board__ کس وَتھ __swimlane__ تہٕ فہرست __list__ منٛز کارڈ __card__ واپس انٲو",
   "act-unjoinMember": "بورڈ __board__ کس وَتھ __swimlane__ تہٕ فہرست __list__ پؠٹھ کارڈ __card__ نِش ممبر __member__ ہٹٲو",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "کارروٲیِہ",
   "activities": "سرگرمی",
   "activity": "سرگرمی",

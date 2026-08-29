@@ -54,8 +54,6 @@
   "act-removeBoardMember": "นำสมาชิก __member__ ออกจากบอร์ด __board__",
   "act-restoredCard": "กู้คืนการ์ด __card__ ไปยังรายการ __list__ ในสวิมเลน __swimlane__ บนบอร์ด __board__",
   "act-unjoinMember": "นำสมาชิก __member__ ออกจากการ์ด __card__ ในรายการ __list__ ในสวิมเลน __swimlane__ บนบอร์ด __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "ปฎิบัติการ",
   "activities": "กิจกรรม",
   "activity": "กิจกรรม",

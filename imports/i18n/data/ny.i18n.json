@@ -54,8 +54,6 @@
   "act-removeBoardMember": "anachotsa membala __member__ pa bolodi __board__",
   "act-restoredCard": "anabwezeretsa khadi __card__ ku mndandanda __list__ pa mzere wosambira __swimlane__ pa bolodi __board__",
   "act-unjoinMember": "anachotsa membala __member__ pa khadi __card__ mu mndandanda __list__ pa mzere wosambira __swimlane__ pa bolodi __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Zochita",
   "activities": "Zochitika",
   "activity": "Zochitika",

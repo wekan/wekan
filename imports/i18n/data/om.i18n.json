@@ -54,8 +54,6 @@
   "act-removeBoardMember": "miseensa __member__ gabatee __board__ irraa haqe",
   "act-restoredCard": "kaardii __card__ gara tarree __list__, karaa __swimlane__ fi gabatee __board__ deebise",
   "act-unjoinMember": "miseensa __member__ kaardii __card__ irraa, tarree __list__, karaa __swimlane__ fi gabatee __board__ keessatti haqe",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Tarkaanfiiwwan",
   "activities": "Sochiiwwan",
   "activity": "Sochii",

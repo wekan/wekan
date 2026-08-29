@@ -54,8 +54,6 @@
   "act-removeBoardMember": "endamê __member__ ji depoya __board__ rakir",
   "act-restoredCard": "karta __card__ vegerand lîsteya __list__ li rêça __swimlane__ ya depoya __board__",
   "act-unjoinMember": "endamê __member__ ji karta __card__ di lîsteya __list__ li rêça __swimlane__ ya depoya __board__ rakir",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Kiryar",
   "activities": "Çalakî",
   "activity": "Çalakî",

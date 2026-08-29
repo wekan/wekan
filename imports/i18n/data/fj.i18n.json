@@ -54,8 +54,6 @@
   "act-removeBoardMember": "kauta tani na lewe ni soqosoqo __member__ mai na vola __board__",
   "act-restoredCard": "vakalesuya na kadi __card__ ki na lisi __list__ ena sala __swimlane__ ena vola __board__",
   "act-unjoinMember": "kauta tani na lewe ni soqosoqo __member__ mai na kadi __card__ ena lisi __list__ ena sala __swimlane__ ena vola __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Cakacaka",
   "activities": "Veika e caka",
   "activity": "Ka e caka",

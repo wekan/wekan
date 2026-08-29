@@ -54,8 +54,6 @@
   "act-removeBoardMember": "as tirat lo participant __member__ del tablèu __board__",
   "act-restoredCard": "as restorat la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",
   "act-unjoinMember": "as tirat lo participant __member__ de la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Accions",
   "activities": "Activitats",
   "activity": "Activitat",

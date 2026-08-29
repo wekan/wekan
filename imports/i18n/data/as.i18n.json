@@ -54,8 +54,6 @@
   "act-removeBoardMember": "সদস্য __member__ ক ব'ৰ্ড __board__ ৰ পৰা আঁতৰালে",
   "act-restoredCard": "কাৰ্ড __card__ তালিকা __list__ আৰু স্বীমলেন __swimlane__ সহ ব'ৰ্ড __board__ লৈ পুনৰুদ্ধাৰ কৰিলে",
   "act-unjoinMember": "সদস্য __member__ ক কাৰ্ড __card__ ৰ তালিকা __list__ আৰু স্বীমলেন __swimlane__ সহ ব'ৰ্ড __board__ ৰ পৰা আঁতৰালে",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "কাৰ্যসমূহ",
   "activities": "কাৰ্যকলাপসমূহ",
   "activity": "কাৰ্যকলাপ",

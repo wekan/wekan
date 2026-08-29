@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__board__ дуоскаттан __member__ кыттыылааҕы сотто",
   "act-restoredCard": "__board__ дуоскаҕа, __swimlane__ суолга, __list__ испииһэккэ __card__ карточканы төннөрдө",
   "act-unjoinMember": "__board__ дуоскаҕа, __swimlane__ суолга, __list__ испииһэккэ, __card__ карточкаттан __member__ кыттыылааҕы сотто",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Дьайыылар",
   "activities": "Дьайыылар",
   "activity": "Дьайыы",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "從董事會 __board__ 中刪除成員 __member__",
   "act-restoredCard": "恢復卡__card__以列出__list__在泳道__swimlane__在板__board__",
   "act-unjoinMember": "從卡片__card__、名單__list__、泳道__swimlane__、董事會__board__ 刪除會員__member__",
-  "act-withBoardTitle": "看板__board__",
-  "act-withCardTitle": "[看板 __board__] 卡片 __card__",
   "actions": "行動",
   "activities": "活動",
   "activity": "活動",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "oipe'a rehegua __member__ peteĩcha __board__-gui",
   "act-restoredCard": "omoĩjey kuatia'i __card__ ysaja __list__-pe, tape __swimlane__-pe, peteĩcha __board__-pe",
   "act-unjoinMember": "oipe'a rehegua __member__ kuatia'i __card__-gui, ysaja __list__-pe, tape __swimlane__-pe, peteĩcha __board__-pe",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Tembiapokuéra",
   "activities": "Tembiapokuéra",
   "activity": "Tembiapo",

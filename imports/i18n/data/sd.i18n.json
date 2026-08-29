@@ -54,8 +54,6 @@
   "act-removeBoardMember": "بورڊ __board__ مان ميمبر __member__ هٽايو",
   "act-restoredCard": "بورڊ __board__ جي سوئم لين __swimlane__ ۾ فهرست __list__ ڏانهن ڪارڊ __card__ بحال ڪيو",
   "act-unjoinMember": "بورڊ __board__ جي سوئم لين __swimlane__ ۾ فهرست __list__ جي ڪارڊ __card__ تان ميمبر __member__ هٽايو",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "عمل",
   "activities": "سرگرميون",
   "activity": "سرگرمي",

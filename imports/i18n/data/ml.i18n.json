@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__board__ ബോർഡിൽ നിന്ന് __member__ അംഗത്തെ നീക്കി",
   "act-restoredCard": "__board__ ബോർഡിലെ __swimlane__ സ്വിംലെയിനിലെ __list__ പട്ടികയിലേക്ക് __card__ കാർഡ് പുനഃസ്ഥാപിച്ചു",
   "act-unjoinMember": "__board__ ബോർഡിലെ __swimlane__ സ്വിംലെയിനിലെ __list__ പട്ടികയിലെ __card__ കാർഡിൽ നിന്ന് __member__ അംഗത്തെ നീക്കി",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "പ്രവർത്തനങ്ങൾ",
   "activities": "പ്രവർത്തനങ്ങൾ",
   "activity": "പ്രവർത്തനം",

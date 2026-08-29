@@ -54,8 +54,6 @@
   "act-removeBoardMember": "rimosso membro __member__ dalla bacheca __board__",
   "act-restoredCard": "scheda ripristinata __card__ della lista __list__ nella swimlane __swimlane__ della bacheca __board__",
   "act-unjoinMember": "rimosso membro __member__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "__card__ [__board__]",
   "actions": "Azioni",
   "activities": "Attività",
   "activity": "Attività",

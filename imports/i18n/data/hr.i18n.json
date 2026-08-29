@@ -54,8 +54,6 @@
   "act-removeBoardMember": "uklonio/la je korisnika __member__ sa ploče __board__",
   "act-restoredCard": "vratio/la je karticu __card__ na listu __list__ u traci __swimlane__ na ploči __board__",
   "act-unjoinMember": "uklonio/la je korisnika  __member__ sa kartice __card__ na list __list__ u traci __swimlane__ na ploči __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Radnje",
   "activities": "Aktivnosti",
   "activity": "Aktivnost",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ಫಲಕ __board__ ನಿಂದ ಸದಸ್ಯ __member__ ಅನ್ನು ತೆಗೆದರು",
   "act-restoredCard": "ಫಲಕ __board__ ನ ಪಥ __swimlane__ ನ ಪಟ್ಟಿ __list__ ಗೆ ಕಾರ್ಡ್ __card__ ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಿದರು",
   "act-unjoinMember": "ಫಲಕ __board__ ನ ಪಥ __swimlane__ ನ ಪಟ್ಟಿ __list__ ಯ ಕಾರ್ಡ್ __card__ ನಿಂದ ಸದಸ್ಯ __member__ ಅನ್ನು ತೆಗೆದರು",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "ಕ್ರಿಯೆಗಳು",
   "activities": "ಚಟುವಟಿಕೆಗಳು",
   "activity": "ಚಟುವಟಿಕೆ",

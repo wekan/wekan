@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ئەزا __member__ نى __board__ ​​دىن چىقىرىۋەتتى.",
   "act-restoredCard": "كارتا __card__ تىزىملىك __list__، سۇ ئۈزۈش يولى __swimlane__، تاختا __board__ غا ئەسلىگە كەلتۈرۈلدى",
   "act-unjoinMember": "ئەزا __member__ كارتىدىن __card__ ​​تىزىملىكتىن ئۆچۈرۈلدى __list__ سۇ ئۈزۈش ئورنىدا __swimlane__ تاختا __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "ھەرىكەتلەر",
   "activities": "پائالىيەت",
   "activity": "پائالىيەت",

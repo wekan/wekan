@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ilaasortaq __member__ ilisarnaammit __board__ piiarpaa",
   "act-restoredCard": "kortsi __card__ allattorsimaffimmut __list__ aqqummi __swimlane__ ilisarnaammi __board__ utertippaa",
   "act-unjoinMember": "ilaasortaq __member__ kortsimit __card__ allattorsimaffimmi __list__ aqqummi __swimlane__ ilisarnaammi __board__ piiarpaa",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Iliuutsit",
   "activities": "Sulinerit",
   "activity": "Suliaq",

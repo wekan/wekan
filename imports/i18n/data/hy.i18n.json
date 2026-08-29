@@ -54,8 +54,6 @@
   "act-removeBoardMember": "հեռացրել է __member__ անդամին __board__ խորհրդի անդամից",
   "act-restoredCard": "վերականգնված քարտը __card__ ցուցակագրելու համար __list__ ժամը swimlane __swimlane__ տախտակում __board__",
   "act-unjoinMember": "հեռացրել է __member__ անդամին __card__ քարտից __list__ swimlane __swimlane__ քարտից __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Գործողություններ",
   "activities": "Գործունեություն",
   "activity": "Գործունեություն",

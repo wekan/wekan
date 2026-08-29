@@ -54,8 +54,6 @@
   "act-removeBoardMember": "wepụrụ onye otu __member__ na bọọdụ __board__",
   "act-restoredCard": "kaadị eweghachiri __card__ ka ịdepụta __list__ na swimlane __swimlane__ na bọọdụ __board__",
   "act-unjoinMember": "wepụrụ onye otu __member__ na kaadị __card__ na listi __list__ na swimlane __swimlane__ na bọọdụ __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Omume",
   "activities": "Ihe omume",
   "activity": "Ihe omume",

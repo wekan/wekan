@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ilungu elisusiwe __member__ ebhodini __board__",
   "act-restoredCard": "ikhadi elibuyiselwe __card__ ukufaka ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
   "act-unjoinMember": "ukhiphe ilungu __member__ ekhadini __card__ ohlwini __list__ ku-swimlane __swimlane__ ebhodini __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Izenzo",
   "activities": "Imisebenzi",
   "activity": "Umsebenzi",

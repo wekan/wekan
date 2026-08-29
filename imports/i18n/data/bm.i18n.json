@@ -54,8 +54,6 @@
   "act-removeBoardMember": "mɔgɔ __member__ bɔra tabali __board__ kan",
   "act-restoredCard": "karata __card__ seginna lisiti __list__ kɔnɔ swimlane __swimlane__ la tabali __board__ kan",
   "act-unjoinMember": "mɔgɔ __member__ bɔra karata __card__ la lisiti __list__ kɔnɔ swimlane __swimlane__ la tabali __board__ kan",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Kɛwalew",
   "activities": "Baaraw",
   "activity": "Baara",

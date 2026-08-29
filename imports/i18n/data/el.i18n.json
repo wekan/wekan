@@ -54,8 +54,6 @@
   "act-removeBoardMember": "αφαιρέθηκε το μέλος __member__ από τον πίνακα __board__",
   "act-restoredCard": "επαναφορά της κάρτας __card__ στη λίστα __list__ στη λωρίδα __swimlane__ στον πίνακα __board__",
   "act-unjoinMember": "διαγραφή του μέλους __member__ από την κάρτα __card__ στη λίστα __list__ στη λωρίδα __swimlane__ στον πίνακα __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ενέργειες",
   "activities": "Δραστηριότητες",
   "activity": "Δραστηριότητα",

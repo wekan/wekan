@@ -54,8 +54,6 @@
   "act-removeBoardMember": "pašalintas narys __member__ iš valdybos __board__",
   "act-restoredCard": "atkurta kortelė __card__ į sąrašą __list__ swimlane __swimlane__ prie lentos __board__",
   "act-unjoinMember": "pašalintas narys __member__ iš kortelės __card__ sąraše __list__ plaukimo juostoje __swimlane__ prie lentos __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Veiksmai",
   "activities": "Veikla",
   "activity": "Veikla",

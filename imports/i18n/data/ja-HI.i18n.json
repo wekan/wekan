@@ -54,8 +54,6 @@
   "act-removeBoardMember": "メンバー __member__ を ボード __board__ から削除しました",
   "act-restoredCard": "カード __card__ が ボード __board__, スイムレーン __swimlane__, リスト __list__ に復元されました",
   "act-unjoinMember": "メンバー __member__ を ボード __board__, スイムレーン __swimlane__, リスト __list__, カード __card__ から削除しました",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "操作",
   "activities": "アクティビティ",
   "activity": "アクティビティ",

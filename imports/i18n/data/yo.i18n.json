@@ -54,8 +54,6 @@
   "act-removeBoardMember": "yọ ọmọ ẹgbẹ kuro __member__ lati igbimọ __board__",
   "act-restoredCard": "kaadi pada __card__ lati ṣe atokọ __list__ ni swimlane __swimlane__ ni igbimọ __board__",
   "act-unjoinMember": "yọ ọmọ ẹgbẹ kuro __member__ lati kaadi __card__ ni atokọ __list__ ni swimlane __swimlane__ ni igbimọ __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Awọn iṣe",
   "activities": "Awọn iṣẹ ṣiṣe",
   "activity": "Iṣẹ-ṣiṣe",

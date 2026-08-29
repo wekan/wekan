@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__board__ самбарһаа __member__ гэшүүниие абаа",
   "act-restoredCard": "__board__ самбарай __swimlane__ зурбаһанай __list__ жагсаалда __card__ карточка һэргээбэ",
   "act-unjoinMember": "__board__ самбарай __swimlane__ зурбаһанай __list__ жагсаал дахь __card__ карточкаһаа __member__ гэшүүниие абаа",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Үйлэнүүд",
   "activities": "Ажалнууд",
   "activity": "Ажал",

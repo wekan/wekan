@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ਮੈਂਬਰ __member__ ਨੂੰ ਬੋਰਡ ਤੋਂ ਹਟਾਇਆ ਗਿਆ __board__",
   "act-restoredCard": "ਬਹਾਲ ਕੀਤਾ ਕਾਰਡ __card__ ਸੂਚੀ ਵਿੱਚ __list__ ਤੈਰਾਕੀ __swimlane__ ਬੋਰਡ __board__ 'ਤੇ",
   "act-unjoinMember": "__member__ ਕਾਰਡ ਤੋਂ ਹਟਾਇਆ ਗਿਆ ਮੈਂਬਰ __card__ ਸੂਚੀ ਵਿੱਚ __list__ ਸਵਿਮਲੇਨ __swimlane__ ਬੋਰਡ __board__ ਵਿੱਚ",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "ਕਾਰਵਾਈਆਂ",
   "activities": "ਗਤੀਵਿਧੀਆਂ",
   "activity": "ਗਤੀਵਿਧੀ",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ᐃᓚᐅᔪᖅ __member__ ᐲᖅᑕᐅᔪᖅ ᐊᓪᓚᕕᒃ __board__-ᒥ",
   "act-restoredCard": "ᐊᓪᓚᖅᓯᒪᔪᖅ __card__ ᐅᑎᖅᑎᑕᐅᔪᖅ ᑎᑎᖅᑲᓕᐊᖅ __list__-ᒧᑦ ᐊᖅᑯᑎ __swimlane__-ᒥ ᐊᓪᓚᕕᒃ __board__-ᒥ",
   "act-unjoinMember": "ᐃᓚᐅᔪᖅ __member__ ᐲᖅᑕᐅᔪᖅ ᐊᓪᓚᖅᓯᒪᔪᖅ __card__-ᒥ ᑎᑎᖅᑲᓕᐊᖅ __list__-ᒥ ᐊᖅᑯᑎ __swimlane__-ᒥ ᐊᓪᓚᕕᒃ __board__-ᒥ",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "ᐱᓕᕆᔾᔪᓰᑦ",
   "activities": "ᐱᓕᕆᐊᑦ",
   "activity": "ᐱᓕᕆᐊᖅ",

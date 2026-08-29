@@ -54,8 +54,6 @@
   "act-removeBoardMember": "አባል __member__ን ከሰሌዳ __board__ አስወግዷል",
   "act-restoredCard": "ካርድ __card__ን ወደ ዝርዝር __list__፣ መስመር __swimlane__፣ ሰሌዳ __board__ መልሷል",
   "act-unjoinMember": "አባል __member__ን ከካርድ __card__፣ ዝርዝር __list__፣ መስመር __swimlane__፣ ሰሌዳ __board__ አስወግዷል",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "ድርጊቶች",
   "activities": "እንቅስቃሴዎች",
   "activity": "እንቅስቃሴ",

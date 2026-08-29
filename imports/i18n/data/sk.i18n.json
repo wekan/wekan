@@ -54,8 +54,6 @@
   "act-removeBoardMember": "odstranil(a) člena __member__ z tabla __board__",
   "act-restoredCard": "obnovil(a) kartu __card__ do sloupce __list__ ve swimlane __swimlane__ na tablu __board__",
   "act-unjoinMember": "odstranil(a) člena __member__ z karty __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Akcie",
   "activities": "Aktivity",
   "activity": "Aktivita",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "изузео сарадника __member__ из списа __board__",
   "act-restoredCard": "опоравио предмет __card__ у делу поступка __list__ из поступка __swimlane__ из списа __board__",
   "act-unjoinMember": "изузео сарадника __member__ са предмета __card__ у делу поступка __list__ из поступка __swimlane__ из списа __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Радње",
   "activities": "Дневник промена",
   "activity": "Последња промена",

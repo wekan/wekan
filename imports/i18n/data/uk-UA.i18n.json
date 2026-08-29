@@ -54,8 +54,6 @@
   "act-removeBoardMember": "видалено учасника __member__ з дошки __board__",
   "act-restoredCard": "відновлено картку __card__ у список __list__ на доріжці __swimlane__ на дошці __board__",
   "act-unjoinMember": "видалено учасника __member__ з картки __card__ у списку __list__ на доріжці __swimlane__ до дошки __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Дії",
   "activities": "Діяльності",
   "activity": "Діяльність",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "החבר __member__ הוסר מהלוח __board__",
   "act-restoredCard": "הכרטיס __card__ שוחזר לרשימה __list__ למסלול __swimlane__ ללוח __board__",
   "act-unjoinMember": "החבר __member__ הוסר מהכרטיס __card__ ברשימה __list__ במסלול __swimlane__ בלוח __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "פעולות",
   "activities": "פעילויות",
   "activity": "פעילות",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "gintangtang an membro __member__ tikang ha board __board__",
   "act-restoredCard": "ginbalik an card __card__ ha lista __list__ ha swimlane __swimlane__ ha board __board__",
   "act-unjoinMember": "gintangtang an membro __member__ tikang ha card __card__ ha lista __list__ ha swimlane __swimlane__ ha board __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Mga Aksyon",
   "activities": "Mga Aktibidad",
   "activity": "Aktibidad",

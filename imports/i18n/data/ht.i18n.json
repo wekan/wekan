@@ -54,8 +54,6 @@
   "act-removeBoardMember": "retire manm __member__ nan tablo __board__",
   "act-restoredCard": "retabli kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
   "act-unjoinMember": "retire manm __member__ nan kat __card__ nan lis __list__ nan kouloir __swimlane__ sou tablo __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Aksyon",
   "activities": "Aktivite",
   "activity": "Aktivite",

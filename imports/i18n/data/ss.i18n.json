@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ususe lilunga __member__ ebhodini __board__",
   "act-restoredCard": "ubuyisele likhadi __card__ eluhlwini __list__ emzileni __swimlane__ ebhodini __board__",
   "act-unjoinMember": "ususe lilunga __member__ ekhadini __card__ eluhlwini __list__ emzileni __swimlane__ ebhodini __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Tento",
   "activities": "Imisebenti",
   "activity": "Umsebenti",

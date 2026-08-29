@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__board__ хӑминчен __member__ хутшӑнакан кӑларнӑ",
   "act-restoredCard": "__card__ карточкине __board__ хӑминчи __swimlane__ ҫулӗнчи __list__ списокне тавӑрнӑ",
   "act-unjoinMember": "__board__ хӑминчи __swimlane__ ҫулӗнчи __list__ списокӗнчи __card__ карточкинчен __member__ хутшӑнакан кӑларнӑ",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ӗҫсем",
   "activities": "Ӗҫсем",
   "activity": "Ӗҫ",

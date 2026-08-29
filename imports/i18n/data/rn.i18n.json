@@ -54,8 +54,6 @@
   "act-removeBoardMember": "yakuye umunywanyi __member__ ku capa __board__",
   "act-restoredCard": "yagaruye ikarata __card__ mu rutonde __list__ ku murongo __swimlane__ ku capa __board__",
   "act-unjoinMember": "yakuye umunywanyi __member__ ku karata __card__ mu rutonde __list__ ku murongo __swimlane__ ku capa __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ibikorwa",
   "activities": "Ibikorwa",
   "activity": "Igikorwa",

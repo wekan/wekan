@@ -54,8 +54,6 @@
   "act-removeBoardMember": "aliondoa mwanachama __member__ kutoka kwa bodi __board__",
   "act-restoredCard": "kadi iliyorejeshwa __card__ kuorodhesha __list__ kwa kuogelea __swimlane__ kwenye ubao __board__",
   "act-unjoinMember": "ameondoa mwanachama __member__ kutoka kwa kadi __card__ kwenye orodha __list__ kwenye swimlane __swimlane__ kwenye ubao __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Vitendo",
   "activities": "Shughuli",
   "activity": "Shughuli",

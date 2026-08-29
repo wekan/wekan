@@ -54,8 +54,6 @@
   "act-removeBoardMember": "treylys esel __member__ dhyworth estyllen __board__",
   "act-restoredCard": "daskorres karten __card__ dhe rol __list__ orth hyns __swimlane__ orth estyllen __board__",
   "act-unjoinMember": "treylys esel __member__ dhyworth karten __card__ orth rol __list__ orth hyns __swimlane__ orth estyllen __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Oberow",
   "activities": "Gwrythresow",
   "activity": "Gwrythres",

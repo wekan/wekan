@@ -54,8 +54,6 @@
   "act-removeBoardMember": "tlošitše leloko __member__ botong __board__",
   "act-restoredCard": "bušeditše karata __card__ lenaneong __list__ tseleng ya go sesa __swimlane__ botong __board__",
   "act-unjoinMember": "tlošitše leloko __member__ karateng __card__ lenaneong __list__ tseleng ya go sesa __swimlane__ botong __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Ditiro",
   "activities": "Mediro",
   "activity": "Modiro",

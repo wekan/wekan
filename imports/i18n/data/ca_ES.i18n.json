@@ -54,8 +54,6 @@
   "act-removeBoardMember": "membre eliminat __member__ del tauler __board__",
   "act-restoredCard": "fitxa restaurada __card__ a la llista __list__ al carril __swimlane__ al tauler __board__",
   "act-unjoinMember": "ha eliminat el membre __member__ de la fitxa __card__ a la llista __list__ al carril __swimlane__ del tauler __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Accions",
   "activities": "Activitats",
   "activity": "Activitat",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "从看板 __board__ 移除成员 __member__",
   "act-restoredCard": "恢复卡片 __card__ 至列表 __list__ 泳道 __swimlane__  看板 __board__",
   "act-unjoinMember": "移除成员  __member__  从卡片 __card__ 列表 __list__ a泳道 __swimlane__ 看板 __board__",
-  "act-withBoardTitle": "看板__board__",
-  "act-withCardTitle": "[看板 __board__] 卡片 __card__",
   "actions": "动作",
   "activities": "活动",
   "activity": "活动",

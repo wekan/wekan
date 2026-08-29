@@ -54,8 +54,6 @@
   "act-removeBoardMember": "eltávolította a(z) __member__ tagot a(z) __board__ tábláról",
   "act-restoredCard": "visszaállította a(z) __card__ kártyát a(z) __list__ listára a(z) __swimlane__ úszósávon a(z) __board__ táblán",
   "act-unjoinMember": "eltávolította a(z) __member__ tagot a(z) __card__ kártyáról a(z) __list__ listán a(z) __swimlane__ úszósávon a(z) __board__ táblán",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Műveletek",
   "activities": "Tevékenységek",
   "activity": "Tevékenység",

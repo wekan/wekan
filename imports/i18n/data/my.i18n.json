@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ဘုတ် __board__ မှ အဖွဲ့ဝင် __member__ ကို ဖယ်ရှားခဲ့သည်",
   "act-restoredCard": "ဘုတ် __board__ ရှိ ရေကူးလမ်း __swimlane__ ၏ စာရင်း __list__ သို့ ကတ် __card__ ကို ပြန်ယူခဲ့သည်",
   "act-unjoinMember": "ဘုတ် __board__ ရှိ ရေကူးလမ်း __swimlane__ ၏ စာရင်း __list__ မှ ကတ် __card__ ထဲက အဖွဲ့ဝင် __member__ ကို ဖယ်ရှားခဲ့သည်",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "လုပ်ဆောင်ချက်များ",
   "activities": "လှုပ်ရှားမှုများ",
   "activity": "လှုပ်ရှားမှု",

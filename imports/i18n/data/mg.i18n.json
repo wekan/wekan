@@ -54,8 +54,6 @@
   "act-removeBoardMember": "nanala mpikambana __member__ tao amin'ny solaitra __board__",
   "act-restoredCard": "namerina karatra __card__ tao amin'ny lisitra __list__, lalana __swimlane__, solaitra __board__",
   "act-unjoinMember": "nanala mpikambana __member__ tamin'ny karatra __card__ tao amin'ny lisitra __list__, lalana __swimlane__, solaitra __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Hetsika",
   "activities": "Hetsika",
   "activity": "Hetsika",

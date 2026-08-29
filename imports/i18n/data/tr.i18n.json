@@ -54,8 +54,6 @@
   "act-removeBoardMember": "__member__ üyesini __board__ panosundan çıkardı",
   "act-restoredCard": "__card__ kartını __board__ panosundaki __swimlane__ kulvarındaki __list__ listesine geri getirdi",
   "act-unjoinMember": "__member__ üyesini __board__ panosundaki __swimlane__ kulvarındaki __list__ listesindeki __card__ kartından çıkardı",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "İşlemler",
   "activities": "Etkinlikler",
   "activity": "Etkinlik",

@@ -54,8 +54,6 @@
   "act-removeBoardMember": "removed member __member__ from board __board__",
   "act-restoredCard": "restored card __card__ to list __list__ at swimlane __swimlane__ at board __board__",
   "act-unjoinMember": "removed member __member__ from card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Actions",
   "activities": "Ol wok",
   "activity": "Wok",

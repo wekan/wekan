@@ -54,8 +54,6 @@
   "act-removeBoardMember": "gow oltey __member__ jeh boayrd __board__",
   "act-restoredCard": "chur kaart __card__ er ash gys rolley __list__ ayns cassan __swimlane__ er boayrd __board__",
   "act-unjoinMember": "gow oltey __member__ jeh kaart __card__ ayns rolley __list__ ayns cassan __swimlane__ er boayrd __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "Jantyssyn",
   "activities": "Obbraghyn",
   "activity": "Obbyr",

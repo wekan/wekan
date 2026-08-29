@@ -54,8 +54,6 @@
   "act-removeBoardMember": "বোর্ড __board__ থেকে সদস্য __member__ সরিয়েছেন",
   "act-restoredCard": "বোর্ড __board__-এর সাঁতারপথ __swimlane__-এর তালিকা __list__-এ কার্ড __card__ পুনরুদ্ধার করেছেন",
   "act-unjoinMember": "বোর্ড __board__-এর সাঁতারপথ __swimlane__-এর তালিকা __list__-এর কার্ড __card__ থেকে সদস্য __member__ সরিয়েছেন",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "কার্যাবলি",
   "activities": "কার্যকলাপসমূহ",
   "activity": "কার্যকলাপ",

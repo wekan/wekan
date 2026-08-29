@@ -54,8 +54,6 @@
   "act-removeBoardMember": "ବୋର୍ଡ __board__ ​​ରୁ ସଦସ୍ୟ __member__ ଅପସାରଣ କରାଯାଇଛି |",
   "act-restoredCard": "ପୁନ restored ସ୍ଥାପିତ କାର୍ଡ __card__ ତାଲିକାଭୁକ୍ତ କରିବାକୁ __list__ ​​ସନ୍ତରଣରେ __swimlane__ ବୋର୍ଡରେ __board__",
   "act-unjoinMember": "ସଦସ୍ୟ __member__ କାର୍ଡରୁ __card__ ​​ତାଲିକାରେ __list__ ରେ ପହଁରିବାରେ __swimlane__ ବୋର୍ଡରେ __board__",
-  "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "[__board__] __card__",
   "actions": "କାର୍ଯ୍ୟ",
   "activities": "କାର୍ଯ୍ୟକଳାପ",
   "activity": "କାର୍ଯ୍ୟକଳାପ",
