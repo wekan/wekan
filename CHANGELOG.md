@@ -8245,12 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **SearchBleed** closes a global-search authorization bypass that
+let an authenticated user submit an executable database selector and search
+cards outside their boards on MongoDB deployments. Initial searches and stored
+pagination selectors are now independently rejected or constrained to the
+caller's current board access.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8261,34 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following CRITICAL SECURITY ISSUE of
+[SearchBleed](https://wekan.fi/hall-of-fame/searchbleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/773776214">Global search cannot execute untrusted selectors or cross board boundaries</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[GHSA-33h9-rc5h-667p](https://github.com/wekan/wekan/security/advisories/GHSA-33h9-rc5h-667p),
+High, CWE-943. The global-search publication accepted a selector supplied by an
+authenticated client and used it instead of the normal board-scoped selector.
+On MongoDB, execution operators could cause denial of service and act as an
+oracle over cards belonging to inaccessible boards. FerretDB rejected the
+reported execution operator, but the missing authorization boundary existed in
+the application and is now enforced independently of the database backend.
+
+Executable selectors now go through WeKan's shared NoSQL guard before reaching
+the database. Other client selectors are conjoined with the caller's authorized
+board IDs rather than replacing that scope. The shared query path repeats both
+checks for stored next-page and previous-page selectors, so sessions created by
+an older vulnerable release cannot preserve broader access after upgrade.
+Positive, negative and legacy-session unit coverage pins both layers; the
+existing rendered-browser search regression verifies that inaccessible-board
+cards remain absent while ordinary global search continues to work.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.26 2026-08-29 WeKan ® release
 
