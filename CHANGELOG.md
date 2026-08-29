@@ -8356,10 +8356,14 @@ before they cross into Go. Its [indexed follow-up](https://github.com/wekan/Ferr
 selects an existing distinct-key index and labels slow query shapes by their
 originating command. The [full-document decoder optimization](https://github.com/wekan/FerretDB/commit/6acac87c)
 reuses bounded parsed schemas and avoids a streaming decoder allocation for
-each common scalar. Launcher tests pin both modes, while FerretDB unit tests and
-benchmarks cover projected, distinct and complete decoding, SQL filtering and
-missing keys, implicit and excluded IDs, and every query field retained for
-filtering and sorting.
+each common scalar. Its [allocation follow-up](https://github.com/wekan/FerretDB/commit/99b02d10)
+uses direct full-document JSON parsing, strict scalar conversion and
+preallocated ordered fields, cutting the representative decoder benchmark from
+617 to 561 allocations and about 53 KB to 44 KB per document. Launcher tests
+pin both modes, while FerretDB unit tests and benchmarks cover projected,
+distinct and complete decoding, malformed input, SQL filtering and missing
+keys, implicit and excluded IDs, and every query field retained for filtering
+and sorting.
 
 </details>
 
