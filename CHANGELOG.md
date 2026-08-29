@@ -8383,7 +8383,12 @@ optimization](https://github.com/wekan/FerretDB/commit/95156068) also replaces
 per-document and per-array streaming decoders with complete-value parsing. The
 representative nested-card workload drops from 561 to 431 allocations and from
 about 44 KB to 31 KB per document, with median decode time improving from about
-179 to 141 microseconds while preserving malformed-input behavior.
+179 to 141 microseconds while preserving malformed-input behavior. The
+[linear document-construction follow-up](https://github.com/wekan/FerretDB/commit/fd73a0a1)
+uses the document's existing key-count map to distinguish new fields from
+replacements instead of searching all previously appended fields. The restored
+299,539-card collection averages 31.3 fields per document; a representative
+40-field decode improves by about 8% without adding allocations.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
 SQL filtering and missing keys, numeric and logical fallback safety, implicit
