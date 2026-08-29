@@ -45,10 +45,12 @@ STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
 LOG_DIR="${DEBUGSPEED_LOG_DIR:-$WEKAN_DIR/.tools/log/$STAMP/debug-speed}"
 mkdir -p "$LOG_DIR"
 FERRET_PID=''
+BRIDGE_PID=''
 WEKAN_PID=''
 WATCH_PID=''
 TAIL_PID=''
 FERRET_GROUP=false
+BRIDGE_GROUP=false
 WEKAN_GROUP=false
 WATCH_GROUP=false
 TAIL_GROUP=false
@@ -77,11 +79,36 @@ cleanup() {
   stop_process "$WATCH_PID" "$WATCH_GROUP"
   stop_process "$TAIL_PID" "$TAIL_GROUP"
   stop_process "$WEKAN_PID" "$WEKAN_GROUP"
+  stop_process "$BRIDGE_PID" "$BRIDGE_GROUP"
   stop_process "$FERRET_PID" "$FERRET_GROUP"
-  for pid in "$WATCH_PID" "$TAIL_PID" "$WEKAN_PID" "$FERRET_PID"; do
+  for pid in "$WATCH_PID" "$TAIL_PID" "$WEKAN_PID" "$BRIDGE_PID" "$FERRET_PID"; do
     [ -n "$pid" ] && wait "$pid" 2>/dev/null || true
   done
   echo "Diagnostics saved in $LOG_DIR"
+}
+
+start_migration_dashboard() {
+  local product=WeKan
+  local cache="$WRITABLE_PATH/.productname.txt"
+  if [ -s "$cache" ]; then
+    IFS= read -r product <"$cache" || product=WeKan
+    [ -n "$product" ] || product=WeKan
+  fi
+  echo "Serving $product Migration Progress at $ROOT_URL while FerretDB prepares indexes."
+  start_isolated env PORT="$WEKAN_PORT" PRODUCT_NAME="$product" \
+    WEKAN_BRIDGE_REASON=migration \
+    "$METEOR_BIN" node "$WEKAN_DIR/releases/ferretdb/recovery-bridge.mjs" \
+    >"$LOG_DIR/migration-dashboard.log" 2>&1
+  BRIDGE_PID=$STARTED_PID
+  BRIDGE_GROUP=$STARTED_GROUP
+}
+
+stop_migration_dashboard() {
+  [ -n "$BRIDGE_PID" ] || return 0
+  stop_process "$BRIDGE_PID" "$BRIDGE_GROUP"
+  wait "$BRIDGE_PID" 2>/dev/null || true
+  BRIDGE_PID=''
+  BRIDGE_GROUP=false
 }
 interrupted() { cleanup; exit 130; }
 trap cleanup EXIT
@@ -161,7 +188,9 @@ if [ "$DB_CHOICE" = ferretdb ]; then
     >"$LOG_DIR/ferretdb.log" 2>&1
   FERRET_PID=$STARTED_PID
   FERRET_GROUP=$STARTED_GROUP
+  start_migration_dashboard
   wait_for_ferretdb
+  stop_migration_dashboard
   export MONGO_URL="mongodb://127.0.0.1:$FERRET_PORT/wekan?replicaSet=rs0"
   export MONGO_OPLOG_URL="mongodb://127.0.0.1:$FERRET_PORT/local?replicaSet=rs0"
   export DEFAULT_METEOR_REACTIVITY_ORDER=oplog,polling

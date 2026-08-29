@@ -54,9 +54,19 @@ assert.match(server, /MONGO_OPLOG_URL="mongodb:\/\/127\.0\.0\.1:\$FERRET_PORT\/l
 assert.match(server, /METEOR_REACTIVITY_ORDER=oplog,polling/);
 assert.match(server, /DEBUGSPEED_FERRETDB_READY_TIMEOUT:-1800/);
 assert.match(server, /FerretDB is ready; starting WeKan/);
+assert.match(server, /start_migration_dashboard/);
+assert.match(server, /WEKAN_BRIDGE_REASON=migration/);
+assert.match(server, /migration-dashboard\.log/);
+assert.match(server, /stop_migration_dashboard/);
+assert.match(server, /\.productname\.txt/);
 assert.ok(
   server.indexOf('wait_for_ferretdb\n') < server.indexOf('start_isolated "$METEOR_BIN" run'),
   'FerretDB must accept connections before Meteor starts',
+);
+assert.ok(
+  server.indexOf('start_migration_dashboard\n') < server.indexOf('wait_for_ferretdb\n') &&
+    server.indexOf('stop_migration_dashboard\n') < server.indexOf('start_isolated "$METEOR_BIN" run'),
+  'the Product-name migration dashboard must own the web port only during FerretDB preparation',
 );
 
 // A restore-safe launcher runs the same instrumented FerretDB without starting

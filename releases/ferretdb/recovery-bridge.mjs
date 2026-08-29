@@ -18,9 +18,18 @@ const PRODUCT = (process.env.PRODUCT_NAME || 'WeKan').replace(/[<>&]/g, '').slic
 // returned "Gateway timeout", which says nothing about which of the two faults
 // it is: WeKan is broken, or the database has not come up yet. The snap already
 // serves a page for this (snap-src/bin/wekan-control); this is the container's.
-const REASON = process.env.WEKAN_BRIDGE_REASON === 'database' ? 'database' : 'recovery';
-const TEXT = REASON === 'database'
+const requestedReason = process.env.WEKAN_BRIDGE_REASON;
+const REASON = ['database', 'migration'].includes(requestedReason) ? requestedReason : 'recovery';
+const TEXT = REASON === 'migration'
   ? {
+    title: `${PRODUCT} Migration Progress`,
+    lead: 'FerretDB is rebuilding database indexes for faster queries. Your data '
+      + 'remains available on disk; the service will start automatically when the '
+      + 'transactional upgrade finishes.',
+    muted: 'This one-time preparation can take several minutes on a large database. '
+      + 'Do not interrupt it. This page refreshes automatically.',
+  }
+  : REASON === 'database' ? {
     title: `${PRODUCT} is waiting for its database`,
     lead: 'WeKan cannot serve anything until the database answers, and it is not '
       + 'answering yet. Nothing is lost; this page is here so the wait is visible '
@@ -85,4 +94,4 @@ http.createServer((req, res) => {
   });
   res.end(HTML);
 }).listen(PORT, () => console.log(
-  `[${REASON}] serving the ${REASON === 'database' ? 'waiting for database' : 'recovery'} page on port ${PORT} for all URLs`));
+  `[${REASON}] serving the ${REASON === 'database' ? 'waiting for database' : REASON === 'migration' ? 'migration progress' : 'recovery'} page on port ${PORT} for all URLs`));

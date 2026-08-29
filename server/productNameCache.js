@@ -21,10 +21,10 @@ import Settings from '/models/settings';
 // name the moment it changes, so WeKan writes it: once at startup and again
 // whenever the setting changes.
 //
-// $SNAP_COMMON is the snap's writable directory and the only place these pages
-// read from; without it (Docker, source, Sandstorm) there is nothing to do and
-// nothing is written.
-const CACHE_DIR = process.env.SNAP_COMMON || '';
+// $SNAP_COMMON is the snap's writable directory. Source/debug and container
+// launchers use WRITABLE_PATH for the same pre-database page cache; Sandstorm
+// provides neither and writes nothing.
+const CACHE_DIR = process.env.SNAP_COMMON || process.env.WRITABLE_PATH || '';
 const CACHE_FILE = CACHE_DIR ? path.join(CACHE_DIR, '.productname.txt') : '';
 
 let lastWritten = null;
