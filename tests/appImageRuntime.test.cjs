@@ -48,10 +48,11 @@ test('a runnable inner Node is still followed by the real HTTP smoke test', () =
   assert.ok(probe >= 0 && probe < launch && launch < curl);
 });
 
-test('the full release calls AppImage only after publishing its core bundles', () => {
+test('the full release waits for every bundle that an AppImage wraps', () => {
   const job = releaseAll.match(/^  appimage:\n([\s\S]*?)(?=^  \S)/m);
   assert.ok(job, 'release-all.yml must contain an appimage job');
-  assert.match(job[1], /needs: \[prepare, release\]/);
+  assert.match(job[1], /needs: \[prepare, release, build-extra-arches\]/,
+    'i686 and armhf bundles are attached by build-extra-arches');
   assert.match(job[1], /uses: \.\/\.github\/workflows\/AppImage\.yml/);
   assert.match(job[1], /contents: write/);
   assert.match(job[1], /tag: v\$\{\{ needs\.prepare\.outputs\.version \}\}/);

@@ -159,8 +159,10 @@ test('a slow Launchpad arch can neither fail the release nor cancel another arch
     `timeout-minutes: ${timeout[1]} does not fit two attempts on a slow arch`);
   assert.ok(Number(timeout[1]) <= 360,
     `timeout-minutes: ${timeout[1]} is over GitHub's per-job ceiling`);
-  assert.ok(/timeout --foreground 300m snapcraft remote-build/.test(launchpad),
+  assert.ok(/timeout 300m snapcraft remote-build/.test(launchpad),
     'riscv64 stops its local waiter before the six-hour hosted-job cancellation');
+  assert.ok(!/timeout --foreground 300m snapcraft remote-build/.test(launchpad),
+    'timeout must isolate the waiter so SIGTERM returns 124 instead of cancelling Actions');
   assert.ok(/\[ "\$\{\{ matrix\.arch \}\}" = riscv64 \] && \[ "\$rc" -eq 124 \]/.test(launchpad),
     'the waiter timeout is recognized as queued work, not a failed build');
   assert.ok(/pending=true/.test(launchpad),

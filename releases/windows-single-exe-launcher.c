@@ -36,6 +36,20 @@ int wmain(void) {
     return 1;
   }
 
+  /*
+   * Enigma's virtual filesystem compatibility layer can make Node's legacy
+   * Windows version probe report a pre-Windows-10 version even though the host
+   * is supported. The ordinary ZIP does not need this. The packed launcher
+   * does, and the variable is Node's documented escape hatch for exactly a
+   * false platform-version result. Preserve an administrator's explicit value.
+   */
+  if (!GetEnvironmentVariableW(L"NODE_SKIP_PLATFORM_CHECK", data, MAX_PATH) &&
+      !SetEnvironmentVariableW(L"NODE_SKIP_PLATFORM_CHECK", L"1")) {
+    fwprintf(stderr, L"WeKan: cannot set NODE_SKIP_PLATFORM_CHECK (error %lu).\n",
+             GetLastError());
+    return 1;
+  }
+
   if (!GetEnvironmentVariableW(L"WRITABLE_PATH", data, MAX_PATH)) {
     if (wcslen(module) + wcslen(L"\\wekan-files") >= MAX_PATH) {
       fwprintf(stderr, L"WeKan: executable path is too long for its data directory.\n");

@@ -1143,14 +1143,15 @@ jobs:
   # ─── 7a. Wrap the published core bundles as AppImages ──────────────────────
   # AppImage.yml does not rebuild WeKan: it downloads the amd64 and arm64 ZIPs
   # that `release` just attached and wraps them for every AppImage runtime
-  # architecture they can serve. Put the reusable call HERE, after `release`,
-  # because before that job the ZIP URLs return 404. It runs in parallel with
-  # the other post-release formats because none of them produces an AppImage
-  # input. Passing the exact tag prevents a newer concurrent release from being
+  # architecture they can serve. Put the reusable call HERE, after `release`
+  # AND `build-extra-arches`: amd64/aarch64 wrap the core bundles, while i686
+  # and armhf wrap extra-architecture bundles that are attached later. Starting
+  # after only `release` made those two legs see a deterministic 404 and skip.
+  # Passing the exact tag prevents a newer concurrent release from being
   # selected by AppImage.yml's standalone "newest release" fallback.
   appimage:
     name: AppImages
-    needs: [prepare, release]
+    needs: [prepare, release, build-extra-arches]
     uses: ./.github/workflows/AppImage.yml
     permissions:
       contents: write
@@ -4547,7 +4548,12 @@ jobs:
               # v11.06. Stop only the LOCAL waiter after five hours; Launchpad
               # keeps the named build, and the deterministic snapshot above lets
               # a job re-run reconnect and download it when ready.
-              timeout --foreground 300m snapcraft remote-build \
+              # Do not use --foreground here. GNU timeout then owns a separate
+              # process group and returns 124 to this shell when it expires.
+              # With --foreground, terminating snapcraft surfaced to Actions as
+              # "The operation was canceled", so the rc=124 pending branch
+              # below never ran and the otherwise healthy matrix leg was red.
+              timeout 300m snapcraft remote-build \
                 --launchpad-accept-public-upload \
                 --build-for ${{ matrix.arch }} && rc=0 || rc=$?
             else

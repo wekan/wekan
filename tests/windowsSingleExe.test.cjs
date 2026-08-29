@@ -30,6 +30,12 @@ assert.match(launcher, /start-wekan\.bat/,
   'the native PE entry point must invoke the ordinary Windows launcher');
 assert.match(launcher, /SetEnvironmentVariableW\(L"WRITABLE_PATH", data\)/,
   'the launcher must provide the real directory beside the EXE to start-wekan.bat');
+assert.match(launcher,
+  /SetEnvironmentVariableW\(L"NODE_SKIP_PLATFORM_CHECK", L"1"\)/,
+  'the Enigma launcher must bypass its false legacy-Windows result for Node');
+assert.match(launcher,
+  /GetEnvironmentVariableW\(L"NODE_SKIP_PLATFORM_CHECK", data, MAX_PATH\)/,
+  'an explicit NODE_SKIP_PLATFORM_CHECK value must remain authoritative');
 assert.match(launcher, /wcscat_s\(data, MAX_PATH, L"\\\\wekan-files"\)/,
   'the portable data directory must be named wekan-files');
 assert.match(batch, /"%%~nxI"=="wekan-files" set "FILES=%WRITABLE_PATH%"/,
@@ -43,4 +49,4 @@ assert.match(missing, /uses: \.\/\.github\/workflows\/windows\.yml/,
 assert.match(expected, /windows win64 WeKan-\$\{v\}-win64\.exe sums/,
   'release completeness must include the EXE and its checksum');
 
-console.log('windowsSingleExe: 16 assertions passed');
+console.log('windowsSingleExe: 18 assertions passed');
