@@ -155,6 +155,34 @@ jobs:
             Out-File "$output.sha256sum" -Encoding ascii
           Get-ChildItem dist | Format-Table Name,Length
 
+      - name: Free ports used by the packaged EXE before smoke test
+        shell: pwsh
+        run: |
+          # The GitHub Actions Windows runner ships MongoDB 7 as a running
+          # service.  Its mongod holds 27017, and the pre-installed mongosh /
+          # MongoDB tools also register port 8088 in some images.  Both ports
+          # are needed by the embedded FerretDB inside the packaged EXE, so we
+          # must release them before the smoke test or FerretDB cannot bind and
+          # WeKan never starts.
+          foreach ($svc in @('MongoDB', 'mongod')) {
+            $s = Get-Service -Name $svc -ErrorAction SilentlyContinue
+            if ($s -and $s.Status -ne 'Stopped') {
+              Write-Host "Stopping service: $svc"
+              Stop-Service -Name $svc -Force -ErrorAction SilentlyContinue
+            }
+          }
+          # Kill any remaining process that holds the ports we need.
+          foreach ($port in @(27017, 8088)) {
+            $pids = (netstat -ano | Select-String ":$port\s") |
+              ForEach-Object { ($_ -split '\s+')[-1] } |
+              Where-Object { $_ -match '^\d+$' } |
+              Sort-Object -Unique
+            foreach ($pid in $pids) {
+              Write-Host "Killing PID $pid (held port $port)"
+              taskkill /PID $pid /F 2>$null | Out-Null
+            }
+          }
+
       - name: Check that the single EXE starts
         shell: pwsh
         run: |

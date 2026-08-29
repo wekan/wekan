@@ -8245,12 +8245,39 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** The **Windows single-EXE** CI smoke test no longer fails with
+port-binding errors for FerretDB (ports 27017 and 8088) on GitHub Actions
+runners that ship MongoDB 7 as a pre-installed system service.
+
+This release fixes the following CI reliability issue:
+
+**Windows single EXE** - smoke test was failing because the GitHub Actions
+Windows runner ships MongoDB Server 7.0 as a running system service that holds
+port 27017 (the same port the bundled FerretDB needs) and optionally port 8088.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/PLACEHOLDER">Stop MongoDB system service on runner before Windows EXE smoke test to
+free ports 27017 and 8088 needed by embedded FerretDB</a>. Thanks to xet7.</summary>
+
+The GitHub Actions `windows-latest` runner ships MongoDB Server 7.0 as a
+running Windows service. The bundled FerretDB inside the packaged WeKan EXE
+tries to bind to `127.0.0.1:27017` (main listener) and `127.0.0.1:8088`
+(debug handler). When these ports are already occupied, FerretDB exits
+immediately, causing WeKan to restart in a loop and the smoke test to time
+out with "The packaged EXE did not answer on port 8080."
+
+The fix adds a "Free ports used by the packaged EXE before smoke test" step
+that stops the `MongoDB` (and `mongod`) Windows service and then kills any
+remaining process holding ports 27017 or 8088 before the smoke EXE is
+launched. This is CI-only and has no effect on the packaged EXE behavior for
+end-users.
+
+Failing run: https://github.com/wekan/wekan/actions/runs/33253053694
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for
+their translations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
