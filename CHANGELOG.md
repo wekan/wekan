@@ -8265,7 +8265,8 @@ when this release is made.
 
 # v11.21 2026-08-29 WeKan ® release
 
-**In short:** **File responses and board writes** close three security gaps.
+**In short:** **File responses, board writes and automation rules** close four
+security gaps.
 **Database launchers** use FerretDB's write-notified OpLog with an explicit
 standalone fallback, while **DEBUGSPEED diagnostics** make comparative
 MongoDB/FerretDB traffic runs measurable, and **FerretDB board creation and
@@ -8338,6 +8339,26 @@ capability as every swimlane mutation. Rejected direct calls are bounded and
 summarized as SwimlaneBleed in Admin Panel → Problems, and logging failure
 cannot weaken the denial. Tests pin the guard before insertion and forbid read
 membership or public visibility from authorizing the method.
+
+</details>
+
+**Automation rules** - cross-board actions enforce destination permissions.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/72fd50a03">Rules cannot write cards into inaccessible private boards</a>. Thanks to crypto-nidh and xet7.</summary>
+
+[RuleBleed](https://wekan.fi/hall-of-fame/rulebleed/) -
+[GHSA-9w4x-hf2r-hc9v](https://github.com/wekan/wekan/security/advisories/GHSA-9w4x-hf2r-hc9v),
+High, CWE-862 and CWE-863. Move, link and bulk-move automation actions execute
+server-side, so they bypass the collection deny hook that protects direct DDP
+writes. An authenticated user could store a destination board ID in a rule on
+their own board and inject cards into a private board they could not access.
+Rule creation now validates destination write access before inserting any
+document, and execution validates again before resolving destination structure,
+protecting legacy and imported rules while removing the list/swimlane oracle.
+Denied attempts are bounded and summarized as RuleBleed in Admin Panel →
+Problems. Positive, negative, legacy-path, REST-preservation and rendered-browser
+regressions cover both authorization layers.
 
 </details>
 
