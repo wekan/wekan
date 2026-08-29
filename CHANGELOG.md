@@ -8378,7 +8378,12 @@ keeps the unchanged numeric `$type` plus negated-range repair query inside
 SQLite: across five restored ordered collections containing about 747,000
 documents, it returns zero candidates in 1.9 seconds instead of spending about
 30 seconds decoding every document. Ambiguous values remain candidates for the
-authoritative MongoDB-compatible filter.
+authoritative MongoDB-compatible filter. The [nested-composite decoder
+optimization](https://github.com/wekan/FerretDB/commit/95156068) also replaces
+per-document and per-array streaming decoders with complete-value parsing. The
+representative nested-card workload drops from 561 to 431 allocations and from
+about 44 KB to 31 KB per document, with median decode time improving from about
+179 to 141 microseconds while preserving malformed-input behavior.
 Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
 projected, distinct and complete decoding, malformed input, cache eviction,
 SQL filtering and missing keys, numeric and logical fallback safety, implicit
