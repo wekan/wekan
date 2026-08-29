@@ -8359,11 +8359,16 @@ reuses bounded parsed schemas and avoids a streaming decoder allocation for
 each common scalar. Its [allocation follow-up](https://github.com/wekan/FerretDB/commit/99b02d10)
 uses direct full-document JSON parsing, strict scalar conversion and
 preallocated ordered fields, cutting the representative decoder benchmark from
-617 to 561 allocations and about 53 KB to 44 KB per document. Launcher tests
-pin both modes, while FerretDB unit tests and benchmarks cover projected,
-distinct and complete decoding, malformed input, SQL filtering and missing
-keys, implicit and excluded IDs, and every query field retained for filtering
-and sorting.
+617 to 561 allocations and about 53 KB to 44 KB per document. The [hot-schema
+and indexed-write optimization](https://github.com/wekan/FerretDB/commit/4427a2e2)
+replaces the cache's periodic full flush with a bounded 4,096-entry LRU; across
+the restored 299,539-card dataset it reduced isolated complete decoding from
+35.1 seconds to 17.2–19.0 seconds. It also makes SQLite updates and deletes use
+the existing unique `_id` expression index instead of scanning the collection.
+Launcher tests pin both modes, while FerretDB unit tests and benchmarks cover
+projected, distinct and complete decoding, malformed input, cache eviction,
+SQL filtering and missing keys, implicit and excluded IDs, and every query
+field retained for filtering and sorting.
 
 </details>
 
