@@ -97,7 +97,13 @@ test.describe('Rules', () => {
         },
       );
       expect(denied).toBe('not-authorized');
-      expect(db.countDocuments('rules', { title: 'Denied cross-board rule' })).toBe(0);
+      // Scope this to the fixture board. A previous interrupted run against an
+      // older server may have left a rule with the same human-readable title;
+      // titles are intentionally not unique across boards.
+      expect(db.countDocuments('rules', {
+        boardId: board.boardId,
+        title: 'Denied cross-board rule',
+      })).toBe(0);
 
       const allowed = await boardPage.evaluate(
         ({ boardId, triggerDoc, actionDoc }) => Meteor.callAsync(

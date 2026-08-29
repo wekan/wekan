@@ -13,6 +13,7 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const button = read('server/rulesButton.js');
 const helper = read('server/rulesHelper.js');
 const rest = read('server/models/rules.js');
+const playwrightDb = read('tests/playwright/helpers/db.js');
 
 let passed = 0;
 function test(name, fn) {
@@ -66,6 +67,18 @@ test('negative: REST creation and editing cannot retain a supplied destination',
   assert.match(rest, /const STRIP = \['_id', 'boardId'/);
   assert.match(rest, /Actions\.insertAsync\(\{ \.\.\.strip\(action\), boardId: paramBoardId \}\)/);
   assert.match(rest, /\$set: \{ \.\.\.strip\(req\.body\.action\), boardId: paramBoardId \}/);
+});
+
+test('browser fixtures remove rule documents for each discarded board', () => {
+  const cleanup = playwrightDb.match(/function cleanup\([\s\S]*?\n\}/);
+  assert.ok(cleanup);
+  for (const collection of ['rules', 'triggers', 'actions']) {
+    assert.match(
+      cleanup[0],
+      new RegExp(`collection: '${collection}'.*filter: \\{ boardId \\}`),
+      `${collection} must not leak into later browser tests`,
+    );
+  }
 });
 
 console.log(`\n${passed} tests passed`);
