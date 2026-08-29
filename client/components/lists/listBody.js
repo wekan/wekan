@@ -126,11 +126,13 @@ Template.listBody.onCreated(function () {
     }
   };
 
-  this.cardFormComponent = () => {
-    // Find addCardForm template instance by DOM traversal
-    const formEl = this.find('.js-composer');
-    if (formEl) {
-      const view = Blaze.getView(formEl, 'Template.addCardForm');
+  this.cardFormComponent = (submittedForm) => {
+    // A list renders independent top and bottom composers. Resolve the
+    // addCardForm below the form that actually submitted; a template-wide
+    // first match points at the hidden top composer when the bottom one saves.
+    const composerEl = submittedForm?.querySelector('.js-composer');
+    if (composerEl) {
+      const view = Blaze.getView(composerEl, 'Template.addCardForm');
       return view?.templateInstance?.() || null;
     }
     return null;
@@ -160,8 +162,12 @@ Template.listBody.onCreated(function () {
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
-    const textarea = $(evt.currentTarget).find('textarea');
-    const position = Blaze.getData(evt.currentTarget)?.position;
+    const submittedForm = evt.target?.closest('form');
+    if (!submittedForm) {
+      return;
+    }
+    const textarea = $(submittedForm).find('textarea.js-card-title');
+    const position = Blaze.getData(submittedForm)?.position;
     const title = textarea.val().trim();
 
     let sortIndex;
@@ -171,7 +177,10 @@ Template.listBody.onCreated(function () {
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
-    const formComponent = this.cardFormComponent();
+    const formComponent = this.cardFormComponent(submittedForm);
+    if (!formComponent) {
+      return;
+    }
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
