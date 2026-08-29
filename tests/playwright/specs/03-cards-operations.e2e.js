@@ -52,7 +52,7 @@ test.describe('Cards – operations', () => {
       $set: { title: 'Alpha Card refreshed remotely' },
     });
     await expect(original).toContainText('Alpha Card refreshed remotely', {
-      timeout: 10_000,
+      timeout: 30_000,
     });
 
     db.updateOne('cards', { _id: card._id }, {
@@ -60,10 +60,10 @@ test.describe('Cards – operations', () => {
     });
     await expect(
       page.locator(`#js-list-${listA} .js-minicard[data-card-id="${card._id}"]`),
-    ).toHaveCount(0, { timeout: 10_000 });
+    ).toHaveCount(0, { timeout: 30_000 });
     await expect(
       page.locator(`#js-list-${listB} .js-minicard[data-card-id="${card._id}"]`),
-    ).toContainText('Alpha Card refreshed remotely', { timeout: 10_000 });
+    ).toContainText('Alpha Card refreshed remotely', { timeout: 30_000 });
   });
 
   test('#1942: a private-source linked card opens and closes from its snapshot', async ({

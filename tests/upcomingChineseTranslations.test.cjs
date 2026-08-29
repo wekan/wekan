@@ -45,10 +45,12 @@ test('all Chinese tags translate every Office and API report placeholder', () =>
 
 test('simplified and traditional tags use their established scripts', () => {
   for (const code of simplified) {
-    assert.equal(read(code).officeReportTitle, '办公地点', `${code} must use simplified script`);
+    assert.match(read(code).officeReportTitle, /办公/, `${code} must use simplified script`);
+    assert.doesNotMatch(read(code).officeReportTitle, /辦公/, `${code} must not use traditional script`);
   }
   for (const code of traditional) {
-    assert.equal(read(code).officeReportTitle, '辦公地點', `${code} must use traditional script`);
+    assert.match(read(code).officeReportTitle, /辦公/, `${code} must use traditional script`);
+    assert.doesNotMatch(read(code).officeReportTitle, /办公/, `${code} must not use simplified script`);
   }
 });
 

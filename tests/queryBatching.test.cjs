@@ -131,7 +131,7 @@ test('FerretDB pushes a top-level $or down when every branch can be', () => {
   }
   const src = fs.readFileSync(go, 'utf8');
   assert.ok(/func pushdownOrCondition/.test(src));
-  assert.ok(/if k == "\$or" \{/.test(src), 'the top-level $or is no longer skipped outright');
+  assert.ok(/case "\$or":/.test(src), 'the top-level $or is no longer skipped outright');
   // ALL OR NOTHING: an OR that drops a branch removes rows the Go filter never
   // sees, which is the opposite of every other pushdown's superset contract.
   assert.ok(/if !condOK \{\s*\n\s*return "", nil, false\s*\n\s*\}/.test(src),
@@ -140,13 +140,14 @@ test('FerretDB pushes a top-level $or down when every branch can be', () => {
     'a nested operator branch is refused, not silently dropped');
 });
 
-test('negative: the other top-level operators still stay in Go', () => {
+test('negative: unsupported top-level operators still stay in Go', () => {
   const go = path.join(repoRoot, '.tools/FerretDB/internal/backends/sqlite/query.go');
   if (!fs.existsSync(go)) return;
   const src = fs.readFileSync(go, 'utf8');
   const block = src.match(/if strings\.HasPrefix\(k, "\$"\) \{[\s\S]*?continue\n\t\t\}/)[0];
-  assert.ok(/k == "\$or"/.test(block), 'only $or learned this');
-  assert.ok(!/\$and|\$nor|\$not/.test(block), 'nothing else was quietly included');
+  assert.ok(/case "\$or":/.test(block), '$or is pushed');
+  assert.ok(/case "\$and":/.test(block), '$and is pushed');
+  assert.ok(!/\$nor|\$not/.test(block), 'unsupported operators were not quietly included');
   assert.ok(/continue/.test(block), 'and everything else still falls through to the Go filter');
 });
 

@@ -87,7 +87,7 @@ test('and Directory-Structure.md still describes the whole repository', () => {
     'utf8',
   );
   const skip = new Set([
-    'node_modules', 'public', 'private', 'meta', 'stacksmith', 'secrets',
+    'node_modules', 'public', 'private', 'files', 'meta', 'stacksmith', 'secrets',
     'npm-packages', 'scripts', 'tools', 'snap', 'snap-src', 'snap-base-debian',
     'sandstorm-src', 'old-CHANGELOG', 'openapi', 'migrations', 'config',
   ]);

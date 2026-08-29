@@ -54,7 +54,7 @@
   "act-removeBoardMember": "eemaldas liikme __member__ juhatusest __board__",
   "act-restoredCard": "taastas kaardi __card__ nimekirja __list__ ujumisrajal __swimlane__ tahvlil __board__",
   "act-unjoinMember": "eemaldatud liige __member__ kaardilt __card__ nimekirjast __list__ at swimlane __swimlane__ at board __board__",
-  "act-withBoardTitle": "__laud__",
+  "act-withBoardTitle": "__board__",
   "act-withCardTitle": "[__board__] __card__",
   "actions": "Meetmed",
   "activities": "Tegevused",

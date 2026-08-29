@@ -191,6 +191,13 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // Deliberately not in the Releases menu, each for a stated reason. A script
   // added here must be given one.
   const SKIP = {
+    'debug-speed-ferretdb.sh': 'diagnostic launcher: starts only an instrumented '
+      + 'local FerretDB for a restore investigation, not a release action',
+    'debug-speed-server.sh': 'diagnostic launcher: starts an instrumented local '
+      + 'WeKan and FerretDB pair, not a release action',
+    'debug-speed-test.sh': 'diagnostic traffic runner used with debug-speed-server.sh',
+    'debug-speed-traffic.mjs': 'browser workload helper called by debug-speed-test.sh',
+    'debug-speed-watch.sh': 'instrumentation helper supervised by debug-speed-server.sh',
     'run-everything.sh': 'the Tests menu runs it (EVERYTHING, sequential)',
     'db-conformance.sh': 'the Tests menu runs it (all databases)',
     'fix-changelog-hashes.sh': 'Setup -> git pull and git push both run it',

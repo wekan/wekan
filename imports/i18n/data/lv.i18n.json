@@ -54,7 +54,7 @@
   "act-removeBoardMember": "noņēma dalībnieku __member__ no dēļa __board__",
   "act-restoredCard": "atjaunoja kartiņu __card__ sarakstā __list__ joslā __swimlane__ dēlī __board__",
   "act-unjoinMember": "noņēma dalībnieku __member__ no kartiņas __card__ sarakstā __list__ joslā __swimlane__ dēlī __board__",
-  "act-withBoardTitle": "__laud__",
+  "act-withBoardTitle": "__board__",
   "act-withCardTitle": "[__board__] __card__",
   "actions": "Darbības",
   "activities": "Darbības",

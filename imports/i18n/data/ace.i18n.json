@@ -55,7 +55,7 @@
   "act-restoredCard": "geupeuwoe kad __card__ u senarai __list__ bak swimlane __swimlane__ bak papan __board__",
   "act-unjoinMember": "geuhapus anggota __member__ nibak kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
   "act-withBoardTitle": "__board__",
-  "act-withCardTitle": "__kartu__[__Panel__]",
+  "act-withCardTitle": "[__board__] __card__",
   "actions": "Daftar Tindakan",
   "activities": "Aktifitas",
   "activity": "Kegiatan",
