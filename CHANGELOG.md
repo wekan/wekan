@@ -8245,11 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Translation placeholders** remain executable code across sixteen
-locale files, preventing activity titles from displaying broken or untranslated
-tokens. The repair preserves each locale's translated prose while restoring the
-exact board and card markers that activity rendering replaces at runtime, with
-focused regression coverage for every affected language group.
+**In short:** **Notification title structure** now lives in server code instead
+of translation files, so translators cannot accidentally rename or remove its
+board and card values. All locale bundles retain their translated prose while
+the application owns these two non-language layouts, with focused regression
+coverage for formatting, translation fallback and every supported locale.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8264,6 +8264,9 @@ focused regression coverage for every affected language group.
 
 This release fixes the following translation regression:
 
+**Notification titles** - structural board and card layouts no longer depend on
+translator-maintained executable tokens.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9f42889af5804042ab16582d8b2aa8ca8259fa9">Protected activity placeholders remain unchanged across locales</a>. Thanks to xet7.</summary>
 
@@ -8271,6 +8274,18 @@ A translation refresh translated or renamed underscore-delimited placeholders
 in sixteen locale files. Those placeholders are executable tokens rather than
 prose, so this restores their exact English-source spelling. Seven focused
 translation regression suites verify both their inventories and values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/162740e88585724175de6c097e6d56db660d3928">Structural title values are kept out of translations</a>. Thanks to xet7.</summary>
+
+The board-only and board/card notification subjects contained no translatable
+prose, yet their executable markers appeared in every locale. The server now
+formats both layouts itself, while ordinary notification subjects still use the
+recipient's language. The two obsolete keys are removed from all 246 locale
+files, and tests cover both hardcoded layouts, the translated fallback and the
+complete locale inventory.
 
 </details>
 
