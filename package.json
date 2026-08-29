@@ -93,7 +93,7 @@
     "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "file:npm-packages/meteor-node-stubs",
     "papaparse": "^5.5.4",
-    "pdfkit": "^0.19.1",
+    "pdfkit": "^0.20.1",
     "pretty-ms": "^9.3.0",
     "temml": "^0.13.3",
     "underscore": "^1.13.8",
