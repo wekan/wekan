@@ -8265,7 +8265,7 @@ is deselected. Compatibility and browser coverage protect the complete flow.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cc22868e2">Custom fields stay deselected on FerretDB</a>. Thanks to Heart1010 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2c61454c1">Custom fields stay deselected on FerretDB</a>. Thanks to Heart1010 and xet7.</summary>
 
 FerretDB compared the `$pull` operand `{_id: customFieldId}` with the complete
 array element, which also contains `value`, so it could never match. Its
