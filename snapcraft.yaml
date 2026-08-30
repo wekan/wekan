@@ -19,7 +19,7 @@
 #   base: core24 (not core26) · no build-base: devel · grade: stable
 # ─────────────────────────────────────────────────────────────────────────────
 name: wekan
-version: '11.30'
+version: '11.31'
 base: core24
 confinement: strict
 grade: stable
@@ -693,18 +693,18 @@ parts:
                 armhf)   WEKAN_ARCH="armhf"   ;;
                 *) echo "Unsupported architecture: ${CRAFT_ARCH_BUILD_FOR}"; exit 1 ;;
             esac
-            WEKAN_ZIP="wekan-11.30-${WEKAN_ARCH}.zip"
+            WEKAN_ZIP="wekan-11.31-${WEKAN_ARCH}.zip"
             echo "Cleaning environment first"
             rm -rf .build
             mkdir .build
             cd .build
-            #wget https://github.com/wekan/wekan/releases/download/v11.30/wekan-11.30-amd64.zip
+            #wget https://github.com/wekan/wekan/releases/download/v11.31/wekan-11.31-amd64.zip
             # Retry: a release asset can 404 for a short while right after it is
             # uploaded (CDN/propagation lag), and a plain wget treated that as
             # fatal. --retry-on-http-error covers the 404/5xx window; a genuinely
             # missing bundle still fails after the tries are spent.
             wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 \
-              "https://github.com/wekan/wekan/releases/download/v11.30/${WEKAN_ZIP}"
+              "https://github.com/wekan/wekan/releases/download/v11.31/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
             rm "${WEKAN_ZIP}"
             # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
