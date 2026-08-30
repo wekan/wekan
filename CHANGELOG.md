@@ -8266,17 +8266,19 @@ FerretDB ports when not configured; Docker Compose follows the same path.
 This release adds the following new feature:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/69728db3d">The Version pane checks the newest published releases</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6931fb792">The Version pane reads one published component manifest</a>. Thanks to xet7.</summary>
 
-A button above the installed-version table asks the server for GitHub's latest
-published WeKan and FerretDB releases, then shows both validated version tags
-as escaped text with links to their exact release pages. Only Global Admins can
-call the method, its repository choices are fixed, and a ten-second timeout
-prevents an unavailable network from leaving the pane waiting. Invalid tags,
-drafts, prereleases, unexpected URLs and failed requests all produce one safe
-failure state without rendering upstream content. Unit and negative tests cover
-comparison and response validation; Chromium verifies the button placement,
-both results and non-admin denial against Meteor's included MongoDB.
+A button above the installed-version table asks the server for the fixed
+`https://wekan.fi/version.txt` resource, then shows its WeKan, FerretDB, Meteor,
+Node and NPM lines as escaped text in a `pre` block. Only Global Admins can call
+the method; a ten-second timeout, five exact labels, strict version grammar and
+a one-kilobyte limit turn offline, malformed and injected responses into one
+safe localized failure. The release-all website job and the local release path
+now generate both that file and the identical install-page block from the
+release and Dockerfile pins plus the validated FerretDB tag. The
+[website companion commit](https://github.com/wekan/wekan.fi/commit/d9ac93dbd9f9a945e1cc5edfc10f59b459524ba3)
+adds the initial files. Unit and negative tests cover parsing, generation and
+workflow wiring, and the production Meteor build passes.
 
 </details>
 
