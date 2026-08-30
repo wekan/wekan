@@ -4,7 +4,7 @@
 // WITHOUT Admin Panel access. Built on the `mongodb` driver WeKan already bundles
 // (same NODE_PATH bootstrap as db-eval.mjs), so no `mongosh` is needed. Reads the
 // live database over the MongoDB wire protocol (MongoDB and FerretDB v1/SQLite
-// both speak it; the snap runs one at a time on port 27019).
+// both speak it; the snap wrapper supplies the services' shared resolved URL).
 //
 // Usage: node wekan-problems.mjs [area] [mongo-url]
 //   (default) / status   full overview: in-progress + problems + login checks
@@ -39,7 +39,8 @@ for (const r of _roots) for (const sp of _subPaths) { try { _reqs.push(createReq
 _reqs.push(createRequire(import.meta.url));
 
 const area = (process.argv[2] || 'status').toLowerCase();
-const url = process.argv[3] || process.env.WEKAN_PROBLEMS_URL || 'mongodb://127.0.0.1:27019/wekan';
+const url = process.argv[3] || process.env.WEKAN_PROBLEMS_URL
+  || process.env.MONGO_URL || 'mongodb://127.0.0.1:27019/wekan';
 
 if (area === 'help' || area === '-h' || area === '--help') {
   console.log('Usage: wekan.problems [status|migrations|login|broken-cards|cpu|help]');
