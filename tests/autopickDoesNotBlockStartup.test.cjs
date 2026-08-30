@@ -109,6 +109,8 @@ test('the comparison can be switched off from snap config, not only the env', ()
     "and reachable as `snap set wekan autopick=false`");
   assert.ok(/^DEFAULT_WEKAN_AUTOPICK="true"$/m.test(config),
     'defaulting to on - it is worth doing, it just must not be able to hold the site down');
+  assert.ok(/if \[ "\$\{WEKAN_AUTOPICK:-true\}" = true \]/.test(block),
+    'false must skip the launcher itself, so its dependencies cannot stop startup');
   assert.ok(/^KEY_WEKAN_AUTOPICK_TIMEOUT='autopick-timeout'$/m.test(config),
     'and the bound must be settable the same way');
   const timeout = /^DEFAULT_WEKAN_AUTOPICK_TIMEOUT="(\d+)"$/m.exec(config);

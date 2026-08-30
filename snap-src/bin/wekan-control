@@ -231,7 +231,8 @@ if [ "$mongodb_readable" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     # fewer documents copied and the next start finishes the job. Serving the
     # site beats finishing the comparison.
     autopick_rc=1
-    if [ -x "$SNAP/bin/database-autopick" ] || [ -f "$SNAP/bin/database-autopick" ]; then
+    if [ "${WEKAN_AUTOPICK:-true}" = true ] && \
+       { [ -x "$SNAP/bin/database-autopick" ] || [ -f "$SNAP/bin/database-autopick" ]; }; then
         _autopick_timeout="${WEKAN_AUTOPICK_TIMEOUT:-900}"
         case "$_autopick_timeout" in
             ''|*[!0-9]*|0) _autopick_timeout=900 ;;
@@ -460,8 +461,8 @@ if [ "ferretdb" = "${DATABASE}" ]; then
         export DEFAULT_METEOR_REACTIVITY_ORDER="polling"
         echo "FerretDB OpLog disabled (WEKAN_FERRETDB_OPLOG=false): polling only, MONGO_OPLOG_URL cleared"
     fi
-    [ -z "${METEOR_POLLING_THROTTLE_MS}" ] && export METEOR_POLLING_THROTTLE_MS=2000
-    [ -z "${METEOR_POLLING_INTERVAL_MS}" ] && export METEOR_POLLING_INTERVAL_MS=30000
+    export METEOR_POLLING_THROTTLE_MS="${METEOR_POLLING_THROTTLE_MS:-2000}"
+    export METEOR_POLLING_INTERVAL_MS="${METEOR_POLLING_INTERVAL_MS:-30000}"
     echo "FerretDB polling settings: METEOR_POLLING_THROTTLE_MS=${METEOR_POLLING_THROTTLE_MS} METEOR_POLLING_INTERVAL_MS=${METEOR_POLLING_INTERVAL_MS}"
 fi
 

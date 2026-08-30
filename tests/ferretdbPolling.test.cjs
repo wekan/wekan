@@ -27,8 +27,8 @@ function test(name, fn) {
 }
 
 test('snap: calm polling defaults exist for the ferretdb database', () => {
-  assert.ok(wekanControl.includes('METEOR_POLLING_THROTTLE_MS=2000'));
-  assert.ok(wekanControl.includes('METEOR_POLLING_INTERVAL_MS=30000'));
+  assert.ok(wekanControl.includes('METEOR_POLLING_THROTTLE_MS:-2000'));
+  assert.ok(wekanControl.includes('METEOR_POLLING_INTERVAL_MS:-30000'));
 });
 
 test('snap: the defaults are scoped to database=ferretdb', () => {
@@ -39,8 +39,17 @@ test('snap: the defaults are scoped to database=ferretdb', () => {
 });
 
 test('snap: user-provided values are respected (only set when empty)', () => {
-  assert.ok(/\[ -z "\$\{METEOR_POLLING_THROTTLE_MS\}" \] && export METEOR_POLLING_THROTTLE_MS=2000/.test(wekanControl));
-  assert.ok(/\[ -z "\$\{METEOR_POLLING_INTERVAL_MS\}" \] && export METEOR_POLLING_INTERVAL_MS=30000/.test(wekanControl));
+  assert.ok(/export METEOR_POLLING_THROTTLE_MS="\$\{METEOR_POLLING_THROTTLE_MS:-2000\}"/.test(wekanControl));
+  assert.ok(/export METEOR_POLLING_INTERVAL_MS="\$\{METEOR_POLLING_INTERVAL_MS:-30000\}"/.test(wekanControl));
+});
+
+test('snap: unset polling values are safe under set -u (negative)', () => {
+  const beforeDefaults = wekanControl.slice(0,
+    wekanControl.indexOf('export METEOR_POLLING_THROTTLE_MS='));
+  assert.ok(!/\$\{METEOR_POLLING_THROTTLE_MS\}/.test(beforeDefaults),
+    'an unset throttle must never be expanded without a default');
+  assert.ok(!/\$\{METEOR_POLLING_INTERVAL_MS\}/.test(beforeDefaults),
+    'an unset interval must never be expanded without a default');
 });
 
 test('bundle launcher: same defaults, same override semantics', () => {
