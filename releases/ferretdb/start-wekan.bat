@@ -23,8 +23,11 @@ REM The Enigma Virtual Box single-EXE launcher sets WRITABLE_PATH directly to
 REM its portable wekan-files directory. Do not append another files component.
 for %%I in ("%WRITABLE_PATH%") do if /I "%%~nxI"=="wekan-files" set "FILES=%WRITABLE_PATH%"
 set "FERRETDB_SQLITE_DIR=%FILES%\db"
-if not defined PORT set "PORT=8080"
-if not defined ROOT_URL set "ROOT_URL=http://localhost:%PORT%"
+set "WEKAN_NETWORK_ENV=%TEMP%\wekan-network-%RANDOM%-%RANDOM%.bat"
+"%DIR%node.exe" "%DIR%startup-network.cjs" cmd --ferretdb > "%WEKAN_NETWORK_ENV%"
+if errorlevel 1 exit /b 1
+call "%WEKAN_NETWORK_ENV%"
+del /q "%WEKAN_NETWORK_ENV%" >NUL 2>NUL
 REM EXPORTING NEEDS THE API, and that is not obvious from the name. Every export
 REM in the interface - a board or a card to PDF, Excel, JSON, .zip, CSV - is a
 REM download from an /api/... address, and the server refuses those unless
@@ -33,7 +36,6 @@ REM page under the name of the file the download link had asked for. The snap an
 REM every docker-compose set this; the two bundle launchers were the only
 REM platforms that did not. Set WITH_API=false to turn the REST API off.
 if not defined WITH_API set "WITH_API=true"
-if not defined MONGO_URL set "MONGO_URL=mongodb://127.0.0.1:27017/wekan"
 REM FerretDB v1 SQLite is standalone and polling-only. Replica sets and OpLog
 REM tailing are reserved for real MongoDB deployments.
 set "MONGO_OPLOG_URL="
@@ -68,8 +70,9 @@ if %WEKAN_GO_HEAP_MB% GTR 1024 set "WEKAN_GO_HEAP_MB=1024"
 if not defined NODE_OPTIONS set "NODE_OPTIONS=--max-old-space-size=%WEKAN_RUNTIME_HEAP_MB%"
 if not defined GOMEMLIMIT set "GOMEMLIMIT=%WEKAN_GO_HEAP_MB%MiB"
 :wekan_loop
-echo Starting bundled FerretDB v1 (SQLite) on 127.0.0.1:27017 (data: %FERRETDB_SQLITE_DIR%) ...
-start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 --telemetry=disable
+echo WeKan startup: ROOT_URL=%ROOT_URL%; PORT=%PORT%; FerretDB=%FERRETDB_LISTEN_ADDR%; MONGO_URL=%MONGO_URL%
+echo Starting bundled FerretDB v1 (SQLite) on %FERRETDB_LISTEN_ADDR% (data: %FERRETDB_SQLITE_DIR%) ...
+start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=%FERRETDB_LISTEN_ADDR% --telemetry=disable
 
 echo Starting WeKan on %ROOT_URL% (port %PORT%), files under %WRITABLE_PATH% ...
 "%DIR%node.exe" "%DIR%main.js"

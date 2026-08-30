@@ -8,6 +8,11 @@ set -x
 # read wekan config
 . $SNAP/bin/config
 
+# Re-resolve automatic web/database endpoints after any settings change. Both
+# services source the same atomically-written file, so they cannot disagree.
+rm -f "$SNAP_COMMON/.startup-network.env"
+rmdir "$SNAP_COMMON/.startup-network.lock" 2>/dev/null || true
+
 # settings were altered by user, safest way to get them applied is to restart service
 # first check if caddy service is enabled
 value=$(snapctl get caddy-enabled)

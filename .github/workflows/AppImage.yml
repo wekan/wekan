@@ -201,7 +201,7 @@ jobs:
           unzip -q "$zip"
           # A zip that exists is not a bundle that runs; these are the two files
           # the AppImage is built around.
-          for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
+          for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh bundle/startup-network.cjs; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
               exit 1
@@ -256,15 +256,9 @@ jobs:
           # An AppImage is read-only, so the data cannot live beside it.
           : "${WRITABLE_PATH:=${XDG_DATA_HOME:-$HOME/.local/share}/wekan}"
           export WRITABLE_PATH
-          : "${PORT:=8080}"
-          export PORT
-          : "${ROOT_URL:=http://localhost:$PORT}"
-          export ROOT_URL
-
           mkdir -p "$WRITABLE_PATH"
 
           echo "WeKan is starting."
-          echo "  Open:  $ROOT_URL"
           echo "  Data:  $WRITABLE_PATH"
           echo "  Stop:  Ctrl-C"
           echo

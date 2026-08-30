@@ -6,6 +6,10 @@ fi
 
 # get wekan/mongo settings
 source $SNAP/bin/wekan-read-settings
+CONFIGURED_MONGO_URL="${MONGO_URL:-}"
+CONFIGURED_MONGODB_BIND_IP="${MONGODB_BIND_IP:-}"
+CONFIGURED_MONGODB_PORT="${MONGODB_PORT:-27019}"
+source $SNAP/bin/startup-network
 
 # WHICH DATABASE. There is no `database` setting any more - WeKan runs on
 # FerretDB, and MongoDB exists in this snap to be READ while a migration is
@@ -339,6 +343,20 @@ elif [ "true" != "${DISABLE_MONGODB}" ]; then
 fi
 
 export NODE_PATH=$SNAP/bin
+# The dynamic loopback endpoint belongs to the bundled FerretDB service. During
+# migration, when this revision is deliberately serving the old MongoDB data,
+# retain MongoDB's configured endpoint instead. DATABASE can change during the
+# safety checks above, so make this choice only after those checks finish.
+if [ "$DATABASE" = "ferretdb" ]; then
+    MONGODB_BIND_IP="127.0.0.1"
+    MONGODB_PORT="${FERRETDB_LISTEN_ADDR##*:}"
+else
+    MONGO_URL="$CONFIGURED_MONGO_URL"
+    MONGODB_BIND_IP="$CONFIGURED_MONGODB_BIND_IP"
+    MONGODB_PORT="$CONFIGURED_MONGODB_PORT"
+fi
+export MONGO_URL MONGODB_BIND_IP MONGODB_PORT
+
 # Use user-provided MONGO_URL if set, otherwise build from components
 if [ -n "$MONGO_URL" ]; then
     echo "Using user-provided MONGO_URL"
@@ -436,6 +454,7 @@ mkdir -p "$WRITABLE_PATH/avatars"
 echo -e "Using WRITABLE_PATH: $WRITABLE_PATH"
 
 echo -e "MONGO_URL=$MONGO_URL"
+echo "WeKan startup: ROOT_URL=$ROOT_URL; PORT=$PORT; FerretDB=localhost:${FERRETDB_LISTEN_ADDR##*:}; MONGO_URL=$MONGO_URL"
 
 # #6546: WeKan listens where BIND_IP says. Meteor reads BIND_IP itself, so this
 # only has to pass it on - and only when it is set, so the default (0.0.0.0, IPv4)

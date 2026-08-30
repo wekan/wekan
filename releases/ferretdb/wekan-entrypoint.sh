@@ -77,6 +77,15 @@ case "${WEKAN_DB:-}" in
   *) echo "ERROR: WEKAN_DB must be 'mongodb' or 'ferretdb' (got '${WEKAN_DB}')" >&2; exit 1 ;;
 esac
 
+# Preserve explicit values. Otherwise choose the active IPv4 address and a free
+# web port; when the bundled database is selected, choose a separate free
+# loopback-only port and derive MONGO_URL from it.
+if [ "$want_ferret" = true ]; then
+  eval "$(node /build/startup-network.cjs posix --ferretdb)"
+else
+  eval "$(node /build/startup-network.cjs posix)"
+fi
+
 if [ "$want_ferret" = true ]; then
   if [ ! -x "$FERRETDB_BIN" ]; then
     echo "ERROR: FerretDB requested but $FERRETDB_BIN is missing/not executable." >&2
@@ -164,6 +173,12 @@ if [ "$want_ferret" = true ]; then
   fi
   FERRET_PID=$!
   trap 'kill "$FERRET_PID" 2>/dev/null || true' EXIT INT TERM
+fi
+
+if [ "$want_ferret" = true ]; then
+  echo "WeKan startup: ROOT_URL=$ROOT_URL; PORT=$PORT; FerretDB=localhost:${FERRETDB_LISTEN_ADDR##*:}; MONGO_URL=$MONGO_URL"
+else
+  echo "WeKan startup: ROOT_URL=$ROOT_URL; PORT=$PORT; external MONGO_URL=${MONGO_URL:-unset}"
 fi
 
 # #6492: if a recovery is in progress, briefly serve the static "recovering data" page

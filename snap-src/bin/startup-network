@@ -1,0 +1,46 @@
+#!/bin/bash
+set -eu
+
+STATE="$SNAP_COMMON/.startup-network.env"
+LOCK="$SNAP_COMMON/.startup-network.lock"
+
+if [ ! -s "$STATE" ]; then
+    while ! mkdir "$LOCK" 2>/dev/null; do
+        [ -s "$STATE" ] && break
+        sleep 1
+    done
+    if [ ! -s "$STATE" ]; then
+        explicit_root="$(snapctl get root-url 2>/dev/null || true)"
+        explicit_port="$(snapctl get port 2>/dev/null || true)"
+        explicit_db_port="$(snapctl get mongodb-port 2>/dev/null || true)"
+        tmp="$STATE.$$"
+        (
+            [ -n "$explicit_root" ] && export ROOT_URL="$explicit_root" || unset ROOT_URL
+            [ -n "$explicit_port" ] && export PORT="$explicit_port" || unset PORT
+            if [ -n "$explicit_db_port" ]; then
+                export FERRETDB_LISTEN_ADDR="127.0.0.1:$explicit_db_port"
+            else
+                unset FERRETDB_LISTEN_ADDR
+            fi
+            export WEKAN_PORT_START=80 WEKAN_FERRETDB_PORT_START=27019
+            "$SNAP/bin/node" "$SNAP/bin/startup-network.cjs" posix --ferretdb
+        ) > "$tmp"
+        mv -f "$tmp" "$STATE"
+    fi
+    rmdir "$LOCK" 2>/dev/null || true
+fi
+
+. "$STATE"
+export PORT ROOT_URL FERRETDB_LISTEN_ADDR MONGO_URL
+
+# The shared ports stay stable while the two services are running, but the
+# active Ethernet/WLAN address can change between starts. Refresh only the web
+# URL on every service invocation; an explicit snap setting still wins.
+explicit_root="$(snapctl get root-url 2>/dev/null || true)"
+if [ -n "$explicit_root" ]; then
+    ROOT_URL="$explicit_root"
+else
+    unset ROOT_URL
+    eval "$(PORT="$PORT" "$SNAP/bin/node" "$SNAP/bin/startup-network.cjs" posix)"
+fi
+export ROOT_URL
