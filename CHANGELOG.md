@@ -8248,7 +8248,8 @@ browser build to verify).
 **In short:** **User sessions** now survive page refreshes and board-view
 navigation with the HttpOnly-cookie security model. **Packaged WeKan** also
 starts on the current Ethernet or WLAN IPv4 address, preferring port 80 and
-selecting free web and loopback-only FerretDB ports when not configured.
+selecting free web and loopback-only FerretDB ports when not configured; Docker
+Compose leaves those endpoint settings inactive so it follows the same path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8263,6 +8264,9 @@ selecting free web and loopback-only FerretDB ports when not configured.
 
 This release improves packaged startup:
 
+**Docker and offline packages** - automatic endpoints stay consistent across
+container, POSIX and Windows launch paths.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92b076836">Packages advertise a working URL on the current network</a>. Thanks to xet7.</summary>
 
@@ -8276,6 +8280,23 @@ show the resulting `ROOT_URL`, `PORT`, FerretDB address and `MONGO_URL`, while
 explicit deployment settings remain authoritative. Positive and negative
 tests cover automatic and configured endpoints, loopback enforcement and all
 five packaging paths; all 694 Node suites pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71480bc7d">Compose leaves deployment endpoints to automatic startup</a>. Thanks to xet7.</summary>
+
+The seven single-instance Docker Compose files no longer activate hard-coded
+`ROOT_URL`, `PORT` or `MONGO_URL` values. Their commented configuration explains
+that startup selects the current IPv4 and a usable port, derives the internal
+MongoDB or FerretDB service URL from Compose metadata, and prints every resolved
+endpoint in the Node console. Published container port 80 now agrees with the
+automatic preference. The POSIX and Windows offline launchers document and use
+the same resolver, and Docker no longer preselects port 27017 before its free
+localhost-port check. Positive and negative tests cover MongoDB, FerretDB v1,
+authenticated FerretDB v2, explicit overrides and every configuration file.
+The private-board refresh browser regression passes with both repo-local
+FerretDB and Meteor's included MongoDB; all 694 Node suites pass.
 
 </details>
 
