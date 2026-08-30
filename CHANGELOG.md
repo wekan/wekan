@@ -8260,7 +8260,10 @@ packages start without a missing module or a Linux build-runner path.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following build and release bug:
+This release fixes the following build and release bugs:
+
+**Release builds** - packaged dependencies and published version metadata stay
+portable and synchronized.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aedb7a2a8">Every release target receives portable PDFKit code</a>. Thanks to xet7.</summary>
@@ -8275,6 +8278,17 @@ fail-closed patch selects PDFKit's published CommonJS entry and its deployed
 tests cover the package layout and dependency-discovery boundary. A fresh
 production build, the Docker-equivalent server install and every release prune
 pass the real bundle smoke boot.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/acb0f19c0">Website version tests follow the current release pins</a>. Thanks to xet7.</summary>
+
+The version-manifest regression no longer repeats WeKan, Meteor, Node and NPM
+versions as test constants that become stale at the next release. It reads the
+same validated Dockerfile pins as the release helper under test, while keeping
+the injected FerretDB version independent. This restored the complete Node test
+run after the WeKan 11.31 version bump and preserves exact manifest coverage.
 
 </details>
 
