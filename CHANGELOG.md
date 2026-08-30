@@ -8276,7 +8276,7 @@ a one-kilobyte limit turn offline, malformed and injected responses into one
 safe localized failure. The release-all website job and the local release path
 now generate both that file and the identical install-page block from the
 release and Dockerfile pins plus the validated FerretDB tag. The
-[website companion commit](https://github.com/wekan/wekan.fi/commit/d9ac93dbd9f9a945e1cc5edfc10f59b459524ba3)
+[website companion commit](https://github.com/wekan/wekan.fi/commit/9b00669354a64d24a1c88dcf5514bbe096be1ff7)
 adds the initial files. Unit and negative tests cover parsing, generation and
 workflow wiring, and the production Meteor build passes.
 
