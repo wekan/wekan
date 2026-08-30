@@ -8249,7 +8249,7 @@ browser build to verify).
 instead of retaining a Linux build-runner URL, and **Snap builds** retry
 transient Store failures while installing LXD. Cross-platform PDF generation
 and native release assembly now have regression coverage for both failure
-boundaries.
+boundaries, while a **CodeQL** incomplete-escaping alert is removed.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,7 +8262,21 @@ boundaries.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following build and release bugs:
+This release fixes the following SECURITY ISSUE found by GitHub CodeQL code scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d04a2614">Version tests compare generated text without incomplete escaping</a>. Thanks to xet7.</summary>
+
+The website-version test no longer interpolates generated manifest text into a
+regular expression after escaping only dots, which left backslashes and every
+other regular-expression metacharacter active. It now compares the expected
+`pre` block as literal text, removing CodeQL alert 441 and the unnecessary
+encoding boundary. The positive manifest and negative injected-version cases
+both pass through the real release helper.
+
+</details>
+
+and fixes the following build and release bugs:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/87ac3a4f6">Windows PDF and Snap release builds stay portable</a>. Thanks to xet7.</summary>
