@@ -8245,12 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Custom fields** can now be removed from cards backed by
+FerretDB, completing the selection, checkbox and export repairs for issue
+\#6611. The database now follows MongoDB's document-condition behavior for
+array removals, so a saved field value cannot make the field reappear after it
+is deselected. Compatibility and browser coverage protect the complete flow.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8261,23 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc22868e2">Custom fields stay deselected on FerretDB</a>. Thanks to Heart1010 and xet7.</summary>
+
+FerretDB compared the `$pull` operand `{_id: customFieldId}` with the complete
+array element, which also contains `value`, so it could never match. Its
+[MongoDB-compatible document-condition fix](https://github.com/wekan/FerretDB/commit/998c03c18)
+now matches fields within each element. Positive and negative backend tests
+cover matching and non-matching wider documents; WeKan's server contract and
+browser test cover removing a valued field from a card. The earlier checkbox
+and deleted-export fixes remain covered in the same interaction suite.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.29 2026-08-30 WeKan ® release
 
