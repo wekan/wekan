@@ -12,7 +12,8 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 function resolve(extraEnv = {}, args = ['posix', '--ferretdb']) {
   const output = execFileSync(process.execPath, [helper, ...args], {
     env: { ...process.env, PORT: '', ROOT_URL: '', MONGO_URL: '',
-      FERRETDB_LISTEN_ADDR: '', ...extraEnv },
+      FERRETDB_LISTEN_ADDR: '', WEKAN_DATABASE_SERVICE: '',
+      WEKAN_DATABASE_PASSWORD: '', ...extraEnv },
     encoding: 'utf8',
   });
   const values = {};
@@ -65,14 +66,56 @@ test('explicit deployment settings remain authoritative', () => {
   });
 });
 
+test('Compose derives external FerretDB and MongoDB URLs without YAML defaults', () => {
+  const ferret = resolve({ WEKAN_DATABASE_SERVICE: 'ferretdb' }, ['posix']);
+  assert.strictEqual(ferret.MONGO_URL, 'mongodb://ferretdb:27017/wekan');
+  const mongo = resolve({ WEKAN_DATABASE_SERVICE: 'wekandb' }, ['posix']);
+  assert.strictEqual(mongo.MONGO_URL,
+    'mongodb://wekandb:27017/wekan?replicaSet=rs0');
+  const authenticated = resolve({
+    WEKAN_DATABASE_SERVICE: 'ferretdb', WEKAN_DATABASE_PASSWORD: 'p@ss word',
+  }, ['posix']);
+  assert.strictEqual(authenticated.MONGO_URL,
+    'mongodb://ferretdb:p%40ss%20word@ferretdb:27017/wekan?authMechanism=PLAIN');
+});
+
+test('single-instance Compose files leave endpoint settings inactive by default', () => {
+  const files = [
+    'docker-compose.yml',
+    'docker-compose-mongodb-v7.yml',
+    'docker-compose-ferretdb-v1-postgresql.yml',
+    'docker-compose-ferretdb-v1-mysql.yml',
+    'docker-compose-ferretdb-v1-mariadb.yml',
+    'docker-compose-ferretdb-v1-sap-hana.yml',
+    'docker-compose-ferretdb-v2-postgresql.yml',
+  ];
+  for (const file of files) {
+    const source = read(file);
+    for (const name of ['ROOT_URL', 'PORT', 'MONGO_URL']) {
+      assert.doesNotMatch(source, new RegExp(`^\\s*- ${name}=`, 'm'),
+        `${file}: ${name} must not have an active default`);
+    }
+    assert.match(source, /^\s*- 80:80$/m, `${file}: published and automatic ports agree`);
+    assert.match(source, /Node console log/, `${file}: automatic values are documented`);
+  }
+});
+
 test('bundled FerretDB refuses a non-loopback listen address', () => {
   assert.throws(() => resolve({ FERRETDB_LISTEN_ADDR: '0.0.0.0:27017' }),
     /bundled FerretDB must listen on 127\.0\.0\.1/);
 });
 
 test('ZIP, AppImage, Docker and Windows launchers use the resolver', () => {
-  assert.match(read('releases/ferretdb/start-wekan.sh'), /startup-network\.cjs.*--ferretdb/);
-  assert.match(read('releases/ferretdb/start-wekan.bat'), /startup-network\.cjs.*--ferretdb/);
+  const posix = read('releases/ferretdb/start-wekan.sh');
+  const windows = read('releases/ferretdb/start-wekan.bat');
+  assert.match(posix, /startup-network\.cjs.*--ferretdb/);
+  assert.match(windows, /startup-network\.cjs.*--ferretdb/);
+  for (const [name, source] of [['start-wekan.sh', posix], ['start-wekan.bat', windows]]) {
+    assert.doesNotMatch(source, /(?:ROOT_URL|PORT|MONGO_URL)=(?:http|mongodb|[0-9])/,
+      `${name}: endpoint values must not be hard-coded`);
+    assert.match(source, /resolved values[\s\S]*console/i,
+      `${name}: automatic settings and their console output are documented`);
+  }
   assert.match(read('releases/ferretdb/wekan-entrypoint.sh'), /startup-network\.cjs posix/);
   assert.doesNotMatch(read('.github/workflows/AppImage.yml'),
     /ROOT_URL:=http:\/\/localhost/);

@@ -58,7 +58,7 @@ fi
 
 FERRETDB_BIN="/build/ferretdb"
 FERRETDB_MARKER="/build/.ferretdb-default"
-FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
+FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-}"
 # FerretDB SQLite lives at <files>/db, next to attachments/avatars. WeKan appends
 # "files" to WRITABLE_PATH unless it already ends with it (server/initializeDirs.js).
 _wp="${WRITABLE_PATH:-/data}"
@@ -70,7 +70,8 @@ case "${WEKAN_DB:-}" in
   ferretdb) want_ferret=true ;;
   mongodb)  want_ferret=false ;;
   "")
-    if [ -f "$FERRETDB_MARKER" ] && [ -z "${MONGO_URL:-}" ]; then
+    if [ -f "$FERRETDB_MARKER" ] && [ -z "${MONGO_URL:-}" ] && \
+       [ -z "${WEKAN_DATABASE_SERVICE:-}" ]; then
       want_ferret=true
     fi
     ;;

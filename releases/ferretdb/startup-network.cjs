@@ -65,6 +65,19 @@ async function main() {
 
   let ferretAddress = process.env.FERRETDB_LISTEN_ADDR || '';
   let mongoURL = process.env.MONGO_URL || '';
+  const databaseService = process.env.WEKAN_DATABASE_SERVICE || '';
+  if (!mongoURL && databaseService) {
+    if (databaseService === 'ferretdb') {
+      const password = process.env.WEKAN_DATABASE_PASSWORD || '';
+      mongoURL = password
+        ? `mongodb://ferretdb:${encodeURIComponent(password)}@ferretdb:27017/wekan?authMechanism=PLAIN`
+        : 'mongodb://ferretdb:27017/wekan';
+    } else if (databaseService === 'wekandb') {
+      mongoURL = 'mongodb://wekandb:27017/wekan?replicaSet=rs0';
+    } else {
+      throw new Error(`unknown WEKAN_DATABASE_SERVICE ${databaseService}`);
+    }
+  }
   if (withFerret) {
     if (!ferretAddress) {
       const ferretPort = await freePort('127.0.0.1',

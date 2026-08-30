@@ -11,7 +11,10 @@ REM  under WRITABLE_PATH (a "data" folder next to this file unless you set
 REM  WRITABLE_PATH). No separate MongoDB or Node install is required.
 REM
 REM  See docs/Platforms/Propietary/OS/Windows/Offline.md. Override PORT, ROOT_URL,
-REM  WRITABLE_PATH or MONGO_URL below (or in the environment) as needed.
+REM  WRITABLE_PATH or MONGO_URL in the environment as needed. When endpoint
+REM  values are unset, startup chooses a usable IP/free web port and a separate
+REM  free localhost FerretDB port, then prints all resolved values to the Node
+REM  console.
 REM ============================================================================
 setlocal
 

@@ -17,6 +17,9 @@
 # Override anything via environment variables: WRITABLE_PATH, PORT, ROOT_URL,
 # MONGO_URL, FERRETDB_LISTEN_ADDR, WEKAN_DB (mongodb|ferretdb). Point MONGO_URL at
 # an external MongoDB/FerretDB (or set WEKAN_DB=mongodb) to skip the bundled one.
+# When PORT, ROOT_URL, FERRETDB_LISTEN_ADDR and MONGO_URL are unset, the shared
+# startup resolver chooses a usable IP/free web port and a separate free
+# localhost FerretDB port. The resolved values are printed in the Node console.
 # ─────────────────────────────────────────────────────────────────────────────
 set -eu
 
