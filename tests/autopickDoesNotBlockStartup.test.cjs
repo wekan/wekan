@@ -74,10 +74,19 @@ test('the page waits out a grace period first (negative)', () => {
 
 test('the comparison is BOUNDED, and the bound is configurable', () => {
   assert.ok(/WEKAN_AUTOPICK_TIMEOUT/.test(block), 'there must be a timeout');
-  assert.ok(/timeout "\$_autopick_timeout"/.test(block),
-    'and it must actually be applied to the command');
-  assert.ok(/command -v timeout/.test(block),
-    'with a fallback for a system without timeout(1), rather than failing to run at all');
+  assert.ok(/_autopick_waited" -ge "\$_autopick_timeout"/.test(block),
+    'and the process monitor must actually apply it to the command');
+  assert.ok(/kill -TERM "\$_autopick_pid"/.test(block),
+    'a comparison over the bound must be stopped');
+  assert.ok(/kill -KILL "\$_autopick_pid"/.test(block),
+    'a child which ignores TERM must not hold startup indefinitely');
+  assert.ok(!/command -v timeout/.test(block) && !/^\s*timeout\s/m.test(block),
+    'strictly confined snaps must not try to execute the host /usr/bin/timeout');
+});
+
+test('an invalid timeout cannot break the numeric process monitor (negative)', () => {
+  assert.ok(/''\|\*\[!0-9\]\*\|0\) _autopick_timeout=900/.test(block),
+    'empty, non-numeric and zero timeout settings need a safe bounded default');
 });
 
 test('a bound that runs out still starts WeKan, and says what to do', () => {

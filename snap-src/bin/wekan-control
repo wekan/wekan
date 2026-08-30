@@ -233,27 +233,49 @@ if [ "$mongodb_readable" = "true" ] && [ "$migration_stale_rc" -eq 2 ]; then
     autopick_rc=1
     if [ -x "$SNAP/bin/database-autopick" ] || [ -f "$SNAP/bin/database-autopick" ]; then
         _autopick_timeout="${WEKAN_AUTOPICK_TIMEOUT:-900}"
+        case "$_autopick_timeout" in
+            ''|*[!0-9]*|0) _autopick_timeout=900 ;;
+        esac
         _autopick_rc=0
-        if command -v timeout >/dev/null 2>&1; then
-            timeout "$_autopick_timeout" bash "$SNAP/bin/database-autopick" &
-        else
-            bash "$SNAP/bin/database-autopick" &
-        fi
+        bash "$SNAP/bin/database-autopick" &
         _autopick_pid=$!
         # The page only after a grace period, the same way the database wait does
         # it: a comparison that finishes in a few seconds should not flash a page
         # up, and a page that appears on every restart would make proxies cache a
         # 503 for a healthy site.
         _autopick_waited=0
+        _autopick_page_started=false
+        _autopick_timed_out=false
         while kill -0 "$_autopick_pid" 2>/dev/null; do
-            if [ "$_autopick_waited" -ge "${WEKAN_DB_WAIT_PAGE_SECONDS:-30}" ]; then
-                start_db_wait_page "the two copies of the database to be compared"
+            if [ "$_autopick_waited" -ge "$_autopick_timeout" ]; then
+                _autopick_timed_out=true
+                kill -TERM "$_autopick_pid" 2>/dev/null || true
                 break
+            fi
+            if [ "$_autopick_page_started" = false ] && \
+               [ "$_autopick_waited" -ge "${WEKAN_DB_WAIT_PAGE_SECONDS:-30}" ]; then
+                start_db_wait_page "the two copies of the database to be compared"
+                _autopick_page_started=true
             fi
             sleep 1
             _autopick_waited=$((_autopick_waited + 1))
         done
+        # database-autopick traps TERM and stops the temporary database readers.
+        # Give that cleanup a short bound of its own, then ensure startup cannot
+        # remain stuck on a child which ignored TERM.
+        if [ "$_autopick_timed_out" = true ]; then
+            _autopick_stop_waited=0
+            while kill -0 "$_autopick_pid" 2>/dev/null && \
+                  [ "$_autopick_stop_waited" -lt 5 ]; do
+                sleep 1
+                _autopick_stop_waited=$((_autopick_stop_waited + 1))
+            done
+            kill -KILL "$_autopick_pid" 2>/dev/null || true
+        fi
         wait "$_autopick_pid" || _autopick_rc=$?
+        if [ "$_autopick_timed_out" = true ]; then
+            _autopick_rc=124
+        fi
         # BEFORE anything else binds the port: the page is a child process
         # holding $PORT.
         stop_db_wait_page
