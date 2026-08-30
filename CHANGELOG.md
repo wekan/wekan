@@ -8245,10 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Packaged WeKan** now starts on the current Ethernet or WLAN IPv4
-address without manual URL configuration. It prefers port 80 when usable,
-selects free web and loopback-only FerretDB ports, and reports the resolved
-endpoints for bundles, Docker, AppImage, Windows and Snap.
+**In short:** **User sessions** now survive page refreshes and board-view
+navigation with the HttpOnly-cookie security model. **Packaged WeKan** also
+starts on the current Ethernet or WLAN IPv4 address, preferring port 80 and
+selecting free web and loopback-only FerretDB ports when not configured.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8276,6 +8276,23 @@ show the resulting `ROOT_URL`, `PORT`, FerretDB address and `MONGO_URL`, while
 explicit deployment settings remain authoritative. Positive and negative
 tests cover automatic and configured endpoints, loopback enforcement and all
 five packaging paths; all 694 Node suites pass.
+
+</details>
+
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/76e177552">Private-board sessions survive page refreshes</a>. Thanks to lucasarrudadev and xet7.</summary>
+
+WeKan configured Meteor's HttpOnly-cookie session mode after the Accounts
+client had already performed its one startup resume check. A successful login
+wrote the protected cookie, but a fresh page held no token in its intentionally
+memory-only client storage and never asked the cookie endpoint to restore it.
+WeKan now starts Meteor's public cookie-login path immediately after enabling
+the mode, so refreshes and board-view navigations restore the same user instead
+of showing Sign In. Static positive and negative tests preserve the protected
+flow, and a Chromium regression reloads a private board against the repo-local
+Meteor server and included MongoDB and verifies both the user and board remain.
 
 </details>
 
