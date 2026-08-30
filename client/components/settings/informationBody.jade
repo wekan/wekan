@@ -21,6 +21,23 @@
 //- colgroup of two 50% columns puts every label and every value in the same place
 //- (.info-table in informationBody.css).
 template(name='statistics')
+    .version-check
+      button.js-check-newest-versions.primary(type="button" disabled=versionCheckRunning)
+        i.fa.fa-refresh
+        | {{_ 'r-check'}} {{_ 'info'}}
+      if versionCheckRunning
+        span.version-check-state {{_ 'loading'}}
+      if versionCheckError
+        span.version-check-state.error {{versionCheckError}}
+      if hasVersionCheckRows
+        table.version-check-results
+          tbody
+            each versionCheckRows
+              tr
+                th {{name}}
+                td {{current}} →
+                  a(href=url target="_blank" rel="noopener noreferrer") {{tag}}
+                  span.version-check-status {{status}}
     table.info-table
       //- Two equal columns, stated once here rather than left to the widest cell:
         with table-layout fixed these are what the browser uses, so the labels and

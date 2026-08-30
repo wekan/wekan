@@ -147,9 +147,37 @@ test.describe('Admin – newest features', () => {
 
     const body = page.locator('body');
     await expect(body).toContainText('Reactivity mode', { timeout: 15_000 });
+    const check = page.locator('.js-check-newest-versions');
+    await expect(check).toBeVisible();
+    const checkBox = await check.boundingBox();
+    const currentBox = await page.getByText('WeKan ® Version', { exact: true }).boundingBox();
+    expect(checkBox.y).toBeLessThan(currentBox.y);
+    await check.click();
+    const results = page.locator('.version-check-results');
+    await expect(results).toContainText('WeKan', { timeout: 15_000 });
+    await expect(results).toContainText('FerretDB');
+    await expect(results.locator('a[href^="https://github.com/wekan/wekan/releases/tag/"]'))
+      .toHaveCount(1);
+    await expect(results.locator('a[href^="https://github.com/wekan/FerretDB/releases/tag/"]'))
+      .toHaveCount(1);
     // The configured-env rows show the literal env-var names.
     await expect(body).toContainText('METEOR_REACTIVITY_ORDER');
     await expect(body).toContainText('DDP_TRANSPORT');
+  });
+
+  test('Version release lookup rejects a non-admin caller', async ({ page, user }) => {
+    await loginWithToken(page, user.id, user.token);
+    await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+    await waitForMeteor(page);
+    const denied = await page.evaluate(async () => {
+      try {
+        await window.Meteor.callAsync('checkNewestVersions');
+        return 'allowed';
+      } catch (error) {
+        return error.error;
+      }
+    });
+    expect(denied).toBe('not-authorized');
   });
 
   test('Rules/Boards/Cards/Impersonation reports load without hanging (manual publish on FerretDB)', async ({ page, adminUser }) => {

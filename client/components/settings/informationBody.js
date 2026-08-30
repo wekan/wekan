@@ -1,8 +1,12 @@
 import { TAPi18n } from '/imports/i18n';
+import { compareVersions } from '/models/lib/versionCheck';
 const { filesize } = require('filesize');
 
 Template.statistics.onCreated(function () {
   this.info = new ReactiveVar({});
+  this.newestVersions = new ReactiveVar(null);
+  this.versionCheckError = new ReactiveVar('');
+  this.versionCheckRunning = new ReactiveVar(false);
   Meteor.call('getStatistics', (error, ret) => {
     if (!error && ret) {
       this.info.set(ret);
@@ -17,6 +21,42 @@ Template.statistics.onCreated(function () {
 Template.statistics.helpers({
   statistics() {
     return Template.instance().info.get();
+  },
+
+  versionCheckRunning() {
+    return Template.instance().versionCheckRunning.get();
+  },
+
+  versionCheckError() {
+    return Template.instance().versionCheckError.get();
+  },
+
+  hasVersionCheckRows() {
+    return Boolean(Template.instance().newestVersions.get());
+  },
+
+  versionCheckRows() {
+    const instance = Template.instance();
+    const newest = instance.newestVersions.get();
+    if (!newest) return [];
+    const statistics = instance.info.get();
+    return [
+      { name: 'WeKan', current: statistics.version || '—', ...newest.wekan },
+      {
+        name: 'FerretDB',
+        current: statistics.mongo?.ferretdbVersion || '—',
+        ...newest.ferretdb,
+      },
+    ].map(row => {
+      const comparison = compareVersions(row.current, row.tag);
+      let status = '—';
+      if (comparison === -1) status = '↑';
+      if (comparison === 0) status = '✓';
+      return {
+        ...row,
+        status,
+      };
+    });
   },
 
   humanReadableTime(time) {
@@ -54,5 +94,28 @@ Template.statistics.helpers({
 
   formatBoolean(value) {
     return value ? TAPi18n.__('yes') : TAPi18n.__('no');
+  },
+});
+
+Template.statistics.events({
+  'click .js-check-newest-versions'(event, instance) {
+    event.preventDefault();
+    if (instance.versionCheckRunning.get()) return;
+    instance.versionCheckRunning.set(true);
+    instance.versionCheckError.set('');
+    instance.newestVersions.set(null);
+    Meteor.call('checkNewestVersions', (error, result) => {
+      instance.versionCheckRunning.set(false);
+      if (error || !result) {
+        // Never show an upstream body or exception: GitHub's reply is untrusted,
+        // and offline, timeout, HTTP and invalid-version failures are equivalent
+        // to the administrator using this on-demand check.
+        instance.versionCheckError.set(
+          'It was not possible to check the version number.',
+        );
+        return;
+      }
+      instance.newestVersions.set(result);
+    });
   },
 });

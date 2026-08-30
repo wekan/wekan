@@ -8,6 +8,29 @@
    different x in every group and the pane read as five unrelated things. One
    table puts every label and every value in the same place. */
 
+.version-check {
+  margin-bottom: 1rem;
+}
+
+.version-check > button,
+.version-check-state {
+  margin-inline-end: 0.75rem;
+}
+
+.version-check-results {
+  margin-top: 0.75rem;
+}
+
+.version-check-results th {
+  padding-inline-end: 1rem;
+  text-align: start;
+}
+
+.version-check-results a,
+.version-check-status {
+  margin-inline-start: 0.35rem;
+}
+
 /* Two EQUAL columns, and they stay equal whatever the longest label happens to
    be. `table-layout: fixed` makes the browser take the widths from the colgroup
    instead of measuring the content, and the two `col` rules below are that

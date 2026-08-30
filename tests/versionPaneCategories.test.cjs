@@ -48,8 +48,8 @@ test('the five categories are there, in the order the pane is read in', () => {
 test('it is ONE table, and each category is a row spanning both columns', () => {
   // Five tables sized their columns independently, so the values started at a
   // different x in every group. One table, and the category is a row in it.
-  const tables = jade.match(/^\s*table(\.[\w-]+)?$/gm) || [];
-  assert.strictEqual(tables.length, 1, 'the pane draws exactly one table');
+  const infoTables = jade.match(/^\s*table\.info-table$/gm) || [];
+  assert.strictEqual(infoTables.length, 1, 'the pane draws exactly one information table');
   assert.ok(/^\s*table\.info-table$/m.test(jade),
     'and it carries the .info-table class the 50/50 columns are scoped to');
 
