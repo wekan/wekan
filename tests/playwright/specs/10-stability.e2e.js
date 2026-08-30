@@ -58,6 +58,16 @@ test.describe('Stability & connectivity', () => {
     await expect(cp.comments().filter({ hasText: 'Persistence check comment' })).toBeVisible({ timeout: 10_000 });
   });
 
+  test('#6654: a private-board session survives a full page refresh', async ({ boardPage, user }) => {
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    await expect.poll(() => boardPage.evaluate(() => Meteor.userId()), {
+      timeout: 10_000,
+    }).toBe(user.id);
+    await expect(boardPage.locator('.board-canvas')).toBeVisible();
+    await expect(boardPage.locator('[name="username"]')).toHaveCount(0);
+  });
+
   test('login link is visible on 5 consecutive fresh page loads', async ({ page }) => {
     for (let i = 0; i < 5; i++) {
       await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });

@@ -74,6 +74,12 @@ import { Utils } from '/client/lib/utils';
 // HttpOnly cookie and only the active tab's credential in memory. Configure it
 // before Accounts startup; the server has the same options in accounts-common.
 Accounts.config({ clientStorage: 'none', useHttpOnlyCookies: true });
+// AccountsClient is constructed before this application startup module runs.
+// Its constructor therefore cannot see the option above and skips its one-time
+// cookie resume. Start that public resume path now, after enabling it, so a
+// reload or board-view navigation restores the session from the HttpOnly
+// cookie instead of returning a private-board user to Sign In (#6654).
+Accounts.loginWithCookie();
 
 // Subscribe to per-user small publications
 Meteor.startup(() => {
