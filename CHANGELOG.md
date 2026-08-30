@@ -8247,8 +8247,10 @@ browser build to verify).
 
 **In short:** **Release builds** now wait for every AppImage input, hand a slow
 riscv64 Launchpad build off cleanly, and start the Enigma-packaged Windows EXE
-despite its false legacy-Windows version result. AWS storage, PDF generation,
-browser automation and Playwright's MongoDB driver are also updated.
+despite its false legacy-Windows version result. Browser tests follow the new
+HttpOnly session model, the Helm chart has a viable default memory budget, and
+AWS storage, PDF generation, browser automation and Playwright's MongoDB driver
+are updated.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8273,6 +8275,9 @@ Thanks to dependabot.
 
 and fixes the following developer-tooling bugs:
 
+**Build and release tooling** - every scheduled artifact path completes or
+hands its remote work off cleanly.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9129125f4">Release builds keep every scheduled artifact path healthy</a>. Thanks to xet7.</summary>
 
@@ -8287,6 +8292,28 @@ pin all three build paths; the platform-specific builds remain verified by
 their workflow smoke tests.
 
 </details>
+
+**The test harness** - authentication and static checks match the production
+session model and the workflows they validate.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f9ed6915">Browser tests retain their HttpOnly sessions across navigation</a>. Thanks to xet7.</summary>
+
+The Node E2E and Playwright login helpers now seed their generated resume token
+through the browser's native HttpOnly, SameSite=Lax cookie before logging in.
+This preserves authentication when a navigation creates a new DDP connection
+without exposing the credential to page JavaScript or restoring Local Storage
+tokens. The release-script parity test also classifies the private FerretDB
+preflight correctly, and Windows release commands put `--repo` on the command
+line their static guard inspects. Positive and negative session tests cover the
+cookie attributes and navigation boundary; all 693 Node suites pass.
+
+</details>
+
+**The Helm chart** - the default pod budget fits WeKan's container-aware Node.js
+heap and native processes.
+
+- [The default WeKan pod requests 512 MiB with a 2 GiB limit](https://github.com/wekan/charts/commit/489ef93). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
