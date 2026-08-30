@@ -8265,7 +8265,7 @@ boundaries, while a **CodeQL** incomplete-escaping alert is removed.
 This release fixes the following SECURITY ISSUE found by GitHub CodeQL code scanning:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1d04a2614">Version tests compare generated text without incomplete escaping</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1eaf0a117">Version tests compare generated text without incomplete escaping</a>. Thanks to xet7.</summary>
 
 The website-version test no longer interpolates generated manifest text into a
 regular expression after escaping only dots, which left backslashes and every
@@ -8279,7 +8279,7 @@ both pass through the real release helper.
 and fixes the following build and release bugs:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/87ac3a4f6">Windows PDF and Snap release builds stay portable</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6c39c6ad3">Windows PDF and Snap release builds stay portable</a>. Thanks to xet7.</summary>
 
 The server PDF renderer now asks Meteor's runtime CommonJS resolver for PDFKit,
 selecting the package entry that derives resource paths from the deployed
