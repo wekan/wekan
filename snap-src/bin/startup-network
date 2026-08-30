@@ -5,8 +5,48 @@ STATE="$SNAP_COMMON/.startup-network.env"
 LOCK="$SNAP_COMMON/.startup-network.lock"
 
 if [ ! -s "$STATE" ]; then
-    while ! mkdir "$LOCK" 2>/dev/null; do
+    lock_owned=false
+    waited=0
+    while true; do
+        if mkdir "$LOCK" 2>/dev/null; then
+            printf '%s\n' "$$" > "$LOCK/pid"
+            lock_owned=true
+            break
+        fi
         [ -s "$STATE" ] && break
+
+        # A service can be killed after mkdir and before the atomic state-file
+        # rename. The old empty lock then made every future invocation sleep
+        # forever: snap called the shell wrapper "active", but FerretDB never
+        # started and nothing listened on mongodb-port. New locks name their
+        # owner; reclaim one whose process is gone. Locks made by an older snap
+        # have no pid file, so reclaim those after a short grace period.
+        owner="$(cat "$LOCK/pid" 2>/dev/null || true)"
+        case "$owner" in
+            '' )
+                if [ "$waited" -ge 5 ]; then
+                    echo "startup-network: removing stale legacy lock with no owner" >&2
+                    rmdir "$LOCK" 2>/dev/null || true
+                    waited=0
+                    continue
+                fi
+                ;;
+            *[!0-9]* ) ;;
+            * )
+                if ! kill -0 "$owner" 2>/dev/null; then
+                    echo "startup-network: removing stale lock from process $owner" >&2
+                    rm -f "$LOCK/pid"
+                    rmdir "$LOCK" 2>/dev/null || true
+                    waited=0
+                    continue
+                fi
+                ;;
+        esac
+        waited=$((waited + 1))
+        if [ "$waited" -ge 30 ]; then
+            echo "startup-network: endpoint lock is still held by active process ${owner:-unknown}; refusing to wait forever" >&2
+            return 1 2>/dev/null || exit 1
+        fi
         sleep 1
     done
     if [ ! -s "$STATE" ]; then
@@ -14,7 +54,7 @@ if [ ! -s "$STATE" ]; then
         explicit_port="$(snapctl get port 2>/dev/null || true)"
         explicit_db_port="$(snapctl get mongodb-port 2>/dev/null || true)"
         tmp="$STATE.$$"
-        (
+        if ! (
             [ -n "$explicit_root" ] && export ROOT_URL="$explicit_root" || unset ROOT_URL
             [ -n "$explicit_port" ] && export PORT="$explicit_port" || unset PORT
             if [ -n "$explicit_db_port" ]; then
@@ -24,10 +64,15 @@ if [ ! -s "$STATE" ]; then
             fi
             export WEKAN_PORT_START=80 WEKAN_FERRETDB_PORT_START=27019
             "$SNAP/bin/node" "$SNAP/bin/startup-network.cjs" posix --ferretdb
-        ) > "$tmp"
-        mv -f "$tmp" "$STATE"
+        ) > "$tmp" || ! mv -f "$tmp" "$STATE"; then
+            rm -f "$tmp"
+            [ "$lock_owned" = true ] && rm -f "$LOCK/pid"
+            [ "$lock_owned" = true ] && rmdir "$LOCK" 2>/dev/null || true
+            return 1 2>/dev/null || exit 1
+        fi
     fi
-    rmdir "$LOCK" 2>/dev/null || true
+    [ "$lock_owned" = true ] && rm -f "$LOCK/pid"
+    [ "$lock_owned" = true ] && rmdir "$LOCK" 2>/dev/null || true
 fi
 
 . "$STATE"
