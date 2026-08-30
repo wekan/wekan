@@ -35,6 +35,16 @@ await test('PDF export loads and embeds the bundled fonts', () => {
     'the constructor must not initialize Helvetica from an external AFM file');
 });
 
+await test('the cross-built server bundle selects PDFKit at runtime', () => {
+  assert.match(pdfRenderer, /Npm\.require\('pdfkit'\)/,
+    'runtime CommonJS resolution uses the deployed platform path');
+  assert.doesNotMatch(pdfRenderer, /import PDFDocument from 'pdfkit'/,
+    'an ESM import would preserve the Linux build-time import.meta.url');
+  const esm = fs.readFileSync(require.resolve('pdfkit'), 'utf8');
+  assert.doesNotMatch(esm, /createRequire\(import\.meta\.url\)/,
+    'the selected CommonJS PDFKit entry must not depend on an ESM build URL');
+});
+
 await test('PDFKit starts directly with the bundled font, without Helvetica', async () => {
   const chunks = [];
   const doc = new PDFDocument({ font: fs.readFileSync(mainFont) });

@@ -130,6 +130,8 @@ test('the mainstream arches build natively, the exotic ones on Launchpad', () =>
   assert.ok(/arch: amd64\s+runner: ubuntu-24\.04\b/.test(native), 'amd64 on a native runner');
   assert.ok(/arch: arm64\s+runner: ubuntu-24\.04-arm\b/.test(native), 'arm64 on a native runner');
   assert.ok(native.includes('snapcore/action-build'), 'built with the official action');
+  assert.ok(/Install LXD with Snap Store retries[\s\S]*for attempt in 1 2 3 4 5[\s\S]*sudo snap install lxd/.test(native),
+    'LXD is preinstalled with retries before the official action');
 
   const launchpad = job('snap-launchpad');
   const arches = (launchpad.match(/arch: \[([^\]]+)\]/) || [, ''])[1]

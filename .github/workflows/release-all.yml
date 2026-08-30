@@ -4239,6 +4239,26 @@ jobs:
           fi
           echo "snapcraft.yaml is at version '${VERSION}'."
 
+      - name: Install LXD with Snap Store retries
+        # snapcore/action-build installs LXD itself, but that single request has
+        # no retry. A transient Store nonce timeout made the amd64 v11.31 build
+        # fail before Snapcraft ran. Preinstalling it makes the action's install
+        # idempotent and gives Store/network failures bounded retries.
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if sudo snap install lxd; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              echo "::error::Could not install LXD after $attempt attempts."
+              exit 1
+            fi
+            delay=$((attempt * 10))
+            echo "Snap Store request failed (attempt $attempt/5); retrying in ${delay}s ..."
+            sleep "$delay"
+          done
+
       - name: Build the ${{ matrix.arch }} snap natively
         # Runs on a native ${{ matrix.arch }} GitHub runner, so snapcraft builds the
         # platform whose `build-on` matches this host — no Launchpad, no emulation.
