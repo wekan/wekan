@@ -12,23 +12,33 @@ const { spawnSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
 const helper = path.join(root, 'releases/update-website-version-info.sh');
+const dockerfile = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
+const pin = pattern => {
+  const match = dockerfile.match(pattern);
+  assert.ok(match, `Dockerfile is missing version pin ${pattern}`);
+  return match[1];
+};
+const wekanVersion = pin(/^ARG VERSION=([^\s]+)$/m);
+const meteorVersion = pin(/^\s*METEOR_RELEASE=METEOR@([^\s\\]+).*$/m);
+const nodeVersion = pin(/^\s*NODE_VERSION=v([^\s\\]+).*$/m);
+const npmVersion = pin(/^\s*NPM_VERSION=([^\s\\]+).*$/m);
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-version-info-'));
 fs.mkdirSync(path.join(temp, 'install'));
 fs.writeFileSync(path.join(temp, 'install/index.html'),
   '<main><h2>Install <span class="version-number">v11.29</span></h2></main>\n');
 
-const run = version => spawnSync('bash', [helper, temp, root, '11.30'], {
+const run = version => spawnSync('bash', [helper, temp, root, wekanVersion], {
   cwd: root,
   encoding: 'utf8',
   env: { ...process.env, FERRETDB_VERSION: version },
 });
 
 const expected = [
-  'WeKan 11.30',
+  `WeKan ${wekanVersion}`,
   'FerretDB 1.64.0',
-  'Meteor 3.5.2-beta.0',
-  'Node 24.20.0',
-  'NPM 11.12.1',
+  `Meteor ${meteorVersion}`,
+  `Node ${nodeVersion}`,
+  `NPM ${npmVersion}`,
 ].join('\n');
 const result = run('v1.64.0');
 assert.equal(result.status, 0, result.stderr);
