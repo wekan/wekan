@@ -8263,7 +8263,7 @@ port, while preserving explicitly configured external database URLs.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1f01d58ff">Snap problem reports use the database URL of the running services</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e1a8ac001">Snap problem reports use the database URL of the running services</a>. Thanks to xet7.</summary>
 
 Snap services can select a free FerretDB port when the preferred port 27019 is
 occupied, but `wekan.problems` continued connecting to the old fixed default and
