@@ -8246,10 +8246,11 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **User sessions** now survive page refreshes and board-view
-navigation with the HttpOnly-cookie security model. **Packaged WeKan** also
-starts on the current Ethernet or WLAN IPv4 address, preferring port 80 and
-selecting free web and loopback-only FerretDB ports when not configured; Docker
-Compose leaves those endpoint settings inactive so it follows the same path.
+navigation with the HttpOnly-cookie security model. **Admin version checks**
+report the newest published WeKan and FerretDB releases with safe localized
+failure handling. **Packaged WeKan** also starts on the current Ethernet or WLAN
+IPv4 address, preferring port 80 and selecting free web and loopback-only
+FerretDB ports when not configured; Docker Compose follows the same path.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,10 +8263,26 @@ Compose leaves those endpoint settings inactive so it follows the same path.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves packaged startup:
+This release adds the following new feature:
 
-**Docker and offline packages** - automatic endpoints stay consistent across
-container, POSIX and Windows launch paths.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69728db3d">The Version pane checks the newest published releases</a>. Thanks to xet7.</summary>
+
+A button above the installed-version table asks the server for GitHub's latest
+published WeKan and FerretDB releases, then shows both validated version tags
+as escaped text with links to their exact release pages. Only Global Admins can
+call the method, its repository choices are fixed, and a ten-second timeout
+prevents an unavailable network from leaving the pane waiting. Invalid tags,
+drafts, prereleases, unexpected URLs and failed requests all produce one safe
+failure state without rendering upstream content. Unit and negative tests cover
+comparison and response validation; Chromium verifies the button placement,
+both results and non-admin denial against Meteor's included MongoDB.
+
+</details>
+
+and improves packaged startup:
+
+**Packaged startup** - automatic endpoints stay consistent everywhere.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92b076836">Packages advertise a working URL on the current network</a>. Thanks to xet7.</summary>
@@ -8314,6 +8331,21 @@ the mode, so refreshes and board-view navigations restore the same user instead
 of showing Sign In. Static positive and negative tests preserve the protected
 flow, and a Chromium regression reloads a private board against the repo-local
 Meteor server and included MongoDB and verifies both the user and board remain.
+
+</details>
+
+and improves the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2f6e2109">Version checking reports failures in the user's language</a>. Thanks to xet7.</summary>
+
+The check button and its offline, timeout or invalid-response message now use
+dedicated translation keys. Every locale keeps the English key order, every
+previously complete non-English locale has localized text, and only the same 37
+already-incomplete locales retain English placeholders. Regression coverage
+checks all locale files, representative natural translations and the existing
+placeholder inventory; all 695 plain-Node suites and the production Meteor
+build pass.
 
 </details>
 
