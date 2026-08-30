@@ -8262,7 +8262,9 @@ cannot run.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Snap startup** - confined startup reaches the selected database and web port.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ab46ee9f">Snap database comparison no longer executes a host timeout command</a>. Thanks to xet7.</summary>
@@ -8275,6 +8277,18 @@ the same configurable bound, allows the comparison's cleanup trap to stop its
 temporary database readers, force-stops an unresponsive child, and retains the
 existing timeout diagnostics. Regression coverage rejects any return to the host
 command and checks malformed timeout settings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62aedac6a">Disabled comparison and unset polling values no longer stop Snap startup</a>. Thanks to xet7.</summary>
+
+Setting `autopick=false` previously disabled only the comparison script itself,
+after `wekan-control` had already tried to launch it through the forbidden host
+timeout command. The launcher is now skipped entirely. FerretDB startup also
+defaults its polling throttle and interval through unset-safe shell expansion,
+instead of terminating under `set -u` before Node binds the web port. Negative
+tests reproduce both conditions from Snap revision 3872.
 
 </details>
 
