@@ -294,6 +294,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'translations/repair-machine-placeholders.mjs': 'a one-off guarded repair\n'
       + '      helper for legacy machine-filled placeholder values; run directly\n'
       + '      while auditing those values, not as a release-menu action',
+    'require-ferretdb-resume-login.sh': 'a private preflight called by\n'
+      + '      require-binaries.sh; it verifies a downloaded FerretDB fork before\n'
+      + '      a release build and is not an operator-facing menu command',
   };
 
   const missing = { sh: [], bat: [] };

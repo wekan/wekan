@@ -17,6 +17,20 @@ const resumeDisabled = new WeakSet();
 const ARM_KEY = 'wekan-e2e-clear-session';
 
 async function loginWithToken(page, userId, token) {
+  // With clientStorage:none, a token login is intentionally memory-only.
+  // Navigating to a board creates a new DDP connection, so seed the same
+  // HttpOnly cookie a real Meteor login uses before doing the in-memory login.
+  // Browser automation can set an HttpOnly cookie through the browser context;
+  // page JavaScript cannot read it, which keeps this helper on the production
+  // authentication path instead of reintroducing Local Storage credentials.
+  await page.context().addCookies([{
+    name: 'meteor_login_token',
+    value: token,
+    url: BASE_URL,
+    httpOnly: true,
+    sameSite: 'Lax',
+  }]);
+
   // Stop the PREVIOUS session from resuming. Meteor's accounts-base reads
   // localStorage at startup and logs the stored user back in, asynchronously - so
   // on a reload the sequence could be: page loads, our logout check sees no user

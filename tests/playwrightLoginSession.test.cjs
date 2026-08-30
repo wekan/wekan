@@ -36,6 +36,17 @@ function test(name, fn) {
 
 console.log('playwrightLoginSession:');
 
+test('token login seeds the native HttpOnly cookie before navigating', () => {
+  const cookie = auth.indexOf("name: 'meteor_login_token'");
+  const login = auth.indexOf('Meteor.loginWithToken(tok');
+  assert.ok(cookie > 0 && cookie < login,
+    'the persistent cookie must exist before login and later navigations');
+  assert.match(auth.slice(cookie, login), /httpOnly: true/,
+    'browser JavaScript must not be able to read the test credential');
+  assert.match(auth.slice(cookie, login), /sameSite: 'Lax'/,
+    'the test cookie must use the production cross-site boundary');
+});
+
 // The body of the init script passed to page.addInitScript(...).
 function initScript() {
   const at = auth.indexOf('page.addInitScript');

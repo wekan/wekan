@@ -44,6 +44,13 @@ test('logging a page in never logs the OTHER pages out', () => {
     'it ends the session by clearing the stored one');
 });
 
+test('navigation resumes through the native HttpOnly cookie', () => {
+  assert.match(auth, /name: 'meteor_login_token'/,
+    'the helper must persist its seeded credential without Local Storage');
+  assert.match(auth, /httpOnly: true/,
+    'the browser context, not page JavaScript, writes the credential');
+});
+
 test('the logout helper is still there for the test that tests logging out', () => {
   // 05-admin-users logs out and then logs in with a PASSWORD, which is the
   // real thing a user does. Removing logout() to be safe would delete that

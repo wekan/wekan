@@ -425,6 +425,16 @@ async function reloadAndWait(targetPage) {
 }
 
 async function loginWithToken(targetPage, rawToken) {
+  // clientStorage:none makes Meteor.loginWithToken memory-only. Put the seeded
+  // credential in the native HttpOnly cookie too, so the new DDP connection
+  // made by the final navigation resumes exactly as a production login does.
+  await targetPage.setCookie({
+    name: 'meteor_login_token',
+    value: rawToken,
+    url: BASE_URL,
+    httpOnly: true,
+    sameSite: 'Lax',
+  });
   await gotoAndWait(targetPage, `${BASE_URL}/sign-in`);
   await waitForMeteorConnection(targetPage);
   const loginResult = await targetPage.evaluate(async ({ token, timeoutMs }) => {

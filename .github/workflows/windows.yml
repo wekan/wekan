@@ -86,8 +86,8 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $zip = 'wekan-${{ needs.release.outputs.version }}-win64.zip'
-          $assets = gh release view '${{ needs.release.outputs.tag }}' `
-            --repo '${{ github.repository }}' --json assets --jq '.assets[].name'
+          $assets = gh release view --repo '${{ github.repository }}' `
+            '${{ needs.release.outputs.tag }}' --json assets --jq '.assets[].name'
           if ($assets -notcontains $zip) {
             throw "$zip is not on ${{ needs.release.outputs.tag }}. The single EXE can only wrap a published win64 bundle."
           }
@@ -236,7 +236,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh release upload '${{ needs.release.outputs.tag }}' assets/* \
-            --repo '${{ github.repository }}' --clobber
-          gh release view '${{ needs.release.outputs.tag }}' \
-            --repo '${{ github.repository }}' --json url --jq .url
+          gh release upload --repo '${{ github.repository }}' \
+            '${{ needs.release.outputs.tag }}' assets/* --clobber
+          gh release view --repo '${{ github.repository }}' \
+            '${{ needs.release.outputs.tag }}' --json url --jq .url
