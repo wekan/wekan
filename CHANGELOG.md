@@ -8245,12 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Snap startup** remains inside strict confinement while it compares
+MongoDB and FerretDB data, so the web service starts instead of failing before it
+can bind its port. The comparison keeps its configurable time limit, cleanup and
+recovery diagnostics without depending on a host executable that a confined Snap
+cannot run.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8261,24 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ab46ee9f">Snap database comparison no longer executes a host timeout command</a>. Thanks to xet7.</summary>
+
+The automatic comparison of MongoDB and FerretDB data used
+`/usr/bin/timeout`. Strict Snap confinement denied that executable, so
+`wekan-control` stopped before Node could listen on the configured web port even
+though the service appeared active. A shell-native process monitor now enforces
+the same configurable bound, allows the comparison's cleanup trap to stop its
+temporary database readers, force-stops an unresponsive child, and retains the
+existing timeout diagnostics. Regression coverage rejects any return to the host
+command and checks malformed timeout settings.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.35 2026-08-30 WeKan ® release
 
