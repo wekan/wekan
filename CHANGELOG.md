@@ -8267,7 +8267,7 @@ This release fixes the following bugs:
 **Snap startup** - confined startup reaches the selected database and web port.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7ab46ee9f">Snap database comparison no longer executes a host timeout command</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4f0d78daf">Snap database comparison no longer executes a host timeout command</a>. Thanks to xet7.</summary>
 
 The automatic comparison of MongoDB and FerretDB data used
 `/usr/bin/timeout`. Strict Snap confinement denied that executable, so
@@ -8281,7 +8281,7 @@ command and checks malformed timeout settings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/62aedac6a">Disabled comparison and unset polling values no longer stop Snap startup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d2427bd8b">Disabled comparison and unset polling values no longer stop Snap startup</a>. Thanks to xet7.</summary>
 
 Setting `autopick=false` previously disabled only the comparison script itself,
 after `wekan-control` had already tried to launch it through the forbidden host
