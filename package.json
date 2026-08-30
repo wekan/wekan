@@ -34,7 +34,7 @@
     "test:playwright:all": "cd tests/playwright && WEKAN_PLAYWRIGHT_ALL=1 npx playwright test --project=chromium --project=firefox --project=webkit",
     "test:playwright:report": "cd tests/playwright && npx playwright show-report",
     "playwright:install": "cd tests/playwright && npx playwright install --with-deps",
-    "postinstall": "node scripts/patch-yargs-dirname.cjs"
+    "postinstall": "node scripts/patch-yargs-dirname.cjs && node scripts/patch-pdfkit-entry.cjs"
   },
   "devDependencies": {
     "@meteorjs/rspack": "^2.2.0-beta.0",

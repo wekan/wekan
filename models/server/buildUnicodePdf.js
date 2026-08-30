@@ -1,10 +1,9 @@
-// This renderer is built on Linux and the same Meteor bundle is repacked for
-// Windows. An ESM import selects PDFKit's pdfkit.node.mjs, whose import.meta.url
-// is resolved by the build to a Linux file URL. Node on Windows then rejects
-// that URL when PDFKit passes it to createRequire(). Loading the package through
-// Meteor's runtime CommonJS resolver selects pdfkit.js instead; that build uses
-// the deployed __filename and therefore remains portable between platforms.
-const PDFDocument = Npm.require('pdfkit');
+// scripts/patch-pdfkit-entry.cjs makes this static Node import select PDFKit's
+// CommonJS build. Keeping a static import is important: Meteor then records and
+// ships PDFKit as an application dependency. The CommonJS build derives its
+// resource paths from the deployed __filename, so a bundle built on Linux also
+// starts on Windows.
+import PDFDocument from 'pdfkit';
 
 import {
   FONT_SIZE,
