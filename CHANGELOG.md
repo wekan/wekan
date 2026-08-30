@@ -8266,7 +8266,7 @@ FerretDB ports when not configured; Docker Compose follows the same path.
 This release adds the following new feature:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6931fb792">The Version pane reads one published component manifest</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b39d57bf7">The Version pane reads one published component manifest</a>. Thanks to xet7.</summary>
 
 A button above the installed-version table asks the server for the fixed
 `https://wekan.fi/version.txt` resource, then shows its WeKan, FerretDB, Meteor,
@@ -8287,7 +8287,7 @@ and improves packaged startup:
 **Packaged startup** - automatic endpoints stay consistent everywhere.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/92b076836">Packages advertise a working URL on the current network</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0bf470c57">Packages advertise a working URL on the current network</a>. Thanks to xet7.</summary>
 
 When `ROOT_URL` is not configured, the bundle ZIP, Docker image, AppImage,
 Windows single executable and Snap now discover the active IPv4 address and a
@@ -8303,7 +8303,7 @@ five packaging paths; all 694 Node suites pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/71480bc7d">Compose leaves deployment endpoints to automatic startup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ad0f1d80f">Compose leaves deployment endpoints to automatic startup</a>. Thanks to xet7.</summary>
 
 The seven single-instance Docker Compose files no longer activate hard-coded
 `ROOT_URL`, `PORT` or `MONGO_URL` values. Their commented configuration explains
@@ -8322,7 +8322,7 @@ FerretDB and Meteor's included MongoDB; all 694 Node suites pass.
 and fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/76e177552">Private-board sessions survive page refreshes</a>. Thanks to lucasarrudadev and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/924d8269e">Private-board sessions survive page refreshes</a>. Thanks to lucasarrudadev and xet7.</summary>
 
 WeKan configured Meteor's HttpOnly-cookie session mode after the Accounts
 client had already performed its one startup resume check. A successful login
@@ -8339,7 +8339,7 @@ Meteor server and included MongoDB and verifies both the user and board remain.
 and improves the following translations:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a2f6e2109">Version checking reports failures in the user's language</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c6b8c7301">Version checking reports failures in the user's language</a>. Thanks to xet7.</summary>
 
 The check button and its offline, timeout or invalid-response message now use
 dedicated translation keys. Every locale keeps the English key order, every
