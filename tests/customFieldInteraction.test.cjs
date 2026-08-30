@@ -316,6 +316,17 @@ test('server validates actor, board field definition and value type', () => {
   assert.match(currency, /Number\.isFinite\(value\)/);
 });
 
+test('unassign uses a document condition that preserves unrelated fields', () => {
+  const assigned = server.slice(server.indexOf('async setCardCustomFieldAssigned'));
+  const body = assigned.slice(0, assigned.indexOf('\n  },'));
+  const unassign = body.slice(body.indexOf('} else {'));
+  assert.match(unassign,
+    /\$pull: \{ customFields: \{ _id: customFieldId \} \}/,
+    'the database removes the matching field even when its element also has a value');
+  assert.doesNotMatch(unassign, /customFields: \{ _id: customFieldId, value:/,
+    'unassign does not depend on knowing the current value');
+});
+
 test('deleted definitions are omitted from detailed exports', () => {
   const document = buildExportCardDocument({
     card: { customFields: [{ _id: 'live', value: true }, { _id: 'gone', value: 'secret' }] },

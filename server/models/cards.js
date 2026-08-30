@@ -157,6 +157,9 @@ Meteor.methods({
         $addToSet: { customFields: { _id: customFieldId, value: null } },
       });
     } else {
+      // #6611: MongoDB document conditions match fields within each array
+      // element. FerretDB must do the same here; exact document equality would
+      // not match an element that also contains its custom-field value.
       await Cards.updateAsync(cardId, {
         $pull: { customFields: { _id: customFieldId } },
       });
