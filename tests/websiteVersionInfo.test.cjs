@@ -33,8 +33,9 @@ const expected = [
 const result = run('v1.64.0');
 assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(temp, 'version.txt'), 'utf8'), `${expected}\n`);
-assert.match(fs.readFileSync(path.join(temp, 'install/index.html'), 'utf8'),
-  new RegExp(`<pre id="version-info">${expected.replace(/\./g, '\\.')}</pre>`));
+const installPage = fs.readFileSync(path.join(temp, 'install/index.html'), 'utf8');
+assert.ok(installPage.includes(`<pre id="version-info">${expected}</pre>`),
+  'the install page contains the exact version manifest as literal text');
 
 const before = fs.readFileSync(path.join(temp, 'version.txt'), 'utf8');
 const rejected = run('<script>1.64.0</script>');
