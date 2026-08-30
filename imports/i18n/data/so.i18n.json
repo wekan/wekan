@@ -728,6 +728,8 @@
   "import-user-select": "Dooro isticmaalahaaga jira ee aad rabto inaad u adeegsato xubintan",
   "importMapMembersAddPopup-title": "Dooro xubin",
   "info": "Nooca",
+  "check-version": "Calaamadee Nooca",
+  "version-check-failed": "Calaamadee Nooca: Khalad.",
   "initials": "Xarfaha Hore",
   "invalid-date": "Taariikh aan sax ahayn",
   "invalid-time": "Waqti aan sax ahayn",

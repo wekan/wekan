@@ -728,6 +728,8 @@
   "import-user-select": "Scegli l'utente che vuoi venga utilizzato come questo membro",
   "importMapMembersAddPopup-title": "Scegli membro",
   "info": "Versione",
+  "check-version": "Verifică versiunea",
+  "version-check-failed": "Nu a fost posibilă verificarea numărului versiunii.",
   "initials": "Iniţiale",
   "invalid-date": "Data non valida",
   "invalid-time": "Tempo non valido",

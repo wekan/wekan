@@ -728,6 +728,8 @@
   "import-user-select": "Бул мүчө катары колдонгуңуз келген учурдагы колдонуучуну тандаңыз",
   "importMapMembersAddPopup-title": "Мүчөнү тандоо",
   "info": "Версия",
+  "check-version": "Белгилөө Версия",
+  "version-check-failed": "Белгилөө Версия: Ката.",
   "initials": "Баш тамгалар",
   "invalid-date": "Күн жараксыз",
   "invalid-time": "Убакыт жараксыз",

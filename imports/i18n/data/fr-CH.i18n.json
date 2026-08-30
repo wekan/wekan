@@ -728,6 +728,8 @@
   "import-user-select": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
   "importMapMembersAddPopup-title": "Sélectionner le participant",
   "info": "Informations de version",
+  "check-version": "Vérifier la version",
+  "version-check-failed": "Impossible de vérifier le numéro de version.",
   "initials": "Initiales",
   "invalid-date": "Date invalide",
   "invalid-time": "Heure invalide",

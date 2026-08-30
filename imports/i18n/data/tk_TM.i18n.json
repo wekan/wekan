@@ -728,6 +728,8 @@
   "import-user-select": "Bu agza hökmünde ulanmak isleýän bar bolan ulanyjyny saýlaň",
   "importMapMembersAddPopup-title": "Agza saýlaň",
   "info": "Wersiýa",
+  "check-version": "Barlaň Wersiýa",
+  "version-check-failed": "Barlaň Wersiýa: Roralňyşlyk.",
   "initials": "Baş harplar",
   "invalid-date": "Nädogry senesi",
   "invalid-time": "Nädogry wagt",

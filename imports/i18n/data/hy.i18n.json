@@ -728,6 +728,8 @@
   "import-user-select": "Ընտրեք ձեր գոյություն ունեցող օգտվողին, որը ցանկանում եք օգտագործել որպես այս անդամ",
   "importMapMembersAddPopup-title": "Ընտրեք անդամ",
   "info": "Տարբերակ",
+  "check-version": "Ստուգեք Տարբերակ",
+  "version-check-failed": "Ստուգեք Տարբերակ: Սխալ.",
   "initials": "սկզբնատառեր",
   "invalid-date": "Անվավեր ամսաթիվ",
   "invalid-time": "Անվավեր ժամանակ",

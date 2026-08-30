@@ -728,6 +728,8 @@
   "import-user-select": "Изаберите Вашег познатог сарадника којег желите да корисите као овог",
   "importMapMembersAddPopup-title": "Označi korisnika",
   "info": "Inačica",
+  "check-version": "Provjeri verziju",
+  "version-check-failed": "Nije bilo moguće provjeriti broj verzije.",
   "initials": "Inicijali",
   "invalid-date": "Нетачан датум",
   "invalid-time": "Нетачно време",

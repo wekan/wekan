@@ -728,6 +728,8 @@
   "import-user-select": "ለዚህ አባል ሊጠቀሙበት የሚፈልጉትን ነባር ተጠቃሚ ይምረጡ",
   "importMapMembersAddPopup-title": "አባል ይምረጡ",
   "info": "ስሪት",
+  "check-version": "ምልክት አድርግ ስሪት",
+  "version-check-failed": "ምልክት አድርግ ስሪት: ስህተት.",
   "initials": "የስም መነሻ ፊደላት",
   "invalid-date": "ልክ ያልሆነ ቀን",
   "invalid-time": "ልክ ያልሆነ ሰዓት",

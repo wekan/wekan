@@ -728,6 +728,8 @@
   "import-user-select": "Fidio ny mpampiasa efa misy tianao hampiasaina ho ity mpikambana ity",
   "importMapMembersAddPopup-title": "Fidio ny mpikambana",
   "info": "Kinova",
+  "check-version": "Mariho Kinova",
+  "version-check-failed": "Mariho Kinova: Hadisoana.",
   "initials": "Litera voalohany",
   "invalid-date": "Daty tsy manan-kery",
   "invalid-time": "Ora tsy manan-kery",

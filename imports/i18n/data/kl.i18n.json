@@ -728,6 +728,8 @@
   "import-user-select": "Atuisoq pioreersoq ilaasortatut matumani atorusutat toqqaruk",
   "importMapMembersAddPopup-title": "Ilaasortaq toqqaruk",
   "info": "Versioni",
+  "check-version": "Nalunaaqutseruk Versioni",
+  "version-check-failed": "Nalunaaqutseruk Versioni: Kukkuneq.",
   "initials": "Aqqit naalisakkat",
   "invalid-date": "Ulloq atuutinngilaq",
   "invalid-time": "Piffissaq atuutinngilaq",

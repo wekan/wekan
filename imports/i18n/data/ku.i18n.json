@@ -728,6 +728,8 @@
   "import-user-select": "Bikarhênerê xwe yê heyî ku dixwazî wek vî endamî bi kar bînî hilbijêre",
   "importMapMembersAddPopup-title": "Endam hilbijêre",
   "info": "Guherto",
+  "check-version": "Nîşan bike Guherto",
+  "version-check-failed": "Nîşan bike Guherto: Çewtî.",
   "initials": "Tîpên destpêkê",
   "invalid-date": "Dîrok nederbasdar e",
   "invalid-time": "Dem nederbasdar e",

@@ -728,6 +728,8 @@
   "import-user-select": "एहि सदस्यक रूपमे उपयोग करबाक लेल अपन विद्यमान उपयोगकर्ता चुनू",
   "importMapMembersAddPopup-title": "सदस्य चुनू",
   "info": "संस्करण",
+  "check-version": "जाँचू संस्करण",
+  "version-check-failed": "जाँचू संस्करण: त्रुटि.",
   "initials": "आद्याक्षर",
   "invalid-date": "अमान्य तिथि",
   "invalid-time": "अमान्य समय",

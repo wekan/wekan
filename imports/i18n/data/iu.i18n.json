@@ -728,6 +728,8 @@
   "import-user-select": "ᐆᒧᖓ ᐃᓚᐅᔪᒧᑦ ᐊᑐᕈᒪᔭᐃᑦ ᐊᑐᖅᑎ ᐱᑕᖃᒌᖅᑐᖅ ᓂᕈᐊᕐᓗᒍ",
   "importMapMembersAddPopup-title": "ᐃᓚᐅᔪᖅ ᓂᕈᐊᕐᓗᒍ",
   "info": "ᐱᑐᖃᐅᓂᖓ",
+  "check-version": "ᓇᓗᓇᐃᕐᓗᒍ ᐱᑐᖃᐅᓂᖓ",
+  "version-check-failed": "ᓇᓗᓇᐃᕐᓗᒍ ᐱᑐᖃᐅᓂᖓ: ᑕᒻᒪᖅᓯᒪᔪᖅ.",
   "initials": "ᐊᑎᐅᑉ ᐱᒋᐊᕐᓂᖏᑦ",
   "invalid-date": "ᐅᓪᓗᖅ ᐊᑐᙱᑦᑐᖅ",
   "invalid-time": "ᐃᑲᕐᕋᖅ ᐊᑐᙱᑦᑐᖅ",

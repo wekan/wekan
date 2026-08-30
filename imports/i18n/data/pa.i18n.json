@@ -728,6 +728,8 @@
   "import-user-select": "ਆਪਣੇ ਮੌਜੂਦਾ ਉਪਭੋਗਤਾ ਨੂੰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਇਸ ਮੈਂਬਰ ਵਜੋਂ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ",
   "importMapMembersAddPopup-title": "ਮੈਂਬਰ ਚੁਣੋ",
   "info": "ਸੰਸਕਰਣ",
+  "check-version": "ਚੈੱਕ ਕਰੋ ਸੰਸਕਰਣ",
+  "version-check-failed": "ਚੈੱਕ ਕਰੋ ਸੰਸਕਰਣ: ਗਲਤੀ.",
   "initials": "ਸ਼ੁਰੂਆਤੀ",
   "invalid-date": "ਅਵੈਧ ਮਿਤੀ",
   "invalid-time": "ਅਵੈਧ ਸਮਾਂ",

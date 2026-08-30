@@ -19,7 +19,7 @@ const result = spawnSync(process.execPath,
   [path.join(root, 'releases/translations/fill-translations.mjs'),
     '--list', 'st'], { cwd: root, encoding: 'utf8' });
 assert.equal(result.status, 0, result.stderr);
-assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2117);
+assert.equal(Object.keys(JSON.parse(result.stdout)).length, 2119);
 
 for (const [key, value] of Object.entries(sesotho)) {
   assert.deepEqual(tokens(value), tokens(english[key]), `${key}: placeholder inventory`);

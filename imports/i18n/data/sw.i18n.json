@@ -728,6 +728,8 @@
   "import-user-select": "Chagua mtumiaji wako aliyepo ambaye ungependa kumtumia kama mwanachama huyu",
   "importMapMembersAddPopup-title": "Chagua mwanachama",
   "info": "Toleo",
+  "check-version": "Angalia toleo",
+  "version-check-failed": "Haikuwezekana kuangalia nambari ya toleo.",
   "initials": "Awali",
   "invalid-date": "Tarehe batili",
   "invalid-time": "Wakati batili",

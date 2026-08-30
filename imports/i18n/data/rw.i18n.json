@@ -728,6 +728,8 @@
   "import-user-select": "Hitamo ukoresha wawe usanzweho ushaka gukoresha nk'uyu munyamuryango",
   "importMapMembersAddPopup-title": "Hitamo umunyamuryango",
   "info": "Integuro",
+  "check-version": "Shyiraho akamenyetso Integuro",
+  "version-check-failed": "Shyiraho akamenyetso Integuro: Ikosa.",
   "initials": "Inyuguti z'intangiriro",
   "invalid-date": "Itariki ntiyemewe",
   "invalid-time": "Igihe nticyemewe",

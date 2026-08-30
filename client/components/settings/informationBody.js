@@ -110,9 +110,7 @@ Template.statistics.events({
         // Never show an upstream body or exception: GitHub's reply is untrusted,
         // and offline, timeout, HTTP and invalid-version failures are equivalent
         // to the administrator using this on-demand check.
-        instance.versionCheckError.set(
-          'It was not possible to check the version number.',
-        );
+        instance.versionCheckError.set(TAPi18n.__('version-check-failed'));
         return;
       }
       instance.newestVersions.set(result);

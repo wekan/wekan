@@ -728,6 +728,8 @@
   "import-user-select": "Kies een bestaande gebruiker die je als dit lid wilt koppelen",
   "importMapMembersAddPopup-title": "Kies lid",
   "info": "Versie",
+  "check-version": "Versie controleren",
+  "version-check-failed": "Het versienummer kon niet worden gecontroleerd.",
   "initials": "Initialen",
   "invalid-date": "Ongeldige datum",
   "invalid-time": "Ongeldige tijd",

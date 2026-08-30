@@ -728,6 +728,8 @@
   "import-user-select": "මෙම සාමාජිකයා ලෙස භාවිත කිරීමට ඔබගේ පවතින පරිශීලකයා තෝරන්න",
   "importMapMembersAddPopup-title": "සාමාජිකයෙකු තෝරන්න",
   "info": "අනුවාදය",
+  "check-version": "සලකුණු කරන්න අනුවාදය",
+  "version-check-failed": "සලකුණු කරන්න අනුවාදය: දෝෂය.",
   "initials": "මුලකුරු",
   "invalid-date": "වලංගු නොවන දිනය",
   "invalid-time": "වලංගු නොවන වේලාව",

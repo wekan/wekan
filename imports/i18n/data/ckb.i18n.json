@@ -728,6 +728,8 @@
   "import-user-select": "بەکارهێنەرە هەبووەکەت هەڵبژێرە کە دەتەوێت وەک ئەم ئەندامە بەکاری بهێنیت",
   "importMapMembersAddPopup-title": "ئەندام هەڵبژێرە",
   "info": "وەشان",
+  "check-version": "نیشانە بکە وەشان",
+  "version-check-failed": "نیشانە بکە وەشان: هەڵە.",
   "initials": "پیتە سەرەتاییەکان",
   "invalid-date": "بەرواری نادروست",
   "invalid-time": "کاتی نادروست",

@@ -728,6 +728,8 @@
   "import-user-select": "이 멤버로 사용할 기존 사용자를 선택하십시오.",
   "importMapMembersAddPopup-title": "멤버 선택",
   "info": "버전",
+  "check-version": "버전 확인",
+  "version-check-failed": "버전 번호를 확인할 수 없습니다.",
   "initials": "이니셜",
   "invalid-date": "적절하지 않은 날짜",
   "invalid-time": "적절하지 않은 시각",

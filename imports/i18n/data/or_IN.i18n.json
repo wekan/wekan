@@ -728,6 +728,8 @@
   "import-user-select": "ଏହି ବିଦ୍ୟମାନ ଭାବରେ ଆପଣ ବ୍ୟବହାର କରିବାକୁ ଚାହୁଁଥିବା ଆପଣଙ୍କର ବିଦ୍ୟମାନ ଉପଭୋକ୍ତା ବାଛନ୍ତୁ |",
   "importMapMembersAddPopup-title": "ସଦସ୍ୟ ଚୟନ କରନ୍ତୁ |",
   "info": "ସଂସ୍କରଣ",
+  "check-version": "ଯାଞ୍ଚ କରନ୍ତୁ | ସଂସ୍କରଣ",
+  "version-check-failed": "ଯାଞ୍ଚ କରନ୍ତୁ | ସଂସ୍କରଣ: ତ୍ରୁଟି |.",
   "initials": "ପ୍ରାରମ୍ଭିକ",
   "invalid-date": "ଅବ val ଧ ତାରିଖ |",
   "invalid-time": "ଅବ val ଧ ସମୟ |",

@@ -728,6 +728,8 @@
   "import-user-select": "Valige oma olemasolev kasutaja, keda soovite kasutada selle liikmena.",
   "importMapMembersAddPopup-title": "Valige liige",
   "info": "Versioon",
+  "check-version": "Kontrolli versiooni",
+  "version-check-failed": "Versiooninumbrit ei olnud võimalik kontrollida.",
   "initials": "Initsiaalid",
   "invalid-date": "Vale kuupäev",
   "invalid-time": "Vale aeg",

@@ -728,6 +728,8 @@
   "import-user-select": "Chọn người dùng hiện tại của bạn mà bạn muốn sử dụng làm thành viên này",
   "importMapMembersAddPopup-title": "Chọn thành viên",
   "info": "Phiên bản",
+  "check-version": "Kiểm tra phiên bản",
+  "version-check-failed": "Không thể kiểm tra số phiên bản.",
   "initials": "Tên viết tắt",
   "invalid-date": "Ngày không hợp lệ",
   "invalid-time": "Thời gian không hợp lệ",

@@ -728,6 +728,8 @@
   "import-user-select": "خپل شته کاروونکی وټاکئ چې د دې غړي په توګه يې کارول غواړئ",
   "importMapMembersAddPopup-title": "غړی وټاکئ",
   "info": "نسخه",
+  "check-version": "نښه کړئ نسخه",
+  "version-check-failed": "نښه کړئ نسخه: تېروتنه.",
   "initials": "لومړني توري",
   "invalid-date": "ناسمه نېټه",
   "invalid-time": "ناسم وخت",

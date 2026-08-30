@@ -728,6 +728,8 @@
   "import-user-select": "Ҫак хутшӑнакан вырӑнне усӑ курмалли пур усӑҫӑна суйлӑр",
   "importMapMembersAddPopup-title": "Хутшӑнакан суйлас",
   "info": "Верси",
+  "check-version": "Палӑртас Верси",
+  "version-check-failed": "Палӑртас Верси: Йӑнӑш.",
   "initials": "Ятӑн пӗрремӗш саспаллисем",
   "invalid-date": "Кун тӗрӗс мар",
   "invalid-time": "Вӑхӑт тӗрӗс мар",

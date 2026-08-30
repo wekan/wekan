@@ -728,6 +728,8 @@
   "import-user-select": "Válassz egy helyettes felhasználót a meglévők közül",
   "importMapMembersAddPopup-title": "Válassz Tagot",
   "info": "Verzió",
+  "check-version": "Verzió ellenőrzése",
+  "version-check-failed": "Nem sikerült ellenőrizni a verziószámot.",
   "initials": "Kezdőbetűk",
   "invalid-date": "Érvénytelen dátum",
   "invalid-time": "Érvénytelen idő",

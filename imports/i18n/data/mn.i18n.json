@@ -728,6 +728,8 @@
   "import-user-select": "Выберите существующего пользователя, которого вы хотите использовать в качестве участника",
   "importMapMembersAddPopup-title": "Выбрать участника",
   "info": "Версия",
+  "check-version": "Отметить Версия",
+  "version-check-failed": "Отметить Версия: Алдаа.",
   "initials": "Инициалы",
   "invalid-date": "Неверная дата",
   "invalid-time": "Некорректное время",

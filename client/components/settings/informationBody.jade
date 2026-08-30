@@ -24,7 +24,7 @@ template(name='statistics')
     .version-check
       button.js-check-newest-versions.primary(type="button" disabled=versionCheckRunning)
         i.fa.fa-refresh
-        | {{_ 'r-check'}} {{_ 'info'}}
+        | {{_ 'check-version'}}
       if versionCheckRunning
         span.version-check-state {{_ 'loading'}}
       if versionCheckError

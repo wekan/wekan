@@ -728,6 +728,8 @@
   "import-user-select": "Bu üzv kimi istifadə etmək istədiyiniz mövcud istifadəçinizi seçin",
   "importMapMembersAddPopup-title": "Üzv seçin",
   "info": "Versiya",
+  "check-version": "Yoxlayın Versiya",
+  "version-check-failed": "Yoxlayın Versiya: Xəta.",
   "initials": "Baş hərflər",
   "invalid-date": "Yanlış tarix",
   "invalid-time": "Yanlış vaxt",

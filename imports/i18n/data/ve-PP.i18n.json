@@ -728,6 +728,8 @@
   "import-user-select": "Valitse olemassaoleva käyttäjä jota haluat käyttää tänä käyttäjänä",
   "importMapMembersAddPopup-title": "Valitse käyttäjä",
   "info": "Versio",
+  "check-version": "Ruksaa Versio",
+  "version-check-failed": "Ruksaa Versio: Virhe.",
   "initials": "Nimikirjaimet",
   "invalid-date": "Virheellinen päivämäärä",
   "invalid-time": "Virheellinen aika",

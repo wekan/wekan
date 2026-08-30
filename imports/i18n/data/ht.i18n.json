@@ -728,6 +728,8 @@
   "import-user-select": "Chwazi itilizatè ki egziste ou vle itilize kòm manm sa a",
   "importMapMembersAddPopup-title": "Chwazi manm",
   "info": "Vèsyon",
+  "check-version": "Tcheke Vèsyon",
+  "version-check-failed": "Tcheke Vèsyon: Erè.",
   "initials": "Inisyal",
   "invalid-date": "Dat pa valab",
   "invalid-time": "Lè pa valab",

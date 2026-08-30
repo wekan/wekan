@@ -728,6 +728,8 @@
   "import-user-select": "Roghnaigh an t-úsáideoir atá agat cheana lena úsáid mar an mball seo",
   "importMapMembersAddPopup-title": "Roghnaigh ball",
   "info": "Leagan",
+  "check-version": "Seiceáil an leagan",
+  "version-check-failed": "Níorbh fhéidir uimhir an leagain a sheiceáil.",
   "initials": "Túslitreacha",
   "invalid-date": "Dáta neamhbhailí",
   "invalid-time": "Am neamhbhailí",

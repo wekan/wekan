@@ -728,6 +728,8 @@
   "import-user-select": "Hitamwo uwukoresha asanzwe ushaka gukoresha nk'uyu munywanyi",
   "importMapMembersAddPopup-title": "Hitamwo umunywanyi",
   "info": "Verisiyo",
+  "check-version": "Shirako akamenyetso Verisiyo",
+  "version-check-failed": "Shirako akamenyetso Verisiyo: Ikosa.",
   "initials": "Inyuguti zitangura amazina",
   "invalid-date": "Itariki si yo",
   "invalid-time": "Igihe si co",

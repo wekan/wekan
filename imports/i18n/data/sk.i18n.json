@@ -728,6 +728,8 @@
   "import-user-select": "Vyberte existující uživatelský účet, kterého chcete použít pro tuto osobu",
   "importMapMembersAddPopup-title": "Zvolte osobu",
   "info": "Verze",
+  "check-version": "Skontrolovať verziu",
+  "version-check-failed": "Číslo verzie sa nepodarilo skontrolovať.",
   "initials": "Iniciály",
   "invalid-date": "Neplatný dátum",
   "invalid-time": "Neplatný čas",

@@ -728,6 +728,8 @@
   "import-user-select": "మీరు ఈ సభ్యునిగా ఉపయోగించాలనుకుంటున్న మీ ప్రస్తుత వినియోగదారుని ఎంచుకోండి",
   "importMapMembersAddPopup-title": "సభ్యుడిని ఎంచుకోండి",
   "info": "వెర్షన్",
+  "check-version": "తనిఖీ చేయండి వెర్షన్",
+  "version-check-failed": "తనిఖీ చేయండి వెర్షన్: లోపం.",
   "initials": "ప్రారంభ అక్షరాలు",
   "invalid-date": "చెల్లని తేదీ",
   "invalid-time": "చెల్లని సమయం",

@@ -728,6 +728,8 @@
   "import-user-select": "Velg eksisterende Bruker som skal tilknyttes dette Medlemmet",
   "importMapMembersAddPopup-title": "Velg Medlem",
   "info": "Versjon",
+  "check-version": "Sjekk versjon",
+  "version-check-failed": "Det var ikke mulig å sjekke versjonsnummeret.",
   "initials": "Initialer",
   "invalid-date": "Ugyldig dato",
   "invalid-time": "Ugyldig tid",

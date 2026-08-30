@@ -728,6 +728,8 @@
   "import-user-select": "Xicpehpena motlacatl onca tlen ticnequi tictequihuis quemeh inin tlacatl",
   "importMapMembersAddPopup-title": "Xicpehpena tlacatl",
   "info": "Tlamachiliztli",
+  "check-version": "Xicmachioti Tlamachiliztli",
+  "version-check-failed": "Xicmachioti Tlamachiliztli: Tlahtlacolli.",
   "initials": "Tocayotl achto tlahtoltin",
   "invalid-date": "Tonalli amo cualli",
   "invalid-time": "Cahuitl amo cualli",

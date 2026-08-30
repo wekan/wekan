@@ -728,6 +728,8 @@
   "import-user-select": "Бу кыттыылаах быһыытынан туһанар баар киһигин тал",
   "importMapMembersAddPopup-title": "Кыттыылааҕы тал",
   "info": "Барыл",
+  "check-version": "Бэлиэтээ Барыл",
+  "version-check-failed": "Бэлиэтээ Барыл: Алҕас.",
   "initials": "Аат бастакы буукубалара",
   "invalid-date": "Күн сыыһа",
   "invalid-time": "Кэм сыыһа",

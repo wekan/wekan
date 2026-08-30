@@ -728,6 +728,8 @@
   "import-user-select": "Выберыце існуючага карыстальніка, якога вы хочаце выкарыстаць як гэтага ўдзельніка",
   "importMapMembersAddPopup-title": "Выберыце ўдзельніка",
   "info": "Версія",
+  "check-version": "Адзначыць Версія",
+  "version-check-failed": "Адзначыць Версія: Памылка.",
   "initials": "Ініцыялы",
   "invalid-date": "Няправільная дата",
   "invalid-time": "Няправільны час",

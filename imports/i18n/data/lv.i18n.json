@@ -728,6 +728,8 @@
   "import-user-select": "Izvēlieties kuru no esošajiem dalībniekiem izmantot kā šo lietotāju",
   "importMapMembersAddPopup-title": "Izvēlēties dalībnieku",
   "info": "Versija",
+  "check-version": "Pārbaudīt versiju",
+  "version-check-failed": "Neizdevās pārbaudīt versijas numuru.",
   "initials": "Iniciāļi",
   "invalid-date": "Nederīgs datums",
   "invalid-time": "Nederīgs laiks",

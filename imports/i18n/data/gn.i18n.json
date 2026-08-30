@@ -728,6 +728,8 @@
   "import-user-select": "Eiporavo ne puruhára oĩmava reipuruséva ko rehegua ramo",
   "importMapMembersAddPopup-title": "Eiporavo rehegua",
   "info": "Mbojuehe",
+  "check-version": "Emongurusu Mbojuehe",
+  "version-check-failed": "Emongurusu Mbojuehe: Javy.",
   "initials": "Tai ñepyrũ",
   "invalid-date": "Ára ndoikóiva",
   "invalid-time": "Aravo ndoikóiva",

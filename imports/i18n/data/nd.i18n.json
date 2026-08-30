@@ -728,6 +728,8 @@
   "import-user-select": "Khetha umsebenzisi wakho okhona ofuna ukumsebenzisa njengaleli lunga",
   "importMapMembersAddPopup-title": "Khetha ilunga",
   "info": "Inguqulo",
+  "check-version": "Hlola Inguqulo",
+  "version-check-failed": "Hlola Inguqulo: Iphutha.",
   "initials": "Izinhlamvu zokuqala",
   "invalid-date": "Usuku alusebenzi",
   "invalid-time": "Isikhathi asisebenzi",

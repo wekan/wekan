@@ -728,6 +728,8 @@
   "import-user-select": "Был ағза урынына ҡулланасаҡ булған ҡулланыусығыҙҙы һайлағыҙ",
   "importMapMembersAddPopup-title": "Ағзаны һайларға",
   "info": "Версия",
+  "check-version": "Билдәләргә Версия",
+  "version-check-failed": "Билдәләргә Версия: Хата.",
   "initials": "Инициалдар",
   "invalid-date": "Дата дөрөҫ түгел",
   "invalid-time": "Ваҡыт дөрөҫ түгел",

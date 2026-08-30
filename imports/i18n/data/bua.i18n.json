@@ -728,6 +728,8 @@
   "import-user-select": "Энэ гишүүн болгожо хэрэглэхэ байгаа хэрэглэгчэеэ шэлэгты",
   "importMapMembersAddPopup-title": "Гишүүн шэлэхэ",
   "info": "Хубилалта",
+  "check-version": "Тэмдэглэхэ Хубилалта",
+  "version-check-failed": "Тэмдэглэхэ Хубилалта: Алдуу.",
   "initials": "Эхин үзэгүүд",
   "invalid-date": "Буруу үдэр",
   "invalid-time": "Буруу саг",

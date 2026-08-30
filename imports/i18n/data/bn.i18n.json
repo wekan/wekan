@@ -728,6 +728,8 @@
   "import-user-select": "এই সদস্য হিসেবে ব্যবহার করতে আপনার বিদ্যমান ব্যবহারকারী বেছে নিন",
   "importMapMembersAddPopup-title": "সদস্য নির্বাচন করুন",
   "info": "সংস্করণ",
+  "check-version": "চিহ্নিত করুন সংস্করণ",
+  "version-check-failed": "চিহ্নিত করুন সংস্করণ: ত্রুটি.",
   "initials": "আদ্যক্ষর",
   "invalid-date": "অবৈধ তারিখ",
   "invalid-time": "অবৈধ সময়",

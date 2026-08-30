@@ -728,6 +728,8 @@
   "import-user-select": "Изаберите Вашег познатог сарадника којег желите да корисите као овог",
   "importMapMembersAddPopup-title": "Изабери сарадника",
   "info": "Верзија",
+  "check-version": "Провери верзију",
+  "version-check-failed": "Није било могуће проверити број верзије.",
   "initials": "Иницијали",
   "invalid-date": "Нетачан датум",
   "invalid-time": "Нетачно време",

@@ -728,6 +728,8 @@
   "import-user-select": "Khetsa umsebentisi wakho lokhona lofuna kumsebentisa njengalelilunga",
   "importMapMembersAddPopup-title": "Khetsa lilunga",
   "info": "Inguqulo",
+  "check-version": "Hlola Inguqulo",
+  "version-check-failed": "Hlola Inguqulo: Liphutsa.",
   "initials": "Tinhlavu Tekucala",
   "invalid-date": "Lusuku alukavumeleki",
   "invalid-time": "Sikhatsi asikavumeleki",

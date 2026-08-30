@@ -728,6 +728,8 @@
   "import-user-select": "Välj din befintliga användare du vill använda som den här medlemmen",
   "importMapMembersAddPopup-title": "Välj medlem",
   "info": "Versionsinformation",
+  "check-version": "Kontrollera version",
+  "version-check-failed": "Det gick inte att kontrollera versionsnumret.",
   "initials": "Initialer",
   "invalid-date": "Ogiltigt datum",
   "invalid-time": "Ogiltig tid",

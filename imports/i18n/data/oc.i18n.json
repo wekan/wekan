@@ -728,6 +728,8 @@
   "import-user-select": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
   "importMapMembersAddPopup-title": "Seleccionar un participant",
   "info": "Vesion",
+  "check-version": "Cocher Vesion",
+  "version-check-failed": "Cocher Vesion: Erreur.",
   "initials": "Iniciala",
   "invalid-date": "Data invalida",
   "invalid-time": "Temps invalid",

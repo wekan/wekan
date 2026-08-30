@@ -728,6 +728,8 @@
   "import-user-select": "Осы мүше ретінде пайдаланғыңыз келетін бар пайдаланушыны таңдаңыз",
   "importMapMembersAddPopup-title": "Мүшені таңдау",
   "info": "Нұсқа",
+  "check-version": "Белгілеу Нұсқа",
+  "version-check-failed": "Белгілеу Нұсқа: Қате.",
   "initials": "Бас әріптер",
   "invalid-date": "Күн жарамсыз",
   "invalid-time": "Уақыт жарамсыз",

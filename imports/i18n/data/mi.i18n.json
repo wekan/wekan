@@ -728,6 +728,8 @@
   "import-user-select": "Kōwhiria tō kaiwhakamahi tīariari hei whakamahi mō tēnei mema",
   "importMapMembersAddPopup-title": "Tīpako mema",
   "info": "Putanga",
+  "check-version": "Tohua Putanga",
+  "version-check-failed": "Tohua Putanga: Hapa.",
   "initials": "Ngā pū tuatahi",
   "invalid-date": "Rā muhu",
   "invalid-time": "Wā muhu",

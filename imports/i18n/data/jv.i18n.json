@@ -728,6 +728,8 @@
   "import-user-select": "Pilih pangguna sing wis ana kanggo digunakake minangka anggota iki",
   "importMapMembersAddPopup-title": "Pilih anggota",
   "info": "Versi",
+  "check-version": "Centhang Versi",
+  "version-check-failed": "Centhang Versi: Kaluputan.",
   "initials": "Inisial",
   "invalid-date": "Tanggal ora sah",
   "invalid-time": "Wektu ora sah",

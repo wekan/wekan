@@ -728,6 +728,8 @@
   "import-user-select": "ಈ ಸದಸ್ಯರಾಗಿ ಬಳಸಲು ನಿಮ್ಮ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
   "importMapMembersAddPopup-title": "ಸದಸ್ಯರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
   "info": "ಆವೃತ್ತಿ",
+  "check-version": "ಗುರುತಿಸಿ ಆವೃತ್ತಿ",
+  "version-check-failed": "ಗುರುತಿಸಿ ಆವೃತ್ತಿ: ದೋಷ.",
   "initials": "ಮೊದಲಕ್ಷರಗಳು",
   "invalid-date": "ಅಮಾನ್ಯ ದಿನಾಂಕ",
   "invalid-time": "ಅಮಾನ್ಯ ಸಮಯ",

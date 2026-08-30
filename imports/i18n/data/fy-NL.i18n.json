@@ -728,6 +728,8 @@
   "import-user-select": "Kies jo besteande brûker dy't jo wolle brûke as dit lid",
   "importMapMembersAddPopup-title": "Selektearje lid",
   "info": "Ferzje",
+  "check-version": "Kontrôle Ferzje",
+  "version-check-failed": "Kontrôle Ferzje: Fersin.",
   "initials": "Inisjalen",
   "invalid-date": "Unjildige datum",
   "invalid-time": "Unjildige tiid",

@@ -728,6 +728,8 @@
   "import-user-select": "Selecciona el miembro existe que quieres usar como este miembro.",
   "importMapMembersAddPopup-title": "Seleccionar miembro",
   "info": "Versión",
+  "check-version": "Marcar Versión",
+  "version-check-failed": "Marcar Versión: Fallu.",
   "initials": "Iniciales",
   "invalid-date": "Fecha no válida",
   "invalid-time": "Tiempo no válido",

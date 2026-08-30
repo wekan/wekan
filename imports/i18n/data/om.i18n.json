@@ -728,6 +728,8 @@
   "import-user-select": "Fayyadamaa kee jiru miseensa kanaaf fayyadamuu barbaaddu fili",
   "importMapMembersAddPopup-title": "Miseensa fili",
   "info": "Gosa",
+  "check-version": "Mallatteessi Gosa",
+  "version-check-failed": "Mallatteessi Gosa: Dogoggora.",
   "initials": "Qubee jalqabaa",
   "invalid-date": "Guyyaan sirrii miti",
   "invalid-time": "Yeroon sirrii miti",

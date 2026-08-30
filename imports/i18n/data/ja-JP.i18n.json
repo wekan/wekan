@@ -728,6 +728,8 @@
   "import-user-select": "このメンバーとして使用したいユーザーを選択してください",
   "importMapMembersAddPopup-title": "メンバーを選択",
   "info": "バージョン",
+  "check-version": "バージョンを確認",
+  "version-check-failed": "バージョン番号を確認できませんでした。",
   "initials": "イニシャル",
   "invalid-date": "無効な日付",
   "invalid-time": "無効な時間",

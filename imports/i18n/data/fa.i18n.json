@@ -728,6 +728,8 @@
   "import-user-select": "کاربر فعلی خود را انتخاب نمایید اگر میخواهیپ بعنوان کاربر باشد",
   "importMapMembersAddPopup-title": "انتخاب کاربر",
   "info": "نسخه",
+  "check-version": "بررسی نسخه",
+  "version-check-failed": "بررسی شمارهٔ نسخه امکان‌پذیر نبود.",
   "initials": "تخصیصات اولیه",
   "invalid-date": "تاریخ نامعتبر",
   "invalid-time": "زمان نامعتبر",

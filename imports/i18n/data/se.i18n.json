@@ -728,6 +728,8 @@
   "import-user-select": "Vállje dálá geavaheaddji gean háliidat geavahit dán lahttun",
   "importMapMembersAddPopup-title": "Vállje lahtu",
   "info": "Veršuvdna",
+  "check-version": "Merke Veršuvdna",
+  "version-check-failed": "Merke Veršuvdna: Meattáhus.",
   "initials": "Álgobustávat",
   "invalid-date": "Boasttu dáhton",
   "invalid-time": "Boasttu áigi",

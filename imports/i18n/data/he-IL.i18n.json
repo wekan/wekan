@@ -728,6 +728,8 @@
   "import-user-select": "נא לבחור את המשתמש ב־Wekan אותו ברצונך למפות אל חבר זה",
   "importMapMembersAddPopup-title": "בחירת משתמש",
   "info": "גרסה",
+  "check-version": "בדיקת גרסה",
+  "version-check-failed": "לא ניתן היה לבדוק את מספר הגרסה.",
   "initials": "ראשי תיבות",
   "invalid-date": "תאריך שגוי",
   "invalid-time": "זמן שגוי",

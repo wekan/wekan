@@ -728,6 +728,8 @@
   "import-user-select": "Dewis dha usyer eus seulabrys may hwre'ta devnydhya avel an esel ma",
   "importMapMembersAddPopup-title": "Dewis esel",
   "info": "Versyon",
+  "check-version": "Checkya Versyon",
+  "version-check-failed": "Checkya Versyon: Kammwrians.",
   "initials": "Lytherennow kynsa",
   "invalid-date": "Dedhyas anewn",
   "invalid-time": "Termyn anewn",

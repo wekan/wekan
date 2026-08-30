@@ -728,6 +728,8 @@
   "import-user-select": "Pili-a an imo eksisting nga tagagamit nga karuyag mo gamiton bilang ini nga membro",
   "importMapMembersAddPopup-title": "Pili-a an membro",
   "info": "Bersyon",
+  "check-version": "I-check Bersyon",
+  "version-check-failed": "I-check Bersyon: Erreur.",
   "initials": "Mga Inisyal",
   "invalid-date": "Diri balido nga petsa",
   "invalid-time": "Diri balido nga oras",

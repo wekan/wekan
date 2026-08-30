@@ -728,6 +728,8 @@
   "import-user-select": "Yan olumulo ti o wa tẹlẹ ti o fẹ lati lo bi ọmọ ẹgbẹ yii",
   "importMapMembersAddPopup-title": "Yan egbe",
   "info": "Ẹya",
+  "check-version": "Ṣayẹwo Ẹya",
+  "version-check-failed": "Ṣayẹwo Ẹya: Asise.",
   "initials": "Awọn ibẹrẹ",
   "invalid-date": "Ọjọ ti ko tọ",
   "invalid-time": "Akoko ti ko tọ",

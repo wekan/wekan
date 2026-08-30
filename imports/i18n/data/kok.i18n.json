@@ -728,6 +728,8 @@
   "import-user-select": "ह्या वांगड्या खातीर वापरपाचो तुमचो अस्तित्वांतलो वापरपी निवडात",
   "importMapMembersAddPopup-title": "वांगडी निवडात",
   "info": "आवृत्ती",
+  "check-version": "तपासात आवृत्ती",
+  "version-check-failed": "तपासात आवृत्ती: चूक.",
   "initials": "आद्याक्षरां",
   "invalid-date": "अवैध तारीख",
   "invalid-time": "अवैध वेळ",

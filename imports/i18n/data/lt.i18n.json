@@ -728,6 +728,8 @@
   "import-user-select": "Pasirinkite esamą vartotoją, kurį norite naudoti kaip šį narį",
   "importMapMembersAddPopup-title": "Pasirinkite narį",
   "info": "Versija",
+  "check-version": "Tikrinti versiją",
+  "version-check-failed": "Nepavyko patikrinti versijos numerio.",
   "initials": "Inicialai",
   "invalid-date": "Netinkama data",
   "invalid-time": "Neteisingas laikas",

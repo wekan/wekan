@@ -728,6 +728,8 @@
   "import-user-select": "Veldu núverandi notanda sem þú vilt nota sem þennan meðlim",
   "importMapMembersAddPopup-title": "Velja meðlim",
   "info": "Útgáfa",
+  "check-version": "Athuga útgáfu",
+  "version-check-failed": "Ekki var hægt að athuga útgáfunúmerið.",
   "initials": "Upphafsstafir",
   "invalid-date": "Ógild dagsetning",
   "invalid-time": "Ógildur tími",

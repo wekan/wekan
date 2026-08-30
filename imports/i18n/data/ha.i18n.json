@@ -728,6 +728,8 @@
   "import-user-select": "Zaɓi mai amfani naka da ke akwai wanda kake son amfani da shi a matsayin wannan memba",
   "importMapMembersAddPopup-title": "Zaɓi memba",
   "info": "Siga",
+  "check-version": "Yi alama Siga",
+  "version-check-failed": "Yi alama Siga: Kuskure.",
   "initials": "Haruffan farko",
   "invalid-date": "Kwanan wata mara inganci",
   "invalid-time": "Lokaci mara inganci",

@@ -728,6 +728,8 @@
   "import-user-select": "เลือกผู้ใช้ที่มีอยู่ซึ่งคุณต้องการใช้เป็นสมาชิกนี้",
   "importMapMembersAddPopup-title": "เลือกสมาชิก",
   "info": "เวอร์ชัน",
+  "check-version": "ตรวจสอบเวอร์ชัน",
+  "version-check-failed": "ไม่สามารถตรวจสอบหมายเลขเวอร์ชันได้",
   "initials": "ชื่อย่อ",
   "invalid-date": "วันที่ไม่ถูกต้อง",
   "invalid-time": "เวลาไม่ถูกต้อง",

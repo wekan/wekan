@@ -728,6 +728,8 @@
   "import-user-select": "Reih dty ymmydeyr t'ayn t'ou gearree ymmydey myr yn oltey shoh",
   "importMapMembersAddPopup-title": "Reih oltey",
   "info": "Sorçh",
+  "check-version": "Scrut Sorçh",
+  "version-check-failed": "Scrut Sorçh: Marranys.",
   "initials": "Kied lettyraghyn",
   "invalid-date": "Date neu-chiart",
   "invalid-time": "Traa neu-chiart",

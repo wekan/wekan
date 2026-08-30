@@ -728,6 +728,8 @@
   "import-user-select": "ཚོགས་མི་འདིའི་ཚབ་ཏུ་སྤྱོད་པའི་ཡོད་ཟིན་སྤྱོད་མཁན་འདེམས།",
   "importMapMembersAddPopup-title": "ཚོགས་མི་འདེམས།",
   "info": "ཐོན་རིམ།",
+  "check-version": "རྟགས་འགོད། ཐོན་རིམ།",
+  "version-check-failed": "རྟགས་འགོད། ཐོན་རིམ།: ནོར་འཁྲུལ།.",
   "initials": "མིང་བསྡུས།",
   "invalid-date": "ནུས་མེད་ཚེས་གྲངས།",
   "invalid-time": "ནུས་མེད་དུས་ཚོད།",

@@ -728,6 +728,8 @@
   "import-user-select": "Izberite obstoječega uporabnika, ki ga želite uporabiti kot tega člana.",
   "importMapMembersAddPopup-title": "Izberite člana",
   "info": "Različica",
+  "check-version": "Preveri različico",
+  "version-check-failed": "Številke različice ni bilo mogoče preveriti.",
   "initials": "Inicialke",
   "invalid-date": "Neveljaven datum",
   "invalid-time": "Neveljaven čas",

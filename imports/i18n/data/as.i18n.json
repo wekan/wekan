@@ -728,6 +728,8 @@
   "import-user-select": "এই সদস্য হিচাপে ব্যৱহাৰ কৰিব বিচৰা বিদ্যমান ব্যৱহাৰকাৰী বাছক",
   "importMapMembersAddPopup-title": "সদস্য বাছক",
   "info": "সংস্কৰণ",
+  "check-version": "চিহ্নিত কৰক সংস্কৰণ",
+  "version-check-failed": "চিহ্নিত কৰক সংস্কৰণ: ত্ৰুটি.",
   "initials": "আদ্যাক্ষৰ",
   "invalid-date": "অবৈধ তাৰিখ",
   "invalid-time": "অবৈধ সময়",

@@ -728,6 +728,8 @@
   "import-user-select": "ئىشلەتمەكچى بولغان ئىشلەتكۈچىنى بۇ ئەزا قىلىپ تاللاڭ",
   "importMapMembersAddPopup-title": "ئەزا تاللاڭ",
   "info": "نەشرى",
+  "check-version": "تەكشۈرۈڭ نەشرى",
+  "version-check-failed": "تەكشۈرۈڭ نەشرى: خاتالىق.",
   "initials": "باش ھەرپلەر",
   "invalid-date": "ئىناۋەتسىز ۋاقىت",
   "invalid-time": "ئىناۋەتسىز ۋاقىت",

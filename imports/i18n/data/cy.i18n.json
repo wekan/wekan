@@ -728,6 +728,8 @@
   "import-user-select": "Dewiswch eich defnyddiwr presennol yr ydych am ei ddefnyddio fel yr aelod hwn",
   "importMapMembersAddPopup-title": "Dewiswch aelod",
   "info": "Fersiwn",
+  "check-version": "Gwirio’r fersiwn",
+  "version-check-failed": "Nid oedd modd gwirio rhif y fersiwn.",
   "initials": "Llythrennau blaen",
   "invalid-date": "Dyddiad annilys",
   "invalid-time": "Amser annilys",

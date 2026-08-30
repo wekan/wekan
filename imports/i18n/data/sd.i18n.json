@@ -728,6 +728,8 @@
   "import-user-select": "هن ميمبر لاءِ استعمال ڪرڻ وارو موجود استعمال ڪندڙ چونڊيو",
   "importMapMembersAddPopup-title": "ميمبر چونڊيو",
   "info": "نسخو",
+  "check-version": "نشان لڳايو نسخو",
+  "version-check-failed": "نشان لڳايو نسخو: غلطي.",
   "initials": "شروعاتي اکر",
   "invalid-date": "غلط تاريخ",
   "invalid-time": "غلط وقت",

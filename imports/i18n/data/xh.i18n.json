@@ -728,6 +728,8 @@
   "import-user-select": "Khetha umsebenzisi wakho okhoyo ofuna ukumsebenzisa njengelungu",
   "importMapMembersAddPopup-title": "Khetha ilungu",
   "info": "Inguqulelo",
+  "check-version": "Khangela Inguqulelo",
+  "version-check-failed": "Khangela Inguqulelo: Impazamo.",
   "initials": "Abaqalayo",
   "invalid-date": "Umhla ongasebenziyo",
   "invalid-time": "Ixesha elingasebenziyo",

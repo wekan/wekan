@@ -728,6 +728,8 @@
   "import-user-select": "یَتھ ممبرس پٲٹھۍ استعمال کرنہٕ خٲطرٕ پنُن موجودٕ صارف ژٲریو",
   "importMapMembersAddPopup-title": "ممبر ژٲریو",
   "info": "ورژن",
+  "check-version": "نشان کریو ورژن",
+  "version-check-failed": "نشان کریو ورژن: غلطی.",
   "initials": "ابتدٲیی حرف",
   "invalid-date": "غلط تٲریخ",
   "invalid-time": "غلط وقت",

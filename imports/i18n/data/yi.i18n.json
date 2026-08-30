@@ -728,6 +728,8 @@
   "import-user-select": "קלייַבן דיין יגזיסטינג באַניצער איר ווילן צו נוצן ווי דעם מיטגליד",
   "importMapMembersAddPopup-title": "אויסקלייַבן מיטגליד",
   "info": "ווערסיע",
+  "check-version": "טשעק ווערסיע",
+  "version-check-failed": "טשעק ווערסיע: טעות.",
   "initials": "איניציאלן",
   "invalid-date": "נישט גילטיק דאַטע",
   "invalid-time": "אומגילטיגע צייט",

@@ -728,6 +728,8 @@
   "import-user-select": "აირჩიეთ არსებული მომხმარებელი, რომელიც ამ წევრად გამოიყენება",
   "importMapMembersAddPopup-title": "აირჩიეთ წევრი",
   "info": "ვერსია",
+  "check-version": "მონიშვნა ვერსია",
+  "version-check-failed": "მონიშვნა ვერსია: შეცდომა.",
   "initials": "ინიციალები",
   "invalid-date": "არასწორი თარიღი",
   "invalid-time": "არასწორი დრო",

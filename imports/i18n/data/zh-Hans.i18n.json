@@ -728,6 +728,8 @@
   "import-user-select": "为这个成员选择您已经存在的用户",
   "importMapMembersAddPopup-title": "选择成员",
   "info": "版本",
+  "check-version": "检查版本",
+  "version-check-failed": "无法检查版本号。",
   "initials": "缩写",
   "invalid-date": "无效日期",
   "invalid-time": "非法时间",

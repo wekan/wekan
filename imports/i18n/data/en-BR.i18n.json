@@ -728,6 +728,8 @@
   "import-user-select": "Pick your existing user you want to use as this member",
   "importMapMembersAddPopup-title": "Select member",
   "info": "Version",
+  "check-version": "Check Version",
+  "version-check-failed": "It was not possible to check the version number.",
   "initials": "Initials",
   "invalid-date": "Invalid date",
   "invalid-time": "Invalid time",

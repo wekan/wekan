@@ -728,6 +728,8 @@
   "import-user-select": "यस सदस्यका रूपमा प्रयोग गर्न चाहेको अवस्थित प्रयोगकर्ता छान्नुहोस्",
   "importMapMembersAddPopup-title": "सदस्य चयन गर्नुहोस्",
   "info": "संस्करण",
+  "check-version": "चिन्ह लगाउनुहोस् संस्करण",
+  "version-check-failed": "चिन्ह लगाउनुहोस् संस्करण: त्रुटि.",
   "initials": "नामको छोटकरी",
   "invalid-date": "अमान्य मिति",
   "invalid-time": "अमान्य समय",

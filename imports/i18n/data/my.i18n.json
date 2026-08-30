@@ -728,6 +728,8 @@
   "import-user-select": "ဤအဖွဲ့ဝင်အဖြစ် သုံးလိုသော ရှိပြီးသားအသုံးပြုသူကို ရွေးပါ",
   "importMapMembersAddPopup-title": "အဖွဲ့ဝင် ရွေးရန်",
   "info": "ဗားရှင်း",
+  "check-version": "အမှန်ခြစ်ရန် ဗားရှင်း",
+  "version-check-failed": "အမှန်ခြစ်ရန် ဗားရှင်း: အမှား.",
   "initials": "အမည်အတိုကောက်",
   "invalid-date": "ရက်စွဲ မမှန်ပါ",
   "invalid-time": "အချိန် မမှန်ပါ",

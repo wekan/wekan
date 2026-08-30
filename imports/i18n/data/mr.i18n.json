@@ -728,6 +728,8 @@
   "import-user-select": "या सदस्यासाठी वापरायचा तुमचा विद्यमान वापरकर्ता निवडा",
   "importMapMembersAddPopup-title": "सदस्य निवडा",
   "info": "आवृत्ती",
+  "check-version": "निवडा आवृत्ती",
+  "version-check-failed": "निवडा आवृत्ती: त्रुटी.",
   "initials": "आद्याक्षरे",
   "invalid-date": "अवैध तारीख",
   "invalid-time": "अवैध वेळ",

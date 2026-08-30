@@ -728,6 +728,8 @@
   "import-user-select": "Wählen Sie den bestehenden Benutzer aus, den Sie für dieses Mitglied verwenden wollen.",
   "importMapMembersAddPopup-title": "Mitglied auswählen",
   "info": "mI' chu'",
+  "check-version": "Markieren mI' chu'",
+  "version-check-failed": "Markieren mI' chu': Fehler.",
   "initials": "Initialen",
   "invalid-date": "Ungültiges Datum",
   "invalid-time": "Ungültige Zeitangabe",

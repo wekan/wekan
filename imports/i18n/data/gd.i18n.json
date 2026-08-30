@@ -728,6 +728,8 @@
   "import-user-select": "Tagh an cleachdaiche a tha agad mu thràth a tha thu airson a chleachdadh mar am ball seo",
   "importMapMembersAddPopup-title": "Tagh ball",
   "info": "Tionndadh",
+  "check-version": "Comharraich Tionndadh",
+  "version-check-failed": "Comharraich Tionndadh: Mearachd.",
   "initials": "Litrichean-tòiseachaidh",
   "invalid-date": "Ceann-là mì-dhligheach",
   "invalid-time": "Àm mì-dhligheach",

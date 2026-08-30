@@ -728,6 +728,8 @@
   "import-user-select": "Digitaka na nomu vakayagataka sa tiko mo vakayagataka me lewe oqo",
   "importMapMembersAddPopup-title": "Digitaka na lewe ni soqosoqo",
   "info": "Mataqali",
+  "check-version": "Digitaka Mataqali",
+  "version-check-failed": "Digitaka Mataqali: Cala.",
   "initials": "Matai ni matanivola",
   "invalid-date": "Siga sega ni vakabau",
   "invalid-time": "Gauna sega ni vakabau",

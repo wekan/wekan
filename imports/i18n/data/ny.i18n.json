@@ -728,6 +728,8 @@
   "import-user-select": "Sankhani wogwiritsa ntchito amene alipo yemwe mukufuna kugwiritsa ntchito ngati membala uyu",
   "importMapMembersAddPopup-title": "Sankhani membala",
   "info": "Mtundu",
+  "check-version": "Unikani Mtundu",
+  "version-check-failed": "Unikani Mtundu: Cholakwika.",
   "initials": "Zilembo zoyambira",
   "invalid-date": "Deti losalondola",
   "invalid-time": "Nthawi yosalondola",

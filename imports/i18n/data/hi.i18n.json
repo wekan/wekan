@@ -728,6 +728,8 @@
   "import-user-select": "इस सदस्य के रूप में उपयोग करने के लिए अपना मौजूदा उपयोगकर्ता चुनें",
   "importMapMembersAddPopup-title": "सदस्य चुनें",
   "info": "संस्करण",
+  "check-version": "संस्करण जाँचें",
+  "version-check-failed": "संस्करण संख्या की जाँच करना संभव नहीं था।",
   "initials": "आद्याक्षर",
   "invalid-date": "अमान्य तिथि",
   "invalid-time": "अमान्य समय",

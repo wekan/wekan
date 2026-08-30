@@ -728,6 +728,8 @@
   "import-user-select": "Trieu l'usuari existent que voleu utilitzar com a membre",
   "importMapMembersAddPopup-title": "Selecciona un usuari",
   "info": "Versió",
+  "check-version": "Comprova la versió",
+  "version-check-failed": "No ha estat possible comprovar el número de versió.",
   "initials": "Inicials",
   "invalid-date": "Dades invàlides",
   "invalid-time": "Temps Invàlid",

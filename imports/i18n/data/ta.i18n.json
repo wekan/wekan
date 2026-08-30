@@ -728,6 +728,8 @@
   "import-user-select": "இந்த உறுப்பினராகப் பயன்படுத்த விரும்பும் ஏற்கெனவே உள்ள பயனரைத் தேர்ந்தெடுக்கவும்",
   "importMapMembersAddPopup-title": "உறுப்பினரைத் தேர்ந்தெடு",
   "info": "பதிப்பு",
+  "check-version": "குறி பதிப்பு",
+  "version-check-failed": "குறி பதிப்பு: பிழை.",
   "initials": "முதலெழுத்துகள்",
   "invalid-date": "தவறான தேதி",
   "invalid-time": "தவறான நேரம்",

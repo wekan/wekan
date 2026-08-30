@@ -728,6 +728,8 @@
   "import-user-select": "Bu üye olarak kullanmak istediğiniz mevcut kullanıcınızı seçin",
   "importMapMembersAddPopup-title": "Üye seç",
   "info": "Sürüm",
+  "check-version": "Sürümü kontrol et",
+  "version-check-failed": "Sürüm numarası kontrol edilemedi.",
   "initials": "İlk Harfleri",
   "invalid-date": "Geçersiz tarih",
   "invalid-time": "Geçersiz zaman",

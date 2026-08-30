@@ -728,6 +728,8 @@
   "import-user-select": "Ushbu aʼzo sifatida foydalanmoqchi boʻlgan mavjud foydalanuvchingizni tanlang",
   "importMapMembersAddPopup-title": "A'zoni tanlang",
   "info": "Versiya",
+  "check-version": "Tekshirish Versiya",
+  "version-check-failed": "Tekshirish Versiya: Xato.",
   "initials": "Bosh harflar",
   "invalid-date": "Yaroqsiz sana",
   "invalid-time": "Yaroqsiz vaqt",

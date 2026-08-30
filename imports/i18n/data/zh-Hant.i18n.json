@@ -728,6 +728,8 @@
   "import-user-select": "選擇現有使用者作為成員",
   "importMapMembersAddPopup-title": "選擇成員",
   "info": "版本",
+  "check-version": "检查版本",
+  "version-check-failed": "无法检查版本号。",
   "initials": "縮寫",
   "invalid-date": "無效的日期",
   "invalid-time": "非法的時間",

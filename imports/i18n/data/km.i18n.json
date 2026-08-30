@@ -728,6 +728,8 @@
   "import-user-select": "ជ្រើសរើសអ្នកប្រើប្រាស់ដែលមានស្រាប់របស់អ្នកដែលអ្នកចង់ប្រើជាសមាជិកនេះ។",
   "importMapMembersAddPopup-title": "ជ្រើសរើសសមាជិក",
   "info": "កំណែ",
+  "check-version": "ពិនិត្យ កំណែ",
+  "version-check-failed": "ពិនិត្យ កំណែ: កំហុស.",
   "initials": "បឋម",
   "invalid-date": "កាលបរិច្ឆេទ​មិន​ត្រឹមត្រូវ។",
   "invalid-time": "ពេលវេលាមិនត្រឹមត្រូវ",

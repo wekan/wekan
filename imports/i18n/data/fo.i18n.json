@@ -728,6 +728,8 @@
   "import-user-select": "Vel verandi brúkaran, sum tú vilt nýta sum henda limin",
   "importMapMembersAddPopup-title": "Vel lim",
   "info": "Útgáva",
+  "check-version": "Haka av Útgáva",
+  "version-check-failed": "Haka av Útgáva: Villa.",
   "initials": "Forstavar",
   "invalid-date": "Ógild dagfesting",
   "invalid-time": "Ógild tíð",

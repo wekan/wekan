@@ -728,6 +728,8 @@
   "import-user-select": "Selecciona el miembro existe que quieres usar como este miembro.",
   "importMapMembersAddPopup-title": "Seleccionar miembro",
   "info": "Bertsioa",
+  "check-version": "Egiaztatu bertsioa",
+  "version-check-failed": "Ezin izan da bertsio-zenbakia egiaztatu.",
   "initials": "Inizialak",
   "invalid-date": "Baliogabeko data",
   "invalid-time": "Baliogabeko denbora",

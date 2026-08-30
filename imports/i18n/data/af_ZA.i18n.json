@@ -728,6 +728,8 @@
   "import-user-select": "Kies jou bestaande gebruiker wat jy as hierdie lid wil gebruik",
   "importMapMembersAddPopup-title": "Kies lid",
   "info": "Weergawe",
+  "check-version": "Kontroleer Weergawe",
+  "version-check-failed": "Kontroleer Weergawe: Fout.",
   "initials": "Voorletters",
   "invalid-date": "Ongeldige datum",
   "invalid-time": "Ongeldige tyd",

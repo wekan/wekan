@@ -728,6 +728,8 @@
   "import-user-select": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
   "importMapMembersAddPopup-title": "Sélectionner le participant",
   "info": "الإصدار",
+  "check-version": "Cocher الإصدار",
+  "version-check-failed": "Cocher الإصدار: Erreur.",
   "initials": "أولية",
   "invalid-date": "تاريخ غير صالح",
   "invalid-time": "Heure invalide",

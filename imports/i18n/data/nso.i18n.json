@@ -728,6 +728,8 @@
   "import-user-select": "Kgetha modiriši wa gago yo a lego gona yo o nyakago go mo diriša bjalo ka leloko le",
   "importMapMembersAddPopup-title": "Kgetha leloko",
   "info": "Tokollo",
+  "check-version": "Hlahloba Tokollo",
+  "version-check-failed": "Hlahloba Tokollo: Phošo.",
   "initials": "Ditlhaka tša mathomo",
   "invalid-date": "Letšatšikgwedi ga se la maleba",
   "invalid-time": "Nako ga se ya maleba",

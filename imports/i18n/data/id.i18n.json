@@ -728,6 +728,8 @@
   "import-user-select": "Pilih pengguna sedia ada yang anda mahu gunakan sebagai ahli",
   "importMapMembersAddPopup-title": "Pilih ahli",
   "info": "Versi",
+  "check-version": "Periksa versi",
+  "version-check-failed": "Nomor versi tidak dapat diperiksa.",
   "initials": "Inisial",
   "invalid-date": "Tanggal tidak sah",
   "invalid-time": "Masa tidak sah",

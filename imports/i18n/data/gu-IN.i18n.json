@@ -728,6 +728,8 @@
   "import-user-select": "તમે આ સભ્ય તરીકે ઉપયોગ કરવા માંગો છો તે તમારા વર્તમાન વપરાશકર્તાને પસંદ કરો",
   "importMapMembersAddPopup-title": "સભ્ય પસંદ કરો",
   "info": "સંસ્કરણ",
+  "check-version": "તપાસો સંસ્કરણ",
+  "version-check-failed": "તપાસો સંસ્કરણ: ભૂલ.",
   "initials": "આદ્યાક્ષરો",
   "invalid-date": "અમાન્ય તારીખ",
   "invalid-time": "અમાન્ય સમય",
