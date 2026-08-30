@@ -48,6 +48,11 @@ METEOR_VERSION=$(grep -o 'METEOR@[^ "\\]*' $WEKANREPODIR/.meteor/release | head 
 NODE_VERSION=$(grep -o 'NODE_VERSION=[^ \\]*' $WEKANREPODIR/Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 NPM_VERSION=$(grep -o 'NPM_VERSION=[^ \\]*' $WEKANREPODIR/Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
+# version.txt is the one endpoint used by WeKan's Admin Panel. The install page
+# carries the identical five-line block for people, from the same generator.
+bash "$WEKANREPODIR/releases/update-website-version-info.sh" \
+  "$WEBDIR" "$WEKANREPODIR" "$NEW"
+
 sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VERSION</span>|g" $WEBDIR/install/index.html
 sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VERSION</span>|g" $WEBDIR/install/index.html
 sedi "s|<span id=\"npm-version\">[^<]*</span>|<span id=\"npm-version\">$NPM_VERSION</span>|g" $WEBDIR/install/index.html

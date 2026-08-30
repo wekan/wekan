@@ -1,7 +1,7 @@
 'use strict';
 
 // Unit and source-wiring coverage for Admin Panel / Settings / Version's
-// on-demand GitHub release check. Run: node tests/versionCheck.test.cjs
+// on-demand wekan.fi manifest check. Run: node tests/versionCheck.test.cjs
 
 const assert = require('assert');
 const fs = require('fs');
@@ -9,7 +9,7 @@ const path = require('path');
 
 (async () => {
   const root = path.resolve(__dirname, '..');
-  const { compareVersions, validGitHubRelease, versionParts } =
+  const { compareVersions, parseVersionManifest, versionParts } =
     await import('../models/lib/versionCheck.js');
   const server = fs.readFileSync(path.join(root, 'server/statistics.js'), 'utf8');
   const client = fs.readFileSync(
@@ -28,55 +28,47 @@ const path = require('path');
   assert.strictEqual(compareVersions('12.0', 'v11.30'), 1);
   assert.strictEqual(compareVersions('—', 'v11.30'), null);
 
-  const good = {
-    tag_name: 'v11.30',
-    html_url: 'https://github.com/wekan/wekan/releases/tag/v11.30',
-    draft: false,
-    prerelease: false,
-  };
-  assert.deepStrictEqual(validGitHubRelease('wekan/wekan', good), {
-    tag: 'v11.30',
-    url: good.html_url,
+  const good = [
+    'WeKan 11.30',
+    'FerretDB 1.64.0',
+    'Meteor 3.5.2-beta.0',
+    'Node 24.20.0',
+    'NPM 11.12.1',
+  ].join('\n');
+  assert.deepStrictEqual(parseVersionManifest(`${good}\r\n`), {
+    text: good,
+    versions: {
+      wekan: '11.30', ferretdb: '1.64.0', meteor: '3.5.2-beta.0',
+      node: '24.20.0', npm: '11.12.1',
+    },
   });
-  assert.strictEqual(validGitHubRelease('wekan/wekan', { ...good, draft: true }), null);
-  assert.strictEqual(validGitHubRelease('wekan/wekan', { ...good, prerelease: true }), null);
-  assert.strictEqual(validGitHubRelease('wekan/wekan', {
-    ...good,
-    html_url: 'https://attacker.example/releases/tag/v11.30',
-  }), null);
-  assert.strictEqual(validGitHubRelease('wekan/wekan', {
-    ...good,
-    tag_name: 'not-a-version',
-  }), null);
-  assert.strictEqual(validGitHubRelease('wekan/wekan', {
-    ...good,
-    tag_name: 'v11.30<script>alert(1)</script>',
-  }), null, 'markup cannot enter the displayed release tag');
-  assert.strictEqual(validGitHubRelease('wekan/wekan', {
-    ...good,
-    html_url: `${good.html_url}/unexpected`,
-  }), null, 'the release URL must exactly match the sanitized tag');
+  assert.strictEqual(parseVersionManifest(good.replace('FerretDB', 'MongoDB')), null);
+  assert.strictEqual(parseVersionManifest(`${good}\nUnexpected 1.0`), null);
+  assert.strictEqual(parseVersionManifest(good.replace('11.30', '<b>11.30</b>')), null,
+    'markup cannot enter the displayed manifest');
+  assert.strictEqual(parseVersionManifest(good.replace('24.20.0', 'not-a-version')), null);
+  assert.strictEqual(parseVersionManifest('x'.repeat(1025)), null,
+    'an unexpectedly large response is rejected');
 
   assert.match(server, /currentUser\?\.isAdmin/,
     'the release method is restricted to Global Admins');
-  assert.match(server, /\['wekan\/wekan', 'wekan\/FerretDB'\]/,
-    'only the two fixed WeKan repositories are queried');
-  assert.match(server, /api\.github\.com\/repos\/\$\{repository\}\/releases\/latest/);
+  assert.match(server, /fetch\('https:\/\/wekan\.fi\/version\.txt'/,
+    'the server reads the one published version manifest');
+  assert.doesNotMatch(server, /api\.github\.com/,
+    'the Admin request no longer makes separate GitHub API calls');
   assert.match(server, /AbortSignal\.timeout\(10000\)/,
     'a failed upstream cannot leave the Admin pane waiting forever');
   assert.doesNotMatch(client, /fetch\(/,
-    'the browser does not call GitHub directly and expose CORS details');
+    'the browser does not call wekan.fi directly or expose CORS details');
 
   const buttonAt = jade.indexOf('button.js-check-newest-versions');
   const currentVersionAt = jade.indexOf("th WeKan ® {{_ 'info'}}");
   assert.ok(buttonAt >= 0 && buttonAt < currentVersionAt,
     'the check button is at the top, above the current WeKan version');
-  assert.match(jade, /target="_blank" rel="noopener noreferrer"/,
-    'release links opened in a new tab cannot control the WeKan tab');
-  assert.match(jade, /\) \{\{tag\}\}/,
-    'the newest version is rendered as escaped text');
-  assert.doesNotMatch(jade, /\{\{\{\s*tag\s*\}\}\}/,
-    'the newest version is never rendered as raw HTML');
+  assert.match(jade, /pre\.version-check-results \{\{versionManifestText\}\}/,
+    'the five-line manifest is shown as escaped plain text below the button');
+  assert.doesNotMatch(jade, /\{\{\{\s*versionManifestText\s*\}\}\}/,
+    'the manifest is never rendered as raw HTML');
   assert.match(client, /Meteor\.call\('checkNewestVersions'/);
   assert.match(client, /TAPi18n\.__\('version-check-failed'\)/,
     'offline, invalid and non-version replies produce a translated fixed message');

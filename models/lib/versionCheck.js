@@ -16,14 +16,27 @@ export function compareVersions(current, newest) {
   return 0;
 }
 
-export function validGitHubRelease(repository, release) {
-  if (!release || release.draft || release.prerelease) return null;
-  const tag = String(release.tag_name || '').trim();
-  if (!versionParts(tag)) return null;
-  const expected =
-    `https://github.com/${repository}/releases/tag/${encodeURIComponent(tag)}`;
-  if (release.html_url !== expected) {
-    return null;
+const VERSION_MANIFEST_LABELS = [
+  'WeKan',
+  'FerretDB',
+  'Meteor',
+  'Node',
+  'NPM',
+];
+
+export function parseVersionManifest(value) {
+  if (typeof value !== 'string' || value.length > 1024) return null;
+  const lines = value.replace(/\r\n/g, '\n').trim().split('\n');
+  if (lines.length !== VERSION_MANIFEST_LABELS.length) return null;
+  const versions = {};
+  for (let i = 0; i < VERSION_MANIFEST_LABELS.length; i += 1) {
+    const label = VERSION_MANIFEST_LABELS[i];
+    const match = lines[i].match(new RegExp(`^${label} (v?\\d+\\.\\d+(?:\\.\\d+)?(?:[-+][0-9A-Za-z.-]+)?)$`));
+    if (!match || !versionParts(match[1])) return null;
+    versions[label.toLowerCase()] = match[1].replace(/^v/, '');
   }
-  return { tag, url: expected };
+  const text = VERSION_MANIFEST_LABELS
+    .map(label => `${label} ${versions[label.toLowerCase()]}`)
+    .join('\n');
+  return { text, versions };
 }

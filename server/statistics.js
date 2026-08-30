@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
 import fs from 'fs';
 import { detectPackaging } from '/models/lib/platformPackaging';
-import { validGitHubRelease } from '/models/lib/versionCheck';
+import { parseVersionManifest } from '/models/lib/versionCheck';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
@@ -15,31 +15,18 @@ Meteor.methods({
     const currentUser = await ReactiveCache.getCurrentUser();
     if (!currentUser?.isAdmin) throw new Meteor.Error('not-authorized');
 
-    const repositories = ['wekan/wekan', 'wekan/FerretDB'];
-    let releases;
     try {
-      releases = await Promise.all(
-        repositories.map(async repository => {
-          const response = await fetch(
-            `https://api.github.com/repos/${repository}/releases/latest`,
-            {
-              headers: {
-                Accept: 'application/vnd.github+json',
-                'User-Agent': 'WeKan-version-check',
-              },
-              signal: AbortSignal.timeout(10000),
-            },
-          );
-          if (!response.ok) throw new Error('GitHub release request failed');
-          const release = validGitHubRelease(repository, await response.json());
-          if (!release) throw new Error('GitHub release response was invalid');
-          return release;
-        }),
-      );
+      const response = await fetch('https://wekan.fi/version.txt', {
+        headers: { Accept: 'text/plain' },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) throw new Error('Version manifest request failed');
+      const manifest = parseVersionManifest(await response.text());
+      if (!manifest) throw new Error('Version manifest was invalid');
+      return manifest;
     } catch {
       throw new Meteor.Error('version-check-failed');
     }
-    return { wekan: releases[0], ferretdb: releases[1] };
   },
 
   async getStatistics() {

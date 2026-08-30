@@ -245,6 +245,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      argument or an environment variable - 172 KB of notes is past the\n'
       + '      128 KiB MAX_ARG_STRLEN, and v10.92 failed to start bash at all',
     'ferretdb-latest-tag.sh': 'release-workflow: a lookup the build jobs call so\n      the provenance table can name the version `latest` resolved to - it prints\n      a tag and downloads nothing',
+    'update-website-version-info.sh': 'release-workflow helper: release-website.sh\n      and version.sh call it with the website checkout and the already-selected\n      release version; it has no standalone release action of its own',
     'repack-bundle-for-arch.sh': 'release-workflow: needs ./bundle, docker and '
       + 'QEMU already set up by the build job around it',
     'expected-assets.sh': 'release-workflow: prints what a complete release '

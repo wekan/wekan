@@ -19,16 +19,7 @@
 
 .version-check-results {
   margin-top: 0.75rem;
-}
-
-.version-check-results th {
-  padding-inline-end: 1rem;
-  text-align: start;
-}
-
-.version-check-results a,
-.version-check-status {
-  margin-inline-start: 0.35rem;
+  white-space: pre-wrap;
 }
 
 /* Two EQUAL columns, and they stay equal whatever the longest label happens to

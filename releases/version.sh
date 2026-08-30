@@ -447,6 +447,8 @@ version_bump_logic() {
     NODE_VER=$(grep -o 'NODE_VERSION=[^ "\\]*' Dockerfile | head -1 | cut -d= -f2 | tr -d '"')
 
     (cd .tools/wekan.fi && git pull)
+    bash releases/update-website-version-info.sh \
+      ".tools/wekan.fi" "$PWD" "$NEW_VERSION"
     sedi "s|<span id=\"meteor-version\">[^<]*</span>|<span id=\"meteor-version\">$METEOR_VER</span>|g" "$INSTALL_PAGE"
     sedi "s|<span id=\"node-version\">[^<]*</span>|<span id=\"node-version\">$NODE_VER</span>|g" "$INSTALL_PAGE"
     # Node.js download URL paths: OFFICIAL nodejs.org (amd64/arm64/s390x/ppc64le)

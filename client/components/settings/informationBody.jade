@@ -29,15 +29,8 @@ template(name='statistics')
         span.version-check-state {{_ 'loading'}}
       if versionCheckError
         span.version-check-state.error {{versionCheckError}}
-      if hasVersionCheckRows
-        table.version-check-results
-          tbody
-            each versionCheckRows
-              tr
-                th {{name}}
-                td {{current}} →
-                  a(href=url target="_blank" rel="noopener noreferrer") {{tag}}
-                  span.version-check-status {{status}}
+      if versionManifestText
+        pre.version-check-results {{versionManifestText}}
     table.info-table
       //- Two equal columns, stated once here rather than left to the widest cell:
         with table-layout fixed these are what the browser uses, so the labels and

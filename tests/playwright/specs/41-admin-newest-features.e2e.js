@@ -154,12 +154,12 @@ test.describe('Admin – newest features', () => {
     expect(checkBox.y).toBeLessThan(currentBox.y);
     await check.click();
     const results = page.locator('.version-check-results');
-    await expect(results).toContainText('WeKan', { timeout: 15_000 });
-    await expect(results).toContainText('FerretDB');
-    await expect(results.locator('a[href^="https://github.com/wekan/wekan/releases/tag/"]'))
-      .toHaveCount(1);
-    await expect(results.locator('a[href^="https://github.com/wekan/FerretDB/releases/tag/"]'))
-      .toHaveCount(1);
+    await expect(results).toContainText(/^WeKan \d+\.\d+/m, { timeout: 15_000 });
+    await expect(results).toContainText(/^FerretDB \d+\.\d+\.\d+/m);
+    await expect(results).toContainText(/^Meteor \d+\.\d+/m);
+    await expect(results).toContainText(/^Node \d+\.\d+\.\d+/m);
+    await expect(results).toContainText(/^NPM \d+\.\d+\.\d+/m);
+    await expect(results.locator('a')).toHaveCount(0);
     // The configured-env rows show the literal env-var names.
     await expect(body).toContainText('METEOR_REACTIVITY_ORDER');
     await expect(body).toContainText('DDP_TRANSPORT');

@@ -307,9 +307,10 @@ jobs:
           fi
 
   # ─── 1b. Update the wekan.fi website repo (parallel) ────────────────────────
-  # Bumps the version/Meteor/Node/MongoDB strings on the install page and copies
-  # the freshly rebuilt API docs into wekan.fi/api/v<new>, then commits + pushes
-  # to wekan/wekan.fi. Runs as soon as `bump` has pushed the bumped sources.
+  # Publishes version.txt, puts the same WeKan/FerretDB/Meteor/Node/NPM block on
+  # the install page, and copies the freshly rebuilt API docs into
+  # wekan.fi/api/v<new>, then commits + pushes to wekan/wekan.fi. Runs as soon as
+  # `bump` has pushed the bumped sources.
   website:
     needs: bump
     runs-on: ubuntu-latest
