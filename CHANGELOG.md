@@ -8247,7 +8247,9 @@ browser build to verify).
 
 **In short:** The Snap **Problems report** connects to the database endpoint
 selected by the running services, including an automatically chosen FerretDB
-port, while preserving explicitly configured external database URLs.
+port, while preserving explicitly configured external database URLs. Snap
+services also recover an abandoned endpoint lock instead of appearing active
+without starting FerretDB.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8260,7 +8262,9 @@ port, while preserving explicitly configured external database URLs.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Snap startup** - database services and diagnostics share one live endpoint.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e1a8ac001">Snap problem reports use the database URL of the running services</a>. Thanks to xet7.</summary>
@@ -8273,6 +8277,21 @@ now sources the services' shared startup-network state and passes its resolved
 remains authoritative. Positive tests execute the real wrapper with a dynamic
 port and an external URL; negative coverage prevents the obsolete fixed port
 from returning to the wrapper.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/830d1f31c">Snap services recover abandoned endpoint locks</a>. Thanks to xet7.</summary>
+
+WeKan 11.34 could leave an empty `.startup-network.lock` directory without its
+endpoint state file when a service stopped between acquiring the lock and the
+atomic state-file rename. Every later service then waited forever: snap showed
+the shell wrappers as active, but FerretDB never launched and port 27019 refused
+connections. New locks record their owner. A dead owner's lock is reclaimed
+immediately, an older empty lock after a short grace period, and a live owner is
+never displaced. Waiting for a live owner is bounded and fails explicitly
+instead of presenting a permanently active service. Executable regressions
+cover both the exact empty-lock failure and a dead-owner lock.
 
 </details>
 
