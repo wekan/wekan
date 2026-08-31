@@ -8265,7 +8265,7 @@ environment variables and Snap settings remain authoritative.
 This release fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ecd9102eb">Packaged startup no longer guesses network endpoints</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cc94828e8">Packaged startup no longer guesses network endpoints</a>. Thanks to xet7.</summary>
 
 Automatic `ROOT_URL`, `PORT` and database-port discovery is reverted from the
 release bundles, Docker image and Compose files, AppImage, Windows executable and
