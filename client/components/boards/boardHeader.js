@@ -147,10 +147,14 @@ Template.boardStarButton.helpers({
 });
 
 Template.boardStarButton.events({
-  'click .js-star-board'() {
+  async 'click .js-star-board'() {
     const boardId = Session.get('currentBoard');
     if (boardId) {
-      Meteor.call('toggleBoardStar', boardId);
+      try {
+        await Meteor.callAsync('toggleBoardStar', boardId);
+      } catch (error) {
+        console.error('Could not toggle board favorite:', error);
+      }
     }
   },
 });
@@ -406,7 +410,7 @@ Template.createBoardForm.events({
     const starAfterCreate = tpl.data.starAfterCreate === true;
     await createBoardSubmit(owner, event);
     if (starAfterCreate) {
-      await ReactiveCache.getCurrentUser().toggleBoardStar(owner.boardId.get());
+      await Meteor.callAsync('toggleBoardStar', owner.boardId.get());
     }
   },
   'click .js-import-board': Popup.open('chooseBoardSource'),

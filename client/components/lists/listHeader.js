@@ -23,6 +23,24 @@ Meteor.startup(() => {
 });
 
 Template.listHeader.helpers({
+  containerSwimlaneId() {
+    const list = Template.currentData();
+    if (!list || Utils.boardView() !== 'board-view-swimlanes') {
+      return undefined;
+    }
+    for (let depth = 1; depth <= 5; depth += 1) {
+      const candidate = Template.parentData(depth);
+      if (
+        candidate &&
+        candidate._id &&
+        candidate._id !== list._id &&
+        candidate.boardId === list.boardId
+      ) {
+        return candidate._id;
+      }
+    }
+    return undefined;
+  },
   canSeeAddCard() {
     const list = Template.currentData();
     return (
@@ -66,8 +84,8 @@ Template.listHeader.helpers({
     let swimlaneId = '';
     if (Utils.boardView() === 'board-view-swimlanes') {
       // Scope the count to the swimlane this header is rendered IN — the SAME id
-      // the card body uses (listBody.jade `idOrNull ../../_id`) — passed from
-      // listHeader.jade as `../../_id`. A SHARED list (empty swimlaneId) renders
+      // the card body uses — resolved explicitly from the parent swimlane data
+      // instead of fragile Jade `../../_id` traversal. A SHARED list renders
       // under every swimlane, so scoping by the list's OWN swimlaneId (== '' for a
       // shared list) reported the whole-list count in every swimlane while the
       // cards rendered below were swimlane-scoped — e.g. "5 Cards" over an empty

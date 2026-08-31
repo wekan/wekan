@@ -21,7 +21,7 @@ template(name="listHeader")
         if collapsed
           if showCardsCountForList cardsCountWhole
             br
-            span.cardCount {{cardsCount ../../_id}}
+            span.cardCount {{cardsCount containerSwimlaneId}}
       if isMiniScreen
         h2.list-header-name(
           title="{{ displayDate modifiedAt 'LLL' }}"
@@ -33,7 +33,7 @@ template(name="listHeader")
            span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cardsCountWhole}}
            |/#{wipLimit.value})
         if showCardsCountForList cardsCountWhole
-          span.cardCount {{cardsCount ../../_id}} {{cardsCountForListIsOne cardsCountWhole}}
+          span.cardCount {{cardsCount containerSwimlaneId}} {{cardsCountForListIsOne cardsCountWhole}}
           if hasNumberFieldsSum
             | &nbsp;
             span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
@@ -55,7 +55,7 @@ template(name="listHeader")
              |/#{wipLimit.value})
         unless collapsed
           if showCardsCountForList cardsCountWhole
-            span.cardCount {{cardsCount ../../_id}} {{cardsCountForListIsOne cardsCountWhole}}
+            span.cardCount {{cardsCount containerSwimlaneId}} {{cardsCountForListIsOne cardsCountWhole}}
             if hasNumberFieldsSum
               | &nbsp;
               span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}

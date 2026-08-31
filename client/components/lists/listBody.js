@@ -384,6 +384,27 @@ Template.listBody.onCreated(function () {
 });
 
 Template.listBody.helpers({
+  containerSwimlaneId() {
+    const list = Template.currentData();
+    if (!list || Utils.boardView() !== 'board-view-swimlanes') {
+      return undefined;
+    }
+    // #6660: do not depend on Jade's fragile `../../_id` traversal. Find the
+    // enclosing swimlane data context explicitly; an undefined id removes the
+    // swimlane clause and renders the list's cards in every swimlane.
+    for (let depth = 1; depth <= 5; depth += 1) {
+      const candidate = Template.parentData(depth);
+      if (
+        candidate &&
+        candidate._id &&
+        candidate._id !== list._id &&
+        candidate.boardId === list.boardId
+      ) {
+        return candidate._id;
+      }
+    }
+    return undefined;
+  },
   idOrNull(swimlaneId) {
     return Template.instance().idOrNull(swimlaneId);
   },

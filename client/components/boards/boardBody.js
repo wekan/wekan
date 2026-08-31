@@ -223,34 +223,11 @@ Template.boardBody.onCreated(function () {
   };
 
   this.isViewSwimlanes = () => {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    // If no board view is set, default to swimlanes
-    if (!boardView) {
-      boardView = 'board-view-swimlanes';
-    }
-
-    return boardView === 'board-view-swimlanes';
+    return Utils.boardView() === 'board-view-swimlanes';
   };
 
   this.isViewLists = () => {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    return boardView === 'board-view-lists';
+    return Utils.boardView() === 'board-view-lists';
   };
 
   // fix swimlanes sort field if there are null values
@@ -721,86 +698,27 @@ Template.boardBody.helpers({
   },
 
   isViewSwimlanes() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    // If no board view is set, default to swimlanes
-    if (!boardView) {
-      boardView = 'board-view-swimlanes';
-    }
-
-    return boardView === 'board-view-swimlanes';
+    return Utils.boardView() === 'board-view-swimlanes';
   },
 
   isViewLists() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    return boardView === 'board-view-lists';
+    return Utils.boardView() === 'board-view-lists';
   },
 
   isViewCalendar() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    return boardView === 'board-view-cal';
+    return Utils.boardView() === 'board-view-cal';
   },
 
   isViewGantt() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    return boardView === 'board-view-gantt';
+    return Utils.boardView() === 'board-view-gantt';
   },
 
   isViewTable() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    return boardView === 'board-view-table';
+    return Utils.boardView() === 'board-view-table';
   },
 
   isViewStats() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    let boardView;
-
-    if (currentUser) {
-      boardView = (currentUser.profile || {}).boardView;
-    } else {
-      boardView = window.localStorage.getItem('boardView');
-    }
-
-    return boardView === 'board-view-stats';
+    return Utils.boardView() === 'board-view-stats';
   },
 
   hasSwimlanes() {

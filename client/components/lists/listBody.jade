@@ -15,7 +15,7 @@ template(name="listBody")
             if $eq customFieldsSum.type "currency"
               +viewer
                 = formattedCurrencyCustomFieldValue(value)
-      each (cardsWithLimit (idOrNull ../../_id))
+      each (cardsWithLimit (idOrNull containerSwimlaneId))
         a.minicard-wrapper.js-minicard(href=originRelativeUrl
           data-card-id="{{_id}}"
           class="{{#if cardIsSelected}}is-selected{{/if}}"
@@ -24,7 +24,7 @@ template(name="listBody")
             .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
               class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           +minicard(this)
-      if (showSpinner (idOrNull ../../_id))
+      if (showSpinner (idOrNull containerSwimlaneId))
         +spinnerList
       if canSeeAddCard
         +inlinedForm(autoclose=false position="bottom")

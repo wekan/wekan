@@ -20,9 +20,8 @@ Template.bookmarks.events({
   async 'click .js-toggle-star'(e) {
     e.preventDefault();
     const boardId = this._id;
-    const user = ReactiveCache.getCurrentUser();
-    if (user && boardId) {
-      await user.toggleBoardStar(boardId);
+    if (ReactiveCache.getCurrentUser() && boardId) {
+      await Meteor.callAsync('toggleBoardStar', boardId);
     }
   },
 });
@@ -47,11 +46,9 @@ Template.bookmarksPopup.events({
   async 'click .js-toggle-star'(e) {
     e.preventDefault();
     const boardId = this._id;
-    const user = ReactiveCache.getCurrentUser();
-    if (user && boardId) {
-      await user.toggleBoardStar(boardId);
+    if (ReactiveCache.getCurrentUser() && boardId) {
+      await Meteor.callAsync('toggleBoardStar', boardId);
     }
   },
 });
-
 

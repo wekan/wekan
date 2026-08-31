@@ -7,8 +7,8 @@
 // `list.swimlaneId` as the scope, which is '' for a shared list, so every swimlane
 // showed the whole-list count while the cards rendered below were swimlane-scoped —
 // e.g. "5 Cards" over an empty second swimlane. The card BODY already scopes by the
-// container swimlane via listBody.jade `idOrNull ../../_id`; the fix passes that same
-// `../../_id` to cardsCount and makes it prefer that container id. The per-swimlane
+// container swimlane via an explicit ancestry helper; the fix passes that same
+// helper to cardsCount and makes it prefer that container id. The per-swimlane
 // card set itself is covered by server/lib/tests/selectAllSwimlane.tests.js
 // (filterCardsByListAndSwimlane); this guards the wiring, which is Blaze-coupled.
 //
@@ -67,25 +67,25 @@ test('the count stays gated to swimlanes view', () => {
     'scoping must only apply in board-view-swimlanes (lists view keeps the whole count)');
 });
 
-test('listHeader.jade passes the container swimlane id (../../_id) to cardsCount', () => {
+test('listHeader.jade passes the explicit container swimlane id to cardsCount', () => {
   // Match {{cardsCount ...}} but NOT {{cardsCountWhole}} / {{cardsCountForListIsOne}}
   // (cardsCount must not be followed by another identifier char).
   const calls = headerJade.match(/\{\{cardsCount(?![A-Za-z])[^}]*\}\}/g) || [];
   assert.ok(calls.length >= 1, 'listHeader.jade must call cardsCount');
   for (const c of calls) {
-    assert.ok(/\.\.\/\.\.\/_id/.test(c),
-      `cardsCount call must pass ../../_id (the container swimlane), got: ${c}`);
+    assert.ok(/containerSwimlaneId/.test(c),
+      `cardsCount call must pass containerSwimlaneId, got: ${c}`);
   }
   // No bare {{cardsCount}} (no-arg) may remain.
   assert.ok(!/\{\{cardsCount\s*\}\}/.test(headerJade),
     'no bare {{cardsCount}} (missing the swimlane id) may remain');
 });
 
-test('the header uses the SAME ../../_id depth the card body uses', () => {
-  // Sanity anchor: listBody.jade scopes the rendered cards with `idOrNull ../../_id`,
-  // and listHeader is included at the same depth, so the header must use ../../_id too.
-  assert.ok(/idOrNull \.\.\/\.\.\/_id/.test(bodyJade),
-    'listBody.jade must still scope cards with idOrNull ../../_id (the reference depth)');
+test('the header and card body use the same explicit container helper', () => {
+  assert.ok(/idOrNull containerSwimlaneId/.test(bodyJade),
+    'listBody.jade must scope cards with containerSwimlaneId');
+  assert.ok(/cardsCount containerSwimlaneId/.test(headerJade),
+    'listHeader.jade must scope counts with containerSwimlaneId');
 });
 
 console.log(`\nAll ${passed} cardsCount swimlane-scope tests passed`);
