@@ -18,6 +18,7 @@
 const assert = require('assert');
 const {
   swimlaneMembershipSelector,
+  otherSwimlaneIdsForFirstActive,
   listCardsSelector,
   combineWithFilter,
   filteredListCardsSelector,
@@ -205,6 +206,43 @@ test('archived cards never match the active-cards selector', () => {
 // BACKGROUND is treated as the board's first swimlane; FOCUS is another
 // existing swimlane; DELETED is a swimlaneId that no longer exists (orphaned).
 const DELETED = 'swimlane-deleted';
+
+test('#6659: archived swimlanes remain real card homes, not orphan fallbacks', () => {
+  const swimlanes = [
+    { _id: BACKGROUND, archived: false },
+    { _id: FOCUS, archived: false },
+    { _id: 'swimlane-archived', archived: true },
+  ];
+  assert.deepStrictEqual(
+    otherSwimlaneIdsForFirstActive(swimlanes, BACKGROUND),
+    [FOCUS, 'swimlane-archived'],
+  );
+  const sel = swimlaneMembershipSelector(
+    BACKGROUND,
+    otherSwimlaneIdsForFirstActive(swimlanes, BACKGROUND),
+  );
+  assert.ok(!docMatches(sel, { swimlaneId: 'swimlane-archived' }));
+  assert.ok(
+    docMatches(sel, { swimlaneId: DELETED }),
+    'a genuinely missing swimlane remains rescuable',
+  );
+});
+
+test('#6659: only the first active swimlane receives the orphan fallback', () => {
+  const swimlanes = [
+    { _id: 'archived-first', archived: true },
+    { _id: BACKGROUND, archived: false },
+    { _id: FOCUS, archived: false },
+  ];
+  assert.deepStrictEqual(
+    otherSwimlaneIdsForFirstActive(swimlanes, BACKGROUND),
+    ['archived-first', FOCUS],
+  );
+  assert.strictEqual(
+    otherSwimlaneIdsForFirstActive(swimlanes, FOCUS),
+    undefined,
+  );
+});
 
 test('#6443: first-swimlane clause is a single $nin field clause (no $or)', () => {
   const sel = swimlaneMembershipSelector(BACKGROUND, [FOCUS]);

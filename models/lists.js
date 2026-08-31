@@ -6,7 +6,10 @@ import { isHexColor, contrastText } from '/models/lib/contrastColor';
 import PositionHistory from './positionHistory';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
-import { listCardsSelector } from '/models/lib/swimlaneFilter';
+import {
+  listCardsSelector,
+  otherSwimlaneIdsForFirstActive,
+} from '/models/lib/swimlaneFilter';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Lists = new Mongo.Collection('lists');
@@ -369,14 +372,13 @@ Lists.helpers({
       return undefined;
     }
     // Only the first swimlane surfaces orphaned cards.
-    const pick = (swimlanes) => {
-      if (!swimlanes || !swimlanes.length || swimlanes[0]._id !== swimlaneId) {
-        return undefined;
-      }
-      return swimlanes.map(s => s._id).filter(id => id !== swimlaneId);
-    };
+    const pick = swimlanes =>
+      otherSwimlaneIdsForFirstActive(swimlanes, swimlaneId);
     const swimlanes = ReactiveCache.getSwimlanes(
-      { boardId: this.boardId, archived: false },
+      // Include archived swimlanes in the exclusion list. A card on one still
+      // has a valid home and must not surface as an orphan in the first active
+      // swimlane (#6659).
+      { boardId: this.boardId },
       { sort: ['sort'] },
     );
     // On the SERVER ReactiveCache.getSwimlanes returns a Promise; reading

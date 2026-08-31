@@ -271,8 +271,8 @@ export const Utils = {
       Meteor.call('setBoardView', view, (error) => {
         if (error) {
           console.error('[setBoardView] Update failed:', error);
+          pendingBoardView.set(null);
         }
-        pendingBoardView.set(null);
       });
     } else if (view === 'board-view-swimlanes') {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
@@ -302,8 +302,17 @@ export const Utils = {
 
   boardView() {
     const pending = pendingBoardView.get();
-    if (pending) return pending;
     const currentUser = ReactiveCache.getCurrentUser();
+    if (pending) {
+      // #6659: a successful method callback can run before the reactive user
+      // document carries the persisted profile value. Keep rendering the
+      // chosen view until that document catches up instead of briefly exposing
+      // the old value and snapping back to it.
+      if (currentUser && (currentUser.profile || {}).boardView === pending) {
+        pendingBoardView.set(null);
+      }
+      return pending;
+    }
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
     } else if (

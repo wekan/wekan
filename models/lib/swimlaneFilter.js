@@ -69,6 +69,23 @@ function swimlaneMembershipSelector(swimlaneId, otherSwimlaneIds) {
   return { swimlaneId };
 }
 
+// Return every OTHER real swimlane id only when `swimlaneId` is the first
+// active swimlane. Archived swimlanes must remain in the exclusion set: their
+// cards still belong to them and must not be mistaken for orphans and rendered
+// in the first active swimlane (#6659).
+function otherSwimlaneIdsForFirstActive(swimlanes, swimlaneId) {
+  if (!swimlaneId || !Array.isArray(swimlanes)) return undefined;
+  const valid = swimlanes.filter(
+    swimlane =>
+      swimlane &&
+      typeof swimlane._id === 'string' &&
+      swimlane._id.length > 0,
+  );
+  const firstActive = valid.find(swimlane => swimlane.archived !== true);
+  if (!firstActive || firstActive._id !== swimlaneId) return undefined;
+  return valid.map(swimlane => swimlane._id).filter(id => id !== swimlaneId);
+}
+
 // Base (unfiltered) selector for the active cards of one list, optionally
 // scoped to one swimlane (plus orphaned/shared cards). Pass `otherSwimlaneIds`
 // (the _ids of the board's other swimlanes) when building the FIRST swimlane's
@@ -104,6 +121,7 @@ function filteredListCardsSelector(listId, swimlaneId, filterSelector, otherSwim
 
 export {
   swimlaneMembershipSelector,
+  otherSwimlaneIdsForFirstActive,
   listCardsSelector,
   combineWithFilter,
   filteredListCardsSelector,
