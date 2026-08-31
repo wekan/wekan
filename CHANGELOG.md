@@ -8267,7 +8267,7 @@ This release fixes the following bugs:
 **Member Settings** - profile identity, language and avatars remain selected.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b0e3d48da">Language, full name and initials persist immediately</a>. Thanks to mzch and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9690c068">Language, full name and initials persist immediately</a>. Thanks to mzch and xet7.</summary>
 
 Language and profile identity changes used direct optimistic client collection
 updates. When the server rejected or cleaned that modifier, Minimongo rolled the
@@ -8280,7 +8280,7 @@ write path and checks both persistence methods.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8fb70045c">An uploaded avatar remains selected</a>. Thanks to hmeunier95 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/18ee57900">An uploaded avatar remains selected</a>. Thanks to hmeunier95 and xet7.</summary>
 
 Avatar upload completion previously left the profile-pointer update as a
 floating promise. The interface could refresh while the old or default avatar
@@ -8292,7 +8292,7 @@ a negative regression prevents the unawaited call from returning.
 **Board views** - Calendar and Gantt remain open after they are selected.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/85e9fc944">Calendar and Gantt switch without reloading the application</a>. Thanks to hmeunier95 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5969643f5">Calendar and Gantt switch without reloading the application</a>. Thanks to hmeunier95 and xet7.</summary>
 
 An authenticated board-view change persisted its choice and then forced a full
 page reload. Calendar or Gantt therefore appeared briefly before the navigation
