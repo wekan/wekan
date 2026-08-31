@@ -8303,6 +8303,10 @@ inside the authenticated branch.
 
 </details>
 
+and improves the documentation:
+
+- [Google login examples map usernames from email](https://github.com/wekan/wekan/commit/f66060e44). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.37 2026-08-31 WeKan ® release
