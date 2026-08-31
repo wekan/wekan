@@ -8266,7 +8266,7 @@ This release fixes the following bugs:
 **Notifications** - board watch levels remain authoritative for every source.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/22ca0db50">Muted boards no longer send assignment or other activity notifications</a>. Thanks to Nissulya and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4be77e718">Muted boards no longer send assignment or other activity notifications</a>. Thanks to Nissulya and xet7.</summary>
 
 Direct assignment notifications bypassed the board watch-level selection, so a
 card assignment could send email from a Muted board. Mentions, card/list
@@ -8280,7 +8280,7 @@ explicit/default Muted, inactive and non-member candidates.
 **Board views** - cards and the selected layout remain where the user put them.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/61f99ba8d">Cards stay in real swimlanes and view changes no longer snap back</a>. Thanks to hmeunier95 and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7b060f57e">Cards stay in real swimlanes and view changes no longer snap back</a>. Thanks to hmeunier95 and xet7.</summary>
 
 The orphan-card fallback considered only active swimlanes, so cards correctly
 belonging to an archived swimlane looked orphaned and appeared in the first
