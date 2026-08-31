@@ -12,6 +12,9 @@ import { safeDeliver } from '/server/lib/webhookGuard';
 import { labelDisplayName } from '/models/lib/labelDisplayName';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
+const {
+  boardNotificationRecipients,
+} = require('/models/lib/boardNotificationRecipients');
 
 function normalizeActivityText(value, fallback = '') {
   return typeof value === 'string' ? value : fallback;
@@ -393,7 +396,15 @@ Activities.after.insert(async (userId, doc) => {
       }
     }
 
-    watchers = watchers.filter(x => activeMemberIds.includes(x));
+    // #6658: Muted is the board's final notification boundary. Direct
+    // assignment (#5833), mentions, list/card watchers and BIGEVENTS_PATTERN
+    // may nominate a recipient, but none may override that recipient's board
+    // watch level. No watcher entry also means the default `muted` level.
+    watchers = boardNotificationRecipients(
+      watchers,
+      board.members,
+      board.watchers,
+    );
   }
 
   (await Notifications.getUsers(watchers)).forEach((user) => {
