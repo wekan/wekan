@@ -397,7 +397,6 @@ EOR
 # /build/.ferretdb-default marker (present only on MongoDB-less arches). See
 # releases/ferretdb/wekan-entrypoint.sh.
 COPY --chmod=755 releases/ferretdb/wekan-entrypoint.sh /build/wekan-entrypoint.sh
-COPY --chmod=644 releases/ferretdb/startup-network.cjs /build/startup-network.cjs
 # #6492: standalone "recovering data" page the entrypoint serves as a brief bridge on
 # the web port while a just-restored FerretDB comes back up during a data recovery.
 COPY --chmod=644 releases/ferretdb/recovery-bridge.mjs /build/recovery-bridge.mjs
@@ -407,7 +406,8 @@ COPY --chmod=644 releases/ferretdb/recovery-bridge.mjs /build/recovery-bridge.mj
 COPY --chmod=644 releases/ferretdb/db-ready.mjs /build/db-ready.mjs
 
 USER wekan
-EXPOSE 80
+ENV PORT=8080
+EXPOSE $PORT
 STOPSIGNAL SIGKILL
 WORKDIR /build
 

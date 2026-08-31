@@ -257,7 +257,6 @@ done
 
 # The launcher, and #6458's cpu-exec + qemu-user beside it.
 cp "$ROOT/releases/ferretdb/$LAUNCHER" "$BUNDLE/"
-cp "$ROOT/releases/ferretdb/startup-network.cjs" "$BUNDLE/"
 chmod +x "$BUNDLE/$LAUNCHER" 2>/dev/null || true
 if [ -n "$QEMU_NAME" ]; then
     cp "$ROOT/snap-src/bin/cpu-exec" "$BUNDLE/cpu-exec" && chmod +x "$BUNDLE/cpu-exec"

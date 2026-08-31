@@ -58,7 +58,7 @@ fi
 
 FERRETDB_BIN="/build/ferretdb"
 FERRETDB_MARKER="/build/.ferretdb-default"
-FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-}"
+FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
 # FerretDB SQLite lives at <files>/db, next to attachments/avatars. WeKan appends
 # "files" to WRITABLE_PATH unless it already ends with it (server/initializeDirs.js).
 _wp="${WRITABLE_PATH:-/data}"
@@ -70,22 +70,12 @@ case "${WEKAN_DB:-}" in
   ferretdb) want_ferret=true ;;
   mongodb)  want_ferret=false ;;
   "")
-    if [ -f "$FERRETDB_MARKER" ] && [ -z "${MONGO_URL:-}" ] && \
-       [ -z "${WEKAN_DATABASE_SERVICE:-}" ]; then
+    if [ -f "$FERRETDB_MARKER" ] && [ -z "${MONGO_URL:-}" ]; then
       want_ferret=true
     fi
     ;;
   *) echo "ERROR: WEKAN_DB must be 'mongodb' or 'ferretdb' (got '${WEKAN_DB}')" >&2; exit 1 ;;
 esac
-
-# Preserve explicit values. Otherwise choose the active IPv4 address and a free
-# web port; when the bundled database is selected, choose a separate free
-# loopback-only port and derive MONGO_URL from it.
-if [ "$want_ferret" = true ]; then
-  eval "$(node /build/startup-network.cjs posix --ferretdb)"
-else
-  eval "$(node /build/startup-network.cjs posix)"
-fi
 
 if [ "$want_ferret" = true ]; then
   if [ ! -x "$FERRETDB_BIN" ]; then
@@ -174,12 +164,6 @@ if [ "$want_ferret" = true ]; then
   fi
   FERRET_PID=$!
   trap 'kill "$FERRET_PID" 2>/dev/null || true' EXIT INT TERM
-fi
-
-if [ "$want_ferret" = true ]; then
-  echo "WeKan startup: ROOT_URL=$ROOT_URL; PORT=$PORT; FerretDB=localhost:${FERRETDB_LISTEN_ADDR##*:}; MONGO_URL=$MONGO_URL"
-else
-  echo "WeKan startup: ROOT_URL=$ROOT_URL; PORT=$PORT; external MONGO_URL=${MONGO_URL:-unset}"
 fi
 
 # #6492: if a recovery is in progress, briefly serve the static "recovering data" page

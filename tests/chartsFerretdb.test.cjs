@@ -152,12 +152,7 @@ test('every setting docker-compose.yml documents is in values.yaml', () => {
   const inCompose = new Set(
     [...compose.matchAll(/^\s*#?\s*-\s+([A-Z][A-Z_0-9]{2,})=/gm)].map(m => m[1]));
   assert.ok(inCompose.size > 100, `only found ${inCompose.size} settings in docker-compose.yml`);
-  // These two are internal Docker Compose service-discovery metadata, not
-  // WeKan settings an administrator can carry to Helm.
-  const composeOnly = new Set(['WEKAN_DATABASE_SERVICE', 'WEKAN_DATABASE_PASSWORD']);
-  const missing = [...inCompose]
-    .filter(name => !composeOnly.has(name))
-    .filter(name => !values.includes(`"${name}"`));
+  const missing = [...inCompose].filter(name => !values.includes(`"${name}"`));
   assert.deepStrictEqual(missing, [],
     'these settings are documented for Docker users and not for Helm users');
 });

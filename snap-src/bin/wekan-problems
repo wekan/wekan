@@ -23,22 +23,6 @@ if [ -r "$SNAP/bin/wekan-read-settings" ]; then
   . "$SNAP/bin/wekan-read-settings" >/dev/null 2>&1 || true
 fi
 
-# The services resolve their shared free database port into
-# $SNAP_COMMON/.startup-network.env. Read that same state instead of assuming
-# the old default 27019: FerretDB can be active on the next available port when
-# 27019 was occupied at service startup. Preserve an explicitly configured
-# external MONGO_URL, just as wekan-control does.
-CONFIGURED_MONGO_URL="${MONGO_URL:-}"
-if [ -r "$SNAP/bin/startup-network" ]; then
-  # shellcheck disable=SC1091
-  . "$SNAP/bin/startup-network"
-fi
-if [ -n "$CONFIGURED_MONGO_URL" ]; then
-  MONGO_URL="$CONFIGURED_MONGO_URL"
-fi
-export MONGO_URL
-export WEKAN_PROBLEMS_URL="${WEKAN_PROBLEMS_URL:-$MONGO_URL}"
-
 env NODE_PATH="$SNAP/programs/server/node_modules" \
   "$SNAP/bin/node" "$SNAP/bin/wekan-problems.mjs" "$@"
 rc=$?

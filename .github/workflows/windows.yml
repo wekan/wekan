@@ -94,7 +94,7 @@ jobs:
           gh release download '${{ needs.release.outputs.tag }}' `
             --repo '${{ github.repository }}' --pattern $zip --clobber
           Expand-Archive -LiteralPath $zip -DestinationPath . -Force
-          foreach ($file in @('main.js', 'node.exe', 'ferretdb.exe', 'start-wekan.bat', 'startup-network.cjs')) {
+          foreach ($file in @('main.js', 'node.exe', 'ferretdb.exe', 'start-wekan.bat')) {
             if (-not (Test-Path "bundle/$file" -PathType Leaf)) {
               throw "$zip has no bundle/$file; it is not a self-contained WeKan bundle."
             }

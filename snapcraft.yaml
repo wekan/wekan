@@ -725,8 +725,7 @@ parts:
             # into bin/ so the backup/restore scripts (which use $SNAP/bin) find them.
             rm -f $SNAPCRAFT_PART_INSTALL/node \
                   $SNAPCRAFT_PART_INSTALL/start-wekan.sh \
-                  $SNAPCRAFT_PART_INSTALL/start-wekan.bat \
-                  $SNAPCRAFT_PART_INSTALL/startup-network.cjs
+                  $SNAPCRAFT_PART_INSTALL/start-wekan.bat
             for t in bsondump mongodump mongoexport mongofiles mongoimport mongorestore mongostat mongotop; do
               [ -f "$SNAPCRAFT_PART_INSTALL/$t" ] && mv -f "$SNAPCRAFT_PART_INSTALL/$t" "$SNAPCRAFT_PART_INSTALL/bin/$t" || true
             done
@@ -736,7 +735,6 @@ parts:
             # releases directory is one level up (the bundle paths above are
             # intentionally relative to .build).
             cp ../releases/migrate-mongodb-to-ferretdb.mjs $SNAPCRAFT_PART_INSTALL/bin/
-            cp ../releases/ferretdb/startup-network.cjs $SNAPCRAFT_PART_INSTALL/bin/
 
         organize:
             README: README.wekan

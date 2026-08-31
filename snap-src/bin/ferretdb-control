@@ -17,7 +17,6 @@ fi
 # get wekan/mongo settings
 echo "Reading snap settings..."
 source $SNAP/bin/wekan-read-settings
-source $SNAP/bin/startup-network
 
 # Maintenance mode: if $SNAP_COMMON/.wekan-maintenance exists, do NOT self-disable; start
 # FerretDB even mid-migration, so an admin can run FerretDB by hand
@@ -66,8 +65,8 @@ CPU_EXEC="$SNAP/bin/cpu-exec"
 # FerretDB binds the same address WeKan's MONGO_URL points at (wekan-control
 # builds mongodb://$MONGODB_BIND_IP:$MONGODB_PORT/wekan), so no other setting
 # needs to change to switch backends.
-BIND_IP="127.0.0.1"
-PORT="${FERRETDB_LISTEN_ADDR##*:}"
+BIND_IP="${MONGODB_BIND_IP:-127.0.0.1}"
+PORT="${MONGODB_PORT:-27019}"
 
 # Storage backend. Default 'sqlite' (embedded, zero-dependency). 'postgresql' / 'mysql'
 # run FerretDB against an EXTERNAL database YOU host (the snap bundles no server):

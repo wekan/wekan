@@ -89,9 +89,9 @@ services:
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
       # For example, if you want to have wekan on port 3001,
-      # use 3001:80 . Do not add any extra address etc here, that way it does not work.
-      # remove port mapping if you use nginx reverse proxy; automatic startup prefers container port 80
-      - 80:80
+      # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
+      # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
+      - 80:8080
     environment:
       #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
       # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
@@ -120,10 +120,7 @@ services:
       #-----------------------------------------------------------------
       # ==== MONGO_URL — points to FerretDB (MongoDB-compatible) ====
       #- MONGO_URL=mongodb://wekan-ferretdb:27017/wekan
-      #- MONGO_URL=mongodb://ferretdb:password@ferretdb:27017/wekan?authMechanism=PLAIN
-      # Unset by default: startup derives this from the service and password below.
-      - WEKAN_DATABASE_SERVICE=ferretdb
-      - WEKAN_DATABASE_PASSWORD=${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}
+      - MONGO_URL=mongodb://ferretdb:${FERRETDB_POSTGRES_PASSWORD:-ferretdb_secret}@ferretdb:27017/wekan?authMechanism=PLAIN
       #- MONGO_PASSWORD_FILE=/run/secrets/mongo_password
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
@@ -137,10 +134,7 @@ services:
       #  - http://example.com
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
-      #- ROOT_URL=http://localhost  # Leave unset for automatic IP and port selection.
-      # PORT is also unset, so startup prefers a free port 80 automatically.
-      # When unset, startup selects both values and prints ROOT_URL, PORT and
-      # the derived MONGO_URL in the container's Node console log.
+      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.

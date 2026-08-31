@@ -666,7 +666,6 @@ jobs:
           done
           # Self-contained launcher (defaults to FerretDB SQLite + WRITABLE_PATH).
           cp releases/ferretdb/start-wekan.sh .build/bundle/
-          cp releases/ferretdb/startup-network.cjs .build/bundle/
           chmod +x .build/bundle/start-wekan.sh
           # #6458: cpu-exec + same-arch qemu-user. cpu-exec runs any bundled
           # binary that declares required CPU features (e.g. an external
@@ -1368,7 +1367,7 @@ jobs:
             echo "No win64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
-          cp $SRC/releases/ferretdb/start-wekan.bat $SRC/releases/ferretdb/startup-network.cjs bundle/
+          cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win64.tsv bash $SRC/releases/record-provenance.sh \
@@ -1385,7 +1384,7 @@ jobs:
           # Check what goes IN, before anything is archived. This is the honest place
           # for it: whether the zip can hold a startable bundle is decided here, in a
           # plain directory, with no archive-listing format in the way.
-          for want in main.js node.exe start-wekan.bat startup-network.cjs; do
+          for want in main.js node.exe start-wekan.bat; do
             if [ ! -s "bundle/$want" ]; then
               echo "::error::bundle/$want is missing or empty, so the win64 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
               exit 1
@@ -1737,7 +1736,7 @@ jobs:
             echo "No win-arm64 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
-          cp $SRC/releases/ferretdb/start-wekan.bat $SRC/releases/ferretdb/startup-network.cjs bundle/
+          cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win-arm64.tsv bash $SRC/releases/record-provenance.sh \
@@ -1754,7 +1753,7 @@ jobs:
           # Check what goes IN, before anything is archived. This is the honest place
           # for it: whether the zip can hold a startable bundle is decided here, in a
           # plain directory, with no archive-listing format in the way.
-          for want in main.js node.exe start-wekan.bat startup-network.cjs; do
+          for want in main.js node.exe start-wekan.bat; do
             if [ ! -s "bundle/$want" ]; then
               echo "::error::bundle/$want is missing or empty, so the win-arm64 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
               exit 1
@@ -2103,7 +2102,7 @@ jobs:
             rm -f bundle/ferretdb.exe
             echo "No win32 FerretDB asset in the release; Windows bundle stays MongoDB-only."
           fi
-          cp $SRC/releases/ferretdb/start-wekan.bat $SRC/releases/ferretdb/startup-network.cjs bundle/
+          cp $SRC/releases/ferretdb/start-wekan.bat bundle/
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win32.tsv bash $SRC/releases/record-provenance.sh \
             'win32' 'Node.js' "${node_from:-}" "${node_full:-$NODE_VERSION}" \
@@ -2116,7 +2115,7 @@ jobs:
               'https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-win32.exe' \
               "${FERRET_SHA:-}" || true
           fi
-          for want in main.js node.exe start-wekan.bat startup-network.cjs; do
+          for want in main.js node.exe start-wekan.bat; do
             if [ ! -s "bundle/$want" ]; then
               echo "::error::bundle/$want is missing or empty, so the win32 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
               exit 1

@@ -17,9 +17,6 @@
 # Override anything via environment variables: WRITABLE_PATH, PORT, ROOT_URL,
 # MONGO_URL, FERRETDB_LISTEN_ADDR, WEKAN_DB (mongodb|ferretdb). Point MONGO_URL at
 # an external MongoDB/FerretDB (or set WEKAN_DB=mongodb) to skip the bundled one.
-# When PORT, ROOT_URL, FERRETDB_LISTEN_ADDR and MONGO_URL are unset, the shared
-# startup resolver chooses a usable IP/free web port and a separate free
-# localhost FerretDB port. The resolved values are printed in the Node console.
 # ─────────────────────────────────────────────────────────────────────────────
 set -eu
 
@@ -67,7 +64,10 @@ export WRITABLE_PATH="${WRITABLE_PATH:-$DIR/data}"
 # server/initializeDirs.js).
 case "$WRITABLE_PATH" in */files) FILES="$WRITABLE_PATH" ;; *) FILES="$WRITABLE_PATH/files" ;; esac
 FERRETDB_SQLITE_DIR="${FERRETDB_SQLITE_DIR:-$FILES/db}"
-eval "$("$NODE" "$DIR/startup-network.cjs" posix --ferretdb)"
+FERRETDB_LISTEN_ADDR="${FERRETDB_LISTEN_ADDR:-127.0.0.1:27017}"
+export PORT="${PORT:-8080}"
+export ROOT_URL="${ROOT_URL:-http://localhost:$PORT}"
+export MONGO_URL="${MONGO_URL:-mongodb://$FERRETDB_LISTEN_ADDR/wekan}"
 # EXPORTING NEEDS THE API, and that is not obvious from the name.
 #
 # Every export in the interface - a board or a card to PDF, Excel, JSON, .zip,
@@ -188,7 +188,6 @@ while true; do
       printf '{"type":"backup-created","db":"wekan","severity":"info","source":"startup","detail":"Backed up wekan.sqlite to backup/","ts":"%s"}\n' \
         "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')" >> "$FERRETDB_SQLITE_DIR/recovery-events.jsonl" 2>/dev/null || true
     fi
-    echo "WeKan startup: ROOT_URL=$ROOT_URL; PORT=$PORT; FerretDB=localhost:${FERRETDB_LISTEN_ADDR##*:}; MONGO_URL=$MONGO_URL"
     echo "Starting bundled FerretDB v1 (SQLite) on $FERRETDB_LISTEN_ADDR (data: $FERRETDB_SQLITE_DIR) ..."
     ${CPU_EXEC:+"$CPU_EXEC"} "$FERRETDB_BIN" \
       --handler=sqlite \
