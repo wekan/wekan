@@ -3,6 +3,7 @@ import { headerPathVar } from '/client/lib/headerPathVar';
 const { pageDocumentTitle } = require('/models/lib/starredPages');
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Tracker } from 'meteor/tracker';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { findWhere, where, uniqBy, groupBy, indexBy, debounce, once } from '/imports/lib/collectionHelpers';
 import Settings from '/models/settings';
 import Users from '/models/users';
@@ -14,6 +15,7 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 // One key for both pages: they draw one menu. docs/Features/Page/Left-Menu.md
 const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
 const LEFT_MENU_WIDTH_KEY = 'leftMenuWidth';
+const pendingBoardView = new ReactiveVar(null);
 
 export const Utils = {
   async setBackgroundImage(url) {
@@ -263,15 +265,14 @@ export const Utils = {
     if (currentUser) {
       // Update localStorage first
       window.localStorage.setItem('boardView', view);
+      pendingBoardView.set(view);
 
       // Update user profile via Meteor method
       Meteor.call('setBoardView', view, (error) => {
         if (error) {
           console.error('[setBoardView] Update failed:', error);
-        } else {
-          // Reload to apply the view change
-          Utils.reload();
         }
+        pendingBoardView.set(null);
       });
     } else if (view === 'board-view-swimlanes') {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
@@ -300,6 +301,8 @@ export const Utils = {
   },
 
   boardView() {
+    const pending = pendingBoardView.get();
+    if (pending) return pending;
     const currentUser = ReactiveCache.getCurrentUser();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
