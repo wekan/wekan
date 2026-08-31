@@ -8245,12 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Member Settings** reliably preserve language, profile identity
+and uploaded-avatar choices instead of reverting them after the interface
+changes. **Board views** switch to Calendar and Gantt reactively without a full
+page reload that restores the previous view, while authenticated server methods
+and awaited writes keep all three preferences durable.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8261,49 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Member Settings** - profile identity, language and avatars remain selected.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0e3d48da">Language, full name and initials persist immediately</a>. Thanks to mzch and xet7.</summary>
+
+Language and profile identity changes used direct optimistic client collection
+updates. When the server rejected or cleaned that modifier, Minimongo rolled the
+visible change back, so language returned to the default and full name or
+initials appeared lost until another login. Authenticated server methods now
+validate and await these writes; unsupported languages, oversized fields and
+logged-out callers are rejected. Regression coverage excludes the old direct
+write path and checks both persistence methods.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8fb70045c">An uploaded avatar remains selected</a>. Thanks to hmeunier95 and xet7.</summary>
+
+Avatar upload completion previously left the profile-pointer update as a
+floating promise. The interface could refresh while the old or default avatar
+was still selected. Upload completion now awaits that durable profile write, and
+a negative regression prevents the unawaited call from returning.
+
+</details>
+
+**Board views** - Calendar and Gantt remain open after they are selected.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85e9fc944">Calendar and Gantt switch without reloading the application</a>. Thanks to hmeunier95 and xet7.</summary>
+
+An authenticated board-view change persisted its choice and then forced a full
+page reload. Calendar or Gantt therefore appeared briefly before the navigation
+restored the preceding profile view. A pending reactive value now renders the
+choice immediately while the authenticated method persists it; the full reload
+is removed. Coverage checks the positive persistence path and rejects any reload
+inside the authenticated branch.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.37 2026-08-31 WeKan ® release
 
