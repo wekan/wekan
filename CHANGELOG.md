@@ -8245,12 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Notifications** respect Muted as the final board-level opt-out,
+including assignment and mention paths. **Board views** keep cards in their real
+swimlanes and keep the selected layout visible while its profile change reaches
+the client.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8260,39 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Notifications** - board watch levels remain authoritative for every source.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22ca0db50">Muted boards no longer send assignment or other activity notifications</a>. Thanks to Nissulya and xet7.</summary>
+
+Direct assignment notifications bypassed the board watch-level selection, so a
+card assignment could send email from a Muted board. Mentions, card/list
+watchers and broad-event configuration could enter through the same path. The
+final recipient boundary now requires an active board member with Watching or
+Tracking selected. Regression coverage keeps those positive cases and rejects
+explicit/default Muted, inactive and non-member candidates.
+
+</details>
+
+**Board views** - cards and the selected layout remain where the user put them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61f99ba8d">Cards stay in real swimlanes and view changes no longer snap back</a>. Thanks to hmeunier95 and xet7.</summary>
+
+The orphan-card fallback considered only active swimlanes, so cards correctly
+belonging to an archived swimlane looked orphaned and appeared in the first
+active one. It now excludes every real swimlane while retaining genuine orphan
+rescue. Separately, a successful persistence callback could clear a pending
+view before the reactive profile caught up and reveal the old view again. The
+pending choice now remains until the profile confirms it. Selector and
+persistence regressions cover both positive and negative paths.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.38 2026-08-31 WeKan ® release
 
