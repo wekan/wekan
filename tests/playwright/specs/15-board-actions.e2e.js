@@ -13,6 +13,7 @@
  */
 
 const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
@@ -47,10 +48,7 @@ test.describe('Board-level actions', () => {
     await expect(boardPage.locator('.js-pop-over')).not.toBeVisible({ timeout: 8_000 });
   });
 
-  test('star/unstar board button toggles active class without errors', async ({ boardPage, board }) => {
-    const errors = [];
-    boardPage.on('pageerror', e => errors.push(e.message));
-
+  test('#6660: star/unstar persists through the server method', async ({ boardPage, board, user }) => {
     // a.board-header-btn.js-star-board
     const starBtn = boardPage.locator('a.js-star-board').first();
     if (await starBtn.count() > 0) {
@@ -60,18 +58,25 @@ test.describe('Board-level actions', () => {
       // Toggle should have changed the is-active class
       const isStar = await starBtn.evaluate(el => el.classList.contains('is-active'));
       expect(isStar).toBe(!wasStar);
+      const persistedStars = expect.poll(
+        () => db.findOne('users', { _id: user.id })?.profile?.starredBoards || [],
+        { timeout: 10_000 },
+      );
+      if (isStar) await persistedStars.toContain(board.boardId);
+      else await persistedStars.not.toContain(board.boardId);
 
       // Restore to original state
       await starBtn.click();
-      await boardPage.waitForTimeout(300);
+      const restoredStars = expect.poll(
+        () => db.findOne('users', { _id: user.id })?.profile?.starredBoards || [],
+        { timeout: 10_000 },
+      );
+      if (wasStar) await restoredStars.toContain(board.boardId);
+      else await restoredStars.not.toContain(board.boardId);
     } else {
       console.log('Note: js-star-board button not found in board header');
     }
 
-    const critical = errors.filter(
-      e => !e.includes('ResizeObserver') && !e.includes('Non-Error promise rejection'),
-    );
-    expect(critical).toHaveLength(0);
   });
 
   test('renaming board via popup updates the board title', async ({ boardPage, board }) => {

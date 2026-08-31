@@ -16,6 +16,73 @@ const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Views & layout', () => {
+  test('#6659 and #6660: view changes persist and cards stay in their swimlane', async ({
+    boardPage,
+    board,
+    user,
+  }) => {
+    const bp = new BoardPage(boardPage);
+    const secondSwimlaneId = db.uid('swim');
+    const secondListId = db.uid('list');
+    const secondCardId = db.uid('card');
+    const now = new Date();
+
+    db.insertOne('swimlanes', {
+      _id: secondSwimlaneId,
+      title: 'Second lane',
+      boardId: board.boardId,
+      archived: false,
+      createdAt: now,
+      updatedAt: now,
+      modifiedAt: now,
+      type: 'swimlane',
+      height: -1,
+      sort: 1,
+    });
+    db.insertOne('lists', {
+      ...db.findOne('lists', { _id: board.listIds[0] }),
+      _id: secondListId,
+      title: 'Second lane list',
+      swimlaneId: secondSwimlaneId,
+      sort: 1,
+      createdAt: now,
+      updatedAt: now,
+      modifiedAt: now,
+    });
+    db.insertOne('cards', {
+      ...db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' }),
+      _id: secondCardId,
+      title: 'Second lane card',
+      swimlaneId: secondSwimlaneId,
+      listId: secondListId,
+      sort: 200,
+      createdAt: now,
+      modifiedAt: now,
+      dateLastActivity: now,
+    });
+    await boardPage.reload({ waitUntil: 'networkidle' });
+
+    await bp.switchToSwimlanesView();
+    const firstLane = boardPage.locator(`#swimlane-${board.swimlaneId}`);
+    const secondLane = boardPage.locator(`#swimlane-${secondSwimlaneId}`);
+    await expect(firstLane.getByText('Alpha Card', { exact: true })).toBeVisible();
+    await expect(firstLane.getByText('Second lane card', { exact: true })).toHaveCount(0);
+    await expect(secondLane.getByText('Second lane card', { exact: true })).toBeVisible();
+    await expect(secondLane.getByText('Alpha Card', { exact: true })).toHaveCount(0);
+
+    await bp.switchToListView();
+    await expect.poll(
+      () => db.findOne('users', { _id: user.id })?.profile?.boardView,
+      { timeout: 10_000 },
+    ).toBe('board-view-lists');
+    await boardPage.reload({ waitUntil: 'networkidle' });
+    await expect(boardPage.locator('.list-group.js-lists')).toBeVisible();
+    await expect(boardPage.locator('.js-swimlane')).toHaveCount(0);
+
+    await bp.switchToSwimlanesView();
+    await expect(secondLane.getByText('Second lane card', { exact: true })).toBeVisible();
+  });
+
   test('swimlanes view renders all lists under the correct swimlane', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
     await bp.switchToSwimlanesView();

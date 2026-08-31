@@ -19,6 +19,36 @@ const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
 test.describe('Notifications & activity log', () => {
+  test('#6658: assigning a muted board member creates no notification', async ({
+    page,
+    user,
+    user2,
+    board,
+  }) => {
+    const { openBoard } = require('../helpers/auth');
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    db.updateOne('boards', { _id: board.boardId }, {
+      $set: { watchers: [{ userId: user2.id, level: 'muted' }] },
+    });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+
+    const bp = new BoardPage(page);
+    const cp = new CardPage(page);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+    const assignUser2 = async () => {
+      await cp.root.locator('a.js-add-members').first().click();
+      const popup = page.locator('.js-pop-over');
+      await expect(popup).toBeVisible();
+      await popup.locator('.js-select-member').filter({ hasText: user2.username }).click();
+    };
+
+    await assignUser2();
+    await page.waitForTimeout(2_000);
+    expect(db.findOne('users', { _id: user2.id })?.notifications || []).toHaveLength(0);
+  });
+
   test('#1658 opening a card Activities section shows its persisted history', async ({
     boardPage,
     board,
