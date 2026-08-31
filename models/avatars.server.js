@@ -135,7 +135,10 @@ Avatars.onAfterUpload = async function (fileObj) {
     }
 
     const user = await ReactiveCache.getUser(targetUserId);
-    user.setAvatarUrl(universalUrl);
+    // The upload is not complete until its profile pointer is durable. Without
+    // awaiting this write, Meteor-Files reports success while the old/default
+    // avatar can still win the following reactive refresh (#6656).
+    await user.setAvatarUrl(universalUrl);
   } else {
     await Avatars.removeAsync(fileObj._id);
   }
