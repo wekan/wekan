@@ -8387,12 +8387,11 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v11.34 2026-08-30 WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Release metadata** advances WeKan to v11.34 consistently across
+the Node package, Docker, Snap and Sandstorm packages, generated API files and
+Windows offline documentation. This keeps every published platform and its
+documentation on the same version instead of leaving consumers with conflicting
+package identities.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8404,6 +8403,21 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release updates the following release metadata:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b14c3a5d2">All package and documentation versions advance to v11.34</a>. Thanks to xet7.</summary>
+
+The release workflow updates `package.json` and its lockfile, the Docker and
+Stacker image definitions, Snap and Sandstorm package metadata, generated API
+documentation, and Windows offline-install documentation together. Recording
+the generated version commit makes the actual contents of v11.34 visible instead
+of leaving the released section with an Upcoming placeholder.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.33 2026-08-30 WeKan ® release
 
