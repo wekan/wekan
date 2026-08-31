@@ -8245,12 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Board views** now change their content together with the menu,
+scope every card to its containing swimlane, and persist board favorites through
+the server. Lists, Calendar, Gantt, Table and Statistics therefore replace the
+Swimlanes layout immediately, while shared lists keep their cards and counts in
+the lane where each copy is rendered.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8261,25 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9c5028ae">Board content follows view changes and cards stay in their containing swimlane</a>. Thanks to hmeunier95 and xet7.</summary>
+
+The view menu used the pending reactive choice, but every content-layout helper
+independently read the previous profile value, leaving Swimlanes visible for
+Lists, Calendar, Gantt, Table and Statistics selections. Both now use one
+source. Card rendering and counts also resolve the containing swimlane
+explicitly instead of relying on relative Jade context that could become
+undefined and remove swimlane scoping. Finally, all favorite controls persist
+through the authenticated server method instead of rollback-prone direct client
+updates. Regression coverage checks all six layouts, positive card/count scope
+and the absence of direct favorite writes.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.39 2026-08-31 WeKan ® release
 
