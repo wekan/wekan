@@ -155,6 +155,32 @@ const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 
 Meteor.methods({
+  // Profile preferences are server writes. Direct client Users.update calls are
+  // optimistic and Meteor rolls them back when the server rejects or cleans the
+  // modifier, which made language/fullname/initials appear to change and then
+  // immediately revert (#6655).
+  async setOwnProfile(fullname, initials) {
+    check(fullname, String);
+    check(initials, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    if (fullname.length > 256 || initials.length > 20) {
+      throw new Meteor.Error('invalid-profile', 'Profile fields are too long');
+    }
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.fullname': fullname, 'profile.initials': initials },
+    });
+  },
+
+  async setLanguage(language) {
+    check(language, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const TAPi18n = getTAPi18n();
+    if (!TAPi18n.isLanguageSupported(language)) {
+      throw new Meteor.Error('invalid-language', 'Language is not supported');
+    }
+    await Users.updateAsync(this.userId, { $set: { 'profile.language': language } });
+  },
+
   // Lazily create the per-user templates-container board on first use (#2339,
   // #5850). New users no longer get one auto-created at signup; this method is
   // called right before a template is actually saved/copied. If the current

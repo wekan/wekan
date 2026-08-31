@@ -175,11 +175,8 @@ Template.editProfilePopup.events({
     const email = templateInstance.find('.js-profile-email').value.trim();
     let isChangeUserName = false;
     let isChangeEmail = false;
-    Users.update(Meteor.userId(), {
-      $set: {
-        'profile.fullname': fullname,
-        'profile.initials': initials,
-      },
+    Meteor.call('setOwnProfile', fullname, initials, error => {
+      if (error) console.error('Could not save profile:', error);
     });
     const currentUser = ReactiveCache.getCurrentUser();
     const primaryEmail =
@@ -319,10 +316,8 @@ Template.changeLanguagePopup.helpers({
 
 Template.changeLanguagePopup.events({
   'click .js-set-language'(event) {
-    Users.update(Meteor.userId(), {
-      $set: {
-        'profile.language': this.tag,
-      },
+    Meteor.call('setLanguage', this.tag, error => {
+      if (error) console.error(`Could not save language ${this.tag}:`, error);
     });
     // setLanguage is async; surface a failed load instead of silently leaving
     // the UI in English (#5756).
