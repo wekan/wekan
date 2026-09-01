@@ -8247,8 +8247,10 @@ browser build to verify).
 
 **In short:** **MimeBleed** attachment defenses now reject an additional stored
 XSS syntax and fail closed on every storage backend, including legacy records
-with executable metadata. Multi-user browser coverage also keeps simultaneous
-sessions genuinely independent.
+with executable metadata. **All Boards** sorting now changes immediately and
+persists reliably, while **FerretDB** avoids a multi-gigabyte allocation that
+could cause high CPU, connection resets and database crashes. Multi-user
+browser coverage also keeps simultaneous sessions genuinely independent.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8280,6 +8282,39 @@ because the response path cannot distinguish an attack from a legitimate view.
 Mocha covers the reported payload and negative samples, Node coverage pins all
 storage shapes, and Chromium, Firefox and WebKit exercise the full download
 route.
+
+</details>
+
+and fixes the following bugs:
+
+**All Boards** - sorting uses one reactive choice from the popup through the
+rendered board grid.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8dddeafa">The chosen board order takes effect immediately and remains selected</a>. Thanks to jullbo and xet7.</summary>
+
+The profile was updated on the server, but the popup, pagination and board grid
+continued reading a current-user document that was not guaranteed to be
+republished after the click. The chosen mode now has an immediate reactive
+client value, is shared by every sorting consumer, and rolls back if persistence
+fails. Browser coverage verifies both visible A→Z ordering and the stored profile
+choice, including the selected state when the popup is reopened.
+
+</details>
+
+**FerretDB** - sorted queries allocate memory for real results instead of a
+wire-protocol sentinel limit.
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/69ae0522">Effectively unlimited sorted queries no longer reserve gigabytes up front</a>. Thanks to jeremy-arsia, Heart1010 and xet7.</summary>
+
+A client's ordinary sorted find can express no practical limit as
+`2147483647`. FerretDB used that number as a Go slice's initial capacity and
+could immediately request about 16 GiB, causing high CPU, out-of-memory crashes,
+connection resets and temporarily missing boards while the database restarted.
+The bounded top-k heap now starts small and grows only for documents that exist.
+A maximum-limit regression test verifies correct ordering without the eager
+allocation, while the finite-limit test keeps the bounded behavior covered.
 
 </details>
 
