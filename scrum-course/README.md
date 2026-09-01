@@ -6,6 +6,7 @@ Mỗi bài tập trong khóa học được lưu thành một file Markdown riê
 Xem nhanh toàn bộ khóa học bằng file preview:
 
 - [Preview tổng](preview.html)
+- [Kinh nghiệm rút ra sau 31 bài](lessons-learned-01-31.md)
 
 ## Danh sách bài tập
 

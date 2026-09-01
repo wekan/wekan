@@ -1,0 +1,386 @@
+{
+  "active_phase": 5,
+  "phase_status": "completed",
+  "attempts": 6,
+  "started_at": "2026-08-17T11:49:29.177Z",
+  "completed_at": "2026-08-18T07:47:52Z",
+  "blockers": [],
+  "changed_files": [
+    "client/components/boards/boardBody.jade",
+    "client/components/boards/boardBody.js",
+    "client/components/boards/boardHeader.jade",
+    "client/components/boards/boardHeader.js",
+    "client/components/boards/mapView.css",
+    "client/components/boards/mapView.jade",
+    "client/components/boards/mapView.js",
+    "client/components/boards/statsView.css",
+    "client/components/boards/statsView.jade",
+    "client/components/boards/statsView.js",
+    "client/components/main/globalSearch.css",
+    "client/components/main/globalSearch.jade",
+    "client/components/main/globalSearch.js",
+    "client/components/main/themeColorPicker.js",
+    "client/features/boards.js",
+    "config/const.js",
+    "docs/API/Boards.md",
+    "imports/i18n/data/en.i18n.json",
+    "imports/i18n/data/vi.i18n.json",
+    "models/lib/boardDashboard.js",
+    "models/lib/savedSearch.js",
+    "models/csvCreator.js",
+    "models/jiraCreator.js",
+    "models/kanboardCreator.js",
+    "models/trelloCreator.js",
+    "models/wekanCreator.js",
+    "models/users.js",
+    "server/imports.js",
+    "server/publications/boards.js",
+    "server/savedSearches.js",
+    "tests/phase4ViewsSearch.test.cjs",
+    "tests/playwright/specs/49-dashboard-map-saved-search.e2e.js",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-dashboard.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-dashboard-mobile.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-map-empty.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-saved-search.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/real-data.json",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/report.md",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/frontend-root-desktop.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/frontend-root-mobile.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/real-data.json",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/report.md",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/frontend-map-assertions.json",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/frontend-map-desktop-real-location.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/frontend-map-mobile-real-location.png",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/real-data.json",
+    "artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/report.md",
+    "models/lib/emailInboxCapture.js",
+    "tests/emailInboxCapture.test.cjs",
+    "tests/e2e/list-regressions.js",
+    "tests/playwright/helpers/db.js",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/frontend-root-desktop.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/frontend-root-mobile.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/frontend-state.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/real-data.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/report.md",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/frontend-inbox-assertions.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/frontend-inbox-desktop-email-card.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/frontend-inbox-mobile-email-card.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/real-data.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/report.md",
+    "artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/frontend-map-assertions.json",
+    "artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/frontend-map-desktop-appleglass-real-location.png",
+    "artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/frontend-map-mobile-appleglass-real-location.png",
+    "artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/real-data.json",
+    "artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/report.md",
+    "artifacts/heartbeat-evidence/ui-default-root-cause/2026-08-18T07-36-00Z/db-theme-snapshot.redacted.json",
+    "artifacts/heartbeat-evidence/ui-default-root-cause/2026-08-18T07-36-00Z/report.md",
+    ".manager/test-report.md",
+    ".manager/trello-parity-heartbeat.json",
+    "models/lib/connectorCapture.js",
+    "server/personalInbox.js",
+    "tests/connectorInboxCapture.test.cjs",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-desktop-browser-connector.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-mobile-browser-connector.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-desktop-browser-connector-focused.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-mobile-browser-connector-focused.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-assertions.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/api-results.redacted.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/real-data.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/report.md",
+    "models/lib/templatePackage.js",
+    "models/boards.js",
+    "server/templatePackages.js",
+    "tests/templatePackage.test.cjs",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/frontend-template-board-desktop.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/frontend-template-board-mobile.png",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/frontend-template-assertions.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/api-results.redacted.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/real-data.json",
+    "artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/report.md",
+    ".manager/final_report.md"
+  ],
+  "tests": [
+    {
+      "command": "node tests/phase4ViewsSearch.test.cjs",
+      "result": "PASS 6/6"
+    },
+    {
+      "command": "npx playwright test specs/49-dashboard-map-saved-search.e2e.js --project=chromium",
+      "result": "PASS 1/1"
+    },
+    {
+      "command": "npx playwright test specs/41-admin-newest-features.e2e.js --project=chromium --grep Board Statistics",
+      "result": "PASS 1/1"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "command": "HOME=\"$PWD/.tools\" METEOR_NO_RELEASE_CHECK=1 .tools/.meteor/meteor --version",
+      "result": "PASS Meteor 3.5.1"
+    },
+    {
+      "command": "HOME=\"$PWD/.tools\" METEOR_NO_RELEASE_CHECK=1 .tools/.meteor/meteor npm install",
+      "result": "PASS 871 packages installed; npm audit found 0 vulnerabilities"
+    },
+    {
+      "command": "curl -I --max-time 10 http://localhost:3000",
+      "result": "PASS HTTP 200"
+    },
+    {
+      "command": "Playwright DOM/screenshot probe with system Google Chrome",
+      "result": "PASS desktop and mobile /sign-in rendered with login form"
+    },
+    {
+      "command": "node tests/emailInboxCapture.test.cjs",
+      "result": "PASS 5/5"
+    },
+    {
+      "command": "node tests/personalInbox.test.cjs",
+      "result": "PASS 6/6"
+    },
+    {
+      "command": "POST /api/inbox/email without a valid inbox token",
+      "result": "PASS rejected with HTTP 401 and no email capture card created"
+    },
+    {
+      "command": "Phase 4 frontend Map DOM/screenshot probe with system Google Chrome",
+      "result": "PASS desktop and mobile rendered a real persisted card location"
+    },
+    {
+      "command": "Phase 5 frontend Email-to-Inbox probe with system Google Chrome",
+      "result": "PASS wrong token HTTP 401, wrong sender HTTP 401, unsafe attachment HTTP 400, accepted email HTTP 200, desktop/mobile /inbox rendered persisted email card"
+    },
+    {
+      "command": "node tests/appleGlassPastelV2.test.cjs",
+      "result": "PASS 11/11 with new-board default theme guard"
+    },
+    {
+      "command": "node tests/globalThemeColor.test.cjs",
+      "result": "PASS 8/8"
+    },
+    {
+      "command": "Board theme correction probe with authenticated Meteor client update",
+      "result": "PASS board color persisted as appleglasspastel and desktop/mobile Map still rendered the real card location"
+    },
+    {
+      "command": "Root-cause scan for legacy theme defaults",
+      "result": "PASS no silent runtime board default remains on belize or BOARD_COLORS[0]; residual belize hits are explicit palette/tests/docs or Trello blue mapping"
+    },
+    {
+      "command": "Authenticated /inbox self-heal probe",
+      "result": "PASS Personal Inbox helper board color changed from legacy belize to appleglasspastel"
+    },
+    {
+      "command": "node tests/emailInboxCapture.test.cjs",
+      "result": "PASS 5/5 after default-theme root-cause fixes"
+    },
+    {
+      "command": "node tests/connectorInboxCapture.test.cjs",
+      "result": "PASS 5/5"
+    },
+    {
+      "command": "POST /api/inbox/connector wrong token/type/origin/unsafe URL/accepted card",
+      "result": "PASS 401/401/401/400/200 with persisted card EDqrozK7KpYL2Mjh3"
+    },
+    {
+      "command": "Phase 5 frontend Connector API probe with in-app browser",
+      "result": "PASS desktop/mobile /inbox rendered persisted browser connector card with Apple Glass theme"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS after connector API slice"
+    },
+    {
+      "command": "node tests/templatePackage.test.cjs",
+      "result": "PASS 4/4"
+    },
+    {
+      "command": "POST /api/template-packages/install no auth/unreviewed field/rollback/accepted",
+      "result": "PASS 401/400/no rejected artifacts/200 with template board dCAbu4qoRNNyh4y2q"
+    },
+    {
+      "command": "Phase 5 frontend Template Package probe with in-app browser",
+      "result": "PASS desktop/mobile rendered persisted reviewed template board/cards with Apple Glass theme"
+    },
+    {
+      "command": "node tests/connectorInboxCapture.test.cjs",
+      "result": "PASS 5/5 final QA"
+    },
+    {
+      "command": "node tests/emailInboxCapture.test.cjs",
+      "result": "PASS 5/5 final QA"
+    },
+    {
+      "command": "node tests/personalInbox.test.cjs",
+      "result": "PASS 6/6 final QA"
+    },
+    {
+      "command": "node tests/phase4ViewsSearch.test.cjs",
+      "result": "PASS 6/6 final QA"
+    },
+    {
+      "command": "node tests/appleGlassPastelV2.test.cjs",
+      "result": "PASS 11/11 final QA"
+    },
+    {
+      "command": "node tests/globalThemeColor.test.cjs",
+      "result": "PASS 8/8 final QA"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS final QA"
+    }
+  ],
+  "acceptance_results": {
+    "dashboard_charts_and_drilldown": true,
+    "map_view_from_real_location": true,
+    "saved_searches_per_user": true,
+    "permission_negative_tests": true,
+    "pagination_and_performance": true,
+    "migration_and_rollback_verified": true,
+    "frontend_real_data_evidence": true
+  },
+  "phase_5_acceptance_results": {
+    "email_to_inbox_server_authoritative": true,
+    "sender_and_token_validation": true,
+    "attachment_safety_validation": true,
+    "rollback_negative_tests": true,
+    "frontend_real_data_evidence": true,
+    "connector_api_permission_token_validation": true,
+    "reviewable_template_packages": true
+  },
+  "real_data_source": {
+    "kind": "existing_meteor_local_database",
+    "path": ".meteor/local/db",
+    "database": "meteor",
+    "address": "127.0.0.1:3001",
+    "fixture_or_seed_created_for_evidence": false,
+    "phase_4_evidence_snapshot_captured": true,
+    "saved_search_id": "5T2PEKhCDKokkP6X3",
+    "saved_search_query": "WeKan Trello parity",
+    "users_count": 1,
+    "boards_count": 2,
+    "lists_count": 2,
+    "cards_count": 2,
+    "card_location_count": 1,
+    "last_checked_at": "2026-08-18T07:36:00Z"
+  },
+  "runtime_recovery": {
+    "status": "started",
+    "url": "http://localhost:3000",
+    "writable_path": "/Users/apple/Desktop/ex_project/mtips5s_wekan/.meteor/local/writable",
+    "meteor_version": "Meteor 3.5.1",
+    "first_start_error": "WRITABLE_PATH environment variable missing and/or unset",
+    "current_start_result": "App running at http://localhost:3000"
+  },
+  "phase_5_real_data_source": {
+    "kind": "existing_meteor_local_database",
+    "path": ".meteor/local/db",
+    "database": "meteor",
+    "address": "127.0.0.1:3001",
+    "fixture_or_seed_created_for_evidence": false,
+    "users_count": 1,
+    "boards_count": 4,
+    "lists_count": 2,
+    "cards_count": 7,
+    "email_capture_cards": 1,
+    "personal_inbox_boards": 1,
+    "last_checked_at": "2026-08-18T07:47:52Z",
+    "personal_inbox_cards": 2,
+    "browser_connector_cards": 1,
+    "connector_card_id": "EDqrozK7KpYL2Mjh3",
+    "template_board_id": "dCAbu4qoRNNyh4y2q",
+    "template_linked_card_id": "8YMRhxNt9LJZGm42E",
+    "template_package_id": "phase5.reviewable.template.qa.20260818",
+    "template_package_review_hash": "ac6f712af32f743b5c40d2079a4c468baa0b6223a83c62c9a9809e94bd30f4d1"
+  },
+  "frontend_routes": [
+    {
+      "url": "http://localhost:3000/b/JDZnLQK6gzsLToopB/apple-glass-pastel-qa",
+      "status": "Dashboard, drill-down and Map empty state verified on product board"
+    },
+    {
+      "url": "http://localhost:3000/global-search",
+      "status": "Private saved search verified with persistent admin profile data"
+    },
+    {
+      "url": "http://localhost:3000/b/2ceyfdWC9eTReXnj7/trello-parity-real-map-qa",
+      "status": "Phase 4 Map verified with persisted card location and Apple Glass desktop/mobile frontend evidence"
+    },
+    {
+      "url": "http://localhost:3000/inbox",
+      "status": "Phase 5 Email-to-Inbox verified with persisted accepted email card, desktop/mobile frontend evidence, and Apple Glass helper-board self-heal"
+    },
+    {
+      "url": "http://localhost:3000/inbox",
+      "status": "Phase 5 Connector API verified with persisted browser connector card, token/type/origin negative checks, and Apple Glass desktop/mobile evidence"
+    },
+    {
+      "url": "http://localhost:3000/b/dCAbu4qoRNNyh4y2q/phase-5-reviewable-template-qa-2026-08-18t07-47-52z",
+      "status": "Phase 5 reviewable template package verified with persisted template board, lists/cards, review hash metadata and Apple Glass desktop/mobile frontend evidence"
+    }
+  ],
+  "evidence_paths": [
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-dashboard.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-dashboard-mobile.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-map-empty.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/frontend-saved-search.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-17T12-07-24Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/frontend-root-desktop.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/frontend-root-mobile.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/frontend-map-assertions.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/frontend-map-desktop-real-location.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/frontend-map-mobile-real-location.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/frontend-root-desktop.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/frontend-root-mobile.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/frontend-state.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/frontend-inbox-assertions.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/frontend-inbox-desktop-email-card.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/frontend-inbox-mobile-email-card.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/frontend-map-assertions.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/frontend-map-desktop-appleglass-real-location.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/frontend-map-mobile-appleglass-real-location.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-root-cause/2026-08-18T07-36-00Z/db-theme-snapshot.redacted.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-root-cause/2026-08-18T07-36-00Z/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-desktop-browser-connector-focused.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-mobile-browser-connector-focused.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-desktop-browser-connector.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-mobile-browser-connector.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/frontend-inbox-assertions.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/api-results.redacted.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/report.md",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/frontend-template-board-desktop.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/frontend-template-board-mobile.png",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/frontend-template-assertions.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/api-results.redacted.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/real-data.json",
+    "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/report.md"
+  ],
+  "remaining_phase_5_slices": [
+    "connector_api_permission_token_validation",
+    "reviewable_template_packages"
+  ],
+  "next_phase": 5,
+  "final_qa": {
+    "status": "pass",
+    "completed_at": "2026-08-18T07:47:52Z",
+    "remaining_sprints": 0,
+    "blockers": [],
+    "evidence_root": "/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence",
+    "no_commit_or_release": true
+  }
+}

@@ -412,3 +412,149 @@ Remaining verification: run the deploy/restart on the actual remote MCP host.
 | Localhost preview fetch | Pass | `curl http://127.0.0.1:8153/preview.html` found the Bài 31 preview sections. |
 | Localhost Exercise 31 fetch | Pass | `curl http://127.0.0.1:8153/exercises/31-test-strategy-automation-planning.md` found the key Markdown sections. |
 | Automated browser screenshot QA | Not run | Playwright is not available in this repo environment; preview was validated through static guards and localhost fetch checks instead. |
+
+## Trello Parity Phase 4 Heartbeat - Runtime Recovery
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Repo-local Meteor runtime | Pass | Restored tracked `.meteor` files, installed Meteor 3.5.1 under `.tools`, and installed npm dependencies with audit result 0 vulnerabilities. |
+| Phase 4 source guard | Pass | `node tests/phase4ViewsSearch.test.cjs` reported 6/6 passed. |
+| Whitespace check | Pass | `git diff --check` passed before this report update. |
+| WeKan startup | Pass | App is running at `http://localhost:3000` with `WRITABLE_PATH=/Users/apple/Desktop/ex_project/mtips5s_wekan/.meteor/local/writable`. |
+| Real frontend evidence | Pass | System Google Chrome captured desktop and mobile screenshots of the real frontend redirecting to `/sign-in` with a rendered login form. |
+| Persistent DB snapshot | Blocked | Live MongoDB at `127.0.0.1:3001/meteor` has `users=0`, `boards=0`, `cards=0`, and `cardLocationCount=0`; no mock/seed/fixture data was created. |
+| Phase 4 Map acceptance | Blocked | Map still needs a real card location entered or imported through an authorized product path before the phase can be marked Done. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T06-14-00Z/`.
+
+## Trello Parity Phase 5 Heartbeat - Email-to-Inbox Slice
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Email capture validation helper | Pass | `models/lib/emailInboxCapture.js` normalizes sender allowlists, hashes tokens, rejects unsafe attachment names/MIME/size, and formats email provenance. |
+| Server-authoritative route | Pass | `POST /api/inbox/email` verifies token and sender before creating a Personal Inbox card. |
+| Provenance protection | Pass | Email provenance card fields are in the schema and direct client rewrites are covered by the existing capture provenance deny guard. |
+| Targeted guards | Pass | `node tests/emailInboxCapture.test.cjs` passed 5/5, `node tests/personalInbox.test.cjs` passed 6/6, and `node tests/phase4ViewsSearch.test.cjs` passed 6/6. |
+| Whitespace check | Pass | `git diff --check` passed. |
+| Real negative API evidence | Pass | Live `POST /api/inbox/email` without a valid token returned `401 {"error":"not-authorized"}` and live MongoDB still had `emailCaptureCards=0`. |
+| Real frontend evidence | Blocked | Desktop/mobile screenshots were captured from the real frontend at `http://localhost:3000/sign-in`, but completion still needs a real authenticated user with a generated token and accepted email card visible in `/inbox`. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T06-34-48Z/`.
+
+## UI Default - Apple Glass Pastel
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Shared default theme | Pass | `DEFAULT_GLOBAL_THEME_COLOR` is `appleglasspastel`, used by the global body/header fallback and non-board sidebar/search fallbacks. |
+| Targeted guards | Pass | `node tests/globalThemeColor.test.cjs` passed 8/8, `node tests/appleGlassPastelV2.test.cjs` passed 11/11, `node tests/appleGlassPastelTheme.test.cjs` passed 9/9, `node tests/allBoardsPage.test.cjs` passed 27/27, and `node tests/tenantWiring.test.cjs` passed 33/33. |
+| Whitespace check | Pass | `git diff --check` passed. |
+| Real frontend evidence | Pass | The running frontend at `http://localhost:3000/sign-in` rendered desktop and mobile with `bodyClass` containing `board-color-appleglasspastel`. |
+| Persistent DB snapshot | Pass | Live MongoDB at `127.0.0.1:3001/meteor` had `users=0`, `boards=0`, `settings=1`, and no explicit `settings.themeColor`, proving the new UI came from the app default fallback rather than seed/mock data. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default/2026-08-18T06-55-00Z/`.
+
+## Trello Parity Phase 4 Heartbeat - Real Map Location Completion
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Real QA user creation | Pass | The local DB had no usable Map evidence data, so user-authorized real data was created. Frontend registration created a local QA administrator through the product UI; credentials are intentionally omitted. |
+| Real board/list creation | Pass | Frontend UI created board `Trello parity real map QA` (`2ceyfdWC9eTReXnj7`) and list `Real locations` (`Htib65SgycsznRBQv`). |
+| Real card location | Pass | The UI card composer returned `insert failed errorClass`, so the card/location were created through WeKan's official REST API product surface; MongoDB persisted card `hgwiYDPLhCw8kGrLw` with `Hoan Kiem Lake QA location` at `21.028511, 105.804817`. |
+| Frontend Map evidence | Pass | Desktop and mobile screenshots from `http://localhost:3000/b/2ceyfdWC9eTReXnj7/trello-parity-real-map-qa` show Map view, `1 locations`, the real card title, the location name, coordinates, and the marker link to the card. |
+| Targeted guards | Pass | `node tests/phase4ViewsSearch.test.cjs` passed 6/6 and `git diff --check` passed. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-04/2026-08-18T07-15-00Z/`.
+
+## Trello Parity Phase 5 Heartbeat - Email-to-Inbox Accepted Email Completion
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Token creation path | Pass | An authenticated frontend session called `personalInbox.emailToken.rotate` for user `MeAFPZceJJjqMGMmZ`; only the hash persisted, and the raw token was redacted in evidence. |
+| Security negative checks | Pass | Live `POST /api/inbox/email` rejected a wrong token with HTTP 401, rejected an unauthorized sender with HTTP 401, and rejected an unsafe attachment with HTTP 400. |
+| Accepted email path | Pass | Live `POST /api/inbox/email` accepted sender `qa-sender@example.invalid`, created email card `5rG5PQrzpZhmCfoDY`, and persisted `captureSourceType: email` plus sender/message/attachment provenance. |
+| Frontend Inbox evidence | Pass | Desktop and mobile screenshots from `http://localhost:3000/inbox` show the persisted email card, sender provenance, and checked attachment text. |
+| Targeted guards | Pass | `node tests/emailInboxCapture.test.cjs` passed 5/5, `node tests/personalInbox.test.cjs` passed 6/6, `node tests/phase4ViewsSearch.test.cjs` passed 6/6, and `git diff --check` passed. |
+| Remaining Phase 5 work | In Progress | Email-to-Inbox is complete; still remaining are connector API permission/token validation and reviewable template packages. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/`.
+
+## UI Default - Board Pages Use Apple Glass Pastel
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Root cause | Pass | The first Phase 4 Map screenshot rendered the legacy blue UI because the real QA board persisted `color: belize`; app-level default was already Apple Glass, but board pages honor the board's own color. |
+| Source fix | Pass | Added `DEFAULT_BOARD_THEME_COLOR = DEFAULT_GLOBAL_THEME_COLOR`; schema-created boards, REST-created boards, and board color-picker fallbacks now use `appleglasspastel` instead of `BOARD_COLORS[0]`/hard-coded `belize`. |
+| Existing evidence board correction | Pass | Authenticated frontend Meteor client update changed board `2ceyfdWC9eTReXnj7` to `appleglasspastel`; no direct DB write was used for the correction. |
+| Frontend Map evidence | Pass | Desktop and mobile screenshots from `http://localhost:3000/b/2ceyfdWC9eTReXnj7/trello-parity-real-map-qa` show Apple Glass Pastel while still rendering the persisted real location card. |
+| Targeted guards | Pass | `node tests/appleGlassPastelV2.test.cjs` passed 11/11, `node tests/globalThemeColor.test.cjs` passed 8/8, `node tests/phase4ViewsSearch.test.cjs` passed 6/6, and `git diff --check` passed. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/`.
+
+## UI Default - Root Cause Scan for Legacy Theme Regression
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Runtime default scan | Pass | Scanned for `belize`, `BOARD_COLORS[0]`, and first-category fallback uses. Silent defaults were found in board schema, REST board create, CSV/Jira/Kanboard imports, WeKan/Trello import fallbacks, Personal Inbox helper board creation, and test DB helpers. |
+| Runtime fixes | Pass | All silent board defaults now use `DEFAULT_BOARD_THEME_COLOR`, which points to `DEFAULT_GLOBAL_THEME_COLOR` / `appleglasspastel`. |
+| Personal Inbox self-heal | Pass | Opening `/inbox` through an authenticated frontend session ran `personalInbox.ensure`; live DB now has the Personal Inbox helper board on `appleglasspastel`. |
+| Residual scan | Pass | Remaining `belize` hits are expected: allowed palette/theme tests/docs examples and explicit Trello blue mapping; unknown/missing Trello colors now fall back to Apple Glass. |
+| Live DB check | Pass | Live MongoDB has `belizeCount=0` across the two current boards: `Trello parity real map QA` and `^Personal Inbox^` are both `appleglasspastel`. |
+| Targeted guards | Pass | `node tests/appleGlassPastelV2.test.cjs` passed 11/11, `node tests/globalThemeColor.test.cjs` passed 8/8, `node tests/personalInbox.test.cjs` passed 6/6, `node tests/phase4ViewsSearch.test.cjs` passed 6/6, `node tests/emailInboxCapture.test.cjs` passed 5/5, and `git diff --check` passed. |
+
+Evidence directory:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-root-cause/2026-08-18T07-36-00Z/`.
+
+## Phase 5 Connector API permission/token validation — 2026-08-18T07:37:52Z
+
+| Case | Result | Notes |
+|------|--------|-------|
+| `node tests/connectorInboxCapture.test.cjs` | Pass | 5/5 helper/source guards for token hashing, type allowlist, origin allowlist, payload URL rejection and route wiring. |
+| `node tests/emailInboxCapture.test.cjs` | Pass | 5/5 regression guard for the previous Phase 5 email slice. |
+| `node tests/personalInbox.test.cjs` | Pass | 6/6 regression guard for Inbox ownership, provenance and UI wiring. |
+| Connector API negative checks | Pass | Wrong token 401, wrong type 401, wrong origin 401, unsafe URL 400; no accepted card created for rejected cases. |
+| Connector API accepted capture | Pass | Valid browser connector token/type/origin created card EDqrozK7KpYL2Mjh3 in the real Personal Inbox board. |
+| Frontend desktop/mobile evidence | Pass | In-app browser opened http://localhost:3000/inbox and rendered the persisted connector card from MongoDB with Apple Glass theme classes. |
+| `git diff --check` | Pass | No whitespace errors after this slice. |
+
+Evidence: /Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/
+
+Remaining Phase 5 work: reviewable template packages.
+
+## Phase 5 Reviewable Template Packages — 2026-08-18T07:47:52Z
+
+| Case | Result | Notes |
+|------|--------|-------|
+| `node tests/templatePackage.test.cjs` | Pass | 4/4 review schema, unreviewed-field rejection, payload bounds, user-derived server install and rollback source guards. |
+| Live API auth negative | Pass | Missing Bearer token rejected with HTTP 401. |
+| Live API review negative | Pass | Package with unreviewed `script` card field rejected with HTTP 400 `template-package-unreviewed-field`. |
+| Live rollback check | Pass | Rejected package left 0 rejected boards and 0 rejected cards in MongoDB. |
+| Live accepted install | Pass | Valid reviewed JSON package created template board `dCAbu4qoRNNyh4y2q`, linked card `8YMRhxNt9LJZGm42E`, 2 lists and 3 cards. |
+| Frontend desktop/mobile evidence | Pass | WeKan frontend rendered the persisted template board/cards from MongoDB with `board-color-appleglasspastel`. |
+| Final targeted QA | Pass | templatePackage 4/4, connector 5/5, email 5/5, personalInbox 6/6, phase4 6/6, Apple Glass 11/11, global theme 8/8, git diff check pass. |
+
+Evidence: /Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/
+
+Remaining Phase 5 work: none.
+
+## VPS sync — 2026-08-18T09:21:54Z
+
+| Case | Result | Notes |
+|------|--------|-------|
+| Full bundle rsync/build | Pass | Synced `.build-vps-20260818T091216Z/bundle` to `/opt/mtips5s_wekan/bundle-overlay-trello-parity-20260818T091616Z/` on the VPS and built `mtips5s-wekan:trello-parity-20260818T091616Z`. |
+| Container restart | Pass | `wekan-app` was recreated and is running `mtips5s-wekan:trello-parity-20260818T091616Z` on `127.0.0.1:3001->8080`. |
+| Public frontend | Pass | `https://trello.1nutnhan.com` returned HTTP 200 and Playwright captured a successful authenticated admin session. |
+| API smoke | Pass | `/api/inbox/connector` reached the new connector validation path; `/api/template-packages/install` returned expected unauthenticated 401 JSON. |
+| Rollback material | Pass | Previous compose override copied to `/opt/mtips5s_wekan/backups/compose.override.before-trello-parity-20260818T091616Z.yml` before switching image. |
+
+Evidence:
+`/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/vps-deploy-evidence/2026-08-18T09-21-54-133Z/`.
+
+Note: the image build completed with `npm install --prefix /build/programs/server`
+but npm audit reported 5 existing bundle vulnerabilities. Track separately; it
+did not block this sync.

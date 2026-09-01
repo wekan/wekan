@@ -63,3 +63,42 @@
 - PR scope notes are in `.manager/pr_handoff_pb10_apple_glass_pastel.md`.
 - Next action: wait for maintainer review/merge shape. Add the CHANGELOG entry
   only after the final upstream commit URL exists.
+
+## Trello parity heartbeat final QA — 2026-08-18T07:47:52Z
+
+Status: PASS. Phase 4 and Phase 5 remaining roadmap items are complete with real frontend and MongoDB-backed evidence.
+
+- Phase 4 Dashboard/Map/Saved Search: complete; real persisted card location evidence exists.
+- Phase 5 Email-to-Inbox: complete; sender/token/attachment negatives and accepted email card evidence exists.
+- Phase 5 Connector API: complete; token/type/origin negatives and accepted browser connector card evidence exists.
+- Phase 5 Reviewable Template Packages: complete; Bearer auth, review validation, rollback, accepted package board/list/card evidence exists.
+- Apple Glass default regression: fixed and verified; current evidence boards use `appleglasspastel`.
+- Contributor mode respected: no commit, release or publish performed.
+
+Final evidence directories:
+
+- /Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-47-52Z-template-packages/
+- /Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-37-52Z-connector-api/
+- /Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/phase-05/2026-08-18T07-18-53Z/
+- /Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/heartbeat-evidence/ui-default-board-map/2026-08-18T07-28-21Z/
+
+Final targeted QA commands passed: `node tests/templatePackage.test.cjs`, `node tests/connectorInboxCapture.test.cjs`, `node tests/emailInboxCapture.test.cjs`, `node tests/personalInbox.test.cjs`, `node tests/phase4ViewsSearch.test.cjs`, `node tests/appleGlassPastelV2.test.cjs`, `node tests/globalThemeColor.test.cjs`, and `git diff --check`.
+
+## VPS sync — 2026-08-18T09:21:54Z
+
+Status: PASS. The full current Meteor bundle was synced to the VPS and deployed
+as Docker image `mtips5s-wekan:trello-parity-20260818T091616Z`.
+
+- Public URL verified: https://trello.1nutnhan.com
+- Running container verified: `wekan-app` on
+  `mtips5s-wekan:trello-parity-20260818T091616Z`
+- API smoke verified: connector route and template package auth route both
+  reached the new server code.
+- Frontend proof captured after real admin login:
+  `/Users/apple/Desktop/ex_project/mtips5s_wekan/artifacts/vps-deploy-evidence/2026-08-18T09-21-54-133Z/`
+- Rollback file on VPS:
+  `/opt/mtips5s_wekan/backups/compose.override.before-trello-parity-20260818T091616Z.yml`
+
+Note: the server dependency install completed during image build, but npm audit
+reported 5 existing bundle vulnerabilities. This is not a deployment blocker for
+the sync, but it should be tracked as a separate dependency/security cleanup.

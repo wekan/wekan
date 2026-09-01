@@ -1,0 +1,118 @@
+schema_version: 1
+
+product:
+  name: "<PRODUCT_NAME>"
+  slug: "<PRODUCT_SLUG>"
+  description: "<PRODUCT_DESCRIPTION>"
+
+endpoints:
+  app_base_url: "<APP_BASE_URL>"
+  auth_base_url: "<AUTH_BASE_URL>"
+  api_base_url: "<API_BASE_URL>"
+  mcp_base_url: "<MCP_BASE_URL>"
+  mcp_path: "<MCP_PATH>"
+  media_base_url: "<MEDIA_BASE_URL>"
+  docs_base_url: "<DOCS_BASE_URL>"
+  health_url: "<API_BASE_URL>/api/health"
+
+mcp:
+  transport: streamable-http
+  protocol_version: "2025-03-26"
+  server_id: "<PRODUCT_SLUG>"
+  auth:
+    type: header
+    header: "x-api-key"
+    bearer_supported: true
+    key_prefix: "<KEY_PREFIX>"
+  cors:
+    allowed_origins:
+      - "<APP_BASE_URL>"
+    allowed_headers:
+      - Content-Type
+      - Authorization
+      - x-api-key
+      - mcp-session-id
+      - mcp-protocol-version
+  rate_limit_per_minute: 60
+
+permissions:
+  manage_key: mcp-key:manage
+  view_usage: mcp-usage:read
+  call_tools: mcp-tools:call
+
+features:
+  - id: "<FEATURE_ID>"
+    label: "<FEATURE_LABEL>"
+    description: "<FEATURE_DESCRIPTION>"
+    result_delivery: asset_id
+    tools:
+      - name: "<TOOL_NAME>"
+        operation: create
+        input_schema_ref: "#/schemas/tool_input"
+        output_schema_ref: "#/schemas/tool_output"
+    usage_events:
+      requested: "<FEATURE>_requested"
+      success: "<FEATURE>_success"
+      failed: "<FEATURE>_failed"
+      downloaded: "<FEATURE>_download_success"
+    quota_metric: "<FEATURE>_success"
+
+usage:
+  enabled: true
+  timezone: Asia/Ho_Chi_Minh
+  retention_days: 90
+  filters:
+    - period
+    - feature
+    - tool
+    - api_key
+    - provider
+  dashboard_metrics:
+    - metric: tool_call_total
+      label: Tool calls
+    - metric: "<FEATURE>_success"
+      label: Thành công
+    - metric: "<FEATURE>_failed"
+      label: Thất bại
+    - metric: "<FEATURE>_download_success"
+      label: Tải xuống
+
+quota:
+  policies:
+    - id: daily_primary_feature
+      metric: "<FEATURE>_success"
+      scope: workspace
+      period: day
+      limit: 100
+      consume_on: success
+      timezone: Asia/Ho_Chi_Minh
+
+result_delivery:
+  allowed_modes:
+    - inline_json
+    - base64
+    - asset_id
+    - signed_url
+    - server_path
+  public_default: asset_id
+  signed_url_ttl_seconds: 900
+
+health:
+  required_fields:
+    ok: true
+  optional_feature_checks: []
+
+schemas:
+  tool_input:
+    type: object
+    properties: {}
+    additionalProperties: true
+  tool_output:
+    type: object
+    required: [ok]
+    properties:
+      ok: {type: boolean}
+      asset_id: {type: string}
+      download_url: {type: string}
+      bytes: {type: integer}
+      latency_ms: {type: number}
