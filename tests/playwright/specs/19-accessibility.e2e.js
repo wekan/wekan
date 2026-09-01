@@ -18,6 +18,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { navigateInApp } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Accessibility', () => {
@@ -162,7 +163,7 @@ test.describe('Accessibility', () => {
   });
 
   test('the global search page is a labelled search landmark', async ({ loggedInPage }) => {
-    await loggedInPage.goto('/global-search', { waitUntil: 'commit' });
+    await navigateInApp(loggedInPage, '/global-search');
     const form = loggedInPage.locator('form[role="search"]').first();
     await expect(form).toBeVisible({ timeout: 15_000 });
 
@@ -235,7 +236,7 @@ test.describe('Accessibility', () => {
   test('rendered pages keep natural tab order and name visible controls', async ({ loggedInPage }) => {
     const routes = ['/my-cards', '/due-cards', '/global-search', '/public'];
     for (const route of routes) {
-      await loggedInPage.goto(route, { waitUntil: 'commit' });
+      await navigateInApp(loggedInPage, route);
       await loggedInPage.locator('#content').waitFor({ timeout: 15_000 });
       const audit = await loggedInPage.evaluate(() => {
         const visible = element => {
@@ -276,7 +277,7 @@ test.describe('Accessibility', () => {
   });
 
   test('the my-cards page has no duplicate element ids', async ({ loggedInPage }) => {
-    await loggedInPage.goto('/my-cards', { waitUntil: 'commit' });
+    await navigateInApp(loggedInPage, '/my-cards');
     // Wait for the page to render something meaningful.
     await loggedInPage.locator('#content').waitFor({ timeout: 15_000 });
 

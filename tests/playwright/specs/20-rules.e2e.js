@@ -12,9 +12,10 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { navigateInApp } = require('../helpers/auth');
 
 async function openRulesPage(page, board) {
-  await page.goto(`/b/${board.boardId}/${board.slug}/rules`, { waitUntil: 'commit' });
+  await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
   // The rules list (or its empty-state) renders inside the fullscreen page.
   await page.locator('.rules-page').waitFor({ timeout: 20_000 });
 }
@@ -181,7 +182,7 @@ test.describe('Rules', () => {
     await expect(boardPage.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15_000 });
 
     // Back on the board, the board button appears in the header and is clickable.
-    await boardPage.goto(`/b/${board.boardId}/${board.slug}`, { waitUntil: 'commit' });
+    await navigateInApp(boardPage, `/b/${board.boardId}/${board.slug}`);
     const btn = boardPage.locator('.js-run-board-button');
     await expect(btn).toBeVisible({ timeout: 20_000 });
     await expect(btn).toContainText('Do the thing');

@@ -2,6 +2,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { waitForMeteor } = require('../helpers/auth');
 
 test.describe('Email verification', () => {
   test('#1426 an anonymous verification link verifies and signs in the user', async ({
@@ -40,7 +41,10 @@ test.describe('Email verification', () => {
     });
 
     await page.goto('/verify-email/not-a-real-token', { waitUntil: 'commit' });
-    await page.waitForTimeout(500);
+    // Firefox can commit the document before the application bundle exposes
+    // Meteor. Wait for the same readiness condition as the auth helpers before
+    // inspecting the anonymous session.
+    await waitForMeteor(page);
 
     expect(db.findOne('users', { _id: user.id }).emails[0].verified).toBe(false);
     expect(await page.evaluate(() => Meteor.userId())).toBeNull();

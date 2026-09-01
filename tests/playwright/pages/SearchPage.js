@@ -1,6 +1,6 @@
 'use strict';
 
-const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
+const { navigateInApp } = require('../helpers/auth');
 
 /**
  * Page Object for the global search page (/global-search) and
@@ -22,7 +22,10 @@ class SearchPage {
 
   async navigateToGlobalSearch() {
     // WeKan's global search route is /global-search (not /search).
-    await this.page.goto(`${BASE_URL}/global-search`, { waitUntil: 'networkidle' });
+    // Stay on the authenticated SPA connection. A full document navigation
+    // races Meteor's HttpOnly-cookie resume against the route guard. Popstate
+    // is the same navigation FlowRouter handles for browser Back/Forward.
+    await navigateInApp(this.page, '/global-search');
     // Wait for the search form: form.global-search-page.js-search-query-form
     await this.page.locator('form.js-search-query-form').waitFor({ timeout: 15_000 });
   }

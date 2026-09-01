@@ -106,7 +106,7 @@ host_platform() {
 # one of them is about the image.
 image_has_platform() {
   local out
-  out="$(docker manifest inspect "$1" 2>&1)" || return 2
+  out="$(docker_exec manifest inspect "$1" 2>&1)" || return 2
   printf '%s' "$out" | grep -q "\"architecture\": \"$2\"" && return 0
   return 1
 }
@@ -120,7 +120,24 @@ echo "Sequential: one database at a time."
 echo "=========================================================================="
 echo
 
-command -v docker >/dev/null 2>&1 || { echo "ERROR: docker not found - it starts the databases." >&2; exit 1; }
+docker_available() {
+  command -v docker >/dev/null 2>&1 && return 0
+  command -v flatpak-spawn >/dev/null 2>&1 || return 1
+  flatpak-spawn --host sh -lc 'command -v docker >/dev/null 2>&1' >/dev/null 2>&1
+}
+
+docker_exec() {
+  if command -v docker >/dev/null 2>&1; then
+    docker "$@"
+  else
+    flatpak-spawn --host docker "$@"
+  fi
+}
+
+docker_available || {
+  echo "ERROR: Docker is unavailable both locally and through flatpak-spawn --host." >&2
+  exit 1
+}
 command -v git    >/dev/null 2>&1 || { echo "ERROR: git not found - it fetches the FerretDB source." >&2; exit 1; }
 command -v node   >/dev/null 2>&1 || { echo "ERROR: node not found - it runs the query catalogue." >&2; exit 1; }
 if [ ! -d node_modules/mongodb ]; then
@@ -221,11 +238,11 @@ DB_HOST_PORT_BASE="${WEKAN_CONFORMANCE_DB_PORT:-35432}"
 # script's own, named wekan-conformance-db-<run timestamp>, so removing them is
 # safe: a `docker compose up` stack is named wekan-postgres / wekan-ferretdb and is
 # never touched.
-stale="$(docker ps -aq --filter 'name=^wekan-conformance-db-' 2>/dev/null || true)"
+stale="$(docker_exec ps -aq --filter 'name=^wekan-conformance-db-' 2>/dev/null || true)"
 if [ -n "$stale" ]; then
   echo "Removing containers left behind by an earlier run: $(echo "$stale" | tr '\n' ' ')"
   # shellcheck disable=SC2086
-  docker rm -f $stale >/dev/null 2>&1 || true
+  docker_exec rm -f $stale >/dev/null 2>&1 || true
 fi
 # One container name per run, so a stack somebody started with `docker compose up`
 # - which names its containers wekan-postgres, wekan-ferretdb ... - is never
@@ -237,7 +254,7 @@ echo
 
 cleanup() {
   [ -n "${FERRET_PID:-}" ] && kill "$FERRET_PID" 2>/dev/null
-  docker rm -f "$CONTAINER" >/dev/null 2>&1
+  docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
 }
 # Ctrl-C must END the run. Without the explicit exit, the interrupt only killed
 # whatever was in the foreground - a `docker manifest inspect`, a sleep - and the
@@ -290,7 +307,7 @@ for entry in "${BACKENDS[@]}"; do
 
   echo
   echo "---- $name: starting the database ----"
-  docker rm -f "$CONTAINER" >/dev/null 2>&1
+  docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
 
   # Start the container, and when the published port turns out to be taken after
   # all, move to the next free one and try again. `free_port` looks a moment
@@ -300,7 +317,7 @@ for entry in "${BACKENDS[@]}"; do
   start_db_container() {
     local attempt
     for attempt in 1 2 3 4 5; do
-      if docker run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
+      if docker_exec run -d --name "$CONTAINER" -p "127.0.0.1:$hostport:$port" "$@" >>"$log" 2>&1; then
         return 0
       fi
 
@@ -308,7 +325,7 @@ for entry in "${BACKENDS[@]}"; do
         return 1                      # a real failure: report it as one
       fi
 
-      docker rm -f "$CONTAINER" >/dev/null 2>&1
+      docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
       hostport=$((hostport + 1))
       hostport="$(free_port "$hostport")"
       echo "  port was taken; retrying on 127.0.0.1:$hostport" | tee -a "$log"
@@ -373,10 +390,10 @@ for entry in "${BACKENDS[@]}"; do
       # its database is initialised, and starting FerretDB early only produces a
       # confusing connection error.
       case "$name" in
-        postgresql) docker exec "$CONTAINER" pg_isready -U ferretdb -d ferretdb >/dev/null 2>&1 && up=1 ;;
-        mysql)      docker exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
-        mariadb)    docker exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
-        sap-hana)   docker logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;
+        postgresql) docker_exec exec "$CONTAINER" pg_isready -U ferretdb -d ferretdb >/dev/null 2>&1 && up=1 ;;
+        mysql)      docker_exec exec "$CONTAINER" mysqladmin ping -h 127.0.0.1 -u root -pferretdb_root_secret --silent >/dev/null 2>&1 && up=1 ;;
+        mariadb)    docker_exec exec "$CONTAINER" healthcheck.sh --connect --innodb_initialized >/dev/null 2>&1 && up=1 ;;
+        sap-hana)   docker_exec logs "$CONTAINER" 2>&1 | grep -q "Startup finished" && up=1 ;;
       esac
       [ "$up" -eq 1 ] && break
       printf '.'
@@ -385,9 +402,9 @@ for entry in "${BACKENDS[@]}"; do
     echo
     if [ "$up" -ne 1 ]; then
       echo "ERROR $name: the database never became ready (see $log)"
-      docker logs "$CONTAINER" >>"$log" 2>&1
+      docker_exec logs "$CONTAINER" >>"$log" 2>&1
       echo "ERROR $name  database never ready" >> "$SUMMARY"
-      docker rm -f "$CONTAINER" >/dev/null 2>&1
+      docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
       continue
     fi
   fi
@@ -432,7 +449,7 @@ for entry in "${BACKENDS[@]}"; do
     echo "---------------------------------"
     echo "ERROR $name  FerretDB did not start on this backend" >> "$SUMMARY"
     kill "$FERRET_PID" 2>/dev/null; FERRET_PID=""
-    docker rm -f "$CONTAINER" >/dev/null 2>&1
+    docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
     continue
   fi
 
@@ -449,8 +466,8 @@ for entry in "${BACKENDS[@]}"; do
   echo "---- $name: stopping ----"
   kill "$FERRET_PID" 2>/dev/null; wait "$FERRET_PID" 2>/dev/null; FERRET_PID=""
   if [ -n "$service" ]; then
-    docker logs "$CONTAINER" >>"$log" 2>&1
-    docker rm -f "$CONTAINER" >/dev/null 2>&1
+    docker_exec logs "$CONTAINER" >>"$log" 2>&1
+    docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
   fi
   echo
 done

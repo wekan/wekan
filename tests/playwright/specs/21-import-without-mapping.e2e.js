@@ -13,6 +13,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { navigateInApp } = require('../helpers/auth');
 
 // A minimal but valid WeKan board export (mirrors tests/wekanCreator.import.test.js).
 const now = '2020-01-01T00:00:00.000Z';
@@ -63,7 +64,7 @@ test.describe('Import without mapping members', () => {
     delete legacyExport.permission;
     let importedBoardId;
     try {
-      await loggedInPage.goto('/import/wekan', { waitUntil: 'commit' });
+      await navigateInApp(loggedInPage, '/import/wekan');
       await loggedInPage.locator('#import-textarea').fill(JSON.stringify(legacyExport));
       await loggedInPage.locator('.js-import-without-mapping').click();
       await loggedInPage.waitForURL(/\/b\//, { timeout: 30_000 });
@@ -81,13 +82,13 @@ test.describe('Import without mapping members', () => {
   });
 
   test('the import page offers "import without mapping members"', async ({ loggedInPage }) => {
-    await loggedInPage.goto('/import/wekan', { waitUntil: 'commit' });
+    await navigateInApp(loggedInPage, '/import/wekan');
     const skip = loggedInPage.locator('.js-import-without-mapping');
     await expect(skip).toBeVisible({ timeout: 15_000 });
   });
 
   test('importing a WeKan board without mapping lands on the new board', async ({ loggedInPage }) => {
-    await loggedInPage.goto('/import/wekan', { waitUntil: 'commit' });
+    await navigateInApp(loggedInPage, '/import/wekan');
 
     await loggedInPage.locator('#import-textarea').fill(JSON.stringify(wekanExport));
     await loggedInPage.locator('.js-import-without-mapping').click();

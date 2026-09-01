@@ -26,7 +26,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken } = require('../helpers/auth');
+const { loginWithToken, navigateInApp } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
@@ -56,7 +56,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
       window.localStorage.setItem('wekan-all-boards-view', 'table');
     });
     await loginWithToken(page, user.id, user.token);
-    await page.goto(`${BASE_URL}/allboards/remaining`, { waitUntil: 'commit' });
+    await navigateInApp(page, '/allboards/remaining');
 
     const add = page.locator('.all-boards-table-actions .js-add-board');
     await expect(add).toBeVisible({ timeout: 15_000 });
@@ -72,7 +72,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     });
     await loginWithToken(page, user.id, user.token);
     for (const section of ['archive', 'home']) {
-      await page.goto(`${BASE_URL}/allboards/${section}`, { waitUntil: 'commit' });
+      await navigateInApp(page, `/allboards/${section}`);
       await expect(page.locator('.boards-right-grid')).toBeVisible({
         timeout: 15_000,
       });
@@ -96,7 +96,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
       window.localStorage.setItem('wekan-all-boards-view', 'lists');
     });
     await loginWithToken(page, user.id, user.token);
-    await page.goto(`${BASE_URL}/allboards/archive`, { waitUntil: 'commit' });
+    await navigateInApp(page, '/allboards/archive');
 
     await expect
       .poll(() => boardListNames(page), { timeout: 15_000 })
@@ -165,7 +165,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     db.updateOne('boards', { _id: template.boardId }, { $set: { type: 'template-container' } });
     try {
       await loginWithToken(page, user.id, user.token);
-      await page.goto(`${BASE_URL}/templates`, { waitUntil: 'commit' });
+      await navigateInApp(page, '/templates');
 
       await expect
         .poll(() => boardListNames(page), { timeout: 15000 })
@@ -185,7 +185,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     db.updateOne('boards', { _id: template.boardId }, { $set: { type: 'template-container' } });
     try {
       await loginWithToken(page, user.id, user.token);
-      await page.goto(`${BASE_URL}/remaining`, { waitUntil: 'commit' });
+      await navigateInApp(page, '/remaining');
 
       await expect
         .poll(() => boardListNames(page), { timeout: 15000 })
@@ -220,7 +220,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
       expect(before.profile && before.profile.templatesBoardId).toBeFalsy();
 
       await loginWithToken(page, user.id, user.token);
-      await page.goto(`${BASE_URL}/templates`, { waitUntil: 'commit' });
+      await navigateInApp(page, '/templates');
 
       // Wait until the All Boards grid has settled (the "Add board" entry is the
       // template-container add button in this sub-view) so any (removed) autorun

@@ -84,6 +84,11 @@ test.describe('Search', () => {
     const sp = new SearchPage(boardPage);
     const cardTitles = ['Alpha Card', 'Beta Card', 'Gamma Card'];
 
+    // Enter Global Search once. Re-entering the same route does not recreate
+    // its Blaze instance; doing it between queries can leave the previous
+    // subscription/result paired with the newly filled input.
+    await sp.navigateToGlobalSearch();
+
     for (const title of cardTitles) {
       // Fire the search once per term, then poll only the result read. The
       // global-search page shows the boards/lists help block by default, so
@@ -91,7 +96,6 @@ test.describe('Search', () => {
       // results render. Re-navigating/re-searching on every poll iteration kept
       // reading each fresh search too early; polling a single search lets the
       // round-trip settle (matching the resilient pattern of the tests above).
-      await sp.navigateToGlobalSearch();
       await sp.globalSearch(title);
 
       await expect

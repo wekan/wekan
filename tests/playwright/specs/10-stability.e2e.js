@@ -123,7 +123,7 @@ test.describe('Stability & connectivity', () => {
 
   test('page does not emit JS errors on initial board load', async ({ boardPage, board }) => {
     const errors = [];
-    boardPage.on('pageerror', e => errors.push(e.message));
+    boardPage.on('pageerror', e => errors.push(e.stack || e.message));
 
     await boardPage.waitForTimeout(3_000);
     // Filter out known non-critical warnings

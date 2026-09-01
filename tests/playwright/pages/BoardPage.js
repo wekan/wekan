@@ -107,8 +107,21 @@ class BoardPage {
   async clickCard(listId, titleSubstring) {
     // Title text deliberately opens inline editing. Activate the enclosing
     // card link itself so this helper keeps its promise to open card details.
-    await this.minicard(listId, titleSubstring).evaluate(card => card.click());
-    await this.page.locator('.js-card-details').first().waitFor({ timeout: 15_000 });
+    // A subscription can replace the board DOM just after a reload; in that
+    // case the click reached the detached card and must be repeated on the
+    // newly rendered minicard.
+    const details = this.page.locator('.js-card-details').first();
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const card = this.minicard(listId, titleSubstring);
+      await card.waitFor({ state: 'visible', timeout: 15_000 });
+      await card.evaluate(element => element.click());
+      try {
+        await details.waitFor({ state: 'visible', timeout: 5_000 });
+        return;
+      } catch (error) {
+        if (attempt === 2) throw error;
+      }
+    }
   }
 
   // --- Board view switching ---

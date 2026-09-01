@@ -317,4 +317,27 @@ async function openBoard(page, boardId, slug) {
   );
 }
 
-module.exports = { loginWithToken, loginWithCredentials, logout, waitForMeteor, openBoard };
+/** Navigate without replacing the authenticated Meteor connection.
+ *
+ * With HttpOnly cookie sessions a full document load briefly has no userId;
+ * protected route guards can therefore send browser automation to All Boards
+ * before cookie resume settles. Real in-app links use FlowRouter on the live
+ * connection. A history popstate exercises that same public browser path while
+ * still allowing tests to address a precise route.
+ */
+async function navigateInApp(page, path) {
+  await waitForMeteor(page);
+  await page.evaluate(nextPath => {
+    window.history.pushState({}, '', nextPath);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  }, path);
+}
+
+module.exports = {
+  loginWithToken,
+  loginWithCredentials,
+  logout,
+  waitForMeteor,
+  openBoard,
+  navigateInApp,
+};

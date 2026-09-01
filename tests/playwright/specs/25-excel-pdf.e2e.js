@@ -9,6 +9,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { navigateInApp } = require('../helpers/auth');
 // exceljs lives in the repo root node_modules (used by the Excel importer).
 const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
 
@@ -24,7 +25,7 @@ test.describe('Excel import & board PDF export', () => {
     ws.addRow(['ExcelCardOne', 'imported from excel', 'ToDoExcel']);
     const buffer = Buffer.from(await wb.xlsx.writeBuffer());
 
-    await loggedInPage.goto('/import/excel', { waitUntil: 'commit' });
+    await navigateInApp(loggedInPage, '/import/excel');
     await loggedInPage
       .locator('.js-import-excel-file')
       .setInputFiles({ name: 'board.xlsx', mimeType: XLSX_MIME, buffer });

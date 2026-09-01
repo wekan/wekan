@@ -439,10 +439,15 @@ Template.swimlane.onRendered(function () {
 
   // Wait for DOM to be ready
   setTimeout(() => {
+    // A reactive board-view switch can destroy this swimlane before the
+    // deferred sortable setup runs. TemplateInstance.$() deliberately throws
+    // on a removed DomRange, which turned an otherwise successful render or
+    // interaction into a page-level "Can't select in removed DomRange" error.
+    if (tpl.view.isDestroyed) return;
     const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
       ? '.js-list-handle'
       : '.js-list-header';
-    const $parent = tpl.$('.js-lists');
+    const $parent = $listsDom;
 
     if ($parent.length > 0) {
 
@@ -1008,6 +1013,7 @@ Template.listsGroup.onRendered(function () {
 
   // Wait for DOM to be ready
   setTimeout(() => {
+    if (tpl.view.isDestroyed) return;
     const handleSelector = Utils.isTouchScreenOrShowDesktopDragHandles()
       ? '.js-list-handle'
       : '.js-list-header';

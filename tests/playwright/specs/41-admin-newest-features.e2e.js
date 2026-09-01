@@ -15,7 +15,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken, waitForMeteor } = require('../helpers/auth');
+const { loginWithToken, waitForMeteor, navigateInApp } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const ZW = '\u200b'; // zero-width space (escape sequence — no literal invisible char in source)
@@ -50,7 +50,7 @@ test.describe('Admin – newest features', () => {
     // and then click a menu row, and no race between the redirect from the old
     // `/admin-reports` and the menu rendering.
     // docs/Features/Page/Admin-Panel-URLs.md
-    await page.goto(`${BASE_URL}/admin/problems/files`, { waitUntil: 'networkidle' });
+    await navigateInApp(page, '/admin/problems/files');
     // The evaluate below reaches for `window.Meteor.callAsync`; `networkidle`
     // only means the network went quiet, so Firefox got here with Meteor still
     // undefined and the count came back as an error string.
@@ -143,7 +143,7 @@ test.describe('Admin – newest features', () => {
   test('Version page shows Reactivity mode + configured REACTIVITY_ORDER and DDP_TRANSPORT', async ({ page, adminUser }) => {
     await loginWithToken(page, adminUser.id, adminUser.token);
     // `/information` redirects to the Version pane's own address.
-    await page.goto(`${BASE_URL}/admin/settings/version`, { waitUntil: 'networkidle' });
+    await navigateInApp(page, '/admin/settings/version');
 
     const body = page.locator('body');
     await expect(body).toContainText('Reactivity mode', { timeout: 15_000 });
@@ -185,7 +185,7 @@ test.describe('Admin – newest features', () => {
     // still become READY and show their (empty) report, not hang on the spinner.
     await db.seedBoard({ ownerId: adminUser.id, title: 'Report Data Board', cardTitlesPerList: [['RCard']] });
     await loginWithToken(page, adminUser.id, adminUser.token);
-    await page.goto(`${BASE_URL}/admin/problems/summary`, { waitUntil: 'networkidle' });
+    await navigateInApp(page, '/admin/problems/summary');
 
     // #6480: these report publications returned sorted+limited live cursors, whose
     // LIMITED live observe hangs on FerretDB's OpLog — the subscription never became
@@ -219,7 +219,7 @@ test.describe('Admin – newest features', () => {
     // statsView renders (with server-resolved counts) when it is the user's view.
     db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.boardView': 'board-view-stats' } });
     await loginWithToken(page, adminUser.id, adminUser.token);
-    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'networkidle' });
+    await navigateInApp(page, `/b/${board.boardId}/${board.slug}`);
 
     const stats = page.locator('.stats-view');
     await expect(stats).toBeVisible({ timeout: 15_000 });
@@ -245,7 +245,7 @@ test.describe('Admin – newest features', () => {
     // Open the board's Table view via My Cards / board table (the .js-table-view-sort
     // class only ever existed on the sortable headers). Anywhere the table view
     // renders, no sortable header must exist.
-    await page.goto(`${BASE_URL}/my-cards`, { waitUntil: 'networkidle' }).catch(() => {});
+    await navigateInApp(page, '/my-cards').catch(() => {});
     await page.waitForTimeout(1_000);
     await expect(page.locator('.js-table-view-sort')).toHaveCount(0);
   });

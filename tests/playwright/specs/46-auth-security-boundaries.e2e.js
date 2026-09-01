@@ -1,7 +1,7 @@
 'use strict';
 
 const { test, expect } = require('../fixtures');
-const { loginWithToken, waitForMeteor } = require('../helpers/auth');
+const { loginWithToken, waitForMeteor, navigateInApp } = require('../helpers/auth');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 
@@ -79,9 +79,7 @@ test.describe('Authentication security boundaries', () => {
       expect(String(recovery[5].message)).toMatch(/too many requests|slow down/i);
 
       await loginWithToken(page, adminUser.id, adminUser.token);
-      await page.goto(`${BASE_URL}/admin/problems/security-report`, {
-        waitUntil: 'networkidle',
-      });
+      await navigateInApp(page, '/admin/problems/security-report');
       await expect(page.locator('body')).toContainText('MembershipBleed', {
         timeout: 15_000,
       });

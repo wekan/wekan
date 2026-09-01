@@ -168,7 +168,7 @@ test('the runner builds the newest FerretDB from source before testing anything'
 
 test('only the databases with an image for THIS CPU are run, and one at a time', () => {
   const sh = read('releases/db-conformance.sh');
-  assert.ok(/docker manifest inspect/.test(sh),
+  assert.ok(/docker_exec manifest inspect/.test(sh),
     'the registry decides what this CPU can run, not a table in the script');
   for (const arch of ['amd64', 'arm64', 'ppc64le', 's390x', 'riscv64']) {
     assert.ok(sh.includes(arch), `${arch} must be recognised`);
@@ -178,6 +178,17 @@ test('only the databases with an image for THIS CPU are run, and one at a time',
   assert.ok(!/&\s*$/m.test(sh.replace(/>>"\$log" 2>&1 &/g, '')) || true);
   // SAP HANA cannot be started by accident.
   assert.ok(/WEKAN_CONFORMANCE_HANA/.test(sh), 'SAP HANA is opt-in');
+});
+
+test('Docker commands can reach the host from a Flatpak development shell', () => {
+  const sh = read('releases/db-conformance.sh');
+  assert.match(sh, /command -v flatpak-spawn/);
+  assert.match(sh, /flatpak-spawn --host sh -lc 'command -v docker/);
+  assert.match(sh, /flatpak-spawn --host docker "\$@"/);
+  assert.match(sh, /docker_available \|\|/,
+    'the runner checks both local and host Docker before starting');
+  assert.doesNotMatch(sh, /^\s*docker (?:manifest|ps|rm|run|exec|logs)\b/m,
+    'operational commands must use the local-or-host wrapper');
 });
 
 test('it runs on its own ports, so another test run is never touched', () => {
