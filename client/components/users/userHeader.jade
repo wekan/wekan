@@ -18,6 +18,10 @@ template(name="memberMenuPopup")
           i.fa.fa-list
           | {{_ 'my-cards'}}
       li
+        a.js-mcp-hub(href="{{pathFor 'mcp'}}")
+          i.fa.fa-plug
+          | {{_ 'mcp-hub'}}
+      li
         a.js-due-cards(href="{{pathFor 'due-cards'}}")
           i.fa.fa-calendar
           | {{_ 'dueCards-title'}}

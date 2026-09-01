@@ -600,6 +600,24 @@ FlowRouter.route('/my-cards', {
   },
 });
 
+FlowRouter.route('/mcp', {
+  name: 'mcp',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+    this.render('defaultLayout', { content: 'mcpHub' });
+  },
+});
+
 FlowRouter.route('/due-cards', {
   name: 'due-cards',
   triggersEnter: [ensureSignedInUnlessSandstorm],

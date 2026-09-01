@@ -67,6 +67,9 @@ Template.memberMenuPopup.events({
   'click .js-my-cards'() {
     Popup.back();
   },
+  'click .js-mcp-hub'() {
+    Popup.back();
+  },
   'click .js-due-cards'() {
     Popup.back();
   },

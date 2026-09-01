@@ -39,7 +39,7 @@ test('MCP list_boards uses the authenticated user boards endpoint', () => {
     'connector should have a helper for /api/users/{userId}/boards',
   );
   assert.ok(
-    /async def list_boards\(\)[\s\S]*?boards = await _visible_user_boards\(client\)/
+    /async def list_boards\([^)]*\)[\s\S]*?boards = await _visible_user_boards\(client\)/
       .test(server),
     'list_boards should include private boards visible to the authenticated user',
   );
@@ -47,7 +47,7 @@ test('MCP list_boards uses the authenticated user boards endpoint', () => {
 
 test('MCP health probe counts authenticated visible boards, not public boards', () => {
   assert.ok(
-    /async def wekan_health_status\(\)[\s\S]*?boards = await _visible_user_boards\(client\)/
+    /async def wekan_health_status\([^)]*\)[\s\S]*?boards = await _visible_user_boards\(client\)/
       .test(server),
     'health should report the same visible board set as list_boards',
   );
@@ -75,7 +75,7 @@ test('README documents private-board list_boards behavior', () => {
 });
 
 test('MCP server version was bumped for the board-discovery fix', () => {
-  assert.ok(/version="0\.2\.1"/.test(server), 'serverInfo should identify the fixed build');
+  assert.ok(/version="0\.3\.0"/.test(server), 'serverInfo should identify the fixed build');
 });
 
 test('untrusted resource ids cannot alter WeKan REST paths', () => {

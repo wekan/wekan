@@ -31,6 +31,7 @@ const PAGE_TITLE_KEYS = {
   shortcuts: 'keyboard-shortcuts',
   'board-rules': 'r-board-rules',
   'my-cards': 'my-cards',
+  mcp: 'mcp-hub',
   'global-search': 'globalSearch-title',
   'due-cards': 'dueCards-title',
   'broken-cards': 'broken-cards',

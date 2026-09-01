@@ -183,6 +183,9 @@ import '/server/cron/syncedCron';
 // ----------------------------------------------------------------------------
 import '/server/card-opened-webhook';
 import '/server/cards-loading';
+import '/server/mcpPublicConfig';
+import '/server/mcpApiKeys';
+import '/server/mcpUsage';
 
 // ----------------------------------------------------------------------------
 // 8. Server — import helpers

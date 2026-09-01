@@ -1,0 +1,253 @@
+template(name="mcpHub")
+  if currentUser
+    section.wrapper.mcp-hub-page(aria-labelledby="mcp-hub-title")
+      header.mcp-hub-heading
+        h2#mcp-hub-title
+          i.fa.fa-plug
+          | {{_ 'mcp-hub'}}
+        p {{_ 'mcp-hub-description'}}
+
+      section.mcp-hub-panel.mcp-usage-panel(aria-labelledby="mcp-usage-title")
+        .mcp-hub-panel-heading
+          div
+            h3#mcp-usage-title {{_ 'mcp-usage-dashboard'}}
+            p {{_ 'mcp-usage-description'}}
+          button.primary.js-refresh-mcp-usage(type="button" disabled=isLoadingUsage)
+            i.fa.fa-refresh
+            | {{_ 'mcp-usage-refresh'}}
+
+        if isLoadingUsage
+          +spinner
+        else if usageError
+          p.mcp-key-status.is-error(role="status")= usageError
+        else if hasUsage
+          .mcp-usage-grid
+            article.mcp-usage-metric
+              i.fa.fa-exchange
+              span {{_ 'mcp-usage-tool-calls'}}
+              strong {{usageTotalCalls}}
+            article.mcp-usage-metric
+              i.fa.fa-download
+              span {{_ 'mcp-usage-downloads'}}
+              strong {{usageDownloads}}
+            article.mcp-usage-metric
+              i.fa.fa-plus-circle
+              span {{_ 'mcp-usage-create-requested'}}
+              strong {{usageCreateRequested}}
+            article.mcp-usage-metric.is-success
+              i.fa.fa-check-circle
+              span {{_ 'mcp-usage-create-success'}}
+              strong {{usageCreateSuccess}}
+            article.mcp-usage-metric.is-failed
+              i.fa.fa-times-circle
+              span {{_ 'mcp-usage-create-failed'}}
+              strong {{usageCreateFailed}}
+
+          .mcp-usage-quota
+            .mcp-usage-quota-heading
+              div
+                strong {{_ 'mcp-usage-daily-limit'}}
+                p {{_ 'mcp-usage-daily-limit-description'}}
+              span {{usageTodayCreates}} / {{usageDailyLimit}}
+            .mcp-usage-progress(aria-hidden="true")
+              span(style=usageProgressStyle)
+            p.mcp-usage-remaining
+              | {{_ 'mcp-usage-remaining'}}: {{usageRemaining}}
+
+          if hasUsageHistory
+            .mcp-usage-history
+              h4 {{_ 'mcp-usage-history'}}
+              table
+                thead
+                  tr
+                    th {{_ 'mcp-usage-date'}}
+                    th {{_ 'mcp-usage-tool-calls'}}
+                    th {{_ 'mcp-usage-downloads'}}
+                    th {{_ 'mcp-usage-create-requested'}}
+                    th {{_ 'mcp-usage-create-success'}}
+                    th {{_ 'mcp-usage-create-failed'}}
+                tbody
+                  each row in usageHistory
+                    tr
+                      td= row.dateLabel
+                      td= row.toolCallLabel
+                      td= row.downloadLabel
+                      td= row.createRequestedLabel
+                      td= row.createSuccessLabel
+                      td= row.createFailedLabel
+
+      section.mcp-hub-panel(aria-labelledby="mcp-api-keys-title")
+        .mcp-hub-panel-heading
+          div
+            h3#mcp-api-keys-title {{_ 'mcp-api-keys'}}
+            p {{_ 'mcp-api-keys-description'}}
+          span.mcp-key-count {{activeKeyCount}} / 10
+
+        form.mcp-key-form.js-create-mcp-key
+          .mcp-key-field
+            label(for="mcp-key-name") {{_ 'mcp-key-name'}}
+            input#mcp-key-name.wekan-form-control.js-mcp-key-name(
+              type="text"
+              maxlength="80"
+              required
+              placeholder="{{_ 'mcp-key-name-placeholder'}}")
+          .mcp-key-field
+            label(for="mcp-key-expiry") {{_ 'mcp-key-expiry'}}
+            select#mcp-key-expiry.wekan-form-control.js-mcp-key-expiry
+              option(value="30") {{_ 'mcp-key-expiry-30'}}
+              option(value="90" selected) {{_ 'mcp-key-expiry-90'}}
+              option(value="365") {{_ 'mcp-key-expiry-365'}}
+          button.primary(type="submit" disabled=isBusy)
+            i.fa.fa-key
+            | {{_ 'mcp-create-key'}}
+
+        if revealedApiKey
+          .mcp-secret-reveal(role="status")
+            .mcp-secret-heading
+              div
+                strong {{_ 'mcp-key-created'}}
+                p {{_ 'mcp-key-show-once'}}
+              button.js-dismiss-mcp-secret(type="button" aria-label="{{_ 'close'}}") &#10005;
+            .mcp-copy-row
+              input.wekan-form-control.js-mcp-secret(
+                type="text"
+                readonly
+                value=revealedApiKey)
+              button.primary.js-copy-mcp-secret(type="button")
+                i.fa.fa-copy
+                | {{_ 'mcp-copy-key'}}
+
+        if keyStatus
+          p.mcp-key-status(class=keyStatusClass role="status")= keyStatus
+
+        if isLoadingKeys
+          +spinner
+        else if hasApiKeys
+          .mcp-key-list
+            each key in apiKeys
+              article.mcp-key-row(class=key.rowClass)
+                .mcp-key-main
+                  strong= key.name
+                  code= key.prefix
+                  span.mcp-key-state= key.stateLabel
+                .mcp-key-meta
+                  span
+                    | {{_ 'mcp-key-created-at'}}: #{key.createdLabel}
+                  span
+                    | {{_ 'mcp-key-expires-at'}}: #{key.expiresLabel}
+                  span
+                    | {{_ 'mcp-key-last-used'}}: #{key.lastUsedLabel}
+                .mcp-key-actions
+                  if key.canSelect
+                    button.js-select-mcp-key(
+                      type="button"
+                      class=key.selectButtonClass
+                      data-key-id=key._id
+                      disabled=key.isSelected)
+                      if key.isSelected
+                        i.fa.fa-check-circle
+                        | {{_ 'mcp-key-selected'}}
+                      else
+                        i.fa.fa-hand-pointer-o
+                        | {{_ 'mcp-key-select-config'}}
+                  if key.canRevoke
+                    button.danger.js-revoke-mcp-key(
+                      type="button"
+                      data-key-id=key._id
+                      disabled=isBusy)
+                      i.fa.fa-ban
+                      | {{_ 'mcp-revoke-key'}}
+        else
+          .mcp-key-empty
+            i.fa.fa-key
+            p {{_ 'mcp-no-api-keys'}}
+
+      section.mcp-hub-panel(aria-labelledby="mcp-connection-title")
+        .mcp-hub-panel-heading
+          h3#mcp-connection-title {{_ 'mcp-connection'}}
+          span.mcp-hub-status(class=statusClass)
+            i.fa(class=statusIcon)
+            if endpointConfigured
+              | {{_ 'mcp-ready'}}
+            else
+              | {{_ 'mcp-not-configured'}}
+
+        if endpointConfigured
+          if hasSelectedApiKey
+            .mcp-selected-key
+              div
+                span {{_ 'mcp-config-selected-key'}}
+                strong= selectedApiKey.name
+                code= selectedApiKey.prefix
+              button.js-clear-selected-mcp-key(type="button")
+                i.fa.fa-times
+                | {{_ 'mcp-config-clear-key'}}
+
+            if selectedApiKeyNeedsSecret
+              label(for="mcp-config-api-key") {{_ 'mcp-config-paste-key'}}
+              input#mcp-config-api-key.wekan-form-control.js-mcp-config-key(
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="wk_mcp_…")
+              p.mcp-config-hint {{_ 'mcp-config-paste-key-description'}}
+            else if configHasApiKey
+              p.mcp-config-key-ready
+                i.fa.fa-check-circle
+                | {{_ 'mcp-config-key-ready'}}
+
+            if configKeyInvalid
+              p.mcp-key-status.is-error {{_ 'mcp-config-key-invalid'}}
+
+          label(for="mcp-endpoint") {{_ 'mcp-endpoint'}}
+          .mcp-copy-row
+            input#mcp-endpoint.wekan-form-control(
+              type="url"
+              readonly
+              value=endpoint)
+            button.primary.js-copy-mcp-endpoint(type="button")
+              i.fa.fa-copy
+              | {{_ 'mcp-copy-endpoint'}}
+
+          label(for="mcp-client-config") {{_ 'mcp-client-config'}}
+          pre#mcp-client-config.mcp-client-config= clientConfig
+          button.js-copy-mcp-config(type="button")
+              i.fa.fa-copy
+              | {{_ 'mcp-copy-config'}}
+          unless configHasApiKey
+            p.mcp-config-hint {{_ 'mcp-config-key-placeholder'}}
+        else
+          .mcp-hub-notice.is-warning
+            i.fa.fa-exclamation-triangle
+            p {{_ 'mcp-not-configured-description'}}
+            code MCP_PUBLIC_URL=https://your-wekan.example/mcp
+
+        if copyStatus
+          p.mcp-copy-status(role="status")= copyStatus
+
+      section.mcp-hub-panel(aria-labelledby="mcp-capabilities-title")
+        h3#mcp-capabilities-title {{_ 'mcp-capabilities'}}
+        p {{_ 'mcp-capabilities-description'}}
+        .mcp-capability-grid
+          article.mcp-capability
+            i.fa.fa-columns
+            h4 {{_ 'mcp-boards-lists'}}
+            p {{_ 'mcp-boards-lists-description'}}
+          article.mcp-capability
+            i.fa.fa-refresh
+            h4 {{_ 'mcp-sprints'}}
+            p {{_ 'mcp-sprints-description'}}
+          article.mcp-capability
+            i.fa.fa-tasks
+            h4 {{_ 'mcp-tasks'}}
+            p {{_ 'mcp-tasks-description'}}
+          article.mcp-capability
+            i.fa.fa-clone
+            h4 {{_ 'mcp-cards'}}
+            p {{_ 'mcp-cards-description'}}
+
+      section.mcp-hub-panel.mcp-security-panel(aria-labelledby="mcp-security-title")
+        h3#mcp-security-title
+          i.fa.fa-shield
+          | {{_ 'mcp-security'}}
+        p {{_ 'mcp-security-description'}}

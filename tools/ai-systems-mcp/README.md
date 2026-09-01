@@ -1,8 +1,9 @@
 # WeKan MCP
 
-MCP server nay expose board/list/card tools cho WeKan, ung dung Trello-like cua
-du an. Endpoint nay KHONG ket noi den Trello official va khong can Trello API
-key.
+MCP server nay expose board/list/sprint/task/card tools cho WeKan. Sprint duoc
+anh xa vao swimlane va task duoc anh xa vao checklist item, nen du lieu tao qua
+MCP hien thi truc tiep trong giao dien WeKan. Endpoint nay KHONG ket noi den
+Trello official va khong can Trello API key.
 
 The server is local-only by default:
 
@@ -16,10 +17,11 @@ Transport:
 streamable-http
 ```
 
-Server-side MCP tu xu ly WeKan auth. Vi server giu quyen tao board/list/card,
-khong expose endpoint nay ra Internet neu khong co lop authentication va access
-control o reverse proxy. Khong commit hoac gui WeKan token/password cho MCP
-client.
+Voi streamable HTTP, moi user tao API key rieng tai WeKan `/mcp`. MCP doc
+`x-api-key`, chuyen key den WeKan de xac dinh user va chi thao tac voi dung
+quyen board cua user do. WeKan chi luu SHA-256 hash, key tu het han, co the thu
+hoi rieng va bi gioi han 60 tool calls/phut. Stdio local van co the dung
+server-side WeKan credentials tu environment.
 
 ## For Agents
 
@@ -30,7 +32,10 @@ Neu client ho tro remote MCP URL, cau hinh:
   "mcpServers": {
     "wekan": {
       "url": "http://127.0.0.1:8000/mcp",
-      "transport": "streamable-http"
+      "transport": "streamable-http",
+      "headers": {
+        "x-api-key": "wk_mcp_..."
+      }
     }
   }
 }
@@ -57,11 +62,22 @@ nhung client khong giu MCP session header tot.
 - `get_board` - doc chi tiet mot board theo `board_id`.
 - `create_board` - tao board moi.
 - `list_swimlanes` - liet ke swimlane trong board.
+- `list_sprints`, `get_sprint`, `create_sprint`, `update_sprint` - doc, tao va
+  doi ten sprint; moi sprint la mot WeKan swimlane.
 - `list_lists` - liet ke list trong board.
 - `create_list` - tao list trong board.
 - `list_cards` - liet ke card trong list.
+- `get_card` - doc chi tiet mot card theo id.
 - `create_card` - tao card trong list. Neu agent khong truyen
   `swimlane_id`, MCP tu lay default swimlane cua board.
+- `update_card` - sua card hoac chuyen card sang list/sprint khac trong cung
+  board.
+- `list_checklists`, `create_checklist` - doc va tao checklist tren card.
+- `list_tasks`, `create_task`, `update_task` - doc, tao, doi ten va hoan tat
+  task; moi task la mot checklist item.
+
+MCP khong expose tool xoa. Neu can xoa du lieu, hay dung giao dien WeKan hoac
+REST API trong mot quy trinh co buoc xac nhan rieng.
 
 ## Common Workflow
 
@@ -199,12 +215,38 @@ Response quan trong:
 Date fields should be ISO-like date strings accepted by WeKan, for example
 `2026-08-10T09:00:00.000Z`.
 
+## WeKan MCP Tab
+
+WeKan co tab `MCP Connections` tai `/mcp`. Tab nay hien endpoint va cau hinh
+JSON de client sao chep. User dat ten, chon han 30/90/365 ngay, tao key va
+nhin thay secret DUNG MOT LAN. Danh sach sau do chi hien prefix, ngay tao, ngay
+het han, lan dung gan nhat va nut thu hoi.
+
+Dat URL public tren **WeKan app container**, khong phai MCP container:
+
+```sh
+export MCP_PUBLIC_URL=https://wekan.example.com/mcp
+export MCP_DAILY_CREATE_LIMIT=100
+```
+
+URL phai la URL `http` hoac `https` tuyet doi. Neu bien nay khong co hoac sai,
+tab van mo duoc nhung hien trang thai `Not configured`. URL public thuong la
+route cua authenticated reverse proxy chuyen tiep den MCP container o
+ngoai. Tab cung hien dashboard usage 90 ngay: tong tool calls, luot doc/tra du
+lieu, create requested/success/failed va quota tao trong ngay. Quota mac dinh
+la 100 create requests cho moi user moi ngay theo mui gio Asia/Ho_Chi_Minh;
+`MCP_DAILY_CREATE_LIMIT` thay doi gia tri nay. Moi create request deu tinh quota,
+ke ca request that bai, de retry khong the vuot gioi han.
+`127.0.0.1:18080`. API key la lop xac thuc cua MCP; TLS/reverse proxy van bat
+buoc de key khong di qua mang duoi dang plaintext.
+
 ## Raw HTTP Smoke Tests
 
 Initialize:
 
 ```sh
 curl -sS http://127.0.0.1:8000/mcp \
+  -H 'x-api-key: wk_mcp_...' \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   --data '{
@@ -223,6 +265,7 @@ List tools:
 
 ```sh
 curl -sS http://127.0.0.1:8000/mcp \
+  -H 'x-api-key: wk_mcp_...' \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   --data '{
@@ -237,6 +280,7 @@ Call health:
 
 ```sh
 curl -sS http://127.0.0.1:8000/mcp \
+  -H 'x-api-key: wk_mcp_...' \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   --data '{
@@ -281,6 +325,10 @@ Common cases:
 - `ConnectError` - MCP container cannot reach WeKan. Check Docker network and
   `WEKAN_BASE_URL`.
 - `Missing WeKan credentials` - server env is missing token or login credentials.
+- `Missing MCP API key` - HTTP tool call does not include `x-api-key` or a
+  `Bearer wk_mcp_...` header.
+- `rate limit exceeded` - one API key exceeded 60 tool calls in the current
+  minute.
 - `Swimlane ID is required` - old server version, or direct WeKan REST call did
   not include `swimlaneId`. Use the MCP `create_card` tool; it fills default
   swimlane automatically.
@@ -296,7 +344,8 @@ Set base URL:
 export WEKAN_BASE_URL=http://127.0.0.1:3000
 ```
 
-Then configure auth by token:
+For streamable HTTP, create a key in WeKan `/mcp` and put it in the client's
+`x-api-key` header. For trusted local stdio, configure auth by login token:
 
 ```sh
 export WEKAN_API_TOKEN=...

@@ -7,6 +7,7 @@ const { Accounts } = require('meteor/accounts-base');
 const { WebApp } = require('meteor/webapp');
 const bodyParser = require('body-parser');
 const { safeJsonStringify } = require('/server/lib/apiResponseHelpers');
+const { verifyMcpApiKey } = require('/server/lib/mcpApiKeys');
 
 // ---------------------------------------------------------------------------
 // 1. Body parsing (previously registered by json-routes)
@@ -47,11 +48,42 @@ WebApp.handlers.use(function parseBearerToken(req, res, next) {
   next();
 });
 
+// MCP integration keys are independent from browser/login tokens. The raw key
+// is never stored: verifyMcpApiKey hashes it and resolves only active,
+// unexpired records. Authorization: Bearer is still handled by the existing
+// login-token path below; MCP clients should prefer x-api-key.
+WebApp.handlers.use(async function authenticateByMcpApiKey(req, res, next) {
+  const apiKey = req.headers['x-api-key'];
+  if (typeof apiKey === 'string' && apiKey) {
+    try {
+      const verified = await verifyMcpApiKey(apiKey);
+      if (verified) {
+        req.userId = verified.userId;
+        req.mcpApiKeyId = verified.keyId;
+        req.mcpApiKeyScopes = verified.scopes;
+        if (
+          !verified.scopes.includes('mcp-tools:call') ||
+          req.method === 'DELETE'
+        ) {
+          sendJsonResult(res, {
+            code: 403,
+            data: { ok: false, error: 'MCP API key operation not permitted' },
+          });
+          return;
+        }
+      }
+    } catch (error) {
+      // Routes answer 401 from their normal permission checks.
+    }
+  }
+  next();
+});
+
 // ---------------------------------------------------------------------------
 // 4. User authentication (replaces communitypackages:authenticate-user-by-token)
 // ---------------------------------------------------------------------------
 WebApp.handlers.use(async function authenticateByToken(req, res, next) {
-  if (req.authToken) {
+  if (req.authToken && !req.userId) {
     try {
       const hashedToken = Accounts._hashLoginToken(req.authToken);
       const user = await Meteor.users.findOneAsync(

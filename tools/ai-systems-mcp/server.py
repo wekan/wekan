@@ -1,19 +1,39 @@
 #!/usr/bin/env python3
-"""MCP server for creating and reading boards/cards in a WeKan instance."""
+"""MCP server for working with WeKan boards, sprints, tasks, and cards."""
 
 from __future__ import annotations
 
 import argparse
+import contextvars
+import hashlib
 import json
 import os
 import re
 import sys
+import time
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import quote
 
 import httpx
 from mcp.server import MCPServer
+from mcp.server.mcpserver import Context
+
+
+_request_api_key: contextvars.ContextVar[str | None] = contextvars.ContextVar(
+    "wekan_mcp_api_key",
+    default=None,
+)
+_request_user_id: contextvars.ContextVar[str | None] = contextvars.ContextVar(
+    "wekan_mcp_user_id",
+    default=None,
+)
+_request_key_error: contextvars.ContextVar[str | None] = contextvars.ContextVar(
+    "wekan_mcp_key_error",
+    default=None,
+)
+_rate_windows: dict[str, tuple[int, int]] = {}
+MCP_RATE_LIMIT_PER_MINUTE = 60
 
 
 class WekanConfigError(ValueError):
@@ -83,9 +103,23 @@ class WekanClient:
 
     @property
     def user_id(self) -> str | None:
-        return self._user_id
+        return _request_user_id.get() or self._user_id
 
     async def _login(self) -> None:
+        if _request_key_error.get():
+            raise WekanConfigError(_request_key_error.get() or "Invalid MCP API key")
+        api_key = _request_api_key.get()
+        if api_key:
+            if not _request_user_id.get():
+                identity = await self._request_without_auth(
+                    "GET",
+                    "/api/mcp/whoami",
+                    headers={"x-api-key": api_key},
+                )
+                if not isinstance(identity, dict) or not identity.get("userId"):
+                    raise WekanAPIError("MCP API key did not resolve to a WeKan user")
+                _request_user_id.set(str(identity["userId"]))
+            return
         if self._api_token and self._user_id:
             return
         if not (self.config.username or self.config.email) or not self.config.password:
@@ -113,6 +147,7 @@ class WekanClient:
         path: str,
         *,
         json_body: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
     ) -> Any:
         async with httpx.AsyncClient(
             timeout=self.config.timeout_seconds,
@@ -123,7 +158,7 @@ class WekanClient:
                 method,
                 f"{self.config.base_url}{path}",
                 json=json_body,
-                headers={"Accept": "application/json"},
+                headers={"Accept": "application/json", **(headers or {})},
             )
         return self._decode_response(response, method, path)
 
@@ -135,7 +170,8 @@ class WekanClient:
         json_body: dict[str, Any] | None = None,
     ) -> Any:
         await self._login()
-        if not self._api_token:
+        api_key = _request_api_key.get()
+        if not api_key and not self._api_token:
             raise WekanConfigError("Missing WeKan API token after login")
 
         async with httpx.AsyncClient(
@@ -147,12 +183,28 @@ class WekanClient:
                 method,
                 f"{self.config.base_url}{path}",
                 json=json_body,
-                headers={
-                    "Accept": "application/json",
-                    "Authorization": f"Bearer {self._api_token}",
-                },
+                headers=(
+                    {"Accept": "application/json", "x-api-key": api_key}
+                    if api_key
+                    else {
+                        "Accept": "application/json",
+                        "Authorization": f"Bearer {self._api_token}",
+                    }
+                ),
             )
         return self._decode_response(response, method, path)
+
+    async def record_usage(self, tool: str, action: str, phase: str) -> None:
+        """Record one API-key MCP event in WeKan's daily usage dashboard."""
+        api_key = _request_api_key.get()
+        if not api_key:
+            return
+        await self._request_without_auth(
+            "POST",
+            "/api/mcp/usage/event",
+            json_body={"tool": tool, "action": action, "phase": phase},
+            headers={"x-api-key": api_key},
+        )
 
     def _decode_response(self, response: httpx.Response, method: str, path: str) -> Any:
         content_type = response.headers.get("content-type", "")
@@ -182,13 +234,31 @@ def _tool_error(error: Exception) -> dict[str, Any]:
     }
 
 
-async def _safe_call(operation: str, func) -> dict[str, Any]:
+async def _safe_call(
+    client: WekanClient,
+    tool: str,
+    action: str,
+    operation: str,
+    func,
+) -> dict[str, Any]:
+    usage_started = False
     try:
+        await client.record_usage(tool, action, "requested")
+        usage_started = True
         result = await func()
+        try:
+            await client.record_usage(tool, action, "success")
+        except Exception:  # noqa: BLE001 - tracking must not hide a successful tool result.
+            pass
         if isinstance(result, dict):
             return {"ok": True, **result}
         return {"ok": True, operation: result}
     except Exception as error:  # noqa: BLE001 - MCP tools should return useful errors.
+        if usage_started:
+            try:
+                await client.record_usage(tool, action, "failed")
+            except Exception:  # noqa: BLE001 - preserve the original tool error.
+                pass
         return _tool_error(error)
 
 
@@ -201,6 +271,39 @@ def _resource_id(value: str, name: str) -> str:
     if not isinstance(value, str) or not re.fullmatch(r"[A-Za-z0-9]+", value):
         raise WekanConfigError(f"{name} must be a non-empty alphanumeric WeKan id")
     return quote(value, safe="")
+
+
+def _activate_request_key(ctx: Context) -> None:
+    """Bind and rate-limit one HTTP request's user-owned MCP API key."""
+    headers = ctx.headers
+    api_key: str | None = None
+    _request_key_error.set(None)
+    if headers is not None:
+        api_key = headers.get("x-api-key") or headers.get("X-Api-Key")
+        authorization = headers.get("authorization") or headers.get("Authorization")
+        if not api_key and authorization:
+            match = re.fullmatch(r"Bearer\s+(wk_mcp_.+)", authorization, re.IGNORECASE)
+            if match:
+                api_key = match.group(1)
+        if not api_key:
+            _request_key_error.set(
+                "Missing MCP API key in x-api-key or Authorization header"
+            )
+
+    _request_api_key.set(api_key)
+    _request_user_id.set(None)
+    if not api_key:
+        return
+
+    key_id = hashlib.sha256(api_key.encode("utf-8")).hexdigest()
+    minute = int(time.time() // 60)
+    window, count = _rate_windows.get(key_id, (minute, 0))
+    if window != minute:
+        window, count = minute, 0
+    count += 1
+    _rate_windows[key_id] = (window, count)
+    if count > MCP_RATE_LIMIT_PER_MINUTE:
+        _request_key_error.set("MCP API key rate limit exceeded (60 calls per minute)")
 
 
 async def _default_swimlane_id(client: WekanClient, board_id: str) -> str:
@@ -231,24 +334,30 @@ def _server() -> MCPServer:
 
     server = MCPServer(
         name="wekan-mcp",
-        title="WeKan Board MCP",
-        description="Create and inspect boards, lists, and cards in this WeKan instance.",
+        title="WeKan Work Management MCP",
+        description=(
+            "Create and manage boards, lists, sprint swimlanes, checklist tasks, "
+            "and cards in this WeKan instance."
+        ),
         instructions=(
             "Use wekan_health_status to verify connectivity. Then use list_boards, "
-            "create_board, list_swimlanes, list_lists, create_list, list_cards, "
-            "and create_card to manage the WeKan board data."
+            "list_lists, list_sprints, list_cards, and list_tasks to discover data. "
+            "A sprint maps to a WeKan swimlane and a task maps to a checklist item."
         ),
-        version="0.2.1",
+        version="0.3.0",
     )
 
     @server.tool()
-    async def wekan_health_status() -> dict[str, Any]:
+    async def wekan_health_status(ctx: Context) -> dict[str, Any]:
         """Check WeKan reachability and whether MCP auth is configured."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
+            if ctx.headers is not None:
+                await client._login()
             app_status = await client._request_without_auth("GET", "/")
             auth_probe: dict[str, Any] | None = None
-            if config.can_authenticate:
+            if config.can_authenticate or _request_api_key.get():
                 boards = await _visible_user_boards(client)
                 auth_probe = {
                     "authenticated": True,
@@ -263,11 +372,12 @@ def _server() -> MCPServer:
                 "auth_probe": auth_probe,
             }
 
-        return await _safe_call("health", run)
+        return await _safe_call(client, "wekan_health_status", "health", "health", run)
 
     @server.tool()
-    async def list_boards() -> dict[str, Any]:
+    async def list_boards(ctx: Context) -> dict[str, Any]:
         """List boards visible to the authenticated WeKan user."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             boards = await _visible_user_boards(client)
@@ -276,27 +386,30 @@ def _server() -> MCPServer:
                 "boards": boards,
             }
 
-        return await _safe_call("boards", run)
+        return await _safe_call(client, "list_boards", "read", "boards", run)
 
     @server.tool()
-    async def get_board(board_id: str) -> dict[str, Any]:
+    async def get_board(board_id: str, ctx: Context) -> dict[str, Any]:
         """Read one board by id."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             board_path = _resource_id(board_id, "board_id")
             board = await client.request("GET", f"/api/boards/{board_path}")
             return {"board": board}
 
-        return await _safe_call("board", run)
+        return await _safe_call(client, "get_board", "read", "board", run)
 
     @server.tool()
     async def create_board(
         title: str,
+        ctx: Context,
         permission: str = "private",
         owner: str | None = None,
         color: str = "belize",
     ) -> dict[str, Any]:
         """Create a board in WeKan."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             if not title.strip():
@@ -318,11 +431,12 @@ def _server() -> MCPServer:
                 ),
             }
 
-        return await _safe_call("board", run)
+        return await _safe_call(client, "create_board", "create", "board", run)
 
     @server.tool()
-    async def list_lists(board_id: str) -> dict[str, Any]:
+    async def list_lists(board_id: str, ctx: Context) -> dict[str, Any]:
         """List non-archived lists on a board."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             board_path = _resource_id(board_id, "board_id")
@@ -332,11 +446,12 @@ def _server() -> MCPServer:
                 "lists": lists,
             }
 
-        return await _safe_call("lists", run)
+        return await _safe_call(client, "list_lists", "read", "lists", run)
 
     @server.tool()
-    async def list_swimlanes(board_id: str) -> dict[str, Any]:
-        """List non-archived swimlanes on a board."""
+    async def list_swimlanes(board_id: str, ctx: Context) -> dict[str, Any]:
+        """List non-archived swimlanes (sprints) on a board."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             board_path = _resource_id(board_id, "board_id")
@@ -346,15 +461,108 @@ def _server() -> MCPServer:
                 "swimlanes": swimlanes,
             }
 
-        return await _safe_call("swimlanes", run)
+        return await _safe_call(client, "list_swimlanes", "read", "swimlanes", run)
+
+    @server.tool()
+    async def list_sprints(board_id: str, ctx: Context) -> dict[str, Any]:
+        """List sprints. In WeKan, each sprint is represented by a swimlane."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            sprints = await client.request("GET", f"/api/boards/{board_path}/swimlanes")
+            return {
+                "count": len(sprints) if isinstance(sprints, list) else None,
+                "sprints": sprints,
+                "wekan_mapping": "swimlane",
+            }
+
+        return await _safe_call(client, "list_sprints", "read", "sprints", run)
+
+    @server.tool()
+    async def get_sprint(
+        board_id: str,
+        sprint_id: str,
+        ctx: Context,
+    ) -> dict[str, Any]:
+        """Read one sprint by id. Sprint ids are WeKan swimlane ids."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            sprint_path = _resource_id(sprint_id, "sprint_id")
+            sprint = await client.request(
+                "GET",
+                f"/api/boards/{board_path}/swimlanes/{sprint_path}",
+            )
+            return {"sprint": sprint, "wekan_mapping": "swimlane"}
+
+        return await _safe_call(client, "get_sprint", "read", "sprint", run)
+
+    @server.tool()
+    async def create_sprint(
+        board_id: str,
+        title: str,
+        ctx: Context,
+        sort: float | None = None,
+    ) -> dict[str, Any]:
+        """Create a sprint as a WeKan swimlane."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            if not title.strip():
+                raise WekanConfigError("title is required")
+            board_path = _resource_id(board_id, "board_id")
+            created = await client.request(
+                "POST",
+                f"/api/boards/{board_path}/swimlanes",
+                json_body=_clean_body({"title": title.strip(), "sort": sort}),
+            )
+            return {
+                "sprint": created,
+                "sprint_id": created.get("_id") if isinstance(created, dict) else None,
+                "wekan_mapping": "swimlane",
+            }
+
+        return await _safe_call(client, "create_sprint", "create", "sprint", run)
+
+    @server.tool()
+    async def update_sprint(
+        board_id: str,
+        sprint_id: str,
+        title: str,
+        ctx: Context,
+    ) -> dict[str, Any]:
+        """Rename a sprint (WeKan swimlane)."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            if not title.strip():
+                raise WekanConfigError("title is required")
+            board_path = _resource_id(board_id, "board_id")
+            sprint_path = _resource_id(sprint_id, "sprint_id")
+            updated = await client.request(
+                "PUT",
+                f"/api/boards/{board_path}/swimlanes/{sprint_path}",
+                json_body={"title": title.strip()},
+            )
+            return {
+                "sprint": updated,
+                "sprint_id": sprint_id,
+                "wekan_mapping": "swimlane",
+            }
+
+        return await _safe_call(client, "update_sprint", "update", "sprint", run)
 
     @server.tool()
     async def create_list(
         board_id: str,
         title: str,
+        ctx: Context,
         swimlane_id: str | None = None,
     ) -> dict[str, Any]:
         """Create a list on a board."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             if not title.strip():
@@ -370,11 +578,16 @@ def _server() -> MCPServer:
                 "list_id": created.get("_id") if isinstance(created, dict) else None,
             }
 
-        return await _safe_call("list", run)
+        return await _safe_call(client, "create_list", "create", "list", run)
 
     @server.tool()
-    async def list_cards(board_id: str, list_id: str) -> dict[str, Any]:
+    async def list_cards(
+        board_id: str,
+        list_id: str,
+        ctx: Context,
+    ) -> dict[str, Any]:
         """List non-archived cards in a board list."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             board_path = _resource_id(board_id, "board_id")
@@ -388,13 +601,26 @@ def _server() -> MCPServer:
                 "cards": cards,
             }
 
-        return await _safe_call("cards", run)
+        return await _safe_call(client, "list_cards", "read", "cards", run)
+
+    @server.tool()
+    async def get_card(card_id: str, ctx: Context) -> dict[str, Any]:
+        """Read one card, including an archived card, by id."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            card_path = _resource_id(card_id, "card_id")
+            card = await client.request("GET", f"/api/cards/{card_path}")
+            return {"card": card}
+
+        return await _safe_call(client, "get_card", "read", "card", run)
 
     @server.tool()
     async def create_card(
         board_id: str,
         list_id: str,
         title: str,
+        ctx: Context,
         description: str = "",
         author_id: str | None = None,
         swimlane_id: str | None = None,
@@ -406,6 +632,7 @@ def _server() -> MCPServer:
         end_at: str | None = None,
     ) -> dict[str, Any]:
         """Create a card in a board list."""
+        _activate_request_key(ctx)
 
         async def run() -> dict[str, Any]:
             if not title.strip():
@@ -448,7 +675,216 @@ def _server() -> MCPServer:
                 "swimlane_id": effective_swimlane_id,
             }
 
-        return await _safe_call("card", run)
+        return await _safe_call(client, "create_card", "create", "card", run)
+
+    @server.tool()
+    async def update_card(
+        board_id: str,
+        list_id: str,
+        card_id: str,
+        ctx: Context,
+        title: str | None = None,
+        description: str | None = None,
+        sprint_id: str | None = None,
+        destination_list_id: str | None = None,
+        members: list[str] | None = None,
+        assignees: list[str] | None = None,
+        received_at: str | None = None,
+        start_at: str | None = None,
+        due_at: str | None = None,
+        end_at: str | None = None,
+        due_complete: bool | None = None,
+    ) -> dict[str, Any]:
+        """Edit or move a card within its board."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            list_path = _resource_id(list_id, "list_id")
+            card_path = _resource_id(card_id, "card_id")
+            body = _clean_body(
+                {
+                    "title": title.strip() if isinstance(title, str) else None,
+                    "description": description,
+                    "swimlaneId": sprint_id,
+                    "listId": destination_list_id,
+                    "members": members,
+                    "assignees": assignees,
+                    "receivedAt": received_at,
+                    "startAt": start_at,
+                    "dueAt": due_at,
+                    "endAt": end_at,
+                    "dueComplete": due_complete,
+                }
+            )
+            if not body:
+                raise WekanConfigError("at least one card field is required")
+            updated = await client.request(
+                "PUT",
+                f"/api/boards/{board_path}/lists/{list_path}/cards/{card_path}",
+                json_body=body,
+            )
+            return {
+                "card": updated,
+                "card_id": card_id,
+                "list_id": destination_list_id or list_id,
+                "sprint_id": sprint_id,
+            }
+
+        return await _safe_call(client, "update_card", "update", "card", run)
+
+    @server.tool()
+    async def list_checklists(
+        board_id: str,
+        card_id: str,
+        ctx: Context,
+    ) -> dict[str, Any]:
+        """List checklist containers on a card."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            card_path = _resource_id(card_id, "card_id")
+            checklists = await client.request(
+                "GET",
+                f"/api/boards/{board_path}/cards/{card_path}/checklists",
+            )
+            return {
+                "count": len(checklists) if isinstance(checklists, list) else None,
+                "checklists": checklists,
+            }
+
+        return await _safe_call(client, "list_checklists", "read", "checklists", run)
+
+    @server.tool()
+    async def create_checklist(
+        board_id: str,
+        card_id: str,
+        title: str,
+        ctx: Context,
+        tasks: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Create a checklist, optionally with initial tasks, on a card."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            if not title.strip():
+                raise WekanConfigError("title is required")
+            board_path = _resource_id(board_id, "board_id")
+            card_path = _resource_id(card_id, "card_id")
+            created = await client.request(
+                "POST",
+                f"/api/boards/{board_path}/cards/{card_path}/checklists",
+                json_body={"title": title.strip(), "items": tasks or []},
+            )
+            return {
+                "checklist": created,
+                "checklist_id": (
+                    created.get("_id") if isinstance(created, dict) else None
+                ),
+            }
+
+        return await _safe_call(client, "create_checklist", "create", "checklist", run)
+
+    @server.tool()
+    async def list_tasks(
+        board_id: str,
+        card_id: str,
+        checklist_id: str,
+        ctx: Context,
+    ) -> dict[str, Any]:
+        """List tasks. In WeKan, tasks are items in a card checklist."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            card_path = _resource_id(card_id, "card_id")
+            checklist_path = _resource_id(checklist_id, "checklist_id")
+            checklist = await client.request(
+                "GET",
+                f"/api/boards/{board_path}/cards/{card_path}/checklists/{checklist_path}",
+            )
+            tasks = checklist.get("items", []) if isinstance(checklist, dict) else []
+            return {
+                "count": len(tasks),
+                "tasks": tasks,
+                "checklist": checklist,
+                "wekan_mapping": "checklist-item",
+            }
+
+        return await _safe_call(client, "list_tasks", "read", "tasks", run)
+
+    @server.tool()
+    async def create_task(
+        board_id: str,
+        card_id: str,
+        checklist_id: str,
+        title: str,
+        ctx: Context,
+        sort: float | None = None,
+    ) -> dict[str, Any]:
+        """Create a task as a checklist item on a card."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            if not title.strip():
+                raise WekanConfigError("title is required")
+            board_path = _resource_id(board_id, "board_id")
+            card_path = _resource_id(card_id, "card_id")
+            checklist_path = _resource_id(checklist_id, "checklist_id")
+            created = await client.request(
+                "POST",
+                f"/api/boards/{board_path}/cards/{card_path}/checklists/"
+                f"{checklist_path}/items",
+                json_body=_clean_body({"title": title.strip(), "sort": sort}),
+            )
+            return {
+                "task": created,
+                "task_id": created.get("_id") if isinstance(created, dict) else None,
+                "wekan_mapping": "checklist-item",
+            }
+
+        return await _safe_call(client, "create_task", "create", "task", run)
+
+    @server.tool()
+    async def update_task(
+        board_id: str,
+        card_id: str,
+        checklist_id: str,
+        task_id: str,
+        ctx: Context,
+        title: str | None = None,
+        is_finished: bool | None = None,
+    ) -> dict[str, Any]:
+        """Rename or complete a checklist task."""
+        _activate_request_key(ctx)
+
+        async def run() -> dict[str, Any]:
+            board_path = _resource_id(board_id, "board_id")
+            card_path = _resource_id(card_id, "card_id")
+            checklist_path = _resource_id(checklist_id, "checklist_id")
+            task_path = _resource_id(task_id, "task_id")
+            body = _clean_body(
+                {
+                    "title": title.strip() if isinstance(title, str) else None,
+                    "isFinished": is_finished,
+                }
+            )
+            if not body:
+                raise WekanConfigError("title or is_finished is required")
+            updated = await client.request(
+                "PUT",
+                f"/api/boards/{board_path}/cards/{card_path}/checklists/"
+                f"{checklist_path}/items/{task_path}",
+                json_body=body,
+            )
+            return {
+                "task": updated,
+                "task_id": task_id,
+                "wekan_mapping": "checklist-item",
+            }
+
+        return await _safe_call(client, "update_task", "update", "task", run)
 
     @server.resource(
         "wekan://config",
@@ -472,7 +908,8 @@ def _server() -> MCPServer:
             "# WeKan MCP\n\n"
             "Set `WEKAN_BASE_URL` and either `WEKAN_API_TOKEN` + `WEKAN_USER_ID`, "
             "or `WEKAN_USERNAME`/`WEKAN_EMAIL` + `WEKAN_PASSWORD`. Call "
-            "`wekan_health_status`, then create boards/lists/cards with the exposed tools.\n"
+            "`wekan_health_status`, then work with boards, sprint swimlanes, "
+            "checklist tasks, and cards through the exposed tools.\n"
         )
 
     @server.prompt()
