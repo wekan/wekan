@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.42
+  version: v11.43
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5225,6 +5225,16 @@ definitions:
         type: boolean
       from:
         type: string
+      enabled:
+        type: boolean
+      service:
+        type: string
+      configurations:
+        type: object
+      passwords:
+        type: object
+      passwordSet:
+        type: object
   SettingsThemecustomcolors:
     type: object
   Swimlanes:
