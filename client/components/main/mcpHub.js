@@ -190,6 +190,9 @@ Template.mcpHub.helpers({
   usageTodayCreates() {
     return formatCount(Template.instance().usage.get()?.today?.createRequested);
   },
+  usageUnlimited() {
+    return Template.instance().usage.get()?.dailyCreateLimit === null;
+  },
   usageDailyLimit() {
     return formatCount(Template.instance().usage.get()?.dailyCreateLimit);
   },

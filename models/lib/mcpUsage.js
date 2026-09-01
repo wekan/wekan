@@ -2,7 +2,7 @@
 
 const MCP_USAGE_TIMEZONE = 'Asia/Ho_Chi_Minh';
 const MCP_USAGE_RETENTION_DAYS = 90;
-const DEFAULT_MCP_DAILY_CREATE_LIMIT = 100;
+const DEFAULT_MCP_DAILY_CREATE_LIMIT = null;
 const MCP_USAGE_ACTIONS = ['health', 'read', 'create', 'update'];
 const MCP_USAGE_PHASES = ['requested', 'success', 'failed'];
 
@@ -20,6 +20,9 @@ function mcpUsageDateKey(value = new Date(), timezone = MCP_USAGE_TIMEZONE) {
 }
 
 function normalizeMcpDailyCreateLimit(value) {
+  if (value === undefined || value === null || String(value).trim() === '') {
+    return DEFAULT_MCP_DAILY_CREATE_LIMIT;
+  }
   const parsed = Number.parseInt(value, 10);
   return Number.isInteger(parsed) && parsed > 0 ? parsed : DEFAULT_MCP_DAILY_CREATE_LIMIT;
 }

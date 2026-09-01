@@ -44,19 +44,27 @@ async function recordMcpUsage(userId, action, phase, now = new Date()) {
 
   if (phase === 'requested') {
     if (action === 'create') {
-      const result = await McpUsageDaily.updateAsync(
-        { ...base, createRequested: { $lt: dailyCreateLimit() } },
-        {
+      const limit = dailyCreateLimit();
+      if (limit === null) {
+        await McpUsageDaily.updateAsync(base, {
           $inc: { toolCallTotal: 1, createRequested: 1 },
           $set: { updatedAt: now },
-        },
-      );
-      if (!result) {
-        await McpUsageDaily.updateAsync(base, {
-          $inc: { toolCallTotal: 1, createFailed: 1 },
-          $set: { updatedAt: now },
         });
-        throw new Meteor.Error('mcp-daily-create-limit-reached');
+      } else {
+        const result = await McpUsageDaily.updateAsync(
+          { ...base, createRequested: { $lt: limit } },
+          {
+            $inc: { toolCallTotal: 1, createRequested: 1 },
+            $set: { updatedAt: now },
+          },
+        );
+        if (!result) {
+          await McpUsageDaily.updateAsync(base, {
+            $inc: { toolCallTotal: 1, createFailed: 1 },
+            $set: { updatedAt: now },
+          });
+          throw new Meteor.Error('mcp-daily-create-limit-reached');
+        }
       }
     } else {
       await McpUsageDaily.updateAsync(base, {
@@ -105,7 +113,9 @@ async function mcpUsageSummary(userId, now = new Date()) {
     timezone: MCP_USAGE_TIMEZONE,
     retentionDays: MCP_USAGE_RETENTION_DAYS,
     dailyCreateLimit: limit,
-    dailyCreateRemaining: Math.max(0, limit - (Number(today.createRequested) || 0)),
+    dailyCreateRemaining: limit === null
+      ? null
+      : Math.max(0, limit - (Number(today.createRequested) || 0)),
     today: { dateKey: today.dateKey, ...sumMcpUsageCounters([today]) },
     totals: sumMcpUsageCounters(rows),
     history: rows.slice(0, 7).map(row => ({

@@ -48,11 +48,15 @@ template(name="mcpHub")
               div
                 strong {{_ 'mcp-usage-daily-limit'}}
                 p {{_ 'mcp-usage-daily-limit-description'}}
-              span {{usageTodayCreates}} / {{usageDailyLimit}}
-            .mcp-usage-progress(aria-hidden="true")
-              span(style=usageProgressStyle)
-            p.mcp-usage-remaining
-              | {{_ 'mcp-usage-remaining'}}: {{usageRemaining}}
+              if usageUnlimited
+                span {{_ 'mcp-usage-unlimited'}}
+              else
+                span {{usageTodayCreates}} / {{usageDailyLimit}}
+            unless usageUnlimited
+              .mcp-usage-progress(aria-hidden="true")
+                span(style=usageProgressStyle)
+              p.mcp-usage-remaining
+                | {{_ 'mcp-usage-remaining'}}: {{usageRemaining}}
 
           if hasUsageHistory
             .mcp-usage-history

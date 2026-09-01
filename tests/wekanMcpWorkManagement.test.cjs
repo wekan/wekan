@@ -115,7 +115,10 @@ test('MCP usage dates, counters, and daily limits are deterministic', () => {
     '2026-09-01',
   );
   assert.equal(normalizeMcpDailyCreateLimit('250'), 250);
-  assert.equal(normalizeMcpDailyCreateLimit('invalid'), 100);
+  assert.equal(normalizeMcpDailyCreateLimit(), null);
+  assert.equal(normalizeMcpDailyCreateLimit(''), null);
+  assert.equal(normalizeMcpDailyCreateLimit('0'), null);
+  assert.equal(normalizeMcpDailyCreateLimit('invalid'), null);
   assert.deepEqual(sumMcpUsageCounters([
     { toolCallTotal: 3, downloadTotal: 2, createRequested: 1, createSuccess: 1 },
     { toolCallTotal: 4, downloadTotal: 1, createRequested: 2, createFailed: 2 },
@@ -128,14 +131,15 @@ test('MCP usage dates, counters, and daily limits are deterministic', () => {
   });
 });
 
-test('usage tracking records tool results and atomically enforces daily create quota', () => {
+test('usage tracking is unlimited by default and atomically enforces an optional quota', () => {
   const usageRoutes = read('server/mcpUsage.js');
   const usageService = read('server/lib/mcpUsage.js');
   const template = read('client/components/main/mcpHub.jade');
   assert.match(usageRoutes, /'mcpUsage\.summary'/);
   assert.match(usageRoutes, /\/api\/mcp\/usage\/event/);
   assert.match(usageRoutes, /req\.mcpApiKeyId/);
-  assert.match(usageService, /createRequested: \{ \$lt: dailyCreateLimit\(\) \}/);
+  assert.match(usageService, /if \(limit === null\)/);
+  assert.match(usageService, /createRequested: \{ \$lt: limit \}/);
   assert.match(usageService, /mcp-daily-create-limit-reached/);
   assert.match(server, /client\.record_usage\(tool, action, "requested"\)/);
   assert.match(server, /client\.record_usage\(tool, action, "success"\)/);

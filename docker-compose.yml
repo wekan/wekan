@@ -287,8 +287,9 @@ services:
       # URL shown in the signed-in MCP Connections tab. Keep empty until an
       # authenticated reverse proxy publishes tools/ai-systems-mcp.
       - MCP_PUBLIC_URL=${MCP_PUBLIC_URL:-}
-      # Maximum MCP create requests per user per Asia/Ho_Chi_Minh day.
-      - MCP_DAILY_CREATE_LIMIT=${MCP_DAILY_CREATE_LIMIT:-100}
+      # Optional maximum MCP create requests per user per Asia/Ho_Chi_Minh day.
+      # Empty, zero or invalid means unlimited (the default).
+      - MCP_DAILY_CREATE_LIMIT=${MCP_DAILY_CREATE_LIMIT:-}
       #---------------------------------------------------------------
       # ==== PASSWORD BRUTE FORCE PROTECTION ====
       #https://atmospherejs.com/lucasantoniassi/accounts-lockout

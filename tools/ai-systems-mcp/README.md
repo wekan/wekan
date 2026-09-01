@@ -226,17 +226,18 @@ Dat URL public tren **WeKan app container**, khong phai MCP container:
 
 ```sh
 export MCP_PUBLIC_URL=https://wekan.example.com/mcp
-export MCP_DAILY_CREATE_LIMIT=100
+# Optional: set a positive integer only when a daily create limit is wanted.
+# export MCP_DAILY_CREATE_LIMIT=100
 ```
 
 URL phai la URL `http` hoac `https` tuyet doi. Neu bien nay khong co hoac sai,
 tab van mo duoc nhung hien trang thai `Not configured`. URL public thuong la
 route cua authenticated reverse proxy chuyen tiep den MCP container o
 ngoai. Tab cung hien dashboard usage 90 ngay: tong tool calls, luot doc/tra du
-lieu, create requested/success/failed va quota tao trong ngay. Quota mac dinh
-la 100 create requests cho moi user moi ngay theo mui gio Asia/Ho_Chi_Minh;
-`MCP_DAILY_CREATE_LIMIT` thay doi gia tri nay. Moi create request deu tinh quota,
-ke ca request that bai, de retry khong the vuot gioi han.
+lieu va create requested/success/failed. Mac dinh khong gioi han luot tao.
+Dat `MCP_DAILY_CREATE_LIMIT` thanh mot so nguyen duong neu can quota theo moi
+user moi ngay theo mui gio Asia/Ho_Chi_Minh. Khi co quota, moi create request
+deu duoc tinh, ke ca request that bai, de retry khong the vuot gioi han.
 `127.0.0.1:18080`. API key la lop xac thuc cua MCP; TLS/reverse proxy van bat
 buoc de key khong di qua mang duoi dang plaintext.
 
