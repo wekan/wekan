@@ -7,6 +7,7 @@ import Boards from '/models/boards';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { BOARD_COLORS, CARD_COLORS } from '/models/metadata/colors';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 import { trelloStickerToFa, trelloStickerHighlight } from '/models/metadata/stickers';
 import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
@@ -875,7 +876,7 @@ export class TrelloCreator {
       grey: 'midnight',
     };
     const wekanColor = mapColors[trelloColorCode];
-    return wekanColor || BOARD_COLORS[0];
+    return wekanColor || DEFAULT_BOARD_THEME_COLOR;
   }
 
   getPermission(trelloPermissionCode) {

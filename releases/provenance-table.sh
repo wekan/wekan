@@ -13,12 +13,16 @@ set -euo pipefail
 
 files=("$@")
 if [ ${#files[@]} -eq 0 ]; then
-    shopt -s nullglob globstar
-    # ONE pattern. With globstar, `**/` matches ZERO or more directories, so
-    # provenance/**/*.tsv ALREADY covers provenance/*.tsv - and listing both
-    # matched every top-level file twice, which is why the v10.77 release notes
-    # printed every row of the table twice.
-    files=(provenance/**/*.tsv)
+    # macOS still ships Bash 3, which has no globstar. `find` covers both the
+    # top level and nested job directories without listing top-level rows twice.
+    while IFS= read -r f; do
+        files+=("$f")
+    done < <(find provenance -type f -name '*.tsv' -print 2>/dev/null | LC_ALL=C sort)
+fi
+# Bash 3 with `set -u` treats an empty-array expansion as an unbound variable.
+# Keep one harmless sentinel; the file guard below skips it.
+if [ ${#files[@]} -eq 0 ]; then
+    files=("")
 fi
 
 rows=""

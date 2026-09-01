@@ -79,7 +79,13 @@ import { QueryErrors, QueryParams, Query } from '/config/query-classes';
 import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
-const { boardCardScope } = require('/models/lib/boardCardScope');
+const {
+  boardCardScope,
+  isAssignedOnlyMember,
+} = require('/models/lib/boardCardScope');
+const {
+  boardVisibilitySelectors,
+} = require('/models/lib/boardVisibilitySelectors');
 
 Meteor.publish('card', async function(cardId) {
   check(cardId, String);
@@ -327,6 +333,149 @@ Meteor.publish('myCards', async function(sessionId) {
   const { cursors, sessionData } = await findCards(sessionId, query, this.userId);
   if (sessionData) this.added('sessiondata', sessionData._id, sessionData);
   return cursors;
+});
+
+// Unified My Work feed. It reuses the existing Cards / ChecklistItems models
+// and publishes only documents on boards this user may see. Assigned-only board
+// roles are narrowed again at card level so an item cannot bridge a hidden card.
+Meteor.publish('myWork', async function() {
+  const userId = this.userId;
+  if (!userId) return this.ready();
+
+  const currentUser = await ReactiveCache.getUser(userId);
+  if (!currentUser) return this.ready();
+  const visibility = boardVisibilitySelectors({
+    userId,
+    orgIds: typeof currentUser.orgIds === 'function' ? currentUser.orgIds() : [],
+    teamIds: typeof currentUser.teamIds === 'function' ? currentUser.teamIds() : [],
+    emailDomains:
+      typeof currentUser.emailDomains === 'function' ? currentUser.emailDomains() : [],
+  });
+  const visibleBoards = await Boards.find(
+    {
+      archived: false,
+      personalInboxOwnerId: { $exists: false },
+      $or: visibility,
+    },
+    { limit: 500 },
+  ).fetchAsync();
+  const boardById = new Map(visibleBoards.map(board => [board._id, board]));
+  const boardIds = [...boardById.keys()];
+  if (boardIds.length === 0) return this.ready();
+
+  const relatedCards = await Cards.find(
+    {
+      boardId: { $in: boardIds },
+      archived: false,
+      type: 'cardType-card',
+      $or: [
+        { userId },
+        { members: userId },
+        { assignees: userId },
+        { watchers: userId },
+      ],
+    },
+    { sort: { dueAt: 1, modifiedAt: -1 }, limit: 500 },
+  ).fetchAsync();
+  const allowedCards = relatedCards.filter(card => {
+    const board = boardById.get(card.boardId);
+    return !isAssignedOnlyMember(board, userId) || (card.assignees || []).includes(userId);
+  });
+
+  const assignedItems = await ChecklistItems.find(
+    {
+      boardId: { $in: boardIds },
+      assigneeId: userId,
+      isFinished: false,
+    },
+    { sort: { dueAt: 1, modifiedAt: -1 }, limit: 500 },
+  ).fetchAsync();
+  const itemCardIds = [...new Set(assignedItems.map(item => item.cardId))];
+  const itemCards = itemCardIds.length
+    ? await Cards.find(
+      { _id: { $in: itemCardIds }, archived: false, type: 'cardType-card' },
+      { limit: 500 },
+    ).fetchAsync()
+    : [];
+  const itemCardById = new Map(itemCards.map(card => [card._id, card]));
+  const allowedItems = assignedItems.filter(item => {
+    const card = itemCardById.get(item.cardId);
+    const board = card && boardById.get(card.boardId);
+    return Boolean(
+      card && board &&
+      (!isAssignedOnlyMember(board, userId) || (card.assignees || []).includes(userId)),
+    );
+  });
+
+  const cardIds = [...new Set([
+    ...allowedCards.map(card => card._id),
+    ...allowedItems.map(item => item.cardId),
+  ])];
+  const itemIds = allowedItems.map(item => item._id);
+  const checklistIds = [...new Set(allowedItems.map(item => item.checklistId))];
+  const scopedCards = [...allowedCards, ...itemCards].filter(
+    (card, index, array) =>
+      cardIds.includes(card._id) && array.findIndex(other => other._id === card._id) === index,
+  );
+  const listIds = [...new Set(scopedCards.map(card => card.listId))];
+  const swimlaneIds = [...new Set(scopedCards.map(card => card.swimlaneId))];
+  const scopedBoardIds = [...new Set(scopedCards.map(card => card.boardId))];
+
+  return [
+    Cards.find({ _id: { $in: cardIds } }),
+    ChecklistItems.find({ _id: { $in: itemIds } }),
+    Checklists.find({ _id: { $in: checklistIds }, cardId: { $in: cardIds } }),
+    Boards.find({ _id: { $in: scopedBoardIds } }),
+    Lists.find({ _id: { $in: listIds }, boardId: { $in: scopedBoardIds } }),
+    Swimlanes.find({ _id: { $in: swimlaneIds }, boardId: { $in: scopedBoardIds } }),
+  ];
+});
+
+Meteor.publish('planner', async function() {
+  const userId = this.userId;
+  if (!userId) return this.ready();
+  const currentUser = await ReactiveCache.getUser(userId);
+  if (!currentUser) return this.ready();
+  const visibility = boardVisibilitySelectors({
+    userId,
+    orgIds: typeof currentUser.orgIds === 'function' ? currentUser.orgIds() : [],
+    teamIds: typeof currentUser.teamIds === 'function' ? currentUser.teamIds() : [],
+    emailDomains:
+      typeof currentUser.emailDomains === 'function' ? currentUser.emailDomains() : [],
+  });
+  const visibleBoards = await Boards.find({
+    archived: false,
+    personalInboxOwnerId: { $exists: false },
+    $or: visibility,
+  }, { limit: 500 }).fetchAsync();
+  const boardById = new Map(visibleBoards.map(board => [board._id, board]));
+  const boardIds = [...boardById.keys()];
+  if (!boardIds.length) return this.ready();
+
+  const candidates = await Cards.find({
+    boardId: { $in: boardIds },
+    archived: false,
+    type: 'cardType-card',
+    $or: [
+      { assignees: userId },
+      { dueAt: { $exists: true, $nin: [null, ''] } },
+    ],
+  }, { sort: { dueAt: 1, modifiedAt: -1 }, limit: 1000 }).fetchAsync();
+  const allowed = candidates.filter(card => {
+    const board = boardById.get(card.boardId);
+    return !isAssignedOnlyMember(board, userId) || (card.assignees || []).includes(userId);
+  });
+  const cardIds = allowed.map(card => card._id);
+  const scopedBoardIds = [...new Set(allowed.map(card => card.boardId))];
+  const listIds = [...new Set(allowed.map(card => card.listId))];
+  const swimlaneIds = [...new Set(allowed.map(card => card.swimlaneId))];
+
+  return [
+    Cards.find({ _id: { $in: cardIds } }),
+    Boards.find({ _id: { $in: scopedBoardIds } }),
+    Lists.find({ _id: { $in: listIds }, boardId: { $in: scopedBoardIds } }),
+    Swimlanes.find({ _id: { $in: swimlaneIds }, boardId: { $in: scopedBoardIds } }),
+  ];
 });
 
 // Optimized due cards publication for better performance

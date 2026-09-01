@@ -118,6 +118,21 @@ template(name="editChecklistItemForm")
       = item.title
     else
       = checklist.title
+  .checklist-work-editor
+    label
+      span {{_ 'checklist-item-assignee'}}
+      select.wekan-form-control.js-checklist-work-assignee
+        option(value="") {{_ 'checklist-item-unassigned'}}
+        each assignee in checklistWorkAssignees
+          option(value=assignee._id selected=assignee.selected)= assignee.name
+    label
+      span {{_ 'checklist-item-due'}}
+      input.wekan-form-control.js-checklist-work-due(
+        type="datetime-local" value=checklistWorkDueValue)
+    label
+      span {{_ 'checklist-item-reminder'}}
+      input.wekan-form-control.js-checklist-work-reminder(
+        type="datetime-local" value=checklistWorkReminderValue)
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-edit-checklist-item'}}")
@@ -160,6 +175,19 @@ template(name='checklistItemDetail')
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
+        if checklistWorkAssigneeName
+          .checklist-item-work-meta
+            span
+              i.fa.fa-user
+              = checklistWorkAssigneeName
+            if checklistWorkDueLabel
+              span
+                i.fa.fa-clock-o
+                = checklistWorkDueLabel
+            if checklistWorkReminderLabel
+              span
+                i.fa.fa-bell
+                = checklistWorkReminderLabel
     else
       .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")

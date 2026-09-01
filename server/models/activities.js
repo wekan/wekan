@@ -116,6 +116,15 @@ Activities.after.insert(async (userId, doc) => {
     params.member = getActivityUserName(await activity.member(), activity.memberId);
   }
 
+  if (activity.assigneeId || activity.reminderForUserId) {
+    const assigneeId = activity.assigneeId || activity.reminderForUserId;
+    params.assignee = getActivityUserName(
+      await ReactiveCache.getUser(assigneeId),
+      assigneeId,
+    );
+    params.assigneeId = assigneeId;
+  }
+
   if (activity.listId) {
     const list = await activity.list();
     if (list) {
@@ -335,7 +344,11 @@ Activities.after.insert(async (userId, doc) => {
     }
   }
 
-  if ((!activity.timeKey || activity.timeKey === 'dueAt') && activity.timeValue) {
+  if (
+    activity.activityType !== 'checklistItemReminder' &&
+    (!activity.timeKey || activity.timeKey === 'dueAt') &&
+    activity.timeValue
+  ) {
     title = activity.timeOldValue ? 'act-withDue' : 'act-newDue';
   }
 
@@ -383,10 +396,16 @@ Activities.after.insert(async (userId, doc) => {
       process.env.NOTIFY_ON_ASSIGN !== 'false' &&
       process.env.NOTIFY_ON_ASSIGN !== false
     ) {
-      const assignedUserId = activity.assigneeId || activity.memberId;
+      const assignedUserId =
+        activity.reminderForUserId || activity.assigneeId || activity.memberId;
       if (
         assignedUserId &&
-        ['joinMember', 'joinAssignee'].includes(activity.activityType)
+        [
+          'joinMember',
+          'joinAssignee',
+          'checklistItemAssigned',
+          'checklistItemReminder',
+        ].includes(activity.activityType)
       ) {
         watchers = [...new Set([...watchers, assignedUserId])];
       }
@@ -398,7 +417,10 @@ Activities.after.insert(async (userId, doc) => {
   (await Notifications.getUsers(watchers)).forEach((user) => {
     if (!user || !user._id) return;
     const isSelfMention = user._id === userId && title === 'act-atUserComment';
-    if (user._id !== userId || isSelfMention) {
+    const isChecklistReminder =
+      activity.activityType === 'checklistItemReminder' &&
+      user._id === activity.reminderForUserId;
+    if (user._id !== userId || isSelfMention || isChecklistReminder) {
       Notifications.notify(user, title, description, params);
     }
   });

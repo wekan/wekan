@@ -1,0 +1,107 @@
+template(name="planner")
+  if currentUser
+    section.wrapper.planner-page(aria-labelledby="planner-title")
+      .planner-heading
+        h2#planner-title
+          i.fa.fa-calendar-check-o
+          | {{_ 'planner'}}
+        p {{_ 'planner-description'}}
+
+      .planner-controls
+        nav.planner-range(aria-label="{{_ 'planner-range'}}")
+          each option in rangeOptions
+            button.js-planner-range(
+              type="button"
+              data-range=option.value
+              class="{{#if option.active}}is-active{{/if}}"
+              aria-pressed="{{#if option.active}}true{{else}}false{{/if}}")
+              | #{option.value} {{_ 'planner-days'}}
+        label.planner-board-filter
+          span {{_ 'planner-board-filter'}}
+          select.js-planner-board
+            option(value="") {{_ 'planner-all-boards'}}
+            each board in plannerBoards
+              option(value=board._id selected=board.selected)= board.title
+
+      .planner-readiness
+        i.fa.fa-shield
+        span {{_ 'planner-external-readiness'}}
+
+      form.planner-focus-form.js-planner-focus-form
+        h3 {{_ 'planner-focus-block'}}
+        label
+          span {{_ 'planner-focus-title'}}
+          input.js-planner-focus-title(type="text" required maxlength="200")
+        label
+          span {{_ 'planner-focus-start'}}
+          input.js-planner-focus-start(type="datetime-local" required value=focusDefaultStart)
+        label
+          span {{_ 'planner-duration'}}
+          input.js-planner-focus-duration(type="number" min="15" max="480" step="15" value="60" required)
+        button.primary(type="submit")
+          i.fa.fa-plus
+          | {{_ 'planner-add-focus'}}
+
+      if statusMessage
+        p.planner-status(role="status")= statusMessage
+
+      .planner-unscheduled
+        h3 {{_ 'planner-unscheduled'}}
+        if hasUnscheduledCards
+          .planner-card-pool
+            each card in unscheduledCards
+              article.planner-card(
+                draggable="true"
+                data-card-id=card._id)
+                a(href=card.url)= card.title
+                span #{card.boardTitle}
+                if card.dueLabel
+                  small
+                    i.fa.fa-clock-o
+                    | {{_ 'planner-due'}}: #{card.dueLabel}
+                button.js-planner-schedule-next(
+                  type="button"
+                  data-card-id=card._id)
+                  i.fa.fa-calendar-plus-o
+                  | {{_ 'planner-schedule-next'}}
+        else
+          p {{_ 'planner-no-unscheduled'}}
+
+      .planner-days(class=rangeClass)
+        each plannerDay in plannerDayRows
+          section.planner-day
+            header
+              strong= plannerDay.label
+              small= plannerDay.dateLabel
+            if plannerDay.focusBlocks.length
+              .planner-focus-list
+                each focusBlock in plannerDay.focusBlocks
+                  article.planner-focus-block
+                    i.fa.fa-bullseye
+                    .planner-focus-copy
+                      strong= focusBlock.title
+                      span #{focusBlock.timeLabel} · #{focusBlock.durationMinutes}m
+                    button.js-planner-remove-focus(
+                      type="button"
+                      data-block-id=focusBlock._id
+                      title="{{_ 'delete'}}")
+                      i.fa.fa-times
+            each slot in plannerDay.slots
+              .planner-time-slot(
+                data-start=slot.startISO
+                aria-label=slot.ariaLabel)
+                span.planner-slot-time= slot.timeLabel
+                .planner-slot-drop
+                  each card in slot.cards
+                    article.planner-card.is-scheduled(
+                      draggable="true"
+                      data-card-id=card._id)
+                      a(href=card.url)= card.title
+                      span= card.boardTitle
+                      button.js-planner-clear-slot(
+                        type="button"
+                        data-card-id=card._id
+                        title="{{_ 'planner-clear-slot'}}")
+                        i.fa.fa-times
+                  unless slot.cards.length
+                    span.planner-drop-hint {{_ 'planner-drop-here'}}

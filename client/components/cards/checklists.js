@@ -1,5 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+import { formatDateTime } from '/imports/lib/dateUtils';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
 import ChecklistItems from '/models/checklistItems';
@@ -12,6 +14,35 @@ import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibil
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
+
+function dateTimeLocalValue(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return '';
+  const pad = number => String(number).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` +
+    `T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function checklistWorkAssignees(item) {
+  const card = item && ReactiveCache.getCard(item.cardId);
+  const board = card && ReactiveCache.getBoard(card.boardId);
+  if (!board) return [];
+  return (board.members || [])
+    .filter(member => member.isActive === true)
+    .map(member => {
+      const user = ReactiveCache.getUser(member.userId);
+      const name = user && typeof user.getName === 'function'
+        ? user.getName()
+        : (user && (user.username || user.profile?.fullname)) || member.userId;
+      return {
+        _id: member.userId,
+        name,
+        selected: item.assigneeId === member.userId,
+      };
+    })
+    .sort((left, right) => left.name.localeCompare(right.name));
+}
 
 function initSorting(items) {
   items.sortable({
@@ -242,14 +273,23 @@ Template.checklists.events({
     textarea.value = '';
     textarea.focus();
   },
-  'submit .js-edit-checklist-item'(event, tpl) {
+  async 'submit .js-edit-checklist-item'(event) {
     event.preventDefault();
-    const textarea = tpl.find('textarea.js-edit-checklist-item');
+    const form = event.currentTarget;
+    const textarea = form.querySelector('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
-    const formData = Blaze.getData(event.currentTarget) || Blaze.getData(event.target);
+    const formData = Blaze.getData(form) || Blaze.getData(event.target);
     const item = formData?.item;
     if (item) {
-      item.setTitle(title);
+      await item.setTitle(title);
+      const assignee = form.querySelector('.js-checklist-work-assignee');
+      const due = form.querySelector('.js-checklist-work-due');
+      const reminder = form.querySelector('.js-checklist-work-reminder');
+      await Meteor.callAsync('checklistItems.setWorkMetadata', item._id, {
+        assigneeId: assignee && assignee.value ? assignee.value : null,
+        dueAt: due && due.value ? new Date(due.value) : null,
+        remindAt: reminder && reminder.value ? new Date(reminder.value) : null,
+      });
     }
   },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
@@ -353,6 +393,18 @@ Template.editChecklistItemForm.onRendered(function () {
   autosize(this.$('textarea.js-edit-checklist-item'));
 });
 
+Template.editChecklistItemForm.helpers({
+  checklistWorkAssignees() {
+    return checklistWorkAssignees(this.item);
+  },
+  checklistWorkDueValue() {
+    return dateTimeLocalValue(this.item && this.item.dueAt);
+  },
+  checklistWorkReminderValue() {
+    return dateTimeLocalValue(this.item && this.item.remindAt);
+  },
+});
+
 Template.editChecklistItemForm.events({
   'click a.fa.fa-copy'(event, tpl) {
     const $editor = tpl.$('textarea');
@@ -364,6 +416,21 @@ Template.editChecklistItemForm.events({
 });
 
 Template.checklistItemDetail.helpers({
+  checklistWorkAssigneeName() {
+    const item = this.item;
+    if (!item || !item.assigneeId) return '';
+    const user = ReactiveCache.getUser(item.assigneeId);
+    if (!user) return item.assigneeId;
+    return typeof user.getName === 'function'
+      ? user.getName()
+      : user.username || user.profile?.fullname || item.assigneeId;
+  },
+  checklistWorkDueLabel() {
+    return this.item && this.item.dueAt ? formatDateTime(this.item.dueAt) : '';
+  },
+  checklistWorkReminderLabel() {
+    return this.item && this.item.remindAt ? formatDateTime(this.item.remindAt) : '';
+  },
 });
 
 Template.checklistItemDetail.events({

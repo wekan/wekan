@@ -412,7 +412,7 @@ const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
 let pastedResults = null;
 
 // Shared upload logic for drag-and-drop functionality
-export async function handleFileUpload(card, files) {
+export async function handleFileUpload(card, files, options = {}) {
   if (!files || files.length === 0) {
     return [];
   }
@@ -427,7 +427,7 @@ export async function handleFileUpload(card, files) {
   }
 
   // Check if user can modify the card
-  if (!Utils.canModifyCard()) {
+  if (!options.skipClientPermissionCheck && !Utils.canModifyCard()) {
     if (process.env.DEBUG === 'true') {
       console.warn('User does not have permission to modify this card');
     }

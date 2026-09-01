@@ -27,6 +27,12 @@ const {
 } = require('/models/lib/cardsLoading');
 const { boardCardScope } = require('/models/lib/boardCardScope');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
+const {
+  buildBoardDashboard,
+  dashboardSelector,
+  normalizeDashboardDimension,
+  normalizeDashboardPage,
+} = require('/models/lib/boardDashboard');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
 // minimongo; 'lazy' ships none (each list loads its visible window via the
@@ -1165,9 +1171,91 @@ Meteor.methods({
       (mode !== 'all' &&
         effectiveBoardCardsMode('auto', cards, globalLazyThreshold()) === 'lazy');
 
+    const dashboardCards = await Cards.find(
+      { boardId: { $in: boardIds }, archived: false, type: 'cardType-card' },
+      {
+        fields: {
+          _id: 1,
+          title: 1,
+          boardId: 1,
+          listId: 1,
+          members: 1,
+          assignees: 1,
+          labelIds: 1,
+          dueAt: 1,
+          locations: 1,
+          locationName: 1,
+          locationAddress: 1,
+          locationLatitude: 1,
+          locationLongitude: 1,
+        },
+      },
+    ).fetchAsync();
+    const dashboardLists = await ReactiveCache.getLists({
+      boardId: { $in: boardIds },
+      archived: false,
+    });
+    const dashboardUserIds = [...new Set([
+      ...(board.members || []).map(member => member.userId),
+      ...dashboardCards.flatMap(card => [
+        ...(card.members || []),
+        ...(card.assignees || []),
+      ]),
+    ].filter(Boolean))];
+    const dashboardUsers = dashboardUserIds.length
+      ? await ReactiveCache.getUsers(
+          { _id: { $in: dashboardUserIds } },
+          { fields: { username: 1, 'profile.fullname': 1 } },
+        )
+      : [];
+    const dashboard = buildBoardDashboard({
+      cards: dashboardCards,
+      lists: dashboardLists,
+      members: dashboardUsers.map(user => ({
+        _id: user._id,
+        username: user.username,
+        fullname: user.profile && user.profile.fullname,
+      })),
+      labels: board.labels || [],
+    });
+
     return {
       mode, lazy, swimlanes, lists, cards, archivedCards, labels, members, customFields,
-      timeSpentTotal, cardsWithTimeSpent, overtimeCards,
+      timeSpentTotal, cardsWithTimeSpent, overtimeCards, dashboard,
     };
+  },
+
+  async boardDashboardCards(boardId, dimension, key, skip = 0, limit = 10) {
+    check(boardId, String);
+    check(dimension, String);
+    check(key, String);
+    check(skip, Number);
+    check(limit, Number);
+    if (!normalizeDashboardDimension(dimension)) {
+      throw new Meteor.Error('invalid-dashboard-dimension');
+    }
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board || !board.isVisibleBy({ _id: this.userId })) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const scopedBoardIds = [board._id];
+    if (board.subtasksDefaultBoardId) scopedBoardIds.push(board.subtasksDefaultBoardId);
+    const bucketSelector = dashboardSelector(dimension, key);
+    if (!bucketSelector) throw new Meteor.Error('invalid-dashboard-bucket');
+    const selector = {
+      boardId: { $in: scopedBoardIds },
+      archived: false,
+      type: 'cardType-card',
+      ...bucketSelector,
+    };
+    const page = normalizeDashboardPage(skip, limit);
+    const total = await Cards.find(selector).countAsync();
+    const items = await Cards.find(selector, {
+      fields: { _id: 1, title: 1, boardId: 1, listId: 1, dueAt: 1 },
+      sort: { dueAt: 1, title: 1, _id: 1 },
+      skip: page.skip,
+      limit: page.limit,
+    }).fetchAsync();
+    return { total, skip: page.skip, limit: page.limit, items };
   },
 });

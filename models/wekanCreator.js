@@ -5,6 +5,7 @@ import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import Boards from '/models/boards';
 import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/colors';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { planImportedBoardMember } from '/models/lib/importedBoardMemberPlan';
@@ -326,7 +327,7 @@ export class WekanCreator {
       // reject the whole board insert.
       color: BOARD_COLORS.includes(boardToImport.color)
         ? boardToImport.color
-        : BOARD_COLORS[0],
+        : DEFAULT_BOARD_THEME_COLOR,
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(boardToImport.createdAt),
       labels: [],

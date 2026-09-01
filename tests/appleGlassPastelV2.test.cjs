@@ -22,6 +22,20 @@ const boardFeature = read('client/features/boards.js');
 const mainFeature = read('client/features/main.js');
 const userFeature = read('client/features/users.js');
 const settingsFeature = read('client/features/settings.js');
+const boardsTemplate = read('client/components/boards/boardsList.jade');
+const globalTheme = read('client/components/main/globalThemeColor.js');
+const boardModel = read('models/boards.js');
+const boardServer = read('server/models/boards.js');
+const themePicker = read('client/components/main/themeColorPicker.js');
+const csvCreator = read('models/csvCreator.js');
+const jiraCreator = read('models/jiraCreator.js');
+const kanboardCreator = read('models/kanboardCreator.js');
+const wekanCreator = read('models/wekanCreator.js');
+const trelloCreator = read('models/trelloCreator.js');
+const personalInboxServer = read('server/personalInbox.js');
+const playwrightDbHelper = read('tests/playwright/helpers/db.js');
+const e2eListRegression = read('tests/e2e/list-regressions.js');
+const config = read('config/const.js');
 const preview = read('tests/fixtures/appleGlassPastelThemePreview.html');
 const all = `${base}\n${pages}\n${auth}`;
 
@@ -104,6 +118,16 @@ test('all major WeKan surfaces are represented', () => {
     'the board-list-item is the single painted board tile');
   assert.ok(/li\.js-board,[\s\S]*?\.board-list-item > \.js-open-board \{[\s\S]*?background: transparent !important;[\s\S]*?border: 0;[\s\S]*?box-shadow: none;/.test(pages),
     'the outer drag item and inner navigation link stay structural, not two extra cards');
+  assert.ok(boardsTemplate.includes('.board-list-thumbnail(')
+    && boardsTemplate.includes('background-image:url(\'{{backgroundImageURL}}\')'),
+  'the board background image becomes a dedicated thumbnail instead of a card-wide fill');
+  assert.ok(/\.board-list-thumbnail[\s\S]*?aspect-ratio: 16 \/ 9;/.test(pages),
+    'the Apple Glass thumbnail keeps a 16:9 frame');
+  assert.ok(boardsTemplate.includes('span.board-list-item-desc-empty')
+    && boardsTemplate.includes("— {{_ 'description'}}"),
+  'boards without description show an explicit localized empty state');
+  assert.ok(/\.board-list-item-desc \{[\s\S]*?-webkit-line-clamp: 2;/.test(pages),
+    'board descriptions are clamped to two lines');
 });
 
 test('minicards avoid per-card backdrop filters', () => {
@@ -113,6 +137,24 @@ test('minicards avoid per-card backdrop filters', () => {
   const block = pages.slice(at, end);
   assert.ok(block.includes('backdrop-filter: none'), 'standard filter is disabled');
   assert.ok(block.includes('-webkit-backdrop-filter: none'), 'Safari filter is disabled');
+  assert.ok(block.includes('margin-bottom: 0 !important'),
+    'the painted card does not duplicate its wrapper spacing');
+  assert.ok(pages.includes('.board-color-appleglasspastel.board-wrapper .minicard-wrapper {')
+    && pages.includes('margin-bottom: 12px !important'),
+  'the single structural card gap is breathable');
+});
+
+test('kanban sprint columns have theme-scoped breathing room', () => {
+  const at = pages.indexOf('.board-color-appleglasspastel.board-wrapper .list {');
+  assert.notStrictEqual(at, -1, 'list panel override exists');
+  const end = pages.indexOf('}', at);
+  const block = pages.slice(at, end);
+  assert.ok(block.includes('margin-block: 10px'),
+    'Apple Glass keeps the existing vertical list offset');
+  assert.ok(block.includes('margin-inline: 8px'),
+    'adjacent sprint/list panels have a visible horizontal gap');
+  assert.ok(!/margin-inline:\s*8px\s*!important/.test(block),
+    'mobile-mode can still override the column margin for full-width lists');
 });
 
 test('auth uses a responsive split layout without importing external branding', () => {
@@ -182,6 +224,55 @@ test('the static preview loads the complete v2 cascade', () => {
     'appleGlassPastelAuth.css',
   ]) {
     assert.ok(preview.includes(file), `${file} is loaded by the preview`);
+  }
+});
+
+test('Apple Glass Pastel is the app default when no user or site theme is set', () => {
+  assert.ok(/DEFAULT_GLOBAL_THEME_COLOR\s*=\s*'appleglasspastel'/.test(config),
+    'the shared default is Apple Glass Pastel');
+  assert.ok(/DEFAULT_BOARD_THEME_COLOR\s*=\s*DEFAULT_GLOBAL_THEME_COLOR/.test(config),
+    'new board defaults use the same Apple Glass theme');
+  assert.ok(/siteColor \|\| DEFAULT_GLOBAL_THEME_COLOR/.test(globalTheme),
+    'headers fall back to the shared default after user, board and site themes');
+  assert.ok(/const defaultColor = board \? null : DEFAULT_GLOBAL_THEME_COLOR/.test(globalTheme),
+    'body fallback applies only off board pages');
+  assert.ok(/board-color-\$\{defaultColor\}/.test(globalTheme),
+    'the fallback is emitted as a real body class for the CSS cascade');
+  assert.ok(/return DEFAULT_BOARD_THEME_COLOR;/.test(boardModel),
+    'schema-created boards default to Apple Glass Pastel, not legacy belize');
+  assert.ok(/color: req\.body\.color \|\| DEFAULT_BOARD_THEME_COLOR/.test(boardServer),
+    'REST-created boards use the same default when the caller omits a color');
+  assert.ok(/DEFAULT_BOARD_THEME_COLOR/.test(themePicker)
+    && !/BOARD_COLORS\[0\]/.test(themePicker),
+  'the board color picker fallback also points at the named default');
+  for (const [name, source] of [
+    ['CSV import', csvCreator],
+    ['Jira import', jiraCreator],
+    ['Kanboard import', kanboardCreator],
+    ['WeKan import fallback', wekanCreator],
+    ['Trello import fallback', trelloCreator],
+    ['Personal Inbox helper board', personalInboxServer],
+    ['Playwright DB helper', playwrightDbHelper],
+    ['legacy e2e DB helper', e2eListRegression],
+  ]) {
+    assert.ok(source.includes('DEFAULT_BOARD_THEME_COLOR'),
+      `${name} uses the shared new-board default`);
+  }
+  for (const [name, source] of [
+    ['board model', boardModel],
+    ['board REST API', boardServer],
+    ['theme picker', themePicker],
+    ['CSV import', csvCreator],
+    ['Jira import', jiraCreator],
+    ['Kanboard import', kanboardCreator],
+    ['WeKan import fallback', wekanCreator],
+    ['Trello import fallback', trelloCreator],
+    ['Personal Inbox helper board', personalInboxServer],
+    ['Playwright DB helper', playwrightDbHelper],
+    ['legacy e2e DB helper', e2eListRegression],
+  ]) {
+    assert.ok(!/BOARD_COLORS\[0\]|color:\s*['"]belize['"]/.test(source),
+      `${name} must not silently default boards to the legacy belize theme`);
   }
 });
 

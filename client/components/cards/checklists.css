@@ -8,6 +8,39 @@ textarea.js-edit-checklist-item {
   resize: none;
   height: 34px;
 }
+
+.checklist-work-editor {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.checklist-work-editor label {
+  display: grid;
+  gap: 4px;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.checklist-item-work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.checklist-item-work-meta .fa {
+  margin-inline-end: 4px;
+}
+
+@media screen and (max-width: 720px) {
+  .checklist-work-editor {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .delete-text,
 .js-delete-checklist-item,
 .js-convert-checklist-item-to-card {

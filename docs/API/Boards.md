@@ -38,7 +38,7 @@ Optional, and defaults:
 - "isNoComments":"false"
 - "isCommentOnly":"false"
 - "permission":"private"   <== Set to "public" if you want public Wekan board
-- "color":"belize"        <== Board color: belize, nephritis, pomegranate, pumpkin, wisteria, midnight.
+- "color":"appleglasspastel" <== Board color. If omitted, new boards use the Apple Glass Pastel default.
 
 <img src="https://wekan.fi/board-colors.png" width="40%" alt="Wekan logo" />
 

@@ -5,6 +5,7 @@ import Boards from './boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 
 // Creates a WeKan board from a Kanboard export.
 //
@@ -82,7 +83,7 @@ export class KanboardCreator {
       `Imported Kanboard Board ${this._now()}`;
     const boardToCreate = {
       archived: false,
-      color: 'belize',
+      color: DEFAULT_BOARD_THEME_COLOR,
       createdAt: this._now(),
       labels: [],
       members: [

@@ -7,6 +7,7 @@ const { EJSON } = require('bson');
 
 const MONGO_URL = process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor';
 const RUNNER = path.join(__dirname, 'mongo-runner.js');
+const DEFAULT_BOARD_THEME_COLOR = 'appleglasspastel';
 
 // Run a list of structured MongoDB ops synchronously via the driver-based
 // subprocess runner (helpers/mongo-runner.js), returning the LAST op's result.
@@ -218,7 +219,7 @@ function seedBoard({ ownerId, title, listCount = 3, cardTitlesPerList = [] } = {
           isCommentOnly: false, isWorker: false, isReadOnly: false,
           isReadAssignedOnly: false,
         }],
-        color: 'belize',
+        color: DEFAULT_BOARD_THEME_COLOR,
         allowsCardCounterList: false, allowsBoardMemberList: false,
         subtasksDefaultBoardId: null, subtasksDefaultListId: null,
         dateSettingsDefaultBoardId: null, dateSettingsDefaultListId: null,
@@ -327,7 +328,7 @@ function seedTemplatesBoard({ ownerId, templateTitles = [] } = {}) {
         createdAt: now, modifiedAt: now,
         stars: 0,
         members: [{ userId: ownerId, ...member }],
-        color: 'belize', sort: -1,
+        color: DEFAULT_BOARD_THEME_COLOR, sort: -1,
       },
     },
     {
@@ -371,7 +372,7 @@ function seedTemplatesBoard({ ownerId, templateTitles = [] } = {}) {
         archived: false,
         createdAt: now, modifiedAt: now, stars: 0,
         members: [{ userId: ownerId, ...member }],
-        color: 'belize', sort: i,
+        color: DEFAULT_BOARD_THEME_COLOR, sort: i,
       })),
     });
     ops.push({

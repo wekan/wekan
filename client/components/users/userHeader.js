@@ -55,6 +55,9 @@ Template.memberMenuPopup.helpers({
 });
 
 Template.memberMenuPopup.events({
+  'click .js-personal-inbox'() {
+    Popup.back();
+  },
   'click .js-open-bookmarks'(e) {
     e.preventDefault();
     if (Utils.isMiniScreen()) {

@@ -357,6 +357,87 @@ Users.attachSchema(
       optional: true,
       blackbox: true,
     },
+    'profile.plannerCardSlots': {
+      /**
+       * Personal cardId -> time-slot map. These slots arrange the user's day
+       * without changing the shared card's due/start/end dates.
+       */
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'profile.plannerFocusBlocks': {
+      /**
+       * Personal focus blocks displayed by the cross-board Planner.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.plannerFocusBlocks.$': {
+      type: Object,
+      blackbox: true,
+    },
+    'profile.savedSearches': {
+      /**
+       * Private Global Search shortcuts owned by this user. The server derives
+       * the owner from the authenticated method context.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.savedSearches.$': {
+      type: Object,
+      blackbox: true,
+    },
+    'profile.personalInboxEmailTokenHash': {
+      /**
+       * SHA-256 hash of the one-time-shown Email-to-Inbox token.
+       */
+      type: String,
+      optional: true,
+    },
+    'profile.personalInboxEmailAllowedSenders': {
+      /**
+       * Optional sender allowlist for Email-to-Inbox. Empty means the account's
+       * own verified email addresses are accepted.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.personalInboxEmailAllowedSenders.$': {
+      type: String,
+    },
+    'profile.personalInboxConnectorTokenHash': {
+      /**
+       * SHA-256 hash of the one-time-shown token used by browser/chat
+       * connectors that capture into Personal Inbox.
+       */
+      type: String,
+      optional: true,
+    },
+    'profile.personalInboxConnectorTypes': {
+      /**
+       * Connector kinds this token may use. Empty means the connector API is
+       * disabled until the user rotates a new token.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.personalInboxConnectorTypes.$': {
+      type: String,
+      allowedValues: ['browser', 'slack', 'teams'],
+    },
+    'profile.personalInboxConnectorOrigins': {
+      /**
+       * Optional http(s) origin allowlist. When set, connector requests must
+       * present one of these origins in the server-validated payload.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.personalInboxConnectorOrigins.$': {
+      type: String,
+    },
     'profile.leftMenuWidth': {
       /**
        * user-chosen width (px) of that same left menu, set by dragging its inner
@@ -393,8 +474,9 @@ Users.attachSchema(
        * the board color names, that color theme is applied to the WHOLE UI (All
        * Boards, Search, Admin Panel, My Cards, etc.) via a `board-color-<name>`
        * class on <body> and the header — letting a user pick e.g. a dark theme
-       * everywhere. Absent = no override (default appearance). A specific board
-       * still shows its own Board Settings color while you are on that board.
+       * everywhere. Absent = no override (the shared app default appearance).
+       * A specific board still shows its own Board Settings color while you are
+       * on that board.
        */
       type: String,
       optional: true,
@@ -698,6 +780,7 @@ Users.attachSchema(
         'board-view-gantt',
         'board-view-table',
         'board-view-stats',
+        'board-view-map',
       ],
     },
     'profile.listSortBy': {

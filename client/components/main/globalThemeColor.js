@@ -4,6 +4,7 @@ import { Session } from 'meteor/session';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Template } from 'meteor/templating';
 import { activeAccent, activeFill } from '/models/lib/themeAccents';
+import { DEFAULT_GLOBAL_THEME_COLOR } from '/config/const';
 
 // #5778 + docs/Theme/Theme.md: apply the theme color to the whole UI (All Boards,
 // Search, Admin Panel, My Cards, etc.) via a `board-color-<name>` class on <body>,
@@ -11,7 +12,7 @@ import { activeAccent, activeFill } from '/models/lib/themeAccents';
 // consumed by customTheme.css.
 //
 // THE ORDER OF THEMES, weakest first (docs/Theme/Theme.md):
-//   1. WeKan's default theme  — nothing on <body>
+//   1. WeKan's default theme  — Apple Glass Pastel on app-level pages
 //   2. the SITE theme         — Admin Panel / Settings / Visibility / Change color.
 //                               `currentSetting.themeColor`, which on a multitenancy
 //                               host is that Organization's own value (the settings
@@ -43,7 +44,7 @@ Template.registerHelper('themeColorClass', () => {
   if (boardClass) return boardClass;
   const setting = ReactiveCache.getCurrentSetting();
   const siteColor = setting && setting.themeColor;
-  return siteColor ? `board-color-${siteColor}` : '';
+  return `board-color-${siteColor || DEFAULT_GLOBAL_THEME_COLOR}`;
 });
 
 Meteor.startup(() => {
@@ -139,11 +140,13 @@ Meteor.startup(() => {
     }
 
     // Otherwise WeKan's default theme: on a board expose that board's own custom
-    // colors (its color class already lives on .board-wrapper/#header); off a board,
-    // apply nothing.
-    applyClass(null);
+    // colors (its color class already lives on .board-wrapper/#header); off a
+    // board, use the application-wide Apple Glass default instead of falling back
+    // to the legacy unthemed UI.
+    const defaultColor = board ? null : DEFAULT_GLOBAL_THEME_COLOR;
+    applyClass(defaultColor ? `board-color-${defaultColor}` : null);
     // On a board the board's own colour owns the page, and its accent is what the
     // chrome should follow too - the sidebar, its buttons and every Save button.
-    applyCustom((board && board.customThemeColors) || [], board && board.color);
+    applyCustom((board && board.customThemeColors) || [], (board && board.color) || defaultColor);
   });
 });

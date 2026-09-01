@@ -167,15 +167,19 @@ test('it is painted with a theme, or its buttons are unreadable', () => {
   // replacing the grey with a themed colour - and this page has no board, so
   // without a class here every button was white on light grey. It shipped that
   // way and xet7 reported it.
-  assert.ok(/themeClass\(\) \{[\s\S]{0,120}'board-color-belize'/.test(sidebarJs),
-    'the default theme outside a board');
+  assert.ok(/DEFAULT_GLOBAL_THEME_COLOR/.test(sidebarJs)
+    && /board-color-\$\{DEFAULT_GLOBAL_THEME_COLOR\}/.test(sidebarJs),
+  'the default theme outside a board comes from the shared app default');
   // Which must be a theme that really styles a sidebar button.
   const colors = read('client/components/boards/boardColors.css');
-  const rule = /\.board-color-belize (\.sidebar \.sidebar-content \.sidebar-btn) \{/.exec(colors);
-  assert.ok(rule, 'board-color-belize must define a sidebar button');
+  const config = read('config/const.js');
+  assert.ok(/DEFAULT_GLOBAL_THEME_COLOR\s*=\s*'appleglasspastel'/.test(config),
+    'the shared app default is Apple Glass Pastel');
+  const rule = /\.board-color-appleglasspastel (\.sidebar \.sidebar-content \.sidebar-btn) \{/.exec(colors);
+  assert.ok(rule, 'board-color-appleglasspastel must define a sidebar button');
 
   // On an ANCESTOR, never on the sidebar itself. Every themed sidebar rule is a
-  // DESCENDANT selector - `.board-color-belize .sidebar .sidebar-content
+  // DESCENDANT selector - `.board-color-appleglasspastel .sidebar .sidebar-content
   // .sidebar-btn` - so a class on the `.sidebar` element matches nothing at all.
   // The first version of this put it there, and the buttons stayed white on
   // light grey; the guard passed, because it only asked whether the class was
@@ -189,7 +193,7 @@ test('it is painted with a theme, or its buttons are unreadable', () => {
   assert.ok(wrapper, 'it goes on a wrapper that CONTAINS the sidebar');
   // The SAME theme at every width. It is a class on the element, in the
   // template, so no media query can take it away - only the panel's GEOMETRY is
-  // desktop-only. (boardsList.css does name board-color-belize elsewhere: it is
+  // desktop-only. (boardsList.css does name board-color-* elsewhere: those are
   // one of the seventeen colours a board TILE can be, which is unrelated.)
   const css = read('client/components/boards/boardsList.css');
   const desktop = css.slice(css.indexOf('@media screen and (min-width: 801px)'));

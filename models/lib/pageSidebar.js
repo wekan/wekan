@@ -18,6 +18,7 @@
 // routeName -> the template that draws that page's controls.
 const PAGE_SIDEBAR_TEMPLATES = {
   'my-cards': 'myCardsControls',
+  'my-work': 'myCardsControls',
   'due-cards': 'dueCardsControls',
   'global-search': 'globalSearchControls',
   'board-rules': 'rulesControls',

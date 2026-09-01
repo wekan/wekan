@@ -69,8 +69,8 @@ value gets published in the instance's place.
 | Place | Scope | Writes | Clearing it means |
 | --- | --- | --- | --- |
 | Board Settings / Change Color | `board` | `board.color` + `board.customThemeColors` | — (a board always has a colour, so there is no "Default theme" row) |
-| Member Settings / Change color | `global` | `setGlobalThemeColor` | fall back to the site theme, and to per-board colours |
-| Admin Panel / Settings / Visibility / Change color | `admin` | `setAdminThemeColor` | fall back to WeKan's default theme (or, for an Organization, to the instance's) |
+| Member Settings / Change color | `global` | `setGlobalThemeColor` | fall back to the site theme, app default and per-board colours |
+| Admin Panel / Settings / Visibility / Change color | `admin` | `setAdminThemeColor` | fall back to the shared app default theme (or, for an Organization, to the instance's) |
 
 ## What the picker guarantees
 

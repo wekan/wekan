@@ -5,6 +5,24 @@ import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary, tripCanaryDeny } from '/server/lib/canary';
 const { workerMayUpdateCard } = require('/models/lib/workerCardWrite');
 
+const CAPTURE_PROVENANCE_FIELDS = [
+  'captureSourceType',
+  'captureSourceUrl',
+  'captureEmailFrom',
+  'captureEmailMessageId',
+  'captureEmailAttachments',
+  'capturedAt',
+  'capturedBy',
+];
+
+function touchesCaptureProvenance(fields) {
+  return (fields || []).some(field =>
+    CAPTURE_PROVENANCE_FIELDS.some(
+      protectedField => field === protectedField || field.startsWith(`${protectedField}.`),
+    ),
+  );
+}
+
 // GHSA-jvv9-498p-hxrg: may this user name that card as a parent? Only if they
 // may see the board it is on — the same question the `board` publication asks
 // before sending an ancestor card.
@@ -90,6 +108,10 @@ Cards.allow({
 // those ancestors either; this stops the bridge being built in the first place.)
 Cards.deny({
   async update(userId, doc, fieldNames, modifier) {
+    // Capture provenance is server-authored and survives every move. A board
+    // member may edit the card, but may not rewrite where/when/by whom it was
+    // captured through a direct client collection update.
+    if (touchesCaptureProvenance(fieldNames)) return true;
     if (await denyCrossBoardMove(userId, modifier)) {
       return tripCanaryDeny('card.cross-board-move', { userId });
     }
@@ -104,6 +126,14 @@ Cards.deny({
 // Same rule on INSERT: a card can be created with a parentId already set.
 Cards.deny({
   async insert(userId, doc) {
+    if (
+      doc &&
+      CAPTURE_PROVENANCE_FIELDS.some(field =>
+        Object.prototype.hasOwnProperty.call(doc, field),
+      )
+    ) {
+      return true;
+    }
     if (!doc || !doc.parentId) return false;
     if (await canUserSeeParentCard(userId, doc.parentId)) return false;
     return tripCanaryDeny('card.invisible-parent', { userId });

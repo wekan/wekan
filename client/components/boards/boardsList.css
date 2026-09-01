@@ -919,6 +919,14 @@
   color: inherit;
   display: block;
 }
+
+/* The Apple Glass overview promotes these into the visible 16:9 board preview
+   and empty-description state. Other themes keep their established compact
+   tile until they opt into the same card layout. */
+.board-list .board-list-thumbnail,
+.board-list .board-list-item-desc-empty {
+  display: none;
+}
 .board-list .board-list-item.template-container {
   border: 4px solid #fff;
 }
@@ -1366,10 +1374,9 @@
        matches this media query, becomes a grid here, and never got the fix. It
        belongs on the rule that creates the grid. */
     align-content: start;
-    /* Rows stay packed at the top, but the two cells IN one row share the
-       height its longest board title needs. This does not stretch rows into
-       spare viewport height because align-content remains start. */
-    align-items: stretch;
+    /* Keep each tile at its own content height. A taller sibling must not
+       stretch the other board tile into an oversized coloured block. */
+    align-items: start;
   }
   .board-list li {
     width: auto; /* the grid controls the column width */
@@ -1379,7 +1386,7 @@
        and only downwards. */
     margin-bottom: 0;
     /* ...and the tile is its own height, not the height of a stretched cell. */
-    align-self: stretch;
+    align-self: start;
     height: auto;
     /* Same as `.board-list.mobile-view li` above: the tile keeps its own text
        clear of the handle, so reserving the width a second time out here only

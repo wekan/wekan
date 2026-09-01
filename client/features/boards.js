@@ -9,6 +9,7 @@ import '/client/components/boards/miniboard.jade';
 import '/client/components/boards/originalPositionsView.jade';
 import '/client/components/boards/tableView.jade';
 import '/client/components/boards/statsView.jade';
+import '/client/components/boards/mapView.jade';
 
 import '/client/components/boards/boardArchive.js';
 import '/client/components/boards/boardBody.js';
@@ -22,6 +23,7 @@ import '/client/components/boards/publicBoards.js';
 import '/client/components/boards/originalPositionsView.js';
 import '/client/components/boards/tableView.js';
 import '/client/components/boards/statsView.js';
+import '/client/components/boards/mapView.js';
 
 import '/client/components/boards/boardBody.css';
 import '/client/components/boards/dependencyOverlay.css';
@@ -33,6 +35,7 @@ import '/client/components/boards/calendarView.css';
 import '/client/components/boards/originalPositionsView.css';
 import '/client/components/boards/tableView.css';
 import '/client/components/boards/statsView.css';
+import '/client/components/boards/mapView.css';
 
 // Theme overrides follow the board feature's legacy styles in this lazy bundle.
 import '/client/components/main/appleGlassPastel.css';

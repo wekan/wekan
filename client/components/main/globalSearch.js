@@ -5,6 +5,7 @@ import { Query, QueryErrors } from '../../../config/query-classes';
 import { OPERATOR_USER } from '/config/search-const';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
+import { DEFAULT_GLOBAL_THEME_COLOR } from '/config/const';
 
 // const subManager = new SubsManager();
 
@@ -39,6 +40,7 @@ Template.globalSearch.onCreated(function () {
   this.myLists = new ReactiveVar([]);
   this.myLabelNames = new ReactiveVar([]);
   this.myBoardNames = new ReactiveVar([]);
+  this.savedSearchStatus = new ReactiveVar('');
   this.parsingErrors = new QueryErrors();
   this.queryParams = null;
 
@@ -272,6 +274,24 @@ Template.globalSearch.helpers({
     return Meteor.userId();
   },
 
+  queryValue() {
+    return Template.instance().search.query.get();
+  },
+
+  savedSearches() {
+    const user = ReactiveCache.getCurrentUser();
+    return (user?.profile?.savedSearches || []).slice().sort((a, b) =>
+      a.name.localeCompare(b.name));
+  },
+
+  hasSavedSearches() {
+    return !!ReactiveCache.getCurrentUser()?.profile?.savedSearches?.length;
+  },
+
+  savedSearchStatus() {
+    return Template.instance().savedSearchStatus.get();
+  },
+
   // Return ReactiveVar values so Blaze can use them
   searching() {
     const val = Template.instance().search.searching.get();
@@ -343,7 +363,7 @@ Template.globalSearch.helpers({
   boardColorClass() {
     const boardId = Session.get('currentBoard');
     const board = boardId ? ReactiveCache.getBoard(boardId) : null;
-    return board ? board.colorClass() : 'board-color-belize';
+    return board ? board.colorClass() : `board-color-${DEFAULT_GLOBAL_THEME_COLOR}`;
   },
 
   searchInstructions() {
@@ -462,6 +482,32 @@ Template.globalSearch.helpers({
 });
 
 Template.globalSearch.events({
+  async 'submit .js-save-search'(evt, tpl) {
+    evt.preventDefault();
+    const nameInput = evt.currentTarget.querySelector('.js-saved-search-name');
+    try {
+      await Meteor.callAsync('savedSearches.add', {
+        name: nameInput.value,
+        query: tpl.search.query.get(),
+      });
+      nameInput.value = '';
+      tpl.savedSearchStatus.set(TAPi18n.__('saved-search-added'));
+    } catch (error) {
+      tpl.savedSearchStatus.set(error.reason || error.error || TAPi18n.__('error-undefined'));
+    }
+  },
+  'click .js-run-saved-search'(evt, tpl) {
+    evt.preventDefault();
+    const query = evt.currentTarget.dataset.query || '';
+    tpl.search.query.set(query);
+    searchAllBoards(tpl, query);
+  },
+  async 'click .js-remove-saved-search'(evt, tpl) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await Meteor.callAsync('savedSearches.remove', evt.currentTarget.dataset.savedSearchId);
+    tpl.savedSearchStatus.set(TAPi18n.__('saved-search-removed'));
+  },
   'click input.global-search-query-input'(evt) {
     evt.preventDefault();
     evt.stopPropagation();

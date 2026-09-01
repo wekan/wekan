@@ -51,7 +51,7 @@ Theme:     [ belize ▼ ]     <- 2nd-level dropdown (colors in the chosen catego
 - Selecting a **dark**/**special** category hides the wheels entirely.
 - A live **preview swatch** shows the resulting theme (named or custom).
 - **Default / Unset**: Board → falls back to the instance default; Member → clears the global
-  override (the existing #5778 behaviour).
+  override and therefore uses the shared application default, `appleglasspastel`.
 
 Member Settings adds nothing new structurally — it is the same picker writing to the user profile
 instead of the board, and its result themes the whole UI (`board-color-<name>` on `<body>`/header,
@@ -113,7 +113,8 @@ injection surface.
     Settings / Visibility via `scope="board"|"global"|"admin"`. Its design — the scopes, the
     order of themes and how to add another place — is
     [docs/Design/Page/Theme.md](../Design/Page/Theme.md).
-  - **The order of themes**, weakest first: 1) WeKan's default theme, 2) the **site theme**
+  - **The order of themes**, weakest first: 1) WeKan's default theme
+    (`appleglasspastel` on application-level pages), 2) the **site theme**
     set in Admin Panel / Settings / Visibility / Change color (on a multitenancy host, the
     Organization's own value replaces the instance's — see
     [Multitenancy](../Design/Multitenancy/Multitenancy.md)), 3) the **user's own override**
@@ -184,6 +185,16 @@ edges that are easy to miss in a visual-only review:
 - Each All Boards board paints one surface only: `.board-list-item` is the glass
   card, while its outer drag item and inner navigation link remain transparent
   structural wrappers. This avoids a three-layer stack around every board.
+- That single card has a 16:9 thumbnail sourced from `backgroundImageURL`, or a
+  pastel board-icon placeholder when no image is configured. On desktop its
+  title and description are each limited to two lines; mobile keeps the full
+  title so similarly named boards remain distinguishable. An empty description
+  is shown as a localized description placeholder rather than an unexplained
+  blank area.
+- Board-detail minicards keep their vertical spacing on
+  `.minicard-wrapper` only. The painted `.minicard` has no second bottom
+  margin, so adjacent cards have one consistent 12px gap instead of a combined
+  16-17px gap.
 - The mobile quick-access header and Admin Panel glass island use
   `box-sizing: border-box`, `max-width: 100%` and `min-width: 0` where needed, so
   gutters and flex content cannot create horizontal overflow.

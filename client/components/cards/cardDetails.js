@@ -679,6 +679,11 @@ Template.cardDetails.onDestroyed(function () {
 });
 
 Template.cardDetails.helpers({
+  captureDate() {
+    const card = Template.currentData();
+    return card && card.capturedAt ? formatDateTime(card.capturedAt) : '';
+  },
+
   isWatching() {
     const card = Template.currentData();
     if (!card || typeof card.findWatcher !== 'function') return false;

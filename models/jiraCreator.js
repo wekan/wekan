@@ -12,6 +12,7 @@ import {
   DEFAULT_DEPENDENCY_TYPE,
   normalizeDependency,
 } from '/models/metadata/dependencies';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 
 // Creates a WeKan board from a Jira export.
 //
@@ -68,7 +69,7 @@ export class JiraCreator {
 
     const boardToCreate = {
       archived: false,
-      color: 'belize',
+      color: DEFAULT_BOARD_THEME_COLOR,
       createdAt: this._now(),
       labels: [],
       members: [

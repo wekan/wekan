@@ -52,6 +52,7 @@ import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import { debounce } from '/imports/lib/collectionHelpers';
+const { normalizeCaptureUrl } = require('/models/lib/personalInbox');
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Cards = new Mongo.Collection('cards');
@@ -234,6 +235,66 @@ Cards.attachSchema(
       type: String,
       optional: true,
       defaultValue: '',
+    },
+    captureSourceType: {
+      /**
+       * How this card entered WeKan. Kept when an Inbox card moves to a board.
+       */
+      type: String,
+      optional: true,
+      allowedValues: ['quick-capture', 'email', 'browser', 'slack', 'teams'],
+    },
+    captureSourceUrl: {
+      /**
+       * Optional validated http(s) source URL supplied during capture.
+       */
+      type: String,
+      optional: true,
+      custom() {
+        return normalizeCaptureUrl(this.value) === null ? 'notAllowed' : undefined;
+      },
+    },
+    captureEmailFrom: {
+      /**
+       * Normalized sender address verified by the Email-to-Inbox endpoint.
+       */
+      type: String,
+      optional: true,
+    },
+    captureEmailMessageId: {
+      /**
+       * Optional Message-Id supplied by the inbound email bridge.
+       */
+      type: String,
+      optional: true,
+    },
+    captureEmailAttachments: {
+      /**
+       * Safe attachment metadata accepted by Email-to-Inbox. Binary storage is
+       * deliberately handled by later attachment-specific flows.
+       */
+      type: Array,
+      optional: true,
+      defaultValue: [],
+    },
+    'captureEmailAttachments.$': {
+      type: Object,
+      blackbox: true,
+    },
+    capturedAt: {
+      /**
+       * Original capture time; unlike createdAt this survives future imports or
+       * moves as explicit provenance.
+       */
+      type: Date,
+      optional: true,
+    },
+    capturedBy: {
+      /**
+       * User who captured the item. Server methods set this authoritatively.
+       */
+      type: String,
+      optional: true,
     },
     requestedBy: {
       /**

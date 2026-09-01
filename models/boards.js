@@ -8,6 +8,7 @@ const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelecto
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
 import {
+  DEFAULT_BOARD_THEME_COLOR,
   TYPE_BOARD,
   TYPE_TEMPLATE_BOARD,
   TYPE_TEMPLATE_CONTAINER,
@@ -425,7 +426,7 @@ Boards.attachSchema(
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return BOARD_COLORS[0];
+          return DEFAULT_BOARD_THEME_COLOR;
         }
       },
     },
@@ -512,6 +513,15 @@ Boards.attachSchema(
     description: {
       /**
        * The description of the board
+       */
+      type: String,
+      optional: true,
+    },
+    personalInboxOwnerId: {
+      /**
+       * Owner of this internal Personal Inbox helper board. The board remains a
+       * normal private board, so existing membership/publication permission
+       * checks protect every card and attachment stored in it.
        */
       type: String,
       optional: true,
@@ -1033,6 +1043,34 @@ Boards.attachSchema(
       type: String,
       defaultValue: TYPE_BOARD,
       allowedValues: [TYPE_BOARD, TYPE_TEMPLATE_BOARD, TYPE_TEMPLATE_CONTAINER],
+    },
+    templatePackageId: {
+      /**
+       * Reviewable JSON package identifier that created this template board.
+       */
+      type: String,
+      optional: true,
+    },
+    templatePackageReviewHash: {
+      /**
+       * SHA-256 hash of the normalized reviewable template package.
+       */
+      type: String,
+      optional: true,
+    },
+    templatePackageInstalledBy: {
+      /**
+       * User who installed the reviewed package.
+       */
+      type: String,
+      optional: true,
+    },
+    templatePackageInstalledAt: {
+      /**
+       * Time the reviewed package was installed.
+       */
+      type: Date,
+      optional: true,
     },
     sort: {
       /**

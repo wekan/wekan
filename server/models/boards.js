@@ -15,6 +15,7 @@ import {
 } from '/models/lib/boardInvites';
 import { buildBoardLabel } from '/models/lib/restLabel';
 import { LABEL_COLORS } from '/models/metadata/colors';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 import { filterUserBoards } from '/server/lib/boardListFilter';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Actions from '/models/actions';
@@ -833,7 +834,7 @@ WebApp.handlers.post('/api/boards', async function(req, res) {
         },
       ],
       permission,
-      color: req.body.color || 'belize',
+      color: req.body.color || DEFAULT_BOARD_THEME_COLOR,
       migrationVersion: 1,
     });
     const swimlaneId = await Swimlanes.insertAsync({

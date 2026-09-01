@@ -75,6 +75,32 @@ template(name="globalSearch")
         )
         button.primary.js-new-search(type="submit" aria-label="{{_ 'trello-clear-job'}}")
           | {{_ 'trello-clear-job'}}
+      .saved-searches-panel
+        form.js-save-search
+          label(for="saved-search-name") {{_ 'saved-search-name'}}
+          input.js-saved-search-name(
+            id="saved-search-name"
+            type="text"
+            maxlength="80"
+            required
+            placeholder="{{_ 'saved-search-name-placeholder'}}")
+          button.primary(type="submit")
+            i.fa.fa-bookmark
+            | {{_ 'saved-search-save'}}
+        if hasSavedSearches
+          ul.saved-search-list
+            each saved in savedSearches
+              li
+                button.js-run-saved-search(type="button" data-query=saved.query)
+                  strong= saved.name
+                  small= saved.query
+                button.js-remove-saved-search(
+                  type="button"
+                  data-saved-search-id=saved._id
+                  title="{{_ 'delete'}}")
+                  i.fa.fa-times
+        if savedSearchStatus
+          p.saved-search-status(role="status")= savedSearchStatus
       if searching
         +spinner
       else if hasResults

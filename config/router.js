@@ -585,6 +585,11 @@ FlowRouter.route('/my-cards', {
   name: 'my-cards',
   triggersEnter: [ensureSignedInUnlessSandstorm],
   action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
     Filter.reset();
     Session.set('sortBy', '');
     // EscapeActions.executeAll();
@@ -597,6 +602,68 @@ FlowRouter.route('/my-cards', {
       content: 'myCards',
     });
     // }
+  },
+});
+
+FlowRouter.route('/my-work', {
+  name: 'my-work',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'myCards',
+    });
+  },
+});
+
+FlowRouter.route('/planner', {
+  name: 'planner',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+    this.render('defaultLayout', { content: 'planner' });
+  },
+});
+
+FlowRouter.route('/inbox', {
+  name: 'inbox',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Session.set('popupCardId', null);
+    Session.set('popupCardBoardId', null);
+    Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    this.render('defaultLayout', {
+      content: 'personalInbox',
+    });
   },
 });
 

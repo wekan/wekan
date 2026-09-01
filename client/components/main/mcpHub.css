@@ -17,7 +17,7 @@
 
 .mcp-hub-heading .fa,
 .mcp-security-panel .fa {
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 
 .mcp-hub-panel {
@@ -161,12 +161,12 @@
 .mcp-usage-history td {
   border-bottom: 1px solid rgba(30, 60, 90, 0.12);
   padding: 9px 10px;
-  text-align: right;
+  text-align: end;
 }
 
 .mcp-usage-history th:first-child,
 .mcp-usage-history td:first-child {
-  text-align: left;
+  text-align: start;
 }
 
 .mcp-key-form {
@@ -277,7 +277,7 @@
 }
 
 .mcp-key-actions .fa {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .mcp-key-main {
@@ -358,7 +358,7 @@
 }
 
 .mcp-config-key-ready .fa {
-  margin-right: 6px;
+  margin-inline-end: 6px;
 }
 
 .mcp-hub-status {
@@ -369,7 +369,7 @@
 }
 
 .mcp-hub-status .fa {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .mcp-hub-status.is-connected {

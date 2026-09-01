@@ -1,0 +1,96 @@
+.map-view {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.map-view-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.map-view-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+}
+
+.map-view-heading h1,
+.map-view-heading p {
+  margin: 0 0 8px;
+}
+
+.map-view-count {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.12);
+  font-weight: 700;
+}
+
+.map-view-world {
+  position: relative;
+  min-height: 480px;
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 59px, rgba(37, 99, 235, 0.08) 60px),
+    repeating-linear-gradient(90deg, transparent 0 89px, rgba(37, 99, 235, 0.08) 90px),
+    linear-gradient(150deg, #dbeafe, #ecfeff 50%, #dcfce7);
+}
+
+.map-view-equator,
+.map-view-meridian {
+  position: absolute;
+  background: rgba(30, 64, 175, 0.18);
+}
+
+.map-view-equator { top: 50%; left: 0; width: 100%; height: 1px; }
+.map-view-meridian { top: 0; left: 50%; width: 1px; height: 100%; }
+
+.map-view-marker {
+  position: absolute;
+  z-index: 2;
+  color: #dc2626;
+  font-size: 28px;
+  transform: translate(-50%, -100%);
+  filter: drop-shadow(0 3px 3px rgba(15, 23, 42, 0.3));
+}
+
+.map-view-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.map-view-list a,
+.map-view-list span,
+.map-view-list small {
+  display: block;
+}
+
+.map-view-list li {
+  padding: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.map-view-empty {
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.map-view-empty .fa { font-size: 48px; color: #64748b; }
+
+@media (max-width: 760px) {
+  .map-view-content { padding: 12px; }
+  .map-view-heading { align-items: start; flex-direction: column; }
+  .map-view-world { min-height: 360px; }
+  .map-view-list { grid-template-columns: 1fr; }
+}

@@ -93,6 +93,7 @@ import '/client/features/boardConversion';
 import '/client/features/gantt';
 import '/client/features/boards';
 import '/client/features/cards';
+import '/client/features/personalInbox';
 import '/client/features/common';
 import '/client/features/importing';
 import '/client/features/libComponents';

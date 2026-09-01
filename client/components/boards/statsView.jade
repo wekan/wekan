@@ -2,6 +2,47 @@ template(name="statsView")
   .stats-view
     .stats-view-content
       h1.stats-view-title {{ boardTitle }}
+      .stats-dashboard-summary
+        div
+          strong {{cardCount}}
+          span {{_ 'cards'}}
+        div
+          strong {{dashboardMapCount}}
+          span {{_ 'locations'}}
+      .stats-dashboard-grid
+        each section in dashboardSections
+          section.stats-chart
+            h2= section.title
+            if section.empty
+              p.quiet {{_ 'dashboard-no-data'}}
+            else
+              each bucket in section.buckets
+                button.stats-chart-row.js-dashboard-bucket(
+                  type="button"
+                  data-dimension=section.dimension
+                  data-key=bucket.key
+                  data-label=bucket.label)
+                  span.stats-chart-label= bucket.label
+                  span.stats-chart-track
+                    span.stats-chart-bar(style=bucket.widthStyle)
+                  strong= bucket.count
+      if drilldownLoading
+        +spinner
+      else if drilldown
+        section.stats-drilldown
+          h2 {{_ 'dashboard-drilldown'}} · {{drilldown.label}}
+          p #{drilldown.start}–#{drilldown.end} / #{drilldown.total}
+          ul
+            each card in drilldown.items
+              li
+                a(href=card.url)= card.title
+                if card.dueLabel
+                  small #{card.dueLabel}
+          .stats-drilldown-pagination
+            if drilldown.hasPrevious
+              button.js-dashboard-previous(type="button") {{_ 'previous-page'}}
+            if drilldown.hasNext
+              button.js-dashboard-next(type="button") {{_ 'next-page'}}
       .stats-view-section
         h2.stats-view-heading {{_ 'board-status'}}
         table.stats-view-table

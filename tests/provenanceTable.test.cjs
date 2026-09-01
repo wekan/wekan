@@ -86,20 +86,17 @@ test('THE BUG: each recorded row is printed once, not twice', () => {
     'three rows recorded, so three rows printed');
 });
 
-test('...and the glob that read every file twice is still ONE pattern', () => {
+test('...and one portable discovery command reads top-level and nested files', () => {
   // The row-counting test above passes either way now, because the dedup added
   // with this fix would swallow a doubled glob - which is what defence in depth
   // is for, and also why the cause needs its own guard or it can come back
-  // invisibly. With globstar, `provenance/**/*.tsv` already matches
-  // `provenance/*.tsv`; listing both reads every top-level file twice.
+  // invisibly. macOS Bash 3 has no globstar, so use one `find` command rather
+  // than overlapping top-level and recursive glob patterns.
   const src = read(TABLE);
-  const globLine = src.split('\n').find(l => /files=\(provenance/.test(l));
-  assert.ok(globLine, 'the default glob is still there');
-  const patterns = globLine.replace(/.*files=\(|\).*/g, '').trim().split(/\s+/);
-  assert.deepStrictEqual(patterns, ['provenance/**/*.tsv'],
-    'one pattern: `**/` matches zero or more directories, so it covers both');
-  assert.ok(/shopt -s nullglob globstar/.test(src),
-    'and globstar is on, or `**` is just `*` and nested files are missed');
+  assert.ok(/find provenance -type f -name '\*\.tsv'/.test(src),
+    'one find command covers both directory depths');
+  assert.ok(!/shopt[^\n]*globstar|provenance\/\*\*\/\*\.tsv/.test(src),
+    'the Bash-version-dependent recursive glob does not return');
 });
 
 test('a file in a SUBDIRECTORY is still found - the glob covers both', () => {

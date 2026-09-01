@@ -104,6 +104,13 @@ template(name="activity")
       if($eq activity.activityType 'removedChecklistItem')
         | {{{_ 'activity-checklist-item-removed' (sanitize activity.checklist.title) cardLink}}}.
 
+      if($eq activity.activityType 'checklistItemAssigned')
+        | {{{_ 'activity-checklist-item-assigned' (sanitize checkItem) (sanitize checklistAssigneeName) cardLink}}}.
+
+      if($eq activity.activityType 'checklistItemReminder')
+        | {{{_ 'activity-checklist-item-reminder' (sanitize checkItem) cardLink}}}
+        i.activity-meta(title=activity.timeValue) {{ displayDate activity.timeValue 'LLL' }}.
+
       //- comment activity ----------------------------------------------------
       if($eq activity.activityType 'deleteComment')
         | {{{_ 'activity-deleteComment' (sanitize activity.commentDisplayText)}}}.

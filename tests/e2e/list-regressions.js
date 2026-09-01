@@ -9,6 +9,7 @@ const puppeteer = require('puppeteer-core');
 
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const MONGO_URL = process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor';
+const DEFAULT_BOARD_THEME_COLOR = 'appleglasspastel';
 
 function findChromiumPath() {
   if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH;
@@ -180,7 +181,7 @@ async function seedBoardDataInMongo() {
     modifiedAt: now,
     stars: 0,
     members: [member],
-    color: 'belize',
+    color: DEFAULT_BOARD_THEME_COLOR,
     allowsCardCounterList: false,
     allowsBoardMemberList: false,
     subtasksDefaultBoardId: null,

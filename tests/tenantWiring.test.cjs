@@ -376,6 +376,8 @@ test('the order of themes is default -> site/Organization -> user, at runtime', 
   assert.ok(iUser > 0 && iSite > iUser, 'the user override is tried first, so it wins');
   assert.ok(/!board && setting && setting\.themeColor/.test(apply),
     'and the site theme is not applied on a board page, where the board\'s colour owns it');
+  assert.ok(/DEFAULT_GLOBAL_THEME_COLOR/.test(apply),
+    'and the remaining app-level default is the shared Apple Glass theme');
   const pub = read('server/publications/settings.js');
   assert.ok(/themeColor: 1/.test(pub) && /themeCustomColors: 1/.test(pub),
     'the site theme is published, so a tenant host serves its own');

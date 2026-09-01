@@ -1,0 +1,259 @@
+.planner-page {
+  box-sizing: border-box;
+  width: min(1320px, calc(100% - 28px));
+  height: auto;
+  margin: 20px auto 36px;
+  overflow: visible;
+}
+
+.planner-heading h2 {
+  margin: 0 0 6px;
+}
+
+.planner-heading .fa {
+  margin-inline-end: 8px;
+}
+
+.planner-controls,
+.planner-range,
+.planner-focus-form,
+.planner-card-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+}
+
+.planner-controls {
+  justify-content: space-between;
+  margin: 18px 0 12px;
+}
+
+.planner-range button,
+.planner-focus-form button {
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 999px;
+}
+
+.planner-range button.is-active {
+  color: #fff;
+  border-color: var(--theme-accent, #176b87);
+  background: var(--theme-accent, #176b87);
+}
+
+.planner-board-filter,
+.planner-focus-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #475569;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.planner-board-filter select,
+.planner-focus-form input {
+  min-height: 38px;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.planner-readiness {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0 16px;
+  padding: 10px 12px;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  border-radius: 10px;
+  color: #1e3a8a;
+  background: rgba(219, 234, 254, 0.78);
+}
+
+.planner-focus-form {
+  padding: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.planner-focus-form h3 {
+  width: 100%;
+  margin: 0 0 2px;
+}
+
+.planner-status {
+  margin: 10px 0;
+  color: #166534;
+  font-weight: 700;
+}
+
+.planner-unscheduled {
+  margin: 18px 0;
+}
+
+.planner-card {
+  position: relative;
+  min-width: 190px;
+  padding: 10px 12px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(15, 23, 42, 0.08);
+  cursor: grab;
+}
+
+.planner-card a,
+.planner-card span,
+.planner-card small {
+  display: block;
+}
+
+.planner-card a {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.planner-card span,
+.planner-card small {
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.planner-card .js-planner-schedule-next {
+  margin-top: 8px;
+  padding: 5px 0;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.planner-card .js-planner-schedule-next .fa {
+  margin-inline-end: 5px;
+}
+
+.planner-days {
+  display: grid;
+  gap: 12px;
+}
+
+.planner-days.is-range-1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.planner-days.is-range-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.planner-days.is-range-7 {
+  grid-template-columns: repeat(7, minmax(210px, 1fr));
+  overflow-x: auto;
+}
+
+.planner-day {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.13);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.94);
+}
+
+.planner-day > header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.planner-focus-list {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.planner-focus-block {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 9px;
+  border-inline-start: 4px solid #7c3aed;
+  border-radius: 9px;
+  background: #f5f3ff;
+}
+
+.planner-focus-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.planner-focus-block button,
+.planner-card button {
+  border: 0;
+  color: #64748b;
+  background: transparent;
+}
+
+.planner-time-slot {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 8px;
+  min-height: 92px;
+  padding: 8px 0;
+  border-top: 1px dashed rgba(100, 116, 139, 0.3);
+}
+
+.planner-slot-time {
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.planner-slot-drop {
+  min-height: 70px;
+  padding: 6px;
+  border: 1px dashed rgba(37, 99, 235, 0.3);
+  border-radius: 9px;
+  background: rgba(239, 246, 255, 0.55);
+}
+
+.planner-drop-hint {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 760px) {
+  #content > .planner-page.wrapper {
+    display: block;
+    width: calc(100% - 16px);
+    height: auto;
+    min-height: 0;
+    margin-top: 12px;
+    overflow: visible;
+  }
+
+  .planner-controls,
+  .planner-focus-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .planner-range {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .planner-days.is-range-3,
+  .planner-days.is-range-7 {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .planner-day {
+    min-width: min(88vw, 340px);
+    scroll-snap-align: start;
+  }
+}

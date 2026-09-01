@@ -1,0 +1,99 @@
+template(name="personalInbox")
+  if currentUser
+    .personal-inbox-page.wrapper
+      section.personal-inbox-capture(aria-labelledby="personal-inbox-capture-title")
+        h2#personal-inbox-capture-title
+          i.fa.fa-inbox
+          | {{_ 'personal-inbox-quick-capture'}}
+        form.js-personal-inbox-capture
+          label(for="personal-inbox-title") {{_ 'title'}}
+          input#personal-inbox-title.wekan-form-control.js-personal-inbox-title(
+            type="text"
+            maxlength="1000"
+            required
+            autofocus
+            placeholder="{{_ 'personal-inbox-title-placeholder'}}")
+          label(for="personal-inbox-source-url") {{_ 'personal-inbox-source-url'}}
+          input#personal-inbox-source-url.wekan-form-control.js-personal-inbox-source-url(
+            type="url"
+            maxlength="2048"
+            placeholder="https://")
+          label(for="personal-inbox-description") {{_ 'description'}}
+          textarea#personal-inbox-description.wekan-form-control.js-personal-inbox-description(
+            rows="4"
+            maxlength="100000"
+            placeholder="{{_ 'personal-inbox-description-placeholder'}}")
+          label(for="personal-inbox-attachment") {{_ 'attachment'}}
+          input#personal-inbox-attachment.js-personal-inbox-attachment(
+            type="file"
+            multiple)
+          button.primary.js-personal-inbox-submit(type="submit" disabled="{{isBusy}}")
+            i.fa.fa-plus
+            | {{_ 'personal-inbox-capture'}}
+        if statusMessage
+          p.personal-inbox-status(class=statusClass role="status") {{statusMessage}}
+
+      section.personal-inbox-items(aria-labelledby="personal-inbox-items-title")
+        .personal-inbox-section-heading
+          h2#personal-inbox-items-title {{_ 'personal-inbox'}}
+          span.personal-inbox-count {{inboxCount}}
+        if isLoading
+          +spinner
+        else if hasInboxCards
+          .personal-inbox-card-list
+            each card in inboxCards
+              article.personal-inbox-card.js-personal-inbox-card(
+                draggable="true"
+                data-card-id="{{card._id}}")
+                .personal-inbox-card-main
+                  h3= card.title
+                  if card.description
+                    p.personal-inbox-description= card.description
+                  if card.captureSourceUrl
+                    a.personal-inbox-source(
+                      href=card.captureSourceUrl
+                      target="_blank"
+                      rel="noopener noreferrer")
+                      i.fa.fa-link
+                      | {{_ 'personal-inbox-open-source'}}
+                  .personal-inbox-provenance
+                    i.fa.fa-history
+                    | {{_ 'personal-inbox-captured-by-quick-capture'}} · {{formatInboxDate card.capturedAt}}
+                  if cardAttachments card._id
+                    .personal-inbox-attachments
+                      each attachment in cardAttachments card._id
+                        span.personal-inbox-attachment
+                          i.fa.fa-paperclip
+                          = attachment.name
+                form.personal-inbox-move-form.js-personal-inbox-move(data-card-id="{{card._id}}")
+                  label
+                    span.sr-only {{_ 'board'}}
+                    select.wekan-form-control.js-personal-inbox-board(data-card-id="{{card._id}}")
+                      each board in destinationBoards card._id
+                        option(value=board._id selected=board.selected)= board.title
+                  label
+                    span.sr-only {{_ 'list'}}
+                    select.wekan-form-control.js-personal-inbox-list
+                      each list in destinationLists card._id
+                        option(value=list._id)= list.title
+                  button.primary(type="submit")
+                    i.fa.fa-arrow-right
+                    | {{_ 'personal-inbox-move'}}
+        else
+          .personal-inbox-empty
+            i.fa.fa-inbox
+            h3 {{_ 'personal-inbox-empty-title'}}
+            p {{_ 'personal-inbox-empty-description'}}
+
+      if hasDestinationLists
+        section.personal-inbox-drop-section(aria-labelledby="personal-inbox-drop-title")
+          h2#personal-inbox-drop-title {{_ 'personal-inbox-drag-title'}}
+          p {{_ 'personal-inbox-drag-description'}}
+          .personal-inbox-drop-targets
+            each target in destinationTargets
+              button.personal-inbox-drop-target.js-personal-inbox-drop-target(
+                type="button"
+                data-board-id=target.boardId
+                data-list-id=target.listId)
+                strong= target.boardTitle
+                span= target.listTitle

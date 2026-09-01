@@ -633,6 +633,23 @@ template(name="cardDetails")
                 | {{_ 'set-estimation'}}
               input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
 
+      if captureSourceType
+        hr
+        .card-capture-provenance
+          h3.card-details-item-title
+            i.fa.fa-inbox
+            | {{_ 'personal-inbox'}}
+          p
+            i.fa.fa-history
+            | {{_ 'personal-inbox-captured-by-quick-capture'}} · {{captureDate}}
+          if captureSourceUrl
+            a.card-capture-source(
+              href=captureSourceUrl
+              target="_blank"
+              rel="noopener noreferrer")
+              i.fa.fa-link
+              | {{_ 'personal-inbox-open-source'}}
+
       //- XXX We should use "editable" to avoid repetiting ourselves
       if canModifyCard
         unless currentUser.isWorker

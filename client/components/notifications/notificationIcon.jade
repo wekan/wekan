@@ -23,6 +23,9 @@ template(name='notificationIcon')
   else if($in activityType 'checkedItem' 'uncheckedItem' 'addChecklistItem' 'removedChecklistItem')
     span.activity-type(title="checklist item")
       i.fa.fa-check-square-o
+  else if($in activityType 'checklistItemAssigned' 'checklistItemReminder')
+    span.activity-type(title="checklist item")
+      i.fa.fa-check-square-o
   else if($in activityType 'addComment')
     span.activity-type.hidden(title="comment")
   else if($in activityType 'createCustomField' 'setCustomField' 'unsetCustomField')

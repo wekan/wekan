@@ -36,6 +36,20 @@ Boards.allow({
 // The number of users that have starred this board is managed by trusted code
 // and the user is not allowed to update it
 Boards.deny({
+  insert(userId, doc) {
+    // Personal Inbox boards are provisioned by the server method only. A
+    // client-created board must never claim another user's Inbox identity.
+    return Boolean(doc && doc.personalInboxOwnerId);
+  },
+  update(userId, doc) {
+    // Keep the helper board permanently private and single-owner. Trusted
+    // server maintenance bypasses allow/deny rules; direct client edits do not.
+    return Boolean(doc && doc.personalInboxOwnerId);
+  },
+  fetch: ['personalInboxOwnerId'],
+});
+
+Boards.deny({
   update(userId, board, fieldNames) {
     return (fieldNames || []).includes('stars');
   },

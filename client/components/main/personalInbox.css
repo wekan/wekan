@@ -1,0 +1,191 @@
+.personal-inbox-page {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 24px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 24px auto;
+  align-items: start;
+}
+
+.personal-inbox-capture,
+.personal-inbox-items,
+.personal-inbox-drop-section {
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+.personal-inbox-capture {
+  grid-row: span 2;
+}
+
+.personal-inbox-capture h2,
+.personal-inbox-items h2,
+.personal-inbox-drop-section h2 {
+  margin-top: 0;
+}
+
+.personal-inbox-capture form {
+  display: grid;
+  gap: 10px;
+}
+
+.personal-inbox-capture textarea {
+  resize: vertical;
+}
+
+.personal-inbox-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.personal-inbox-count {
+  min-width: 28px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  text-align: center;
+  color: #fff;
+  background: var(--theme-accent, #176b87);
+}
+
+.personal-inbox-card-list {
+  display: grid;
+  gap: 14px;
+}
+
+.personal-inbox-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 280px);
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  cursor: grab;
+}
+
+.personal-inbox-card:active {
+  cursor: grabbing;
+}
+
+.personal-inbox-card h3 {
+  margin: 0 0 8px;
+}
+
+.personal-inbox-description {
+  margin: 0 0 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.personal-inbox-source,
+.personal-inbox-provenance,
+.personal-inbox-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.personal-inbox-provenance {
+  color: #52606d;
+  font-size: 0.9rem;
+}
+
+.personal-inbox-attachment {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eef4f7;
+}
+
+.personal-inbox-move-form {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.personal-inbox-status {
+  margin-bottom: 0;
+  padding: 9px 11px;
+  border-radius: 10px;
+}
+
+.personal-inbox-status.is-success {
+  color: #14532d;
+  background: #dcfce7;
+}
+
+.personal-inbox-status.is-error {
+  color: #7f1d1d;
+  background: #fee2e2;
+}
+
+.personal-inbox-status.is-progress {
+  color: #164e63;
+  background: #cffafe;
+}
+
+.personal-inbox-empty {
+  padding: 34px 16px;
+  text-align: center;
+  color: #52606d;
+}
+
+.personal-inbox-empty > .fa {
+  font-size: 2.5rem;
+}
+
+.personal-inbox-drop-targets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.personal-inbox-drop-target {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 72px;
+  padding: 12px;
+  border: 2px dashed rgba(23, 107, 135, 0.45);
+  border-radius: 12px;
+  color: #123;
+  background: rgba(207, 250, 254, 0.55);
+}
+
+@media screen and (max-width: 720px) {
+  #content > .personal-inbox-page.wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 16px);
+    height: auto;
+    margin: 12px auto;
+    gap: 12px;
+    overflow: visible;
+  }
+
+  .personal-inbox-capture {
+    grid-row: auto;
+  }
+
+  .personal-inbox-capture,
+  .personal-inbox-items,
+  .personal-inbox-drop-section {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .personal-inbox-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .personal-inbox-drop-section {
+    display: none;
+  }
+}

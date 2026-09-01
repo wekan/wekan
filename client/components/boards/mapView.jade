@@ -1,0 +1,35 @@
+template(name="mapView")
+  .map-view
+    .map-view-content
+      .map-view-heading
+        div
+          h1 {{_ 'board-map-title'}} · {{boardTitle}}
+          p {{_ 'board-map-description'}}
+        span.map-view-count #{mapPointCount} {{_ 'locations'}}
+      if mapError
+        p.warning(role="alert")= mapError
+      else if hasMapPoints
+        .map-view-world(role="img" aria-label="{{_ 'board-map-title'}}")
+          .map-view-equator
+          .map-view-meridian
+          each point in mapPoints
+            a.map-view-marker(
+              href=point.url
+              style=point.style
+              title="#{point.cardTitle} — #{point.name}")
+              i.fa.fa-map-marker
+              span.sr-only #{point.cardTitle} #{point.name}
+        if mapPointsTruncated
+          p.quiet {{_ 'board-map-truncated'}}
+        ul.map-view-list
+          each point in mapPoints
+            li
+              a(href=point.url)
+                strong= point.cardTitle
+                span #{point.name} {{#if point.address}}· #{point.address}{{/if}}
+                small #{point.latitude}, #{point.longitude} · #{point.listTitle}
+      else
+        .map-view-empty
+          i.fa.fa-map-o
+          h2 {{_ 'board-map-empty'}}
+          p {{_ 'board-map-empty-description'}}

@@ -14,9 +14,17 @@ template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
       li
-        a.js-my-cards(href="{{pathFor 'my-cards'}}")
-          i.fa.fa-list
-          | {{_ 'my-cards'}}
+        a.js-personal-inbox(href="{{pathFor 'inbox'}}")
+          i.fa.fa-inbox
+          | {{_ 'personal-inbox'}}
+      li
+        a.js-my-cards(href="{{pathFor 'my-work'}}")
+          i.fa.fa-briefcase
+          | {{_ 'my-work'}}
+      li
+        a.js-planner(href="{{pathFor 'planner'}}")
+          i.fa.fa-calendar-check-o
+          | {{_ 'planner'}}
       li
         a.js-mcp-hub(href="{{pathFor 'mcp'}}")
           i.fa.fa-plug

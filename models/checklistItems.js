@@ -53,6 +53,30 @@ ChecklistItems.attachSchema(
       type: String,
       optional: true,
     },
+    assigneeId: {
+      /**
+       * Active board member responsible for this checklist item. Assignment is
+       * written through a server method that verifies destination membership.
+       */
+      type: String,
+      optional: true,
+    },
+    dueAt: {
+      type: Date,
+      optional: true,
+    },
+    remindAt: {
+      type: Date,
+      optional: true,
+    },
+    reminderSentAt: {
+      /**
+       * Server-owned delivery marker. Cleared whenever reminder metadata
+       * changes so the next valid reminder can be delivered exactly once.
+       */
+      type: Date,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       optional: true,

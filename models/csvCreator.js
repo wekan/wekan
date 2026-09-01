@@ -6,6 +6,7 @@ import Cards from '/models/cards';
 import CustomFields from '/models/customFields';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 
 export class CsvCreator {
   constructor(data) {
@@ -166,7 +167,7 @@ export class CsvCreator {
   async createBoard(csvData) {
     const boardToCreate = {
       archived: false,
-      color: 'belize',
+      color: DEFAULT_BOARD_THEME_COLOR,
       createdAt: this._now(),
       labels: [],
       members: [

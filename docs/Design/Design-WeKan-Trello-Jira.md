@@ -35,13 +35,45 @@ News
 
 - https://news.ycombinator.com/item?id=44821127
 
-### Trello features, that are not yet implemented in WeKan
+### Current Trello parity
 
-- 2025-05-21 Email Inbox
-- 2025-02 Complete Card Checkbox: https://github.com/wekan/wekan/issues/5818
-- 2021-05 Workspaces
-- 2018 Butler Scheduled and Repeating Tasks: https://github.com/wekan/wekan/issues/5825 . [WeKan added IFTTT Rules at 2018-09-16](../../CHANGELOG.md#v147-2018-09-16-wekan-release), but not yet scheduled or repeating IFTTT Rules.
-- 2016-12 Card Repeater PowerUp: Copy cards daily/weekly/monthly/yearly
+Checked against the current source and the Trello web app on 2026-08-17.
+This replaces the older list that still described Complete Card, Workspaces and
+scheduled/repeating rules as missing after they had been implemented.
+
+Already implemented in WeKan:
+
+- Complete Card is available on opened cards and, when enabled in Board
+  Settings, on minicards. See
+  [cardDetails.jade](../../client/components/cards/cardDetails.jade) and
+  [minicard.jade](../../client/components/cards/minicard.jade).
+- Workspaces are a nested tree on All Boards. Boards can be assigned by drag and
+  drop, and workspaces can contain sub-workspaces. See
+  [Workspaces.md](Page/Workspaces.md).
+- Scheduled and repeating Rules support once, daily, weekday, weekly and monthly
+  schedules, due-date triggers and card aging. They can create recurring cards
+  through normal rule actions. See
+  [Rules.md](../Features/Automation/Rules/Rules.md).
+- Linked Cards and Linked Boards provide the live cross-board card relationship
+  that Trello calls Mirror Cards.
+- Board views already include Swimlanes, Lists, Calendar, Gantt, Table and
+  Statistics.
+
+The remaining product gaps are grouped by delivery phase so this list stays a
+testable roadmap rather than a catalogue of names:
+
+| Phase | Gap | Acceptance boundary |
+| --- | --- | --- |
+| 1 | Personal Inbox | A user-private capture queue can accept a title, URL, description and attachment, then move the real card into an authorized board/list without losing its source. |
+| 2 | My Work and advanced checklist items | Checklist items can have one assignee, due date and reminder; My Work shows permitted cards and checklist items across boards with overdue/today/upcoming filters. |
+| 3 | Personal Planner | A 1/3/7-day view shows assigned and due cards across boards and can link a card to a focus block without changing its due date. External calendars remain a separate credential-gated integration. |
+| 4 | Dashboard, Map and saved searches | Statistics gains drill-down charts by list/member/label/due; Map plots authorized cards that already have locations; global-search queries can be saved per user. |
+| 5 | Capture integrations and extension surface | Email-to-Inbox verifies sender/token and attachment safety; browser/chat connectors use a permissioned API; templates can be installed from reviewable JSON packages. |
+
+Every phase requires unit and negative permission tests, relevant UI tests, and
+fresh screenshots from the normal WeKan frontend reading persistent non-fixture
+data. A phase is not complete when its only evidence is a test fixture, terminal,
+standalone report page or generated image.
 
 ### Jira copied design from ClickUp
 

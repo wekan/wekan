@@ -1,3 +1,159 @@
+.my-work-page {
+  box-sizing: border-box;
+  width: min(1180px, calc(100% - 28px));
+  height: auto;
+  margin-bottom: 28px;
+  overflow: visible;
+}
+
+.my-work-heading h2 {
+  margin: 0 0 6px;
+}
+
+.my-work-heading .fa {
+  margin-inline-end: 8px;
+}
+
+.my-work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.my-work-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 7px 12px;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  border-radius: 999px;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.my-work-filters button.is-active {
+  color: #fff;
+  border-color: var(--theme-accent, #176b87);
+  background: var(--theme-accent, #176b87);
+}
+
+.my-work-filter-count {
+  min-width: 22px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  text-align: center;
+  color: inherit;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.my-work-entry-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.my-work-entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-inline-start: 5px solid #94a3b8;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+}
+
+.my-work-entry.is-overdue {
+  border-inline-start-color: #dc2626;
+}
+
+.my-work-entry.is-today {
+  border-inline-start-color: #d97706;
+}
+
+.my-work-entry.is-upcoming {
+  border-inline-start-color: #2563eb;
+}
+
+.my-work-entry-type {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.my-work-entry-title {
+  display: block;
+  color: #0f172a;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.my-work-entry-parent,
+.my-work-entry-location {
+  margin: 7px 0 0;
+  color: #475569;
+}
+
+.my-work-entry-parent .fa,
+.my-work-entry-location .fa,
+.my-work-entry-dates .fa {
+  margin-inline-end: 6px;
+}
+
+.my-work-entry-dates {
+  display: flex;
+  flex: 0 0 min(235px, 38%);
+  flex-direction: column;
+  gap: 8px;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.my-work-empty {
+  padding: 34px 16px;
+  border-radius: 14px;
+  text-align: center;
+  color: #52606d;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.my-work-empty > .fa {
+  font-size: 2.5rem;
+}
+
+.my-work-board-groups-title {
+  width: min(1180px, calc(100% - 28px));
+  margin: 0 auto 14px;
+}
+
+@media screen and (max-width: 720px) {
+  #content > .wrapper.my-work-page {
+    width: calc(100% - 16px);
+    height: auto;
+    padding: 12px;
+    overflow: visible;
+  }
+
+  .my-work-entry-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .my-work-entry {
+    flex-direction: column;
+  }
+
+  .my-work-entry-dates {
+    flex-basis: auto;
+  }
+}
+
 .my-cards-board-wrapper {
   border-radius: 0 0 7px 7px;
   min-width: min(400px, 52vw);

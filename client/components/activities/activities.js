@@ -134,6 +134,13 @@ Template.activity.helpers({
     return checkItem && checkItem.title;
   },
 
+  checklistAssigneeName() {
+    const assigneeId =
+      this.activity.assigneeId || this.activity.reminderForUserId;
+    const assignee = ReactiveCache.getUser(assigneeId);
+    return assignee?.profile?.fullname || assignee?.username || assigneeId || '';
+  },
+
   boardLabelLink() {
     const currentBoardId = Session.get('currentBoard');
     if (this.mode !== 'board') {

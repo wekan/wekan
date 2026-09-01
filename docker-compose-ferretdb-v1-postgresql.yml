@@ -168,11 +168,10 @@ services:
     #  dockerfile: Dockerfile
     #-------------------------------------------------------------------------------------
     ports:
-      # Docker outsideport:insideport. Do not add anything extra here.
-      # For example, if you want to have wekan on port 3001,
-      # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
-      # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
-      - 80:8080
+      # Docker host:outsideport:insideport. Defaults to all interfaces on port 80.
+      # For a host Nginx reverse proxy, set WEKAN_BIND_IP=127.0.0.1 and
+      # WEKAN_PORT=3001 in the selected env file.
+      - "${WEKAN_BIND_IP:-0.0.0.0}:${WEKAN_PORT:-80}:8080"
     environment:
       #-------------------- USING MONGODB CHANGE STREAMS WITH REPLICA SETS AT CURRENT DATABASE --------------------
       # If you would not like to use Change Streams and replica set for improving speed, change to use polling:
@@ -232,7 +231,8 @@ services:
       #  - http://example.com
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
-      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
+      # Set WEKAN_ROOT_URL in the selected env file for a deployment-specific URL.
+      - ROOT_URL=${WEKAN_ROOT_URL:-http://localhost}
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
@@ -313,6 +313,12 @@ services:
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
+      # URL shown in the signed-in MCP Connections tab. Keep empty until an
+      # authenticated reverse proxy publishes tools/ai-systems-mcp.
+      - MCP_PUBLIC_URL=${MCP_PUBLIC_URL:-}
+      # Optional maximum MCP create requests per user per Asia/Ho_Chi_Minh day.
+      # Empty, zero or invalid means unlimited (the default).
+      - MCP_DAILY_CREATE_LIMIT=${MCP_DAILY_CREATE_LIMIT:-}
       #---------------------------------------------------------------
       # ==== PASSWORD BRUTE FORCE PROTECTION ====
       #https://atmospherejs.com/lucasantoniassi/accounts-lockout

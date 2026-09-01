@@ -99,6 +99,11 @@ test.describe('Apple Glass Pastel v2', () => {
   test('global theme styles All Boards as glass islands and neutral cards', async ({
     page, user, board,
   }) => {
+    const boardDescription = 'A concise board description shown below its thumbnail.';
+    db.updateOne('boards', { _id: board.boardId }, { $set: {
+      description: boardDescription,
+      backgroundImageURL: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
+    } });
     await useGlobalTheme(user.id);
     await loginWithToken(page, user.id, user.token);
     await page.goto('/remaining', { waitUntil: 'commit' });
@@ -133,6 +138,30 @@ test.describe('Apple Glass Pastel v2', () => {
     expect(tile.backgroundColor).toContain('rgba(255, 255, 255');
     expect(tile.borderRadius).toBe('18px');
     expect(tile.boxShadow).not.toBe('none');
+
+    const thumbnail = boardTile.locator('.board-list-thumbnail');
+    await expect(thumbnail).toBeVisible();
+    await expect(thumbnail).toHaveClass(/has-image/);
+    const thumbnailStyle = await computed(thumbnail, ['backgroundImage']);
+    expect(thumbnailStyle.backgroundImage).not.toBe('none');
+    const thumbnailGeometry = await thumbnail.evaluate(element => {
+      const box = element.getBoundingClientRect();
+      return { width: box.width, height: box.height };
+    });
+    expect(thumbnailGeometry.width / thumbnailGeometry.height).toBeCloseTo(16 / 9, 1);
+
+    const description = boardTile.locator('.board-list-item-desc');
+    await expect(description).toContainText(boardDescription);
+    const textContract = await boardTile.evaluate(element => {
+      const title = getComputedStyle(element.querySelector('.board-list-item-name'));
+      const description = getComputedStyle(element.querySelector('.board-list-item-desc'));
+      return {
+        titleClamp: title.webkitLineClamp,
+        descriptionClamp: description.webkitLineClamp,
+      };
+    });
+    expect(textContract.titleClamp).toBe('2');
+    expect(textContract.descriptionClamp).toBe('2');
 
     const structuralLayers = await boardTile.evaluate(element => {
       const item = element.querySelector(':scope > .board-list-item');
@@ -191,10 +220,17 @@ test.describe('Apple Glass Pastel v2', () => {
     expect(list.backdropFilter).toContain('blur(24px)');
 
     const card = page.locator('.minicard').first();
-    const cardStyle = await computed(card, ['backgroundColor', 'borderRadius', 'backdropFilter']);
+    const cardStyle = await computed(card, [
+      'backgroundColor', 'borderRadius', 'backdropFilter', 'marginBottom',
+    ]);
     expect(cardStyle.backgroundColor).toBe('rgba(255, 255, 255, 0.9)');
     expect(cardStyle.borderRadius).toBe('14px');
     expect(cardStyle.backdropFilter).toBe('none');
+    expect(cardStyle.marginBottom).toBe('0px');
+    const wrapperStyle = await computed(page.locator('.minicard-wrapper').first(), [
+      'marginBottom',
+    ]);
+    expect(wrapperStyle.marginBottom).toBe('12px');
 
     await card.click();
     await expect(page.locator('.card-details')).toBeVisible();

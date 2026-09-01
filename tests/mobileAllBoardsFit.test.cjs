@@ -99,7 +99,7 @@ test('the phone board column is a grid that cannot be pushed wider', () => {
     'and its two columns may as well');
 });
 
-test('long phone board names grow their row instead of being clipped', () => {
+test('long phone board names grow their tile instead of being clipped', () => {
   for (const selector of [
     '.board-list .board-list-item',
     '.board-list.mobile-view .board-list-item',
@@ -111,8 +111,8 @@ test('long phone board names grow their row instead of being clipped', () => {
   }
   assert.strictEqual(lastDeclaration(boards, '.board-list .board-list-item-name',
     'overflow-wrap'), 'anywhere', 'an unbroken board name must wrap inside its tile');
-  assert.strictEqual(lastDeclaration(boards, '.board-list li', 'align-self'), 'stretch',
-    'both cells in a grid row share the height required by its longest title');
+  assert.strictEqual(lastDeclaration(boards, '.board-list li', 'align-self'), 'start',
+    'each tile takes its own title height without stretching its row sibling');
 });
 
 test('the quick-access bar gives way instead of spilling off the phone', () => {

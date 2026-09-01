@@ -73,6 +73,10 @@ body.board-color-appleglasspastel .board-list .js-add-board .label {
     transform 0.2s var(--agp-spring);
 }
 
+body.board-color-appleglasspastel .board-list > li.js-board > .board-list-item {
+  padding: 0;
+}
+
 /* A board has three nested elements for drag, tile and navigation behaviour.
  * Only the middle `.board-list-item` is a visual card. Painting the parent and
  * link as cards too produced the three stacked white layers visible around
@@ -92,6 +96,69 @@ body.board-color-appleglasspastel .board-list .js-add-board .label:hover {
   background: rgba(255, 255, 255, 0.96) !important;
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
   transform: translateY(-2px);
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .js-open-board > .board-list-thumbnail {
+  aspect-ratio: 16 / 9;
+  align-items: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(147, 197, 253, 0.9), transparent 44%),
+    radial-gradient(circle at 82% 18%, rgba(251, 207, 232, 0.92), transparent 46%),
+    linear-gradient(135deg, rgba(224, 231, 255, 0.96), rgba(243, 232, 255, 0.94));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.82);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-thumbnail-placeholder {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  color: rgba(37, 99, 235, 0.72);
+  display: flex;
+  font-size: 28px;
+  height: 54px;
+  justify-content: center;
+  width: 54px;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .js-open-board > .details {
+  box-sizing: border-box;
+  display: block;
+  padding: 14px 16px 16px;
+  width: 100%;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-name,
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-desc {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-name {
+  -webkit-line-clamp: 2;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-desc {
+  -webkit-line-clamp: 2;
+  line-height: 1.35;
+  margin: 8px 0 0;
+  min-height: 2.7em;
+}
+
+body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-desc-empty {
+  color: var(--agp-muted);
+  display: inline;
+  font-style: italic;
+  font-weight: 500;
 }
 
 body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-name,
@@ -202,10 +269,20 @@ body.board-color-appleglasspastel .setting-content .content-body .main-body tabl
 .board-color-appleglasspastel.board-wrapper .list {
   border-radius: var(--agp-radius-panel);
   box-shadow: var(--agp-shadow-island);
+  /* Apple Glass lists are visual panels, so they need the same breathing room
+   * as the cards inside them. Keep this non-important so mobile-mode can still
+   * collapse lists to full-width stacked sprint panels. */
+  margin-block: 10px;
+  margin-inline: 8px;
 }
 
 .board-color-appleglasspastel.board-wrapper .list-header {
   border-radius: var(--agp-radius-panel) var(--agp-radius-panel) 0 0;
+}
+
+/* Keep one, visibly breathable gap between adjacent painted cards. */
+.board-color-appleglasspastel.board-wrapper .minicard-wrapper {
+  margin-bottom: 12px !important;
 }
 
 .board-color-appleglasspastel.board-wrapper .minicard {
@@ -215,6 +292,10 @@ body.board-color-appleglasspastel .setting-content .content-body .main-body tabl
   box-shadow: var(--agp-shadow-card);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  /* `.minicard-wrapper` already owns the drag/drop spacing. The legacy
+   * desktop/mobile rules add another bottom margin to the painted card, which
+   * made the visible gap 16-17px. Keep spacing on one structural layer. */
+  margin-bottom: 0 !important;
   transition: background-color 0.18s ease, border-color 0.18s ease,
     box-shadow 0.18s ease, transform 0.18s var(--agp-spring);
 }
@@ -282,6 +363,26 @@ body.board-color-appleglasspastel .page-sidebar.sidebar {
   body.board-color-appleglasspastel .board-list {
     gap: 8px;
     margin: 0;
+  }
+
+  /* A phone has narrow two-column tiles, where two similar board names often
+   * differ only after the second line. Preserve the full mobile title contract;
+   * desktop cards stay clamped to two lines and descriptions stay concise. */
+  body.board-color-appleglasspastel .board-list > li.js-board .board-list-item-name {
+    -webkit-line-clamp: unset;
+    display: block;
+    overflow: visible;
+  }
+
+  body.board-color-appleglasspastel .board-list > li.js-board .js-open-board > .details {
+    padding: 8px 8px 10px;
+  }
+
+  body.board-color-appleglasspastel .board-list > li.js-board .board-list-thumbnail-placeholder {
+    border-radius: 12px;
+    font-size: 20px;
+    height: 38px;
+    width: 38px;
   }
 
   body.board-color-appleglasspastel .setting-content .content-body {

@@ -18,6 +18,7 @@ import {
   sidebarViewTemplate,
 } from '/models/lib/allBoardsSidebar';
 import { selectedStarTitleKey, selectedStarAction } from '/models/lib/selectedStars';
+import { DEFAULT_GLOBAL_THEME_COLOR } from '/config/const';
 
 // The All Boards right sidebar. Its shell mirrors the board sidebar's; what it
 // shows is this page's own. docs/Design/Page/Search.md,
@@ -35,10 +36,11 @@ Template.allBoardsSidebar.helpers({
   // a class here every button was white on light grey - unreadable, which is
   // exactly what it looked like.
   //
-  // `board-color-belize` is the established default for a themed thing outside
-  // a board: client/components/main/globalSearch.js falls back to the same one.
+  // The shared app default keeps non-board panels in the same Apple Glass visual
+  // system as <body>; client/components/main/globalSearch.js falls back to the
+  // same one.
   themeClass() {
-    return 'board-color-belize';
+    return `board-color-${DEFAULT_GLOBAL_THEME_COLOR}`;
   },
   sidebarViewTemplate() {
     return sidebarViewTemplate(allBoardsSidebarView());

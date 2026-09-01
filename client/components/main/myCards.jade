@@ -14,14 +14,59 @@ template(name="myCardsControls")
 template(name="myCardsModalTitle")
   if currentUser
     h2
-      i.fa.fa-keyboard-o
-      | {{_ 'my-cards'}}
+      i.fa.fa-briefcase
+      | {{_ 'my-work'}}
 
 template(name="myCards")
   if currentUser
     if searching.get
       +spinner
     else
+      section.wrapper.my-work-page(aria-labelledby="my-work-title")
+        .my-work-heading
+          h2#my-work-title
+            i.fa.fa-briefcase
+            | {{_ 'my-work'}}
+          p {{_ 'my-work-description'}}
+        nav.my-work-filters(aria-label="{{_ 'my-work-filters'}}")
+          each filter in myWorkFilters
+            button.js-my-work-filter(
+              type="button"
+              data-filter=filter.key
+              class="{{#if filter.active}}is-active{{/if}}"
+              aria-pressed="{{#if filter.active}}true{{else}}false{{/if}}")
+              | {{_ filter.labelKey}}
+              span.my-work-filter-count= filter.count
+        if hasMyWorkEntries
+          .my-work-entry-list
+            each entry in myWorkEntries
+              article.my-work-entry(class=entry.dueClass)
+                .my-work-entry-main
+                  span.my-work-entry-type {{_ entry.typeLabelKey}}
+                  a.my-work-entry-title(href=entry.url)= entry.title
+                  if entry.parentTitle
+                    p.my-work-entry-parent
+                      i.fa.fa-list-ul
+                      = entry.parentTitle
+                  p.my-work-entry-location
+                    i.fa.fa-columns
+                    | #{entry.boardTitle} · #{entry.listTitle}
+                .my-work-entry-dates
+                  if entry.dueLabel
+                    span.my-work-entry-due
+                      i.fa.fa-clock-o
+                      | {{_ 'my-work-due'}}: #{entry.dueLabel}
+                  if entry.reminderLabel
+                    span.my-work-entry-reminder
+                      i.fa.fa-bell
+                      | {{_ 'my-work-reminder'}}: #{entry.reminderLabel}
+        else
+          .my-work-empty
+            i.fa.fa-check-circle
+            h3 {{_ 'my-work-empty-title'}}
+            p {{_ 'my-work-empty-description'}}
+
+      h3.my-work-board-groups-title {{_ 'my-work-board-groups'}}
       if $eq myCardsView 'boards'
         .wrapper
           each board in myCardsList

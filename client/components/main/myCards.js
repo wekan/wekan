@@ -1,5 +1,97 @@
 import { CardSearchPaged } from '../../lib/cardSearch';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveCache } from '/imports/reactiveCache';
+import Cards from '/models/cards';
+import ChecklistItems from '/models/checklistItems';
+import { formatDateTime } from '/imports/lib/dateUtils';
 import { Utils } from '/client/lib/utils';
+const {
+  MY_WORK_FILTERS,
+  matchesMyWorkFilter,
+  myWorkDueBucket,
+} = require('/models/lib/checklistItemWork');
+
+const FILTER_LABELS = {
+  all: 'my-work-all',
+  overdue: 'my-work-overdue',
+  today: 'my-work-today',
+  upcoming: 'my-work-upcoming',
+  assigned: 'my-work-assigned',
+  watching: 'my-work-watching',
+};
+
+function cardIsRelatedToUser(card, userId) {
+  return Boolean(
+    card && userId && (
+      card.userId === userId ||
+      (card.members || []).includes(userId) ||
+      (card.assignees || []).includes(userId) ||
+      (card.watchers || []).includes(userId)
+    ),
+  );
+}
+
+function buildMyWorkEntries(filter = 'all') {
+  const userId = Meteor.userId();
+  if (!userId) return [];
+  const now = new Date();
+  const entries = [];
+
+  Cards.find({ archived: false, type: 'cardType-card' }).forEach(card => {
+    if (!cardIsRelatedToUser(card, userId)) return;
+    const board = ReactiveCache.getBoard(card.boardId);
+    const list = ReactiveCache.getList(card.listId);
+    if (!board || board.personalInboxOwnerId) return;
+    if (!matchesMyWorkFilter(card, filter, userId, now)) return;
+    const dueBucket = myWorkDueBucket(card.dueAt, now);
+    entries.push({
+      _id: `card-${card._id}`,
+      typeLabelKey: 'my-work-card',
+      title: card.title,
+      parentTitle: '',
+      boardTitle: board.title,
+      listTitle: list ? list.title : '',
+      dueAt: card.dueAt,
+      dueLabel: card.dueAt ? formatDateTime(card.dueAt) : '',
+      reminderLabel: '',
+      dueClass: `is-${dueBucket}`,
+      url: `/b/${board._id}/${board.slug}/${card._id}`,
+    });
+  });
+
+  ChecklistItems.find({ assigneeId: userId, isFinished: false }).forEach(item => {
+    const card = ReactiveCache.getCard(item.cardId);
+    const board = card && ReactiveCache.getBoard(card.boardId);
+    const list = card && ReactiveCache.getList(card.listId);
+    if (!card || !board || board.personalInboxOwnerId) return;
+    const filterSource = {
+      ...item,
+      assignees: item.assigneeId ? [item.assigneeId] : [],
+      watchers: card.watchers || [],
+    };
+    if (!matchesMyWorkFilter(filterSource, filter, userId, now)) return;
+    const dueBucket = myWorkDueBucket(item.dueAt, now);
+    entries.push({
+      _id: `item-${item._id}`,
+      typeLabelKey: 'my-work-checklist-item',
+      title: item.title,
+      parentTitle: card.title,
+      boardTitle: board.title,
+      listTitle: list ? list.title : '',
+      dueAt: item.dueAt,
+      dueLabel: item.dueAt ? formatDateTime(item.dueAt) : '',
+      reminderLabel: item.remindAt ? formatDateTime(item.remindAt) : '',
+      dueClass: `is-${dueBucket}`,
+      url: `/b/${board._id}/${board.slug}/${card._id}`,
+    });
+  });
+
+  return entries.sort((left, right) => {
+    const leftTime = left.dueAt ? new Date(left.dueAt).getTime() : Number.MAX_SAFE_INTEGER;
+    const rightTime = right.dueAt ? new Date(right.dueAt).getTime() : Number.MAX_SAFE_INTEGER;
+    return leftTime - rightTime || left.title.localeCompare(right.title);
+  });
+}
 
 Template.myCardsControls.helpers({
   myCardsSort() {
@@ -26,6 +118,7 @@ Template.myCardsControls.events({
 Template.myCards.onCreated(function () {
   const search = new CardSearchPaged(this);
   this.search = search;
+  this.myWorkFilter = new ReactiveVar('all');
 
   // Override getSubscription for myCards
   search.getSubscription = function (queryParams) {
@@ -37,6 +130,7 @@ Template.myCards.onCreated(function () {
   };
 
   search.runGlobalSearch(null);
+  this.subscribe('myWork');
   Meteor.subscribe('setting');
 });
 
@@ -57,6 +151,24 @@ Template.myCards.helpers({
     // eslint-disable-next-line no-console
     //console.log('sort:', Utils.myCardsView());
     return Utils.myCardsView();
+  },
+
+  myWorkFilters() {
+    const current = Template.instance().myWorkFilter.get();
+    return MY_WORK_FILTERS.map(key => ({
+      key,
+      labelKey: FILTER_LABELS[key],
+      active: key === current,
+      count: buildMyWorkEntries(key).length,
+    }));
+  },
+
+  myWorkEntries() {
+    return buildMyWorkEntries(Template.instance().myWorkFilter.get());
+  },
+
+  hasMyWorkEntries() {
+    return buildMyWorkEntries(Template.instance().myWorkFilter.get()).length > 0;
   },
 
   labelName(board, labelId) {
@@ -168,6 +280,10 @@ Template.myCards.helpers({
 });
 
 Template.myCards.events({
+  'click .js-my-work-filter'(evt, tpl) {
+    evt.preventDefault();
+    tpl.myWorkFilter.set(evt.currentTarget.dataset.filter || 'all');
+  },
   'click .js-next-page'(evt, tpl) {
     evt.preventDefault();
     tpl.search.nextPage();

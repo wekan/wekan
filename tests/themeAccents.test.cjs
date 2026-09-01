@@ -118,7 +118,8 @@ test('the variable is set for EVERY theme, and the custom classes stay custom-on
   assert.strictEqual(calls.length, 3, 'three callers: the user override, the site, a board');
   assert.ok(calls.some(a => /globalColor\s*$/.test(a.trim())), 'the user override passes its theme');
   assert.ok(calls.some(a => /siteColor\s*$/.test(a.trim())), 'the site theme passes its theme');
-  assert.ok(calls.some(a => /board && board\.color\s*$/.test(a.trim())), 'a board passes its own colour');
+  assert.ok(calls.some(a => /board && board\.color/.test(a) && /defaultColor/.test(a)),
+    'a board passes its own colour and app pages pass the default colour');
 });
 
 test('the Admin Panel chrome reads that variable rather than a hard-coded colour', () => {

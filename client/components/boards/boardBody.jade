@@ -54,6 +54,8 @@ template(name="boardBody")
           +tableView
         else if isViewStats
           +statsView
+        else if isViewMap
+          +mapView
         else
           // Default view - show swimlanes if they exist, otherwise show lists
           if hasSwimlanes

@@ -26,6 +26,15 @@ ChecklistItems.allow({
 // move whose destination board the caller cannot write to.
 ChecklistItems.deny({
   async update(userId, doc, fieldNames, modifier) {
+    const protectedWorkFields = [
+      'assigneeId',
+      'dueAt',
+      'remindAt',
+      'reminderSentAt',
+    ];
+    if ((fieldNames || []).some(field => protectedWorkFields.includes(field))) {
+      return true;
+    }
     if (!(await denyCrossBoardMoveByChecklistItem(userId, modifier))) return false;
     return tripCanaryDeny('checklist-item.cross-board-move', { userId });
   },

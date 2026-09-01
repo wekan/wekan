@@ -273,6 +273,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-stats');
     Popup.back();
   },
+  'click .js-open-map-view'() {
+    Utils.setBoardView('board-view-map');
+    Popup.back();
+  },
 });
 
 // Shared setup for all create board popups
@@ -649,6 +653,7 @@ Template.boardViewMenu.helpers({
       'board-view-gantt': 'gantt',
       'board-view-table': 'board-view-table',
       'board-view-stats': 'board-view-stats',
+      'board-view-map': 'board-view-map',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

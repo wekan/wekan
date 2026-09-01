@@ -805,6 +805,14 @@ Template.boardBody.helpers({
     return boardView === 'board-view-stats';
   },
 
+  isViewMap() {
+    const currentUser = ReactiveCache.getCurrentUser();
+    const boardView = currentUser
+      ? (currentUser.profile || {}).boardView
+      : window.localStorage.getItem('boardView');
+    return boardView === 'board-view-map';
+  },
+
   hasSwimlanes() {
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard) {

@@ -3,7 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
-import { BOARD_COLORS } from '/models/metadata/colors';
+import { DEFAULT_BOARD_THEME_COLOR } from '/config/const';
 import {
   THEME_CATEGORY_ORDER,
   categoryOf,
@@ -38,7 +38,7 @@ const DEFAULT_WHEEL = ['#2980b9', '#6dd5fa']; // stock flat accent / second slid
 function readCurrent(scope) {
   if (scope === 'board') {
     const b = Utils.getCurrentBoard();
-    return { color: (b && b.color) || BOARD_COLORS[0], custom: (b && b.customThemeColors) || [] };
+    return { color: (b && b.color) || DEFAULT_BOARD_THEME_COLOR, custom: (b && b.customThemeColors) || [] };
   }
   const u = ReactiveCache.getCurrentUser();
   return {
@@ -145,7 +145,7 @@ function gatherCustom(tpl) {
 // board.color, global scope calls setGlobalThemeColor. `color`/`custom` are read
 // from the reactive state so the same helper serves the swatch click and the wheel.
 function applySelection(tpl) {
-  const color = tpl.color.get() || colorsInCategory(THEME_CATEGORY_ORDER[0])[0];
+  const color = tpl.color.get() || DEFAULT_BOARD_THEME_COLOR;
   const custom = gatherCustom(tpl);
   if (tpl.scope === 'board') {
     const b = Utils.getCurrentBoard();
@@ -195,7 +195,7 @@ Template.themeColorPicker.events({
     tpl.customColors.set([]);
     if (tpl.scope === 'board') {
       const b = Utils.getCurrentBoard();
-      if (b) b.setColor(BOARD_COLORS[0], []);
+      if (b) b.setColor(DEFAULT_BOARD_THEME_COLOR, []);
     } else if (tpl.scope === 'admin') {
       Meteor.call('setAdminThemeColor', null, null);
     } else {

@@ -186,6 +186,13 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-stats'}}
           if $eq Utils.boardView "board-view-stats"
             i.fa.fa-check
+    li
+      with "board-view-map"
+        a.js-open-map-view
+          i.fa.fa-map-o
+          | {{_ 'board-view-map'}}
+          if $eq Utils.boardView "board-view-map"
+            i.fa.fa-check
 
 template(name="createBoard")
   form
@@ -404,4 +411,6 @@ template(name="boardViewMenu")
         i.fa.fa-table
       if $eq boardView 'board-view-stats'
         i.fa.fa-pie-chart
+      if $eq boardView 'board-view-map'
+        i.fa.fa-map-o
       span.board-header-btn-label= boardViewName

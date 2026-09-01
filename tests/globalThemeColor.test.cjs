@@ -4,7 +4,8 @@
 // The feature is Blaze/CSS/Meteor-coupled, so this is a source guard that the pieces
 // are wired end-to-end, plus a behavioural check of the two pure decisions:
 //   - globalThemeColorClass(): color -> `board-color-<color>` (or '' when unset)
-//   - the <body> autorun's rule: apply only when NOT on a board and a color is set.
+//   - the <body> autorun's rule: user/site themes win, then app pages default to
+//     Apple Glass Pastel instead of the legacy unthemed UI.
 //
 // Run: node tests/globalThemeColor.test.cjs
 
@@ -14,6 +15,7 @@ const path = require('path');
 
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
+const DEFAULT_GLOBAL_THEME_COLOR = 'appleglasspastel';
 
 let passed = 0;
 function test(name, fn) {
@@ -35,14 +37,21 @@ test('globalThemeColorClass maps a color to its board-color class, else empty', 
 });
 
 // --- behavioural: the autorun decision (mirror of globalThemeColor.js) ---
-function bodyClass(color, onBoard) {
-  return !onBoard && color ? `board-color-${color}` : null;
+function bodyClass({ userColor = null, siteColor = null, onBoard = false } = {}) {
+  if (userColor) return `board-color-${userColor}`;
+  if (!onBoard && siteColor) return `board-color-${siteColor}`;
+  if (!onBoard) return `board-color-${DEFAULT_GLOBAL_THEME_COLOR}`;
+  return null;
 }
-test('body gets the global class only OFF a board and only when a color is set', () => {
-  assert.strictEqual(bodyClass('dark', false), 'board-color-dark'); // All Boards etc.
-  assert.strictEqual(bodyClass('dark', true), null);  // on a board: board color wins
-  assert.strictEqual(bodyClass(null, false), null);   // no override set
-  assert.strictEqual(bodyClass('', false), null);     // negative
+test('body falls back to Apple Glass on app pages without overriding board pages', () => {
+  assert.strictEqual(bodyClass({ userColor: 'dark', onBoard: false }), 'board-color-dark');
+  assert.strictEqual(bodyClass({ userColor: 'dark', onBoard: true }), 'board-color-dark');
+  assert.strictEqual(bodyClass({ siteColor: 'modern', onBoard: false }), 'board-color-modern');
+  assert.strictEqual(bodyClass({ siteColor: 'modern', onBoard: true }), null);
+  assert.strictEqual(bodyClass({ onBoard: false }), 'board-color-appleglasspastel');
+  assert.strictEqual(bodyClass({ userColor: '', siteColor: '', onBoard: false }),
+    'board-color-appleglasspastel');
+  assert.strictEqual(bodyClass({ onBoard: true }), null);
 });
 
 // --- source guards: end-to-end wiring ---
@@ -79,9 +88,14 @@ test('member menu has Change Color, opening the shared theme picker (scope=globa
 
 test('body autorun applies the global override EVERYWHERE (wins over board color)', () => {
   const j = read('client/components/main/globalThemeColor.js');
+  const config = read('config/const.js');
+  assert.ok(/DEFAULT_GLOBAL_THEME_COLOR\s*=\s*'appleglasspastel'/.test(config),
+    'Apple Glass Pastel is the shared default');
   assert.ok(/board-color-\$\{globalColor\}/.test(j), 'builds the board-color class from the global override');
   // A set global override returns early -> applied regardless of board context.
   assert.ok(/if \(globalColor\)/.test(j), 'global override wins everywhere');
+  assert.ok(/DEFAULT_GLOBAL_THEME_COLOR/.test(j),
+    'the app-level fallback is the shared Apple Glass default');
   // Falls back to the current board custom colors only when there is NO global.
   assert.ok(/Session\.get\('currentBoard'\)/.test(j) && /customThemeColors/.test(j), 'board fallback when unset');
   assert.ok(/--theme-accent/.test(j), 'sets the custom-color CSS variable');
@@ -98,15 +112,17 @@ test('header + board-wrapper take the theme class from ONE helper', () => {
   const bb = read('client/components/boards/boardBody.jade');
   assert.ok(/class="\{\{themeColorClass\}\}"/.test(bb),
     '.board-wrapper uses it too (so board content is themed)');
-  // …and the helper keeps the order: user override, then the board, then the site.
+  // …and the helper keeps the order: user override, then the board, then the site,
+  // then the shared app default.
   const j = read('client/components/main/globalThemeColor.js');
   const helper = j.slice(j.indexOf("Template.registerHelper('themeColorClass'"),
     j.indexOf('Meteor.startup('));
   const iOwn = helper.indexOf('globalThemeColor');
   const iBoard = helper.indexOf('boardClass');
   const iSite = helper.indexOf('setting.themeColor');
-  assert.ok(iOwn > 0 && iBoard > iOwn && iSite > iBoard,
-    'the user override wins, then the board colour, then the site theme');
+  const iDefault = helper.indexOf('DEFAULT_GLOBAL_THEME_COLOR');
+  assert.ok(iOwn > 0 && iBoard > iOwn && iSite > iBoard && iDefault > iSite,
+    'the user override wins, then the board colour, then the site theme, then the default');
 });
 
 test('i18n has the new strings', () => {

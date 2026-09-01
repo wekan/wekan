@@ -4,6 +4,7 @@ import {
   closePageSidebar,
 } from '/client/lib/pageSidebar';
 import { pageSidebarTemplate, hasPageSidebar } from '/models/lib/pageSidebar';
+import { DEFAULT_GLOBAL_THEME_COLOR } from '/config/const';
 
 // The shared page sidebar. docs/Design/Page/Header.md
 
@@ -22,7 +23,7 @@ Template.pageSidebar.helpers({
   // A themed thing outside a board, like the All Boards sidebar: without a
   // `.board-color-*` ancestor a `.sidebar-btn` is white text on light grey.
   themeClass() {
-    return 'board-color-belize';
+    return `board-color-${DEFAULT_GLOBAL_THEME_COLOR}`;
   },
 });
 

@@ -28,6 +28,21 @@
   box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
 }
 
+.card-capture-provenance {
+  padding: 10px 12px;
+  border-inline-start: 4px solid var(--theme-accent, #176b87);
+  border-radius: 8px;
+  background: rgba(23, 107, 135, 0.08);
+}
+
+.card-capture-provenance p {
+  margin: 6px 0;
+}
+
+.card-capture-provenance .fa {
+  margin-inline-end: 6px;
+}
+
 .assignee {
   display: block;
   position: relative;
