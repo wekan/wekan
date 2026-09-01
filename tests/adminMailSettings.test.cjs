@@ -9,6 +9,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 console.log('adminMailSettings:');
 
 const model = read('server/models/settings.js');
+const schema = read('models/settings.js');
 const publication = read('server/publications/settings.js');
 const client = read('client/components/settings/settingBody.js');
 const template = read('client/components/settings/settingBody.jade');
@@ -16,6 +17,10 @@ const template = read('client/components/settings/settingBody.jade');
 assert.ok(/async saveAdminMailSettings\(input\)/.test(model));
 assert.ok(/if \(!user\?\.isAdmin\)/.test(model), 'saving is admin-only');
 assert.ok(/if \(password\)/.test(model), 'blank password preserves the stored secret');
+for (const field of ['enabled', 'service', 'configurations', 'passwords', 'passwordSet']) {
+  assert.ok(schema.includes(`'mailServer.${field}'`),
+    `Settings schema retains mailServer.${field}`);
+}
 assert.ok(!/['"]mailServer\.(?:password|passwords)['"]\s*:/.test(publication),
   'passwords are not published to the browser');
 assert.ok(/mailServer\.passwordSet/.test(publication), 'only secret presence is published');
@@ -24,6 +29,10 @@ assert.ok(/#mail-service/.test(template));
 assert.ok(/autocomplete="new-password"/.test(template));
 assert.ok(/'click button\.mail-settings-save'/.test(client));
 assert.ok(/Meteor\.call\('saveAdminMailSettings'/.test(client));
+const emailOwner = client.slice(client.indexOf('Template.email.onCreated'),
+  client.indexOf('Template.email.events'));
+assert.ok(/this\.subscribe\('mailServer'\)/.test(emailOwner),
+  'the Email pane owns its secret-safe subscription wherever it is rendered');
 
 const { ALL_MAIL_SERVICES, isSupportedMailService, mailServiceStorageKey } =
   require('../models/lib/mailServices');

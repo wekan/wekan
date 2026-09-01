@@ -62,17 +62,19 @@ async function loginWithToken(page, userId, token) {
     resumeDisabled.add(page);
   }
 
-  await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
-  // Arm the clear and reload, so the load that this login happens on is the one
-  // load with no stored session to resume. (Arming needs the origin's storage,
-  // which is why it is done here rather than before the first navigation.)
-  await page.evaluate(armKey => {
-    try { window.localStorage.setItem(armKey, '1'); } catch (e) { /* no storage, nothing to resume */ }
-  }, ARM_KEY);
-  await page.reload({ waitUntil: 'commit' });
-  await waitForMeteor(page);
+  // Reuse an already-loaded WeKan page. Several security tests deliberately do
+  // logged-out work first and authenticate later on the same page; navigating
+  // back to the identical sign-in document only redownloads the large dev
+  // bundle and was the remaining waitForMeteor timeout.
+  const onLoadedApp = page.url().startsWith(BASE_URL) && await page
+    .evaluate(() => typeof Meteor !== 'undefined' && typeof Meteor.subscribe === 'function')
+    .catch(() => false);
+  if (!onLoadedApp) {
+    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
+    await waitForMeteor(page);
+  }
 
-  // And wait for any login attempt that is still in flight to finish, so the
+  // Wait for any stored-session resume that is still in flight to finish, so the
   // state we are about to read is settled rather than half-way.
   await page.evaluate(
     () =>
@@ -133,6 +135,18 @@ async function loginWithToken(page, userId, token) {
     );
   }
 
+  // A fresh/logged-out page needs no reload. Removing the old persisted keys
+  // after Accounts has finished its resume check is enough; loginWithToken below
+  // establishes the requested in-memory session. The init-script + reload path
+  // above remains only for a real switch away from another logged-in user.
+  await page.evaluate(() => {
+    try {
+      window.localStorage.removeItem('Meteor.loginToken');
+      window.localStorage.removeItem('Meteor.loginTokenExpires');
+      window.localStorage.removeItem('Meteor.userId');
+    } catch (_error) { /* a page without storage access is already resume-free */ }
+  });
+
   const result = await page.evaluate(
     ({ tok, expectedId }) =>
       new Promise(resolve => {
@@ -166,14 +180,13 @@ async function loginWithToken(page, userId, token) {
   if (result.error) throw new Error(`Token login failed: ${result.error}`);
   if (result.userId !== userId) throw new Error(`Unexpected userId after login: ${result.userId}`);
 
-  await page.goto(BASE_URL, { waitUntil: 'commit' });
-  // Wait until the app bundle (and the Meteor global) has executed on the
-  // landing page, so tests that immediately call Meteor.call via page.evaluate
-  // don't hit "Meteor is not defined" before the bundle loads.
-  await waitForMeteor(page);
-  // A navigation starts a new DDP connection. The Meteor global can be ready
-  // before Accounts has resumed the token, so wait for the expected identity
-  // before returning to a test that may immediately call an authorized method.
+  // The login happened on a fully loaded app with an authenticated DDP
+  // connection. Do not throw that connection away with page.goto(BASE_URL): it
+  // downloads and executes the entire development bundle a second time and can
+  // leave waitForMeteor waiting on a load that never finishes under Playwright.
+  // Real links use client-side routing too, so move to All Boards on the same
+  // live connection.
+  await navigateInApp(page, '/');
   await page.waitForFunction(
     expectedId => typeof Meteor !== 'undefined' && Meteor.userId() === expectedId,
     userId,

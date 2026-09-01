@@ -307,7 +307,6 @@ Template.setting.onCreated(function () {
     }
   });
   Meteor.subscribe('setting');
-  Meteor.subscribe('mailServer');
   Meteor.subscribe('accountSettings');
   Meteor.subscribe('tableVisibilityModeSettings');
   Meteor.subscribe('announcements');
@@ -1327,6 +1326,7 @@ Template.general.events({
 // Same for the E-mail pane: its Save reports progress through `loading`.
 Template.email.onCreated(function () {
   this.loading = new ReactiveVar(false);
+  this.subscribe('mailServer');
   this.mailSettingsEnabled = new ReactiveVar(false);
   this.selectedMailService = new ReactiveVar('SMTP');
   this.autorun(() => {

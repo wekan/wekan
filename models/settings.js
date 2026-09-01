@@ -151,6 +151,35 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    'mailServer.enabled': {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
+    'mailServer.service': {
+      type: String,
+      optional: true,
+      defaultValue: 'SMTP',
+    },
+    // Keys are Nodemailer service names (dots are stored as U+FF0E). Keeping
+    // these maps black-boxed lets the bundled service catalogue evolve without
+    // widening the browser publication: passwords live in their own unpublished
+    // map, while configurations contain only non-secret form values.
+    'mailServer.configurations': {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'mailServer.passwords': {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+    'mailServer.passwordSet': {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
     productName: {
       type: String,
       optional: true,
