@@ -1454,9 +1454,11 @@ Users.helpers({
    * (#5799) boards are ordered alphabetically by title; otherwise the per-user
    * manual drag order (profile.boardSortIndex) is used, falling back to title.
    */
-  sortBoardsForUser(boardsArr) {
+  sortBoardsForUser(boardsArr, modeOverride) {
     const arr = (boardsArr || []).slice();
-    const mode = this.getAllBoardsSortBy();
+    const mode = allowedAllBoardsSortValues.includes(modeOverride)
+      ? modeOverride
+      : this.getAllBoardsSortBy();
     const byTitle = (a, b) =>
       (a.title || '').localeCompare(b.title || '', undefined, {
         sensitivity: 'base',

@@ -85,6 +85,16 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
           return names.join('|');
         }, { timeout: 15_000 })
         .toBe('Apple Board|Mango Board|Zebra Board');
+      await expect.poll(() =>
+        db.findOne('users', { _id: user.id })?.profile?.allBoardsSortBy,
+      ).toBe('title-asc');
+
+      // Reopening the popup reflects the locally active choice even if the
+      // current-user publication has not delivered the profile update yet.
+      await page.locator('.js-open-boards-sort').click();
+      await expect(page.locator('a.js-boards-sort[data-sort="title-asc"]'))
+        .toHaveClass(/active/);
+      await page.keyboard.press('Escape');
 
       // Switch to Title Z→A.
       await page.locator('.js-open-boards-sort').click();

@@ -122,9 +122,22 @@ const DEFAULT_WORKSPACE_ICON = '';
 // Matches the Admin Panel > People page size.
 const BOARDS_PER_PAGE = 25;
 
+// A server method persists the choice, but the current-user document is not
+// guaranteed to be republished before the popup closes. Keep the clicked mode
+// reactive locally so the grid changes immediately; reset it across logins.
+const allBoardsSortOverride = new ReactiveVar(null);
+let allBoardsSortOverrideUserId = null;
+
 // #6439: the effective All Boards sort mode for the current user, defaulting to
 // 'custom' (manual drag order) when unknown. Used to gate board drag-reordering.
 function currentAllBoardsSortBy() {
+  const userId = Meteor.userId();
+  if (userId !== allBoardsSortOverrideUserId) {
+    allBoardsSortOverrideUserId = userId;
+    allBoardsSortOverride.set(null);
+  }
+  const override = allBoardsSortOverride.get();
+  if (override) return override;
   const cu = ReactiveCache.getCurrentUser();
   return cu && typeof cu.getAllBoardsSortBy === 'function'
     ? cu.getAllBoardsSortBy()
@@ -398,12 +411,7 @@ Template.allBoardsHomeSidebar.events({
 
 Template.allBoardsHomeSidebar.helpers({
   isBoardsSort(mode) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const sortBy =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
-    return sortBy === mode;
+    return currentAllBoardsSortBy() === mode;
   },
   isAllBoardsView(view) {
     return isAllBoardsView(view);
@@ -428,12 +436,7 @@ Template.allBoardsHeaderButtons.helpers({
     return BoardMultiSelection;
   },
   isBoardsSort(mode) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const sortBy =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
-    return sortBy === mode;
+    return currentAllBoardsSortBy() === mode;
   },
   // Multi-Selection archives and duplicates boards, so somebody who may only
   // comment is not offered it.
@@ -587,10 +590,7 @@ function boardsForView(tpl) {
   // current page (filtered by menu/search and sorted), so render exactly that
   // ordered page of board icons. Custom (manual drag order) falls through to
   // the unpaginated client-side path below so drag-reordering keeps working.
-  const sortMode =
-    currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-      ? currentUser.getAllBoardsSortBy()
-      : 'custom';
+  const sortMode = currentAllBoardsSortBy();
   if (sortMode !== 'custom') {
     const paged = tpl.pagedBoardsVar.get();
     return withHomeFirst(
@@ -645,7 +645,7 @@ function boardsForView(tpl) {
   }
 
   if (currentUser && typeof currentUser.sortBoardsForUser === 'function') {
-    return withHomeFirst(currentUser.sortBoardsForUser(list));
+    return withHomeFirst(currentUser.sortBoardsForUser(list, sortMode));
   }
   return withHomeFirst(
     list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || '')),
@@ -859,10 +859,7 @@ Template.boardList.onCreated(function () {
   this.autorun(() => {
     this.boardSearchVar.get();
     this.selectedMenu.get();
-    const cu = ReactiveCache.getCurrentUser();
-    if (cu && typeof cu.getAllBoardsSortBy === 'function') {
-      cu.getAllBoardsSortBy();
-    }
+    currentAllBoardsSortBy();
     this.boardsPageVar.set(1);
   });
 
@@ -872,11 +869,7 @@ Template.boardList.onCreated(function () {
   // Uses the effective current user server-side, so it also works under
   // GlobalAdmin impersonation.
   this.autorun(() => {
-    const cu = ReactiveCache.getCurrentUser();
-    const sortBy =
-      cu && typeof cu.getAllBoardsSortBy === 'function'
-        ? cu.getAllBoardsSortBy()
-        : 'custom';
+    const sortBy = currentAllBoardsSortBy();
     if (sortBy === 'custom') {
       this.pagedBoardsVar.set({ ids: [], total: 0 });
       return;
@@ -1245,11 +1238,7 @@ Template.boardList.helpers({
   },
   // #5799: pagination controls (only shown in the sorted, non-custom modes).
   boardsPaginationActive() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const sortMode =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
+    const sortMode = currentAllBoardsSortBy();
     if (sortMode === 'custom') return false;
     const total = Template.instance().pagedBoardsVar.get().total || 0;
     return total > BOARDS_PER_PAGE;
@@ -1272,12 +1261,7 @@ Template.boardList.helpers({
   },
   // #5799: current All Boards sort mode ('custom' | 'title-asc' | 'title-desc').
   isBoardsSort(mode) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const current =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
-    return current === mode;
+    return currentAllBoardsSortBy() === mode;
   },
   hasBoardsSelected() {
     return BoardMultiSelection.count() > 0;
@@ -2450,12 +2434,7 @@ Template.boardList.events({
 // alphabetical A→Z / Z→A. The choice is stored per user.
 Template.boardsSortPopup.helpers({
   isBoardsSort(mode) {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const current =
-      currentUser && typeof currentUser.getAllBoardsSortBy === 'function'
-        ? currentUser.getAllBoardsSortBy()
-        : 'custom';
-    return current === mode;
+    return currentAllBoardsSortBy() === mode;
   },
 });
 
@@ -2464,7 +2443,13 @@ Template.boardsSortPopup.events({
     evt.preventDefault();
     const mode = evt.currentTarget.getAttribute('data-sort');
     if (mode) {
-      Meteor.call('setAllBoardsSortBy', mode);
+      const previous = currentAllBoardsSortBy();
+      allBoardsSortOverride.set(mode);
+      Meteor.call('setAllBoardsSortBy', mode, (err) => {
+        if (err && allBoardsSortOverride.get() === mode) {
+          allBoardsSortOverride.set(previous);
+        }
+      });
     }
     Popup.back();
   },
