@@ -86,6 +86,10 @@ const CASES = [
   // ── logical ───────────────────────────────────────────────────────────────
   { group: 'logical', name: '$and', kind: 'find', filter: { $and: [{ n: { $gt: 0 } }, { flag: true }] } },
   { group: 'logical', name: '$or', kind: 'find', filter: { $or: [{ n: 42 }, { name: 'alpha' }] } },
+  // FerretDB #17: a dotted branch may cross an array of documents. SQLite must
+  // not discard that match during SQL pushdown before the common matcher runs.
+  { group: 'logical', name: '$or across dotted array fields', kind: 'find',
+    filter: { $or: [{ 'items.k': 'b' }, { 'items.missing': '__nonexistent__' }] } },
   { group: 'logical', name: '$nor', kind: 'find', filter: { $nor: [{ n: 42 }, { name: 'alpha' }] } },
   { group: 'logical', name: '$not', kind: 'find', filter: { n: { $not: { $gt: 0 } } } },
 
