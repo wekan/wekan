@@ -8280,6 +8280,23 @@ collection.
 
 </details>
 
+and fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f5f233f9">Persist and browser-test the Admin Panel email settings</a>. Thanks to xet7.</summary>
+
+The settings schema now retains the selected service, its non-secret fields and
+the server-only password map. The Email pane owns its admin-only publication,
+so it receives the safe password-present flag whether it is rendered from
+People or Settings.
+
+Playwright token login now reuses an already loaded page and its authenticated
+Meteor connection. It performs a full reload only when changing away from a
+different logged-in user, eliminating the repeated development-bundle loads
+that left `waitForMeteor` waiting until the test timeout.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
