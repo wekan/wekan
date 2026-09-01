@@ -8245,12 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Email delivery** can now use custom SMTP or any Nodemailer
+well-known service from the Admin Panel while stored passwords remain strictly
+server-side. Existing `MAIL_URL` configuration remains the default until the
+administrator explicitly enables the new settings.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8260,28 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release adds the following new feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf80123a7">Configure Nodemailer services in the Admin Panel</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Email now offers an explicit opt-in switch, custom SMTP
+and every well-known service bundled with Nodemailer, including Gmail,
+Outlook365, SendGrid, Mailgun, Postmark and the AWS SES regions. Each service
+keeps its own settings. Passwords are saved and consumed only on the server;
+the admin-only publication exposes merely whether one exists, and a blank
+password keeps the stored secret.
+
+Positive and negative transport tests cover custom SMTP, named services,
+`MAIL_URL` fallback and non-admin rejection. A browser regression covers the
+form and verifies that the password never reaches the client's settings
+collection.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
 
 # v11.42 2026-09-01 WeKan ® release
 
