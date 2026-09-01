@@ -8264,7 +8264,7 @@ administrator explicitly enables the new settings.
 This release adds the following new feature:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bf80123a7">Configure Nodemailer services in the Admin Panel</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/395f10e03">Configure Nodemailer services in the Admin Panel</a>. Thanks to xet7.</summary>
 
 Admin Panel / People / Email now offers an explicit opt-in switch, custom SMTP
 and every well-known service bundled with Nodemailer, including Gmail,
@@ -8283,7 +8283,7 @@ collection.
 and fixes the following bug:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f5f233f9">Persist and browser-test the Admin Panel email settings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1b875537d">Persist and browser-test the Admin Panel email settings</a>. Thanks to xet7.</summary>
 
 The settings schema now retains the selected service, its non-secret fields and
 the server-only password map. The Email pane owns its admin-only publication,
