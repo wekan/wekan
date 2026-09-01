@@ -94,10 +94,8 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
       await page.locator('.js-open-boards-sort').click();
       await expect(page.locator('a.js-boards-sort[data-sort="title-asc"]'))
         .toHaveClass(/active/);
-      await page.keyboard.press('Escape');
 
-      // Switch to Title Z→A.
-      await page.locator('.js-open-boards-sort').click();
+      // Switch to Title Z→A from that verified, still-open popup.
       await page.locator('a.js-boards-sort[data-sort="title-desc"]').click();
       await expect
         .poll(async () => {
