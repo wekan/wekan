@@ -33,6 +33,11 @@ function shellQuote(value) {
 export function looksLikeDangerousMarkup(text) {
   if (!text) return false;
   if (/<\s*(script|html|svg|iframe|object|embed|foreignobject|meta\b)/i.test(text)) return true;
+  // HTML permits a slash between a tag name and its first attribute, and event
+  // handler values may be unquoted. `<img/onerror=...>` therefore executes even
+  // though checks that require whitespace and quotes miss it.
+  if (/<[^>]*[\s/]on[a-z-]{1,40}\s*=\s*(?:["'][^"']*|[^\s>]+)/i.test(text)) return true;
+  if (/<[^>]*(?:href|src|action|formaction)\s*=\s*["']?\s*javascript\s*:/i.test(text)) return true;
   if (/^\s*(<\?xml|<!doctype)/i.test(text)) return true;
   if (/<!entity/i.test(text)) return true;
   return false;
@@ -142,7 +147,7 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
       // JavaScript execution vectors
       const patterns = [
         /<script\b/i,
-        /on[a-z\-]{1,20}\s*=\s*['"]/i, // event handlers
+        /<[^>]*[\s/]on[a-z\-]{1,40}\s*=\s*(?:["'][^"']*|[^\s>]+)/i,
         /javascript\s*:/i,
         /<iframe\b/i,
         /<object\b/i,

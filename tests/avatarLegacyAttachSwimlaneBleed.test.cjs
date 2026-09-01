@@ -7,7 +7,10 @@ const test = require('node:test');
 
 const root = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
-const { fileResponsePolicy } = require('../models/lib/fileResponseSafety');
+const {
+  fileNameIsBrowserExecutable,
+  fileResponsePolicy,
+} = require('../models/lib/fileResponseSafety');
 
 test('browser-executable stored MIME types are sandboxed opaque downloads', () => {
   for (const type of [
@@ -31,6 +34,59 @@ test('browser-executable stored MIME types are sandboxed opaque downloads', () =
   assert.equal(image.contentType, 'image/png');
   assert.equal(image.forceDownload, false);
   assert.equal(image.headers['X-Content-Type-Options'], 'nosniff');
+});
+
+test('browser-executable filenames are downloads even when stored MIME is spoofed', () => {
+  for (const name of [
+    'payload.html',
+    'payload.HTM',
+    'payload.xhtml',
+    'payload.svg',
+    'payload.xml',
+    'payload.js',
+    'payload.mjs',
+  ]) {
+    assert.equal(fileNameIsBrowserExecutable(name), true, name);
+    const policy = fileResponsePolicy('image/png', fileNameIsBrowserExecutable(name));
+    assert.equal(policy.contentType, 'application/octet-stream', name);
+    assert.equal(policy.forceDownload, true, name);
+    assert.equal(policy.headers['X-Content-Type-Options'], 'nosniff', name);
+    assert.match(policy.headers['Content-Security-Policy'], /sandbox/, name);
+  }
+  assert.equal(fileNameIsBrowserExecutable('photo.png'), false);
+});
+
+test('every Meteor-Files storage strategy uses the shared response backstop', () => {
+  const strategies = read('models/lib/fileStoreStrategy.js');
+  const stream = read('models/lib/httpStream.js');
+  const server = read('models/attachments.server.js');
+
+  for (const className of [
+    'FileStoreStrategyGridFs',
+    'FileStoreStrategyFilesystem',
+    'FileStoreStrategyCloud',
+  ]) {
+    const start = strategies.indexOf(`class ${className}`);
+    assert.notEqual(start, -1, className);
+    const next = strategies.indexOf('\nexport class ', start + 1);
+    const body = strategies.slice(start, next === -1 ? undefined : next);
+    assert.match(body, /httpStreamOutput\(/, `${className} must intercept downloads`);
+    assert.match(
+      body,
+      /(?:ret\s*=\s*true[\s\S]*return ret|return true)/,
+      `${className} must stop Meteor-Files fallback serving`,
+    );
+  }
+
+  assert.match(stream, /fileResponsePolicy\(/);
+  assert.match(stream, /setHeader\('Content-Type', policy\.contentType\)/);
+  assert.match(stream, /getContentDisposition\(name, policy\.forceDownload \? 'true'/);
+  assert.match(server, /Validate EVERY upload/);
+  assert.doesNotMatch(
+    server,
+    /if \(storageDestination !== STORAGE_NAME_FILESYSTEM\) \{[\s\S]{0,500}isFileValid/,
+    'filesystem validation must not sit inside the migration-only branch',
+  );
 });
 
 test('negative: stored avatar and legacy attachment types never reach Content-Type directly', () => {

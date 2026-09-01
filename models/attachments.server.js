@@ -185,33 +185,40 @@ Attachments.onAfterUpload = async function (fileObj) {
   // Use selected storage backend or copy storage if specified
   let storageDestination = fileObj.meta.copyStorage || defaultStorage;
 
-  // Only migrate if the destination is different from filesystem
-  if (storageDestination !== STORAGE_NAME_FILESYSTEM) {
-    const fileObjId = fileObj._id;
-    // Note: Meteor.call('validateAttachmentAndMoveToStorage', ...) cannot be used here
-    // because server-side calls have this.userId=null, triggering not-authorized.
-    // Call the validation and migration logic directly instead.
-    Meteor.defer(async () => {
-      try {
-        const currentFileObj = await ReactiveCache.getAttachment(fileObjId);
-        if (!currentFileObj) return;
+  // Validate EVERY upload while its bytes are on the local staging filesystem.
+  // The filesystem destination used to skip this block entirely, while only
+  // GridFS/cloud migrations were checked.
+  const fileObjId = fileObj._id;
+  // Do not hold Meteor-Files' completion hook open while scanning. Its client
+  // waits for this hook before completing the upload UI, and the stored record
+  // is reliably queryable once this deferred task starts.
+  Meteor.defer(async () => {
+    try {
+      const currentFileObj = await ReactiveCache.getAttachment(fileObjId);
+      if (!currentFileObj) return;
+      const effectiveUploadMaxBytes = await getAttachmentUploadMaxBytes();
+      const isValid = await isFileValid(
+        currentFileObj,
+        attachmentUploadMimeTypes,
+        effectiveUploadMaxBytes,
+        attachmentUploadExternalProgram,
+      );
+      if (!isValid) {
+        await Attachments.removeAsync(fileObjId);
+        return;
+      }
 
-        const effectiveUploadMaxBytes = await getAttachmentUploadMaxBytes();
-        const isValid = await isFileValid(currentFileObj, attachmentUploadMimeTypes, effectiveUploadMaxBytes, attachmentUploadExternalProgram);
-        if (!isValid) {
-          await Attachments.removeAsync(fileObjId);
-          return;
-        }
-
+      // Only migrate if the destination is different from filesystem.
+      if (storageDestination !== STORAGE_NAME_FILESYSTEM) {
         const fileObjAfterValidation = await ReactiveCache.getAttachment(fileObjId);
         if (fileObjAfterValidation) {
           moveToStorage(fileObjAfterValidation, storageDestination, fileStoreStrategyFactory);
         }
-      } catch (error) {
-        console.error('[onAfterUpload] Error during validation and storage migration:', error);
       }
-    });
-  }
+    } catch (error) {
+      console.error('[onAfterUpload] Error during validation and storage migration:', error);
+    }
+  });
 };
 
 Attachments.interceptDownload = function (http, fileObj, versionName) {

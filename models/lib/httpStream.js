@@ -1,4 +1,10 @@
 export const httpStreamOutput = function(readStream, name, http, downloadFlag, cacheControl, fileObj) {
+    const {
+      fileNameIsBrowserExecutable,
+      fileResponsePolicy,
+    } = require('./fileResponseSafety');
+    const storedType = fileObj?.versions?.original?.type || fileObj?.type;
+    const policy = fileResponsePolicy(storedType, fileNameIsBrowserExecutable(name));
     // Sanitize known exploits from EXISTING files on the fly, straight from the
     // storage backend, without buffering whole files: the sanitizer sniffs the
     // start of the stream and only rewrites documents that begin like dangerous
@@ -43,24 +49,23 @@ export const httpStreamOutput = function(readStream, name, http, downloadFlag, c
       http.response.setHeader('Cache-Control', cacheControl);
     }
 
-    // Set Content-Disposition header
-    http.response.setHeader('Content-Disposition', getContentDisposition(name, http?.params?.query?.download));
-
-    // Add security headers to prevent XSS attacks
-    const isSvgFile = name && name.toLowerCase().endsWith('.svg');
-    if (isSvgFile) {
-      // For SVG files, add strict CSP to prevent script execution
-      http.response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'none'; object-src 'none';");
-      http.response.setHeader('X-Content-Type-Options', 'nosniff');
-      http.response.setHeader('X-Frame-Options', 'DENY');
+    // This path is the original Meteor-Files /cdn/storage route. Apply the same
+    // fail-closed policy as WeKan's universal and legacy routes before any
+    // storage strategy writes bytes to the response.
+    http.response.setHeader('Content-Type', policy.contentType);
+    http.response.setHeader(
+      'Content-Disposition',
+      getContentDisposition(name, policy.forceDownload ? 'true' : downloadFlag),
+    );
+    for (const [header, value] of Object.entries(policy.headers)) {
+      http.response.setHeader(header, value);
     }
   };
 
 /** will initiate download, if links are called with ?download="true" queryparam */
 const getContentDisposition = (name, downloadFlag) => {
   // Force attachment disposition for SVG files to prevent XSS attacks
-  const isSvgFile = name && name.toLowerCase().endsWith('.svg');
-  const forceAttachment = isSvgFile || downloadFlag === 'true';
+  const forceAttachment = downloadFlag === 'true';
   const dispositionType = forceAttachment ? 'attachment;' : 'inline;';
 
   const encodedName = encodeURIComponent(name);

@@ -392,6 +392,24 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     super(fileObj, versionName, collection);
   }
 
+  /** Serve filesystem files through WeKan's response backstop instead of
+   * falling through to Meteor-Files, which trusts the stored MIME type and
+   * defaults to inline disposition. */
+  interceptDownload(http, cacheControl) {
+    const readStream = this.getReadStream();
+    if (!readStream) return false;
+    const downloadFlag = http?.params?.query?.download;
+    httpStreamOutput(
+      readStream,
+      this.fileObj.name,
+      http,
+      downloadFlag,
+      cacheControl,
+      this.fileObj,
+    );
+    return true;
+  }
+
   /** returns a read stream
    * @return the read stream
    */
