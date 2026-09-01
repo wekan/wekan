@@ -8249,7 +8249,8 @@ browser build to verify).
 scope every card to its containing swimlane, and persist board favorites through
 the server. Lists, Calendar, Gantt, Table and Statistics therefore replace the
 Swimlanes layout immediately, while shared lists keep their cards and counts in
-the lane where each copy is rendered.
+the lane where each copy is rendered. **Full-stack testing** now keeps
+authenticated navigation stable and reaches host Docker from Flatpak.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,7 +8263,9 @@ the lane where each copy is rendered.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bug:
+This release fixes the following bugs:
+
+**Board views** - content switches safely while reactive templates are replaced.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d9c5028ae">Board content follows view changes and cards stay in their containing swimlane</a>. Thanks to hmeunier95 and xet7.</summary>
@@ -8276,6 +8279,32 @@ undefined and remove swimlane scoping. Finally, all favorite controls persist
 through the authenticated server method instead of rollback-prone direct client
 updates. Regression coverage checks all six layouts, positive card/count scope
 and the absence of direct favorite writes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c35ecee4">Destroyed swimlanes no longer initialize deferred drag-and-drop</a>. Thanks to xet7.</summary>
+
+A view change can destroy a swimlane before its deferred sortable setup runs.
+The callback then tried to select elements from a removed Blaze DOM range and
+raised a page-level error even though the new view rendered successfully.
+Deferred swimlane and list-group setup now exits after destruction. Source
+coverage pins both guards, and the complete browser matrix verifies all board
+views without the removed-range exception.
+
+</details>
+
+and improves developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c35ecee4">Browser and database conformance runs stay reliable in the development sandbox</a>. Thanks to xet7.</summary>
+
+Authenticated browser tests now navigate through the live Meteor application,
+wait for application readiness before inspecting verification state, and retry
+a card click when a subscription replaces its DOM after refresh. Database
+conformance routes Docker commands through the host when invoked from Flatpak.
+The complete sequential run passed all WeKan and FerretDB stages; SQLite,
+PostgreSQL, MySQL and MariaDB answered all 102 conformance cases identically.
 
 </details>
 
