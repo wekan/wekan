@@ -111,69 +111,50 @@ template(name="general")
 //- The E-mail pane. Rendered by Admin Panel / People too - see the note above.
 template(name='email')
   ul#email-setting.setting-detail
-    //if isSandstorm
-    //
+    li
+      button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
+    li.smtp-form
+      a.flex.js-toggle-admin-mail-settings
+        .materialCheckBox#admin-mail-settings-enabled(class="{{#if mailSettingsEnabled}}is-checked{{/if}}")
+        span Enable below email settings
+    if mailSettingsEnabled
       li.smtp-form
-    //
-        .title {{_ 'smtp-host'}}
-    //
-        .description {{_ 'smtp-host-description'}}
-    //
+        .title Email service
         .form-group
-    //
-          input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
-    //
-      li.smtp-form
-    //
-        .title {{_ 'smtp-port'}}
-    //
-        .description {{_ 'smtp-port-description'}}
-    //
-        .form-group
-    //
-          input.wekan-form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
-    //
-      li.smtp-form
-    //
-        .title {{_ 'smtp-username'}}
-    //
-        .form-group
-    //
-          input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
-    //
-      li.smtp-form
-    //
-        .title {{_ 'smtp-password'}}
-    //
-        .form-group
-    //
-          input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="")
-    //
-      li.smtp-form
-    //
-        .title {{_ 'smtp-tls'}}
-    //
-        .form-group
-    //
+          select.wekan-form-control#mail-service
+            each mailServices
+              option(value=value selected=selected)= label
+      if isCustomSmtp
+        li.smtp-form
+          .title {{_ 'smtp-host'}}
+          .description {{_ 'smtp-host-description'}}
+          .form-group
+            input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{mailConfiguration.host}}")
+        li.smtp-form
+          .title {{_ 'smtp-port'}}
+          .description {{_ 'smtp-port-description'}}
+          .form-group
+            input.wekan-form-control#mail-server-port(type="text", placeholder="587" value="{{mailConfiguration.port}}")
+        li.smtp-form
           a.flex.js-toggle-tls
-    //
-            .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
-    //
-    //
+            .materialCheckBox#mail-server-tls(class="{{#if mailConfiguration.secure}}is-checked{{/if}}")
             span {{_ 'smtp-tls-description'}}
-    //
-    //
       li.smtp-form
-    //
-        .title {{_ 'send-from'}}
-    //
+        .title {{_ 'smtp-username'}}
         .form-group
-    //
-          input.wekan-form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
-    //
-    //
-      li
-    //
+          input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{mailConfiguration.username}}")
+      li.smtp-form
+        .title {{_ 'smtp-password'}}
+        .description {{passwordDescription}}
+        .form-group
+          input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password")
+      li.smtp-form
+        .title {{_ 'send-from'}}
+        .form-group
+          input.wekan-form-control#mail-server-from(type="text", placeholder="WeKan <no-reply@domain.com>" value="{{mailConfiguration.from}}")
+    li
+      button.mail-settings-save.primary {{_ 'save'}}
+
     li.smtp-form
       //- Not "Email domain name": the field decides who may INVITE. A non-admin
       //- whose address ends with this domain can send board invitations, and only
@@ -196,8 +177,6 @@ template(name='email')
       //- part of that one radio pair.
       button.js-save.primary {{_ 'save'}}
 
-    li
-      button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
 
 //- Admin Panel / Settings / Visibility, in four named groups: what All Boards
 //- shows, the URLs, the product name and the logos. The groups are what makes a

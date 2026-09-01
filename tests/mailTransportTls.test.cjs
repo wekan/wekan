@@ -29,12 +29,14 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const src = read('server/lib/mailTransport.js');
 const lib = {};
 // eslint-disable-next-line no-new-func
-new Function('exports', 'URL', 'fs',
+new Function('exports', 'URL', 'fs', 'mailServiceStorageKey',
   src.replace(/export function/g, 'function').replace(/^import .*$/gm, '') +
   '\nexports.smtpOptionsFromUrl = smtpOptionsFromUrl;' +
   '\nexports.hasTlsOverrides = hasTlsOverrides;' +
   '\nexports.certificateFrom = certificateFrom;' +
-  '\nexports.installMailTransport = installMailTransport;')(lib, URL, fs);
+  '\nexports.installMailTransport = installMailTransport;' +
+  '\nexports.installAdminMailTransport = installAdminMailTransport;')(
+  lib, URL, fs, service => service.replaceAll('.', '\uff0e'));
 
 let passed = 0;
 function test(name, fn) {
@@ -192,6 +194,42 @@ test("the message reaches nodemailer without Meteor's own key", () => {
   Email.customTransport({ packageSettings: { x: 1 }, from: 'a@b', to: 'c@d', subject: 's' });
   assert.deepStrictEqual(sent, [{ from: 'a@b', to: 'c@d', subject: 's' }],
     'packageSettings is Meteor\'s, not a message field');
+});
+
+test('Admin Panel settings select custom SMTP or a Nodemailer service', () => {
+  const calls = [];
+  const nodemailer = {
+    createTransport(options) {
+      calls.push(options);
+      return { sendMail: message => Promise.resolve(message) };
+    },
+  };
+  const Email = {};
+  const EmailInternals = { NpmModules: { nodemailer: { module: nodemailer } } };
+  lib.installAdminMailTransport({ Email, EmailInternals, mailServer: {
+    enabled: true,
+    service: 'SMTP',
+    configurations: { SMTP: { host: 'mail.example.com', port: '465', secure: true,
+      username: 'user' } },
+    passwords: { SMTP: 'secret' },
+  } });
+  assert.deepStrictEqual(calls[0].auth, { user: 'user', pass: 'secret' });
+  assert.strictEqual(calls[0].host, 'mail.example.com');
+  assert.strictEqual(calls[0].secure, true);
+
+  lib.installAdminMailTransport({ Email, EmailInternals, mailServer: {
+    enabled: true,
+    service: 'Gmail',
+    configurations: { Gmail: { username: 'user@gmail.com' } },
+    passwords: { Gmail: 'app-password' },
+  } });
+  assert.strictEqual(calls[1].service, 'Gmail');
+  assert.deepStrictEqual(calls[1].auth, { user: 'user@gmail.com', pass: 'app-password' });
+});
+
+test('disabled Admin Panel settings do not replace MAIL_URL transport', () => {
+  assert.strictEqual(lib.installAdminMailTransport({ Email: {}, EmailInternals: {},
+    mailServer: { enabled: false } }), 'disabled');
 });
 
 test('the webhook side trusts a certificate, and keeps every SSRF protection', () => {

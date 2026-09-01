@@ -163,6 +163,10 @@ Meteor.publish('mailServer', async function() {
           'mailServer.username': 1,
           'mailServer.enableTLS': 1,
           'mailServer.from': 1,
+          'mailServer.enabled': 1,
+          'mailServer.service': 1,
+          'mailServer.configurations': 1,
+          'mailServer.passwordSet': 1,
         },
       },
     );

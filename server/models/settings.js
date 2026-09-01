@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Email, EmailInternals } from 'meteor/email';
-import { installMailTransport } from '/server/lib/mailTransport';
+import { installAdminMailTransport, installMailTransport } from '/server/lib/mailTransport';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import { WebApp } from 'meteor/webapp';
 import Settings from '/models/settings';
@@ -24,6 +24,7 @@ const {
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { SimpleSchema } = require('/imports/simpleSchema');
+const { isSupportedMailService, mailServiceStorageKey } = require('/models/lib/mailServices');
 const {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
@@ -173,6 +174,11 @@ Meteor.startup(async () => {
         port: '',
         enableTLS: false,
         from,
+        enabled: false,
+        service: 'SMTP',
+        configurations: { SMTP: {} },
+        passwords: {},
+        passwordSet: {},
       },
       createdAt: now,
       modifiedAt: now,
@@ -240,7 +246,17 @@ Meteor.startup(async () => {
   // by ("Hostname/IP doesn't match certificate's altnames") could not be used at
   // all. MAIL_TLS_CA_CERT says which certificate to trust and MAIL_TLS_SERVERNAME
   // which name to verify against - verification stays on either way.
-  const mailTransport = installMailTransport({ Email, EmailInternals });
+  const currentMailSetting = await getReactiveCache().getCurrentSetting();
+  if (currentMailSetting?.mailServer?.enabled) {
+    const service = currentMailSetting.mailServer.service || 'SMTP';
+    const key = mailServiceStorageKey(service);
+    Accounts.emailTemplates.from =
+      currentMailSetting.mailServer.configurations?.[key]?.from ||
+      currentMailSetting.mailServer.from;
+  }
+  const mailTransport = currentMailSetting?.mailServer?.enabled
+    ? installAdminMailTransport({ Email, EmailInternals, mailServer: currentMailSetting.mailServer })
+    : installMailTransport({ Email, EmailInternals });
   if (mailTransport === 'custom-tls') {
     console.info(
       'Mail TLS: using MAIL_TLS_CA_CERT / MAIL_TLS_SERVERNAME. The certificate is ' +
@@ -266,6 +282,53 @@ if (isSandstorm) {
 }
 
 Meteor.methods({
+  async saveAdminMailSettings(input) {
+    check(input, Object);
+    const user = await Meteor.userAsync();
+    if (!user?.isAdmin) throw new Meteor.Error('error-notAuthorized');
+
+    const service = String(input.service || 'SMTP');
+    if (!isSupportedMailService(service)) throw new Meteor.Error('mail-service-invalid');
+    const storageKey = mailServiceStorageKey(service);
+    const configuration = input.configuration || {};
+    check(configuration, Object);
+    const clean = {
+      username: String(configuration.username || '').trim(),
+      from: String(configuration.from || '').trim(),
+    };
+    if (service === 'SMTP') {
+      clean.host = String(configuration.host || '').trim();
+      clean.port = String(configuration.port || '').trim();
+      clean.secure = configuration.secure === true;
+      if (input.enabled && !clean.host) throw new Meteor.Error('mail-host-required');
+    }
+    if (input.enabled && !clean.from) throw new Meteor.Error('mail-from-required');
+
+    const setting = await Settings.findOneAsync({});
+    const set = {
+      'mailServer.enabled': input.enabled === true,
+      'mailServer.service': service,
+      [`mailServer.configurations.${storageKey}`]: clean,
+      'mailServer.from': clean.from,
+    };
+    const password = String(input.password || '');
+    if (password) {
+      set[`mailServer.passwords.${storageKey}`] = password;
+      set[`mailServer.passwordSet.${storageKey}`] = true;
+    }
+    await Settings.updateAsync(setting._id, { $set: set });
+    const updated = await Settings.findOneAsync(setting._id);
+    Accounts.emailTemplates.from = updated.mailServer.enabled
+      ? clean.from
+      : process.env.MAIL_FROM;
+    if (updated.mailServer.enabled) {
+      installAdminMailTransport({ Email, EmailInternals, mailServer: updated.mailServer });
+    } else {
+      delete Email.customTransport;
+      installMailTransport({ Email, EmailInternals });
+    }
+    return true;
+  },
   async setPermanentDeleteEnabled(enabled) {
     const user = await Meteor.userAsync();
     const username = user?.username || user?._id || 'unknown';

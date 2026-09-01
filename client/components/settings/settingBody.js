@@ -17,6 +17,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { adminPath } from '/models/lib/adminUrls';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
+const { ALL_MAIL_SERVICES, mailServiceStorageKey } = require('/models/lib/mailServices');
 
 // Helper functions shared across the template
 function checkField(selector) {
@@ -1326,9 +1327,51 @@ Template.general.events({
 // Same for the E-mail pane: its Save reports progress through `loading`.
 Template.email.onCreated(function () {
   this.loading = new ReactiveVar(false);
+  this.mailSettingsEnabled = new ReactiveVar(false);
+  this.selectedMailService = new ReactiveVar('SMTP');
+  this.autorun(() => {
+    const mailServer = ReactiveCache.getCurrentSetting()?.mailServer;
+    if (!mailServer || this.mailSettingsInitialized) return;
+    this.mailSettingsEnabled.set(mailServer.enabled === true);
+    this.selectedMailService.set(mailServer.service || 'SMTP');
+    this.mailSettingsInitialized = true;
+  });
+});
+
+Template.email.helpers({
+  ...accountAccessHelpers,
+  mailSettingsEnabled() {
+    return Template.instance().mailSettingsEnabled.get();
+  },
+  mailServices() {
+    const selected = Template.instance().selectedMailService.get();
+    return ALL_MAIL_SERVICES.map(value => ({ value, label: value, selected: value === selected }));
+  },
+  isCustomSmtp() {
+    return Template.instance().selectedMailService.get() === 'SMTP';
+  },
+  mailConfiguration() {
+    const service = Template.instance().selectedMailService.get();
+    const key = mailServiceStorageKey(service);
+    return ReactiveCache.getCurrentSetting()?.mailServer?.configurations?.[key] || {};
+  },
+  passwordDescription() {
+    const service = Template.instance().selectedMailService.get();
+    const key = mailServiceStorageKey(service);
+    return ReactiveCache.getCurrentSetting()?.mailServer?.passwordSet?.[key]
+      ? 'A password is saved. Leave blank to keep it.'
+      : 'No password is saved.';
+  },
 });
 
 Template.email.events({
+  'click a.js-toggle-admin-mail-settings'(event, tpl) {
+    event.preventDefault();
+    tpl.mailSettingsEnabled.set(!tpl.mailSettingsEnabled.get());
+  },
+  'change #mail-service'(event, tpl) {
+    tpl.selectedMailService.set(event.currentTarget.value);
+  },
   // Tick the box without saving: Save below writes it, together with the invite
   // domain above, the way the Yes/No pair it replaces behaved.
   'click a.js-toggle-allow-email-change'(event) {
@@ -1337,6 +1380,35 @@ Template.email.events({
   },
   'click a.js-toggle-tls'() {
     $('#mail-server-tls').toggleClass('is-checked');
+  },
+  'click button.mail-settings-save'(event, tpl) {
+    event.preventDefault();
+    const service = tpl.selectedMailService.get();
+    const stored = ReactiveCache.getCurrentSetting()?.mailServer?.configurations
+      ?.[mailServiceStorageKey(service)] || {};
+    const configuration = tpl.mailSettingsEnabled.get() ? {
+      username: ($('#mail-server-username').val() || '').trim(),
+      from: ($('#mail-server-from').val() || '').trim(),
+    } : stored;
+    if (tpl.mailSettingsEnabled.get() && service === 'SMTP') {
+      configuration.host = ($('#mail-server-host').val() || '').trim();
+      configuration.port = ($('#mail-server-port').val() || '').trim();
+      configuration.secure = $('#mail-server-tls').hasClass('is-checked');
+    }
+    tpl.loading.set(true);
+    Meteor.call('saveAdminMailSettings', {
+      enabled: tpl.mailSettingsEnabled.get(),
+      service,
+      configuration,
+      password: $('#mail-server-password').val() || '',
+    }, error => {
+      tpl.loading.set(false);
+      if (error) {
+        alert(error.reason || error.message);
+      } else {
+        $('#mail-server-password').val('');
+      }
+    });
   },
   // The pane's one Save, below both settings it writes: the invite domain and the
   // allow-email-change Yes/No.

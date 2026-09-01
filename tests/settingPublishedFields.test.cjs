@@ -96,7 +96,10 @@ test('the SMTP settings stay admin-only, in their own publication', () => {
   assert.ok(/Meteor\.publish\('mailServer'/.test(pub), 'they have their own publication');
   const mail = pub.slice(pub.indexOf("Meteor.publish('mailServer'"));
   assert.ok(/user && user\.isAdmin/.test(mail), 'which is admin-gated');
-  assert.ok(!/mailServer\.password/.test(mail), 'and never sends the password');
+  assert.ok(!/['"]mailServer\.(?:password|passwords)['"]\s*:/.test(mail),
+    'and never sends password values');
+  assert.ok(/mailServer\.passwordSet/.test(mail),
+    'but tells the form whether a password is already stored');
 });
 
 test('a checkbox that writes the settings document reads it back from the same field', () => {

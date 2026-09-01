@@ -28,6 +28,7 @@
 // by the test suite.
 // ============================================================================
 import fs from 'fs';
+import { mailServiceStorageKey } from '/models/lib/mailServices';
 
 // A certificate from an env var: the PEM itself, or a path to a file holding it.
 // Never fatal - a bad path leaves the system trust store in place and says so,
@@ -112,4 +113,36 @@ export function installMailTransport({ Email, EmailInternals, env = process.env 
   Email.customTransport = ({ packageSettings, ...message }) => transport.sendMail(message);
 
   return 'custom-tls';
+}
+
+// Admin Panel mail settings deliberately use Nodemailer's bundled well-known
+// SMTP profiles. They provide host/port/TLS defaults; authentication remains in
+// WeKan's database and is never published to a browser.
+export function installAdminMailTransport({ Email, EmailInternals, mailServer } = {}) {
+  if (!Email || !EmailInternals || !mailServer?.enabled) return 'disabled';
+  const nodemailer = EmailInternals?.NpmModules?.nodemailer?.module;
+  if (!nodemailer) return 'no-nodemailer';
+
+  const service = mailServer.service || 'SMTP';
+  const storageKey = mailServiceStorageKey(service);
+  const config = mailServer.configurations?.[storageKey] || {};
+  const password = mailServer.passwords?.[storageKey] || '';
+  let options;
+  if (service === 'SMTP') {
+    if (!config.host) throw new Error('SMTP host is required');
+    options = {
+      host: config.host,
+      port: Number(config.port || (config.secure ? 465 : 587)),
+      secure: config.secure === true,
+      pool: true,
+      tls: { rejectUnauthorized: true },
+    };
+  } else {
+    options = { service, pool: true };
+  }
+  if (config.username) options.auth = { user: config.username, pass: password };
+
+  const transport = nodemailer.createTransport(options);
+  Email.customTransport = ({ packageSettings, ...message }) => transport.sendMail(message);
+  return 'admin-settings';
 }
