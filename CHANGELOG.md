@@ -8263,7 +8263,7 @@ login-token lookups from backend-specific regressions.
 This release improves developer tooling:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/07bb0a4ff">Every available database verifies logical OR matching through dotted arrays</a>. Thanks to jeremy-arsia and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f1793294b">Every available database verifies logical OR matching through dotted arrays</a>. Thanks to jeremy-arsia and xet7.</summary>
 
 The shared FerretDB conformance catalogue now reproduces the nested-array query
 from FerretDB issue 17 instead of testing dotted paths and logical OR only in
