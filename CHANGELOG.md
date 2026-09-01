@@ -8245,9 +8245,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **FerretDB** database conformance now covers logical OR matching
-through dotted array paths on every available backend, protecting persistent
-login-token lookups from backend-specific regressions.
+**In short:** **Persistent sessions** now remain valid with FerretDB when login
+tokens are matched through nested arrays. Cross-database conformance protects
+the corrected logical OR behavior on every available backend.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8260,7 +8260,24 @@ login-token lookups from backend-specific regressions.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves developer tooling:
+This release fixes the following bug:
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/a7c9441b">Persistent login-token lookup works through nested arrays</a>. Thanks to jeremy-arsia and xet7.</summary>
+
+FerretDB's SQLite query optimization translated a logical OR into SQL when
+every branch appeared safe, but its direct dotted JSON accessor could not
+follow a path through the `loginTokens` array. It discarded the matching user
+before the Mongo-compatible filter ran, so HttpOnly cookie refresh returned
+`invalid_cookie` and logged the user out shortly after login. Logical OR filters
+with dotted paths now remain in the authoritative Go matcher, while safe scalar
+OR queries keep their optimized SQL path. Positive collection coverage
+reproduces the nested-token lookup and a negative builder test prevents the
+unsafe pushdown.
+
+</details>
+
+and improves developer tooling:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1793294b">Every available database verifies logical OR matching through dotted arrays</a>. Thanks to jeremy-arsia and xet7.</summary>
