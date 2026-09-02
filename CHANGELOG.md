@@ -8247,9 +8247,10 @@ browser build to verify).
 
 **In short:** **Isolated testing on Fedora and Ubuntu Asahi** can now keep the
 complete stack inside a dedicated ARM64 KVM guest. **FerretDB** retains its
-protocol-required SCRAM-SHA-1 compatibility exception, while the **MongoDB Database
-Tools** build follows current upstream development and refreshes Go and all compatible
-dependencies for every commit-specific snapshot.
+protocol-required SCRAM-SHA-1 compatibility exception and moves its builds,
+dependencies, MongoDB driver and gRPC tooling to Go 1.27-era versions. The **MongoDB
+Database Tools** build follows current upstream development and refreshes Go and all
+compatible dependencies for every commit-specific snapshot.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8294,8 +8295,7 @@ agent, Docker socket, device or clipboard channel.
 
 and updates the bundled database tooling:
 
-**FerretDB authentication** - legacy compatibility stays explicit and guarded while
-new deployments retain the stronger mechanism.
+**FerretDB** - guarded authentication compatibility and current dependencies.
 
 <details>
 <summary><a href="https://github.com/wekan/FerretDB/commit/70f5445e">The required SCRAM-SHA-1 digest keeps its scoped CodeQL exception</a>. Thanks to GitHub CodeQL and xet7.</summary>
@@ -8310,8 +8310,34 @@ New deployments should use SCRAM-SHA-256.
 
 </details>
 
-**MongoDB Database Tools** - source, toolchain and dependencies move together without
-mixing binaries from different upstream snapshots.
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/16066af4">Update dependencies and complete the Go 1.27 migration</a>. Thanks to dependabot and xet7.</summary>
+
+FerretDB's runtime, integration, tools and database-image dependency sets now move
+together with Go 1.27.0. The maintained wire library replaces removed document
+iteration, message-section decoding and logging interfaces while retaining MongoDB
+document sequences and IEEE-754 NaN handling. The MongoDB database image, Citus,
+OpenTelemetry, SAP HANA driver and resolved indirect dependencies are updated at the
+same time.
+
+The test-event decoder accepts Go 1.27's new fields without accepting unknown input,
+and all root, integration, release and container build paths use the same Go version.
+Unit tests, vet, race-enabled tools tests, SQLite/TLS integration tests and a binary
+containing the SQLite, PostgreSQL, MySQL and HANA handlers passed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/448d31fb">Refresh the MongoDB v2 driver and gRPC dependencies</a>. Thanks to dependabot and xet7.</summary>
+
+The runtime and integration module graphs update the indirect MongoDB v2 driver from
+2.2.2 to 2.4.2, while the tools graph updates gRPC from 1.83.0 to 1.83.1. Module
+checksums verify and the complete unit, vet and SQLite/TLS integration pipeline passes
+with the refreshed dependency graphs.
+
+</details>
+
+**MongoDB Database Tools** - current source, toolchain and dependencies.
 
 <details>
 <summary><a href="https://github.com/wekan/mongo-tools-patches/commit/dbe8878">Build current upstream master with newest Go and dependencies</a>. Thanks to xet7.</summary>
