@@ -8245,11 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the browser-side Node compatibility layer updates **qs**, tightening
-query parsing edge cases and correcting serialization behavior while retaining its
-existing API and security floor. Array-limit enforcement, cycle detection and buffer
-checks are more defensive, while filtered dates and dotted top-level keys serialize
-consistently.
+**In short:** WeKan updates **qs** to 6.16.0 throughout both the browser-side Node
+compatibility layer and the Rspack development-server dependency tree. The update
+closes two denial-of-service advisories while retaining the existing API, and also
+tightens array-limit enforcement, cycle detection, buffer checks and serialization.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8269,8 +8268,14 @@ This release updates the following dependency:
   groups, preserves cycle detection for empty arrays with own properties, safely
   handles non-callable buffer constructors and corrects filtered dates and encoded
   top-level dotted keys.
+- [**Express and body-parser use qs 6.16.0**](https://github.com/wekan/wekan/commit/b5f55584d1d2be7336abe3793c9207015b506cb0) — a scoped override moves Rspack's
+  development-server dependency tree past
+  [GHSA-x5fp-wj9c-mxmx](https://github.com/advisories/GHSA-x5fp-wj9c-mxmx)
+  and [GHSA-4mjr-xmp4-gh2g](https://github.com/advisories/GHSA-4mjr-xmp4-gh2g).
+  The resulting installed tree deduplicates every affected consumer onto 6.16.0,
+  and `npm audit` reports zero vulnerabilities. Thanks to xet7.
 
-Thanks to dependabot.
+Thanks to dependabot and xet7.
 
 # v11.44 2026-09-02 WeKan ® release
 
