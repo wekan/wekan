@@ -8245,9 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Isolated testing on Fedora Asahi** can now keep the complete
-WeKan, FerretDB, browser, database and container stack inside a dedicated ARM64
-KVM guest, with scripts for installation and safe lifecycle management.
+**In short:** **Isolated testing on Fedora and Ubuntu Asahi** can now keep the
+complete WeKan, FerretDB, browser, database and container stack inside a
+dedicated ARM64 KVM guest, with scripts for installation and safe lifecycle
+management on either host distribution.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8263,9 @@ KVM guest, with scripts for installation and safe lifecycle management.
 
 This release improves developer tooling:
 
+**KVM sandboxes** - complete ARM64 test stacks stay behind a dedicated guest
+boundary.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c379584ec">Fedora Asahi gains a dedicated ARM64 KVM test environment</a>. Thanks to xet7.</summary>
 
@@ -8272,6 +8276,18 @@ helpers install the Fedora virtualization stack, stage verified ARM64 media in
 libvirt's protected image directory, create a conservatively sized VM, start
 its local console and request a bounded graceful shutdown without ever forcing
 power off. Shell syntax checks cover all three lifecycle scripts.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02776d20b">Ubuntu Asahi gains the same isolated KVM workflow</a>. Thanks to xet7.</summary>
+
+The Fedora files now live in their own `AsahiFedora` directory, while a parallel
+`AsahiUbuntu` guide and executable lifecycle helpers install Ubuntu's native
+QEMU, libvirt and AArch64 UEFI packages. The Ubuntu VM retains the same KVM,
+NAT, local-display and guest-owned-storage boundary, stages installation media
+where AppArmor permits system libvirt to read it, and shares no host directory,
+agent, Docker socket, device or clipboard channel.
 
 </details>
 
