@@ -1,4 +1,5 @@
 # Reset previous attempts
+sudo flatpak kill com.vscodium.codium
 sudo flatpak override --reset com.vscodium.codium
 
 # Block EVERYTHING except the display and the wekan folder
@@ -11,4 +12,6 @@ sudo flatpak override com.vscodium.codium \
   --device=all \
   --socket=wayland \
   --socket=x11 \
-  --share=network
+  --share=network \
+  --user \
+  --nosocket=ssh-auth
