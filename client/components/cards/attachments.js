@@ -11,6 +11,7 @@ import { buildAttachmentUploadConfig } from '/client/lib/attachmentUploadConfig'
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 import { formatDateTime } from '/imports/lib/dateUtils';
 import { EscapeActions } from '/client/lib/escapeActions';
+import { openOfficeAttachment } from '/client/lib/officeAttachmentViewer';
 
 const { filesize } = require('filesize');
 import prettyMilliseconds from 'pretty-ms';
@@ -27,6 +28,9 @@ let touchEndCoords = null;
 
 // Stores link to the attachment for which attachment actions popup was opened
 let attachmentActionsLink = null;
+let officePreview = null;
+let officePreviewAbortController = null;
+let officePreviewGeneration = 0;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
@@ -99,6 +103,7 @@ function attachmentCanBeOpened(attachment) {
     kind.isPDF ||
     kind.isText ||
     kind.isJSON ||
+    kind.isOffice ||
     kind.isVideo ||
     kind.isAudio
   );
@@ -155,6 +160,31 @@ function openAttachmentViewer(attachmentId) {
       $("#txt-viewer").attr("data", getAttachmentUrl(attachment));
       $("#txt-viewer").removeClass("hidden");
       break;
+    case (kind.isOffice): {
+      const generation = ++officePreviewGeneration;
+      const container = document.getElementById('office-viewer');
+      officePreviewAbortController = new AbortController();
+      container.replaceChildren();
+      container.classList.remove('hidden');
+      openOfficeAttachment({
+        container,
+        extension: kind.extension,
+        signal: officePreviewAbortController.signal,
+        size: attachment.size,
+        url: getAttachmentUrl(attachment),
+      }).then(preview => {
+        if (generation !== officePreviewGeneration) {
+          preview.destroy();
+          return;
+        }
+        officePreview = preview;
+      }).catch(error => {
+        if (generation !== officePreviewGeneration) return;
+        console.error('Could not preview Office attachment:', error);
+        closeAttachmentViewer();
+      });
+      break;
+    }
   }
 
   // Show the cleaned name: URL-decoded, homoglyphs folded, invisible characters
@@ -164,6 +194,19 @@ function openAttachmentViewer(attachmentId) {
 }
 
 function closeAttachmentViewer() {
+  officePreviewGeneration++;
+  if (officePreviewAbortController) {
+    officePreviewAbortController.abort();
+    officePreviewAbortController = null;
+  }
+  if (officePreview) {
+    officePreview.destroy();
+    officePreview = null;
+  }
+  const officeViewer = document.getElementById('office-viewer');
+  officeViewer.replaceChildren();
+  officeViewer.classList.add('hidden');
+
   $("#viewer-overlay").addClass("hidden");
 
   // We need to reset the viewers to avoid showing previous attachments

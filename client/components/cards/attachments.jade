@@ -46,6 +46,7 @@ template(name="attachmentViewer")
         object#pdf-viewer.hidden(type="application/pdf")
           span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
         object#txt-viewer.hidden(type="text/plain")
+        #office-viewer.hidden
       i.fa.fa-caret-right#next-attachment
 
 template(name="attachmentGallery")

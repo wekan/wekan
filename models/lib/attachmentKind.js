@@ -27,6 +27,7 @@ const IMAGE_EXTENSIONS = [
 const VIDEO_EXTENSIONS = ['mp4', 'webm', 'ogv', 'mov', 'm4v', 'mkv', 'avi'];
 const AUDIO_EXTENSIONS = ['mp3', 'ogg', 'oga', 'wav', 'flac', 'm4a', 'aac', 'opus'];
 const TEXT_EXTENSIONS = ['txt', 'md', 'csv', 'log', 'ini', 'conf', 'yml', 'yaml'];
+const OFFICE_EXTENSIONS = ['docx', 'xlsx', 'pptx'];
 
 // Enough of a name -> mime map to answer the questions above. Not a full table:
 // anything not listed simply has no derived type, and the flags stay false.
@@ -42,6 +43,9 @@ const EXTENSION_MIME = {
   pdf: 'application/pdf', json: 'application/json',
   txt: 'text/plain', md: 'text/markdown', csv: 'text/csv', log: 'text/plain',
   ini: 'text/plain', conf: 'text/plain', yml: 'text/yaml', yaml: 'text/yaml',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 };
 
 // The extension of a file NAME, lower-case and without the dot. Never trusts a
@@ -104,6 +108,8 @@ function attachmentKind(doc) {
     isJSON: flag(doc && doc.isJSON, type === 'application/json' || (!stated && extension === 'json')),
     isText: flag(doc && doc.isText,
       type.startsWith('text/') || byName(TEXT_EXTENSIONS)),
+    isOffice: OFFICE_EXTENSIONS.includes(extension) &&
+      (!stated || type.startsWith('application/vnd.openxmlformats-officedocument.')),
   };
 }
 
@@ -132,4 +138,5 @@ export {
   IMAGE_EXTENSIONS,
   VIDEO_EXTENSIONS,
   AUDIO_EXTENSIONS,
+  OFFICE_EXTENSIONS,
 };

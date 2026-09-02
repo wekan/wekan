@@ -312,6 +312,12 @@
   width: 100%;
   height: 100%;
 }
+#office-viewer {
+  background-color: #e5e7eb;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .pdf-preview-error {
   margin-top: 180px;
   display: block;
@@ -351,7 +357,8 @@
       100vh - 155px
     ); /* Full height - height of top and bottom bars */
   }
-  #txt-viewer {
+  #txt-viewer,
+  #office-viewer {
     width: 100%;
     height: calc(
       100vh - 155px

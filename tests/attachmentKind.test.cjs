@@ -52,7 +52,7 @@ let attachmentKindFix;
     assert.deepStrictEqual(attachmentKind(uploaded), {
       extension: 'jpg', type: 'image/jpeg',
       isImage: true, isVideo: false, isAudio: false,
-      isPDF: false, isJSON: false, isText: false,
+      isPDF: false, isJSON: false, isText: false, isOffice: false,
     });
     // ...and nothing to repair.
     assert.strictEqual(attachmentKindFix(uploaded), null);
@@ -73,11 +73,25 @@ let attachmentKindFix;
       ['a.mp4', 'isVideo'], ['a.webm', 'isVideo'], ['a.mov', 'isVideo'],
       ['a.mp3', 'isAudio'], ['a.ogg', 'isAudio'], ['a.flac', 'isAudio'],
       ['a.pdf', 'isPDF'], ['a.json', 'isJSON'], ['a.txt', 'isText'],
+      ['a.docx', 'isOffice'], ['a.xlsx', 'isOffice'], ['a.pptx', 'isOffice'],
     ];
     for (const [name, expected] of cases) {
       const kind = attachmentKind({ name });
       assert.strictEqual(kind[expected], true, `${name} must be ${expected}`);
     }
+  });
+
+  test('an Office-looking name cannot override a conflicting stated type', () => {
+    assert.strictEqual(attachmentKind({ name: 'payload.docx', type: 'text/html' }).isOffice,
+      false, 'a disguised active document must remain download-only');
+    assert.strictEqual(attachmentKind({
+      name: 'document.docx',
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    }).isOffice, true);
+    assert.strictEqual(attachmentKind({ name: 'legacy.doc' }).isOffice, false,
+      'legacy binary Office formats are deliberately unsupported');
+    assert.strictEqual(attachmentKind({ name: 'macro.docm' }).isOffice, false,
+      'macro-enabled formats are deliberately unsupported');
   });
 
   test('a file that says nothing and is nothing stays nothing', () => {
