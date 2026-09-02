@@ -33,7 +33,7 @@ Download a current Fedora ARM64 ISO from Fedora, verify its published checksum,
 and pass its local path to `install.sh`:
 
 ```sh
-cd /home/user/repos/wekan/docs/Security/Sandboxes/KVM
+cd /home/user/repos/wekan/docs/Security/Sandboxes/KVM/AsahiFedora
 ./install.sh /path/to/Fedora-Server-dvd-aarch64.iso
 ```
 
