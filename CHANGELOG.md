@@ -8246,9 +8246,10 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Isolated testing on Fedora and Ubuntu Asahi** can now keep the
-complete WeKan, FerretDB, browser, database and container stack inside a
-dedicated ARM64 KVM guest, with scripts for installation and safe lifecycle
-management on either host distribution.
+complete stack inside a dedicated ARM64 KVM guest. **FerretDB** retains its
+protocol-required SCRAM-SHA-1 compatibility exception, while the **MongoDB Database
+Tools** build follows current upstream development and refreshes Go and all compatible
+dependencies for every commit-specific snapshot.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8288,6 +8289,45 @@ QEMU, libvirt and AArch64 UEFI packages. The Ubuntu VM retains the same KVM,
 NAT, local-display and guest-owned-storage boundary, stages installation media
 where AppArmor permits system libvirt to read it, and shares no host directory,
 agent, Docker socket, device or clipboard channel.
+
+</details>
+
+and updates the bundled database tooling:
+
+**FerretDB authentication** - legacy compatibility stays explicit and guarded while
+new deployments retain the stronger mechanism.
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/70f5445e">The required SCRAM-SHA-1 digest keeps its scoped CodeQL exception</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+MongoDB's legacy SCRAM-SHA-1 protocol requires MD5 password preparation before its
+salted PBKDF2-SHA-1 derivation. Replacing that operation would reject compatible
+credentials rather than strengthen them, so the query-specific CodeQL and LGTM
+annotations are restored on that operation alone. A source regression keeps both
+annotations attached to the single digest, MongoDB-generated positive vectors retain
+interoperability coverage, and invalid salt and authentication cases remain covered.
+New deployments should use SCRAM-SHA-256.
+
+</details>
+
+**MongoDB Database Tools** - source, toolchain and dependencies move together without
+mixing binaries from different upstream snapshots.
+
+<details>
+<summary><a href="https://github.com/wekan/mongo-tools-patches/commit/dbe8878">Build current upstream master with newest Go and dependencies</a>. Thanks to xet7.</summary>
+
+The Database Tools build now clones current upstream `master`, including fixes not yet
+present in a release, instead of resolving the newest `100.x` tag. Each source snapshot
+gets a `master-SHORT-COMMIT-HASH` release identity, while the full commit remains
+embedded in every binary and linked from its provenance notes, so fill-in builds cannot
+mix assets from different upstream revisions.
+
+The workflows install the newest stable Go, upgrade every compatible direct and
+transitive dependency used by the complete package graph, tidy the modules and
+regenerate `vendor/` before cross-compiling. Offline coverage checks ref selection,
+commit-derived identities, dependency steps, patch integrity and all 136 tool/target
+combinations. A real current-master preparation and focused options, `mongodump` and
+`mongorestore` tests pass with Go 1.27.
 
 </details>
 

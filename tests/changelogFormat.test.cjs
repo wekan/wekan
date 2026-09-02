@@ -254,7 +254,9 @@ test('the Upcoming section, when there is one, follows the same rules', () => {
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,
       `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
-    assert.ok(/<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB)\/commit\//.test(b.summary),
+    assert.ok(
+      /<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB|mongo-tools-patches)\/commit\//
+        .test(b.summary),
       `line ${b.line}: the summary links the commit it describes`);
   }
 });
