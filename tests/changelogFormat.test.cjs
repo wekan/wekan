@@ -206,12 +206,13 @@ test('the newest release follows the rules to the letter', () => {
   for (const b of inSection) {
     assert.ok(summaryText(b.summary).length <= 120,
       `line ${b.line}: a summary must be a title (${summaryText(b.summary).length} chars)`);
-    // The commit it describes - in THIS repository, wekan/FerretDB when the
-    // change is in the default database fork, or wekan/charts when a WeKan
-    // release publishes that companion repository. A WeKan hash for work that
-    // is not in this repository points at the wrong change, so the link follows
-    // the code rather than the changelog.
-    assert.ok(/<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB|charts)\/commit\//.test(b.summary),
+    // The commit it describes - in THIS repository, or in a companion repository
+    // whose code or binaries the release carries. A WeKan hash for work that is
+    // not in this repository points at the wrong change, so the link follows the
+    // code rather than the changelog.
+    assert.ok(
+      /<a href="https:\/\/github\.com\/wekan\/(wekan|FerretDB|charts|mongo-tools-patches)\/commit\//
+        .test(b.summary),
       `line ${b.line}: the summary links the commit it describes`);
   }
 });
