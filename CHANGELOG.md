@@ -8265,11 +8265,10 @@ when this release is made.
 
 # v11.46 2026-09-03 WeKan ® release
 
-**In short:** WeKan advances to **Meteor 3.5.2-rc.0**, moving its framework,
-MongoDB integration, compiler, Rspack and TypeScript packages from beta to release
-candidate versions. The coordinated update keeps accounts, DDP, ECMAScript,
-minification and build tooling aligned with the release-candidate platform before
-Meteor 3.5.2 becomes stable.
+**In short:** WeKan adds lazy, read-only **DOCX, XLSX and PPTX previews** with
+strict download, archive and image limits while keeping Office content inactive.
+It also advances to **Meteor 3.5.2-rc.0**, aligning MongoDB integration, accounts,
+DDP, compilers, Rspack and TypeScript with the release-candidate platform.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8282,7 +8281,35 @@ Meteor 3.5.2 becomes stable.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release updates the following dependency:
+This release adds the following new feature:
+
+**Attachment viewer** - previews modern Office documents without activating their
+content or loading the viewer on ordinary board visits.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4974ca93b45adc33ceb1456703b9e3d1f998f751">DOCX, XLSX and PPTX attachments open in a guarded viewer</a>. Thanks to yukiyokotani and xet7.</summary>
+
+The minimal vendored fork retains only the three browser viewer graphs, their
+WebAssembly parsers and render workers. Node, MCP, editor, website, development
+tooling and unused optional entry points are excluded, and the retained package
+has no install scripts or dependencies.
+
+Each format is dynamically imported only when a matching attachment opens. The
+production build confirms that viewer implementations, workers and WASM remain
+separate lazy assets instead of entering the initial browser bundle. Office files
+also remain download-only at the server response boundary.
+
+Authenticated attachment bytes are read through a bounded stream and rejected
+above 32 MiB even when `Content-Length` is absent or false. Parsing runs in worker
+mode with 32 MiB per-entry, 96 MiB expanded-package, 2,048-entry and 64 MiB decoded
+image budgets. Hyperlinks and remote Google Fonts are disabled, and navigation or
+closing the overlay aborts downloads and destroys viewer resources. Positive,
+negative and UI tests cover recognition, disguised and legacy formats, limits,
+lazy imports, retained assets and cleanup.
+
+</details>
+
+and updates the following dependency:
 
 - **Meteor 3.5.2-beta.0 → 3.5.2-rc.0** — advances the framework and its accounts,
   Babel, DDP, ECMAScript, minifier, MongoDB, npm-mongo, Rspack, tools-core and
