@@ -107,6 +107,12 @@
     },
     "uuid": "^14.0.0",
     "webpack-dev-server": "^5.2.6",
-    "http-proxy-middleware": "^2.0.10"
+    "http-proxy-middleware": "^2.0.10",
+    "express": {
+      "qs": "6.16.0",
+      "body-parser": {
+        "qs": "6.16.0"
+      }
+    }
   }
 }
