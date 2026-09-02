@@ -2,6 +2,22 @@
 
 Claude Code reads this file at the repo root before doing work here. Follow it.
 
+## Non-negotiable AI git boundary: commit locally, never push
+
+An AI assistant may prepare changes and create local commits when the rules below
+authorize committing. **An AI assistant must never push anything to any remote.** This
+prohibition has no exception, even when the user asks the AI to release, publish, merge,
+or "finish" work, and even when credentials or an SSH agent are available. In particular:
+
+- never run `git push`, including `--force`, `--force-with-lease`, tags, or deletion;
+- never update remote refs through an API, GitHub CLI, IDE action, or another tool;
+- never run a script, build-menu option, release command, or alias that performs a push;
+- never use or probe an SSH agent, credential helper, token, or private key for a push.
+
+Stop after the local commit and report its hash and the exact human-run push command.
+All push, merge, release, and publishing instructions elsewhere in this file are for a
+human maintainer only; they do not authorize an AI assistant to execute remote writes.
+
 ## First: who maintains this, and who is committing?
 
 **WeKan, the `wekan/` repositories cloned under `.tools/`, and
@@ -43,7 +59,8 @@ git config user.name && git config user.email
   repositories above, which means it is to be SET to that as above rather than worked
   around. Then: commit **directly to the current branch** as
   `Lauri Ojansivu <x@xet7.org>` with no AI trailer and no pull request, and the
-  **publishing / release steps** below are available.
+  **publishing / release steps** below are available to a human maintainer only. An AI
+  stops after committing locally and never runs a step that pushes or publishes.
 - **Contributor mode** — the identity is somebody ELSE, in a fork or a clone of your
   own. Then: do **not** commit directly to the branch and do **not** run any
   release/publishing step. Make changes on a branch and open a **pull request** for
@@ -547,9 +564,11 @@ Fixes #1235.
   release-tooling fixes found in build logs, refactors. `Thanks to ... and xet7 !`
   still names whoever reported it.
 
-### Making a release — no version number needed  **[maintainer only]**
+### Making a release — no version number needed  **[human maintainer only — never AI]**
 
-All publishing / release steps below are maintainer-only. Contributors never run them.
+All publishing / release steps below are human-maintainer-only. Contributors and AI
+assistants never run them. An AI may prepare a local release commit only when requested,
+then must stop and hand the commit and command sequence to the human maintainer.
 
 **Releases are FREQUENT, and that is the normal state of this repository — not an
 interruption to it.** The maintenance loop is:

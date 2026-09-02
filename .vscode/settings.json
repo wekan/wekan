@@ -1,6 +1,7 @@
 {
   "terminal.integrated.env.linux": {
-    "TERM": "xterm-256color"
+    "TERM": "xterm-256color",
+    "SSH_AUTH_SOCK": null
   },
   "terminal.integrated.env.osx": {
     "TERM": "xterm-256color"
