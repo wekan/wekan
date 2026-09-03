@@ -8251,7 +8251,8 @@ bounded pagination, unifying board-read authorization, sharing the board import
 pipeline and deleting retired CollectionFS models. The completed programme
 removes 1,880 maintained or tracked disabled lines with regression coverage,
 and the **browser regression suite** now shares file storage reliably and
-switches board views through the UI.
+switches board views through the UI. The **first header bar** and opened-card
+**Custom Fields** controls are also cleaner and more compact.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8264,7 +8265,85 @@ switches board views through the UI.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release improves the following developer tooling:
+This release improves the following user interface controls:
+
+**The first header bar** - cleaner compact controls make their state clear.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0bf5b7bdae4f90a450fa54e6256b377450b5abcd">Remove the Starred controls' outline</a>. Thanks to xet7.</summary>
+
+The Starred dropdown and current-page star remain adjacent as one logical
+group, but no longer carry a white border. Clean Light also leaves the group
+borderless instead of replacing that outline with a dark one. Header and theme
+tests cover both appearances.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/72d7c0884eb7d81e5d873230a10ce03597fce8c7">Remove the Mobile/Desktop toggle's frame</a>. Thanks to xet7.</summary>
+
+The mode toggle now sits directly on the header with a transparent background
+and no black border. Its icons inherit a readable header colour while the
+selected mode retains its accent treatment.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f6d73035684f0319728cf4d9337393bf22fec86">Keep the selected mode icon white</a>. Thanks to xet7.</summary>
+
+Both the Mobile and Desktop active states explicitly make their icon container
+and Font Awesome glyph white, so board themes cannot replace the selected
+mode's contrast colour through inheritance.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a935f84adf7830b5274209869c2667ff4790cea8">Show only the current Mobile/Desktop mode icon</a>. Thanks to xet7.</summary>
+
+Mobile mode now shows only the phone and Desktop mode only the monitor. The
+toggle keeps its white active glyph and theme-accent chip without spending
+header width on the inactive choice.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b64bada4e875661f24d8d627771bf82414d8064">Align Add Board four pixels higher</a>. Thanks to xet7.</summary>
+
+The whole top-bar Add Board link, including its clickable area, moves upward by
+four pixels to align its plus icon with the surrounding controls. Board-template
+selection remains unchanged and covered.
+
+</details>
+
+**Opened cards** - Custom Fields shows one quiet layout icon beside its menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7ca17916a6cca075475504c4835e3399fe0f63f">Remove the Custom Fields layout selector's frame</a>. Thanks to xet7.</summary>
+
+The selector's outer button no longer has a white fill or dark edge. Its layout
+state and persisted grid-versus-list behaviour remain unchanged.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50efbd496fbeb82609431f4f745cbaf6bb30963a">Show one Custom Fields layout icon</a>. Thanks to xet7.</summary>
+
+Table mode renders only its table icon and list mode only its list icon. The
+former blue active background and white glyph styling are removed while the
+same button continues to switch and persist the layout.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d582fc055df3f151e9fd2b6f828d0bce810502d">Match the Custom Fields layout and menu icon colours</a>. Thanks to xet7.</summary>
+
+The current layout icon uses the same grey as the adjacent Custom Fields menu
+button and, like that button, becomes black on hover. Regression coverage keeps
+section-title colours separate from this control.
+
+</details>
+
+and improves the following developer tooling:
 
 **Board themes** - solid themes share structure while special designs stay explicit.
 
