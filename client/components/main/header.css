@@ -648,10 +648,10 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .mobile-mode-toggle .board-header-btn {
   padding: 5px 11px !important;
   border-radius: 4px !important;
-  background: #fff !important;
-  border: 1px solid #000 !important;
+  background: transparent !important;
+  border: 0 !important;
   transition: all 0.2s ease !important;
-  color: #000 !important;
+  color: #f2f2f2 !important;
   height: auto !important;
   line-height: normal !important;
   margin: 0 !important;
@@ -666,7 +666,7 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn i {
-  color: #666 !important;
+  color: currentColor !important;
   float: none !important;
   display: inline !important;
   line-height: normal !important;
@@ -676,15 +676,12 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn i.active {
-  color: #000 !important;
   font-weight: bold !important;
   transform: scale(1.1) !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn:hover {
-  background: #000 !important;
-  border-color: #000 !important;
-  color: #fff !important;
+  background: rgba(0, 0, 0, 0.15) !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn:hover i {
@@ -696,33 +693,19 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active {
-  background: #fff !important;
-  border-color: #000 !important;
-  color: #000 !important;
+  background: transparent !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon {
-  color: #000 !important;
   font-weight: bold !important;
   transform: scale(1.1) !important;
 }
 
-#header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.desktop-icon {
-  color: #666 !important;
-}
-
 #header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active {
-  background: #fff !important;
-  border-color: #000 !important;
-  color: #000 !important;
-}
-
-#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.mobile-icon {
-  color: #666 !important;
+  background: transparent !important;
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon {
-  color: #000 !important;
   font-weight: bold !important;
   transform: scale(1.1) !important;
 }
@@ -1874,4 +1857,3 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .board-header-btn-label {
   white-space: nowrap;
 }
-

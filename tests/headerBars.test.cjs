@@ -704,6 +704,17 @@ test('and the two star buttons are drawn as one group', () => {
     'the buttons inside are adjusted for it');
 });
 
+test('the Mobile / Desktop toggle has no white shell or black border', () => {
+  const css = read('client/components/main/header.css');
+  const at = css.indexOf('#header-quick-access .mobile-mode-toggle .board-header-btn {');
+  assert.notStrictEqual(at, -1, 'the toggle is styled');
+  const rule = css.slice(at, css.indexOf('}', at));
+  assert.ok(/background:\s*transparent\s*!important/.test(rule),
+    'its outer background is transparent');
+  assert.ok(/border:\s*0\s*!important/.test(rule),
+    'its outer border is removed');
+});
+
 test('and a view menu says its view in words, not only in a tooltip', () => {
   // These were icon-only, named by a tooltip. Six view icons are six glyphs to
   // learn, and a tooltip is the one place a name cannot be read without
