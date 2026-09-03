@@ -8247,9 +8247,9 @@ browser build to verify).
 
 **In short:** WeKan begins the measured **Less Code** programme by consolidating
 ordinary board-theme CSS, compacting the lazy language registry, sharing
-bounded pagination, unifying board-read authorization and sharing the board
-import pipeline. These reductions remove 1,732 maintained lines and add
-structural regression coverage.
+bounded pagination, unifying board-read authorization, sharing the board import
+pipeline and deleting retired CollectionFS models. The completed programme
+removes 1,880 maintained or tracked disabled lines with regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8325,6 +8325,19 @@ pipeline, which carries the created board ID and safely defaults missing
 optional collections. A shared entity writer owns insertion, timestamp updates
 and old-to-new ID recording where the formats use the same mechanics. Adapter
 tests preserve their distinct ordering and malformed-input behavior.
+
+</details>
+
+**Retired models** - unreachable CollectionFS implementations no longer remain as source.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e37717d07c9d10a94df360fe9bc6bbc1a6479efc">Remove disabled CollectionFS models</a>. Thanks to xet7.</summary>
+
+Two `.disabled` model files had no imports, startup registration, template
+references or package entry and could never load as JavaScript. Their 148 lines
+are removed while the active legacy attachment readers and migration paths stay
+in place. All 709 Node suites, a production build and a development startup
+passed after the removal.
 
 </details>
 

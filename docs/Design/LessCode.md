@@ -240,7 +240,31 @@ Acceptance criteria:
 - application startup, production build and registered test suites succeed;
 - no supported deployment mode or documented feature is silently removed.
 
-Status: **not started**.
+Result:
+
+- static search found two tracked model implementations whose `.disabled`
+  suffix prevents Meteor from treating them as JavaScript. No import, template,
+  startup registration, package entry or application source referenced their
+  filenames or `AttachmentsOld` / `AvatarsOld` symbols;
+- `models/attachments_old.js.disabled` and
+  `models/avatars_old.js.disabled` were removed: 148 tracked lines. These files
+  are recoverable from git history;
+- supported legacy CollectionFS reads remain in
+  `attachmentBackwardCompatibility.js`, the legacy attachment publication and
+  its HTTP route. Migration extraction and file-safety suites passed;
+- a regression test verifies that the retired files and symbols stay absent
+  while the active legacy-read modules remain present;
+- all 709 registered Node test suites passed with zero failures in 48 seconds;
+- `meteor build .build-lesscode --directory` completed successfully. Its only
+  diagnostics were existing asset-size and optional MongoDB dependency
+  warnings;
+- a development startup with a temporary `WRITABLE_PATH` reached `Started your
+  app` and served at `http://127.0.0.1:3999`, after which it was stopped cleanly;
+- the maintained-source metric is unchanged at 191,220 because `.disabled`
+  files were deliberately excluded from that baseline. The removal nevertheless
+  deletes 148 tracked, reviewable lines rather than moving or compressing them.
+
+Status: **completed** in commit `e37717d07`.
 
 ## Results
 
@@ -252,4 +276,19 @@ Status: **not started**.
 | 3. UI mechanics | 191,284 maintained lines | 191,279 maintained lines | Primitive and 96 consumer assertions passed | Completed (`eb0e34786`) |
 | 4. Authorization | 191,279 maintained lines | 191,248 maintained lines | 6 policy tests plus transport regressions passed | Completed (`e8c867b33`) |
 | 5. Importers | 191,248 maintained lines | 191,220 maintained lines | 6 pipeline and 95 importer assertions passed | Completed (`8b7115335`) |
-| 6. Removal | Pending inventory | Pending | Pending | Not started |
+| 6. Removal | 148 tracked disabled lines | 0 tracked disabled lines | 709 Node suites, build and startup passed | Completed (`e37717d07`) |
+
+## Final outcome
+
+All six phases are complete. The maintained JavaScript/MJS, Jade and CSS metric
+decreased from 192,952 to 191,220 lines: **1,732 fewer maintained lines**. Phase
+6 additionally removed 148 tracked disabled lines that were outside the
+baseline, for **1,880 deleted or avoided lines** across the measured work.
+
+The reductions came from fewer independent implementations, not from
+minification or changing template technology. Replacing all Jade/Blaze views
+with Svelte would temporarily increase code because both UI systems, adapters
+and migration tests would coexist; it is therefore not a code-reduction step by
+itself. Further work should repeat this measured approach on one duplicated
+behavior at a time and retain a change only when its tests and maintenance
+surface improve.
