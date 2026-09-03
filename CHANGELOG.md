@@ -8358,6 +8358,18 @@ publication. Both regressions pass on Chromium, Firefox and WebKit.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8de8ca564d1a5ee872118e1b4b425c7c284b607">Isolate report rows and await reactive list widths</a>. Thanks to xet7.</summary>
+
+The Files Report test now gives every browser run unique attachment IDs and a
+shared filename marker, then searches for that marker before checking all five
+sanitized names. Rows left by another browser can no longer push an assertion
+onto the next page. The fixed-list-width test also polls until the published
+profile value reaches the rendered lists instead of sampling their initial
+width during WebKit's reactive update.
+
+</details>
+
 and updates the following documentation:
 
 <details>
