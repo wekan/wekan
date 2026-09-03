@@ -205,7 +205,27 @@ Acceptance criteria:
 - malformed and partial imports have negative tests;
 - entity creation and ID-mapping logic has one implementation where possible.
 
-Status: **not started**.
+Result:
+
+- WeKan JSON and Trello adapters now describe their ordered stages to one
+  `runImportPipeline` implementation, which carries the created board ID and
+  normalizes absent optional collections to empty arrays;
+- one `writeImportedEntity` implementation now owns direct insertion, optional
+  timestamp touching and old-to-new ID recording for lists, swimlanes,
+  checklists and WeKan custom fields;
+- source-specific normalization remains in the adapters: notably WeKan's real
+  swimlanes and extra dependency/rule stages, and Trello's synthetic default
+  swimlane and inline checklist items;
+- malformed top-level input and a pipeline that creates no board fail closed;
+  missing optional arrays, stage order, ID propagation, mapping and timestamp
+  writes have focused positive and negative tests;
+- six pipeline tests and 95 existing importer assertions passed. The three
+  changed modules also passed Node 24 syntax checks;
+- maintained source decreased from 191,248 to 191,220 lines, including the new
+  pipeline module. Obsolete commented-out importer implementations and the
+  unused empty WeKan checker were removed as part of the same inventory.
+
+Status: **completed** in commit `8b7115335`.
 
 ## Phase 6: evidence-based removal
 
@@ -226,10 +246,10 @@ Status: **not started**.
 
 | Phase | Before | After | Tests | Result |
 | --- | ---: | ---: | --- | --- |
-| Baseline | 192,952 lines | 191,248 lines | Not applicable | 1,704 fewer maintained lines |
+| Baseline | 192,952 lines | 191,220 lines | Not applicable | 1,732 fewer maintained lines |
 | 1. Board themes | 6,339 lines / 196,012 bytes | 5,895 lines / 178,134 bytes | 110 assertions passed; browser unavailable | Completed (`cd1039230`) |
 | 2. Language metadata | 1,724 lines / 34,873 bytes | 510 lines / 24,362 bytes | Registry parity and 31 assertions passed | Completed (`a3bc8155d`) |
 | 3. UI mechanics | 191,284 maintained lines | 191,279 maintained lines | Primitive and 96 consumer assertions passed | Completed (`eb0e34786`) |
 | 4. Authorization | 191,279 maintained lines | 191,248 maintained lines | 6 policy tests plus transport regressions passed | Completed (`e8c867b33`) |
-| 5. Importers | Pending inventory | Pending | Pending | Not started |
+| 5. Importers | 191,248 maintained lines | 191,220 maintained lines | 6 pipeline and 95 importer assertions passed | Completed (`8b7115335`) |
 | 6. Removal | Pending inventory | Pending | Pending | Not started |

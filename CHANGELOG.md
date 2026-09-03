@@ -8247,8 +8247,9 @@ browser build to verify).
 
 **In short:** WeKan begins the measured **Less Code** programme by consolidating
 ordinary board-theme CSS, compacting the lazy language registry, sharing
-bounded pagination and unifying board-read authorization. These reductions
-remove 1,704 maintained lines and add structural regression coverage.
+bounded pagination, unifying board-read authorization and sharing the board
+import pipeline. These reductions remove 1,732 maintained lines and add
+structural regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8315,6 +8316,20 @@ card and legacy-attachment publications, attachment download routes and
 position-history methods. Each transport retains its own error response. The
 legacy attachment publication also permits anonymous public-board reads just
 as the HTTP routes do, and the maintained source is 31 lines smaller.
+
+</details>
+
+**Board imports** - source adapters retain their differences while sharing
+ordered persistence and ID-map mechanics.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b7115335228ecb68422833500b74b15f5574beb">Share the board import pipeline</a>. Thanks to xet7.</summary>
+
+WeKan JSON and Trello imports now run their normalized stages through one
+pipeline, which carries the created board ID and safely defaults missing
+optional collections. A shared entity writer owns insertion, timestamp updates
+and old-to-new ID recording where the formats use the same mechanics. Adapter
+tests preserve their distinct ordering and malformed-input behavior.
 
 </details>
 
