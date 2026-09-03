@@ -8249,7 +8249,9 @@ browser build to verify).
 ordinary board-theme CSS, compacting the lazy language registry, sharing
 bounded pagination, unifying board-read authorization, sharing the board import
 pipeline and deleting retired CollectionFS models. The completed programme
-removes 1,880 maintained or tracked disabled lines with regression coverage.
+removes 1,880 maintained or tracked disabled lines with regression coverage,
+and the **browser regression suite** now shares file storage reliably and
+switches board views through the UI.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8338,6 +8340,21 @@ references or package entry and could never load as JavaScript. Their 148 lines
 are removed while the active legacy attachment readers and migration paths stay
 in place. All 709 Node suites, a production build and a development startup
 passed after the removal.
+
+</details>
+
+**Browser regression tests** - containers and the app share test files without
+publication races.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe35153ec76091d60d7fef298b9de1dcfe656e82">Make file and board-view browser tests deterministic</a>. Thanks to xet7.</summary>
+
+The bundled test server now keeps its writable files below the shared checkout
+and mounts that exact directory into each Playwright container. The attachment
+response-policy test therefore writes where the server reads even when Docker
+is reached across a Flatpak boundary. The Board Statistics test uses the real
+view switcher instead of racing a direct database update against the user
+publication. Both regressions pass on Chromium, Firefox and WebKit.
 
 </details>
 
