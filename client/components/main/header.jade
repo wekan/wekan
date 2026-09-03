@@ -58,10 +58,12 @@ template(name="header")
       // Mobile/desktop mode toggle (swapped with zoom)
       .mobile-mode-toggle
         a.board-header-btn.js-mobile-mode-toggle(title="{{_ 'mobile-desktop-toggle'}}" class="{{#if mobileMode}}mobile-active{{else}}desktop-active{{/if}}")
-          i.mobile-icon(class="{{#if mobileMode}}active{{/if}}")
-            i.fa.fa-mobile
-          i.desktop-icon(class="{{#unless mobileMode}}active{{/unless}}")
-            i.fa.fa-desktop
+          if mobileMode
+            i.mobile-icon
+              i.fa.fa-mobile
+          else
+            i.desktop-icon
+              i.fa.fa-desktop
 
       // Drag handles toggle - between zoom and mobile mode toggle
       a.board-header-btn.js-toggle-desktop-drag-handles(title="{{_ 'show-desktop-drag-handles'}}")

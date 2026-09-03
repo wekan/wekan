@@ -709,11 +709,8 @@ body.mobile-mode #header-quick-access .allBoards {
   font-weight: bold !important;
   transform: scale(1.1) !important;
 }
-/* Which mode is ON, at a glance. The two icons differed only by colour - black
-   for the active one, #666 for the other - which on a phone, at 14px, is no
-   difference at all: the button showed a phone and a monitor and told you
-   nothing. The current mode is now a filled chip in the theme's own accent
-   colour and the other side is faded, so the answer is the shape that is lit. */
+/* Which mode is ON, at a glance. Only the current mode's icon is rendered, in a
+   filled chip using the theme's own accent colour. */
 #header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon,
 #header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon {
   display: inline-flex !important;
@@ -726,9 +723,7 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon,
-#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon,
-#header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon.active,
-#header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon.active {
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon {
   opacity: 1 !important;
   color: #fff !important;
   /* The active theme, like the rest of the bar; the stock blue where no theme
@@ -737,9 +732,7 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 
 #header-quick-access .mobile-mode-toggle .board-header-btn.mobile-active i.mobile-icon .fa,
-#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon .fa,
-#header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon.active .fa,
-#header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon.active .fa {
+#header-quick-access .mobile-mode-toggle .board-header-btn.desktop-active i.desktop-icon .fa {
   color: #fff !important;
 }
 

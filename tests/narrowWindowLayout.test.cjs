@@ -193,19 +193,22 @@ test('the board bar: buttons after the title, hamburger in the corner', () => {
 });
 
 test('the mode toggle shows which mode is on', () => {
+  const headerJade = read('client/components/main/header.jade');
+  const toggle = headerJade.slice(headerJade.indexOf('.mobile-mode-toggle'),
+    headerJade.indexOf('// Drag handles toggle'));
+  assert.ok(/if mobileMode[\s\S]*?i\.fa\.fa-mobile[\s\S]*?else[\s\S]*?i\.fa\.fa-desktop/.test(toggle),
+    'Mobile mode renders only the phone and Desktop mode only the monitor');
   const at = headerCss.indexOf('/* Which mode is ON, at a glance.');
   assert.ok(at !== -1, 'the rules must be there');
   const block = headerCss.slice(at, at + 2000);
-  assert.ok(/i\.mobile-icon,\s*\n[^\n]*i\.desktop-icon \{[\s\S]*?opacity: 0\.35 !important;/.test(block),
-    'the side that is off is faded - black vs #666 was no difference at all');
   assert.ok(/background: var\(--theme-accent, #2980b9\) !important;/.test(block),
-    'and the side that is on is a filled chip in the active theme');
+    'the current mode is a filled chip in the active theme');
   assert.ok(/\.mobile-active i\.mobile-icon,/.test(block)
-    && /\.desktop-active i\.desktop-icon,/.test(block)
+    && /\.desktop-active i\.desktop-icon \{/.test(block)
     && /opacity: 1 !important;[\s\S]*?color: #fff !important;/.test(block),
     'the selected Mobile or Desktop icon is explicitly white');
   assert.ok(/\.mobile-active i\.mobile-icon \.fa,/.test(block)
-    && /\.desktop-active i\.desktop-icon \.fa,/.test(block)
+    && /\.desktop-active i\.desktop-icon \.fa \{/.test(block)
     && /color: #fff !important;/.test(block),
     'the inner Font Awesome glyph is also explicitly white');
 });
