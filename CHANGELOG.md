@@ -8246,9 +8246,9 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** WeKan begins the measured **Less Code** programme by consolidating
-ordinary board-theme CSS and compacting the lazy language registry without
-changing its 245 entries. These first reductions remove 1,658 maintained lines
-and add structural regression coverage.
+ordinary board-theme CSS, compacting the lazy language registry and sharing
+bounded pagination. These reductions remove 1,673 maintained lines and add
+structural regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8288,6 +8288,19 @@ import map. All 245 keys, locale tags, native names, directions and file paths
 remain unchanged, and each translation remains its own lazy split point. New
 guards reject duplicate tags and mismatches between metadata and loaders; the
 registry is 1,214 lines smaller.
+
+</details>
+
+**Pagination** - one bounded page movement rule now serves independent board
+and administration views.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb0e34786f948b068861511793b0d9d410724d50">Share bounded page movement</a>. Thanks to xet7.</summary>
+
+All Boards and the Admin Panel's reports, event streams, offices and People
+views now use one primitive for previous and next movement. It clamps deleted
+or stale pages and both ends of the result set consistently. Unit and consumer
+tests cover the boundaries, invalid movement and every migrated view.
 
 </details>
 

@@ -140,7 +140,23 @@ Acceptance criteria:
 - focused unit tests cover the shared primitive and UI tests cover consumers;
 - total maintained code is lower after including the new abstraction.
 
-Status: **not started**.
+Result:
+
+- one `adjacentPage` primitive now clamps page movement for All Boards, the
+  generic Admin Panel reports, event streams, office reports and all four
+  People paging contexts;
+- People maps the active pane to its page, total and page-size state once,
+  replacing separate previous/next branches for organizations, teams, people
+  and the login-location drill-down;
+- focused tests cover ordinary movement, both boundaries, normalized direction
+  and invalid movement; the existing consumer suites passed with 96 assertions
+  (`tablePage` 55, `allBoardsPage` 27, subscription lifetime 3 and grouped
+  offices 11);
+- the 982-file maintained-source measurement decreased from 191,284 to 191,279
+  lines. The small five-line net reduction includes the new shared primitive;
+  tests are excluded from that measurement and grew to pin its behaviour.
+
+Status: **completed** in commit `eb0e34786`.
 
 ## Phase 4: authorization policies
 
@@ -192,10 +208,10 @@ Status: **not started**.
 
 | Phase | Before | After | Tests | Result |
 | --- | ---: | ---: | --- | --- |
-| Baseline | 192,952 lines | 191,294 lines | Not applicable | 1,658 fewer maintained lines |
+| Baseline | 192,952 lines | 191,279 lines | Not applicable | 1,673 fewer maintained lines |
 | 1. Board themes | 6,339 lines / 196,012 bytes | 5,895 lines / 178,134 bytes | 110 assertions passed; browser unavailable | Completed (`cd1039230`) |
 | 2. Language metadata | 1,724 lines / 34,873 bytes | 510 lines / 24,362 bytes | Registry parity and 31 assertions passed | Completed (`a3bc8155d`) |
-| 3. UI mechanics | Pending inventory | Pending | Pending | Not started |
+| 3. UI mechanics | 191,284 maintained lines | 191,279 maintained lines | Primitive and 96 consumer assertions passed | Completed (`eb0e34786`) |
 | 4. Authorization | Pending inventory | Pending | Pending | Not started |
 | 5. Importers | Pending inventory | Pending | Pending | Not started |
 | 6. Removal | Pending inventory | Pending | Pending | Not started |
