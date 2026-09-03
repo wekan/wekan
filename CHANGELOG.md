@@ -8341,6 +8341,17 @@ passed after the removal.
 
 </details>
 
+and updates the following documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3cbdcc28a">Document the completed Less Code programme</a>. Thanks to xet7.</summary>
+
+The Less Code design document now records the plan, implementation, measurements
+and verification results for all six completed phases. It also explains why a
+wholesale Jade-to-Svelte rewrite is not itself a code-reduction strategy.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.47 2026-09-03 WeKan ® release
