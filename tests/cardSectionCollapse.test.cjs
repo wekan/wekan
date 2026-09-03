@@ -210,8 +210,11 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
     /layoutOnePerRow\}\}list-active\{\{else\}\}grid-active/,
     'the control keeps the saved layout state');
   assert.match(css,
-    /\.custom-fields-layout-toggle \.grid-icon \.fa,[\s\S]*?\.custom-fields-layout-toggle \.list-icon \.fa \{[\s\S]*?color: #000/,
-    'the current table or list icon is black');
+    /\.card-details \.custom-fields-layout-toggle \{[\s\S]*?color: #808080/,
+    'the current table or list icon uses the menu button grey');
+  assert.match(css,
+    /\.custom-fields-layout-toggle \.grid-icon \.fa,[\s\S]*?\.custom-fields-layout-toggle \.list-icon \.fa \{[\s\S]*?color: inherit/,
+    'the icon inherits the toggle colour');
   assert.doesNotMatch(css,
     /\.custom-fields-layout-toggle \.grid-icon\.active,[\s\S]*?background: var\(--theme-accent/,
     'the icon has no blue active background');

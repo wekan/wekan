@@ -1305,7 +1305,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
   background: transparent;
   border: 0;
   border-radius: 4px;
-  color: #4d4d4d;
+  color: #808080;
   cursor: pointer;
   display: inline-flex;
   gap: 2px;
@@ -1328,5 +1328,8 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 }
 .card-details .custom-fields-layout-toggle .grid-icon .fa,
 .card-details .custom-fields-layout-toggle .list-icon .fa {
+  color: inherit;
+}
+.card-details .custom-fields-layout-toggle:hover {
   color: #000;
 }
