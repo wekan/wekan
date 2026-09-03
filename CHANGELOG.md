@@ -8264,8 +8264,7 @@ structural regression coverage.
 
 This release improves the following developer tooling:
 
-**Board themes** - ordinary solid-colour themes share their structure, reducing
-the CSS that must stay synchronized while preserving special designs.
+**Board themes** - solid themes share structure while special designs stay explicit.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd10392306c014f8a3a6ecd6ac34fd55c6ed456b">Share ordinary board-theme CSS</a>. Thanks to xet7.</summary>
@@ -8278,8 +8277,7 @@ stylesheet is 444 lines and 17,878 bytes smaller.
 
 </details>
 
-**Language loading** - compact metadata keeps the large language catalogue
-maintainable while every translation remains an on-demand bundle.
+**Language loading** - compact metadata preserves every lazy language bundle.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a3bc8155d27728f470a39765dd1eb65d666c3588">Compact the lazy language registry</a>. Thanks to xet7.</summary>
@@ -8292,8 +8290,7 @@ registry is 1,214 lines smaller.
 
 </details>
 
-**Pagination** - one bounded page movement rule now serves independent board
-and administration views.
+**Pagination** - one bounded movement rule serves board and administration views.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb0e34786f948b068861511793b0d9d410724d50">Share bounded page movement</a>. Thanks to xet7.</summary>
@@ -8305,8 +8302,7 @@ tests cover the boundaries, invalid movement and every migrated view.
 
 </details>
 
-**Board authorization** - DDP, HTTP and Meteor methods now make board-read
-decisions through one transport-neutral policy.
+**Board authorization** - DDP, HTTP and methods share one board-read policy.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8c867b3383fd21eabdbd258a36e52365c013756">Share board read authorization</a>. Thanks to xet7.</summary>
@@ -8319,8 +8315,7 @@ as the HTTP routes do, and the maintained source is 31 lines smaller.
 
 </details>
 
-**Board imports** - source adapters retain their differences while sharing
-ordered persistence and ID-map mechanics.
+**Board imports** - source adapters share ordered persistence and ID mapping.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b7115335228ecb68422833500b74b15f5574beb">Share the board import pipeline</a>. Thanks to xet7.</summary>

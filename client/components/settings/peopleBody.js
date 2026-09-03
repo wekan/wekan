@@ -73,6 +73,31 @@ let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg
 let selectedUserChkBoxUserIds = [];
 let activePeopleTemplate = null;
 
+// Paging state for the active People subpage, including the location drill-down.
+function activePeoplePager(tpl) {
+  if (tpl.loginLocationReport.get()) {
+    const report = tpl.loginLocationReport.get();
+    const country = report.countries.find(
+      item => item.country === tpl.loginLocationCountry.get());
+    return {
+      page: tpl.loginLocationPage,
+      total: (country && country.rows.length) || 0,
+      perPage: TABLE_PAGE_ROWS_PER_PAGE,
+    };
+  }
+  return {
+    'org-setting': { page: tpl.orgPage, total: tpl.numberOrgs.get(), perPage: orgsPerPage },
+    'team-setting': { page: tpl.teamPage, total: tpl.numberTeams.get(), perPage: teamsPerPage },
+    'people-setting': { page: tpl.peoplePage, total: tpl.numberPeople.get(), perPage: usersPerPage },
+  }[tpl.activeMenuId.get()];
+}
+
+function moveActivePeoplePage(tpl, direction) {
+  const pager = activePeoplePager(tpl);
+  if (!pager) return;
+  pager.page.set(adjacentPage(pager.total, pager.page.get(), direction, pager.perPage));
+}
+
 Template.people.onCreated(function () {
   activePeopleTemplate = this;
   this.infiniteScrolling = new InfiniteScrolling();
@@ -907,31 +932,6 @@ Template.teamGeneral.events({
     });
   },
 });
-
-// Paging state for the active People subpage, including the location drill-down.
-function activePeoplePager(tpl) {
-  if (tpl.loginLocationReport.get()) {
-    const report = tpl.loginLocationReport.get();
-    const country = report.countries.find(
-      item => item.country === tpl.loginLocationCountry.get());
-    return {
-      page: tpl.loginLocationPage,
-      total: (country && country.rows.length) || 0,
-      perPage: TABLE_PAGE_ROWS_PER_PAGE,
-    };
-  }
-  return {
-    'org-setting': { page: tpl.orgPage, total: tpl.numberOrgs.get(), perPage: orgsPerPage },
-    'team-setting': { page: tpl.teamPage, total: tpl.numberTeams.get(), perPage: teamsPerPage },
-    'people-setting': { page: tpl.peoplePage, total: tpl.numberPeople.get(), perPage: usersPerPage },
-  }[tpl.activeMenuId.get()];
-}
-
-function moveActivePeoplePage(tpl, direction) {
-  const pager = activePeoplePager(tpl);
-  if (!pager) return;
-  pager.page.set(adjacentPage(pager.total, pager.page.get(), direction, pager.perPage));
-}
 
 Template.people.events({
   'scroll .main-body'(event, tpl) {
