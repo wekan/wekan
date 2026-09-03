@@ -204,14 +204,17 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
     /event\.target\.closest\('#toggleCustomFieldsGridButton'\)\) return/,
     'the header refuses to collapse when its layout selector was clicked');
   assert.match(jade,
-    /button\.custom-fields-layout-toggle#toggleCustomFieldsGridButton[\s\S]*?fa-th-large[\s\S]*?fa-list/,
-    'the control uses the paired Grid / List icon pattern');
+    /button\.custom-fields-layout-toggle#toggleCustomFieldsGridButton[\s\S]*?if layoutOnePerRow[\s\S]*?list-icon[\s\S]*?fa-list[\s\S]*?else[\s\S]*?grid-icon[\s\S]*?fa-th-large/,
+    'list mode renders only the list icon and table mode only the table icon');
   assert.match(jade,
-    /layoutOnePerRow\}\}list-active\{\{else\}\}grid-active[\s\S]*?grid-icon[\s\S]*?unless layoutOnePerRow[\s\S]*?list-icon[\s\S]*?if layoutOnePerRow/,
-    'the icon matching the saved layout is active');
+    /layoutOnePerRow\}\}list-active\{\{else\}\}grid-active/,
+    'the control keeps the saved layout state');
   assert.match(css,
-    /\.custom-fields-layout-toggle \.grid-icon\.active,[\s\S]*?\.custom-fields-layout-toggle \.list-icon\.active \{[\s\S]*?background: var\(--theme-accent, #2980b9\)[\s\S]*?opacity: 1/,
-    'the active icon is a filled theme-colored chip');
+    /\.custom-fields-layout-toggle \.grid-icon \.fa,[\s\S]*?\.custom-fields-layout-toggle \.list-icon \.fa \{[\s\S]*?color: #000/,
+    'the current table or list icon is black');
+  assert.doesNotMatch(css,
+    /\.custom-fields-layout-toggle \.grid-icon\.active,[\s\S]*?background: var\(--theme-accent/,
+    'the icon has no blue active background');
   assert.match(css,
     /\.card-details \.custom-fields-layout-toggle \{[\s\S]*?background: transparent;[\s\S]*?border: 0;/,
     'the layout toggle has no white background or dark border');

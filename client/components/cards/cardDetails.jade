@@ -832,10 +832,12 @@ template(name="cardSectionHeader")
           type="button"
           title="{{_ 'change'}} {{_ 'custom-fields'}} {{_ 'layout'}}"
           class="{{#if layoutOnePerRow}}list-active{{else}}grid-active{{/if}}")
-          span.grid-icon(class="{{#unless layoutOnePerRow}}active{{/unless}}")
-            i.fa.fa-th-large
-          span.list-icon(class="{{#if layoutOnePerRow}}active{{/if}}")
-            i.fa.fa-list
+          if layoutOnePerRow
+            span.list-icon
+              i.fa.fa-list
+          else
+            span.grid-icon
+              i.fa.fa-th-large
     //- A section whose settings live somewhere gets a hamburger at the far end
       of its heading, like the card's own and the minicard's. `menuClass` is the
       handler that opens them; the click must not reach the heading, or opening
