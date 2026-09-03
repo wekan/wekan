@@ -32,16 +32,14 @@ test.describe('Admin – newest features', () => {
     // could never match them, so fail here with a clear message instead of "no table".
     expect(cardId, 'seed: findCardIdByTitle must return the seeded card id').toBeTruthy();
     const meta = { boardId: board.boardId, cardId };
-    const attachmentIds = ['e2e-att-normal', 'e2e-att-encoded', 'e2e-att-invisible', 'e2e-att-homoglyph', 'e2e-att-exploit'];
-    // Idempotent seed: clear any leftovers from a previous run (or another browser
-    // project sharing this DB) so insertMany never hits an E11000 duplicate _id.
-    await db.deleteMany('attachments', { _id: { $in: attachmentIds } });
+    const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const marker = `files-${runId}`;
     await db.insertMany('attachments', [
-      { _id: 'e2e-att-normal', name: 'normal-file.png', size: 10, type: 'image/png', meta },
-      { _id: 'e2e-att-encoded', name: '%D0%93%D1%80.png', size: 20, type: 'image/png', meta }, // -> "Гр.png"
-      { _id: 'e2e-att-invisible', name: 'evil' + ZW + '.png', size: 30, type: 'image/png', meta },
-      { _id: 'e2e-att-homoglyph', name: 'pаypal.png', size: 40, type: 'image/png', meta }, // Cyrillic a
-      { _id: 'e2e-att-exploit', name: '<script>x</script>note.png', size: 50, type: 'image/png', meta },
+      { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta },
+      { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta }, // -> "Гp.png" after confusable folding
+      { _id: `${runId}-invisible`, name: `${marker}-evil${ZW}.png`, size: 30, type: 'image/png', meta },
+      { _id: `${runId}-homoglyph`, name: `${marker}-pаypal.png`, size: 40, type: 'image/png', meta }, // Cyrillic a
+      { _id: `${runId}-exploit`, name: `${marker}-<script>x</script>note.png`, size: 50, type: 'image/png', meta },
     ]);
 
     await loginWithToken(page, adminUser.id, adminUser.token);
@@ -71,6 +69,13 @@ test.describe('Admin – newest features', () => {
     // The report renders our attachments.
     const table = page.locator('table').first();
     await expect(table).toBeVisible({ timeout: 15_000 });
+
+    // Other browser projects share this database and global admins can see
+    // their rows. Restrict the report to this run before asserting all five
+    // names, so pagination cannot move the last seeded row to another page.
+    const search = page.locator('input.js-table-page-search');
+    await search.fill(marker);
+    await search.press('Enter');
 
     // WHICH half is missing, when the table draws its headers and then "No results".
     //
@@ -108,7 +113,7 @@ test.describe('Admin – newest features', () => {
 
     // URL-encoded name is DECODED for display (and the raw %-encoding is gone).
     await expect(
-      table.getByText('Гр.png'),
+      table.getByText(`${marker}-Гp.png`),
       `the Files report drew no usable row. ${diag}. ` +
       'Rows but no index = publishReportPage did not send one; index but no rows = ' +
       "this.added went to a collection the client does not have; neither = the " +
@@ -118,16 +123,16 @@ test.describe('Admin – newest features', () => {
 
     // Invisible character is REMOVED — the clean "evil.png" is shown, and the old
     // red warning / inline description elements no longer exist.
-    await expect(table.getByText('evil.png', { exact: false })).toBeVisible();
+    await expect(table.getByText(`${marker}-evil.png`, { exact: false })).toBeVisible();
     await expect(page.locator('.filename-invisible-warning')).toHaveCount(0);
     await expect(page.locator('.invisible-char-desc')).toHaveCount(0);
     await expect(page.locator('.js-files-invisible-filter')).toHaveCount(0);
     await expect(page.locator('.admin-report-legend')).toHaveCount(0);
 
     // Confusable homoglyph is folded to plain Latin ("paypal.png").
-    await expect(table.getByText('paypal.png', { exact: false })).toBeVisible();
-    // Exploit markup is stripped from the shown name.
-    await expect(table.getByText('note.png', { exact: false })).toBeVisible();
+    await expect(table.getByText(`${marker}-paypal.png`, { exact: false })).toBeVisible();
+    // Exploit markup is stripped while its harmless text content remains.
+    await expect(table.getByText(`${marker}-xnote.png`, { exact: false })).toBeVisible();
     await expect(table.getByText('<script>')).toHaveCount(0);
 
     // NO Search button; the search field + pagination controls ARE present. Every

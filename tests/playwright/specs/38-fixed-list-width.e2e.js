@@ -64,6 +64,16 @@ async function renderedListWidths(page, listIds) {
   return widths;
 }
 
+async function waitForRenderedListWidth(page, listIds, expected) {
+  await expect.poll(async () => {
+    const widths = await renderedListWidths(page, listIds);
+    return widths.some(width => width === null)
+      ? Number.POSITIVE_INFINITY
+      : Math.max(...widths.map(width => Math.abs(width - expected)));
+  }, { timeout: 15_000 }).toBeLessThanOrEqual(2);
+  return renderedListWidths(page, listIds);
+}
+
 function profileFixed(userId) {
   const u = db.findOne(
     'users',
@@ -101,7 +111,7 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
 
     // Reload so the reactive profile + render pick up the new value.
     await openBoard(page, board.boardId, board.slug);
-    const widthsA = await renderedListWidths(page, board.listIds);
+    const widthsA = await waitForRenderedListWidth(page, board.listIds, FIXED_A);
     expect(widthsA.every(w => w !== null), 'all lists must render').toBe(true);
     // POSITIVE: every list renders at the single fixed width.
     for (const w of widthsA) {
@@ -116,7 +126,7 @@ test.describe('Fixed (same) width for all lists (#5729)', () => {
     expect(setB.err, 'changing the fixed width must succeed').toBeNull();
 
     await openBoard(page, board.boardId, board.slug);
-    const widthsB = await renderedListWidths(page, board.listIds);
+    const widthsB = await waitForRenderedListWidth(page, board.listIds, FIXED_B);
     for (const w of widthsB) {
       expect(Math.abs(w - FIXED_B)).toBeLessThanOrEqual(2);
     }
