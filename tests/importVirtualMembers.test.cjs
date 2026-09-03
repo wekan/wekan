@@ -39,7 +39,9 @@ test('#6506: import shows the map-members step and builds the mapping from it', 
 test('#6506: unmapped Trello members become virtual users (both JSON and API import)', () => {
   const tc = read('models/trelloCreator.js');
   assert.ok(/async createPlaceholderUsers\(board\)/.test(tc), 'trelloCreator creates placeholder users');
-  assert.ok(/await this\.createPlaceholderUsers\(board\)/.test(tc), 'create() runs it before building the board');
+  assert.ok(tc.indexOf("{ method: 'createPlaceholderUsers' }") <
+    tc.indexOf("{ method: 'createBoardAndLabels', createsBoard: true }"),
+  'the pipeline runs it before building the board');
   // Unmapped members map to an existing user by username, else a virtual placeholder.
   assert.ok(/if \(this\.members\[member\.id\]\) continue;/.test(tc), 'already-mapped members are kept');
   assert.ok(/ReactiveCache\.getUser\(\{ username: member\.username \}\)/.test(tc), 'auto-maps by username');
