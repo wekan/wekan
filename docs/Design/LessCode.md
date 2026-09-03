@@ -108,7 +108,23 @@ Acceptance criteria:
 - translation, key-order, placeholder and language-picker tests pass;
 - the authoritative metadata is shorter and has a duplicate-tag check.
 
-Status: **not started**.
+Result:
+
+- the 245 language records now use one compact metadata row each;
+- a separate loader map retains one literal dynamic `import()` per language,
+  preserving Meteor's per-language split points;
+- a runtime parity comparison against the previous module confirmed identical
+  keys, codes, tags, native names, RTL flags and loader paths for all 245
+  entries;
+- `languages.js` decreased from 1,724 lines / 34,873 bytes to 510 lines /
+  24,362 bytes;
+- guards now reject duplicate metadata keys, duplicate language tags, duplicate
+  loader keys, missing loaders, eager imports and files not claimed by the
+  registry;
+- `i18nLazyLoading`, `i18nLazyLoaded`, `newLanguageWiring`, `rtl` and
+  `changeLanguageColumns` passed: 31 assertions in total.
+
+Status: **completed** in commit `a3bc8155d`.
 
 ## Phase 3: repeated UI mechanics
 
@@ -176,9 +192,9 @@ Status: **not started**.
 
 | Phase | Before | After | Tests | Result |
 | --- | ---: | ---: | --- | --- |
-| Baseline | 192,952 lines | 192,508 lines | Not applicable | 444 fewer maintained lines |
+| Baseline | 192,952 lines | 191,294 lines | Not applicable | 1,658 fewer maintained lines |
 | 1. Board themes | 6,339 lines / 196,012 bytes | 5,895 lines / 178,134 bytes | 110 assertions passed; browser unavailable | Completed (`cd1039230`) |
-| 2. Language metadata | 1,724 JS lines | Pending | Pending | Not started |
+| 2. Language metadata | 1,724 lines / 34,873 bytes | 510 lines / 24,362 bytes | Registry parity and 31 assertions passed | Completed (`a3bc8155d`) |
 | 3. UI mechanics | Pending inventory | Pending | Pending | Not started |
 | 4. Authorization | Pending inventory | Pending | Pending | Not started |
 | 5. Importers | Pending inventory | Pending | Pending | Not started |

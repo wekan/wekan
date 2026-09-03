@@ -8246,9 +8246,9 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** WeKan begins the measured **Less Code** programme by consolidating
-ordinary board-theme CSS while preserving each palette and exceptional theme.
-The first reduction removes 444 maintained lines and adds structural regression
-coverage for future themes.
+ordinary board-theme CSS and compacting the lazy language registry without
+changing its 245 entries. These first reductions remove 1,658 maintained lines
+and add structural regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8274,6 +8274,20 @@ and use one structural rule set. Gradient, image, Relax, Dark, Apple Glass
 Pastel, Modern and Clean themes remain explicit where their behaviour differs.
 Regression tests verify every palette role and every themed surface; the source
 stylesheet is 444 lines and 17,878 bytes smaller.
+
+</details>
+
+**Language loading** - compact metadata keeps the large language catalogue
+maintainable while every translation remains an on-demand bundle.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a3bc8155d27728f470a39765dd1eb65d666c3588">Compact the lazy language registry</a>. Thanks to xet7.</summary>
+
+The registry now separates one-line language metadata from its literal dynamic
+import map. All 245 keys, locale tags, native names, directions and file paths
+remain unchanged, and each translation remains its own lazy split point. New
+guards reject duplicate tags and mismatches between metadata and loaders; the
+registry is 1,214 lines smaller.
 
 </details>
 
