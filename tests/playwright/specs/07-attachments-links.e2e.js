@@ -74,11 +74,11 @@ test.describe('Attachments & links', () => {
     board,
   }) => {
     const attachmentId = `responsepolicy${Date.now()}`;
-    const storedPath = path.join(
-      __dirname,
-      '..', '..', '..', '.build', 'bundle', 'files', 'attachments',
-      attachmentId,
-    );
+    // build.sh mounts the running server's files directory at /wekan-files in
+    // the browser container. A direct local run keeps the bundle fallback.
+    const filesPath = process.env.WEKAN_FILES_PATH || path.join(
+      __dirname, '..', '..', '..', '.build', 'bundle', 'files');
+    const storedPath = path.join(filesPath, 'attachments', attachmentId);
     const storedBytes = Buffer.from('legacy attachment bytes');
 
     // Meteor-Files evaluates its own `protected` callback before invoking the

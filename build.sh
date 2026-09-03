@@ -539,6 +539,7 @@ function run_playwright_docker(){
 	local browser="$1"; shift
 	local reporoot="$WEKAN_DIR"
 	local pwdir="$reporoot/tests/playwright"
+	local filesroot="${WEKAN_FILES_PATH_HOST:-$reporoot/.build/bundle/files}"
 	if ! docker_available; then
 		echo "ERROR: Docker is required to run $browser in the Playwright container, but 'docker' was not found."
 		echo "       Install Docker, or run this browser natively (set WEKAN_PLAYWRIGHT_DOCKER=0)."
@@ -552,6 +553,7 @@ function run_playwright_docker(){
 	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 	[ -z "$pwver" ] && pwver="1.60.0"
 	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
+	mkdir -p "$filesroot"
 	echo "Running Playwright $browser in Docker ($image)."
 	echo "Expecting WeKan at ${WEKAN_BASE_URL:-http://127.0.0.1:3000} (container uses --network host)."
 	# Mount the whole repo so specs that reach the repo-root node_modules
@@ -571,7 +573,9 @@ function run_playwright_docker(){
 		-e WEKAN_PLAYWRIGHT_WORKERS="${WEKAN_PLAYWRIGHT_WORKERS:-1}" \
 		-e WEKAN_PLAYWRIGHT_PROBE=0 \
 		-e PLAYWRIGHT_HTML_OPEN=never \
+		-e WEKAN_FILES_PATH=/wekan-files \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
+		-v "$filesroot":/wekan-files \
 		-v "$reporoot":/repo -w /repo/tests/playwright \
 		"$image" \
 		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project="$0" "$@"' "$browser" "$@"
@@ -1310,7 +1314,13 @@ function run_all_tests(){
 	# Start the precompiled bundle as the :3000 server. Use an ABSOLUTE WRITABLE_PATH
 	# (the bundle's main.js may chdir into programs/server, which would break a
 	# relative "..").
-	local WRITABLE_ABS; WRITABLE_ABS="$(cd .. 2>/dev/null && pwd)"
+	# Keep browser-test files below the repository: a Docker daemon reached via
+	# Flatpak sees this shared checkout, but its view of the repository's parent
+	# directory is not necessarily the sandbox's view. Both the bundle server and
+	# browser containers therefore use this ignored, run-local storage root.
+	local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"
+	mkdir -p "$WRITABLE_ABS/files"
+	export WEKAN_FILES_PATH_HOST="$WRITABLE_ABS/files"
 	echo "==> Starting the WeKan test server on http://localhost:3000 from $BUNDLE_DIR (precompiled — no rebuild)."
 	echo "    Live server log follows (scrolling) until :3000 answers:"
 	echo "    -------------------------------------------------------------------"

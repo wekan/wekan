@@ -211,15 +211,13 @@ test.describe('Admin – newest features', () => {
 
   test('Board Statistics view renders full-width with board counts and selectable text', async ({ page, adminUser }) => {
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Stats Board', cardTitlesPerList: [['S1'], ['S2']] });
-    // Pre-seed the per-user board view so the board renders the Statistics view on
-    // its first (single) load. The switcher path calls Utils.setBoardView, which
-    // does a full window.location.reload() — reloading the whole board cold mid-test
-    // races the 15s assertion (the board-canvas can still be empty when it fires).
-    // Pre-seeding avoids that reload and tests what actually matters here: that
-    // statsView renders (with server-resolved counts) when it is the user's view.
-    db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.boardView': 'board-view-stats' } });
     await loginWithToken(page, adminUser.id, adminUser.token);
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}`);
+
+    // Use the real view switcher. It updates local reactive state immediately,
+    // so this avoids racing a direct database change against the user publication.
+    await page.locator('.js-toggle-board-view').click();
+    await page.locator('.js-open-stats-view').click();
 
     const stats = page.locator('.stats-view');
     await expect(stats).toBeVisible({ timeout: 15_000 });
