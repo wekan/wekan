@@ -715,6 +715,12 @@ test('the Mobile / Desktop toggle has no white shell or black border', () => {
     'its outer border is removed');
 });
 
+test('the Add Board button area sits four pixels higher', () => {
+  const css = read('client/components/main/header.css');
+  assert.ok(/#header-quick-access #header-new-board-icon \{[^}]*flex-grow:\s*1;[^}]*margin:\s*2px 5px 0/.test(css),
+    'its former 6px top margin is reduced by four pixels');
+});
+
 test('and a view menu says its view in words, not only in a tooltip', () => {
   // These were icon-only, named by a tooltip. Six view icons are six glyphs to
   // learn, and a tooltip is the one place a name cannot be read without

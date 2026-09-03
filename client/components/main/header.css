@@ -741,7 +741,8 @@ body.mobile-mode #header-quick-access .allBoards {
 }
 #header-quick-access #header-new-board-icon {
   flex-grow: 1;
-  margin: 6px 5px 0;
+  /* Lift the whole clickable Add Board area, not only its plus glyph. */
+  margin: 2px 5px 0;
   width: 12px;
 }
 @media screen and (max-width: 800px),
