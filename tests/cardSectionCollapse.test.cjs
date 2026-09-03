@@ -212,6 +212,9 @@ test('the Custom Fields layout toggle switches grid and one-per-row classes', ()
   assert.match(css,
     /\.custom-fields-layout-toggle \.grid-icon\.active,[\s\S]*?\.custom-fields-layout-toggle \.list-icon\.active \{[\s\S]*?background: var\(--theme-accent, #2980b9\)[\s\S]*?opacity: 1/,
     'the active icon is a filled theme-colored chip');
+  assert.match(css,
+    /\.card-details \.custom-fields-layout-toggle \{[\s\S]*?background: transparent;[\s\S]*?border: 0;/,
+    'the layout toggle has no white background or dark border');
 });
 
 test('the group caret sits ON the first field\'s title, not on a line of its own', () => {

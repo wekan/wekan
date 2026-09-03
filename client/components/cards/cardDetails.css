@@ -1303,8 +1303,8 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    both choices remain visible and the active layout is the filled chip. */
 .card-details .custom-fields-layout-toggle {
   align-items: center;
-  background: #fff;
-  border: 1px solid #999;
+  background: transparent;
+  border: 0;
   border-radius: 4px;
   color: #4d4d4d;
   cursor: pointer;
