@@ -730,6 +730,7 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .mobile-mode-toggle .board-header-btn i.mobile-icon.active,
 #header-quick-access .mobile-mode-toggle .board-header-btn i.desktop-icon.active {
   opacity: 1 !important;
+  color: #fff !important;
   /* The active theme, like the rest of the bar; the stock blue where no theme
      has published an accent. */
   background: var(--theme-accent, #2980b9) !important;

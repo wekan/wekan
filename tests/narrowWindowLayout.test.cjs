@@ -200,9 +200,14 @@ test('the mode toggle shows which mode is on', () => {
     'the side that is off is faded - black vs #666 was no difference at all');
   assert.ok(/background: var\(--theme-accent, #2980b9\) !important;/.test(block),
     'and the side that is on is a filled chip in the active theme');
+  assert.ok(/\.mobile-active i\.mobile-icon,/.test(block)
+    && /\.desktop-active i\.desktop-icon,/.test(block)
+    && /opacity: 1 !important;[\s\S]*?color: #fff !important;/.test(block),
+    'the selected Mobile or Desktop icon is explicitly white');
   assert.ok(/\.mobile-active i\.mobile-icon \.fa,/.test(block)
+    && /\.desktop-active i\.desktop-icon \.fa,/.test(block)
     && /color: #fff !important;/.test(block),
-    'the glyph inside that chip is white - it is the INNER i.fa that draws it');
+    'the inner Font Awesome glyph is also explicitly white');
 });
 
 test('the drag-handle toggle is not a board button in disguise', () => {
