@@ -228,22 +228,13 @@ test('hovering an icon darkens it, instead of fading it away', () => {
     'including the house, whose icon sits inside a link with a colour of its own');
 });
 
-test('the starred group keeps its outline on it', () => {
-  // Caret, count and star are held together by a white outline, which on
-  // #F1F1F3 left the three sitting loose. The phone/desktop toggle beside it
-  // draws its own outline in #000 and so was right already - this is the same
-  // outline, in the same ink as the rest of this theme.
+test('the starred group stays borderless on Clean Light', () => {
   const header = read('client/components/main/header.css');
   const group = header.indexOf('#header-quick-access .header-star-group {');
-  assert.ok(/border: 1px solid rgba\(255, 255, 255, 0\.7\)/.test(
-    header.slice(group, header.indexOf('}', group))), 'it is white by default');
-  assert.ok(/#header-quick-access \.mobile-mode-toggle \.board-header-btn \{[^}]*border: 1px solid #000/.test(header),
-    'and the toggle beside it is not, which is the look to match');
-
-  const at = colors.indexOf('.board-color-cleanlight#header-quick-access .header-star-group {');
-  assert.ok(at > 0, 'Clean Light recolours it');
-  assert.ok(/border-color: rgba\(10, 10, 20, 0\.7\)/.test(colors.slice(at, colors.indexOf('}', at))),
-    'to the same 0.7, in ink');
+  assert.ok(/border: 0/.test(header.slice(group, header.indexOf('}', group))),
+    'it has no white border by default');
+  assert.ok(!colors.includes('.board-color-cleanlight#header-quick-access .header-star-group'),
+    'Clean Light does not restore a dark border');
 });
 
 test('a divider keeps a divider\'s weight, not the text\'s (negative)', () => {

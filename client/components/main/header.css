@@ -1814,27 +1814,18 @@ body.mobile-mode #header-quick-access .allBoards {
   }
 }
 
-/* The star group: the starred-boards dropdown and this board's own star, drawn
-   as one thing. They are about the same thing - how many boards you have
-   starred, and whether this one is among them - and without an outline they
-   read as two unrelated icons that happen to be adjacent, which is exactly how
-   the two stars that used to be here read.
-
-   Shaped like the phone/desktop toggle beside it, but WHITE where that one is
-   black: the toggle is a white box sitting on the bar, so a dark border shows
-   against it; these buttons sit on the bar's own colour, so theirs has to be
-   light against that. */
+/* The star group: the starred-boards dropdown and this board's own star, kept
+   adjacent because they describe how many items are starred and whether this
+   one is among them. */
 #header-quick-access .header-star-group {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 0;
   border-radius: 4px;
-  /* The buttons inside keep their own padding; the group adds none, so it hugs
-     them the way the toggle's border hugs its two halves. */
   margin: 0 4px;
 }
 
-/* Their own margins would push them off the outline they now sit inside. */
+/* Their own margins would separate the two related controls. */
 #header-quick-access .header-star-group .board-header-btn {
   margin: 0;
 }
@@ -1883,5 +1874,4 @@ body.mobile-mode #header-quick-access .allBoards {
 #header-quick-access .board-header-btn-label {
   white-space: nowrap;
 }
-
 

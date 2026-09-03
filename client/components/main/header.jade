@@ -92,15 +92,8 @@ template(name="header")
 
           On a phone the popup is full width, which body.mobile-mode does for
           every pop-over; nothing here has to ask for it.
-        //- One GROUP, drawn with a rounded outline of its own, the way the
-          phone/desktop toggle beside it is: the two buttons are about the same
-          thing - how many boards you have starred, and whether this one is
-          among them - and without the outline they read as two unrelated icons
-          that happen to sit next to each other.
-
-          White, where the toggle's is black: the toggle is a white box on the
-          bar, so its border is dark against it; these buttons sit on the bar's
-          own colour, so theirs has to be light against that.
+        //- One GROUP: the two adjacent buttons are about the same thing - how
+          many items you have starred, and whether this one is among them.
         .header-star-group
           a.board-header-btn.js-open-starred-boards(title="{{_ 'allboards.starred'}}")
             i.fa.fa-caret-down

@@ -4065,16 +4065,6 @@ THEME - Clean Light
 .board-color-cleanlight#header-quick-access .separator {
   background: rgba(10, 10, 20, 0.3);
 }
-/* The outline around the starred group - the caret, the count and the star -
-   is `1px solid rgba(255, 255, 255, 0.7)`, so on this bar the three sat loose
-   with nothing holding them together. In ink at the same 0.7 it is the dark
-   outline the phone/desktop toggle beside it already draws for itself
-   (`border: 1px solid #000`, header.css), which is why that one looked right on
-   this theme and this one did not. */
-.board-color-cleanlight#header-quick-access .header-star-group {
-  border-color: rgba(10, 10, 20, 0.7);
-}
-
 .board-color-cleanlight#header #header-main-bar .separator {
   border-inline-start-color: rgba(10, 10, 20, 0.3);
 }

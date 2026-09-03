@@ -698,17 +698,8 @@ test('and the two star buttons are drawn as one group', () => {
   assert.notStrictEqual(ruleAt, -1, 'and is styled');
   const rule = css.slice(ruleAt, css.indexOf('}', ruleAt));
   assert.ok(/border-radius:\s*\dpx/.test(rule), 'rounded');
-  const border = /border:\s*1px solid ([^;]+);/.exec(rule);
-  assert.ok(border, 'with an outline');
-  // WHITE, where the phone/desktop toggle's is black: that toggle is a white
-  // box sitting on the bar so a dark border shows against it, while these sit
-  // on the bar's own colour and need a light one.
-  assert.ok(/rgba\(255,\s*255,\s*255/.test(border[1]),
-    `the outline must be light against the bar, not ${border[1]}`);
-  const toggleAt = css.indexOf('#header-quick-access .mobile-mode-toggle .board-header-btn {');
-  assert.ok(/border:\s*1px solid #000/.test(css.slice(toggleAt, css.indexOf('}', toggleAt))),
-    'which is the opposite of the toggle it is shaped like');
-  // The buttons drop their own margins, or they sit off the outline.
+  assert.ok(/border:\s*0/.test(rule), 'without a white outline');
+  // The buttons drop their own margins so the related controls stay adjacent.
   assert.ok(css.includes('#header-quick-access .header-star-group .board-header-btn {'),
     'the buttons inside are adjusted for it');
 });
