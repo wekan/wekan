@@ -12,7 +12,7 @@ import Rules from '/models/rules';
 import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { Mongo } from 'meteor/mongo';
-import { buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
+import { adjacentPage, buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 // The flag and city an office row leads with (models/lib/geoHeaders.js).
 const { officeLabel } = require('/models/lib/geoHeaders');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
@@ -458,24 +458,24 @@ function goPrevPage(event, tmpl, reportId) {
   // reach this shared report handler. Pane changes can likewise leave a queued
   // click with an old report id. Neither case has an entry in reportConfig.
   if (!cfg) return;
-  const current = cfg.page.get();
-  if (current > 1) {
-    cfg.page.set(current - 1);
-    tmpl.loadReport(reportId);
-  }
+  movePage(cfg.page, cfg.count.get(), -1, REPORTS_PER_PAGE,
+    () => tmpl.loadReport(reportId));
 }
 
 function goNextPage(event, tmpl, reportId) {
   event.preventDefault();
   const cfg = reportConfig(tmpl)[reportId];
   if (!cfg) return;
-  const total = cfg.count.get() || 0;
-  const totalPages = Math.max(1, Math.ceil(total / REPORTS_PER_PAGE));
-  const current = cfg.page.get();
-  if (current < totalPages) {
-    cfg.page.set(current + 1);
-    tmpl.loadReport(reportId);
-  }
+  movePage(cfg.page, cfg.count.get(), 1, REPORTS_PER_PAGE,
+    () => tmpl.loadReport(reportId));
+}
+
+function movePage(page, total, direction, perPage, load) {
+  const current = page.get();
+  const next = adjacentPage(total, current, direction, perPage);
+  if (next === current) return;
+  page.set(next);
+  load();
 }
 
 // Read the report's search box, store the term, reset to page 1 and reload.
@@ -998,13 +998,12 @@ Template.eventStreamReport.events({
   'click .js-table-page-prev'(event, tmpl) {
     event.preventDefault();
     event.stopPropagation();
-    if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
+    movePage(tmpl.page, tmpl.total.get(), -1, EVENTS_PER_PAGE, tmpl.load);
   },
   'click .js-table-page-next'(event, tmpl) {
     event.preventDefault();
     event.stopPropagation();
-    const info = pageInfo(tmpl.total.get(), tmpl.page.get(), EVENTS_PER_PAGE);
-    if (info.hasNext) { tmpl.page.set(tmpl.page.get() + 1); tmpl.load(); }
+    movePage(tmpl.page, tmpl.total.get(), 1, EVENTS_PER_PAGE, tmpl.load);
   },
 });
 
@@ -1200,13 +1199,12 @@ Template.officeReport.events({
   'click .js-table-page-prev'(event, tmpl) {
     event.preventDefault();
     event.stopPropagation();
-    if (tmpl.page.get() > 1) { tmpl.page.set(tmpl.page.get() - 1); tmpl.load(); }
+    movePage(tmpl.page, tmpl.total.get(), -1, OFFICES_PER_PAGE, tmpl.load);
   },
   'click .js-table-page-next'(event, tmpl) {
     event.preventDefault();
     event.stopPropagation();
-    tmpl.page.set(tmpl.page.get() + 1);
-    tmpl.load();
+    movePage(tmpl.page, tmpl.total.get(), 1, OFFICES_PER_PAGE, tmpl.load);
   },
   'keydown .js-table-page-search'(event, tmpl) {
     if (event.keyCode === 13 && !event.shiftKey) {

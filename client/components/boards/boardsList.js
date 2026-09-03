@@ -23,6 +23,7 @@ import {
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { BoardMultiSelection } from '/client/lib/boardMultiSelection';
 import {
+  adjacentPage,
   buildHeader,
   pageInfo,
   TABLE_PAGE_ROWS_PER_PAGE,
@@ -1579,15 +1580,15 @@ Template.boardList.events({
   // #5799: board grid pagination (sorted modes only).
   'click .js-boards-prev-page'(evt, tpl) {
     evt.preventDefault();
-    const page = tpl.boardsPageVar.get();
-    if (page > 1) tpl.boardsPageVar.set(page - 1);
+    const total = tpl.pagedBoardsVar.get().total || 0;
+    tpl.boardsPageVar.set(adjacentPage(total, tpl.boardsPageVar.get(), -1,
+      BOARDS_PER_PAGE));
   },
   'click .js-boards-next-page'(evt, tpl) {
     evt.preventDefault();
     const total = tpl.pagedBoardsVar.get().total || 0;
-    const totalPages = Math.max(1, Math.ceil(total / BOARDS_PER_PAGE));
-    const page = tpl.boardsPageVar.get();
-    if (page < totalPages) tpl.boardsPageVar.set(page + 1);
+    tpl.boardsPageVar.set(adjacentPage(total, tpl.boardsPageVar.get(), 1,
+      BOARDS_PER_PAGE));
   },
   'click .js-star-board'(evt) {
     evt.preventDefault();

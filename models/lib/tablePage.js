@@ -55,6 +55,14 @@ export function pageInfo(total, page, perPage = TABLE_PAGE_ROWS_PER_PAGE) {
   };
 }
 
+// One bounded step for pagers that do not use pageInfo directly.
+export function adjacentPage(total, page, direction, perPage = TABLE_PAGE_ROWS_PER_PAGE) {
+  const info = pageInfo(total, page, perPage);
+  const step = Math.sign(Number(direction));
+  if (!Number.isFinite(step) || step === 0) return info.page;
+  return Math.min(info.totalPages, Math.max(1, info.page + step));
+}
+
 // Text for one cell. Never returns undefined/null: an absent field shows as an
 // empty cell, not as the string "undefined" (which is what several of the
 // hand-written report tables used to print).

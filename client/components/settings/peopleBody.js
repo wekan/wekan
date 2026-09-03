@@ -8,7 +8,7 @@ import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // rendering nothing. That is what left Admin Panel / People / People with no
 // table, no search box and no pager, while Organizations, Teams and Domains -
 // which use neither function - drew theirs normally.
-import { buildActions, buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from "/models/lib/tablePage";
+import { adjacentPage, buildActions, buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from "/models/lib/tablePage";
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
@@ -908,6 +908,31 @@ Template.teamGeneral.events({
   },
 });
 
+// Paging state for the active People subpage, including the location drill-down.
+function activePeoplePager(tpl) {
+  if (tpl.loginLocationReport.get()) {
+    const report = tpl.loginLocationReport.get();
+    const country = report.countries.find(
+      item => item.country === tpl.loginLocationCountry.get());
+    return {
+      page: tpl.loginLocationPage,
+      total: (country && country.rows.length) || 0,
+      perPage: TABLE_PAGE_ROWS_PER_PAGE,
+    };
+  }
+  return {
+    'org-setting': { page: tpl.orgPage, total: tpl.numberOrgs.get(), perPage: orgsPerPage },
+    'team-setting': { page: tpl.teamPage, total: tpl.numberTeams.get(), perPage: teamsPerPage },
+    'people-setting': { page: tpl.peoplePage, total: tpl.numberPeople.get(), perPage: usersPerPage },
+  }[tpl.activeMenuId.get()];
+}
+
+function moveActivePeoplePage(tpl, direction) {
+  const pager = activePeoplePager(tpl);
+  if (!pager) return;
+  pager.page.set(adjacentPage(pager.total, pager.page.get(), direction, pager.perPage));
+}
+
 Template.people.events({
   'scroll .main-body'(event, tpl) {
     // Orgs, teams and people all use explicit prev/next pagination (server-side
@@ -993,49 +1018,12 @@ Template.people.events({
   // Teams gains a working PREV in the process: it had a prev button in its old
   // markup and no handler behind it, so paging back was silently dead.
   'click .js-table-page-prev'(event, tpl) {
-    if (tpl.loginLocationReport.get()) {
-      event.preventDefault();
-      if (tpl.loginLocationPage.get() > 1) {
-        tpl.loginLocationPage.set(tpl.loginLocationPage.get() - 1);
-      }
-      return;
-    }
-    const pane = tpl.activeMenuId.get();
     event.preventDefault();
-    if (pane === 'org-setting' && tpl.orgPage.get() > 1) {
-      tpl.orgPage.set(tpl.orgPage.get() - 1);
-    } else if (pane === 'team-setting' && tpl.teamPage.get() > 1) {
-      tpl.teamPage.set(tpl.teamPage.get() - 1);
-    } else if (pane === 'people-setting' && tpl.peoplePage.get() > 1) {
-      tpl.peoplePage.set(tpl.peoplePage.get() - 1);
-    }
+    moveActivePeoplePage(tpl, -1);
   },
   'click .js-table-page-next'(event, tpl) {
-    if (tpl.loginLocationReport.get()) {
-      event.preventDefault();
-      const report = tpl.loginLocationReport.get();
-      const country = report.countries.find(
-        item => item.country === tpl.loginLocationCountry.get());
-      const totalPages = Math.max(1, Math.ceil(
-        ((country && country.rows.length) || 0) / TABLE_PAGE_ROWS_PER_PAGE));
-      if (tpl.loginLocationPage.get() < totalPages) {
-        tpl.loginLocationPage.set(tpl.loginLocationPage.get() + 1);
-      }
-      return;
-    }
-    const pane = tpl.activeMenuId.get();
     event.preventDefault();
-    const pages = (total, per) => Math.max(1, Math.ceil((total || 0) / per));
-    if (pane === 'org-setting') {
-      const totalPages = pages(tpl.numberOrgs.get(), orgsPerPage);
-      if (tpl.orgPage.get() < totalPages) tpl.orgPage.set(tpl.orgPage.get() + 1);
-    } else if (pane === 'team-setting') {
-      const totalPages = pages(tpl.numberTeams.get(), teamsPerPage);
-      if (tpl.teamPage.get() < totalPages) tpl.teamPage.set(tpl.teamPage.get() + 1);
-    } else if (pane === 'people-setting') {
-      const totalPages = pages(tpl.numberPeople.get(), usersPerPage);
-      if (tpl.peoplePage.get() < totalPages) tpl.peoplePage.set(tpl.peoplePage.get() + 1);
-    }
+    moveActivePeoplePage(tpl, 1);
   },
 
   'click #newOrgButton'() {

@@ -53,6 +53,7 @@ new Function('exports', libSrc.replace(/export (const|function)/g, '$1') +
   '\nexports.TABLE_PAGE_ROWS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;' +
   '\nexports.columnWidthPercent = columnWidthPercent;' +
   '\nexports.pageInfo = pageInfo;' +
+  '\nexports.adjacentPage = adjacentPage;' +
   '\nexports.buildRows = buildRows;' +
   '\nexports.buildHeader = buildHeader;' +
   '\nexports.buildFilters = buildFilters;' +
@@ -88,6 +89,20 @@ test('pageInfo on an empty table still offers page 1 of 1 (negative)', () => {
   assert.deepStrictEqual(
     { totalPages: i.totalPages, page: i.page, hasPrev: i.hasPrev, hasNext: i.hasNext, skip: i.skip },
     { totalPages: 1, page: 1, hasPrev: false, hasNext: false, skip: 0 });
+});
+
+test('adjacentPage moves one page and clamps both boundaries', () => {
+  assert.strictEqual(lib.adjacentPage(120, 3, -1, 25), 2);
+  assert.strictEqual(lib.adjacentPage(120, 3, 1, 25), 4);
+  assert.strictEqual(lib.adjacentPage(120, 1, -1, 25), 1);
+  assert.strictEqual(lib.adjacentPage(120, 5, 1, 25), 5);
+});
+
+test('adjacentPage normalizes direction and rejects invalid movement', () => {
+  assert.strictEqual(lib.adjacentPage(120, 3, -99, 25), 2);
+  assert.strictEqual(lib.adjacentPage(120, 3, 99, 25), 4);
+  assert.strictEqual(lib.adjacentPage(120, 3, 0, 25), 3);
+  assert.strictEqual(lib.adjacentPage(120, 3, 'nowhere', 25), 3);
 });
 
 test('columns get the same percentage width', () => {
@@ -680,7 +695,7 @@ test('Organizations renders through the shared table page', () => {
   assert.ok(/headerTemplate: 'orgFeatureHeader'/.test(js), 'its control headers use the header slot');
   // All of People's panes render inside ONE template, so a shared-class handler
   // must act only for the pane that is open - otherwise one click pages them all.
-  assert.ok(/pane === 'org-setting'/.test(js),
+  assert.ok(/'org-setting': \{ page: tpl\.orgPage/.test(js),
     'the org pager must be scoped to the open pane');
 });
 
@@ -694,7 +709,8 @@ test('Teams renders through the shared table page, and gains a working prev', ()
   assert.ok(/rowTemplate: 'teamRow'/.test(js) && /headerTemplate: 'teamFeatureHeader'/.test(js));
   // Teams had a prev BUTTON and no handler behind it - paging back was dead.
   // Folding both panes into one scoped handler pair fixed that.
-  assert.ok(/pane === 'team-setting' && tpl\.teamPage\.get\(\) > 1/.test(js),
+  assert.ok(/'team-setting': \{ page: tpl\.teamPage/.test(js) &&
+    /moveActivePeoplePage\(tpl, -1\)/.test(js),
     'Teams must now page backwards');
   // One handler for every People pane, because a duplicate key in ONE event map
   // silently overwrites the earlier one. Scoped to Template.people.events: this
@@ -722,8 +738,10 @@ test('the People pane renders through the shared table page', () => {
   assert.strictEqual((js.match(/function peopleDocs/g) || []).length, 1);
   assert.ok(!/peopleDocs\(tpl\)[\s\S]{0,200}slice\(/.test(js), 'never re-slice a published page');
   // All four table panes share one scoped pager pair.
-  for (const pane of ['org-setting', 'team-setting', 'people-setting']) {
-    assert.ok(js.includes(`pane === '${pane}'`), `${pane} must be handled by the shared pager`);
+  for (const [pane, page] of [['org-setting', 'orgPage'], ['team-setting', 'teamPage'],
+    ['people-setting', 'peoplePage']]) {
+    assert.ok(js.includes(`'${pane}': { page: tpl.${page}`),
+      `${pane} must be handled by the shared pager`);
   }
 });
 
