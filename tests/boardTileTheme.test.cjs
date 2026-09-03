@@ -46,6 +46,18 @@ const THEMES = Array.from(
     .matchAll(/^\s{2}([a-z0-9]+):/gm),
 ).map(m => m[1]);
 
+function selectorNamesSurface(surface) {
+  const names = new Set();
+  for (const rule of colors.matchAll(/([^{}]+)\{[^{}]*\}/g)) {
+    const selector = rule[1];
+    if (!selector.includes(surface)) continue;
+    for (const match of selector.matchAll(/\.board-color-([a-z0-9]+)/g)) {
+      names.add(match[1]);
+    }
+  }
+  return names;
+}
+
 test('the accent map is where the theme names come from', () => {
   assert.ok(THEMES.length > 20, `expected every theme, found ${THEMES.length}`);
   assert.ok(THEMES.includes('clearpink') && THEMES.includes('cleanlight'),
@@ -53,9 +65,9 @@ test('the accent map is where the theme names come from', () => {
 });
 
 test('every theme paints the tile itself', () => {
+  const painted = selectorNamesSurface('.board-list li');
   for (const theme of THEMES) {
-    const selector = new RegExp(`^\\.board-list li\\.board-color-${theme}(,| \\{)`, 'm');
-    assert.ok(selector.test(colors),
+    assert.ok(painted.has(theme),
       `${theme} does not colour .board-list li.board-color-${theme}`);
   }
 });

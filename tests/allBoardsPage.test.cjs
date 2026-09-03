@@ -171,8 +171,10 @@ test('it is painted with a theme, or its buttons are unreadable', () => {
     'the default theme outside a board');
   // Which must be a theme that really styles a sidebar button.
   const colors = read('client/components/boards/boardColors.css');
-  const rule = /\.board-color-belize (\.sidebar \.sidebar-content \.sidebar-btn) \{/.exec(colors);
-  assert.ok(rule, 'board-color-belize must define a sidebar button');
+  const sharedRule = [...colors.matchAll(/([^{}]+)\{[^{}]*\}/g)].find(rule =>
+    rule[1].includes('.board-color-belize') &&
+    rule[1].includes('.sidebar .sidebar-content .sidebar-btn'));
+  assert.ok(sharedRule, 'board-color-belize must define a sidebar button');
 
   // On an ANCESTOR, never on the sidebar itself. Every themed sidebar rule is a
   // DESCENDANT selector - `.board-color-belize .sidebar .sidebar-content

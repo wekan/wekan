@@ -1,999 +1,665 @@
 /* The Admin Panel's selected left-menu row is painted by the SAME rules as the
-   second header bar, theme by theme: each theme's own `#header` selector below also
-   names `.side-menu ul li.active`. A flat colour stays a flat colour, and a theme
-   whose bar is a colour slide - clearblue - gives the selected row the same
-   gradient, which one `--theme-accent` value could never do.
+   second header bar. Flat themes below share structure and publish only their
+   values; exceptional and gradient themes retain explicit rules.
    See docs/Features/Page/Theme.md and docs/Features/Page/Left-Menu.md. */
 
-/* ===============
-THEME - NEPHRITIS
-=================*/
+/* Ordinary solid-colour themes. */
 
-.board-color-nephritis#header,
-.board-color-nephritis#header-quick-access,
-.board-color-nephritis.sk-spinner div,
-.board-backgrounds-list .board-color-nephritis.background-box,
-.public-board-row.board-color-nephritis,
-.board-list li.board-color-nephritis,
-.board-color-nephritis .setting-content .content-body .side-menu ul li.active,
-.board-color-nephritis .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #27ae60;
+.board-color-nephritis {
+  --board-theme-accent: #27ae60;
+  --board-theme-dark: #1f8b4d;
+  --board-theme-hover: #2cc66d;
+  --board-theme-emphasis: #ae2775;
+  --board-theme-emphasis-hover: #9d2369;
+  --board-theme-emphasis-close: #8b1f5e;
+  --board-theme-checklist-bg: #d4f1dd;
+  --board-theme-selected-bg: #e7faef;
+  --board-theme-selected-hover-bg: #f8fdfa;
+  --board-theme-bright: #3dd37c;
+  --board-theme-canvas-scrollbar: #27ae60f2;
+  --board-theme-sidebar-scrollbar: #27ae60f2;
 }
-.board-color-nephritis .is-selected .minicard {
-  border-inline-start: 3px solid #27ae60;
+
+.board-color-pomegranate {
+  --board-theme-accent: #c0392b;
+  --board-theme-dark: #9a2e22;
+  --board-theme-hover: #d24435;
+  --board-theme-emphasis: #2bb2c0;
+  --board-theme-emphasis-hover: #27a0ad;
+  --board-theme-emphasis-close: #228e9a;
+  --board-theme-checklist-bg: #f5d5d2;
+  --board-theme-selected-bg: #faeae9;
+  --board-theme-selected-hover-bg: #fdf9f8;
+  --board-theme-bright: #d7584b;
+  --board-theme-canvas-scrollbar: #c0392bf2;
+  --board-theme-sidebar-scrollbar: #c0392bf2;
 }
-.board-color-nephritis .minicard {
+
+.board-color-belize {
+  --board-theme-accent: #2980b9;
+  --board-theme-dark: #216694;
+  --board-theme-hover: #2e90d0;
+  --board-theme-emphasis: #b96229;
+  --board-theme-emphasis-hover: #a75825;
+  --board-theme-emphasis-close: #944e21;
+  --board-theme-checklist-bg: #d1e7f5;
+  --board-theme-selected-bg: #e8f3fa;
+  --board-theme-selected-hover-bg: #f8fbfd;
+  --board-theme-bright: #459cd6;
+  --board-theme-canvas-scrollbar: #2573a7f2;
+  --board-theme-sidebar-scrollbar: #2980b9f2;
+}
+
+.board-color-wisteria {
+  --board-theme-accent: #8e44ad;
+  --board-theme-dark: #72368a;
+  --board-theme-hover: #9c51bb;
+  --board-theme-emphasis: #63ad44;
+  --board-theme-emphasis-hover: #599c3d;
+  --board-theme-emphasis-close: #4f8a36;
+  --board-theme-checklist-bg: #e8d9f0;
+  --board-theme-selected-bg: #f4ecf7;
+  --board-theme-selected-hover-bg: #fcf9fd;
+  --board-theme-bright: #a765c2;
+  --board-theme-canvas-scrollbar: #8e44adf2;
+  --board-theme-sidebar-scrollbar: #8e44adf2;
+}
+
+.board-color-midnight {
+  --board-theme-accent: #2c3e50;
+  --board-theme-dark: #233240;
+  --board-theme-hover: #3a5169;
+  --board-theme-emphasis: #503e2c;
+  --board-theme-emphasis-hover: #483828;
+  --board-theme-emphasis-close: #403223;
+  --board-theme-checklist-bg: #d2dae2;
+  --board-theme-selected-bg: #e6ecf1;
+  --board-theme-selected-hover-bg: #f8f9fb;
+  --board-theme-bright: #476582;
+  --board-theme-canvas-scrollbar: #2c3e50f2;
+  --board-theme-sidebar-scrollbar: #2c3e50f2;
+}
+
+.board-color-pumpkin {
+  --board-theme-accent: #e67e22;
+  --board-theme-dark: #be6415;
+  --board-theme-hover: #e98b38;
+  --board-theme-emphasis: #228ae6;
+  --board-theme-emphasis-hover: #187dd5;
+  --board-theme-emphasis-close: #156fbe;
+  --board-theme-checklist-bg: #f9e5d1;
+  --board-theme-selected-bg: #fdf2e9;
+  --board-theme-selected-hover-bg: #fefbf8;
+  --board-theme-bright: #eb984e;
+  --board-theme-canvas-scrollbar: #e67e22f2;
+  --board-theme-sidebar-scrollbar: #e67e22f2;
+}
+
+.board-color-moderatepink {
+  --board-theme-accent: #cd5a91;
+  --board-theme-dark: #b53773;
+  --board-theme-hover: #d26b9c;
+  --board-theme-emphasis: #5acd96;
+  --board-theme-emphasis-hover: #43c688;
+  --board-theme-emphasis-close: #37b579;
+  --board-theme-checklist-bg: #f4dde8;
+  --board-theme-selected-bg: #faeef4;
+  --board-theme-selected-hover-bg: #fefafc;
+  --board-theme-bright: #d77ba7;
+  --board-theme-canvas-scrollbar: #cd5a91f2;
+  --board-theme-sidebar-scrollbar: #cd5a91f2;
+}
+
+.board-color-strongcyan {
+  --board-theme-accent: #00aecc;
+  --board-theme-dark: #008ba3;
+  --board-theme-hover: #00c8eb;
+  --board-theme-emphasis: #cc1e00;
+  --board-theme-emphasis-hover: #b81b00;
+  --board-theme-emphasis-close: #a31800;
+  --board-theme-checklist-bg: #ccf2f9;
+  --board-theme-selected-bg: #e0fbff;
+  --board-theme-selected-hover-bg: #f6feff;
+  --board-theme-bright: #0adbff;
+  --board-theme-canvas-scrollbar: #00aeccf2;
+  --board-theme-sidebar-scrollbar: #00aeccf2;
+}
+
+.board-color-limegreen {
+  --board-theme-accent: #4bbf6b;
+  --board-theme-dark: #389d54;
+  --board-theme-hover: #5dc57a;
+  --board-theme-emphasis: #bf4b9f;
+  --board-theme-emphasis-hover: #b13f91;
+  --board-theme-emphasis-close: #9d3881;
+  --board-theme-checklist-bg: #daf4de;
+  --board-theme-selected-bg: #edf9f0;
+  --board-theme-selected-hover-bg: #fafdfb;
+  --board-theme-bright: #6fcc89;
+  --board-theme-canvas-scrollbar: #4bbf6bf2;
+  --board-theme-sidebar-scrollbar: #4bbf6bf2;
+}
+
+.board-color-corteza {
+  --board-theme-accent: #568ba2;
+  --board-theme-dark: #456f82;
+  --board-theme-hover: #6597ad;
+  --board-theme-emphasis: #a26d56;
+  --board-theme-emphasis-hover: #92624d;
+  --board-theme-emphasis-close: #825745;
+  --board-theme-checklist-bg: #dce6ec;
+  --board-theme-selected-bg: #eef3f6;
+  --board-theme-selected-hover-bg: #fafcfc;
+  --board-theme-bright: #76a3b6;
+  --board-theme-canvas-scrollbar: #568ba2f2;
+  --board-theme-sidebar-scrollbar: #568ba2f2;
+}
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header-quick-access,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+).sk-spinner div,
+.board-backgrounds-list :is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+).background-box,
+.public-board-row:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+),
+.board-list li:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+),
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .setting-content .content-body .side-menu ul li.active,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .setting-content .content-body .side-menu ul li.active:hover {
+  background-color: var(--board-theme-accent);
+}
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .is-selected .minicard {
+  border-inline-start: 3px solid var(--board-theme-accent);
+}
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .minicard {
   border-radius: 7px;
   padding: 10px 10px 4px 10px;
   box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
 }
-.board-color-nephritis button[type=submit].primary,
-.board-color-nephritis input[type=submit].primary,
-.board-color-nephritis .sidebar .sidebar-content .sidebar-btn {
-  background-color: #1f8b4d;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) button[type=submit].primary,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) input[type=submit].primary,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .sidebar .sidebar-content .sidebar-btn {
+  background-color: var(--board-theme-dark);
   border-radius: 7px;
 }
-.board-color-nephritis.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-nephritis .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-nephritis .sidebar-list li a:hover {
-  background-color: #2cc66d;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+).pop-over .pop-over-list li a:not(.disabled):hover,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .sidebar .sidebar-content .sidebar-btn:hover,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .sidebar-list li a:hover {
+  background-color: var(--board-theme-hover);
 }
-.board-color-nephritis#header ul li.current,
-.board-color-nephritis#header-quick-access ul li.current {
-  border-bottom: 2px solid #2cc66d;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header ul li.current,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header-quick-access ul li.current {
+  border-bottom: 4px solid var(--board-theme-bright);
 }
-.board-color-nephritis#header-quick-access {
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header-quick-access {
   color: #fff;
 }
-.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis {
-  background: #ae2775;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header #header-main-bar .board-header-btn.emphasis {
+  background: var(--board-theme-emphasis);
 }
-.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #9d2369;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header #header-main-bar .board-header-btn.emphasis:hover,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
+  background: var(--board-theme-emphasis-hover);
 }
-.board-color-nephritis#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #8b1f5e;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+)#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
+  background: var(--board-theme-emphasis-close);
 }
-.board-color-nephritis .materialCheckBox.is-checked {
-  border-bottom: 2px solid #27ae60;
-  border-inline-end: 2px solid #27ae60;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .materialCheckBox.is-checked {
+  border-bottom: 2px solid var(--board-theme-accent);
+  border-inline-end: 2px solid var(--board-theme-accent);
 }
-.board-color-nephritis .checklist-progress-bar {
-  background-color: #d4f1dd !important;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .checklist-progress-bar {
+  background-color: var(--board-theme-checklist-bg) !important;
 }
-.board-color-nephritis .checklist-progress-bar .checklist-progress {
-  background-color: #27ae60 !important;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .checklist-progress-bar .checklist-progress {
+  background-color: var(--board-theme-accent) !important;
 }
-.board-color-nephritis .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #e7faef;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
+  background: var(--board-theme-selected-bg);
 }
-.board-color-nephritis .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #f8fdfa;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
+  background: var(--board-theme-selected-hover-bg);
 }
-.board-color-nephritis .toggle-label:after {
-  background-color: #1f8b4d;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .toggle-label:after,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .toggle-switch:checked ~ .toggle-label:after {
+  background-color: var(--board-theme-dark);
 }
-.board-color-nephritis .toggle-switch:checked ~ .toggle-label {
-  background-color: #3dd37c;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .toggle-switch:checked ~ .toggle-label {
+  background-color: var(--board-theme-bright);
 }
-.board-color-nephritis .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #1f8b4d;
-}
+
 @media screen and (max-width: 800px) {
-  .board-color-nephritis.pop-over .header {
-    background: #27ae60;
+  :is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+).pop-over .header {
+    background: var(--board-theme-accent);
     color: #fff;
   }
 }
-.board-color-nephritis#header ul li.current,
-.board-color-nephritis#header-quick-access ul li.current {
-  border-bottom: 4px solid #3dd37c;
+
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .board-canvas {
+  scrollbar-color: var(--board-theme-canvas-scrollbar) #e4e4e400;
 }
 
-/* Transparent modern scrollbar - Nephritis*/
-.board-color-nephritis .board-canvas {
-  scrollbar-color: #27ae60f2 #e4e4e400;
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .sidebar .sidebar-content {
+  scrollbar-color: var(--board-theme-sidebar-scrollbar) #e4e4e400;
 }
 
-
-/* Apply scrollbar to sidebar content*/
-.board-color-nephritis .sidebar .sidebar-content {
-  scrollbar-color: #27ae60f2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-nephritis .list {
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .list {
   border-inline-start: none;
   padding-bottom: 8px;
 }
 
-.board-color-nephritis .list-body {
- margin-top: 8px;
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .list-body {
+  margin-top: 8px;
 }
-
-/* === END NEPHRITIS THEME === */
-
-/* ===============
-THEME - Pomegranate
-=================*/
-
-.board-color-pomegranate#header,
-.board-color-pomegranate#header-quick-access,
-.board-color-pomegranate.sk-spinner div,
-.board-backgrounds-list .board-color-pomegranate.background-box,
-.public-board-row.board-color-pomegranate,
-.board-list li.board-color-pomegranate,
-.board-color-pomegranate .setting-content .content-body .side-menu ul li.active,
-.board-color-pomegranate .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #c0392b;
-}
-.board-color-pomegranate .is-selected .minicard {
-  border-inline-start: 3px solid #c0392b;
-}
-.board-color-pomegranate .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-pomegranate button[type=submit].primary,
-.board-color-pomegranate input[type=submit].primary,
-.board-color-pomegranate .sidebar .sidebar-content .sidebar-btn {
-  background-color: #9a2e22;
-  border-radius: 7px;
-}
-.board-color-pomegranate.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-pomegranate .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-pomegranate .sidebar-list li a:hover {
-  background-color: #d24435;
-}
-.board-color-pomegranate#header ul li.current,
-.board-color-pomegranate#header-quick-access ul li.current {
-  border-bottom: 2px solid #d24435;
-}
-.board-color-pomegranate#header-quick-access {
-  color: #fff;
-}
-.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis {
-  background: #2bb2c0;
-}
-.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #27a0ad;
-}
-.board-color-pomegranate#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #228e9a;
-}
-.board-color-pomegranate .materialCheckBox.is-checked {
-  border-bottom: 2px solid #c0392b;
-  border-inline-end: 2px solid #c0392b;
-}
-.board-color-pomegranate .checklist-progress-bar {
-  background-color: #f5d5d2 !important;
-}
-.board-color-pomegranate .checklist-progress-bar .checklist-progress {
-  background-color: #c0392b !important;
-}
-.board-color-pomegranate .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #faeae9;
-}
-.board-color-pomegranate .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #fdf9f8;
-}
-.board-color-pomegranate .toggle-label:after {
-  background-color: #9a2e22;
-}
-.board-color-pomegranate .toggle-switch:checked ~ .toggle-label {
-  background-color: #d7584b;
-}
-.board-color-pomegranate .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #9a2e22;
-}
-@media screen and (max-width: 800px) {
-  .board-color-pomegranate.pop-over .header {
-    background: #c0392b;
-    color: #fff;
-  }
-}
-.board-color-pomegranate#header ul li.current,
-.board-color-pomegranate#header-quick-access ul li.current {
-  border-bottom: 4px solid #d7584b;
-}
-
-/* Transparent modern scrollbar - pomegranate*/
-.board-color-pomegranate .board-canvas {
-  scrollbar-color: #c0392bf2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-pomegranate .sidebar .sidebar-content {
-  scrollbar-color: #c0392bf2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-pomegranate .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-pomegranate .list-body {
- margin-top: 8px;
-}
-
-/* === END Pomegranate THEME === */
-
-/* ===============
-THEME - Belize
-=================*/
-
-.board-color-belize#header,
-.board-color-belize#header-quick-access,
-.board-color-belize.sk-spinner div,
-.board-backgrounds-list .board-color-belize.background-box,
-.public-board-row.board-color-belize,
-.board-list li.board-color-belize,
-.board-color-belize .setting-content .content-body .side-menu ul li.active,
-.board-color-belize .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #2980b9;
-}
-.board-color-belize .is-selected .minicard {
-  border-inline-start: 3px solid #2980b9;
-}
-.board-color-belize .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-belize button[type=submit].primary,
-.board-color-belize input[type=submit].primary,
-.board-color-belize .sidebar .sidebar-content .sidebar-btn {
-  background-color: #216694;
-  border-radius: 7px;
-}
-.board-color-belize.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-belize .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-belize .sidebar-list li a:hover {
-  background-color: #2e90d0;
-}
-.board-color-belize#header ul li.current,
-.board-color-belize#header-quick-access ul li.current {
-  border-bottom: 2px solid #2e90d0;
-}
-.board-color-belize#header-quick-access {
-  color: #fff;
-}
-.board-color-belize#header #header-main-bar .board-header-btn.emphasis {
-  background: #b96229;
-}
-.board-color-belize#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-belize#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #a75825;
-}
-.board-color-belize#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #944e21;
-}
-.board-color-belize .materialCheckBox.is-checked {
-  border-bottom: 2px solid #2980b9;
-  border-inline-end: 2px solid #2980b9;
-}
-.board-color-belize .checklist-progress-bar {
-  background-color: #d1e7f5 !important;
-}
-.board-color-belize .checklist-progress-bar .checklist-progress {
-  background-color: #2980b9 !important;
-}
-.board-color-belize .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #e8f3fa;
-}
-.board-color-belize .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #f8fbfd;
-}
-.board-color-belize .toggle-label:after {
-  background-color: #216694;
-}
-.board-color-belize .toggle-switch:checked ~ .toggle-label {
-  background-color: #459cd6;
-}
-.board-color-belize .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #216694;
-}
-@media screen and (max-width: 800px) {
-  .board-color-belize.pop-over .header {
-    background: #2980b9;
-    color: #fff;
-  }
-}
-.board-color-belize#header ul li.current,
-.board-color-belize#header-quick-access ul li.current {
-  border-bottom: 4px solid #459cd6;
-}
-
-/* Transparent modern scrollbar - belize*/
-.board-color-belize .board-canvas {
-  scrollbar-color: #2573a7f2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-belize .sidebar .sidebar-content {
-  scrollbar-color: #2980b9f2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-belize .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-belize .list-body {
- margin-top: 8px;
-}
-
-/* === END Belize THEME === */
-
-/* ===============
-THEME - Wisteria
-=================*/
-
-.board-color-wisteria#header,
-.board-color-wisteria#header-quick-access,
-.board-color-wisteria.sk-spinner div,
-.board-backgrounds-list .board-color-wisteria.background-box,
-.public-board-row.board-color-wisteria,
-.board-list li.board-color-wisteria,
-.board-color-wisteria .setting-content .content-body .side-menu ul li.active,
-.board-color-wisteria .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #8e44ad;
-}
-.board-color-wisteria .is-selected .minicard {
-  border-inline-start: 3px solid #8e44ad;
-}
-.board-color-wisteria .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-wisteria button[type=submit].primary,
-.board-color-wisteria input[type=submit].primary,
-.board-color-wisteria .sidebar .sidebar-content .sidebar-btn {
-  background-color: #72368a;
-  border-radius: 7px;
-}
-.board-color-wisteria.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-wisteria .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-wisteria .sidebar-list li a:hover {
-  background-color: #9c51bb;
-}
-.board-color-wisteria#header ul li.current,
-.board-color-wisteria#header-quick-access ul li.current {
-  border-bottom: 2px solid #9c51bb;
-}
-.board-color-wisteria#header-quick-access {
-  color: #fff;
-}
-.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis {
-  background: #63ad44;
-}
-.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #599c3d;
-}
-.board-color-wisteria#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #4f8a36;
-}
-.board-color-wisteria .materialCheckBox.is-checked {
-  border-bottom: 2px solid #8e44ad;
-  border-inline-end: 2px solid #8e44ad;
-}
-.board-color-wisteria .checklist-progress-bar {
-  background-color: #e8d9f0 !important;
-}
-.board-color-wisteria .checklist-progress-bar .checklist-progress {
-  background-color: #8e44ad !important;
-}
-.board-color-wisteria .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #f4ecf7;
-}
-.board-color-wisteria .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #fcf9fd;
-}
-.board-color-wisteria .toggle-label:after {
-  background-color: #72368a;
-}
-.board-color-wisteria .toggle-switch:checked ~ .toggle-label {
-  background-color: #a765c2;
-}
-.board-color-wisteria .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #72368a;
-}
-@media screen and (max-width: 800px) {
-  .board-color-wisteria.pop-over .header {
-    background: #8e44ad;
-    color: #fff;
-  }
-}
-.board-color-wisteria#header ul li.current,
-.board-color-wisteria#header-quick-access ul li.current {
-  border-bottom: 4px solid #a765c2;
-}
-
-/* Transparent modern scrollbar - wisteria*/
-.board-color-wisteria .board-canvas {
-  scrollbar-color: #8e44adf2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-wisteria .sidebar .sidebar-content {
-  scrollbar-color: #8e44adf2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-wisteria .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-wisteria .list-body {
- margin-top: 8px;
-}
-
-/* === END Wisteria THEME === */
-
-/* ===============
-THEME - Midnight
-=================*/
-
-.board-color-midnight#header,
-.board-color-midnight#header-quick-access,
-.board-color-midnight.sk-spinner div,
-.board-backgrounds-list .board-color-midnight.background-box,
-.public-board-row.board-color-midnight,
-.board-list li.board-color-midnight,
-.board-color-midnight .setting-content .content-body .side-menu ul li.active,
-.board-color-midnight .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #2c3e50;
-}
-.board-color-midnight .is-selected .minicard {
-  border-inline-start: 3px solid #2c3e50;
-}
-.board-color-midnight .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-midnight button[type=submit].primary,
-.board-color-midnight input[type=submit].primary,
-.board-color-midnight .sidebar .sidebar-content .sidebar-btn {
-  background-color: #233240;
-  border-radius: 7px;
-}
-.board-color-midnight.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-midnight .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-midnight .sidebar-list li a:hover {
-  background-color: #3a5169;
-}
-.board-color-midnight#header ul li.current,
-.board-color-midnight#header-quick-access ul li.current {
-  border-bottom: 2px solid #3a5169;
-}
-.board-color-midnight#header-quick-access {
-  color: #fff;
-}
-.board-color-midnight#header #header-main-bar .board-header-btn.emphasis {
-  background: #503e2c;
-}
-.board-color-midnight#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-midnight#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #483828;
-}
-.board-color-midnight#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #403223;
-}
-.board-color-midnight .materialCheckBox.is-checked {
-  border-bottom: 2px solid #2c3e50;
-  border-inline-end: 2px solid #2c3e50;
-}
-.board-color-midnight .checklist-progress-bar {
-  background-color: #d2dae2 !important;
-}
-.board-color-midnight .checklist-progress-bar .checklist-progress {
-  background-color: #2c3e50 !important;
-}
-.board-color-midnight .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #e6ecf1;
-}
-.board-color-midnight .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #f8f9fb;
-}
-.board-color-midnight .toggle-label:after {
-  background-color: #233240;
-}
-.board-color-midnight .toggle-switch:checked ~ .toggle-label {
-  background-color: #476582;
-}
-.board-color-midnight .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #233240;
-}
-@media screen and (max-width: 800px) {
-  .board-color-midnight.pop-over .header {
-    background: #2c3e50;
-    color: #fff;
-  }
-}
-.board-color-midnight#header ul li.current,
-.board-color-midnight#header-quick-access ul li.current {
-  border-bottom: 4px solid #476582;
-}
-
-/* Transparent modern scrollbar - midnight*/
-.board-color-midnight .board-canvas {
-  scrollbar-color: #2c3e50f2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-midnight .sidebar .sidebar-content {
-  scrollbar-color: #2c3e50f2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-midnight .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-midnight .list-body {
- margin-top: 8px;
-}
-
-/* === END Midnight THEME === */
-
-/* ===============
-THEME - Pumpkin
-=================*/
-
-.board-color-pumpkin#header,
-.board-color-pumpkin#header-quick-access,
-.board-color-pumpkin.sk-spinner div,
-.board-backgrounds-list .board-color-pumpkin.background-box,
-.public-board-row.board-color-pumpkin,
-.board-list li.board-color-pumpkin,
-.board-color-pumpkin .setting-content .content-body .side-menu ul li.active,
-.board-color-pumpkin .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #e67e22;
-}
-.board-color-pumpkin .is-selected .minicard {
-  border-inline-start: 3px solid #e67e22;
-}
-.board-color-pumpkin .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-pumpkin button[type=submit].primary,
-.board-color-pumpkin input[type=submit].primary,
-.board-color-pumpkin .sidebar .sidebar-content .sidebar-btn {
-  background-color: #be6415;
-  border-radius: 7px;
-}
-.board-color-pumpkin.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-pumpkin .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-pumpkin .sidebar-list li a:hover {
-  background-color: #e98b38;
-}
-.board-color-pumpkin#header ul li.current,
-.board-color-pumpkin#header-quick-access ul li.current {
-  border-bottom: 2px solid #e98b38;
-}
-.board-color-pumpkin#header-quick-access {
-  color: #fff;
-}
-.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis {
-  background: #228ae6;
-}
-.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #187dd5;
-}
-.board-color-pumpkin#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #156fbe;
-}
-.board-color-pumpkin .materialCheckBox.is-checked {
-  border-bottom: 2px solid #e67e22;
-  border-inline-end: 2px solid #e67e22;
-}
-.board-color-pumpkin .checklist-progress-bar {
-  background-color: #f9e5d1 !important;
-}
-.board-color-pumpkin .checklist-progress-bar .checklist-progress {
-  background-color: #e67e22 !important;
-}
-.board-color-pumpkin .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #fdf2e9;
-}
-.board-color-pumpkin .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #fefbf8;
-}
-.board-color-pumpkin .toggle-label:after {
-  background-color: #be6415;
-}
-.board-color-pumpkin .toggle-switch:checked ~ .toggle-label {
-  background-color: #eb984e;
-}
-.board-color-pumpkin .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #be6415;
-}
-@media screen and (max-width: 800px) {
-  .board-color-pumpkin.pop-over .header {
-    background: #e67e22;
-    color: #fff;
-  }
-}
-.board-color-pumpkin#header ul li.current,
-.board-color-pumpkin#header-quick-access ul li.current {
-  border-bottom: 4px solid #eb984e;
-}
-
-/* Transparent modern scrollbar - pumpkin*/
-.board-color-pumpkin .board-canvas {
-  scrollbar-color: #e67e22f2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-pumpkin .sidebar .sidebar-content {
-  scrollbar-color: #e67e22f2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-pumpkin .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-pumpkin .list-body {
- margin-top: 8px;
-}
-
-/* === END Pumpkin THEME === */
-
-/* ===============
-THEME - Moderate Pink
-=================*/
-
-.board-color-moderatepink#header,
-.board-color-moderatepink#header-quick-access,
-.board-color-moderatepink.sk-spinner div,
-.board-backgrounds-list .board-color-moderatepink.background-box,
-.public-board-row.board-color-moderatepink,
-.board-list li.board-color-moderatepink,
-.board-color-moderatepink .setting-content .content-body .side-menu ul li.active,
-.board-color-moderatepink .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #cd5a91;
-}
-.board-color-moderatepink .is-selected .minicard {
-  border-inline-start: 3px solid #cd5a91;
-}
-.board-color-moderatepink .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-moderatepink button[type=submit].primary,
-.board-color-moderatepink input[type=submit].primary,
-.board-color-moderatepink .sidebar .sidebar-content .sidebar-btn {
-  background-color: #b53773;
-  border-radius: 7px;
-}
-.board-color-moderatepink.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-moderatepink .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-moderatepink .sidebar-list li a:hover {
-  background-color: #d26b9c;
-}
-.board-color-moderatepink#header ul li.current,
-.board-color-moderatepink#header-quick-access ul li.current {
-  border-bottom: 2px solid #d26b9c;
-}
-.board-color-moderatepink#header-quick-access {
-  color: #fff;
-}
-.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis {
-  background: #5acd96;
-}
-.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #43c688;
-}
-.board-color-moderatepink#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #37b579;
-}
-.board-color-moderatepink .materialCheckBox.is-checked {
-  border-bottom: 2px solid #cd5a91;
-  border-inline-end: 2px solid #cd5a91;
-}
-.board-color-moderatepink .checklist-progress-bar {
-  background-color: #f4dde8 !important;
-}
-.board-color-moderatepink .checklist-progress-bar .checklist-progress {
-  background-color: #cd5a91 !important;
-}
-.board-color-moderatepink .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #faeef4;
-}
-.board-color-moderatepink .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #fefafc;
-}
-.board-color-moderatepink .toggle-label:after {
-  background-color: #b53773;
-}
-.board-color-moderatepink .toggle-switch:checked ~ .toggle-label {
-  background-color: #d77ba7;
-}
-.board-color-moderatepink .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #b53773;
-}
-@media screen and (max-width: 800px) {
-  .board-color-moderatepink.pop-over .header {
-    background: #cd5a91;
-    color: #fff;
-  }
-}
-.board-color-moderatepink#header ul li.current,
-.board-color-moderatepink#header-quick-access ul li.current {
-  border-bottom: 4px solid #d77ba7;
-}
-
-/* Transparent modern scrollbar - moderatepink*/
-.board-color-moderatepink .board-canvas {
-  scrollbar-color: #cd5a91f2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-moderatepink .sidebar .sidebar-content {
-  scrollbar-color: #cd5a91f2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-moderatepink .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-moderatepink .list-body {
- margin-top: 8px;
-}
-
-/* === END Moderatepink THEME === */
-
-/* ===============
-THEME - Strong Cyan
-=================*/
-
-.board-color-strongcyan#header,
-.board-color-strongcyan#header-quick-access,
-.board-color-strongcyan.sk-spinner div,
-.board-backgrounds-list .board-color-strongcyan.background-box,
-.public-board-row.board-color-strongcyan,
-.board-list li.board-color-strongcyan,
-.board-color-strongcyan .setting-content .content-body .side-menu ul li.active,
-.board-color-strongcyan .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #00aecc;
-}
-.board-color-strongcyan .is-selected .minicard {
-  border-inline-start: 3px solid #00aecc;
-}
-.board-color-strongcyan .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-strongcyan button[type=submit].primary,
-.board-color-strongcyan input[type=submit].primary,
-.board-color-strongcyan .sidebar .sidebar-content .sidebar-btn {
-  background-color: #008ba3;
-  border-radius: 7px;
-}
-.board-color-strongcyan.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-strongcyan .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-strongcyan .sidebar-list li a:hover {
-  background-color: #00c8eb;
-}
-.board-color-strongcyan#header ul li.current,
-.board-color-strongcyan#header-quick-access ul li.current {
-  border-bottom: 2px solid #00c8eb;
-}
-.board-color-strongcyan#header-quick-access {
-  color: #fff;
-}
-.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis {
-  background: #cc1e00;
-}
-.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #b81b00;
-}
-.board-color-strongcyan#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #a31800;
-}
-.board-color-strongcyan .materialCheckBox.is-checked {
-  border-bottom: 2px solid #00aecc;
-  border-inline-end: 2px solid #00aecc;
-}
-.board-color-strongcyan .checklist-progress-bar {
-  background-color: #ccf2f9 !important;
-}
-.board-color-strongcyan .checklist-progress-bar .checklist-progress {
-  background-color: #00aecc !important;
-}
-.board-color-strongcyan .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #e0fbff;
-}
-.board-color-strongcyan .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #f6feff;
-}
-.board-color-strongcyan .toggle-label:after {
-  background-color: #008ba3;
-}
-.board-color-strongcyan .toggle-switch:checked ~ .toggle-label {
-  background-color: #0adbff;
-}
-.board-color-strongcyan .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #008ba3;
-}
-@media screen and (max-width: 800px) {
-  .board-color-strongcyan.pop-over .header {
-    background: #00aecc;
-    color: #fff;
-  }
-}
-.board-color-strongcyan#header ul li.current,
-.board-color-strongcyan#header-quick-access ul li.current {
-  border-bottom: 4px solid #0adbff;
-}
-
-/* Transparent modern scrollbar - strongcyan*/
-.board-color-strongcyan .board-canvas {
-  scrollbar-color: #00aeccf2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-strongcyan .sidebar .sidebar-content {
- scrollbar-color: #00aeccf2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-strongcyan .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-strongcyan .list-body {
- margin-top: 8px;
-}
-
-/* === END Strongcyan THEME === */
-
-/* ===============
-THEME - Lime Green
-=================*/
-
-.board-color-limegreen#header,
-.board-color-limegreen#header-quick-access,
-.board-color-limegreen.sk-spinner div,
-.board-backgrounds-list .board-color-limegreen.background-box,
-.public-board-row.board-color-limegreen,
-.board-list li.board-color-limegreen,
-.board-color-limegreen .setting-content .content-body .side-menu ul li.active,
-.board-color-limegreen .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #4bbf6b;
-}
-.board-color-limegreen .is-selected .minicard {
-  border-inline-start: 3px solid #4bbf6b;
-}
-.board-color-limegreen .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-limegreen button[type=submit].primary,
-.board-color-limegreen input[type=submit].primary,
-.board-color-limegreen .sidebar .sidebar-content .sidebar-btn {
-  background-color: #389d54;
-  border-radius: 7px;
-}
-.board-color-limegreen.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-limegreen .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-limegreen .sidebar-list li a:hover {
-  background-color: #5dc57a;
-}
-.board-color-limegreen#header ul li.current,
-.board-color-limegreen#header-quick-access ul li.current {
-  border-bottom: 2px solid #5dc57a;
-}
-.board-color-limegreen#header-quick-access {
-  color: #fff;
-}
-.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis {
-  background: #bf4b9f;
-}
-.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #b13f91;
-}
-.board-color-limegreen#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #9d3881;
-}
-.board-color-limegreen .materialCheckBox.is-checked {
-  border-bottom: 2px solid #4bbf6b;
-  border-inline-end: 2px solid #4bbf6b;
-}
-.board-color-limegreen .checklist-progress-bar {
-  background-color: #daf4de !important;
-}
-.board-color-limegreen .checklist-progress-bar .checklist-progress {
-  background-color: #4bbf6b !important;
-}
-.board-color-limegreen .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #edf9f0;
-}
-.board-color-limegreen .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #fafdfb;
-}
-.board-color-limegreen .toggle-label:after {
-  background-color: #389d54;
-}
-.board-color-limegreen .toggle-switch:checked ~ .toggle-label {
-  background-color: #6fcc89;
-}
-.board-color-limegreen .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #389d54;
-}
-@media screen and (max-width: 800px) {
-  .board-color-limegreen.pop-over .header {
-    background: #4bbf6b;
-    color: #fff;
-  }
-}
-.board-color-limegreen#header ul li.current,
-.board-color-limegreen#header-quick-access ul li.current {
-  border-bottom: 4px solid #6fcc89;
-}
-
-/* Transparent modern scrollbar - limegreen*/
-.board-color-limegreen .board-canvas {
-  scrollbar-color: #4bbf6bf2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-limegreen .sidebar .sidebar-content {
-  scrollbar-color: #4bbf6bf2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-limegreen .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-limegreen .list-body {
- margin-top: 8px;
-}
-
-/* === END Limegreen THEME === */
 
 /* ===============
 THEME - Dark
@@ -1348,116 +1014,6 @@ THEME - Relax
 }
 
 /* === END Relax THEME === */
-
-/* ===============
-THEME - Corteza
-=================*/
-
-.board-color-corteza#header,
-.board-color-corteza#header-quick-access,
-.board-color-corteza.sk-spinner div,
-.board-backgrounds-list .board-color-corteza.background-box,
-.public-board-row.board-color-corteza,
-.board-list li.board-color-corteza,
-.board-color-corteza .setting-content .content-body .side-menu ul li.active,
-.board-color-corteza .setting-content .content-body .side-menu ul li.active:hover {
-  background-color: #568ba2;
-}
-.board-color-corteza .is-selected .minicard {
-  border-inline-start: 3px solid #568ba2;
-}
-.board-color-corteza .minicard {
-  border-radius: 7px;
-  padding: 10px 10px 4px 10px;
-  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.15);
-}
-.board-color-corteza button[type=submit].primary,
-.board-color-corteza input[type=submit].primary,
-.board-color-corteza .sidebar .sidebar-content .sidebar-btn {
-  background-color: #456f82;
-  border-radius: 7px;
-}
-.board-color-corteza.pop-over .pop-over-list li a:not(.disabled):hover,
-.board-color-corteza .sidebar .sidebar-content .sidebar-btn:hover,
-.board-color-corteza .sidebar-list li a:hover {
-  background-color: #6597ad;
-}
-.board-color-corteza#header ul li.current,
-.board-color-corteza#header-quick-access ul li.current {
-  border-bottom: 2px solid #6597ad;
-}
-.board-color-corteza#header-quick-access {
-  color: #fff;
-}
-.board-color-corteza#header #header-main-bar .board-header-btn.emphasis {
-  background: #a26d56;
-}
-.board-color-corteza#header #header-main-bar .board-header-btn.emphasis:hover,
-.board-color-corteza#header #header-main-bar .board-header-btn.emphasis .board-header-btn-close {
-  background: #92624d;
-}
-.board-color-corteza#header #header-main-bar .board-header-btn.emphasis:hover .board-header-btn-close {
-  background: #825745;
-}
-.board-color-corteza .materialCheckBox.is-checked {
-  border-bottom: 2px solid #568ba2;
-  border-inline-end: 2px solid #568ba2;
-}
-.board-color-corteza .checklist-progress-bar {
-  background-color: #dce6ec !important;
-}
-.board-color-corteza .checklist-progress-bar .checklist-progress {
-  background-color: #568ba2 !important;
-}
-.board-color-corteza .is-multiselection-active .multi-selection-checkbox.is-checked + .minicard {
-  background: #eef3f6;
-}
-.board-color-corteza .is-multiselection-active .multi-selection-checkbox:not(.is-checked) + .minicard:hover:not(.minicard-composer) {
-  background: #fafcfc;
-}
-.board-color-corteza .toggle-label:after {
-  background-color: #456f82;
-}
-.board-color-corteza .toggle-switch:checked ~ .toggle-label {
-  background-color: #76a3b6;
-}
-.board-color-corteza .toggle-switch:checked ~ .toggle-label:after {
-  background-color: #456f82;
-}
-@media screen and (max-width: 800px) {
-  .board-color-corteza.pop-over .header {
-    background: #568ba2;
-    color: #fff;
-  }
-}
-.board-color-corteza#header ul li.current,
-.board-color-corteza#header-quick-access ul li.current {
-  border-bottom: 4px solid #76a3b6;
-}
-
-/* Transparent modern scrollbar - corteza*/
-.board-color-corteza .board-canvas {
-    scrollbar-color: #568ba2f2 #e4e4e400;
-}
-
-
-/* Apply scrollbar to sidebar content*/
-.board-color-corteza .sidebar .sidebar-content {
-  scrollbar-color: #568ba2f2 #e4e4e400;
-}
-
-/* Remove margins in between columns/fix spacing */
-
-.board-color-corteza .list {
-  border-inline-start: none;
-  padding-bottom: 8px;
-}
-
-.board-color-corteza .list-body {
- margin-top: 8px;
-}
-
-/* === END Corteza THEME === */
 
 /* ===============
 THEME - Apple Glass Pastel

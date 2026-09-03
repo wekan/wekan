@@ -38,6 +38,13 @@ function allowedColors() {
 function headerColorsFromCss() {
   const css = read('client/components/boards/boardColors.css');
   const out = {};
+  // Ordinary solid themes publish their values once and share the structural
+  // header rule. Read that authoritative value before looking for exceptional
+  // themes whose header backgrounds remain explicit.
+  for (const rule of css.matchAll(/\.board-color-([\w-]+)\s*\{([^{}]*)\}/g)) {
+    const accent = /--board-theme-accent:\s*([^;]+)/.exec(rule[2]);
+    if (accent) out[rule[1]] = accent[1].trim();
+  }
   for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const [, selector, body] = rule;
     if (!selector.includes('#header')) continue;
@@ -67,6 +74,46 @@ test('each accent is exactly what the stylesheet paints the header with', () => 
   for (const [name, accent] of Object.entries(THEME_ACCENTS)) {
     assert.strictEqual(accent, css[name],
       `${name}: the map and boardColors.css must agree`);
+  }
+});
+
+test('ordinary themes declare complete values and use one structural rule set', () => {
+  const css = read('client/components/boards/boardColors.css');
+  const roles = [
+    'accent', 'dark', 'hover', 'emphasis', 'emphasis-hover',
+    'emphasis-close', 'checklist-bg', 'selected-bg',
+    'selected-hover-bg', 'bright', 'canvas-scrollbar',
+    'sidebar-scrollbar',
+  ];
+  const ordinary = [];
+  for (const rule of css.matchAll(/\.board-color-([\w-]+)\s*\{([^{}]*)\}/g)) {
+    if (!rule[2].includes('--board-theme-accent:')) continue;
+    ordinary.push(rule[1]);
+    for (const role of roles) {
+      assert.match(rule[2], new RegExp(`--board-theme-${role}:\\s*[^;]+;`),
+        `${rule[1]} is missing ${role}`);
+    }
+  }
+  assert.ok(ordinary.length >= 10, `expected the ordinary theme family, found ${ordinary.length}`);
+
+  for (const surface of [
+    '#header', '#header-quick-access', '.background-box',
+    '.public-board-row', '.board-list li', '.sidebar-btn', '.minicard',
+    '.checklist-progress-bar', '.toggle-label', '.board-canvas',
+  ]) {
+    const rule = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].find(candidate =>
+      candidate[1].includes('.board-color-nephritis') && candidate[1].includes(surface));
+    assert.ok(rule, `the shared ordinary-theme rules must cover ${surface}`);
+  }
+
+  // A migrated theme must not retain a second literal-colour implementation
+  // of its old structure: values belong only in its variable declaration.
+  const withoutDeclarations = css.replace(
+    /\.board-color-[\w-]+\s*\{[^{}]*--board-theme-accent:[^{}]*\}/g, '');
+  for (const theme of ordinary) {
+    assert.doesNotMatch(withoutDeclarations,
+      new RegExp(`\\.board-color-${theme}#header[,\\s\\S]{0,500}background-color:\\s*${THEME_ACCENTS[theme]}`),
+      `${theme} must not duplicate its structural header declarations`);
   }
 });
 
@@ -132,10 +179,16 @@ test('the Admin Panel chrome reads that variable rather than a hard-coded colour
   const themeCss = read('client/components/boards/boardColors.css');
   const themed = [...themeCss.matchAll(/\.board-color-([\w-]+) \.setting-content \.content-body \.side-menu ul li\.active\b/g)]
     .map(m => m[1]);
+  const sharedStart = themeCss.indexOf(':is(');
+  const sharedEnd = themeCss.indexOf(' .setting-content .content-body .side-menu ul li.active', sharedStart);
+  const sharedThemes = sharedStart >= 0 && sharedEnd >= 0
+    ? [...themeCss.slice(sharedStart, sharedEnd).matchAll(/\.board-color-([\w-]+)/g)].map(m => m[1])
+    : [];
   const allowed = [...(/ALLOWED_BOARD_COLORS\s*=\s*\[(.*?)\]/s.exec(read('config/const.js'))[1])
     .matchAll(/'([\w-]+)'/g)].map(m => m[1]);
   for (const name of allowed) {
-    assert.ok(themed.includes(name), `${name}: its header rule must paint the selected row too`);
+    assert.ok(themed.includes(name) || sharedThemes.includes(name),
+      `${name}: its header rule must paint the selected row too`);
   }
   // …and it is the header rule that does it, never a copy of the colour.
   const clean = themeCss.replace(/\/\*[\s\S]*?\*\//g, '');
@@ -165,6 +218,12 @@ test('the FIRST header bar carries each theme, and the theme it should', () => {
 
   // The LAST background wins, as the cascade does.
   const firstBar = {};
+  // Solid themes share one first-bar rule whose background resolves from the
+  // value on their board-color class.
+  for (const rule of css.matchAll(/\.board-color-([\w-]+)\s*\{([^{}]*)\}/g)) {
+    const accent = /--board-theme-accent:\s*([^;]+)/.exec(rule[2]);
+    if (accent) firstBar[rule[1]] = accent[1].trim();
+  }
   for (const rule of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
     const bg = /(?:^|[\s;])background(?:-color)?:\s*([^;]+)/.exec(body);
