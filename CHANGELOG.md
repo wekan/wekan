@@ -8293,7 +8293,7 @@ registry is 1,214 lines smaller.
 **Pagination** - one bounded movement rule serves board and administration views.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/eb0e34786f948b068861511793b0d9d410724d50">Share bounded page movement</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eb0e347865bae598e7446e0bdc8a8f04c4afbac1">Share bounded page movement</a>. Thanks to xet7.</summary>
 
 All Boards and the Admin Panel's reports, event streams, offices and People
 views now use one primitive for previous and next movement. It clamps deleted
