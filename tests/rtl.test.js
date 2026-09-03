@@ -50,8 +50,8 @@ const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 function parseRtlFlags() {
   const src = read('imports/i18n/languages.js');
   const flags = {};
-  // Each entry looks like: tag: "ar-EG", ... rtl: true,
-  const re = /tag:\s*"([^"]+)"[\s\S]*?rtl:\s*(true|false)/g;
+  // Compact rows are [key, code, tag, native name, rtl].
+  const re = /^\s{2}\["[^"]+",\s*"[^"]+",\s*"([^"]+)",\s*"(?:\\.|[^"])*",\s*(true|false)\],/gm;
   let m;
   while ((m = re.exec(src))) {
     flags[m[1]] = m[2] === 'true';

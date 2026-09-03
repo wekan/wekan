@@ -31,6 +31,10 @@ console.log('i18nLazyLoading:');
 
 const registry = read('imports/i18n/languages.js');
 const tap = read('imports/i18n/tap.js');
+const metadataRows = [...registry.matchAll(
+  /^\s{2}\["([^"]+)",\s*"([^"]+)",\s*"([^"]+)",\s*"(?:\\.|[^"])*",\s*(?:true|false)\],/gm)];
+const loaderRows = [...registry.matchAll(
+  /^\s{2}"([^"]+)":\s*\(\)\s*=>\s*import\("\.\/data\/[^"]+\.i18n\.json"\),?$/gm)];
 
 // Every static `import ... from '<path>'` / `require('<path>')` that names a
 // translation data file, in any file we are given.
@@ -43,12 +47,24 @@ function staticDataImports(source) {
 }
 
 test('every registered language loads through a dynamic import()', () => {
-  const entries = registry.match(/^\s{2}"[^"]+":\s*\{$/gm) || [];
-  const loaders = registry.match(/load:\s*\(\)\s*=>\s*import\('\.\/data\/[^']+\.i18n\.json'\)/g) || [];
+  const entries = registry.match(/^\s{2}\["[^"]+",\s*"[^"]+",/gm) || [];
+  const loaders = registry.match(/^\s{2}"[^"]+":\s*\(\)\s*=>\s*import\("\.\/data\/[^"]+\.i18n\.json"\),?$/gm) || [];
   assert.ok(entries.length > 150, `expected the full registry, got ${entries.length} entries`);
   assert.strictEqual(loaders.length, entries.length,
     `${entries.length} languages but ${loaders.length} dynamic loaders - ` +
     'an entry without `load: () => import(...)` is either never loaded or loaded eagerly');
+});
+
+test('metadata keys and tags are unique, and each key has one loader', () => {
+  const unique = values => new Set(values).size === values.length;
+  const keys = metadataRows.map(row => row[1]);
+  const tags = metadataRows.map(row => row[3]);
+  const loaderKeys = loaderRows.map(row => row[1]);
+  assert.ok(unique(keys), 'duplicate language metadata key');
+  assert.ok(unique(tags), 'duplicate language tag');
+  assert.ok(unique(loaderKeys), 'duplicate language loader key');
+  assert.deepStrictEqual(loaderKeys.sort(), keys.sort(),
+    'metadata and loader maps must have exactly the same keys');
 });
 
 test('languages.js itself imports no translation data', () => {

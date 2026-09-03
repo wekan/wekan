@@ -41,7 +41,8 @@ for (const f of fs.readdirSync(dataDir)) {
 // The registry's KEY is the locale tag; the file it loads can be spelled with
 // an underscore where the tag has a hyphen (`ca-ES` loads `ca_ES.i18n.json`),
 // so what ties an entry to a file is the import path, not the key.
-const loaded = [...registry.matchAll(/import\('\.\/data\/([^']+)\.i18n\.json'\)/g)].map(m => m[1]);
+const loaded = [...registry.matchAll(/import\(["']\.\/data\/([^"']+)\.i18n\.json["']\)/g)]
+  .map(m => m[1]);
 
 test('every strings file is registered, and every entry has a file', () => {
   const reachable = new Set(loaded);
@@ -56,7 +57,9 @@ test('every strings file is registered, and every entry has a file', () => {
 
 test('an entry names its language in that language', () => {
   // The picker is read by somebody who does not read English.
-  const entries = [...registry.matchAll(/"([^"]+)": \{\s*\n\s*code: "[^"]*",\s*\n\s*tag: "[^"]*",\s*\n\s*name: "([^"]*)"/g)];
+  const entries = [...registry.matchAll(
+    /^\s{2}\["([^"]+)",\s*"[^"]+",\s*"[^"]+",\s*("(?:\\.|[^"])*")/gm)]
+    .map(match => [match[0], match[1], JSON.parse(match[2])]);
   assert.ok(entries.length >= files.length - 2, `expected a name per language, found ${entries.length}`);
   for (const [, tag, name] of entries) {
     assert.ok(name.trim().length > 0, `${tag} has no name`);
@@ -89,7 +92,8 @@ test('a right-to-left language says so (negative)', () => {
   // backwards for its readers.
   // Non-greedy across the whole file would let one entry's key pair with a
   // LATER entry's rtl flag; each entry is matched whole instead.
-  const rtlTrue = [...registry.matchAll(/^  "([^"]+)": \{\n(?:[^}]*\n)?\s*rtl: (true|false),\n  \},/gm)]
+  const rtlTrue = [...registry.matchAll(
+    /^\s{2}\["([^"]+)",\s*"[^"]+",\s*"[^"]+",\s*"(?:\\.|[^"])*",\s*(true|false)\],/gm)]
     .filter(m => m[2] === 'true').map(m => m[1]);
   for (const tag of ['ur', 'ar', 'he', 'fa', 'ug', 'yi']) {
     assert.ok(rtlTrue.includes(tag), `${tag} must be rtl: true`);

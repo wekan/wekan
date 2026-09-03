@@ -36,15 +36,15 @@ const DATA_DIR = path.join(ROOT, 'imports', 'i18n', 'data');
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-// Every `load:` line, whatever its shape, so a wrong one is caught rather than
-// skipped by a regex that only matches the right shape.
+// Every literal loader-map line, whatever its import body, so a wrong one is
+// caught rather than skipped by a regex that only matches the right shape.
 const loadLines = src.split('\n')
   .map((line, i) => [i + 1, line.trim()])
-  .filter(([, line]) => /^load\s*:/.test(line));
+  .filter(([, line]) => /^"[^"]+":\s*\(\)\s*=>/.test(line));
 
 test('every language entry has a load:', () => {
-  // A `tag:` with no `load:` is a language the picker offers and cannot open.
-  const tags = [...src.matchAll(/^\s*tag:\s*["']([^"']+)["']/gm)].map(m => m[1]);
+  const tags = [...src.matchAll(/^\s{2}\["[^"]+",\s*"[^"]+",\s*"([^"]+)"/gm)]
+    .map(m => m[1]);
   assert.ok(tags.length > 200, `expected the whole language list, found ${tags.length}`);
   assert.strictEqual(loadLines.length, tags.length,
     `${tags.length} languages but ${loadLines.length} load: lines - one of them cannot be opened`);
@@ -52,7 +52,7 @@ test('every language entry has a load:', () => {
 
 test('every load: is a DYNAMIC import(), which is what splits the chunk', () => {
   const wrong = loadLines.filter(([, line]) =>
-    !/^load:\s*\(\)\s*=>\s*import\('\.\/data\/[^']+\.i18n\.json'\),?$/.test(line));
+    !/^"[^"]+":\s*\(\)\s*=>\s*import\("\.\/data\/[^"]+\.i18n\.json"\),?$/.test(line));
   assert.deepStrictEqual(wrong, [],
     'these load: lines are not `() => import(...)`, so their language is bundled into '
     + 'the main client instead of split into its own chunk:\n'
@@ -120,7 +120,7 @@ test('every load: points at a data file that exists, and each file is claimed', 
   // tests/newLanguageWiring.test.cjs, which pins that arrangement from the other
   // side. Reading it as two copies is a mistake worth not making twice: it
   // deletes a language's real translations.
-  const named = new Set([...src.matchAll(/import\('\.\/data\/([^']+)'\)/g)].map(m => m[1]));
+  const named = new Set([...src.matchAll(/import\(["']\.\/data\/([^"']+)["']\)/g)].map(m => m[1]));
   const onDisk = fs.readdirSync(DATA_DIR).filter(f => f.endsWith('.i18n.json'));
   const missing = [...named].filter(f => !fs.existsSync(path.join(DATA_DIR, f)));
   assert.deepStrictEqual(missing, [],
@@ -157,8 +157,12 @@ test('a Transifex pull writes the file the app loads, for every language', () =>
   const mapping = Object.fromEntries(lm[1].split(',')
     .map(p => p.trim().split(': ')).filter(p => p.length === 2));
 
+  const metadata = new Map([...src.matchAll(
+    /^\s{2}\["([^"]+)",\s*"[^"]+",\s*"([^"]+)"/gm)]
+    .map(([, key, tag]) => [key, tag]));
   const entries = [...src.matchAll(
-    /"[^"]+":\s*\{\s*code:[^,]+,\s*tag:\s*"([^"]+)",\s*name:[^,]+,\s*load:\s*\(\)\s*=>\s*import\('\.\/data\/([^']+)\.i18n\.json'\)/g)];
+    /^\s{2}"([^"]+)":\s*\(\)\s*=>\s*import\("\.\/data\/([^"]+)\.i18n\.json"\)/gm)]
+    .map(([, key, file]) => [key, metadata.get(key), file]);
   assert.ok(entries.length > 200, `expected the language list, parsed ${entries.length}`);
 
   const real = name => {
