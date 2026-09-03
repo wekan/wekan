@@ -73,7 +73,25 @@ Acceptance criteria:
 - `boardColors.css` has materially fewer declarations and bytes;
 - a new ordinary solid-colour theme can be added mainly by declaring values.
 
-Status: **in progress**.
+Result:
+
+- ten ordinary solid-colour themes now declare twelve palette values and use
+  one shared structural rule set;
+- gradient, image, Relax, Dark, Apple Glass Pastel, Modern and Clean themes
+  remain explicit because their structure or behaviour differs;
+- `boardColors.css` decreased from 6,339 lines / 196,012 bytes / 1,266 rules /
+  2,216 declarations to 5,895 lines / 178,134 bytes / 1,058 rules / 2,064
+  declarations;
+- PostCSS parsed the resulting stylesheet successfully;
+- `themeAccents`, `boardTileTheme`, `allBoardsPage`, `publicBoardsPage`,
+  `headerBars`, `checkboxesAreSquare` and `appleGlassPastelTheme` passed: 110
+  assertions in total;
+- a Chromium computed-style check was attempted at 1,280 px and 390 px, but
+  this ARM64 sandbox only has an x86-64 Chromium binary and its emulated launch
+  did not complete. Runtime visual verification therefore remains an
+  environment boundary rather than a claimed result.
+
+Status: **completed** in commit `cd1039230`.
 
 ## Phase 2: language metadata
 
@@ -158,8 +176,8 @@ Status: **not started**.
 
 | Phase | Before | After | Tests | Result |
 | --- | ---: | ---: | --- | --- |
-| Baseline | 192,952 lines | 192,952 lines | Not applicable | Survey completed |
-| 1. Board themes | 6,339 CSS lines | Pending | Pending | In progress |
+| Baseline | 192,952 lines | 192,508 lines | Not applicable | 444 fewer maintained lines |
+| 1. Board themes | 6,339 lines / 196,012 bytes | 5,895 lines / 178,134 bytes | 110 assertions passed; browser unavailable | Completed (`cd1039230`) |
 | 2. Language metadata | 1,724 JS lines | Pending | Pending | Not started |
 | 3. UI mechanics | Pending inventory | Pending | Pending | Not started |
 | 4. Authorization | Pending inventory | Pending | Pending | Not started |

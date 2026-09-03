@@ -8245,12 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** WeKan begins the measured **Less Code** programme by consolidating
+ordinary board-theme CSS while preserving each palette and exceptional theme.
+The first reduction removes 444 maintained lines and adds structural regression
+coverage for future themes.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8260,24 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release improves the following developer tooling:
+
+**Board themes** - ordinary solid-colour themes share their structure, reducing
+the CSS that must stay synchronized while preserving special designs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd10392306c014f8a3a6ecd6ac34fd55c6ed456b">Share ordinary board-theme CSS</a>. Thanks to xet7.</summary>
+
+Ten solid-colour themes now publish palette values through CSS custom properties
+and use one structural rule set. Gradient, image, Relax, Dark, Apple Glass
+Pastel, Modern and Clean themes remain explicit where their behaviour differs.
+Regression tests verify every palette role and every themed surface; the source
+stylesheet is 444 lines and 17,878 bytes smaller.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.47 2026-09-03 WeKan ® release
 
