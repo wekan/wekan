@@ -172,7 +172,25 @@ Acceptance criteria:
   policy;
 - duplicated permission conditions are removed rather than wrapped.
 
-Status: **not started**.
+Result:
+
+- the existing write-capability policy was confirmed to serve collection
+  permissions, Meteor methods, REST mutations and destination checks in
+  publications; it was retained instead of creating a competing abstraction;
+- a new transport-neutral `canReadBoard` policy now serves two DDP
+  publications, two HTTP attachment routes and fourteen position-history
+  method checks;
+- public boards allow anonymous and authenticated reads, private boards require
+  an active member, and missing or malformed boards fail closed;
+- HTTP and DDP keep their own response/error formatting at their edges. The
+  legacy attachment publication now makes the same public-board decision as
+  the HTTP download routes instead of rejecting every anonymous subscriber;
+- six focused policy and wiring tests passed, together with the existing file
+  safety, request authentication, card scope and window-publication suites;
+- maintained source decreased from 191,279 to 191,248 lines, including the new
+  policy module.
+
+Status: **completed** in commit `e8c867b33`.
 
 ## Phase 5: importer pipeline
 
@@ -208,10 +226,10 @@ Status: **not started**.
 
 | Phase | Before | After | Tests | Result |
 | --- | ---: | ---: | --- | --- |
-| Baseline | 192,952 lines | 191,279 lines | Not applicable | 1,673 fewer maintained lines |
+| Baseline | 192,952 lines | 191,248 lines | Not applicable | 1,704 fewer maintained lines |
 | 1. Board themes | 6,339 lines / 196,012 bytes | 5,895 lines / 178,134 bytes | 110 assertions passed; browser unavailable | Completed (`cd1039230`) |
 | 2. Language metadata | 1,724 lines / 34,873 bytes | 510 lines / 24,362 bytes | Registry parity and 31 assertions passed | Completed (`a3bc8155d`) |
 | 3. UI mechanics | 191,284 maintained lines | 191,279 maintained lines | Primitive and 96 consumer assertions passed | Completed (`eb0e34786`) |
-| 4. Authorization | Pending inventory | Pending | Pending | Not started |
+| 4. Authorization | 191,279 maintained lines | 191,248 maintained lines | 6 policy tests plus transport regressions passed | Completed (`e8c867b33`) |
 | 5. Importers | Pending inventory | Pending | Pending | Not started |
 | 6. Removal | Pending inventory | Pending | Pending | Not started |

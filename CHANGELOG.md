@@ -8246,9 +8246,9 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** WeKan begins the measured **Less Code** programme by consolidating
-ordinary board-theme CSS, compacting the lazy language registry and sharing
-bounded pagination. These reductions remove 1,673 maintained lines and add
-structural regression coverage.
+ordinary board-theme CSS, compacting the lazy language registry, sharing
+bounded pagination and unifying board-read authorization. These reductions
+remove 1,704 maintained lines and add structural regression coverage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8301,6 +8301,20 @@ All Boards and the Admin Panel's reports, event streams, offices and People
 views now use one primitive for previous and next movement. It clamps deleted
 or stale pages and both ends of the result set consistently. Unit and consumer
 tests cover the boundaries, invalid movement and every migrated view.
+
+</details>
+
+**Board authorization** - DDP, HTTP and Meteor methods now make board-read
+decisions through one transport-neutral policy.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8c867b3383fd21eabdbd258a36e52365c013756">Share board read authorization</a>. Thanks to xet7.</summary>
+
+Public, private, non-member and missing-board decisions are now identical in
+card and legacy-attachment publications, attachment download routes and
+position-history methods. Each transport retains its own error response. The
+legacy attachment publication also permits anonymous public-board reads just
+as the HTTP routes do, and the maintained source is 31 lines smaller.
 
 </details>
 
