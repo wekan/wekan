@@ -17,6 +17,7 @@ import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 import Boards from '/models/boards';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
+import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
 import path from 'path';
 
@@ -386,10 +387,9 @@ if (Meteor.isServer) {
       if (!board) return false;
       // Sandstorm already gated grain access; trust the platform (see isSandstormRequest).
       if (isSandstormRequest(req)) return true;
-      if (board.isPublic && board.isPublic()) return true;
       const token = extractLoginToken(req);
       const user = token ? await getUserFromToken(token) : null;
-      return !!(user && board.hasMember && board.hasMember(user._id));
+      return canReadBoard(user && user._id, board);
     } catch (e) {
       if (process.env.DEBUG === 'true') {
         console.warn('Authorization check failed:', e);

@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
+import { canReadBoard } from '/models/lib/boardVisibility';
 // A client-supplied selector is run against the database, so an execution
 // operator in one is not a query - it is an attempt to make the database run
 // something. This publication refuses it and names WHO tried, from where, and
@@ -44,11 +45,7 @@ const MAX_WINDOW = 5000; // hard cap on how many cards one list window may reque
 
 async function boardVisibleTo(userId, boardId) {
   const board = await ReactiveCache.getBoard(boardId);
-  if (!board) return null;
-  if (board.permission === 'public') return board;
-  if (!userId) return null;
-  const user = await ReactiveCache.getUser(userId);
-  return board.isVisibleBy(user) ? board : null;
+  return canReadBoard(userId, board) ? board : null;
 }
 
 // Publish the cards of ONE list/swimlane window (client passes the exact selector

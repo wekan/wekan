@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { MongoInternals } from 'meteor/mongo';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { canReadBoard } from '/models/lib/boardVisibility';
 
 // Read-in-place support for legacy CollectionFS attachments.
 //
@@ -27,11 +28,8 @@ function extensionOf(name) {
 Meteor.publish('legacyBoardAttachments', async function (boardId) {
   check(boardId, String);
 
-  if (!this.userId) {
-    return this.ready();
-  }
   const board = await ReactiveCache.getBoard(boardId);
-  if (!board || !board.isVisibleBy({ _id: this.userId })) {
+  if (!canReadBoard(this.userId, board)) {
     return this.ready();
   }
 

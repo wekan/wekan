@@ -5,6 +5,13 @@ import Swimlanes from '/models/swimlanes';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
 import { ReactiveCache } from '/imports/reactiveCache';
+import { canReadBoard } from '/models/lib/boardVisibility';
+
+async function assertCanReadBoard(userId, boardId) {
+  if (!canReadBoard(userId, await ReactiveCache.getBoard(boardId))) {
+    throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
+  }
+}
 
 /**
  * Server-side methods for position history tracking
@@ -25,10 +32,7 @@ Meteor.methods({
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
 
-    const board = await ReactiveCache.getBoard(swimlane.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, swimlane.boardId);
 
     return swimlane.trackOriginalPosition();
   },
@@ -48,10 +52,7 @@ Meteor.methods({
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, list.boardId);
 
     return list.trackOriginalPosition();
   },
@@ -71,10 +72,7 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    const board = await ReactiveCache.getBoard(card.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, card.boardId);
 
     return card.trackOriginalPosition();
   },
@@ -94,10 +92,7 @@ Meteor.methods({
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
 
-    const board = await ReactiveCache.getBoard(swimlane.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, swimlane.boardId);
 
     return swimlane.getOriginalPosition();
   },
@@ -117,10 +112,7 @@ Meteor.methods({
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, list.boardId);
 
     return list.getOriginalPosition();
   },
@@ -140,10 +132,7 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    const board = await ReactiveCache.getBoard(card.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, card.boardId);
 
     return card.getOriginalPosition();
   },
@@ -163,10 +152,7 @@ Meteor.methods({
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
 
-    const board = await ReactiveCache.getBoard(swimlane.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, swimlane.boardId);
 
     return swimlane.hasMovedFromOriginalPosition();
   },
@@ -186,10 +172,7 @@ Meteor.methods({
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, list.boardId);
 
     return list.hasMovedFromOriginalPosition();
   },
@@ -209,10 +192,7 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    const board = await ReactiveCache.getBoard(card.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, card.boardId);
 
     return card.hasMovedFromOriginalPosition();
   },
@@ -232,10 +212,7 @@ Meteor.methods({
       throw new Meteor.Error('swimlane-not-found', 'Swimlane not found');
     }
 
-    const board = await ReactiveCache.getBoard(swimlane.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, swimlane.boardId);
 
     return swimlane.getOriginalPositionDescription();
   },
@@ -255,10 +232,7 @@ Meteor.methods({
       throw new Meteor.Error('list-not-found', 'List not found');
     }
 
-    const board = await ReactiveCache.getBoard(list.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, list.boardId);
 
     return list.getOriginalPositionDescription();
   },
@@ -278,10 +252,7 @@ Meteor.methods({
       throw new Meteor.Error('card-not-found', 'Card not found');
     }
 
-    const board = await ReactiveCache.getBoard(card.boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, card.boardId);
 
     return card.getOriginalPositionDescription();
   },
@@ -296,10 +267,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, boardId);
 
     return PositionHistory.find({
       boardId: boardId,
@@ -319,10 +287,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
 
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board || !board.isVisibleBy({ _id: this.userId })) {
-      throw new Meteor.Error('not-authorized', 'You do not have access to this board.');
-    }
+    await assertCanReadBoard(this.userId, boardId);
 
     if (!['swimlane', 'list', 'card'].includes(entityType)) {
       throw new Meteor.Error('invalid-entity-type', 'Entity type must be swimlane, list, or card');

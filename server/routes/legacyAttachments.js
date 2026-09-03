@@ -3,6 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { getUserIdFromRequest } from '/server/lib/requestUser';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
+import { canReadBoard } from '/models/lib/boardVisibility';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
 
@@ -93,7 +94,7 @@ if (Meteor.isServer) {
       // From the REQUEST, not Meteor.userId(): this is a WebApp handler, where
       // that throws rather than returning null (see server/lib/requestUser.js).
       const userId = await getUserIdFromRequest(req);
-      if (!board.isPublic() && (!userId || !board.hasMember(userId))) {
+      if (!canReadBoard(userId, board)) {
         res.writeHead(403);
         res.end('Access denied');
         return;
