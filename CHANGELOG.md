@@ -8507,6 +8507,36 @@ within it.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/982a9473d">And it fills the screen at phone widths, so the scrollbar is at the foot there too</a>. Thanks to xet7.</summary>
+
+Above 801px the panel already ended the same 10px from the bottom that it
+starts from the top. Below that, where every popup becomes a full-screen sheet,
+it did not: the horizontal scrollbar sat halfway up the panel with blank space
+beneath it, because nothing carried the sheet's height down to the rows.
+
+Measured at 375x812, three things were wrong, and each of them is invisible in
+a diff:
+
+- **The chain was desktop-only.** The rules passing the height from the shell to
+  the template were written inside `@media (min-width: 801px)` - backwards,
+  since above that width the panel is given a height directly and below it the
+  sheet is the only thing that needs the help.
+- **The percentages had nothing to resolve against.** `.content-container`
+  stopped at 588px, capped by `max-height: calc(70vh + 20px)`, whose usual
+  override does not reach a sheet; `.content` collapsed to 10px, its
+  `height: calc(100% - 20px)` resolving to the padding alone. The chain is flex
+  now, which needs no parent height.
+- **Two caps ate the edges.** `max-height: 90vh` left a tenth of the screen
+  empty under the sheet, and the `*` reset being content-box put the 1px border
+  outside the stated height - 10px above against 8px below.
+
+Verified in a browser at 375x812, 768x1024, 886x711 and 1280x720: under 801px
+the sheet fills the screen, above it the gaps are 10px on all four sides, and
+in every one the scrollbar is at the foot of the panel.
+
+</details>
+
 and fixes the following bugs:
 
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
