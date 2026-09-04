@@ -8416,6 +8416,60 @@ happened, and the interface in particular should be treated as unproven.
 
 </details>
 
+**The History panel** - the table every menu opens, and what a running server
+said about it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92b5ce861">History works when it is opened, which is four faults later than it looked</a>. Thanks to xet7.</summary>
+
+The entry above says this was written with no Meteor runtime available and
+should be treated as unproven. It has now been opened, and the pass found four
+things, three of them fatal to the feature. None was visible in the source, and
+every one of them looks completely ordinary in a diff.
+
+**The table was blank.** `{{#each row in rows}}` binds `row` as a NAME and
+leaves the data context alone - unlike `{{#each rows}}`, which replaces it - so
+`{{_id}}`, `{{contentSummary}}` and the rest resolved against the OUTER context.
+Nothing errors: the table drew one row of four empty cells and a checkbox with
+no id. The contributor pane had the same bug. Every field now goes through its
+loop variable.
+
+**The row could not be selected.** WeKan hides every bare checkbox app-wide -
+`forms.css`: `[type="checkbox"] { display: none }` - and draws `.materialCheckBox`
+divs instead, so the real one here rendered 0x0. The row was visible, could
+never be ticked, and Restore stayed disabled with nothing that could enable it.
+
+**The panel was 380px wide.** That is a popup's default, and it left 129px for
+the contributor pane and 201px for a four-column table: the search box was
+squeezed to 32px and one row had to be scrolled sideways to be read. History is
+the same shape as the export panels - two panes, opened from a menu at the edge
+of the screen - so it joins them in `popup.css` and in the full-width list in
+`client/lib/popupOffset.js`, which is the other half that decides where a panel
+is put. The rows also scroll in a wrapper now instead of in the table itself:
+`display: block` on a `<table>` stops the cells sharing column widths, so the
+header and the rows under it drift apart.
+
+**And a restore was recorded twice** - the one fault that is a correct decision
+with a consequence. [History.md](docs/Features/Reports/History/History.md) §8.2
+says a restore re-applies content through the SAME setters an ordinary edit
+uses, so validation, hooks and Activities all still run. The field-diffing
+`after.update` hook is one of those hooks, so it saw the restore's own write and
+recorded it, leaving an *Edited* row nobody made above the *Restored* row
+describing the same write. Recording, and only recording, is switched off for
+the duration of the applier - as an `AsyncLocalStorage` scope rather than a
+module-level flag, because the server handles several requests at once and a
+shared boolean set during one user's restore would have silently swallowed
+another user's edit landing in the same window.
+
+Verified rather than reasoned about: a card renamed through the UI recorded one
+row with the right group and both values, the menu opened the table on it, and
+Restore put the title back and left exactly two rows. Still unproven, and said
+so in the document: the list and swimlane scopes, the contributor filter, search
+and pagination past one page - they share the one template, which is exactly the
+reasoning that produced the four faults above.
+
+</details>
+
 and fixes the following bugs:
 
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
