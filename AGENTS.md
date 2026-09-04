@@ -97,6 +97,16 @@ every time. Two rules follow from it and neither has an exception:
     requests, mention only those participants that are **human**."* A
     `Thanks to ... and xet7 !` line credits people — the issue reporter and xet7 —
     never the tool that helped.
+
+    It IS acknowledged, once, in exactly ONE place: the sponsors page,
+    <https://wekan.fi/sponsors>, under *"AI donated by. All code and PRs verified by
+    xet7"*, where **Claude**, **Codex** and **GitHub Copilot** are listed alongside
+    the people and companies that donate hosting, servers, grants and testing to
+    WeKan. That is the whole of the credit and it is deliberate. Attributing it per
+    commit instead put the same fact on thousands of lines and drowned out the
+    humans the entries exist to name, so it was moved to the one page that says who
+    gives WeKan what. Acknowledging it anywhere else is not extra politeness; it is
+    undoing that.
   - **An AI that raised the pull request ITSELF is the participant, and is named.**
     GitHub CodeQL filing a security fix, Copilot Autofix, Dependabot raising a
     dependency bump: nobody wrote those, so crediting a human would be false and
@@ -129,7 +139,8 @@ git config user.name && git config user.email
   co-author, not as a second author, but as that author and no other — with no pull
   request and with nothing anywhere in the commit message, the CHANGELOG entry or
   anything else it writes that says an AI was involved. Working for the maintainer
-  is the invisible half of the attribution rule above. The **publishing / release
+  is the invisible half of the attribution rule above — the acknowledgement for it
+  already exists, on <https://wekan.fi/sponsors>, and belongs nowhere else. The **publishing / release
   steps** below are available to a human maintainer only: an AI stops after
   committing locally and never runs a step that pushes or publishes.
 - **Contributor mode** — the identity is somebody ELSE, in a fork or a clone of your
