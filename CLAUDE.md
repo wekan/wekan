@@ -18,6 +18,44 @@ Stop after the local commit and report its hash and the exact human-run push com
 All push, merge, release, and publishing instructions elsewhere in this file are for a
 human maintainer only; they do not authorize an AI assistant to execute remote writes.
 
+## Where this repository is, and which branch commits go on
+
+**Every commit goes directly on `main`.** Not a feature branch, not a topic branch,
+not a detached HEAD, and never a pull request. There is one line of history in this
+repository and new work is added to the end of it. If a tool, a task runner or an
+agent harness offers to branch the work off, decline and commit on `main`.
+
+The reason is the release flow, not taste. Releases here are frequent — several a
+day when a fault is being chased — and `releases/release-all.sh` cuts one from
+whatever is on `main`, taking the version from the `# Upcoming WeKan ® release`
+section of `CHANGELOG.md`. Work parked on a branch is work that is not in the next
+release, and `tests/changelogEntriesBelongToTheirRelease.test.cjs` fails when a
+released section links a commit that release does not contain.
+
+Check before committing; `git status` says which branch is checked out:
+
+```
+git rev-parse --abbrev-ref HEAD
+```
+
+If that is not `main`, stop and say so rather than committing where you are. A side
+task that was given its own git worktree cannot be on `main` — git allows one
+checkout per branch — so its work belongs back on `main` in the checkout below
+before it is committed, not on the worktree's branch.
+
+The checkout is at a fixed place on each operating system:
+
+| OS | WeKan repository |
+| --- | --- |
+| Linux | `~/repos/wekan` |
+| macOS | `~/Documents/repos/wekan` |
+| Windows | `Downloads\repos\wekan` (under the user's profile, e.g. `C:\Users\<name>\Downloads\repos\wekan`) |
+
+The companion repositories under `.tools/` follow the same rule on their OWN default
+branch, which is not always called `main`: `main-v1` for the FerretDB fork, `devel`
+for TSC (see the table further down). Committing directly is not permission to push
+— the boundary above still holds, for every one of them.
+
 ## First: who maintains this, and who is committing?
 
 **WeKan, the `wekan/` repositories cloned under `.tools/`, and
@@ -57,16 +95,18 @@ git config user.name && git config user.email
 - **Maintainer mode** — the identity is `Lauri Ojansivu <x@xet7.org>` (name
   `Lauri Ojansivu`, email `x@xet7.org`), or it is unset in a checkout of one of the
   repositories above, which means it is to be SET to that as above rather than worked
-  around. Then: commit **directly to the current branch** as
+  around. Then: commit **directly to `main`** (see the section above) as
   `Lauri Ojansivu <x@xet7.org>` with no AI trailer and no pull request, and the
   **publishing / release steps** below are available to a human maintainer only. An AI
   stops after committing locally and never runs a step that pushes or publishes.
 - **Contributor mode** — the identity is somebody ELSE, in a fork or a clone of your
-  own. Then: do **not** commit directly to the branch and do **not** run any
-  release/publishing step. Make changes on a branch and open a **pull request** for
-  the maintainer to review, and keep that pull request free of AI attribution too.
-  The "commit as Lauri Ojansivu", "commit directly", and all release instructions
-  below are **maintainer-only and do not apply to you**.
+  own. Commits still go on `main`, under that identity, and still stop there: do
+  **not** run any release/publishing step, and keep AI attribution out of whatever
+  you send — a pull request body included. How the work reaches wekan/wekan (a push
+  to your fork, a pull request opened from it) is a HUMAN step taken afterwards, and
+  the never-push boundary above means an AI does not take it. The "commit as Lauri
+  Ojansivu" author rule and all release instructions below are **maintainer-only and
+  do not apply to you**.
 
 Maintainer mode covers TSC as well: commit directly to its `devel` branch, no pull
 request, same author and no AI attribution. What it does NOT bring along is WeKan's
@@ -236,15 +276,19 @@ directly after the merge.
 
 - **[maintainer only]** Commit as `Lauri Ojansivu <x@xet7.org>`, with **no**
   "Co-Authored-By" or any other AI trailer, directly to the `main` branch of WeKan and
-  the `main-v1` branch of the FerretDB fork. **Do not make pull requests.** (Contributors
-  do the opposite: work on a branch and open a pull request — see the top section.)
+  the `main-v1` branch of the FerretDB fork. **Do not make pull requests.**
+  (Contributors commit on `main` too — see the top section; what differs is the
+  author and that no release step is theirs to run.)
   This is the same rule as the top section, restated where the release work is: one
   author, `Lauri Ojansivu <x@xet7.org>`, and no AI attribution anywhere.
 - Lauri Ojansivu (xet7) maintains WeKan (https://wekan.fi), the FerretDB v1 fork, and
   the two patch repositories under `.tools/` — node-patches and mongo-tools-patches.
 - Directory structure:
   - `wekan` — this repo (https://github.com/wekan/wekan); see
-    `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root.
+    `docs/DeveloperDocs/Directory-Structure.md`; `CHANGELOG.md` at root. It is at
+    `~/repos/wekan` on Linux, `~/Documents/repos/wekan` on macOS and
+    `Downloads/repos/wekan` on Windows, and commits go on `main` — see "Where this
+    repository is, and which branch commits go on" above.
   - `.tools/wekan.fi` — the WeKan website companion repository.
   - `.tools/` — everything that is NOT part of this repository but is needed to
     build, test and release it, in ONE directory that `.gitignore` and
