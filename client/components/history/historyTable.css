@@ -16,6 +16,10 @@
      window less the same 10px gutter it is inset by at the top, so the space
      under it matches the space over it; this is what carries that height down
      to the table instead of leaving it as blank panel. */
+  /* A flex item of the `.content` box above, not a percentage of it: at small
+     widths that box has no definite height to be a percentage of. `height:
+     100%` is kept as the fallback for the desktop panel, where it does. */
+  flex: 1 1 auto;
   height: 100%;
   min-height: 0;
 }

@@ -259,6 +259,73 @@
   visibility: hidden !important;
 }
 
+/* History: the panel's height has to REACH THE TABLE, at every width.
+ *
+ * This is deliberately outside the desktop media query below, because the width
+ * where it matters most is the small one. Above 801px the panel is given a
+ * height directly; under it, popup.css already lays every popup out as a
+ * full-screen sheet - so the box is the right size in both cases and the only
+ * question is whether the three wrappers between the shell and the template
+ * pass that size down. They did not, and the symptom was the horizontal
+ * scrollbar sitting halfway up a full-screen panel with blank space beneath it,
+ * because the rows box was only as tall as its one row.
+ *
+ * Measured at 375x812, the chain broke in two places, both of them percentage
+ * heights meeting an indefinite parent:
+ *   .content-container stopped at 588px - `max-height: calc(70vh + 20px)` from
+ *     the base rule, which is 70% of 812 plus 20, and the `.pop-over--bounded`
+ *     override that normally cancels it does not apply here: that class is set
+ *     from the inline max-height, and popupOffset.js sends none to a
+ *     full-screen sheet.
+ *   .content collapsed to 10px - its `height: calc(100% - 20px)` had nothing
+ *     definite to be a percentage OF, so it resolved to the padding alone.
+ *
+ * So this uses FLEX rather than percentages the whole way down. A flex item
+ * that may grow and shrink needs no parent height to resolve against, which is
+ * the property percentages lack, and `min-height: 0` is what actually lets it
+ * shrink - a flex item defaults to `min-height: auto`, its content, so without
+ * it a long table pushes the panel taller instead of scrolling inside it. */
+.pop-over[data-popup='historyPopup'] {
+  display: flex;
+  flex-direction: column;
+  /* The base rule caps EVERY popup at `max-height: 90vh !important`, which on a
+     full-screen sheet leaves a tenth of the screen empty under it - 731px of an
+     812px phone, measured. The mobile block already tries to undo that with
+     `max-height: 100% !important` on `.pop-over` and loses, because the two have
+     the same specificity and 90vh is written later in this file.
+     `[data-popup=...]` adds an attribute selector, so this one wins on
+     specificity instead of on position - and the desktop height further down,
+     which shares this specificity, still wins there by being written after it. */
+  max-height: 100% !important;
+  /* So the stated height IS the outer height. This file's reset makes `*`
+     `box-sizing: unset`, i.e. content-box, and `.pop-over` carries a 1px
+     border, so `height: calc(100vh - 20px)` drew a box 2px taller than it says
+     and the gap below came out 8px against 10px above. `.pop-over--bounded`
+     sets border-box and would have covered it, but that class is applied from
+     the inline max-height popupOffset.js sends, and it does not send one
+     whenever it takes its mini-screen branch - which can happen at widths where
+     the desktop CSS above is still in force. Stating it here does not depend on
+     the two agreeing. */
+  box-sizing: border-box;
+}
+.pop-over[data-popup='historyPopup'] .content-wrapper,
+.pop-over[data-popup='historyPopup'] .content-container,
+.pop-over[data-popup='historyPopup'] .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: auto;
+  /* The 70vh cap above, cancelled where it would clip the panel short. */
+  max-height: none;
+  min-height: 0;
+}
+/* The wrapper is the one that must not scroll: the rows box inside it does its
+   own scrolling, and two nested scrollers put the horizontal bar in the middle
+   of the panel instead of at the foot of it. */
+.pop-over[data-popup='historyPopup'] .content-wrapper {
+  overflow: hidden;
+}
+
 /* Select Color (Member Settings and Board Settings) is wide enough for several
  * columns of swatches, the same idea as the language popup below: width buys
  * columns, and the picker's grid (customTheme.css) takes as many as fit.
@@ -1151,17 +1218,6 @@ body.mobile-mode .pop-over .content-wrapper {
     margin-bottom: 0 !important;
   }
 
-  /* ...and the room reaches the table rather than becoming blank space inside
-     the panel. The pop-over shell is already a flex column when it is bounded
-     (`.pop-over--bounded` above), but the three wrappers between it and the
-     template are not, so a full-height panel would hold a short table pinned
-     to its top - the original complaint moved indoors. */
-  .pop-over[data-popup='historyPopup'] .content-wrapper,
-  .pop-over[data-popup='historyPopup'] .content-container,
-  .pop-over[data-popup='historyPopup'] .content {
-    height: 100%;
-    min-height: 0;
-  }
   .pop-over .export-board-panes {
     display: grid;
     /* The selection is a checkbox list and stays narrower than the formats,

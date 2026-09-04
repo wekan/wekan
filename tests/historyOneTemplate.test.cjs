@@ -22,6 +22,14 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
+/*
+ * CSS with the comments taken out. These tests match on declarations, and a
+ * comment that QUOTES a declaration satisfied one: the note explaining why
+ * `height: calc(100vh - 20px)` needed `box-sizing` was picked up as the
+ * declaration itself, so the guard passed while pointing at prose.
+ */
+const declarations = f => read(f).replace(/\/\*[\s\S]*?\*\//g, '');
+
 const jade = read('client/components/history/historyTable.jade');
 const js = read('client/components/history/historyTable.js');
 const feature = read('client/features/history.js');
@@ -212,7 +220,7 @@ test('History is a full-width panel, declared in BOTH places that decide width',
 // the gap between a menu and its button, which on a box of exactly 100vh - 20px
 // pushed 6px past the bottom - 16px above against 4px below).
 test('the panel leaves the same gap below it as above it', () => {
-  const css = read('client/components/main/popup.css');
+  const css = declarations('client/components/main/popup.css');
   // The selector appears in more than one rule - it is the last of the
   // full-width group as well - so take the block that actually sizes it.
   const blocks = [...css.matchAll(/\.pop-over\[data-popup='historyPopup'\] \{([^}]*)\}/g)]
@@ -241,7 +249,7 @@ test('the panel leaves the same gap below it as above it', () => {
 });
 
 test('and the pinned panels drop the margin meant for anchored menus', () => {
-  const css = read('client/components/main/popup.css');
+  const css = read('client/components/main/popup.css');   // comment text is the anchor here
   const rule = /\.pop-over\[data-popup='historyPopup'\] \{\s*\n\s*margin-top: 0/.exec(css)
     || /margin-top: 0 !important;\n\s*margin-bottom: 0 !important;/.exec(css);
   assert.ok(rule, 'the margin must be zeroed for the viewport-pinned panels');
@@ -252,12 +260,88 @@ test('and the pinned panels drop the margin meant for anchored menus', () => {
   }
 });
 
+// AND at every width. The chain was written inside the desktop-only media
+// query, so under 801px - where popup.css lays the popup out as a full-screen
+// sheet - nothing passed the height down and the horizontal scrollbar sat
+// halfway up the panel with blank space beneath it. Measured at 375x812:
+// .content-container stopped at 588px (70vh + 20px, the base cap, whose
+// `.pop-over--bounded` override does not apply to a sheet because that class
+// comes from an inline max-height popupOffset.js does not send one of), and
+// .content collapsed to 10px because its percentage height had no definite
+// parent to resolve against.
+test('the height chain is not desktop-only', () => {
+  const css = declarations('client/components/main/popup.css');
+  const at = css.indexOf(".pop-over[data-popup='historyPopup'] .content-wrapper,");
+  assert.ok(at > 0, 'the chain must exist');
+
+  // Match braces properly rather than looking for a closing line: an earlier
+  // attempt searched for the next "\n}" after the last @media, and a rule
+  // inside the block that happened to close at column 0 satisfied it - so the
+  // guard passed while the chain sat in the media query it is meant to stay out
+  // of. Walk the file and collect the real span of every at-rule block.
+  const spans = [];
+  for (let i = 0; i < css.length; i++) {
+    if (!css.startsWith('@media', i)) continue;
+    const open = css.indexOf('{', i);
+    if (open === -1) break;
+    let depth = 0;
+    for (let j = open; j < css.length; j++) {
+      if (css[j] === '{') depth++;
+      else if (css[j] === '}') {
+        depth--;
+        if (depth === 0) { spans.push([i, j]); i = j; break; }
+      }
+    }
+  }
+  const inside = spans.find(([a, b]) => at > a && at < b);
+  assert.equal(inside, undefined,
+    'the chain is inside a @media block; below 801px it would not apply, and ' +
+    'that is the width the popup becomes a full-screen sheet at and needs it most');
+});
+
+// Percentages are what broke it, so they must not come back.
+test('the chain uses flex rather than percentage heights', () => {
+  const css = declarations('client/components/main/popup.css');
+  const at = css.indexOf(".pop-over[data-popup='historyPopup'] .content-wrapper,");
+  const block = css.slice(at, css.indexOf('}', at));
+  assert.doesNotMatch(block, /height: 100%/,
+    'a percentage needs a definite parent; a full-screen sheet does not give ' +
+    'it one, which is how .content ended up 10px tall');
+  assert.match(block, /min-height: 0/,
+    'a flex item defaults to min-height:auto - its content - so without this a ' +
+    'long table stretches the panel instead of scrolling inside it');
+});
+
+// The two rules that decide whether the stated size is the size you get. Both
+// were found by measuring a real browser, and neither is visible in a diff:
+//   - Every popup is capped by `.pop-over { max-height: 90vh !important }`, so
+//     a full-screen sheet stopped 731px down an 812px phone. The mobile block
+//     already tries to undo it and loses on source order, having the same
+//     specificity; the attribute selector here wins on specificity instead.
+//   - This file's reset makes `*` content-box and `.pop-over` has a 1px border,
+//     so a stated `calc(100vh - 20px)` drew 2px taller than it says: 10px above
+//     and 8px below.
+test('the stated size is the size the panel actually gets', () => {
+  const css = declarations('client/components/main/popup.css');
+  const blocks = [...css.matchAll(/\.pop-over\[data-popup='historyPopup'\] \{([^}]*)\}/g)]
+    .map(m => m[1]);
+
+  const uncapped = blocks.find(b => /max-height: 100% !important/.test(b));
+  assert.ok(uncapped,
+    'without this the 90vh cap leaves a tenth of a phone screen empty under the sheet');
+  assert.match(uncapped, /box-sizing: border-box/,
+    'content-box puts the 1px border outside the stated height, and the gap ' +
+    'below comes out 2px short of the gap above');
+});
+
 // The height is only worth having if it reaches the rows.
 test('the height reaches the table instead of becoming blank panel', () => {
-  const popup = read('client/components/main/popup.css');
-  const own = read('client/components/history/historyTable.css');
-  assert.match(popup, /\.pop-over\[data-popup='historyPopup'\] \.content-wrapper[\s\S]{0,200}height: 100%/,
+  const popup = declarations('client/components/main/popup.css');
+  const own = declarations('client/components/history/historyTable.css');
+  assert.match(popup, /\.pop-over\[data-popup='historyPopup'\] \.content-wrapper,[\s\S]{0,400}flex: 1 1 auto/,
     'the wrappers between the shell and the template must pass the height down');
+  assert.match(popup, /\.pop-over\[data-popup='historyPopup'\] \.content-wrapper,[\s\S]{0,400}max-height: none/,
+    'the base `max-height: calc(70vh + 20px)` clips the panel short otherwise');
   assert.match(own, /\.history-table \{[^}]*height: 100%/);
   assert.match(own, /\.history-main \{[^}]*flex-direction: column/);
   assert.match(own, /\.history-scroll \{[\s\S]*?flex: 1 1 auto/,
