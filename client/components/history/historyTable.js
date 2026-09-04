@@ -1,7 +1,12 @@
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { TAPi18n } from '/imports/i18n';
 import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
+// NOT moment: it was removed from WeKan and replaced with native Date helpers
+// (see imports/i18n/moment.js). The import this line replaces was the only one
+// left in the tree, and it broke the client build outright - moment is not a
+// dependency at all, so nothing resolved it. No source-reading test could have
+// caught that; the build did, first time.
+import { formatDateTime } from '/imports/lib/dateUtils';
 
 // THE History view — one implementation for every scope
 // (docs/Features/Reports/History/History.md §7a). The card-group menu, the whole
@@ -99,7 +104,7 @@ function summarise(row) {
   // every language, which a translated word would have needed 197 files to do.
   if (content.value === null) return '—';
   if (Array.isArray(content.value)) return content.value.join(', ');
-  if (content.isDate) return moment(content.value).format('LLL');
+  if (content.isDate) return formatDateTime(content.value);
   if (typeof content.value === 'number' || typeof content.value === 'boolean') {
     return String(content.value);
   }
@@ -128,7 +133,7 @@ Template.historyTable.helpers({
       changeTypeKey: changeTypeKey(row.changeType),
       groupKey: GROUP_KEYS[row.group] || null,
       contentSummary: summarise(row),
-      prettyWhen: moment(row.createdAt).format('LLL'),
+      prettyWhen: formatDateTime(row.createdAt),
       isSelected: selected.includes(row._id),
     }));
   },

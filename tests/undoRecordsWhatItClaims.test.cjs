@@ -45,8 +45,13 @@ const test = (name, run) => {
 /* Every file that records history, found rather than listed. */
 function recordingFiles() {
   const found = [];
+  // '_build' and friends are BUILD OUTPUT: a bundled copy of the whole app, in
+  // which every import has already been rewritten by the bundler. Scanning it
+  // reports the bundle's own generated code as a source file that fails this
+  // rule, which is both false and unfixable.
   const skip = new Set(['node_modules', '.git', '.claude', '.meteor', '.build',
-    '.tools', 'log', 'dist', 'coverage', 'docs', 'tests']);
+    '_build', '_build-local-test', 'output', '.tools', 'log', 'dist',
+    'coverage', 'docs', 'tests']);
   (function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       if (skip.has(entry.name)) continue;
