@@ -198,6 +198,74 @@ test('History is a full-width panel, declared in BOTH places that decide width',
     'list is placed as if it were 380px and opens most of the way off screen');
 });
 
+// The panel ends the same distance from the bottom of the window that it starts
+// from the top. Measured in a browser at 1280x720: 10px on all four sides, a
+// 700px panel, and the rows scrolling inside it rather than stretching it.
+//
+// Three separate rules are needed for that and each was found by measuring:
+// a HEIGHT (without one the box was only as tall as its contents - a two-row
+// table in the top eighth of the window); FIXED positioning (every other popup
+// is absolute in document coordinates, which is right for a menu that should
+// travel with its button, and wrong for a box sized from the viewport: opened
+// on a page scrolled 53px down and scrolled back, it sat 63px low with 43px
+// past the bottom); and NO margin (the base .pop-over adds `margin-top: 6px` as
+// the gap between a menu and its button, which on a box of exactly 100vh - 20px
+// pushed 6px past the bottom - 16px above against 4px below).
+test('the panel leaves the same gap below it as above it', () => {
+  const css = read('client/components/main/popup.css');
+  // The selector appears in more than one rule - it is the last of the
+  // full-width group as well - so take the block that actually sizes it.
+  const blocks = [...css.matchAll(/\.pop-over\[data-popup='historyPopup'\] \{([^}]*)\}/g)]
+    .map(m => m[1]);
+  const rule = [blocks.find(b => /(?<!max-)height: calc\(100vh/.test(b))];
+  assert.ok(rule[0], 'historyPopup must have its own sizing rule');
+
+  // (?<!max-) on purpose: `max-height: calc(100vh - 20px)` matches a loose
+  // pattern here and is exactly what this test exists to reject - a maximum
+  // alone lets a short table stay short, which is the state being fixed.
+  assert.match(rule[0], /(?<!max-)height: calc\(100vh - 20px\) !important/,
+    'a maximum alone lets a short table stay short; state the height');
+  assert.match(rule[0], /position: fixed !important/,
+    'a box sized from the viewport must be positioned from the viewport');
+  assert.match(rule[0], /top: 10px !important/);
+  // Logical, not `left`: tests/rtl.test.js rejects physical offsets, and both
+  // ends must be named so the inline `left:` the template writes is overridden
+  // in RTL as well as LTR.
+  assert.match(rule[0], /inset-inline-start: 10px !important/);
+  assert.match(rule[0], /inset-inline-end: auto !important/);
+
+  // Same gutter as the width, and as viewportPadding in popupOffset.js.
+  const width = css.slice(css.indexOf("data-popup='exportBoardPopup'"));
+  assert.match(width.slice(0, 1600), /width: calc\(100vw - 20px\)/,
+    'the horizontal gutter is the same 10px each side');
+});
+
+test('and the pinned panels drop the margin meant for anchored menus', () => {
+  const css = read('client/components/main/popup.css');
+  const rule = /\.pop-over\[data-popup='historyPopup'\] \{\s*\n\s*margin-top: 0/.exec(css)
+    || /margin-top: 0 !important;\n\s*margin-bottom: 0 !important;/.exec(css);
+  assert.ok(rule, 'the margin must be zeroed for the viewport-pinned panels');
+  const block = css.slice(css.indexOf('No `margin-top: 6px` on a panel'));
+  for (const name of ['historyPopup', 'exportBoardPopup']) {
+    assert.ok(block.slice(0, 1400).includes(`data-popup='${name}'`),
+      `${name} is pinned to the gutter and must not carry the anchor margin`);
+  }
+});
+
+// The height is only worth having if it reaches the rows.
+test('the height reaches the table instead of becoming blank panel', () => {
+  const popup = read('client/components/main/popup.css');
+  const own = read('client/components/history/historyTable.css');
+  assert.match(popup, /\.pop-over\[data-popup='historyPopup'\] \.content-wrapper[\s\S]{0,200}height: 100%/,
+    'the wrappers between the shell and the template must pass the height down');
+  assert.match(own, /\.history-table \{[^}]*height: 100%/);
+  assert.match(own, /\.history-main \{[^}]*flex-direction: column/);
+  assert.match(own, /\.history-scroll \{[\s\S]*?flex: 1 1 auto/,
+    'the rows take what the controls leave');
+  assert.doesNotMatch(own, /\.history-scroll \{[\s\S]*?max-height: 55vh/,
+    'a fixed slice of the viewport inside a box already sized from it clips early');
+});
+
 // A <table> given `display: block` to make it scroll is no longer a table: the
 // cells stop sharing column widths, so the header and the rows drift apart. The
 // scroll belongs on a wrapper.

@@ -12,6 +12,12 @@
      given real width by popup.css, which lists historyPopup with the export
      panels; this file only has to survive being narrow. */
   max-width: 100%;
+  /* Fill the panel. popup.css gives the History pop-over the height of the
+     window less the same 10px gutter it is inset by at the top, so the space
+     under it matches the space over it; this is what carries that height down
+     to the table instead of leaving it as blank panel. */
+  height: 100%;
+  min-height: 0;
 }
 .history-rtl { flex-direction: row-reverse; }
 
@@ -23,7 +29,10 @@
      201px for a four-column table. */
   flex: 0 1 auto;
   min-width: 0;
-  max-height: 60vh;
+  /* No 60vh cap any more: the pane is as tall as the panel, and the panel is
+     as tall as the window. A viewport-relative maximum inside a box that is
+     already sized from the viewport just clips it early. */
+  min-height: 0;
   overflow-y: auto;
   border-inline-end: 1px solid rgba(128, 128, 128, 0.25);
   padding-inline-end: 8px;
@@ -39,7 +48,16 @@
 .history-nav-item.is-active { background: rgba(128, 128, 128, 0.18); }
 .history-nav-count { font-size: 0.85em; opacity: 0.7; }
 
-.history-main { flex: 1 1 auto; min-width: 0; }
+.history-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* A column, so the controls keep their height and the rows take everything
+     left over - which is what makes the table grow with the window instead of
+     the panel ending in blank space. */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
 .history-controls {
   display: flex;
   align-items: center;
@@ -61,7 +79,12 @@
    column widths, so the header row and the rows beneath it no longer line up.
    Putting the overflow on a plain div leaves the table a table. */
 .history-scroll {
-  max-height: 55vh;
+  /* Takes the rest of the column rather than a fixed slice of the viewport.
+     `min-height: 0` is what actually lets it shrink: a flex item's default
+     `min-height: auto` is its content, so without it a long table pushes the
+     panel taller instead of scrolling inside it. */
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: auto;
 }
 .history-rows {
