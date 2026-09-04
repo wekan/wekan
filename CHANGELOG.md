@@ -8249,9 +8249,9 @@ browser build to verify).
 swimlane - the common case on any board predating per-swimlane lists - produced
 an **empty copy**. **Admin Panel / Problems** can put back the swimlane bindings
 an older automatic repair cleared, restoring only what was recorded and never
-guessing. **Undo** stops being position-only: card moves were never recorded at
-all, and `Ctrl+Z` now reads a new universal **change history** that also covers
-description edits and deleted lists. Alongside that, the
+guessing. **Undo** stops being position-only: it now reads a new universal
+**change history** that records every card group, and **History** is a new view
+on it, opened from the card, list and swimlane menus. Alongside that, the
 **contribution rules** now say which role commits on which branch, where the
 checkout lives, and when an AI is credited.
 
@@ -8475,6 +8475,62 @@ menu items, and recording for the remaining card groups. The methods those
 screens need exist and are tested; nothing calls them yet. Both design
 documents now say which half is which — the last time one of them claimed more
 than the code did, the gap survived for months.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fe46c604">Every card group is recorded, and History is one table opened from every menu</a>. Thanks to xet7.</summary>
+
+Phases 3, 5 and 6 of the design, and the viewer of phase 2.
+
+**Recording everything, from one place.** §5 suggests *"a thin, central choke
+point ... avoids sprinkling calls everywhere"*, and
+`server/models/changeHistoryHooks.js` is that: an `after.update` hook per
+collection that diffs the changed fields, plus insert/remove for the
+sub-entities. Cards, lists, swimlanes, checklists, checklist items and
+comments are covered across every group the design names.
+
+The advantage over editing twenty setters is not brevity, it is **coverage**:
+the REST API, the CSV and Trello importers and the rules engine all write
+through the collection and none call the client setters, so a per-setter
+rollout would have recorded a description edited in the interface and silently
+missed the same edit made over the API.
+
+What a hook must not do is record too much, so
+`models/lib/changeHistoryGroups.js` is a table rather than a rule.
+`modifiedAt` and `dateLastActivity` change on nearly every write and would
+bury the changes a person actually made; and the four fields of a move only
+mean anything together — reported separately, one drag becomes four rows and
+undo puts back a quarter of it. Moves and the list soft delete therefore record
+themselves, as one change each.
+
+**One table, every scope.** §7a: *"there is ONE implementation, parametrised by
+scope"*. `client/components/history/historyTable` is that one — contributor
+pane, search, pagination, row selection, Restore and RTL — and the card, list
+and swimlane menus each open it with a different scope. Adding History to a
+menu is a menu item and a two-line handler, exactly as the design promises.
+`tests/historyOneTemplate.test.cjs` walks every `.jade` under `client/` and
+fails if a second History table is ever defined, because six copies of a table
+drift: one gets RTL and the others do not, one gets the search fixed and the
+others keep the bug.
+
+Two things the interface needed that were nearly wrong. The scope has to
+travel as `dataContextIfCurrentDataIsUndefined`, because `Popup.open`'s second
+argument is *options* — a bare object there is ignored, and the popup would
+open on the menu's own data context and show the wrong history. And a popup
+without a title key renders with no header and so no close button; this one
+reuses the existing `history` key rather than adding another.
+
+**Four new words** — Removed, Edited, Moved, Restored — because the Action
+column is the one a reader must understand. *Added* the app already had, and
+every other label reuses the word the card view already uses for that section,
+so a group reads as Description or Labels in the language the card beside it
+speaks. That kept this to four keys across 197 locales instead of twenty-six.
+
+Not verified live: there was no Meteor runtime available for this work, so
+none of it has been opened in a browser. The design asks for each phase to be
+verified live before the next; both documents now say plainly that this has not
+happened, and the interface in particular should be treated as unproven.
 
 </details>
 
