@@ -8472,6 +8472,41 @@ the *next* arrow disabled itself there.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05d644f67">The History panel leaves the same gap below it as above it</a>. Thanks to xet7.</summary>
+
+The panel was pinned 10px below the top of the window and then stopped wherever
+its contents ended, so a two-row table sat in the top eighth of the screen with
+the rest of it blank. It now ends 10px above the bottom of the window: measured
+at 1280x720, 10px on all four sides, a 700px panel, the same in RTL.
+
+Three separate rules were needed, and each was found by measuring rather than by
+reading the file:
+
+- **A height.** `popupOffset.js` already sent a max-height of the right size,
+  and a maximum alone lets a short table stay short.
+- **No margin.** The base `.pop-over` adds `margin-top: 6px` as the little gap
+  between a menu and the button that opened it. These panels are not hung off a
+  button - they are pinned to the viewport's own 10px gutter - so the margin was
+  added to a position that was already final. Every full-width panel sat 16px
+  from the top while its own comment said 10, and on History, which now states a
+  height, it pushed 6px past the bottom as well: 16px above against 4px below.
+  The export panels have the same contract and lose it too.
+- **Fixed positioning.** Every other popup is absolute in DOCUMENT coordinates,
+  which is right for a menu that should travel with its button and wrong for a
+  box sized from the viewport. Opened on a page scrolled 53px down and then
+  scrolled back, the panel stayed 63px below the window with 43px of itself past
+  the bottom. It is positioned from the viewport now, the way the Admin edit
+  popups already are.
+
+The height then had to reach the table or the blank space would only have moved
+indoors, so the wrappers between the shell and the template pass it down, the
+rows take what the controls leave, and they scroll inside the panel instead of
+being capped at `55vh`. With 40 rows the panel stays 700px and the table scrolls
+within it.
+
+</details>
+
 and fixes the following bugs:
 
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
