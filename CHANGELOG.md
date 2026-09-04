@@ -8251,9 +8251,9 @@ carries the published win64 ZIP as a checksummed payload, unpacks only the
 fifteen or so files Windows itself must open, and **mounts the remaining
 ~39,000 in the server process**. That ends the crash loop 11.48 shipped with,
 cuts the download from 690 MB to about 232 MB, and turns a damaged copy into a
-clear message rather than a restarting server. **bundle-trim** also drops the
-native prebuilds no bundle can open. The release smoke test no longer passes an
-EXE that only answers because start-wekan.bat keeps retrying.
+clear message rather than a restarting server. **bundle-trim** drops the native
+prebuilds no bundle can open, and **moving a list to a swimlane** now binds it
+there instead of silently doing nothing.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8410,6 +8410,64 @@ files for the Bare runtime. Those are left untouched, and say so.
 On the mac-arm64 bundle 19 of the 21 go and the two for `darwin-arm64`
 stay. For the single Windows EXE it takes the files that have to be
 unpacked from 33 down to about fifteen.
+
+</details>
+
+**Swimlanes** - which swimlane a list belongs to, and whether that can be set.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb5339075">Moving a list to a swimlane binds it to that swimlane</a>. Thanks to TawsTm and xet7.</summary>
+
+Moving a list to another swimlane on the same board did nothing at all. The
+list kept its empty `swimlaneId`, so it went on rendering under every
+swimlane, and deleting "the one in the second swimlane" deleted the only
+list document there was. A board backup showed the empty `swimlaneId` on
+lists that the report describes.
+
+`List.move(boardId, swimlaneId)` asked *does the target board already have
+a list with this name?* without first asking whether the target board IS
+this list's board:
+
+```
+const boardList = await ReactiveCache.getList({
+  boardId, title: this.title, archived: false });
+if (boardList) { ...merge, never writes a swimlaneId... }
+else           { ...insert a new list WITH the swimlaneId... }
+```
+
+On a same-board move that search finds THIS LIST, so the merge branch ran -
+and the merge branch is the one branch that never writes a `swimlaneId`.
+The chosen swimlane was discarded every time, which is also why the binding
+could not be put back by hand.
+
+Merging is only meaningful across boards; on the same board a move is a
+re-bind, and that is what it does now. The decision lives in
+`models/lib/listMovePlan.js`, where it is unit-tested, and `models/lists.js`
+applies it: same board re-binds this list, another board with the name
+already taken merges the cards into that list, another board creates it
+there and binds it. An empty `swimlaneId` remains a deliberate un-bind back
+to board-wide, which is still a legitimate layout, and `moveList` now
+refuses a swimlane that is not on the board the list is moving to.
+
+The same branch also called `card.move(boardId, this._id, boardList._id)`.
+`Card.move`'s second argument is a `swimlaneId`, so this set every card's
+`swimlaneId` to a LIST id - a swimlane that does not exist - and those cards
+became the orphaned cards the board-open repair has to rescue. The cards
+were selected as `this.cards(swimlaneId)` as well, filtering the SOURCE
+list's cards by a `swimlaneId` belonging to the TARGET board, which on a
+cross-board move matches nothing and left every card behind. Both are gone:
+a list's own cards travel with it, into the chosen swimlane. A negative test
+scans `models/lists.js` for any `card.move()` whose second argument is not a
+swimlane, so the argument order cannot go wrong at another call site.
+
+This does not restore bindings already lost. Boards opened under the
+versions before [#6515](https://github.com/wekan/wekan/issues/6515) had
+every list un-bound automatically, and which swimlane each list belonged to
+is not recoverable from the data - a list's cards can be spread across
+several swimlanes, and on a board whose second swimlane is new they are all
+in the first, so guessing would bind every list to one swimlane and hide it
+from the others. With this fix the binding can at least be set again from
+Move List.
 
 </details>
 
