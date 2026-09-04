@@ -16,7 +16,11 @@ import {
   matchesSearch,
   selectionToIds,
 } from '/models/lib/changeHistoryQuery';
-import { valueFromContent } from '/models/lib/changeHistoryGroups';
+import {
+  valueFromContent,
+  contentForField,
+  contentForDirection,
+} from '/models/lib/changeHistoryGroups';
 import { pageInfo } from '/models/lib/tablePage';
 import { withoutRecording } from '/server/lib/historyRecordingScope';
 
@@ -154,17 +158,73 @@ const APPLIERS = {
   comment: (row, content) => applyFieldContent(CardComments, row, content),
 };
 
+/* Which collection each entity type lives in, for reading a value back. */
+const COLLECTIONS = {
+  card: Cards,
+  list: Lists,
+  swimlane: Swimlanes,
+  checklist: Checklists,
+  checklistItem: ChecklistItems,
+  comment: CardComments,
+};
+
 /*
- * Apply one row in a direction. 'undo' puts previousContent back; 'redo' puts
- * newContent back. That single rule covers every changeType, which is why undo
- * did not need a case per action: an 'added' row has previousContent null, so
- * undoing it means applying null - handled by each applier as "there is nothing
- * to put back", and by lifecycle rows as the delete flag itself.
+ * What the entity holds RIGHT NOW for the thing this row is about, in the same
+ * shape the row's own content uses.
+ *
+ * A restore needs it so the rows it appends say what actually happened: the
+ * description went from whatever was on the card to the one that was restored.
+ * Without it the appended row repeats the restored row's own before/after,
+ * which is a different change and, when several restores are done in a row, a
+ * false one.
+ */
+async function currentContentOf(row) {
+  const collection = COLLECTIONS[row.entityType];
+  if (!collection) return null;
+  const doc = await collection.findOneAsync(row.entityId);
+  if (!doc) return null;
+
+  if (row.group === 'position') {
+    const position = {};
+    for (const key of ['boardId', 'swimlaneId', 'listId', 'sort']) {
+      if (doc[key] !== undefined) position[key] = doc[key];
+    }
+    return Object.keys(position).length ? position : null;
+  }
+
+  const field = (row.newContent && row.newContent.field)
+    || (row.previousContent && row.previousContent.field);
+  if (!field) return null;
+  return contentForField(field, doc[field]);
+}
+
+/*
+ * Apply one row in a direction.
+ *
+ *   'undo'    puts previousContent back - the state before this change.
+ *   'redo'    puts newContent back.
+ *   'restore' makes THIS ROW'S content current, which is newContent: the value
+ *             the row shows in the table.
+ *
+ * That last distinction is the whole of #restore-shows-what-it-does. History.md
+ * §7 says the content column holds "the new text", and §8 says Restore
+ * "restores the selected change" - so the row a reader picks and the value they
+ * get have to be the same thing. Restore used to run 'undo', so choosing the
+ * row that displayed the description you wanted gave you the one BEFORE it, and
+ * the report was exactly that: "it restores wrong history, that I did not
+ * select."
+ *
+ * A row with no newContent is a removal; restoring one means putting back what
+ * it removed, so it falls back to previousContent.
+ *
+ * Undo (Ctrl+Z) is unchanged and still means 'undo': undo reverses your last
+ * change, restore reinstates a chosen one. They are different operations and
+ * only look alike when the chosen row happens to be the last one.
  */
 async function applyRow(row, direction) {
   const applier = APPLIERS[row.entityType];
   if (!applier) return false;
-  const content = direction === 'undo' ? row.previousContent : row.newContent;
+  const content = contentForDirection(row, direction);
   if (content === null || content === undefined) return false;
   try {
     // The applier's own writes must not be recorded again: the caller writes the
@@ -288,13 +348,20 @@ Meteor.methods({
     let skipped = 0;
     for (const row of rows) {
       await requireBoardWrite(this.userId, row.boardId);
-      const applied = await applyRow(row, 'undo');
+
+      // Read the live value BEFORE applying, so the rows appended below say what
+      // this restore actually did rather than repeating the restored row's own
+      // before/after - which is a different change, and after two restores in a
+      // row, a false one.
+      const displaced = await currentContentOf(row);
+      const applied = await applyRow(row, 'restore');
       if (!applied) { skipped++; continue; }
       restored++;
 
       // Two rows, per §8.3: one attributed to whoever made the change being
       // restored, one to whoever pressed Restore. Both carry restoredFromId, so
       // the provenance survives even after the row scrolls out of the page.
+      const restoredContent = contentForDirection(row, 'restore');
       const common = {
         boardId: row.boardId,
         swimlaneId: row.swimlaneId,
@@ -304,8 +371,8 @@ Meteor.methods({
         entityId: row.entityId,
         group: row.group,
         changeType: 'restored',
-        previousContent: row.newContent,
-        newContent: row.previousContent,
+        previousContent: displaced,
+        newContent: restoredContent,
         batchId,
         restoredFromId: row._id,
         restoredByUserId: this.userId,

@@ -161,9 +161,25 @@ test('undo and redo use the same pure selection rule as before', () => {
 // One rule instead of a case per action type: undo applies previousContent,
 // redo applies newContent. That is why 'added', 'removed', 'edited' and 'moved'
 // all work without the applier knowing which it is handling.
+//
+// The rule used to be an inline ternary here and this test matched its text. It
+// now lives in `contentForDirection` in models/lib/changeHistoryGroups.js -
+// moved there when RESTORE turned out to need a third direction of its own
+// (restoring a row must apply the value that row SHOWS, not the one before it;
+// see tests/historyRestoreAppliesWhatIsShown.test.cjs). So this asserts the
+// behaviour by running it, which a move like that cannot break, and checks only
+// that the server still calls into it.
 test('undo applies the previous content and redo the new one', () => {
-  assert.match(server, /direction === 'undo' \? row\.previousContent : row\.newContent/,
-    'the single rule that covers every change type');
+  const { contentForDirection } = require('../models/lib/changeHistoryGroups');
+  const row = {
+    previousContent: { field: 'title', value: 'before' },
+    newContent: { field: 'title', value: 'after' },
+  };
+  assert.deepEqual(contentForDirection(row, 'undo'), row.previousContent);
+  assert.deepEqual(contentForDirection(row, 'redo'), row.newContent);
+
+  assert.match(server, /contentForDirection\(row, direction\)/,
+    'applyRow must use the shared rule rather than a second copy of it');
   assert.match(server, /applyRow\(row, 'undo'\)/);
   assert.match(server, /applyRow\(row, 'redo'\)/);
 });

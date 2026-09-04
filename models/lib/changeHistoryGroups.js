@@ -213,9 +213,35 @@ function diffFields(entityType, previous, next, fieldNames) {
   return changes;
 }
 
+/*
+ * Which of a row's two contents a given operation applies.
+ *
+ *   'undo'    previousContent - the state before this change.
+ *   'redo'    newContent.
+ *   'restore' newContent, because that is the value the History table SHOWS for
+ *             the row (History.md §7: the content column holds "the new text").
+ *             The row a reader picks and the value they get must be the same
+ *             thing. Restore used to run 'undo', so picking the row that showed
+ *             the description you wanted gave you the one before it.
+ *
+ * A row with no newContent is a removal; restoring one means putting back what
+ * it removed, hence the fallback.
+ */
+function contentForDirection(row, direction) {
+  if (!row) return undefined;
+  if (direction === 'undo') return row.previousContent;
+  if (direction === 'restore') {
+    return (row.newContent === null || row.newContent === undefined)
+      ? row.previousContent
+      : row.newContent;
+  }
+  return row.newContent;
+}
+
 module.exports = {
   groupForField,
   contentForField,
+  contentForDirection,
   valueFromContent,
   changed,
   diffFields,
