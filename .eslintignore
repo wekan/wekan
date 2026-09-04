@@ -1,2 +1,18 @@
 packages/*
 .snap-meteor-1.8/*
+# Generated, not written: rspack compiles the whole app into _build/ and Meteor
+# reads its main modules from there (see .meteorignore). Linting a bundle
+# reports thousands of findings in code nobody can edit.
+_build/*
+_build-local-test/*
+.build/*
+# Not application source; see .meteorignore for the same list and why.
+docs/*
+old-CHANGELOG/*
+openapi/*
+meta/*
+sandstorm-src/*
+snap-src/*
+snap-base-debian/*
+stacksmith/*
+.tools/*

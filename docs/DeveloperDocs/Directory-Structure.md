@@ -24,7 +24,21 @@ for years this page described four directories out of twenty and did not say so.
 | [meta/](../../meta) | signatures, icons, screenshots, project description |
 | [old-CHANGELOG/](../../old-CHANGELOG) | the CHANGELOG's history, by year and by month (`CHANGELOG.md` holds the current month) |
 | `.tools/` | NOT part of this repository: the companion repos and toolchains a build needs, ignored by git and by Meteor |
-| `node_modules/`, `.meteor/`, `.build/` | generated; never edited, never committed |
+| `node_modules/`, `.meteor/`, `.build/`, `_build/` | generated; never edited, never committed |
+
+The two build directories are different things, and the names are close enough
+to be worth stating:
+
+| | what it is |
+| --- | --- |
+| `.build/` | the RELEASE bundle, from `meteor build .build --directory`. `.build/bundle` is what gets deployed, tested and packaged. |
+| `_build/` | rspack's compiled output, written by ANY Meteor compile — a dev run, a test run, a release build. Meteor reads the app's main modules from `_build/main-prod/`, so it is a HANDOFF, not a leftover. |
+
+`_build/` is gitignored but must **not** be added to `.meteorignore` — ignoring
+it breaks the build outright, and that file explains why. Anything that walks
+the repository should skip it: it holds a second, bundled copy of every source
+file, so a tool that reads it finds every file twice and reports the bundler's
+rewritten code as if it were source.
 
 Two rules that the layout only implies:
 

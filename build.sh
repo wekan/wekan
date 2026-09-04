@@ -9,6 +9,16 @@ echo "Note2: Console output is also logged to <logs>/wekan-log.log"
 echo "Note3: All logs this script produces go into a log/<datetime>/ directory -"
 echo "       .tools/log/ inside this repository. The path is printed when a run"
 echo "       starts."
+echo "Note4: Two build directories, and they are not the same thing:"
+echo "       .build/  - the RELEASE bundle, from 'meteor build .build --directory'."
+echo "                  .build/bundle is what is deployed, tested and packaged."
+echo "       _build/  - rspack's compiled output, written by ANY Meteor compile."
+echo "                  Meteor reads its main modules from _build/main-prod/, so"
+echo "                  it is a handoff, not a leftover: it is gitignored but must"
+echo "                  NOT be added to .meteorignore (see the note in that file)."
+echo "       Both are generated. Never edit them, never commit them, and skip them"
+echo "       in any tool that walks the repo - _build holds a second copy of every"
+echo "       source file."
 
 # Give the Meteor build tool and Node processes a larger heap so long
 # development sessions and test runs don't crash with

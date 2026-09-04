@@ -107,6 +107,19 @@ Pick a category number, then the item number inside it (each submenu also has a 
 
 The **Setup -> Build WeKan** step compiles WeKan, and **Dev server -> localhost:3000** starts it in development mode with the `meteor` command, so it detects file changes and tries to rebuild automatically and reload the web browser. Still, sometimes it may need stopping with Ctrl-c and a full **Setup -> Build WeKan** again.
 
+Building writes two directories, and the names are close enough to be worth
+telling apart:
+
+| | what it is |
+| --- | --- |
+| `.build/` | the RELEASE bundle, from `meteor build .build --directory`. `.build/bundle` is what gets deployed, tested and packaged. |
+| `_build/` | rspack's compiled output, written by ANY Meteor compile — a dev run, a test run, a release build. Meteor reads the app's main modules from `_build/main-prod/`, so it is a HANDOFF rather than a leftover. |
+
+Both are generated and gitignored; neither is ever edited or committed. `_build/`
+must **not** be added to `.meteorignore` — ignoring it breaks the build outright,
+and that file says why. It also holds a bundled second copy of every source
+file, so any script that walks the repository should skip it.
+
 If a dev server is already running, the **Dev server** options now stop it automatically before starting a fresh one — freeing **both** the app port and the rspack dev server's port `8080` (a leftover rspack dev server on 8080 otherwise makes the new server crash with `Error: listen EADDRINUSE ... :8080`), so you don't have to kill the old processes yourself.
 
 The other **Dev server** options run WeKan the same way on different addresses/ports: `localhost:3000 + trace warnings`, `localhost:3000 + bundle visualizer`, `CURRENT-IP:3000`, `CURRENT-IP:3000 + MONGO_URL 27019`, and `CUSTOM-IP:PORT` (which asks you for the IP and port). There is also a **Kill all dev servers** option that frees every dev/test port the script uses at once (3000/3001, 3100/3101, 4000/4001 and 8080) — handy if a previous run left something behind.

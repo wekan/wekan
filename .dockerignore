@@ -9,6 +9,10 @@ npm-debug.log
 .vscode/
 .idea/
 .build/*
+# rspack's build output on the HOST. The image runs its own build, so copying
+# this in only makes the context bigger and risks a stale bundle being used.
+_build
+_build-local-test
 **/parts/
 **/stage
 **/prime
@@ -34,3 +38,27 @@ ehthumbs.db
 .devcontainer/docker-compose.extend.yml
 .devcontainer/volumes*/
 .git
+
+# Not part of the image: documentation, packaging trees for OTHER targets, the
+# test suite and the editor/CI configuration. None of it is copied by the
+# Dockerfile, and everything in the build context is sent to the daemon whether
+# it is used or not.
+#
+# releases/ is NOT here: the Dockerfile COPYs several scripts out of it
+# (resolve-node-source.sh, bundle-trim.mjs, the ferretdb entrypoint, ...), so
+# excluding it would break the image build.
+docs/
+meta/
+old-CHANGELOG/
+openapi/
+sandstorm-src/
+snap-src/
+snap-base-debian/
+stacksmith/
+tests/
+secrets/
+.tools/
+.github/
+.claude/
+.codex/
+.tx/

@@ -1,8 +1,23 @@
 packages/
 node_modules/
 .build/
+# rspack's compiled output; formatting a generated bundle changes nothing that
+# is ever read and hides the source it came from.
+_build/
+_build-local-test/
 .meteor/
 .vscode/
 .tx/
 .github/
 .snap-meteor-1.8/
+# Not application source; see .meteorignore for the same list and why.
+docs/
+old-CHANGELOG/
+openapi/
+meta/
+sandstorm-src/
+snap-src/
+snap-base-debian/
+stacksmith/
+secrets/
+.tools/

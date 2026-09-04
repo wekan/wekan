@@ -40,3 +40,47 @@ npm-packages/
 # falls back to ./log when the parent is not writable - which is exactly the
 # case inside the Flatpak sandbox, so this directory does appear here.
 /log/
+
+# Everything below is NOT application source: no file in client/, server/,
+# models/, imports/, config/ or packages/ imports anything from any of them
+# (checked, not assumed). Meteor watches what it does not ignore, one inotify
+# watch per directory, and the per-user limit is shared with every other watcher
+# on the machine - which is the same limit .tools/ above was added for. Ignoring
+# them costs nothing and stops the docs tree, the packaging trees and the
+# release tooling being scanned on every rebuild.
+#
+# NOT ignored here, deliberately, and each for a reason:
+#   config/           imported by the app (9 places)
+#   private/ public/  Meteor's own asset directories
+#   packages/         the local Meteor packages
+#   _build/           rspack's handoff - see the note above; ignoring it breaks
+#                     the build outright
+# The RELEASE bundle. `meteor build .build --directory` writes it inside the
+# source tree, and Meteor says so itself on every release build:
+#
+#   WARNING: The output directory is under your source tree.
+#            Your generated files may get interpreted as source code!
+#
+# This is that warning answered. Unlike _build/ above, nothing hands these files
+# back to Meteor - .build/bundle is the finished output, read by the deploy and
+# test steps, never by the compiler.
+/.build/
+
+/docs/
+/meta/
+/old-CHANGELOG/
+/openapi/
+/sandstorm-src/
+/snap-src/
+/snap-base-debian/
+/stacksmith/
+/releases/
+/scripts/
+/tools/
+/secrets/
+/.github/
+/.vscode/
+/.devcontainer/
+/.claude/
+/.codex/
+/.tx/

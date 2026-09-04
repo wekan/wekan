@@ -15,6 +15,16 @@ REM   - Playwright runs Chromium, Firefox AND WebKit natively on Windows
 REM     (unlike Linux arm64, no Docker is needed here).
 REM   - If Meteor does not run well natively on your Windows, WSL2 + Ubuntu
 REM     with build.sh is the recommended alternative.
+REM
+REM  Two build directories, and they are not the same thing:
+REM   - .build\  the RELEASE bundle, from 'meteor build .build --directory'.
+REM               .build\bundle is what is deployed, tested and packaged.
+REM   - _build\  rspack's compiled output, written by ANY Meteor compile.
+REM               Meteor reads its main modules from _build\main-prod\, so it is
+REM               a handoff, not a leftover: it is gitignored but must NOT be
+REM               added to .meteorignore (see the note in that file).
+REM  Both are generated. Never edit them, never commit them, and skip them in any
+REM  tool that walks the repo - _build holds a second copy of every source file.
 REM ============================================================================
 
 REM --- Command line: build.bat <name> [args] / --help / --list ---------------

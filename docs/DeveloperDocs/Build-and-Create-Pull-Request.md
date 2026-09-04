@@ -2,6 +2,22 @@
 
 WeKan currently uses Meteor 3.
 
+## Before you commit: what not to add
+
+A build writes two directories, both generated and both gitignored. Neither ever
+belongs in a pull request:
+
+- **`.build/`** — the release bundle, from `meteor build .build --directory`.
+  `.build/bundle` is what gets deployed, tested and packaged.
+- **`_build/`** — rspack's compiled output, written by any Meteor compile. Meteor
+  reads the app's main modules from `_build/main-prod/`, so it is a handoff
+  rather than a leftover. It is gitignored, but must **not** be added to
+  `.meteorignore`: ignoring it breaks the build.
+
+`git status` should never list either. If it does, the checkout's ignore files
+are out of date rather than the directories being something new — see
+[Directory-Structure.md](Directory-Structure.md).
+
 Using newest Ubuntu amd64:
 
 # Meteor 3

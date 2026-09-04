@@ -345,6 +345,18 @@ directly after the merge.
     `Downloads\repos\wekan` on Windows. The maintainer commits on `main`; a
     contributor works on a branch and opens a pull request — see "Where this
     repository is, and which branch commits go on" above.
+  - `.build/` and `_build/` — the two BUILD directories, generated and
+    gitignored, easy to confuse and different things. `.build/` is the RELEASE
+    bundle (`meteor build .build --directory`; `.build/bundle` is what is
+    deployed, tested and packaged). `_build/` is rspack's compiled output,
+    written by ANY Meteor compile, and Meteor reads the app's main modules from
+    `_build/main-prod/` — so it is a HANDOFF, not a leftover, and must **not**
+    be added to `.meteorignore` (ignoring it breaks the build; that file says
+    why). Never edit or commit either, and SKIP `_build/` in anything that walks
+    the repository: it holds a bundled second copy of every source file, so a
+    tool that reads it sees every file twice and reports the bundler's rewritten
+    code as if it were source. That is not hypothetical — a source-scanning test
+    did exactly that and failed on generated code nobody can edit.
   - `.tools/wekan.fi` — the WeKan website companion repository.
   - `.tools/` — everything that is NOT part of this repository but is needed to
     build, test and release it, in ONE directory that `.gitignore` and
