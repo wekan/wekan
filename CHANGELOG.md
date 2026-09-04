@@ -8247,13 +8247,13 @@ browser build to verify).
 
 **In short:** the **single Windows EXE** stops running WeKan out of a
 closed-source virtual filesystem, and stops unpacking the bundle instead. It
-now carries the published win64 ZIP as a checksummed payload, unpacks only the
-thirty-odd files Windows itself has to open, and **mounts the remaining ~39,000
-in the server process**. That ends the crash loop 11.48 shipped with, cuts the
-download from 690 MB to about 232 MB and what lands on disk from 685 MB to
-about 260 MB, and turns a damaged copy into a clear message instead of a
-restarting server. Its release smoke test no longer passes an EXE that only
-answers because start-wekan.bat keeps retrying.
+carries the published win64 ZIP as a checksummed payload, unpacks only the
+fifteen or so files Windows itself must open, and **mounts the remaining
+~39,000 in the server process**. That ends the crash loop 11.48 shipped with,
+cuts the download from 690 MB to about 232 MB, and turns a damaged copy into a
+clear message rather than a restarting server. **bundle-trim** also drops the
+native prebuilds no bundle can open. The release smoke test no longer passes an
+EXE that only answers because start-wekan.bat keeps retrying.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8374,6 +8374,42 @@ things that have to stay right - the ZIP reader, the resolution and the
 declared format - including the two traps above, and the release smoke test
 now counts what reached the disk, so a change that quietly went back to
 unpacking everything fails the job instead of passing it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c048f7ece">It drops the native prebuilds the target platform can never open</a>. Thanks to xet7.</summary>
+
+`bcrypt` and `argon2` (Meteor's `accounts-password`) each ship one
+`prebuilds/<platform>-<arch>/` directory per platform they support: 21
+native binaries in every WeKan bundle, of which exactly one is ever opened.
+Their loader is `node-gyp-build`, and its `resolve()` reads a single
+directory - `readdirSync('prebuilds')`, filtered by `matchTuple(platform,
+arch)` with `platform` and `arch` from `os.platform()` and `os.arch()`.
+
+That is the same argument `releases/bundle-trim.mjs` already makes about
+uWebSockets.js, so it is the same code path. `--trim-prebuilds` keeps the
+directories `node-gyp-build` would match and drops the rest, using that
+loader's own tuple parsing - multi-arch names such as `darwin-x64+arm64`
+included - and keeps both libc flavours of the target, because glibc versus
+musl is decided at runtime and not here.
+
+Three things make it safe rather than merely smaller. It is off by default
+and refuses to run without an explicit `--platform` and `--arch`, since the
+defaults are linux/x64 and a Windows or macOS bundle trimmed with those
+would lose the only addon it can load - the fault the single EXE was just
+fixed for. `build-amd64` deliberately does not pass it, because every other
+bundle WeKan ships is that bundle repacked and trimming there would take
+the prebuilds away from architectures not yet built; each final
+per-platform job passes its own target. And every decision is made before
+anything is deleted, so a package whose prebuilds cannot be reasoned about
+is left whole rather than half-trimmed - which is how `bare-fs`,
+`bare-path` and `bare-url` were found, shipping `prebuilds/` of `.bare`
+files for the Bare runtime. Those are left untouched, and say so.
+
+On the mac-arm64 bundle 19 of the 21 go and the two for `darwin-arm64`
+stay. For the single Windows EXE it takes the files that have to be
+unpacked from 33 down to about fifteen.
 
 </details>
 
