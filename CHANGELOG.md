@@ -8331,6 +8331,58 @@ now come from the same string, and every assertion is kept.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0456f7575">Admin Panel / Problems can put back the swimlane a list lost</a>. Thanks to TawsTm and xet7.</summary>
+
+Boards opened under the versions before
+[#6515](https://github.com/wekan/wekan/issues/6515) had every per-swimlane
+list un-bound automatically: the board data-repair treated any list with a
+`swimlaneId` as [#6484](https://github.com/wekan/wekan/issues/6484)
+corruption and cleared it, and a per-swimlane list is indistinguishable from
+a corrupted board-wide one at the data level. #6515 stopped it, but nothing
+put the bindings back, so those lists still render under every swimlane and
+deleting one from a swimlane deletes the only list document there is.
+
+The old value turns out to be recoverable rather than guessable. The
+clearing went through `Lists.direct.updateAsync`, which bypasses collection
+hooks, so it only ever touched the list document - while the binding each
+list was CREATED with is recorded in a different collection:
+
+```
+// models/lists.js - Lists.after.insert -> trackOriginalPosition()
+originalSwimlaneId: this.swimlaneId || null,
+if (!existingHistory) { PositionHistory.insertAsync(document); }
+```
+
+That insert is insert-ONLY, written once at creation and never overwritten,
+so it survived untouched for every list created since list position tracking
+landed in October 2025.
+
+Admin Panel / Problems / Summary now detects this the way it detects broken
+cards - *Lists missing their swimlane N*, with a Restore button beside it -
+and restoring puts each list back in the swimlane its own record names.
+Every rule in it is a reason to SKIP, because here doing nothing is better
+than doing something wrong: a list that already has a `swimlaneId` is never
+touched, so the repair is idempotent and cannot undo a binding an admin has
+set by hand since; a list with no record, or one recorded as board-wide,
+stays board-wide; and a swimlane that has since been deleted is not
+resurrected, nor is one on another board accepted, because either would hide
+the list in every swimlane rather than show it in one.
+
+Nothing is inferred from the cards, and a test pins that the planner cannot
+grow a use for them. Inference is the obvious idea and it is wrong: on a
+board whose second swimlane is new every card is still in the first one, so
+it would bind every list to swimlane 1 and hide them from the others - which
+is #6484 again, the bug the clearing existed to fix.
+
+Detection is read-only and swallows its own errors, since the Problems page
+polls it every thirty seconds and a detection that throws would take the
+other problems on that page with it. The repair writes `swimlaneId` and
+nothing else, through `.direct`, one update per swimlane rather than one per
+list.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.49 2026-09-04 WeKan ® release
@@ -8342,8 +8394,9 @@ fifteen or so files Windows itself must open, and **mounts the remaining
 ~39,000 in the server process**. That ends the crash loop 11.48 shipped with,
 cuts the download from 690 MB to about 232 MB, and turns a damaged copy into a
 clear message rather than a restarting server. **bundle-trim** drops the native
-prebuilds no bundle can open, and **moving a list to a swimlane** now binds it
-there instead of silently doing nothing.
+prebuilds no bundle can open; **moving a list to a swimlane** now binds it there
+instead of silently doing nothing; and **Admin Panel / Problems** can put back
+the swimlane bindings an older automatic repair cleared.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
