@@ -8247,13 +8247,12 @@ browser build to verify).
 
 **In short:** **copying a list** now copies its cards. A list not bound to a
 swimlane - the common case on any board predating per-swimlane lists - produced
-an **empty copy**, and a copy made on the same board wrote the cards back into
-the original instead. **Admin Panel / Problems** can also put back the swimlane
-bindings an older automatic repair cleared, restoring only what was recorded and
-never guessing. Alongside that, the **contribution rules** now say which role
-commits on which branch, where the checkout lives on each operating system, and
-when an AI is credited - as a contributor that raised its own pull request, never
-as one that helped a human.
+an **empty copy**. **Admin Panel / Problems** can put back the swimlane bindings
+an older automatic repair cleared, restoring only what was recorded and never
+guessing. **Undo** finally does something after a card drag: card moves were
+never recorded, so `Ctrl+Z` had always been silent. Alongside that, the
+**contribution rules** now say which role commits on which branch, where the
+checkout lives, and when an AI is credited.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8385,6 +8384,46 @@ list.
 </details>
 
 and states the rules a contribution is judged by:
+
+**Undo** - what pressing Ctrl+Z can actually put back.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc4110e6f">Dragging a card is recorded, so undoing it does something</a>. Thanks to xet7.</summary>
+
+`Ctrl+Z` after dragging a card did nothing, and never had.
+[#6478](https://github.com/wekan/wekan/issues/6478) found that every
+`trackChange` call site guarded on `typeof UserPositionHistory !== 'undefined'`
+against a bare identifier no file imported — it is an ES-module default export,
+not a global, so the guard was always false and nothing was recorded. The fix
+was applied to the list path and not to the card path, which kept the dead
+guard. List moves became undoable, card moves did not, and
+`docs/Features/Login/Undo/Undo.md` said card moves were *"already present (now
+actually runs)"* the whole time.
+
+The import has to be lazy and inside the call: `models/userPositionHistory.js`
+imports `models/cards.js`, so a top-level import would be a cycle and could
+leave the binding undefined depending on evaluation order — most likely why
+that file was skipped rather than fixed. The guard is gone from the list path
+too; it was harmless there, but it is the shape that turns recording off when
+the block is copied somewhere without the import, which is how the card path
+stayed dead.
+
+`tests/undoRecordsWhatItClaims.test.cjs` matters more than the fix, because
+undo fails **silently** — nothing throws when a change is not recorded, the
+user just presses Ctrl+Z and nothing happens. It finds the recording sites
+rather than listing them and fails when one cannot reach the collection, when
+one reintroduces the assumed-global guard, when recording is not wrapped so it
+can never fail the move it records, and when a type is recorded that `undo()`
+cannot handle. It also pins the reverse gap — `swimlane`, `checklist` and
+`checklistItem` have full `undo()` cases that nothing records — so that stays a
+known follow-up rather than a surprise.
+
+Undo.md now says plainly what is recorded (list moves, list soft-delete and
+restore, card moves) and what is not: a description, a checklist title, labels,
+members and dates are written straight to the document with no previous state
+kept, so there is nothing to restore them from.
+
+</details>
 
 **Contributing** - who commits where, and who gets named for the work.
 
