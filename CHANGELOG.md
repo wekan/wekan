@@ -8332,7 +8332,7 @@ now come from the same string, and every assertion is kept.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0456f7575">Admin Panel / Problems can put back the swimlane a list lost</a>. Thanks to TawsTm and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/290cdc6a4">Admin Panel / Problems can put back the swimlane a list lost</a>. Thanks to TawsTm and xet7.</summary>
 
 Boards opened under the versions before
 [#6515](https://github.com/wekan/wekan/issues/6515) had every per-swimlane
