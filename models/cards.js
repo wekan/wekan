@@ -815,6 +815,37 @@ Cards.attachSchema(
   }),
 );
 
+/*
+ * Append one card change to the universal history
+ * (docs/Features/Reports/History/History.md §5).
+ *
+ * Lazy require, deliberately: this file is isomorphic and the collection is
+ * only written on the server, so the module is not pulled into the client
+ * bundle. Best-effort by contract - a history failure must never fail the edit
+ * it describes - and never gated on `typeof X !== 'undefined'`, which is the
+ * guard that made the position history record nothing at all (#6478).
+ */
+async function recordCardChange(card, change) {
+  if (!Meteor.isServer) return;
+  const userId = typeof Meteor.userId === 'function' ? Meteor.userId() : null;
+  if (!userId) return;
+  try {
+    const ChangeHistory = require('/models/changeHistory').default;
+    await ChangeHistory.record({
+      boardId: card.boardId,
+      swimlaneId: card.swimlaneId,
+      listId: card.listId,
+      cardId: card._id,
+      entityType: 'card',
+      entityId: card._id,
+      userId,
+      ...change,
+    });
+  } catch (error) {
+    console.warn('changeHistory: failed to record a card change:', error && error.message);
+  }
+}
+
 Cards.helpers({
   // Gantt https://github.com/wekan/wekan/issues/2870#issuecomment-857171127
   async setGanttTargetId(sourceId, targetId, linkType, linkId){
@@ -1541,12 +1572,22 @@ Cards.helpers({
     return this.isLinkedCard() || this.isLinkedBoard();
   },
 
-  setDescription(description) {
+  async setDescription(description) {
+    // History.md §10.2: the first content group. The PREVIOUS text is read
+    // before the write - once the update lands it is gone, which is why a
+    // description could never be restored before this.
+    const previous = this.getDescription();
     if (this.isLinkedBoard()) {
-      return Boards.updateAsync({ _id: this.linkedId }, { $set: { description } });
+      await Boards.updateAsync({ _id: this.linkedId }, { $set: { description } });
     } else {
-      return Cards.updateAsync({ _id: this.getRealId() }, { $set: { description } });
+      await Cards.updateAsync({ _id: this.getRealId() }, { $set: { description } });
     }
+    await recordCardChange(this, {
+      group: 'description',
+      changeType: 'edited',
+      previousContent: { text: typeof previous === 'string' ? previous : '' },
+      newContent: { text: typeof description === 'string' ? description : '' },
+    });
   },
 
   getDescription() {
@@ -2719,6 +2760,20 @@ Cards.helpers({
         // leave the binding undefined depending on evaluation order. Requiring
         // it inside the call, on the server, where the module graph is already
         // built, is the same shape as the cardMoveModifier require above.
+        // Both stores during the transition (History.md §4, "keep
+        // userPositionHistory writing during transition"): the new one is what
+        // Ctrl+Z reads now, the old one stays until its rows are migrated.
+        await recordCardChange(this, {
+          group: 'position',
+          changeType: 'moved',
+          previousContent: previousState,
+          newContent: {
+            boardId,
+            swimlaneId,
+            listId,
+            sort: sort !== null ? sort : this.sort,
+          },
+        });
         const UserPositionHistory = require('/models/userPositionHistory').default;
         UserPositionHistory.trackChange({
           userId: Meteor.userId(),

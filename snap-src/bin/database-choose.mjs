@@ -59,6 +59,12 @@
 const MERGE_COLLECTIONS = [
   'activities', 'card_comments', 'cards', 'checklists', 'checklistItems',
   'lists', 'swimlanes', 'boards', 'attachments', 'users', 'customFields',
+  // History.md §9a: append-only rows are what make two copies of a database
+  // mergeable, and this list is the only place the snap learns which
+  // collections carry them. Added the moment the collection existed, as §9a.4
+  // requires - a history row written on the copy that is not served is work
+  // that would otherwise be stranded in a database nobody opens.
+  'changeHistory', 'userPositionHistory',
 ];
 
 // How close two "newest data" moments have to be before the difference stops

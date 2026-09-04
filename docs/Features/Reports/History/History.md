@@ -5,8 +5,36 @@
 > defined there and are not repeated here. Below is only what is specific to
 > History: its store, its scopes, and restore/undo.
 
-Status: **Draft for approval** · Owner: xet7 · Related: card details view, Member settings,
-`Activities`, `userPositionHistory`, `docs/Features/Undo/Undo.md`
+Status: **Phase 1 implemented · phases 2-6 outstanding** · Owner: xet7 · Related: card details
+view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/Undo.md`
+
+> **What is live (phase 1 of §10, plus the write half of phase 2).**
+> `models/changeHistory.js` (the append-only store and `record()`),
+> `models/lib/changeHistoryQuery.js` (the pure scope / search / selection rules),
+> and `server/models/changeHistory.js` (`changeHistory.page`,
+> `changeHistory.restore`, `changeHistory.undoLast`, `changeHistory.redoLast`,
+> and the per-entity appliers). `Ctrl+Z`/`Ctrl+Y` read this store now, for **any**
+> recorded change rather than positions only. Recorded so far: **card description
+> edits**, **card moves**, **list moves**, and **list soft-delete/restore**.
+> `changeHistory` is in the snap's `MERGE_COLLECTIONS` as §9a.4 requires. Tests:
+> `tests/changeHistoryQuery.test.cjs`, `tests/changeHistoryWiring.test.cjs`,
+> `tests/undoRecordsWhatItClaims.test.cjs`.
+>
+> **What is NOT built:** every UI in §7, §7a and §8 — the history popup, the
+> table, the contributor avatars, the Restore button and the "History" menu
+> items. The `changeHistory.page` and `changeHistory.restore` methods they need
+> exist and are tested; nothing calls them yet. Also outstanding: recording for
+> the remaining groups of §3 (title, labels, members, dates, checklists,
+> subtasks, attachments, comments, custom fields), the swimlane structural
+> paths, and the retention cron of §9.
+>
+> One design decision was taken during phase 1 and is worth keeping: the
+> collection imports **no other model**. Its predecessor imported Cards, Lists
+> and the rest so its `undo()` could write to them, which made it unimportable
+> from those same files — the direct cause of the inert recording in the
+> appendix. Applying a change back to a document therefore lives in
+> `server/models/changeHistory.js`, which nothing imports and which may import
+> anything.
 
 This document specifies one unified **change-history** subsystem that records **every change a user
 makes**, keeps it **append-only**, and lets changes be **restored**. It is surfaced from **many menus**, but every one is the **same table + restore** over the **same

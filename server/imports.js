@@ -225,6 +225,7 @@ import '/server/methods/lockedUsers';
 import '/server/methods/lockoutSettings';
 import '/server/methods/migrateTextDatabase';
 import '/server/methods/repairBoardData';
+import '/server/models/changeHistory';
 import '/server/methods/repairBrokenCards';
 import '/server/methods/restoreListSwimlanes';
 // Removes the "Templates" container boards made for accounts that never used

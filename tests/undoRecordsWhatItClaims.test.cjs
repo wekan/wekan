@@ -105,15 +105,36 @@ test('no recording site gates on an assumed global (negative)', () => {
 });
 
 // Recording must never be able to break the thing it is recording.
+// Structural rather than distance-based: the nearest `try {` before the call has
+// to be nearer than the nearest `catch`, which stays true however much code is
+// added between the two. A fixed character window did not - inserting one more
+// recording call above pushed the `try` out of range and failed a file that was
+// perfectly well guarded.
+function insideTry(text, at) {
+  const before = text.slice(0, at);
+  return before.lastIndexOf('try {') > before.lastIndexOf('catch');
+}
+
 test('recording is best-effort, never fatal', () => {
   for (const file of FILES) {
     const text = code(file);
     for (const at of [...text.matchAll(/trackChange\(/g)].map(m => m.index)) {
-      const before = text.slice(Math.max(0, at - 400), at);
-      assert.ok(/try\s*\{/.test(before),
+      assert.ok(insideTry(text, at),
         `${file}: a trackChange that throws must not fail the move it records`);
     }
   }
+});
+
+// The same rule for the store that replaces it. ChangeHistory.record swallows
+// its own errors, so a bare call is safe - what must never happen is a call
+// whose FAILURE can propagate, which is why the helper is checked for the
+// swallow rather than every call site for a try.
+test('the universal history can never fail the change it records', () => {
+  const model = read('models/changeHistory.js');
+  const body = model.slice(model.indexOf('ChangeHistory.record = async function'));
+  assert.match(body, /try \{/, 'record() must not let a bad row break a mutation');
+  assert.match(body, /catch \(error\)/);
+  assert.match(body, /return null;/, 'and it reports failure by returning nothing');
 });
 
 // What undo() can put back, and what is actually recorded, are two different

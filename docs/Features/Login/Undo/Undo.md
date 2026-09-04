@@ -4,7 +4,16 @@ Status: **Implemented (v1)** in #6478 · Owner: xet7 · Related: `userPositionHi
 card/list/swimlane drag-and-drop, `docs/Features/Reports/History/History.md`
 
 This documents the undo/redo feature **shipped in v1** for #6478 ("UI: Confirmation for actions with
-impact") — which covers **position moves** (card / list / swimlane) only.
+impact") — which covered **position moves** (card / list / swimlane) only.
+
+> **Superseded in part.** `Ctrl+Z`/`Ctrl+Y` no longer read `userPositionHistory`. They call
+> `changeHistory.undoLast`/`redoLast` over the unified store described in
+> [History.md](../../Reports/History/History.md), which phase 1 of that design has now built, so
+> undo covers **any recorded change** rather than positions only — today that means card
+> description edits, card moves, list moves and list soft-delete/restore. The selection rule
+> (`pickUndo`/`pickRedo`) and the key bindings are unchanged, which is why §6 and §7 below still
+> describe them accurately. `userPositionHistory` keeps recording during the transition; its rows
+> are not yet migrated.
 
 > **Direction (approved design):** undo/redo is being folded into one **universal change-history**
 > subsystem that records **every** change and exposes it as History views on card groups, the whole

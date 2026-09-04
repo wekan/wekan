@@ -16,6 +16,7 @@ import { Random } from 'meteor/random';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { softDeleteSet, restoreModifier, canPurge } from '/models/lib/softDelete';
 import { listsToUnbind } from '/models/lib/listUnbindRepair';
+import ChangeHistory from '/models/changeHistory';
 
 const hasBoardWriteAccess = (userId, board) => {
   if (!userId || !board) {
@@ -64,6 +65,22 @@ async function softRemoveList({ userId, list }) {
   } catch (e) {
     // best-effort: never fail the delete because history recording failed
   }
+  // The same change in the universal store (History.md §10.1). A lifecycle row
+  // is read in both directions: undoing it clears the delete mark, redoing it
+  // sets it again, which is what makes #1023 "undo a deleted list" work.
+  await ChangeHistory.record({
+    boardId: list.boardId,
+    swimlaneId: list.swimlaneId,
+    listId: list._id,
+    entityType: 'list',
+    entityId: list._id,
+    group: 'lifecycle',
+    changeType: 'removed',
+    previousContent: { deleted: false },
+    newContent: { deleted: true, deletedAt: at },
+    userId,
+    batchId,
+  });
   return batchId;
 }
 
@@ -123,6 +140,19 @@ Meteor.methods({
     } catch (e) {
       // best-effort
     }
+    await ChangeHistory.record({
+      boardId: list.boardId,
+      swimlaneId: list.swimlaneId,
+      listId: list._id,
+      entityType: 'list',
+      entityId: list._id,
+      group: 'lifecycle',
+      changeType: 'added',
+      previousContent: { deleted: true, deletedAt: list.deletedAt },
+      newContent: { deleted: false },
+      userId: this.userId,
+      batchId,
+    });
     return { restored: true };
   },
 
@@ -652,6 +682,21 @@ Meteor.methods({
             swimlaneId: updateData.swimlaneId !== undefined ? updateData.swimlaneId : list.swimlaneId,
             sort: updateData.sort !== undefined ? updateData.sort : list.sort,
           },
+        });
+        await ChangeHistory.record({
+          boardId,
+          swimlaneId: updateData.swimlaneId !== undefined ? updateData.swimlaneId : list.swimlaneId,
+          listId,
+          entityType: 'list',
+          entityId: listId,
+          group: 'position',
+          changeType: 'moved',
+          previousContent: previousState,
+          newContent: {
+            sort: updateData.sort !== undefined ? updateData.sort : list.sort,
+            swimlaneId: updateData.swimlaneId !== undefined ? updateData.swimlaneId : list.swimlaneId,
+          },
+          userId: this.userId,
         });
       } catch (e) {
         console.warn('Failed to track list move in history:', e);

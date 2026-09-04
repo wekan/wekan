@@ -322,11 +322,11 @@ function undoRedoLast(method) {
 }
 hotkeys('ctrl+z, command+z', event => {
   event.preventDefault();
-  undoRedoLast('userPositionHistory.undoLast');
+  undoRedoLast('changeHistory.undoLast');
 });
 hotkeys('ctrl+y, ctrl+shift+z, command+shift+z', event => {
   event.preventDefault();
-  undoRedoLast('userPositionHistory.redoLast');
+  undoRedoLast('changeHistory.redoLast');
 });
 
 hotkeys('n', (event) => {
