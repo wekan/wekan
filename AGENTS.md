@@ -85,12 +85,26 @@ all the same — his GitHub profile, [xet7](https://github.com/xet7), says exact
 **`Lauri Ojansivu <x@xet7.org>`** — that author, in every one of those repositories,
 every time. Two rules follow from it and neither has an exception:
 
-- **Never attribute a commit to an AI.** No `Co-Authored-By:` trailer, no "Generated
-  with", no assistant or model name — not in the commit message, not in a pull-request
-  body, not in the CHANGELOG. [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) is where this
-  comes from: *"For pull requests, mention only those participants that are
-  **human**."* A `Thanks to ... and xet7 !` line credits people — the issue reporter
-  and xet7 — never a tool.
+- **Name the actual participant — and an AI is only ever the participant when no
+  human is behind the change.** One rule, two halves, and the test is simply whether
+  a person made this change or a tool did it on its own:
+  - **A human's AI is not a participant. It is invisible.** When the maintainer or a
+    contributor uses Claude Code, Codex, Copilot as an assistant or any other model
+    to do the work, that person is the author and the tool is not mentioned at all:
+    no `Co-Authored-By:` trailer, no "Generated with", no assistant or model name —
+    not in the commit message, not in a pull-request body, not in the CHANGELOG.
+    [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) is where this comes from: *"For pull
+    requests, mention only those participants that are **human**."* A
+    `Thanks to ... and xet7 !` line credits people — the issue reporter and xet7 —
+    never the tool that helped.
+  - **An AI that raised the pull request ITSELF is the participant, and is named.**
+    GitHub CodeQL filing a security fix, Copilot Autofix, Dependabot raising a
+    dependency bump: nobody wrote those, so crediting a human would be false and
+    crediting nobody would leave the change unattributed. Name the bot, the way the
+    dependency sections below already close with `Thanks to dependabot.`
+  So the same words — "Copilot", say — are forbidden in one commit and required in
+  another, and what decides it is not the word but whether a person is behind the
+  change.
 - **If the git identity is missing or wrong in one of these checkouts, set it; do not
   commit under something else.** The `.tools/` clones are made by `build.sh` inside
   this checkout and can come up with no `user.name`/`user.email` of their own, which
@@ -110,18 +124,33 @@ git config user.name && git config user.email
 - **Maintainer mode** — the identity is `Lauri Ojansivu <x@xet7.org>` (name
   `Lauri Ojansivu`, email `x@xet7.org`), or it is unset in a checkout of one of the
   repositories above, which means it is to be SET to that as above rather than worked
-  around. Then: commit **directly to `main`** (see the section above) as
-  `Lauri Ojansivu <x@xet7.org>` with no AI trailer and no pull request, and the
-  **publishing / release steps** below are available to a human maintainer only. An AI
-  stops after committing locally and never runs a step that pushes or publishes.
+  around. Then the AI ITSELF makes the commit, and makes it **directly on `main`**
+  (see the section above), authored `Lauri Ojansivu <x@xet7.org>` — not as a
+  co-author, not as a second author, but as that author and no other — with no pull
+  request and with nothing anywhere in the commit message, the CHANGELOG entry or
+  anything else it writes that says an AI was involved. Working for the maintainer
+  is the invisible half of the attribution rule above. The **publishing / release
+  steps** below are available to a human maintainer only: an AI stops after
+  committing locally and never runs a step that pushes or publishes.
 - **Contributor mode** — the identity is somebody ELSE, in a fork or a clone of your
-  own. Then: do **not** commit to `main` and do **not** run any release/publishing
-  step. Make the changes on a branch and open a **pull request** for the maintainer
-  to review, and keep that pull request free of AI attribution too — the body as
-  well as the commits. Pushing the branch and opening the pull request are HUMAN
-  steps: the never-push boundary above means an AI stops at the local commit on that
-  branch. The "commit as Lauri Ojansivu", "commit directly to `main`", and all
-  release instructions below are **maintainer-only and do not apply to you**.
+  own — a person, or an AI that files pull requests on its own account. Then: do
+  **not** commit to `main` and do **not** run any release/publishing step. Make the
+  changes on a branch and open a **pull request** for the maintainer to review. The
+  "commit as Lauri Ojansivu", "commit directly to `main`", and all release
+  instructions below are **maintainer-only and do not apply to you**.
+
+  Who that pull request credits follows the attribution rule above, and the two
+  cases differ:
+  - **A person contributing, with an AI helping them.** The person is the author and
+    the tool is not mentioned — the pull request stays free of AI attribution, body
+    and commits alike. Pushing the branch and opening the pull request are that
+    person's own steps; the never-push boundary above means their AI stops at the
+    local commit on the branch.
+  - **An AI contributing on its own** — GitHub CodeQL raising a fix for something it
+    found, Copilot Autofix, Dependabot. There is no human in that pull request at
+    all, so it is named as the contributor it is. This is the one place an AI is
+    credited by name in this project, and it is credited because it is the author,
+    not because it assisted one.
 
 Maintainer mode covers TSC as well: commit directly to its `devel` branch, no pull
 request, same author and no AI attribution. What it does NOT bring along is WeKan's
@@ -446,7 +475,10 @@ directly after the merge.
 - **A change with nothing more to say stays a plain bullet** —
   `- [Short description](https://github.com/wekan/wekan/commit/<hash>). Thanks to xet7.`
   — and a dependency batch keeps its `- **package 1.2.3 → 1.2.4** — one line on what
-  it is` bullets, closing with `Thanks to dependabot.` A `<details>` whose body only
+  it is` bullets, closing with `Thanks to dependabot.` That bot is named for the same
+  reason CodeQL and Copilot Autofix are: it raised those pull requests itself, with no
+  human behind them, so it IS the contributor (see the attribution rule at the top).
+  A `<details>` whose body only
   repeats its summary is noise; use one when there IS a longer story to reveal, which
   is most fixes.
 - **`# TODO Later` blocks are the same shape with two differences:** the `<summary>` is
