@@ -194,6 +194,26 @@ test('every git repository cloned in here is excluded from BOTH files', () => {
     'cloned repositories Meteor would still walk - add them to .meteorignore');
 });
 
+// .build/ is the opposite case to _build/ above, and the two are one character
+// apart, so both directions are pinned rather than left to whoever reads the
+// names next.
+test('.build IS excluded - it is the finished bundle, not the handoff', () => {
+  assert.ok(ignored.has('.build'),
+    '`meteor build .build --directory` writes a whole bundled copy of the app ' +
+    'inside the source tree; without this the next `meteor run` scans it');
+
+  // What the entry does NOT do, recorded here because the comment beside it in
+  // .meteorignore used to claim otherwise. Meteor's "The output directory is
+  // under your source tree" warning is a path comparison on the output ARGUMENT
+  // - tools/cli/commands.js asks whether pathRelative(appDir, outputPath)
+  // starts with '..' and prints it when it does not, before any file is
+  // written. No ignore file can reach it. Silencing it means building outside
+  // the tree, which every caller would have to agree on.
+  const text = fs.readFileSync(path.join(ROOT, '.meteorignore'), 'utf8');
+  assert.doesNotMatch(text, /This is that warning answered/,
+    'the warning still fires on every build into .build/; do not claim it does not');
+});
+
 test('nothing gitignored at the top level is left for Meteor to walk', () => {
   // The general rule, so the NEXT clone dropped in here is caught by a test
   // rather than by a build running out of memory. Any top-level directory that

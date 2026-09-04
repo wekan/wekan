@@ -61,9 +61,19 @@ npm-packages/
 #   WARNING: The output directory is under your source tree.
 #            Your generated files may get interpreted as source code!
 #
-# This is that warning answered. Unlike _build/ above, nothing hands these files
-# back to Meteor - .build/bundle is the finished output, read by the deploy and
-# test steps, never by the compiler.
+# This entry does NOT silence that warning, and nothing here can: the warning is
+# a plain path comparison on the output ARGUMENT, done before any file is
+# written - tools/cli/commands.js asks whether pathRelative(appDir, outputPath)
+# starts with '..', and prints it when it does not. It fires on every build into
+# .build/ whatever this file says. Silencing it would mean building outside the
+# tree (`meteor build ../output`), which every caller in build.sh, build.bat and
+# the release workflows would have to agree on.
+#
+# What this entry does is the SECOND half of the warning - "may get interpreted
+# as source code". The next `meteor run` would otherwise scan a whole bundled
+# copy of the app, so ignoring it is worth doing on its own. Unlike _build/
+# above, nothing hands these files back to Meteor: .build/bundle is the finished
+# output, read by the deploy and test steps, never by the compiler.
 /.build/
 
 /docs/
