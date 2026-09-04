@@ -10,6 +10,7 @@ import {
   listCardsSelector,
   otherSwimlaneIdsForFirstActive,
 } from '/models/lib/swimlaneFilter';
+import { planListCopy, copiedCardSwimlaneId } from './lib/listCopyPlan';
 import { planListMove } from './lib/listMovePlan';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
@@ -287,33 +288,52 @@ Lists.attachSchema(
 
 Lists.helpers({
   async copy(boardId, swimlaneId, cardIdMap = null) {
+    // What this does is decided in models/lib/listCopyPlan.js, where it can be
+    // unit-tested - the copy-side twin of List.move's planner. Two faults lived
+    // in these lines, and both are described there:
+    //
+    // - the cards were selected by `swimlaneId: this.swimlaneId || null`, so a
+    //   board-wide list (an empty or missing swimlaneId, which is every list on
+    //   a board predating per-swimlane lists) asked for cards with NO swimlane
+    //   while its cards carry real ones - the selector matched nothing and the
+    //   copy came out EMPTY;
+    // - the target board was searched for a same-titled list to reuse without
+    //   first asking whether that board IS this list's own board. On a
+    //   same-board copy the search finds THIS list, so the "copy" wrote the
+    //   cards back into the source list and returned the source list's id.
     const oldId = this._id;
-    const oldSwimlaneId = this.swimlaneId || null;
-    this.boardId = boardId;
-    this.swimlaneId = swimlaneId;
+    const sameBoard = boardId === this.boardId;
+    const existing = sameBoard
+      ? null
+      : await ReactiveCache.getList({
+        boardId,
+        title: this.title,
+        archived: false,
+      });
 
-    let _id = null;
-    const existingListWithSameName = await ReactiveCache.getList({
-      boardId,
-      title: this.title,
-      archived: false,
+    const plan = planListCopy({
+      listId: oldId,
+      listBoardId: this.boardId,
+      targetBoardId: boardId,
+      targetSwimlaneId: swimlaneId,
+      existingListId: existing ? existing._id : null,
     });
-    if (existingListWithSameName) {
-      _id = existingListWithSameName._id;
-    } else {
+
+    let _id = plan.listId;
+    if (plan.action === 'create') {
+      this.boardId = boardId;
+      this.swimlaneId = plan.swimlaneId; // Set the target swimlane for the copied list
       delete this._id;
-      this.swimlaneId = swimlaneId; // Set the target swimlane for the copied list
       _id = await Lists.insertAsync(this);
     }
 
-    // Copy all cards in list
-    const cards = await ReactiveCache.getCards({
-      swimlaneId: oldSwimlaneId,
-      listId: oldId,
-      archived: false,
-    });
+    // Copy all cards in list. Every card of the source list travels, whatever
+    // swimlane each one is in - a list is the unit of a copy, exactly as in
+    // List.move - and each one lands in the swimlane the plan gives it: the
+    // chosen one, or its own when a same-board copy named no swimlane.
+    const cards = await ReactiveCache.getCards(plan.cardSelector);
     for (const card of cards) {
-      await card.copy(boardId, swimlaneId, _id, cardIdMap);
+      await card.copy(boardId, copiedCardSwimlaneId(plan, card), _id, cardIdMap);
     }
 
     return _id;

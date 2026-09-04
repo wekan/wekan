@@ -51,6 +51,18 @@ const withoutComments = source => source
   .replace(/\/\*[\s\S]*?\*\//g, '')
   .replace(/^[ \t]*\/\/.*$/gm, '');
 
+// Cut List.move out of a source string. It takes the offsets from the SAME
+// string it slices: taking them from the un-stripped file and slicing the
+// stripped one used to work only by accident, and any edit above move() - such
+// as the sibling fix in List.copy - slid the window off the method and failed
+// the two scans below on code they never looked at.
+const moveSource = (source = listsModel) => {
+  const start = source.indexOf('  async move(boardId, swimlaneId) {');
+  const end = source.indexOf('orphanedCardsSwimlaneIds(swimlaneId) {');
+  assert.ok(start >= 0 && end > start, 'models/lists.js must still have List.move');
+  return source.slice(start, end);
+};
+
 let passed = 0;
 const test = (name, run) => {
   run();
@@ -169,10 +181,7 @@ test('a list whose name is new on the other board is created there, bound', () =
 // ---- how models/lists.js applies it -----------------------------------------
 
 test('List.move uses the plan and only searches other boards by title', () => {
-  const move = listsModel.slice(
-    listsModel.indexOf('  async move(boardId, swimlaneId) {'),
-    listsModel.indexOf('orphanedCardsSwimlaneIds(swimlaneId) {'));
-  assert.ok(move.length > 0, 'models/lists.js must still have List.move');
+  const move = moveSource();
   assert.match(listsModel, /import \{ planListMove \} from '\.\/lib\/listMovePlan';/,
     'the planner must be the one place the decision lives');
   assert.match(move, /const sameBoard = boardId === this\.boardId;/,
@@ -201,9 +210,7 @@ test('no card is moved into a swimlane that is really a list id (negative)', () 
 // Negative: the cards must not be filtered by the TARGET board's swimlaneId -
 // on a cross-board move that matches nothing and leaves every card behind.
 test('the cards that travel are the list-s own, unfiltered (negative)', () => {
-  const move = withoutComments(listsModel).slice(
-    listsModel.indexOf('  async move(boardId, swimlaneId) {'),
-    listsModel.indexOf('orphanedCardsSwimlaneIds(swimlaneId) {'));
+  const move = moveSource(withoutComments(listsModel));
   assert.match(move, /for \(const card of await this\.cards\(\)\)/,
     'every card in the list travels with it');
   assert.doesNotMatch(move, /this\.cards\(swimlaneId\)/,
