@@ -8571,6 +8571,40 @@ At 375x812: edge to edge, with 169px of real horizontal scrolling.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4286186a9">Restore puts back the version you picked, not the one before it</a>. Thanks to xet7.</summary>
+
+Reported as *"when I try to restore card description from card history, it
+restores wrong history, that I did not select"* - and the selection was never
+wrong. The server restored exactly the row whose checkbox was ticked. It applied
+the wrong half of it.
+
+A row carries two contents, before and after. The table shows the AFTER -
+[History.md](docs/Features/Reports/History/History.md) §7: the content column
+holds *"the new text"* - and Restore applied the BEFORE, because it reused the
+undo path. So choosing the row that displayed the description you wanted handed
+you the description from the row above it, and choosing rows one after another
+walked backwards through the history instead of moving through it.
+
+Restore has a direction of its own now, and the rule is one sentence: the row a
+reader picks and the value they get are the same thing. Undo is deliberately the
+other way round - `Ctrl+Z` reverses your own last change - and is unchanged. The
+two agree only when the row you pick happens to be the last one, which is why
+this survived the first live pass: the title restored there WAS the most recent
+change, so both directions gave the same answer.
+
+The rows a restore appends were wrong in the same way - they repeated the
+restored row's own before and after, which describes a different change. The
+live value is read before the write now and recorded as what was displaced.
+
+Verified against a running server with three description versions, FIRST,
+SECOND, THIRD, and THIRD current: picking the row showing FIRST set the
+description to FIRST and logged THIRD → FIRST, then picking SECOND set it to
+SECOND and logged FIRST → SECOND. Before this, picking FIRST emptied the
+description.
+
+</details>
+
 and fixes the following bugs:
 
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
