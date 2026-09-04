@@ -8245,12 +8245,13 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** the **single Windows EXE** stops running WeKan out of a virtual
+filesystem. It now carries the published win64 ZIP as a checksummed payload and
+unpacks it into a real directory on first run, which is what ends the crash loop
+11.48 shipped with, cuts the download from 690 MB to about 232 MB, and turns a
+damaged copy into a clear message instead of a restarting server. Its release
+smoke test no longer passes an EXE that only answers because start-wekan.bat
+keeps retrying.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8263,81 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**The single Windows EXE** - what the one downloadable file is made of, and
+what it checks before it starts WeKan.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a12cc8142e40393bd6ca105627a8574ab21a66ba">It unpacks the bundle to real files instead of running it from a virtual filesystem</a>. Thanks to xet7.</summary>
+
+`WeKan-11.48-win64.exe` died on every start, restarted, and died again:
+
+```
+...\accounts-password\node_modules\bcrypt\promises.js:1
+MZ......  !.L.!This program cannot be run in DOS mode.
+SyntaxError: Invalid or unexpected token
+    at Object.<anonymous> (...\bcrypt\bcrypt.js:6:18)
+```
+
+Both published files were correct. `wekan-11.48-win64.zip` holds the real
+1123-byte `promises.js`, and so did the EXE: in its packed image
+`bcrypt.node` (195584 bytes) is entry `0x5c9c` and `promises.js` is
+`0x5c9d`, stored back to back, each with the right bytes at the offset its
+own record gives. What was wrong was the READ. Enigma Virtual Box served
+all 44,401 bundle files from a virtual filesystem inside the EXE, and once
+Node.js had loaded the native addon out of it (`bcrypt.js` line 2), the
+next read - `require('./promises')` on line 6, the blob immediately after
+that addon - came back as the addon's own PE bytes.
+
+So the packer is gone. The EXE is now the compiled launcher with the
+published ZIP appended to it and an 80-byte trailer saying where that
+payload starts, how long it is, its SHA-256 and which WeKan it is. On its
+first run the launcher verifies that SHA-256, unpacks the payload into a
+real `wekan-app` directory beside itself with Windows' own `tar.exe`, and
+from then on WeKan reads ordinary files - the same `start-wekan.bat`,
+`node.exe` and `ferretdb.exe` the ZIP has. Persistent data is untouched by
+any of it: `wekan-files` stays a sibling of `wekan-app`, so unpacking a
+newer version never reaches the database, the attachments or the avatars.
+
+Two things come with it. The download drops from 690 MB to about 232 MB,
+because the payload is the compressed ZIP rather than an uncompressed
+image. And a damaged copy - a truncated download, a half-written file -
+now stops at the checksum with the expected and actual hashes and a line
+saying to download it again, instead of reaching Node.js as a crash loop.
+The first run needs room for about 1 GB beside the EXE; later runs start
+straight away.
+
+`tests/windowsSingleExe.test.cjs` pins the trailer format from both ends -
+every `TRAILER_*` the launcher defines must equal the constant
+`releases/append-windows-payload.mjs` exports under that name - round-trips
+a packed file through pack and verify, and requires a flipped byte, a
+truncated payload, a missing trailer and an over-long version to be
+refused. A negative test reads every file under `.github/workflows` and
+`releases` and fails on any Enigma Virtual Box download, console or `.evb`
+project, so the virtual filesystem cannot come back through a second
+packing path.
+
+Its release smoke test is why a broken EXE was published at all.
+`start-wekan.bat` restarts WeKan every three seconds when it exits, and
+the smoke test polled
+`http://localhost:8080/sign-in` for three minutes: an EXE that crashed on
+nine starts out of ten still answered inside that window, and the job went
+green.
+
+It now starts the EXE twice - the run that unpacks the payload, and the run
+that must find `wekan-app` already unpacked and start straight away - and
+fails if either log contains `WeKan exited; restarting` or `SyntaxError`.
+A regression test requires the first of those strings to be the one
+`releases/ferretdb/start-wekan.bat` actually prints, so the check cannot
+quietly stop matching. The same step also confirms that the first run
+really created `wekan-app`, and no longer trips over PowerShell's read-only
+`$pid` while freeing the ports FerretDB needs.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.48 2026-09-04 WeKan ® release
 
