@@ -1,0 +1,75 @@
+//- THE History view. There is exactly ONE of these.
+//-
+//- docs/Features/Reports/History/History.md §7a: "Every non-card-group surface
+//- is the same historyTable with a different changeHistory.page scope; there is
+//- ONE implementation, parametrised by scope." The card-group menu, the whole
+//- card, Member settings, Board settings, and the swimlane and list menus all
+//- open THIS template with a different data context. Adding History to a new
+//- menu is a menu item and nothing else — no new template, method or restore
+//- code.
+//-
+//- Data context: { scope, scopeId, group, userId, titleKey }
+//- State (search, page, selection, the contributor filter) lives on the template
+//- instance in a ReactiveDict, never on the data context — #6479 showed a
+//- re-render drops ad-hoc fields written onto the context.
+template(name="historyTable")
+  .history-table(class="{{#if isRtl}}history-rtl{{/if}}")
+    //- Left pane: the contributor list. Only where a scope can span more than
+    //- one person — the Member view is already one user, so it has none.
+    if showContributors
+      .history-nav
+        a.history-nav-item.js-history-all(class="{{#unless activeUserId}}is-active{{/unless}}")
+          i.fa.fa-history
+          span {{_ 'history'}}
+        each contributor in contributors
+          a.history-nav-item.js-history-contributor(
+            data-user-id="{{userId}}"
+            class="{{#if isActive}}is-active{{/if}}")
+            +userAvatar(userId=userId)
+            span.history-nav-count {{count}}
+
+    .history-main
+      .history-controls
+        input.js-history-search(
+          type="search"
+          placeholder="{{_ 'search'}}"
+          aria-label="{{_ 'search'}}"
+          value="{{searchTerm}}")
+        .history-pagination
+          a.js-history-prev(class="{{#unless hasPrev}}is-disabled{{/unless}}")
+            i.fa.fa-chevron-left
+          span.history-page {{page}} / {{totalPages}}
+          a.js-history-next(class="{{#unless hasNext}}is-disabled{{/unless}}")
+            i.fa.fa-chevron-right
+        button.js-history-restore.primary(disabled="{{#unless hasSelection}}disabled{{/unless}}")
+          i.fa.fa-undo
+          | {{_ 'restore'}}
+
+      if loading
+        +spinner
+      else if hasRows
+        table.history-rows
+          thead
+            tr
+              th.history-select
+              th {{_ 'action'}}
+              th {{_ 'details'}}
+              th {{_ 'date'}}
+          tbody
+            each row in rows
+              tr(class="{{#if isSelected}}is-selected{{/if}}")
+                td.history-select
+                  input.js-history-select(type="checkbox" data-id="{{_id}}" checked="{{isSelected}}")
+                td.history-change
+                  span.history-change-type {{_ changeTypeKey}}
+                  if groupKey
+                    span.quiet.history-group {{_ groupKey}}
+                td.history-content {{contentSummary}}
+                td.history-when {{prettyWhen}}
+      else
+        p.quiet {{_ 'no-results'}}
+
+//- The popup wrapper every menu opens. It exists only so a menu item can say
+//- `Popup.open('history')` with a scope; the table above is the whole feature.
+template(name="historyPopup")
+  +historyTable(scope=scope scopeId=scopeId group=group userId=userId)

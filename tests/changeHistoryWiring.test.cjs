@@ -32,6 +32,7 @@ const cards = code('models/cards.js');
 const lists = code('server/models/lists.js');
 const keyboard = code('client/lib/keyboard.js');
 const imports = code('server/imports.js');
+const hooks = code('server/models/changeHistoryHooks.js');
 
 let passed = 0;
 const test = (name, run) => {
@@ -66,19 +67,16 @@ test('applying a change to a document lives on the server, not in the collection
 
 // ---- recording is wired where the doc says ----------------------------------
 
-test('a description edit records what it was and what it became', () => {
-  assert.match(cards, /async setDescription\(description\) \{/,
-    'History.md §10.2 makes Description the first content group');
+// One change must produce ONE row. Recording a description both in the setter
+// and in the field-diffing hook would need two presses of Ctrl+Z to put a single
+// edit back - so the setter records nothing and the hook records everything.
+test('a field edit is recorded once, by the hook, not twice', () => {
   const setter = cards.slice(cards.indexOf('async setDescription(description)'));
   const body = setter.slice(0, setter.indexOf('\n  },'));
-  assert.match(body, /const previous = this\.getDescription\(\);/,
-    'the previous text has to be read BEFORE the write, or it is gone');
-  assert.ok(body.indexOf('const previous') < body.indexOf('updateAsync'),
-    'reading it after the update would record the new value twice');
-  assert.match(body, /group: 'description'/);
-  assert.match(body, /changeType: 'edited'/);
-  assert.match(body, /previousContent: \{ text:/);
-  assert.match(body, /newContent: \{ text:/);
+  assert.doesNotMatch(body, /recordCardChange|ChangeHistory/,
+    'the hook already records this edit; recording it here too would double it');
+  assert.match(hooks, /Cards, 'card'/,
+    'and the hook must actually be attached to Cards');
 });
 
 test('the card helper reaches the collection by a real require', () => {
@@ -86,6 +84,34 @@ test('the card helper reaches the collection by a real require', () => {
     'lazy, because this file is isomorphic - but a real reference, not a global');
   assert.doesNotMatch(cards, /typeof\s+ChangeHistory\s*!==\s*'undefined'/,
     'the guard that made the last history inert must not reappear');
+});
+
+// The hook is the choke point of History.md §5: one place that also catches the
+// REST API, the importers and the rules engine, none of which call the client
+// setters. A per-setter rollout would have recorded an edit made in the UI and
+// silently missed the same edit made over the API.
+test('every entity that can be edited is hooked', () => {
+  for (const entity of ['card', 'list', 'swimlane', 'checklist', 'checklistItem', 'comment']) {
+    assert.match(hooks, new RegExp(`'${entity}'`),
+      `${entity} edits must be recorded`);
+  }
+  assert.match(hooks, /after\.update\(async function/, 'updates are diffed');
+  assert.match(hooks, /after\.insert/, 'and sub-entities appearing');
+  assert.match(hooks, /after\.remove/, 'and disappearing');
+  assert.match(hooks, /this\.previous/,
+    'the diff needs the document as it was, which is what after.update carries');
+});
+
+test('a card move is recorded once, as a move, not as four field edits', () => {
+  const { NEVER_RECORD, groupForField } = require(
+    path.join(ROOT, 'models', 'lib', 'changeHistoryGroups'));
+  for (const field of ['boardId', 'swimlaneId', 'listId', 'sort']) {
+    assert.ok(NEVER_RECORD.has(field),
+      `${field} must be excluded, or one drag becomes four rows`);
+    assert.equal(groupForField('card', field), null);
+  }
+  assert.match(cards, /group: 'position'/,
+    'Card.move records the whole move itself, as one change');
 });
 
 test('list moves, deletes and restores are recorded too', () => {
@@ -145,14 +171,37 @@ test('undo applies the previous content and redo the new one', () => {
 // History.md §8.2: a restore goes through the SAME setters as an ordinary edit,
 // so validation, hooks and Activities still run. A raw update would skip all of
 // them and leave the board in a state no normal edit could produce.
-test('restoring goes through the setters, not a raw write', () => {
-  const appliers = server.slice(server.indexOf('async function applyCardContent'),
+// History.md §8.2: a restore re-applies content through the same path an
+// ordinary edit uses, so validation, hooks and Activities all still run. In
+// WeKan the Activities ARE the after.update hooks, so a collection update is
+// that path - `.direct` is the thing that would skip them, and is what this
+// forbids. A move is the exception: four fields that only mean anything
+// together, so it goes back through Card.move.
+test('restoring runs the ordinary hooks, never a direct write', () => {
+  const appliers = server.slice(server.indexOf('async function applyFieldContent'),
     server.indexOf('const APPLIERS'));
-  assert.match(appliers, /card\.setDescription\(content\.text\)/);
-  assert.match(appliers, /card\.setTitle\(content\.text\)/);
-  assert.match(appliers, /card\.move\(/);
-  assert.doesNotMatch(appliers, /Cards\.direct/,
-    'a restore is an ordinary edit and must run the ordinary hooks');
+  assert.match(appliers, /collection\.updateAsync\(row\.entityId/,
+    'the generic case writes the recorded field back through the collection');
+  assert.match(appliers, /card\.move\(/,
+    'a move is put back as a move, not as four separate field writes');
+  for (const direct of [/Cards\.direct/, /Lists\.direct/, /Swimlanes\.direct/,
+    /collection\.direct/]) {
+    assert.doesNotMatch(appliers, direct,
+      'a restore is an ordinary edit; .direct would skip the activities it should log');
+  }
+});
+
+// An applier that cannot put a row back has to say so. Reporting success for a
+// change it did not apply is worse than failing: the row is marked undone, so
+// the user cannot even try again.
+test('an applier that cannot apply reports it, and the row stays', () => {
+  const appliers = server.slice(server.indexOf('async function applyFieldContent'),
+    server.indexOf('async function applyRow'));
+  assert.match(appliers, /if \(!existing\) return false;/,
+    'an entity that no longer exists cannot be restored');
+  const undo = server.slice(server.indexOf("'changeHistory.undoLast'"));
+  assert.match(undo, /if \(!applied\) return \{ undone: false, reason: 'not-applicable' \};/,
+    'and the row must not be marked undone when nothing was undone');
 });
 
 test('a restore is itself recorded, for both people involved', () => {
@@ -212,6 +261,8 @@ test('the page size is clamped, so one call cannot ask for the whole log', () =>
 
 test('the server side is registered, or none of it runs', () => {
   assert.match(imports, /import '\/server\/models\/changeHistory';/);
+  assert.match(imports, /import '\/server\/models\/changeHistoryHooks';/,
+    'an unregistered hook file records nothing at all');
 });
 
 console.log(`changeHistoryWiring: ${passed} tests passed`);

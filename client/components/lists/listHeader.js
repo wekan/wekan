@@ -296,6 +296,11 @@ Template.listActionPopup.helpers({
 });
 
 Template.listActionPopup.events({
+  'click .js-list-history'(event) {
+    Popup.open('history', { titleKey: 'history' })(event, {
+      dataContextIfCurrentDataIsUndefined: { scope: 'list', scopeId: this._id },
+    });
+  },
   // Copy the list's own address. `absoluteUrl` so what lands in the
   // clipboard can be pasted anywhere - a relative path is only a link inside
   // this page. The popup stays open long enough to show "Copied"; it is the

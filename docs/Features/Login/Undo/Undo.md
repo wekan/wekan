@@ -9,8 +9,9 @@ impact") — which covered **position moves** (card / list / swimlane) only.
 > **Superseded in part.** `Ctrl+Z`/`Ctrl+Y` no longer read `userPositionHistory`. They call
 > `changeHistory.undoLast`/`redoLast` over the unified store described in
 > [History.md](../../Reports/History/History.md), which phase 1 of that design has now built, so
-> undo covers **any recorded change** rather than positions only — today that means card
-> description edits, card moves, list moves and list soft-delete/restore. The selection rule
+> undo covers **any recorded change** rather than positions only: every field of a card,
+> list, swimlane, checklist, checklist item and comment that History.md §3 names, plus
+> moves and the list soft delete. The selection rule
 > (`pickUndo`/`pickRedo`) and the key bindings are unchanged, which is why §6 and §7 below still
 > describe them accurately. `userPositionHistory` keeps recording during the transition; its rows
 > are not yet migrated.

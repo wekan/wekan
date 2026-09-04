@@ -918,6 +918,15 @@ template(name="cardDetailsActionsPopup")
           |  {{_ 'copy-link-to-clipboard'}}
     span.copied-tooltip {{_ 'copied'}}
     hr
+    //- History of the whole card (docs/Features/Reports/History/History.md §7a).
+      One menu item and nothing else: it opens the SAME historyTable every other
+      scope opens, with `scope: 'card'`.
+    ul.pop-over-list
+      li
+        a.js-card-history
+          i.fa.fa-history
+          |  {{_ 'history'}}
+    hr
     ul.pop-over-list
       li
         a.js-toggle-watch-card

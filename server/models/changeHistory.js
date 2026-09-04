@@ -3,7 +3,9 @@ import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
+import CardComments from '/models/cardComments';
 import Checklists from '/models/checklists';
+import ChecklistItems from '/models/checklistItems';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import ChangeHistory from '/models/changeHistory';
@@ -14,6 +16,7 @@ import {
   matchesSearch,
   selectionToIds,
 } from '/models/lib/changeHistoryQuery';
+import { valueFromContent } from '/models/lib/changeHistoryGroups';
 import { pageInfo } from '/models/lib/tablePage';
 
 // Server side of the universal change history
@@ -65,41 +68,47 @@ const requireBoardWrite = async (userId, boardId) => {
 // entity is gone, the content is not the shape it expects - returns false, and
 // the caller reports that rather than pretending the undo worked.
 
+/*
+ * The generic case: a row recorded by the field-diffing hook carries
+ * `{ field, value }`, so putting it back is writing that field. This goes
+ * through the collection rather than a per-field setter, which History.md §8.2
+ * asks for and which is satisfied here because WeKan's Activities are generated
+ * by `after.update` collection hooks - a collection update runs exactly the
+ * same hooks, validation and activity logging an ordinary edit does. `.direct`
+ * would be the thing that skipped them, and is not used.
+ */
+async function applyFieldContent(collection, row, content) {
+  if (!content || typeof content.field !== 'string') return false;
+  const value = valueFromContent(content);
+  if (value === undefined) return false;
+  const existing = await collection.findOneAsync(row.entityId);
+  if (!existing) return false;
+  await collection.updateAsync(row.entityId, { $set: { [content.field]: value } });
+  return true;
+}
+
 async function applyCardContent(row, content) {
   const card = await ReactiveCache.getCard(row.entityId);
   if (!card) return false;
-  switch (row.group) {
-    case 'description':
-      if (!content || typeof content.text !== 'string') return false;
-      await card.setDescription(content.text);
-      return true;
-    case 'title':
-      if (!content || typeof content.text !== 'string') return false;
-      await card.setTitle(content.text);
-      return true;
-    case 'position': {
-      if (!content) return false;
-      await card.move(
-        content.boardId || card.boardId,
-        content.swimlaneId,
-        content.listId,
-        content.sort,
-      );
-      return true;
-    }
-    default:
-      return false;
+  // A move is the one card change that is not a single field: it is four of
+  // them that only mean anything together, so it goes back through Card.move
+  // rather than as four writes.
+  if (row.group === 'position') {
+    if (!content) return false;
+    await card.move(
+      content.boardId || card.boardId,
+      content.swimlaneId,
+      content.listId,
+      content.sort,
+    );
+    return true;
   }
+  return applyFieldContent(Cards, row, content);
 }
 
 async function applyListContent(row, content) {
   const list = await ReactiveCache.getList(row.entityId);
   if (!list) return false;
-  if (row.group === 'title') {
-    if (!content || typeof content.text !== 'string') return false;
-    await Lists.updateAsync(list._id, { $set: { title: content.text } });
-    return true;
-  }
   if (row.group === 'position') {
     if (!content) return false;
     const set = {};
@@ -109,7 +118,7 @@ async function applyListContent(row, content) {
     await Lists.updateAsync(list._id, { $set: set });
     return true;
   }
-  if (row.group === 'lifecycle') {
+  if (row.group === 'lifecycle' && content && content.deleted !== undefined) {
     // A soft delete and its restore are the same row read in two directions.
     if (content && content.deleted === true) {
       await Lists.updateAsync(list._id, {
@@ -122,39 +131,26 @@ async function applyListContent(row, content) {
     }
     return true;
   }
-  return false;
+  return applyFieldContent(Lists, row, content);
 }
 
 async function applySwimlaneContent(row, content) {
   const swimlane = await ReactiveCache.getSwimlane(row.entityId);
   if (!swimlane) return false;
-  if (row.group === 'title') {
-    if (!content || typeof content.text !== 'string') return false;
-    await Swimlanes.updateAsync(swimlane._id, { $set: { title: content.text } });
-    return true;
-  }
   if (row.group === 'position' && content && content.sort !== undefined) {
     await Swimlanes.updateAsync(swimlane._id, { $set: { sort: content.sort } });
     return true;
   }
-  return false;
-}
-
-async function applyChecklistContent(row, content) {
-  const checklist = await ReactiveCache.getChecklist(row.entityId);
-  if (!checklist) return false;
-  if (row.group === 'checklists' && content && typeof content.title === 'string') {
-    await Checklists.updateAsync(checklist._id, { $set: { title: content.title } });
-    return true;
-  }
-  return false;
+  return applyFieldContent(Swimlanes, row, content);
 }
 
 const APPLIERS = {
   card: applyCardContent,
   list: applyListContent,
   swimlane: applySwimlaneContent,
-  checklist: applyChecklistContent,
+  checklist: (row, content) => applyFieldContent(Checklists, row, content),
+  checklistItem: (row, content) => applyFieldContent(ChecklistItems, row, content),
+  comment: (row, content) => applyFieldContent(CardComments, row, content),
 };
 
 /*

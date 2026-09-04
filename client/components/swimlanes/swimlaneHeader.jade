@@ -66,6 +66,13 @@ template(name="swimlaneActionPopup")
         span
           | {{_ 'copy-link-to-clipboard'}}
     span.copied-tooltip {{_ 'copied'}}
+    //- History of this swimlane and everything in it. Reading, like the link
+      above it, so it sits above the rows that change the board.
+    ul.pop-over-list
+      li: a.js-swimlane-history
+        i.fa.fa-history
+        span
+          | {{_ 'history'}}
     hr
     //- #1173: exporting a swimlane is the board export restricted to it, and
       like copying a link it is READING - so it sits above the rows that change

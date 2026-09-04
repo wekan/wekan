@@ -88,6 +88,7 @@ import '/client/features/forms';
 // template in features/forms had been created and blanked every client page.
 import '/client/lib/datepicker';
 import '/client/features/main';
+import '/client/features/history';
 import '/client/features/settings';
 import '/client/features/sidebar';
 import '/client/features/users';

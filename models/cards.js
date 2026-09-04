@@ -1576,18 +1576,15 @@ Cards.helpers({
     // History.md §10.2: the first content group. The PREVIOUS text is read
     // before the write - once the update lands it is gone, which is why a
     // description could never be restored before this.
-    const previous = this.getDescription();
+    // The change itself is recorded by the field-diffing hook in
+    // server/models/changeHistoryHooks.js, not here. Recording it in both
+    // places would put two rows on one edit - and the hook also catches the
+    // REST API, the importers and the rules engine, none of which call this.
     if (this.isLinkedBoard()) {
       await Boards.updateAsync({ _id: this.linkedId }, { $set: { description } });
     } else {
       await Cards.updateAsync({ _id: this.getRealId() }, { $set: { description } });
     }
-    await recordCardChange(this, {
-      group: 'description',
-      changeType: 'edited',
-      previousContent: { text: typeof previous === 'string' ? previous : '' },
-      newContent: { text: typeof description === 'string' ? description : '' },
-    });
   },
 
   getDescription() {

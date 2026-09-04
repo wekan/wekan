@@ -1,0 +1,65 @@
+/* The one History view (docs/Features/Reports/History/History.md §7).
+   Left pane of contributors, then search + pagination + Restore above the table.
+   RTL mirrors the whole thing: the pane moves to the right, the controls
+   reverse, and the columns follow the document direction. */
+.history-table {
+  display: flex;
+  gap: 12px;
+  min-width: 320px;
+  max-width: 96vw;
+}
+.history-rtl { flex-direction: row-reverse; }
+
+.history-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+  max-height: 60vh;
+  overflow-y: auto;
+  border-inline-end: 1px solid rgba(128, 128, 128, 0.25);
+  padding-inline-end: 8px;
+}
+.history-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.history-nav-item.is-active { background: rgba(128, 128, 128, 0.18); }
+.history-nav-count { font-size: 0.85em; opacity: 0.7; }
+
+.history-main { flex: 1 1 auto; min-width: 0; }
+.history-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.history-controls input { flex: 1 1 auto; min-width: 0; }
+.history-pagination { display: flex; align-items: center; gap: 6px; }
+.history-pagination .is-disabled { opacity: 0.35; pointer-events: none; }
+
+/* The table scrolls inside itself: a long content cell must not make the whole
+   popup scroll sideways. */
+.history-rows {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  max-height: 55vh;
+  overflow: auto;
+}
+.history-rows th,
+.history-rows td {
+  text-align: start;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  vertical-align: top;
+}
+.history-select { width: 28px; }
+.history-content { word-break: break-word; max-width: 40ch; }
+.history-when { white-space: nowrap; opacity: 0.75; }
+.history-group { margin-inline-start: 6px; font-size: 0.85em; }
+.history-rows tr.is-selected { background: rgba(128, 128, 128, 0.12); }

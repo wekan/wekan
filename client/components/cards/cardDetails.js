@@ -1571,6 +1571,20 @@ Template.cardDetailsActionsPopup.helpers({
 });
 
 Template.cardDetailsActionsPopup.events({
+  // History.md §7a: adding History to a menu is a menu item and this handler,
+  // opening the SAME historyTable every other scope opens.
+  'click .js-card-history'(event) {
+    const card = this.card || this;
+    // The scope has to travel as `dataContextIfCurrentDataIsUndefined`: the
+    // second argument to Popup.open()'s handler is OPTIONS, and the popup takes
+    // its data context from `this.currentData()` first - which in an event
+    // handler is undefined, so this key is the one that reaches the template.
+    // Passing a bare object there would have opened the History of the card
+    // menu's own data context instead of the scope asked for. (client/lib/popup.js)
+    Popup.open('history', { titleKey: 'history' })(event, {
+      dataContextIfCurrentDataIsUndefined: { scope: 'card', scopeId: card._id },
+    });
+  },
   // Copy the card's address. This was an icon in the card's header with only a
   // tooltip to name it - the one place a name cannot be read without hovering -
   // and it is here now beside the swimlane's and the list's, so all three are

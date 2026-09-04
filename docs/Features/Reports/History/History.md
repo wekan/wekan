@@ -8,68 +8,50 @@
 Status: **Phase 1 implemented · phases 2-6 outstanding** · Owner: xet7 · Related: card details
 view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/Undo.md`
 
-> **What is live (phase 1 of §10, plus the write half of phase 2).**
-> `models/changeHistory.js` (the append-only store and `record()`),
-> `models/lib/changeHistoryQuery.js` (the pure scope / search / selection rules),
-> and `server/models/changeHistory.js` (`changeHistory.page`,
-> `changeHistory.restore`, `changeHistory.undoLast`, `changeHistory.redoLast`,
-> and the per-entity appliers). `Ctrl+Z`/`Ctrl+Y` read this store now, for **any**
-> recorded change rather than positions only. Recorded so far: **card description
-> edits**, **card moves**, **list moves**, and **list soft-delete/restore**.
-> `changeHistory` is in the snap's `MERGE_COLLECTIONS` as §9a.4 requires. Tests:
-> `tests/changeHistoryQuery.test.cjs`, `tests/changeHistoryWiring.test.cjs`,
-> `tests/undoRecordsWhatItClaims.test.cjs`.
+> **What is live.** Phases 1-3, 5 and 6 of §10, and the write half of 2.
 >
-> **What is NOT built:** every UI in §7, §7a and §8 — the history popup, the
-> table, the contributor avatars, the Restore button and the "History" menu
-> items. The `changeHistory.page` and `changeHistory.restore` methods they need
-> exist and are tested; nothing calls them yet. Also outstanding: recording for
-> the remaining groups of §3 (title, labels, members, dates, checklists,
-> subtasks, attachments, comments, custom fields), the swimlane structural
-> paths, and the retention cron of §9.
+> * **The store** — `models/changeHistory.js` (append-only, one row per change,
+>   carrying every container id so a scope is a plain equality),
+>   `models/lib/changeHistoryQuery.js` (scope / search / selection, pure) and
+>   `models/lib/changeHistoryGroups.js` (which field belongs to which group, and
+>   the content shape, pure).
+> * **The write side** — `server/models/changeHistoryHooks.js`, the choke point
+>   §5 asks for: an `after.update` diff per collection, plus insert/remove for
+>   the sub-entities. It records card, list, swimlane, checklist, checklist-item
+>   and comment changes across every group of §3, and because it is a collection
+>   hook it also catches the REST API, the importers and the rules engine, none
+>   of which go through the client setters. Moves and the list soft delete record
+>   themselves, as one change each, rather than as several field edits.
+> * **The read side and restore** — `server/models/changeHistory.js`:
+>   `changeHistory.page`, `.restore` (dual re-logging, oldest-to-newest, one
+>   batch), `.undoLast` and `.redoLast`.
+> * **The UI** — ONE `historyTable` (§7a), with the contributor pane, search,
+>   pagination, row selection, Restore and RTL. The card, list and swimlane
+>   menus each open it with a different scope; that is one menu item and one
+>   two-line handler each, as §7a promises.
+> * `Ctrl+Z`/`Ctrl+Y` read this store, for any recorded change.
+> * `changeHistory` is in the snap's `MERGE_COLLECTIONS` (§9a.4).
 >
-> One design decision was taken during phase 1 and is worth keeping: the
-> collection imports **no other model**. Its predecessor imported Cards, Lists
-> and the rest so its `undo()` could write to them, which made it unimportable
-> from those same files — the direct cause of the inert recording in the
-> appendix. Applying a change back to a document therefore lives in
-> `server/models/changeHistory.js`, which nothing imports and which may import
-> anything.
-
-This document specifies one unified **change-history** subsystem that records **every change a user
-makes**, keeps it **append-only**, and lets changes be **restored**. It is surfaced from **many menus**, but every one is the **same table + restore** over the **same
-store**, differing only by the **scope filter** it passes to `changeHistory.page`. A **History**
-option is added to each of these menus (and the pattern generalises to any future entity menu — the
-UI and method don't change, only the scope):
-
-| Menu / location | View shows the history of… | Scope filter | Section |
-| --- | --- | --- | --- |
-| Card group menu (open card) | that **group** on that card, with a per-contributor avatar list | `{ cardId, group }` | 7 |
-| Card menu (open card) | the **whole card** (all its groups) | `{ cardId }` | 7a |
-| Member settings menu | that **user's** own changes | `{ userId }` | 7a |
-| Board Settings | the whole **board** (all users/entities) | `{ boardId }` | 7a |
-| Swimlane menu | that **swimlane** and its contents | `{ scope:'swimlane', scopeId }` | 7a |
-| List menu | that **list** and its cards | `{ scope:'list', scopeId }` | 7a |
-| *(future)* Checklist menu, Attachment menu, … | that entity | `{ entityType, entityId }` | 7a |
-
-Scopes **nest**: a card's history ⊂ its list's ⊂ its swimlane's ⊂ the board's. Container scopes
-(board/swimlane/list/card) therefore mean "this entity **and its descendants**" — implemented as an
-OR over the relevant id columns (`boardId` / `swimlaneId` / `listId` / `cardId` / `entityId`), which
-is why the write side (section 5) stores all the applicable id columns on every row.
-
-Plus one keyboard front-end:
-
-- **Undo / Redo** — `Ctrl+Z` / `Ctrl+Y` = "restore the current user's most recent change from this
-  history" / "re-apply it". Undo/Redo is therefore **not a separate feature**; it is the keyboard
-  restore of the newest own change. (v1 undo/redo of *position moves* already shipped in #6478 via
-  `userPositionHistory`; this design **generalises** that to every change and merges the two.)
-
-It is a design doc only — no code is implied as final until this is approved.
-
-> **Scope change (this revision):** the earlier draft covered only card *groups*. Per request, the
-> model now records **every change** (all card fields/groups **and** board/list/swimlane/etc.
-> structural changes), per user, and adds the Member-settings per-user view. `userPositionHistory`
-> becomes a special case that this unified store supersedes.
+> Tests: `changeHistoryQuery`, `changeHistoryGroups`, `changeHistoryWiring`,
+> `historyOneTemplate`, `undoRecordsWhatItClaims`.
+>
+> **What is NOT live.** The Member-settings and Board-settings entries of §7a —
+> the table serves those scopes and is tested, but no menu item opens it there
+> yet. The retention cron of §9. Restoring a REMOVED sub-entity re-creates
+> nothing: the row stores the whole document, so it can be built, but §11 asks
+> whether it should be and that is a product decision. Attachments and custom
+> fields record their scalar changes only, not their files.
+>
+> **Verified how.** Everything above is covered by unit tests and source guards;
+> none of it has been exercised in a running WeKan, because this work had no
+> Meteor runtime available. §10 asks for each phase to be verified live, and that
+> has not happened — treat the UI in particular as unproven.
+>
+> One design decision is worth keeping: the collection imports **no other model**.
+> Its predecessor imported Cards, Lists and the rest so its `undo()` could write
+> to them, which made it unimportable from those same files — the direct cause of
+> the inert recording in the appendix. Applying a change lives in
+> `server/models/changeHistory.js`, which nothing imports.
 
 ---
 
