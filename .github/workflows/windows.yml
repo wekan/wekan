@@ -4,20 +4,24 @@ name: Windows single EXE
 # The ZIP remains the source of truth: this workflow appends that exact ZIP -
 # with its Node.js, FerretDB, MongoDB Database Tools and Meteor server - to a
 # small native launcher, and writes an 80-byte trailer saying where the payload
-# is and what its SHA-256 must be. Nothing is rebuilt and nothing is
-# virtualised: on its first run the launcher unpacks the payload into a real
-# "wekan-app" directory beside the EXE and runs the ordinary start-wekan.bat
-# from there. Persistent data stays outside it, in a real wekan-files/
-# directory beside the EXE, so the EXE and its data can be moved together and
-# unpacking a newer version never touches them.
+# is and what its SHA-256 must be.
+#
+# The bundle is NOT unpacked. On its first run the EXE verifies that SHA-256 and
+# unpacks only what cannot be virtual - the executables, the native addons,
+# main.js, start-wekan.bat and wekan-vfs.cjs, about thirty files. The other
+# ~39,000 stay inside the EXE and are read from it in the server process by
+# releases/single-exe/wekan-vfs.cjs, which node.exe preloads. Persistent data
+# stays in a real wekan-files/ directory beside the EXE, so the EXE and its data
+# can be moved together and a newer version never touches them.
 #
 # It used to be packed with Enigma Virtual Box, whose virtual filesystem served
-# the bundle's 44,401 files from inside the EXE. That is what broke WeKan
-# 11.48: once Node.js had loaded the native bcrypt addon out of the virtual
-# filesystem, the next read - promises.js, whose bytes sit immediately after
-# that addon - came back as the addon's own PE bytes, and the server died in a
-# restart loop with "SyntaxError: Invalid or unexpected token". Real files have
-# no such layer, so the packer is gone.
+# all 44,401 files from inside the EXE. That is what broke WeKan 11.48: once
+# Node.js had loaded the native bcrypt addon out of it, the next read -
+# promises.js, whose bytes sit immediately after that addon - came back as the
+# addon's own PE bytes, and the server died in a restart loop with
+# "SyntaxError: Invalid or unexpected token". The idea was right and the
+# closed-source implementation was wrong, so the mounting is ours now.
+
 
 on:
   workflow_call:
@@ -126,24 +130,38 @@ jobs:
           } finally {
             $archive.Dispose()
           }
-          foreach ($file in @('main.js', 'node.exe', 'ferretdb.exe', 'start-wekan.bat')) {
+          foreach ($file in @('main.js', 'node.exe', 'ferretdb.exe', 'start-wekan.bat',
+                              'wekan-vfs.cjs')) {
             if ($names -notcontains "bundle/$file") {
-              throw "$zip has no bundle/$file; it is not a self-contained WeKan bundle."
+              throw "$zip has no bundle/$file; it is not a self-contained WeKan bundle. (wekan-vfs.cjs is the in-process archive mount; a bundle built before it existed cannot be wrapped as a single EXE.)"
             }
           }
           Write-Host "$zip carries $($names.Count) entries."
 
-      - uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Compile the native self-extracting launcher
-        shell: cmd
-        run: >-
-          cl /nologo /O2 /MT /W4 /DUNICODE /D_UNICODE
-          releases\windows-single-exe-launcher.c /Fe:wekan-launcher.exe
-
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+
+      - name: Work out which members cannot be virtual
+        shell: pwsh
+        # The launcher unpacks these and nothing else. The list is computed from
+        # the archive, not written by hand, so a bundle that gains an addon or a
+        # database tool does not silently lose it at runtime.
+        run: |
+          $ErrorActionPreference = 'Stop'
+          node releases/append-windows-payload.mjs `
+            --manifest "wekan-${{ needs.release.outputs.version }}-win64.zip" `
+            --header wekan-real-files.h
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compile the native launcher
+        shell: cmd
+        # /I. so the generated wekan-real-files.h is found; it is written to the
+        # workspace root rather than beside the .c file, which stays clean.
+        run: >-
+          cl /nologo /O2 /MT /W4 /DUNICODE /D_UNICODE /I.
+          releases\windows-single-exe-launcher.c /Fe:wekan-launcher.exe
 
       - name: Append the bundle and its trailer to the launcher
         shell: pwsh
@@ -258,6 +276,22 @@ jobs:
           if (-not (Test-Path 'smoke/wekan-app/start-wekan.bat' -PathType Leaf)) {
             throw 'The first run did not unpack the bundle into wekan-app.'
           }
+
+          # The point of the whole design: the bundle stays in the EXE. A change
+          # that quietly went back to unpacking everything would still pass the
+          # two start checks above, so count what actually reached the disk.
+          $unpacked = (Get-ChildItem smoke/wekan-app -Recurse -File).Count
+          Write-Host "unpacked $unpacked files into wekan-app"
+          if ($unpacked -gt 200) {
+            throw "The EXE unpacked $unpacked files; it should unpack only the executables, the native addons and a few loader files. The rest must be served from inside the EXE."
+          }
+          foreach ($served in @('programs/server/boot.js',
+                                'programs/server/packages/webapp.js')) {
+            if (Test-Path "smoke/wekan-app/$served") {
+              throw "smoke/wekan-app/$served is on disk; it should be read from inside the EXE."
+            }
+          }
+
           Start-Once 'second' 120
 
       - uses: actions/upload-artifact@v7

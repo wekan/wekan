@@ -72,7 +72,15 @@ echo Starting bundled FerretDB v1 (SQLite) on 127.0.0.1:27017 (data: %FERRETDB_S
 start "FerretDB" /b "%DIR%ferretdb.exe" --handler=sqlite --sqlite-url=%FERRETDB_SQLITE_URL% --listen-addr=127.0.0.1:27017 --telemetry=disable
 
 echo Starting WeKan on %ROOT_URL% (port %PORT%), files under %WRITABLE_PATH% ...
-"%DIR%node.exe" "%DIR%main.js"
+REM The single Windows EXE keeps the bundle inside itself and mounts it in the
+REM server process instead of unpacking 39,000 files, so Node.js has to preload
+REM that mount before it loads main.js. WEKAN_VFS_ARCHIVE is set only by that
+REM launcher; the ordinary ZIP takes the plain command.
+if defined WEKAN_VFS_ARCHIVE (
+   "%DIR%node.exe" --require "%DIR%wekan-vfs.cjs" "%DIR%main.js"
+) else (
+   "%DIR%node.exe" "%DIR%main.js"
+)
 
 REM WeKan exited: stop FerretDB and restart the whole stack.
 taskkill /IM ferretdb.exe /F >NUL 2>NUL

@@ -1368,6 +1368,11 @@ jobs:
           fi
           # Self-contained Windows launcher (defaults to FerretDB SQLite).
           cp $SRC/releases/ferretdb/start-wekan.bat bundle/
+          # The in-process archive mount the single EXE preloads. It is inert
+          # in this ZIP - with no WEKAN_VFS_ARCHIVE in the environment it loads
+          # and does nothing - and ships here so the EXE, which is built from
+          # this ZIP, has it to unpack.
+          cp $SRC/releases/single-exe/wekan-vfs.cjs bundle/
           # Where this bundle's binaries came from, for the release notes.
           mkdir -p provenance
           PROVENANCE_FILE=provenance/win64.tsv bash $SRC/releases/record-provenance.sh \
@@ -1384,13 +1389,13 @@ jobs:
           # Check what goes IN, before anything is archived. This is the honest place
           # for it: whether the zip can hold a startable bundle is decided here, in a
           # plain directory, with no archive-listing format in the way.
-          for want in main.js node.exe start-wekan.bat; do
+          for want in main.js node.exe start-wekan.bat wekan-vfs.cjs; do
             if [ ! -s "bundle/$want" ]; then
               echo "::error::bundle/$want is missing or empty, so the win64 zip cannot start WeKan. The bundle comes from the build job; the lines above say what was copied in."
               exit 1
             fi
           done
-          echo "bundle/ has main.js, node.exe and start-wekan.bat:"
+          echo "bundle/ has main.js, node.exe, start-wekan.bat and wekan-vfs.cjs:"
           ls -la bundle
 
       - name: Create win64 zip

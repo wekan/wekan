@@ -1,0 +1,16 @@
+#ifndef WEKAN_WINSTUB_BCRYPT_H
+#define WEKAN_WINSTUB_BCRYPT_H
+/* See README.md: a stand-in for the Windows SDK, for type-checking only. */
+#include <windows.h>
+typedef PVOID BCRYPT_ALG_HANDLE;
+typedef PVOID BCRYPT_HASH_HANDLE;
+#define BCRYPT_SHA256_ALGORITHM L"SHA256"
+#define BCRYPT_SUCCESS(s) (((NTSTATUS)(s)) >= 0)
+NTSTATUS BCryptOpenAlgorithmProvider(BCRYPT_ALG_HANDLE *, LPCWSTR, LPCWSTR, DWORD);
+NTSTATUS BCryptCloseAlgorithmProvider(BCRYPT_ALG_HANDLE, DWORD);
+NTSTATUS BCryptCreateHash(BCRYPT_ALG_HANDLE, BCRYPT_HASH_HANDLE *, PUCHAR, DWORD,
+                          PUCHAR, DWORD, DWORD);
+NTSTATUS BCryptHashData(BCRYPT_HASH_HANDLE, PUCHAR, DWORD, DWORD);
+NTSTATUS BCryptFinishHash(BCRYPT_HASH_HANDLE, PUCHAR, DWORD, DWORD);
+NTSTATUS BCryptDestroyHash(BCRYPT_HASH_HANDLE);
+#endif

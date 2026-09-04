@@ -123,3 +123,6 @@ mongo-tools-patches/
 # Meteor custom local directory (METEOR_LOCAL_DIR)
 */build-assets-local-test*
 */build-chunks-local-test*
+
+# Generated on the Windows single-EXE runner (releases/append-windows-payload.mjs --manifest)
+wekan-real-files.h

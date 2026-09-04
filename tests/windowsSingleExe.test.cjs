@@ -1,7 +1,7 @@
 'use strict';
 
-// Guard: WeKan's single Windows EXE is a self-extracting launcher, and the
-// bundle it carries is checked before it is used.
+// Guard: WeKan's single Windows EXE carries the bundle instead of unpacking it,
+// and checks it before it uses it.
 // Run: node tests/windowsSingleExe.test.cjs
 //
 // WeKan-11.48-win64.exe started and immediately died, over and over:
@@ -12,25 +12,33 @@
 //       at Object.<anonymous> (...\bcrypt\bcrypt.js:6:18)
 //
 // Both published files were correct. The win64 ZIP holds the real 1123-byte
-// promises.js, and so does the EXE: in its packed image bcrypt.node (195584
+// promises.js, and so did the EXE: in its packed image bcrypt.node (195584
 // bytes) is entry 0x5c9c and promises.js is 0x5c9d, stored back to back, each
-// with the right bytes at its recorded offset. What was wrong was the READ.
-// Enigma Virtual Box served all 44,401 bundle files from a virtual filesystem
-// inside the EXE, and once Node.js had loaded the native addon out of it
-// (bcrypt.js line 2), the next read - `require('./promises')` on line 6, the
-// blob immediately after that addon - came back as the addon's own PE bytes.
+// with the right bytes at the offset its own record gives. What was wrong was
+// the READ. Enigma Virtual Box served all 44,401 bundle files from a virtual
+// filesystem inside the EXE, and once Node.js had loaded the native addon out
+// of it (bcrypt.js line 2), the next read - require('./promises') on line 6,
+// the blob immediately after that addon - came back as the addon's own PE
+// bytes.
 //
-// So the packer is gone. The EXE is now the compiled launcher with the
-// published ZIP appended and an 80-byte trailer describing it; the launcher
-// unpacks that payload into a real "wekan-app" directory on first run and
-// WeKan then reads ordinary files. These tests pin the format from both ends,
-// pin the checks that catch a damaged payload, and pin that the virtual
-// filesystem cannot come back by accident.
+// The idea was right and the closed-source implementation was wrong, so the
+// mounting is ours now. The EXE is the compiled launcher with the published ZIP
+// appended and an 80-byte trailer describing it. On first run it verifies the
+// payload's SHA-256 and unpacks ONLY what cannot be virtual - the executables,
+// the native addons, main.js, start-wekan.bat and wekan-vfs.cjs - and the other
+// ~39,000 files are read from inside the EXE by releases/single-exe/wekan-vfs.cjs
+// (tests/bundleArchiveVfs.test.cjs covers that half).
+//
+// These tests pin the trailer format from both ends, the checks that catch a
+// damaged payload, the rule for which members must be real, and that the
+// virtual filesystem cannot come back by accident.
 
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
+const { execFileSync, spawnSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
@@ -44,7 +52,11 @@ const packer = read('releases/append-windows-payload.mjs');
 const batch = read('releases/ferretdb/start-wekan.bat');
 
 let passed = 0;
-const check = (name, run) => { run(); passed++; if (process.env.VERBOSE) console.log(`  ok ${name}`); };
+const check = (name, run) => {
+  run();
+  passed++;
+  if (process.env.VERBOSE) console.log(`  ok - ${name}`);
+};
 
 async function main() {
   const payload = await import(
@@ -90,7 +102,7 @@ async function main() {
     assert.equal(trailer.payloadSize, bundle.length);
     assert.ok(exe.subarray(trailer.payloadOffset,
       trailer.payloadOffset + trailer.payloadSize).equals(bundle),
-      'the payload must come back byte for byte');
+    'the payload must come back byte for byte');
     assert.equal(trailer.sha256.toString('hex'),
       crypto.createHash('sha256').update(bundle).digest('hex'));
   });
@@ -98,9 +110,8 @@ async function main() {
   // ---- negative: a damaged payload must be refused, not run ----------------
   //
   // This is the check the 11.48 EXE did not have. Whatever damages the bundle
-  // - a truncated download, a half-written file, a packer that hands back the
-  // wrong bytes - must stop at the SHA-256 with a message, not reach Node.js
-  // as a crash loop.
+  // - a truncated download, a half-written file - must stop at the SHA-256
+  // with a message, not reach Node.js as a crash loop.
   check('one flipped payload byte fails verification', () => {
     const exe = payload.pack({
       launcher: Buffer.from('MZ launcher'),
@@ -108,8 +119,7 @@ async function main() {
       version: '11.49',
     });
     const damaged = Buffer.from(exe);
-    const at = payload.readTrailer(damaged).payloadOffset + 1234;
-    damaged[at] ^= 0xff;
+    damaged[payload.readTrailer(damaged).payloadOffset + 1234] ^= 0xff;
     assert.throws(() => payload.verifyBuffer(damaged), /SHA-256/,
       'a single changed byte in the bundle must be caught');
   });
@@ -147,20 +157,102 @@ async function main() {
     }), /32-byte/);
   });
 
-  // ---- the launcher does what the format says ------------------------------
-  check('the launcher verifies before it unpacks and runs', () => {
+  // ---- which members cannot be virtual -------------------------------------
+  //
+  // Getting this list wrong is not a build failure, it is a runtime one: a
+  // missing addon or tool would only show up when a user needed it. So the
+  // rule is pinned in both directions.
+  const SAMPLE = [
+    'bundle/main.js',
+    'bundle/start-wekan.bat',
+    'bundle/wekan-vfs.cjs',
+    'bundle/node.exe',
+    'bundle/ferretdb.exe',
+    'bundle/mongodump.exe',
+    'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt/prebuilds/win32-x64/bcrypt.node',
+    'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/argon2/prebuilds/win32-x64/argon2.glibc.node',
+    'bundle/programs/server/boot.js',
+    'bundle/programs/server/packages/webapp.js',
+    'bundle/programs/web.browser/app/app.js',
+    'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt/promises.js',
+    'bundle/programs/server/npm/node_modules/lodash/package.json',
+    'bundle/README',
+    'bundle/programs/server/deep/nested/main.js',
+    'bundle/programs/server/tool.exe',
+  ];
+
+  check('everything a process or the OS has to open is unpacked', () => {
+    const members = payload.realFileMembers(SAMPLE);
+    for (const must of [
+      'bundle/main.js', 'bundle/start-wekan.bat', 'bundle/wekan-vfs.cjs',
+      'bundle/node.exe', 'bundle/ferretdb.exe', 'bundle/mongodump.exe',
+      'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt/prebuilds/win32-x64/bcrypt.node',
+      'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/argon2/prebuilds/win32-x64/argon2.glibc.node',
+    ]) {
+      assert.ok(members.includes(must), `${must} must be unpacked as a real file`);
+    }
+  });
+
+  // Negative: the server's own files must NOT be unpacked. If they were, the
+  // EXE would be back to writing 39,000 files and this whole change would be
+  // pointless - and the check would still pass every start-up test.
+  check('the server files are left in the archive', () => {
+    const members = payload.realFileMembers(SAMPLE);
+    for (const never of [
+      'bundle/programs/server/boot.js',
+      'bundle/programs/server/packages/webapp.js',
+      'bundle/programs/web.browser/app/app.js',
+      'bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt/promises.js',
+      'bundle/programs/server/npm/node_modules/lodash/package.json',
+      'bundle/README',
+      // main.js and .exe count only at the top level: a nested one is an
+      // ordinary file of some package, not the entry Node resolves first.
+      'bundle/programs/server/deep/nested/main.js',
+      'bundle/programs/server/tool.exe',
+    ]) {
+      assert.ok(!members.includes(never), `${never} must stay inside the EXE`);
+    }
+    /* On a bundle-shaped listing the unpacked set stays a rounding error. */
+    const bundleShaped = SAMPLE.concat(
+      Array.from({ length: 2000 },
+        (unused, i) => `bundle/programs/server/npm/node_modules/pkg${i}/index.js`));
+    const realOfMany = payload.realFileMembers(bundleShaped);
+    assert.ok(realOfMany.length < bundleShaped.length / 100,
+      `only ${realOfMany.length} of ${bundleShaped.length} may be unpacked`);
+  });
+
+  check('the generated header is valid C the launcher can include', () => {
+    const header = payload.manifestHeader(['bundle/node.exe', 'bundle/a b/c.node']);
+    assert.match(header, /static const wchar_t \*const WEKAN_REAL_FILES\[\] = \{/);
+    assert.match(header, /L"bundle\/node\.exe",/);
+    assert.match(header, /L"bundle\/a b\/c\.node",/);
+    assert.match(header, /#define WEKAN_REAL_FILE_COUNT 2/);
+    assert.match(launcher, /#include "wekan-real-files\.h"/,
+      'the launcher must include the generated list');
+    assert.match(launcher, /WEKAN_REAL_FILE_COUNT/,
+      'and iterate it rather than guessing at a pattern');
+  });
+
+  // ---- the launcher --------------------------------------------------------
+  check('the launcher verifies, unpacks only those members, and mounts the rest', () => {
     assert.match(launcher, /BCRYPT_SHA256_ALGORITHM/,
       'the launcher must hash the payload with SHA-256 before using it');
     assert.match(launcher, /memcmp\(digest, trailer \+ TRAILER_SHA256_POS, SHA256_SIZE\)/,
       'the computed digest must be compared with the one in the trailer');
     assert.match(launcher, /tar\.exe/,
-      "the payload must be unpacked with Windows' own tar.exe");
+      "the members must be unpacked with Windows' own tar.exe");
     assert.match(launcher, /--strip-components=1/,
-      'dropping the archive\'s leading bundle/ keeps paths as short as the ZIP\'s');
-    assert.match(launcher, /wekan-app/,
-      'the bundle must be unpacked into a real directory beside the EXE');
-    assert.match(launcher, /start-wekan\.bat/,
-      'the native PE entry point must invoke the ordinary Windows launcher');
+      "dropping the archive's leading bundle/ keeps paths as short as the ZIP's");
+    assert.match(launcher, /SetEnvironmentVariableW\(L"WEKAN_VFS_ARCHIVE", exe_path\)/,
+      'the server must be told the archive is this EXE');
+    assert.match(launcher, /SetEnvironmentVariableW\(L"WEKAN_VFS_ROOT", app_dir\)/,
+      'and where it is mounted');
+    assert.match(launcher, /WEKAN_VFS_OFFSET/,
+      'and where the payload starts inside the EXE');
+    assert.match(launcher, /WEKAN_VFS_LENGTH/,
+      'and how long it is, so the trailer is not read as archive');
+    assert.match(launcher, /programs\\\\server/,
+      'the directory main.js chdir()s into must be created for real');
     assert.match(launcher, /L"%ls\\\\wekan-files", dir/,
       'the portable data directory must be named wekan-files, beside the EXE');
     assert.match(launcher, /GetEnvironmentVariableW\(L"WRITABLE_PATH", data, PATHBUF\)/,
@@ -174,19 +266,48 @@ async function main() {
     assert.equal(removals.length, 1, 'the launcher should remove exactly one directory');
     assert.match(removals[0], /app_dir/, 'and it must be wekan-app');
     assert.doesNotMatch(launcher, /rd \/s \/q[^\n]*wekan-files/);
-    assert.doesNotMatch(launcher, /DeleteFileW\(data\)/);
   });
 
   check('the launcher no longer works around Enigma', () => {
     assert.doesNotMatch(launcher, /NODE_SKIP_PLATFORM_CHECK/,
-      'that variable only existed to undo Enigma\'s false Windows-version result');
+      "that variable only existed to undo Enigma's false Windows-version result");
+  });
+
+  // The launcher cannot be compiled here, so at least type-check it against
+  // the stub Windows headers. This is what catches a typo, a wrong argument
+  // count or a misspelled API before a release build on a GitHub runner does.
+  check('the launcher type-checks against the stub Windows headers', () => {
+    const compiler = ['clang', 'gcc', 'cc'].find(name =>
+      spawnSync(name, ['--version'], { stdio: 'ignore' }).status === 0);
+    if (!compiler) {
+      console.log('  (skipped: no C compiler on this machine)');
+      return;
+    }
+    const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-launcher-'));
+    try {
+      fs.writeFileSync(path.join(temporary, 'wekan-real-files.h'),
+        payload.manifestHeader(['bundle/node.exe', 'bundle/x/y.node']));
+      const result = spawnSync(compiler, [
+        '-fsyntax-only', '-Wall', '-Wextra', '-std=c99',
+        '-Wno-unknown-pragmas', '-Wno-ignored-pragmas',
+        '-I', path.join(ROOT, 'tests', 'fixtures', 'winstub'),
+        '-I', temporary,
+        path.join(ROOT, 'releases', 'windows-single-exe-launcher.c'),
+      ], { encoding: 'utf8' });
+      assert.equal(result.status, 0,
+        `the launcher must type-check cleanly:\n${result.stderr}`);
+      assert.equal(result.stderr.trim(), '',
+        `the launcher must compile without warnings:\n${result.stderr}`);
+    } finally {
+      fs.rmSync(temporary, { recursive: true, force: true });
+    }
   });
 
   // ---- negative: the virtual filesystem must not come back -----------------
   //
   // Pinned across the whole release and workflow tree, not just this workflow,
   // so a second packing path cannot reintroduce it somewhere else.
-  check('nothing packs WeKan into a virtual filesystem any more', () => {
+  check('nothing packs WeKan into a closed-source virtual filesystem any more', () => {
     const files = [];
     for (const dir of ['.github/workflows', 'releases']) {
       for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
@@ -194,12 +315,8 @@ async function main() {
       }
     }
     const forbidden = [
-      /enigmavb/i,
-      /enigmaprotector\.com/i,
-      /enigma-virtualbox/i,
-      /enigmavbconsole/i,
-      /evbOptions/,
-      /\.evb\b/,
+      /enigmavb/i, /enigmaprotector\.com/i, /enigma-virtualbox/i,
+      /enigmavbconsole/i, /evbOptions/, /\.evb\b/,
     ];
     for (const file of files) {
       let text;
@@ -211,23 +328,27 @@ async function main() {
     }
   });
 
-  // ---- the workflow ------------------------------------------------------
+  // ---- the workflows -------------------------------------------------------
   check('the workflow builds the EXE from the published ZIP', () => {
     assert.match(workflow, /wekan-launcher\.exe/,
       'the launcher must be compiled on the runner');
+    assert.match(workflow, /append-windows-payload\.mjs `\n\s*--manifest/,
+      'the unpack list must be computed from the archive before compiling');
+    assert.match(workflow, /--header wekan-real-files\.h/,
+      'and written where the launcher includes it');
     assert.match(workflow, /releases\/append-windows-payload\.mjs/,
       'the ZIP must be appended by the shared packer, not by an inline copy');
     assert.match(workflow, /append-windows-payload\.mjs --verify/,
       'the built EXE must be verified before it is published');
     assert.match(workflow, /does not match its published SHA256/,
       'the payload ZIP must match the checksum published beside it');
-    assert.match(workflow, /['"]ferretdb\.exe['"]/,
-      'the input bundle must contain FerretDB');
+    assert.match(workflow, /'wekan-vfs\.cjs'\)\) \{|'wekan-vfs\.cjs'/,
+      'the payload must contain the in-process mount the EXE preloads');
   });
 
   // Negative: 11.48 shipped because start-wekan.bat restarts WeKan every three
-  // seconds, so a crash-looping EXE still answered on port 8080 within the
-  // poll window and the smoke test called it healthy.
+  // seconds, so a crash-looping EXE still answered on port 8080 inside the poll
+  // window and the job went green.
   check('the smoke test fails on a crash loop instead of waiting it out', () => {
     assert.match(workflow, /localhost:8080\/sign-in/,
       'the final single EXE must pass an HTTP startup smoke test');
@@ -239,8 +360,28 @@ async function main() {
       'the first run must be checked, which is the run that unpacks');
     assert.match(workflow, /Start-Once 'second'/,
       'and the second, which must find wekan-app already unpacked');
-    assert.match(workflow, /smoke\/wekan-app\/start-wekan\.bat/,
-      'unpacking must be confirmed to have happened');
+  });
+
+  // Negative, and the point of the whole design: a change that quietly went
+  // back to unpacking the bundle would pass both start checks above.
+  check('the smoke test counts what actually reached the disk', () => {
+    assert.match(workflow, /if \(\$unpacked -gt 200\)/,
+      'the job must fail if the EXE unpacks the whole bundle');
+    assert.match(workflow, /programs\/server\/boot\.js'/,
+      'and must name files that have to be served from inside the EXE');
+  });
+
+  check('the bundle carries the mount, and start-wekan.bat preloads it', () => {
+    assert.match(release, /cp \$SRC\/releases\/single-exe\/wekan-vfs\.cjs bundle\//,
+      'the win64 bundle must ship the in-process archive mount');
+    assert.match(release, /for want in main\.js node\.exe start-wekan\.bat wekan-vfs\.cjs; do/,
+      'and the build must refuse a bundle that lost it');
+    assert.match(batch, /if defined WEKAN_VFS_ARCHIVE/,
+      'the launcher script must preload the mount only when there is an archive');
+    assert.match(batch, /--require "%DIR%wekan-vfs\.cjs"/,
+      'and it must be preloaded before main.js, not required from it');
+    assert.match(batch, /\) else \(\s*\n\s*"%DIR%node\.exe" "%DIR%main\.js"/,
+      'the ordinary ZIP must still start with the plain command');
   });
 
   check('the packer is wired into the release workflows', () => {
@@ -256,9 +397,9 @@ async function main() {
       'release completeness must include the EXE and its checksum');
   });
 
-  check('the packer refuses to run without its four arguments', () => {
-    assert.match(packer, /--launcher <exe> --payload <zip> --output <exe> --version <v>/,
-      'the usage line must name every argument the workflow passes');
+  check('the packer documents every mode the workflow uses', () => {
+    assert.match(packer, /--manifest <zip> --header <file\.h>/);
+    assert.match(packer, /--launcher <exe> --payload <zip> --output <exe> --version <v>/);
   });
 
   console.log(`windowsSingleExe: ${passed} checks passed`);
