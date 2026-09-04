@@ -8245,12 +8245,14 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **copying a list** now copies its cards. A list that is not bound
+to a swimlane - the common case on any board predating per-swimlane lists -
+produced an **empty copy**, because its cards were looked for in a swimlane the
+list does not have. And a copy made on the **same board** found the original by
+title and wrote the cards back into it, doubling them, then returned the
+original's id - so the REST endpoint repositioned the very list the user had
+asked to copy. The decision now lives beside the one **List.move** was given in
+v11.49, unit-tested without a database.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8264,74 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following bugs:
+
+**Swimlanes** - which swimlane a list belongs to, and what travels with it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d80806abd4c5777646c6dff70c54b2fd3f4b0f7a">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
+
+`List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
+fix in v11.49 removes, and the copy was the more visible of the two: it
+produced an empty list.
+
+```
+const oldSwimlaneId = this.swimlaneId || null;
+...
+const cards = await ReactiveCache.getCards({
+  swimlaneId: oldSwimlaneId, listId: oldId, archived: false });
+```
+
+A list that is not bound to a swimlane - an empty or missing `swimlaneId`,
+which is what every list on a board predating per-swimlane lists still has,
+and what [#6515](https://github.com/wekan/wekan/issues/6515) left behind on
+boards opened before it - turns that into `swimlaneId: null`, so the
+selector asks for cards that have NO swimlane. The cards of such a list
+carry the real `swimlaneId`s of the swimlanes they are in, so it matched
+nothing and the copy came out with no cards at all. Even for a bound list
+the filter could only ever remove cards that are in the list being copied.
+A list is the unit of a copy, so every card in it travels, exactly as in
+`List.move`.
+
+The second fault is the [#6670](https://github.com/wekan/wekan/issues/6670)
+shape exactly. `copy()` searched the target board for a list with this title
+to reuse, without first asking whether the target board IS this list's own
+board - and on a same-board copy that search finds THIS LIST. `_id` became
+the original, so the "copy" wrote the cards back into the source list,
+doubling them, and returned the source list's id, which
+`POST /api/boards/:boardId/lists/:listId/copy` then repositioned: the user
+asked to copy a list and got the original moved with twice the cards.
+Reusing a same-titled list is only meaningful across boards, so a same-board
+copy is now always a new list, the way `Swimlane.copy` already creates one.
+
+Fixing the first fault raises a question that could not come up while the
+copy was empty: where the cards land. The REST endpoint's own default is a
+copy on the same board with no `toSwimlaneId`, and pinning every card to
+"no swimlane" would dump the cards of three swimlanes into none - so when no
+swimlane is asked for and the copy stays on the same board, each card keeps
+the swimlane it is in and the duplicate looks like the original. Across
+boards it cannot: the source card's `swimlaneId` belongs to the OTHER board
+and would arrive orphaned, so those cards take the copy's own swimlane.
+
+The decision lives in `models/lib/listCopyPlan.js`, the twin of
+`models/lib/listMovePlan.js`, where it is unit-tested without a database;
+`models/lists.js` applies it. `tests/listCopySwimlane.test.cjs` pins the
+same-board copy and the copy of a board-wide list, and its negative tests
+require that the card selector never scopes by swimlane, that a same-board
+copy is never a merge even when a same-titled list exists, that a
+cross-board copy never keeps a `swimlaneId` from the source board, and that
+`models/lists.js` compares the boards before it looks a list up by title.
+
+`tests/listMoveSwimlane.test.cjs` is corrected while its sibling is written:
+two of its source scans took their offsets from the un-stripped file and
+sliced the comment-stripped one, which worked by accident and slid off
+`List.move` as soon as anything above it changed. Both offsets and the slice
+now come from the same string, and every assertion is kept.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.49 2026-09-04 WeKan ® release
 
