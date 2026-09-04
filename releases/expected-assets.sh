@@ -66,8 +66,9 @@ for arch in x86_64 aarch64; do
     echo "flatpak ${arch} WeKan-${v}-${arch}.flatpak sums"
 done
 
-# Enigma Virtual Box supports Windows x86/x64 PE files. The release currently
-# wraps the self-contained win64 bundle; Windows ARM64 is not an EVB target.
+# The single EXE is the win64 launcher with the win64 ZIP appended, so it
+# exists exactly when that ZIP does. Windows ARM64 has no single EXE: the
+# launcher is compiled for x64 only.
 echo "windows win64 WeKan-${v}-win64.exe sums"
 
 echo "sandstorm sandstorm wekan-${v}-sandstorm.spk nosums"

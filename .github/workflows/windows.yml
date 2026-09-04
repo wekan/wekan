@@ -1,11 +1,23 @@
 name: Windows single EXE
 
 # Wrap the already-published self-contained win64 ZIP as one Windows executable.
-# Enigma Virtual Box is the FREEWARE download, not Enigma Protector's DEMO. The
-# ZIP remains the source of truth: this workflow embeds its exact Node.js,
-# FerretDB, MongoDB Database Tools and Meteor server without rebuilding them.
-# Persistent data remains outside the virtual filesystem, in a real wekan-files/
-# directory beside the EXE, so the EXE and its data can be moved together.
+# The ZIP remains the source of truth: this workflow appends that exact ZIP -
+# with its Node.js, FerretDB, MongoDB Database Tools and Meteor server - to a
+# small native launcher, and writes an 80-byte trailer saying where the payload
+# is and what its SHA-256 must be. Nothing is rebuilt and nothing is
+# virtualised: on its first run the launcher unpacks the payload into a real
+# "wekan-app" directory beside the EXE and runs the ordinary start-wekan.bat
+# from there. Persistent data stays outside it, in a real wekan-files/
+# directory beside the EXE, so the EXE and its data can be moved together and
+# unpacking a newer version never touches them.
+#
+# It used to be packed with Enigma Virtual Box, whose virtual filesystem served
+# the bundle's 44,401 files from inside the EXE. That is what broke WeKan
+# 11.48: once Node.js had loaded the native bcrypt addon out of the virtual
+# filesystem, the next read - promises.js, whose bytes sit immediately after
+# that addon - came back as the addon's own PE bytes, and the server died in a
+# restart loop with "SyntaxError: Invalid or unexpected token". Real files have
+# no such layer, so the packer is gone.
 
 on:
   workflow_call:
@@ -71,7 +83,7 @@ jobs:
           echo "available=$available" >> "$GITHUB_OUTPUT"
 
   build:
-    name: Enigma Virtual Box win64
+    name: self-extracting win64 EXE
     needs: release
     if: ${{ needs.release.outputs.available == 'true' }}
     runs-on: windows-latest
@@ -92,66 +104,63 @@ jobs:
             throw "$zip is not on ${{ needs.release.outputs.tag }}. The single EXE can only wrap a published win64 bundle."
           }
           gh release download '${{ needs.release.outputs.tag }}' `
-            --repo '${{ github.repository }}' --pattern $zip --clobber
-          Expand-Archive -LiteralPath $zip -DestinationPath . -Force
+            --repo '${{ github.repository }}' --pattern "$zip*" --clobber
+          # The ZIP is the payload, so it is checked as a whole against the
+          # checksum published beside it rather than unpacked here.
+          if (Test-Path "$zip.sha256sum" -PathType Leaf) {
+            $published = ((Get-Content "$zip.sha256sum" -Raw).Trim() -split '\s+')[0].ToLowerInvariant()
+            $actual = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($actual -ne $published) {
+              throw "$zip does not match its published SHA256: expected $published, got $actual."
+            }
+            Write-Host "$zip matches its published SHA256 $actual."
+          } else {
+            Write-Host "::warning::$zip has no published .sha256sum on this release, so the payload is unverified."
+          }
+          # Read the archive's index only - the payload is appended whole, so
+          # unpacking 700 MB here would only prove what the launcher proves.
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $archive = [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path $zip).Path)
+          try {
+            $names = $archive.Entries.FullName
+          } finally {
+            $archive.Dispose()
+          }
           foreach ($file in @('main.js', 'node.exe', 'ferretdb.exe', 'start-wekan.bat')) {
-            if (-not (Test-Path "bundle/$file" -PathType Leaf)) {
+            if ($names -notcontains "bundle/$file") {
               throw "$zip has no bundle/$file; it is not a self-contained WeKan bundle."
             }
           }
+          Write-Host "$zip carries $($names.Count) entries."
 
       - uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Compile the small native launcher
+      - name: Compile the native self-extracting launcher
         shell: cmd
         run: >-
           cl /nologo /O2 /MT /W4 /DUNICODE /D_UNICODE
           releases\windows-single-exe-launcher.c /Fe:wekan-launcher.exe
 
-      - name: Download and verify the archived Enigma Virtual Box 11.30 FREEWARE
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Stop'
-          $url = 'https://github.com/wekan/wekan/releases/download/v11.25/enigmavb.exe'
-          Invoke-WebRequest -Uri $url -OutFile enigmavb-installer.exe
-          $expected = 'ab743f5e3dd927a288e126bbb053d367f270592e89378c9a06b7f3b15fa1ee35'
-          $actual = (Get-FileHash enigmavb-installer.exe -Algorithm SHA256).Hash.ToLowerInvariant()
-          if ($actual -ne $expected) {
-            throw "Archived Enigma Virtual Box installer SHA256 changed: expected $expected, got $actual. Restore the reviewed v11.25 asset instead of running an unknown executable."
-          }
-          $process = Start-Process .\enigmavb-installer.exe -Wait -PassThru `
-            -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-'
-          if ($process.ExitCode -ne 0) {
-            throw "Enigma Virtual Box installer exited $($process.ExitCode)."
-          }
-          $console = Get-ChildItem @(${env:ProgramFiles}, ${env:ProgramFiles(x86)}) `
-            -Filter enigmavbconsole.exe -Recurse -ErrorAction SilentlyContinue `
-            | Select-Object -First 1 -ExpandProperty FullName
-          if (-not $console) { throw 'The official installer did not install enigmavbconsole.exe.' }
-          "EVB_CONSOLE=$console" | Out-File $env:GITHUB_ENV -Encoding utf8 -Append
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
 
-      - name: Generate and build the virtual-box project
+      - name: Append the bundle and its trailer to the launcher
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
+          $version = '${{ needs.release.outputs.version }}'
           New-Item -ItemType Directory -Force dist | Out-Null
-          $output = (Resolve-Path dist).Path + '\WeKan-${{ needs.release.outputs.version }}-win64.exe'
-          npx --yes '@insco/enigma-virtualbox@1.3.4' generate bundle `
-            --input (Resolve-Path wekan-launcher.exe).Path `
-            --output $output `
-            --project-name wekan.evb `
-            --evbOptions.compressFiles False `
-            --evbOptions.deleteExtractedOnExit True `
-            --evbOptions.shareVirtualSystem True `
-            --evbOptions.mapExecutableWithTemporaryFile True `
-            --evbOptions.allowRunningOfVirtualExeFiles True `
-            --evbOptions.processesOfAnyPlatforms True
-          & $env:EVB_CONSOLE (Resolve-Path wekan.evb).Path
-          if ($LASTEXITCODE -ne 0) { throw "enigmavbconsole.exe exited $LASTEXITCODE." }
-          if (-not (Test-Path $output -PathType Leaf)) { throw 'Enigma produced no EXE.' }
+          node releases/append-windows-payload.mjs `
+            --launcher wekan-launcher.exe `
+            --payload "wekan-$version-win64.zip" `
+            --output "dist/WeKan-$version-win64.exe" `
+            --version $version
+          $output = "dist/WeKan-$version-win64.exe"
           if ((Get-Item $output).Length -lt 10MB) { throw 'The EXE is too small to contain WeKan.' }
+          node releases/append-windows-payload.mjs --verify $output
           $hash = (Get-FileHash $output -Algorithm SHA256).Hash.ToLowerInvariant()
-          "$hash  WeKan-${{ needs.release.outputs.version }}-win64.exe" |
+          "$hash  WeKan-$version-win64.exe" |
             Out-File "$output.sha256sum" -Encoding ascii
           Get-ChildItem dist | Format-Table Name,Length
 
@@ -177,41 +186,79 @@ jobs:
               ForEach-Object { ($_ -split '\s+')[-1] } |
               Where-Object { $_ -match '^\d+$' } |
               Sort-Object -Unique
-            foreach ($pid in $pids) {
-              Write-Host "Killing PID $pid (held port $port)"
-              taskkill /PID $pid /F 2>$null | Out-Null
+            # Not $pid: that is PowerShell's own read-only process id.
+            foreach ($owner in $pids) {
+              Write-Host "Killing PID $owner (held port $port)"
+              taskkill /PID $owner /F 2>$null | Out-Null
             }
           }
 
-      - name: Check that the single EXE starts
+      - name: Check that the single EXE starts, twice, without ever restarting
         shell: pwsh
+        # Twice, because the two runs are different code paths: the first
+        # unpacks the payload into wekan-app, the second must find it already
+        # there and start straight away.
+        #
+        # "Without ever restarting" is the part 11.48 needed. start-wekan.bat
+        # restarts WeKan every 3 seconds when it dies, so an EXE in a crash
+        # loop still answers on port 8080 eventually and a poll-until-ready
+        # check calls it healthy. This one fails on the restart line and on
+        # a SyntaxError, so a bundle Node.js cannot load can no longer ship.
         run: |
           $ErrorActionPreference = 'Stop'
-          $env:WRITABLE_PATH = "$pwd\smoke-data"
+          $version = '${{ needs.release.outputs.version }}'
+          # Run from its own directory: the EXE unpacks ~700 MB beside itself
+          # and dist/ is what gets uploaded as the release artifact.
+          New-Item -ItemType Directory -Force smoke | Out-Null
+          Copy-Item "dist/WeKan-$version-win64.exe" smoke/
+          $exe = (Resolve-Path "smoke/WeKan-$version-win64.exe").Path
           $env:PORT = '8080'
           $env:ROOT_URL = 'http://localhost:8080'
-          $exe = (Resolve-Path 'dist/WeKan-${{ needs.release.outputs.version }}-win64.exe').Path
-          $process = Start-Process $exe -PassThru -RedirectStandardOutput smoke.log `
-            -RedirectStandardError smoke-error.log
-          $ready = $false
-          try {
-            for ($attempt = 0; $attempt -lt 90; $attempt++) {
-              if ($process.HasExited) { break }
-              try {
-                Invoke-WebRequest http://localhost:8080/sign-in -UseBasicParsing -TimeoutSec 3 | Out-Null
-                $ready = $true
-                break
-              } catch {}
-              Start-Sleep -Seconds 2
+
+          function Start-Once([string]$label, [int]$attempts) {
+            $out = "smoke-$label.log"
+            $err = "smoke-$label-error.log"
+            $process = Start-Process $exe -PassThru -RedirectStandardOutput $out `
+              -RedirectStandardError $err
+            $ready = $false
+            try {
+              for ($i = 0; $i -lt $attempts; $i++) {
+                if ($process.HasExited) { break }
+                try {
+                  Invoke-WebRequest http://localhost:8080/sign-in -UseBasicParsing -TimeoutSec 3 | Out-Null
+                  $ready = $true
+                  break
+                } catch {}
+                Start-Sleep -Seconds 2
+              }
+            } finally {
+              if (-not $process.HasExited) { taskkill /PID $process.Id /T /F | Out-Null }
             }
-          } finally {
-            if (-not $process.HasExited) { taskkill /PID $process.Id /T /F | Out-Null }
+            # start-wekan.bat starts ferretdb.exe with `start /b`; make sure
+            # 27017 and 8080 are free again before the next run reuses them.
+            taskkill /IM ferretdb.exe /F 2>$null | Out-Null
+            Start-Sleep -Seconds 5
+            $log = (Get-Content $out, $err -ErrorAction SilentlyContinue) -join "`n"
+            if (-not $ready) {
+              Write-Host $log
+              throw "The packaged EXE did not answer on port 8080 on the $label run."
+            }
+            foreach ($bad in @('WeKan exited; restarting', 'SyntaxError')) {
+              if ($log -match [regex]::Escape($bad)) {
+                Write-Host $log
+                throw "The packaged EXE logged '$bad' on the $label run: it is starting only because start-wekan.bat keeps retrying."
+              }
+            }
+            Write-Host "$label run: WeKan answered on port 8080 on its first attempt."
           }
-          if (-not $ready) {
-            Get-Content smoke.log -Tail 100 -ErrorAction SilentlyContinue
-            Get-Content smoke-error.log -Tail 100 -ErrorAction SilentlyContinue
-            throw 'The packaged EXE did not answer on port 8080.'
+
+          # The first run unpacks ~700 MB before WeKan even starts.
+          $env:WRITABLE_PATH = "$pwd\smoke-data"
+          Start-Once 'first' 240
+          if (-not (Test-Path 'smoke/wekan-app/start-wekan.bat' -PathType Leaf)) {
+            throw 'The first run did not unpack the bundle into wekan-app.'
           }
+          Start-Once 'second' 120
 
       - uses: actions/upload-artifact@v7
         with:

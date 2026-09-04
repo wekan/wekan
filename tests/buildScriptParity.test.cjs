@@ -284,6 +284,12 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      prebuilds for other OS/CPU/ABI, and every source map), which is how the\n'
       + '      Sandstorm .spk gets under its 1 GiB limit. Nothing to point it at until\n'
       + '      a build has produced a bundle',
+    'append-windows-payload.mjs': 'release-workflow: windows.yml runs it to\n'
+      + '      append the PUBLISHED wekan-<version>-win64.zip to the compiled\n'
+      + '      launcher and write the trailer that says where that payload is and\n'
+      + '      what its SHA-256 must be. There is no published ZIP to append until\n'
+      + '      a release exists, so a menu entry would have nothing to point at;\n'
+      + '      --verify checks an already-built EXE by hand',
     'translations/add-language.mjs': 'adds a NEW language - takes two JSON files\n'
       + '      (the strings, and the name/rtl/flag of each language) and makes the\n'
       + '      three edits CLAUDE.md requires: the data file, the languages.js entry\n'
