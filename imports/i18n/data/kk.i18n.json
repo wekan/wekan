@@ -2380,6 +2380,7 @@
   "repairing": "Жөнделуде…",
   "repair-broken-cards-done": "__fixed__ карточка жөнделді.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка жөнделді. __unfixable__ карточканың тақтасы жоқ және автоматты жөнделмейді.",
+  "restore-list-swimlanes-done": "__restored__ тізім қалпына келтірілді. __remaining__ қалпына келтірілмеді.",
   "cpu-usage-current": "Ағымдағы CPU пайдаланылуы",
   "cpu-cores-suffix": "ядро",
   "cpu-load-average": "орташа жүктеме",

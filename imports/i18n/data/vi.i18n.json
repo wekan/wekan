@@ -2380,6 +2380,7 @@
   "repairing": "Đang sửa…",
   "repair-broken-cards-done": "Đã sửa __fixed__ thẻ.",
   "repair-broken-cards-done-unfixable": "Đã sửa __fixed__ thẻ. __unfixable__ thẻ không có bảng và không thể sửa tự động.",
+  "restore-list-swimlanes-done": "Đã khôi phục __restored__ danh sách. Không thể khôi phục __remaining__.",
   "cpu-usage-current": "Mức sử dụng CPU hiện tại",
   "cpu-cores-suffix": "lõi",
   "cpu-load-average": "tải trung bình",

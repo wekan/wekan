@@ -2380,6 +2380,7 @@
   "repairing": "સુધારાઈ રહ્યું છે…",
   "repair-broken-cards-done": "__fixed__ કાર્ડ સુધારાયા.",
   "repair-broken-cards-done-unfixable": "__fixed__ કાર્ડ સુધારાયા. __unfixable__ કાર્ડને બોર્ડ નથી અને તે આપોઆપ સુધારી શકાતા નથી.",
+  "restore-list-swimlanes-done": "__restored__ યાદી પુનઃસ્થાપિત કરી. __remaining__ પુનઃસ્થાપિત કરી શકાઈ નહીં.",
   "cpu-usage-current": "વર્તમાન CPU વપરાશ",
   "cpu-cores-suffix": "કોર",
   "cpu-load-average": "સરેરાશ ભાર",

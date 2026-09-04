@@ -2380,6 +2380,7 @@
   "repairing": "Korjataan…",
   "repair-broken-cards-done": "Korjattiin __fixed__ korttia.",
   "repair-broken-cards-done-unfixable": "Korjattiin __fixed__ korttia. __unfixable__ kortilla ei ole taulua, eikä niitä voi korjata automaattisesti.",
+  "restore-list-swimlanes-done": "Palautettiin __restored__ listaa. __remaining__ ei voitu palauttaa.",
   "cpu-usage-current": "Suorittimen nykyinen käyttö",
   "cpu-cores-suffix": "ydintä",
   "cpu-load-average": "kuormituskeskiarvo",

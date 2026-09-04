@@ -2380,6 +2380,7 @@
   "repairing": "Inarekebisha…",
   "repair-broken-cards-done": "Kadi __fixed__ zimerekebishwa.",
   "repair-broken-cards-done-unfixable": "Kadi __fixed__ zimerekebishwa. Kadi __unfixable__ hazina ubao na haziwezi kurekebishwa kiotomatiki.",
+  "restore-list-swimlanes-done": "Orodha __restored__ zimerejeshwa. __remaining__ hazikuweza kurejeshwa.",
   "cpu-usage-current": "Matumizi ya sasa ya CPU",
   "cpu-cores-suffix": "viini",
   "cpu-load-average": "wastani wa mzigo",

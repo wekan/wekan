@@ -2380,6 +2380,7 @@
   "repairing": "Na-arụzi…",
   "repair-broken-cards-done": "Arụziri kaadị __fixed__.",
   "repair-broken-cards-done-unfixable": "Rụzikwara kaadị __fixed__. Kaadị __unfixable__ enweghị bọọdụ, a pụghịkwa ịrụzi ha akpaghị aka.",
+  "restore-list-swimlanes-done": "Weghachiri ndepụta __restored__. Enweghị ike iweghachi __remaining__.",
   "cpu-usage-current": "Ojiji CPU ugbu a",
   "cpu-cores-suffix": "isi",
   "cpu-load-average": "nkezi ibu",

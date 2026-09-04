@@ -25,8 +25,8 @@ template(name="problemsSummary")
                 span.admin-problem-count {{problem.count}}
               br
               span.quiet {{problem.detail}}
-              //- Broken cards are the one detected problem the admin can fix
-              //- from here: run the repair migration over every board.
+              //- Broken cards are one of the two detected problems the admin can
+              //- fix from here: run the repair migration over every board.
               if isBrokenCards problem
                 .admin-problem-actions
                   button.js-repair-broken-cards.primary(disabled="{{#if repairRunning}}disabled{{/if}}")
@@ -39,6 +39,23 @@ template(name="problemsSummary")
                   if repairResult
                     br
                     span.quiet {{repairResult}}
+              //- #6670: lists un-bound from their swimlane by the pre-#6515
+              //- automatic repair. The swimlane each list was created in is
+              //- still recorded, so this puts back exactly that and nothing else.
+              //- What it restores and what it leaves alone is in the problem's
+              //- own detail line above, so this needs no description of its own.
+              if isUnboundLists problem
+                .admin-problem-actions
+                  button.js-restore-list-swimlanes.primary(disabled="{{#if restoreRunning}}disabled{{/if}}")
+                    if restoreRunning
+                      i.fa.fa-spinner.fa-spin
+                      | {{_ 'repairing'}}
+                    else
+                      i.fa.fa-wrench
+                      | {{_ 'restore'}}
+                  if restoreResult
+                    br
+                    span.quiet {{restoreResult}}
 
     h2 {{_ 'problems'}}
     if hasProblems

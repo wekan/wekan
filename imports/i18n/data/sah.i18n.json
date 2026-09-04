@@ -2380,6 +2380,7 @@
   "repairing": "Көннөрүллэр…",
   "repair-broken-cards-done": "__fixed__ карточка көннөрүлүннэ.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка көннөрүлүннэ. __unfixable__ карточка дуоската суох уонна аптамаатынан көннөрүллүбэт.",
+  "restore-list-swimlanes-done": "__restored__ испииһэк төннөрүлүннэ. __remaining__ төннөрүллүбэтэ.",
   "cpu-usage-current": "Билиҥҥи CPU туттуллуута",
   "cpu-cores-suffix": "кэрнэ",
   "cpu-load-average": "орто хачайдааһын",

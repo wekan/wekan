@@ -2380,6 +2380,7 @@
   "repairing": "مرمت ٿي رهي آهي…",
   "repair-broken-cards-done": "__fixed__ ڪارڊ درست ٿيا.",
   "repair-broken-cards-done-unfixable": "__fixed__ ڪارڊ درست ٿيا. __unfixable__ ڪارڊن جو ڪو بورڊ ناهي ۽ اهي پاڻمرادو درست نٿا ٿي سگهن.",
+  "restore-list-swimlanes-done": "__restored__ فهرستون بحال ٿيون. __remaining__ بحال نه ٿي سگهيون.",
   "cpu-usage-current": "هلندڙ CPU استعمال",
   "cpu-cores-suffix": "ڪور",
   "cpu-load-average": "بار جو سراسري",

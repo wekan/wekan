@@ -2380,6 +2380,7 @@
   "repairing": "Popravljanje…",
   "repair-broken-cards-done": "Popravljeno kartica: __fixed__.",
   "repair-broken-cards-done-unfixable": "Popravljeno kartica: __fixed__. __unfixable__ kartica nema ploču i ne mogu se popraviti automatski.",
+  "restore-list-swimlanes-done": "Vraćeno lista: __restored__. Nije moguće vratiti: __remaining__.",
   "cpu-usage-current": "Trenutačna upotreba procesora",
   "cpu-cores-suffix": "jezgri",
   "cpu-load-average": "prosječno opterećenje",

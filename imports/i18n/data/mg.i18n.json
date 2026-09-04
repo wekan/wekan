@@ -2380,6 +2380,7 @@
   "repairing": "Manamboatra…",
   "repair-broken-cards-done": "Karatra __fixed__ no namboarina.",
   "repair-broken-cards-done-unfixable": "Karatra __fixed__ no namboarina. Karatra __unfixable__ no tsy manana solaitra ary tsy azo amboarina ho azy.",
+  "restore-list-swimlanes-done": "Naverina ny lisitra __restored__. Tsy afaka naverina ny __remaining__.",
   "cpu-usage-current": "Fampiasana CPU ankehitriny",
   "cpu-cores-suffix": "foibe",
   "cpu-load-average": "salan'isan'ny enta-mavesatra",

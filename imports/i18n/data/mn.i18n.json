@@ -2380,6 +2380,7 @@
   "repairing": "Засаж байна…",
   "repair-broken-cards-done": "__fixed__ карт заслаа.",
   "repair-broken-cards-done-unfixable": "__fixed__ карт заслаа. __unfixable__ карт самбаргүй тул автоматаар засах боломжгүй.",
+  "restore-list-swimlanes-done": "__restored__ жагсаалт сэргээгдлээ. __remaining__ сэргээж чадсангүй.",
   "cpu-usage-current": "Одоогийн процессорын ашиглалт",
   "cpu-cores-suffix": "цөм",
   "cpu-load-average": "дундаж ачаалал",

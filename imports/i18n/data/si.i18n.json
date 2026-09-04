@@ -2380,6 +2380,7 @@
   "repairing": "අලුත්වැඩියා කරමින්…",
   "repair-broken-cards-done": "කාඩ්පත් __fixed__ක් අලුත්වැඩියා කළා.",
   "repair-broken-cards-done-unfixable": "කාඩ්පත් __fixed__ක් අලුත්වැඩියා කළා. කාඩ්පත් __unfixable__කට පුවරුවක් නොමැති බැවින් ස්වයංක්‍රීයව අලුත්වැඩියා කළ නොහැක.",
+  "restore-list-swimlanes-done": "ලැයිස්තු __restored__ක් ප්‍රතිසාධනය කළා. __remaining__ක් ප්‍රතිසාධනය කළ නොහැකි විය.",
   "cpu-usage-current": "වත්මන් CPU භාවිතය",
   "cpu-cores-suffix": "හර",
   "cpu-load-average": "සාමාන්‍ය භාරය",

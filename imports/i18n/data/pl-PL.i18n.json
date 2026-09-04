@@ -2380,6 +2380,7 @@
   "repairing": "Naprawianie…",
   "repair-broken-cards-done": "Naprawiono kart: __fixed__.",
   "repair-broken-cards-done-unfixable": "Naprawiono kart: __fixed__. __unfixable__ kart nie ma tablicy i nie można ich naprawić automatycznie.",
+  "restore-list-swimlanes-done": "Przywrócono list: __restored__. Nie udało się przywrócić: __remaining__.",
   "cpu-usage-current": "Bieżące użycie procesora",
   "cpu-cores-suffix": "rdzeni",
   "cpu-load-average": "średnie obciążenie",

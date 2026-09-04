@@ -2380,6 +2380,7 @@
   "repairing": "À ń tún un ṣe…",
   "repair-broken-cards-done": "A tún káàdì __fixed__ ṣe.",
   "repair-broken-cards-done-unfixable": "A tún káàdì __fixed__ ṣe. Káàdì __unfixable__ kò ní pátákó, a kò sì lè tún un ṣe láìfọwọ́ṣe.",
+  "restore-list-swimlanes-done": "A dá àkójọ __restored__ padà. __remaining__ kò ṣeé dá padà.",
   "cpu-usage-current": "Ìlò CPU lọ́wọ́lọ́wọ́",
   "cpu-cores-suffix": "àwọn mojútó",
   "cpu-load-average": "ìwọ̀n ẹrù",

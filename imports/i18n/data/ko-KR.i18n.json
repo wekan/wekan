@@ -2380,6 +2380,7 @@
   "repairing": "복구 중…",
   "repair-broken-cards-done": "카드 __fixed__장을 복구했습니다.",
   "repair-broken-cards-done-unfixable": "카드 __fixed__장을 복구했습니다. __unfixable__장은 보드가 없어 자동으로 복구할 수 없습니다.",
+  "restore-list-swimlanes-done": "목록 __restored__개를 복원했습니다. __remaining__개는 복원하지 못했습니다.",
   "cpu-usage-current": "현재 CPU 사용량",
   "cpu-cores-suffix": "코어",
   "cpu-load-average": "부하 평균",

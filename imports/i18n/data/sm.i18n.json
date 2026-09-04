@@ -2380,6 +2380,7 @@
   "repairing": "O loo toe faaleleia…",
   "repair-broken-cards-done": "Ua toe faaleleia __fixed__ pepa.",
   "repair-broken-cards-done-unfixable": "Ua toe faaleleia __fixed__ pepa. E leai ni laupapa o __unfixable__ pepa ma e lē mafai ona toe faaleleia otometi.",
+  "restore-list-swimlanes-done": "Ua toe faafoi __restored__ lisi. E le mafai ona toe faafoi __remaining__.",
   "cpu-usage-current": "Faaaogaina o le CPU i le taimi nei",
   "cpu-cores-suffix": "autu",
   "cpu-load-average": "averesi o le uta",

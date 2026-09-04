@@ -2380,6 +2380,7 @@
   "repairing": "A' càradh…",
   "repair-broken-cards-done": "Chaidh __fixed__ cairt(ean) a chàradh.",
   "repair-broken-cards-done-unfixable": "Chaidh __fixed__ cairt(ean) a chàradh. Chan eil bòrd aig __unfixable__ cairt(ean) agus cha ghabh an càradh gu fèin-obrachail.",
+  "restore-list-swimlanes-done": "Chaidh __restored__ liosta(ichean) aiseag. Cha b' urrainn __remaining__ aiseag.",
   "cpu-usage-current": "Cleachdadh CPU làithreach",
   "cpu-cores-suffix": "coraichean",
   "cpu-load-average": "cuibheas luchd",

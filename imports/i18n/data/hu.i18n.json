@@ -2380,6 +2380,7 @@
   "repairing": "Javítás…",
   "repair-broken-cards-done": "__fixed__ kártya javítva.",
   "repair-broken-cards-done-unfixable": "__fixed__ kártya javítva. __unfixable__ kártyának nincs táblája, ezért automatikusan nem javítható.",
+  "restore-list-swimlanes-done": "__restored__ lista visszaállítva. __remaining__ nem állítható vissza.",
   "cpu-usage-current": "Jelenlegi processzorhasználat",
   "cpu-cores-suffix": "mag",
   "cpu-load-average": "átlagos terhelés",

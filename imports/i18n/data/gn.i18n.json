@@ -2380,6 +2380,7 @@
   "repairing": "Oñemyatyrõ…",
   "repair-broken-cards-done": "Oñemyatyrõ __fixed__ kuatia'i.",
   "repair-broken-cards-done-unfixable": "Oñemyatyrõ __fixed__ kuatia'i. __unfixable__ kuatia'i ndoguerekói peteĩcha ha ndaikatúi oñemyatyrõ ijeheguiete.",
+  "restore-list-swimlanes-done": "Oñemoĩjey __restored__ ysaja. __remaining__ ndaikatúi oñemoĩjey.",
   "cpu-usage-current": "CPU jepuru ko'ag̃agua",
   "cpu-cores-suffix": "apyte kuéra",
   "cpu-load-average": "mba'apo pohýikue mombyte",

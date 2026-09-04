@@ -2380,6 +2380,7 @@
   "repairing": "S'està reparant…",
   "repair-broken-cards-done": "__fixed__ targeta/es reparada/es.",
   "repair-broken-cards-done-unfixable": "__fixed__ targeta/es reparada/es. __unfixable__ targeta/es no tenen tauler i no es poden reparar automàticament.",
+  "restore-list-swimlanes-done": "__restored__ llista/es restaurada/es. No s'han pogut restaurar __remaining__.",
   "cpu-usage-current": "Ús actual de la CPU",
   "cpu-cores-suffix": "nuclis",
   "cpu-load-average": "càrrega mitjana",

@@ -2380,6 +2380,7 @@
   "repairing": "Réparation en cours…",
   "repair-broken-cards-done": "__fixed__ carte(s) réparée(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ carte(s) réparée(s). __unfixable__ carte(s) n'ont aucun tableau et ne peuvent pas être réparées automatiquement.",
+  "restore-list-swimlanes-done": "__restored__ liste(s) restaurée(s). __remaining__ n'ont pas pu être restaurées.",
   "cpu-usage-current": "Utilisation actuelle du processeur",
   "cpu-cores-suffix": "cœurs",
   "cpu-load-average": "charge moyenne",

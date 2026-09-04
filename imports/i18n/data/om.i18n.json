@@ -2380,6 +2380,7 @@
   "repairing": "Suphaa jira…",
   "repair-broken-cards-done": "Kaardii __fixed__ supheera.",
   "repair-broken-cards-done-unfixable": "Kaardii __fixed__ supheera. Kaardiin __unfixable__ gabatee hin qabu; ofumaan suphamuu hin danda’u.",
+  "restore-list-swimlanes-done": "Tarreewwan __restored__ deebi'aniiru. __remaining__ deebisuun hin danda'amne.",
   "cpu-usage-current": "Fayyadama CPU ammaa",
   "cpu-cores-suffix": "koree",
   "cpu-load-average": "giddugaleessa fe’umsaa",

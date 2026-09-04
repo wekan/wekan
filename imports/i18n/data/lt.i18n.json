@@ -2380,6 +2380,7 @@
   "repairing": "Taisoma…",
   "repair-broken-cards-done": "Pataisyta kortelių: __fixed__.",
   "repair-broken-cards-done-unfixable": "Pataisyta kortelių: __fixed__. __unfixable__ kortelės neturi lentos ir negali būti pataisytos automatiškai.",
+  "restore-list-swimlanes-done": "Atkurta sąrašų: __restored__. Nepavyko atkurti: __remaining__.",
   "cpu-usage-current": "Dabartinis procesoriaus naudojimas",
   "cpu-cores-suffix": "branduoliai",
   "cpu-load-average": "vidutinė apkrova",

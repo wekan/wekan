@@ -2380,6 +2380,7 @@
   "repairing": "ମରାମତି ହେଉଛି…",
   "repair-broken-cards-done": "__fixed__ କାର୍ଡ ମରାମତି ହୋଇଛି।",
   "repair-broken-cards-done-unfixable": "__fixed__ କାର୍ଡ ମରାମତି ହୋଇଛି। __unfixable__ କାର୍ଡର ବୋର୍ଡ ନାହିଁ ଏବଂ ସେଗୁଡ଼ିକ ସ୍ୱୟଂଚାଳିତ ଭାବେ ମରାମତି ହୋଇପାରିବ ନାହିଁ।",
+  "restore-list-swimlanes-done": "__restored__ ତାଲିକା ପୁନଃସ୍ଥାପିତ ହୋଇଛି। __remaining__ ପୁନଃସ୍ଥାପିତ ହୋଇପାରିଲା ନାହିଁ।",
   "cpu-usage-current": "ବର୍ତ୍ତମାନ CPU ବ୍ୟବହାର",
   "cpu-cores-suffix": "କୋର",
   "cpu-load-average": "ହାରାହାରି ଭାର",

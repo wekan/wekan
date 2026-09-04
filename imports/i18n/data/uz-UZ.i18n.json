@@ -2380,6 +2380,7 @@
   "repairing": "Tuzatilmoqda…",
   "repair-broken-cards-done": "__fixed__ ta karta tuzatildi.",
   "repair-broken-cards-done-unfixable": "__fixed__ ta karta tuzatildi. __unfixable__ ta kartaning doskasi yo'q va ularni avtomatik tuzatib bo'lmaydi.",
+  "restore-list-swimlanes-done": "__restored__ ta roʻyxat tiklandi. __remaining__ ta roʻyxatni tiklab boʻlmadi.",
   "cpu-usage-current": "Joriy protsessor yuklamasi",
   "cpu-cores-suffix": "yadro",
   "cpu-load-average": "o'rtacha yuklama",

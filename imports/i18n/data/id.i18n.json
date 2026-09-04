@@ -2380,6 +2380,7 @@
   "repairing": "Memperbaiki…",
   "repair-broken-cards-done": "__fixed__ kartu diperbaiki.",
   "repair-broken-cards-done-unfixable": "__fixed__ kartu diperbaiki. __unfixable__ kartu tidak memiliki papan dan tidak dapat diperbaiki otomatis.",
+  "restore-list-swimlanes-done": "__restored__ daftar dipulihkan. __remaining__ tidak dapat dipulihkan.",
   "cpu-usage-current": "Penggunaan CPU saat ini",
   "cpu-cores-suffix": "inti",
   "cpu-load-average": "beban rata-rata",

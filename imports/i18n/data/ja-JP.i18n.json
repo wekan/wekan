@@ -2380,6 +2380,7 @@
   "repairing": "修復中…",
   "repair-broken-cards-done": "__fixed__ 枚のカードを修復しました。",
   "repair-broken-cards-done-unfixable": "__fixed__ 枚のカードを修復しました。__unfixable__ 枚のカードにはボードがなく、自動では修復できません。",
+  "restore-list-swimlanes-done": "__restored__ 件のリストを復元しました。__remaining__ 件は復元できませんでした。",
   "cpu-usage-current": "現在の CPU 使用率",
   "cpu-cores-suffix": "コア",
   "cpu-load-average": "ロードアベレージ",

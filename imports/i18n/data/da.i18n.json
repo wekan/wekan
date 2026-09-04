@@ -2380,6 +2380,7 @@
   "repairing": "Reparerer…",
   "repair-broken-cards-done": "__fixed__ kort repareret.",
   "repair-broken-cards-done-unfixable": "__fixed__ kort repareret. __unfixable__ kort har ingen tavle og kan ikke repareres automatisk.",
+  "restore-list-swimlanes-done": "__restored__ liste(r) genskabt. __remaining__ kunne ikke genskabes.",
   "cpu-usage-current": "Nuværende CPU-forbrug",
   "cpu-cores-suffix": "kerner",
   "cpu-load-average": "gennemsnitlig belastning",

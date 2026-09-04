@@ -2380,6 +2380,7 @@
   "repairing": "Kuyalungiswa…",
   "repair-broken-cards-done": "Kulungiswe amakhadi angu-__fixed__.",
   "repair-broken-cards-done-unfixable": "Kulungiswe amakhadi angu-__fixed__. Amakhadi angu-__unfixable__ kawalabhodi njalo awakwazi ukulungiswa ngokuzenzakalela.",
+  "restore-list-swimlanes-done": "Kubuyiselwe izinhlu ezingu-__restored__. __remaining__ azibuyiselwanga.",
   "cpu-usage-current": "Ukusetshenziswa kwe-CPU kwamanje",
   "cpu-cores-suffix": "ama-core",
   "cpu-load-average": "isilinganiso somthwalo",

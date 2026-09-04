@@ -2380,6 +2380,7 @@
   "repairing": "Исправление…",
   "repair-broken-cards-done": "Исправлено карточек: __fixed__.",
   "repair-broken-cards-done-unfixable": "Исправлено карточек: __fixed__. У __unfixable__ карточек нет доски, и их нельзя исправить автоматически.",
+  "restore-list-swimlanes-done": "Восстановлено списков: __restored__. Не удалось восстановить: __remaining__.",
   "cpu-usage-current": "Текущая загрузка процессора",
   "cpu-cores-suffix": "ядер",
   "cpu-load-average": "средняя нагрузка",

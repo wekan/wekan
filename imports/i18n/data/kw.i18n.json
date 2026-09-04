@@ -2380,6 +2380,7 @@
   "repairing": "Ow ewnhe…",
   "repair-broken-cards-done": "Ewnhys __fixed__ karten.",
   "repair-broken-cards-done-unfixable": "Ewnhys __fixed__ karten. __unfixable__ karten nyns eus estyllen dhedho ha ny yllir y ewnhe yn awtomatek.",
+  "restore-list-swimlanes-done": "Daskorrys __restored__ rol. Ny allas __remaining__ bos daskorrys.",
   "cpu-usage-current": "Devnydh CPU lemmyn",
   "cpu-cores-suffix": "kernelyow",
   "cpu-load-average": "kepargh karga",

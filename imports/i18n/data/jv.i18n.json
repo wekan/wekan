@@ -2380,6 +2380,7 @@
   "repairing": "Ndandani…",
   "repair-broken-cards-done": "Wis ndandani __fixed__ kertu.",
   "repair-broken-cards-done-unfixable": "Wis ndandani __fixed__ kertu. __unfixable__ kertu ora duwe papan lan ora bisa didandani kanthi otomatis.",
+  "restore-list-swimlanes-done": "__restored__ dhaptar wis dibalèkake. __remaining__ ora bisa dibalèkake.",
   "cpu-usage-current": "Panggunaan CPU saiki",
   "cpu-cores-suffix": "inti",
   "cpu-load-average": "rata-rata beban",

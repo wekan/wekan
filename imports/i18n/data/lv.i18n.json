@@ -2380,6 +2380,7 @@
   "repairing": "Notiek labošana…",
   "repair-broken-cards-done": "Izlabotas kartītes: __fixed__.",
   "repair-broken-cards-done-unfixable": "Izlabotas kartītes: __fixed__. __unfixable__ kartītēm nav dēļa, un tās nevar izlabot automātiski.",
+  "restore-list-swimlanes-done": "Atjaunoti saraksti: __restored__. Neizdevās atjaunot: __remaining__.",
   "cpu-usage-current": "Pašreizējais procesora noslogojums",
   "cpu-cores-suffix": "kodoli",
   "cpu-load-average": "vidējā slodze",

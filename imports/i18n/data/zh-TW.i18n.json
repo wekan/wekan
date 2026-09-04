@@ -2380,6 +2380,7 @@
   "repairing": "正在修復⋯⋯",
   "repair-broken-cards-done": "已修復 __fixed__ 張卡片。",
   "repair-broken-cards-done-unfixable": "已修復 __fixed__ 張卡片。__unfixable__ 張卡片沒有所屬看板，無法自動修復。",
+  "restore-list-swimlanes-done": "已恢復 __restored__ 個清單。__remaining__ 個無法恢復。",
   "cpu-usage-current": "目前 CPU 使用率",
   "cpu-cores-suffix": "核心",
   "cpu-load-average": "平均負載",

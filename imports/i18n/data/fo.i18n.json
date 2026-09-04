@@ -2380,6 +2380,7 @@
   "repairing": "Umvælir…",
   "repair-broken-cards-done": "Umvældi __fixed__ kort.",
   "repair-broken-cards-done-unfixable": "Umvældi __fixed__ kort. __unfixable__ kort hava onga talvu og kunnu ikki umvælast sjálvvirkandi.",
+  "restore-list-swimlanes-done": "Endurstovnaði __restored__ listar. __remaining__ kundu ikki endurstovnast.",
   "cpu-usage-current": "Verandi CPU-nýtsla",
   "cpu-cores-suffix": "kjarnar",
   "cpu-load-average": "miðal belastningur",

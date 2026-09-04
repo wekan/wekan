@@ -2380,6 +2380,7 @@
   "repairing": "Aaqqinneqarpoq…",
   "repair-broken-cards-done": "Kortsit __fixed__ aaqqinneqarput.",
   "repair-broken-cards-done-unfixable": "Kortsit __fixed__ aaqqinneqarput. Kortsit __unfixable__ ilisarnaateqanngillat nammineerlutillu aaqqinneqarsinnaanatik.",
+  "restore-list-swimlanes-done": "Allattorsimaffiit __restored__ iluarsarneqarput. __remaining__ iluarsarneqarsinnaanngillat.",
   "cpu-usage-current": "CPU-p atuinera maanna atuuttoq",
   "cpu-cores-suffix": "cores-it",
   "cpu-load-average": "artukkernerup agguaqatigiissinnera",

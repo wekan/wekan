@@ -2380,6 +2380,7 @@
   "repairing": "Kuyalungiswa…",
   "repair-broken-cards-done": "Kulungiswe emakhadi langu-__fixed__.",
   "repair-broken-cards-done-unfixable": "Kulungiswe emakhadi langu-__fixed__. Emakhadi langu-__unfixable__ awanalo libhodi futsi awakhoni kulungiswa ngekuzenzakalela.",
+  "restore-list-swimlanes-done": "Kubuyiselwe tinhla letingu-__restored__. __remaining__ atibuyiselwanga.",
   "cpu-usage-current": "Kusetjentiswa kwe-CPU kwanyalo",
   "cpu-cores-suffix": "tinhlavu",
   "cpu-load-average": "silinganiso semtfwalo",

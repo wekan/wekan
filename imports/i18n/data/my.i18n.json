@@ -2380,6 +2380,7 @@
   "repairing": "ပြုပြင်နေသည်…",
   "repair-broken-cards-done": "ကတ် __fixed__ ခု ပြုပြင်ပြီးပါပြီ။",
   "repair-broken-cards-done-unfixable": "ကတ် __fixed__ ခု ပြုပြင်ပြီးပါပြီ။ ကတ် __unfixable__ ခုတွင် ဘုတ်မရှိသဖြင့် အလိုအလျောက် ပြုပြင်၍ မရပါ။",
+  "restore-list-swimlanes-done": "စာရင်း __restored__ ခုကို ပြန်လည်ရယူပြီးပါပြီ။ __remaining__ ခုကို ပြန်လည်ရယူ၍ မရပါ။",
   "cpu-usage-current": "လက်ရှိ CPU အသုံးပြုမှု",
   "cpu-cores-suffix": "core များ",
   "cpu-load-average": "ပျမ်းမျှဝန်",

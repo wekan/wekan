@@ -2380,6 +2380,7 @@
   "repairing": "O reizhañ…",
   "repair-broken-cards-done": "__fixed__ kartenn reizhet.",
   "repair-broken-cards-done-unfixable": "__fixed__ kartenn reizhet. __unfixable__ kartenn n'o deus taolenn ebet ha ne c'haller ket o reizhañ ent emgefreek.",
+  "restore-list-swimlanes-done": "__restored__ roll assavet. __remaining__ n'int ket bet gallet assaviñ.",
   "cpu-usage-current": "Implij an UT bremañ",
   "cpu-cores-suffix": "kalonennoù",
   "cpu-load-average": "karg keitat",

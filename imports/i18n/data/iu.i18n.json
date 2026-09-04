@@ -2380,6 +2380,7 @@
   "repairing": "ᐋᖅᑭᒃᓱᖅᑕᐅᔪᑦ…",
   "repair-broken-cards-done": "__fixed__ ᐊᓪᓚᖅᓯᒪᔪᑦ ᐋᖅᑭᒃᓱᖅᑕᐅᕗᑦ.",
   "repair-broken-cards-done-unfixable": "__fixed__ ᐊᓪᓚᖅᓯᒪᔪᑦ ᐋᖅᑭᒃᓱᖅᑕᐅᕗᑦ. __unfixable__ ᐊᓪᓚᖅᓯᒪᔪᑦ ᐊᓪᓚᕕᖃᙱᑦᑐᑦ ᐃᒻᒥᓂᒃ ᐋᖅᑭᒃᑕᐅᔪᓐᓇᙱᑦᑐᑦ.",
+  "restore-list-swimlanes-done": "__restored__ ᑎᑎᖅᑲᓕᐊᑦ ᐅᑎᖅᑎᑕᐅᔪᑦ. __remaining__ ᐅᑎᖅᑎᑕᐅᔪᓐᓇᙱᑦᑐᑦ.",
   "cpu-usage-current": "ᒫᓐᓇ CPU-ᒥᒃ ᐊᑐᕐᓂᖅ",
   "cpu-cores-suffix": "ᖃᕆᑕᑦ",
   "cpu-load-average": "ᐊᑐᕐᓂᐅᑉ ᓈᓴᐅᑎᖓᑕ ᐊᑯᓐᓇᖓ",

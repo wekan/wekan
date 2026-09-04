@@ -2380,6 +2380,7 @@
   "repairing": "Վերանորոգվում է…",
   "repair-broken-cards-done": "Վերանորոգվել է __fixed__ քարտ։",
   "repair-broken-cards-done-unfixable": "Վերանորոգվել է __fixed__ քարտ։ __unfixable__ քարտ չունի տախտակ և չի կարող ինքնաշխատ վերանորոգվել։",
+  "restore-list-swimlanes-done": "Վերականգնվել է __restored__ ցուցակ։ __remaining__ չհաջողվեց վերականգնել։",
   "cpu-usage-current": "Պրոցեսորի ընթացիկ օգտագործումը",
   "cpu-cores-suffix": "միջուկ",
   "cpu-load-average": "միջին ծանրաբեռնվածություն",

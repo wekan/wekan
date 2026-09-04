@@ -2380,6 +2380,7 @@
   "repairing": "ئوڭشىلىۋاتىدۇ…",
   "repair-broken-cards-done": "__fixed__ كارتا ئوڭشالدى.",
   "repair-broken-cards-done-unfixable": "__fixed__ كارتا ئوڭشالدى. __unfixable__ كارتىنىڭ تاختىسى يوق، ئاپتوماتىك ئوڭشاشقا بولمايدۇ.",
+  "restore-list-swimlanes-done": "__restored__ تىزىملىك ئەسلىگە كەلتۈرۈلدى. __remaining__ ئەسلىگە كەلتۈرگىلى بولمىدى.",
   "cpu-usage-current": "نۆۋەتتىكى CPU ئىشلىتىلىشى",
   "cpu-cores-suffix": "يادرو",
   "cpu-load-average": "ئوتتۇرىچە يۈك",

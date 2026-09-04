@@ -2380,6 +2380,7 @@
   "repairing": "Reparacion en cors…",
   "repair-broken-cards-done": "__fixed__ ficha(s) reparada(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ ficha(s) reparada(s). __unfixable__ ficha(s) an pas de tablèu e pòdon pas èsser reparadas automaticament.",
+  "restore-list-swimlanes-done": "__restored__ tièra(s) restaurada(s). Se son pas pogudas restaurar __remaining__.",
   "cpu-usage-current": "Utilizacion actuala del processor",
   "cpu-cores-suffix": "còrs",
   "cpu-load-average": "carga mejana",

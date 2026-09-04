@@ -2380,6 +2380,7 @@
   "repairing": "Go a lokišwa…",
   "repair-broken-cards-done": "Go lokišitšwe dikarata tše __fixed__.",
   "repair-broken-cards-done-unfixable": "Go lokišitšwe dikarata tše __fixed__. Dikarata tše __unfixable__ ga di na boto gomme di ka se lokišwe ka go itiriša.",
+  "restore-list-swimlanes-done": "Go bušeditšwe malokelelo a __restored__. __remaining__ ga a kgone go bušetšwa.",
   "cpu-usage-current": "Tšhomišo ya bjale ya CPU",
   "cpu-cores-suffix": "dikhubu",
   "cpu-load-average": "palogare ya morwalo",

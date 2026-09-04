@@ -2380,6 +2380,7 @@
   "repairing": "சரிசெய்யப்படுகிறது…",
   "repair-broken-cards-done": "__fixed__ அட்டை(கள்) சரிசெய்யப்பட்டன.",
   "repair-broken-cards-done-unfixable": "__fixed__ அட்டை(கள்) சரிசெய்யப்பட்டன. __unfixable__ அட்டைக்கு பலகை இல்லை, தானாகச் சரிசெய்ய முடியாது.",
+  "restore-list-swimlanes-done": "__restored__ பட்டியல்(கள்) மீட்டமைக்கப்பட்டன. __remaining__ மீட்டமைக்க முடியவில்லை.",
   "cpu-usage-current": "தற்போதைய CPU பயன்பாடு",
   "cpu-cores-suffix": "கருக்கள்",
   "cpu-load-average": "சராசரி சுமை",

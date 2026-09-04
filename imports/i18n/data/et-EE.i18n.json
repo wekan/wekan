@@ -2380,6 +2380,7 @@
   "repairing": "Parandamine…",
   "repair-broken-cards-done": "Parandatud kaarte: __fixed__.",
   "repair-broken-cards-done-unfixable": "Parandatud kaarte: __fixed__. __unfixable__ kaardil pole tahvlit ja neid ei saa automaatselt parandada.",
+  "restore-list-swimlanes-done": "Taastatud loendeid: __restored__. Ei õnnestunud taastada: __remaining__.",
   "cpu-usage-current": "Praegune protsessorikasutus",
   "cpu-cores-suffix": "tuuma",
   "cpu-load-average": "keskmine koormus",

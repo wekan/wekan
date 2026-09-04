@@ -2380,6 +2380,7 @@
   "repairing": "Bejerilýär…",
   "repair-broken-cards-done": "__fixed__ kart bejerildi.",
   "repair-broken-cards-done-unfixable": "__fixed__ kart bejerildi. __unfixable__ kartyň tagtasy ýok we awtomatik bejerip bolmaýar.",
+  "restore-list-swimlanes-done": "__restored__ sanaw dikeldildi. __remaining__ dikeldip bolmady.",
   "cpu-usage-current": "Häzirki prosessor ulanylyşy",
   "cpu-cores-suffix": "ýadro",
   "cpu-load-average": "ortaça ýük",

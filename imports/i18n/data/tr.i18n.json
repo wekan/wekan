@@ -2380,6 +2380,7 @@
   "repairing": "Onarılıyor…",
   "repair-broken-cards-done": "__fixed__ kart onarıldı.",
   "repair-broken-cards-done-unfixable": "__fixed__ kart onarıldı. __unfixable__ kartın panosu yok ve otomatik onarılamıyor.",
+  "restore-list-swimlanes-done": "__restored__ liste geri yüklendi. __remaining__ geri yüklenemedi.",
   "cpu-usage-current": "Geçerli CPU kullanımı",
   "cpu-cores-suffix": "çekirdek",
   "cpu-load-average": "yük ortalaması",

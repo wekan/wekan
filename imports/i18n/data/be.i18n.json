@@ -2380,6 +2380,7 @@
   "repairing": "Выпраўленне…",
   "repair-broken-cards-done": "Выпраўлена картак: __fixed__.",
   "repair-broken-cards-done-unfixable": "Выпраўлена картак: __fixed__. __unfixable__ картак не маюць дошкі, іх нельга выправіць аўтаматычна.",
+  "restore-list-swimlanes-done": "Адноўлена спісаў: __restored__. Не ўдалося аднавіць: __remaining__.",
   "cpu-usage-current": "Бягучая загрузка працэсара",
   "cpu-cores-suffix": "ядзер",
   "cpu-load-average": "сярэдняя нагрузка",

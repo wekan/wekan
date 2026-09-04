@@ -2380,6 +2380,7 @@
   "repairing": "Waa la hagaajinayaa…",
   "repair-broken-cards-done": "Waxaa la hagaajiyey __fixed__ kaar.",
   "repair-broken-cards-done-unfixable": "Waxaa la hagaajiyey __fixed__ kaar. __unfixable__ kaar ma leh sabuurad si otomaatig ahna looma hagaajin karo.",
+  "restore-list-swimlanes-done": "Waxaa la soo celiyey __restored__ liis. __remaining__ lama soo celin karin.",
   "cpu-usage-current": "Adeegsiga CPU ee hadda",
   "cpu-cores-suffix": "xuddun",
   "cpu-load-average": "celceliska culayska",

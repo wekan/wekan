@@ -2380,6 +2380,7 @@
   "repairing": "Төҙәтелә…",
   "repair-broken-cards-done": "__fixed__ карточка төҙәтелде.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка төҙәтелде. __unfixable__ карточканың таҡтаһы юҡ һәм уны автоматик төҙәтеп булмай.",
+  "restore-list-swimlanes-done": "__restored__ исемлек тергеҙелде. __remaining__ тергеҙеп булманы.",
   "cpu-usage-current": "Әлеге CPU ҡулланыуы",
   "cpu-cores-suffix": "ядро",
   "cpu-load-average": "уртаса йөкләнеш",

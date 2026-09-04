@@ -2380,6 +2380,7 @@
   "repairing": "tI'lu'taH…",
   "repair-broken-cards-done": "navmey __fixed__ tI'lu'pu'.",
   "repair-broken-cards-done-unfixable": "'echletHom __fixed__ tI'lu'. 'echlet ghajbe' 'echletHom __unfixable__, vaj tI'laHbe' De'wI'.",
+  "restore-list-swimlanes-done": "tetlhmey __restored__ chenqa'lu'pu'. __remaining__ chenqa'laHbe'lu'.",
   "cpu-usage-current": "DaH CPU lo'",
   "cpu-cores-suffix": "tIqmey",
   "cpu-load-average": "'ugh motlh",

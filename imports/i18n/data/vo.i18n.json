@@ -2380,6 +2380,7 @@
   "repairing": "Fidöfon…",
   "repair-broken-cards-done": "Kads __fixed__ pefidöfons.",
   "repair-broken-cards-done-unfixable": "Kads __fixed__ peleodükons. Kads __unfixable__ no labons boadi e no kanons paleodükön itjäfidiko.",
+  "restore-list-swimlanes-done": "Liseds __restored__ perestoröfons. __remaining__ no perestoröfons.",
   "cpu-usage-current": "Geban CPUa nunik",
   "cpu-cores-suffix": "keds",
   "cpu-load-average": "lad medik",

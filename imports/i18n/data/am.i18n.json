@@ -2380,6 +2380,7 @@
   "repairing": "በመጠገን ላይ…",
   "repair-broken-cards-done": "__fixed__ ካርድ(ዶች) ተጠግነዋል።",
   "repair-broken-cards-done-unfixable": "__fixed__ ካርድ(ዶች) ተጠግነዋል። __unfixable__ ካርድ(ዶች) ቦርድ ስለሌላቸው በራስ-ሰር ሊጠገኑ አይችሉም።",
+  "restore-list-swimlanes-done": "__restored__ ዝርዝር(ሮች) ተመልሰዋል። __remaining__ መመለስ አልተቻለም።",
   "cpu-usage-current": "የአሁኑ የCPU አጠቃቀም",
   "cpu-cores-suffix": "ኮሮች",
   "cpu-load-average": "አማካይ ጭነት",

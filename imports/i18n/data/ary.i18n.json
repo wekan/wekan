@@ -2380,6 +2380,7 @@
   "repairing": "جارٍ الإصلاح…",
   "repair-broken-cards-done": "تم إصلاح __fixed__ بطاقة.",
   "repair-broken-cards-done-unfixable": "تم إصلاح __fixed__ بطاقة. __unfixable__ بطاقة بلا لوحة ولا يمكن إصلاحها تلقائياً.",
+  "restore-list-swimlanes-done": "تمت استعادة __restored__ قائمة. تعذّرت استعادة __remaining__.",
   "cpu-usage-current": "استخدام المعالج الحالي",
   "cpu-cores-suffix": "أنوية",
   "cpu-load-average": "متوسط الحمل",

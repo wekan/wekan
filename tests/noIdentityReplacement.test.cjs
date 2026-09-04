@@ -36,7 +36,13 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 // WeKan's own JavaScript. node_modules is other people's code, .meteor/.build
 // are build outputs, and .tools holds separate repositories.
-const SKIP = new Set(['node_modules', '.git', '.meteor', '.build', '.tools',
+// '.claude' holds git WORKTREES (.claude/worktrees/<name>), each a full second
+// checkout of this repository. Walking into one scans every source file twice
+// and - because a worktree also contains a copy of THIS file - reports the
+// deliberate samples at the bottom of it as real findings, from a path that is
+// not the one the `__filename` check below can recognise. It is gitignored and
+// is not this checkout's source, so it is not scanned.
+const SKIP = new Set(['node_modules', '.git', '.claude', '.meteor', '.build', '.tools',
   'log', 'test-results', 'dist', 'coverage']);
 const EXTENSIONS = ['.js', '.cjs', '.mjs', '.jsx', '.ts'];
 

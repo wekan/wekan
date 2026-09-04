@@ -20,6 +20,10 @@ Template.problemsSummary.onCreated(function () {
   // server/methods/repairBrokenCards.js).
   this.repairRunning = new ReactiveVar(false);
   this.repairResult = new ReactiveVar('');
+  // "Lists missing their swimlane N" restore button state (#6670, see the
+  // restoreListSwimlanes method in server/methods/restoreListSwimlanes.js).
+  this.restoreRunning = new ReactiveVar(false);
+  this.restoreResult = new ReactiveVar('');
   // Status overview: everything in progress (migrations / repairs) + detected
   // problems (broken cards, login-page "Must be logged in" causes). Same data as
   // `snap run wekan.problems`.
@@ -62,16 +66,25 @@ Template.problemsSummary.helpers({
     const s = Template.instance().status.get();
     return s && s.overview ? s.overview.problems : [];
   },
-  // Only the broken-cards problem gets a Repair button — the other detected
-  // problems (login-page causes) are configuration, not repairable data.
+  // Only the two data problems get a button — the other detected problems
+  // (login-page causes) are configuration, not repairable data.
   isBrokenCards(problem) {
     return !!problem && problem.id === 'broken-cards';
+  },
+  isUnboundLists(problem) {
+    return !!problem && problem.id === 'unbound-lists';
   },
   repairRunning() {
     return Template.instance().repairRunning.get();
   },
   repairResult() {
     return Template.instance().repairResult.get();
+  },
+  restoreRunning() {
+    return Template.instance().restoreRunning.get();
+  },
+  restoreResult() {
+    return Template.instance().restoreResult.get();
   },
 });
 
@@ -103,6 +116,35 @@ Template.problemsSummary.events({
         unfixable > 0
           ? TAPi18n.__('repair-broken-cards-done-unfixable', { fixed, unfixable })
           : TAPi18n.__('repair-broken-cards-done', { fixed }),
+      );
+      templateInstance.reload();
+    });
+  },
+
+  // #6670: put back the swimlane each list was created in, for the lists the
+  // pre-#6515 automatic repair un-bound. Only lists whose original swimlane is
+  // still recorded AND still exists are touched; the rest stay board-wide, so
+  // the count can legitimately not reach zero. The button stays disabled while
+  // it runs, and the overview is reloaded afterwards so the count updates.
+  'click .js-restore-list-swimlanes'(event, templateInstance) {
+    event.preventDefault();
+    if (templateInstance.restoreRunning.get()) return;
+    templateInstance.restoreRunning.set(true);
+    templateInstance.restoreResult.set('');
+    Meteor.call('restoreListSwimlanes', (error, res) => {
+      templateInstance.restoreRunning.set(false);
+      if (error) {
+        templateInstance.restoreResult.set(error.reason || error.message || String(error));
+        return;
+      }
+      const restored = (res && res.restored) || 0;
+      const remaining = (res && res.remaining) || 0;
+      // Say what is LEFT as well as what was fixed: a list whose original
+      // swimlane was never recorded, or has since been deleted, cannot be
+      // restored, and an unexplained count that stays put is what sent the
+      // last admin looking for a bug.
+      templateInstance.restoreResult.set(
+        TAPi18n.__('restore-list-swimlanes-done', { restored, remaining }),
       );
       templateInstance.reload();
     });

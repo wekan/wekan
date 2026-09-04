@@ -2380,6 +2380,7 @@
   "repairing": "Wird repariert…",
   "repair-broken-cards-done": "__fixed__ Karte(n) repariert.",
   "repair-broken-cards-done-unfixable": "__fixed__ Karte(n) repariert. __unfixable__ Karte(n) haben kein Board und können nicht automatisch repariert werden.",
+  "restore-list-swimlanes-done": "__restored__ Liste(n) wiederhergestellt. __remaining__ konnten nicht wiederhergestellt werden.",
   "cpu-usage-current": "Aktuelle CPU-Auslastung",
   "cpu-cores-suffix": "Kerne",
   "cpu-load-average": "Lastdurchschnitt",

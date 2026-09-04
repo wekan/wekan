@@ -2380,6 +2380,7 @@
   "repairing": "Teungoh geupeu-ubat…",
   "repair-broken-cards-done": "__fixed__ kartu ka geupeu-ubat.",
   "repair-broken-cards-done-unfixable": "__fixed__ kartu ka geupeu-ubat. __unfixable__ kartu hana papeun dan hana jeuet geupeu-ubat otomatis.",
+  "restore-list-swimlanes-done": "__restored__ dapheutan ka geupeu-ulang. __remaining__ hana jeuet geupeu-ulang.",
   "cpu-usage-current": "Peungui CPU jinoe",
   "cpu-cores-suffix": "inti",
   "cpu-load-average": "rata-rata beban",

@@ -2380,6 +2380,7 @@
   "repairing": "Riparazione in corso…",
   "repair-broken-cards-done": "__fixed__ scheda/e riparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ scheda/e riparate. __unfixable__ scheda/e non hanno una bacheca e non possono essere riparate automaticamente.",
+  "restore-list-swimlanes-done": "__restored__ lista/e ripristinate. Non è stato possibile ripristinarne __remaining__.",
   "cpu-usage-current": "Utilizzo attuale della CPU",
   "cpu-cores-suffix": "core",
   "cpu-load-average": "carico medio",

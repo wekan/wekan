@@ -2380,6 +2380,7 @@
   "repairing": "Kuriko harakosorwa…",
   "repair-broken-cards-done": "Hakosowe amakarata __fixed__.",
   "repair-broken-cards-done-unfixable": "Hakosowe amakarata __fixed__. Amakarata __unfixable__ nta capa afise kandi ntashobora gukosorwa ubwayo.",
+  "restore-list-swimlanes-done": "Intonde __restored__ zarasubijwe. __remaining__ ntizashoboye gusubizwa.",
   "cpu-usage-current": "Ikoreshwa rya CPU rya none",
   "cpu-cores-suffix": "imitima",
   "cpu-load-average": "igereranyo ry'umutwaro",

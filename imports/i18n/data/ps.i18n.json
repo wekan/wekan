@@ -2380,6 +2380,7 @@
   "repairing": "رغول کېږي…",
   "repair-broken-cards-done": "__fixed__ کارت/کارتونه ورغول شول.",
   "repair-broken-cards-done-unfixable": "__fixed__ کارت/کارتونه ورغول شول. __unfixable__ کارت/کارتونه تخته نه لري او په اتومات ډول نه رغېږي.",
+  "restore-list-swimlanes-done": "__restored__ لړليکونه بيرته راژوندي شول. __remaining__ بيرته راژوندي نه شول.",
   "cpu-usage-current": "د CPU اوسنۍ کارونه",
   "cpu-cores-suffix": "هستې",
   "cpu-load-average": "د بار منځنۍ کچه",

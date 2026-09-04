@@ -2380,6 +2380,7 @@
   "repairing": "Reparando…",
   "repair-broken-cards-done": "__fixed__ tarxeta(s) reparada(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ tarxeta(s) reparada(s). __unfixable__ tarxeta(s) non teñen taboleiro e non se poden reparar automaticamente.",
+  "restore-list-swimlanes-done": "__restored__ lista(s) restaurada(s). Non se puideron restaurar __remaining__.",
   "cpu-usage-current": "Uso actual da CPU",
   "cpu-cores-suffix": "núcleos",
   "cpu-load-average": "carga media",

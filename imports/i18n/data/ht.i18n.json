@@ -2380,6 +2380,7 @@
   "repairing": "Ap repare…",
   "repair-broken-cards-done": "__fixed__ kat repare.",
   "repair-broken-cards-done-unfixable": "__fixed__ kat repare. __unfixable__ kat pa gen tablo epi yo pa ka repare otomatikman.",
+  "restore-list-swimlanes-done": "__restored__ lis retabli. __remaining__ pa t kapab retabli.",
   "cpu-usage-current": "Itilizasyon CPU aktyèl",
   "cpu-cores-suffix": "nwayo",
   "cpu-load-average": "chaj mwayèn",

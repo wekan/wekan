@@ -2380,6 +2380,7 @@
   "repairing": "در حال ترمیم…",
   "repair-broken-cards-done": "__fixed__ کارت ترمیم شد.",
   "repair-broken-cards-done-unfixable": "__fixed__ کارت ترمیم شد. __unfixable__ کارت تخته ندارند و به‌طور خودکار ترمیم نمی‌شوند.",
+  "restore-list-swimlanes-done": "__restored__ فهرست بازیابی شد. __remaining__ بازیابی نشد.",
   "cpu-usage-current": "مصرف کنونی پردازنده",
   "cpu-cores-suffix": "هسته",
   "cpu-load-average": "میانگین بار",

@@ -2380,6 +2380,7 @@
   "repairing": "Sa vakavinakataki tiko…",
   "repair-broken-cards-done": "Sa vakavinakataki __fixed__ na kadi.",
   "repair-broken-cards-done-unfixable": "Sa vakavinakataki __fixed__ na kadi. E sega na nodra vola na __unfixable__ na kadi ka sega ni rawa ni vakavinakataki vakataki koya.",
+  "restore-list-swimlanes-done": "Sa vakalesui __restored__ na lisi. __remaining__ e sega ni rawa ni vakalesui.",
   "cpu-usage-current": "Vakayagataki ni CPU ena gauna oqo",
   "cpu-cores-suffix": "uto",
   "cpu-load-average": "ivakatautauvata ni colacola",

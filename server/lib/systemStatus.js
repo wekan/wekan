@@ -5,6 +5,7 @@ import Cards from '/models/cards';
 import { loginProblemChecks } from '/models/lib/loginProblems';
 import { buildProblemsOverview } from '/models/lib/problemsOverview';
 import { brokenCardsSelector } from '/models/lib/brokenCardsRepair';
+import { countRestorableListSwimlanes } from '/server/lib/restoreListSwimlanes';
 import { isStatusActive } from '/models/lib/statusActive';
 
 // Server hub for the Admin Panel / Problems "Status" overview and the
@@ -128,10 +129,11 @@ async function countBrokenCards() {
 
 // The Problems "Status" overview: everything in progress + detected problems.
 export async function getProblemsOverview() {
-  const [inProgress, loginProblems, brokenCards] = await Promise.all([
+  const [inProgress, loginProblems, brokenCards, unboundLists] = await Promise.all([
     getInProgress(),
     getLoginProblems(),
     countBrokenCards(),
+    countRestorableListSwimlanes(),
   ]);
-  return buildProblemsOverview({ inProgress, loginProblems, brokenCards });
+  return buildProblemsOverview({ inProgress, loginProblems, brokenCards, unboundLists });
 }

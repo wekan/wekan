@@ -2380,6 +2380,7 @@
   "repairing": "Kukonza…",
   "repair-broken-cards-done": "Makhadi __fixed__ akonzedwa.",
   "repair-broken-cards-done-unfixable": "Makhadi __fixed__ akonzedwa. Makhadi __unfixable__ alibe bolodi ndipo sangathe kukonzedwa okha.",
+  "restore-list-swimlanes-done": "Mindandanda __restored__ yabwezeretsedwa. __remaining__ sinathe kubwezeretsedwa.",
   "cpu-usage-current": "Kugwiritsa ntchito CPU kwapano",
   "cpu-cores-suffix": "ma core",
   "cpu-load-average": "avereji ya katundu",

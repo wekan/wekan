@@ -2380,6 +2380,7 @@
   "repairing": "Herstel tans…",
   "repair-broken-cards-done": "__fixed__ kaart(e) herstel.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaart(e) herstel. __unfixable__ kaart(e) het geen bord nie en kan nie outomaties herstel word nie.",
+  "restore-list-swimlanes-done": "__restored__ lys(te) herstel. __remaining__ kon nie herstel word nie.",
   "cpu-usage-current": "Huidige SVE-gebruik",
   "cpu-cores-suffix": "kerne",
   "cpu-load-average": "gemiddelde las",

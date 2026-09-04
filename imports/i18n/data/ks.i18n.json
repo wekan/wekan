@@ -2380,6 +2380,7 @@
   "repairing": "درست کرنہٕ یِوان چھُ…",
   "repair-broken-cards-done": "__fixed__ کارڈ گٔے درست کرنہٕ۔",
   "repair-broken-cards-done-unfixable": "__fixed__ کارڈ گٔے درست کرنہٕ۔ __unfixable__ کارڈس چھُنہٕ بورڈ تہٕ خودکار طور ہؠکنہٕ درست کرنہٕ۔",
+  "restore-list-swimlanes-done": "__restored__ فہرست بحال کرنہٕ آیہِ۔ __remaining__ بحال کرِتھ نہٕ ہیوک۔",
   "cpu-usage-current": "موجودٕ CPU استعمال",
   "cpu-cores-suffix": "کور",
   "cpu-load-average": "اوسط لوڈ",

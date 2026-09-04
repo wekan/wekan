@@ -2380,6 +2380,7 @@
   "repairing": "Mu ngi defaraat…",
   "repair-broken-cards-done": "Ñu defaraat __fixed__ kart.",
   "repair-broken-cards-done-unfixable": "Ñu defaraat __fixed__ kart. __unfixable__ kart amul tabax te mënuñu koo defaraat ci boppam.",
+  "restore-list-swimlanes-done": "Ñu delloo __restored__ limu. __remaining__ mënuñu koo delloo.",
   "cpu-usage-current": "Jëfandikoo CPU bi léegi",
   "cpu-cores-suffix": "cœur",
   "cpu-load-average": "diggante coono",

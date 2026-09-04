@@ -2380,6 +2380,7 @@
   "repairing": "Hu khou lugiswa…",
   "repair-broken-cards-done": "Dzikhadi dza __fixed__ dzo lugiswa.",
   "repair-broken-cards-done-unfixable": "Dzikhadi dza __fixed__ dzo lugiswa. Dzikhadi dza __unfixable__ a dzi na bodo nahone a dzi nga lugiswi zwi tshi ḓi ita.",
+  "restore-list-swimlanes-done": "Mirole ya __restored__ yo vhuyedzwa. __remaining__ a i athu u vhuyedzwa.",
   "cpu-usage-current": "U shumiswa ha CPU zwino",
   "cpu-cores-suffix": "dzikhoro",
   "cpu-load-average": "muelo wa mushumo",

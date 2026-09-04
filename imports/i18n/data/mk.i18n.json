@@ -2380,6 +2380,7 @@
   "repairing": "Се поправа…",
   "repair-broken-cards-done": "Поправени картички: __fixed__.",
   "repair-broken-cards-done-unfixable": "Поправени картички: __fixed__. __unfixable__ картички немаат табла и не можат да се поправат автоматски.",
+  "restore-list-swimlanes-done": "Вратени листи: __restored__. Не можеа да се вратат: __remaining__.",
   "cpu-usage-current": "Тековно оптоварување на процесорот",
   "cpu-cores-suffix": "јадра",
   "cpu-load-average": "просечно оптоварување",

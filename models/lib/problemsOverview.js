@@ -9,6 +9,7 @@
 // input = {
 //   inProgress: [{ kind, active, message }],      // migrations / repairs running
 //   brokenCards: <number>,                        // broken/orphaned cards count
+//   unboundLists: <number>,                       // lists whose swimlane can be restored
 //   loginProblems: [{ id, title, detail, severity, ok }],
 //   extraProblems: [{ id, severity, title, detail, count? }],  // optional
 // }
@@ -29,6 +30,21 @@ function buildProblemsOverview(input) {
       count: brokenCards,
       title: 'Broken cards',
       detail: `${brokenCards} card(s) with a missing board/list/swimlane or an invalid type. Open the board to auto-repair, or run the repair migration.`,
+    });
+  }
+
+  // #6670: lists that were un-bound from their swimlane by the pre-#6515
+  // automatic repair, and whose original swimlane is still recorded in
+  // positionHistory so it can be put back exactly. Only counted when something
+  // CAN be restored, so the admin is never shown a problem with no remedy.
+  const unboundLists = Number.isFinite(i.unboundLists) ? i.unboundLists : 0;
+  if (unboundLists > 0) {
+    problems.push({
+      id: 'unbound-lists',
+      severity: 'warning',
+      count: unboundLists,
+      title: 'Lists missing their swimlane',
+      detail: `${unboundLists} list(s) lost the swimlane they belonged to and now appear under every swimlane, so deleting one from a swimlane deletes it from all of them. Restore puts each list back in the swimlane it was CREATED in, which is still recorded; lists with no record, or whose swimlane has since been deleted, are left board-wide.`,
     });
   }
 

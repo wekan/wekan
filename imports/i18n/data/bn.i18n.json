@@ -2380,6 +2380,7 @@
   "repairing": "মেরামত করা হচ্ছে…",
   "repair-broken-cards-done": "__fixed__টি কার্ড মেরামত করা হয়েছে।",
   "repair-broken-cards-done-unfixable": "__fixed__টি কার্ড মেরামত করা হয়েছে। __unfixable__টি কার্ডের কোনো বোর্ড নেই এবং স্বয়ংক্রিয়ভাবে মেরামত করা যায় না।",
+  "restore-list-swimlanes-done": "__restored__টি তালিকা পুনরুদ্ধার করা হয়েছে। __remaining__টি পুনরুদ্ধার করা যায়নি।",
   "cpu-usage-current": "বর্তমান CPU ব্যবহার",
   "cpu-cores-suffix": "কোর",
   "cpu-load-average": "গড় লোড",

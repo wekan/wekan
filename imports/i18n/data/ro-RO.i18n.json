@@ -2380,6 +2380,7 @@
   "repairing": "Se repară…",
   "repair-broken-cards-done": "__fixed__ card(uri) reparate.",
   "repair-broken-cards-done-unfixable": "__fixed__ card(uri) reparate. __unfixable__ card(uri) nu au panou și nu pot fi reparate automat.",
+  "restore-list-swimlanes-done": "__restored__ listă/liste restaurate. __remaining__ nu au putut fi restaurate.",
   "cpu-usage-current": "Utilizarea curentă a procesorului",
   "cpu-cores-suffix": "nuclee",
   "cpu-load-average": "încărcare medie",

@@ -2380,6 +2380,7 @@
   "repairing": "Rassonraedje…",
   "repair-broken-cards-done": "__fixed__ cwårdjeu(s) rassonré(s).",
   "repair-broken-cards-done-unfixable": "__fixed__ cwårdjeu(s) rassonré(s). __unfixable__ cwårdjeu(s) n' ont nou tåvlea et n' polèt nén esse rassonrés tot seus.",
+  "restore-list-swimlanes-done": "__restored__ djivêye(s) rimetowe(s). __remaining__ n' ont nén polou esse rimetowes.",
   "cpu-usage-current": "Eployaedje do processeu pol moumint",
   "cpu-cores-suffix": "cours",
   "cpu-load-average": "tchedje moyene",

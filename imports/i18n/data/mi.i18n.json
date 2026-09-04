@@ -2380,6 +2380,7 @@
   "repairing": "E whakatika ana…",
   "repair-broken-cards-done": "Kua whakatikahia ngā kāri __fixed__.",
   "repair-broken-cards-done-unfixable": "Kua whakatikahia ngā kāri __fixed__. Kāore he papa o ngā kāri __unfixable__, ā, kāore e taea te whakatika aunoa.",
+  "restore-list-swimlanes-done": "Kua whakaorangia ngā rārangi __restored__. Kāore i taea te whakaora i __remaining__.",
   "cpu-usage-current": "Whakamahinga CPU o nāianei",
   "cpu-cores-suffix": "ngā uho",
   "cpu-load-average": "wawaenga kawenga",

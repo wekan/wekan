@@ -2380,6 +2380,7 @@
   "repairing": "Opravuji…",
   "repair-broken-cards-done": "Opraveno karet: __fixed__.",
   "repair-broken-cards-done-unfixable": "Opraveno karet: __fixed__. __unfixable__ karet nemá tablo a nelze je opravit automaticky.",
+  "restore-list-swimlanes-done": "Obnoveno seznamů: __restored__. Nepodařilo se obnovit: __remaining__.",
   "cpu-usage-current": "Aktuální využití procesoru",
   "cpu-cores-suffix": "jader",
   "cpu-load-average": "průměrná zátěž",

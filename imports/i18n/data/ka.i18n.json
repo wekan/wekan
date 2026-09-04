@@ -2380,6 +2380,7 @@
   "repairing": "მიმდინარეობს შეკეთება…",
   "repair-broken-cards-done": "შეკეთდა __fixed__ ბარათი.",
   "repair-broken-cards-done-unfixable": "შეკეთდა __fixed__ ბარათი. __unfixable__ ბარათს არ აქვს დაფა და ავტომატურად ვერ შეკეთდება.",
+  "restore-list-swimlanes-done": "აღდგა __restored__ სია. __remaining__ ვერ აღდგა.",
   "cpu-usage-current": "მიმდინარე CPU გამოყენება",
   "cpu-cores-suffix": "ბირთვი",
   "cpu-load-average": "საშუალო დატვირთვა",

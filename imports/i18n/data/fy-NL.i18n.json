@@ -2380,6 +2380,7 @@
   "repairing": "Reparearje…",
   "repair-broken-cards-done": "__fixed__ kaart(en) reparearre.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaart(en) reparearre. __unfixable__ kaart(en) hawwe gjin board en kinne net automatysk reparearre wurde.",
+  "restore-list-swimlanes-done": "__restored__ list(en) hersteld. __remaining__ koenen net hersteld wurde.",
   "cpu-usage-current": "Aktueel CPU-gebrûk",
   "cpu-cores-suffix": "kearnen",
   "cpu-load-average": "gemiddelde belesting",

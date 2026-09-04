@@ -2380,6 +2380,7 @@
   "repairing": "Repareren…",
   "repair-broken-cards-done": "__fixed__ kaart(en) gerepareerd.",
   "repair-broken-cards-done-unfixable": "__fixed__ kaart(en) gerepareerd. __unfixable__ kaart(en) hebben geen bord en kunnen niet automatisch worden gerepareerd.",
+  "restore-list-swimlanes-done": "__restored__ lijst(en) hersteld. __remaining__ konden niet worden hersteld.",
   "cpu-usage-current": "Huidig CPU-gebruik",
   "cpu-cores-suffix": "kernen",
   "cpu-load-average": "gemiddelde belasting",

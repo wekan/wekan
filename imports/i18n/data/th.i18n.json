@@ -2380,6 +2380,7 @@
   "repairing": "กำลังซ่อม…",
   "repair-broken-cards-done": "ซ่อมการ์ดแล้ว __fixed__ ใบ",
   "repair-broken-cards-done-unfixable": "ซ่อมการ์ดแล้ว __fixed__ ใบ การ์ด __unfixable__ ใบไม่มีบอร์ดและไม่สามารถซ่อมอัตโนมัติได้",
+  "restore-list-swimlanes-done": "กู้คืนรายการแล้ว __restored__ รายการ กู้คืน __remaining__ รายการไม่ได้",
   "cpu-usage-current": "การใช้ CPU ปัจจุบัน",
   "cpu-cores-suffix": "คอร์",
   "cpu-load-average": "โหลดเฉลี่ย",

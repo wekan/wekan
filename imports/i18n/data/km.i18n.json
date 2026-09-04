@@ -2380,6 +2380,7 @@
   "repairing": "កំពុងជួសជុល…",
   "repair-broken-cards-done": "បានជួសជុលកាត __fixed__ សន្លឹក។",
   "repair-broken-cards-done-unfixable": "បានជួសជុលកាត __fixed__ សន្លឹក។ កាត __unfixable__ សន្លឹកគ្មានក្តារ ហើយមិនអាចជួសជុលដោយស្វ័យប្រវត្តិបានទេ។",
+  "restore-list-swimlanes-done": "បានស្ដារបញ្ជី __restored__។ មិនអាចស្ដារ __remaining__ បានទេ។",
   "cpu-usage-current": "ការប្រើប្រាស់ CPU បច្ចុប្បន្ន",
   "cpu-cores-suffix": "ខួរ",
   "cpu-load-average": "បន្ទុកជាមធ្យម",

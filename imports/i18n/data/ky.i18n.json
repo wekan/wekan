@@ -2380,6 +2380,7 @@
   "repairing": "Оңдолууда…",
   "repair-broken-cards-done": "__fixed__ карточка оңдолду.",
   "repair-broken-cards-done-unfixable": "__fixed__ карточка оңдолду. __unfixable__ карточканын тактасы жок жана аны автоматтык түрдө оңдоого болбойт.",
+  "restore-list-swimlanes-done": "__restored__ тизме калыбына келтирилди. __remaining__ калыбына келтирилген жок.",
   "cpu-usage-current": "Учурдагы CPU колдонулушу",
   "cpu-cores-suffix": "өзөк",
   "cpu-load-average": "жүктүн орточо көрсөткүчү",

@@ -2380,6 +2380,7 @@
   "repairing": "బాగుచేస్తోంది…",
   "repair-broken-cards-done": "__fixed__ కార్డు(లు) బాగుచేయబడ్డాయి.",
   "repair-broken-cards-done-unfixable": "__fixed__ కార్డు(లు) బాగుచేయబడ్డాయి. __unfixable__ కార్డులకు బోర్డు లేదు, వాటిని స్వయంచాలకంగా బాగుచేయలేము.",
+  "restore-list-swimlanes-done": "__restored__ జాబితా(లు) పునరుద్ధరించబడ్డాయి. __remaining__ పునరుద్ధరించలేకపోయాము.",
   "cpu-usage-current": "ప్రస్తుత CPU వినియోగం",
   "cpu-cores-suffix": "కోర్లు",
   "cpu-load-average": "సగటు భారం",

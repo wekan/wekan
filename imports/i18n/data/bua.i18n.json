@@ -2380,6 +2380,7 @@
   "repairing": "Заһажа байна…",
   "repair-broken-cards-done": "__fixed__ карта заһагдаба.",
   "repair-broken-cards-done-unfixable": "__fixed__ карта заһагдаба. __unfixable__ карта самбаргүй тулынь автоматаар заһагдажа шадахагүй.",
+  "restore-list-swimlanes-done": "__restored__ жагсаалта һэргээгдэбэ. __remaining__ һэргээжэ шадаагүй.",
   "cpu-usage-current": "Мүнөө үеын CPU хэрэглээ",
   "cpu-cores-suffix": "голонууд",
   "cpu-load-average": "дунда ашаалал",

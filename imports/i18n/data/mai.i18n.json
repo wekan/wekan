@@ -2380,6 +2380,7 @@
   "repairing": "सुधार भऽ रहल अछि…",
   "repair-broken-cards-done": "__fixed__ कार्ड सुधारल गेल।",
   "repair-broken-cards-done-unfixable": "__fixed__ कार्ड सुधारल गेल। __unfixable__ कार्डक कोनो बोर्ड नहि अछि आ ओकरा स्वचालित रूप सँ सुधारल नहि जा सकैत अछि।",
+  "restore-list-swimlanes-done": "__restored__ सूची घुरा आनल गेल। __remaining__ घुरा नहि आनल जा सकल।",
   "cpu-usage-current": "वर्तमान CPU उपयोग",
   "cpu-cores-suffix": "कोर",
   "cpu-load-average": "औसत भार",

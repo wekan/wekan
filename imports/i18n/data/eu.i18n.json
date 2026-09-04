@@ -2380,6 +2380,7 @@
   "repairing": "Konpontzen…",
   "repair-broken-cards-done": "__fixed__ txartel konponduta.",
   "repair-broken-cards-done-unfixable": "__fixed__ txartel konponduta. __unfixable__ txartelek ez dute arbelik eta ezin dira automatikoki konpondu.",
+  "restore-list-swimlanes-done": "__restored__ zerrenda berrezarrita. __remaining__ ezin izan dira berrezarri.",
   "cpu-usage-current": "Uneko PUZ erabilera",
   "cpu-cores-suffix": "nukleo",
   "cpu-load-average": "batez besteko karga",

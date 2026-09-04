@@ -2380,6 +2380,7 @@
   "repairing": "Поправяне…",
   "repair-broken-cards-done": "Поправени карти: __fixed__.",
   "repair-broken-cards-done-unfixable": "Поправени карти: __fixed__. __unfixable__ карти нямат табло и не могат да бъдат поправени автоматично.",
+  "restore-list-swimlanes-done": "Възстановени списъци: __restored__. Не бяха възстановени: __remaining__.",
   "cpu-usage-current": "Текущо натоварване на процесора",
   "cpu-cores-suffix": "ядра",
   "cpu-load-average": "средно натоварване",
