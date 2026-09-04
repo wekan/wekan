@@ -10,6 +10,7 @@ import {
   listCardsSelector,
   otherSwimlaneIdsForFirstActive,
 } from '/models/lib/swimlaneFilter';
+import { planListMove } from './lib/listMovePlan';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Lists = new Mongo.Collection('lists');
@@ -319,18 +320,34 @@ Lists.helpers({
   },
 
   async move(boardId, swimlaneId) {
-    const boardList = await ReactiveCache.getList({
-      boardId,
-      title: this.title,
-      archived: false,
+    // #6670: what this does is decided in models/lib/listMovePlan.js, where it
+    // can be unit-tested. The short version: a move within the SAME board is a
+    // re-bind of this list to the chosen swimlane. It used to search the target
+    // board for "a list with this title" to merge into - which on the same board
+    // finds THIS list - and the merge branch was the one branch that never wrote
+    // a swimlaneId, so choosing a swimlane for a list silently did nothing and
+    // the list stayed board-wide under every swimlane.
+    const targetSwimlaneId = typeof swimlaneId === 'string' ? swimlaneId : '';
+    const sameBoard = boardId === this.boardId;
+    const existing = sameBoard
+      ? null
+      : await ReactiveCache.getList({
+        boardId,
+        title: this.title,
+        archived: false,
+      });
+
+    const plan = planListMove({
+      listId: this._id,
+      listBoardId: this.boardId,
+      listSwimlaneId: this.swimlaneId,
+      targetBoardId: boardId,
+      targetSwimlaneId,
+      existingListId: existing ? existing._id : null,
     });
-    let listId;
-    if (boardList) {
-      listId = boardList._id;
-      for (const card of await this.cards()) {
-        await card.move(boardId, this._id, boardList._id);
-      }
-    } else {
+
+    let listId = plan.listId;
+    if (plan.action === 'create') {
       // A list with no usable title cannot be inserted: `title` is required by
       // the schema, so the insert fails validation - and collection2's own error
       // formatter then reads a property of the undefined field and throws
@@ -339,8 +356,6 @@ Lists.helpers({
       // which is what an admin actually saw in Admin Panel / Problems /
       // Database problems: an opaque crash naming neither the list nor the
       // real problem. Say what is wrong instead, and say it before the insert.
-      // (The two console.log lines that used to be here printed it to a log
-      // nobody reads and did not stop the crash.)
       if (typeof this.title !== 'string' || this.title.trim().length === 0) {
         throw new Meteor.Error(
           'list-has-no-title',
@@ -354,12 +369,25 @@ Lists.helpers({
         type: this.type,
         archived: false,
         wipLimit: this.wipLimit,
-        swimlaneId: swimlaneId, // Set the target swimlane for the moved list
+        swimlaneId: plan.swimlaneId, // Set the target swimlane for the moved list
       });
+    } else if (plan.rebind) {
+      await Lists.updateAsync(this._id, { $set: { swimlaneId: plan.swimlaneId } });
+      this.swimlaneId = plan.swimlaneId;
     }
 
-    for (const card of await this.cards(swimlaneId)) {
-      await card.move(boardId, swimlaneId, listId);
+    // Every card in the list travels with it, into the chosen swimlane.
+    //
+    // Two bugs used to live in these few lines. The merge branch called
+    // `card.move(boardId, this._id, boardList._id)` - Card.move's second
+    // argument is a swimlaneId, so this set every card's swimlaneId to a LIST
+    // id, i.e. to a swimlane that does not exist, and the cards became the
+    // "orphaned cards" the board-open repair then has to rescue. And the second
+    // loop selected `this.cards(swimlaneId)`, filtering the SOURCE list's cards
+    // by a swimlaneId belonging to the TARGET board, which on a cross-board move
+    // matches nothing and left the cards behind.
+    for (const card of await this.cards()) {
+      await card.move(boardId, plan.swimlaneId, listId);
     }
   },
 

@@ -390,6 +390,20 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Not a member of the target board.');
     }
 
+    // #6670: a move within the same board now BINDS the list to the chosen
+    // swimlane, so that swimlane has to be one of the target board's - binding a
+    // list to a swimlane on another board would hide it everywhere. An empty
+    // swimlaneId is the deliberate "make it board-wide again" case.
+    if (swimlaneId) {
+      const targetSwimlane = await ReactiveCache.getSwimlane(swimlaneId);
+      if (!targetSwimlane || targetSwimlane.boardId !== boardId) {
+        throw new Meteor.Error(
+          'swimlane-not-found',
+          'That swimlane is not on the board the list is being moved to.',
+        );
+      }
+    }
+
     list.title = desiredTitle;
     await list.move(boardId, swimlaneId);
 
