@@ -8245,15 +8245,14 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **copying a list** now copies its cards. A list not bound to a
-swimlane - the common case on any board predating per-swimlane lists - produced
-an **empty copy**. **Admin Panel / Problems** can put back the swimlane bindings
-an older automatic repair cleared, restoring only what was recorded and never
-guessing. **Undo** stops being position-only: it now reads a new universal
-**change history** that records every card group, and **History** is a new view
-on it, opened from the card, list and swimlane menus. Alongside that, the
-**contribution rules** now say which role commits on which branch, where the
-checkout lives, and when an AI is credited.
+**In short:** **Undo** stops being position-only: it now reads a new universal
+**change history** covering every card group, and **History** is a new view on
+it, opened from the card, list and swimlane menus. Opening it for real found and
+fixed a blank table, a row that could not be selected, a panel sized for a menu,
+and a **Restore** that handed back the version before the one picked. **Copying
+a list** now copies its cards, which an unbound swimlane turned into an empty
+copy, and **Admin Panel / Problems** can put back swimlane bindings an older
+repair cleared. The **contribution rules** now say which role commits where.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8418,6 +8417,23 @@ happened, and the interface in particular should be treated as unproven.
 
 **The History panel** - the table every menu opens, and what a running server
 said about it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/77dd5f253">The design document says what was actually opened, and what still has not been</a>. Thanks to xet7.</summary>
+
+[History.md](docs/Features/Reports/History/History.md) still said none of this
+had been exercised in a running WeKan, which stopped being true the moment it
+was. It now records what was done in a browser rather than what was likely: the
+card, list and swimlane menus each opening the table with their own scope
+reaching the template, search narrowing it and reporting no results for a term
+nothing matched, a contributor's avatar filtering to that person, and 32 rows
+paging 1 / 2 with the remainder in sequence.
+
+Nothing new was found in that pass, and that is recorded as plainly as the four
+faults the first one found - because *"it shares a template with something that
+works"* is the reasoning those four faults survived.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92b5ce861">History works when it is opened, which is four faults later than it looked</a>. Thanks to xet7.</summary>
@@ -8728,6 +8744,24 @@ and states the rules a contribution is judged by:
 **Contributing** - who commits where, and who gets named for the work.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f72f361bb">The instruction files say where the WeKan checkout is on each operating system</a>. Thanks to xet7.</summary>
+
+"The WeKan repo" meant "wherever you happen to be", and an agent given a task
+in the wrong directory had nothing to check itself against. It is a fixed place
+per operating system now - `~/repos/wekan` on Linux, `~/Documents/repos/wekan`
+on macOS, `Downloads\repos\wekan` on Windows - along with the companion
+repositories under `.tools/`, each on its own default branch, which is not
+always called `main`.
+
+This commit also said that commits go directly on `main`, full stop, which is
+true of the maintainer and wrong for everybody else. The entry below is the
+correction, in this same release: a contributor works on a branch in their own
+fork and opens a pull request. The rule as it stands is the two-role table, not
+this half of it.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c87397267">The contribution rules say which role commits on which branch, and where the checkout is</a>. Thanks to xet7.</summary>
 
 Two things an agent had to infer, and could infer wrongly. WHICH BRANCH: the
@@ -8799,6 +8833,16 @@ politeness; it undoes that.
 and has the following developer-tooling fixes:
 
 **The build tree** - which directory a build writes to, and what is not source.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b28c793f">Commit links in this file are repointed when a rebase makes them stale</a>. Thanks to xet7.</summary>
+
+A rebase rewrites hashes, and every `<summary>` here carries one in its `href`.
+The links that had gone stale were repointed, which is the same repair
+`build.sh`'s pull and push both run - a stale link is not a local annoyance,
+it is a 404 for everyone who opens the release notes.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9dc2c5cf9">The History table formats dates with the helper WeKan actually has</a>. Thanks to xet7.</summary>
