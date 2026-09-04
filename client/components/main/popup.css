@@ -259,6 +259,7 @@
   visibility: hidden !important;
 }
 
+
 /* History: the panel's height has to REACH THE TABLE, at every width.
  *
  * This is deliberately outside the desktop media query below, because the width
@@ -310,7 +311,7 @@
 }
 .pop-over[data-popup='historyPopup'] .content-wrapper,
 .pop-over[data-popup='historyPopup'] .content-container,
-.pop-over[data-popup='historyPopup'] .content {
+.pop-over[data-popup='historyPopup'] .content:not(.no-height) {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -318,6 +319,23 @@
   /* The 70vh cap above, cancelled where it would clip the panel short. */
   max-height: none;
   min-height: 0;
+}
+
+/* `:not(.no-height)` above, and this, are the same point twice, because getting
+   it wrong is invisible until you look INSIDE the panel.
+   `.content-container` holds the whole popup STACK - one `.content` per entry,
+   with the ones you are not looking at collapsed by `.content.no-height {
+   height: 0 }`. A flex item ignores that: `flex: 1 1 auto` says grow, and
+   `height: 0` is only the basis it grows from. So the card or board menu that
+   History was opened over stayed in the layout, took half the panel, and left a
+   band of empty space above the search box - while the gaps outside the panel
+   still measured correctly, which is why measuring only the frame missed it. */
+.pop-over[data-popup='historyPopup'] .content.no-height {
+  /* `!important` because the rule it has to beat carries one: `.pop-over
+     .content { flex: 1 1 auto !important }`. Without it the collapsed entry
+     computed `flex: 1 1 auto` and grew to 336px of an 925px window, whatever
+     `height: 0` said. */
+  flex: 0 0 0 !important;
 }
 /* The wrapper is the one that must not scroll: the rows box inside it does its
    own scrolling, and two nested scrollers put the horizontal bar in the middle
@@ -1129,15 +1147,54 @@ body.mobile-mode .pop-over .content-wrapper {
    opened near the right edge lands most of the way off the screen. Change one
    and change the other. */
 @media screen and (min-width: 801px) {
+  /* THE History panel: the 10px gutter, and DESKTOP ONLY.
+     Below 801px popup.css lays every popup out as a full-screen sheet flush to
+     all four edges, and so does `body.mobile-mode` at any width. That is what a
+     phone should get and it stays that way - the gutter is a desktop thing. The
+     height chain further up is NOT in a media query, on purpose: the sheet still
+     has to pass its height down to the table, or the horizontal scrollbar ends
+     up halfway up the panel.
+
+     FIXED, not absolute. Every other popup is positioned in DOCUMENT
+     coordinates: #5667 has popupOffset.js clamp in viewport coordinates and add
+     the scroll back, which is right for a menu hung off a button, because the
+     menu should travel with the button as the page scrolls. This one is not
+     hung off anything - it is sized FROM the viewport, so it must be positioned
+     from the viewport too. Opened on a page scrolled 53px down and then
+     scrolled back, it stayed at document y=63: 63px below the window with 43px
+     of itself past the bottom.
+
+     The offsets are logical, and BOTH ends are named: the template writes an
+     inline `left:` in document coordinates, so setting only the start would
+     leave RTL positioned from two sides at once - the logical start resolving
+     to `right` while the inline `left` still applied.
+
+     Every 10px here, and the 20px that is two of them, is `viewportPadding` in
+     client/lib/popupOffset.js. Change one and change the other. */
+  .pop-over[data-popup='historyPopup'] {
+    position: fixed !important;
+    top: 10px !important;
+    inset-inline-start: 10px !important;
+    inset-inline-end: auto !important;
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+    /* `height` and not just `max-height`: popupOffset.js already sends a maximum
+       of this size, and a maximum alone lets a short table stay short - a
+       two-row table sat in the top eighth of the window, the rest blank. */
+    height: calc(100vh - 20px) !important;
+    max-height: calc(100vh - 20px) !important;
+    /* No `margin-top: 6px`. The base rule adds it as the gap between a menu and
+       the button that opened it; this panel is pinned, not hung, so it was added
+       to a position already final - and on a box exactly `100vh - 20px` tall it
+       pushed 6px past the bottom: 16px above against 4px below. */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
   .pop-over[data-popup='exportBoardPopup'],
   .pop-over[data-popup='exportSwimlanePopup'],
   .pop-over[data-popup='exportListPopup'],
-  .pop-over[data-popup='exportCardPopup'],
-  /* History is the same shape: a contributor pane beside a four-column table,
-     opened from the card, list and swimlane menus. At the default 380px the
-     pane took a third of the panel, the search box was squeezed to 32px, and
-     one row of the table had to be scrolled sideways to be read. */
-  .pop-over[data-popup='historyPopup'] {
+  .pop-over[data-popup='exportCardPopup'] {
     /* The FULL width of the window, less the 10px gutter every popup is kept
        inside - not "up to 1100px". It is a panel with two panes, and anchored
        to its button at 1100 its trailing edge went past the edge of the window,
@@ -1149,53 +1206,6 @@ body.mobile-mode .pop-over .content-wrapper {
     max-width: calc(100vw - 20px) !important;
   }
 
-  /* History fills the height as well, for the same reason and by the same
-     measurement: the panel begins 10px below the top of the window, so it ends
-     10px above the bottom of it, and the gap a reader sees under the panel is
-     the gap they see over it. Without this the box was only as tall as its
-     contents - a two-row table sat in the top eighth of the window with the
-     rest of the screen blank beneath it - because `top` is pinned but height
-     was never stated.
-
-     `height` and not just `max-height`: popupOffset.js already sends a
-     max-height of the same size, and a maximum alone lets a short table stay
-     short. The 20px is the same 10px inset top and bottom as the width above;
-     keep all three in step with `viewportPadding` in popupOffset.js.
-
-     Desktop only, like the width: below 801px every popup is a full-screen
-     sheet already. */
-  .pop-over[data-popup='historyPopup'] {
-    /* FIXED, not absolute, and its own top/left rather than the ones
-       popupOffset.js computed. Every other popup is `position: absolute` in
-       DOCUMENT coordinates: #5667 has popupOffset do the clamping in viewport
-       coordinates and then add the scroll back, which is right for a menu hung
-       off a button, because the menu should travel with the button when the
-       page scrolls.
-
-       This one is not hung off anything - it is sized FROM the viewport, so it
-       has to be positioned from the viewport too, or the two disagree the
-       moment the page scrolls. Opened on a page scrolled 53px down and then
-       scrolled back to the top, the panel stayed at document y=63 and so sat
-       63px below the window with 43px of it hanging past the bottom - a box
-       exactly `100vh - 20px` tall cannot afford to be anywhere but where it was
-       measured for. The language popup below is already fixed for its own
-       version of this.
-
-       The three 10px values here are the same gutter as the width above and as
-       `viewportPadding` in popupOffset.js; keep them in step. */
-    position: fixed !important;
-    top: 10px !important;
-    /* Logical, and BOTH ends of it. The template writes an inline `left:` in
-       document coordinates, so setting only the start would leave RTL
-       positioned from two sides at once - the logical start resolving to
-       `right` while the inline `left` still applied. Naming the end as `auto`
-       overrides that inline value in both directions, which is what makes the
-       pair equivalent to a physical `left` here without reintroducing one. */
-    inset-inline-start: 10px !important;
-    inset-inline-end: auto !important;
-    height: calc(100vh - 20px) !important;
-    max-height: calc(100vh - 20px) !important;
-  }
 
   /* No `margin-top: 6px` on a panel that is pinned rather than hung.
      The base `.pop-over` rule adds that margin as the little gap between a menu
@@ -1204,16 +1214,15 @@ body.mobile-mode .pop-over .content-wrapper {
      is added to a position that was already final, and every one of them sat
      16px from the top of the window while its own comment said 10.
 
-     On the export panels that was only slightly wrong. On History it is
-     visible, because History is the one with a stated HEIGHT: 6px added to the
-     top of a box that is exactly `100vh - 20px` tall pushes 6px of it past the
-     bottom, so the gap under the panel came out 4px against 16px above it -
-     which is the opposite of the point of giving it a height. */
+     History showed how wrong it can get: it is the one with a stated HEIGHT, so
+     6px added to the top of a box exactly `100vh - 20px` tall pushed 6px of it
+     past the bottom - 16px above against 4px below. It clears the margin in its
+     own block above, which is not inside a media query; these four are
+     desktop-only panels and clear it here. */
   .pop-over[data-popup='exportBoardPopup'],
   .pop-over[data-popup='exportSwimlanePopup'],
   .pop-over[data-popup='exportListPopup'],
-  .pop-over[data-popup='exportCardPopup'],
-  .pop-over[data-popup='historyPopup'] {
+  .pop-over[data-popup='exportCardPopup'] {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
   }

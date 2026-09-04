@@ -195,9 +195,10 @@ test('History is a full-width panel, declared in BOTH places that decide width',
   const css = read('client/components/main/popup.css');
   const offset = read('client/lib/popupOffset.js');
 
-  const rule = css.slice(css.indexOf("data-popup='exportBoardPopup'"));
-  assert.ok(rule.slice(0, 1400).includes("data-popup='historyPopup'"),
-    'popup.css must give historyPopup the full-width panel rule');
+  const blocks = [...css.matchAll(/\.pop-over\[data-popup='historyPopup'\] \{([^}]*)\}/g)]
+    .map(m => m[1]);
+  const panel = blocks.find(b => /width: calc\(100vw - 20px\) !important/.test(b));
+  assert.ok(panel, 'popup.css must give historyPopup the full-width panel rule');
 
   const list = offset.slice(offset.indexOf('const FULL_WIDTH_POPUPS'),
     offset.indexOf('const wide ='));
@@ -254,10 +255,16 @@ test('and the pinned panels drop the margin meant for anchored menus', () => {
     || /margin-top: 0 !important;\n\s*margin-bottom: 0 !important;/.exec(css);
   assert.ok(rule, 'the margin must be zeroed for the viewport-pinned panels');
   const block = css.slice(css.indexOf('No `margin-top: 6px` on a panel'));
-  for (const name of ['historyPopup', 'exportBoardPopup']) {
-    assert.ok(block.slice(0, 1400).includes(`data-popup='${name}'`),
-      `${name} is pinned to the gutter and must not carry the anchor margin`);
-  }
+  assert.ok(block.slice(0, 1400).includes("data-popup='exportBoardPopup'"),
+    'the export panels are pinned to the gutter and must not carry the margin');
+  // History clears it in its own block, which is deliberately outside the
+  // desktop media query - it needs the gutter in mobile mode too.
+  const declCss = declarations('client/components/main/popup.css');
+  const blocks = [...declCss.matchAll(/\.pop-over\[data-popup='historyPopup'\] \{([^}]*)\}/g)]
+    .map(m => m[1]);
+  const panel = blocks.find(b => /width: calc\(100vw - 20px\)/.test(b));
+  assert.ok(panel && /margin-top: 0 !important/.test(panel),
+    'History must clear the anchor margin in its own always-on block');
 });
 
 // AND at every width. The chain was written inside the desktop-only media
@@ -332,6 +339,81 @@ test('the stated size is the size the panel actually gets', () => {
   assert.match(uncapped, /box-sizing: border-box/,
     'content-box puts the 1px border outside the stated height, and the gap ' +
     'below comes out 2px short of the gap above');
+});
+
+// The gutter is a DESKTOP thing, and the height chain is not. These two pull in
+// opposite directions and both were got wrong once:
+//   - the height chain was written desktop-only, so a full-screen sheet never
+//     passed its height down and the horizontal scrollbar sat halfway up the
+//     panel;
+//   - then the gutter was made unconditional, which put a 10px margin around
+//     the sheet. Mobile is meant to be edge to edge.
+test('the gutter is desktop-only and the height chain is not', () => {
+  const css = declarations('client/components/main/popup.css');
+
+  const spans = [];
+  for (let i = 0; i < css.length; i++) {
+    if (!css.startsWith('@media', i)) continue;
+    const open = css.indexOf('{', i);
+    if (open === -1) break;
+    let depth = 0;
+    for (let j = open; j < css.length; j++) {
+      if (css[j] === '{') depth++;
+      else if (css[j] === '}') { depth--; if (depth === 0) { spans.push([i, j]); i = j; break; } }
+    }
+  }
+  const inMedia = at => spans.some(([a, b]) => at > a && at < b);
+
+  const blocks = [...css.matchAll(/\.pop-over\[data-popup='historyPopup'\] \{([^}]*)\}/g)];
+  const gutter = blocks.find(m => /width: calc\(100vw - 20px\)/.test(m[1]));
+  assert.ok(gutter, 'the panel block must exist');
+  assert.ok(inMedia(gutter.index),
+    'the 10px gutter belongs to desktop; below 801px, and in mobile mode at any ' +
+    'width, a popup is a full-screen sheet flush to all four edges');
+
+  const chain = css.indexOf(".pop-over[data-popup='historyPopup'] .content-wrapper,");
+  assert.ok(chain > 0, 'the height chain must exist');
+  assert.ok(!inMedia(chain),
+    'the sheet still has to pass its height down to the table, or the ' +
+    'horizontal scrollbar ends up halfway up the panel');
+});
+
+// Two faults that only show INSIDE the panel, so measuring its frame missed
+// both. The gaps around the panel were correct in each case.
+test('the popup stack entries behind History stay collapsed', () => {
+  const css = declarations('client/components/main/popup.css');
+  const rule = /\.pop-over\[data-popup='historyPopup'\] \.content\.no-height \{([^}]*)\}/.exec(css);
+  assert.ok(rule, 'the collapsed entries need a rule of their own');
+  assert.match(rule[1], /flex: 0 0 0 !important/,
+    '`.pop-over .content { flex: 1 1 auto !important }` beats a plain ' +
+    'declaration, and the entry then grows despite `height: 0` - the card menu ' +
+    'History was opened over took 336px of a 925px window, as a band of empty ' +
+    'space above the search box');
+
+  // The growth rule must not reach them in the first place either.
+  const grow = /\.pop-over\[data-popup='historyPopup'\] \.content(:not\(\.no-height\))?,?\n/.exec(css);
+  assert.match(css, /\.pop-over\[data-popup='historyPopup'\] \.content:not\(\.no-height\)/,
+    'only the entry being looked at should grow');
+});
+
+// `width: 100%` was wrong at BOTH ends, in opposite directions.
+test('the table fits the panel when it can, and scrolls when it cannot', () => {
+  const css = declarations('client/components/history/historyTable.css');
+  const rule = /\.history-rows \{([^}]*)\}/.exec(css);
+  assert.ok(rule, '.history-rows must be sized');
+
+  assert.match(rule[1], /width: max-content/,
+    'so the table grows to what the columns need: at 375px they wanted 436px ' +
+    'while a 100% table stayed at 265, and the columns spilled OUT of the table ' +
+    '- the scroll box measures the table, so it offered no way to reach them');
+  assert.match(rule[1], /min-width: 100%/,
+    'and fills the panel when the columns want less');
+  assert.match(rule[1], /box-sizing: border-box/,
+    "WeKan's global `table, td, th` rule gives the table a 1px " +
+    'border-inline-start, and content-box adds it outside the 100%: one pixel ' +
+    'of overflow, drawing a scrollbar at every width the table actually fitted');
+  assert.doesNotMatch(rule[1], /^\s*width: 100%/m,
+    'a plain 100% is the thing that was wrong in both directions');
 });
 
 // The height is only worth having if it reaches the rows.

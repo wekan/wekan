@@ -92,7 +92,24 @@
   overflow: auto;
 }
 .history-rows {
-  width: 100%;
+  /* As wide as the columns need, and never narrower than the panel.
+     `width: 100%` alone was wrong at both ends. At wide widths it overflowed by
+     exactly one pixel - WeKan's global `table, td, th` rule gives the table a
+     `border-inline-start: 1px` (those are the vertical lines between columns),
+     and this file's reset makes `*` content-box, so 100% sized the CONTENT and
+     that border was added outside it: columns summing to 993.047 in 993.047 of
+     space, with a 994.047 border box. One pixel of nothing, drawing a scrollbar
+     across the foot of the panel at every width the table actually fitted.
+     At narrow widths it was worse the other way: the table stayed at 100% while
+     its columns needed 436px, so they spilled out of it and the scroll box -
+     which measures the table's box, not its spill - offered no way to reach
+     them.
+     `max-content` sizes the table to what the columns actually want, `min-width`
+     keeps it filling the panel when they want less, and `border-box` puts that
+     1px border inside the 100% rather than after it. */
+  width: max-content;
+  min-width: 100%;
+  box-sizing: border-box;
   border-collapse: collapse;
 }
 /* The header stays put while the rows scroll under it - with four columns and
