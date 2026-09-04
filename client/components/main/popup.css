@@ -1065,7 +1065,12 @@ body.mobile-mode .pop-over .content-wrapper {
   .pop-over[data-popup='exportBoardPopup'],
   .pop-over[data-popup='exportSwimlanePopup'],
   .pop-over[data-popup='exportListPopup'],
-  .pop-over[data-popup='exportCardPopup'] {
+  .pop-over[data-popup='exportCardPopup'],
+  /* History is the same shape: a contributor pane beside a four-column table,
+     opened from the card, list and swimlane menus. At the default 380px the
+     pane took a third of the panel, the search box was squeezed to 32px, and
+     one row of the table had to be scrolled sideways to be read. */
+  .pop-over[data-popup='historyPopup'] {
     /* The FULL width of the window, less the 10px gutter every popup is kept
        inside - not "up to 1100px". It is a panel with two panes, and anchored
        to its button at 1100 its trailing edge went past the edge of the window,

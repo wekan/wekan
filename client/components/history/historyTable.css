@@ -5,8 +5,13 @@
 .history-table {
   display: flex;
   gap: 12px;
-  min-width: 320px;
-  max-width: 96vw;
+  /* No min-width. A popup is 380px by default and below 801px every popup is a
+     full-screen sheet, so a floor here only made the panel overflow its own
+     shell - which is what it did: the search box was squeezed to 32px and the
+     table had to be scrolled sideways to read one row. The panel is instead
+     given real width by popup.css, which lists historyPopup with the export
+     panels; this file only has to survive being narrow. */
+  max-width: 100%;
 }
 .history-rtl { flex-direction: row-reverse; }
 
@@ -14,7 +19,10 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 120px;
+  /* flex: it may shrink. At 380px this pane took a third of the panel and left
+     201px for a four-column table. */
+  flex: 0 1 auto;
+  min-width: 0;
   max-height: 60vh;
   overflow-y: auto;
   border-inline-end: 1px solid rgba(128, 128, 128, 0.25);
@@ -36,20 +44,37 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  /* Wrap rather than crush. Three controls on one row need about 380px between
+     them; narrower than that the search input was the one that gave way,
+     because it is the only one that can shrink. */
+  flex-wrap: wrap;
   margin-bottom: 8px;
 }
-.history-controls input { flex: 1 1 auto; min-width: 0; }
+/* 14ch is about "search a card title" - short, but usable. Below it the row
+   above wraps and the input gets a line of its own instead. */
+.history-controls input { flex: 1 1 14ch; min-width: 14ch; }
 .history-pagination { display: flex; align-items: center; gap: 6px; }
 .history-pagination .is-disabled { opacity: 0.35; pointer-events: none; }
 
-/* The table scrolls inside itself: a long content cell must not make the whole
-   popup scroll sideways. */
+/* The WRAPPER scrolls, not the table. `display: block` on a <table> is the
+   usual way to make one scroll and it is wrong here: it stops the cells sharing
+   column widths, so the header row and the rows beneath it no longer line up.
+   Putting the overflow on a plain div leaves the table a table. */
+.history-scroll {
+  max-height: 55vh;
+  overflow: auto;
+}
 .history-rows {
   width: 100%;
   border-collapse: collapse;
-  display: block;
-  max-height: 55vh;
-  overflow: auto;
+}
+/* The header stays put while the rows scroll under it - with four columns and
+   25 rows a page, the column you are reading is otherwise off the top. */
+.history-rows thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: inherit;
 }
 .history-rows th,
 .history-rows td {
@@ -59,7 +84,7 @@
   vertical-align: top;
 }
 .history-select { width: 28px; }
-.history-content { word-break: break-word; max-width: 40ch; }
+.history-content { word-break: break-word; }
 .history-when { white-space: nowrap; opacity: 0.75; }
 .history-group { margin-inline-start: 6px; font-size: 0.85em; }
 .history-rows tr.is-selected { background: rgba(128, 128, 128, 0.12); }

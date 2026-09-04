@@ -21,12 +21,16 @@ template(name="historyTable")
         a.history-nav-item.js-history-all(class="{{#unless activeUserId}}is-active{{/unless}}")
           i.fa.fa-history
           span {{_ 'history'}}
+        //- `each X in Y` binds X as a NAME and leaves the data context alone -
+        //- unlike `each Y`, which replaces it. So every field here must be
+        //- reached through `contributor.`; a bare {{userId}} resolves against
+        //- the OUTER context and silently renders nothing.
         each contributor in contributors
           a.history-nav-item.js-history-contributor(
-            data-user-id="{{userId}}"
-            class="{{#if isActive}}is-active{{/if}}")
-            +userAvatar(userId=userId)
-            span.history-nav-count {{count}}
+            data-user-id="{{contributor.userId}}"
+            class="{{#if contributor.isActive}}is-active{{/if}}")
+            +userAvatar(userId=contributor.userId)
+            span.history-nav-count {{contributor.count}}
 
     .history-main
       .history-controls
@@ -48,24 +52,42 @@ template(name="historyTable")
       if loading
         +spinner
       else if hasRows
-        table.history-rows
-          thead
-            tr
-              th.history-select
-              th {{_ 'action'}}
-              th {{_ 'details'}}
-              th {{_ 'date'}}
-          tbody
-            each row in rows
-              tr(class="{{#if isSelected}}is-selected{{/if}}")
-                td.history-select
-                  input.js-history-select(type="checkbox" data-id="{{_id}}" checked="{{isSelected}}")
-                td.history-change
-                  span.history-change-type {{_ changeTypeKey}}
-                  if groupKey
-                    span.quiet.history-group {{_ groupKey}}
-                td.history-content {{contentSummary}}
-                td.history-when {{prettyWhen}}
+        //- The SCROLL container is this div, not the table. A table given
+        //- `display: block` to make it scroll stops being a table: the cells no
+        //- longer share column widths, so the header and the rows under it drift
+        //- apart. Scrolling the wrapper keeps `display: table` and the columns
+        //- line up.
+        .history-scroll
+          table.history-rows
+            thead
+              tr
+                th.history-select
+                th {{_ 'action'}}
+                th {{_ 'details'}}
+                th {{_ 'date'}}
+            tbody
+              //- Every field goes through `row.` - see the note on the
+              //- contributor loop above. Written without it, the whole table
+              //- rendered one row of four empty cells and a checkbox with no id,
+              //- which is what opening it showed.
+              each row in rows
+                tr(class="{{#if row.isSelected}}is-selected{{/if}}")
+                  //- `.materialCheckBox`, not `input[type=checkbox]`. WeKan
+                  //- hides every bare checkbox app-wide (forms.css:
+                  //- `[type="checkbox"] { display: none }`) and draws its own,
+                  //- so a real one renders 0x0 and cannot be ticked - which is
+                  //- what this column did: the row could be seen but never
+                  //- selected, and Restore stayed disabled forever.
+                  td.history-select
+                    .materialCheckBox.js-history-select(
+                      data-id="{{row._id}}"
+                      class="{{#if row.isSelected}}is-checked{{/if}}")
+                  td.history-change
+                    span.history-change-type {{_ row.changeTypeKey}}
+                    if row.groupKey
+                      span.quiet.history-group {{_ row.groupKey}}
+                  td.history-content {{row.contentSummary}}
+                  td.history-when {{row.prettyWhen}}
       else
         p.quiet {{_ 'no-results'}}
 

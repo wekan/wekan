@@ -72,8 +72,12 @@ function computePopupOffset(params) {
   };
   // The export popups are one popup with one scope each (#1173): same panes,
   // same formats table, same panel.
+  // History is one panel too - a contributor pane beside the table - and is
+  // opened from menus that sit at the right-hand edge of a list or a card, which
+  // is exactly where an anchored panel loses its own X off the screen.
   const FULL_WIDTH_POPUPS = [
     'exportBoardPopup', 'exportSwimlanePopup', 'exportListPopup', 'exportCardPopup',
+    'historyPopup',
   ];
   const wide = WIDE_POPUP_WIDTHS[popupName];
   const popupWidth = wide

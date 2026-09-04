@@ -203,15 +203,18 @@ Template.historyTable.events({
     instance.state.set('userId', event.currentTarget.dataset.userId || null);
     instance.state.set('page', 1);
   },
-  'change .js-history-select'(event, instance) {
+  // A click, not a change: the control is a .materialCheckBox div (WeKan hides
+  // real checkboxes app-wide and draws its own), so it has no checked state of
+  // its own to read - the selection here is the state, and `is-checked` is
+  // rendered from it.
+  'click .js-history-select'(event, instance) {
+    event.preventDefault();
     const id = event.currentTarget.dataset.id;
+    if (!id) return;
     const selected = [...(instance.state.get('selected') || [])];
     const at = selected.indexOf(id);
-    if (event.currentTarget.checked) {
-      if (at === -1) selected.push(id);
-    } else if (at !== -1) {
-      selected.splice(at, 1);
-    }
+    if (at === -1) selected.push(id);
+    else selected.splice(at, 1);
     instance.state.set('selected', selected);
   },
   'click .js-history-restore'(event, instance) {

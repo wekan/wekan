@@ -176,6 +176,82 @@ test('the four new change-type words exist and are translated everywhere', () =>
     `the Action column is the one a reader must understand; found only ${translated} locales`);
 });
 
+// ---- the panel is actually usable ---------------------------------------------
+
+// Found by opening it. The markup was right from the start - search input,
+// disabled Restore, pagination - and the panel was still unusable, because a
+// popup is 380px wide: the contributor pane took 129px of it, the search box was
+// squeezed to 32px, and one row of a four-column table had to be scrolled
+// sideways to be read. Nothing that reads the source could have said so.
+test('History is a full-width panel, declared in BOTH places that decide width', () => {
+  const css = read('client/components/main/popup.css');
+  const offset = read('client/lib/popupOffset.js');
+
+  const rule = css.slice(css.indexOf("data-popup='exportBoardPopup'"));
+  assert.ok(rule.slice(0, 1400).includes("data-popup='historyPopup'"),
+    'popup.css must give historyPopup the full-width panel rule');
+
+  const list = offset.slice(offset.indexOf('const FULL_WIDTH_POPUPS'),
+    offset.indexOf('const wide ='));
+  assert.match(list, /'historyPopup'/,
+    'popupOffset.js clamps a popup using its width; a panel missing from this ' +
+    'list is placed as if it were 380px and opens most of the way off screen');
+});
+
+// A <table> given `display: block` to make it scroll is no longer a table: the
+// cells stop sharing column widths, so the header and the rows drift apart. The
+// scroll belongs on a wrapper.
+test('the rows scroll in a wrapper, and the table stays a table', () => {
+  const css = read('client/components/history/historyTable.css');
+  assert.match(jade, /\.history-scroll\n\s+table\.history-rows/,
+    'the table must sit inside the scroll container');
+  assert.match(css, /\.history-scroll \{[^}]*overflow: auto/,
+    'the wrapper is what scrolls');
+  const table = /\.history-rows \{([^}]*)\}/.exec(css);
+  assert.ok(table, '.history-rows must be styled');
+  assert.doesNotMatch(table[1], /display:\s*block/,
+    'display:block breaks column alignment between thead and tbody');
+});
+
+// Also found only by opening it. WeKan hides every bare checkbox app-wide -
+// forms.css: `[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+// display: none }` - and draws `.materialCheckBox` divs instead. A real
+// <input type="checkbox"> here rendered 0x0: the row was visible, could never
+// be ticked, and Restore stayed disabled with no way to enable it.
+test('the row selector is the checkbox WeKan actually draws', () => {
+  assert.match(jade, /\.materialCheckBox\.js-history-select/,
+    'use the app\'s own control, not an input the app hides');
+  assert.doesNotMatch(jade, /input\.js-history-select/,
+    'a bare checkbox is display:none everywhere in WeKan');
+  assert.match(jade, /class="\{\{#if row\.isSelected\}\}is-checked\{\{\/if\}\}"/,
+    'it is drawn from the selection state, which is where the truth lives');
+  assert.match(js, /'click \.js-history-select'/,
+    'a div has no change event and no checked property to read');
+  assert.doesNotMatch(js, /currentTarget\.checked/,
+    'there is no .checked on a div - reading it silently deselects everything');
+});
+
+// The whole table rendered one row of four empty cells because of this: with
+// `{{#each row in rows}}` Blaze binds `row` as a NAME and leaves the data
+// context alone, so a bare {{_id}} resolves against the OUTER context. Nothing
+// errors; the cells are simply blank.
+test('every field inside an each-in loop is reached through its loop variable', () => {
+  const loops = [
+    [/each row in rows([\s\S]*?)(?=\n {6}else\b)/, 'row'],
+    [/each contributor in contributors([\s\S]*?)(?=\n {4}\.history-main)/, 'contributor'],
+  ];
+  for (const [pattern, name] of loops) {
+    const body = pattern.exec(jade);
+    assert.ok(body, `the ${name} loop must be found`);
+    const bare = [...body[1].matchAll(/\{\{(?:#if |_ )?([a-zA-Z_][\w]*)\}\}/g)]
+      .map(m => m[1])
+      .filter(f => !['else'].includes(f));
+    assert.deepEqual(bare, [],
+      `these resolve against the outer context and render nothing: ` +
+      `${bare.join(', ')} - write ${name}.<field>`);
+  }
+});
+
 // ---- it is in the bundle ------------------------------------------------------
 
 // package.json sets meteor.mainModule, so a file nothing imports is simply not

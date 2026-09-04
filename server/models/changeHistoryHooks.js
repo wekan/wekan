@@ -6,6 +6,7 @@ import ChecklistItems from '/models/checklistItems';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import ChangeHistory from '/models/changeHistory';
+import { isRecordingSuppressed } from '/server/lib/historyRecordingScope';
 import { diffFields } from '/models/lib/changeHistoryGroups';
 
 // Phase 5 of docs/Features/Reports/History/History.md: record EVERY remaining
@@ -81,6 +82,9 @@ async function locate(entityType, doc) {
  */
 async function recordUpdate(entityType, userId, doc, fieldNames, previous) {
   if (!userId) return;               // migrations and repairs have no author
+  // A restore writes through these same setters on purpose; the row describing
+  // it has already been written by the restore itself.
+  if (isRecordingSuppressed()) return;
   try {
     const changes = diffFields(entityType, previous || {}, doc, fieldNames);
     if (changes.length === 0) return;
@@ -121,6 +125,7 @@ async function recordUpdate(entityType, userId, doc, fieldNames, previous) {
  */
 async function recordLifecycle(entityType, userId, doc, changeType) {
   if (!userId) return;
+  if (isRecordingSuppressed()) return;   // see recordUpdate above
   try {
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;

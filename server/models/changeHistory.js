@@ -18,6 +18,7 @@ import {
 } from '/models/lib/changeHistoryQuery';
 import { valueFromContent } from '/models/lib/changeHistoryGroups';
 import { pageInfo } from '/models/lib/tablePage';
+import { withoutRecording } from '/server/lib/historyRecordingScope';
 
 // Server side of the universal change history
 // (docs/Features/Reports/History/History.md): the read method, the restore, and
@@ -166,7 +167,10 @@ async function applyRow(row, direction) {
   const content = direction === 'undo' ? row.previousContent : row.newContent;
   if (content === null || content === undefined) return false;
   try {
-    return await applier(row, content);
+    // The applier's own writes must not be recorded again: the caller writes the
+    // `restored` row itself, and without this a restore left an `edited` row
+    // beside it describing the same write.
+    return await withoutRecording(() => applier(row, content));
   } catch (error) {
     console.warn('changeHistory: could not apply a row:', error && error.message);
     return false;
