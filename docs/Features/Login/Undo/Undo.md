@@ -58,18 +58,38 @@ global** guarded by `typeof UserPositionHistory !== 'undefined'`. It is an ES-mo
 **not** a global, so the guard was **false** and **nothing was ever recorded** — undo silently did
 nothing. Fix: **import the collection** where `trackChange` is called.
 
-> Lesson (also in the History doc): import your collection helpers; never gate on an assumed global.
+> Lesson (also in the History doc): import your collection helpers; never gate on an assumed
+> global. And the reason it went unnoticed for so long is worth stating separately — **undo
+> fails silently**. Nothing throws when a change is not recorded; the user presses Ctrl+Z,
+> nothing happens, and there is no error anywhere. A recording path therefore needs a test
+> that asks whether it CAN run, not a reviewer who sees that the call is there.
 
 ## 5. Recording changes (write side)
 
 `trackChange({ userId, boardId, entityType, entityId, actionType, previousState, newState })` inserts
 a history row. Wired at:
 
-- **Card moves** — `models/cards.js` (`Card.move`), already present (now actually runs).
+- **Card moves** — `models/cards.js` (`Card.move`). This one stayed **inert long after
+  #6478 was declared fixed**: the fix (import the collection) was applied to the list path
+  and not to this one, which kept the dead `typeof UserPositionHistory !== 'undefined'`
+  guard on an identifier the file never imported. Card drags — the commonest change on any
+  board — recorded nothing, and this document said otherwise. It now takes the collection
+  through a **lazy `require` inside the call**, not a top-level import, because
+  `models/userPositionHistory.js` imports `models/cards.js`: a static import would be a
+  cycle and could leave the binding undefined depending on evaluation order.
+  `tests/undoRecordsWhatItClaims.test.cjs` fails if any recording site cannot reach the
+  collection, or reintroduces the assumed-global guard.
 - **List moves** — `server/models/lists.js` `updateListSort` (**added in #6478**; imports the
   collection). Captures `{ sort, swimlaneId, boardId }` before the update.
 - **Swimlane moves** — the model supports `entityType: 'swimlane'`; wire the swimlane reorder path
   the same way when needed (follow-up).
+- **Nothing else.** `undo()`/`redo()` also carry full `checklist` and `checklistItem` cases, but
+  no code records either, so those cases are unreachable today. Recorded right now: **list moves,
+  list soft-delete/restore, and card moves.** Everything else a user can change — a card
+  description, a checklist title, labels, members, dates — is written straight to the document
+  with no previous state kept, so it cannot be undone and there is nothing to restore it from.
+  That is the gap §10 and History.md describe, stated here so the write side is not read as
+  more complete than it is.
 
 Recording is **best-effort**: a failure to record never fails the move (wrapped in try/catch).
 

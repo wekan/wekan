@@ -2706,8 +2706,20 @@ Cards.helpers({
 
     await Cards.updateAsync(this._id, { $set: mutatedFields });
 
-    if (Meteor.isServer && typeof Meteor.userId === 'function' && Meteor.userId() && typeof UserPositionHistory !== 'undefined') {
+    if (Meteor.isServer && typeof Meteor.userId === 'function' && Meteor.userId()) {
       try {
+        // #6478 fixed this for list moves and missed the card path, so Ctrl+Z
+        // after dragging a card went on doing nothing. The guard used to be
+        // `typeof UserPositionHistory !== 'undefined'` on a bare identifier -
+        // an assumed global that this file never imported, so it was ALWAYS
+        // false and no card move was ever recorded.
+        //
+        // The import has to be lazy and it has to be here: models/userPositionHistory
+        // imports THIS file, so a top-level import would be a cycle and could
+        // leave the binding undefined depending on evaluation order. Requiring
+        // it inside the call, on the server, where the module graph is already
+        // built, is the same shape as the cardMoveModifier require above.
+        const UserPositionHistory = require('/models/userPositionHistory').default;
         UserPositionHistory.trackChange({
           userId: Meteor.userId(),
           boardId: this.boardId,

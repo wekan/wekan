@@ -631,7 +631,14 @@ Meteor.methods({
 
     // #6478: record the list move in the undo/redo position history (best-effort;
     // never fail the reorder if history recording throws).
-    if (typeof UserPositionHistory !== 'undefined') {
+    //
+    // No `typeof UserPositionHistory !== 'undefined'` guard here. It is imported
+    // at the top of this file, so the guard was always true and did nothing -
+    // but it is the shape that made undo inert in the first place, and copying
+    // this block into a file that does NOT import the collection silently turns
+    // the recording off again. That is exactly how the card path stayed dead
+    // after #6478 was declared fixed.
+    {
       try {
         await UserPositionHistory.trackChange({
           userId: this.userId,
