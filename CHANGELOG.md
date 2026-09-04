@@ -8245,14 +8245,15 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **copying a list** now copies its cards. A list that is not bound
-to a swimlane - the common case on any board predating per-swimlane lists -
-produced an **empty copy**, because its cards were looked for in a swimlane the
-list does not have. And a copy made on the **same board** found the original by
-title and wrote the cards back into it, doubling them, then returned the
-original's id - so the REST endpoint repositioned the very list the user had
-asked to copy. The decision now lives beside the one **List.move** was given in
-v11.49, unit-tested without a database.
+**In short:** **copying a list** now copies its cards. A list not bound to a
+swimlane - the common case on any board predating per-swimlane lists - produced
+an **empty copy**, and a copy made on the same board wrote the cards back into
+the original instead. **Admin Panel / Problems** can also put back the swimlane
+bindings an older automatic repair cleared, restoring only what was recorded and
+never guessing. Alongside that, the **contribution rules** now say which role
+commits on which branch, where the checkout lives on each operating system, and
+when an AI is credited - as a contributor that raised its own pull request, never
+as one that helped a human.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8270,7 +8271,7 @@ This release fixes the following bugs:
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d80806abd4c5777646c6dff70c54b2fd3f4b0f7a">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/97fcf364c">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
 
 `List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
 fix in v11.49 removes, and the copy was the more visible of the two: it
@@ -8380,6 +8381,79 @@ polls it every thirty seconds and a detection that throws would take the
 other problems on that page with it. The repair writes `swimlaneId` and
 nothing else, through `.direct`, one update per swimlane rather than one per
 list.
+
+</details>
+
+and states the rules a contribution is judged by:
+
+**Contributing** - who commits where, and who gets named for the work.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c87397267">The contribution rules say which role commits on which branch, and where the checkout is</a>. Thanks to xet7.</summary>
+
+Two things an agent had to infer, and could infer wrongly. WHICH BRANCH: the
+maintainer commits **directly on `main`** - never a feature branch, never a
+pull request - and a contributor works on **a branch in their own fork and
+opens a pull request**, never committing to `main`. Both halves are given
+their reason, because a rule with a reason survives a tool that offers
+something else: `releases/release-all.sh` cuts a release from whatever is on
+`main`, so work parked on a branch misses it; and nobody but the maintainer
+commits to `main` in wekan/wekan, so a change from anyone else arrives as a
+pull request, which is also the only place it can be discussed first.
+
+WHERE: the checkout is at a fixed place per operating system -
+`~/repos/wekan` on Linux, `~/Documents/repos/wekan` on macOS,
+`Downloads\repos\wekan` on Windows - so "the WeKan repo" no longer means
+"wherever you happen to be".
+
+The never-push boundary is unchanged and covers both roles: an AI makes the
+local commit and stops, whether that commit is on `main` or on a
+contributor's branch. Pushing it, opening the pull request and every release
+step are the human's.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac1867036">An AI is credited when it is the contributor, and never when it only helped one</a>. Thanks to xet7.</summary>
+
+*Never attribute a commit to an AI* was one rule where there are two, and it
+gave the wrong answer to half the cases it met. The test is whether a person
+is behind the change:
+
+- **A human's AI is invisible.** The maintainer or a contributor using an
+  assistant is the author; the tool appears nowhere - no `Co-Authored-By:`
+  trailer, no *Generated with*, no model name in the commit, the pull-request
+  body or the CHANGELOG.
+- **An AI that raised the pull request itself is the contributor, and is
+  named.** GitHub CodeQL filing a fix for something it found, Copilot
+  Autofix, Dependabot: nobody wrote those, so crediting a human would be
+  false and crediting nobody would leave the change unattributed.
+
+So the same word - *Copilot* - is forbidden in one commit and required in
+another, and the files now say which is which. The second half is not new
+practice: the dependency sections have always closed with
+`Thanks to dependabot.` and the Hall of Fame has always named GitHub CodeQL
+as a reporter. Those were the rule being followed without being written down.
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) carries the same rule in its own
+plain register, since it is where a contributor looks first.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bbfc139b7">The maintainer's AI is credited on the sponsors page, and only there</a>. Thanks to xet7.</summary>
+
+Saying a human's AI is *invisible* read as "never acknowledged anywhere", and
+a rule that omits its own exception invites somebody to add the credit back
+where it was removed from. It is acknowledged, once, at
+[wekan.fi/sponsors](https://wekan.fi/sponsors), under *"AI donated by. All
+code and PRs verified by xet7"*, where Claude, Codex and GitHub Copilot are
+listed alongside the people and companies that donate hosting, servers,
+grants and testing.
+
+That is the whole of the credit, and it is where it is because attributing it
+per commit put the same fact on thousands of lines and drowned out the humans
+the entries exist to name. Acknowledging it anywhere else is not extra
+politeness; it undoes that.
 
 </details>
 
