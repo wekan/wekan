@@ -8537,6 +8537,40 @@ in every one the scrollbar is at the foot of the panel.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c14b5a92">A scrollbar with nothing to scroll, and a band of empty space above the search box</a>. Thanks to xet7.</summary>
+
+Both faults were inside the panel, which is why measuring its frame found
+neither - the gaps around it were right the whole time.
+
+**The empty band.** `.content-container` holds the popup STACK, one entry per
+open menu, with the ones you are not looking at collapsed by
+`.content.no-height { height: 0 }`. Making the container a flex column turned
+those into flex items and the growth rule reached all of them: `flex: 1 1 auto`
+says grow, and `height: 0` is only the basis it grows from. The card menu
+History was opened over stayed in the layout and took 336px of a 925px window.
+
+**The scrollbar.** `width: 100%` on the table was wrong at both ends, in
+opposite directions. Wide: WeKan's global `table, td, th` rule gives the table a
+`border-inline-start: 1px` - the vertical lines between columns - and the `*`
+reset being content-box added it outside the 100%. Columns summing to 993.047 in
+993.047 of space, border box 994.047: one pixel of nothing, drawing a bar across
+the foot of the panel at every width the table fitted. Narrow: the table stayed
+at 100% while its columns needed 436px, so they spilled out of it and the scroll
+box - which measures the table, not its spill - offered a 1px bar to reach
+171px of content. It is `width: max-content` with `min-width: 100%` now, so the
+table grows to what the columns want and fills the panel when they want less.
+
+The 10px gutter stays desktop-only: below 801px, and in mobile mode at any
+width, a popup is a full-screen sheet flush to all four edges. The height chain
+is deliberately not in a media query, for the opposite reason - the sheet still
+has to pass its height down, or the scrollbar ends up halfway up the panel
+again. Measured in desktop mode at 886x711: 10px on all four sides, no
+horizontal scrollbar, 65px above the search box - the header and nothing else.
+At 375x812: edge to edge, with 169px of real horizontal scrolling.
+
+</details>
+
 and fixes the following bugs:
 
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
