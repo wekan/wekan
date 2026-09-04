@@ -8249,8 +8249,9 @@ browser build to verify).
 swimlane - the common case on any board predating per-swimlane lists - produced
 an **empty copy**. **Admin Panel / Problems** can put back the swimlane bindings
 an older automatic repair cleared, restoring only what was recorded and never
-guessing. **Undo** finally does something after a card drag: card moves were
-never recorded, so `Ctrl+Z` had always been silent. Alongside that, the
+guessing. **Undo** stops being position-only: card moves were never recorded at
+all, and `Ctrl+Z` now reads a new universal **change history** that also covers
+description edits and deleted lists. Alongside that, the
 **contribution rules** now say which role commits on which branch, where the
 checkout lives, and when an AI is credited.
 
@@ -8422,6 +8423,58 @@ Undo.md now says plainly what is recorded (list moves, list soft-delete and
 restore, card moves) and what is not: a description, a checklist title, labels,
 members and dates are written straight to the document with no previous state
 kept, so there is nothing to restore them from.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/898643eea">The universal change history is built, and Ctrl+Z reads it instead of positions alone</a>. Thanks to xet7.</summary>
+
+Phase 1 of the design in
+`docs/Features/Reports/History/History.md`, plus the write half of phase 2.
+
+**The store.** `models/changeHistory.js` is the append-only collection: one row
+per change, carrying every container id it sits inside — `boardId`,
+`swimlaneId`, `listId`, `cardId` — so a container scope is a plain equality
+rather than a join the database cannot do. That is what lets a swimlane's
+history include its lists' and cards' rows.
+
+It imports **no other model**, deliberately. Its predecessor imports Cards,
+Lists, Swimlanes and Checklists so its `undo()` can write to them, and that is
+exactly why `models/cards.js` could not import it, guarded on an assumed global
+instead, and recorded nothing for years. A collection that entities must import
+cannot import entities. Applying a change back to a document therefore lives in
+`server/models/changeHistory.js`, which nothing imports and which may import
+anything.
+
+**The rules are pure.** `models/lib/changeHistoryQuery.js` holds the
+scope-to-selector translation, the search and the selection normalisation, with
+no Meteor and no database — because that is where this feature is either right
+or quietly wrong. A scope resolving to the wrong id column shows one board's
+history under another board's menu; a selection that does not normalise its
+input restores the wrong rows. Both are silent. Among the tests: an unknown or
+half-given scope is REFUSED rather than widened into a selector that matches
+everything.
+
+**Undo is now the whole history.** `changeHistory.undoLast`/`redoLast` replace
+the position-only methods, with the keyboard bindings and the tested
+`pickUndo`/`pickRedo` rule unchanged. One rule covers every change type instead
+of a case per action: undo applies `previousContent`, redo applies
+`newContent`. A restore goes through the same setters an ordinary edit uses, so
+validation, hooks and Activities still run, and is itself recorded twice — once
+attributed to whoever made the change being restored, once to whoever pressed
+Restore.
+
+Recorded so far: **card description edits** (the previous text is read BEFORE
+the write, since afterwards the old value is gone), **card moves**, **list
+moves**, and **list soft-delete/restore**, which is what makes undoing a
+deleted list work. `changeHistory` is in the snap's `MERGE_COLLECTIONS`, so a
+row written on the database copy that is not served is not stranded there.
+
+Not built: the History popup, table, contributor avatars, Restore button and
+menu items, and recording for the remaining card groups. The methods those
+screens need exist and are tested; nothing calls them yet. Both design
+documents now say which half is which — the last time one of them claimed more
+than the code did, the gap survived for months.
 
 </details>
 
