@@ -8461,12 +8461,14 @@ module-level flag, because the server handles several requests at once and a
 shared boolean set during one user's restore would have silently swallowed
 another user's edit landing in the same window.
 
-Verified rather than reasoned about: a card renamed through the UI recorded one
-row with the right group and both values, the menu opened the table on it, and
-Restore put the title back and left exactly two rows. Still unproven, and said
-so in the document: the list and swimlane scopes, the contributor filter, search
-and pagination past one page - they share the one template, which is exactly the
-reasoning that produced the four faults above.
+Verified rather than reasoned about, in a browser against a running server:
+a card renamed through the UI recorded one row with the right group and both
+values; the card, list and swimlane menus each opened the table with their own
+scope reaching the template; Restore put the title back and left exactly two
+rows; search narrowed the table and said *no results* for a term nothing
+matched; a contributor's avatar filtered to that person; and with 32 rows the
+footer read *1 / 2*, the second page held the remaining seven in sequence, and
+the *next* arrow disabled itself there.
 
 </details>
 

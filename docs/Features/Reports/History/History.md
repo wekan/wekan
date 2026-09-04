@@ -42,12 +42,17 @@ view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/
 > whether it should be and that is a product decision. Attachments and custom
 > fields record their scalar changes only, not their files.
 >
-> **Verified how.** Everything above is covered by unit tests and source guards.
-> The card scope has since been exercised against a running WeKan, which §10
-> asks for: a card renamed through the UI recorded one row with the right group
-> and both values, the card menu's History entry opened the table on it, and
-> selecting the row and pressing Restore put the title back and left exactly two
-> rows — the edit and the restore.
+> **Verified how.** Everything above is covered by unit tests and source guards,
+> and the whole of it has since been exercised against a running WeKan, which
+> §10 asks for. What was actually done, in a browser: a card renamed through the
+> UI recorded one row with the right group and both values; the card, list and
+> swimlane menus each opened the table with their own scope reaching the template
+> (`scope: 'swimlane'`, the swimlane's own id, and so on); selecting the row and
+> pressing Restore put the title back and left exactly two rows — the edit and
+> the restore; search narrowed the table and showed *no results* for a term
+> nothing matched; clicking a contributor's avatar filtered to that person; and
+> with 32 rows the footer read *1 / 2*, the second page held the remaining seven
+> in sequence, and the *next* arrow disabled itself there.
 >
 > That pass found four faults, three of them fatal to the feature, and none of
 > them visible in the source: the table rendered one row of empty cells because
@@ -57,11 +62,6 @@ view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/
 > 380px wide, which left 201px for a four-column table; and a restore was
 > recorded twice, once by the very `after.update` hook that §8.2 deliberately
 > keeps running. Each now has a regression test.
->
-> **Still unproven:** the list and swimlane scopes, the contributor filter,
-> search, and pagination past one page. They share one template with the card
-> scope, so they are likely to work — but that is the reasoning that produced
-> the four faults above, so treat them as untested until somebody opens them.
 >
 > One design decision is worth keeping: the collection imports **no other model**.
 > Its predecessor imported Cards, Lists and the rest so its `undo()` could write
