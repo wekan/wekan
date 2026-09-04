@@ -8245,13 +8245,15 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** the **single Windows EXE** stops running WeKan out of a virtual
-filesystem. It now carries the published win64 ZIP as a checksummed payload and
-unpacks it into a real directory on first run, which is what ends the crash loop
-11.48 shipped with, cuts the download from 690 MB to about 232 MB, and turns a
-damaged copy into a clear message instead of a restarting server. Its release
-smoke test no longer passes an EXE that only answers because start-wekan.bat
-keeps retrying.
+**In short:** the **single Windows EXE** stops running WeKan out of a
+closed-source virtual filesystem, and stops unpacking the bundle instead. It
+now carries the published win64 ZIP as a checksummed payload, unpacks only the
+thirty-odd files Windows itself has to open, and **mounts the remaining ~39,000
+in the server process**. That ends the crash loop 11.48 shipped with, cuts the
+download from 690 MB to about 232 MB and what lands on disk from 685 MB to
+about 260 MB, and turns a damaged copy into a clear message instead of a
+restarting server. Its release smoke test no longer passes an EXE that only
+answers because start-wekan.bat keeps retrying.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8266,11 +8268,11 @@ keeps retrying.
 
 This release fixes the following bugs:
 
-**The single Windows EXE** - what the one downloadable file is made of, and
-what it checks before it starts WeKan.
+**The single Windows EXE** - what the one downloadable file is made of, what it
+checks before it starts WeKan, and how little of it ever reaches the disk.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a12cc8142e40393bd6ca105627a8574ab21a66ba">It unpacks the bundle to real files instead of running it from a virtual filesystem</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a12cc8142e40393bd6ca105627a8574ab21a66ba">It carries a checksummed copy of the win64 ZIP instead of a virtual filesystem</a>. Thanks to xet7.</summary>
 
 `WeKan-11.48-win64.exe` died on every start, restarted, and died again:
 
@@ -8291,23 +8293,24 @@ Node.js had loaded the native addon out of it (`bcrypt.js` line 2), the
 next read - `require('./promises')` on line 6, the blob immediately after
 that addon - came back as the addon's own PE bytes.
 
-So the packer is gone. The EXE is now the compiled launcher with the
+So that packer is gone. The EXE is now the compiled launcher with the
 published ZIP appended to it and an 80-byte trailer saying where that
-payload starts, how long it is, its SHA-256 and which WeKan it is. On its
-first run the launcher verifies that SHA-256, unpacks the payload into a
-real `wekan-app` directory beside itself with Windows' own `tar.exe`, and
-from then on WeKan reads ordinary files - the same `start-wekan.bat`,
-`node.exe` and `ferretdb.exe` the ZIP has. Persistent data is untouched by
-any of it: `wekan-files` stays a sibling of `wekan-app`, so unpacking a
-newer version never reaches the database, the attachments or the avatars.
+payload starts, how long it is, its SHA-256 and which WeKan it is. The
+download drops from 690 MB to about 232 MB, because the payload is the
+compressed ZIP rather than an uncompressed image, and a damaged copy - a
+truncated download, a half-written file - now stops at the checksum with
+the expected and actual hashes and a line saying to download it again,
+instead of reaching Node.js as a crash loop.
 
-Two things come with it. The download drops from 690 MB to about 232 MB,
-because the payload is the compressed ZIP rather than an uncompressed
-image. And a damaged copy - a truncated download, a half-written file -
-now stops at the checksum with the expected and actual hashes and a line
-saying to download it again, instead of reaching Node.js as a crash loop.
-The first run needs room for about 1 GB beside the EXE; later runs start
-straight away.
+Its release smoke test is why a broken EXE was published at all.
+`start-wekan.bat` restarts WeKan every three seconds when it exits, and the
+smoke test polled `http://localhost:8080/sign-in` for three minutes: an EXE
+that crashed on nine starts out of ten still answered inside that window,
+and the job went green. It now starts the EXE twice - the run that unpacks
+and the run that must find its files already there - and fails if either
+log contains `WeKan exited; restarting` or `SyntaxError`. It also no longer
+trips over PowerShell's read-only `$pid` while freeing the ports FerretDB
+needs.
 
 `tests/windowsSingleExe.test.cjs` pins the trailer format from both ends -
 every `TRAILER_*` the launcher defines must equal the constant
@@ -8316,24 +8319,61 @@ a packed file through pack and verify, and requires a flipped byte, a
 truncated payload, a missing trailer and an over-long version to be
 refused. A negative test reads every file under `.github/workflows` and
 `releases` and fails on any Enigma Virtual Box download, console or `.evb`
-project, so the virtual filesystem cannot come back through a second
+project, so that virtual filesystem cannot come back through a second
 packing path.
 
-Its release smoke test is why a broken EXE was published at all.
-`start-wekan.bat` restarts WeKan every three seconds when it exits, and
-the smoke test polled
-`http://localhost:8080/sign-in` for three minutes: an EXE that crashed on
-nine starts out of ten still answered inside that window, and the job went
-green.
+</details>
 
-It now starts the EXE twice - the run that unpacks the payload, and the run
-that must find `wekan-app` already unpacked and start straight away - and
-fails if either log contains `WeKan exited; restarting` or `SyntaxError`.
-A regression test requires the first of those strings to be the one
-`releases/ferretdb/start-wekan.bat` actually prints, so the check cannot
-quietly stop matching. The same step also confirms that the first run
-really created `wekan-app`, and no longer trips over PowerShell's read-only
-`$pid` while freeing the ports FerretDB needs.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35cf025f0738fedd1f5d7c83b48254388a3e44cc">It reads the bundle from inside itself instead of unpacking 39,035 files</a>. Thanks to xet7.</summary>
+
+Replacing the packer left the EXE writing its whole bundle - 39,035 files,
+685 MB - beside itself on the first run. It does not any more.
+
+Only what cannot be virtual is unpacked, and the reason is the same in
+every case: something other than WeKan's own module loader has to open it.
+`node.exe` and `ferretdb.exe` are separate processes, so Windows needs a
+real path to start one; `.node` addons are loaded with `LoadLibrary`, same
+reason; `main.js` is the entry Node resolves before any hook could see it;
+`start-wekan.bat` is read by `cmd.exe`; and `wekan-vfs.cjs` is read by
+`node --require` before anything is mounted. `main.js` also `chdir()`s into
+`programs/server`, and a working directory is a kernel concept no hook can
+answer, so that one directory is created for real. That is about thirty
+files out of 39,035, and the list is computed from the archive rather than
+written by hand, so a bundle that gains an addon or a database tool cannot
+silently lose it.
+
+The mount is `releases/single-exe/wekan-vfs.cjs`, and it needs two
+mechanisms because Node needs both. `module.registerHooks()` answers
+`require`: the CJS loader resolves through internal C++ bindings, so
+patching `fs` cannot make `require` see a virtual file, and `Module._stat`
+is captured as a module-local inside `Module._findPath`, so replacing it
+does nothing either. Resolution is therefore reimplemented, and checked
+against Node's own answer for every package in a real bundle - 1407 package
+directories and 1865 bare specifiers, all matching. `fs` patching covers
+everything that is not a module: Meteor's `boot.js` reads `program.json`
+and every server package with `fs.readFileSync` and runs them through
+`vm.runInThisContext`, and `webapp` serves the client files with
+`fs.createReadStream`. Below both sits one more: Meteor's `runtime.js`
+hands reify a resolver that calls `Module._resolveFilename` directly, which
+`registerHooks` never sees.
+
+Two traps are worth naming because both were hit here. A `.node` addon must
+be resolved with NO format declared - saying `commonjs` for one makes Node
+compile the binary as JavaScript and die with *SyntaxError: Invalid or
+unexpected token* on its own header, which is the 11.48 crash reproduced
+from the other side. And a directory that exists both really and in the
+archive has to merge the two listings, or `wekan-app/programs/server` would
+list the two unpacked files and hide the entire server.
+
+This was verified by running it, not by reading it. With 23 real files on
+disk and 38,931 served from the ZIP, WeKan boots, connects to FerretDB and
+answers 200 on `/sign-in` and on its 6.9 MB client bundle.
+`tests/bundleArchiveVfs.test.cjs` builds a small archive and pins the three
+things that have to stay right - the ZIP reader, the resolution and the
+declared format - including the two traps above, and the release smoke test
+now counts what reached the disk, so a change that quietly went back to
+unpacking everything fails the job instead of passing it.
 
 </details>
 
