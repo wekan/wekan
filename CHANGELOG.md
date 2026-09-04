@@ -8266,125 +8266,7 @@ checkout lives, and when an AI is credited.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following bugs:
-
-**Swimlanes** - which swimlane a list belongs to, and what travels with it.
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/97fcf364c">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
-
-`List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
-fix in v11.49 removes, and the copy was the more visible of the two: it
-produced an empty list.
-
-```
-const oldSwimlaneId = this.swimlaneId || null;
-...
-const cards = await ReactiveCache.getCards({
-  swimlaneId: oldSwimlaneId, listId: oldId, archived: false });
-```
-
-A list that is not bound to a swimlane - an empty or missing `swimlaneId`,
-which is what every list on a board predating per-swimlane lists still has,
-and what [#6515](https://github.com/wekan/wekan/issues/6515) left behind on
-boards opened before it - turns that into `swimlaneId: null`, so the
-selector asks for cards that have NO swimlane. The cards of such a list
-carry the real `swimlaneId`s of the swimlanes they are in, so it matched
-nothing and the copy came out with no cards at all. Even for a bound list
-the filter could only ever remove cards that are in the list being copied.
-A list is the unit of a copy, so every card in it travels, exactly as in
-`List.move`.
-
-The second fault is the [#6670](https://github.com/wekan/wekan/issues/6670)
-shape exactly. `copy()` searched the target board for a list with this title
-to reuse, without first asking whether the target board IS this list's own
-board - and on a same-board copy that search finds THIS LIST. `_id` became
-the original, so the "copy" wrote the cards back into the source list,
-doubling them, and returned the source list's id, which
-`POST /api/boards/:boardId/lists/:listId/copy` then repositioned: the user
-asked to copy a list and got the original moved with twice the cards.
-Reusing a same-titled list is only meaningful across boards, so a same-board
-copy is now always a new list, the way `Swimlane.copy` already creates one.
-
-Fixing the first fault raises a question that could not come up while the
-copy was empty: where the cards land. The REST endpoint's own default is a
-copy on the same board with no `toSwimlaneId`, and pinning every card to
-"no swimlane" would dump the cards of three swimlanes into none - so when no
-swimlane is asked for and the copy stays on the same board, each card keeps
-the swimlane it is in and the duplicate looks like the original. Across
-boards it cannot: the source card's `swimlaneId` belongs to the OTHER board
-and would arrive orphaned, so those cards take the copy's own swimlane.
-
-The decision lives in `models/lib/listCopyPlan.js`, the twin of
-`models/lib/listMovePlan.js`, where it is unit-tested without a database;
-`models/lists.js` applies it. `tests/listCopySwimlane.test.cjs` pins the
-same-board copy and the copy of a board-wide list, and its negative tests
-require that the card selector never scopes by swimlane, that a same-board
-copy is never a merge even when a same-titled list exists, that a
-cross-board copy never keeps a `swimlaneId` from the source board, and that
-`models/lists.js` compares the boards before it looks a list up by title.
-
-`tests/listMoveSwimlane.test.cjs` is corrected while its sibling is written:
-two of its source scans took their offsets from the un-stripped file and
-sliced the comment-stripped one, which worked by accident and slid off
-`List.move` as soon as anything above it changed. Both offsets and the slice
-now come from the same string, and every assertion is kept.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/290cdc6a4">Admin Panel / Problems can put back the swimlane a list lost</a>. Thanks to TawsTm and xet7.</summary>
-
-Boards opened under the versions before
-[#6515](https://github.com/wekan/wekan/issues/6515) had every per-swimlane
-list un-bound automatically: the board data-repair treated any list with a
-`swimlaneId` as [#6484](https://github.com/wekan/wekan/issues/6484)
-corruption and cleared it, and a per-swimlane list is indistinguishable from
-a corrupted board-wide one at the data level. #6515 stopped it, but nothing
-put the bindings back, so those lists still render under every swimlane and
-deleting one from a swimlane deletes the only list document there is.
-
-The old value turns out to be recoverable rather than guessable. The
-clearing went through `Lists.direct.updateAsync`, which bypasses collection
-hooks, so it only ever touched the list document - while the binding each
-list was CREATED with is recorded in a different collection:
-
-```
-// models/lists.js - Lists.after.insert -> trackOriginalPosition()
-originalSwimlaneId: this.swimlaneId || null,
-if (!existingHistory) { PositionHistory.insertAsync(document); }
-```
-
-That insert is insert-ONLY, written once at creation and never overwritten,
-so it survived untouched for every list created since list position tracking
-landed in October 2025.
-
-Admin Panel / Problems / Summary now detects this the way it detects broken
-cards - *Lists missing their swimlane N*, with a Restore button beside it -
-and restoring puts each list back in the swimlane its own record names.
-Every rule in it is a reason to SKIP, because here doing nothing is better
-than doing something wrong: a list that already has a `swimlaneId` is never
-touched, so the repair is idempotent and cannot undo a binding an admin has
-set by hand since; a list with no record, or one recorded as board-wide,
-stays board-wide; and a swimlane that has since been deleted is not
-resurrected, nor is one on another board accepted, because either would hide
-the list in every swimlane rather than show it in one.
-
-Nothing is inferred from the cards, and a test pins that the planner cannot
-grow a use for them. Inference is the obvious idea and it is wrong: on a
-board whose second swimlane is new every card is still in the first one, so
-it would bind every list to swimlane 1 and hide them from the others - which
-is #6484 again, the bug the clearing existed to fix.
-
-Detection is read-only and swallows its own errors, since the Problems page
-polls it every thirty seconds and a detection that throws would take the
-other problems on that page with it. The repair writes `swimlaneId` and
-nothing else, through `.direct`, one update per swimlane rather than one per
-list.
-
-</details>
-
-and states the rules a contribution is judged by:
+This release adds the following new features:
 
 **Undo** - what pressing Ctrl+Z can actually put back.
 
@@ -8534,6 +8416,126 @@ happened, and the interface in particular should be treated as unproven.
 
 </details>
 
+and fixes the following bugs:
+
+**Swimlanes** - which swimlane a list belongs to, and what travels with it.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97fcf364c">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
+
+`List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
+fix in v11.49 removes, and the copy was the more visible of the two: it
+produced an empty list.
+
+```
+const oldSwimlaneId = this.swimlaneId || null;
+...
+const cards = await ReactiveCache.getCards({
+  swimlaneId: oldSwimlaneId, listId: oldId, archived: false });
+```
+
+A list that is not bound to a swimlane - an empty or missing `swimlaneId`,
+which is what every list on a board predating per-swimlane lists still has,
+and what [#6515](https://github.com/wekan/wekan/issues/6515) left behind on
+boards opened before it - turns that into `swimlaneId: null`, so the
+selector asks for cards that have NO swimlane. The cards of such a list
+carry the real `swimlaneId`s of the swimlanes they are in, so it matched
+nothing and the copy came out with no cards at all. Even for a bound list
+the filter could only ever remove cards that are in the list being copied.
+A list is the unit of a copy, so every card in it travels, exactly as in
+`List.move`.
+
+The second fault is the [#6670](https://github.com/wekan/wekan/issues/6670)
+shape exactly. `copy()` searched the target board for a list with this title
+to reuse, without first asking whether the target board IS this list's own
+board - and on a same-board copy that search finds THIS LIST. `_id` became
+the original, so the "copy" wrote the cards back into the source list,
+doubling them, and returned the source list's id, which
+`POST /api/boards/:boardId/lists/:listId/copy` then repositioned: the user
+asked to copy a list and got the original moved with twice the cards.
+Reusing a same-titled list is only meaningful across boards, so a same-board
+copy is now always a new list, the way `Swimlane.copy` already creates one.
+
+Fixing the first fault raises a question that could not come up while the
+copy was empty: where the cards land. The REST endpoint's own default is a
+copy on the same board with no `toSwimlaneId`, and pinning every card to
+"no swimlane" would dump the cards of three swimlanes into none - so when no
+swimlane is asked for and the copy stays on the same board, each card keeps
+the swimlane it is in and the duplicate looks like the original. Across
+boards it cannot: the source card's `swimlaneId` belongs to the OTHER board
+and would arrive orphaned, so those cards take the copy's own swimlane.
+
+The decision lives in `models/lib/listCopyPlan.js`, the twin of
+`models/lib/listMovePlan.js`, where it is unit-tested without a database;
+`models/lists.js` applies it. `tests/listCopySwimlane.test.cjs` pins the
+same-board copy and the copy of a board-wide list, and its negative tests
+require that the card selector never scopes by swimlane, that a same-board
+copy is never a merge even when a same-titled list exists, that a
+cross-board copy never keeps a `swimlaneId` from the source board, and that
+`models/lists.js` compares the boards before it looks a list up by title.
+
+`tests/listMoveSwimlane.test.cjs` is corrected while its sibling is written:
+two of its source scans took their offsets from the un-stripped file and
+sliced the comment-stripped one, which worked by accident and slid off
+`List.move` as soon as anything above it changed. Both offsets and the slice
+now come from the same string, and every assertion is kept.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/290cdc6a4">Admin Panel / Problems can put back the swimlane a list lost</a>. Thanks to TawsTm and xet7.</summary>
+
+Boards opened under the versions before
+[#6515](https://github.com/wekan/wekan/issues/6515) had every per-swimlane
+list un-bound automatically: the board data-repair treated any list with a
+`swimlaneId` as [#6484](https://github.com/wekan/wekan/issues/6484)
+corruption and cleared it, and a per-swimlane list is indistinguishable from
+a corrupted board-wide one at the data level. #6515 stopped it, but nothing
+put the bindings back, so those lists still render under every swimlane and
+deleting one from a swimlane deletes the only list document there is.
+
+The old value turns out to be recoverable rather than guessable. The
+clearing went through `Lists.direct.updateAsync`, which bypasses collection
+hooks, so it only ever touched the list document - while the binding each
+list was CREATED with is recorded in a different collection:
+
+```
+// models/lists.js - Lists.after.insert -> trackOriginalPosition()
+originalSwimlaneId: this.swimlaneId || null,
+if (!existingHistory) { PositionHistory.insertAsync(document); }
+```
+
+That insert is insert-ONLY, written once at creation and never overwritten,
+so it survived untouched for every list created since list position tracking
+landed in October 2025.
+
+Admin Panel / Problems / Summary now detects this the way it detects broken
+cards - *Lists missing their swimlane N*, with a Restore button beside it -
+and restoring puts each list back in the swimlane its own record names.
+Every rule in it is a reason to SKIP, because here doing nothing is better
+than doing something wrong: a list that already has a `swimlaneId` is never
+touched, so the repair is idempotent and cannot undo a binding an admin has
+set by hand since; a list with no record, or one recorded as board-wide,
+stays board-wide; and a swimlane that has since been deleted is not
+resurrected, nor is one on another board accepted, because either would hide
+the list in every swimlane rather than show it in one.
+
+Nothing is inferred from the cards, and a test pins that the planner cannot
+grow a use for them. Inference is the obvious idea and it is wrong: on a
+board whose second swimlane is new every card is still in the first one, so
+it would bind every list to swimlane 1 and hide them from the others - which
+is #6484 again, the bug the clearing existed to fix.
+
+Detection is read-only and swallows its own errors, since the Problems page
+polls it every thirty seconds and a detection that throws would take the
+other problems on that page with it. The repair writes `swimlaneId` and
+nothing else, through `.direct`, one update per swimlane rather than one per
+list.
+
+</details>
+
+and states the rules a contribution is judged by:
+
 **Contributing** - who commits where, and who gets named for the work.
 
 <details>
@@ -8602,6 +8604,93 @@ That is the whole of the credit, and it is where it is because attributing it
 per commit put the same fact on thousands of lines and drowned out the humans
 the entries exist to name. Acknowledging it anywhere else is not extra
 politeness; it undoes that.
+
+</details>
+
+and has the following developer-tooling fixes:
+
+**The build tree** - which directory a build writes to, and what is not source.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9dc2c5cf9">The History table formats dates with the helper WeKan actually has</a>. Thanks to xet7.</summary>
+
+The new table opened with `import moment from 'moment'`, and that one line
+broke the client build outright:
+
+```
+ERROR in ./client/components/history/historyTable.js
+  x Module not found: Can't resolve 'moment'
+```
+
+moment was removed from WeKan and replaced with native `Date` helpers -
+`imports/i18n/moment.js` says so in its first line - so it is not a dependency
+and nothing resolves it. The import is now `formatDateTime` from
+`/imports/lib/dateUtils`, which is what the rest of the app already uses.
+
+What is worth keeping from this is how it was found. The line is the most
+ordinary-looking one in the file, and no amount of rereading the diff would
+have shown it, because what was wrong was somewhere else entirely: the
+dependency list. `tests/importsResolve.test.cjs` now resolves every bare
+import in `client/`, `models/`, `imports/` and `server/` against the real
+`node_modules`, which is the same question the bundler asks and takes under a
+second instead of a two-minute build. It also pins that moment stays gone, and
+that the set of packages imported without being declared in `package.json` -
+`body-parser` and `mime-types`, both of which predate this - cannot grow.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7290ed036">Every ignore file agrees on what is not source, and the two build directories are explained</a>. Thanks to xet7.</summary>
+
+There are two build directories one character apart, and nothing said which
+was which. `_build/` is rspack's **handoff**: it compiles the app into
+`_build/main-prod/` and Meteor then reads `server-meteor.js` and
+`client-meteor.js` from there as the application's main modules, so ignoring
+it does not tidy anything - it fails the build with `Could not find mainModule
+for 'os' architecture`. `.build/` is the opposite, the finished bundle
+`meteor build .build --directory` writes. Both are now described where
+somebody meets them: the headers of `build.sh` and `build.bat`,
+`Directory-Structure.md`, `Build-from-source.md`, `Meteor-bundle.md`,
+`Build-and-Create-Pull-Request.md`, and this file's two AI instruction files.
+
+The ignore files had drifted apart from each other in the meantime, so each
+was brought to the same answer: `_build` reached `.dockerignore`,
+`.eslintignore` and `.prettierignore`, which had never heard of it and were
+linting and shipping a bundled copy of the app. `.meteorignore` gained the
+trees that are not application source at all - `docs/`, `meta/`,
+`old-CHANGELOG/`, `openapi/`, the packaging directories, `releases/`,
+`scripts/`, `tools/`, `.github/` and the editor and tooling directories -
+after checking, rather than assuming, that nothing under `client/`, `server/`,
+`models/`, `imports/`, `config/` or `packages/` imports from any of them.
+Meteor takes one file watcher per directory it does not ignore, from a
+per-user limit shared with every editor on the machine, and that limit is what
+`.tools/` was added for in the first place.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66e8420be">Ignoring .build does not silence Meteor's warning about it, and no longer says it does</a>. Thanks to xet7.</summary>
+
+The comment added beside `/.build/` claimed the entry was this warning
+answered:
+
+```
+WARNING: The output directory is under your source tree.
+         Your generated files may get interpreted as source code!
+```
+
+The very next build printed it again. The warning is a path comparison on the
+output **argument**, made before any file is written - `tools/cli/commands.js`
+asks whether `pathRelative(appDir, outputPath)` starts with `..` and prints it
+when it does not. No ignore file is consulted and none can reach it; silencing
+it would mean building outside the tree, which `build.sh`, `build.bat` and the
+release workflows would all have to agree on.
+
+The entry is still worth having, for the second half of the same sentence:
+without it the next `meteor run` walks a whole bundled copy of the app. That
+is what the comment says now. `tests/meteorignoreScanScope.test.cjs` pins both
+directions - `_build` must not be ignored, `.build` must be - and fails if the
+false claim comes back.
 
 </details>
 
