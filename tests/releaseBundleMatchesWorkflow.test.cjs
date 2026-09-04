@@ -42,11 +42,17 @@ console.log('releaseBundleMatchesWorkflow:');
 
 // The base bundle job — every other architecture's bundle is derived from this
 // one, so its post-processing is the definition of "what a release bundle is".
+// Comment lines are dropped before anything is looked for. A step's YAML
+// comments explain what the job does NOT do as often as what it does - the
+// bundle-trim call, for one, spells out which flag it deliberately omits and
+// which other script repacks its output - and a script named in prose is not
+// a script the job runs.
 const baseJob = (() => {
   const start = workflow.indexOf('\n  build-amd64:');
   const end = workflow.indexOf('\n  build-arm64:', start);
   assert.ok(start > 0 && end > start, 'release-all.yml must have a build-amd64 job');
-  return workflow.slice(start, end);
+  return workflow.slice(start, end)
+    .split('\n').filter(line => !/^\s*#/.test(line)).join('\n');
 })();
 
 test('every release script the workflow runs, the local build runs too', () => {

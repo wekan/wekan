@@ -5,7 +5,7 @@
 //
 // Usage: node releases/bundle-trim.mjs <bundle-dir> [--platform linux] [--arch x64]
 //                                      [--transport sockjs] [--drop-legacy-client]
-//                                      [--keep-maps]
+//                                      [--keep-maps] [--trim-prebuilds]
 //
 // WHY THIS EXISTS
 //
@@ -40,6 +40,27 @@
 //     for a debugger attached to the process. A packed app has none, and a
 //     missing .map degrades a stack trace at worst; nothing fails to load.
 //
+//  3. prebuildify prebuilds - `--trim-prebuilds`. bcrypt and argon2 (Meteor's
+//     accounts-password) each ship a prebuilds/<platform>-<arch>/ directory per
+//     platform they support: 21 binaries of which ONE is ever opened. The
+//     loader is node-gyp-build, and its resolve() reads exactly one directory:
+//
+//       var tuples = readdirSync(path.join(dir, 'prebuilds')).map(parseTuple)
+//       var tuple = tuples.filter(matchTuple(platform, arch)).sort(compareTuples)[0]
+//
+//     with platform/arch from os.platform()/os.arch(). The same reasoning as
+//     uWebSockets.js, and the same rule when nothing matches: leave the whole
+//     directory alone. The tuple parsing below is node-gyp-build's, including
+//     multi-arch names like "darwin-x64+arm64", so this keeps precisely what
+//     that loader would have chosen.
+//
+//     It is OFF by default and requires an explicit --platform and --arch,
+//     because the default (linux/x64) would delete the target's own addon on a
+//     Windows or macOS bundle - the exact class of fault the single EXE was
+//     just fixed for. build-amd64 deliberately does NOT pass it: every other
+//     bundle WeKan ships is that bundle repacked, so trimming there would take
+//     the prebuilds away from architectures that have not been built yet.
+//
 // This does NOT prune node_modules - releases/prune-build-only-modules.mjs is
 // what removes the build-only toolchain, and the two run together.
 
@@ -52,6 +73,8 @@ import { join, basename } from 'path';
 const argv = process.argv.slice(2);
 const bundle = argv.find(a => !a.startsWith('--'));
 const flag = name => argv.includes(`--${name}`);
+/* Whether an option was actually passed, as opposed to falling back. */
+const given = name => argv.indexOf(`--${name}`) !== -1;
 const value = (name, fallback) => {
   const i = argv.indexOf(`--${name}`);
   return i !== -1 && argv[i + 1] ? argv[i + 1] : fallback;
@@ -73,6 +96,7 @@ const arch = value('arch', 'x64');
 // from disk a single time.
 const maps = [];
 const uwsDirs = new Set();
+const prebuildDirs = new Set();
 function walk(dir) {
   let entries;
   try { entries = readdirSync(dir, { withFileTypes: true }); } catch { return; }
@@ -81,6 +105,7 @@ function walk(dir) {
     if (e.isSymbolicLink()) continue;   // never follow one out of the bundle
     if (e.isDirectory()) {
       if (e.name === 'uWebSockets.js') uwsDirs.add(p);
+      if (e.name === 'prebuilds') prebuildDirs.add(p);
       walk(p);
     } else if (e.isFile() && e.name.endsWith('.map')) {
       maps.push(p);
@@ -129,6 +154,79 @@ for (const dir of uwsDirs) {
   }
   uwsKept += keep.length;
   for (const f of prebuilds) if (!keep.includes(f)) drop(join(dir, f));
+}
+
+// 1b. prebuildify prebuilds: the platform directories this bundle can never
+//     open. node-gyp-build's own parseTuple/matchTuple, so what survives is
+//     exactly what it would have loaded.
+function parseTuple(name) {
+  const parts = name.split('-');
+  if (parts.length !== 2) return null;
+  const [tuplePlatform, archList] = parts;
+  const architectures = archList.split('+');
+  if (!tuplePlatform || !architectures.length || !architectures.every(Boolean)) return null;
+  return { name, platform: tuplePlatform, architectures };
+}
+const matchesTarget = name => {
+  const tuple = parseTuple(name);
+  return tuple !== null && tuple.platform === platform &&
+    tuple.architectures.includes(arch);
+};
+
+let prebuildsKept = 0;
+let prebuildsUntouched = 0;
+if (flag('trim-prebuilds')) {
+  if (!given('platform') || !given('arch')) {
+    console.error(
+      'bundle-trim: --trim-prebuilds needs an explicit --platform and --arch. ' +
+      "The defaults (linux/x64) would delete the target's own native addon on a " +
+      'Windows or macOS bundle.');
+    process.exit(2);
+  }
+  for (const dir of prebuildDirs) {
+    let children;
+    try {
+      children = readdirSync(dir, { withFileTypes: true })
+        .filter(e => e.isDirectory() && !e.isSymbolicLink()).map(e => e.name);
+    } catch { continue; }
+
+    // EVERY decision is made before anything is deleted, so there is no way to
+    // stop half-way through with a tree that has lost the addon it needs.
+    const addons = name => {
+      try { return readdirSync(join(dir, name)).filter(f => f.endsWith('.node')); }
+      catch { return []; }
+    };
+
+    // Only node-gyp-build's own trees. bare-fs, bare-path and bare-url ship a
+    // prebuilds/ of .bare files for the Bare runtime, which is a different
+    // loader with different rules - not something to reason about from here.
+    if (!children.some(name => addons(name).length > 0)) {
+      console.log(`bundle-trim: ${dir} holds no .node addon; left untouched`);
+      prebuildsUntouched += 1;
+      continue;
+    }
+
+    const keep = children.filter(matchesTarget);
+    const kept = keep.reduce((total, name) => total + addons(name).length, 0);
+    // Nothing for this target, or nothing loadable in what would be kept: the
+    // package must find its addon another way (a build/Release from `npm
+    // rebuild`). Deleting the rest would change nothing and could only be wrong.
+    if (kept === 0) {
+      console.log(`bundle-trim: ${dir} has no ${platform}-${arch} addon; left untouched`);
+      prebuildsUntouched += 1;
+      continue;
+    }
+
+    for (const name of children) {
+      if (keep.includes(name)) continue;
+      const victim = join(dir, name);
+      for (const f of readdirSync(victim, { withFileTypes: true })) {
+        if (f.isFile()) drop(join(victim, f.name));
+      }
+      try { rmSync(victim, { recursive: true, force: true }); } catch { /* harmless */ }
+    }
+    prebuildsKept += kept;
+  }
 }
 
 // 2. Source maps.
@@ -232,9 +330,13 @@ const mib = n => (n / 1048576).toFixed(0);
 const uwsNote = transport === 'sockjs'
   ? `removed uWebSockets.js entirely (transport is sockjs)`
   : `kept ${uwsKept} uws prebuild(s) for ${platform}/${arch}`;
+const prebuildNote = flag('trim-prebuilds')
+  ? `, kept ${prebuildsKept} native prebuild(s) for ${platform}-${arch}` +
+    (prebuildsUntouched ? ` (${prebuildsUntouched} package(s) left untouched)` : '')
+  : '';
 console.log(
   `bundle-trim: removed ${removed} files, ${mib(freed)} MiB from ${bundle} ` +
-  `(${uwsNote}` +
+  `(${uwsNote}${prebuildNote}` +
   `${flag('keep-maps') ? ', kept source maps' : `, dropped ${maps.length} source maps`}` +
   `${legacyNote})`,
 );

@@ -597,6 +597,12 @@ jobs:
           # second client build, for browsers without modern JS, and its name in the two
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
+          #
+          # NOT --trim-prebuilds, deliberately. Every other bundle WeKan ships
+          # is THIS bundle repacked (releases/repack-bundle-for-arch.sh), so
+          # dropping the native prebuilds for other platforms here would drop
+          # them for architectures that have not been built yet. Each final
+          # per-platform job passes --trim-prebuilds with its own target.
           node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" \
             "$GITHUB_WORKSPACE/.build/bundle" --transport sockjs --drop-legacy-client
           # And the third tree: programs/server/npm/node_modules is a full `npm install`,
@@ -860,7 +866,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client && node /releases/prune-unreachable-npm.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1282,7 +1288,8 @@ jobs:
           # second client build, for browsers without modern JS, and its name in the two
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
-          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client \
+            --trim-prebuilds --platform win32 --arch x64
           # And the third tree: programs/server/npm/node_modules is a full `npm install`,
           # devDependencies included, that rspack cannot tree-shake because Atmosphere
           # packages load it through Npm.require(). This removes only what it can prove
@@ -1656,7 +1663,8 @@ jobs:
           # second client build, for browsers without modern JS, and its name in the two
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
-          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client \
+            --trim-prebuilds --platform win32 --arch arm64
           # And the third tree: programs/server/npm/node_modules is a full `npm install`,
           # devDependencies included, that rspack cannot tree-shake because Atmosphere
           # packages load it through Npm.require(). This removes only what it can prove
@@ -2044,7 +2052,8 @@ jobs:
           # second client build, for browsers without modern JS, and its name in the two
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
-          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          node "$SRC/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client \
+            --trim-prebuilds --platform win32 --arch ia32
           # And the third tree: programs/server/npm/node_modules is a full `npm install`,
           # devDependencies included, that rspack cannot tree-shake because Atmosphere
           # packages load it through Npm.require(). This removes only what it can prove
@@ -2316,7 +2325,8 @@ jobs:
           # second client build, for browsers without modern JS, and its name in the two
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
-          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client \
+            --trim-prebuilds --platform darwin --arch arm64
           # And the third tree: programs/server/npm/node_modules is a full `npm install`,
           # devDependencies included, that rspack cannot tree-shake because Atmosphere
           # packages load it through Npm.require(). This removes only what it can prove
@@ -2601,7 +2611,8 @@ jobs:
           # second client build, for browsers without modern JS, and its name in the two
           # manifests that list it. Source maps go too: 4766 files a debugger reads and
           # nothing on the loading path touches.
-          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client
+          node "$GITHUB_WORKSPACE/releases/bundle-trim.mjs" ../.. --transport sockjs --drop-legacy-client \
+            --trim-prebuilds --platform darwin --arch x64
           # And the third tree: programs/server/npm/node_modules is a full `npm install`,
           # devDependencies included, that rspack cannot tree-shake because Atmosphere
           # packages load it through Npm.require(). This removes only what it can prove
@@ -3386,7 +3397,7 @@ jobs:
               echo "--- pack failed; trimming the bundle to what a grain runs, then packing once more"
               # A Sandstorm grain is linux/x64, always - it is what the deps tree above
               # bundles a node and a mongod for.
-              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 --transport sockjs --drop-legacy-client || true
+              node releases/bundle-trim.mjs .meteor-spk/bundle --platform linux --arch x64 --transport sockjs --drop-legacy-client --trim-prebuilds || true
               # And the third tree: programs/server/npm/node_modules is a full `npm install`,
               # devDependencies included, that rspack cannot tree-shake because Atmosphere
               # packages load it through Npm.require(). This removes only what it can prove

@@ -22,7 +22,7 @@ const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { execFileSync } = require('child_process');
+const { execFileSync, spawnSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
 const TRIM = path.join(ROOT, 'releases', 'bundle-trim.mjs');
@@ -348,6 +348,133 @@ test('the Sandstorm leg runs it before its retry pack, for linux/x64', () => {
     'build-sandstorm must trim the bundle for linux/x64 - a grain is never anything else');
   assert.ok(job.indexOf('bundle-trim.mjs') < job.lastIndexOf('meteor-spk pack'),
     'and it must run BEFORE the retry pack, or it trims nothing that gets packed');
+});
+
+// ---- prebuildify prebuilds (--trim-prebuilds) -------------------------------
+//
+// bcrypt and argon2 ship 21 native binaries between them and one is ever
+// opened. node-gyp-build reads exactly one prebuilds/<platform>-<arch>
+// directory, chosen with parseTuple/matchTuple, so what survives here has to be
+// what that loader would have picked - including a multi-arch tuple name like
+// "darwin-x64+arm64", which a naive equality check would delete.
+
+const BCRYPT = 'programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt';
+const TUPLES = {
+  'win32-x64': ['bcrypt.node'],
+  'win32-arm64': ['bcrypt.node'],
+  'linux-x64': ['bcrypt.glibc.node', 'bcrypt.musl.node'],
+  'linux-arm64': ['bcrypt.glibc.node', 'bcrypt.musl.node'],
+  'darwin-x64+arm64': ['bcrypt.node'],
+};
+
+function prebuildBundle(dir, tuples = TUPLES) {
+  const files = { [`${BCRYPT}/bcrypt.js`]: "require('node-gyp-build')(__dirname);" };
+  for (const [tuple, names] of Object.entries(tuples)) {
+    for (const name of names) files[`${BCRYPT}/prebuilds/${tuple}/${name}`] = 'x'.repeat(4096);
+  }
+  return makeBundle(dir, files);
+}
+
+test('it keeps the target tuple and drops the platforms that cannot open it', dir => {
+  const bundle = prebuildBundle(dir);
+  trim(bundle, ['--trim-prebuilds', '--platform', 'win32', '--arch', 'x64']);
+  assert.ok(exists(bundle, `${BCRYPT}/prebuilds/win32-x64/bcrypt.node`),
+    'the addon this bundle actually loads must survive');
+  for (const gone of ['win32-arm64', 'linux-x64', 'linux-arm64', 'darwin-x64+arm64']) {
+    assert.ok(!exists(bundle, `${BCRYPT}/prebuilds/${gone}`),
+      `${gone} can never be opened on win32/x64 and must go`);
+  }
+  assert.ok(exists(bundle, `${BCRYPT}/bcrypt.js`), 'the package itself stays');
+});
+
+test('a multi-arch tuple name matches the way node-gyp-build matches it', dir => {
+  const bundle = prebuildBundle(dir);
+  trim(bundle, ['--trim-prebuilds', '--platform', 'darwin', '--arch', 'arm64']);
+  assert.ok(exists(bundle, `${BCRYPT}/prebuilds/darwin-x64+arm64/bcrypt.node`),
+    'matchTuple() splits the arch on "+", so darwin-x64+arm64 serves darwin/arm64');
+  assert.ok(!exists(bundle, `${BCRYPT}/prebuilds/win32-x64`));
+});
+
+test('both libc flavours of the target survive', dir => {
+  const bundle = prebuildBundle(dir);
+  trim(bundle, ['--trim-prebuilds', '--platform', 'linux', '--arch', 'x64']);
+  for (const name of ['bcrypt.glibc.node', 'bcrypt.musl.node']) {
+    assert.ok(exists(bundle, `${BCRYPT}/prebuilds/linux-x64/${name}`),
+      `${name} - glibc or musl is decided at runtime, not here`);
+  }
+  assert.ok(!exists(bundle, `${BCRYPT}/prebuilds/linux-arm64`));
+});
+
+// Negative: the same rule uWebSockets.js gets. No prebuild for this target
+// means the package loads its addon another way (a build/Release from `npm
+// rebuild`), and removing the rest could only be wrong.
+test('a package with no prebuild for this target is left untouched (negative)', dir => {
+  const bundle = prebuildBundle(dir);
+  const out = trim(bundle, ['--trim-prebuilds', '--platform', 'sunos', '--arch', 'sparc']);
+  for (const tuple of Object.keys(TUPLES)) {
+    assert.ok(exists(bundle, `${BCRYPT}/prebuilds/${tuple}`),
+      `${tuple} must survive when nothing matches the target`);
+  }
+  assert.match(out, /left untouched/, 'and it must say so rather than trimming silently');
+});
+
+// Negative: this is the guard that makes the whole option safe. The defaults
+// are linux/x64, and a Windows or macOS bundle trimmed with those would lose
+// the only addon it can load - the exact fault the single EXE was just fixed
+// for. Forgetting the target must be an error, never a silent wrong answer.
+test('it refuses to guess the target (negative)', dir => {
+  const bundle = prebuildBundle(dir);
+  const result = spawnSync(process.execPath, [TRIM, bundle, '--trim-prebuilds'],
+    { encoding: 'utf8' });
+  assert.strictEqual(result.status, 2, 'no --platform/--arch must be a refusal');
+  assert.match(result.stderr, /needs an explicit --platform and --arch/);
+  for (const tuple of Object.keys(TUPLES)) {
+    assert.ok(exists(bundle, `${BCRYPT}/prebuilds/${tuple}`),
+      'and nothing may be deleted before it refuses');
+  }
+  const half = spawnSync(process.execPath,
+    [TRIM, bundle, '--trim-prebuilds', '--platform', 'win32'], { encoding: 'utf8' });
+  assert.strictEqual(half.status, 2, '--platform alone is still a guess about --arch');
+});
+
+// Negative: off by default, so every existing caller keeps its behaviour.
+test('without the flag no prebuild is touched (negative)', dir => {
+  const bundle = prebuildBundle(dir);
+  trim(bundle, ['--platform', 'win32', '--arch', 'x64']);
+  for (const tuple of Object.keys(TUPLES)) {
+    assert.ok(exists(bundle, `${BCRYPT}/prebuilds/${tuple}`),
+      `${tuple} must survive without --trim-prebuilds`);
+  }
+});
+
+// The base bundle is repacked into every other architecture, so trimming there
+// would take the prebuilds away from targets that have not been built yet.
+test('build-amd64 does not trim prebuilds, the per-platform jobs do', () => {
+  const wf = fs.readFileSync(path.join(ROOT, '.github/workflows/release-all.yml'), 'utf8');
+  // Comment lines are dropped: build-amd64 explains at length why it does NOT
+  // pass this flag, and a prose mention is not an invocation.
+  const jobOf = name => {
+    const start = wf.indexOf(`\n  ${name}:\n`);
+    assert.notStrictEqual(start, -1, `release-all.yml has no ${name} job`);
+    const rest = wf.slice(start + 1);
+    const next = rest.search(/\n  [a-z0-9-]+:\n/);
+    const body = next === -1 ? rest : rest.slice(0, next);
+    return body.split('\n').filter(line => !/^\s*#/.test(line)).join('\n');
+  };
+  assert.ok(!/--trim-prebuilds/.test(jobOf('build-amd64')),
+    'build-amd64 is repacked into every other bundle; trimming there breaks them');
+  for (const [job, target] of [
+    ['build-win64', '--platform win32 --arch x64'],
+    ['build-win-arm64', '--platform win32 --arch arm64'],
+    ['build-win32', '--platform win32 --arch ia32'],
+    ['build-mac-arm64', '--platform darwin --arch arm64'],
+    ['build-mac-x64', '--platform darwin --arch x64'],
+    ['build-arm64', '--platform linux --arch arm64'],
+  ]) {
+    const body = jobOf(job);
+    assert.ok(/--trim-prebuilds/.test(body), `${job} must trim its prebuilds`);
+    assert.ok(body.includes(target), `${job} must trim for ${target}`);
+  }
 });
 
 console.log(`\nbundleTrim: ${passed} tests passed`);
