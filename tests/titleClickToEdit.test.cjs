@@ -1,6 +1,6 @@
 'use strict';
 
-// A title is edited where it is read: click the text, type, save.
+// Minicard titles are drag surfaces; other title editing behavior stays covered.
 // Run: node tests/titleClickToEdit.test.cjs
 //
 // Two titles on the board page worked differently from the list titles beside
@@ -34,91 +34,34 @@ console.log('titleClickToEdit:');
 const minicardJade = read('client/components/cards/minicard.jade');
 const minicardJs = read('client/components/cards/minicard.js');
 const minicardCss = read('client/components/cards/minicard.css');
-const listBodyJs = read('client/components/lists/listBody.js');
 
-test('the minicard title text opens an editor in its place', () => {
-  assert.ok(/\+inlinedForm\(classNames="js-minicard-title-form"\)/.test(minicardJade),
-    'the same inlinedForm a list title uses');
-  assert.ok(/\+editMinicardTitleForm/.test(minicardJade), 'holding the card title form');
-  assert.ok(/template\(name="editMinicardTitleForm"\)/.test(minicardJade),
-    'which exists');
-  assert.ok(/span\.minicard-title-text\([\s\S]*is-editable js-open-inlined-form/
-    .test(minicardJade), 'the title TEXT is where it happens');
-  assert.ok(!/minicard-title-edit-zone/.test(minicardJade),
-    'and no transparent edit overlay can cover links rendered inside it');
-  assert.ok(/role="\{\{#if canModifyCard\}\}button/.test(minicardJade)
-    && /tabindex="\{\{#if canModifyCard\}\}0/.test(minicardJade),
-    'the overlay removal does not remove keyboard access');
+test('the minicard title is plain content, not an inline-editor trigger', () => {
+  const title = minicardJade.slice(minicardJade.indexOf('.minicard-title\n'),
+    minicardJade.indexOf('\n    if showLabels'));
+  assert.ok(/span\.minicard-title-text\n/.test(title));
+  assert.ok(!/js-open-inlined-form|js-minicard-title-form/.test(title));
 });
 
-test('the editor is a textarea, a Save and a way out', () => {
-  const form = minicardJade.slice(minicardJade.indexOf('template(name="editMinicardTitleForm")'),
-    minicardJade.indexOf('template(name="editCardSortOrderPopup")'));
-  assert.ok(/textarea\.minicard-title-editor\.js-edit-minicard-title/.test(form),
-    'the title as text to edit');
-  assert.ok(/button\.primary\.confirm\.js-submit-edit-minicard-title\(type="submit"\)/.test(form),
-    'a save button');
-  assert.ok(/a\.js-close-inlined-form/.test(form),
-    'and an X that closes it without saving - a form with no way out but Save is a trap');
+test('the sortable uses the whole minicard without handles and only the handle with them', () => {
+  const listJs = read('client/components/lists/list.js');
+  assert.match(listJs, /isTouchScreenOrShowDesktopDragHandles\(\)[\s\S]*?'handle', '\.handle'/);
+  assert.match(listJs, /else \{[\s\S]*?'handle', '\.minicard'/);
 });
 
-test('saving renames the card', () => {
-  const handler = minicardJs.slice(minicardJs.indexOf("'submit .js-minicard-title-form'"));
-  const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/\.js-edit-minicard-title/.test(body), 'reads the textarea');
-  assert.ok(/const card = templateInstance\.data/.test(body),
-    'gets the Card from the enclosing minicard template');
-  assert.ok(/await card\.setTitle\(title\)/.test(body), 'and sets that Card title');
-  assert.ok(!/this\.(getTitle|setTitle)\(/.test(body),
-    'the nested form event context is never treated as a Card (#6604)');
+test('the title permits board dragscroll only while handles are shown', () => {
+  const opening = minicardJade.slice(0, minicardJade.indexOf('    if canMoveCard'));
+  assert.match(opening,
+    /class="\{\{#unless isTouchScreenOrShowDesktopDragHandles\}\}nodragscroll\{\{\/unless\}\}"/);
 });
 
-test('an empty title is not saved (negative)', () => {
-  // A card with no title has nothing to click, which would be a way to lose it.
-  const handler = minicardJs.slice(minicardJs.indexOf("'submit .js-minicard-title-form'"));
-  const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/if \(card && title && title !== card\.getTitle\(\)\)/.test(body),
-    'empty, and unchanged, are both no-ops');
-  assert.ok(/\?\.trim\(\)/.test(body), 'and whitespace does not count as a title');
-});
-
-test('the card is NOT opened by a click on its title any more', () => {
-  const guard = listBodyJs.slice(listBodyJs.indexOf('const clickedEditableTitle ='));
-  const body = guard.slice(0, guard.indexOf('\n\n'));
-  assert.ok(/js-open-inlined-form/.test(body), 'an editable title is recognised');
-  assert.ok(/js-minicard-title-form/.test(body), 'and so is a click inside the open editor');
-  assert.ok(/evt\.preventDefault\(\);\n\s+return;/.test(body),
-    'neither opens the card, and neither follows the wrapper link');
-  // The branch that DOES open the card is still below it, for everybody who
-  // may not write - and for the rest of the card.
-  assert.ok(/Title clicks should open the regular board card details view/.test(listBodyJs),
-    'a title nobody may edit still opens the card');
-});
-
-test('the wrapper link does not navigate mid-edit, but Save still submits (negative)', () => {
-  // The minicard sits inside an <a> to the card. Cancelling the click's default
-  // is what stops it following that link while the title is being typed; doing
-  // it on the SAVE button too would cancel the submit, which is that button's
-  // own default action.
-  const handler = minicardJs.slice(minicardJs.indexOf("'click .js-minicard-title-form'"));
-  const body = handler.slice(0, handler.indexOf('\n  },'));
-  assert.ok(/closest\('button\[type=submit\]'\)\.length/.test(body),
-    'the save button keeps its default');
-  assert.ok(/event\.preventDefault\(\)/.test(body), 'everything else does not');
-});
-
-test('the title text is a block, so the line is the target', () => {
+test('the title text is a block, so the whole line is a drag target', () => {
   assert.ok(/\.minicard \.minicard-title \.minicard-title-text \{[^}]*display: block/.test(minicardCss),
-    'a click after a short title is still a click on the title');
-  assert.ok(/\.minicard-title-text\.is-editable \{[^}]*cursor: text/.test(minicardCss),
-    'and the cursor says it can be typed in');
+    'a drag after a short title is still a drag from the title area');
 });
 
-test('#6639: links are above no edit overlay and keep their own click', () => {
+test('#6639: links remain above no edit overlay and keep their own click', () => {
   assert.ok(!/\.minicard-title-edit-zone/.test(minicardCss),
     'CSS cannot recreate the fixed overlay that swallowed short links');
-  assert.ok(/\.minicard-title-text\.is-editable \{[^}]*cursor: text/.test(minicardCss),
-    'ordinary title text still advertises inline editing');
   const viewerEvents = read('client/components/main/editor.js');
   const linkHandler = viewerEvents.slice(viewerEvents.indexOf("'click a'(event"));
   assert.ok(/window\.open\(href, '_blank'\)/.test(linkHandler.slice(0, 1000)),
@@ -127,13 +70,11 @@ test('#6639: links are above no edit overlay and keep their own click', () => {
     'and its click never reaches the editable title container');
 });
 
-test('#6641: the sortable cancels mouse drags from the inline title editor', () => {
+test('#6641: the sortable still cancels drags from form controls', () => {
   const listJs = read('client/components/lists/list.js');
   const sortable = listJs.slice(listJs.indexOf('$cards.sortable({'));
   assert.match(sortable.slice(0, 1000),
-    /cancel: ['"]\.js-minicard-title-form, input, textarea, button, select, option['"]/);
-  assert.match(minicardCss,
-    /textarea\.minicard-title-editor \{[^}]*user-select: text/);
+    /cancel: ['"]input, textarea, button, select, option['"]/);
 });
 
 test('a label on a minicard opens the labels, and only that (negative)', () => {

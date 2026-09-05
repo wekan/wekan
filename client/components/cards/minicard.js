@@ -288,6 +288,9 @@ function moveCardBy(card, delta) {
 }
 
 Template.minicard.events({
+  /* Direct title editing on the minicard is disabled. The title must remain a
+   * drag surface: it moves the card without handles and pans the board with
+   * handles. Keep the former handlers commented for possible future reuse.
   'keydown .minicard-title-text.js-open-inlined-form'(event) {
     // The title container replaced an anchor overlay in #6639 so markdown
     // anchors can receive clicks. Retain the overlay's keyboard behavior on
@@ -329,6 +332,7 @@ Template.minicard.events({
       await card.setTitle(title);
     }
   },
+  */
   'click .js-linked-link'() {
     if (this.isLinkedCard()) Utils.goCardId(this.linkedId);
     else if (this.isLinkedBoard())

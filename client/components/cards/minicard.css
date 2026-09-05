@@ -276,13 +276,11 @@
   position: relative;
 }
 
-/* #6639: the title text itself is the edit target. A transparent overlay must
-   not sit above the viewer: it intercepts rendered markdown links, especially
-   short links whose entire text fits inside the old fixed-width overlay. */
+/* Direct title editing is disabled; the former editor styles are retained as
+   commented code while the title serves as a card-drag/board-scroll surface.
 .minicard .minicard-title .minicard-title-text.is-editable {
   cursor: text;
 }
-/* The editor replaces the title in place and is the width of the card. */
 .minicard .js-minicard-title-form textarea.minicard-title-editor {
   font-size: 0.875rem;
   width: 100%;
@@ -295,6 +293,7 @@
   /* Same bidi isolation as the title it stands in for. */
   unicode-bidi: isolate;
 }
+*/
 .minicard .minicard-title .card-number {
   color: #b3b3b3;
   display: inline-block;

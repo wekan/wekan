@@ -116,11 +116,10 @@ test('board-only menu focus reuses the helper and cleans up its observer', () =>
   assert.match(boardBody, /_accessibilityMenuObserver\?\.disconnect\(\)/);
 });
 
-test('card and minicard edit targets are keyboard reachable', () => {
+test('card edit targets are keyboard reachable', () => {
   assert.match(card, /a\.card-collapse-toggle\.js-card-collapse-toggle/);
   assert.match(card, /a\.card-details-title-edit-zone\.js-open-inlined-form/);
-  assert.match(minicard,
-    /span\.minicard-title-text\([\s\S]*js-open-inlined-form[\s\S]*role="\{\{#if canModifyCard\}\}button[\s\S]*tabindex="\{\{#if canModifyCard\}\}0/);
+  assert.match(minicard, /span\.minicard-title-text/);
   assert.match(customFields,
     /js-card-custom-field-checkbox\.js-edit-card-custom-field-value[\s\S]*role="button" tabindex="0"/);
 });

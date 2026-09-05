@@ -72,13 +72,12 @@ template(name="minicard")
                 i.fa.fa-check
                 span {{_ 'upload-completed'}}
 
-    //- #4990: the title is edited where it is read - on the board - exactly
-      like a list's title is. Clicking the title text opens this form in its
-      place; everything else on the card still opens the card.
-    +inlinedForm(classNames="js-minicard-title-form")
-      +editMinicardTitleForm
-    else
-      .minicard-title
+    //- Direct minicard title editing is disabled. Keep the former form here as
+      commented code in case it is revisited; the title is now a drag surface.
+      +inlinedForm(classNames="js-minicard-title-form")
+        +editMinicardTitleForm
+      else
+    .minicard-title
         if showDueComplete
           if canModifyCard
             a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
@@ -100,16 +99,7 @@ template(name="minicard")
         if getArchived
           span.linked-icon.linked-archived
             i.fa.fa-archive
-        //- #6639: the title container opens the editor, but a rendered markdown
-          anchor inside its viewer handles and stops its own click first. The old
-          fixed 50% overlay sat above short links and made every visible pixel of
-          them an edit target. With no overlay, links remain links and clicking
-          ordinary title text still edits in place.
-        span.minicard-title-text(
-          class="{{#if canModifyCard}}is-editable js-open-inlined-form{{/if}}"
-          role="{{#if canModifyCard}}button{{/if}}"
-          tabindex="{{#if canModifyCard}}0{{/if}}"
-          title="{{#if canModifyCard}}{{_ 'edit'}}{{/if}}")
+        span.minicard-title-text
           +viewer
             if showCardNumber
               span.card-number
@@ -273,15 +263,15 @@ template(name="minicard")
       .parent-subtext
         | {{ parentCardName }}
 
-//- The card's title editor on the board, the same shape as a list's: the text
-  as a textarea, Save, and an X that closes without saving.
-template(name="editMinicardTitleForm")
-  textarea.minicard-title-editor.js-edit-minicard-title(rows='1' autofocus dir="auto")
-    = getTitle
-  .edit-controls.clearfix
-    button.primary.confirm.js-submit-edit-minicard-title(type="submit") {{_ 'save'}}
-    a.js-close-inlined-form(title="{{_ 'close'}}")
-      i.fa.fa-times-thin
+//- Direct minicard title editing is disabled so the title can drag the card or
+  drag-scroll the board. Former editor template:
+  template(name="editMinicardTitleForm")
+    textarea.minicard-title-editor.js-edit-minicard-title(rows='1' autofocus dir="auto")
+      = getTitle
+    .edit-controls.clearfix
+      button.primary.confirm.js-submit-edit-minicard-title(type="submit") {{_ 'save'}}
+      a.js-close-inlined-form(title="{{_ 'close'}}")
+        i.fa.fa-times-thin
 
 template(name="editCardSortOrderPopup")
   input.js-edit-card-sort-popup(type='text' autofocus value=sort dir="auto")

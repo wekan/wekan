@@ -138,23 +138,15 @@ test.describe('Cards – open & view modes', () => {
     expect(title).toContain('Renamed');
   });
 
-  test('editing a minicard title inline saves that card (#6604)', async ({ boardPage, board }) => {
+  test('a minicard title opens the card instead of an inline editor', async ({ boardPage, board }) => {
     const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
-    const cardId = await card.getAttribute('data-card-id');
 
     await card.locator('.minicard-title-text').click();
-    const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
-    const editor = editingCard.locator('textarea.js-edit-minicard-title');
-    await expect(editor).toBeVisible({ timeout: 5_000 });
-    await editor.fill('Alpha Card - Inline renamed');
-    await editingCard.locator('button.js-submit-edit-minicard-title').click();
-
-    await expect(bp.minicard(listA, 'Alpha Card - Inline renamed')).toBeVisible({
-      timeout: 8_000,
-    });
-    await expect(boardPage.locator('.js-card-details')).not.toBeVisible();
+    await cp.waitForOpen();
+    await expect(card.locator('textarea.js-edit-minicard-title')).toHaveCount(0);
   });
 
   test('#6639: a markdown link in a minicard title opens instead of editing', async ({
@@ -164,15 +156,10 @@ test.describe('Cards – open & view modes', () => {
     const bp = new BoardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
-    const cardId = await card.getAttribute('data-card-id');
-    await card.locator('.minicard-title-text').click();
-    // Once editing starts the title is a textarea value, not descendant text,
-    // so a hasText-based card locator no longer matches. Keep the stable id.
-    const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
-    const editor = editingCard.locator('textarea.js-edit-minicard-title');
-    await expect(editor).toBeVisible({ timeout: 5_000 });
-    await editor.fill('[Wekan](https://example.invalid/card-title-link)');
-    await editingCard.locator('button.js-submit-edit-minicard-title').click();
+    await boardPage.evaluate(async cardId => {
+      const cardModel = ReactiveCache.getCard(cardId);
+      await cardModel.setTitle('[Wekan](https://example.invalid/card-title-link)');
+    }, await card.getAttribute('data-card-id'));
 
     const linkedCard = bp.list(listA).locator('.js-minicard', { hasText: 'Wekan' });
     const link = linkedCard.locator('.minicard-title-text .viewer a');
@@ -221,23 +208,6 @@ test.describe('Cards – open & view modes', () => {
     const after = await cp.root.boundingBox();
     expect(Math.abs(after.x - before.x)).toBeLessThan(2);
     expect(Math.abs(after.y - before.y)).toBeLessThan(2);
-  });
-
-  test('a blank inline minicard title is rejected (negative)', async ({ boardPage, board }) => {
-    const bp = new BoardPage(boardPage);
-    const [listA] = board.listIds;
-    const card = bp.minicard(listA, 'Alpha Card');
-    const cardId = await card.getAttribute('data-card-id');
-
-    await card.locator('.minicard-title-text').click();
-    const editingCard = bp.list(listA).locator(`.js-minicard[data-card-id="${cardId}"]`);
-    const editor = editingCard.locator('textarea.js-edit-minicard-title');
-    await expect(editor).toBeVisible({ timeout: 5_000 });
-    await editor.fill('   ');
-    await editingCard.locator('button.js-submit-edit-minicard-title').click();
-
-    await expect(bp.minicard(listA, 'Alpha Card')).toBeVisible({ timeout: 5_000 });
-    await expect(boardPage.locator('.js-card-details')).not.toBeVisible();
   });
 
   test('closing the card detail panel hides it', async ({ boardPage, board }) => {

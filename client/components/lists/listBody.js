@@ -300,6 +300,9 @@ Template.listBody.onCreated(function () {
       return;
     }
 
+    /* Direct minicard title editing is disabled so title drags can reach the
+    // sortable when handles are off and board dragscroll when handles are on.
+    // Former inline-editor click guard:
     // #4990: clicking the title TEXT edits it on the board, the way a list's
     // title is edited. The minicard's own inlinedForm has already opened by the
     // time this runs (it is delegated deeper in the DOM), so all that is left
@@ -316,6 +319,7 @@ Template.listBody.onCreated(function () {
       evt.preventDefault();
       return;
     }
+    */
 
     // Title clicks should open the regular board card details view.
     if (clickedTitle && !clickedLinkedReference) {

@@ -28,6 +28,43 @@ async function dbOrder(boardId, listId) {
 }
 
 test.describe('Card drag-sort reordering', () => {
+  test('without drag handles, dragging from the title reorders the card', async ({
+    loggedInPage,
+    user,
+    browserName,
+  }) => {
+    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'TitleDragSurface',
+      cardTitlesPerList: [['Drag my title', 'Target card'], [], []],
+    });
+    try {
+      db.updateOne('users', { _id: user.id }, {
+        $set: { 'profile.showDesktopDragHandles': false },
+      });
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+      const list = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
+      const source = list.locator('.js-minicard', { hasText: 'Drag my title' });
+      const target = list.locator('.js-minicard', { hasText: 'Target card' });
+      await expect(source.locator('.handle')).toHaveCount(0);
+
+      await dragCardOnto(loggedInPage, source, target, {
+        place: 'after',
+        handle: '.minicard-title-text',
+      });
+
+      await expect.poll(() => dbOrder(board.boardId, board.listIds[0]))
+        .toEqual(['Target card', 'Drag my title']);
+    } finally {
+      db.updateOne('users', { _id: user.id }, {
+        $unset: { 'profile.showDesktopDragHandles': '' },
+      });
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#761 dragging toward the bottom scrolls the long list and accepts the drop', async ({
     loggedInPage,
     user,
