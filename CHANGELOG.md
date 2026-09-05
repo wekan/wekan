@@ -9152,6 +9152,18 @@ without restoring inline title editing.
 and improves documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e28081911">Remove visible Liquid tags from email troubleshooting</a>. Thanks to xet7.</summary>
+
+The email troubleshooting document wrapped its entire contents in Liquid
+`raw` tags to protect one literal template placeholder. GitHub's normal
+Markdown view displayed those tags as document text. The example now uses a
+fixed escaped regular-expression literal, which still replaces every exact
+placeholder without presenting Liquid syntax to a Pages build. Tests pin the
+rendering boundary and positive and negative replacement behavior.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1af5ceae2">Email troubleshooting starts with the Admin Panel provider choices</a>. Thanks to xet7.</summary>
 
 The email troubleshooting page still said email could only be configured with
