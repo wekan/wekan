@@ -8265,7 +8265,28 @@ repair cleared. The **contribution rules** now say which role commits where.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release fixes the following SECURITY ISSUE:
+This release fixes the following SECURITY ISSUES:
+
+**Code scanning alerts #442-#446** - CSS string escaping and regular-expression
+denial of service.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8aed6a984">Escape OOXML font names and parse the language registry in linear time</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+The vendored OOXML viewer wrapped document-provided font-family names in CSS
+quotes and escaped quote characters, but did not escape existing backslashes
+first. A backslash immediately before a quote could therefore consume the added
+escape and alter where the CSS string ended. The serializer now escapes
+backslashes before quotes, matching the safe serializers already present in the
+same runtime. A regression test pins their order.
+
+Four test suites parsed `languages.js` with expressions whose repeated escaped-
+character alternatives could backtrack inefficiently. They now share a strict
+line-by-line parser using fixed delimiters and `JSON.parse`, with positive,
+malformed-input and one-million-character-name coverage. This closes GitHub
+CodeQL alerts #442, #443, #444, #445 and #446.
+
+</details>
 
 **Serving attachments** - which files WeKan hands to a browser, and how.
 
