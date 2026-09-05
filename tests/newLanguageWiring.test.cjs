@@ -12,6 +12,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { parseLanguageMetadata } = require('./lib/languageRegistrySource.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
@@ -22,6 +23,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('newLanguageWiring:');
 
 const registry = read('imports/i18n/languages.js');
+const metadata = parseLanguageMetadata(registry);
 const header = read('client/components/users/userHeader.js');
 const dataDir = path.join(ROOT, 'imports/i18n/data');
 const files = fs.readdirSync(dataDir)
@@ -57,9 +59,7 @@ test('every strings file is registered, and every entry has a file', () => {
 
 test('an entry names its language in that language', () => {
   // The picker is read by somebody who does not read English.
-  const entries = [...registry.matchAll(
-    /^\s{2}\["([^"]+)",\s*"[^"]+",\s*"[^"]+",\s*("(?:\\.|[^"])*")/gm)]
-    .map(match => [match[0], match[1], JSON.parse(match[2])]);
+  const entries = metadata.map(row => [JSON.stringify(row), row[2], row[3]]);
   assert.ok(entries.length >= files.length - 2, `expected a name per language, found ${entries.length}`);
   for (const [, tag, name] of entries) {
     assert.ok(name.trim().length > 0, `${tag} has no name`);
@@ -92,9 +92,7 @@ test('a right-to-left language says so (negative)', () => {
   // backwards for its readers.
   // Non-greedy across the whole file would let one entry's key pair with a
   // LATER entry's rtl flag; each entry is matched whole instead.
-  const rtlTrue = [...registry.matchAll(
-    /^\s{2}\["([^"]+)",\s*"[^"]+",\s*"[^"]+",\s*"(?:\\.|[^"])*",\s*(true|false)\],/gm)]
-    .filter(m => m[2] === 'true').map(m => m[1]);
+  const rtlTrue = metadata.filter(row => row[4]).map(row => row[2]);
   for (const tag of ['ur', 'ar', 'he', 'fa', 'ug', 'yi']) {
     assert.ok(rtlTrue.includes(tag), `${tag} must be rtl: true`);
   }

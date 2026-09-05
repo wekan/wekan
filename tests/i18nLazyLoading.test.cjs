@@ -20,6 +20,10 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const {
+  parseLanguageMetadata,
+  parseLanguageLoaders,
+} = require('./lib/languageRegistrySource.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
@@ -31,10 +35,23 @@ console.log('i18nLazyLoading:');
 
 const registry = read('imports/i18n/languages.js');
 const tap = read('imports/i18n/tap.js');
-const metadataRows = [...registry.matchAll(
-  /^\s{2}\["([^"]+)",\s*"([^"]+)",\s*"([^"]+)",\s*"(?:\\.|[^"])*",\s*(?:true|false)\],/gm)];
-const loaderRows = [...registry.matchAll(
-  /^\s{2}"([^"]+)":\s*\(\)\s*=>\s*import\("\.\/data\/[^"]+\.i18n\.json"\),?$/gm)];
+const metadataRows = parseLanguageMetadata(registry);
+const loaderRows = parseLanguageLoaders(registry);
+
+test('the registry parser handles long names without regular-expression backtracking', () => {
+  const longName = 'a'.repeat(1_000_000) + '\\\"name';
+  const source = `const languageMetadata = [\n${JSON.stringify([
+    'test', 'test', 'test', longName, false,
+  ])},\n];`;
+  assert.strictEqual(parseLanguageMetadata(source)[0][3], longName);
+});
+
+test('the registry parser rejects a malformed row (negative)', () => {
+  assert.throws(
+    () => parseLanguageMetadata('const languageMetadata = [\n  not a row\n];'),
+    /Invalid language metadata row/,
+  );
+});
 
 // Every static `import ... from '<path>'` / `require('<path>')` that names a
 // translation data file, in any file we are given.
@@ -47,8 +64,8 @@ function staticDataImports(source) {
 }
 
 test('every registered language loads through a dynamic import()', () => {
-  const entries = registry.match(/^\s{2}\["[^"]+",\s*"[^"]+",/gm) || [];
-  const loaders = registry.match(/^\s{2}"[^"]+":\s*\(\)\s*=>\s*import\("\.\/data\/[^"]+\.i18n\.json"\),?$/gm) || [];
+  const entries = metadataRows;
+  const loaders = loaderRows;
   assert.ok(entries.length > 150, `expected the full registry, got ${entries.length} entries`);
   assert.strictEqual(loaders.length, entries.length,
     `${entries.length} languages but ${loaders.length} dynamic loaders - ` +
@@ -57,9 +74,9 @@ test('every registered language loads through a dynamic import()', () => {
 
 test('metadata keys and tags are unique, and each key has one loader', () => {
   const unique = values => new Set(values).size === values.length;
-  const keys = metadataRows.map(row => row[1]);
-  const tags = metadataRows.map(row => row[3]);
-  const loaderKeys = loaderRows.map(row => row[1]);
+  const keys = metadataRows.map(row => row[0]);
+  const tags = metadataRows.map(row => row[2]);
+  const loaderKeys = loaderRows.map(row => row[0]);
   assert.ok(unique(keys), 'duplicate language metadata key');
   assert.ok(unique(tags), 'duplicate language tag');
   assert.ok(unique(loaderKeys), 'duplicate language loader key');

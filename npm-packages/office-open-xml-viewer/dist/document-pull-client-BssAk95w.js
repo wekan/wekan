@@ -4478,7 +4478,7 @@ function Is(e, t = {}) {
 }
 function Ls(e, t, n = {}) {
 	if (!e) return js(null);
-	let i = `"${((e) => e.replace(/"/g, "\\\""))(e)}"`, a = e.toLowerCase(), o = E(e);
+	let i = `"${((e) => e.replaceAll("\\", "\\\\").replaceAll("\"", "\\\""))(e)}"`, a = e.toLowerCase(), o = E(e);
 	if (Os(e)) return Ds.has(a) ? `${i}, "Noto Naskh Arabic", "Noto Sans Arabic", "Noto Serif", "Noto Sans JP", "Hiragino Sans", serif` : `${i}, "Noto Sans Arabic", "Noto Naskh Arabic", "Noto Sans JP", "Hiragino Sans", sans-serif`;
 	let s = t[e];
 	if (s && s !== "auto") switch (s) {

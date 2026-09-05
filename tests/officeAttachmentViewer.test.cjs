@@ -90,6 +90,15 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     }
   });
 
+  test('the font-family serializer escapes backslashes before quotes', () => {
+    const runtime = read(
+      'npm-packages/office-open-xml-viewer/dist/document-pull-client-BssAk95w.js');
+    const safeEscape = 'e.replaceAll("\\\\", "\\\\\\\\")' +
+      '.replaceAll("\\\"", "\\\\\\\"")';
+    assert.ok(runtime.includes(safeEscape),
+      'a font name cannot use a backslash to escape its closing CSS quote');
+  });
+
   test('every retained viewer import and asset reference resolves inside the fork', () => {
     const dist = path.join(root, 'npm-packages/office-open-xml-viewer/dist');
     const pending = ['docx.mjs', 'xlsx.mjs', 'pptx.mjs'];

@@ -24,6 +24,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { parseLanguageMetadata } = require('./lib/languageRegistrySource.cjs');
 
 // Find the repo root by walking up from process.cwd()/PWD, NOT from the bare `__dirname`
 // global: this file is also loaded by `meteor test`, where referencing `__dirname` makes
@@ -51,10 +52,8 @@ function parseRtlFlags() {
   const src = read('imports/i18n/languages.js');
   const flags = {};
   // Compact rows are [key, code, tag, native name, rtl].
-  const re = /^\s{2}\["[^"]+",\s*"[^"]+",\s*"([^"]+)",\s*"(?:\\.|[^"])*",\s*(true|false)\],/gm;
-  let m;
-  while ((m = re.exec(src))) {
-    flags[m[1]] = m[2] === 'true';
+  for (const row of parseLanguageMetadata(src)) {
+    flags[row[2]] = row[4];
   }
   return flags;
 }
