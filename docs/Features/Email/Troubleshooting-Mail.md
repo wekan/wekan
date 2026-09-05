@@ -1,15 +1,42 @@
 {% raw %}
 <!-- Contains a literal {{variable}} code example; wrap in raw so Jekyll's
      Liquid engine does not try to evaluate it when building GitHub Pages. -->
+## Configure email in Admin Panel
+
+Before using the environment-variable examples below, open **Admin Panel /
+People / E-mail**. Enable **Enable below email settings** to choose custom SMTP
+or one of the many built-in providers, including Gmail, Gmail Workspace,
+Outlook 365, Proton, SendGrid, Mailgun, Postmark, Resend and AWS SES regions.
+Enter the provider credentials and From address, save, then use **Send SMTP test
+email**. Leave the option disabled when you want WeKan to use the installation's
+existing `MAIL_URL` and `MAIL_FROM` settings instead.
+
 [Azure Email Communication Service](https://github.com/wekan/wekan/issues/5453)
 
 [Uberspace Email](https://github.com/wekan/wekan/issues/2009#issuecomment-1017630758)
 
 ## Newest Wekan
 
-In [Wekan v5.02](../../../CHANGELOG.md#v502-2021-03-02-wekan-release) is fix for STMP settings [that works with very happy feedback](https://github.com/wekan/wekan/issues/3529#issuecomment-789085999). It requires:
-- **There is no email settings at Admin Panel anymore**
-- Email settings are made only with snap commands like `sudo snap set wekan mail-url....` or similar in Docker/Source etc `MAIL_URL=...`, more details below.
+Newest WeKan versions have two ways to configure outgoing email:
+
+- At **Admin Panel / People / E-mail**, enable **Enable below email settings**
+  to choose custom SMTP or one of the many built-in Nodemailer providers. The
+  provider list includes Gmail, Gmail Workspace, Outlook 365, Proton, SendGrid,
+  Mailgun, Postmark, Resend, the AWS SES regions and many others. Enter that
+  provider's username, password and From address, then save and use **Send SMTP
+  test email**.
+- Keep **Enable below email settings** disabled to use the installation's
+  `MAIL_URL` and `MAIL_FROM` settings. For Snap these are set with commands such
+  as `sudo snap set wekan mail-url=...`; Docker and source installations use
+  environment variables. The examples below document this method.
+
+The Admin Panel option is an explicit opt-in. Enabling and saving it makes the
+selected Admin Panel provider the outgoing transport; disabling it retains the
+existing `MAIL_URL` fallback.
+
+Older instructions referring to [Wekan v5.02](../../../CHANGELOG.md#v502-2021-03-02-wekan-release)
+describe the environment-variable method, which remains supported.
+
 - For any errors like SSLv3 and STARTTLS, check [newest AWS SES info](#example-aws-ses) and use similar settings, other SSLv3/STARTTLS info could be outdated.
 
 ## Gmail
@@ -84,7 +111,15 @@ let info = transporter.sendMail({
 
 If with some code example sending email works, xet7 can add it to wekan, like in [Wekan v5.52](../../../CHANGELOG.md#v552-2021-08-26-wekan-release) xet7 added direct nodemailer usage for MAIL_SERVICE.
 
-## MAIL_SERVICE (not currently in use)
+## MAIL_SERVICE environment variables
+
+For new configurations, first try **Admin Panel / People / E-mail**, enable
+**Enable below email settings**, and select the provider there. The Admin Panel
+contains the current, longer list of providers supported by WeKan's installed
+Nodemailer version.
+
+The environment-variable examples below describe the older `MAIL_SERVICE`
+configuration method.
 
 a) If you use smtps or smtp, please do not add any MAIL_SERVICE settings. For example, AWS SES and Postfix works with only MAIL_URL and MAIL_FROM.
 
