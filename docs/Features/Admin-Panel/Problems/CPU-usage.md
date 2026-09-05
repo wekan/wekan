@@ -144,6 +144,13 @@ the generic `eventStreamReport` (`stream="cpu"`) and its `eventLogPage` method, 
 gets search + pagination like Security/Speed/Tests. A "CPU usage" item is added to
 the Admin Panel → Problems side menu.
 
+The monitor also retains a bounded rolling sample window (720 samples by default)
+and exposes minimum, average, maximum, sample count and the time of the lowest sample
+in both Problems → Speed and Problems → CPU usage. `runWhenCpuLow()` grants one heavy
+maintenance lease only after three consecutive below-threshold samples; another job
+waits, and a job whose window never arrives is deferred. The current activity label
+and existing governor remain active throughout the lease.
+
 ## 3. Tuning (environment variables)
 
 | Variable | Default | Meaning |

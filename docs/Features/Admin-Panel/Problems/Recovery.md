@@ -4,7 +4,7 @@
 > The layout, search, pagination, column spec and per-page data loading are defined
 > there and are not repeated here.
 
-Status: **Partly implemented; automatic text-data restore is pending** · Owner: xet7 · Related (#6492):
+Status: **Implemented for bundled FerretDB SQLite launch paths** · Owner: xet7 · Related (#6492):
 `models/lib/recoveryPlan.js`, `models/lib/recoveryEventsJsonl.js`,
 `models/recoveryEvents.js`, `server/recovery.js`,
 `server/publications/recoveryReport.js`, `client/components/settings/adminProblems.*`,
@@ -57,24 +57,23 @@ bundled release `start-wekan.sh`, the Docker `wekan-entrypoint.sh`):
 - **Resets the transient OpLog** (`local.sqlite`) so a bloated/corrupt OpLog cannot
   persist across a restart. Toggle: `WEKAN_FERRETDB_RESET_OPLOG=false`.
 
-### The recovery decision (policy, not yet a production caller)
+### The recovery decision
 
 `models/lib/recoveryPlan.js` (`decideRecovery`) is the pure, unit-tested policy: given
 the integrity result and what backups / MongoDB are available, it chooses the
 least-invasive recovery — latest good backup → previous backup → re-migrate → (else)
 manual. It never chooses anything destructive unless the database is **known corrupt**.
-The launch scripts do not currently call it: they have no portable SQLite client for
-checking both the live file and each backup before FerretDB opens them. Until that is
-available on snap, bundle and container alike, restore is deliberately request-gated.
-This avoids replacing a live file or rotating a corrupt file over the latest backup on
-the strength of an unverified guess.
+The launch scripts implement this policy through `sqlite-recovery.mjs` and FerretDB's
+read-only `check-sqlite` command. They verify the live file before FerretDB opens it,
+then restore and re-check latest or previous compressed snapshots. Snap quarantines
+unusable SQLite files and re-runs migration when retained MongoDB source files exist.
 
 ## Failure coverage and recovery ownership
 
 | Failure | Mitigation / recovery | Problems → Recovery |
 | --- | --- | --- |
 | Transient OpLog is corrupt or bloated | Removed at startup and recreated automatically | Startup output; text-data events are separate |
-| Text database is corrupt | FerretDB detects it; operator requests latest, previous or re-migration | `corruption-detected`, then the requested outcome |
+| Text database is corrupt | Startup tries latest, previous, then retained MongoDB migration source | `corruption-detected`, then the automatic outcome |
 | Requested backup is missing or mode is invalid | Live data is left in place and the request is retained | `manual-required` |
 | Restore copy fails | No success is reported; marker and request remain for retry | `restore-failed` |
 | Backup copy fails | Startup continues and the prior generation remains available | `backup-failed` |
@@ -82,10 +81,11 @@ the strength of an unverified guess.
 | Bundled WeKan process exits | Bundle supervisor loop starts it again | Process logs; no database remediation is claimed |
 | Container or snap process exits | Docker/snap service manager owns restart policy | Service-manager logs; no false Recovery row |
 
-Automatic corruption restore remains an explicit gap. A future implementation must
-verify the live database and candidate backup independently, preserve the last known
-good generation, use the policy above, and add an event for every decision before it
-may be described as automatic.
+Verified snapshots are gzip-compressed below `<sqlite-dir>/.recovery`, carry SHA-256
+and byte counts for compressed and uncompressed forms, and are published only after a
+staged decompression verifies. Free space is checked without assuming compression.
+Non-urgent creation waits for a low-load startup window; corrupt startup recovery is
+urgent and does not leave the application serving known-corrupt text data.
 
 ### What users see during a recovery
 
@@ -121,7 +121,8 @@ collection (`server/recovery.js`), and the **Recovery** report
 same search + pagination as the other admin reports. Admins can also record a manual
 event with the `recordRecoveryEvent` method.
 
-Event types include `backup-created`, `backup-failed`, `corruption-detected`,
+Event types include `snapshot-created`, `snapshot-deferred`, `snapshot-failed`,
+`backup-created`, `backup-failed`, `corruption-detected`,
 `restore-backup`, `restore-prev`, `restore-failed`, `remigrate`, `bloat-repaired`,
 `integrity-ok`, `manual-required`, each with a severity (info / warning / error).
 

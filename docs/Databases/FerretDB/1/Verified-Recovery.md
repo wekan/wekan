@@ -1,6 +1,6 @@
 # Design: Verified FerretDB SQLite recovery and low-load maintenance
 
-Status: **Design accepted; implementation follows this document** · Owner: xet7
+Status: **Implemented** · Owner: xet7
 
 This design covers every WeKan launch path that uses FerretDB v1 with SQLite and
 the snap's MongoDB-to-FerretDB migration. Recovery material lives below the same
@@ -18,7 +18,7 @@ For a SQLite directory `<db>`, recovery uses only `<db>/.recovery/`:
 <db>/.recovery/previous/wekan.sqlite.gz
 <db>/.recovery/previous/manifest.json
 <db>/.recovery/migration-source/manifest.json
-<db>/.recovery/events.jsonl
+<db>/recovery-events.jsonl
 <db>/.recovery/maintenance-request.json
 ```
 
@@ -95,6 +95,33 @@ at a time, labels the activity, yields between chunks, and defers when CPU rises
 Snapshot compression, checksum verification, migration comparison, history-chain
 audits and other maintenance use this lease. Disk-space and integrity checks remain
 cheap prerequisites and are never skipped.
+
+## Tamper evidence and paced audits
+
+Change-history rows form a per-board SHA-256 chain over immutable content, actor,
+time and predecessor. Before undo or redo, WeKan verifies the row, predecessor and
+absence of a fork. A background audit checks every chain in bounded batches.
+History has no client publication, REST mutation route or general-purpose Meteor
+mutation method; only server undo/redo may change `undone`, and recording new work
+may mark an abandoned redo branch `superseded`.
+
+The existing filesystem-integrity inventory covers attachments and avatars. The
+same paced audit also covers registered logs and verified recovery generations.
+Missing files, changed sizes, invalid signed baselines and changed checksums are
+reported in Admin Panel → Problems → Security. Intentional application deletion
+removes its inventory entry as part of the authorized operation and is not called
+tampering.
+
+Each report includes the object kind and ID, bounded path, expected and observed
+size/checksums, detection time, and the most recent legitimate writer/time when
+known. An interactive verification also records the authenticated username, user
+ID and proxy-aware IP. A background scan explicitly leaves actor and IP unknown;
+it never invents attribution. Contents, secrets and unbounded paths are excluded.
+
+Background checks acquire the maintenance lease after consecutive low-CPU samples,
+recheck CPU immediately before every bounded batch, pause between files/batches,
+and yield and defer when CPU rises. Synchronous undo/redo verification is small and
+urgent, because a suspect row must never be applied first.
 
 ## Tests and failure injection
 

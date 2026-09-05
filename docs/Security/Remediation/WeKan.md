@@ -682,8 +682,10 @@ is classified against WeKan's own record of the file:
 A modification time that moved **backwards** is called out separately: nothing
 does that by accident.
 
-The event carries the **file's name and the finding, never its contents and never
-the digests** — an admin needs to know which file, not to read it here.
+The event carries the object kind/ID, bounded path, expected and observed size and
+digests, detection time, and last known legitimate writer/time. It never carries
+file contents. Background scans explicitly have no username or IP; an interactive
+check records the authenticated user and proxy-aware address when available.
 
 ### 13.4 Crashes, downtime and errors nobody caught
 
@@ -714,10 +716,11 @@ the app handles its own failures.
 
 ### 13.5 Where it appears
 
-A new event stream, `integrity`, in the same `eventlog` collection and the same
-Admin Panel → **Problems → Filesystem integrity** table as the others (§8), with
-the Username / IP address / Attempts columns §12.3 added. It counts towards the
-red **Problems** button like every other stream.
+Integrity findings use the `security` event stream and appear in Admin Panel →
+**Problems → Security**, with the Username / IP address / Attempts columns from
+§12.3. They count towards the red **Problems** button like every other security
+finding. Recovery outcomes remain in Problems → Recovery; a recovery checksum
+mismatch is both a recovery failure and a security-integrity finding.
 
 The `fileIntegrity` baseline itself is **never published and never client-writable**:
 it is a map of every file on the server, and the key document is a private key.
