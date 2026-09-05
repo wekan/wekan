@@ -52,6 +52,8 @@ for (const [variant, title] of [
     '',
   ].join('\n'));
   write(source, '.gitignore', 'secret.txt\n');
+  write(source, '.github/dependabot.yml', 'version: 2\nupdates: []\n');
+  write(source, '.github/dependabot.yaml', 'version: 2\nupdates: []\n');
   write(source, 'secret.txt', 'must not be copied\n');
   run('git', ['add', '.'], source);
   run('git', ['commit', '-qm', 'source'], source);
@@ -64,6 +66,8 @@ for (const [variant, title] of [
 
   assert.strictEqual(fs.existsSync(path.join(target, 'stale.txt')), false);
   assert.strictEqual(fs.existsSync(path.join(target, 'secret.txt')), false);
+  assert.strictEqual(fs.existsSync(path.join(target, '.github/dependabot.yml')), false);
+  assert.strictEqual(fs.existsSync(path.join(target, '.github/dependabot.yaml')), false);
   assert.match(fs.readFileSync(path.join(target, 'snapcraft.yaml'), 'utf8'), new RegExp(`^name: ${variant}$`, 'm'));
   assert.match(fs.readFileSync(path.join(target, 'snapcraft-core26.yaml'), 'utf8'), new RegExp(`^name: ${variant}$`, 'm'));
   assert.match(fs.readFileSync(path.join(target, 'package.json'), 'utf8'), new RegExp(`"name": "${variant}"`));

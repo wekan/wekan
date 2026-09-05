@@ -35,6 +35,11 @@ fi
 git -C "$TARGET_DIR" rm -r -q --ignore-unmatch -- .
 git -C "$SOURCE_DIR" archive --format=tar HEAD | tar -C "$TARGET_DIR" -xf -
 
+# These repositories are release mirrors, not independent dependency owners.
+# Dependency changes are reviewed and tested in wekan/wekan, then arrive here
+# through this sync. Copying the configuration creates duplicate, stale PRs.
+rm -f "$TARGET_DIR/.github/dependabot.yml" "$TARGET_DIR/.github/dependabot.yaml"
+
 cd "$TARGET_DIR"
 
 # Snap Store identity. Both bases must keep the variant name.

@@ -149,6 +149,9 @@ test('the sync preserves snap, npm and container package identities', () => {
     'only committed source is copied, excluding .git, .tools and build output');
   assert.ok(/status --porcelain/.test(prepareVariant),
     'a dirty target checkout is refused before replacement');
+  assert.ok(/rm -f "\$TARGET_DIR\/\.github\/dependabot\.yml"/.test(prepareVariant)
+    && /"\$TARGET_DIR\/\.github\/dependabot\.yaml"/.test(prepareVariant),
+  'variant mirrors do not inherit duplicate Dependabot version updates');
 });
 
 test('variant snap publication remains independent of repository syncing', () => {

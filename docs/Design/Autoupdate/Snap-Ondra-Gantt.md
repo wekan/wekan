@@ -24,6 +24,12 @@ tree with the committed WeKan source and restores these variant-specific values:
 - the source label in `Dockerfile`;
 - GHCR, Quay and Docker Hub image names in every Compose example.
 
+The preparation step removes `.github/dependabot.yml` and
+`.github/dependabot.yaml`. Dependencies are updated, reviewed and tested once
+in `wekan/wekan`, then copied to both mirrors. Running Dependabot independently
+in the mirrors creates duplicate PRs based on source snapshots that the next
+sync replaces.
+
 The script refuses an unsupported package name or a target checkout with local
 changes. It copies `git archive HEAD`, so `.git`, `.tools`, ignored files,
 uncommitted changes and build output cannot enter a variant repository.
