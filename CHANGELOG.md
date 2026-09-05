@@ -9166,6 +9166,22 @@ without restoring inline title editing.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5831f16b">Keep consistency checks aligned with release helpers and security names</a>. Thanks to xet7.</summary>
+
+The complete test rerun found four consistency failures rather than application
+failures. The new variant preparation helper now has its documented workflow-only
+menu exemption, and the variant design explicitly retains historical Docker tags
+without claiming that new variant images are published. Upcoming entries are
+grouped by their actual areas.
+
+The security inventory previously used substring matching, so naming
+`CookieTokenBleed` made it falsely conclude that the unrelated `TokenBleed` gap
+had acquired coverage. Vulnerability names now require non-alphanumeric
+boundaries. The four suites that failed in the complete run pass together.
+
+</details>
+
 and improves documentation:
 
 **Outgoing email documentation** - current configuration and readable Markdown.
