@@ -8245,11 +8245,13 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Release version updates** now publish Meteor from its canonical
-build pin and stop before publishing if any release-critical version remains
-stale. **Git mirror updates** also work from WeKan's documented Linux, macOS and
-Windows checkout locations, keep every related clone below the active checkout's
-ignored `.tools` directory, and update existing mirrors on repeat runs.
+**In short:** **Windows single EXE builds** now run their packer on Windows and
+generate the native launcher's required header. **Release version updates** now
+publish Meteor from its canonical build pin and stop before publishing if any
+release-critical version remains stale. **Git mirror updates** also work from
+WeKan's documented Linux, macOS and Windows checkout locations, keep every related
+clone below the active checkout's ignored `.tools` directory, and update existing
+mirrors on repeat runs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8261,6 +8263,22 @@ ignored `.tools` directory, and update existing mirrors on repeat runs.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4fae0377e">Windows single EXE builds generate the native launcher's required header</a>. Thanks to xet7.</summary>
+
+The packer's command-line entry check constructed a `file://` URL by joining a
+prefix to the resolved script path. That happened to match Node's module URL on
+POSIX, but a Windows drive-letter path produced a different URL. The packer then
+silently exited successfully without generating `wekan-real-files.h`, and the C
+compiler failed because that header did not exist.
+
+The entry check now uses Node's platform-aware path-to-file-URL conversion. Its
+regression test requires that conversion and rejects the Windows-incompatible
+hand-built URL, alongside the existing manifest, generated-header and workflow
+checks.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5ca13e2fa">Website releases publish Meteor from the version the build actually uses</a>. Thanks to xet7.</summary>
