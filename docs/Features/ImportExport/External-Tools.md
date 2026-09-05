@@ -49,11 +49,12 @@ python3 api.py exportboardformat BOARDID deck deck-board.json
 #   → GET  /api/boards/:boardId/export/deck?authToken=:token
 ```
 
-> **Best-effort note:** these tools expose data through different APIs and the
-> mappings cover the common fields (title, description, list/column/state, labels,
-> due date, assignee). Importing the produced JSON *into* GitHub/GitLab/Gitea/Forgejo
-> is done through their own issue-creation APIs (the export gives you the data in
-> their shape).
+The authoritative field and compatibility contract is the
+[current format coverage design](./Format-Coverage.md). Imports map every source
+field for which WeKan has an equivalent and return explicit warnings for the rest;
+exports use creation/request shapes and loss accounting rather than pretending a
+different product can represent every WeKan feature. Importing produced issue JSON
+into GitHub/GitLab/Gitea/Forgejo is performed through that provider's API.
 
 ## Related
 

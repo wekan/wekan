@@ -1,6 +1,13 @@
 # [Big Picture Roadmap](../../../FUTURE.md): Import/Export/Sync with WeKan
 
-## Partial
+## Implemented formats and completeness work
+
+The current contract, newest provider/API references, complete field inventory,
+loss accounting and restart behavior are maintained in
+[Format-Coverage.md](./Format-Coverage.md). The historical issue table below is
+retained as provenance; it is not the current format specification.
+
+## Historical issue inventory
 
 [More](https://github.com/wekan/wekan/issues/4578)
 
