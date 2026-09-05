@@ -8252,6 +8252,9 @@ Release and maintenance output remains visible, but an invisible read or generic
 Prompts that collect versions, paths and other real command arguments are
 unchanged. **Mobile layout regression coverage** now follows the current header
 and drag-handle structure and tolerates only subpixel browser rounding.
+**Security and recovery audits** now cover the current 93-entry vulnerability
+catalog, report ScannerBleed attempts, and expose backup/restore failures without
+discarding the recovery request needed for retry.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8292,6 +8295,29 @@ Those checks now pin the current structure. The Firefox browser test also
 accepts less than half a CSS pixel of glyph-centre rounding; it had failed on a
 0.0083-pixel difference while Chromium and WebKit passed. A real positioning
 regression of half a pixel or more still fails.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d17d51df3">Audit security coverage and recovery failure reporting</a>. Thanks to xet7.</summary>
+
+The Hall of Fame audit had been looking only in an obsolete companion-repository
+location, so it silently skipped the real `.tools/wekan.fi` catalog. The security
+regression inventory also stopped at 62 vulnerabilities. It now accounts for all
+93 published names: 71 have named regression coverage and the remaining 22 older
+fixes are explicit gaps. Scanner command injection payloads have focused positive
+and negative coverage, and rejected scanner filenames appear as ScannerBleed in
+Admin Panel → Problems → Security. Response-only protections remain deliberately
+silent where normal use cannot be distinguished from an attack.
+
+All three FerretDB launch paths previously ignored a failed backup or restore
+copy, reported success anyway, and removed a failed restore request. They now
+report `backup-failed`, `restore-failed` or `manual-required` in Admin Panel →
+Problems → Recovery, never claim that a failed copy succeeded, and retain failed
+restore requests for the next restart. The recovery documentation now separates
+implemented automatic mitigation from operator-requested text-database restore
+and records the remaining portable integrity-check gap instead of describing an
+unused decision function as production automation.
 
 </details>
 
