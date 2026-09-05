@@ -11,6 +11,7 @@ permissions:
 jobs:
 
   build:
+    timeout-minutes: 180
 
     runs-on: ubuntu-latest
 

@@ -92,6 +92,7 @@ concurrency:
 
 jobs:
   release:
+    timeout-minutes: 15
     name: find the release
     runs-on: ubuntu-24.04
     outputs:
@@ -301,6 +302,7 @@ jobs:
           if-no-files-found: warn
 
   publish:
+    timeout-minutes: 60
     name: attach to the release, and build the repository
     needs: [release, build]
     if: ${{ !cancelled() }}

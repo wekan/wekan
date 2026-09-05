@@ -64,6 +64,7 @@ concurrency:
 
 jobs:
   plan:
+    timeout-minutes: 15
     name: what the release is missing
     runs-on: ubuntu-latest
     outputs:
@@ -313,6 +314,7 @@ jobs:
   # already published. Re-publishing an existing version would re-tar the package
   # and change the digest of a chart people have already pulled.
   charts:
+    timeout-minutes: 30
     name: Helm chart
     needs: plan
     if: ${{ !cancelled() && needs.plan.outputs.version != '' }}
@@ -396,6 +398,7 @@ jobs:
           echo "$mark charts" >> "$GITHUB_STEP_SUMMARY"
 
   done:
+    timeout-minutes: 15
     name: what is still missing
     needs: [plan, extra-arches, appimage, flatpak, charts]
     if: ${{ !cancelled() }}

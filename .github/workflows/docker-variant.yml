@@ -54,6 +54,7 @@ permissions:
 
 jobs:
   retag:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       # First step on purpose: a missing or wrong credential is then ONE named
