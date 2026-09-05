@@ -441,6 +441,10 @@ export class Exporter {
   async buildStream(res) {
     await assertExportEnabled();
     const fs = Npm.require('fs');
+    const { secureTransfer } = require('/server/lib/secureTransfer');
+    const secureExportDoc = (value, source) => secureTransfer(value, {
+      direction: 'export', source,
+    });
     // Static requires only — Meteor's bundler cannot resolve a dynamic
     // require(`/models/${name}`) path.
     const cardsRaw = require('/models/cards').default.rawCollection();
@@ -506,7 +510,9 @@ export class Exporter {
       let i = 0;
       for await (const doc of cursor) {
         if (onDoc) onDoc(doc);
-        await w((i++ ? ',' : '') + JSON.stringify(doc));
+        await w((i++ ? ',' : '') + JSON.stringify(
+          secureExportDoc(doc, `export:wekan-stream:${key}`),
+        ));
       }
       await w(']');
       return i;
@@ -528,7 +534,9 @@ export class Exporter {
     // Open the object with the board's own fields + _format (board data is small).
     const board = await ReactiveCache.getBoard(boardId, { fields: { stars: 0 } });
     (board.members || []).forEach(m => userIds.add(m.userId));
-    const boardJson = JSON.stringify({ _format: 'wekan-board-1.0.0', ...board });
+    const boardJson = JSON.stringify(secureExportDoc(
+      { _format: 'wekan-board-1.0.0', ...board }, 'export:wekan-stream:board',
+    ));
     await w(boardJson.slice(0, -1)); // drop the trailing '}' to keep the object open
 
     // Attachments — file bytes streamed as base64 in aligned chunks.
@@ -552,7 +560,9 @@ export class Exporter {
           type: att.type,
         };
         // Open this attachment object; append "file" streamed if included.
-        const headJson = JSON.stringify(head);
+        const headJson = JSON.stringify(
+          secureExportDoc(head, 'export:wekan-stream:attachment'),
+        );
         await w((i++ ? ',' : '') + (this._excludeAttachments ? headJson : headJson.slice(0, -1)));
         if (!this._excludeAttachments) {
           await w(',"file":"');
@@ -699,7 +709,9 @@ export class Exporter {
         }
         // Anonymize identity (and drop any avatar) using the pre-scan map.
         if (anonMap) anonymizeUserDoc(user, anonMap);
-        await w((i++ ? ',' : '') + JSON.stringify(user));
+        await w((i++ ? ',' : '') + JSON.stringify(
+          secureExportDoc(user, 'export:wekan-stream:user'),
+        ));
       }
     }
     await w(']');

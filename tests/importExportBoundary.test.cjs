@@ -81,6 +81,8 @@ test('all import transports and export adapters use the common boundary', () => 
   assert.ok(wrapper.includes('sanitizeTransferValue'));
   assert.ok(wrapper.includes("action: 'blocked'"));
   assert.ok(wrapper.includes("action: 'sanitized'"));
+  const exporter = fs.readFileSync(path.join(root, 'models/exporter.js'), 'utf8');
+  assert.match(exporter, /secureExportDoc\(doc, `export:wekan-stream:\$\{key\}`\)/);
   const rest = fs.readFileSync(path.join(root, 'server/models/boards.js'), 'utf8');
   assert.match(rest, /Meteor\.callAsync\('importBoard'/);
 });
