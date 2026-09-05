@@ -9133,6 +9133,19 @@ publication remains independent of repository synchronization.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c44b5af36">Keep Dependabot updates in WeKan instead of its release mirrors</a>. Thanks to xet7.</summary>
+
+Synchronizing the complete source tree also copied WeKan's Dependabot
+configuration into `wekan-ondra` and `wekan-gantt-gpl`. Both mirrors then opened
+duplicate dependency PRs against snapshots that later synchronization replaces.
+The preparation step now removes both supported Dependabot configuration
+filenames. Dependency changes remain reviewed and tested once in `wekan/wekan`
+and reach each compatibility repository through the normal sync. Positive and
+negative fixture coverage pins the exclusion for both variants.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/87896365a">Keep source scans out of builds and exercise minicard links through the UI</a>. Thanks to xet7.</summary>
 
 The complete test run found two scanners walking generated `.build-*` bundles:
