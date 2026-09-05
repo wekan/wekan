@@ -8250,9 +8250,9 @@ variant repositories without replacing their workflows, and leave bounded,
 named diagnostics for every workflow failure. **Build menus** return immediately
 after completed commands while keeping real menu and argument prompts.
 **Mobile regression coverage** follows the header and drag-handle structure.
-**Security coverage** now accounts for all 94 Hall of Fame names, blocks
+**Security coverage** accounts for all 94 Hall of Fame names, blocks
 SheetColorBleed CSS injection, reports attributable ScannerBleed and integrity
-attempts, and removes a test-only incomplete escape.
+attempts, and prevents weak FerretDB password hashes.
 **Verified recovery** checks and restores FerretDB SQLite snapshots or retained
 MongoDB source, preserves failed requests for retry, verifies history and stored
 files, and schedules non-urgent checksum work during sustained low CPU usage.
@@ -8269,6 +8269,24 @@ resumes Trello jobs.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
+scanning:
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/bd29823d">Stop creating SCRAM-SHA-1 credentials</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+New FerretDB users and password changes now create only salted,
+15,000-iteration PBKDF2-SHA-256 credentials. An explicit SCRAM-SHA-1 request is
+rejected, and the MD5 password-preparation function is removed instead of being
+hidden behind an ineffective CodeQL annotation, resolving alert 46 (CWE-327,
+CWE-328 and CWE-916). Existing stored SCRAM-SHA-1 credentials remain readable
+only for authentication, so an administrator can migrate a legacy account by
+changing its password. Positive SHA-256 creation/update tests and negative
+SHA-1 creation/update tests pass with the full FerretDB unit, vet and SQLite/TLS
+integration suites.
+
+</details>
 
 **Safeguards** - Security, recovery, build and mobile regression protections.
 
