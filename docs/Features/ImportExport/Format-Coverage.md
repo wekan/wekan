@@ -77,6 +77,35 @@ form and, where needed for round-trip, its bounded structured source. Usernames
 are source identities until explicitly mapped; imports never grant board access
 merely because a source file names a user.
 
+## One validation and sanitization boundary
+
+All upload, DDP and REST imports pass through one shared boundary before a
+format parser or creator sees them. It walks own enumerable data only, rejects
+prototypes, accessors, cycles and dangerous keys such as `__proto__`, bounds
+depth, nodes, arrays, strings and binary declarations, validates finite numbers
+and dates, and returns a new null-prototype-safe value. Format adapters may
+tighten this schema but may not bypass it.
+
+Text is classified by destination. Titles, names, identifiers and plain text
+remain text. Permitted rich HTML is sanitized with WeKan's existing DOMPurify
+configuration and an explicit tag/attribute allowlist; scripts, event handlers,
+active SVG/MathML, CSS, forms, embeds and unsafe protocols are removed. Markdown
+is stored as Markdown and rendered through the existing sanitized renderer, not
+pre-rendered as trusted HTML. URLs use the shared scheme and SSRF validators;
+file paths and names use the existing traversal and filename guards.
+
+Formula-capable exports neutralize cells beginning with `=`, `+`, `-`, `@`, tab,
+carriage return or line feed when user text is written to CSV, TSV or XLSX. JSON
+serialization drops prototype keys and never serializes credentials, filesystem
+paths, login tokens or server-only metadata. HTML/PDF/SVG output goes through
+the same safe rich-text and URL decisions before rendering.
+
+Every exporter passes its finished value through the shared outbound validator.
+This catches non-finite numbers, invalid dates, unsafe URLs, accidental secrets,
+cycles and adapter mistakes even when the stored database row predates current
+import validation. Sanitization returns warnings with bounded field paths for
+Problems → Security/Recovery; raw rejected values and secrets are never logged.
+
 ## Verification matrix
 
 Each format has fixtures from its newest documented shape plus legacy fixtures.
