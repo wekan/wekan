@@ -222,6 +222,11 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',
+    'git-mirror-update.sh': 'standalone Linux/macOS mirror updater; its Windows '
+      + 'counterpart cannot share one cross-platform menu entry, and each pushes '
+      + 'two external mirrors rather than performing a WeKan release step',
+    'git-mirror-update.bat': 'standalone Windows counterpart of '
+      + 'git-mirror-update.sh, tied to the documented Windows checkout path',
     // Release-workflow helpers. These are called by
     // .github/workflows/release-all.yml, not by a person from a menu: they take
     // their input from the matrix and the environment of a build job and would
@@ -235,6 +240,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'resolve-node-source.sh': 'release-workflow: a lookup the other scripts, the\n      bundle jobs and the Dockerfile call - it prints where a platform\'s Node.js\n      comes from and downloads nothing itself',
     'require-binaries.sh': 'release-workflow: called per build job',
     'record-provenance.sh': 'release-workflow: called per build job',
+    'verify-release-versions.mjs': 'release-workflow guard: the bump job calls it '
+      + 'after version.sh and before committing or publishing; it requires the '
+      + 'workflow-selected release version and changes nothing itself',
     'apt-install.sh': 'release-workflow: how the build jobs install their\n      distribution packages - it waits out a mirror mid-republish and drops\n      the repositories the release does not use',
     'fetch.sh': 'release-workflow: the downloader every build job, and the\n      preflight, and the Dockerfile use - it waits out a 503 and tells that\n      apart from a 404, and has no release step of its own',
     'npm-retry.sh': 'release-workflow: the wrapper the build jobs run their\n      npm installs through, inside the container as well as on the runner -\n      it retries a 503 and runs no release step of its own',

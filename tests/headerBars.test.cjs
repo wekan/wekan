@@ -341,10 +341,12 @@ test('starred boards are a dropdown, not a row of links', () => {
   assert.ok(/const translationKey = titleKey \|\| `\$\{popupName\}-title`/.test(popupJs),
     'an explicit key wins, and the convention still applies without one');
 
-  // The inline list is gone from the bar - except on a phone INSIDE a list,
-  // where it shows that board's LISTS, which is a different thing.
-  const lists = jade.slice(jade.indexOf('if isMiniScreen'), jade.indexOf('#header-new-board-icon'));
-  assert.ok(/each currentBoard\.lists/.test(lists), 'the phone list switcher stays');
+  // No inline list names remain in the bar. Mobile Mode switches a list in the
+  // board itself; copying its names into this bar made the bar taller and
+  // changed every other swimlane's layout when one list was selected.
+  const beforeCreate = jade.slice(0, jade.indexOf('#header-new-board-icon'));
+  assert.ok(!/each currentBoard\.lists/.test(beforeCreate),
+    'the phone list switcher must not come back into the header');
   assert.ok(!/each currentUser\.starredBoards/.test(
     jade.slice(0, jade.indexOf('template(name="starredBoardsPopup")'))),
     'but no starred board is listed inline any more');

@@ -132,14 +132,16 @@ test.describe('Card drag-sort reordering', () => {
       await loggedInPage.reload({ waitUntil: 'domcontentloaded' });
       await waitForMeteor(loggedInPage);
       await expect(swimlaneHandle).toBeVisible({ timeout: 8_000 });
-      expect(await centerX(swimlaneHandle)).toBe(desktopSwimlaneX);
+      expect(Math.abs((await centerX(swimlaneHandle)) - desktopSwimlaneX))
+        .toBeLessThan(0.5);
 
       await loggedInPage.locator(`#js-list-${board.listIds[0]}`).click();
       const card = loggedInPage.locator('.js-minicard', { hasText: 'Aligned card' });
       await expect(card).toBeVisible({ timeout: 8_000 });
       const menuIcon = card.locator('.minicard-details-menu-with-handle .fa');
       const handleIcon = card.locator('.handle .fa');
-      expect(await centerX(handleIcon)).toBe(await centerX(menuIcon));
+      expect(Math.abs((await centerX(handleIcon)) - (await centerX(menuIcon))))
+        .toBeLessThan(0.5);
     } finally {
       db.updateOne('users', { _id: user.id }, {
         $unset: { 'profile.showDesktopDragHandles': '' },

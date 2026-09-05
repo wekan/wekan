@@ -241,10 +241,12 @@ test('the board layout follows the MODE, not the window width', () => {
   assert.ok(/body:not\(\.mobile-mode\) \.board-wrapper,[\s\S]*?overflow-x: auto !important;/.test(boardBody),
     'with the sideways scroll a desktop board needs');
   const minicard = read('client/components/cards/minicard.css');
-  const coarse = minicard.slice(minicard.indexOf('@media (pointer: coarse) {'));
-  const handle = /\.minicard \.handle \{([\s\S]*?)\}/.exec(coarse);
+  const mobile = minicard.slice(minicard.indexOf('/* MOBILE MODE on every browser'));
+  const handle = /body\.mobile-mode \.minicard \.handle \{([\s\S]*?)\}/.exec(mobile);
   assert.ok(handle, 'the thumb-sized handle must exist');
-  assert.ok(/body\.mobile-mode \.minicard \.handle \{/.test(coarse),
+  assert.ok(/width: 44px;/.test(handle[1]) && /min-height: 36px;/.test(handle[1]),
+    'the mobile handle keeps a finger-sized target');
+  assert.ok(/body\.mobile-mode \.minicard \.handle \{/.test(mobile),
     'the full-height thumb column belongs to mobile mode; desktop mode keeps the '
     + 'compact handle in the corner, under the menu button');
 });
