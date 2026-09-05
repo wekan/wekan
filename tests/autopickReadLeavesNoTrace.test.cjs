@@ -56,6 +56,12 @@ function harness(dbpath, body) {
   const script = [
     `DBPATH=${JSON.stringify(dbpath)}`,
     grab(/^mongo_data_files\(\) \{[\s\S]*?^\}/m),
+    // The GNU/BSD wrappers. They are part of what is being tested: without them
+    // `stat -c %Y` fails on macOS, every file is skipped by the `|| continue`,
+    // MONGO_MTIME_BEFORE stays 0 and the restore does nothing at all - silently,
+    // and only on that platform.
+    grab(/^file_mtime\(\) \{[\s\S]*?^\}/m),
+    grab(/^set_mtime\(\) \{[\s\S]*?^\}/m),
     grab(/^MONGO_MTIME_BEFORE=0[\s\S]*?^\}/m),
     grab(/^restore_mongo_mtime\(\) \{[\s\S]*?^\}/m),
     body,

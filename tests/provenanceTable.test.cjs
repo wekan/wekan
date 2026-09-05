@@ -86,20 +86,38 @@ test('THE BUG: each recorded row is printed once, not twice', () => {
     'three rows recorded, so three rows printed');
 });
 
-test('...and the glob that read every file twice is still ONE pattern', () => {
+test('...and the default file list is built by ONE traversal', () => {
   // The row-counting test above passes either way now, because the dedup added
-  // with this fix would swallow a doubled glob - which is what defence in depth
+  // with this fix would swallow a doubled read - which is what defence in depth
   // is for, and also why the cause needs its own guard or it can come back
-  // invisibly. With globstar, `provenance/**/*.tsv` already matches
-  // `provenance/*.tsv`; listing both reads every top-level file twice.
+  // invisibly.
+  //
+  // This used to pin the exact glob, `provenance/**/*.tsv` with `shopt -s
+  // nullglob globstar`. That implementation is gone: globstar arrived in bash 4
+  // and macOS still ships bash 3.2 as /bin/bash, where the shopt failed outright
+  // and `set -e` took the script with it. So the guard pins the PROPERTY the
+  // glob was chosen for - one traversal, recursive, no second pattern to double
+  // every top-level file - rather than the spelling of it.
   const src = read(TABLE);
-  const globLine = src.split('\n').find(l => /files=\(provenance/.test(l));
-  assert.ok(globLine, 'the default glob is still there');
-  const patterns = globLine.replace(/.*files=\(|\).*/g, '').trim().split(/\s+/);
-  assert.deepStrictEqual(patterns, ['provenance/**/*.tsv'],
-    'one pattern: `**/` matches zero or more directories, so it covers both');
-  assert.ok(/shopt -s nullglob globstar/.test(src),
-    'and globstar is on, or `**` is just `*` and nested files are missed');
+
+  const finds = (src.match(/^\s*(?:.*<\()?\s*find /gm) || []).length;
+  assert.equal(finds, 1,
+    'one traversal: a second one is how every top-level file got read twice');
+  assert.match(src, /find provenance -type f -name '\*\.tsv'/,
+    'recursive by default, so a file in a subdirectory is still found');
+
+  // Against the CODE, with comments stripped. The script explains in a comment
+  // why globstar is not used, and both `/globstar/` and `/shopt[^\n]*globstar/`
+  // matched that explanation - prose satisfying an assertion about code, which
+  // is the same way this suite could pass while pointing at nothing.
+  const code = src.split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+  assert.doesNotMatch(code, /shopt[^\n]*globstar/,
+    'globstar needs bash 4; /bin/bash on macOS is 3.2 and fails on the shopt');
+
+  // A path with a space in it would otherwise split into two names that are not
+  // files, and both would be skipped without a word.
+  assert.match(src, /-print0/);
+  assert.match(src, /read -r -d ''/);
 });
 
 test('a file in a SUBDIRECTORY is still found - the glob covers both', () => {

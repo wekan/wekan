@@ -161,12 +161,31 @@ mongo_data_files() {
         "$DBPATH"/journal/WiredTigerLog.* 2>/dev/null
 }
 
+# stat and touch differ between GNU and BSD, and both matter here: the snap runs
+# on Linux, while WeKan is developed on macOS and
+# tests/autopickReadLeavesNoTrace.test.cjs runs these very functions there. With
+# only the GNU spelling, `stat` failed on macOS, every file was skipped by the
+# `|| continue` below, MONGO_MTIME_BEFORE stayed 0, and restore_mongo_mtime
+# returned without doing anything - silently, and only on that platform.
+file_mtime() {
+  stat -c %Y "$1" 2>/dev/null || stat -f %m "$1" 2>/dev/null
+}
+set_mtime() {
+  # GNU first, then BSD: `touch -t` wants a formatted stamp, and `date -r` is
+  # how BSD turns an epoch into one (GNU spells that `date -d @EPOCH`, but on
+  # GNU the first form already succeeded).
+  touch -d "@$2" "$1" 2>/dev/null && return 0
+  local stamp
+  stamp="$(date -r "$2" +%Y%m%d%H%M.%S 2>/dev/null)" || return 0
+  touch -t "$stamp" "$1" 2>/dev/null || true
+}
+
 MONGO_MTIME_BEFORE=0
 note_mongo_mtime() {
   local newest=0 m f
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    m="$(stat -c %Y "$f" 2>/dev/null)" || continue
+    m="$(file_mtime "$f")" || continue
     case "$m" in ''|*[!0-9]*) continue ;; esac
     if [ "$m" -gt "$newest" ]; then newest="$m"; fi
   done < <(mongo_data_files)
@@ -178,10 +197,10 @@ restore_mongo_mtime() {
   local m f
   while IFS= read -r f; do
     [ -f "$f" ] || continue
-    m="$(stat -c %Y "$f" 2>/dev/null)" || continue
+    m="$(file_mtime "$f")" || continue
     case "$m" in ''|*[!0-9]*) continue ;; esac
     if [ "$m" -gt "$MONGO_MTIME_BEFORE" ]; then
-      touch -d "@$MONGO_MTIME_BEFORE" "$f" 2>/dev/null || true
+      set_mtime "$f" "$MONGO_MTIME_BEFORE"
     fi
   done < <(mongo_data_files)
 }

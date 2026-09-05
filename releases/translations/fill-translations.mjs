@@ -49,6 +49,26 @@ const readJson = p => { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } c
 
 const en = readJson(EN_FILE);
 if (!en) { console.error(`[fill] cannot read ${EN_FILE}`); process.exit(1); }
+
+/*
+ * Write the whole string to stdout before returning, whatever stdout is.
+ *
+ * fs.writeSync can return a short count on a pipe, so it is looped; EAGAIN is
+ * possible when the reader is slow, and is retried rather than dropped. This is
+ * the only way to be sure a large payload survives `--list | something`.
+ */
+function writeAllSync(text) {
+  const buf = Buffer.from(text, 'utf8');
+  let off = 0;
+  while (off < buf.length) {
+    try {
+      off += fs.writeSync(1, buf, off, buf.length - off);
+    } catch (error) {
+      if (error.code === 'EAGAIN') continue;   // pipe full; the reader will catch up
+      throw error;
+    }
+  }
+}
 const enKeys = Object.keys(en);
 
 // A placeholder = key missing, or value equal to the English source.
@@ -109,8 +129,21 @@ if (mode === '--list') {
   if (limit > 0) keys = keys.slice(0, limit);
   const out = {};
   for (const k of keys) out[k] = en[k];
-  console.log(JSON.stringify(out, null, 2));
+  // writeSync, not console.log, and NO process.exit after it.
+  //
+  // When stdout is a FILE, Node writes synchronously and everything lands. When
+  // it is a PIPE - which is what `| jq`, `$(...)`, and every spawn from a script
+  // or a test gives you - the write is asynchronous, and `process.exit()` cuts
+  // it off wherever it has got to. This dump is 128 KB for a language with
+  // nothing translated, and a pipe delivered 65,510 bytes of it: valid-looking
+  // JSON that simply stops in the middle of a key, with exit status 0.
+  //
+  // Anyone redirecting to a file saw the whole thing and anyone piping it lost
+  // more than half, which is the worst shape a bug like this can take.
+  writeAllSync(JSON.stringify(out, null, 2) + '\n');
   console.error(`[fill] ${code}: ${keys.length} placeholder(s) to translate.`);
+  // Safe again now: writeAllSync has already put every byte on the descriptor,
+  // so there is nothing left for exit to cut off.
   process.exit(0);
 }
 
