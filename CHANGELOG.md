@@ -9092,6 +9092,22 @@ false claim comes back.
 
 </details>
 
+and improves documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1af5ceae2">Email troubleshooting starts with the Admin Panel provider choices</a>. Thanks to xet7.</summary>
+
+The email troubleshooting page still said email could only be configured with
+`MAIL_URL`, and the Admin Panel page described its live provider fields as
+commented out. Both now lead with **Admin Panel / People / E-mail** and the
+**Enable below email settings** opt-in. They explain that administrators can
+choose custom SMTP or the built-in Gmail, Outlook 365, Proton, SendGrid,
+Mailgun, Postmark, Resend and AWS SES options, while leaving the switch disabled
+continues to use `MAIL_URL` and `MAIL_FROM`. The general webserver settings page
+points to the same two choices.
+
+</details>
+
 and improves the translations:
 
 **Bosnian** - a language file that was almost entirely English.
