@@ -38,12 +38,8 @@ template(name="swimlaneFixedHeader")
               a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
                 i.fa.fa-plus
               if isTouchScreenOrShowDesktopDragHandles
-                unless isTouchScreen
-                  a.swimlane-header-handle.handle.nodragscroll.js-swimlane-header-handle
-                    i.fa.fa-arrows
-                if isTouchScreen
-                  a.swimlane-header-miniscreen-handle.handle.nodragscroll.js-swimlane-header-handle
-                    i.fa.fa-arrows
+                a.swimlane-header-handle.handle.nodragscroll.js-swimlane-header-handle
+                  i.fa.fa-arrows
 
 template(name="editSwimlaneTitleForm")
   .list-composer

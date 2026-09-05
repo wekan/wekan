@@ -102,6 +102,52 @@ test.describe('Card drag-sort reordering', () => {
     }
   });
 
+  test('Mobile Mode aligns card controls and keeps the desktop swimlane handle position', async ({
+    loggedInPage,
+    user,
+  }) => {
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'MobileHandleAlignment',
+      cardTitlesPerList: [['Aligned card'], [], []],
+    });
+    const centerX = locator => locator.evaluate(el => {
+      const box = el.getBoundingClientRect();
+      return box.left + box.width / 2;
+    });
+    try {
+      db.updateOne('users', { _id: user.id }, {
+        $set: { 'profile.showDesktopDragHandles': true },
+      });
+      await loggedInPage.setViewportSize({ width: 1200, height: 800 });
+      await loggedInPage.evaluate(() => localStorage.setItem('wekan-mobile-mode', 'false'));
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+
+      const swimlaneHandle = loggedInPage.locator('.js-swimlane-header-handle').first();
+      await expect(swimlaneHandle).toBeVisible({ timeout: 8_000 });
+      const desktopSwimlaneX = await centerX(swimlaneHandle);
+
+      await loggedInPage.evaluate(() => localStorage.setItem('wekan-mobile-mode', 'true'));
+      await loggedInPage.reload({ waitUntil: 'domcontentloaded' });
+      await waitForMeteor(loggedInPage);
+      await expect(swimlaneHandle).toBeVisible({ timeout: 8_000 });
+      expect(await centerX(swimlaneHandle)).toBe(desktopSwimlaneX);
+
+      await loggedInPage.locator(`#js-list-${board.listIds[0]}`).click();
+      const card = loggedInPage.locator('.js-minicard', { hasText: 'Aligned card' });
+      await expect(card).toBeVisible({ timeout: 8_000 });
+      const menuIcon = card.locator('.minicard-details-menu-with-handle .fa');
+      const handleIcon = card.locator('.handle .fa');
+      expect(await centerX(handleIcon)).toBe(await centerX(menuIcon));
+    } finally {
+      db.updateOne('users', { _id: user.id }, {
+        $unset: { 'profile.showDesktopDragHandles': '' },
+      });
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#761 dragging toward the bottom scrolls the long list and accepts the drop', async ({
     loggedInPage,
     user,

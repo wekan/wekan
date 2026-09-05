@@ -140,17 +140,6 @@
   color: #a6a6a6;
   line-height: 1.2;
 }
-.swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle {
-  padding: 2px 5px;
-  font-size: calc(24px * var(--wekan-ui-font-scale, 1));
-  display: inline-block;
-  vertical-align: middle;
-  margin-inline-start: 30px;
-  cursor: move;
-  pointer-events: auto;
-  color: #a6a6a6;
-}
-
 /* Swimlane collapse button styling - matches list collapse button */
 .swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator {
   color: #a6a6a6;
@@ -181,8 +170,7 @@
   color: #333;
 }
 
-.swimlane .swimlane-header-wrap .swimlane-header-handle:hover,
-.swimlane .swimlane-header-wrap .swimlane-header-miniscreen-handle:hover {
+.swimlane .swimlane-header-wrap .swimlane-header-handle:hover {
   color: #333;
 }
 

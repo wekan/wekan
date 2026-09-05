@@ -28,6 +28,8 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const css = read('client/components/cards/minicard.css');
 const jade = read('client/components/cards/minicard.jade');
 const js = read('client/components/cards/minicard.js');
+const swimlaneJade = read('client/components/swimlanes/swimlaneHeader.jade');
+const swimlaneCss = read('client/components/swimlanes/swimlanes.css');
 
 function rule(block, selector) {
   const at = block.indexOf(selector);
@@ -95,12 +97,22 @@ test('the Mobile Mode handle has no grey button background in Safari', () => {
     'neither handle pseudo-element can paint a background');
 });
 
-test('the arrow glyph is visually aligned below the menu icon', () => {
+test('the arrow glyph stays centered below the menu icon', () => {
   const icon = rule(css, 'body.mobile-mode .minicard .handle .fa {');
-  assert.ok(/position:\s*relative/.test(icon), 'the glyph can be aligned independently');
-  assert.ok(/inset-inline-end:\s*6px/.test(icon),
-    'the asymmetric arrow is shifted inward below the menu bars');
-  assert.ok(!/\b(left|right):/.test(icon), 'the correction mirrors in RTL');
+  assert.ok(!/position:|inset-|\b(left|right):/.test(icon),
+    'the glyph must not be shifted away from its parent control center');
+});
+
+test('the swimlane uses its desktop handle position on every device', () => {
+  assert.strictEqual((swimlaneJade.match(/a\.swimlane-header-handle/g) || []).length, 1,
+    'one shared swimlane handle is rendered behind the handle preference');
+  assert.ok(!/swimlane-header-miniscreen-handle/.test(swimlaneJade + swimlaneCss),
+    'touch detection must not select a differently positioned handle');
+  const handle = rule(swimlaneCss,
+    '.swimlane .swimlane-header-wrap .swimlane-header-handle {');
+  assert.ok(/font-size:\s*calc\(16px/.test(handle), 'the compact desktop size is shared');
+  assert.ok(/margin-inline-start:\s*30px/.test(handle),
+    'the desktop logical position is shared and mirrors in RTL');
 });
 
 test('the touch handle is still a finger-sized target (#6521)', () => {
