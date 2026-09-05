@@ -8698,6 +8698,18 @@ title does not become an inline-editor trigger again.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b03743ac">The minicard drag handle no longer has a grey background</a>. Thanks to xet7.</summary>
+
+On touch devices the enlarged drag target looked like a separate grey button.
+Its background is now transparent, leaving only the drag icon visible, while
+the target remains directly below the minicard menu and keeps its full
+finger-sized area. The focused regression test pins the transparent background,
+the menu-and-handle ordering, the shared trailing edge and the absence of the
+old grey or tinted background.
+
+</details>
+
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
