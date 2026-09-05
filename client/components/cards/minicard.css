@@ -197,13 +197,10 @@
    card it is a large target, and a minimum height keeps it a real one on a card
    with nothing but a title. Mouse users keep the compact corner handle, since
    `pointer: coarse` does not match a mouse. */
-/* MOBILE MODE, not merely a coarse pointer: a phone whose user chose DESKTOP
-   mode asked for the desktop card, and there the handle is the compact one in the
-   top corner just under the menu button. The full-height thumb column below was
-   appearing there too, which is a handle sitting near the BOTTOM of a tall card -
-   far from the menu it belongs with. `body.mobile-mode` and `pointer: coarse`
-   together mean "a finger, and the user is in the finger layout". */
-@media (pointer: coarse) {
+/* MOBILE MODE on every browser. The explicit Desktop/Mobile Mode toggle decides
+   this layout, not pointer type: a desktop browser in Mobile Mode must place the
+   controls exactly like a phone does. A phone switched to Desktop Mode keeps the
+   compact desktop handle because none of these body.mobile-mode rules match. */
   /* Pinned rather than floated: the card gets trailing padding below to keep its
      text out of this column, and a float would be pushed inward by it. */
   body.mobile-mode .minicard .minicard-details-menu-with-handle {
@@ -252,7 +249,6 @@
     position: relative;
     inset-inline-end: 6px;
   }
-}
 
 .minicard .handle .drag-handle {
   font-size: 1rem;
