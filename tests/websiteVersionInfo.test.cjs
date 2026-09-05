@@ -78,8 +78,8 @@ assert.match(localRelease,
   'release bump synchronizes Docker metadata from the canonical Meteor pin');
 assert.match(localRelease, /METEOR_RELEASE=\$\{METEOR_RELEASE\}/,
   'the synchronized prerelease is written to Dockerfile');
-assert.match(fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8'),
-  new RegExp(`METEOR_RELEASE=METEOR@${meteorVersion.replace(/\./g, '\\.')}`),
+assert.ok(fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8')
+  .includes(`METEOR_RELEASE=METEOR@${meteorVersion}`),
   'Docker metadata currently matches .meteor/release');
 assert.match(workflow, /release-website\.sh "\$\{\{ inputs\.old_version \}\}" "\$\{\{ inputs\.new_version \}\}"/,
   'release-all website job runs the script that generates both destinations');

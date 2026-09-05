@@ -124,6 +124,7 @@ const GUARDED = {
   rolebleed: ['tests/restSecurityAdvisories.test.cjs'],
   rulebleed: ['tests/ruleCrossBoardAuthorization.test.cjs'],
   searchbleed: ['tests/globalSearchSelectorAuthorization.test.cjs'],
+  sheetcolorbleed: ['tests/xlsxTabColorCssInjection.test.cjs'],
   sortbleed: ['server/lib/tests/boards.security.tests.js'],
   sourcebleed: ['tests/securityMeifukun.test.cjs'],
   sessionbleed: ['tests/searchPaginationAuthorization.test.cjs'],
@@ -277,7 +278,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 93, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 94, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
@@ -295,8 +296,8 @@ test('the companion Hall of Fame names match the inventory when available', () =
 test('the five newest advisories are guarded, not recorded', () => {
   // The ones this round fixed. If any of these ever slips into RECORDED, the
   // fix has lost its test.
-  ['pathbleed', 'revokebleed', 'parentbleed', 'commentbleed',
-    'sessionbleed'].forEach(v => {
+  ['sheetcolorbleed', 'pathbleed', 'revokebleed', 'parentbleed',
+    'commentbleed'].forEach(v => {
     assert.ok(v in GUARDED, `${v} must stay guarded`);
   });
 });

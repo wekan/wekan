@@ -77,6 +77,9 @@ const DELIBERATE = {
     + 'error as an attack would misclassify ordinary validation and server failures',
   MailTitleBleed: 'the fix escapes ordinary notification content and strips subject newlines; there is no separate '
     + 'refusal path that can distinguish a malicious title from legitimate punctuation',
+  SheetColorBleed: 'the fix canonicalizes workbook color data while rendering every legitimate XLSX preview; '
+    + 'there is no upload-time refusal or reliable way to distinguish an intentionally malicious malformed color '
+    + 'from a damaged workbook without misattributing the viewer as the attacker',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.
