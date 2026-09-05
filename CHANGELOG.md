@@ -9132,6 +9132,23 @@ publication remains independent of repository synchronization.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87896365a">Keep source scans out of builds and exercise minicard links through the UI</a>. Thanks to xet7.</summary>
+
+The complete test run found two scanners walking generated `.build-*` bundles:
+one mistook bundled history calls for source without imports, while the security
+map had not yet associated nine published vulnerability names with their
+existing regression suites. Build variants are now excluded and the suites name
+the disclosures they cover.
+
+The minicard markdown-link browser test also called the module-scoped
+`ReactiveCache` identifier as if it were a browser global, failing in Chromium
+and Firefox before testing the link. It now creates the markdown title through
+the real card editor, closes the card and verifies that the minicard link opens
+without restoring inline title editing.
+
+</details>
+
 and improves documentation:
 
 <details>
