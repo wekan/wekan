@@ -8786,6 +8786,20 @@ focused positive and negative source tests pin the template scope as well.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7968f522d">Opening a Mobile Mode list no longer resizes lists in other swimlanes</a>. Thanks to xet7.</summary>
+
+The compact list rows in every swimlane consulted the board's global selected-list
+state when choosing their header controls. Opening **List 1 at Swimlane 2** therefore
+made the still-visible rows in Swimlanes 1 and 3 switch to the expanded header shape,
+changing their height even though neither swimlane had been selected. A list header
+now switches shape only when its own ID is selected, so every other swimlane keeps
+the same controls and row heights. The live Chromium regression records every compact
+row height before opening the second swimlane's list and verifies the dimensions are
+unchanged afterward; focused positive and negative source coverage pins the ID scope.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/97fcf364c">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
 
 `List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
