@@ -1,5 +1,7 @@
 'use strict';
 
+// This suite includes the SwimlaneBleed write-authorization regression.
+
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');

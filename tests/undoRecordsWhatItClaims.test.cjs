@@ -54,7 +54,7 @@ function recordingFiles() {
     'coverage', 'docs', 'tests']);
   (function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (skip.has(entry.name)) continue;
+      if (skip.has(entry.name) || entry.name.startsWith('.build-')) continue;
       const full = path.join(dir, entry.name);
       if (entry.isSymbolicLink()) continue;
       if (entry.isDirectory()) walk(full);

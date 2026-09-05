@@ -1,5 +1,8 @@
 'use strict';
 
+// Regression coverage for ChecklistWriteBleed, CommentWriteBleed, RoleBleed,
+// OwnerBleed, TokenAuditBleed and ErrorBleed.
+
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');

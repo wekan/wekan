@@ -154,12 +154,13 @@ test.describe('Cards – open & view modes', () => {
     board,
   }) => {
     const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
     const card = bp.minicard(listA, 'Alpha Card');
-    await boardPage.evaluate(async cardId => {
-      const cardModel = ReactiveCache.getCard(cardId);
-      await cardModel.setTitle('[Wekan](https://example.invalid/card-title-link)');
-    }, await card.getAttribute('data-card-id'));
+    await card.click();
+    await cp.waitForOpen();
+    await cp.editTitle('[Wekan](https://example.invalid/card-title-link)');
+    await cp.close();
 
     const linkedCard = bp.list(listA).locator('.js-minicard', { hasText: 'Wekan' });
     const link = linkedCard.locator('.minicard-title-text .viewer a');
