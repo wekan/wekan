@@ -105,6 +105,24 @@ for (const rel of SCRIPTS) {
     }
   });
 
+  test(`${rel}: failed backup and restore attempts are reported and retried`, () => {
+    assert.match(src, /"type":"backup-failed"/,
+      'a failed backup must appear in Admin Panel -> Problems -> Recovery');
+    assert.match(src, /"type":"restore-failed"/,
+      'a failed restore copy must appear in Admin Panel -> Problems -> Recovery');
+    assert.match(src, /"type":"manual-required"/,
+      'a missing or invalid restore source must require visible manual action');
+    assert.match(src, /if cp -f "\$\{?_rsrc\}?"\/wekan\.sqlite\*/,
+      'restore success must depend on the copy exit status');
+    assert.doesNotMatch(src,
+      /cp -f "\$\{?_rsrc\}?"\/wekan\.sqlite\*[^\n]*\|\| true\n[^\n]*"type":"restore-/,
+      'a failed copy must never be reported as a successful restore');
+    const failed = src.indexOf('"type":"restore-failed"');
+    const retained = src.indexOf('request retained for retry', failed);
+    assert.ok(failed >= 0 && retained >= 0,
+      'a failed restore must retain an actionable request for the next restart');
+  });
+
   test(`${rel}: NEGATIVE — attachments/avatars are not copied into the backup`, () => {
     // Only wekan.sqlite* is backed up here; attachments/avatars stay on the filesystem.
     assert.ok(

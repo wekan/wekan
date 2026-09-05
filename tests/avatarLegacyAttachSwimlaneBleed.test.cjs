@@ -1,6 +1,6 @@
 'use strict';
 
-// This suite includes the SwimlaneBleed write-authorization regression.
+// Regression coverage for AvatarMimeBleed, LegacyAttachBleed and SwimlaneBleed.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

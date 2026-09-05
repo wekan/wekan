@@ -4,7 +4,7 @@
 > The layout, search, pagination, column spec and per-page data loading are defined
 > there and are not repeated here.
 
-Status: **Implemented** · Owner: xet7 · Related (#6492):
+Status: **Partly implemented; automatic text-data restore is pending** · Owner: xet7 · Related (#6492):
 `models/lib/recoveryPlan.js`, `models/lib/recoveryEventsJsonl.js`,
 `models/recoveryEvents.js`, `server/recovery.js`,
 `server/publications/recoveryReport.js`, `client/components/settings/adminProblems.*`,
@@ -15,9 +15,9 @@ Status: **Implemented** · Owner: xet7 · Related (#6492):
 When WeKan stores its data in FerretDB v1 (SQLite), the text data lives in
 `wekan.sqlite`. Attachments and avatars live on the **filesystem**, not in the
 database. This subsystem keeps that text data safe: it prevents the database from
-bloating, detects corruption, keeps a ready-to-use backup, can restore or re-migrate
-automatically, and shows the whole remediation history in Admin Panel → Problems →
-**Recovery**.
+bloating, detects corruption, keeps a ready-to-use backup, restores or re-migrates
+when an operator requests it, and shows the remediation history in Admin Panel →
+Problems → **Recovery**.
 
 ## What each layer does
 
@@ -52,12 +52,35 @@ bundled release `start-wekan.sh`, the Docker `wekan-entrypoint.sh`):
 - **Resets the transient OpLog** (`local.sqlite`) so a bloated/corrupt OpLog cannot
   persist across a restart. Toggle: `WEKAN_FERRETDB_RESET_OPLOG=false`.
 
-### The recovery decision
+### The recovery decision (policy, not yet a production caller)
 
-`models/lib/recoveryPlan.js` (`decideRecovery`) is the pure, unit-tested brain: given
+`models/lib/recoveryPlan.js` (`decideRecovery`) is the pure, unit-tested policy: given
 the integrity result and what backups / MongoDB are available, it chooses the
 least-invasive recovery — latest good backup → previous backup → re-migrate → (else)
 manual. It never chooses anything destructive unless the database is **known corrupt**.
+The launch scripts do not currently call it: they have no portable SQLite client for
+checking both the live file and each backup before FerretDB opens them. Until that is
+available on snap, bundle and container alike, restore is deliberately request-gated.
+This avoids replacing a live file or rotating a corrupt file over the latest backup on
+the strength of an unverified guess.
+
+## Failure coverage and recovery ownership
+
+| Failure | Mitigation / recovery | Problems → Recovery |
+| --- | --- | --- |
+| Transient OpLog is corrupt or bloated | Removed at startup and recreated automatically | Startup output; text-data events are separate |
+| Text database is corrupt | FerretDB detects it; operator requests latest, previous or re-migration | `corruption-detected`, then the requested outcome |
+| Requested backup is missing or mode is invalid | Live data is left in place and the request is retained | `manual-required` |
+| Restore copy fails | No success is reported; marker and request remain for retry | `restore-failed` |
+| Backup copy fails | Startup continues and the prior generation remains available | `backup-failed` |
+| Recovery succeeds but database remains unreadable | Maintenance state remains instead of exposing a broken app | `manual-required` |
+| Bundled WeKan process exits | Bundle supervisor loop starts it again | Process logs; no database remediation is claimed |
+| Container or snap process exits | Docker/snap service manager owns restart policy | Service-manager logs; no false Recovery row |
+
+Automatic corruption restore remains an explicit gap. A future implementation must
+verify the live database and candidate backup independently, preserve the last known
+good generation, use the policy above, and add an event for every decision before it
+may be described as automatic.
 
 ### What users see during a recovery
 
@@ -93,9 +116,9 @@ collection (`server/recovery.js`), and the **Recovery** report
 same search + pagination as the other admin reports. Admins can also record a manual
 event with the `recordRecoveryEvent` method.
 
-Event types include `backup-created`, `corruption-detected`, `restore-backup`,
-`restore-prev`, `remigrate`, `bloat-repaired`, `integrity-ok`, `manual-required`, each
-with a severity (info / warning / error).
+Event types include `backup-created`, `backup-failed`, `corruption-detected`,
+`restore-backup`, `restore-prev`, `restore-failed`, `remigrate`, `bloat-repaired`,
+`integrity-ok`, `manual-required`, each with a severity (info / warning / error).
 
 Recovery also keeps the audit trail for irreversible board deletion. Changing
 Admin Panel → Problems → Delete records `permanent-delete-setting-changed` with
@@ -156,6 +179,7 @@ Recovery report.
   cannot produce success records.
 - `tests/ferretdbTextDataBackup.test.cjs` — the backup/restore scripts (critical
   negatives: never delete the live text data or a backup copy, never copy
-  attachments/avatars).
+  attachments/avatars, never report a failed copy as success, and retain failed
+  restore requests for automatic retry on restart).
 - FerretDB: `opendb_test.go` (corruption check + bloat `VACUUM`) and
   `msg_replset_test.go` (OpLog cap).

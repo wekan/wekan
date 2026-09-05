@@ -107,7 +107,15 @@ export async function isFileValid(fileObj, mimeTypesAllowed, sizeAllowed, extern
   // php/asp tags, javascript:/data: URIs, inline event handlers, null bytes or
   // path traversal. (File CONTENT is validated separately below.)
   if (filenameLooksLikeExploit(fileObj && fileObj.name)) {
-    logUploadBlock('file.name', 'rejected exploit-looking filename');
+    // With an external scanner configured, shell metacharacters in this name
+    // are specifically an attempted ScannerBleed. The generic FileBleed label
+    // hid that distinction from Admin Panel -> Problems -> Security.
+    logUploadBlock(
+      externalCommandLine ? 'injection.shell' : 'file.name',
+      externalCommandLine
+        ? 'rejected exploit-looking filename before external scanner command'
+        : 'rejected exploit-looking filename',
+    );
     return false;
   }
   let isValid = true;

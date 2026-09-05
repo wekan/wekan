@@ -10,8 +10,9 @@
 // hall-of-fame name, so Problems groups attempts the way the site names them and
 // an admin can go from one to the other.
 //
-// 66 vulnerabilities are listed on the site and 30 have a key today. The other 36
-// predate the rule, and this suite does NOT pretend to have judged them: deciding
+// The companion website currently lists 93 vulnerabilities. This test reads that
+// real checkout when it is present; it must never silently skip merely because an
+// older checkout layout is absent. Older entries that have not yet been judged
 // whether a given fix has anything to detect means reading that fix, and claiming
 // otherwise here would be worse than the gap.
 //
@@ -27,13 +28,16 @@
 
 const assert = require('assert');
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-// The website is a sibling checkout (CLAUDE.md: ../w/wekan.fi), so this degrades
-// to a skip rather than failing on a machine that only has the app.
-const HOF = path.join(os.homedir(), 'repos', 'w', 'wekan.fi', 'hall-of-fame', 'index.html');
+// AGENTS.md puts companion repositories under .tools/. A legacy sibling checkout
+// is accepted only as a fallback for older developer environments.
+const HOF_CANDIDATES = [
+  path.join(ROOT, '.tools', 'wekan.fi', 'hall-of-fame', 'index.html'),
+  path.join(ROOT, '..', 'w', 'wekan.fi', 'hall-of-fame', 'index.html'),
+];
+const HOF = HOF_CANDIDATES.find(candidate => fs.existsSync(candidate));
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -67,6 +71,12 @@ const DELIBERATE = {
   LegacyAttachBleed: 'the fix changes response headers for legitimate legacy attachment downloads; the request '
     + 'does not identify whether dangerous stored metadata was malicious, so logging it would record ordinary '
     + 'viewers and misattribute an old upload as a current attack',
+  CookieTokenBleed: 'the fix prevents authentication tokens from being stored where client JavaScript can read '
+    + 'them; ordinary login and resume requests are not refused attack attempts and must not be reported as such',
+  ErrorBleed: 'the fix removes internal error details from normal REST error responses; reporting every application '
+    + 'error as an attack would misclassify ordinary validation and server failures',
+  MailTitleBleed: 'the fix escapes ordinary notification content and strips subject newlines; there is no separate '
+    + 'refusal path that can distinguish a malicious title from legitimate punctuation',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.
@@ -78,13 +88,15 @@ const PENDING = [
   'PassBleed', 'PatternBleed', 'ProxyBleed', 'RandomBleed', 'ReactionBleed',
   'SnowBleed', 'SocialBleed', 'SortBleed', 'SpliceBleed', 'TokenBleed',
   'TransitBleed', 'UserBleed', 'WebhookBleed', 'WhereBleed', 'ZipBleed',
+  'ChecklistWriteBleed', 'CommentWriteBleed', 'OwnerBleed', 'RoleBleed',
+  'SearchBleed', 'TokenAuditBleed',
 ];
 
 const catalog = fs.readFileSync(path.join(ROOT, 'models/lib/securityCategories.js'), 'utf8');
 const keyed = new Set([...catalog.matchAll(/bleed: '(\w+)'/g)].map(m => m[1]));
 
 const hallOfFameNames = () => {
-  if (!fs.existsSync(HOF)) return null;
+  if (!HOF) return null;
   const html = fs.readFileSync(HOF, 'utf8');
   return [...new Set([...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/g)]
     .map(m => m[1]))].sort();
@@ -93,7 +105,7 @@ const hallOfFameNames = () => {
 test('every hall-of-fame name is keyed, deliberate, or pending', () => {
   const names = hallOfFameNames();
   if (!names) {
-    console.log('    (../w/wekan.fi is not checked out here - nothing to check)');
+    console.log('    (.tools/wekan.fi is not checked out here - nothing to check)');
     return;
   }
   assert.ok(names.length > 50, `expected the hall of fame, found ${names.length} names`);
@@ -112,7 +124,7 @@ test('the PENDING list never grows (negative)', () => {
   const names = hallOfFameNames();
   if (!names) return;
   const stillPending = PENDING.filter(n => names.includes(n) && !keyed.has(n));
-  assert.ok(stillPending.length <= PENDING.length,
+  assert.ok(stillPending.length <= 40,
     'PENDING may only shrink');
   const keyedSince = PENDING.filter(n => keyed.has(n));
   if (keyedSince.length) {

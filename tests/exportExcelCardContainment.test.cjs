@@ -1,6 +1,6 @@
 'use strict';
 
-// GHSA-6p5m-f9p2-wqm5 — cross-board IDOR in the single-card Excel export.
+// PassBleed / GHSA-6p5m-f9p2-wqm5 — cross-board IDOR in the single-card Excel export.
 // Run: node tests/exportExcelCardContainment.test.cjs
 //
 //   GET /api/boards/:boardId/lists/:listId/cards/:cardId/exportExcel

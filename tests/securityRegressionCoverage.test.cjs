@@ -37,6 +37,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const SUITE_DIRS = ['tests', 'server/lib/tests', 'client/lib/tests'];
+const HOF = path.join(ROOT, '.tools', 'wekan.fi', 'hall-of-fame', 'index.html');
 
 // Files that mention a vulnerability name for bookkeeping rather than testing
 // it. They must not be accepted as coverage, or this guard would pass itself.
@@ -55,15 +56,26 @@ const NOT_COVERAGE = new Set([
 // GUARDED: vulnerability -> the suite(s) that name it.
 // ─────────────────────────────────────────────────────────────────────────────
 const GUARDED = {
+  assignedbleed: ['tests/assignedbleed.test.cjs'],
+  authorbleed: ['tests/restApiIdorBatch.test.cjs'],
+  avatarmimebleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
   boardbleed: ['tests/crossBoardParentCardLeak.test.cjs'],
+  calendarbleed: ['tests/calendarbleed.test.cjs'],
   casbleed: ['tests/securityMeifukun.test.cjs'],
   checklistbleed: ['server/lib/tests/checklistbleed.security.tests.js'],
+  checklistwritebleed: ['tests/restSecurityAdvisories.test.cjs'],
+  claimbleed: ['tests/securityAdvisories20260826.test.cjs'],
   clonebleed: ['server/lib/tests/clonebleed.security.tests.js'],
   commentbleed: ['tests/restCommentDeleteAcl.test.cjs'],
+  commentwritebleed: ['tests/restSecurityAdvisories.test.cjs'],
+  cookietokenbleed: ['tests/httpOnlySessionCookie.test.cjs'],
   crashbleed: ['tests/exportTokenGuard.test.cjs'],
   dnsbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
+  errorbleed: ['tests/restSecurityAdvisories.test.cjs'],
   exportbleed: ['tests/exportHTMLXss.test.cjs'],
   followbleed: ['tests/followbleed.test.cjs'],
+  guestbleed: ['tests/restApiIdorBatch.test.cjs'],
+  hashbleed: ['tests/restApiIdorBatch.test.cjs'],
   hostnamebleed: ['tests/hostnameBleed.test.cjs'],
   identitybleed: ['tests/noIdentityReplacement.test.cjs'],
   importbleed: [
@@ -78,7 +90,9 @@ const GUARDED = {
   impersonatebleed: ['tests/securityMeifukun.test.cjs'],
   integrationbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   invitebleed: ['tests/securityMeifukun.test.cjs'],
+  jambleed: ['tests/lockoutPerSourceAddress.test.cjs'],
   livebleed: ['tests/followbleed.test.cjs', 'tests/securityMeifukun.test.cjs'],
+  legacyattachbleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
   lockoutbleed: [
     'tests/loginFailureDecision.test.cjs',
     'tests/loginTimingDefense.test.cjs',
@@ -86,23 +100,43 @@ const GUARDED = {
     'tests/loginBruteForceEnumerationWiring.test.cjs',
   ],
   metricsbleed: ['tests/securityMeifukun.test.cjs'],
+  mailtitlebleed: ['tests/notificationEmailHtmlSafety.test.cjs'],
+  membershipbleed: ['tests/securityAdvisories20260826.test.cjs'],
   mimebleed: ['server/lib/tests/fileValidationBypass.security.tests.js'],
+  miniprofilebleed: ['tests/securityAdvisories20260825.test.cjs'],
   oidcbleed: ['tests/securityMeifukun.test.cjs'],
   parentbleed: ['tests/crossBoardParentCardLeak.test.cjs'],
+  ownerbleed: ['tests/restSecurityAdvisories.test.cjs'],
+  passbleed: ['tests/exportExcelCardContainment.test.cjs'],
   pathbleed: ['tests/avatarVersionPathTraversal.test.cjs'],
   patternbleed: ['tests/noIdentityReplacement.test.cjs'],
   proxybleed: ['server/lib/tests/proxybleed.security.tests.js'],
+  positionhistorybleed: ['tests/securityAdvisories20260825.test.cjs'],
+  purgebleed: ['tests/restApiIdorBatch.test.cjs'],
   redirectbleed: ['tests/securityLog.test.cjs', 'tests/securityMeifukun.test.cjs'],
+  resetbleed: ['tests/securityAdvisories20260826.test.cjs'],
   revokebleed: ['tests/boardShareRevokeBypass.test.cjs'],
   routebleed: [
     'tests/boardExportScope.test.cjs',
     'tests/noIncompleteRegExpEscaping.test.cjs',
   ],
+  scannerbleed: ['tests/scannerBleed.test.cjs'],
+  rolebleed: ['tests/restSecurityAdvisories.test.cjs'],
+  rulebleed: ['tests/ruleCrossBoardAuthorization.test.cjs'],
+  searchbleed: ['tests/globalSearchSelectorAuthorization.test.cjs'],
   sortbleed: ['server/lib/tests/boards.security.tests.js'],
   sourcebleed: ['tests/securityMeifukun.test.cjs'],
   sessionbleed: ['tests/searchPaginationAuthorization.test.cjs'],
+  signupbleed: ['tests/restRegisterRespectsSetting.test.cjs'],
+  stalebleed: ['tests/restApiIdorBatch.test.cjs'],
+  subtaskexportbleed: ['tests/securityAdvisories20260825.test.cjs'],
+  swimlanebleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
+  tenantbleed: ['tests/tenantbleed.test.cjs'],
+  tokenauditbleed: ['tests/restSecurityAdvisories.test.cjs'],
   transitbleed: ['tests/transitbleed.test.cjs'],
   webhookbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
+  usersearchbleed: ['tests/securityAdvisories20260825.test.cjs'],
+  wherebleed: ['tests/selectorGuard.test.cjs'],
   zipbleed: ['tests/zipbleed.test.cjs'],
 
   // Guarded by ATTEMPT DETECTION rather than by a fix-regression test: a canary
@@ -135,7 +169,6 @@ const RECORDED = {
   brutebleed: 'user data published unconditionally; overlaps userbleed, both need a publication test',
   bypassbleed: 'authentication bypass; predates the *bleed test suites, no source guard was written',
   duebleed: 'Due Cards showed other users\' private board cards to an Admin; needs a publication test',
-  emailbleed: 'SMTP password readable behind the asterisks in Admin Panel; a UI-only fix',
   excelbleed: 'un-awaited access-control guard in the Excel export route; same class as bflableed',
   fieldbleed: 'JavaScript stored in a field ran when the page was reloaded; predates the *bleed test suites',
   floppybleed: 'FileBleed variant; predates the *bleed test suites, no source guard was written',
@@ -145,7 +178,6 @@ const RECORDED = {
   megableed: 'IDOR in setCreateTranslation; needs a DDP method test',
   reactionbleed: 'XSS in comment reactions; predates the *bleed test suites - note the reaction OWNERSHIP hole found in this round is a different bug and is guarded by tests/reactionOwnership.test.cjs',
   readonlybleed: 'read-only members could write Custom Fields; needs a permissions test',
-  scannerbleed: 'CVE-2026-68560 shell injection via an upload filename in the antivirus scanner command; needs a source guard on the command path',
   snowbleed: 'MigrationsBleed - a database migration fix; predates the *bleed test suites',
   socialbleed: 'social media links on wekan.fi - a website fix, not a WeKan one',
   splicebleed: 'incomplete multi-character sanitization stripping markup from a shown filename; tests/fileNameDisplay.test.cjs is the likely guard but does not name it',
@@ -231,7 +263,11 @@ test('the gap list may not grow', () => {
   // 25 -> 24: randombleed moved to GUARDED when the repo-wide class guard
   // (tests/fixedVulnerabilityClasses.test.cjs) started holding the rejection
   // sampling that CWE-1204 was about, everywhere rather than in one file.
-  assert.strictEqual(Object.keys(RECORDED).length, 24,
+  // 24 -> 23: ScannerBleed now exercises shell quoting and requires the
+  // attributable refusal to reach Problems -> Security.
+  // 23 -> 22: EmailBleed was a stale alias that is not a published Hall of Fame
+  // name; the relevant mail advisory is MailTitleBleed and is guarded above.
+  assert.strictEqual(Object.keys(RECORDED).length, 22,
     'the number of published vulnerabilities with no regression test changed');
 });
 
@@ -241,7 +277,19 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 62, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 93, 'the Hall of Fame and this list disagree on how many there are');
+});
+
+test('the companion Hall of Fame names match the inventory when available', () => {
+  if (!fs.existsSync(HOF)) return;
+  const html = fs.readFileSync(HOF, 'utf8');
+  const published = [...new Set(
+    [...html.matchAll(/<td valign="top"><b>(\w*Bleed)<\/b><\/td>/g)]
+      .map(match => match[1].toLowerCase()),
+  )].sort();
+  const inventoried = [...Object.keys(GUARDED), ...Object.keys(RECORDED)].sort();
+  assert.deepStrictEqual(inventoried, published,
+    'the companion website added, removed or renamed a vulnerability');
 });
 
 test('the five newest advisories are guarded, not recorded', () => {

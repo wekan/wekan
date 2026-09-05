@@ -1,6 +1,7 @@
 'use strict';
 
-// Regression wiring for the six private advisories received on 2026-08-25.
+// Regression wiring for UserSearchBleed, MiniProfileBleed,
+// PositionHistoryBleed, SubtaskExportBleed and CasBleed.
 // Run: node tests/securityAdvisories20260825.test.cjs
 
 const assert = require('assert');
