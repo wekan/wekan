@@ -1938,6 +1938,67 @@ wekan_docker_build_image() {
 # This never aborts the script: if it cannot raise the limit (no sudo, no TTY to
 # prompt on, a read-only /etc) it prints the one command to run by hand and
 # carries on. Nothing here applies on macOS/BSD, which have no inotify.
+# The OTHER limit that is too low by default, and the one that has actually
+# killed a run. macOS starts a shell with a soft limit of 256 open files.
+# Meteor's bundled mongod warns about it at startup:
+#
+#   "Soft rlimits for open file descriptors too low"
+#   currentValue: 256, recommendedMinimum: 64000
+#
+# and then, thirteen minutes into a Playwright run, runs out of them:
+#
+#   Error accepting new connection ... "Too many open files"
+#   __directory_list_worker ... journal: directory-list: opendir
+#   WT_PANIC: WiredTiger library panic ... the process must exit and restart
+#   build.sh: line 1148: 22176 Abort trap: 6   mongod --port 3001 ...
+#
+# Every spec after that failed with `connect ECONNREFUSED 127.0.0.1:3001`, which
+# reads like the database was never started rather than like it died - a whole
+# browser's worth of red with the cause 10,000 lines earlier in another log.
+#
+# Unlike the inotify limit above this needs no root: the HARD limit is normally
+# unlimited, so the process may raise its own soft limit, and the children it
+# starts - mongod, the bundle server, the browsers - inherit it.
+function ensure_open_files(){
+	local want="${WEKAN_OPEN_FILES:-64000}"     # mongod's own recommendedMinimum
+	[ "$want" = "0" ] && return 0
+
+	local have; have="$(ulimit -n 2>/dev/null)"
+	[ "$have" = "unlimited" ] && return 0
+	case "$have" in ''|*[!0-9]*) return 0 ;; esac   # unreadable: leave it alone
+	[ "$have" -ge "$want" ] && return 0
+
+	# Never ask for more than the hard limit, or the raise fails outright.
+	local hard; hard="$(ulimit -Hn 2>/dev/null)"
+	local target="$want"
+	case "$hard" in
+		unlimited|'') ;;
+		*[!0-9]*) ;;
+		*) [ "$hard" -lt "$want" ] && target="$hard" ;;
+	esac
+
+	# macOS also caps a process at kern.maxfilesperproc, which the hard limit does
+	# not always reflect, so step down rather than give up on one refusal.
+	local try
+	for try in "$target" 32000 16000 8000 4000 2048; do
+		[ "$try" -gt "$have" ] || continue
+		# -S: the SOFT limit only. Plain `ulimit -n` sets soft AND hard, and
+		# lowering a hard limit is irreversible for the process - a script that
+		# did that could not raise it again afterwards.
+		if ulimit -S -n "$try" 2>/dev/null; then
+			echo "==> Raised this run's open-file limit from $have to $(ulimit -n)"
+			echo "    (mongod wants at least $want; below that it aborts mid-run with"
+			echo "     'Too many open files' and every later test reports ECONNREFUSED)."
+			return 0
+		fi
+	done
+
+	echo "==> Could not raise the open-file limit; it is $have and mongod wants $want."
+	echo "    A long test run may abort with 'Too many open files'. Raise it with:"
+	echo "      ulimit -n $want    # in this shell, before running build.sh"
+	return 0
+}
+
 function ensure_inotify_watches(){
 	[ "$(uname -s)" = "Linux" ] || return 0
 
@@ -2243,8 +2304,10 @@ echo
 PS3='Please enter your choice: '
 
 # Checked on every run: a too-low inotify limit breaks `meteor run` with a
-# misleading "No space left on device".
+# misleading "No space left on device", and a too-low open-file limit kills
+# mongod partway through a test run with an equally misleading ECONNREFUSED.
 ensure_inotify_watches
+ensure_open_files
 
 # ── Menu: pick a category, then an action (the handlers below are unchanged) ──
 # choose <title> <"short|full"...>: show the short labels, set $opt to the chosen
