@@ -8682,6 +8682,22 @@ description.
 
 and fixes the following bugs:
 
+**API usage report** - recording calls after their responses finish.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd668f6b8">API usage counts now pass EventLog schema validation</a>. Thanks to xet7.</summary>
+
+The API middleware accumulated calls correctly, but every timed flush failed
+with `api is not allowed by the schema in eventlog updateAsync`. Its summary
+identity writes `api` and `apiUserId`, and the shared fold writes the normalized
+`ipv4` or `ipv6` address, while the attached EventLog schema declared none of
+those fields. Collection2 rejected the upsert selector at `api`, so the report
+could never receive a row. All four fields are now declared. Regression coverage
+checks every API/fold field against the schema so another report column cannot
+be wired end to end yet rejected only when its first live event arrives.
+
+</details>
+
 **Minicards** - what dragging the card title does.
 
 <details>
