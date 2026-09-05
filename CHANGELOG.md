@@ -8245,9 +8245,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Release builds** create the Windows single EXE on Windows and sync
-variant repositories without replacing their workflows. **Build menus** return
-immediately after completed commands while keeping real menu and argument prompts.
+**In short:** **Release builds** create the Windows single EXE on Windows, sync
+variant repositories without replacing their workflows, and leave bounded,
+named diagnostics for every workflow failure. **Build menus** return immediately
+after completed commands while keeping real menu and argument prompts.
 **Mobile regression coverage** follows the current header and drag-handle structure.
 **Security coverage** now accounts for all 94 Hall of Fame names, blocks
 SheetColorBleed CSS injection, reports attributable ScannerBleed and integrity
@@ -8268,6 +8269,22 @@ files, and schedules non-urgent checksum work during sustained low CPU usage.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 **Safeguards** - Security, recovery, build and mobile regression protections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffa624aef">Make workflow failures diagnosable</a>. Thanks to xet7.</summary>
+
+Every directly executed GitHub Actions job now has a timeout, including the
+smaller Docker, Flatpak, chart, dependency-review and repair workflows. A stuck
+external service or command therefore ends as a bounded timeout instead of
+requiring an unexplained manual cancellation.
+
+A repository-wide regression test checks every active workflow: shell commands
+must have a descriptive step name, explicit nonzero exits must print a nearby
+`::error::`, every job must be time-bounded, and `continue-on-error` jobs must
+still print their final result. This keeps both fatal and deliberately tolerated
+failures visible in the Actions log.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29801a26c">Fix Windows and variant release builds</a>. Thanks to xet7.</summary>
