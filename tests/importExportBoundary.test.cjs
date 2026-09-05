@@ -42,10 +42,27 @@ test('uses the established sanitizer for active strings', () => {
   const result = boundary.sanitizeTransferValue({
     html: '<img src=x onerror=alert(1)>hello',
     scheme: 'javascript:alert(1)',
+    vbScheme: 'vbscript:msgbox(1)',
+    dataScheme: 'data:text/html,<script>alert(1)</script>',
     base64: 'YWJjZGVmZw==',
-  }, { sanitizeHtml(value) { seen.push(value); return value.replace(/javascript:/i, '').replace(/<[^>]*>/g, ''); } });
-  assert.deepStrictEqual(result.value, { html: 'hello', scheme: 'alert(1)', base64: 'YWJjZGVmZw==' });
-  assert.strictEqual(seen.length, 2);
+  }, {
+    // This is an observation stub, not an example sanitizer. The production
+    // callback is server/lib/inputSanitizer.js (DOMPurify). Return fixed clean
+    // fixtures so a regex that incompletely strips schemes or multi-character
+    // HTML can never creep into security regression code.
+    sanitizeHtml(value) {
+      seen.push(value);
+      return `clean-${seen.length}`;
+    },
+  });
+  assert.deepStrictEqual(result.value, {
+    html: 'clean-1',
+    scheme: 'clean-2',
+    vbScheme: 'clean-3',
+    dataScheme: 'clean-4',
+    base64: 'YWJjZGVmZw==',
+  });
+  assert.strictEqual(seen.length, 4);
 });
 
 test('rejects cycles, excessive nesting and giant arrays', () => {
