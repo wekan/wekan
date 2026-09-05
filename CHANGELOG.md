@@ -8800,6 +8800,20 @@ unchanged afterward; focused positive and negative source coverage pins the ID s
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb2dec9dd">Opening a Mobile Mode list no longer enlarges the top header</a>. Thanks to xet7.</summary>
+
+Selecting **List 1 at Swimlane 2** inserted the names of every board list into the
+quick-access header. On a narrow screen that list navigation consumed another row,
+made the blue top bar taller and moved the board content down. Mobile Mode already
+presents every list as a selectable row inside its swimlane, so the duplicate header
+list has been removed. The live Chromium regression verifies that the selected list's
+name is absent from the top bar and that the bar has exactly the same height before
+and after the list opens; focused negative coverage prevents the conditional list
+from returning to the header template.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/97fcf364c">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
 
 `List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
