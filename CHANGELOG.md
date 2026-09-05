@@ -8754,6 +8754,20 @@ any pointer-type media query that could split the explicit mode again.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/418d53aa7">iPhone Safari no longer paints the minicard drag target grey</a>. Thanks to xet7.</summary>
+
+iPhone Safari still drew a grey rectangle over the full drag target in Mobile
+Mode even though its CSS background was transparent; Desktop Mode's compact
+handle did not expose the problem. The Mobile Mode target now inherits the
+minicard's actual background, so it blends into white, coloured and hovered
+cards, and explicitly disables WebKit's tap highlight. Its pseudo-elements,
+border and shadow are also pinned to paint nothing. The icon, aligned control
+column and 44-pixel touch target are unchanged. Regression coverage keeps these
+Safari-specific paint guards scoped to Mobile Mode.
+
+</details>
+
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
