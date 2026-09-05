@@ -8291,7 +8291,7 @@ integration suites.
 **Safeguards** - Security, recovery, build and mobile regression protections.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/45a754ed7">Secure and resume import/export operations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/71ad5447a">Secure and resume import/export operations</a>. Thanks to xet7.</summary>
 
 One common server boundary now validates and clones imported and exported object
 graphs, removes prototype-pollution keys and accessors, rejects cycles and
@@ -8315,7 +8315,7 @@ formula prefixes, restart reclaim, idempotency, leases, retries and timeouts.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/82e0ef861">Sanitize streamed board exports</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/69db6a372">Sanitize streamed board exports</a>. Thanks to xet7.</summary>
 
 The constant-memory JSON exporter now applies the same shared validation,
 DOMPurify and secret-removal boundary separately to the board, every streamed
@@ -8327,7 +8327,7 @@ bypassing the common security boundary.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ffa624aef">Make workflow failures diagnosable</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1eb273bf1">Make workflow failures diagnosable</a>. Thanks to xet7.</summary>
 
 Every directly executed GitHub Actions job now has a timeout, including the
 smaller Docker, Flatpak, chart, dependency-review and repair workflows. A stuck
@@ -8343,7 +8343,7 @@ failures visible in the Actions log.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/29801a26c">Fix Windows and variant release builds</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0bce2330a">Fix Windows and variant release builds</a>. Thanks to xet7.</summary>
 
 The Windows single-EXE manifest now normalizes the backslash-separated member
 names printed by Windows `tar`, so executables, native addons and startup files
@@ -8359,7 +8359,7 @@ token can therefore push ordinary source updates without the unrelated GitHub PA
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e6ed8edeb">Validate XLSX sheet colors before CSS serialization</a>. Thanks to rbbjinioeq and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e54b123c1">Validate XLSX sheet colors before CSS serialization</a>. Thanks to rbbjinioeq and xet7.</summary>
 
 An XLSX workbook's unvalidated sheet-tab color was interpolated into the
 viewer's complete `style.cssText`. A board member could append CSS declarations,
@@ -8383,7 +8383,7 @@ the preview would falsely identify the viewer rather than the workbook uploader.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1014488c4">Add verified recovery and low-load integrity audits</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/506c2697a">Add verified recovery and low-load integrity audits</a>. Thanks to xet7.</summary>
 
 FerretDB launch paths now integrity-check SQLite before opening it, create staged,
 compressed and SHA-256-verified snapshots in the same data directory, check free
@@ -8422,7 +8422,7 @@ coverage checks the prompt and exit control flow in both scripts.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a6f20c825">Mobile layout regressions test the current header and subpixel alignment</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bfac4c842">Mobile layout regressions test the current header and subpixel alignment</a>. Thanks to xet7.</summary>
 
 The full test run still expected Mobile Mode to copy list names into the top
 header, even though that switcher was removed to keep the header height and
@@ -8438,7 +8438,7 @@ regression of half a pixel or more still fails.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d17d51df3">Audit security coverage and recovery failure reporting</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/90158d501">Audit security coverage and recovery failure reporting</a>. Thanks to xet7.</summary>
 
 The Hall of Fame audit had been looking only in an obsolete companion-repository
 location, so it silently skipped the real `.tools/wekan.fi` catalog. The security
@@ -8464,7 +8464,7 @@ unused decision function as production automation.
 explicit implementation contract and format inventory.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4265c72e3">Design restart-safe durable operations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/175eea981">Design restart-safe durable operations</a>. Thanks to xet7.</summary>
 
 The Problems documentation now defines persistent operation records, bounded
 leases, checkpoints, idempotency keys, startup reclaim, cancellation and
@@ -8476,7 +8476,7 @@ automatic recovery. The Problems index links the new contract.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/581e6bffe">Design complete restart-safe import and export</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5154939a4">Design complete restart-safe import and export</a>. Thanks to xet7.</summary>
 
 The import/export documentation inventories WeKan, Trello, Jira, Kanboard,
 Nextcloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo, Asana and Zenkit
@@ -8488,7 +8488,7 @@ idempotent writes, attachment streaming, external-service timeouts and
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/287f2e3d6">Design shared import/export sanitization</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f06794343">Design shared import/export sanitization</a>. Thanks to xet7.</summary>
 
 Every structured transfer now has one documented trust boundary for structural
 validation, prototype-key rejection, resource limits, DOMPurify cleanup,
