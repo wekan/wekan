@@ -163,6 +163,9 @@ and copy converted characters to your password.
 
 ## Example: Microsoft Office 365
 
+- Microsoft will disable Basic authentication for SMTP AUTH by default on existing Microsoft 365 tenants at the end of December 2026, and it is unavailable by default on tenants created after that date. An administrator can still turn it back on for an existing tenant. Timeline: https://techcommunity.microsoft.com/blog/exchange/updated-exchange-online-smtp-auth-basic-authentication-deprecation-timeline/4489835
+- The example below uses Basic authentication. Microsoft's alternatives for devices and applications that send mail are at https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365
+
 ```
 sudo snap set wekan mail-url='smtp://user:password@smtp.office365.com:587?ignoreTLS=false&tls={rejectUnauthorized:false}&secure=true'
 sudo snap set wekan mail-from='Wekan Team Boards <info@example.com>'
