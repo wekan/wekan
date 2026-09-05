@@ -8460,6 +8460,44 @@ unused decision function as production automation.
 
 </details>
 
+**Developer documentation** - recovery and data-transfer guarantees have an
+explicit implementation contract and format inventory.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4265c72e3">Design restart-safe durable operations</a>. Thanks to xet7.</summary>
+
+The Problems documentation now defines persistent operation records, bounded
+leases, checkpoints, idempotency keys, startup reclaim, cancellation and
+terminal failure reporting for background work. It also specifies
+rate-limit-aware retries and the evidence each recovery outcome must retain,
+making the remaining implementation work distinguishable from completed
+automatic recovery. The Problems index links the new contract.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/581e6bffe">Design complete restart-safe import and export</a>. Thanks to xet7.</summary>
+
+The import/export documentation inventories WeKan, Trello, Jira, Kanboard,
+Nextcloud Deck, OpenProject, GitHub, GitLab, Gitea, Forgejo, Asana and Zenkit
+formats against their maintained APIs. It defines per-format field coverage,
+explicit loss accounting, restart checkpoints, stable source identities,
+idempotent writes, attachment streaming, external-service timeouts and
+`Retry-After` handling.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/287f2e3d6">Design shared import/export sanitization</a>. Thanks to xet7.</summary>
+
+Every structured transfer now has one documented trust boundary for structural
+validation, prototype-key rejection, resource limits, DOMPurify cleanup,
+secret removal and spreadsheet-formula neutralization. The contract requires
+both sanitized and blocked attempts to retain attributable evidence in Problems
+→ Security and requires every new adapter to reuse the shared boundary.
+
+</details>
+
 # v11.51 2026-09-05 WeKan ® release
 
 **In short:** **Windows single EXE builds** now run their packer on Windows and
