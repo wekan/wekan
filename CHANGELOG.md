@@ -8835,6 +8835,37 @@ and has the following developer-tooling fixes:
 **The build tree** - which directory a build writes to, and what is not source.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80c0f6875">build.sh raises the open-file limit, so mongod does not abort mid test run</a>. Thanks to xet7.</summary>
+
+A full Playwright run died thirteen minutes in, and every spec after it
+reported `MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:3001` -
+which reads like the test database was never started. It was. It started, said
+what was wrong with it in the same breath, and was ignored:
+
+```
+"Soft rlimits for open file descriptors too low"
+currentValue: 256, recommendedMinimum: 64000
+```
+
+Thirteen minutes later it ran out of them - *Too many open files* accepting
+connections, then `opendir` on its own journal, then `WT_PANIC: WiredTiger
+library panic` and `Abort trap: 6`. macOS starts a shell with a soft limit of
+256, `build.sh` never raised it, and so every run of the browser suites was a
+race between finishing and running out of descriptors, with the cause landing
+10,000 lines away in a different log in a form that points at the wrong thing.
+
+`ensure_open_files` runs on every invocation beside the inotify check, for the
+same reason: a limit that is too low breaks a later step with an error that
+does not name it. Unlike that one it needs no root - the hard limit is normally
+unlimited, so the process raises its own soft limit and mongod, the bundle
+server and the browsers inherit it. It sets the SOFT limit explicitly, because
+plain `ulimit -n` sets both and lowering a hard limit is irreversible; and it
+clamps to the hard limit and steps down from there, because asking for more
+fails outright rather than clamping.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b28c793f">Commit links in this file are repointed when a rebase makes them stale</a>. Thanks to xet7.</summary>
 
 A rebase rewrites hashes, and every `<summary>` here carries one in its `href`.
