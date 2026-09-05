@@ -8245,11 +8245,13 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Build menus** return immediately after completed commands while
-keeping real menu and argument prompts. **Mobile regression coverage** follows the
-current header and drag-handle structure. **Security coverage** now accounts for
-all 94 Hall of Fame names, blocks SheetColorBleed CSS injection, reports attributable
-ScannerBleed and integrity attempts, and removes a test-only incomplete escape.
+**In short:** **Release builds** create the Windows single EXE on Windows and sync
+variant repositories without replacing their workflows. **Build menus** return
+immediately after completed commands while keeping real menu and argument prompts.
+**Mobile regression coverage** follows the current header and drag-handle structure.
+**Security coverage** now accounts for all 94 Hall of Fame names, blocks
+SheetColorBleed CSS injection, reports attributable ScannerBleed and integrity
+attempts, and removes a test-only incomplete escape.
 **Verified recovery** checks and restores FerretDB SQLite snapshots or retained
 MongoDB source, preserves failed requests for retry, verifies history and stored
 files, and schedules non-urgent checksum work during sustained low CPU usage.
@@ -8266,6 +8268,22 @@ files, and schedules non-urgent checksum work during sustained low CPU usage.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 **Safeguards** - Security, recovery, build and mobile regression protections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29801a26c">Fix Windows and variant release builds</a>. Thanks to xet7.</summary>
+
+The Windows single-EXE manifest now normalizes the backslash-separated member
+names printed by Windows `tar`, so executables, native addons and startup files
+are included instead of producing an empty C array. An empty manifest fails with
+its cause before compilation. Regression coverage checks both Windows paths and
+the fail-closed behavior.
+
+Ondra and Gantt repository synchronization now retains each variant's own Actions
+workflows instead of copying WeKan's release workflows. Their existing Contents
+token can therefore push ordinary source updates without the unrelated GitHub PAT
+`workflow` scope, and the variants cannot accidentally run the main release flow.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6ed8edeb">Validate XLSX sheet colors before CSS serialization</a>. Thanks to rbbjinioeq and xet7.</summary>
