@@ -12,6 +12,7 @@
  */
 
 const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Swimlanes', () => {
@@ -118,6 +119,43 @@ test.describe('Swimlanes', () => {
     } else {
       // No "+" icon — verify existing swimlane is still visible
       await expect(boardPage.locator('.js-swimlane').first()).toBeVisible({ timeout: 5_000 });
+    }
+  });
+
+  test('Mobile Mode keeps other swimlanes lists visible when one list opens', async ({
+    boardPage, board,
+  }) => {
+    const secondSwimlaneId = db.uid('swim');
+    const secondListId = db.uid('list');
+    const now = new Date();
+    try {
+      db.insertOne('swimlanes', {
+        _id: secondSwimlaneId, title: 'Swimlane 2', boardId: board.boardId,
+        archived: false, createdAt: now, updatedAt: now, modifiedAt: now,
+        type: 'swimlane', height: -1, sort: 2,
+      });
+      db.insertOne('lists', {
+        _id: secondListId, title: 'List at Swimlane 2', boardId: board.boardId,
+        swimlaneId: secondSwimlaneId, archived: false, type: 'list', sort: 1,
+        starred: false, width: 272, createdAt: now, updatedAt: now, modifiedAt: now,
+        wipLimit: { value: 1, enabled: false, soft: false },
+      });
+      await boardPage.evaluate(() => localStorage.setItem('wekan-mobile-mode', 'true'));
+      await boardPage.reload({ waitUntil: 'domcontentloaded' });
+
+      const firstLane = boardPage.locator(`#swimlane-${board.swimlaneId}`);
+      const secondLane = boardPage.locator(`#swimlane-${secondSwimlaneId}`);
+      await expect(firstLane.locator('a.mini-list').first()).toBeVisible({ timeout: 15000 });
+      const selected = secondLane.locator(`#js-list-${secondListId}`);
+      await expect(selected).toBeVisible({ timeout: 15000 });
+      await selected.click();
+
+      await expect(secondLane.locator(`#js-list-${secondListId} .list-body`))
+        .toBeVisible({ timeout: 15000 });
+      await expect(firstLane.locator('a.mini-list').first()).toBeVisible();
+    } finally {
+      db.deleteMany('lists', { _id: secondListId });
+      db.deleteMany('swimlanes', { _id: secondSwimlaneId });
     }
   });
 });

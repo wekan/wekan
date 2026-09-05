@@ -8,7 +8,10 @@ template(name="swimlane")
       if isMiniScreen
         if currentListIsInThisSwimlane _id
           +list(currentList)
-        unless currentList
+        //- Selecting a list expands it only inside its own swimlane. Other
+          swimlanes must keep their compact list rows; a global `unless
+          currentList` emptied every other swimlane as soon as one was opened.
+        unless currentListIsInThisSwimlane _id
           //- #6465 in mobile mode too: no standing "Add List" row of its own. The
           //- + lives in each list header (between the caret and the drag handle),
           //- and opens the inline composer after that list - the same behaviour as
