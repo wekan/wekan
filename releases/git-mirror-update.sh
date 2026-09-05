@@ -1,15 +1,33 @@
 #!/bin/bash
 
-function mirror() {
-  if [ ! -d "~/repos/wekan/.tools" ]; then
-    mkdir -p ~/repos/wekan/.tools
-    if [ ! -d "~/repos/wekan/.tools/wekan-$1" ]; then
-      (cd ~/repos/wekan/.tools && git clone $3 wekan-$1 && \
-       cd wekan-$1 && git remote add upstream https://github.com/wekan/wekan)
-    fi
-    (cd ~/repos/wekan/.tools/wekan-$1 && git pull && git fetch upstream && git merge upstream/main && git push)
+set -euo pipefail
+
+# Resolve the checkout from this script instead of assuming Linux's ~/repos path.
+# This works from both ~/repos/wekan on Linux and ~/Documents/repos/wekan on macOS,
+# including when the script is started from some other working directory.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WEKAN_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+TOOLS_DIR="$WEKAN_ROOT/.tools"
+
+mirror() {
+  local name="$1"
+  local clone_url="$2"
+  local mirror_dir="$TOOLS_DIR/wekan-$name"
+
+  mkdir -p "$TOOLS_DIR"
+  if [ ! -d "$mirror_dir/.git" ]; then
+    git -C "$TOOLS_DIR" clone "$clone_url" "wekan-$name"
   fi
+
+  if ! git -C "$mirror_dir" remote get-url upstream >/dev/null 2>&1; then
+    git -C "$mirror_dir" remote add upstream https://github.com/wekan/wekan
+  fi
+
+  git -C "$mirror_dir" pull
+  git -C "$mirror_dir" fetch upstream
+  git -C "$mirror_dir" merge upstream/main
+  git -C "$mirror_dir" push
 }
 
-mirror "gitlab"   "gitlab.com"   "git@gitlab.com:wekan/wekan"
-mirror "codeberg" "codeberg.org" "git@codeberg.org:wekan/wekan"
+mirror "gitlab" "git@gitlab.com:wekan/wekan"
+mirror "codeberg" "git@codeberg.org:wekan/wekan"
