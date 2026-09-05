@@ -8710,6 +8710,19 @@ old grey or tinted background.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3c2702d9e">The minicard drag icon lines up below its menu</a>. Thanks to xet7.</summary>
+
+The touch target was in the correct trailing-edge column, but Font Awesome's
+four-way arrow has uneven side bearings and made the visible icon look too far
+toward the edge. The glyph now moves inward independently while its 44-pixel
+touch target stays in place. The handle also explicitly suppresses borders and
+shadows and gives its transparent background priority, preventing a mobile rule
+from drawing a grey block below the icon. The focused regression test covers
+the logical, RTL-safe alignment and every background layer.
+
+</details>
+
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
