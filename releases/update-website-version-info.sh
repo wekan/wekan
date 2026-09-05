@@ -11,7 +11,10 @@ WEKANREPODIR="${2:?WeKan repository directory required}"
 WEKAN_VERSION="${3:?WeKan version required}"
 
 DOCKER_WEKAN_VERSION="$(sed -n 's/^ARG VERSION=//p' "$WEKANREPODIR/Dockerfile" | head -1)"
-METEOR_VERSION="$(sed -n 's/.*METEOR_RELEASE=METEOR@\([^ \\]*\).*/\1/p' "$WEKANREPODIR/Dockerfile" | head -1)"
+# .meteor/release is the canonical framework pin used by the actual build. The
+# Dockerfile repeats it as runtime metadata, but reading that copy here allowed
+# version.txt to advertise an old prerelease when the two files drifted.
+METEOR_VERSION="$(sed -n 's/^METEOR@//p' "$WEKANREPODIR/.meteor/release" | head -1 | tr -d '\r')"
 NODE_VERSION="$(sed -n 's/.*NODE_VERSION=v\([^ \\]*\).*/\1/p' "$WEKANREPODIR/Dockerfile" | head -1)"
 NPM_VERSION="$(sed -n 's/.*NPM_VERSION=\([^ \\]*\).*/\1/p' "$WEKANREPODIR/Dockerfile" | tr -d '"' | head -1)"
 FERRETDB_VERSION="${FERRETDB_VERSION:-$(bash "$WEKANREPODIR/releases/ferretdb-latest-tag.sh")}"

@@ -405,6 +405,21 @@ version_bump_logic() {
     echo "Error: failed to set 'ARG VERSION=$NEW_VERSION' in Dockerfile." >&2
     exit 1
   fi
+  # .meteor/release is the framework version the build really uses. Keep the
+  # Docker runtime metadata synchronized from that canonical pin on every
+  # release, including prereleases such as 3.5.2-rc.0. The website manifest also
+  # reads the canonical file directly, so a stale duplicate cannot be published.
+  METEOR_RELEASE=$(tr -d '\r' < .meteor/release | head -1)
+  if ! printf '%s' "$METEOR_RELEASE" \
+      | grep -Eq '^METEOR@[0-9]+\.[0-9]+(\.[0-9]+)?([-+][0-9A-Za-z.-]+)?$'; then
+    echo "Error: invalid Meteor release in .meteor/release: $METEOR_RELEASE" >&2
+    exit 1
+  fi
+  sedi -E "s|METEOR_RELEASE=METEOR@[^ \\\\]+|METEOR_RELEASE=${METEOR_RELEASE}|g" Dockerfile
+  if ! grep -qF "METEOR_RELEASE=${METEOR_RELEASE}" Dockerfile; then
+    echo "Error: failed to synchronize Dockerfile with $METEOR_RELEASE." >&2
+    exit 1
+  fi
   # Documentation (Windows offline-install guide): same self-healing anchors as
   # snapcraft.yaml so the doc's download links re-point to v$NEW_VERSION from any
   # stale value. Only warn (don't fail the release) on a miss — a stale doc link
