@@ -9113,6 +9113,25 @@ false claim comes back.
 
 </details>
 
+and improves release automation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/abdd9750c">Update Ondra and Gantt repositories as a required release job</a>. Thanks to xet7.</summary>
+
+The compatibility snaps published successfully while their GitHub repositories
+stayed stale because repository synchronization was an optional step inside a
+`continue-on-error` architecture matrix. A missing or insufficient repository
+token could skip or fail that step without failing the release.
+
+A reusable workflow now updates both repositories from the release tag as its
+own required job. Its shared preparation script copies only committed WeKan
+source and preserves each variant's Snap, npm, GHCR, Quay and Docker Hub package
+identities. Fixture tests cover both variants, reject dirty targets and prove
+that ignored local files do not enter the synchronized repositories. Snap
+publication remains independent of repository synchronization.
+
+</details>
+
 and improves documentation:
 
 <details>
