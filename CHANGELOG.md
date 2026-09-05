@@ -8297,6 +8297,18 @@ formula prefixes, restart reclaim, idempotency, leases, retries and timeouts.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/82e0ef861">Sanitize streamed board exports</a>. Thanks to xet7.</summary>
+
+The constant-memory JSON exporter now applies the same shared validation,
+DOMPurify and secret-removal boundary separately to the board, every streamed
+collection document, attachment metadata and user. Attachment bytes remain a
+direct base64 stream, avoiding both executable interpretation and unbounded
+memory use. Regression coverage prevents this large-board export path from
+bypassing the common security boundary.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ffa624aef">Make workflow failures diagnosable</a>. Thanks to xet7.</summary>
 
 Every directly executed GitHub Actions job now has a timeout, including the
