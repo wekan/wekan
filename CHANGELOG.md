@@ -8254,7 +8254,10 @@ unchanged. **Mobile layout regression coverage** now follows the current header
 and drag-handle structure and tolerates only subpixel browser rounding.
 **Security and recovery audits** now cover the current 93-entry vulnerability
 catalog, report ScannerBleed attempts, and expose backup/restore failures without
-discarding the recovery request needed for retry.
+discarding the recovery request needed for retry. **Verified recovery and tamper
+audits** now restore corrupt FerretDB SQLite data from checked snapshots or retained
+MongoDB source, verify change history and stored files, report evidence in Problems,
+and schedule non-urgent checksum work during sustained low CPU usage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8266,6 +8269,30 @@ discarding the recovery request needed for retry.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1014488c4">Add verified recovery and low-load integrity audits</a>. Thanks to xet7.</summary>
+
+FerretDB launch paths now integrity-check SQLite before opening it, create staged,
+compressed and SHA-256-verified snapshots in the same data directory, check free
+space, restore latest then previous verified generations, and re-run a retained
+MongoDB migration when no snapshot survives. Snapshot manifests retain byte/hash
+change evidence, and every outcome reaches Problems → Recovery.
+
+New change-history rows form a SHA-256 predecessor chain. Restore, undo and redo
+refuse changed, missing or forked history and report the available row, board,
+username and address evidence in Problems → Security. A low-load background audit
+also checks whole chains. Regression tests prove there is no direct client
+publication, REST mutation API or collection write permission for history.
+
+The existing signed attachment/avatar inventory now also scans registered logs and
+recovery generations. Missing or changed files report expected and observed sizes
+and checksums in Problems → Security. CPU-intensive background audits wait for
+consecutive low samples, recheck load between paced operations and defer when the
+quiet window ends. Problems → Speed shows rolling minimum, average, maximum, sample
+count and lowest-load time so the chosen maintenance window is visible.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1cb52ee21">Build menus exit immediately after completed commands</a>. Thanks to xet7.</summary>
