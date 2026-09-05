@@ -3,7 +3,8 @@
 // General file-type detection helpers (models/lib/fileTypeCorrection.js). The core
 // primitive is streamHeaderToTemp(): it copies only the first N bytes of a stream
 // to a temp file (so a large file is never fully read) and cleans up the partial
-// file on error. Detection itself needs the `file` binary + a storage strategy, so
+// file on error. Detection uses JavaScript `file-type` first and the `file`
+// binary as its fallback; both need a storage strategy, so
 // here we unit-test the bounded-header streaming and temp-dir handling directly.
 //
 // Run: node tests/fileTypeCorrection.test.cjs
@@ -25,7 +26,8 @@ Module._resolveFilename = function(request, ...rest) {
   return origResolve.call(this, request, ...rest);
 };
 
-const { HEADER_BYTES, ensureTempDir, streamHeaderToTemp, sameStoredContent, disambiguateName } =
+const { HEADER_BYTES, ensureTempDir, streamHeaderToTemp, detectedFileMime,
+  sameStoredContent, disambiguateName } =
   require('../models/lib/fileTypeCorrection.js');
 const { numberedName } = require('../models/lib/uploadFileName.js');
 
@@ -37,6 +39,24 @@ async function check(name, fn) { await fn(); passed += 1; console.log('  ok -', 
 
   await check('HEADER_BYTES is a small, bounded header size', () => {
     assert.ok(HEADER_BYTES > 0 && HEADER_BYTES <= 1024 * 1024);
+  });
+
+  await check('the maintained JavaScript detector runs before libmagic fallback', () => {
+    const source = fs.readFileSync(path.join(__dirname, '..', 'models', 'lib',
+      'fileTypeCorrection.js'), 'utf8');
+    assert.match(source, /import\('file-type'\)/);
+    assert.ok(source.indexOf("import('file-type')") < source.indexOf("execFile('file'"));
+    assert.strictEqual(require('../package.json').dependencies['file-type'], '^22.0.2');
+  });
+
+  await check('JavaScript magic-byte detection identifies PNG content', async () => {
+    const base = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-ft-'));
+    const png = path.join(base, 'wrong.txt');
+    fs.writeFileSync(png, Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+      'base64',
+    ));
+    assert.strictEqual(await detectedFileMime(png), 'image/png');
   });
 
   await check('ensureTempDir creates WRITABLE_PATH/files/temp sibling of storage', () => {

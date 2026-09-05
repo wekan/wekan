@@ -36,6 +36,7 @@ import '/server/initializeDirs';
 // ----------------------------------------------------------------------------
 // 0. API middleware & auth routes (must register before model routes)
 // ----------------------------------------------------------------------------
+import '/server/lib/requestReportContext';
 import '/server/apiMiddleware';
 import '/server/apiAuthRoutes';
 

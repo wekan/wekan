@@ -194,9 +194,9 @@ template(name="boardBackgroundList")
           .board-bg-thumb.js-set-board-background(style="background-image: url('{{link}}');" title="{{_ 'set-as-active'}}")
             if isActiveBackground
               i.fa.fa-check.board-bg-active-check
-          .board-bg-name.js-set-board-background(title="{{_ 'set-as-active'}}")= name
+          .board-bg-name.js-set-board-background(title="{{_ 'set-as-active'}}") {{cleanFilename name}}
           .board-bg-actions
-            a.js-download-board-background(href="{{link}}?download=true" download="{{name}}" title="{{_ 'download'}}")
+            a.js-download-board-background(href="{{link}}?download=true" download="{{downloadFilename name}}" title="{{_ 'download'}}")
               i.fa.fa-arrow-down
             a.js-delete-board-background(title="{{_ 'delete'}}")
               i.fa.fa-trash-o

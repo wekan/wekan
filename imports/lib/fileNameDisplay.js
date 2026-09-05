@@ -20,6 +20,7 @@ const INVISIBLE_CHARS_SOURCE =
 
 const INVISIBLE_CHARS_REGEX = new RegExp(INVISIBLE_CHARS_SOURCE);
 const INVISIBLE_CHARS_GLOBAL = new RegExp(INVISIBLE_CHARS_SOURCE, 'g');
+const MAX_AMIGA_FILENAME_CHARS = 30;
 
 function hasInvisibleChars(s) {
   return typeof s === 'string' && INVISIBLE_CHARS_REGEX.test(s);
@@ -153,12 +154,54 @@ function classifyExploitKinds(text) {
 // The general filename DISPLAY function: decoded, normalized (NFKC + confusable
 // homoglyphs folded), invisible chars removed, exploit markup removed, whitespace
 // collapsed. Used everywhere a filename is shown.
-function cleanFileName(name) {
+function cleanFileNameUnbounded(name) {
   let n = decodeFileNameSafe(String(name == null ? '' : name));
   n = normalizeConfusables(n);
   n = n.replace(INVISIBLE_CHARS_GLOBAL, '');
   n = stripExploitPatterns(n);
   return n.replace(/\s+/g, ' ').trim();
+}
+
+function cleanFileName(name) {
+  return truncateAmigaFileName(cleanFileNameUnbounded(name));
+}
+
+// Keep every user-visible/downloaded name within classic Amiga FFS's
+// 30-character component limit. Preserve the extension, and when the cut lands
+// inside a bracketed suffix ("report (copy).pdf"), remove that incomplete
+// suffix instead of displaying "report (co.pdf".
+function truncateAmigaFileName(name, maxChars = MAX_AMIGA_FILENAME_CHARS) {
+  const value = String(name == null ? '' : name);
+  const chars = Array.from(value);
+  if (chars.length <= maxChars) return value;
+  const dot = value.lastIndexOf('.');
+  const ext = dot > 0 ? value.slice(dot) : '';
+  const extChars = Array.from(ext);
+  const keepExt = extChars.length > 0 && extChars.length < maxChars;
+  const baseChars = keepExt
+    ? chars.slice(0, chars.length - extChars.length)
+    : chars;
+  const budget = keepExt ? maxChars - extChars.length : maxChars;
+  let base = baseChars.slice(0, budget).join('');
+
+  const pairs = { '(': ')', '[': ']', '{': '}' };
+  const stack = [];
+  const unmatchedClosers = new Set();
+  for (let index = 0; index < base.length; index += 1) {
+    const ch = base[index];
+    if (pairs[ch]) stack.push({ ch, index });
+    else if (ch === ')' || ch === ']' || ch === '}') {
+      const expected = Object.keys(pairs).find(open => pairs[open] === ch);
+      if (stack.length && stack[stack.length - 1].ch === expected) stack.pop();
+      else unmatchedClosers.add(index);
+    }
+  }
+  if (stack.length) base = base.slice(0, stack[0].index);
+  if (unmatchedClosers.size) {
+    base = base.split('').filter((ch, index) => !unmatchedClosers.has(index)).join('');
+  }
+  base = base.trim().replace(/[([{]+$/g, '').trim();
+  return (base || 'file') + (keepExt ? ext : '');
 }
 
 // The name to use when DOWNLOADING a file: the cleaned name, never empty.
@@ -170,11 +213,14 @@ export {
   INVISIBLE_CHARS_SOURCE,
   INVISIBLE_CHARS_REGEX,
   INVISIBLE_CHARS_GLOBAL,
+  MAX_AMIGA_FILENAME_CHARS,
   hasInvisibleChars,
   decodeFileNameSafe,
   stripExploitPatterns,
   classifyExploitKinds,
   normalizeConfusables,
+  truncateAmigaFileName,
+  cleanFileNameUnbounded,
   cleanFileName,
   sanitizeDownloadFileName,
 };

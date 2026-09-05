@@ -7,12 +7,16 @@ import LockoutSettings from '/models/lockoutSettings';
 // it belongs in Admin Panel -> Problems. A Meteor package cannot import app
 // code, so the reporter is injected here. Wrapped, because the record of the
 // defence must never be able to break the defence.
-function reportLockout({ userId, failedAttempts, lockoutSeconds }) {
+function reportLockout({ userId, username, ip, headers, failedAttempts, lockoutSeconds }) {
   try {
     require('/server/lib/securityLog').record({
       key: 'brute.lockout',
       action: 'blocked',
       source: 'DDP login',
+      userId,
+      username,
+      ip,
+      location: require('/models/lib/geoHeaders').locationFromHeaders(headers),
       detail: `locked one address out of account ${userId} after ${failedAttempts} `
         + `wrong passwords, for ${lockoutSeconds}s`,
     });

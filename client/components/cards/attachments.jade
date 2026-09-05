@@ -9,7 +9,7 @@ template(name="cardAttachmentsPopup")
           th.upload-speed-descr {{_ 'speed'}}
         each upload in uploads
           tr
-            td.upload-file-name-value {{upload.file.name}}
+            td.upload-file-name-value {{cleanFilename upload.file.name}}
             td.upload-progress-value {{upload.progress.get}}%
             td.upload-remaining-value {{getEstimateTime upload}}
             td.upload-speed-value {{getEstimateSpeed upload}}

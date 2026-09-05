@@ -31,6 +31,9 @@ export function record(evt = {}) {
       detail: sanitizeDetail(evt.detail),
     };
     if (evt.userId || evt.userid) doc.userId = String(evt.userId || evt.userid);
+    if (evt.username) doc.username = String(evt.username).slice(0, 100);
+    if (evt.ip) doc.ip = String(evt.ip).slice(0, 64);
+    if (evt.location) doc.location = evt.location;
     foldEventFireAndForget(doc, 'speedLog');
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('speedLog.record failed:', e && e.message);

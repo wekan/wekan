@@ -129,8 +129,8 @@ test('clicking a picture puts it behind the board', () => {
 test('a picture is shown with its NAME', () => {
   // A grid of 80px thumbnails cannot be read: two photos of the same holiday
   // look the same, and after an upload nothing said which one arrived.
-  assert.ok(/\.board-bg-name\.js-set-board-background\(title="[^"]+"\)= name/.test(list),
-    'the name is drawn');
+  assert.ok(/\.board-bg-name\.js-set-board-background\(title="[^"]+"\) \{\{cleanFilename name\}\}/.test(list),
+    'the Amiga-safe name is drawn through the common sanitizer');
   assert.ok(/\.board-bg-name \{[^}]*text-overflow: ellipsis/.test(css),
     'and a long one is cut rather than breaking the tile');
 });

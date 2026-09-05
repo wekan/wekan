@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 // Pure helper: build the activity document for a newly added attachment.
 // Kept side-effect free so it can be unit tested without a database.
@@ -106,6 +107,10 @@ const Attachments = new FilesCollection({
       } else if (!safeName || safeName === '.' || safeName === '..') {
         file.name = 'unnamed';
       }
+      // Apply the same plain-text and classic Amiga FFS 30-character policy
+      // before bytes leave the client. Content-derived extension correction is
+      // repeated authoritatively on the server after its bounded header sniff.
+      file.name = cleanFileName(file.name) || 'unnamed';
     }
 
     // Block SVG files for attachments to prevent XSS attacks

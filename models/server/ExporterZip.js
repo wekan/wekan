@@ -1,6 +1,8 @@
 import { PassThrough } from 'stream';
 import { Exporter } from '/models/exporter';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
+const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
+const { numberedName } = require('/models/lib/uploadFileName');
 
 // The same export, as a .zip: the JSON beside the attachment FILES.
 //
@@ -45,6 +47,7 @@ class ExporterZip {
     // chosen for the JSON, which is the part that is worth compressing.
     const archive = archiver('zip', { zlib: { level: 6 } });
 
+    filename = sanitizeDownloadFileName(filename);
     res.writeHead(200, {
       'Content-Type': 'application/zip',
       'Content-Disposition': `attachment; filename="${filename}"`,
@@ -77,6 +80,7 @@ class ExporterZip {
     // Added while the JSON is still being written: archiver serialises the
     // entries itself, and waiting would mean holding the whole document first.
     const attachments = await this._attachmentsToPack();
+    const archiveNames = new Set();
     for (const attachment of attachments) {
       try {
         const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
@@ -85,8 +89,13 @@ class ExporterZip {
         // The id in the name is what ties the file back to its metadata row in
         // wekan.json, and what stops two attachments called "photo.png" from
         // being one file in the archive.
-        const name = (attachment.name || attachment._id).replace(/[/\\]/g, '_');
-        archive.append(stream, { name: `attachments/${attachment._id}-${name}` });
+        const desiredName = sanitizeDownloadFileName(attachment.name || attachment._id);
+        let name = desiredName;
+        for (let suffix = 1; archiveNames.has(name); suffix += 1) {
+          name = numberedName(desiredName, suffix);
+        }
+        archiveNames.add(name);
+        archive.append(stream, { name: `attachments/${name}` });
       } catch (error) {
         console.warn(`ExporterZip: could not add attachment ${attachment._id}: ${error.message}`);
       }

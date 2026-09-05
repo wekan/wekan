@@ -14,12 +14,42 @@ import { STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
 import { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments.server';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.server';
+import { correctedNameForStoredFile } from '/models/lib/fileTypeCorrection';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 import Boards from '/models/boards';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
 import path from 'path';
+
+async function normalizeStoredNameOnRead(collection, fileObj, factory) {
+  if (!fileObj) return fileObj;
+  const result = await correctedNameForStoredFile(fileObj, factory);
+  if (!result.changed) return fileObj;
+  const originalName = fileObj.name;
+  const dot = result.name.lastIndexOf('.');
+  const extension = dot > 0 ? result.name.slice(dot + 1).toLowerCase() : '';
+  await collection.updateAsync({ _id: fileObj._id }, { $set: {
+    name: result.name,
+    extension,
+    extensionWithDot: extension ? `.${extension}` : '',
+  } });
+  fileObj.name = result.name;
+  try {
+    await require('/server/lib/filenameSanitizeLog').logFilenameSanitized({
+      fileObj,
+      source: 'fileRead',
+      reasons: require('/models/lib/uploadFileName').sanitizationReasons(
+        originalName,
+        result.detectedMime || fileObj.type,
+        result.name,
+      ),
+      from: originalName,
+      to: result.name,
+    });
+  } catch (e) { /* filename correction must not prevent the read */ }
+  return fileObj;
+}
 
 function parseNonNegativeInt(value, fallback = 0) {
   const parsed = Number.parseInt(value, 10);
@@ -514,6 +544,11 @@ if (Meteor.isServer) {
         return;
       }
 
+      // Lazy upgrade: only touch old metadata when an authorized request is
+      // actually reading the file. This also makes the download header use the
+      // detected extension on this very request.
+      await normalizeStoredNameOnRead(Attachments, attachment, attachmentStoreFactory);
+
       // Handle conditional requests
       if (handleConditionalRequest(req, res, attachment)) {
         return;
@@ -630,6 +665,8 @@ if (Meteor.isServer) {
         res.end('Access denied');
         return;
       }
+
+      await normalizeStoredNameOnRead(Avatars, avatar, avatarStoreFactory);
 
       // Handle conditional requests
       if (handleConditionalRequest(req, res, avatar)) {

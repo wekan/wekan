@@ -35,6 +35,7 @@ const {
   canaryDetail,
 } = require('/models/lib/canaryTokens');
 const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
+const { locationFromHeaders } = require('/models/lib/geoHeaders');
 
 // One limiter for the process. Bounded by construction (models/lib/canaryTokens.js):
 // a capped map, a counting window, and a ceiling on events per pair.
@@ -88,16 +89,18 @@ function rememberUsername(userId, username) {
  * write someone else's address into the security log by sending a header.
  */
 function resolveActor(given = {}) {
-  const actor = { userId: null, username: '', ip: '' };
+  const actor = { userId: null, username: '', ip: '', location: null };
 
   try {
     if (given.userId) actor.userId = String(given.userId);
     if (given.username) actor.username = String(given.username);
     if (given.ip) actor.ip = String(given.ip);
+    if (given.location) actor.location = given.location;
 
     if (given.req) {
       const req = given.req;
       if (!actor.userId && req.userId) actor.userId = String(req.userId);
+      if (!actor.location) actor.location = locationFromHeaders(req.headers);
       if (!actor.ip) {
         actor.ip = resolveClientKey({
           headers: req.headers,
@@ -213,6 +216,7 @@ function report(canaryId, context) {
       userId: actor.userId || undefined,
       username: actor.username || undefined,
       ip: actor.ip,
+      location: actor.location || undefined,
       count: decision.count,
       detail: canaryDetail(canary, decision.count, context.detail),
     });

@@ -95,6 +95,21 @@ check('sanitizeUploadFileName caps the final length', () => {
   assert.ok(Array.from(out).length <= 30 && out.endsWith('.pdf'));
 });
 
+check('Amiga truncation preserves extensions without unmatched brackets', () => {
+  assert.strictEqual(
+    sanitizeUploadFileName('Online Gantt 20260905 (1).gantt', 'application/octet-stream'),
+    'Online Gantt 20260905.gantt',
+  );
+  assert.strictEqual(
+    sanitizeUploadFileName('Online Gantt 20260905 (1).gantt', 'application/json'),
+    'Online Gantt 20260905.gantt',
+    'generic JSON detection must retain Online Gantt application ownership',
+  );
+  assert.ok(!/[([{][^\])}]*$/.test(
+    sanitizeUploadFileName('a-long-file-name-with-(copy).pdf', 'application/pdf'),
+  ));
+});
+
 check('filenameLooksLikeExploit accepts normal names', () => {
   assert.strictEqual(filenameLooksLikeExploit('report.pdf'), false);
   assert.strictEqual(filenameLooksLikeExploit('Photo 2024.jpg'), false);

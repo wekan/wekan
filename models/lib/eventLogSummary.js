@@ -79,7 +79,9 @@ const IDENTITY_FIELDS = [
 // `ipv4`/`ipv6` are the address split into its family, so every report can show
 // the two in their own columns - see models/lib/ipAddress.js for why a
 // dual-stack `::ffff:` address has to be unwrapped first.
-const LATEST_FIELDS = ['userId', 'username', 'ip', 'ipv4', 'ipv6', 'detail', 'message'];
+const LATEST_FIELDS = [
+  'userId', 'username', 'ip', 'ipv4', 'ipv6', 'location', 'detail', 'message',
+];
 
 // How many distinct actors one row will name before it starts counting the rest
 // in `actorsOverflow`. Enough to see a pattern, few enough that a row stays a

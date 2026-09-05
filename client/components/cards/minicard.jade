@@ -60,7 +60,7 @@ template(name="minicard")
           span {{_ 'uploading-files'}} ({{uploadCount}})
         each uploads
           .upload-progress-item(class="{{#if $eq status 'error'}}upload-error{{/if}}")
-            .upload-progress-filename {{file.name}}
+            .upload-progress-filename {{cleanFilename file.name}}
             .upload-progress-bar
               .upload-progress-fill(style="width: {{progress}}%")
             if $eq status 'error'

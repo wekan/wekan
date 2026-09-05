@@ -68,7 +68,8 @@ const getContentDisposition = (name, downloadFlag) => {
   const forceAttachment = downloadFlag === 'true';
   const dispositionType = forceAttachment ? 'attachment;' : 'inline;';
 
-  const encodedName = encodeURIComponent(name);
+  const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
+  const encodedName = encodeURIComponent(sanitizeDownloadFileName(name));
   const dispositionName = `filename="${encodedName}"; filename=*UTF-8"${encodedName}";`;
   const dispositionEncoding = 'charset=utf-8';
 

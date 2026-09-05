@@ -48,12 +48,16 @@ just always shown clean.
    handlers, null bytes, path traversal) is refused.
 7. **Strip invisible characters** from the stored name. If that empties the name, **generate a name
    from the detected type** (`image.png`, `spreadsheet.xls`, `document.docx`, …).
-8. **Correct the extension** to match the **real detected file type** (content sniff via the `file`
-   command + `mime-types`), so double-clicking the downloaded file opens the right application. A
+8. **Correct the extension** to match the **real detected file type** (magic-byte sniff via the
+   maintained JavaScript `file-type` dependency, with bounded libmagic/text-format fallback), so
+   double-clicking the downloaded file opens the right application. A
    PNG named `foo` or `foo.txt` becomes `foo.png`; a correct `.jpg` for `image/jpeg` is kept.
+   Application-owned text containers remain application-owned: Online Gantt JSON keeps `.gantt`
+   rather than being degraded to generic `.json`.
 9. **Cap the length** to a portable maximum — **30 characters** (classic **Amiga OS FFS** limit),
-   preserving the extension — so the name can be stored on / restored to any filesystem. Not as
-   tight as DOS 8.3.
+   preserving the extension — so the name can be stored on / restored to any filesystem. A cut
+   through `(copy)`, `[version]` or `{variant}` removes the incomplete bracketed suffix instead of
+   leaving an unmatched bracket. Not as tight as DOS 8.3.
 10. **Detect and sanitize known exploits in the file content** before the file is promoted to the
     default storage (filesystem final location, S3, GridFS…): strip JavaScript and XML-loop
     DOCTYPE/ENTITY constructs from SVG uploads **in place at the staging location**, and only then
@@ -66,10 +70,11 @@ just always shown clean.
 
 ### Existing files (already uploaded before these rules existed)
 
-13. **Show the correct extension** — detect the real type by streaming only a **small header** of
-    the file from its storage backend to `WRITABLE_PATH/files/temp`, running `file` on it, then
-    **deleting the temp file**. Reuses the same streaming approach as attachment migration/move, as
-    **one general function**. Surfaced as an admin-triggerable, **bounded** batch corrector.
+13. **Show and download a compliant name lazily** — every read first applies the common sanitizer
+    and 30-character rule. A server read/download also streams only a **small header** from the
+    storage backend, detects its real type, corrects the extension, and persists that corrected
+    metadata at that point. There is no eager startup-wide rename. The temporary header is always
+    deleted. The admin-triggered bounded corrector remains available for an explicit audit.
 14. **Remove exploits before showing** — when an existing file is served, sanitize it **on the fly**
     straight from storage: sniff the **start** of the stream to detect the type and whether it
     begins like a dangerous markup document (e.g. the start of an XML-loop tag `<!DOCTYPE`/
@@ -94,7 +99,7 @@ just always shown clean.
 
 | Function | Module | Used by |
 | --- | --- | --- |
-| `cleanFileName(name)` | `imports/lib/fileNameDisplay.js` | `{{cleanFilename}}` / `{{downloadFilename}}`, upload sanitize, viewer title |
+| `cleanFileName(name)` / `truncateAmigaFileName(name)` | `imports/lib/fileNameDisplay.js` | every displayed/downloaded name and upload sanitize |
 | `sanitizeDownloadFileName(name)` | `imports/lib/fileNameDisplay.js` | download `Content-Disposition` in both file servers |
 | `sanitizeUploadFileName(name, mime)` | `models/lib/uploadFileName.js` | attachment + avatar `onAfterUpload`, existing-file corrector |
 | `filenameLooksLikeExploit(name)` | `models/lib/uploadFileName.js` | `isFileValid`, `onAfterUpload` |
@@ -114,7 +119,9 @@ temp) → `sanitizeUploadFileName` (decode + fold homoglyphs + strip invisible/e
 scanner) → `moveToStorage` (disk-space check + streaming + partial cleanup; deletes the staging
 source after the write is confirmed).
 
-**Display**: `cleanFileName` via the global helpers — no server round-trip, no stored mutation.
+**Display**: `cleanFileName` via the global helpers immediately sanitizes and applies the Amiga
+limit. The first server read additionally detects content and lazily corrects stored name metadata,
+so subsequent reactive displays and every download use the same correct extension.
 
 **Serve existing file** (`httpStreamOutput`): read stream from storage → `createServeSanitizer`
 (sniff start; sanitize only if dangerous, else pass through) → HTTP response.
@@ -148,8 +155,9 @@ Catalog keys: `file.sanitize` (name), `file.content` (content exploit removed),
 
 - Display sanitization is **defense in depth**, not the only boundary — Blaze escaping, the download
   `Content-Disposition` sanitizer, SVG CSP headers, and the upload content scan remain.
-- `file` detection uses **`execFile`** (argv array, no shell), so a hostile filename cannot inject a
-  command.
+- `file-type` receives a generated temporary path, never the hostile display name. Its result is a
+  best-effort content hint, not malware validation. The bounded libmagic fallback uses **`execFile`**
+  (argv array, no shell), so a hostile filename cannot inject a command.
 - Serve-time sanitization **bounds buffering** (small text only); large files stream unchanged.
 - Homoglyph folding is intentionally conservative (Latin-majority base only) to avoid corrupting
   legitimate non-Latin filenames.

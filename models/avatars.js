@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
+const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 const { filesize } = require('filesize');
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
@@ -65,6 +66,7 @@ const Avatars = new FilesCollection({
     return str.replace(/[^a-zA-Z0-9_.\-]/g, '_');
   },
   onBeforeUpload(file) {
+    file.name = cleanFileName(file && file.name) || 'image';
     // Block SVG files for avatars to prevent XSS attacks
     if (file.name && file.name.toLowerCase().endsWith('.svg')) {
       if (process.env.DEBUG === 'true') {

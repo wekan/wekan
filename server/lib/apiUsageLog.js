@@ -19,6 +19,7 @@ import { Meteor } from 'meteor/meteor';
 import { foldEvent } from '/server/lib/eventLogFold';
 
 const { apiName, isApiRequest, UsageAccumulator } = require('/models/lib/apiUsage');
+const { locationFromHeaders } = require('/models/lib/geoHeaders');
 
 // How often counts are written. Long enough that a burst is one write, short
 // enough that the report is not visibly stale while somebody is watching it.
@@ -85,6 +86,7 @@ async function flush() {
       userId: row.userId || '',
       // ip only: the fold splits it into ipv4/ipv6 for every stream.
       ip: row.ip || '',
+      location: row.location || undefined,
       count: row.count,
       at: row.at,
     });
@@ -120,6 +122,7 @@ export function apiUsageMiddleware(req, res, next) {
             name: apiName(req.method, req.route && req.route.path),
             userId: req.userId || '',
             ip: clientAddress(req),
+            location: locationFromHeaders(req.headers),
             at: new Date(),
           });
           if (accumulator.size >= FLUSH_AT_ROWS) {

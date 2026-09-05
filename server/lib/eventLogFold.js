@@ -8,12 +8,16 @@
 // Fire-and-forget and never throws into the caller: recording that something
 // happened must never be able to stop it happening.
 
+import { Meteor } from 'meteor/meteor';
 import EventLog from '/models/eventLog';
+import { currentReportRequest } from '/server/lib/requestReportContext';
 
 const {
   summaryIdentity, summaryUpdate, actorUpdate,
 } = require('/models/lib/eventLogSummary');
 const { classifyAddress } = require('/models/lib/ipAddress');
+const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
+const { locationFromHeaders } = require('/models/lib/geoHeaders');
 
 // Which actor keys each problem row already names, so the per-actor cap can be
 // applied without reading the row on every attempt. Under attack - exactly when
@@ -22,10 +26,44 @@ const { classifyAddress } = require('/models/lib/ipAddress');
 // per problem for ever; dropping an entry costs one extra read.
 const knownActors = new Map();
 const MAX_CACHED_ROWS = 500;
+const usernameCache = new Map();
+const USERNAME_CACHE_MAX = 1000;
+const USERNAME_CACHE_TTL_MS = 60 * 1000;
+
+async function usernameFor(userId) {
+  const cached = usernameCache.get(userId);
+  if (cached && Date.now() - cached.at < USERNAME_CACHE_TTL_MS) {
+    return cached.username;
+  }
+  const user = await Meteor.users.findOneAsync(userId, { fields: { username: 1 } });
+  const username = (user && user.username) || '';
+  if (usernameCache.size >= USERNAME_CACHE_MAX) usernameCache.clear();
+  usernameCache.set(userId, { username, at: Date.now() });
+  return username;
+}
 
 export async function foldEvent(doc = {}) {
   const { at, ...evt } = doc;
   const when = at instanceof Date ? at : new Date();
+  const req = currentReportRequest();
+  if (req) {
+    if (!evt.userId && req.userId) evt.userId = String(req.userId);
+    if (!evt.ip) {
+      evt.ip = resolveClientKey({
+        headers: req.headers,
+        socketAddress: (req.socket && req.socket.remoteAddress)
+          || (req.connection && req.connection.remoteAddress),
+        forwardedCount: process.env.HTTP_FORWARDED_COUNT,
+      });
+    }
+    if (!evt.location) evt.location = locationFromHeaders(req.headers);
+  }
+  if (evt.userId && !evt.username) {
+    try {
+      const username = await usernameFor(evt.userId);
+      if (username) evt.username = String(username).slice(0, 100);
+    } catch (e) { /* a deleted/unavailable account still keeps its user id */ }
+  }
   // THE ADDRESS, SPLIT BY FAMILY, here rather than in each logger.
   //
   // Every report shows IPv4 and IPv6 in columns of their own, because an

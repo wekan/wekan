@@ -62,6 +62,16 @@ test('the row keeps the MOST RECENT actor, so there is still someone to act on',
     '"412 blocked in the last hour" still needs a name and an address to act on');
 });
 
+test('the latest available proxy location stays with the reported actor', () => {
+  const location = { country: 'FI', city: 'Helsinki', via: 'Cloudflare' };
+  const folded = foldEvents([
+    event({ at: T0, username: 'alice', ip: '203.0.113.9' }),
+    event({ at: T1, username: 'alice', ip: '203.0.113.9', location }),
+  ]);
+  assert.deepStrictEqual(folded[0].location, location);
+  assert.ok(LATEST_FIELDS.includes('location'));
+});
+
 test('events arriving out of order still give the right window', () => {
   const folded = foldEvents([
     event({ at: T1, username: 'b' }),

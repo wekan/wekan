@@ -17,6 +17,9 @@ const { categoryFor } = require('/models/lib/securityCategories');
 const { sanitizeDetail } = require('/models/lib/securityLogFormat');
 import { foldEventFireAndForget } from '/server/lib/eventLogFold';
 import { blockAccountForSecurityEvent } from '/server/lib/blockOnSecurityEvent';
+import { currentReportRequest } from '/server/lib/requestReportContext';
+const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
+const { locationFromHeaders } = require('/models/lib/geoHeaders');
 
 // ONE ROW PER PROBLEM, not per event (models/lib/eventLogSummary.js).
 //
@@ -52,6 +55,29 @@ export function record(evt = {}) {
   try {
     const base = evt.key ? categoryFor(evt.key) : {};
     const m = { ...base, ...evt };
+    const req = m.req || m.request || currentReportRequest();
+    if (req) {
+      if (!m.userId && req.userId) m.userId = req.userId;
+      if (!m.ip) {
+        m.ip = resolveClientKey({
+          headers: req.headers,
+          socketAddress: (req.socket && req.socket.remoteAddress)
+            || (req.connection && req.connection.remoteAddress),
+          forwardedCount: process.env.HTTP_FORWARDED_COUNT,
+        });
+      }
+      if (!m.location) m.location = locationFromHeaders(req.headers);
+    }
+    if ((!m.userId || !m.ip) && typeof DDP !== 'undefined'
+      && DDP._CurrentMethodInvocation) {
+      const invocation = DDP._CurrentMethodInvocation.get();
+      if (invocation) {
+        if (!m.userId && invocation.userId) m.userId = invocation.userId;
+        if (!m.ip && invocation.connection) {
+          m.ip = invocation.connection.clientAddress;
+        }
+      }
+    }
     const doc = {
       stream: 'security',
       at: new Date(),
@@ -72,6 +98,7 @@ export function record(evt = {}) {
     // whatever was sent.
     if (m.username) doc.username = String(m.username).slice(0, 100);
     if (m.ip) doc.ip = String(m.ip).slice(0, 64);
+    if (m.location) doc.location = m.location;
     // How many attempts this row stands for; 1 unless a canary is flushing a
     // window's summary.
     const count = Number(m.count);

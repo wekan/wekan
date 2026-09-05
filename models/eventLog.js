@@ -41,6 +41,9 @@ EventLog.attachSchema(
     ip:       { type: String, optional: true },
     ipv4:     { type: String, optional: true },
     ipv6:     { type: String, optional: true },
+    // Display-only location supplied by a trusted front proxy/CDN when
+    // available. Never used for authorization or rate limiting.
+    location: { type: Object, optional: true, blackbox: true },
     // ONE ROW PER PROBLEM. `count` is how many times this problem has happened,
     // `firstAt` when it was first seen and `at` when it was last seen - so a row
     // answers "what, how much, and between when and when" on its own. See

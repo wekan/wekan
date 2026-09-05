@@ -12,9 +12,11 @@ const mime = require('mime-types');
 const {
   decodeFileNameSafe,
   cleanFileName,
+  cleanFileNameUnbounded,
   hasInvisibleChars,
   normalizeConfusables,
   classifyExploitKinds,
+  truncateAmigaFileName,
 } = require('/imports/lib/fileNameDisplay');
 
 // Maximum number of CHARACTERS (code points, not bytes) allowed in a stored
@@ -29,18 +31,7 @@ const MAX_FILENAME_CHARS = 30;
 // and never splitting a Unicode code point. Falls back to clipping the whole
 // name when the extension alone would not fit.
 function truncateFilenameChars(name, maxChars = MAX_FILENAME_CHARS) {
-  const chars = Array.from(String(name == null ? '' : name)); // by code point
-  if (chars.length <= maxChars) return chars.join('');
-  const dot = String(name).lastIndexOf('.');
-  const ext = dot > 0 ? String(name).slice(dot) : '';
-  const extChars = Array.from(ext);
-  const keepExt = ext && extChars.length < maxChars;
-  if (!keepExt) {
-    return chars.slice(0, maxChars).join('');
-  }
-  const baseChars = chars.slice(0, chars.length - extChars.length);
-  const budget = maxChars - extChars.length;
-  return baseChars.slice(0, budget).join('') + ext;
+  return truncateAmigaFileName(name, maxChars);
 }
 
 // A base display name for a file whose sanitized name became empty, by MIME group.
@@ -112,8 +103,17 @@ function sanitizeUploadFileName(name, mimeType) {
   // whitespace. This is the same normalization used to DISPLAY names, so the
   // stored name matches what users see.
   let n = cleanFileName(name);
-  const wantExt = extensionForMime(mimeType);
+  let wantExt = extensionForMime(mimeType);
   const wantMime = String(mimeType || '').toLowerCase();
+  const originalExt = /(?:^|[^.])(\.[^.]+)$/.exec(n);
+  // Online Gantt stores JSON under its application-owned .gantt extension.
+  // A generic JSON detector describes the serialization, not the program that
+  // opens it, so replacing .gantt with .json would recreate the exact
+  // double-click failure this subsystem prevents.
+  if (wantMime === 'application/json'
+    && originalExt && originalExt[1].toLowerCase() === '.gantt') {
+    wantExt = '.gantt';
+  }
 
   if (!n) {
     return truncateFilenameChars(baseNameForMime(mimeType) + wantExt);
@@ -125,7 +125,10 @@ function sanitizeUploadFileName(name, mimeType) {
     // JFIF is JPEG content, but many desktop file associations (and the
     // mime-types database used here) do not recognize .jfif. Use the portable
     // canonical extension instead of producing "photo.jfif.jpeg".
-    if (wantMime === 'image/jpeg' && curExt === '.jfif') {
+    if (curExt === wantExt) {
+      // Custom/application-owned extensions may not exist in mime-types, but a
+      // content-aware override above has already established the right suffix.
+    } else if (wantMime === 'image/jpeg' && curExt === '.jfif') {
       n = n.slice(0, dot) + wantExt;
     } else if (curMime === wantMime) {
       // extension already matches the type (handles .jpg vs .jpeg) — keep it
@@ -172,7 +175,7 @@ function sanitizationReasons(originalName, mimeType, correctedName) {
   if (normalizeConfusables(decoded) !== decoded) reasons.push('typosquatting (look-alike characters)');
   for (const kind of classifyExploitKinds(decoded)) reasons.push('exploit: ' + kind);
 
-  const cleaned = cleanFileName(decoded);
+  const cleaned = cleanFileNameUnbounded(decoded);
   if (cleaned === '') {
     reasons.push('empty name, generated from file type');
   } else if (Array.from(cleaned).length > MAX_FILENAME_CHARS) {

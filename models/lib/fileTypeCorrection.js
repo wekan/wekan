@@ -93,10 +93,17 @@ function streamHeaderToTemp(readStream, tempPath, maxBytes = HEADER_BYTES) {
   });
 }
 
-// Run `file --mime-type -b <path>` (no shell — path passed as an argv element, so
-// a hostile filename cannot inject a command) and return the lowercase MIME
-// string, or undefined if the `file` binary is unavailable or fails.
-function fileCommandMime(filePath) {
+// Detect binary formats by magic bytes with the maintained JavaScript
+// `file-type` dependency. It intentionally does not identify text formats, so
+// libmagic remains a bounded fallback for text and uncommon formats.
+async function detectedFileMime(filePath) {
+  try {
+    const { fileTypeFromFile } = await import('file-type');
+    const type = await fileTypeFromFile(String(filePath));
+    if (type && type.mime) return String(type.mime).toLowerCase();
+  } catch (e) {
+    // Detection failure must not prevent reading an existing stored file.
+  }
   return new Promise(resolve => {
     execFile('file', ['--mime-type', '-b', String(filePath)], (err, stdout) => {
       if (err) {
@@ -131,7 +138,7 @@ async function detectStoredFileMime(fileObj, fileStoreStrategyFactory, versionNa
 
   try {
     await streamHeaderToTemp(readStream, tempPath);
-    const detected = await fileCommandMime(tempPath);
+    const detected = await detectedFileMime(tempPath);
     return detected;
   } catch (e) {
     return undefined;
@@ -208,6 +215,7 @@ module.exports = {
   HEADER_BYTES,
   ensureTempDir,
   streamHeaderToTemp,
+  detectedFileMime,
   detectStoredFileMime,
   correctedNameForStoredFile,
   sameStoredContent,

@@ -89,6 +89,14 @@ check('cleanFileName leaves a plain accented Latin name intact', () => {
   assert.strictEqual(cleanFileName('café.pdf'), 'café.pdf');
 });
 
+check('every displayed/downloaded name fits Amiga FFS and keeps a balanced extension', () => {
+  const name = cleanFileName('Online Gantt 20260905 (1).gantt');
+  assert.strictEqual(name, 'Online Gantt 20260905.gantt');
+  assert.ok(Array.from(name).length <= 30);
+  assert.ok(name.endsWith('.gantt'));
+  assert.strictEqual((name.match(/\(/g) || []).length, (name.match(/\)/g) || []).length);
+});
+
 check('stripExploitPatterns removes tags, PIs, CDATA, templates, dangerous URIs', () => {
   assert.ok(!/[<>]/.test(stripExploitPatterns('<a href="x">y</a>')));
   assert.strictEqual(stripExploitPatterns('${process}'), '');
@@ -147,6 +155,9 @@ check('global filename helpers registered and used across the UI', () => {
   assert.ok(/\{\{ cleanFilename name \}\}/.test(cards), 'card attachment name uses cleanFilename');
   assert.ok(/download="\{\{downloadFilename name\}\}"/.test(cards), 'download uses the clean name');
   assert.ok(/title="\{\{cleanFilename name\}\}"/.test(cards), 'thumbnail titles use cleanFilename');
+  assert.ok(/cleanFilename upload\.file\.name/.test(cards), 'upload names use cleanFilename');
+  assert.ok(/cleanFilename item\.name/.test(read('client/components/settings/attachments.jade')),
+    'admin attachment names use cleanFilename');
   // The Files report renders through the shared table page, so its filename
   // cell is a column spec calling cleanFileName() rather than markup calling the
   // {{cleanFilename}} helper. Same function, same guarantee.

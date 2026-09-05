@@ -180,7 +180,7 @@ template(name="attachments")
                       ul.compact-result-list
                         each item in compactResultItems
                           li
-                            strong {{item.name}}
+                            strong {{cleanFilename item.name}}
                             | : {{item.status}}
 
           else if isS3Active

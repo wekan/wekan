@@ -355,6 +355,10 @@ test('a lockout is reported, and the report cannot break the lockout', () => {
   const lockBranch = body.slice(body.indexOf("decision.action === 'lock'"));
   assert.ok(lockBranch.includes('this.onLockout'),
     'the report belongs on the lock branch, not on every blocked attempt');
+  for (const field of ['username', 'ip', 'headers']) {
+    assert.match(lockBranch, new RegExp(`${field}:`),
+      `the lockout reporter must receive available ${field} attribution`);
+  }
 });
 
 test('the catalog names it, so the log and the hall of fame cannot drift', () => {
@@ -406,6 +410,10 @@ test('the reporter logs an attempt, not ordinary use (negative)', () => {
     const body = fn.slice(0, fn.indexOf('\n}\n'));
     assert.ok(/key: 'brute\.lockout'/.test(body), `${f}: the catalog key`);
     assert.ok(/action: 'blocked'/.test(body), `${f}: blocked, not detected`);
+    assert.ok(/userId,/.test(body) && /username,/.test(body) && /ip,/.test(body),
+      `${f}: account and address attribution`);
+    assert.ok(/locationFromHeaders\(headers\)/.test(body),
+      `${f}: available proxy location attribution`);
     assert.ok(/catch \(e\) \{ \/\* logging must never break the guard \*\/ \}/.test(body),
       `${f}: logging must never break the guard`);
   }

@@ -866,10 +866,19 @@ Template.eventStreamReport.onDestroyed(function () {
 // history displays correctly instead of showing two empty columns for everything
 // older than this change.
 const { classifyAddress } = require('/models/lib/ipAddress');
+const { countryFlag, locationLabel } = require('/models/lib/geoHeaders');
 const addressColumns = () => [
   { labelKey: 'event-ipv4', nowrap: true, value: r => r.ipv4 || classifyAddress(r.ip).ipv4 || '' },
   { labelKey: 'event-ipv6', nowrap: true, value: r => r.ipv6 || classifyAddress(r.ip).ipv6 || '' },
 ];
+const locationColumn = () => ({
+  labelKey: 'location',
+  value: r => {
+    const label = locationLabel(r.location);
+    const flag = countryFlag(r.location && r.location.country);
+    return [flag, label].filter(Boolean).join(' ');
+  },
+});
 
 // The API stream is a USAGE report, not a problem report, so its columns are the
 // question it answers - who called what, how often, between when and when, from
@@ -892,6 +901,7 @@ const API_COLUMNS = [
   { labelKey: 'api-first-called', nowrap: true, value: r => formatEventAt(r.firstAt) },
   { labelKey: 'api-last-called', nowrap: true, value: r => formatEventAt(r.at) },
   ...addressColumns(),
+  locationColumn(),
 ];
 
 const EVENT_STREAM_COLUMNS = [
@@ -919,6 +929,7 @@ const EVENT_STREAM_COLUMNS = [
   // as HTTP_FORWARDED_COUNT says to trust it - so neither can be written by
   // sending a header.
   ...addressColumns(),
+  locationColumn(),
   // HOW MANY attempts this row stands for. A canary counts repeats inside its
   // window rather than writing one row each, so "1" is an ordinary event and a
   // larger number is a burst that was deliberately not written out in full

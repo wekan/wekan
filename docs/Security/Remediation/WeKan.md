@@ -460,6 +460,7 @@ Every event carries:
 | `userId` | the caller's own knowledge, else the DDP invocation |
 | `username` | looked up once and cached; **stored on the event**, not resolved later |
 | `ip` | the request, resolved with `resolveClientKey` — the SAME spoofing-safe rule as the login throttle |
+| `location` | display-only country, region, city and coordinates already supplied by Cloudflare or another supported proxy/CDN |
 | `count` | how many attempts this one row stands for (§12.2) |
 
 The username is **denormalised at write time on purpose**: it is what the account
@@ -470,6 +471,13 @@ The address honours `X-Forwarded-For` **only as far as `HTTP_FORWARDED_COUNT`
 says to trust it**, exactly as `server/lib/loginAttemptThrottle.js` does.
 Otherwise an attacker would write somebody else's address into the security log
 by sending a header — turning the report into a way to frame a colleague.
+
+The report separates IPv4 and IPv6, and shows the location as a country flag plus
+city/region label when those headers exist. Location is informational only: WeKan
+does no third-party lookup, and proxy location headers never authorize, block,
+group, or rate-limit anything. The shared event fold fills a missing username
+from an available `userId`, so every Problems stream receives the same attribution
+even when its caller knew only the account id.
 
 `detail` says what was **attempted**, in the words of the feature ("tried to move
 a card into a board they cannot write to"), and **never the payload**: it is

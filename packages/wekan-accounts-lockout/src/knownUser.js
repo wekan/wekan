@@ -202,6 +202,9 @@ class KnownUser {
         if (this.onLockout) {
           this.onLockout({
             userId,
+            username: loginInfo.user && loginInfo.user.username,
+            ip: address,
+            headers: loginInfo.connection && loginInfo.connection.httpHeaders,
             failedAttempts: decision.failedAttempts,
             lockoutSeconds: decision.secondsRemaining,
           });
