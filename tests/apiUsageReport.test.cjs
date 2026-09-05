@@ -172,6 +172,19 @@ test('the summary identity carries the endpoint and the ACCOUNT ID', () => {
     'the NAME must not be the identity, or a rename splits the history');
 });
 
+test('every API fold field is accepted by the EventLog schema', () => {
+  // Collection2 validates both the upsert selector and update. Missing `api`
+  // caused every timed flush to fail before one usage row could be recorded;
+  // the shared fold also adds the address-family fields to the update.
+  const eventLog = read('models/eventLog.js');
+  const schema = eventLog.slice(eventLog.indexOf('new SimpleSchema({'),
+    eventLog.indexOf('}),\n);'));
+  for (const field of ['api', 'apiUserId', 'ipv4', 'ipv6']) {
+    assert.ok(new RegExp(`\\n\\s*${field}:\\s*\\{ type: String`).test(schema),
+      `EventLog schema must accept ${field}`);
+  }
+});
+
 test('API use is not a "problem", so it stays out of the badge (negative)', () => {
   // EVENT_STREAMS drives the red Problems button and the Summary counts. An
   // instance serving its API would otherwise report thousands of new problems.

@@ -39,6 +39,8 @@ EventLog.attachSchema(
     // rewrite, and a deleted account must not erase.
     username: { type: String, optional: true },
     ip:       { type: String, optional: true },
+    ipv4:     { type: String, optional: true },
+    ipv6:     { type: String, optional: true },
     // ONE ROW PER PROBLEM. `count` is how many times this problem has happened,
     // `firstAt` when it was first seen and `at` when it was last seen - so a row
     // answers "what, how much, and between when and when" on its own. See
@@ -71,6 +73,11 @@ EventLog.attachSchema(
     db:       { type: String, optional: true },  // mongodb|sqlite|postgresql|mysql|mariadb|hana
     kind:     { type: String, optional: true },  // disk|auth|syntax|timeout|…
     message:  { type: String, optional: true },  // what the database itself said
+    // The API-usage stream's identity. `apiUserId` deliberately stays separate
+    // from the latest caller's `userId`: endpoint + account is the row being
+    // counted, even after that account is renamed.
+    api:       { type: String, optional: true },  // METHOD /api/route/:pattern
+    apiUserId: { type: String, optional: true },  // stable account id, or empty
   }),
 );
 
