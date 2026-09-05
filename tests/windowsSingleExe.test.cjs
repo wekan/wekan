@@ -346,6 +346,13 @@ async function main() {
       'the payload must contain the in-process mount the EXE preloads');
   });
 
+  check('the packer CLI starts on Windows paths as well as POSIX paths', () => {
+    assert.match(packer, /pathToFileURL\(process\.argv\[1\]\)\.href/,
+      'Node must convert the entry path to a platform-correct file URL');
+    assert.doesNotMatch(packer, /`file:\/\/\$\{path\.resolve\(process\.argv\[1\]\)\}`/,
+      'a hand-built file URL prevents the CLI body from running on Windows');
+  });
+
   // Negative: 11.48 shipped because start-wekan.bat restarts WeKan every three
   // seconds, so a crash-looping EXE still answered on port 8080 inside the poll
   // window and the job went green.

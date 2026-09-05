@@ -34,6 +34,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 
 export const TRAILER_SIZE = 80;
 export const TRAILER_MAGIC = 'WEKANSFX';
@@ -226,7 +227,10 @@ function main(argv) {
   return 0;
 }
 
-if (process.argv[1] && import.meta.url === `file://${path.resolve(process.argv[1])}`) {
+// Do not build this URL by concatenating `file://` with path.resolve(). On
+// Windows that produces file://D:\a\... while import.meta.url is the encoded
+// file:///D:/a/... form, so the CLI silently does nothing and exits zero.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     process.exit(main(process.argv.slice(2)));
   } catch (error) {
