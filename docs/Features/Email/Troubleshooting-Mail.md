@@ -1,6 +1,3 @@
-{% raw %}
-<!-- Contains a literal {{variable}} code example; wrap in raw so Jekyll's
-     Liquid engine does not try to evaluate it when building GitHub Pages. -->
 ## Configure email in Admin Panel
 
 Before using the environment-variable examples below, open **Admin Panel /
@@ -66,7 +63,7 @@ sudo snap set wekan mail-url='smtp://USER%40DOMAIN:PASSWORD@127.0.0.1:1025?ignor
 
 ```
 let htmlText = Assets.getText("emailTemplate.html");
-let modifiedText = htmlText.replace(new RegExp("{{variable}}", 'g'), variable);
+let modifiedText = htmlText.replace(/\{\{variable\}\}/g, variable);
 await Email.sendAsync({
             from: "nobody@example.com",
             to: email,
@@ -607,4 +604,3 @@ By default zoho uses port number 465 with TLS enabled.
 Step 3: form MAIL_FROM
 
 MAIL_FROM=Wekan Notifications <user1@example.com>
-{% endraw %}
