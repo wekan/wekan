@@ -8661,6 +8661,20 @@ description.
 
 and fixes the following bugs:
 
+**Minicards** - what dragging the card title does.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c9896ef9">The minicard title drags the card or drag-scrolls the board</a>. Thanks to xet7.</summary>
+
+Direct title editing on the minicard intercepted the largest natural drag
+surface. It is now commented out. With drag handles disabled, dragging the
+title moves the minicard along with the rest of the card. With drag handles
+enabled, only the handle moves the card, while dragging the title pans the
+board. Focused regression tests cover both handle states and ensure the title
+does not become an inline-editor trigger again.
+
+</details>
+
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
