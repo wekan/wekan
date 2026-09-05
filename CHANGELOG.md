@@ -8739,6 +8739,21 @@ the logical, RTL-safe alignment and every background layer.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e48c969fa">Mobile Mode uses one aligned minicard control column in every browser</a>. Thanks to xet7.</summary>
+
+The enlarged, aligned menu-and-handle column was restricted to coarse pointers.
+A desktop browser switched with **Toggle between Desktop and Mobile Mode** has a
+mouse pointer, so it kept the compact desktop drag handle and placed its center
+farther toward the minicard edge than the menu center. Mobile Mode now owns the
+layout regardless of pointer type: both controls have the same trailing inset
+and width, which gives them exactly the same horizontal center on phone and
+desktop browsers and mirrors the column in RTL. Desktop Mode retains its compact
+handle. The regression test calculates and compares the two centers and rejects
+any pointer-type media query that could split the explicit mode again.
+
+</details>
+
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
