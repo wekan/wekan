@@ -118,7 +118,7 @@
   "set-selected-home": "Ange som hemtavla (öppnas efter inloggning)",
   "unset-selected-home": "Sluta använda som hemtavla",
   "home-board-badge": "Hemtavla (öppnas efter inloggning)",
-  "home-board-empty": "Dra en tavla hit för att öppna den efter inloggning",
+  "home-board-empty": "Dra en enda tavla hit för att öppna den efter inloggning",
   "home-board-remove": "Ta bort från Hem",
   "home-board-remove-confirm": "Ta bort denna tavla från Hem? Själva tavlan raderas inte.",
   "activity-dueDate": "redigerade förfallodag till %s av %s",
