@@ -8670,8 +8670,10 @@ Direct title editing on the minicard intercepted the largest natural drag
 surface. It is now commented out. With drag handles disabled, dragging the
 title moves the minicard along with the rest of the card. With drag handles
 enabled, only the handle moves the card, while dragging the title pans the
-board. Focused regression tests cover both handle states and ensure the title
-does not become an inline-editor trigger again.
+board. Card sorting continues to work in both modes: a browser regression drags
+the title with handles disabled and the visible handle with them enabled, then
+checks the persisted card order. Focused negative coverage also ensures the
+title does not become an inline-editor trigger again.
 
 </details>
 
