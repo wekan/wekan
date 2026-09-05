@@ -489,7 +489,6 @@ goto rel_run_done
 :rel_run_bash
 call bash %RS% %RA%
 :rel_run_done
-pause
 goto :eof
 
 REM ---------------------------------------------------------------------------
@@ -508,7 +507,6 @@ if errorlevel 1 goto :eof
 echo.
 echo --- !RC! !RA! ---
 call bash -c "!RC! !RA!"
-pause
 goto :eof
 
 REM ---------------------------------------------------------------------------
@@ -517,7 +515,6 @@ where bash >nul 2>&1
 if errorlevel 1 (
 	echo bash not found - the releases scripts need Git Bash, bundled with Git for Windows.
 	echo Install Git for Windows, or run this under WSL2 with build.sh.
-	pause
 	exit /b 1
 )
 exit /b 0
@@ -737,7 +734,6 @@ call :cli_help
 echo.
 echo Commands:
 call :cli_list
-pause
 goto menu
 
 

@@ -161,10 +161,6 @@ function ensure_tool_repo(){
 	printf '%s\n' "$dir"
 }
 
-function pause(){
-	read -p "$*"
-}
-
 function is_dev_server_running(){
 	if command -v pgrep >/dev/null 2>&1; then
 		pgrep -af 'meteor run --port 3000' | grep -v 'meteor test' | grep -q '.'
@@ -2501,7 +2497,6 @@ releases_menu() {
 		*.mjs|*.mjs\ *) node $script $args ;;
 		*)              bash $script $args ;;
 	esac
-	pause
 	return 0
 }
 
@@ -2679,7 +2674,7 @@ while [ -z "$opt" ]; do
 			"Docker") if docker_menu; then exit 0; fi ;;
 			"Releases") if releases_menu; then exit 0; fi ;;
 			"CLI commands")
-				cli_help; echo; echo "Commands:"; cli_list; pause ;;
+				cli_help; echo; echo "Commands:"; cli_list ;;
 			"Quit")   exit 0 ;;
 			*)        echo "invalid option" ;;
 		esac
