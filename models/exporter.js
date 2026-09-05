@@ -417,7 +417,9 @@ export class Exporter {
       result.users.forEach(u => anonymizeUserDoc(u, map));
       anonymizeBoardTextInPlace(result, map.byUsername);
     }
-    return result;
+    return require('/server/lib/secureTransfer').secureTransfer(result, {
+      direction: 'export', source: 'export:wekan-json',
+    });
   }
 
   // ───────────────────────────────────────────────────────────────────────────

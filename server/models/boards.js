@@ -3,7 +3,6 @@ import { WebApp } from 'meteor/webapp';
 import { DDP } from 'meteor/ddp';
 import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
-import { WekanCreator } from '/models/wekanCreator';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { allowIsBoardAdmin, boardMemberRoleToFlags } from '/server/lib/utils';
@@ -988,13 +987,11 @@ WebApp.handlers.post('/api/boards/import', async function(req, res) {
     if (req.body.membersMapping && typeof req.body.membersMapping === 'object') {
       additionalData.membersMapping = req.body.membersMapping;
     }
-    // Run the import as the authenticated user so the new board is owned by them.
+    // Use the same method as UI imports: one authorization, validation,
+    // sanitization and timeout boundary for every transport.
     const boardId = await DDP._CurrentMethodInvocation.withValue(
       { userId: req.userId },
-      async () => {
-        const creator = new WekanCreator(additionalData);
-        return await creator.create(board, null);
-      },
+      async () => Meteor.callAsync('importBoard', board, additionalData, 'wekan', null),
     );
     sendJsonResult(res, { code: 200, data: { _id: boardId } });
   } catch (error) {

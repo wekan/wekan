@@ -163,5 +163,8 @@ export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);
 export async function buildExternalExport(boardId, format, fields) {
   const formatter = formatters[format];
   if (!formatter) return null;
-  return formatter(await collect(boardId, fields));
+  const formatted = formatter(await collect(boardId, fields));
+  return require('/server/lib/secureTransfer').secureTransfer(formatted, {
+    direction: 'export', source: `export:${format}`,
+  });
 }

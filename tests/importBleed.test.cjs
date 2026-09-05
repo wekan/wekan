@@ -46,8 +46,8 @@ firstGuard(scopedImport, 'importScoped');
 
 assert.match(scopedImport, /const userId = this\.userId;/,
   'importScoped captures the authenticated method user before awaiting');
-assert.match(scopedImport, /new ScopedImporter\(target, doc, \{[\s\S]{0,100}userId,/,
-  'the scoped importer receives the authenticated method user');
+assert.match(scopedImport, /const safeDoc = sanitizeImported\(doc,[\s\S]{0,120}new ScopedImporter\(target, safeDoc, \{[\s\S]{0,100}userId,/,
+  'the scoped importer receives sanitized data and the authenticated method user');
 assert.doesNotMatch(scopedImport, /userId: Meteor\.userId\(\)/,
   'the write actor does not depend on ambient identity after awaits');
 

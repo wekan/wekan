@@ -289,6 +289,15 @@ function requestOnce(parsed, resolvedIp, options) {
 
     req.on('error', reject);
 
+    const timeoutMs = Number.isFinite(options.timeoutMs)
+      ? Math.max(1000, Math.min(options.timeoutMs, 300000))
+      : 30000;
+    if (typeof req.setTimeout === 'function') {
+      req.setTimeout(timeoutMs, () => {
+        req.destroy(new Error(`outbound request timed out after ${timeoutMs}ms`));
+      });
+    }
+
     if (options.body) {
       req.write(options.body);
     }
@@ -302,14 +311,25 @@ function requestOnce(parsed, resolvedIp, options) {
 // use fetchSafe as a drop-in. `headers` stays the Node lowercased-object form
 // (res.headers['content-type']) and also answers headers.get('content-type'),
 // so code written against either shape works unchanged.
-function readResponse(res) {
+function readResponse(res, options = {}) {
   return new Promise((resolve, reject) => {
     if (res.ssrfGuardEarlyError) {
       reject(res.ssrfGuardEarlyError);
       return;
     }
     const chunks = [];
-    res.on('data', (chunk) => chunks.push(chunk));
+    const maxBytes = Number.isFinite(options.maxResponseBytes)
+      ? Math.max(1024, Math.min(options.maxResponseBytes, 1024 * 1024 * 1024))
+      : 10 * 1024 * 1024;
+    let bytes = 0;
+    res.on('data', (chunk) => {
+      bytes += chunk.length;
+      if (bytes > maxBytes) {
+        res.destroy(new Error(`outbound response exceeds ${maxBytes} bytes`));
+        return;
+      }
+      chunks.push(chunk);
+    });
     res.on('error', reject);
     res.on('end', () => {
       const body = Buffer.concat(chunks);
@@ -380,7 +400,7 @@ export async function fetchSafe(rawUrl, options = {}) {
 
     const isRedirect = res.statusCode >= 300 && res.statusCode < 400;
     if (!isRedirect) {
-      return readResponse(res);
+      return readResponse(res, currentOptions);
     }
 
     // A redirect is never followed silently.

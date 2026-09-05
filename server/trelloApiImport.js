@@ -6,6 +6,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TrelloCreator } from '/models/trelloCreator';
 import Users from '/models/users';
 import Boards from '/models/boards';
+import Activities from '/models/activities';
 import Avatars from '/models/avatars';
 import TrelloImportJobs from '/models/trelloImportJobs';
 import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
@@ -70,6 +71,7 @@ const MIN_REQUEST_GAP_MS = 120;
 const MAX_RETRIES = 5;
 const BASE_BACKOFF_MS = 1000;
 const MAX_BACKOFF_MS = 30000;
+const REQUEST_TIMEOUT_MS = 30000;
 let _lastRequestAt = 0;
 
 const sleep = ms => new Promise(resolve => Meteor.setTimeout(resolve, ms));
@@ -127,8 +129,16 @@ async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
     let res;
     try {
       res = untrusted
-        ? await fetchSafe(url, { ...options, maxRedirects: MAX_DOWNLOAD_REDIRECTS })
-        : await fetch(url, options);
+        ? await fetchSafe(url, {
+          ...options,
+          maxRedirects: MAX_DOWNLOAD_REDIRECTS,
+          timeoutMs: REQUEST_TIMEOUT_MS,
+          maxResponseBytes: 256 * 1024 * 1024,
+        })
+        : await fetch(url, {
+          ...options,
+          signal: options.signal || AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        });
     } catch (networkErr) {
       // A refusal by the SSRF guard is a verdict, not a hiccup: retrying it
       // just repeats the same blocked request five more times.
@@ -144,7 +154,7 @@ async function trelloFetch(url, options = {}, { untrusted = false } = {}) {
       throw new Meteor.Error('trello-api-error', `Trello request failed: ${networkErr.message}`);
     }
 
-    if (res.status === 429 || res.status >= 500) {
+    if ([408, 425, 429].includes(res.status) || res.status >= 500) {
       lastError = res;
       if (attempt < MAX_RETRIES) {
         const delay = retryDelayMs(res, attempt);
@@ -611,6 +621,42 @@ Meteor.methods({
 
 const jobCreds = new Map(); // jobId -> { key, token }
 const runningJobs = new Set(); // jobIds with an active loop
+const workerId = `${process.pid}-${Random.id(10)}`;
+const JOB_LEASE_MS = 2 * 60 * 1000;
+
+async function claimJob(jobId) {
+  const now = new Date();
+  const count = await TrelloImportJobs.updateAsync({
+    _id: jobId,
+    status: 'running',
+    $or: [
+      { leaseUntil: { $exists: false } },
+      { leaseUntil: { $lte: now } },
+      { leaseOwner: workerId },
+    ],
+  }, {
+    $set: {
+      leaseOwner: workerId,
+      leaseUntil: new Date(now.getTime() + JOB_LEASE_MS),
+      updatedAt: now,
+    },
+  });
+  return count > 0;
+}
+
+async function renewJobLease(jobId) {
+  await TrelloImportJobs.updateAsync(
+    { _id: jobId, status: 'running', leaseOwner: workerId },
+    { $set: { leaseUntil: new Date(Date.now() + JOB_LEASE_MS), updatedAt: new Date() } },
+  );
+}
+
+async function releaseJobLease(jobId) {
+  await TrelloImportJobs.updateAsync(
+    { _id: jobId, leaseOwner: workerId },
+    { $unset: { leaseOwner: '', leaseUntil: '' }, $set: { updatedAt: new Date() } },
+  );
+}
 
 // A fatal error stops the whole import and is resumable (invalid credentials,
 // or rate-limit still failing after retries). Anything else is a per-board
@@ -673,7 +719,16 @@ async function finalizeCancel(jobId) {
 
 async function runJob(jobId) {
   if (runningJobs.has(jobId)) return; // already processing
+  if (!(await claimJob(jobId))) return; // another WeKan replica owns it
   runningJobs.add(jobId);
+  // A board with many attachments can take longer than one lease. Renew while
+  // network and database work is in flight, not merely between boards, so a
+  // second replica cannot reclaim and duplicate that side effect.
+  const heartbeat = Meteor.setInterval(() => {
+    renewJobLease(jobId).catch(error => {
+      console.error('Trello import lease renewal failed', jobId, errMessage(error));
+    });
+  }, Math.floor(JOB_LEASE_MS / 4));
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
@@ -714,12 +769,37 @@ async function runJob(jobId) {
 
       const trelloBoardId = job.boardIds[job.currentIndex];
       try {
+        await renewJobLease(jobId);
+        // The side effect may have completed immediately before a crash but its
+        // queue checkpoint may not. The importBoard activity is durable evidence
+        // keyed by source board and owner, so reclaim adopts it instead of
+        // creating a duplicate board.
+        const existing = await Activities.findOneAsync({
+          activityType: 'importBoard',
+          'source.system': 'Trello',
+          'source.id': trelloBoardId,
+          userId: job.userId,
+        }, { sort: { createdAt: -1 } });
+        if (existing && existing.boardId && await Boards.findOneAsync(existing.boardId)) {
+          await TrelloImportJobs.updateAsync(jobId, {
+            $set: { currentIndex: job.currentIndex + 1, updatedAt: new Date() },
+            $addToSet: { createdBoardIds: existing.boardId },
+            $push: { results: {
+              trelloBoardId, boardId: existing.boardId,
+              success: true, recovered: true,
+            } },
+          });
+          continue;
+        }
         const board = await fetchBoard(trelloBoardId, creds.key, creds.token);
         const attachmentsImported = await inlineAttachments(board, creds.key, creds.token);
         await inlineBoardBackground(board, creds.key, creds.token);
         const membersMapping = await buildMembersMapping(board);
+        const sanitized = require('/server/lib/secureTransfer').secureTransfer(board, {
+          direction: 'import', source: 'import:trello-api', userId: job.userId,
+        });
         const creator = new TrelloCreator({ membersMapping });
-        const newBoardId = await creator.create(board, null);
+        const newBoardId = await creator.create(sanitized, null);
 
         const wsName =
           (board.organization && board.organization.displayName) ||
@@ -775,7 +855,9 @@ async function runJob(jobId) {
       $push: { errorLog: `[job] ${errMessage(e)}` },
     }).catch(() => {});
   } finally {
+    Meteor.clearInterval(heartbeat);
     runningJobs.delete(jobId);
+    await releaseJobLease(jobId).catch(() => {});
   }
 }
 
@@ -909,24 +991,19 @@ Meteor.methods({
   },
 });
 
-// On server (re)start, any job left "running" has no live loop or credentials:
-// flip it to paused so the user can resume it from the import page.
+// On server (re)start, reclaim every due running job. Saved credentials are
+// resolved inside runJob; a job without them is paused with an actionable reason.
+// A non-expired lease belongs to another live replica and is left alone.
 Meteor.startup(async () => {
   try {
-    await TrelloImportJobs.updateAsync(
-      { status: 'running' },
-      {
-        $set: {
-          status: 'paused',
-          lastError: 'Interrupted by server restart; resume to continue',
-          updatedAt: new Date(),
-        },
-      },
-      { multi: true },
-    );
+    const jobs = await TrelloImportJobs.find({ status: 'running' }, {
+      fields: { _id: 1, leaseUntil: 1 },
+    }).fetchAsync();
+    jobs.forEach((job, index) => {
+      const delay = Math.max(0, job.leaseUntil ? job.leaseUntil.getTime() - Date.now() : 0);
+      Meteor.setTimeout(() => launchJob(job._id), delay + index * 250);
+    });
   } catch (e) {
-    if (process.env.DEBUG === 'true') {
-      console.warn('Trello import job recovery failed', e && e.message);
-    }
+    console.error('Trello import job recovery failed', e && e.message);
   }
 });

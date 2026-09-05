@@ -31,6 +31,15 @@ function recordAnonymousImportAttempt(method, connection) {
   });
 }
 
+function sanitizeImported(value, source, invocation) {
+  if (!Meteor.isServer) return value;
+  return require('/server/lib/secureTransfer').secureTransfer(value, {
+    direction: 'import', source: `import:${source}`,
+    userId: invocation && invocation.userId,
+    ip: invocation && invocation.connection && invocation.connection.clientAddress,
+  });
+}
+
 // Parse an uploaded .xlsx (base64) into the row-array shape the CsvCreator
 // consumes (board[0] is the header row). Excel import reuses the CSV creator.
 async function parseXlsxToRows(excelBase64) {
@@ -70,7 +79,7 @@ Meteor.methods({
     // Admin Panel / Features / Security: master switch to disable all import.
     await assertImportEnabled();
     let creator;
-    let importedBoard = board;
+    let importedBoard = sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
         check(board, Object);
@@ -95,7 +104,9 @@ Meteor.methods({
       case 'excel':
         // board = { excelBase64 }; parse it into rows and reuse the CSV creator.
         check(board, Object);
-        importedBoard = await parseXlsxToRows(board.excelBase64);
+        importedBoard = sanitizeImported(
+          await parseXlsxToRows(importedBoard.excelBase64), 'excel-cells', this,
+        );
         creator = new CsvCreator(data);
         break;
       default:
@@ -169,7 +180,8 @@ Meteor.methods({
 
     if (!Meteor.isServer) return null;
     const { ScopedImporter } = require('./server/scopedImporter');
-    const importer = new ScopedImporter(target, doc, {
+    const safeDoc = sanitizeImported(doc, 'wekan-scoped', this);
+    const importer = new ScopedImporter(target, safeDoc, {
       userId,
       fields,
     });

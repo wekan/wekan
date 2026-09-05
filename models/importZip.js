@@ -160,7 +160,11 @@ runOnServer(function () {
         return;
       }
 
-      const doc = JSON.parse((await documentEntry.buffer()).toString('utf8'));
+      const parsedDoc = JSON.parse((await documentEntry.buffer()).toString('utf8'));
+      const doc = require('/server/lib/secureTransfer').secureTransfer(parsedDoc, {
+        direction: 'import', source: 'import:zip', userId: user._id,
+        ip: req.connection && req.connection.remoteAddress,
+      });
       if (doc._format && doc._format !== 'wekan-board-1.0.0') {
         answer(400, { error: 'invalid-format' });
         return;
