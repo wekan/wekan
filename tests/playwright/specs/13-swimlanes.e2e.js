@@ -148,11 +148,17 @@ test.describe('Swimlanes', () => {
       await expect(firstLane.locator('a.mini-list').first()).toBeVisible({ timeout: 15000 });
       const selected = secondLane.locator(`#js-list-${secondListId}`);
       await expect(selected).toBeVisible({ timeout: 15000 });
+      const compactRows = firstLane.locator('a.mini-list');
+      const heightsBefore = await compactRows.evaluateAll(rows =>
+        rows.map(row => row.getBoundingClientRect().height));
       await selected.click();
 
       await expect(secondLane.locator(`#js-list-${secondListId} .list-body`))
         .toBeVisible({ timeout: 15000 });
       await expect(firstLane.locator('a.mini-list').first()).toBeVisible();
+      const heightsAfter = await compactRows.evaluateAll(rows =>
+        rows.map(row => row.getBoundingClientRect().height));
+      expect(heightsAfter).toEqual(heightsBefore);
     } finally {
       db.deleteMany('lists', { _id: secondListId });
       db.deleteMany('swimlanes', { _id: secondSwimlaneId });

@@ -23,6 +23,10 @@ Meteor.startup(() => {
 });
 
 Template.listHeader.helpers({
+  isCurrentList() {
+    const list = Template.currentData();
+    return Boolean(list && Utils.getCurrentListId() === list._id);
+  },
   containerSwimlaneId() {
     const list = Template.currentData();
     if (!list || Utils.boardView() !== 'board-view-swimlanes') {

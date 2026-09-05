@@ -13,6 +13,10 @@ const jade = fs.readFileSync(
   path.join(root, 'client/components/swimlanes/swimlanes.jade'), 'utf8');
 const js = fs.readFileSync(
   path.join(root, 'client/components/swimlanes/swimlanes.js'), 'utf8');
+const listHeaderJade = fs.readFileSync(
+  path.join(root, 'client/components/lists/listHeader.jade'), 'utf8');
+const listHeaderJs = fs.readFileSync(
+  path.join(root, 'client/components/lists/listHeader.js'), 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -42,6 +46,15 @@ test('the membership helper compares the selected list with this swimlane', () =
     'a swimlane-scoped list matches only its own swimlane');
   assert.ok(/!currentList\.swimlaneId/.test(helper),
     'a board-wide list remains visible in every swimlane');
+});
+
+test('compact rows keep their header layout when another list is selected', () => {
+  assert.strictEqual((listHeaderJade.match(/if isCurrentList/g) || []).length, 2,
+    'both mobile header branches must use list-scoped selection state');
+  assert.ok(!/^\s*if currentList\s*$/m.test(listHeaderJade),
+    'a global selected-list check must not resize unrelated compact rows');
+  assert.ok(/isCurrentList\(\)[\s\S]*Utils\.getCurrentListId\(\) === list\._id/
+    .test(listHeaderJs), 'the header state must match the selected list ID');
 });
 
 console.log(`\nmobileSwimlaneListSelection: ${passed} tests passed`);

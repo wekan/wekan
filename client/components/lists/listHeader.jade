@@ -14,7 +14,7 @@ template(name="listHeader")
       +editListTitleForm
     else
       if isMiniScreen
-        if currentList
+        if isCurrentList
           a.list-header-left-icon.js-unselect-list
             i.fa.fa-caret-left
       else
@@ -60,7 +60,7 @@ template(name="listHeader")
               | &nbsp;
               span.list-sum-badge(title="{{_ 'sum-of-number-fields'}}") ∑ {{numberFieldsSum}}
       if isMiniScreen
-        if currentList
+        if isCurrentList
           if isWatching
             i.list-header-watch-icon i.fa.fa-eye
           div.list-header-menu
