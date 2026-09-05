@@ -8245,10 +8245,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Git mirror updates** now work from WeKan's documented Linux,
-macOS and Windows checkout locations, keep every related clone below the active
-checkout's ignored `.tools` directory, and update existing mirrors on repeat
-runs.
+**In short:** **Release version updates** now publish Meteor from its canonical
+build pin and stop before publishing if any release-critical version remains
+stale. **Git mirror updates** also work from WeKan's documented Linux, macOS and
+Windows checkout locations, keep every related clone below the active checkout's
+ignored `.tools` directory, and update existing mirrors on repeat runs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8260,6 +8261,40 @@ runs.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ca13e2fa">Website releases publish Meteor from the version the build actually uses</a>. Thanks to xet7.</summary>
+
+WeKan v11.50 was built from `.meteor/release`, which contained
+`METEOR@3.5.2-rc.0`, but `wekan.fi/version.txt` reported `3.5.2-beta.0`. The
+website generator did not read the build pin; it read a duplicated
+`METEOR_RELEASE` value in `Dockerfile`, and that copy had not changed when Meteor
+advanced from beta to release candidate.
+
+The manifest now reads `.meteor/release` directly, while every release bump also
+synchronizes Docker's runtime metadata from that canonical file. Current Docker
+metadata is corrected to `3.5.2-rc.0`. Regression coverage deliberately gives the
+generator a stale beta Dockerfile beside an rc Meteor pin and verifies both
+`version.txt` and the install page publish the rc version.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2bb456be">The release workflow rejects every stale release-critical version</a>. Thanks to xet7.</summary>
+
+`release-all.yml` previously trusted that `version.sh` had found and rewritten every
+copy before committing the bump. A missed pattern could therefore pass silently and
+be consumed later by one platform or the website. The bump job now runs one shared,
+read-only consistency gate before its commit step. It verifies the WeKan version in
+`package.json`, both package-lock roots, Docker, Snap, Stacker and Sandstorm; every
+Snap bundle URL; and Docker's Meteor metadata against `.meteor/release`.
+
+Each mismatch produces a named Actions error and stops the workflow before the bump
+is pushed or any publishing job starts. Positive coverage runs the verifier against
+the current checkout, while negative fixtures prove that stale Snap and Meteor
+values fail the release.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/509662948">Git mirror updates work from the documented Linux, macOS and Windows checkouts</a>. Thanks to xet7.</summary>
