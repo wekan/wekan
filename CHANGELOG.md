@@ -8250,7 +8250,8 @@ Linux, macOS and Windows instead of waiting for an acknowledgement keystroke.
 Release and maintenance output remains visible, but an invisible read or generic
 "Press any key" pause no longer makes a completed operation look unfinished.
 Prompts that collect versions, paths and other real command arguments are
-unchanged.
+unchanged. **Mobile layout regression coverage** now follows the current header
+and drag-handle structure and tolerates only subpixel browser rounding.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8275,6 +8276,22 @@ Both scripts now exit to the shell or command prompt as soon as a selected
 process finishes. They wait for terminal input only while displaying a menu or
 a visible question that collects a real command argument. Focused regression
 coverage checks the prompt and exit control flow in both scripts.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6f20c825">Mobile layout regressions test the current header and subpixel alignment</a>. Thanks to xet7.</summary>
+
+The full test run still expected Mobile Mode to copy list names into the top
+header, even though that switcher was removed to keep the header height and
+other swimlanes stable. Another static check searched for the drag handle only
+inside a removed coarse-pointer media query instead of the mode-based rule used
+by every browser.
+
+Those checks now pin the current structure. The Firefox browser test also
+accepts less than half a CSS pixel of glyph-centre rounding; it had failed on a
+0.0083-pixel difference while Chromium and WebKit passed. A real positioning
+regression of half a pixel or more still fails.
 
 </details>
 
