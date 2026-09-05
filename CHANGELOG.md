@@ -8245,19 +8245,14 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Build menus** now return immediately after commands finish on
-Linux, macOS and Windows instead of waiting for an acknowledgement keystroke.
-Release and maintenance output remains visible, but an invisible read or generic
-"Press any key" pause no longer makes a completed operation look unfinished.
-Prompts that collect versions, paths and other real command arguments are
-unchanged. **Mobile layout regression coverage** now follows the current header
-and drag-handle structure and tolerates only subpixel browser rounding.
-**Security and recovery audits** now cover the current 93-entry vulnerability
-catalog, report ScannerBleed attempts, and expose backup/restore failures without
-discarding the recovery request needed for retry. **Verified recovery and tamper
-audits** now restore corrupt FerretDB SQLite data from checked snapshots or retained
-MongoDB source, verify change history and stored files, report evidence in Problems,
-and schedule non-urgent checksum work during sustained low CPU usage.
+**In short:** **Build menus** return immediately after completed commands while
+keeping real menu and argument prompts. **Mobile regression coverage** follows the
+current header and drag-handle structure. **Security coverage** now accounts for
+all 94 Hall of Fame names, blocks SheetColorBleed CSS injection, reports attributable
+ScannerBleed and integrity attempts, and removes a test-only incomplete escape.
+**Verified recovery** checks and restores FerretDB SQLite snapshots or retained
+MongoDB source, preserves failed requests for retry, verifies history and stored
+files, and schedules non-urgent checksum work during sustained low CPU usage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8269,6 +8264,32 @@ and schedule non-urgent checksum work during sustained low CPU usage.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+**Safeguards** - Security, recovery, build and mobile regression protections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6ed8edeb">Validate XLSX sheet colors before CSS serialization</a>. Thanks to rbbjinioeq and xet7.</summary>
+
+An XLSX workbook's unvalidated sheet-tab color was interpolated into the
+viewer's complete `style.cssText`. A board member could append CSS declarations,
+cover another authorized member's attachment preview and trigger a CSS resource
+request when that member opened the workbook (SheetColorBleed,
+GHSA-crq2-phg8-4xvg; CWE-79 and CWE-116). No script execution, response reading,
+credential access or authenticated state change was demonstrated.
+
+The vendored viewer now accepts only canonical `#RRGGBB` immediately before the
+CSS serialization boundary. Regression coverage retains a valid color and rejects
+the disclosure payload, short/alpha/named colors, non-hex input and empty values.
+The security inventory and Hall of Fame now account for all 94 published names.
+
+The same change resolves CodeQL alert 447 in a release-version test by comparing
+the exact expected Dockerfile string instead of constructing a partly escaped
+regular expression. That alert did not reach application runtime or untrusted data.
+SheetColorBleed is normalized during an ordinary preview rather than refused, so
+there is no attributable attack-only event to report in Problems → Security; logging
+the preview would falsely identify the viewer rather than the workbook uploader.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1014488c4">Add verified recovery and low-load integrity audits</a>. Thanks to xet7.</summary>
