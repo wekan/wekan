@@ -45,12 +45,34 @@ function tryRealPath(inputPath) {
   }
 }
 
-function isSafeReadableFile(candidatePath, storageRootPath) {
+/*
+ * `literalRootPath` is the storage root as WRITTEN; `storageRootPath` is that
+ * root with every symlink resolved. Both are needed, and comparing a path
+ * against the wrong one of them is what broke reading here.
+ *
+ * The candidates are built by joining names onto the LITERAL root, so the cheap
+ * lexical pre-filter below has to use that same root. It used to compare them
+ * against the RESOLVED one, which is identical on a system where nothing in the
+ * path is a symlink and different everywhere else: on macOS `os.tmpdir()` is
+ * `/var/folders/...`, a symlink to `/private/var/folders/...`, so every
+ * candidate was rejected before it was ever looked at and WeKan served none of
+ * its own attachments. A deployment whose data directory is a symlink - a very
+ * ordinary arrangement - has the same fault on Linux.
+ *
+ * The security property is unchanged, because it was never the lexical check
+ * that carried it: what a caller must not be able to do is reach a file OUTSIDE
+ * the storage root, and that is decided below by resolving the candidate and
+ * requiring the result to be inside the RESOLVED root. That check is what
+ * refuses `../../etc/passwd` and a symlink pointing out of the tree
+ * (GHSA-4mxf-m8pq-xc9p), and it still runs on every candidate.
+ */
+function isSafeReadableFile(candidatePath, storageRootPath, literalRootPath) {
   if (!candidatePath || !storageRootPath) {
     return false;
   }
 
-  if (!isPathInside(storageRootPath, candidatePath)) {
+  const lexicalRoot = literalRootPath || storageRootPath;
+  if (!isPathInside(lexicalRoot, candidatePath)) {
     return false;
   }
 
@@ -518,16 +540,16 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
       }
     }
 
-    return { candidates, resolvedStorageRoot };
+    return { candidates, resolvedStorageRoot, storageRoot };
   }
 
   /** the path the file is ACTUALLY at, or undefined when none of them exists
    * @return absolute path or undefined
    */
   resolveExistingPath() {
-    const { candidates, resolvedStorageRoot } = this.candidatePaths();
+    const { candidates, resolvedStorageRoot, storageRoot } = this.candidatePaths();
     for (const c of candidates) {
-      if (isSafeReadableFile(c, resolvedStorageRoot)) return c;
+      if (isSafeReadableFile(c, resolvedStorageRoot, storageRoot)) return c;
     }
     return undefined;
   }
