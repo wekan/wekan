@@ -9115,6 +9115,8 @@ false claim comes back.
 
 and improves release automation:
 
+**Variant repositories** - one authoritative source and two compatibility names.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/abdd9750c">Update Ondra and Gantt repositories as a required release job</a>. Thanks to xet7.</summary>
 
@@ -9145,6 +9147,8 @@ negative fixture coverage pins the exclusion for both variants.
 
 </details>
 
+**Test suite** - full runs inspect source rather than generated copies.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/87896365a">Keep source scans out of builds and exercise minicard links through the UI</a>. Thanks to xet7.</summary>
 
@@ -9163,6 +9167,8 @@ without restoring inline title editing.
 </details>
 
 and improves documentation:
+
+**Outgoing email documentation** - current configuration and readable Markdown.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e28081911">Remove visible Liquid tags from email troubleshooting</a>. Thanks to xet7.</summary>

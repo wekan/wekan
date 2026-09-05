@@ -50,6 +50,11 @@ Snap publication remains independent. `SNAP_AUTH` must include permission for
 continues publishing the two compatibility snaps even though repository updates
 are no longer performed inside that matrix.
 
+There is no Docker side to this automation. Existing historical variant image
+tags keep working, but they are not gaining versions; current container releases
+use the ordinary WeKan image. Preserving Compose names in the mirror only keeps
+the repository's package identity intact and does not publish those images.
+
 ## Local preparation
 
 To inspect the exact changes without pushing:

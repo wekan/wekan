@@ -161,6 +161,10 @@ function test(name, fn) {
 }
 
 const readSuite = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
+const namesVulnerability = (text, vulnerability) => new RegExp(
+  `(?:^|[^a-z0-9])${vulnerability}(?:[^a-z0-9]|$)`,
+  'i',
+).test(text);
 
 // Every suite file in the tree, by basename, with its text.
 function allSuites() {
@@ -182,9 +186,9 @@ test('every GUARDED vulnerability has a suite that exists and names it', () => {
     suites.forEach(rel => {
       const abs = path.join(ROOT, rel);
       assert.ok(fs.existsSync(abs), `${vuln}: ${rel} does not exist`);
-      const text = readSuite(rel).toLowerCase();
+      const text = readSuite(rel);
       assert.ok(
-        text.includes(vuln),
+        namesVulnerability(text, vuln),
         `${rel} must NAME ${vuln} - a test that does not say which published ` +
         `vulnerability it guards cannot be checked against the published list`,
       );
@@ -213,7 +217,7 @@ test('a recorded gap is not silently guarded after all', () => {
   Object.keys(RECORDED).forEach(vuln => {
     suites.forEach((text, rel) => {
       if (NOT_COVERAGE.has(path.basename(rel))) return;
-      if (text.toLowerCase().includes(vuln)) wrong.push(`${vuln} is named by ${rel}`);
+      if (namesVulnerability(text, vuln)) wrong.push(`${vuln} is named by ${rel}`);
     });
   });
   assert.deepStrictEqual(wrong, [],
