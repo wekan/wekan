@@ -8265,7 +8265,45 @@ repair cleared. The **contribution rules** now say which role commits where.
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
-This release adds the following new features:
+This release fixes the following SECURITY ISSUE:
+
+**Serving attachments** - which files WeKan hands to a browser, and how.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b87082b3d">A file WeKan refuses to serve is no longer served by Meteor-Files instead</a>. Thanks to xet7.</summary>
+
+A Playwright spec found this, and it found more than it was asking about. *stored
+HTML is forced to a safe download on the original Meteor-Files route* expected
+`application/octet-stream` and got `text/html`, status 200 - a stored HTML
+attachment served inline, which is the stored XSS that
+`models/lib/fileResponseSafety.js` exists to prevent.
+
+That policy module is correct. It was never reached. Meteor-Files calls the
+storage strategy's `interceptDownload`, and a FALSE return means *not handled,
+serve it yourself* - so Meteor-Files served the file from its stored path, with
+its stored Content-Type, and none of WeKan's headers.
+
+What makes that a bypass rather than a harmless fallback is why the strategy
+declines: `getReadStream()` returns nothing when the file cannot be resolved
+INSIDE the storage root, the containment check of
+[GHSA-4mxf-m8pq-xc9p](https://github.com/wekan/wekan/security/advisories/GHSA-4mxf-m8pq-xc9p).
+So `false` means *this is not a file WeKan may serve*, and handing that same
+file to a server with no containment check of its own answers the refusal with
+the file.
+
+All three strategies answer 404 and claim the request now, and so does the
+abstract base, whose body was EMPTY - returning undefined, which Meteor-Files
+reads exactly as it reads false, so a strategy that forgot to override it failed
+open too. A file that is genuinely absent gets the same 404 it would have got
+anyway.
+
+It is deliberately not logged to Admin Panel / Problems: the same path is taken
+by an attachment deleted while a link to it survived, which is ordinary use, and
+`interceptDownload` cannot tell the two apart.
+
+</details>
+
+and adds the following new features:
 
 **Undo** - what pressing Ctrl+Z can actually put back.
 
@@ -8837,6 +8875,86 @@ and has the following developer-tooling fixes:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/80c0f6875">build.sh raises the open-file limit, so mongod does not abort mid test run</a>. Thanks to xet7.</summary>
 
+A full Playwright run died thirteen minutes in, and every spec after it reported
+`MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:3001` - which reads
+like the test database was never started. It was. It started, said what was
+wrong with it in the same breath, and was ignored: *Soft rlimits for open file
+descriptors too low, currentValue 256, recommendedMinimum 64000*. Thirteen
+minutes later it ran out of them and WiredTiger panicked.
+
+macOS starts a shell with a soft limit of 256, so every run of the browser
+suites was a race between finishing and running out of descriptors, with the
+cause landing 10,000 lines away in a different log. `ensure_open_files` runs on
+every invocation beside the inotify check. It needs no root - the hard limit is
+normally unlimited - and it sets the SOFT limit only, because plain `ulimit -n`
+sets both and lowering a hard limit is irreversible.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f611ac222">Three permanently red test suites now pass, two of them macOS faults</a>. Thanks to xet7.</summary>
+
+Each was a different fault rather than a stale assertion.
+
+`database-autopick` restores MongoDB's data-file mtimes with `stat -c %Y` and
+`touch -d @EPOCH`, which are GNU. On macOS the stat fails, every file is skipped
+by the `|| continue` beside it, and the restore returns having done nothing -
+silently, and only there. It tries the BSD spelling now.
+
+`provenance-table.sh` opened with `shopt -s nullglob globstar`, and globstar
+arrived in bash 4 while macOS ships bash 3.2 as `/bin/bash`: the shopt failed
+and `set -e` took the script with it. The default file list is a single `find`
+now. Then the empty case failed too, because bash 3.2 calls an empty array an
+unbound variable under `set -u` where 4.4 does not.
+
+`fill-translations.mjs --list` was TRUNCATED whenever stdout was a pipe: it
+prints 128 KB with `console.log` and then calls `process.exit`, which cuts off
+whatever has not drained. A pipe delivered 65,510 bytes - valid-looking JSON
+stopping mid-key, with status 0. Redirecting to a file worked, because that is
+synchronous, so this only bit anything reading the output programmatically -
+including the translation workflow itself.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f532f3046">The last two red suites: a missing utility, and a count of another repository</a>. Thanks to xet7.</summary>
+
+`bundle-smoke-boot.sh` runs the bundle under `timeout`, which is GNU coreutils
+and is not on macOS. It died with *timeout: command not found* and exit 127 -
+which the script's own checks then read as *the bundle exited without reaching
+its database*, reporting a startup failure for a missing utility. It uses
+timeout, or gtimeout, or a shell fallback now.
+
+The Hall of Fame comparison demanded at least 50 `*bleed` directories in the
+wekan.fi checkout as a sanity check. That number counts what was published when
+the line was written, so a checkout two months old has fewer and the suite went
+red over the state of another repository. A stale checkout cannot cause a false
+failure there - it only makes the check smaller - so what it asks now is whether
+the directory is the Hall of Fame at all.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdb3b1588">Attachments are readable again when the storage root is a symlink</a>. Thanks to xet7.</summary>
+
+`FileStoreStrategyFilesystem` builds its candidate paths by joining names onto
+the storage root AS WRITTEN, then checked each one against that root with every
+symlink RESOLVED. Those are the same string only when nothing in the path is a
+symlink. On macOS `os.tmpdir()` is `/var/folders/...`, a symlink to
+`/private/var/folders/...`, so every candidate failed containment before it was
+looked at. A deployment whose data directory is a symlink has the same fault on
+Linux.
+
+The security property is untouched, because it was never the lexical check that
+carried it: what a caller must not do is reach a file outside the root, and that
+is decided by resolving the candidate and requiring the result to be inside the
+resolved root.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80c0f6875">build.sh raises the open-file limit, so mongod does not abort mid test run</a>. Thanks to xet7.</summary>
+
 A full Playwright run died thirteen minutes in, and every spec after it
 reported `MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:3001` -
 which reads like the test database was never started. It was. It started, said
@@ -8955,6 +9073,32 @@ without it the next `meteor run` walks a whole bundled copy of the app. That
 is what the comment says now. `tests/meteorignoreScanScope.test.cjs` pins both
 directions - `_build` must not be ignored, `.build` must be - and fails if the
 false claim comes back.
+
+</details>
+
+and improves the translations:
+
+**Bosnian** - a language file that was almost entirely English.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdb3b1588">2175 untranslated strings become one</a>. Thanks to xet7.</summary>
+
+Croatian and Serbian are complete and Bosnian is the same Štokavian standard, so
+Croatian is the base with the documented Bosnian forms applied - *sedmica* for
+*tjedan*, *nivo* for *razina*, *server* for *poslužitelj*, *tok* for *tijek*,
+*hiljada* for *tisuća*, *historija* for *povijest*, and *tačka/tačno* for
+*točka/točno*. 29 strings needed one; the rest are identical in both standards.
+
+Two substitutions were REVERTED after reading the output, which is the part worth
+keeping: *poveznica* → *link* produced "iz ove linkove" and "iz bilo koje
+linkove na kartu", because *poveznice* is both nominative plural and genitive
+singular and one rule cannot be both. *Poveznica* is good Bosnian, so it stays -
+a correct word left alone beats a more idiomatic one put in the wrong case. The
+same blindness left "Najviša nivo", a feminine adjective on a masculine noun.
+
+The last ten were translated directly. The one that remains is *Server*, spelled
+that way in Bosnian too - the tool counts a translation identical to its source
+as missing, which is its limit rather than a gap.
 
 </details>
 
