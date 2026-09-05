@@ -88,6 +88,14 @@ test('on a touch pointer the handle is below the menu, same edge', () => {
     'no physical left/right - the column must mirror in RTL');
 });
 
+test('the touch handle has no grey button background', () => {
+  const handle = rule(coarse, '.minicard .handle {');
+  assert.ok(/background:\s*transparent/.test(handle),
+    'only the drag icon is visible on the minicard');
+  assert.ok(!/background(?:-color)?:\s*(?:#(?:ccc|ddd|eee)|rgba?\()/i.test(handle),
+    'no grey or tinted background may turn the handle into a separate button');
+});
+
 test('the touch handle is still a finger-sized target (#6521)', () => {
   const handle = rule(coarse, '.minicard .handle {');
   assert.ok(/width:\s*44px/.test(handle), 'wide enough for a finger');

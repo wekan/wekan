@@ -230,8 +230,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Faint tint so the target is discoverable without shouting. */
-    background: rgba(127, 127, 127, 0.08);
+    /* Keep the handle visually part of the minicard. The icon identifies the
+       drag target; a tinted target area looked like a separate grey button. */
+    background: transparent;
     border-end-end-radius: inherit;
   }
   /* The card's own content must not sit under the column, and the card must be
