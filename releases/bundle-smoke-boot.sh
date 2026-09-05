@@ -41,6 +41,35 @@ if [ ! -f "$BUNDLE/main.js" ]; then
     exit 2
 fi
 
+# `timeout` is GNU coreutils and is NOT on macOS: without this the run died with
+# "timeout: command not found" and exit 127, which the checks below read as "the
+# bundle never reached its database" - a startup failure reported for a missing
+# utility. Homebrew's coreutils installs it as `gtimeout`, so try that, and fall
+# back to running the command in the background and killing it, which needs
+# nothing but the shell.
+run_with_timeout() {
+    local seconds="$1"; shift
+    if command -v timeout >/dev/null 2>&1; then
+        timeout "$seconds" "$@"
+        return $?
+    fi
+    if command -v gtimeout >/dev/null 2>&1; then
+        gtimeout "$seconds" "$@"
+        return $?
+    fi
+
+    "$@" &
+    local pid=$! waited=0
+    while kill -0 "$pid" 2>/dev/null; do
+        [ "$waited" -ge "$seconds" ] && { kill -TERM "$pid" 2>/dev/null; sleep 1;
+            kill -KILL "$pid" 2>/dev/null; wait "$pid" 2>/dev/null; return 124; }
+        sleep 1
+        waited=$((waited + 1))
+    done
+    wait "$pid"
+    return $?
+}
+
 log="$(mktemp)"
 trap 'rm -f "$log"' EXIT
 
@@ -51,7 +80,7 @@ echo "--- smoke: starting the bundle with a database that cannot answer"
     ROOT_URL="http://localhost:$PORT_UNDER_TEST" \
     MONGO_URL="$DEAD_DB" \
     MONGO_OPLOG_URL="" \
-    timeout "$TIMEOUT" "$NODE_BIN" main.js
+    run_with_timeout "$TIMEOUT" "$NODE_BIN" main.js
 ) > "$log" 2>&1
 rc=$?
 
