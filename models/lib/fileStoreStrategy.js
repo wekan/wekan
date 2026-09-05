@@ -187,8 +187,19 @@ class FileStoreStrategy {
   /** download the file
    * @param http the current http request
    * @param cacheControl cacheControl of FilesCollection
+   *
+   * The BASE implementation refuses, and that is deliberate. An empty body
+   * returns undefined, which Meteor-Files reads as "not handled" and answers by
+   * serving the file itself - from the stored path, with the stored
+   * Content-Type, and none of the policy httpStreamOutput applies. Every
+   * concrete strategy below overrides this, so the default is only ever reached
+   * by one that forgot to; a strategy that forgets should serve nothing rather
+   * than serve it unfiltered.
    */
   interceptDownload(http, cacheControl) {
+    http.response.statusCode = 404;
+    http.response.end('not found');
+    return true;
   }
 
   /** after file remove */
@@ -263,17 +274,35 @@ export class FileStoreStrategyGridFs extends FileStoreStrategy {
    * @param http the current http request
    * @param cacheControl cacheControl of FilesCollection
    */
+  /*
+   * FAIL CLOSED when the strategy will not serve the file.
+   *
+   * Returning false here means "not handled", and Meteor-Files then serves the
+   * file ITSELF - from the stored path, with the stored Content-Type, and none
+   * of the policy httpStreamOutput applies. A stored attachment of type
+   * text/html came back as text/html, status 200, inline: precisely the stored
+   * XSS that policy exists to stop.
+   *
+   * What makes that a bypass rather than a fallback is WHY the strategy
+   * declines. getReadStream() returns nothing when the file cannot be resolved
+   * INSIDE the storage root - the containment check of GHSA-4mxf-m8pq-xc9p - so
+   * "false" means "this is not a file WeKan may serve", and handing it to a
+   * server with no containment check answers the refusal with the file.
+   *
+   * A file that is genuinely absent gets the same 404 it would have got anyway.
+   */
   interceptDownload(http, cacheControl) {
     const readStream = this.getReadStream();
     const downloadFlag = http?.params?.query?.download;
 
-    let ret = false;
-    if (readStream) {
-      ret = true;
-      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
+    if (!readStream) {
+      http.response.statusCode = 404;
+      http.response.end('not found');
+      return true;
     }
 
-    return ret;
+    httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
+    return true;
   }
 
   /** after file remove */
@@ -419,7 +448,13 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
    * defaults to inline disposition. */
   interceptDownload(http, cacheControl) {
     const readStream = this.getReadStream();
-    if (!readStream) return false;
+    // Fail closed, for the reason given above the filesystem strategy's
+    // interceptDownload: `false` hands the file to Meteor-Files unfiltered.
+    if (!readStream) {
+      http.response.statusCode = 404;
+      http.response.end('not found');
+      return true;
+    }
     const downloadFlag = http?.params?.query?.download;
     httpStreamOutput(
       readStream,
@@ -655,16 +690,35 @@ export class FileStoreStrategyCloud extends FileStoreStrategy {
    * @param http the current http request
    * @param cacheControl cacheControl of FilesCollection
    */
+  /*
+   * FAIL CLOSED when the strategy will not serve the file.
+   *
+   * Returning false here means "not handled", and Meteor-Files then serves the
+   * file ITSELF - from the stored path, with the stored Content-Type, and none
+   * of the policy httpStreamOutput applies. A stored attachment of type
+   * text/html came back as text/html, status 200, inline: precisely the stored
+   * XSS that policy exists to stop.
+   *
+   * What makes that a bypass rather than a fallback is WHY the strategy
+   * declines. getReadStream() returns nothing when the file cannot be resolved
+   * INSIDE the storage root - the containment check of GHSA-4mxf-m8pq-xc9p - so
+   * "false" means "this is not a file WeKan may serve", and handing it to a
+   * server with no containment check answers the refusal with the file.
+   *
+   * A file that is genuinely absent gets the same 404 it would have got anyway.
+   */
   interceptDownload(http, cacheControl) {
     const readStream = this.getReadStream();
     const downloadFlag = http?.params?.query?.download;
 
-    let ret = false;
-    if (readStream) {
-      ret = true;
-      httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
+    if (!readStream) {
+      http.response.statusCode = 404;
+      http.response.end('not found');
+      return true;
     }
-    return ret;
+
+    httpStreamOutput(readStream, this.fileObj.name, http, downloadFlag, cacheControl, this.fileObj);
+    return true;
   }
 
   /** after file remove */

@@ -1331,6 +1331,13 @@ function run_all_tests(){
 	local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"
 	mkdir -p "$WRITABLE_ABS/files"
 	export WEKAN_FILES_PATH_HOST="$WRITABLE_ABS/files"
+	# ...and the same path for a LOCAL playwright run, not only the Docker one.
+	# Only WEKAN_FILES_PATH_HOST was exported, which is read when the browsers run
+	# in a container (it is mounted there as /wekan-files). A local run fell back
+	# to the spec's own default of .build/bundle/files, so a spec that writes a
+	# stored attachment wrote it OUTSIDE the root this server reads - and then
+	# tested what WeKan does with a file it does not own.
+	export WEKAN_FILES_PATH="$WRITABLE_ABS/files"
 	echo "==> Starting the WeKan test server on http://localhost:3000 from $BUNDLE_DIR (precompiled — no rebuild)."
 	echo "    Live server log follows (scrolling) until :3000 answers:"
 	echo "    -------------------------------------------------------------------"
