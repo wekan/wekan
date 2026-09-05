@@ -8249,15 +8249,15 @@ browser build to verify).
 variant repositories without replacing their workflows, and leave bounded,
 named diagnostics for every workflow failure. **Build menus** return immediately
 after completed commands while keeping real menu and argument prompts.
-**Mobile regression coverage** follows the current header and drag-handle structure.
+**Mobile regression coverage** follows the header and drag-handle structure.
 **Security coverage** now accounts for all 94 Hall of Fame names, blocks
 SheetColorBleed CSS injection, reports attributable ScannerBleed and integrity
 attempts, and removes a test-only incomplete escape.
 **Verified recovery** checks and restores FerretDB SQLite snapshots or retained
 MongoDB source, preserves failed requests for retry, verifies history and stored
 files, and schedules non-urgent checksum work during sustained low CPU usage.
-**Import and export security** applies one structural and DOMPurify boundary to
-every transport, bounds outbound transfers, and resumes leased Trello jobs.
+**Import/export security** shares DOMPurify validation across transports and
+resumes Trello jobs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |

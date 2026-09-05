@@ -62,6 +62,7 @@ it configures: card loading is automatic per board size, with
 | [RAM-usage.md](RAM-usage.md) | RAM-usage report. |
 | [Disk-usage.md](Disk-usage.md) | Disk-usage report. |
 | [Recovery.md](Recovery.md) | SQLite corruption/bloat safety and the automatic Recovery history. |
+| [Durable-Operations.md](Durable-Operations.md) | Restart-safe jobs, leases, checkpoints, idempotency, external-service retries and recovery reporting. |
 
 ## Why this exists
 
