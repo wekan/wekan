@@ -190,6 +190,10 @@ jobs:
           ./releases/version.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
           ./releases/rebuild-docs.sh "${{ inputs.new_version }}"
 
+      - name: Verify every release version reference
+        run: |
+          node ./releases/verify-release-versions.mjs "${{ inputs.new_version }}"
+
       - name: Commit and push version bump
         run: |
           git add --all
