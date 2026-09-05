@@ -4914,6 +4914,18 @@ jobs:
             echo "::error::snap-launchpad ${{ matrix.arch }} FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
+  # Repository synchronization is a required, separately visible release job.
+  # It used to be an optional step inside snap-variants, so continue-on-error and
+  # a receive-pack pre-flight could skip it while the snaps still published.
+  update-ondra-gantt-repos:
+    needs: [prepare, release]
+    if: ${{ !cancelled() && needs.prepare.result == 'success' && needs.release.result == 'success' }}
+    uses: ./.github/workflows/update-ondra-gantt-repos.yml
+    with:
+      source_ref: refs/tags/v${{ needs.prepare.outputs.version }}
+    secrets:
+      WEKAN_REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
+
   # ─── Variant snaps: wekan-ondra, wekan-gantt-gpl ────────────────────────────
   # Publish two extra snaps that are the newest wekan code under a different snap
   # name. DORMANT until SNAP_AUTH carries ACL for the variant names and
@@ -4926,12 +4938,9 @@ jobs:
     # these two from here - so nobody is left on a stale package because their
     # snap has a different name.
     #
-    # Building and publishing the snap needs SNAP_AUTH and NOTHING ELSE. Keeping
-    # the wekan/<variant> GitHub repositories in step with wekan/wekan is a
-    # separate, optional thing that needs WEKAN_REPO_TOKEN; it used to gate the
-    # whole job, so a token without push rights meant no variant snaps at all
-    # (v10.48, v10.49). The two are independent now: an unpushable repository
-    # costs a warning, not the release of a snap.
+    # Building and publishing the snap needs SNAP_AUTH and NOTHING ELSE. The
+    # repositories are updated once by update-ondra-gantt-repos above, instead
+    # of redundantly from one architecture leg in this matrix.
     #
     # `continue-on-error: true`: a variant must never fail or hold up the release.
     needs: [prepare, release, snap-auth-check]
@@ -4968,7 +4977,6 @@ jobs:
       - name: Check required secrets are configured
         id: guard
         env:
-          REPO_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
           SNAP_AUTH: ${{ secrets.SNAP_AUTH }}
         run: |
           # SNAP_AUTH decides whether this job can do its job at all. It must carry
@@ -4978,56 +4986,10 @@ jobs:
           #     snap-auth.txt
           if [ -z "$SNAP_AUTH" ]; then
             echo "snap=false" >> "$GITHUB_OUTPUT"
-            echo "sync=false" >> "$GITHUB_OUTPUT"
             echo "::warning::snap-variants (${{ matrix.snapname }} ${{ matrix.arch }}) skipped — SNAP_AUTH is not set, so the snap cannot be published. See docs/Design/Autoupdate/Snap-Ondra-Gantt.md."
             exit 0
           fi
           echo "snap=true" >> "$GITHUB_OUTPUT"
-
-          # Everything below only decides whether the GitHub repository is synced.
-          # It can never stop the snap from being built and published.
-          if [ -z "$REPO_TOKEN" ]; then
-            echo "sync=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::snap-variants (${{ matrix.snapname }}): WEKAN_REPO_TOKEN is not set, so wekan/${{ matrix.repo }} is not updated. The snap is still built and published."
-            exit 0
-          fi
-          code=$(curl -sS -o /tmp/variant.json -w '%{http_code}' \
-            -H "Authorization: Bearer $REPO_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/wekan/${{ matrix.repo }}")
-          if [ "$code" = "404" ]; then
-            echo "sync=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::snap-variants (${{ matrix.snapname }}): wekan/${{ matrix.repo }} does not exist, or WEKAN_REPO_TOKEN cannot see it, so it is not updated. The snap is still built and published."
-          elif [ "$code" != "200" ]; then
-            echo "sync=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::snap-variants (${{ matrix.snapname }}): GitHub answered HTTP $code for wekan/${{ matrix.repo }} (expired or revoked WEKAN_REPO_TOKEN), so it is not updated. The snap is still built and published."
-          else
-            # `.permissions.push` from the repos API is NOT the answer, and this is
-            # where v10.48 went wrong: that field describes the authenticated USER's
-            # role in the repository, not what this token may do, so a fine-grained
-            # PAT that was never scoped to the repo still reads push=true. The guard
-            # passed, and the next step got
-            #   remote: Permission to wekan/${{ matrix.repo }}.git denied to xet7
-            #
-            # So ask the endpoint that actually refuses: the receive-pack
-            # advertisement, which is the first thing a real `git push` requests and
-            # which GitHub answers 403 to for a token without write. It writes
-            # nothing, and it needs no local clone (this step runs before checkout).
-            # The token goes in -u, never in the URL, so it cannot land in the log.
-            rp=$(curl -sS -o /dev/null -w '%{http_code}' \
-              -u "x-access-token:$REPO_TOKEN" \
-              "https://github.com/wekan/${{ matrix.repo }}.git/info/refs?service=git-receive-pack")
-            if [ "$rp" = "200" ]; then
-              echo "sync=true" >> "$GITHUB_OUTPUT"
-              echo "WEKAN_REPO_TOKEN may push to wekan/${{ matrix.repo }} (receive-pack answered 200)."
-            elif [ "$rp" = "403" ] || [ "$rp" = "401" ]; then
-              echo "sync=false" >> "$GITHUB_OUTPUT"
-              echo "::warning::snap-variants (${{ matrix.snapname }}): WEKAN_REPO_TOKEN can READ wekan/${{ matrix.repo }} but may NOT push to it (receive-pack answered HTTP $rp), so the repository is not updated - the snap is still built and published. A classic PAT needs the 'repo' scope and its account must have write access to that repository; a fine-grained PAT needs wekan/${{ matrix.repo }} in its repository list with Contents: Read and write. See docs/Design/Autoupdate/Snap-Ondra-Gantt.md."
-            else
-              echo "sync=false" >> "$GITHUB_OUTPUT"
-              echo "::warning::snap-variants (${{ matrix.snapname }}): the push pre-flight for wekan/${{ matrix.repo }} answered HTTP $rp, which is neither a yes nor a permission refusal. The repository is not updated; the snap is still built and published."
-            fi
-          fi
 
       - name: Checkout wekan at the release tag
         if: steps.guard.outputs.snap == 'true'
@@ -5066,25 +5028,6 @@ jobs:
             exit 1
           fi
           echo "${{ matrix.snapname }} ${{ matrix.arch }}: snapcraft.yaml is $(grep -m1 '^name:' snapcraft.yaml), $(grep -m1 '^version:' snapcraft.yaml), $(grep -m1 '^base:' snapcraft.yaml)."
-
-      - name: Push the synced tree to wekan/${{ matrix.repo }}
-        # Optional, and only once per variant (the arm64 leg builds the same tree).
-        # A repository that cannot be pushed to has already said so in a warning.
-        if: steps.guard.outputs.snap == 'true' && steps.guard.outputs.sync == 'true' && matrix.arch == 'amd64'
-        env:
-          GH_TOKEN: ${{ secrets.WEKAN_REPO_TOKEN }}
-        run: |
-          set -euo pipefail
-          git clone "https://x-access-token:${GH_TOKEN}@github.com/wekan/${{ matrix.repo }}.git" variant-repo
-          rsync -a --delete --exclude='.git' variant/ variant-repo/
-          cd variant-repo
-          git config user.name  'wekan-release-bot'
-          git config user.email 'release@wekan.team'
-          git add -A
-          git commit -m "Sync wekan v${VERSION} as ${{ matrix.snapname }}" || echo "no changes"
-          git tag -f "v${VERSION}"
-          git push origin HEAD:main
-          git push -f origin "v${VERSION}"
 
       - name: Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})
         id: build

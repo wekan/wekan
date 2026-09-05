@@ -11,11 +11,9 @@
 // zipping; the archive passes `7z t`), and the listing is now printed as evidence
 // rather than used as a hidden verdict.
 //
-// snap-variants: the pre-flight asked GitHub for `.permissions.push` on the
-// variant repository, which describes the authenticated USER's role rather than
-// what the TOKEN may do — it answered `true`, and the push one step later was
-// refused with "Permission to wekan/wekan-gantt-gpl.git denied to xet7". The
-// pre-flight now asks the receive-pack endpoint, which is the thing that refuses.
+// Variant repository synchronization used to be an optional step inside the
+// continue-on-error snap matrix. A successful snap therefore did not mean its
+// repository was updated. It is now its own required reusable workflow.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -24,6 +22,12 @@ const path = require('path');
 const repoRoot = path.resolve(__dirname, '..');
 const workflow = fs.readFileSync(
   path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8',
+);
+const updateWorkflow = fs.readFileSync(
+  path.join(repoRoot, '.github/workflows/update-ondra-gantt-repos.yml'), 'utf8',
+);
+const prepareVariant = fs.readFileSync(
+  path.join(repoRoot, 'releases/prepare-variant-repo.sh'), 'utf8',
 );
 
 // A comment inside a `run:` block is text the shell never sees. These files keep
@@ -116,50 +120,38 @@ test('nothing in the verify step reads a listing through a PIPE', () => {
 
 const variants = code(job('snap-variants'));
 
-test('the push pre-flight asks the endpoint that refuses a push', () => {
-  assert.ok(/service=git-receive-pack/.test(variants),
-    'the receive-pack advertisement is the first thing a real push requests, and '
-    + 'is what GitHub answers 403 to for a token without write access');
-  assert.ok(!/permissions\.push/.test(variants),
-    'the repos API permissions block describes the USER, not the token - it said '
-    + 'push=true for a token that was then refused');
+test('release-all calls the required repository update workflow', () => {
+  const update = job('update-ondra-gantt-repos');
+  assert.ok(/uses: \.\/\.github\/workflows\/update-ondra-gantt-repos\.yml/.test(update));
+  assert.ok(/source_ref: refs\/tags\/v\$\{\{ needs\.prepare\.outputs\.version \}\}/.test(update));
+  assert.ok(/WEKAN_REPO_TOKEN: \$\{\{ secrets\.WEKAN_REPO_TOKEN \}\}/.test(update));
+  assert.ok(!/continue-on-error: true/.test(update),
+    'a failed repository update must be visible as a failed release job');
 });
 
-test('the pre-flight cannot leak the token, and needs no checkout', () => {
-  const guard = variants.slice(0, variants.indexOf('- name: Checkout wekan'));
-  assert.ok(/-u "x-access-token:\$REPO_TOKEN"/.test(guard),
-    'the token goes in -u, never in a URL that could be echoed');
-  assert.ok(!/https:\/\/x-access-token:\$\{?REPO_TOKEN/.test(guard),
-    'no token-in-URL in the pre-flight');
-  assert.ok(!/git (clone|push|ls-remote)/.test(guard),
-    'and no git command: this step runs BEFORE actions/checkout, so there is no '
-    + 'local repository for git to work in');
+test('the reusable workflow updates both repositories and pushes main', () => {
+  for (const name of ['wekan-ondra', 'wekan-gantt-gpl']) {
+    assert.ok(updateWorkflow.includes(`repository: ${name}`), `${name} is missing`);
+    assert.ok(updateWorkflow.includes(`package: ${name}`), `${name} identity is missing`);
+  }
+  assert.ok(/workflow_call:/.test(updateWorkflow) && /workflow_dispatch:/.test(updateWorkflow));
+  assert.ok(/git push origin HEAD:main/.test(updateWorkflow));
 });
 
-test('the sync renames the snap in BOTH snapcraft files', () => {
-  // snapcraft.yaml is what the variant job builds; snapcraft-core26.yaml is the
-  // same snap on the next base. Renaming only the first leaves the core26 file
-  // saying `name: wekan`, so a core26 build from wekan-ondra / wekan-gantt-gpl
-  // would publish itself as the DEFAULT WeKan snap.
-  const sync = variants.slice(variants.indexOf('tree from wekan'));
-  assert.ok(/for f in snapcraft\.yaml snapcraft-core26\.yaml/.test(sync),
-    'both files are renamed');
-  assert.ok(/s\/\^name: wekan\$\/name: \$\{\{ matrix\.snapname \}\}\//.test(sync),
-    'the snap name comes from the matrix');
-  assert.ok(/s\/\^title: \.\*\/title: \$\{\{ matrix\.title \}\}\//.test(sync),
-    'and so does the title');
+test('the sync preserves snap, npm and container package identities', () => {
+  assert.ok(/snapcraft\.yaml snapcraft-core26\.yaml/.test(prepareVariant));
+  assert.ok(/package\.json package-lock\.json/.test(prepareVariant));
+  assert.ok(/org\.opencontainers\.image\.source/.test(prepareVariant));
+  for (const registry of ['ghcr.io/wekan', 'quay.io/wekan', 'wekanteam']) {
+    assert.ok(prepareVariant.includes(registry), `${registry} is not rewritten`);
+  }
+  assert.ok(/git -C "\$SOURCE_DIR" archive --format=tar HEAD/.test(prepareVariant),
+    'only committed source is copied, excluding .git, .tools and build output');
+  assert.ok(/status --porcelain/.test(prepareVariant),
+    'a dirty target checkout is refused before replacement');
 });
 
-test('a refusal and a broken pre-flight are told apart', () => {
-  assert.ok(/"\$rp" = "403"/.test(variants) && /"\$rp" = "401"/.test(variants),
-    '403/401 is "the token may not push"');
-  assert.ok(/neither a yes nor a permission refusal/.test(variants),
-    'anything else says it is something else, instead of blaming the token');
-  assert.ok(/Contents: Read and write/.test(variants),
-    'and the refusal message says exactly what to change');
-});
-
-test('the variant SNAP is published even when its repository cannot be pushed', () => {
+test('variant snap publication remains independent of repository syncing', () => {
   // This is the whole point of the two variants: people are still on the older
   // snap names wekan-ondra and wekan-gantt-gpl, so one release must publish all
   // three snaps. Keeping the GitHub repositories in step is a separate,
@@ -185,16 +177,8 @@ test('the variant SNAP is published even when its repository cannot be pushed', 
   assert.ok(/release: stable,candidate,beta,edge/.test(publish),
     'and it goes to all four channels, like the default wekan snap');
 
-  const push = stepOf('Push the synced tree to wekan/${{ matrix.repo }}');
-  assert.ok(/outputs\.sync == 'true'/.test(push),
-    'the repository push is the part that needs WEKAN_REPO_TOKEN');
-  assert.ok(/matrix\.arch == 'amd64'/.test(push),
-    'and it happens once per variant, not once per architecture');
-
-  // A missing WEKAN_REPO_TOKEN is a warning about the repository, never a
-  // reason to skip the snap.
-  assert.ok(/The snap is still built and published/.test(all),
-    'the warnings say so in those words');
+  assert.ok(!/Push the synced tree/.test(all),
+    'repository pushes do not run redundantly inside the architecture matrix');
 });
 
 test('both variants are built for the two native architectures', () => {

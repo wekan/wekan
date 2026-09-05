@@ -1,0 +1,73 @@
+name: Update Ondra and Gantt repositories
+
+on:
+  workflow_call:
+    inputs:
+      source_ref:
+        description: WeKan branch, tag, or commit to copy
+        required: false
+        type: string
+        default: main
+    secrets:
+      WEKAN_REPO_TOKEN:
+        required: true
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: WeKan branch, tag, or commit to copy
+        required: false
+        type: string
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repository: wekan-ondra
+            package: wekan-ondra
+            title: Wekan Ondra
+          - repository: wekan-gantt-gpl
+            package: wekan-gantt-gpl
+            title: Wekan Gantt GPL
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout newest WeKan content
+        uses: actions/checkout@v7
+        with:
+          repository: wekan/wekan
+          ref: ${{ inputs.source_ref }}
+          path: source
+
+      - name: Checkout wekan/${{ matrix.repository }}
+        uses: actions/checkout@v7
+        with:
+          repository: wekan/${{ matrix.repository }}
+          token: ${{ secrets.WEKAN_REPO_TOKEN }}
+          ref: main
+          path: target
+          fetch-depth: 0
+
+      - name: Copy WeKan and restore ${{ matrix.package }} package identities
+        run: |
+          source/releases/prepare-variant-repo.sh \
+            source target "${{ matrix.package }}" "${{ matrix.title }}"
+
+      - name: Commit and push wekan/${{ matrix.repository }}
+        working-directory: target
+        run: |
+          set -euo pipefail
+          git config user.name 'wekan-release-bot'
+          git config user.email 'release@wekan.team'
+          git add -A
+          if git diff --cached --quiet; then
+            echo "wekan/${{ matrix.repository }} already matches ${{ inputs.source_ref }}."
+            exit 0
+          fi
+          git commit -m "Sync newest WeKan as ${{ matrix.package }}"
+          git push origin HEAD:main
