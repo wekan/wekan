@@ -90,10 +90,20 @@ test('on a touch pointer the handle is below the menu, same edge', () => {
 
 test('the touch handle has no grey button background', () => {
   const handle = rule(coarse, '.minicard .handle {');
-  assert.ok(/background:\s*transparent/.test(handle),
+  assert.ok(/background:\s*transparent\s*!important/.test(handle),
     'only the drag icon is visible on the minicard');
   assert.ok(!/background(?:-color)?:\s*(?:#(?:ccc|ddd|eee)|rgba?\()/i.test(handle),
     'no grey or tinted background may turn the handle into a separate button');
+  assert.ok(/border:\s*0/.test(handle), 'no border draws a box around the target');
+  assert.ok(/box-shadow:\s*none/.test(handle), 'no shadow draws a grey layer below it');
+});
+
+test('the arrow glyph is visually aligned below the menu icon', () => {
+  const icon = rule(coarse, '.minicard .handle .fa {');
+  assert.ok(/position:\s*relative/.test(icon), 'the glyph can be aligned independently');
+  assert.ok(/inset-inline-end:\s*6px/.test(icon),
+    'the asymmetric arrow is shifted inward below the menu bars');
+  assert.ok(!/\b(left|right):/.test(icon), 'the correction mirrors in RTL');
 });
 
 test('the touch handle is still a finger-sized target (#6521)', () => {

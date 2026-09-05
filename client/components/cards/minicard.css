@@ -232,7 +232,9 @@
     justify-content: center;
     /* Keep the handle visually part of the minicard. The icon identifies the
        drag target; a tinted target area looked like a separate grey button. */
-    background: transparent;
+    background: transparent !important;
+    border: 0;
+    box-shadow: none;
     border-end-end-radius: inherit;
   }
   /* The card's own content must not sit under the column, and the card must be
@@ -244,6 +246,11 @@
   body.mobile-mode .minicard .handle .drag-handle,
   body.mobile-mode .minicard .handle .fa {
     font-size: 1.375rem;
+    /* Font Awesome's four-way arrow has uneven side bearings and looks farther
+       toward the edge than the bars icon even when their boxes are centered.
+       Move only the glyph inward; the 44px touch target stays put. */
+    position: relative;
+    inset-inline-end: 6px;
   }
 }
 
