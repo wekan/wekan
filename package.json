@@ -95,7 +95,7 @@
     "meteor-node-stubs": "file:npm-packages/meteor-node-stubs",
     "papaparse": "^5.5.4",
     "pdfkit": "^0.20.2",
-    "pretty-ms": "^9.3.0",
+    "pretty-ms": "^9.3.1",
     "temml": "^0.13.3",
     "underscore": "^1.13.8",
     "unzipper": "^0.12.5"
