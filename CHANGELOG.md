@@ -8256,6 +8256,8 @@ attempts, and removes a test-only incomplete escape.
 **Verified recovery** checks and restores FerretDB SQLite snapshots or retained
 MongoDB source, preserves failed requests for retry, verifies history and stored
 files, and schedules non-urgent checksum work during sustained low CPU usage.
+**Import and export security** applies one structural and DOMPurify boundary to
+every transport, bounds outbound transfers, and resumes leased Trello jobs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8269,6 +8271,30 @@ files, and schedules non-urgent checksum work during sustained low CPU usage.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 **Safeguards** - Security, recovery, build and mobile regression protections.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45a754ed7">Secure and resume import/export operations</a>. Thanks to xet7.</summary>
+
+One common server boundary now validates and clones imported and exported object
+graphs, removes prototype-pollution keys and accessors, rejects cycles and
+resource-limit abuse, normalizes invalid scalars, strips secret fields from
+exports, and sends active markup, script URLs and CSS payloads through WeKan's
+existing DOMPurify sanitizer. UI/DDP, REST, streamed ZIP, Excel-cell and live
+Trello imports use it, as do canonical and external-format exports. Rejected and
+sanitized attempts report their source, affected paths, user and address when
+available in Admin Panel Problems → Security. CSV/TSV formula escaping remains
+enabled for every row.
+
+Live Trello imports now use atomic expiring leases with an in-flight heartbeat,
+reclaim unfinished jobs on startup, and adopt a board whose durable import
+activity proves that its side effect completed before a crash. Requests have
+timeouts and response-size limits, retry transient HTTP 408/425/429/5xx and
+honour `Retry-After`; SSRF verdicts remain non-retryable. Positive and negative
+regression tests cover the common boundary, every transport connection,
+prototype pollution, accessors, cycles, limits, DOM sanitization, spreadsheet
+formula prefixes, restart reclaim, idempotency, leases, retries and timeouts.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ffa624aef">Make workflow failures diagnosable</a>. Thanks to xet7.</summary>
