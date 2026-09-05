@@ -8771,6 +8771,21 @@ Safari-specific paint guards scoped to Mobile Mode.
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c002bc2c1">Opening a Mobile Mode list no longer empties the other swimlanes</a>. Thanks to xet7.</summary>
+
+Mobile Mode stored one globally selected list, and every swimlane guarded its
+compact list rows with `unless currentList`. Opening **List 1 at Swimlane 2**
+therefore expanded that list correctly but hid every list in Swimlanes 1 and 3.
+The guard now asks whether the selected list belongs to *this* swimlane: its own
+swimlane renders the expanded list while every other swimlane retains its
+compact rows. Board-wide lists still expand in every swimlane by design. A live
+Chromium regression against the port-3000 application seeds two swimlanes,
+opens the second one's list and verifies the first one's list remains visible;
+focused positive and negative source tests pin the template scope as well.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/97fcf364c">Copying a list copies its cards, into a new list</a>. Thanks to xet7.</summary>
 
 `List.copy(boardId, swimlaneId)` carried both of the faults the `List.move`
