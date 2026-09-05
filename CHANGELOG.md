@@ -8245,9 +8245,12 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Security regression tests** cover HTML and `javascript:`,
-`vbscript:` and `data:` payloads at the production DOMPurify boundary without
-embedding an incomplete, copyable regular-expression sanitizer in test code.
+**In short:** **Amiga-safe filenames** are sanitized before upload and whenever
+they are displayed or downloaded, retain content-correct application extensions,
+and avoid truncating through brackets. Existing stored names are corrected lazily
+when read. **Problems reports** retain available usernames, separate IPv4/IPv6
+addresses, and proxy-provided country and city context. Security regression tests
+also avoid embedding incomplete sanitizer examples.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8275,6 +8278,31 @@ while the production callback remains DOMPurify. This resolves CodeQL alerts
 confined to test code and exposed no runtime path, so there is no attributable
 security event to report in Admin Panel Problems or researcher to add to the
 Hall of Fame.
+
+</details>
+
+**Files and problem reporting** - Portable names and attributable diagnostics.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/829d2a6c7">Enforce Amiga-safe filenames on every read</a>. Thanks to xet7.</summary>
+
+One common filename boundary now sanitizes names before upload and whenever a
+name is displayed, archived or downloaded. It preserves the content-derived
+extension inside the classic Amiga FFS 30-character limit and removes an
+incomplete bracketed suffix instead of producing names such as
+`Online Gantt 20260905 (1.gantt`. The maintained JavaScript `file-type` detector
+handles binary magic bytes before the bounded libmagic/text fallback; Online
+Gantt JSON retains its application-owned `.gantt` extension. Existing attachment
+metadata is corrected only when an authorized read needs it, not by an eager
+database-wide rename.
+
+The common Problems fold now fills available usernames and obtains trusted,
+proxy-aware request addresses for all report streams. IPv4 and IPv6 remain
+separate, while available Cloudflare and other supported proxy/CDN headers add a
+display-only country flag, city, region and coordinates. DDP lockout reports now
+forward their known username, source address and headers instead of showing an
+empty actor beside “locked one address.” Location never participates in a
+security decision.
 
 </details>
 
