@@ -489,7 +489,7 @@ goto rel_run_done
 :rel_run_bash
 call bash %RS% %RA%
 :rel_run_done
-goto :eof
+goto end
 
 REM ---------------------------------------------------------------------------
 REM  Run one COMMAND (the entries that used to be one-line wrapper scripts):
@@ -507,7 +507,7 @@ if errorlevel 1 goto :eof
 echo.
 echo --- !RC! !RA! ---
 call bash -c "!RC! !RA!"
-goto :eof
+goto end
 
 REM ---------------------------------------------------------------------------
 :need_bash

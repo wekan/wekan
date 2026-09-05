@@ -19,4 +19,31 @@ assert.doesNotMatch(sh, /function pause\(\)/,
 assert.doesNotMatch(bat, /^\s*pause\s*$/mi,
   'build.bat must return directly instead of showing Press any key');
 
-console.log('buildScriptsNoPause: 3 checks passed');
+// A selected release command is a terminal action, like build/test/dev actions:
+// once its child process ends, do not fall through and ask for another menu
+// selection. build.sh already exits after releases_menu returns successfully.
+assert.match(sh, /"Releases"\) if releases_menu; then exit 0; fi/,
+  'build.sh must exit after a selected release command finishes');
+assert.match(bat, /:rel_run_done\s*\r?\ngoto end/,
+  'build.bat release scripts must exit after their child process finishes');
+assert.match(bat, /call bash -c "!RC! !RA!"\s*\r?\ngoto end/,
+  'build.bat inline release commands must exit after their child finishes');
+
+// Reads from the terminal must identify what input they need. Internal reads
+// fed by files, pipes or process substitution are intentionally excluded.
+for (const line of sh.split(/\r?\n/)) {
+  const trimmed = line.trim();
+  if (!/(^|[;&|]\s*)read\s/.test(trimmed)) continue;
+  if (/while .*read|<\s|read -r pid|read -d/.test(trimmed)) continue;
+  assert.ok(/read\s+(?:-[^ ]+\s+)*-p\s+"[^"]+"/.test(trimmed) ||
+      trimmed === 'read IPADDRESS' || trimmed === 'read PORT',
+    `terminal read must have a visible question: ${trimmed}`);
+}
+for (const line of bat.split(/\r?\n/)) {
+  const match = /^\s*set \/p\s+"([^"]*)"/i.exec(line);
+  if (!match || /<\s*"/.test(line)) continue;
+  assert.match(match[1], /=.+/,
+    `set /p must display a visible question: ${line.trim()}`);
+}
+
+console.log('buildScriptsNoPause: prompt and exit checks passed');
