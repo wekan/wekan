@@ -8264,16 +8264,17 @@ unchanged.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9c314994a">Build menus return immediately after completed commands</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/06f5a5734">Build menus exit immediately after completed commands</a>. Thanks to xet7.</summary>
 
 `build.sh` silently waited for Enter after a release command, and `build.bat`
 displayed an acknowledgement pause after release scripts, release commands,
 command-list output and a missing-Bash error. Those waits did not monitor the
 command or the remote release; they only consumed an extra line or keystroke.
 
-Both menus now return to their next prompt as soon as the command finishes. A
-focused regression test rejects acknowledgement-only pauses in either script
-while leaving prompts that collect real command arguments intact.
+Both scripts now exit to the shell or command prompt as soon as a selected
+process finishes. They wait for terminal input only while displaying a menu or
+a visible question that collects a real command argument. Focused regression
+coverage checks the prompt and exit control flow in both scripts.
 
 </details>
 
