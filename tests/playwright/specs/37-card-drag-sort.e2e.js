@@ -65,6 +65,43 @@ test.describe('Card drag-sort reordering', () => {
     }
   });
 
+  test('with drag handles, dragging from the handle reorders the card', async ({
+    loggedInPage,
+    user,
+    browserName,
+  }) => {
+    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
+    const board = db.seedBoard({
+      ownerId: user.id,
+      title: 'HandleDragSurface',
+      cardTitlesPerList: [['Drag my handle', 'Handle target'], [], []],
+    });
+    try {
+      db.updateOne('users', { _id: user.id }, {
+        $set: { 'profile.showDesktopDragHandles': true },
+      });
+      await openBoard(loggedInPage, board.boardId, board.slug);
+      await waitForMeteor(loggedInPage);
+      const list = loggedInPage.locator(`#js-list-${board.listIds[0]}`);
+      const source = list.locator('.js-minicard', { hasText: 'Drag my handle' });
+      const target = list.locator('.js-minicard', { hasText: 'Handle target' });
+      await expect(source.locator('.handle')).toBeVisible({ timeout: 8_000 });
+
+      await dragCardOnto(loggedInPage, source, target, {
+        place: 'after',
+        handle: '.handle',
+      });
+
+      await expect.poll(() => dbOrder(board.boardId, board.listIds[0]))
+        .toEqual(['Handle target', 'Drag my handle']);
+    } finally {
+      db.updateOne('users', { _id: user.id }, {
+        $unset: { 'profile.showDesktopDragHandles': '' },
+      });
+      db.cleanup({ boardIds: [board.boardId] });
+    }
+  });
+
   test('#761 dragging toward the bottom scrolls the long list and accepts the drop', async ({
     loggedInPage,
     user,
