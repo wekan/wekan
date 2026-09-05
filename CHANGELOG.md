@@ -8768,6 +8768,22 @@ Safari-specific paint guards scoped to Mobile Mode.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7dde0db3">Mobile card and swimlane drag handles now keep their desktop alignment</a>. Thanks to xet7.</summary>
+
+The Mobile Mode minicard arrow was shifted six pixels away from the shared
+menu-and-handle control center. Mobile font scaling enlarged that error, leaving the
+arrow visibly to the side of the menu bars even though their touch targets had equal
+width. The shift is gone, so both glyph centers have the same x coordinate in every
+browser and direction. Swimlanes also no longer substitute a larger, separately
+positioned handle on touch devices; one compact logical-position handle is shared by
+Desktop and Mobile Modes on every device. A live Chromium regression compares the
+actual glyph centers and verifies the swimlane handle's x coordinate is unchanged
+when switching modes. Focused positive and negative source tests reject either
+device-specific positioning variant.
+
+</details>
+
 **Swimlanes** - which swimlane a list belongs to, and what travels with it.
 
 <details>
