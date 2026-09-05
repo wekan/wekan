@@ -17,6 +17,8 @@ const listHeaderJade = fs.readFileSync(
   path.join(root, 'client/components/lists/listHeader.jade'), 'utf8');
 const listHeaderJs = fs.readFileSync(
   path.join(root, 'client/components/lists/listHeader.js'), 'utf8');
+const mainHeaderJade = fs.readFileSync(
+  path.join(root, 'client/components/main/header.jade'), 'utf8');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -55,6 +57,11 @@ test('compact rows keep their header layout when another list is selected', () =
     'a global selected-list check must not resize unrelated compact rows');
   assert.ok(/isCurrentList\(\)[\s\S]*Utils\.getCurrentListId\(\) === list\._id/
     .test(listHeaderJs), 'the header state must match the selected list ID');
+});
+
+test('selecting a mobile list does not add list names to the top header', () => {
+  assert.ok(!/if currentList\s*\n\s*ul\.header-quick-access-list/.test(mainHeaderJade),
+    'the quick-access header must not render board list names on selection');
 });
 
 console.log(`\nmobileSwimlaneListSelection: ${passed} tests passed`);

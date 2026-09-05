@@ -121,18 +121,6 @@ template(name="header")
               title="{{#if isCurrentPageStarred}}{{_ 'click-to-unstar-page'}}{{else}}{{_ 'click-to-star-page'}}{{/if}}")
               i.fa(class="fa-star{{#unless isCurrentPageStarred}}-o{{/unless}}")
 
-        //- On a phone, INSIDE a list, the bar still shows that board's lists:
-          that is a different thing from the starred boards, and it is what tells
-          you where you are while you swipe between lists.
-        if isMiniScreen
-          if currentList
-            ul.header-quick-access-list
-              each currentBoard.lists
-                li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
-                  a.js-select-list
-                    +viewer
-                      = title
-          #header-new-board-icon
         //- The top-bar Create Board control shares the same form and board-template
           picker as Add Board on the overview. #3070
         a#header-new-board-icon.board-header-btn.js-create-board(title="{{_ 'add-board'}}")

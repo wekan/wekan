@@ -148,6 +148,9 @@ test.describe('Swimlanes', () => {
       await expect(firstLane.locator('a.mini-list').first()).toBeVisible({ timeout: 15000 });
       const selected = secondLane.locator(`#js-list-${secondListId}`);
       await expect(selected).toBeVisible({ timeout: 15000 });
+      const topHeader = boardPage.locator('#header-quick-access');
+      const headerHeightBefore = await topHeader.evaluate(el =>
+        el.getBoundingClientRect().height);
       const compactRows = firstLane.locator('a.mini-list');
       const heightsBefore = await compactRows.evaluateAll(rows =>
         rows.map(row => row.getBoundingClientRect().height));
@@ -159,6 +162,10 @@ test.describe('Swimlanes', () => {
       const heightsAfter = await compactRows.evaluateAll(rows =>
         rows.map(row => row.getBoundingClientRect().height));
       expect(heightsAfter).toEqual(heightsBefore);
+      await expect(topHeader.locator('ul.header-quick-access-list')).toHaveCount(0);
+      await expect(topHeader).not.toContainText('List at Swimlane 2');
+      expect(await topHeader.evaluate(el => el.getBoundingClientRect().height))
+        .toBe(headerHeightBefore);
     } finally {
       db.deleteMany('lists', { _id: secondListId });
       db.deleteMany('swimlanes', { _id: secondSwimlaneId });
