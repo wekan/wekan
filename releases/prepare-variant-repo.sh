@@ -25,6 +25,18 @@ esac
 [ -d "$SOURCE_DIR" ] || { echo "Source directory does not exist: $SOURCE_DIR" >&2; exit 2; }
 [ -d "$TARGET_DIR/.git" ] || { echo "Target is not a Git checkout: $TARGET_DIR" >&2; exit 2; }
 
+# A variant owns its Actions workflows.  Besides preventing the variants from
+# running WeKan's release pipeline, retaining them means the ordinary Contents
+# token can update source without GitHub requiring the additional `workflow`
+# PAT scope merely because WeKan changed a workflow file.
+WORKFLOWS_BACKUP="$(mktemp -d)"
+trap 'rm -rf "$WORKFLOWS_BACKUP"' EXIT
+HAD_VARIANT_WORKFLOWS=false
+if [ -d "$TARGET_DIR/.github/workflows" ]; then
+  HAD_VARIANT_WORKFLOWS=true
+  cp -a "$TARGET_DIR/.github/workflows/." "$WORKFLOWS_BACKUP/"
+fi
+
 # Copy exactly the committed source tree: no .git directory, ignored build
 # output, local caches or other workspace-only files can leak into a variant.
 # Removing through Git is recoverable until the sync commit is created.
@@ -34,6 +46,11 @@ if [ -n "$(git -C "$TARGET_DIR" status --porcelain)" ]; then
 fi
 git -C "$TARGET_DIR" rm -r -q --ignore-unmatch -- .
 git -C "$SOURCE_DIR" archive --format=tar HEAD | tar -C "$TARGET_DIR" -xf -
+rm -rf "$TARGET_DIR/.github/workflows"
+if [ "$HAD_VARIANT_WORKFLOWS" = true ]; then
+  mkdir -p "$TARGET_DIR/.github/workflows"
+  cp -a "$WORKFLOWS_BACKUP/." "$TARGET_DIR/.github/workflows/"
+fi
 
 # These repositories are release mirrors, not independent dependency owners.
 # Dependency changes are reviewed and tested in wekan/wekan, then arrive here

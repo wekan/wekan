@@ -233,6 +233,22 @@ async function main() {
       'and iterate it rather than guessing at a pattern');
   });
 
+  check('Windows tar paths produce real-file manifest entries', () => {
+    const names = payload.archiveMemberNames(
+      'bundle\\node.exe\r\nbundle\\programs\\server\\native\\addon.node\r\n');
+    const members = payload.realFileMembers(names);
+    assert.deepEqual(members, [
+      'bundle/node.exe',
+      'bundle/programs/server/native/addon.node',
+    ]);
+    assert.match(payload.manifestHeader(members), /WEKAN_REAL_FILE_COUNT 2/);
+  });
+
+  check('an empty real-file manifest fails before the C compiler', () => {
+    assert.throws(() => payload.manifestHeader([]),
+      /no executable, native addon, or startup member/);
+  });
+
   // ---- the launcher --------------------------------------------------------
   check('the launcher verifies, unpacks only those members, and mounts the rest', () => {
     assert.match(launcher, /BCRYPT_SHA256_ALGORITHM/,
