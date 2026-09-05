@@ -7,6 +7,12 @@ the snap's MongoDB-to-FerretDB migration. Recovery material lives below the same
 SQLite directory as FerretDB's databases; it never depends on an unrelated home
 directory, temporary directory, or external service.
 
+Long-running migration, snapshot and audit work also follows the shared
+[durable-operations contract](../../../Features/Admin-Panel/Problems/Durable-Operations.md).
+In particular, a process restart reclaims an expired lease and resumes the last
+verified batch; it does not reset rate-limit backoff or call a completed batch
+complete without checking its evidence.
+
 ## Storage layout
 
 For a SQLite directory `<db>`, recovery uses only `<db>/.recovery/`:
