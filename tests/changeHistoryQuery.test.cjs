@@ -172,7 +172,7 @@ test('junk in a selection is dropped, not restored (negative)', () => {
 // append-only and its ids are never reused. If a row could be updated in place,
 // the merge would have to choose between two versions of it, which is exactly
 // what §9a says it must never have to do.
-test('rows are append-only apart from the undo flag', () => {
+test('rows are append-only apart from undo and superseded flags', () => {
   const model = fs.readFileSync(path.join(ROOT, 'models', 'changeHistory.js'), 'utf8');
   const server = fs.readFileSync(path.join(ROOT, 'server', 'models', 'changeHistory.js'), 'utf8');
   const updates = [...server.matchAll(/ChangeHistory\.updateAsync\([^;]*?\$set: \{([^}]*)\}/gs)]
@@ -184,17 +184,18 @@ test('rows are append-only apart from the undo flag', () => {
     assert.doesNotMatch(fields, /previousContent|newContent|userId|createdAt|entityId/,
       'content, authorship and time are immutable once written');
   }
-  assert.doesNotMatch(model, /ChangeHistory\.update/,
-    'the collection itself must not offer an update path');
+  const modelUpdates = [...model.matchAll(/ChangeHistory\.updateAsync\([^;]*?\$set: \{([^}]*)\}/gs)]
+    .map(m => m[1].trim());
+  assert.deepEqual(modelUpdates, ['superseded: true'],
+    'recording new work may only retire the old redo branch');
 });
 
 // The one deletion the spec allows, and the reason for it: a superseded redo
 // entry must never be able to re-apply stale content over newer work.
-test('the only rows ever removed are a superseded redo stack', () => {
+test('superseded redo rows remain available for integrity verification', () => {
   const model = fs.readFileSync(path.join(ROOT, 'models', 'changeHistory.js'), 'utf8');
   const removals = [...model.matchAll(/removeAsync\(([^)]*)\)/g)].map(m => m[1]);
-  assert.deepEqual(removals, ["{ userId, boardId, undone: true }"],
-    'a history that can be removed for any other reason is not append-only');
+  assert.deepEqual(removals, [], 'change history must never be removed');
 });
 
 test('the snap merge list knows about the collection', () => {

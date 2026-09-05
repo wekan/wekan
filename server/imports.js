@@ -212,6 +212,7 @@ import '/server/lib/databaseProblems';
 // (docs/Security/Remediation/WeKan.md §13). Both write to the 'integrity' event
 // stream, shown in Admin Panel / Problems / Filesystem integrity.
 import '/server/lib/fileIntegrityScan';
+import '/server/lib/historyIntegrityScan';
 import '/server/lib/uptimeWatch';
 import '/server/lib/utils';
 

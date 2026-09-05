@@ -302,6 +302,17 @@ test('the scan reads each file ONCE for all three digests', () => {
   assert.ok(/createReadStream/.test(src), 'streamed, not read into memory');
 });
 
+test('integrity findings are security problems with checksum evidence', () => {
+  const src = read('server/lib/fileIntegrityScan.js');
+  assert.ok(/SecurityLog\.record/.test(src));
+  assert.ok(/key: 'integrity\.file'/.test(src));
+  assert.ok(/expected size=.*sha256=/.test(src));
+  assert.ok(/observed size=.*sha256=/.test(src));
+  assert.ok(/runWhenCpuLow\('filesystem integrity audit'/.test(src));
+  assert.ok(/nextStep\([\s\S]{0,120}?cpuPercent: cpuPercent\(\)/.test(src),
+    'CPU is rechecked before each paced file operation');
+});
+
 test('a first sight of a file records a baseline instead of warning', () => {
   const src = read('server/lib/fileIntegrityScan.js');
   assert.ok(/if \(!baseline\) \{[\s\S]{0,400}?storeBaseline/.test(src),

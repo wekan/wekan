@@ -219,6 +219,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'ferretdb/db-ready.mjs': 'runs inside the container, from the entrypoint: it '
       + 'asks whether the database answers yet so the wait can be a page rather '
       + 'than an unbound port (#6595)',
+    'ferretdb/sqlite-recovery.mjs': 'runtime recovery helper copied into release '
+      + 'bundles and called by FerretDB launch paths, not a menu action',
     'ferretdb/start-wekan.bat': 'shipped INSIDE the Windows bundle, to start it',
     'build-bundle-win64.bat': 'a Windows batch script - bash cannot run it, so it '
       + 'is not a menu entry; build.bat\'s Bundles menu says to run it directly',

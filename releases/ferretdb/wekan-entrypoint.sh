@@ -92,6 +92,14 @@ if [ "$want_ferret" = true ]; then
   # Telemetry off: --telemetry=disable both disables AND locks it (FerretDB won't
   # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
   export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
+  if [ -f /build/sqlite-recovery.mjs ]; then
+    _recovery_rc=0
+    /build/node /build/sqlite-recovery.mjs startup "$FERRETDB_SQLITE_DIR" "$FERRETDB_BIN" || _recovery_rc=$?
+    if [ "$_recovery_rc" -ne 0 ]; then
+      echo "Recovery could not produce a verified SQLite database (status $_recovery_rc)." >&2
+      exit "$_recovery_rc"
+    fi
+  fi
   # #6492 recovery: perform a REQUESTED restore before FerretDB opens the files, when
   # the live database has been detected corrupt (WEKAN_FORCE_RESTORE env or a
   # RESTORE_REQUESTED marker containing backup/prev/remigrate). Copies a known-good
@@ -139,7 +147,7 @@ if [ "$want_ferret" = true ]; then
   # files. Only ever COPIES from the live database (never moved/deleted) and only
   # wekan.sqlite* (attachments/avatars live on the filesystem). The previous backup is
   # kept under backup/prev. Set WEKAN_SQLITE_BACKUP=false to disable.
-  if [ "${WEKAN_SQLITE_BACKUP:-true}" = "true" ] && [ -n "$FERRETDB_SQLITE_DIR" ] && [ -f "$FERRETDB_SQLITE_DIR/wekan.sqlite" ]; then
+  if [ ! -f /build/sqlite-recovery.mjs ] && [ "${WEKAN_SQLITE_BACKUP:-true}" = "true" ] && [ -n "$FERRETDB_SQLITE_DIR" ] && [ -f "$FERRETDB_SQLITE_DIR/wekan.sqlite" ]; then
     _bk="$FERRETDB_SQLITE_DIR/backup"
     mkdir -p "$_bk"
     if [ -f "$_bk/wekan.sqlite" ]; then

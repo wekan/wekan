@@ -33,6 +33,7 @@ const lists = code('server/models/lists.js');
 const keyboard = code('client/lib/keyboard.js');
 const imports = code('server/imports.js');
 const hooks = code('server/models/changeHistoryHooks.js');
+const historyTable = code('client/components/history/historyTable.js');
 
 let passed = 0;
 const test = (name, run) => {
@@ -156,6 +157,33 @@ test('undo and redo use the same pure selection rule as before', () => {
     'the rule was already unit-tested; a second copy of it would drift');
   assert.match(server, /'changeHistory\.undoLast'/);
   assert.match(server, /'changeHistory\.redoLast'/);
+});
+
+test('restore, undo and redo refuse tampered history', () => {
+  assert.match(model, /previousHash/);
+  assert.match(model, /integrityHash/);
+  assert.match(model, /hashHistoryRow/);
+  assert.match(server, /requireHistoryIntegrity\(row, this\)/);
+  assert.match(server, /HISTORY_INTEGRITY_FAILED/);
+  assert.match(server, /key: 'integrity\.history'/);
+  assert.match(model, /superseded: true/,
+    'a new branch preserves invalidated redo rows instead of deleting the hash chain');
+});
+
+test('history has no client or API mutation surface', () => {
+  const routes = fs.readdirSync(path.join(ROOT, 'server/routes'))
+    .filter(name => name.endsWith('.js'))
+    .map(name => read(`server/routes/${name}`)).join('\n');
+  const publications = read('server/imports.js');
+  assert.doesNotMatch(routes, /ChangeHistory|changeHistory/,
+    'REST routes must not expose history mutation');
+  assert.doesNotMatch(publications, /publications\/changeHistory/,
+    'history is read through an access-checked method, not a client-writable publication');
+  assert.doesNotMatch(model, /allow\s*\(/,
+    'the collection must not grant direct client writes');
+  const calls = [...historyTable.matchAll(/Meteor\.call\(['"]([^'"]+)/g)].map(match => match[1]);
+  assert.ok(calls.every(name => ['changeHistory.page', 'changeHistory.restore'].includes(name)),
+    `unexpected history UI method: ${calls.join(', ')}`);
 });
 
 // One rule instead of a case per action type: undo applies previousContent,

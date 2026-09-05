@@ -22,7 +22,7 @@ function timeOf(d) {
 function pickUndo(entries) {
   let best = null;
   for (const e of entries || []) {
-    if (!e || e.isCheckpoint || e.undone === true) continue;
+    if (!e || e.isCheckpoint || e.superseded === true || e.undone === true) continue;
     if (best === null || timeOf(e.createdAt) >= timeOf(best.createdAt)) best = e;
   }
   return best;
@@ -32,7 +32,7 @@ function pickUndo(entries) {
 function pickRedo(entries) {
   let best = null;
   for (const e of entries || []) {
-    if (!e || e.isCheckpoint || e.undone !== true) continue;
+    if (!e || e.isCheckpoint || e.superseded === true || e.undone !== true) continue;
     if (best === null || timeOf(e.undoneAt) >= timeOf(best.undoneAt)) best = e;
   }
   return best;

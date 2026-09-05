@@ -131,4 +131,19 @@ check('CPU usage report is wired into Admin Panel / Problems', () => {
   assert.ok(/"cpuReportTitle": "CPU usage"/.test(read('imports/i18n/data/en.i18n.json')), 'title string');
 });
 
+check('low-load statistics schedule one heavy maintenance operation at a time', () => {
+  const monitor = read('server/lib/cpuMonitor.js');
+  assert.match(monitor, /recentSamples/);
+  assert.match(monitor, /minimum[\s\S]*average[\s\S]*maximum[\s\S]*lowestAt/);
+  assert.match(monitor, /export async function runWhenCpuLow/);
+  assert.match(monitor, /maintenanceLease/);
+  assert.match(monitor, /consecutiveLowSamples < MAINTENANCE_LOW_SAMPLES/);
+  assert.match(monitor, /low-load-window-timeout/,
+    'heavy work must defer instead of running forever under load');
+  const admin = read('client/components/settings/adminProblems.js');
+  assert.match(admin, /this\.stream === 'cpu' \|\| this\.stream === 'performance'/,
+    'rolling CPU statistics are visible on both CPU usage and Problems -> Speed');
+  assert.match(read('client/components/settings/adminProblems.jade'), /min\/avg\/max/);
+});
+
 console.log(`\ncpuMonitorWiring: ${passed} checks passed`);

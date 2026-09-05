@@ -95,9 +95,9 @@ ChangeHistory.attachSchema(
       type: Date,
       // eslint-disable-next-line consistent-return
       autoValue() {
-        if (this.isInsert) return new Date();
+        if (this.isInsert && !this.isSet) return new Date();
         if (this.isUpsert) return { $setOnInsert: new Date() };
-        this.unset();
+        if (!this.isInsert) this.unset();
       },
     },
     // The undo/redo stack, folded in from userPositionHistory (History.md §7c).
@@ -113,6 +113,9 @@ ChangeHistory.attachSchema(
     // Restore provenance, set only when changeType === 'restored' (§8.3).
     restoredFromId: { type: String, optional: true, defaultValue: null },
     restoredByUserId: { type: String, optional: true, defaultValue: null },
+    previousHash: { type: String, optional: true, defaultValue: null },
+    integrityHash: { type: String, optional: true, defaultValue: null },
+    superseded: { type: Boolean, optional: true, defaultValue: false },
   }),
 );
 
@@ -148,13 +151,21 @@ ChangeHistory.record = async function record(options) {
   try {
     // A NEW change clears this user's redo stack on this board (History.md §7c):
     // an undone change that has since been superseded must never be redoable
-    // back over the newer work. The rows are dropped rather than flagged - they
-    // are the one exception to append-only that the spec itself names, and
-    // keeping them would let a redo resurrect stale content.
+    // back over the newer work. Retain and flag the rows so the integrity chain
+    // remains auditable without allowing redo to resurrect stale content.
     if (changeType !== 'restored') {
-      await ChangeHistory.removeAsync({ userId, boardId, undone: true });
+      await ChangeHistory.updateAsync(
+        { userId, boardId, undone: true },
+        { $set: { superseded: true } },
+        { multi: true },
+      );
     }
-    return await ChangeHistory.insertAsync({
+    const previous = await ChangeHistory.findOneAsync(
+      { boardId, integrityHash: { $nin: [null, ''] } },
+      { sort: { createdAt: -1 } },
+    );
+    const createdAt = new Date();
+    const row = {
       boardId,
       swimlaneId,
       listId,
@@ -172,7 +183,13 @@ ChangeHistory.record = async function record(options) {
       batchId,
       restoredFromId,
       restoredByUserId,
-    });
+      createdAt,
+      previousHash: previous ? previous.integrityHash : null,
+      superseded: false,
+    };
+    const { hashHistoryRow } = require('/models/lib/changeHistoryIntegrity');
+    row.integrityHash = hashHistoryRow(row);
+    return await ChangeHistory.insertAsync(row);
   } catch (error) {
     // Deliberately swallowed. The alternative is that a schema slip in a history
     // row stops a user moving a card.

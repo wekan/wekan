@@ -58,6 +58,10 @@ template(name="cpuCurrentStatus")
     span.admin-cpu-percent {{percent}}%
     span.quiet
       | {{cores}} {{_ 'cpu-cores-suffix'}} &middot; {{_ 'cpu-load-average'}} {{loadAverage}}
+    if statistics
+      span.quiet
+        |  &middot; min/avg/max {{statistics.minimum}}%/{{statistics.average}}%/{{statistics.maximum}}%
+        |  ({{statistics.samples}} samples, lowest {{statistics.lowestAt}})
     if activity
       span.quiet  &middot; {{activity}}
 

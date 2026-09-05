@@ -820,7 +820,7 @@ Template.eventStreamReport.onCreated(function () {
   this.total = new ReactiveVar(0);
   this.rows = new ReactiveVar([]);
   this.search = new ReactiveVar('');
-  // CPU usage page only: the live figure shown between the title and the search
+  // CPU usage and Speed pages: the live figure shown between the title and the search
   // box. The event rows below it are a HISTORY of high-CPU periods, so without
   // this the page could not answer "what is the CPU doing right now?" at all.
   this.cpu = new ReactiveVar(null);
@@ -837,7 +837,7 @@ Template.eventStreamReport.onCreated(function () {
   };
   this.load();
 
-  if (this.stream === 'cpu') {
+  if (this.stream === 'cpu' || this.stream === 'performance') {
     this.loadCpu = () => {
       Meteor.call('problemDetailReport', 'cpu', (err, res) => {
         if (!err && res) this.cpu.set(res.current || null);
@@ -984,6 +984,13 @@ Template.eventStreamReport.helpers({
         loadAverage: Array.isArray(cpu.loadAverage)
           ? cpu.loadAverage.map(n => (Number.isFinite(n) ? n.toFixed(2) : '?')).join(' / ')
           : '',
+        statistics: cpu.statistics ? {
+          minimum: cpu.statistics.minimum,
+          average: cpu.statistics.average,
+          maximum: cpu.statistics.maximum,
+          samples: cpu.statistics.samples,
+          lowestAt: formatEventAt(cpu.statistics.lowestAt),
+        } : null,
       } : null,
     };
   },

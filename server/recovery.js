@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import RecoveryEvents from '/models/recoveryEvents';
 import RecoveryStatus from '/models/recoveryStatus';
+import SecurityLog from '/server/lib/securityLog';
 import { parseRecoveryEventsJsonl } from '/models/lib/recoveryEventsJsonl';
 
 // #6492 Recovery / Remediation bridge.
@@ -64,6 +65,14 @@ async function importRecoveryEventsFromFile() {
       severity: ev.severity,
       source: ev.source,
     });
+    if (['restore-failed', 'snapshot-failed', 'corruption-detected'].includes(ev.type)) {
+      SecurityLog.record({
+        key: 'integrity.file', source: ev.source || 'sqlite-recovery',
+        action: 'detected',
+        detail: `SQLite recovery integrity event type=${ev.type}; ${ev.detail || 'no detail'}; ` +
+          'username/IP unavailable for pre-start background verification',
+      });
+    }
   }
 }
 

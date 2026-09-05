@@ -119,6 +119,34 @@ mkdir -p "$SQLITE_DIR"
 # let it be re-enabled). DO_NOT_TRACK/FERRETDB_TELEMETRY are belt-and-suspenders.
 export DO_NOT_TRACK=1 FERRETDB_TELEMETRY=disable
 
+# Verify the live database and automatically restore the newest usable local
+# snapshot before FerretDB opens SQLite. If no SQLite generation survives but
+# raw MongoDB migration data is retained, hand the next service start back to
+# migration-control instead of serving known-corrupt data.
+if [ -f "$SNAP/sqlite-recovery.mjs" ]; then
+    _recovery_rc=0
+    "$SNAP/bin/node" "$SNAP/sqlite-recovery.mjs" startup "$SQLITE_DIR" "$FERRETDB_BIN" || _recovery_rc=$?
+    if [ "$_recovery_rc" -eq 3 ]; then
+        if [ -f "$SNAP_COMMON/WiredTiger" ] || ls "$SNAP_COMMON"/collection-*.wt >/dev/null 2>&1; then
+            _quarantine="$SQLITE_DIR/.recovery/quarantine-$(date -u +%Y%m%dT%H%M%SZ)"
+            mkdir -p "$_quarantine"
+            for _damaged in "$SQLITE_DIR"/wekan.sqlite "$SQLITE_DIR"/wekan.sqlite-wal "$SQLITE_DIR"/wekan.sqlite-shm; do
+                [ -e "$_damaged" ] && mv "$_damaged" "$_quarantine/"
+            done
+            rm -f "$SNAP_COMMON/.migration-to-ferretdb-done"
+            touch "$SNAP_COMMON/.migration-retry"
+            printf '{"type":"remigrate","db":"wekan","severity":"warning","source":"startup","detail":"All verified SQLite generations failed; damaged files quarantined and retained MongoDB source scheduled","ts":"%s"}\n' \
+                "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo '')" >> "$SQLITE_DIR/recovery-events.jsonl" 2>/dev/null || true
+            echo "Recovery: local SQLite generations failed; retained MongoDB source scheduled for automatic re-migration."
+            snapctl start --enable "${SNAP_NAME}.mongodb" 2>/dev/null || true
+            snapctl restart "${SNAP_NAME}.wekan" 2>/dev/null || true
+        fi
+        exit 3
+    elif [ "$_recovery_rc" -ne 0 ]; then
+        exit "$_recovery_rc"
+    fi
+fi
+
 # #6480/#6481: a replica-set name makes FerretDB v1 auto-create the capped
 # local.oplog.rs and advertise the replica-set hello handshake, so WeKan's Meteor
 # CAN tail the OpLog. But the OpLog is only useful when WeKan is ACTUALLY tailing it
@@ -189,7 +217,7 @@ fi
 # are left as-is). The previous backup generation is kept under backup/prev, so a bad
 # copy never overwrites the last good one on its own. Set WEKAN_SQLITE_BACKUP=false to
 # disable.
-if [ "${WEKAN_SQLITE_BACKUP:-true}" = "true" ] && [ -n "${SQLITE_DIR}" ] && [ -f "${SQLITE_DIR}/wekan.sqlite" ]; then
+if [ ! -f "$SNAP/sqlite-recovery.mjs" ] && [ "${WEKAN_SQLITE_BACKUP:-true}" = "true" ] && [ -n "${SQLITE_DIR}" ] && [ -f "${SQLITE_DIR}/wekan.sqlite" ]; then
     _bk="${SQLITE_DIR}/backup"
     mkdir -p "${_bk}"
     if [ -f "${_bk}/wekan.sqlite" ]; then

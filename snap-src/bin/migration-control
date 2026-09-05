@@ -303,6 +303,22 @@ finish_success() {
     log "ERROR: importer reported success but no non-empty FerretDB SQLite database exists in $SQLITE_DIR. NOT switching to FerretDB; MongoDB data kept; will retry next start."
     return 1
   fi
+  # Stop the target so quick_check and the first compressed snapshot see a
+  # checkpointed SQLite file, never a concurrently changing database/WAL.
+  if [ -n "${FPID:-}" ]; then
+    kill "$FPID" 2>/dev/null || true
+    wait "$FPID" 2>/dev/null || true
+    FPID=""
+  fi
+  if ! "$FERRETDB" check-sqlite "$SQLITE_DIR/wekan.sqlite" >/dev/null 2>&1; then
+    log "ERROR: migrated SQLite failed quick_check. NOT switching; MongoDB source retained."
+    return 1
+  fi
+  if [ -f "$RECOVERY_HELPER" ] && ! WEKAN_RECOVERY_MAX_LOAD_PER_CORE=999 \
+      "$NODE" "$RECOVERY_HELPER" snapshot "$SQLITE_DIR"; then
+    log "ERROR: initial verified snapshot failed. NOT switching; MongoDB source retained."
+    return 1
+  fi
   local sq wal
   sq="$(ls -la "$SQLITE_DIR"/*.sqlite 2>/dev/null | head -n1)"
   wal="$(ls "$SQLITE_DIR"/*.sqlite-wal 2>/dev/null | head -n1)"
@@ -558,6 +574,14 @@ fail_3x_keep_progress() {   # $1 = importer exit code
   cleanup_all
   exit 1
 }
+
+# Record immutable source-file evidence, checkpoint checksum and a conservative
+# disk-space requirement before starting any mongod (which changes source mtimes).
+RECOVERY_HELPER="$SNAP/sqlite-recovery.mjs"
+if [ -f "$RECOVERY_HELPER" ] && ! "$NODE" "$RECOVERY_HELPER" migration-evidence \
+    "$SQLITE_DIR" "$DBPATH" "$SNAP_COMMON/migration-progress.json"; then
+  fall_back_to_mongodb "Migration recovery preflight failed (including disk-space check); keeping MongoDB."
+fi
 
 # ── Any modern MongoDB (6/7, incl. a DB earlier migrated from 3.x)? ───────────
 # The WeKan snap moves every existing MongoDB database — MongoDB 3, MongoDB 7, or any

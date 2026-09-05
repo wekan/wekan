@@ -112,6 +112,7 @@ test('the binaries a release embeds are the binaries this embeds', () => {
     'all eight MongoDB Database Tools, in the order the workflow lists them');
   assert.ok(script.includes(tools) && baseJob.includes(tools), 'and the same eight as the workflow');
   assert.ok(/releases\/ferretdb\/\$LAUNCHER/.test(script), 'the launcher');
+  assert.ok(/sqlite-recovery\.mjs/.test(script), 'verified SQLite snapshot and recovery helper');
   assert.ok(/snap-src\/bin\/cpu-exec/.test(script), 'cpu-exec (#6458)');
   assert.ok(/qemu-x86_64|qemu-aarch64/.test(script), 'and this arch\'s qemu-user');
 });

@@ -23,6 +23,9 @@ import {
 } from '/models/lib/changeHistoryGroups';
 import { pageInfo } from '/models/lib/tablePage';
 import { withoutRecording } from '/server/lib/historyRecordingScope';
+import RecoveryEvents from '/models/recoveryEvents';
+import SecurityLog from '/server/lib/securityLog';
+const { rowHashIsValid } = require('/models/lib/changeHistoryIntegrity');
 
 // Server side of the universal change history
 // (docs/Features/Reports/History/History.md): the read method, the restore, and
@@ -62,6 +65,48 @@ const requireBoardWrite = async (userId, boardId) => {
     throw new Meteor.Error('not-authorized', 'You cannot change this board.');
   }
 };
+
+async function requireHistoryIntegrity(row, context) {
+  // Rows written before the integrity fields existed remain usable but cannot be
+  // retroactively authenticated. Every new row is checked before it can write.
+  if (!row || !row.integrityHash) return;
+  let valid = rowHashIsValid(row);
+  if (valid && row.previousHash) {
+    valid = Boolean(await ChangeHistory.findOneAsync({
+      boardId: row.boardId,
+      integrityHash: row.previousHash,
+    }));
+  }
+  if (valid && !row.previousHash) {
+    valid = await ChangeHistory.find({
+      boardId: row.boardId,
+      previousHash: null,
+      integrityHash: { $nin: [null, ''] },
+    }).countAsync() === 1;
+  }
+  if (valid && row.previousHash) {
+    valid = await ChangeHistory.find({
+      boardId: row.boardId,
+      previousHash: row.previousHash,
+    }).countAsync() === 1;
+  }
+  if (valid) return;
+  const userId = context && context.userId;
+  const user = userId && await Meteor.users.findOneAsync(userId, { fields: { username: 1 } });
+  SecurityLog.record({
+    key: 'integrity.history', userId, username: user && user.username,
+    ip: context && context.connection && context.connection.clientAddress,
+    detail: `history row=${row._id || 'unknown'} board=${row.boardId || 'unknown'} ` +
+      `expected=${row.integrityHash || 'missing'} observed=${rowHashIsValid(row) ? 'row-valid' : 'row-changed'} ` +
+      `previous=${row.previousHash || 'genesis'}; restore/undo/redo refused`,
+  });
+  await RecoveryEvents.record(RecoveryEvents.types.HISTORY_INTEGRITY_FAILED, {
+    severity: 'error', source: 'server', userId,
+    detail: `Change history integrity failed for ${row._id || 'unknown row'}; operation refused`,
+  });
+  throw new Meteor.Error('history-integrity-failed',
+    'Change history verification failed; the operation was refused.');
+}
 
 // ---- appliers: how each kind of change is put back ---------------------------
 //
@@ -348,6 +393,7 @@ Meteor.methods({
     let skipped = 0;
     for (const row of rows) {
       await requireBoardWrite(this.userId, row.boardId);
+      await requireHistoryIntegrity(row, this);
 
       // Read the live value BEFORE applying, so the rows appended below say what
       // this restore actually did rather than repeating the restored row's own
@@ -404,6 +450,7 @@ Meteor.methods({
     ).fetchAsync();
     const row = pickUndo(candidates);
     if (!row) return { undone: false };
+    await requireHistoryIntegrity(row, this);
 
     const applied = await applyRow(row, 'undo');
     if (!applied) return { undone: false, reason: 'not-applicable' };
@@ -431,6 +478,7 @@ Meteor.methods({
     ).fetchAsync();
     const row = pickRedo(candidates);
     if (!row) return { redone: false };
+    await requireHistoryIntegrity(row, this);
 
     const applied = await applyRow(row, 'redo');
     if (!applied) return { redone: false, reason: 'not-applicable' };

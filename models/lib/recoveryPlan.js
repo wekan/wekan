@@ -5,9 +5,8 @@
 // When the text-data database (wekan.sqlite) is checked at startup and found corrupt,
 // this pure function decides — from what is available — HOW to recover. It is
 // Meteor-free so it can be unit tested in plain Node (see tests/recoveryPlan.test.cjs)
-// It specifies the intended automatic policy, but the current startup scripts do
-// not yet have a portable SQLite integrity-check client with which to call it.
-// Production restore remains explicitly requested and is documented as such.
+// The bundled startup scripts execute this policy with FerretDB's read-only
+// SQLite integrity-check command before the database is opened for service.
 //
 // It never decides anything destructive on its own: a healthy or unknown database
 // yields action "none". Recovery is only chosen when the database is KNOWN corrupt,

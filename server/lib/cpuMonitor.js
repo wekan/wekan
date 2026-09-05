@@ -46,6 +46,8 @@ const FERRET_ASK_MIN_INTERVAL_MS = intEnv('WEKAN_FERRETDB_ASK_INTERVAL_MS', 3000
 const FERRET_WATCH_PCT = intEnv('WEKAN_FERRETDB_WATCH_PERCENT', 60);
 const FERRET_PROC_HIGH_PCT = intEnv('WEKAN_FERRETDB_PROC_HIGH_PERCENT', 150);
 const ENABLED = String(process.env.WEKAN_CPU_MONITOR || 'true').toLowerCase() !== 'false';
+const SAMPLE_WINDOW = Math.max(12, intEnv('WEKAN_CPU_STATS_SAMPLES', 720));
+const MAINTENANCE_LOW_SAMPLES = Math.max(1, intEnv('WEKAN_MAINTENANCE_LOW_SAMPLES', 3));
 
 function intEnv(name, fallback) {
   const n = parseInt(process.env[name], 10);
@@ -59,6 +61,9 @@ const tracker = new HighCpuTracker({
 let lastCpu = null;      // { idle, total } snapshot for the next delta
 let lastPct = 0;         // most recent system CPU%
 let currentActivity = '';// coarse "what WeKan is doing" label set by hot operations
+const recentSamples = [];
+let consecutiveLowSamples = 0;
+let maintenanceLease = null;
 
 // Per-high-period mitigation bookkeeping (reset on each 'start'). Tracks whether
 // the governor actually slowed anything down, and whether that visibly lowered CPU.
@@ -346,7 +351,46 @@ export function getCurrentCpu() {
     // between calls to this function instead of by the background monitor, and
     // no high-CPU events are being recorded at all.
     monitored: ENABLED,
+    statistics: cpuStatistics(),
   };
+}
+
+function cpuStatistics() {
+  if (recentSamples.length === 0) {
+    return { minimum: lastPct, average: lastPct, maximum: lastPct, samples: 0, lowestAt: null };
+  }
+  const values = recentSamples.map(sample => sample.percent);
+  const minimum = Math.min(...values);
+  const lowest = recentSamples.find(sample => sample.percent === minimum);
+  return {
+    minimum,
+    average: Math.round(values.reduce((sum, value) => sum + value, 0) / values.length),
+    maximum: Math.max(...values),
+    samples: values.length,
+    lowestAt: lowest ? lowest.at : null,
+  };
+}
+
+// Serialize non-urgent heavy work and start it only after a sustained low-load
+// window. If the window does not arrive before maxWaitMs, defer without running.
+export async function runWhenCpuLow(label, work, options = {}) {
+  const maxWaitMs = Number.isFinite(options.maxWaitMs) ? options.maxWaitMs : 30 * 60 * 1000;
+  const pollMs = Math.max(250, Number.isFinite(options.pollMs) ? options.pollMs : INTERVAL_MS);
+  const deadline = Date.now() + maxWaitMs;
+  while (maintenanceLease || consecutiveLowSamples < MAINTENANCE_LOW_SAMPLES) {
+    if (Date.now() >= deadline) return { ran: false, reason: 'low-load-window-timeout' };
+    await new Promise(resolve => setTimeout(resolve, pollMs));
+  }
+  const token = Symbol(label || 'maintenance');
+  maintenanceLease = token;
+  const prior = currentActivity;
+  setActivity(label || 'maintenance');
+  try {
+    return { ran: true, value: await work({ pauseIfBusy }) };
+  } finally {
+    if (maintenanceLease === token) maintenanceLease = null;
+    setActivity(prior);
+  }
 }
 
 // CPU% between two calls of THIS function, for when the background monitor is
@@ -412,6 +456,9 @@ if (Meteor.isServer && ENABLED) {
       try {
         const pct = sampleCpuPercent();
         lastPct = pct;
+        recentSamples.push({ at: new Date().toISOString(), percent: pct });
+        if (recentSamples.length > SAMPLE_WINDOW) recentSamples.shift();
+        consecutiveLowSamples = pct < LOW_PCT ? consecutiveLowSamples + 1 : 0;
         const load = os.loadavg();
         const cores = (os.cpus() || []).length;
         const now = Date.now();
@@ -475,4 +522,4 @@ if (Meteor.isServer && ENABLED) {
   });
 }
 
-export default { isHighCpu, pauseIfBusy, setActivity, getCurrentCpu };
+export default { isHighCpu, pauseIfBusy, setActivity, getCurrentCpu, runWhenCpuLow };

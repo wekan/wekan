@@ -32,8 +32,8 @@
 // ============================================================================
 
 import { Meteor } from 'meteor/meteor';
-import EventLog from '/models/eventLog';
 import FileIntegrity, { IntegrityKeys } from '/models/fileIntegrity';
+import SecurityLog from '/server/lib/securityLog';
 
 const fs = Npm.require('fs');
 const path = Npm.require('path');
@@ -141,9 +141,8 @@ function digestFile(filePath) {
 
 function record(evt) {
   try {
-    const p = EventLog.insertAsync({
-      stream: 'integrity',
-      at: new Date(),
+    SecurityLog.record({
+      key: 'integrity.file',
       severity: evt.severity || 'info',
       category: evt.category || 'integrity',
       bleed: evt.bleed || 'StorageBleed',
@@ -152,7 +151,6 @@ function record(evt) {
       detail: String(evt.detail || '').slice(0, 500),
       count: evt.count || 1,
     });
-    if (p && typeof p.catch === 'function') p.catch(() => {});
   } catch (e) {
     if (process.env.DEBUG === 'true') console.warn('integrity record failed:', e && e.message);
   }
@@ -223,7 +221,16 @@ export async function runIntegrityScan(options = {}) {
   const started = Date.now();
   const keys = await integrityKeys();
   const paths = computeStoragePaths(process.env.WRITABLE_PATH);
-  const roots = [paths.attachments, paths.avatars].filter(Boolean);
+  const writable = process.env.WRITABLE_PATH;
+  const roots = [
+    paths.attachments,
+    paths.avatars,
+    writable && path.join(writable, 'logs'),
+    writable && path.join(writable, 'log'),
+    writable && path.join(writable, 'db', '.recovery'),
+    process.env.FERRETDB_DIR && path.join(process.env.FERRETDB_DIR, '.recovery'),
+    process.env.FERRETDB_SQLITE_DIR && path.join(process.env.FERRETDB_SQLITE_DIR, '.recovery'),
+  ].filter((root, index, all) => root && all.indexOf(root) === index && fs.existsSync(root));
 
   let checked = 0;
   let findings = 0;
@@ -281,7 +288,10 @@ export async function runIntegrityScan(options = {}) {
         action: verdict.explained ? 'detected' : 'blocked',
         // The file's NAME, never its contents, and never the digests
         // themselves - an admin needs to know which file, not to read it here.
-        detail: `${path.basename(filePath)}: ${verdict.summary}`,
+        detail: `${path.basename(filePath)}: ${verdict.summary}; ` +
+          `expected size=${baseline.size} sha256=${baseline.digests?.sha256 || 'missing'}; ` +
+          `observed size=${observed.size} sha256=${observed.digests?.sha256 || 'unreadable'}; ` +
+          `detected=${new Date().toISOString()}; actor/background IP=unavailable`,
       });
 
       // Re-baseline an EXPLAINED change so it is reported once, not every day.
@@ -306,9 +316,9 @@ export async function runIntegrityScan(options = {}) {
       record({
         severity: verdict.severity,
         action: 'blocked',
-        detail: `${path.basename(doc._id)}: ${verdict.summary}`,
+        detail: `${path.basename(doc._id)}: ${verdict.summary}; expected file is missing; ` +
+          `detected=${new Date().toISOString()}; actor/background IP=unavailable`,
       });
-      await FileIntegrity.removeAsync({ _id: doc._id });
     }
   }
 
@@ -360,7 +370,9 @@ if (Meteor.isServer && process.env.WEKAN_INTEGRITY_SCAN !== 'false') {
         if (Number(cpuPercent()) >= PACING.maxCpuPercent) return;  // try again next hour
 
         await IntegrityKeys.upsertAsync({ _id: 'lastRun' }, { $set: { at: new Date() } });
-        await runIntegrityScan();
+        const { runWhenCpuLow } = require('/server/lib/cpuMonitor');
+        await runWhenCpuLow('filesystem integrity audit',
+          () => runIntegrityScan(), { maxWaitMs: 55 * 60 * 1000 });
       } catch (e) {
         if (process.env.DEBUG === 'true') console.warn('integrity scan failed:', e && e.message);
       }
