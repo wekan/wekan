@@ -80,14 +80,19 @@ test('in Mobile Mode the handle is below the menu on every browser', () => {
     'no physical left/right - the column must mirror in RTL');
 });
 
-test('the touch handle has no grey button background', () => {
+test('the Mobile Mode handle has no grey button background in Safari', () => {
   const handle = rule(css, 'body.mobile-mode .minicard .handle {');
-  assert.ok(/background:\s*transparent\s*!important/.test(handle),
-    'only the drag icon is visible on the minicard');
+  assert.ok(/background:\s*inherit\s*!important/.test(handle),
+    'the touch target uses the minicard background instead of painting a layer');
   assert.ok(!/background(?:-color)?:\s*(?:#(?:ccc|ddd|eee)|rgba?\()/i.test(handle),
     'no grey or tinted background may turn the handle into a separate button');
   assert.ok(/border:\s*0/.test(handle), 'no border draws a box around the target');
   assert.ok(/box-shadow:\s*none/.test(handle), 'no shadow draws a grey layer below it');
+  assert.ok(/-webkit-tap-highlight-color:\s*transparent/.test(handle),
+    'iPhone Safari cannot add its own grey tap highlight');
+  const pseudos = rule(css, 'body.mobile-mode .minicard .handle::before,');
+  assert.ok(/background:\s*transparent\s*!important/.test(pseudos),
+    'neither handle pseudo-element can paint a background');
 });
 
 test('the arrow glyph is visually aligned below the menu icon', () => {

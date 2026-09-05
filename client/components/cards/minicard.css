@@ -229,10 +229,18 @@
     justify-content: center;
     /* Keep the handle visually part of the minicard. The icon identifies the
        drag target; a tinted target area looked like a separate grey button. */
-    background: transparent !important;
+    /* Safari can paint a transparent, positioned touch target as a grey layer.
+       Use the card's actual background instead, so the target disappears into
+       white, coloured and hover-state minicards alike. */
+    background: inherit !important;
     border: 0;
     box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
     border-end-end-radius: inherit;
+  }
+  body.mobile-mode .minicard .handle::before,
+  body.mobile-mode .minicard .handle::after {
+    background: transparent !important;
   }
   /* The card's own content must not sit under the column, and the card must be
      tall enough to hold menu + handle at their minimum sizes (32 + 36). */
