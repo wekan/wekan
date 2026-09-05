@@ -69,6 +69,31 @@ view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/
 > the inert recording in the appendix. Applying a change lives in
 > `server/models/changeHistory.js`, which nothing imports.
 
+## Tamper-evident undo and redo
+
+Every immutable history row carries `previousHash` and `integrityHash`. The latter
+is SHA-256 over a canonical serialization of the restore-relevant fields plus the
+previous row's hash, producing a per-board hash chain. Mutable stack state
+(`undone`, `undoneAt`) is excluded; changing the content, actor, entity, board,
+time, provenance or chain link invalidates the row.
+
+Before restore, undo or redo applies content, the server verifies the selected row
+and its chain link. A mismatch refuses the operation, records
+`history-integrity-failed` in Problems → Security and Recovery, and schedules a
+low-load full-chain audit. It never attempts to infer or silently repair historical
+content. Concurrent appenders serialize the per-board chain head so two valid rows
+cannot claim the same predecessor unnoticed.
+
+A new change invalidates the redo branch by marking it superseded; it does not
+delete the old rows, because deletion would break both auditability and the hash
+chain. Retention, when implemented, replaces an expired prefix with a checkpoint
+containing the removed prefix hash rather than silently severing it.
+
+The canonicalizer sorts object keys, preserves array order, distinguishes null,
+dates, strings, numbers and booleans, and rejects unsupported/non-finite values.
+Tests mutate every protected field, remove/reorder rows, alter a predecessor and
+exercise valid undo/redo so integrity enforcement cannot become a feature outage.
+
 ---
 
 ## 1. Goal (from the request)

@@ -12,6 +12,11 @@ Status: **Partly implemented; automatic text-data restore is pending** · Owner:
 (`internal/backends/sqlite/metadata/pool/opendb.go`,
 `internal/handler/handler.go`).
 
+The implementation target and safety invariants are defined first in
+[Verified FerretDB SQLite recovery](../../../Databases/FerretDB/1/Verified-Recovery.md).
+That document is authoritative for snapshot format, checksums, disk-space gates,
+automatic source selection, migration fallback and low-load scheduling.
+
 When WeKan stores its data in FerretDB v1 (SQLite), the text data lives in
 `wekan.sqlite`. Attachments and avatars live on the **filesystem**, not in the
 database. This subsystem keeps that text data safe: it prevents the database from

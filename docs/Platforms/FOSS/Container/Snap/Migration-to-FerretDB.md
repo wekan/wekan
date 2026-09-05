@@ -157,3 +157,10 @@ sudo snap revert wekan            # back to the revision that worked; data stays
 copy is being served and whether there is a second one — it used to report "No
 problems detected" on an instance serving a month-old copy, because every check
 it makes is about the ONE database WeKan is connected to.
+# Verified recovery design
+
+MongoDB-to-FerretDB migration recovery, source evidence, checkpoint checksums,
+disk-space requirements and the initial verified SQLite snapshot are specified in
+[Verified FerretDB SQLite recovery](../../../../Databases/FerretDB/1/Verified-Recovery.md).
+The raw MongoDB source is never deleted automatically and remains the final recovery
+source when both SQLite snapshot generations are unusable.
