@@ -25,6 +25,9 @@ test('the common fold enriches all reports without trusting geo for decisions', 
   assert.match(fold, /locationFromHeaders\(req\.headers\)/);
   assert.match(fold, /usernameFor\(evt\.userId\)/);
   assert.match(fold, /findOneAsync\(userId/);
+  assert.match(fold, /DDP\._CurrentMethodInvocation/);
+  assert.match(fold, /connection\.httpHeaders/);
+  assert.match(fold, /connection\.clientAddress/);
 });
 
 test('schema, summary and UI retain separate addresses plus location', () => {

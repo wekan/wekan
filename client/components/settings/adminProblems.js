@@ -753,6 +753,14 @@ const REPORT_TABLES = {
       { labelKey: 'username', value: d => d.username },
       { labelKey: 'event-ipv4', value: d => d.ipv4 },
       { labelKey: 'event-ipv6', value: d => d.ipv6 },
+      {
+        labelKey: 'location',
+        value: d => {
+          const label = locationLabel(d.location);
+          const flag = countryFlag(d.location && d.location.country);
+          return [flag, label].filter(Boolean).join(' ');
+        },
+      },
       { labelKey: 'recovery-detail', value: d => d.detail },
     ],
   },

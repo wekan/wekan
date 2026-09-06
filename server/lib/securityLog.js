@@ -74,7 +74,14 @@ export function record(evt = {}) {
       if (invocation) {
         if (!m.userId && invocation.userId) m.userId = invocation.userId;
         if (!m.ip && invocation.connection) {
-          m.ip = invocation.connection.clientAddress;
+          m.ip = resolveClientKey({
+            headers: invocation.connection.httpHeaders,
+            socketAddress: invocation.connection.clientAddress,
+            forwardedCount: process.env.HTTP_FORWARDED_COUNT,
+          });
+        }
+        if (!m.location && invocation.connection) {
+          m.location = locationFromHeaders(invocation.connection.httpHeaders);
         }
       }
     }

@@ -9,6 +9,7 @@
 // happened must never be able to stop it happening.
 
 import { Meteor } from 'meteor/meteor';
+import { DDP } from 'meteor/ddp';
 import EventLog from '/models/eventLog';
 import { currentReportRequest } from '/server/lib/requestReportContext';
 
@@ -57,6 +58,25 @@ export async function foldEvent(doc = {}) {
       });
     }
     if (!evt.location) evt.location = locationFromHeaders(req.headers);
+  }
+  // DDP methods do not traverse WebApp's HTTP middleware, but the method
+  // invocation retains the same proxy headers and socket address. Fill the
+  // identical report context here so Security, Speed, Tests, CPU, Database and
+  // Filesystem-integrity panes do not lose their origin merely because the
+  // event came through DDP instead of a REST route.
+  const invocation = DDP._CurrentMethodInvocation
+    && DDP._CurrentMethodInvocation.get();
+  const connection = invocation && invocation.connection;
+  if (connection) {
+    if (!evt.userId && invocation.userId) evt.userId = String(invocation.userId);
+    if (!evt.ip) {
+      evt.ip = resolveClientKey({
+        headers: connection.httpHeaders,
+        socketAddress: connection.clientAddress,
+        forwardedCount: process.env.HTTP_FORWARDED_COUNT,
+      });
+    }
+    if (!evt.location) evt.location = locationFromHeaders(connection.httpHeaders);
   }
   if (evt.userId && !evt.username) {
     try {

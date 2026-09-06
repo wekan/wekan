@@ -2,6 +2,7 @@ import RecoveryEvents from '/models/recoveryEvents';
 
 const { resolveClientKey } = require('/server/lib/loginAttemptThrottle');
 const { classifyAddress } = require('/models/lib/ipAddress');
+const { locationFromHeaders } = require('/models/lib/geoHeaders');
 
 // Append one proxy-aware Recovery audit row. One connection has one address,
 // so exactly one of ipv4 / ipv6 is populated; IPv4-mapped IPv6 is normalized
@@ -31,6 +32,7 @@ export async function recordRecoveryAudit({
     username: user?.username || undefined,
     ipv4: ipv4 || undefined,
     ipv6: ipv6 || undefined,
+    location: locationFromHeaders(connection?.httpHeaders) || undefined,
     boardIds: boundedBoards.map(board => String(board?._id || '')).filter(Boolean),
     boardTitles: boundedBoards.map(board => String(board?.title || '(unknown title)')),
     detail,

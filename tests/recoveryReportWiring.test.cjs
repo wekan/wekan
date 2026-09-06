@@ -45,6 +45,21 @@ test('record helper is best-effort server-only', () => {
   assert.ok(/try\s*\{[\s\S]*insertAsync[\s\S]*\}\s*catch/.test(src), 'best-effort (never throws)');
 });
 
+test('recovery rows retain IPv4, IPv6 and proxy location context', () => {
+  const model = read('models/recoveryEvents.js');
+  const audit = read('server/lib/recoveryAudit.js');
+  const ui = read('client/components/settings/adminProblems.js');
+  assert.match(model, /location:\s*\{ type: Object, optional: true, blackbox: true \}/);
+  assert.match(model, /location: opts\.location/);
+  assert.match(audit, /locationFromHeaders\(connection\?\.httpHeaders\)/);
+  const recovery = ui.slice(ui.lastIndexOf("'report-recovery':"));
+  for (const key of ['event-ipv4', 'event-ipv6', 'location']) {
+    assert.match(recovery, new RegExp(`labelKey: '${key}'`));
+  }
+  assert.match(recovery, /countryFlag/);
+  assert.match(recovery, /locationLabel/);
+});
+
 test('recordRecoveryEvent method is admin-gated', () => {
   const src = read('server/recovery.js');
   assert.ok(/recordRecoveryEvent/.test(src), 'exposes recordRecoveryEvent');
