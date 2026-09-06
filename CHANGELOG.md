@@ -270,7 +270,7 @@ reactions, checklists and scoped transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
-as the Jade interface.
+as the Jade interface, and assigns them to Workspaces without drag-and-drop.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -510,6 +510,24 @@ Tests cover the shared component, method parity and negative gates. Chromium
 creates and duplicates a board, proves confirmation does not write, rejects a
 forged foreign source, verifies its Security report and captures paired same-URL
 HTML4/HTML5 screenshots with matching titles, colors and actions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/727bedc92">Add accessible HTML4 Workspace assignment</a>. Thanks to xet7.</summary>
+
+Every live ordinary board in Starred, Remaining and a Workspace now has a
+labelled native selector that assigns it to any Workspace in the authenticated
+user's tree or returns it to Remaining. HTML4 and Jade use the same server
+operation, which requires a visible live board and refuses unknown Workspace
+identifiers with an attributed `BoardBleed` report.
+
+A narrow self-only publication also restores the user's Workspace tree and
+assignments to the HTML5 All Boards page. Without it, stored Workspace boards
+incorrectly appeared in Remaining and the Workspace menu was empty. Tests prove
+the publication accepts no client-selected user ID, exercise assignment and
+removal in both renderers, and capture matching same-URL HTML4/HTML5 Workspace
+screenshots.
 
 </details>
 
