@@ -358,6 +358,26 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec6d1aa99">Add HTML4 information page controllers</a>. Thanks to xet7.</summary>
+
+Accessibility, Support and Keyboard Shortcuts now have dedicated HTML4 readers
+instead of generic placeholder pages. They read the same settings and translation
+keys as their Jade counterparts, retain the logged-in visibility boundary, and
+share one keyboard-shortcut mapping so their labels and order cannot drift.
+
+The design now explains why the functional HTML4 page is the document body rather
+than a duplicate hidden only in `noscript`: an old browser may recognize a script
+element yet still be unable to execute Meteor. The small capability probe upgrades
+the baseline only after its tests pass. The implementation inventory distinguishes
+dedicated controllers from remaining generic fallbacks.
+
+Unit tests cover authorization, translations and shared mappings. A same-URL
+Playwright test compares all shortcut keys and translated actions with JavaScript
+enabled and disabled; live screenshots on the test service confirm matching order.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b48906be">Add shared HTML4 component library and ASCII controls</a>. Thanks to xet7.</summary>
 
 The HTML5 Jade interface and server-rendered HTML4 pages now share one semantic
