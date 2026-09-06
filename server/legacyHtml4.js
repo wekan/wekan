@@ -30,6 +30,7 @@ import {
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
+  updateAccessibleCardSort,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 import {
@@ -162,7 +163,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
     'edit-card-description', 'edit-card-date', 'edit-card-color', 'move-card-to-list',
     'toggle-card-label', 'toggle-card-person', 'toggle-card-identity',
-    'edit-card-identity-text', 'archive-card', 'restore-card',
+    'edit-card-identity-text', 'edit-card-sort', 'archive-card', 'restore-card',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -506,6 +507,12 @@ WebApp.handlers.use(async (req, res, next) => {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             field: requestFields.cardIdentityTextField,
             value: requestFields.cardIdentityText,
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-card-sort') {
+          return updateAccessibleCardSort(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            sort: requestFields.cardSort,
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

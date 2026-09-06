@@ -440,7 +440,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
+    sort: 1, receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
   } });
   if (!card) return {
     heading: tr(translate, 'card', 'Card'),
@@ -583,6 +583,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       })),
       fields: { ...commonFields, legacyOperation: 'move-card-to-list', position: 'top' },
       submitLabel: tr(translate, 'r-move-card-to', 'Move card to'),
+    }), ''] });
+    rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'card-sorting-by-number', 'Card sorting by number'),
+      name: 'cardSort', value: String(card.sort ?? ''), maxlength: 40,
+      fields: { ...commonFields, legacyOperation: 'edit-card-sort' },
+      submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
     const dateFields = [
       ['receivedAt', 'r-df-received-at', 'Received'],

@@ -1119,11 +1119,11 @@ Template.cardDetails.events({
   async 'submit .js-card-details-sort'(event, tpl) {
     event.preventDefault();
     const sortInput = tpl.find('.js-edit-card-sort');
-    const sort = parseFloat(sortInput ? sortInput.value.trim() : '');
-    if (!Number.isNaN(sort)) {
-      let card = Template.currentData();
-      await card.move(card.boardId, card.swimlaneId, card.listId, sort);
-    }
+    const card = Template.currentData();
+    await Meteor.callAsync('updateAccessibleCardSort', {
+      cardId: card._id, boardId: card.boardId,
+      sort: sortInput ? sortInput.value.trim() : '',
+    });
   },
   async 'change .js-select-card-details-lists'(event, tpl) {
     const listId = event.target.value;

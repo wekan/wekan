@@ -595,16 +595,14 @@ Template.editCardSortOrderPopup.events({
       tpl.find('button[type=submit]').click();
     }
   },
-  'click button.js-submit-edit-card-sort-popup'(event, tpl) {
+  async 'click button.js-submit-edit-card-sort-popup'(event, tpl) {
     // save button pressed
     event.preventDefault();
-    const sort = tpl.$('.js-edit-card-sort-popup')[0]
-      .value
-      .trim();
-    if (!Number.isNaN(sort)) {
-      let card = this;
-      card.move(card.boardId, card.swimlaneId, card.listId, sort);
-      Popup.back();
-    }
+    const sort = tpl.$('.js-edit-card-sort-popup')[0].value.trim();
+    const card = this;
+    await Meteor.callAsync('updateAccessibleCardSort', {
+      cardId: card._id, boardId: card.boardId, sort,
+    });
+    Popup.back();
   },
 });

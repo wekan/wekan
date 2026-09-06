@@ -59,6 +59,28 @@ test('list selection uses one server-authorized placement move', () => {
   assert.match(legacy, /moveAccessibleCardToList\(session\.userId/);
 });
 
+test('card sort uses one strictly parsed acknowledged boundary in HTML5 and HTML4', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const details = read('client/components/cards/cardDetails.js');
+  const minicard = read('client/components/cards/minicard.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /async function updateAccessibleCardSort/);
+  assert.match(source, /await editableCard\(userId, input\?\.cardId, boardId\)/);
+  assert.match(source, /await editablePlacement\(userId, boardId, card\.listId, card\.swimlaneId\)/);
+  assert.match(source, /Number\.isFinite\(sort\)/);
+  assert.match(source, /Math\.abs\(sort\) > 1e15/);
+  assert.match(source, /await card\.move\(boardId, card\.swimlaneId, card\.listId, sort\)/);
+  assert.match(methods, /async updateAccessibleCardSort\(input\)/);
+  assert.match(details, /Meteor\.callAsync\('updateAccessibleCardSort'/);
+  assert.match(minicard, /Meteor\.callAsync\('updateAccessibleCardSort'/);
+  assert.doesNotMatch(details, /card\.move\(card\.boardId, card\.swimlaneId, card\.listId, sort\)/);
+  assert.doesNotMatch(minicard, /card\.move\(card\.boardId, card\.swimlaneId, card\.listId, sort\)/);
+  assert.match(legacy, /legacyOperation === 'edit-card-sort'/);
+  assert.match(page, /name: 'cardSort'/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

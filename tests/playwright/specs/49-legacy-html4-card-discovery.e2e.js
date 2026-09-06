@@ -1148,6 +1148,35 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).assigners || []).toEqual([]);
     await expect(page.locator('tbody')).toContainText('Operation failed');
+    const sortForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-sort"])',
+    );
+    const originalSort = db.findOne('cards', { _id: due._id }).sort;
+    await sortForm().locator('input[name="cardSort"]').fill('12not-a-number');
+    await Promise.all([
+      page.waitForNavigation(), sortForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).sort).toBe(originalSort);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await sortForm().locator('input[name="cardSort"]').fill('123.5');
+    await sortForm().locator('input[name="boardId"]').evaluate(
+      (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+    );
+    await Promise.all([
+      page.waitForNavigation(), sortForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).sort).toBe(originalSort);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await sortForm().locator('input[name="cardSort"]').fill('123.5');
+    await Promise.all([
+      page.waitForNavigation(), sortForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).sort).toBe(123.5);
+    await sortForm().locator('input[name="cardSort"]').fill(String(originalSort));
+    await Promise.all([
+      page.waitForNavigation(), sortForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).sort).toBe(originalSort);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

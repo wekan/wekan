@@ -149,6 +149,22 @@ async function updateAccessibleCardContent(userId, input) {
   return true;
 }
 
+async function updateAccessibleCardSort(userId, input) {
+  const boardId = String(input?.boardId || '');
+  const card = await editableCard(userId, input?.cardId, boardId);
+  await editablePlacement(userId, boardId, card.listId, card.swimlaneId);
+  const rawValue = String(input?.sort ?? '').trim();
+  if (!/^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(rawValue)) {
+    throw new Meteor.Error('invalid-card-sort');
+  }
+  const sort = Number(rawValue);
+  if (!Number.isFinite(sort) || Math.abs(sort) > 1e15) {
+    throw new Meteor.Error('invalid-card-sort');
+  }
+  await card.move(boardId, card.swimlaneId, card.listId, sort);
+  return true;
+}
+
 async function updateAccessibleCardDate(userId, input) {
   const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
   const field = String(input?.field || '');
@@ -331,5 +347,6 @@ export {
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
+  updateAccessibleCardSort,
   updateAccessibleCardContent,
 };

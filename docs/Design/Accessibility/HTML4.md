@@ -223,6 +223,14 @@ The server repeats card and destination-board write checks, requires the active
 list and swimlane to belong to that board, excludes the moving card from sibling
 order calculation, and computes its new fractional position authoritatively.
 
+Card sort order uses one labelled numeric-text form in HTML4 and the existing
+Jade controls in the card details and minicard popup. All three call the same
+acknowledged operation. It requires the complete submitted value to be a finite
+decimal or exponent-form number within the bounded sort range; partial parses,
+`NaN`, infinities and excessive values are rejected. Before moving anything the
+server repeats route-board and card authorization and verifies that the card's
+current list and swimlane still belong to that board.
+
 Received, Start, Due and End use four naturally ordered labelled text forms with
 unambiguous ISO 8601 values; an empty value clears the date. Jade date pickers
 and HTML4 forms submit to the same acknowledged operation. It allowlists those
