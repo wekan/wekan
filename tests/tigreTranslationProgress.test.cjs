@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
-  'the first eighteen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
+  'the first nineteen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -179,5 +179,11 @@ assert.match(tigre.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(tigre.DDP_transport, /DDP.*DDP_TRANSPORT/);
 assert.match(tigre['org-domains-description'],
   /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/s);
+assert.deepEqual(tokens(tigre['default-subtasks-board']), ['__board__']);
+assert.match(tigre['checklist-count-on-minicard'], /0\/0/);
+assert.match(tigre['checklist-count'], /0\/0/);
+assert.equal(tigre['delete-all-notifications-confirm'],
+  'ኩሎም ምልክታታት ክትድምስስ ርግጸኛ ዲኻ? እዚ ትግባር ክምለስ ኣይክእልን።');
+assert.equal(tigre['parent-card'], 'ወላዲ ካርድ');
 
-console.log('tigreTranslationProgress: first eighteen batches passed');
+console.log('tigreTranslationProgress: first nineteen batches passed');
