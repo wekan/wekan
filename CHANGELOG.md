@@ -261,11 +261,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Meteor tests build again** without pulling Node-only cryptography
-into the client. Change-history checks retain synchronous SHA-256 on both
-architectures, language-loading tests no longer emit a dynamic-import warning,
-and interrupted test runs perform their database and port cleanup only once
-before returning to the shell.
+**In short:** **Meteor tests build again**, authentication forms have direct
+keyboard navigation, and installation examples explain the Admin Panel email
+options. Change-history checks retain synchronous SHA-256 on both architectures,
+and interrupted test runs clean up only once before returning to the shell.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -279,6 +278,20 @@ before returning to the shell.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following bugs:
+
+**Sign in and sign up** - keyboard navigation follows the writing fields.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a4c17545">Fix authentication form keyboard navigation</a>. Thanks to xet7.</summary>
+
+Tab now moves directly from each sign-in or sign-up writing field to the next
+one below it without stopping on a show/hide-password control. The controls
+remain available by pointer and assistive technology. Native Enter submission
+remains active in the bottom field. Source and three-browser tests cover the
+positive field order, the skipped controls, failed-login submission and
+successful account creation.
+
+</details>
 
 **Tests and build cleanup** - client compilation and interruption complete
 reliably.
@@ -294,6 +307,20 @@ source map is free of the former dependency chain. The language-loading test
 now checks i18next state without a dynamic `require` warning. Test-run signal
 handlers disarm themselves before cleanup, preventing repeated Ctrl-C presses
 from recursively restarting port cleanup.
+
+</details>
+
+**Documentation** - email configuration choices appear before environment
+variables.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84dddf8fa">Document Admin Panel email configuration</a>. Thanks to xet7.</summary>
+
+Snap help, every current Docker Compose example, Unix and Windows start scripts,
+and the VirtualBox launcher now explain above `MAIL_URL` that enabling **Enable
+below email settings** at Admin Panel / People / Email reveals the additional
+email sending options. A regression check keeps that guidance present and in
+the correct order across every deployment example.
 
 </details>
 
