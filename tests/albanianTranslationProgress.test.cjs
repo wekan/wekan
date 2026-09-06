@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 
 const root = path.resolve(__dirname, '..');
 const readLocale = code => JSON.parse(fs.readFileSync(
@@ -12,6 +13,22 @@ const albanian = readLocale('sq');
 const tokens = value => [...value.matchAll(
   /__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
 )].map(([token]) => token).sort();
+
+const fillResult = spawnSync(process.execPath, [
+  path.join(root, 'releases/translations/fill-translations.mjs'),
+  '--list',
+  'sq',
+], { cwd: root, encoding: 'utf8' });
+assert.equal(fillResult.status, 0, fillResult.stderr);
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1915,
+  'the first 200 actionable Albanian values stay translated');
+
+for (const [key, value] of Object.entries(albanian)) {
+  if (value !== english[key]) {
+    assert.deepEqual(tokens(value), tokens(english[key]),
+      `${key}: locale-wide placeholder inventory`);
+  }
+}
 
 const batchKeys = [
   'activity-changedListTitle',
@@ -175,6 +192,9 @@ for (const key of batchKeys) {
 
 assert.equal(albanian['allboards.workspaces'], 'Hapësirat e punës');
 assert.equal(albanian['activity-moved'], 'zhvendosi %s nga %s në %s');
+assert.equal(albanian['board-view'], 'Pamja e tabelës');
+assert.equal(albanian['card-due'], 'Afati');
+assert.equal(albanian['positiveVoteMembersPopup-title'], 'Mbështetësit');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first 150 Albanian values passed');
+console.log('albanianTranslationProgress: first 200 Albanian values passed');
