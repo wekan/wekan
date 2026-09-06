@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1974,
-  'the first four Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1924,
+  'the first five Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -70,5 +70,13 @@ assert.match(tajik['board-background-image-url'], /URL/);
 assert.deepEqual(tokens(tajik['board-nb-stars']), ['%s']);
 assert.deepEqual(tags(tajik['board-private-info']),
   ['</strong>', '<strong>']);
+assert.deepEqual(tags(tajik['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  tajik['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.match(tajik['enter-zoom-level'], /50-300%/);
+assert.deepEqual(tokens(tajik['card-comments-title']), ['%s']);
+assert.equal(tajik['mobile-mode'], 'Ҳолати мобилӣ');
 
-console.log('tajikTranslationProgress: first four batches passed');
+console.log('tajikTranslationProgress: first five batches passed');
