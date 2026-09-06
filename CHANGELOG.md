@@ -307,7 +307,8 @@ styles.
 
 </details>
 
-**Board rules** - bulk actions use the same themed button style as rule actions.
+**Board rules** - details follow the interface language and bulk actions use the
+same themed button style as rule actions.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aef1f02fe">Translate stored rule details on display</a>. Thanks to xet7.</summary>
