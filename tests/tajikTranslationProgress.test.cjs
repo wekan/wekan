@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
-  'the first forty Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 124,
+  'the first forty-one Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -316,5 +316,12 @@ assert.match(tajik['restore-lost-cards-migration-description'],
 assert.match(tajik['fix-avatar-urls-migration-description'], /URL/);
 assert.match(tajik['run-restore-all-archived-migration-confirm'], /ҲАМАИ.*ID/);
 assert.equal(tajik['migration-progress-current-step'], 'Қадами ҷорӣ');
+assert.equal(tajik['step-fix-orphaned-cards'], 'Ислоҳи кортҳои бесоҳиб');
+assert.match(tajik['step-fix-avatar-urls'], /URL/);
+assert.equal(tajik['cpu-cores'], 'Мағзҳои CPU');
+assert.equal(tajik['every-30-minutes'], 'Ҳар 30 дақиқа');
+assert.equal(tajik['gridfs-attachments'], 'Замимаҳои GridFS');
+assert.equal(tajik['hide-list-on-minicard'],
+  'Пинҳон кардани рӯйхат дар корти хурд');
 
-console.log('tajikTranslationProgress: first forty batches passed');
+console.log('tajikTranslationProgress: first forty-one batches passed');
