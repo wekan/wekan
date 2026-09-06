@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 524,
-  'the first thirty-three 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 474,
+  'the first thirty-four 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -257,4 +257,10 @@ assert.match(tigre['attachment-repair-locations-description'], /GridFS.*ደበ�
 assert.match(tigre['mongodb-compact-description'], /MongoDB GridFS/);
 assert.match(tigre['mongodb-compact-warning'], /oplog.*Meteor/);
 
-console.log('tigreTranslationProgress: first thirty-three batches passed');
+assert.deepEqual(tokens(tigre['drag-board-to-workspace']),
+  tokens(english['drag-board-to-workspace']));
+assert.match(tigre['preview-pdf-not-supported'], /PDF/);
+assert.match(tigre['import-board-zip'], /\.zip/);
+assert.match(tigre['import-board-zip'], /JSON/);
+
+console.log('tigreTranslationProgress: first thirty-four batches passed');
