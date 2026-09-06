@@ -5,7 +5,7 @@
  */
 
 import { Meteor } from 'meteor/meteor';
-import { WebApp } from 'meteor/webapp';
+import { WebApp, WebAppInternals } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
 import Attachments from '/models/attachments';
@@ -21,7 +21,14 @@ import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '
 import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
 import path from 'path';
-import { attachmentAsStoredGif } from '/server/lib/legacyHtml4Gif';
+import crypto from 'crypto';
+import { fetchSafe } from '/server/lib/ssrfGuard';
+import {
+  attachmentAsStoredGif,
+  boundedStreamBuffer,
+  convertImageBufferToGif,
+  storeGeneratedGif,
+} from '/server/lib/legacyHtml4Gif';
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
   if (!fileObj) return fileObj;
@@ -502,6 +509,70 @@ if (Meteor.isServer) {
   // ============================================================================
   // NEW METEOR-FILES ROUTES (URL-agnostic)
   // ============================================================================
+
+  async function loginLogoSource(setting) {
+    if (setting?.customLoginLogoImageUrl) {
+      const response = await fetchSafe(setting.customLoginLogoImageUrl, { maxRedirects: 3 });
+      if ((response.statusCode || response.status) < 200 ||
+          (response.statusCode || response.status) >= 300) {
+        throw new Error('Custom login logo download failed');
+      }
+      return boundedStreamBuffer(response.body || response);
+    }
+    const staticFiles = WebAppInternals.staticFilesByArch || {};
+    for (const files of Object.values(staticFiles)) {
+      const info = files && files['/wekan-logo.svg'];
+      if (info?.absolutePath) return fs.promises.readFile(info.absolutePath);
+    }
+    return fs.promises.readFile(path.join(process.cwd(), 'public', 'wekan-logo.svg'));
+  }
+
+  WebApp.handlers.get('/legacy-html4/login-logo.gif', async (req, res) => {
+    try {
+      const setting = (await AttachmentStorageSettings.findOneAsync({})) || {};
+      const currentSetting = await ReactiveCache.getCurrentSetting();
+      if (currentSetting?.hideLogo === true) {
+        res.writeHead(404); res.end('Logo is hidden'); return;
+      }
+      const sourceName = currentSetting?.customLoginLogoImageUrl || 'wekan-logo.svg';
+      const digest = crypto.createHash('sha256').update(sourceName).digest('hex');
+      const fileId = `legacy-html4-login-logo-${digest.slice(0, 24)}`;
+      let fileObj = await Attachments.collection.findOneAsync({ _id: fileId });
+      if (!fileObj) {
+        fileObj = {
+          _id: fileId, name: 'login-logo.gif', type: 'image/gif', size: 0,
+          uploadedAt: new Date(), versions: {},
+          meta: { systemAsset: 'legacy-html4-login-logo', sourceDigest: digest },
+        };
+        await Attachments.collection.insertAsync(fileObj);
+      }
+      let gif;
+      if (fileObj.versions?.legacyHtml4Gif) {
+        const strategy = attachmentStoreFactory.getFileStrategy(fileObj, 'legacyHtml4Gif');
+        gif = await boundedStreamBuffer(strategy.getReadStream());
+      } else {
+        gif = await convertImageBufferToGif(await loginLogoSource(currentSetting));
+        const defaultStorage = setting?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
+        if (setting?.isStorageWriteEnabled && !setting.isStorageWriteEnabled(defaultStorage)) {
+          throw new Error('Default attachment storage is not writable');
+        }
+        await storeGeneratedGif(fileObj, gif, {
+          factory: attachmentStoreFactory,
+          collection: Attachments.collection,
+          getDefaultStorage: async () => defaultStorage,
+        });
+      }
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'image/gif');
+      res.setHeader('Content-Length', gif.length);
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.end(gif);
+    } catch (error) {
+      if (process.env.DEBUG === 'true') console.warn('Legacy HTML4 login logo failed:', error);
+      res.writeHead(404); res.end('Login logo unavailable');
+    }
+  });
 
   // Legacy HTML4 image representation. The first authorized request converts the
   // original on the server and persists versions.legacyHtml4Gif in Admin Panel /

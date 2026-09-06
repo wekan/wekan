@@ -59,6 +59,12 @@ access data.
   `/allboards/...`, `/b/...`, card URLs, search, import, account preferences and
   Admin Panel URLs. An unsupported action must render an explanatory page, not
   fall through to a JavaScript-only shell.
+- Read the same Settings document and translation catalogue as the HTML5 view.
+  Product name, login logo visibility/link, text below the logo, legal notice,
+  registration and forgot-password visibility, field labels, action labels and
+  route headings must therefore agree in both representations. Language comes
+  from the request's supported `Accept-Language` preference until an
+  authenticated cookieless session carries the user's saved language.
 
 ### Image attachments
 
@@ -80,6 +86,14 @@ Cookieless private pages must not put a session secret in an image URL: an
 explicit POST `Show image` control returns the GIF from the authenticated form
 request. Every attachment also retains a separately labelled original-file
 download control. All conversion and authorization remains server-side.
+
+The login logo follows the same rule. The configured custom login-logo URL is
+downloaded only through the SSRF-safe pinned resolver; without one, WeKan's
+built-in SVG logo is read from the generated client asset manifest. Its first
+Legacy HTML4 request creates a GIF system-asset version in Admin Panel /
+Attachments / Default Storage. Later requests reuse it. Changing the configured
+source URL selects a different content-derived system asset. Unsafe logo-link
+and legal-notice URL schemes are never emitted into HTML.
 
 ## Cookieless authentication and request integrity
 

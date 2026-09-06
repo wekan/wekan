@@ -1,6 +1,22 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { Readable } = require('node:stream');
+const fs = require('node:fs');
+const path = require('node:path');
+
+test('login logo endpoint converts and stores the GIF in Default Storage', () => {
+  const source = fs.readFileSync(
+    path.join(__dirname, '..', 'server', 'routes', 'universalFileServer.js'),
+    'utf8',
+  );
+  assert.match(source, /get\('\/legacy-html4\/login-logo\.gif'/);
+  assert.match(source, /customLoginLogoImageUrl/);
+  assert.match(source, /fetchSafe\(setting\.customLoginLogoImageUrl/);
+  assert.match(source, /convertImageBufferToGif\(await loginLogoSource/);
+  assert.match(source, /getDefaultStorage/);
+  assert.match(source, /storeGeneratedGif/);
+  assert.match(source, /meta: \{ systemAsset: 'legacy-html4-login-logo'/);
+});
 
 test('Legacy HTML4 converts an attachment image to a bounded GIF on the server', async () => {
   const {

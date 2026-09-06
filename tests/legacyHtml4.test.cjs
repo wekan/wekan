@@ -65,8 +65,45 @@ test('sign-in baseline is usable and dynamic paths are escaped', () => {
   assert.match(login, /<form method="post" action="\/sign-in">/);
   assert.match(login, /name="username"/);
   assert.match(login, /name="password"/);
-  assert.match(login, /type="submit" value="Sign in"/);
+  assert.match(login, /type="submit" value="Log In"/);
+  assert.match(login, /src="\/legacy-html4\/login-logo\.gif" alt="WeKan"/);
+  assert.match(login, /href="\/forgot-password">Forgot password/);
+  assert.match(login, /href="\/sign-up">Create an Account/);
 
   const hostile = renderLegacyHtml4Page('/board/%3Cscript%3E');
   assert.doesNotMatch(hostile, /<strong><script>/);
+});
+
+test('sign-in uses the HTML5 view branding, settings and translations', () => {
+  const values = {
+    'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',
+    email: 'Sähköposti', password: 'Salasana',
+    'forgot-password': 'Unohtunut salasana',
+    'signupPopup-title': 'Luo käyttäjätili',
+    acceptance_of_our_legalNotice: 'Jatkamalla hyväksyt', legalNotice: 'käyttöehdot',
+  };
+  const html = renderLegacyHtml4Page('/sign-in', {
+    productName: 'Example Kanban', language: 'fi',
+    customLoginLogoLinkUrl: 'https://example.invalid/',
+    textBelowCustomLoginLogo: 'Welcome to this service',
+    legalNotice: 'https://example.invalid/legal',
+    translate: key => values[key] || key,
+  });
+  assert.match(html, /<html lang="fi">/);
+  assert.match(html, /<title>Example Kanban - Kirjaudu sisään<\/title>/);
+  assert.match(html, /alt="Example Kanban"/);
+  assert.match(html, />Käyttäjänimi \/ Sähköposti<\/label>/);
+  assert.match(html, />Salasana<\/label>/);
+  assert.match(html, /Welcome to this service/);
+  assert.match(html, /Jatkamalla hyväksyt/);
+  assert.match(html, />käyttöehdot<\/a>/);
+});
+
+test('sign-in refuses script URLs in shared branding settings', () => {
+  const html = renderLegacyHtml4Page('/sign-in', {
+    customLoginLogoLinkUrl: 'javascript:alert(1)',
+    legalNotice: 'data:text/html,unsafe',
+  });
+  assert.doesNotMatch(html, /javascript:|data:text\/html/);
+  assert.match(html, /src="\/legacy-html4\/login-logo\.gif"/);
 });

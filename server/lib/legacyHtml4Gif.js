@@ -115,6 +115,28 @@ async function createOrReadStoredGif(fileObj, options) {
   return gif;
 }
 
+export async function storeGeneratedGif(fileObj, gif, options) {
+  const { factory, collection, getDefaultStorage, versionName = 'legacyHtml4Gif' } = options;
+  const storage = await getDefaultStorage();
+  const target = factory.getFileStrategy(fileObj, versionName, storage);
+  if (!target) throw new Error('Legacy HTML4 GIF default storage is unavailable');
+  const targetPath = target.getNewPath(factory.storagePath, `${fileObj._id}.gif`);
+  const version = {
+    path: targetPath, size: gif.length, type: 'image/gif', extension: 'gif',
+    storage: target.getStorageName(), cacheKey: omiGifCacheKey(fileObj),
+  };
+  await collection.updateAsync({ _id: fileObj._id }, { $set: { [`versions.${versionName}`]: version } });
+  fileObj.versions[versionName] = version;
+  const output = target.getWriteStream(targetPath);
+  if (!output) throw new Error('Legacy HTML4 GIF default storage is not writable');
+  await new Promise((resolve, reject) => {
+    output.once('error', reject); output.once('finish', resolve); output.end(gif);
+  });
+  if (typeof target.waitUntilStored === 'function') await target.waitUntilStored();
+  if (typeof target.writeStreamFinished === 'function') target.writeStreamFinished();
+  return gif;
+}
+
 export async function attachmentAsStoredGif(fileObj, options) {
   const key = String(fileObj?._id || '');
   if (conversionsInProgress.has(key)) return conversionsInProgress.get(key);
