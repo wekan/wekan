@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tn',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2124,
-  'the first 50-value Tswana batch stays resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
+  'the first two 50-value Tswana batches stay resolved');
 
 for (const [key, value] of Object.entries(tswana)) {
   if (value !== english[key]) {
@@ -43,4 +43,11 @@ assert.match(tswana['act-addChecklist'], /lenaane la tlhatlhobo/);
 assert.match(tswana['board-members-same-org-only'], /Mokgatlhong/);
 assert.match(tswana['board-members-same-team-only'], /Setlhopheng/);
 
-console.log('tswanaTranslationProgress: first batch passed');
+assert.deepEqual(tokens(tswana['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(tswana['activity-imported']), ['%s', '%s', '%s']);
+assert.equal(tswana['allboards.workspaces'], 'Mafelo a tiro');
+assert.match(tswana['allboards.edit-workspace-icon'], /markdown/);
+
+console.log('tswanaTranslationProgress: first two batches passed');
