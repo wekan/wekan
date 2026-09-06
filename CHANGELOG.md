@@ -326,6 +326,22 @@ screenshots.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b66ced92c">Add accessible checklist copy and move</a>. Thanks to xet7.</summary>
+
+Checklist copy and cross-card movement now use one authenticated server boundary
+from HTML5 and cookieless HTML4. HTML4 provides a bounded native destination
+selector across writable boards, so these operations require neither JavaScript
+nor drag-and-drop.
+
+Both source and destination are authorized before mutation, including linked-card
+content targets. Copying whitelists fields and preserves item order and completion;
+moving recalculates destination order and updates checklist, item and activity card
+and board identities. Browser coverage verifies a valid move, a full copy and a
+forged destination on another user's board.
+
+</details>
+
 **Images** - external images and document previews become local GIF attachments.
 
 <details>
