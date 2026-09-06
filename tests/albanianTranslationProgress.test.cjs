@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 416,
-  'the first thirty-four Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 316,
+  'the first thirty-six Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -262,6 +262,10 @@ assert.deepEqual(tokens(albanian['drag-board-to-workspace']), ['__workspaces__']
 assert.equal(albanian.accessibility, 'Qasshmëria');
 assert.equal(albanian['accounts-lockout-unlock-all'], 'Zhblloko të gjithë');
 assert.equal(albanian['cron-migrations'], 'Migrimet e planifikuara');
+assert.deepEqual(tokens(albanian['database-migration-confirm']), ['__db__']);
+assert.match(albanian['database-migration-description'], /MongoDB.*FerretDB v1.*SQLite/);
+assert.equal(albanian['features-security'], 'Siguria');
+assert.match(albanian['backup-description'], /S3\/MinIO.*Azure.*GCS/);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first thirty-four Albanian batches passed');
+console.log('albanianTranslationProgress: first thirty-six Albanian batches passed');
