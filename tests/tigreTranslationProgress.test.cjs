@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 774,
-  'the first twenty-eight 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
+  'the first twenty-nine 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -234,4 +234,10 @@ assert.deepEqual(tokens(tigre['globalSearch-instructions-operator-has']),
 assert.match(tigre['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(tigre['globalSearch-instructions-notes-3'], /\*AND\*/);
 
-console.log('tigreTranslationProgress: first twenty-eight batches passed');
+assert.deepEqual(tokens(tigre['import-dependencies-done']),
+  tokens(english['import-dependencies-done']));
+assert.deepEqual(tokens(tigre['background-too-big']),
+  tokens(english['background-too-big']));
+assert.match(tigre['import-dependencies-file'], /JSON.*SVG/);
+
+console.log('tigreTranslationProgress: first twenty-nine batches passed');
