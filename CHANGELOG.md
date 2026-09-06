@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/661146324">Add accessible HTML4 card sort control</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now provide a labelled card-sort field in
+natural keyboard order. The card-details form, minicard popup and HTML4 form
+all call one acknowledged server operation instead of moving directly from
+client code.
+
+The operation accepts only a complete finite decimal or exponent-form number
+within a bounded range. It repeats route-board and card write authorization and
+verifies the card's current list and swimlane before mutation. Unit and Chromium
+coverage accepts a valid decimal, rejects malformed input and a forged foreign
+board without mutation, restores the original order and captures paired
+same-URL HTML4 and HTML5 card screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/132570614">Add accessible HTML4 card identity controls</a>. Thanks to xet7.</summary>
 
 Requested By and Assigned By in cookieless HTML4 now preserve both parts of the
