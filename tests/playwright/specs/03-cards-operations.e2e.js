@@ -116,7 +116,7 @@ test.describe('Cards – operations', () => {
     await boardPage.waitForSelector('#viewer-overlay', { state: 'attached' });
     const dimensions = await boardPage.evaluate(() => {
       const overlay = document.querySelector('#viewer-overlay');
-      const pdf = document.querySelector('#pdf-viewer');
+      const pdf = document.querySelector('#document-gif-viewer');
       overlay.classList.remove('hidden');
       pdf.classList.remove('hidden');
       const result = {

@@ -37,6 +37,7 @@ test('no inline partial escape reaches a dynamic RegExp', () => {
   const offenders = [];
   for (const file of sourceFiles()) {
     if (file === __filename) continue;
+    if (!fs.existsSync(file)) continue;
     for (const line of incompleteInlineEscapes(fs.readFileSync(file, 'utf8'))) {
       offenders.push(`${path.relative(ROOT, file)}:${line}`);
     }

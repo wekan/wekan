@@ -6,14 +6,16 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const dist = fs.readFileSync(path.join(__dirname, '..', 'npm-packages',
-  'office-open-xml-viewer', 'dist', 'xlsx-DSU6pV1O.js'), 'utf8');
-const method = /tabStyle\(e, t\) \{([\s\S]*?)\n\t\}/.exec(dist);
-assert.ok(method, 'the shipped XLSX tab style method exists');
-assert.match(method[1], /typeof t == "string" && \/\^#\[0-9A-F\]\{6\}\$\/\.test\(t\)/,
-  'only canonical six-digit hexadecimal CSS colors cross into the style');
-assert.ok(method[1].indexOf('^#[0-9A-F]{6}$') < method[1].indexOf('box-shadow:'),
-  'validation happens before the CSS serialization sink');
+const source = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
+  'documentGif.js'), 'utf8');
+assert.match(source, /function safeRgb\(value\)/,
+  'the server-side XLSX renderer has one color validation boundary');
+assert.match(source, /\^\(\?:\[0-9A-Fa-f\]\{2\}\)\?\(\[0-9A-Fa-f\]\{6\}\)\$/,
+  'only OOXML RGB/ARGB hex tokens cross into generated CSS');
+assert.match(source, /htmlEscape\(value\)/,
+  'cell contents are escaped before entering the generated HTML table');
+assert.match(source, /xml\.replace\(\/<f\\b\[\\s\\S\]\*\?<\\\/f>\/g, ''\)/,
+  'formula source is not copied into the preview or search text');
 
 const canonical = value => typeof value === 'string' && /^#[0-9A-F]{6}$/.test(value)
   ? value.toUpperCase() : '';
@@ -25,4 +27,4 @@ for (const attack of [
 
 assert.doesNotMatch(canonical('#FF0000;POSITION:FIXED'), /[;():]/,
   'negative: declarations cannot survive as a color');
-console.log('SheetColorBleed: XLSX tab colors are canonical before CSS serialization');
+console.log('SheetColorBleed: server-rendered XLSX colors are canonical before CSS serialization');

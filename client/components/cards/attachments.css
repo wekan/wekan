@@ -303,26 +303,48 @@
 #audio-viewer {
   max-width: 100%;
 }
-#pdf-viewer {
-  width: 100%;
-  height: 100%;
-}
 #txt-viewer {
   background-color: white;
   width: 100%;
   height: 100%;
 }
-#office-viewer {
-  background-color: #e5e7eb;
+#document-gif-viewer {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
+  padding: 12px;
+  background: white;
+  color: #111;
 }
-.pdf-preview-error {
-  margin-top: 180px;
+
+.document-page-controls {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: white;
+}
+
+.document-page-images img {
   display: block;
-  font-size: 2em;
-  color: white;
+  max-width: 100%;
+  margin: 8px auto;
+}
+
+.document-page-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.document-page-html table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
 }
 
 @media screen and (max-width: 800px) {
@@ -351,14 +373,8 @@
     padding: 16px;
     margin-inline-end: 0;
   }
-  #pdf-viewer {
-    width: 100%;
-    height: calc(
-      100vh - 155px
-    ); /* Full height - height of top and bottom bars */
-  }
   #txt-viewer,
-  #office-viewer {
+  #document-gif-viewer {
     width: 100%;
     height: calc(
       100vh - 155px

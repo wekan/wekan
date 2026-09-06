@@ -52,7 +52,7 @@ test.describe('Attachments & links', () => {
     expect(count).toBeGreaterThanOrEqual(1);
   });
 
-  test('the attachment overlay has an isolated Office preview surface', async ({
+  test('the attachment overlay has one isolated document preview surface', async ({
     boardPage,
     board,
   }) => {
@@ -63,10 +63,11 @@ test.describe('Attachments & links', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const viewer = boardPage.locator('#office-viewer');
+    const viewer = boardPage.locator('#document-gif-viewer');
     await expect(viewer).toHaveCount(1);
     await expect(viewer).toHaveClass(/hidden/);
     await expect(viewer.locator('iframe, object, embed')).toHaveCount(0);
+    await expect(viewer.locator('.document-page-text')).toHaveCount(1);
   });
 
   test('stored HTML is forced to a safe download on the original Meteor-Files route', async ({

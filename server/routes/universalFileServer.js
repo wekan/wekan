@@ -5,6 +5,7 @@
  */
 
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import { WebApp, WebAppInternals } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
@@ -29,6 +30,7 @@ import {
   convertImageBufferToGif,
   storeGeneratedGif,
 } from '/server/lib/legacyHtml4Gif';
+import { DocumentPreviews, documentAsStoredGifs } from '/server/lib/documentGif';
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
   if (!fileObj) return fileObj;
@@ -108,6 +110,29 @@ async function getAttachmentDownloadLimitSettings() {
 
 if (Meteor.isServer) {
   console.log('Universal file server initializing...');
+
+  Meteor.methods({
+    async searchAttachmentDocumentText(boardId, query) {
+      check(boardId, String);
+      check(query, String);
+      const needle = query.normalize('NFKC').replace(/\s+/g, ' ').trim().slice(0, 200);
+      if (needle.length < 2) return [];
+      const board = await ReactiveCache.getBoard(boardId);
+      if (!board || !(await canReadBoard(this.userId, board))) {
+        throw new Meteor.Error('not-authorized');
+      }
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const rows = await DocumentPreviews.find(
+        { boardId, searchText: { $regex: escaped, $options: 'i' } },
+        { fields: { attachmentId: 1, cardId: 1, searchText: 1 }, limit: 50 },
+      ).fetchAsync();
+      return rows.map(row => {
+        const at = row.searchText.toLocaleLowerCase().indexOf(needle.toLocaleLowerCase());
+        return { attachmentId: row.attachmentId, cardId: row.cardId,
+          snippet: row.searchText.slice(Math.max(0, at - 80), Math.max(0, at - 80) + 240) };
+      });
+    },
+  });
 
   /**
    * Helper function to set appropriate headers for file serving
@@ -624,6 +649,84 @@ if (Meteor.isServer) {
       if (process.env.DEBUG === 'true') console.warn('Legacy HTML4 GIF conversion failed:', error);
       res.writeHead(415); res.end('Attachment is not a convertible image');
     }
+  });
+
+  async function authorizedDocument(req) {
+    const attachment = await getAttachmentWithBackwardCompatibility(req.params.fileId);
+    if (!attachment) return null;
+    const board = await ReactiveCache.getBoard(attachment.meta?.boardId);
+    if (!board || !(await isAuthorizedForBoard(req, board))) return null;
+    const limits = await getAttachmentDownloadLimitSettings();
+    if (limits.blocked || (limits.maxBytes > 0 && attachment.size > limits.maxBytes)) return null;
+    return attachment;
+  }
+
+  async function documentManifest(attachment) {
+    const settings = await AttachmentStorageSettings.findOneAsync({});
+    const storage = settings?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
+    if (settings?.isStorageWriteEnabled && !settings.isStorageWriteEnabled(storage)) {
+      throw new Error('Default attachment storage is not writable');
+    }
+    return documentAsStoredGifs(attachment, {
+      factory: attachmentStoreFactory, collection: Attachments.collection,
+      getDefaultStorage: async () => storage,
+    });
+  }
+
+  WebApp.handlers.get('/document-preview/:fileId/manifest.json', async (req, res) => {
+    try {
+      const attachment = await authorizedDocument(req);
+      if (!attachment) { res.writeHead(403); res.end('Access denied'); return; }
+      const manifest = await documentManifest(attachment);
+      const body = JSON.stringify({ pageCount: manifest.pageCount, pages: manifest.pages });
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body),
+        'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' });
+      res.end(body);
+    } catch (error) { res.writeHead(415); res.end('Document preview unavailable'); }
+  });
+
+  WebApp.handlers.get('/document-preview/:fileId/:page.gif', async (req, res) => {
+    try {
+      const attachment = await authorizedDocument(req);
+      if (!attachment) { res.writeHead(403); res.end('Access denied'); return; }
+      const manifest = await documentManifest(attachment);
+      const page = Number.parseInt(req.params.page, 10);
+      if (!Number.isInteger(page) || page < 1 || page > manifest.pageCount) {
+        res.writeHead(404); res.end('Page not found'); return;
+      }
+      const image = manifest.pages.flatMap(item => item.images).find(item => item.number === page);
+      if (!image) { res.writeHead(404); res.end('Image not found'); return; }
+      const strategy = attachmentStoreFactory.getFileStrategy(attachment, image.version);
+      const gif = await boundedStreamBuffer(strategy.getReadStream());
+      res.writeHead(200, { 'Content-Type': 'image/gif', 'Content-Length': gif.length,
+        'Cache-Control': 'private, max-age=31536000, immutable',
+        'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; sandbox" });
+      res.end(gif);
+    } catch (error) { res.writeHead(415); res.end('Document preview unavailable'); }
+  });
+
+  WebApp.handlers.get('/document-preview/:fileId/:page.html', async (req, res) => {
+    try {
+      const attachment = await authorizedDocument(req);
+      if (!attachment) { res.writeHead(403); res.end('Access denied'); return; }
+      const manifest = await documentManifest(attachment);
+      const number = Number.parseInt(req.params.page, 10);
+      const page = manifest.pages.find(item => item.number === number);
+      if (!page) { res.writeHead(404); res.end('Page not found'); return; }
+      const escape = value => String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      const images = page.images.map(image =>
+        `<p><img src="/document-preview/${encodeURIComponent(attachment._id)}/${image.number}.gif" alt=""></p>`).join('');
+      const content = page.html || `<pre>${escape(page.text)}</pre>`;
+      const previous = number > 1 ? `<a href="${number - 1}.html">Previous</a>` : '';
+      const next = number < manifest.pageCount ? `<a href="${number + 1}.html">Next</a>` : '';
+      const body = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>${escape(attachment.name)}</title></head><body><p>${previous} ${number} / ${manifest.pageCount} ${next}</p>${images}${content}</body></html>`;
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8',
+        'Content-Length': Buffer.byteLength(body), 'Cache-Control': 'private, no-store',
+        'X-Content-Type-Options': 'nosniff',
+        'Content-Security-Policy': "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox" });
+      res.end(body);
+    } catch (error) { res.writeHead(415); res.end('Document preview unavailable'); }
   });
 
   /**

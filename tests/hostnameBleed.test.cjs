@@ -57,6 +57,7 @@ test('no tracked JavaScript constructs a RegExp from looped hostname literals', 
   const findings = [];
   for (const relative of listed.stdout.split('\0').filter(Boolean)) {
     if (!/\.(?:cjs|mjs|js)$/.test(relative)) continue;
+    if (!fs.existsSync(path.join(root, relative))) continue;
     // This suite deliberately contains the vulnerable fixture above to prove
     // the negative scanner fails on it; do not scan the scanner's own fixture.
     if (relative === 'tests/hostnameBleed.test.cjs') continue;
