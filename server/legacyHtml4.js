@@ -72,6 +72,7 @@ WebApp.handlers.use(async (req, res, next) => {
     disableRegistration: setting.disableRegistration === true,
     disableForgotPassword: setting.disableForgotPassword === true,
     loginFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('login') === 'failed',
+    registrationFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('registration') === 'failed',
     authenticated: Boolean(session),
     username: user?.username || '',
     sessionFields: session ? sessionFields(session, '/allboards') : null,

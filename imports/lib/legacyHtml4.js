@@ -110,7 +110,7 @@ function authContent(path, options) {
   }
   if (path === '/sign-up') {
     return [
-      '<form method="post" action="/sign-up">',
+      '<form method="post" action="/users/register">',
       '<input type="hidden" name="legacyHtml4" value="1">',
       `<p><label for="username">${escapeHtml(t('username', 'Username'))}</label><br>`,
       '<input id="username" name="username" type="text" size="30"></p>',
@@ -120,6 +120,7 @@ function authContent(path, options) {
       '<input id="password" name="password" type="password" size="30"></p>',
       `<p><input type="submit" value="${escapeHtml(t('register', 'Register'))}"></p>`,
       '</form>',
+      options.registrationFailed ? `<p role="alert">${escapeHtml(t('error-user-registration-disabled', 'Account creation failed.'))}</p>` : '',
       `<p><a href="/sign-in">${escapeHtml(t('already-account', 'Already have an account? Sign in'))}</a></p>`,
     ].join('\n');
   }

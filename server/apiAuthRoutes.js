@@ -335,6 +335,7 @@ WebApp.handlers.options('/users/register', function (req, res) {
 });
 
 WebApp.handlers.post('/users/register', async function (req, res) {
+  const legacyHtml4 = req.body?.legacyHtml4 === '1';
   try {
     // SignupBleed: this asked `Accounts._options.forbidClientAccountCreation`,
     // which NOTHING IN WEKAN EVER SETS. The only `Accounts.config()` call
@@ -365,11 +366,18 @@ WebApp.handlers.post('/users/register', async function (req, res) {
       } catch (e) {
         /* logging must never break the guard */
       }
-      sendJsonResult(res, { code: 403 });
+      if (legacyHtml4) {
+        res.statusCode = 303;
+        res.setHeader('Location', '/sign-up?registration=failed');
+        res.end();
+      } else {
+        sendJsonResult(res, { code: 403 });
+      }
       return;
     }
 
-    const options = req.body;
+    const options = { ...req.body };
+    delete options.legacyHtml4;
     check(options, {
       username: Match.Optional(String),
       email: Match.Optional(String),
@@ -381,6 +389,24 @@ WebApp.handlers.post('/users/register', async function (req, res) {
     if (options.email) userOptions.email = options.email;
 
     const userId = await Accounts.createUserAsync(userOptions);
+
+    if (legacyHtml4) {
+      const legacySession = await createLegacyHtml4Session(userId, req);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.end(renderLegacyHtml4Page('/allboards', {
+        productName: setting?.productName || 'WeKan',
+        hideLogo: setting?.hideLogo === true,
+        customLoginLogoLinkUrl: setting?.customLoginLogoLinkUrl || '',
+        textBelowCustomLoginLogo: setting?.textBelowCustomLoginLogo || '',
+        legalNotice: setting?.legalNotice || '',
+        authenticated: true,
+        username: options.username || '',
+        sessionFields: legacySession,
+      }));
+      return;
+    }
 
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
@@ -398,6 +424,12 @@ WebApp.handlers.post('/users/register', async function (req, res) {
       },
     });
   } catch (error) {
+    if (legacyHtml4) {
+      res.statusCode = 303;
+      res.setHeader('Location', '/sign-up?registration=failed');
+      res.end();
+      return;
+    }
     res.statusCode = error.statusCode || 400;
     res.setHeader('Content-Type', 'application/json');
     res.end(

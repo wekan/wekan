@@ -105,6 +105,25 @@ test('an authenticated HTML4 request does not draw the login form again', () => 
   assert.match(middleware, /tripCanary\('authz\.legacy-html4-session'/);
 });
 
+test('sign-up uses registration guards and starts the same cookieless session', () => {
+  const signup = renderLegacyHtml4Page('/sign-up');
+  assert.match(signup, /<form method="post" action="\/users\/register">/);
+  assert.match(signup, /name="legacyHtml4" value="1"/);
+  const route = fs.readFileSync(path.join(__dirname, '..', 'server',
+    'apiAuthRoutes.js'), 'utf8');
+  const register = route.slice(route.indexOf("WebApp.handlers.post('/users/register'"));
+  assert.match(register, /legacyHtml4 = req\.body\?\.legacyHtml4 === '1'/);
+  assert.match(register, /disableRegistration === true/);
+  assert.match(register, /delete options\.legacyHtml4/);
+  assert.match(register, /createLegacyHtml4Session\(userId, req\)/);
+  assert.match(register, /renderLegacyHtml4Page\('\/allboards'/);
+  assert.match(register, /Location', '\/sign-up\?registration=failed'/);
+  const beforeToken = register.indexOf('createLegacyHtml4Session(userId, req)');
+  const reusableToken = register.indexOf('Accounts._generateStampedLoginToken()');
+  assert.ok(beforeToken !== -1 && reusableToken > beforeToken,
+    'HTML4 returns before a reusable Meteor token is generated');
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',
