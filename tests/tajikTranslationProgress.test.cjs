@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
-  'the first two Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2024,
+  'the first three Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -57,5 +57,12 @@ assert.deepEqual(tokens(tajik['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(tajik['allboards.workspaces'], 'Фазоҳои корӣ');
 assert.match(tajik['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(tajik['activity-dueDate']), ['%s', '%s']);
+assert.match(tajik['list-width-error-message'], /270/);
+assert.equal(tajik['fixed-list-width'],
+  'Паҳноии яксон барои ҳамаи рӯйхатҳо');
+assert.match(tajik['set-swimlane-height-value'], /пиксел/);
+assert.equal(tajik['convertChecklistItemToCardPopup-title'],
+  'Ба корт табдил додан');
 
-console.log('tajikTranslationProgress: first two batches passed');
+console.log('tajikTranslationProgress: first three batches passed');
