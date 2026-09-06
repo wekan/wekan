@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,306 values across 36 second-tier languages**. Albanian
-now has 1,216 left after its first eighteen 50-value batches. Bosnian is also
+remaining work is **77,206 values across 36 second-tier languages**. Albanian
+now has 1,116 left after its first twenty 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first eighteen activity,
-board, card, import, system, organization, team and minicard-setting batches;
+**In short:** **Albanian translations** now cover the first twenty activity,
+board, import, system, organization, card-setting and automation batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8354,6 +8354,19 @@ inactive and imported members, Kanboard, Deck, OpenProject, Asana, ZenKit, Jira,
 Excel and WeKan import guidance, safe Trello ZIP errors, Trello API progress and
 member mapping. The importer placeholders and command examples remain intact.
 This leaves 77,486 actionable values across 36 languages, including 1,515 in
+Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d8caf91a">Translate Albanian automation builder</a>. Thanks to xet7.</summary>
+
+The nineteenth and twentieth 50-value Albanian batches add the visual rule
+builder, card and checklist triggers, JSON, CSV and Trello Butler interchange,
+n8n and Node-RED workflow imports, schedules, due-date conditions, rule buttons,
+sorting and relative dates. All one hundred values required translation. Tests
+retain every `__time__` and `__count__` token plus the workflow product names.
+This leaves 77,206 actionable values across 36 languages, including 1,116 in
 Albanian.
 
 </details>
