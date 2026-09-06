@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1924,
-  'the first five Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1874,
+  'the first six Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -78,5 +78,12 @@ assert.deepEqual(tokens(
 assert.match(tajik['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(tajik['card-comments-title']), ['%s']);
 assert.equal(tajik['mobile-mode'], 'Ҳолати мобилӣ');
+assert.equal(tajik['positiveVoteMembersPopup-title'], 'Тарафдорон');
+assert.equal(tajik['negativeVoteMembersPopup-title'], 'Мухолифон');
+assert.match(tajik['poker-delete-pop'], /Planning Poker/);
+assert.equal(tajik['cardDependenciesPopup-title'],
+  'Илова кардани вобастагӣ');
+assert.equal(tajik['exportChecklistPopup-title'],
+  'Содир кардани рӯйхати санҷиш');
 
-console.log('tajikTranslationProgress: first five batches passed');
+console.log('tajikTranslationProgress: first six batches passed');
