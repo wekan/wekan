@@ -117,12 +117,36 @@ test('smaller exports begin at Swimlane -> List -> Card or List -> Card', () => 
   for (const source of [pdf, excelBoard]) {
     assert.ok(/this\._listId[\s\S]*this\._swimlaneId/.test(source),
       'scope heading chooses List before Swimlane before Board');
-    assert.ok(/const groups = this\._listId[\s\S]*swimlane/.test(source),
+    assert.ok(/const groups = \(this\._cardId \|\| this\._checklistId \|\| this\._listId\)[\s\S]*swimlane/.test(source),
       'a list export has no extra swimlane group');
     assert.ok(/group\.title && !this\._swimlaneId/.test(source),
       'a swimlane export does not repeat its own heading');
-    assert.ok(/if \(!this\._listId\)/.test(source),
+    assert.ok(/if \(!this\._listId && !this\._cardId && !this\._checklistId\)/.test(source),
       'a list export does not repeat its own list heading');
+  }
+});
+
+test('card and checklist scopes stay bound to their board in PDF and Excel', () => {
+  for (const [name, source] of [['PDF', pdf], ['Excel', excelBoard]]) {
+    assert.ok(/this\._cardId = scope\.cardId \|\| ''/.test(source),
+      `${name} retains the card scope`);
+    assert.ok(/this\._checklistId = scope\.checklistId \|\| ''/.test(source),
+      `${name} retains the checklist scope`);
+    assert.ok(/_id: this\._checklistId,\s*boardId: this\._boardId/.test(source),
+      `${name} resolves a checklist only inside the exported board`);
+    assert.ok(/checklistSelector = \{[\s\S]{0,100}boardId: this\._boardId,[\s\S]{0,100}cardId: \{ \$in: cardIds \}/.test(source),
+      `${name} binds checklist rows to both the board and selected cards`);
+    assert.ok(/boardId: this\._boardId,\s*cardId: \{ \$in: cardIds \},\s*checklistId: \{ \$in:/.test(source),
+      `${name} also binds checklist items to the board, card and checklist`);
+  }
+});
+
+test('card and checklist exports start at their selected level', () => {
+  for (const [name, source] of [['PDF', pdf], ['Excel', excelBoard]]) {
+    assert.ok(/this\._cardId \|\| this\._checklistId \|\| this\._listId/.test(source),
+      `${name} does not add empty list and swimlane sections around a selected card`);
+    assert.ok(/this\._checklistId \? 'checklist'[\s\S]{0,100}this\._cardId \? 'card'/.test(source),
+      `${name} gives card and checklist downloads their own localized filename type`);
   }
 });
 
@@ -220,6 +244,13 @@ test('every export route reads the scope through ONE parser', () => {
     'and the four scopes are named once');
   assert.ok(/A Mongo id is/.test(fields),
     'a query parameter is validated as an id, not trusted as one');
+  const popup = read('client/components/boards/exportScope.js');
+  assert.ok(/if \(data\.checklistId\) scope\.checklistId = data\.checklistId/.test(popup),
+    'the checklist popup actually sends the checklist scope it advertises');
+  const exporter = read('models/exporter.js');
+  assert.ok(/_id: this\._scope\.checklistId, boardId/.test(exporter)
+    && /checklistId: this\._scope\.checklistId, boardId, cardId: \{ \$in: cardIds \}/.test(exporter),
+  'a forged checklist scope is rebound to the exported board and scoped card');
 });
 
 test('PDF and Excel use one localized, scope-aware download-name helper', () => {

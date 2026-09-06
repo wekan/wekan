@@ -131,7 +131,10 @@ export class Exporter {
     if (this._scope.cardId) {
       selector._id = this._scope.cardId;
     } else if (this._scope.checklistId) {
-      const checklist = await ReactiveCache.getChecklist(this._scope.checklistId);
+      const checklist = await ReactiveCache.getChecklist({
+        _id: this._scope.checklistId,
+        boardId,
+      });
       selector._id = checklist ? checklist.cardId : '__no_such_card__';
     } else {
       if (this._scope.swimlaneId) selector.swimlaneId = this._scope.swimlaneId;
@@ -649,12 +652,12 @@ export class Exporter {
     const checklistSelector = !this.hasField('checklists')
       ? { _id: '__none__' }
       : (this._scope.checklistId
-        ? { _id: this._scope.checklistId }
+        ? { _id: this._scope.checklistId, boardId, cardId: { $in: cardIds } }
         : { cardId: { $in: cardIds } });
     const checklistItemSelector = !this.hasField('checklists')
       ? { _id: '__none__' }
       : (this._scope.checklistId
-        ? { checklistId: this._scope.checklistId }
+        ? { checklistId: this._scope.checklistId, boardId, cardId: { $in: cardIds } }
         : { cardId: { $in: cardIds } });
     await streamArray('checklists', checklistsRaw, checklistSelector, {}, d => userIds.add(d.userId));
     await streamArray('checklistItems', checklistItemsRaw, checklistItemSelector, {});

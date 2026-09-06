@@ -155,6 +155,7 @@ Meteor.methods({
     check(target.swimlaneId, Match.Maybe(String));
     check(target.listId, Match.Maybe(String));
     check(target.cardId, Match.Maybe(String));
+    check(target.checklistId, Match.Maybe(String));
     check(doc, Object);
     check(fields, Match.Maybe([String]));
     // Keep the scoped sibling explicit too. Board helpers are authorization

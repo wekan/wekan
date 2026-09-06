@@ -36,13 +36,14 @@ function sanitizeSheetName(value) {
 }
 
 class ExporterExcelBoard {
-  // `scope` is {swimlaneId} or {listId} - the same export, restricted to one
-  // swimlane or one list, because those menus offer it too (#1173). Nothing else
-  // changes: the same header, the same card blocks, the same selection.
+  // `scope` identifies the board, swimlane, list, card or checklist whose
+  // shared export dialog was opened (#1173).
   constructor(boardId, userLanguage, fields, dateFormat, timezone, scope = {}) {
     this._boardId = boardId;
     this._swimlaneId = scope.swimlaneId || '';
     this._listId = scope.listId || '';
+    this._cardId = scope.cardId || '';
+    this._checklistId = scope.checklistId || '';
     this.userLanguage = userLanguage || 'en';
     this._fields = fields && fields.length > 0 ? new Set(fields) : null;
     this.dateFormat = dateFormat || 'YYYY-MM-DD';
@@ -77,9 +78,20 @@ class ExporterExcelBoard {
       { boardId: this._boardId, archived: false }, { sort: { sort: 1 } });
     const swimlanes = await ReactiveCache.getSwimlanes(
       { boardId: this._boardId, archived: false }, { sort: { sort: 1 } });
+    let scopedChecklist = null;
+    if (this._checklistId) {
+      scopedChecklist = await ReactiveCache.getChecklist({
+        _id: this._checklistId,
+        boardId: this._boardId,
+      });
+    }
     const cardSelector = { boardId: this._boardId, archived: false, linkedId: { $in: ['', null] } };
     if (this._swimlaneId) cardSelector.swimlaneId = this._swimlaneId;
     if (this._listId) cardSelector.listId = this._listId;
+    if (this._cardId) cardSelector._id = this._cardId;
+    if (this._checklistId) {
+      cardSelector._id = scopedChecklist ? scopedChecklist.cardId : '__no_such_card__';
+    }
     const cards = await ReactiveCache.getCards(cardSelector, { sort: { sort: 1 } });
     const cardIds = cards.map(card => card._id);
 
@@ -93,12 +105,18 @@ class ExporterExcelBoard {
       return map;
     };
 
+    const checklistSelector = { boardId: this._boardId, cardId: { $in: cardIds } };
+    if (this._checklistId) checklistSelector._id = this._checklistId;
     const checklists = this.hasField('checklists')
-      ? await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, { sort: { sort: 1 } })
+      ? await ReactiveCache.getChecklists(checklistSelector, { sort: { sort: 1 } })
       : [];
     const checklistItems = this.hasField('checklists')
       ? await ReactiveCache.getChecklistItems(
-        { checklistId: { $in: checklists.map(c => c._id) } }, { sort: { sort: 1 } })
+        {
+          boardId: this._boardId,
+          cardId: { $in: cardIds },
+          checklistId: { $in: checklists.map(c => c._id) },
+        }, { sort: { sort: 1 } })
       : [];
     const subtasks = this.hasField('subtasks')
       ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: { $in: cardIds } }, { sort: { sort: 1 } })
@@ -145,15 +163,21 @@ class ExporterExcelBoard {
 
     return {
       board,
+      scopedChecklist,
       listNumber: this._listId
         ? lists.findIndex(list => String(list._id) === String(this._listId)) + 1 : 0,
       swimlaneNumber: this._swimlaneId
         ? swimlanes.filter(swimlane => swimlane.type !== 'template-swimlane')
           .findIndex(swimlane => String(swimlane._id) === String(this._swimlaneId)) + 1 : 0,
-      lists: this._listId ? lists.filter(list => list._id === this._listId) : lists,
-      swimlanes: this._swimlaneId
+      lists: (this._cardId || this._checklistId)
+        ? lists.filter(list => cards.some(card => String(card.listId) === String(list._id)))
+        : (this._listId ? lists.filter(list => list._id === this._listId) : lists),
+      swimlanes: (this._cardId || this._checklistId)
+        ? swimlanes.filter(swimlane => cards.some(card =>
+          String(card.swimlaneId) === String(swimlane._id)))
+        : (this._swimlaneId
         ? swimlanes.filter(swimlane => swimlane._id === this._swimlaneId)
-        : swimlanes,
+        : swimlanes),
       cards,
       userMap,
       customFieldsById,
@@ -189,11 +213,15 @@ class ExporterExcelBoard {
     // What this export IS: the board, or the one swimlane or list it was asked
     // for. A file called "My board.xlsx" that holds one list is a file nobody
     // can find again.
-    const scopeTitle = this._listId
+    const scopeTitle = this._checklistId
+      ? `${board.title} - ${(data.scopedChecklist && data.scopedChecklist.title) || this.__('checklist')}`
+      : (this._cardId
+        ? `${board.title} - ${(cards[0] && cards[0].title) || this.__('card')}`
+        : (this._listId
       ? `${board.title} - ${(lists[0] && lists[0].title) || this.__('list')}`
       : (this._swimlaneId
         ? `${board.title} - ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane')}`
-        : board.title);
+        : board.title)));
 
     const workbook = createWorkbook();
     workbook.creator = this.__('export-board');
@@ -260,15 +288,20 @@ class ExporterExcelBoard {
 
     // Start at the level requested: Board -> Swimlane -> List -> Card. A
     // smaller export does not repeat ancestors that are outside its scope.
-    const scopeHeading = this._listId
+    const scopeHeading = this._checklistId
+      ? `${this.__('checklist')}: ${(data.scopedChecklist && data.scopedChecklist.title) || this.__('checklist')}`
+      : (this._cardId
+        ? `${this.__('card')}: ${(cards[0] && cards[0].title) || this.__('card')}`
+        : (this._listId
       ? `${this.__('list')}: ${(lists[0] && lists[0].title) || this.__('list')}`
       : (this._swimlaneId
         ? `${this.__('swimlane')}: ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane')}`
-        : board.title);
+        : board.title)));
     mergedRow(scopeHeading || '', {
       font: { name: fontName, size: 16, bold: true }, height: 40,
     });
-    if (!this._listId && !this._swimlaneId && this.hasField('board-header')) {
+    if (!this._checklistId && !this._cardId && !this._listId && !this._swimlaneId
+      && this.hasField('board-header')) {
       const memberNames = (board.members || [])
         .map(member => userMap[member.userId] || member.userId)
         .filter(Boolean).join(', ');
@@ -293,14 +326,14 @@ class ExporterExcelBoard {
       // A list export starts at List and contains its cards. Board and swimlane
       // exports retain the visible Swimlane -> List -> Card hierarchy even when
       // the board has only one swimlane.
-      const groups = this._listId
+      const groups = (this._cardId || this._checklistId || this._listId)
         ? [{ swimlane: null, title: null }]
         : (named.length
           ? named.map(sl => ({ swimlane: sl, title: sl.title || this.__('swimlane') }))
           : [{ swimlane: null, title: this.__('swimlane') }]);
 
       for (const group of groups) {
-        if (group.title && !this._swimlaneId) {
+        if (group.title && !this._swimlaneId && !this._cardId && !this._checklistId) {
           mergedRow(`${this.__('swimlane')}: ${group.title}`, {
             font: { name: fontName, size: 12, bold: true }, fill: fillGray, height: 22,
           });
@@ -309,7 +342,7 @@ class ExporterExcelBoard {
           const listCards = cards.filter(card =>
             String(card.listId) === String(list._id)
             && (!group.swimlane || String(card.swimlaneId) === String(group.swimlane._id)));
-          if (!this._listId) {
+          if (!this._listId && !this._cardId && !this._checklistId) {
             mergedRow(`${this.__('list')}: ${list.title || this.__('list')} (${listCards.length})`, {
               font: { name: fontName, size: 11, bold: true }, fill: fillGray, height: 20,
             });
@@ -348,9 +381,14 @@ class ExporterExcelBoard {
       ws.pageSetup.rowBreaks = [...new Set(pageBreaks)].map(r => ({ man: 1, id: r }));
     }
 
-    const type = this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board');
-    const identity = this._listId ? data.listNumber
-      : (this._swimlaneId ? data.swimlaneNumber : board.title);
+    const type = this._checklistId ? 'checklist'
+      : (this._cardId ? 'card'
+        : (this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board')));
+    const identity = this._checklistId
+      ? ((data.scopedChecklist && data.scopedChecklist.title) || 1)
+      : (this._cardId ? ((data.cards[0] && data.cards[0].title) || 1)
+        : (this._listId ? data.listNumber
+          : (this._swimlaneId ? data.swimlaneNumber : board.title)));
     const filename = exportFilename(type, key => this.__(key), identity || 1, 'xlsx');
     res.setHeader('Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

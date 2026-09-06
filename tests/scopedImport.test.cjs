@@ -102,6 +102,19 @@ test('an import creates, and never edits what is already there', () => {
     'old ids are mapped to new ones, so nothing is inserted under a foreign id');
 });
 
+test('a checklist import creates checklists below its exact board-bound target', () => {
+  assert.ok(/if \(this\._target\.checklistId\) await this\._importChecklistsIntoChecklist\(board\)/
+    .test(importer), 'checklist scope never falls through to whole-board import');
+  assert.ok(/_id: this\._target\.checklistId,[\s\S]{0,80}boardId: board\._id/.test(importer),
+    'the target checklist is rebound to the destination board');
+  assert.ok(/sortsAfter\(existing\.map\(checklist => checklist\.sort\), target\.sort, incoming\.length\)/
+    .test(importer), 'new checklists are placed after the selected checklist');
+  assert.ok(/boardId: board\._id,[\s\S]{0,80}cardId: targetCard\._id/.test(importer),
+    'new checklists and items receive destination card and board identities');
+  assert.ok(/check\(target\.checklistId, Match\.Maybe\(String\)\)/.test(importModel),
+    'DDP validates the checklist scope explicitly');
+});
+
 test('a comment comes back under the importing user, not a stranger', () => {
   assert.ok(/The importing user, not the original author/.test(importer),
     'the original author may not exist on this server');

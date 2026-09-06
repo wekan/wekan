@@ -406,13 +406,15 @@ class ExporterCardPDF extends PDFExporterBase {
 // has more than the one every board is created with), and each card carries its
 // labels, members, assignees and dates.
 class ExporterBoardPDF extends PDFExporterBase {
-  // `scope` is {swimlaneId} or {listId}: the same export restricted to one
-  // swimlane or one list, because those menus offer it too (#1173).
+  // `scope` identifies the one board, swimlane, list, card or checklist whose
+  // menu opened the shared export dialog (#1173).
   constructor(boardId, userLanguage, timezone, dateFormat, fields, scope = {}) {
     super(userLanguage, timezone, dateFormat, fields);
     this._boardId = boardId;
     this._swimlaneId = scope.swimlaneId || '';
     this._listId = scope.listId || '';
+    this._cardId = scope.cardId || '';
+    this._checklistId = scope.checklistId || '';
   }
 
   // Everything the board's cards need, in one pass per collection.
@@ -434,9 +436,20 @@ class ExporterBoardPDF extends PDFExporterBase {
       { boardId: this._boardId, archived: false },
       { sort: { sort: 1 } },
     );
+    let scopedChecklist = null;
+    if (this._checklistId) {
+      scopedChecklist = await ReactiveCache.getChecklist({
+        _id: this._checklistId,
+        boardId: this._boardId,
+      });
+    }
     const cardSelector = { boardId: this._boardId, archived: false };
     if (this._swimlaneId) cardSelector.swimlaneId = this._swimlaneId;
     if (this._listId) cardSelector.listId = this._listId;
+    if (this._cardId) cardSelector._id = this._cardId;
+    if (this._checklistId) {
+      cardSelector._id = scopedChecklist ? scopedChecklist.cardId : '__no_such_card__';
+    }
     const cards = await ReactiveCache.getCards(cardSelector, { sort: { sort: 1 } });
     const cardIds = cards.map(card => card._id);
 
@@ -450,12 +463,21 @@ class ExporterBoardPDF extends PDFExporterBase {
       return map;
     };
 
+    const checklistSelector = {
+      boardId: this._boardId,
+      cardId: { $in: cardIds },
+    };
+    if (this._checklistId) checklistSelector._id = this._checklistId;
     const checklists = this.hasField('checklists')
-      ? await ReactiveCache.getChecklists({ cardId: { $in: cardIds } }, { sort: { sort: 1 } })
+      ? await ReactiveCache.getChecklists(checklistSelector, { sort: { sort: 1 } })
       : [];
     const checklistItems = this.hasField('checklists')
       ? await ReactiveCache.getChecklistItems(
-        { checklistId: { $in: checklists.map(checklist => checklist._id) } },
+        {
+          boardId: this._boardId,
+          cardId: { $in: cardIds },
+          checklistId: { $in: checklists.map(checklist => checklist._id) },
+        },
         { sort: { sort: 1 } })
       : [];
     const subtasks = this.hasField('subtasks')
@@ -512,15 +534,21 @@ class ExporterBoardPDF extends PDFExporterBase {
 
     return {
       board,
+      scopedChecklist,
       listNumber: this._listId
         ? lists.findIndex(list => String(list._id) === String(this._listId)) + 1 : 0,
       swimlaneNumber: this._swimlaneId
         ? swimlanes.filter(swimlane => swimlane.type !== 'template-swimlane')
           .findIndex(swimlane => String(swimlane._id) === String(this._swimlaneId)) + 1 : 0,
-      lists: this._listId ? lists.filter(list => list._id === this._listId) : lists,
-      swimlanes: this._swimlaneId
+      lists: (this._cardId || this._checklistId)
+        ? lists.filter(list => cards.some(card => String(card.listId) === String(list._id)))
+        : (this._listId ? lists.filter(list => list._id === this._listId) : lists),
+      swimlanes: (this._cardId || this._checklistId)
+        ? swimlanes.filter(swimlane => cards.some(card =>
+          String(card.swimlaneId) === String(swimlane._id)))
+        : (this._swimlaneId
         ? swimlanes.filter(swimlane => swimlane._id === this._swimlaneId)
-        : swimlanes,
+        : swimlanes),
       cards,
       usersById,
       customFieldsById,
@@ -544,23 +572,32 @@ class ExporterBoardPDF extends PDFExporterBase {
   // The board's own header, before the cards: what the board IS, which the card
   // export shows per card and a board export should say once.
   _boardHeaderLines(data) {
-    const { board, usersById, lists, swimlanes } = data;
+    const { board, usersById, lists, swimlanes, cards, scopedChecklist } = data;
     // What this export IS: the board, or the one swimlane or list it was asked
     // for - a PDF titled with the board that holds one list is a file nobody can
     // place afterwards.
-    const scopeTitle = this._listId
+    const scopeTitle = this._checklistId
+      ? `${board.title} - ${(scopedChecklist && scopedChecklist.title) || this.__('checklist', 'Checklist')}`
+      : (this._cardId
+        ? `${board.title} - ${(cards[0] && cards[0].title) || this.__('card', 'Card')}`
+        : (this._listId
       ? `${board.title} - ${(lists[0] && lists[0].title) || this.__('list', 'List')}`
       : (this._swimlaneId
         ? `${board.title} - ${(swimlanes[0] && swimlanes[0].title) || this.__('swimlane', 'Swimlane')}`
-        : (board.title || 'Board'));
+        : (board.title || 'Board'))));
     this._scopeTitle = scopeTitle;
-    const scopeHeading = this._listId
+    const scopeHeading = this._checklistId
+      ? this.field('checklist', 'Checklist', (scopedChecklist && scopedChecklist.title) || '-')
+      : (this._cardId
+        ? this.field('card', 'Card', (cards[0] && cards[0].title) || '-')
+        : (this._listId
       ? this.field('list', 'List', (lists[0] && lists[0].title) || '-')
       : (this._swimlaneId
         ? this.field('swimlane', 'Swimlane', (swimlanes[0] && swimlanes[0].title) || '-')
-        : scopeTitle);
+        : scopeTitle)));
     const lines = [line(scopeHeading, true), ''];
-    if (this._listId || this._swimlaneId || !this.hasField('board-header')) return lines;
+    if (this._checklistId || this._cardId || this._listId || this._swimlaneId
+      || !this.hasField('board-header')) return lines;
 
     const memberNames = (board.members || [])
       .map(member => formatUser(usersById[member.userId]))
@@ -593,7 +630,7 @@ class ExporterBoardPDF extends PDFExporterBase {
     const named = swimlanes.filter(swimlane => swimlane && swimlane.type !== 'template-swimlane');
     // Start at the selected level. A board keeps Swimlane -> List -> Card, a
     // swimlane keeps List -> Card, and a list contains its Card blocks.
-    const groups = this._listId
+    const groups = (this._cardId || this._checklistId || this._listId)
       ? [{ swimlane: null, title: null }]
       : (named.length
         ? named.map(swimlane => ({
@@ -605,14 +642,14 @@ class ExporterBoardPDF extends PDFExporterBase {
     const swimlaneById = Object.fromEntries(swimlanes.map(swimlane => [swimlane._id, swimlane]));
 
     for (const group of groups) {
-      if (group.title && !this._swimlaneId) {
+      if (group.title && !this._swimlaneId && !this._cardId && !this._checklistId) {
         lines.push(line(this.field('swimlane', 'Swimlane', group.title), true), '');
       }
       for (const list of lists) {
         const listCards = cards.filter(card =>
           String(card.listId) === String(list._id)
           && (!group.swimlane || String(card.swimlaneId) === String(group.swimlane._id)));
-        if (!this._listId) {
+        if (!this._listId && !this._cardId && !this._checklistId) {
           lines.push(line(
             this.field('list', 'List', `${list.title || this.__('list', 'List')} (${listCards.length})`),
             true,
@@ -656,10 +693,14 @@ class ExporterBoardPDF extends PDFExporterBase {
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
       'Content-Disposition': attachmentDisposition(exportFilename(
-        this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board'),
+        this._checklistId ? 'checklist'
+          : (this._cardId ? 'card'
+            : (this._listId ? 'list' : (this._swimlaneId ? 'swimlane' : 'board'))),
         key => this.__(key, key),
-        this._listId ? (data.listNumber || 1)
-          : (this._swimlaneId ? (data.swimlaneNumber || 1) : board.title),
+        this._checklistId ? ((data.scopedChecklist && data.scopedChecklist.title) || 1)
+          : (this._cardId ? ((data.cards[0] && data.cards[0].title) || 1)
+            : (this._listId ? (data.listNumber || 1)
+              : (this._swimlaneId ? (data.swimlaneNumber || 1) : board.title))),
         'pdf',
       )),
       'Content-Length': pdf.length,
