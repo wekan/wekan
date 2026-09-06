@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
-  'the first thirty-eight Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
+  'the first thirty-nine Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -302,5 +302,12 @@ assert.match(tajik['gcs-permissions-note'],
 assert.match(tajik['s3-endpoint-menu-path'],
   /AWS.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
 assert.match(tajik['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
+assert.equal(tajik['attachment-move-storage-azure'],
+  'Кӯчонидани замима ба Azure Blob Storage');
+assert.match(tajik['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(tajik['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(tajik['s3-region-description'], /us-east-1/);
+assert.match(tajik['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+assert.equal(tajik['attachment-monitoring'], 'Назорати замимаҳо');
 
-console.log('tajikTranslationProgress: first thirty-eight batches passed');
+console.log('tajikTranslationProgress: first thirty-nine batches passed');
