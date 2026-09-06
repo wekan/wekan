@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1524,
-  'the first thirteen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1474,
+  'the first fourteen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -141,5 +141,11 @@ assert.match(tigre['trello-api-import-desc'], /token.*Trello API/);
 assert.match(tigre['trello-cancel-delete-confirm'], /ክምለስ ኣይክእልን/);
 assert.match(tigre['invalid-year'], /2026/);
 assert.equal(tigre.info, 'ስሪት');
+assert.deepEqual(tokens(tigre['label-default']), ['%s']);
+assert.deepEqual(tokens(tigre['leave-board-pop']), ['__boardTitle__']);
+assert.match(tigre['list-archive-cards-pop'], /“Menu” > “Archive”/);
+assert.match(tigre['listImportCardsTsvPopup-title'], /Excel.*CSV\/TSV/);
+assert.equal(tigre['no-archived-swimlanes'],
+  'ኣብ መዕቀቢ መገድታት የለዉን።');
 
-console.log('tigreTranslationProgress: first thirteen batches passed');
+console.log('tigreTranslationProgress: first fourteen batches passed');
