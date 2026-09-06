@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd1c16bfb">Add accessible HTML4 card dependencies</a>. Thanks to xet7.</summary>
+
+Card dependencies now remain readable and operable without SVG, JavaScript,
+cookies or icon fonts. HTML4 displays a colored textual link containing the
+target title, relation and icon name, and provides native add, edit and remove
+forms. The shared fieldset component now supports bounded select inputs.
+
+Jade and HTML4 dependency controls call one acknowledged server boundary. It
+binds the route card and linked content, requires an active target on that same
+board, allowlists relation and icon catalogs, accepts only complete six-digit
+hex colors, caps the dependency array and refuses stale removals before an
+atomic rewrite. Tests cover editing, removal, re-addition, a forged cross-board
+target, semantic selects and paired same-URL HTML4 and HTML5 screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e7dd62f21">Add accessible HTML4 card custom fields</a>. Thanks to xet7.</summary>
 
 Card details in cookieless HTML4 now display and edit text, integer number,
