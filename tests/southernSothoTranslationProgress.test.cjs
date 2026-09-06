@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1174,
-  'the first nineteen Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1124,
+  'the first twenty Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -129,5 +129,9 @@ assert.deepEqual(tokens(sesotho['activity-set-customfield']),
 assert.deepEqual(tokens(sesotho['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(sesotho['r-import-done']), ['__count__']);
 assert.match(sesotho['r-import-trello-note'], /Trello.*Butler/);
+assert.match(sesotho['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(sesotho['r-import-unmapped']), ['__count__']);
+assert.equal(sesotho['r-schedule-daily'], 'Letsatsi le leng le le leng');
+assert.equal(sesotho['r-mark-complete'], 'Tshwaya karete e phethilwe');
 
-console.log('southernSothoTranslationProgress: first nineteen batches passed');
+console.log('southernSothoTranslationProgress: first twenty batches passed');
