@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
-  'the first forty-two Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
+  'Southern Sotho stays complete after all forty-three batches');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -269,5 +269,13 @@ assert.deepEqual(tokens(sesotho['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.deepEqual(tokens(sesotho['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
+assert.match(sesotho['event-ip'], /IP/);
+assert.match(sesotho.integrityReportTitle, /tsamaiso ya difaele/);
+assert.deepEqual(tokens(sesotho['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(sesotho['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
+assert.doesNotMatch(sesotho['operator-number'], /\s/);
+assert.match(sesotho['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
-console.log('southernSothoTranslationProgress: first forty-two batches passed');
+console.log('southernSothoTranslationProgress: complete after forty-three batches');
