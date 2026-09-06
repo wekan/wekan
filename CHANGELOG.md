@@ -343,6 +343,17 @@ duplicate ZIP library from returning, and cover the import/export paths.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66b7b6318">Share the streaming ZIP reader with Trello imports</a>. Thanks to xet7.</summary>
+
+Trello package import no longer relies on an undeclared JSZip copy. It uses the
+same server-side `unzipper` reader as the bounded backup and scoped-import paths,
+while retaining path, entry-count, expanded-size and per-file limits. This leaves
+`fflate` as the small lazy browser/document ZIP implementation and `unzipper` as
+the server reader for large streamed input.
+
+</details>
+
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
 
