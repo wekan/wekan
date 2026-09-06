@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 216,
-  'the first thirty-eight Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 116,
+  'the first forty Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -273,6 +273,12 @@ assert.match(albanian['cards-loading-description'],
   /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
 assert.equal(albanian['comprehensive-board-migration'],
   'Migrim gjithëpërfshirës i tabelës');
+assert.match(albanian['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.equal(albanian['step-fix-orphaned-cards'], 'Rregullo kartat jetime');
+assert.equal(albanian['cpu-usage'], 'Përdorimi i CPU-së');
+assert.equal(albanian['migrate-all-to-filesystem'],
+  'Migro gjithçka në sistemin e skedarëve');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first thirty-eight Albanian batches passed');
+console.log('albanianTranslationProgress: first forty Albanian batches passed');
