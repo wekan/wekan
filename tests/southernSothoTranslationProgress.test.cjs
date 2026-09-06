@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 674,
-  'the first twenty-nine Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 624,
+  'the first thirty Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -186,5 +186,10 @@ assert.match(sesotho['server-error-troubleshooting'],
   /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
 assert.match(sesotho['office-report-desc'], /IPv4.*IPv6/);
 assert.equal(sesotho.securityReportTitle, 'Tlaleho ya tshireletso');
+assert.match(sesotho['api-report-desc'], /REST API/);
+assert.match(sesotho['api-no-calls'], /WITH_API=true/);
+assert.match(sesotho['recovery-report-desc'], /MongoDB/);
+assert.equal(sesotho['copy-swimlane'], 'Kopitsa tsela');
+assert.equal(sesotho['history-change-moved'], 'E tsamaisitswe');
 
-console.log('southernSothoTranslationProgress: first twenty-nine batches passed');
+console.log('southernSothoTranslationProgress: first thirty batches passed');
