@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tn',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1924,
-  'the first five 50-value Tswana batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1874,
+  'the first six 50-value Tswana batches stay resolved');
 
 for (const [key, value] of Object.entries(tswana)) {
   if (value !== english[key]) {
@@ -70,4 +70,9 @@ assert.deepEqual(tokens(
 assert.match(tswana['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(tswana['card-comments-title']), ['%s']);
 
-console.log('tswanaTranslationProgress: first five batches passed');
+assert.match(tswana['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(tswana['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.equal(tswana['importSwimlanePopup-title'], 'Tlisetsa tsela');
+assert.match(tswana['addBoardOrgPopup-title'], /Mokgatlho/);
+
+console.log('tswanaTranslationProgress: first six batches passed');
