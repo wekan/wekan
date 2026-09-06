@@ -270,8 +270,8 @@ reactions, checklists, dates, colors, labels, people, identity, ballots and
 transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 can create, duplicate, organize and archive boards without JavaScript, including
-gated permanent deletion. Card parents have matching cycle-safe HTML4/HTML5
-controls.
+gated permanent deletion. Card parents and subtasks have matching, scoped
+HTML4/HTML5 controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -471,6 +471,23 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad03665bc">Add accessible HTML4 subtask controls</a>. Thanks to xet7.</summary>
+
+Card details now list visible subtasks with board and list context in cookieless
+HTML4 and provide native create, title, ASCII ordering and confirmed archive
+controls. Jade uses the same acknowledged operations instead of writing a
+client-computed sort value or archiving a child directly.
+
+Every operation binds the submitted child to the route's real linked-content
+parent, repeats authorization and validates active destination placement. The
+server calculates order from authoritative sibling boundaries, and archive
+requires parent-board administration. Tests cover the shared boundary and verify
+create, rename, reorder and archive through JavaScript-disabled HTML4 plus the
+matching HTML5 content and paired same-URL screenshots on `testi.wekan.fi`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ab9fd4bc">Add accessible HTML4 card parent controls</a>. Thanks to xet7.</summary>
