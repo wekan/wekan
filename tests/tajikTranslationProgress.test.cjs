@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
-  'the first eighteen Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
+  'the first nineteen Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -158,5 +158,11 @@ assert.equal(tajik['show-field-on-card'],
 assert.equal(tajik['active-org'], 'Ташкилоти фаъол');
 assert.match(tajik['org-domains-description'], /MULTITENANCY=true/);
 assert.equal(tajik['org-admin'], 'Маъмури ташкилот');
+assert.equal(tajik['active-person'], 'Шахси фаъол');
+assert.equal(tajik['boardDeletePopup-title'], 'Тахта нест карда шавад?');
+assert.deepEqual(tokens(tajik['default-subtasks-board']), ['__board__']);
+assert.equal(tajik['subtask-settings'], 'Танзимоти зервазифаҳо');
+assert.match(tajik['checklist-count-on-minicard'], /\(0\/0\)/);
+assert.equal(tajik['parent-card'], 'Волид-корт');
 
-console.log('tajikTranslationProgress: first eighteen batches passed');
+console.log('tajikTranslationProgress: first nineteen batches passed');
