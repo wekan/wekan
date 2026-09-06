@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2024,
-  'the first three Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1974,
+  'the first four Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -64,5 +64,12 @@ assert.match(tigrinya['list-width-error-message'], /270/);
 assert.equal(tigrinya['fixed-list-width'], 'ንኹሎም ዝርዝራት ሓደ ግፍሒ');
 assert.match(tigrinya['set-swimlane-height-value'], /ፒክሰል/);
 assert.equal(tigrinya['convertChecklistItemToCardPopup-title'], 'ናብ ካርድ ቀይር');
+assert.deepEqual(tokens(tigrinya['and-n-other-card_plural']), ['__count__']);
+assert.deepEqual(tokens(tigrinya['avatar-too-big']), ['__size__']);
+assert.match(tigrinya['board-background-image-url'], /URL/);
+assert.deepEqual(tokens(tigrinya['board-nb-stars']), ['%s']);
+assert.deepEqual(tags(tigrinya['board-private-info']),
+  ['</strong>', '<strong>']);
+assert.equal(tigrinya.archives, 'መዝገብ');
 
-console.log('tigrinyaTranslationProgress: first three batches passed');
+console.log('tigrinyaTranslationProgress: first four batches passed');
