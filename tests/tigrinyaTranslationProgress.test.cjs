@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 474,
-  'the first thirty-four Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 424,
+  'the first thirty-five Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -268,5 +268,10 @@ assert.match(tigrinya['preview-pdf-not-supported'], /PDF/);
 assert.match(tigrinya['show-week-of-year'], /ISO 8601/);
 assert.match(tigrinya['import-board-zip'], /JSON.*\.zip/);
 assert.equal(tigrinya['support-page-enabled'], 'ገጽ ደገፍ ተኽኢሉ');
+assert.match(tigrinya['accounts-lockout-info'], /ሓይሊ ዝበዝሖ ፈተነ/);
+assert.match(tigrinya['accounts-lockout-known-users'], /መሕለፊ ቃል/);
+assert.equal(tigrinya['accounts-lockout-unlock-all'], 'ኩሉ ፍታሕ');
+assert.equal(tigrinya['attachments-path'], 'መንገዲ መተሓሓዚታት');
+assert.equal(tigrinya['board-archive-scheduled'], 'ምዝገባ ሰሌዳ ብዓወት ተመዲቡ');
 
-console.log('tigrinyaTranslationProgress: first thirty-four batches passed');
+console.log('tigrinyaTranslationProgress: first thirty-five batches passed');
