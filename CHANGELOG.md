@@ -8281,6 +8281,20 @@ appearance, account, validation, export and filter batches.
 
 and fixes the following bugs:
 
+**All Boards** - Table view uses one compact, themed controls row.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/438477c92">Compact All Boards table controls</a>. Thanks to xet7.</summary>
+
+The Table view now places Add Board beside search and pagination instead of on
+an otherwise empty row below the pane title. The action uses the same white
+text and theme-accent fill as the shared table controls, while the transparent
+background reset remains scoped to the Lists view's add-board tile. Regression
+coverage protects the compact structure, the Templates label and both button
+styles.
+
+</details>
+
 **Admin Panel** - reports show complete, actionable data and controls.
 
 <details>
