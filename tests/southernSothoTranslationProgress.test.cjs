@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
-  'the first thirty-five Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
+  'the first thirty-six Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -220,5 +220,15 @@ assert.match(sesotho['database-migration-description'],
 assert.deepEqual(tokens(sesotho['database-migration-confirm']), ['__db__']);
 assert.equal(sesotho['cron-job-started'],
   'Mosebetsi o rerilweng o qadile ka katleho');
+assert.match(sesotho['sandstorm-migration-description'],
+  /Sandstorm.*MongoDB 3.*FerretDB v1.*SQLite.*files\/attachments.*files\/avatars/s);
+assert.match(sesotho['cards-loading-description'],
+  /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(sesotho['render-links-as-plain-text-description']),
+  ['<a href>']);
+assert.match(sesotho['always-show-code-as-text-description'],
+  /HTML.*<!-- -->.*JavaScript/);
+assert.match(sesotho['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
 
-console.log('southernSothoTranslationProgress: first thirty-five batches passed');
+console.log('southernSothoTranslationProgress: first thirty-six batches passed');
