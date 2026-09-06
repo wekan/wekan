@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 74,
-  'the first forty-one Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
+  'the first forty-two Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -262,5 +262,12 @@ assert.match(sesotho['migration-delay-ms-description'], /100-10000/);
 assert.match(sesotho['migration-info-text'], /sebatli/);
 assert.equal(sesotho.showChecklistAtMinicard,
   'Bontsha lenane la tlhahlobo kareteng e nyenyane');
+assert.match(sesotho['api-endpoints'], /API/);
+assert.match(sesotho['username-too-short'], /3/);
+assert.match(sesotho['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(sesotho['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.deepEqual(tokens(sesotho['restore-list-swimlanes-done']),
+  ['__remaining__', '__restored__']);
 
-console.log('southernSothoTranslationProgress: first forty-one batches passed');
+console.log('southernSothoTranslationProgress: first forty-two batches passed');
