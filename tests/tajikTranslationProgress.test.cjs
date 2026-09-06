@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
-  'the first forty-three Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
+  'all Tajik translation batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -337,5 +337,12 @@ assert.deepEqual(tokens(tajik['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.deepEqual(tokens(tajik['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
+assert.equal(tajik['integrityReportTitle'], 'Якпорчагии низоми файлӣ');
+assert.match(tajik['import-here-instruction'], /WeKan.*\.json.*\.zip/);
+assert.deepEqual(tokens(tajik['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.deepEqual(tags(tajik['globalSearch-instructions-operator-number']),
+  ['<number>', '<number>']);
+assert.match(tajik['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
 
-console.log('tajikTranslationProgress: first forty-three batches passed');
+console.log('tajikTranslationProgress: all batches passed');
