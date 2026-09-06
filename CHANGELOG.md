@@ -358,6 +358,22 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca008534f">Add the Legacy HTML4 import source picker</a>. Thanks to xet7.</summary>
+
+The `/import` and `/import/:source` addresses now have a semantic cookieless
+source selector containing every format offered by the HTML5 page. Both
+renderers consume one ordered, URL-safe registry, including the instance's
+branded product name for WeKan JSON and ZIP files.
+
+Each source is a visible, keyboard-accessible signed POST control and the chosen
+source has a printable `[x]` state. Positive and invalid-key tests cover the
+registry and authorization gate, while a same-URL Playwright comparison checks
+the Trello source list and selection in both renderers. Import-part controls,
+file upload and execution remain explicitly tracked for the next batches.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2dcffed26">Match All Boards sections in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 All Boards now applies the same Starred, Remaining, Home, Templates, Archive and
