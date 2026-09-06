@@ -271,8 +271,9 @@ transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 can create, duplicate, organize and archive boards without JavaScript, including
 gated permanent deletion. Card parents, subtasks and activity history have
-matching, scoped HTML4/HTML5 views. Advanced Global Search shares its parser,
-authorization, result ranking, help and pagination across both views.
+matching, scoped HTML4/HTML5 views. Advanced Global Search shares parsing,
+scope, help and pagination across both views; Broken Cards shares its query and
+context too.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -472,6 +473,24 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0b25640b">Add accessible HTML4 broken cards view</a>. Thanks to xet7.</summary>
+
+Broken Cards now has a dedicated cookieless HTML4 table that identifies each
+card, board, swimlane, list and type, with translated Unknown text for missing
+context. Card links and bounded Previous and Next controls are signed native
+POST actions.
+
+HTML4 and HTML5 construct the same broken-card query and pass it through the
+same guarded, current-user board scope and page executor. A healthy card and an
+identically broken card on another user's private board cannot appear. The
+modern page now starts its result callback, passes the real search state to the
+shared result component and retains session pagination, fixing its previously
+empty result view. Tests cover the shared boundary, context, navigation and
+paired same-URL screenshots on `testi.wekan.fi`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3b9b9fbd">Add accessible HTML4 advanced global search</a>. Thanks to xet7.</summary>
