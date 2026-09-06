@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1624,
-  'the first eleven Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1574,
+  'the first twelve Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -114,5 +114,11 @@ assert.match(tajik['export-card-excel-no-disk-space'], /Excel.*диск/);
 assert.match(tajik['export-card-pdf'], /PDF/);
 assert.equal(tajik['filter-overdue'], 'Муҳлат гузаштааст');
 assert.equal(tajik['filter-no-member'], 'Бе аъзо');
+assert.match(tajik['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(tajik['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(tajik['import-board-instruction-jira'], /automationRules/);
+assert.match(tajik['import-board-instruction-excel'], /\.xlsx.*WeKan.*Excel/);
+assert.match(tajik['import-trello-json-file-hint'], /Trello API/);
 
-console.log('tajikTranslationProgress: first eleven batches passed');
+console.log('tajikTranslationProgress: first twelve batches passed');
