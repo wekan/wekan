@@ -52,8 +52,8 @@ function uiTextForm({ action, label, name, value = '', fields = {}, submitLabel,
   return { component: 'text', action, label, name, value, fields, submitLabel, maxlength };
 }
 
-function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLabel }) {
-  return { component: 'textarea', action, label, name, value, fields, submitLabel };
+function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLabel, id = '' }) {
+  return { component: 'textarea', action, label, name, value, fields, submitLabel, id };
 }
 
 function uiFileForm({ action, label, name, accept = '', fields = {}, submitLabel }) {

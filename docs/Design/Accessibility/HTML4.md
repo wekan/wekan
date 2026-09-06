@@ -197,7 +197,10 @@ the same card. Editing and deletion bind all three object IDs and then apply the
 shared author/administrator and `restrictCommentEditing` policy. Refused boundary
 or ownership probes enter Security reporting with the available actor data.
 HTML4 deletion uses two one-use signed POSTs so its confirmation is functional
-without script, cookies or client storage.
+without script, cookies or client storage. Reply likewise opens with one signed
+button and submits through a separately signed, uniquely labelled textarea. The
+rendered reply states its parent text in prose, so indentation or color is never
+the only indication of the relationship.
 
 ## Delivery order
 

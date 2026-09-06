@@ -271,7 +271,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const checklistIds = checklists.map(checklist => checklist._id);
   const [comments, checklistItems, attachments] = await Promise.all([
     CardComments.find({ cardId: card._id, boardId: card.boardId }, {
-      fields: { text: 1, userId: 1, createdAt: 1 }, sort: { createdAt: 1 }, limit: 500,
+      fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
+      sort: { createdAt: 1 }, limit: 500,
     }).fetchAsync(),
     ChecklistItems.find({ cardId: card._id, boardId: card.boardId,
       checklistId: { $in: checklistIds } }, {
@@ -341,10 +342,11 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
     }), ''] });
   }
-  if (allowIsBoardMemberCommentOnly(userId, board)) {
+  const canComment = allowIsBoardMemberCommentOnly(userId, board);
+  if (canComment) {
     rows.push({ rowHeader: false, cells: [uiTextareaForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
-      label: tr(translate, 'comment', 'Comment'), name: 'commentText', value: '',
+      label: tr(translate, 'comment', 'Comment'), name: 'commentText', id: 'newComment', value: '',
       fields: {
         boardId: card.boardId, cardId: card._id, parentId: '', legacyOperation: 'add-comment',
       },
@@ -381,10 +383,14 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     cells: [tr(translate, 'attachment', 'Attachment'),
       `${cleanFileName(attachment.name)} (${attachment.type || 'application/octet-stream'}, ${attachment.size || 0})`],
   });
+  const commentById = new Map(comments.map(comment => [comment._id, comment]));
   for (const comment of comments) {
+    const parent = comment.parentId ? commentById.get(comment.parentId) : null;
+    const replyDescription = parent
+      ? `${tr(translate, 'comment-in-reply-to', 'In reply to')}: ${parent.text || ''} - ` : '';
     rows.push({
       cells: [`${tr(translate, 'comment', 'Comment')} - ${personById.get(comment.userId) || comment.userId || ''}`,
-        `${comment.text || ''}${isoDate(comment.createdAt) ? ` (${isoDate(comment.createdAt)})` : ''}`],
+        `${replyDescription}${comment.text || ''}${isoDate(comment.createdAt) ? ` (${isoDate(comment.createdAt)})` : ''}`],
     });
     const mayMutate = canEditComment({
       isAuthor: userId === comment.userId,
@@ -396,7 +402,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       const confirmingDelete = requestFields.confirmCommentDelete === comment._id;
       rows.push({ rowHeader: false, cells: [uiTextareaForm({
         action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
-        label: tr(translate, 'comment', 'Comment'), name: 'commentText', value: comment.text || '',
+        label: tr(translate, 'comment', 'Comment'), name: 'commentText',
+        id: `editComment-${comment._id}`, value: comment.text || '',
         fields: { ...fields, legacyOperation: 'edit-comment' },
         submitLabel: tr(translate, 'save', 'Save'),
       }), confirmingDelete ? [
@@ -415,6 +422,27 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
           label: tr(translate, 'delete', 'Delete'), icon: 'remove',
           fields: { ...fields, legacyOperation: 'confirm-delete-comment' },
         })] });
+    }
+    if (canComment) {
+      const replyFields = { boardId: card.boardId, cardId: card._id, parentId: comment._id };
+      if (requestFields.replyToComment === comment._id) {
+        rows.push({ rowHeader: false, cells: [uiTextareaForm({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: `${tr(translate, 'comment-in-reply-to', 'In reply to')}: ${comment.text || ''}`,
+          name: 'commentText', id: `replyComment-${comment._id}`, value: '',
+          fields: { ...replyFields, legacyOperation: 'add-comment' },
+          submitLabel: tr(translate, 'comment-reply', 'Reply'),
+        }), uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'cancel', 'Cancel'),
+        })] });
+      } else {
+        rows.push({ rowHeader: false, cells: ['', uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'comment-reply', 'Reply'),
+          fields: { commentId: comment._id, legacyOperation: 'start-comment-reply' },
+        })] });
+      }
     }
   }
   if (card.archived) rows.unshift({ cells: [tr(translate, 'status', 'Status'),

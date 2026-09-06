@@ -29,6 +29,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let importedExcelBoardId;
   let importedTrelloZipBoardId;
   let html4CreatedCommentId;
+  let html4ReplyCommentId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -443,6 +444,30 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect.poll(() => db.countDocuments('activities', {
       activityType: 'editComment', commentId: html4CreatedCommentId, userId: user._id,
     })).toBeGreaterThan(0);
+    const startReplyForm = page.locator(
+      `form:has(input[name="legacyOperation"][value="start-comment-reply"])`
+      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), startReplyForm.locator('input[type="submit"]').click(),
+    ]);
+    const replyForm = page.locator(
+      `form:has(input[name="legacyOperation"][value="add-comment"])`
+      + `:has(input[name="parentId"][value="${html4CreatedCommentId}"])`,
+    );
+    await expect(replyForm.locator('label')).toContainText('In reply to: HTML4 edited comment');
+    await replyForm.locator('textarea[name="commentText"]').fill('HTML4 reply comment');
+    await Promise.all([
+      page.waitForNavigation(), replyForm.locator('input[type="submit"]').click(),
+    ]);
+    const replyComment = db.findOne('card_comments', {
+      cardId: due._id, parentId: html4CreatedCommentId, text: 'HTML4 reply comment',
+    });
+    expect(replyComment && replyComment._id).toBeTruthy();
+    html4ReplyCommentId = replyComment._id;
+    await expect(page.locator('tbody')).toContainText(
+      'In reply to: HTML4 edited comment - HTML4 reply comment',
+    );
 
     const titleForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-title"])',
@@ -545,6 +570,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due Edited');
     await expect(modern.locator('.card-details')).toContainText('Edited HTML4 card description');
     await expect(modern.locator('.card-details')).toContainText('HTML4 edited comment');
+    await expect(modern.locator('.card-details')).toContainText('HTML4 reply comment');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
       await page.screenshot({
@@ -554,22 +580,27 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-details.png`, fullPage: true,
       });
     }
-    const requestDeleteCommentForm = page.locator(
-      `form:has(input[name="legacyOperation"][value="confirm-delete-comment"])`
-      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`,
-    );
-    await Promise.all([
-      page.waitForNavigation(), requestDeleteCommentForm.locator('input[type="submit"]').click(),
-    ]);
-    expect(db.findOne('card_comments', { _id: html4CreatedCommentId })).not.toBeNull();
-    const deleteCommentForm = page.locator(
-      `form:has(input[name="legacyOperation"][value="delete-comment"])`
-      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`,
-    );
-    await Promise.all([
-      page.waitForNavigation(), deleteCommentForm.locator('input[type="submit"]').click(),
-    ]);
-    expect(db.findOne('card_comments', { _id: html4CreatedCommentId })).toBeNull();
+    const confirmAndDeleteComment = async commentId => {
+      const requestDeleteCommentForm = page.locator(
+        `form:has(input[name="legacyOperation"][value="confirm-delete-comment"])`
+        + `:has(input[name="commentId"][value="${commentId}"])`,
+      );
+      await Promise.all([
+        page.waitForNavigation(), requestDeleteCommentForm.locator('input[type="submit"]').click(),
+      ]);
+      expect(db.findOne('card_comments', { _id: commentId })).not.toBeNull();
+      const deleteCommentForm = page.locator(
+        `form:has(input[name="legacyOperation"][value="delete-comment"])`
+        + `:has(input[name="commentId"][value="${commentId}"])`,
+      );
+      await Promise.all([
+        page.waitForNavigation(), deleteCommentForm.locator('input[type="submit"]').click(),
+      ]);
+      expect(db.findOne('card_comments', { _id: commentId })).toBeNull();
+    };
+    await confirmAndDeleteComment(html4ReplyCommentId);
+    html4ReplyCommentId = null;
+    await confirmAndDeleteComment(html4CreatedCommentId);
     html4CreatedCommentId = null;
     if (importedWekanZipAttachmentId) {
       await modern.evaluate(async attachmentId => {
@@ -601,6 +632,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (html4ReplyCommentId) db.deleteOne('card_comments', { _id: html4ReplyCommentId });
     if (html4CreatedCommentId) db.deleteOne('card_comments', { _id: html4CreatedCommentId });
     if (user) db.deleteMany('eventlog', { userId: user._id });
     db.deleteOne('attachments', { _id: childIds.foreignAttachment });

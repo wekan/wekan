@@ -357,23 +357,38 @@ test('HTML4 comment forms expose labelled add, edit and delete operations', () =
       authCounter: '1', authHash: 'b'.repeat(64) }),
     page: { heading: 'Card', columns: ['Card', 'Description'], rows: [
       { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
-        label: 'Comment', name: 'commentText', fields: { legacyOperation: 'add-comment' },
+        label: 'Comment', name: 'commentText', id: 'newComment',
+        fields: { legacyOperation: 'add-comment' },
         submitLabel: 'Comment' }), ''] },
       { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
-        label: 'Comment', name: 'commentText', value: '<edit>',
+        label: 'Comment', name: 'commentText', id: 'editComment-comment1', value: '<edit>',
         fields: { legacyOperation: 'edit-comment', commentId: 'comment-1' },
         submitLabel: 'Save' }), { component: 'action', action: '/b/board/slug/card',
         label: 'Delete', icon: 'remove',
         fields: { legacyOperation: 'confirm-delete-comment', commentId: 'comment-1' } }] },
+      { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
+        label: 'In reply to: Parent', name: 'commentText', id: 'replyComment-comment1',
+        fields: { legacyOperation: 'add-comment', parentId: 'comment-1' },
+        submitLabel: 'Reply' }), { component: 'action', action: '/b/board/slug/card',
+        label: 'Reply', fields: { legacyOperation: 'start-comment-reply',
+          commentId: 'comment-1' } }] },
     ] },
   });
-  assert.equal((html.match(/<label for="legacy-commentText">Comment<\/label>/g) || []).length, 2);
-  for (const operation of ['add-comment', 'edit-comment', 'confirm-delete-comment']) {
+  assert.match(html, /<label for="legacy-newComment">Comment<\/label>/);
+  assert.match(html, /<label for="legacy-editComment-comment1">Comment<\/label>/);
+  assert.match(html, /<label for="legacy-replyComment-comment1">In reply to: Parent<\/label>/);
+  for (const operation of ['add-comment', 'edit-comment', 'confirm-delete-comment',
+    'start-comment-reply']) {
     assert.match(html, new RegExp(`name="legacyOperation" value="${operation}"`));
   }
   assert.match(html, /&lt;edit&gt;<\/textarea>/);
   assert.match(html, /value="- Delete"/);
   assert.doesNotMatch(html, /tabindex=/);
+  const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
+    'legacyHtml4Pages.js'), 'utf8');
+  assert.match(pages, /fields: \{ \.\.\.replyFields, legacyOperation: 'add-comment' \}/);
+  assert.match(pages, /requestFields\.replyToComment === comment\._id/);
+  assert.match(pages, /comment-in-reply-to/);
 });
 
 test('authenticated navigation gives every HTML4 destination its translated name', () => {

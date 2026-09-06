@@ -109,6 +109,10 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.confirmCommentDelete = String(requestFields.commentId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'start-comment-reply') {
+    requestFields.replyToComment = String(requestFields.commentId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
     && [...cardOperations, ...commentOperations].includes(requestFields.legacyOperation)) {
     try {
       const invocation = { userId: session.userId,

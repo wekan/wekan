@@ -225,7 +225,7 @@ function contentRows(path, options) {
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><select id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}">${renderedOptions}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
       }
       if (cell && typeof cell === 'object' && cell.component === 'textarea') {
-        const id = `legacy-${String(cell.name || 'text').replace(/[^a-z0-9_-]/gi, '')}`;
+        const id = `legacy-${String(cell.id || cell.name || 'text').replace(/[^a-z0-9_-]/gi, '')}`;
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
           `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" rows="20" cols="80">${escapeHtml(cell.value || '')}</textarea></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
