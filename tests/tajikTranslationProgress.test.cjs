@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 124,
-  'the first forty-one Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 74,
+  'the first forty-two Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -323,5 +323,11 @@ assert.equal(tajik['every-30-minutes'], 'Ҳар 30 дақиқа');
 assert.equal(tajik['gridfs-attachments'], 'Замимаҳои GridFS');
 assert.equal(tajik['hide-list-on-minicard'],
   'Пинҳон кардани рӯйхат дар корти хурд');
+assert.equal(tajik['migrate-all-to-gridfs'], 'Муҳоҷирати ҳама ба GridFS');
+assert.match(tajik['migration-batch-size-description'], /1-100/);
+assert.match(tajik['migration-cpu-threshold-description'], /CPU.*10-90/);
+assert.match(tajik['migration-delay-ms-description'], /100-10000/);
+assert.match(tajik['migration-info-text'], /браузер.*замина/);
+assert.equal(tajik['storage-distribution'], 'Тақсимоти анбор');
 
-console.log('tajikTranslationProgress: first forty-one batches passed');
+console.log('tajikTranslationProgress: first forty-two batches passed');
