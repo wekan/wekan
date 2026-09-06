@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 974,
-  'the first twenty-four 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 924,
+  'the first twenty-five 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -211,4 +211,11 @@ assert.deepEqual(tokens(tigre['act-a-dueAt']), tokens(english['act-a-dueAt']));
 assert.deepEqual(tokens(tigre['act-atUserComment']),
   tokens(english['act-atUserComment']));
 
-console.log('tigreTranslationProgress: first twenty-four batches passed');
+assert.match(tigre['submit-on-enter-description'], /Shift\+Enter/);
+assert.match(tigre['submit-on-enter-description'], /Ctrl\/Cmd\+Enter/);
+assert.deepEqual([
+  tigre.monday, tigre.tuesday, tigre.wednesday, tigre.thursday,
+  tigre.friday, tigre.saturday, tigre.sunday,
+], ['ሰኑይ', 'ሰሉስ', 'ረቡዕ', 'ሓሙስ', 'ዓርቢ', 'ቀዳም', 'ሰንበት']);
+
+console.log('tigreTranslationProgress: first twenty-five batches passed');
