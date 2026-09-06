@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,586 values across 36 second-tier languages**. Albanian
-now has 1,615 left after its first ten 50-value batches. Bosnian is also
+remaining work is **77,486 values across 36 second-tier languages**. Albanian
+now has 1,515 left after its first twelve 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first ten activity,
-workspace, board, card, appearance, role, email, export and filter batches;
+**In short:** **Albanian translations** now cover the first twelve activity,
+workspace, board, card, appearance, email, export, filter and import batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8343,6 +8343,18 @@ filters. Ninety-nine values required translation; `Email` is now treated as the
 valid international technical loanword it is, removing fourteen false gaps from
 the repository-wide report. This leaves 77,586 actionable values across 36
 languages, including 1,615 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86e3716dd">Translate Albanian import workflows</a>. Thanks to xet7.</summary>
+
+The eleventh and twelfth 50-value Albanian batches add advanced filters,
+inactive and imported members, Kanboard, Deck, OpenProject, Asana, ZenKit, Jira,
+Excel and WeKan import guidance, safe Trello ZIP errors, Trello API progress and
+member mapping. The importer placeholders and command examples remain intact.
+This leaves 77,486 actionable values across 36 languages, including 1,515 in
+Albanian.
 
 </details>
 
