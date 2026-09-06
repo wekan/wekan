@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
-  'the first eighteen Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
+  'the first nineteen Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -165,5 +165,10 @@ assert.match(tigrinya['org-domains-description'],
 assert.match(tigrinya['org-admins-description'], /Admin/);
 assert.equal(tigrinya['team-propagate-members-to-boards'],
   'ኣባላት ናብ ሰሌዳታት ኣስፋሕፍሕ');
+assert.deepEqual(tokens(tigrinya['default-subtasks-board']), ['__board__']);
+assert.match(tigrinya['delete-all-notifications-confirm'], /ክምለስ ኣይከኣልን/);
+assert.match(tigrinya['checklist-count-on-minicard'], /\(0\/0\)/);
+assert.equal(tigrinya['parent-card'], 'ወላዲ ካርድ');
+assert.equal(tigrinya['source-board'], 'ምንጪ ሰሌዳ');
 
-console.log('tigrinyaTranslationProgress: first eighteen batches passed');
+console.log('tigrinyaTranslationProgress: first nineteen batches passed');
