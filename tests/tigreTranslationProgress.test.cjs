@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 424,
-  'the first thirty-five 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
+  'the first thirty-six 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -267,4 +267,9 @@ assert.match(tigre['accounts-lockout-known-users'], /መሕለፊ ቃል/);
 assert.match(tigre['accounts-lockout-period'], /ካልኢት/);
 assert.equal(tigre['attachments-path-description'].includes('ተለጠፍቲ'), true);
 
-console.log('tigreTranslationProgress: first thirty-five batches passed');
+assert.match(tigre['s3-force-path-style-description'], /MinIO.*S3.*AWS/);
+assert.deepEqual(tokens(tigre['database-migration-confirm']),
+  tokens(english['database-migration-confirm']));
+assert.match(tigre['database-migration-description'], /WEKAN_FERRETDB_URL/);
+
+console.log('tigreTranslationProgress: first thirty-six batches passed');
