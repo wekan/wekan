@@ -126,6 +126,8 @@ REM # example : SET S3_SECRET_FILE=/run/secrets/s3_secret
 REM SET S3_SECRET_FILE=
 
 REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+REM # In Admin Panel / People / Email, enable "Enable below email settings"
+REM # to reveal additional email sending options below the checkbox.
 REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
 REM SET MAIL_FROM="Wekan Boards <info@example.com>"
 REM # Currently MAIL_SERVICE is not in use.
@@ -884,4 +886,3 @@ node main.js
 ECHO node main.js exited, restarting in 2 seconds...
 timeout /t 2 /nobreak >NUL
 GOTO start_wekan
-

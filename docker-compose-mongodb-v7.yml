@@ -371,8 +371,8 @@ services:
       - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
-      # Email settings are only at MAIL_URL and MAIL_FROM.
-      # Admin Panel has test button, but it's not used for settings.
+      # In Admin Panel / People / Email, enable "Enable below email settings"
+      # to reveal additional email sending options below the checkbox.
       #   see https://github.com/wekan/wekan/blob/main/docs/Email/Troubleshooting-Mail.md
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.

@@ -34,6 +34,32 @@ const emailOwner = client.slice(client.indexOf('Template.email.onCreated'),
 assert.ok(/this\.subscribe\('mailServer'\)/.test(emailOwner),
   'the Email pane owns its secret-safe subscription wherever it is rendered');
 
+const deploymentExamples = [
+  'docker-compose.yml',
+  'docker-compose-mongodb-v7.yml',
+  'docker-compose-ferretdb-v2-postgresql.yml',
+  'docker-compose-ferretdb-v1-postgresql.yml',
+  'docker-compose-ferretdb-v1-mysql.yml',
+  'docker-compose-ferretdb-v1-mariadb.yml',
+  'docker-compose-ferretdb-v1-sap-hana.yml',
+  'docs/Databases/ToroDB/PostgreSQL/docker-compose.yml',
+  'start-wekan.sh',
+  'start-wekan.bat',
+  'releases/virtualbox/start-wekan.sh',
+  'snap-src/bin/wekan-help',
+];
+for (const file of deploymentExamples) {
+  const example = read(file);
+  const advice = example.indexOf('Admin Panel / People / Email');
+  const mailUrl = example.indexOf('MAIL_URL') === -1
+    ? example.indexOf('mail-url:')
+    : example.indexOf('MAIL_URL');
+  assert.ok(advice !== -1 && mailUrl !== -1 && advice < mailUrl,
+    `${file} explains the Admin Panel Email checkbox before MAIL_URL`);
+  assert.ok(example.includes('additional email sending options'),
+    `${file} says that the checkbox reveals additional sending options`);
+}
+
 const { ALL_MAIL_SERVICES, isSupportedMailService, mailServiceStorageKey } =
   require('../models/lib/mailServices');
 for (const service of ['SMTP', 'Gmail', 'Outlook365', 'SES', 'SendGrid', 'Mailgun']) {

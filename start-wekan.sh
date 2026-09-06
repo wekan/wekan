@@ -154,6 +154,8 @@
       #-----------------------------------------------------------------
       # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
       # https://github.com/wekan/wekan-mongodb/blob/master/docker-compose.yml
+      # In Admin Panel / People / Email, enable "Enable below email settings"
+      # to reveal additional email sending options below the checkbox.
       export MAIL_URL=smtp://user:pass@mailserver.example.com:25/
       export MAIL_FROM='Wekan Boards <info@example.com>'
       # Currently MAIL_SERVICE is not in use.
