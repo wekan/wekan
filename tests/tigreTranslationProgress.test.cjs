@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 74,
-  'the first forty-two 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
+  'the first forty-three 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -296,4 +296,9 @@ assert.match(tigre['migration-batch-size-description'], /1-100/);
 assert.match(tigre['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(tigre['migration-delay-ms-description'], /100-10000/);
 
-console.log('tigreTranslationProgress: first forty-two batches passed');
+assert.match(tigre.otp, /OTP/);
+assert.deepEqual(tokens(tigre['repair-broken-cards-done-unfixable']),
+  tokens(english['repair-broken-cards-done-unfixable']));
+assert.match(tigre['problems-in-progress-help'], /CPU/);
+
+console.log('tigreTranslationProgress: first forty-three batches passed');
