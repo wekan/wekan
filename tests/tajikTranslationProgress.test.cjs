@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
-  'the first nineteen Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1174,
+  'the first twenty Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -164,5 +164,12 @@ assert.deepEqual(tokens(tajik['default-subtasks-board']), ['__board__']);
 assert.equal(tajik['subtask-settings'], 'Танзимоти зервазифаҳо');
 assert.match(tajik['checklist-count-on-minicard'], /\(0\/0\)/);
 assert.equal(tajik['parent-card'], 'Волид-корт');
+assert.deepEqual(tokens(tajik['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.equal(tajik['r-rule'], 'Қоида');
+assert.equal(tajik['r-workflow-view'], 'Намуди ҷараёни кор');
+assert.deepEqual(tokens(tajik['r-w-every-day-at']), ['__time__']);
+assert.match(tajik['r-import-trello'], /Trello Butler/);
+assert.deepEqual(tokens(tajik['r-import-done']), ['__count__']);
 
-console.log('tajikTranslationProgress: first nineteen batches passed');
+console.log('tajikTranslationProgress: first twenty batches passed');
