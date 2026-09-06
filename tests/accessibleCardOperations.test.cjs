@@ -319,6 +319,41 @@ test('card parents use one visible cycle-safe linked-content boundary', () => {
   assert.match(page, /await canUserSeeBoard\(userId, candidate\.boardId\)/);
 });
 
+test('subtasks share parent-bound create, title, order and archive operations', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/subtasks.js');
+  const details = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /async function accessibleSubtaskParent/);
+  assert.match(source, /async function accessibleSubtask\(userId, input\)/);
+  assert.match(source, /parentId: context\.parentCard\._id/);
+  assert.match(source, /async function createAccessibleSubtask/);
+  assert.match(source, /await parentBoard\.getDefaultSubtasksBoardAsync\(\)/);
+  assert.match(source, /customFields: subtaskCustomFields\(boardCustomFields\)/);
+  assert.match(source, /if \(card\) await cardCreation\(userId, card\)/);
+  assert.match(source, /async function updateAccessibleSubtaskTitle/);
+  assert.match(source, /async function moveAccessibleSubtask/);
+  assert.match(source, /subtask neighbors did not belong to one parent order/);
+  assert.match(source, /async function setAccessibleSubtaskArchived/);
+  assert.match(source, /allowIsBoardAdmin\(userId, routeBoard\)/);
+  assert.match(methods, /return createAccessibleSubtask\(this\.userId, input\)/);
+  assert.match(methods, /async moveAccessibleSubtask\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('addSubtaskCard', \{/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleSubtaskTitle'/);
+  assert.match(client, /Meteor\.callAsync\('setAccessibleSubtaskArchived'/);
+  assert.doesNotMatch(client, /subtask\.setTitle\(/);
+  assert.doesNotMatch(client, /subtask\.archive\(/);
+  assert.match(details, /Meteor\.callAsync\('moveAccessibleSubtask'/);
+  assert.doesNotMatch(details, /Cards\.updateAsync\(subtask\._id/);
+  assert.match(legacy, /legacyOperation === 'add-subtask'/);
+  assert.match(legacy, /legacyOperation === 'move-subtask-up'/);
+  assert.match(page, /parentId: contentCardId, archived: false/);
+  assert.match(page, /legacyOperation: 'edit-subtask-title'/);
+  assert.match(page, /legacyOperation: 'confirm-archive-subtask'/);
+});
+
 test('card color uses one allowlisted acknowledged boundary in HTML5 and HTML4', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

@@ -9,6 +9,17 @@ import {
 } from './subtaskViewHelpers';
 import { Utils } from '/client/lib/utils';
 
+function accessibleSubtaskInput(subtask, extra = {}) {
+  const parentCard = Utils.getCurrentCard();
+  if (!parentCard?._id || !parentCard.boardId || !subtask?._id) return null;
+  return {
+    parentCardId: parentCard._id,
+    boardId: parentCard.boardId,
+    subtaskId: subtask._id,
+    ...extra,
+  };
+}
+
 Template.subtasks.events({
   'click .js-open-subtask-details-menu'(event) {
     // Close any existing popup first to avoid accumulating content
@@ -23,7 +34,6 @@ Template.subtasks.events({
     const textarea = tpl.find('textarea.js-add-subtask-item');
     const title = textarea.value.trim();
     const contextCard = ReactiveCache.getCard(this.cardId);
-    const cardId = contextCard?.getRealId ? contextCard.getRealId() : this.cardId;
 
     if (title) {
       // Subtask creation is performed server-side by the `addSubtaskCard` Meteor
@@ -34,7 +44,11 @@ Template.subtasks.events({
       // (#4782), and the method applies the destination board's automatic
       // custom fields to the new subtask (#4037 / #3562).
       try {
-        const _id = await Meteor.callAsync('addSubtaskCard', cardId, title);
+        const _id = await Meteor.callAsync('addSubtaskCard', {
+          parentCardId: contextCard?._id || this.cardId,
+          boardId: contextCard?.boardId,
+          title,
+        });
 
         if (!_id) {
           throw new Error('The server could not create the subtask.');
@@ -58,18 +72,18 @@ Template.subtasks.events({
       }
     }
   },
-  'submit .js-edit-subtask-title'(event, tpl) {
+  async 'submit .js-edit-subtask-title'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-edit-subtask-item');
     const title = textarea.value.trim();
     const subtask = Template.currentData().subtask;
-    subtask.setTitle(title);
+    const input = accessibleSubtaskInput(subtask, { title });
+    if (input) await Meteor.callAsync('updateAccessibleSubtaskTitle', input);
   },
   async 'click .js-delete-subtask-item'() {
     const subtask = Template.currentData().subtask;
-    if (subtask && subtask._id) {
-      await subtask.archive();
-    }
+    const input = accessibleSubtaskInput(subtask, { archived: true });
+    if (input) await Meteor.callAsync('setAccessibleSubtaskArchived', input);
   },
   keydown(event) {
     //If user press enter key inside a form, submit it
@@ -168,9 +182,8 @@ Template.subtaskActionsPopup.events({
   'click .js-delete-subtask' : Popup.afterConfirm('subtaskDelete', async function () {
     Popup.back(2);
     const subtask = this.subtask;
-    if (subtask && subtask._id) {
-      await subtask.archive();
-    }
+    const input = accessibleSubtaskInput(subtask, { archived: true });
+    if (input) await Meteor.callAsync('setAccessibleSubtaskArchived', input);
   }),
 });
 

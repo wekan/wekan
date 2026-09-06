@@ -427,6 +427,16 @@ fields and creation activity come from the same server card-creation operation
 as the ordinary HTML4 and HTML5 add-card controls. Conversion retains the source
 checklist item, matching the existing Jade behavior.
 
+Subtasks use the same parent-bound operations in both renderers. The HTML4 card
+table lists each visible child as a link, including its board and list context,
+and provides native create, title edit and ASCII up/down ordering controls. A
+two-step archive control is rendered only for a board administrator. Every
+operation resolves the real linked-content parent from the route, requires the
+submitted child to belong to that parent and validates an active destination
+board, swimlane and list before writing. The modern sortable control sends the
+same previous/next boundary identifiers instead of writing a client-computed
+sort value directly.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
@@ -461,6 +471,10 @@ visible in paired same-URL HTML4 and HTML5 screenshots. It also exercises valid
 attachment rename, image cover selection and confirmed deletion, then forges a
 route/attachment scope mismatch and verifies both non-mutation and the attributed
 Security report.
+It creates, renames and reorders subtasks through JavaScript-disabled HTML4,
+checks their database order and modern HTML5 rendering at the same card URL,
+then exercises the administrator-only two-step archive path. Paired screenshots
+compare the semantic HTML4 table and the Jade subtask list.
 The All Boards path toggles Star and Home in both directions, restores and
 confirm-archives a board, creates a public board with its default swimlane and
 duplicates it only after confirmation. Creation and duplication share the same

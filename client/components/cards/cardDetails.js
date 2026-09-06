@@ -546,7 +546,7 @@ Template.cardDetails.onRendered(function () {
       ui.placeholder.height(ui.helper.height());
       EscapeActions.executeUpTo('popup-close');
     },
-    stop(evt, ui) {
+    async stop(evt, ui) {
       let prevSubtask = ui.item.prev('.js-subtasks').get(0);
       if (prevSubtask) {
         prevSubtask = Blaze.getData(prevSubtask).subtask;
@@ -555,15 +555,16 @@ Template.cardDetails.onRendered(function () {
       if (nextSubtask) {
         nextSubtask = Blaze.getData(nextSubtask).subtask;
       }
-      const sortIndex = calculateIndexData(prevSubtask, nextSubtask, 1);
-
       $subtasksDom.sortable('cancel');
       const subtask = Blaze.getData(ui.item.get(0)).subtask;
-
-      Cards.updateAsync(subtask._id, {
-        $set: {
-          sort: sortIndex.base,
-        },
+      const parentCard = Utils.getCurrentCard();
+      if (!parentCard || !subtask) return;
+      await Meteor.callAsync('moveAccessibleSubtask', {
+        parentCardId: parentCard._id,
+        boardId: parentCard.boardId,
+        subtaskId: subtask._id,
+        previousSubtaskId: prevSubtask?._id || '',
+        nextSubtaskId: nextSubtask?._id || '',
       });
     },
   });

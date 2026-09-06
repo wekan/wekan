@@ -14,6 +14,7 @@ test('HTML4 and HTML5 expose the same parent-card state at the same URL', async 
   const legacy = await legacyContext.newPage();
   let user;
   let board;
+  let subtaskBoardId;
   let modernContext;
   try {
     await legacy.goto(`${baseURL}/sign-up`);
@@ -55,18 +56,65 @@ test('HTML4 and HTML5 expose the same parent-card state at the same URL', async 
     await expect(legacy.locator('tbody')).toContainText(
       `${db.getBoard(board.boardId).title} / ${parent.title}`,
     );
+    const addSubtaskForm = () => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="add-subtask"])',
+    );
+    const addSubtask = async title => {
+      await addSubtaskForm().locator('input[name="subtaskTitle"]').fill(title);
+      await Promise.all([
+        legacy.waitForNavigation(), addSubtaskForm().locator('input[type="submit"]').click(),
+      ]);
+    };
+    await addSubtask('First HTML4 subtask');
+    await addSubtask('Second HTML4 subtask');
+    const createdSubtasks = db.find('cards', {
+      parentId: child._id, archived: false,
+    }).sort((a, b) => a.sort - b.sort);
+    expect(createdSubtasks).toHaveLength(2);
+    const firstSubtask = createdSubtasks[0];
+    const secondSubtask = createdSubtasks[1];
+    subtaskBoardId = firstSubtask.boardId;
+    const secondEditForm = () => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="edit-subtask-title"])'
+      + `:has(input[name="subtaskId"][value="${secondSubtask._id}"])`,
+    );
+    await secondEditForm().locator('input[name="subtaskTitle"]').fill('Renamed HTML4 subtask');
+    await Promise.all([
+      legacy.waitForNavigation(), secondEditForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.getCard(secondSubtask._id).title).toBe('Renamed HTML4 subtask');
+    const moveSecondUp = () => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="move-subtask-up"])'
+      + `:has(input[name="subtaskId"][value="${secondSubtask._id}"])`,
+    );
+    await Promise.all([
+      legacy.waitForNavigation(), moveSecondUp().locator('input[type="submit"]').click(),
+    ]);
+    const reordered = db.find('cards', {
+      parentId: child._id, archived: false,
+    }).sort((a, b) => a.sort - b.sort);
+    expect(reordered.map(item => item._id)).toEqual([secondSubtask._id, firstSubtask._id]);
 
     modernContext = await browser.newContext();
     const modern = await modernContext.newPage();
+    const browserErrors = [];
+    modern.on('pageerror', error => browserErrors.push(error.message));
+    modern.on('console', message => {
+      if (message.type() === 'error') browserErrors.push(message.text());
+    });
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
     await modern.goto(cardUrl);
+    await modern.waitForTimeout(1000);
+    if (!(await modern.locator('.card-details-title').count())) {
+      throw new Error(`HTML5 card did not render at ${modern.url()}: `
+        + `${JSON.stringify(browserErrors)}; body=${await modern.locator('body').innerText()}`);
+    }
     await expect(modern.locator('.card-details-title')).toContainText(child.title);
     await modern.locator('.js-open-card-details-menu:visible').first().click();
     await modern.locator('.pop-over:visible .js-more').click();
     const modernParentPopup = modern.locator('.pop-over:visible');
     await expect(modernParentPopup).toContainText("Change card's parent");
     await expect(modernParentPopup.locator('.js-field-parent-card')).toHaveValue(parent._id);
-
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
       await parentForm.screenshot({
@@ -76,12 +124,39 @@ test('HTML4 and HTML5 expose the same parent-card state at the same URL', async 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-parent.png`,
       });
     }
+    await modern.keyboard.press('Escape');
+    await expect(modern.locator('.card-subtasks-items')).toContainText('Renamed HTML4 subtask');
+    await expect(modern.locator('.card-subtasks-items')).toContainText('First HTML4 subtask');
+
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-subtasks.png`, fullPage: true,
+      });
+      await modern.locator('.card-subtasks-items').screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-subtasks.png`,
+      });
+    }
+    const confirmArchive = () => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-archive-subtask"])'
+      + `:has(input[name="subtaskId"][value="${firstSubtask._id}"])`,
+    );
+    await Promise.all([
+      legacy.waitForNavigation(), confirmArchive().locator('input[type="submit"]').click(),
+    ]);
+    const archiveSubtask = () => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="archive-subtask"])'
+      + `:has(input[name="subtaskId"][value="${firstSubtask._id}"])`,
+    );
+    await Promise.all([
+      legacy.waitForNavigation(), archiveSubtask().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.getCard(firstSubtask._id).archived).toBe(true);
   } finally {
     if (modernContext) await modernContext.close();
     await legacyContext.close();
     if (board?.boardId || user?._id) {
       db.cleanup({
-        boardIds: board?.boardId ? [board.boardId] : [],
+        boardIds: [board?.boardId, subtaskBoardId].filter(Boolean),
         userIds: user?._id ? [user._id] : [],
       });
     }

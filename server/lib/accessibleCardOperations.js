@@ -24,6 +24,7 @@ import {
   DEPENDENCY_TYPE_IDS,
   normalizeDependencies,
 } from '/models/metadata/dependencies';
+const { subtaskCustomFields } = require('/imports/lib/subtaskHelpers');
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
@@ -92,6 +93,164 @@ async function createAccessibleCard(userId, input) {
   const card = await Cards.findOneAsync(cardId);
   await cardCreation(userId, card);
   return cardId;
+}
+
+async function accessibleSubtaskParent(userId, input) {
+  const routeCard = await editableCard(
+    userId,
+    input?.parentCardId,
+    String(input?.boardId || ''),
+  );
+  await authorizeContentTarget(userId, routeCard);
+  if (routeCard.type === 'cardType-linkedBoard') {
+    throw new Meteor.Error('invalid-card-type');
+  }
+  const parentCard = routeCard.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: routeCard.linkedId, deletedAt: null })
+    : routeCard;
+  if (!parentCard) throw new Meteor.Error('not-found');
+  return { routeCard, parentCard };
+}
+
+async function accessibleSubtask(userId, input) {
+  const context = await accessibleSubtaskParent(userId, input);
+  const subtask = await Cards.findOneAsync({
+    _id: String(input?.subtaskId || ''),
+    parentId: context.parentCard._id,
+    deletedAt: null,
+  });
+  if (!subtask) {
+    refuseCardWrite(userId, 'subtask did not belong to the submitted parent card');
+  }
+  if (!(await canEditCardOrLinkedCard(userId, subtask))) {
+    refuseCardWrite(userId, 'subtask did not grant direct or delegated write access');
+  }
+  return { ...context, subtask };
+}
+
+async function createAccessibleSubtask(userId, input) {
+  const { parentCard } = await accessibleSubtaskParent(userId, input);
+  const title = String(input?.title || '').trim().slice(0, 1000);
+  if (!title) throw new Meteor.Error('card-title-required');
+  const parentBoard = await Boards.findOneAsync(parentCard.boardId);
+  if (!parentBoard) throw new Meteor.Error('not-found');
+  const targetBoard = await parentBoard.getDefaultSubtasksBoardAsync();
+  if (!targetBoard) throw new Meteor.Error('subtask-board-not-found');
+  const targetList = await targetBoard.getDefaultSubtasksListAsync();
+  if (!targetList || targetList.boardId !== targetBoard._id || targetList.archived === true) {
+    throw new Meteor.Error('subtask-list-not-found');
+  }
+  const parentSwimlane = parentCard.swimlaneId
+    ? await Swimlanes.findOneAsync(parentCard.swimlaneId) : null;
+  const matchingSwimlane = parentSwimlane
+    ? await Swimlanes.findOneAsync({
+        boardId: targetBoard._id,
+        title: parentSwimlane.title,
+        archived: { $ne: true },
+      })
+    : null;
+  const targetSwimlane = matchingSwimlane || await targetBoard.getDefaultSwimlineAsync();
+  if (!targetSwimlane || targetSwimlane.boardId !== targetBoard._id
+    || targetSwimlane.archived === true) {
+    throw new Meteor.Error('subtask-swimlane-not-found');
+  }
+  const boardCustomFields = await CustomFields.find({
+    boardIds: targetBoard._id,
+  }).fetchAsync();
+  const lastCard = await Cards.findOneAsync(
+    { listId: targetList._id, archived: false, deletedAt: null },
+    { sort: { sort: -1 }, fields: { sort: 1 } },
+  );
+  const sort = lastCard && Number.isFinite(lastCard.sort) ? lastCard.sort + 1 : 0;
+  const cardId = await Cards.insertAsync({
+    title,
+    parentId: parentCard._id,
+    members: [],
+    assignees: [],
+    labelIds: [],
+    customFields: subtaskCustomFields(boardCustomFields),
+    listId: targetList._id,
+    boardId: targetBoard._id,
+    sort,
+    swimlaneId: targetSwimlane._id,
+    type: 'cardType-card',
+    cardNumber: await targetBoard.getNextCardNumber(),
+    userId,
+  });
+  const card = await Cards.findOneAsync(cardId);
+  if (card) await cardCreation(userId, card);
+  return cardId;
+}
+
+async function updateAccessibleSubtaskTitle(userId, input) {
+  const { subtask } = await accessibleSubtask(userId, input);
+  const title = String(input?.title || '').trim().slice(0, 1000);
+  if (!title) throw new Meteor.Error('card-title-required');
+  return updateAccessibleCardContent(userId, {
+    cardId: subtask._id,
+    boardId: subtask.boardId,
+    field: 'title',
+    value: title,
+  });
+}
+
+async function setAccessibleSubtaskArchived(userId, input) {
+  const { routeCard, subtask } = await accessibleSubtask(userId, input);
+  const routeBoard = await Boards.findOneAsync(routeCard.boardId);
+  if (!routeBoard || !allowIsBoardAdmin(userId, routeBoard)) {
+    refuseCardWrite(userId, 'subtask archive required parent-board administration');
+  }
+  if (input?.archived !== true) throw new Meteor.Error('invalid-card-archive-state');
+  return setAccessibleCardArchived(userId, {
+    cardId: subtask._id,
+    boardId: subtask.boardId,
+    archived: true,
+  });
+}
+
+async function moveAccessibleSubtask(userId, input) {
+  const { parentCard, subtask } = await accessibleSubtask(userId, input);
+  const siblings = await Cards.find({
+    parentId: parentCard._id,
+    archived: false,
+    deletedAt: null,
+    _id: { $ne: subtask._id },
+  }, {
+    fields: { sort: 1 },
+    sort: { sort: 1, _id: 1 },
+    limit: 10001,
+  }).fetchAsync();
+  if (siblings.length > 10000) throw new Meteor.Error('card-tree-too-large');
+  let position;
+  const direction = String(input?.direction || '');
+  if (direction === 'up' || direction === 'down') {
+    const all = [...siblings, subtask].sort((a, b) =>
+      (Number(a.sort) - Number(b.sort)) || String(a._id).localeCompare(String(b._id)));
+    const current = all.findIndex(card => card._id === subtask._id);
+    const destination = current + (direction === 'up' ? -1 : 1);
+    if (destination < 0 || destination >= all.length) return false;
+    const destinationId = all[destination]._id;
+    const destinationIndex = siblings.findIndex(card => card._id === destinationId);
+    position = direction === 'up' ? destinationIndex : destinationIndex + 1;
+  } else {
+    const previousId = String(input?.previousSubtaskId || '');
+    const nextId = String(input?.nextSubtaskId || '');
+    const previousIndex = previousId
+      ? siblings.findIndex(card => card._id === previousId) : -1;
+    const nextIndex = nextId ? siblings.findIndex(card => card._id === nextId) : -1;
+    if ((previousId && previousIndex < 0) || (nextId && nextIndex < 0)
+      || (previousId && nextId && nextIndex !== previousIndex + 1)
+      || (!previousId && !nextId && siblings.length > 0)) {
+      refuseCardWrite(userId, 'subtask neighbors did not belong to one parent order');
+    }
+    position = previousId ? previousIndex + 1 : nextId ? nextIndex : 0;
+  }
+  const sort = computeSortForIndex(siblings, position);
+  const now = new Date();
+  await Cards.updateAsync(subtask._id, {
+    $set: { sort, modifiedAt: now, dateLastActivity: now },
+  });
+  return true;
 }
 
 async function moveAccessibleCard(userId, cardId, direction) {
@@ -950,10 +1109,12 @@ async function setAccessibleCardArchived(userId, input) {
 
 export {
   createAccessibleCard,
+  createAccessibleSubtask,
   editableCard,
   editablePlacement,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  moveAccessibleSubtask,
   removeAccessibleCardLocation,
   removeAccessibleCardDependency,
   removeAccessibleCardStickerAt,
@@ -967,6 +1128,7 @@ export {
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
   setAccessibleCardArchived,
+  setAccessibleSubtaskArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
@@ -977,4 +1139,5 @@ export {
   updateAccessibleCardContent,
   updateAccessibleCardVote,
   updateAccessibleCardPoker,
+  updateAccessibleSubtaskTitle,
 };

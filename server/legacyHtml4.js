@@ -23,8 +23,10 @@ import {
   castAccessibleCardPoker,
   castAccessibleCardVote,
   createAccessibleCard,
+  createAccessibleSubtask,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  moveAccessibleSubtask,
   removeAccessibleCardLocation,
   removeAccessibleCardDependency,
   removeAccessibleCardStickerAt,
@@ -36,6 +38,7 @@ import {
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
   setAccessibleCardArchived,
+  setAccessibleSubtaskArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
@@ -46,6 +49,7 @@ import {
   updateAccessibleCardContent,
   updateAccessibleCardPoker,
   updateAccessibleCardVote,
+  updateAccessibleSubtaskTitle,
 } from '/server/lib/accessibleCardOperations';
 import {
   createAccessibleComment,
@@ -187,7 +191,8 @@ WebApp.handlers.use(async (req, res, next) => {
     'configure-card-poker', 'update-card-poker-end', 'cast-card-poker',
     'finish-card-poker', 'replay-card-poker', 'estimate-card-poker', 'remove-card-poker',
     'set-card-due-complete', 'set-card-spent-time', 'clear-card-spent-time',
-    'set-card-watch', 'set-card-parent',
+    'set-card-watch', 'set-card-parent', 'add-subtask', 'edit-subtask-title',
+    'move-subtask-up', 'move-subtask-down', 'archive-subtask',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -359,6 +364,10 @@ WebApp.handlers.use(async (req, res, next) => {
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-remove-card-poker') {
     requestFields.confirmPokerRemove = String(requestFields.cardId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'confirm-archive-subtask') {
+    requestFields.confirmSubtaskArchive = String(requestFields.subtaskId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
     && [...cardOperations, ...commentOperations, ...checklistOperations, ...attachmentOperations]
@@ -702,6 +711,33 @@ WebApp.handlers.use(async (req, res, next) => {
           return updateAccessibleCardParent(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             parentCardId: requestFields.parentCardId || null,
+          });
+        }
+        const subtaskInput = {
+          parentCardId: requestFields.cardId,
+          boardId: requestFields.boardId,
+          subtaskId: requestFields.subtaskId,
+        };
+        if (requestFields.legacyOperation === 'add-subtask') {
+          return createAccessibleSubtask(session.userId, {
+            ...subtaskInput, title: requestFields.subtaskTitle,
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-subtask-title') {
+          return updateAccessibleSubtaskTitle(session.userId, {
+            ...subtaskInput, title: requestFields.subtaskTitle,
+          });
+        }
+        if (requestFields.legacyOperation === 'move-subtask-up'
+          || requestFields.legacyOperation === 'move-subtask-down') {
+          return moveAccessibleSubtask(session.userId, {
+            ...subtaskInput,
+            direction: requestFields.legacyOperation === 'move-subtask-up' ? 'up' : 'down',
+          });
+        }
+        if (requestFields.legacyOperation === 'archive-subtask') {
+          return setAccessibleSubtaskArchived(session.userId, {
+            ...subtaskInput, archived: true,
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

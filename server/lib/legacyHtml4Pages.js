@@ -22,7 +22,7 @@ import {
   allowIsBoardMemberWithWriteAccess,
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
-import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
+import { canUserSeeBoard, visibleBoardIds } from '/server/lib/visibleBoardIds';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
@@ -527,7 +527,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const dependencies = normalizeDependencies(contentCard?.cardDependencies);
   const dependencyIds = dependencies.map(dependency => dependency.cardId);
   const [comments, commentReactionDocs, checklistItems, attachments, customFieldDefinitions,
-    dependencyTargetCards, dependencyCandidateCards] = await Promise.all([
+    dependencyTargetCards, dependencyCandidateCards, candidateSubtasks] = await Promise.all([
     CardComments.find({ cardId: contentCardId, boardId: contentBoardId }, {
       fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
       sort: { createdAt: 1 }, limit: 500,
@@ -552,7 +552,29 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     Cards.find({ boardId: contentBoardId, archived: { $ne: true }, deletedAt: null }, {
       fields: { title: 1, sort: 1 }, sort: { title: 1, _id: 1 }, limit: 1000,
     }).fetchAsync(),
+    Cards.find({ parentId: contentCardId, archived: false, deletedAt: null }, {
+      fields: { title: 1, boardId: 1, listId: 1, sort: 1 },
+      sort: { sort: 1, _id: 1 }, limit: 10001,
+    }).fetchAsync(),
   ]);
+  const allowedSubtaskBoardIds = await visibleBoardIds(
+    userId,
+    [...new Set(candidateSubtasks.map(subtask => subtask.boardId).filter(Boolean))],
+  );
+  const subtasks = candidateSubtasks.slice(0, 10000)
+    .filter(subtask => allowedSubtaskBoardIds.has(subtask.boardId));
+  const subtaskBoardIds = [...new Set(subtasks.map(subtask => subtask.boardId))];
+  const subtaskListIds = [...new Set(subtasks.map(subtask => subtask.listId))];
+  const [subtaskBoards, subtaskLists] = await Promise.all([
+    Boards.find({ _id: { $in: subtaskBoardIds } }, {
+      fields: { title: 1, slug: 1 }, limit: 10000,
+    }).fetchAsync(),
+    Lists.find({ _id: { $in: subtaskListIds } }, {
+      fields: { title: 1, boardId: 1 }, limit: 10000,
+    }).fetchAsync(),
+  ]);
+  const subtaskBoardById = new Map(subtaskBoards.map(item => [item._id, item]));
+  const subtaskListById = new Map(subtaskLists.map(item => [item._id, item]));
   const personIds = [...new Set([
     card.userId, contentCard?.userId, ...(card.members || []), ...(card.assignees || []),
     ...(contentCard?.members || []), ...(contentCard?.assignees || []),
@@ -1164,6 +1186,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     },
     submitLabel: tr(translate, 'add-checklist', 'Add checklist'),
   }), ''] });
+  if (canWrite) rows.push({ rowHeader: false, cells: [uiTextForm({
+    action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+    label: tr(translate, 'add-subtask', 'Add subtask'), name: 'subtaskTitle', value: '',
+    maxlength: 1000,
+    fields: { ...commonFields, legacyOperation: 'add-subtask' },
+    submitLabel: tr(translate, 'add-subtask', 'Add subtask'),
+  }), ''] });
   rows.push(
     { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
     ...(parentCard && parentBoard ? [{ cells: [tr(translate, 'parent-card', 'Parent card'), uiLink({
@@ -1434,6 +1463,59 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
           fields: { ...itemFields, legacyOperation: 'confirm-delete-checklist-item' },
         })] });
       }
+    }
+  }
+  for (const subtask of subtasks) {
+    const subtaskBoard = subtaskBoardById.get(subtask.boardId);
+    const subtaskList = subtaskListById.get(subtask.listId);
+    if (!subtaskBoard) continue;
+    const subtaskFields = {
+      ...commonFields,
+      subtaskId: subtask._id,
+    };
+    rows.push({ cells: [tr(translate, 'subtasks', 'Subtasks'), uiLink({
+      href: `${boardPath(subtaskBoard)}/${encodeURIComponent(subtask._id)}`,
+      label: subtask.title || subtask._id,
+    })] });
+    rows.push({ cells: [tr(translate, 'list', 'List'),
+      subtask.boardId === contentBoardId
+        ? subtaskList?.title || ''
+        : `${subtaskBoard.title || subtaskBoard._id} / ${subtaskList?.title || ''}`] });
+    if (!canWrite) continue;
+    rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'subtasks', 'Subtasks'), name: 'subtaskTitle',
+      value: subtask.title || '', maxlength: 1000,
+      fields: { ...subtaskFields, legacyOperation: 'edit-subtask-title' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
+    rows.push({ rowHeader: false, cells: ['', [uiAction({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: `${tr(translate, 'subtasks', 'Subtasks')} ${UI_ICONS['move-up'].ascii}`,
+      icon: 'move-up',
+      fields: { ...subtaskFields, legacyOperation: 'move-subtask-up' },
+    }), uiAction({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: `${tr(translate, 'subtasks', 'Subtasks')} ${UI_ICONS['move-down'].ascii}`,
+      icon: 'move-down',
+      fields: { ...subtaskFields, legacyOperation: 'move-subtask-down' },
+    })]] });
+    if (canAdminPoker) {
+      const confirmingArchive = requestFields.confirmSubtaskArchive === subtask._id;
+      rows.push({ rowHeader: false, cells: ['', confirmingArchive ? [
+        `${tr(translate, 'archive-card', 'Move Card to Archive')}?`,
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'archive-card', 'Move Card to Archive'), icon: 'remove',
+          fields: { ...subtaskFields, legacyOperation: 'archive-subtask' },
+        }),
+        uiAction({ action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'cancel', 'Cancel') }),
+      ] : uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'archive-card', 'Move Card to Archive'), icon: 'remove',
+        fields: { ...subtaskFields, legacyOperation: 'confirm-archive-subtask' },
+      })] });
     }
   }
   const attachmentAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;

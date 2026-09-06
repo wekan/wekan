@@ -33,15 +33,16 @@ import Swimlanes from '/models/swimlanes';
 import CustomFields from '/models/customFields';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
-import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import {
   createAccessibleCard,
+  createAccessibleSubtask,
   castAccessibleCardPoker,
   castAccessibleCardVote,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  moveAccessibleSubtask,
   removeAccessibleCardLocation,
   removeAccessibleCardDependency,
   removeAccessibleCardStickerAt,
@@ -53,6 +54,7 @@ import {
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
   setAccessibleCardArchived,
+  setAccessibleSubtaskArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
@@ -63,6 +65,7 @@ import {
   updateAccessibleCardContent,
   updateAccessibleCardPoker,
   updateAccessibleCardVote,
+  updateAccessibleSubtaskTitle,
 } from '/server/lib/accessibleCardOperations';
 
 Meteor.methods({
@@ -330,94 +333,35 @@ Meteor.methods({
     });
   },
 
-  // Server-authoritative subtask creation. Fixes:
-  //  - #3868 / #5788 / #2256 "extra swimlane / column on subtask creation" and
-  //    #4782 "can not create more than one subtask": the default subtasks
-  //    board/list/swimlane are resolved (and lazily created ONCE) here on the
-  //    server, so the client can no longer create duplicate helper boards.
-  //  - #4037 / #3562 "custom fields not assigned to subtask cards": the
-  //    destination board's automatic custom fields are applied to the subtask.
-  async addSubtaskCard(parentCardId, title) {
-    check(parentCardId, String);
-    check(title, String);
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-    const trimmed = title.trim();
-    if (!trimmed) return undefined;
-
-    const parentCard =
-      (await ReactiveCache.getCard(parentCardId)) ||
-      (await Cards.findOneAsync(parentCardId));
-    if (!parentCard) throw new Meteor.Error('not-found');
-    const parentBoard = await Boards.findOneAsync(parentCard.boardId);
-    if (!parentBoard) throw new Meteor.Error('not-found');
-    // The author must have write access to the parent card's board.
-    if (!(await canEditCardOrLinkedCard(this.userId, parentCard, parentBoard)))
-      throw new Meteor.Error('not-authorized');
-
-    // Resolve (and, on the server, lazily create ONCE) the default subtasks
-    // board + landing list. These getters never duplicate on the server.
-    const targetBoard = await parentBoard.getDefaultSubtasksBoardAsync();
-    if (!targetBoard) return undefined;
-    const targetList = await targetBoard.getDefaultSubtasksListAsync();
-    if (!targetList) return undefined;
-
-    // Reuse a swimlane on the destination board: prefer one whose title matches
-    // the parent card's swimlane, otherwise the destination board's default
-    // swimlane. Both branches reuse an existing swimlane (no insert here).
-    let swimlaneId;
-    const parentSwimlane = parentCard.swimlaneId
-      ? await Swimlanes.findOneAsync(parentCard.swimlaneId)
-      : null;
-    const targetSwimlane = parentSwimlane
-      ? await Swimlanes.findOneAsync({
-          boardId: targetBoard._id,
-          title: parentSwimlane.title,
-        })
-      : null;
-    if (targetSwimlane) {
-      swimlaneId = targetSwimlane._id;
-    } else {
-      const defaultSwimlane = await targetBoard.getDefaultSwimlineAsync();
-      swimlaneId = defaultSwimlane && defaultSwimlane._id;
+  async addSubtaskCard(input, legacyTitle) {
+    if (typeof input === 'string') {
+      check(input, String);
+      check(legacyTitle, String);
+      const parent = await Cards.findOneAsync(input, { fields: { boardId: 1 } });
+      if (!parent) throw new Meteor.Error('not-found');
+      return createAccessibleSubtask(this.userId, {
+        parentCardId: input,
+        boardId: parent.boardId,
+        title: legacyTitle,
+      });
     }
-    if (!swimlaneId) return undefined;
+    check(input, Object);
+    return createAccessibleSubtask(this.userId, input);
+  },
 
-    // #4037 / #3562: apply the destination board's automatic custom fields.
-    const boardCustomFields = await CustomFields.find({
-      boardIds: targetBoard._id,
-    }).fetchAsync();
-    const customFields = subtaskCustomFields(boardCustomFields);
+  async updateAccessibleSubtaskTitle(input) {
+    check(input, Object);
+    return updateAccessibleSubtaskTitle(this.userId, input);
+  },
 
-    const cardNumber = await targetBoard.getNextCardNumber();
-    // #3826: a constant `sort: -1` made EVERY subtask card tie, so a list full
-    // of subtask cards could not be reordered by drag (no number lies strictly
-    // between two equal sorts; the computed index equalled the card's own sort
-    // and the move was discarded as a no-op). Append with a unique sort at the
-    // end of the target list instead — with the old all-ties data the cards
-    // effectively rendered in insertion order anyway, so the visible placement
-    // is unchanged while new subtasks no longer pile up duplicate sorts.
-    const lastCard = await Cards.findOneAsync(
-      { listId: targetList._id, archived: false },
-      { sort: { sort: -1 }, fields: { sort: 1 } },
-    );
-    const sort =
-      lastCard && Number.isFinite(lastCard.sort) ? lastCard.sort + 1 : 0;
-    const _id = await Cards.insertAsync({
-      title: trimmed,
-      parentId: parentCardId,
-      members: [],
-      assignees: [],
-      labelIds: [],
-      customFields,
-      listId: targetList._id,
-      boardId: targetBoard._id,
-      sort,
-      swimlaneId,
-      type: 'cardType-card',
-      cardNumber,
-      userId: this.userId,
-    });
-    return _id;
+  async setAccessibleSubtaskArchived(input) {
+    check(input, Object);
+    return setAccessibleSubtaskArchived(this.userId, input);
+  },
+
+  async moveAccessibleSubtask(input) {
+    check(input, Object);
+    return moveAccessibleSubtask(this.userId, input);
   },
 
   async createCardWithDueDate(boardId, listId, title, dueDate, swimlaneId) {
