@@ -358,6 +358,25 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6892e9a6">Import JSON and CSV from Legacy HTML4</a>. Thanks to xet7.</summary>
+
+The shared component library now has a labelled HTML4 textarea form. Import
+pages use it to accept JSON from WeKan, Trello, Jira, Kanboard and the supported
+external issue tools, or CSV/TSV text, without JavaScript or cookies. Inputs are
+bounded to 5 MiB and unknown source keys are refused.
+
+The signed operation parses the selected format, applies the validated shared
+part selection, and invokes the existing authenticated, feature-gated,
+sanitized and deadline-bound `importBoard` method instead of writing directly.
+Errors expose only translation keys and safely retain editable input; success
+shows a signed link to the created board. Playwright verifies malformed JSON is
+rejected, imports a real CSV card, follows its result link, and removes the test
+board afterward. Source tests pin escaping, labels, size bounds, authentication
+and reuse of the common method.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/639bff013">Add signed Legacy HTML4 import-part controls</a>. Thanks to xet7.</summary>
 
 The cookieless import page now shows all 18 selectable board parts in the same
