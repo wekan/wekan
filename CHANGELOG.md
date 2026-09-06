@@ -358,6 +358,25 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/78fc4794d">Import JSON and Excel files from Legacy HTML4</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 import pages now accept JSON and Excel files without JavaScript or
+cookies. The shared file component produces a labelled multipart form, while the
+server streams one upload of at most 50 MiB into a randomly named `0600` temporary
+file. Unknown and duplicate fields, extra parts, oversized data, forged or replayed
+actions, and interrupted transfers are rejected; cleanup waits for an active write
+so no import file is left behind on Windows.
+
+After signature and session validation, JSON and XLSX use the same feature-gated,
+sanitized `importBoard` method as the HTML5 view. The multipart parser is the small
+MIT-licensed Fastify Busboy package. Source tests pin bounds, private storage,
+cleanup, field allowlisting, signature order and dependency licensing. The
+cookieless Playwright test uploads both a real WeKan JSON export and a generated
+Excel workbook, verifies their cards were created, and removes both boards.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6892e9a6">Import JSON and CSV from Legacy HTML4</a>. Thanks to xet7.</summary>
 
 The shared component library now has a labelled HTML4 textarea form. Import
