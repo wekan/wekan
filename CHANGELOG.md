@@ -8282,6 +8282,18 @@ appearance, account, validation, export and filter batches.
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/37b7eb06a">Show wrapping names in Admin Panel user cells</a>. Thanks to xet7.</summary>
+
+Single-user columns now show the username beside the fixed-size avatar instead
+of hiding it in a mouse-only tooltip. Long names wrap inside their own cell
+without squeezing the avatar or crossing into adjacent columns. The common
+table component applies this to Impersonation, Security and every other Admin
+Panel table, and the complete shared table, row, template and menu test suites
+verify the Admin Panel layouts.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fa68600bb">Show origin context in all Problems event reports</a>. Thanks to xet7.</summary>
 
 Recovery rows now store and display IPv4, IPv6 and the location supplied by a
