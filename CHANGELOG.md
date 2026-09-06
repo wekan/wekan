@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,590 values across 35 second-tier languages**. Southern
-Sotho has 624 left after its first thirty 50-value batches. Albanian and
+remaining work is **74,540 values across 35 second-tier languages**. Southern
+Sotho has 574 left after its first thirty-one 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first thirty activity, administration,
-automation, search, dependency, location, report and recovery batches;
+translations** now cover their first thirty-one activity, administration,
+automation, search, report, recovery, organization and checklist batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be085449b">Translate Southern Sotho teams and checklists</a>. Thanks to xet7.</summary>
+
+The thirty-first 50-value Southern Sotho batch adds request and card details,
+team and organization membership, invitation results, Node heap and memory
+metrics, legal notices and checklist and subtask actions. All values required
+translation. Tests retain email-domain terminology, Node and malloc metric
+names, the legal-notice URL and checklist-input syntax. This leaves 74,540
+actionable values across 35 languages, including 574 in Southern Sotho.
 
 </details>
 
