@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1374,
-  'the first fifteen Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
+  'the first sixteen Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -110,5 +110,10 @@ assert.match(sesotho['toggle-assignees'], /1-9/);
 assert.equal(sesotho['upload-completed'], 'Ho kenya ho phethilwe');
 assert.match(sesotho['custom-top-left-corner-logo-height'], /27/);
 assert.equal(sesotho['welcome-list2'], 'Tse tswetseng pele');
+assert.deepEqual(tokens(sesotho['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(sesotho['attachment-transfer-limits-description'], /API/);
+assert.match(sesotho['smtp-tls-description'], /TLS.*SMTP/);
+assert.equal(sesotho.Database, 'Polokelo ya data');
 
-console.log('southernSothoTranslationProgress: first fifteen batches passed');
+console.log('southernSothoTranslationProgress: first sixteen batches passed');
