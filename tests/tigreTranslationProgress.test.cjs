@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
-  'the first thirty-nine 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
+  'the first forty 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -284,4 +284,8 @@ assert.match(tigre['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(tigre['s3-region-description'], /us-east-1/);
 assert.match(tigre['s3-ssl-enabled-description'], /SSL\/TLS/);
 
-console.log('tigreTranslationProgress: first thirty-nine batches passed');
+assert.match(tigre['restore-lost-cards-migration-description'], /swimlaneId.*listId/);
+assert.match(tigre['run-delete-duplicate-empty-lists-migration-confirm'], /ይቕጽል\?/);
+assert.match(tigre['fix-all-file-urls-migration-description'], /URL/);
+
+console.log('tigreTranslationProgress: first forty batches passed');
