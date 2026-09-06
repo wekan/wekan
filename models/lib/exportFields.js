@@ -63,6 +63,26 @@ const BOARD_EXPORT_FIELD_KEYS = [
   ...BOARD_EXPORT_FIELDS.map(entry => entry.field),
 ];
 
+// HTML4 has no client-side ReactiveDict, so its import-part selection travels
+// in the body of each signed POST. Missing state means the same default as the
+// HTML5 picker (everything selected); an explicitly empty string means the
+// user really unticked everything. Unknown and duplicate fields are discarded.
+function parseImportFields(value) {
+  const allowed = BOARD_EXPORT_FIELDS.map(entry => entry.field);
+  if (typeof value !== 'string') return [...allowed];
+  const wanted = value.split(',').map(entry => entry.trim()).filter(Boolean);
+  return allowed.filter(field => wanted.includes(field));
+}
+
+function toggleImportField(value, field) {
+  const selected = new Set(parseImportFields(value));
+  const allowed = BOARD_EXPORT_FIELDS.some(entry => entry.field === field);
+  if (!allowed) return [...selected];
+  if (selected.has(field)) selected.delete(field);
+  else selected.add(field);
+  return BOARD_EXPORT_FIELDS.map(entry => entry.field).filter(entry => selected.has(entry));
+}
+
 // `?fields=a,b,c` -> the keys of it that exist, or null for "everything".
 // Null rather than the full list, so a caller can tell "no selection" from "one
 // section selected" - an empty selection is not an empty export.
@@ -146,5 +166,7 @@ export {
   BOARD_EXPORT_FIELDS,
   CARD_EXPORT_FIELD_KEYS,
   BOARD_EXPORT_FIELD_KEYS,
+  parseImportFields,
+  toggleImportField,
   parseExportFields,
 };

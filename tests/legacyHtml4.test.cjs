@@ -13,6 +13,7 @@ const {
 const { UI_ICONS, uiControlLabel, uiIcon, uiSearchForm } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
+const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('../models/lib/exportFields');
 
 function request(url, headers = {}) {
   return { method: 'GET', url, headers };
@@ -151,6 +152,10 @@ test('HTML5 and HTML4 import pickers share one safe source registry', () => {
   assert.match(pages, /importSourceByKey\(selectedKey\)/);
   assert.match(pages, /uiAction\(\{ action: `\/import\/\$\{source\.key\}`/);
   assert.match(pages, /if \(!userId \|\| !\/\^\\\/import/);
+  assert.deepEqual(parseImportFields(undefined), BOARD_EXPORT_FIELDS.map(part => part.field));
+  assert.equal(toggleImportField(undefined, 'comments').includes('comments'), false);
+  assert.deepEqual(toggleImportField('comments', 'not-a-real-field'), ['comments']);
+  assert.match(pages, /fields: \{ importFields, toggleImportField: part\.field \}/);
 });
 
 test('card discovery pages scope reads to the authenticated user boards', () => {

@@ -31,6 +31,9 @@ const sidebarJade = read('client/components/sidebar/sidebar.jade');
 const router = read('config/router.js');
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 const { pruneImportDocument, PART_ARRAYS } = require('../models/lib/importParts.js');
+const { IMPORT_SOURCES } = require('../models/lib/importSources.js');
+const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } =
+  require('../models/lib/exportFields.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -40,12 +43,13 @@ console.log('importPage:');
 // ── one page ────────────────────────────────────────────────────────────────
 
 test('the page lists every source it can read', () => {
-  const list = importJs.slice(importJs.indexOf('const IMPORT_SOURCES'),
-    importJs.indexOf('];', importJs.indexOf('const IMPORT_SOURCES')));
+  const keys = IMPORT_SOURCES.map(source => source.key);
   for (const source of ['wekan', 'trello', 'csv', 'excel', 'jira', 'kanboard',
     'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit']) {
-    assert.ok(new RegExp(`key: '${source}'`).test(list), `${source} is offered`);
+    assert.ok(keys.includes(source), `${source} is offered`);
   }
+  assert.ok(/require\('\/models\/lib\/importSources'\)/.test(importJs),
+    'the HTML5 page consumes that registry');
   assert.ok(/js-select-import-source/.test(importJade), 'and the page can pick one');
 });
 
@@ -53,7 +57,24 @@ test('the WeKan entry is named after the Product name of this instance', () => {
   // A rebranded WeKan should offer "a previous export of <its own name>", not of
   // a product the person has never seen.
   assert.ok(/productNameOrDefault/.test(importJs), 'the setting is read');
-  assert.ok(/product: true/.test(importJs), 'and the entry is marked as the branded one');
+  assert.ok(IMPORT_SOURCES.some(source => source.key === 'wekan' && source.product),
+    'and the shared entry is marked as the branded one');
+});
+
+test('signed HTML4 import-part state starts complete and toggles one known field', () => {
+  const all = BOARD_EXPORT_FIELDS.map(part => part.field);
+  assert.deepStrictEqual(parseImportFields(undefined), all, 'missing state means every part');
+  const withoutComments = toggleImportField(undefined, 'comments');
+  assert.ok(!withoutComments.includes('comments'), 'the requested known field is unticked');
+  assert.strictEqual(withoutComments.length, all.length - 1, 'nothing else changed');
+  assert.ok(toggleImportField(withoutComments.join(','), 'comments').includes('comments'),
+    'the same control ticks it again');
+});
+
+test('signed HTML4 import-part state rejects forged fields and preserves explicit empty state', () => {
+  assert.deepStrictEqual(parseImportFields('comments,unknown,comments,__proto__'), ['comments']);
+  assert.deepStrictEqual(parseImportFields(''), [], 'empty is not confused with missing state');
+  assert.deepStrictEqual(toggleImportField('', '../../admin'), [], 'an unknown toggle is ignored');
 });
 
 test('the fourteen per-source links are gone from the pop-over', () => {

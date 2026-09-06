@@ -148,6 +148,14 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-import-trello.png`, fullPage: true,
       });
     }
+    const commentsPart = page.locator('form:has(input[name="toggleImportField"][value="comments"])');
+    await expect(commentsPart.locator('input[type="hidden"][name="importFields"]'))
+      .toHaveValue(/comments/);
+    await Promise.all([page.waitForNavigation(), commentsPart.locator('input[type="submit"]').click()]);
+    await expect(page.locator('form:has(input[name="toggleImportField"][value="comments"])')
+      .locator('input[type="hidden"][name="importFields"]')).not.toHaveValue(/comments/);
+    await expect(page.locator('form:has(input[name="toggleImportField"][value="attachments"])')
+      .locator('input[type="hidden"][name="importFields"]')).toHaveValue(/attachments/);
     await open('/my-cards');
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');

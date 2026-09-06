@@ -127,7 +127,7 @@ the generic baseline. It is updated with every implementation batch.
 | `/accessibility/components` | Shared component demonstration page |
 | `/my-cards`, `/due-cards`, `/bookmarks` | Dedicated, authenticated card/bookmark readers |
 | `/global-search` | Dedicated authenticated title/description search; advanced operators remain |
-| `/import`, `/import/:source` | Dedicated source picker sharing the HTML5 registry; parts, upload and import operations remain |
+| `/import`, `/import/:source` | Dedicated source picker and validated signed import-part toggles sharing the HTML5 registries; upload and import operations remain |
 | Board rules | Generic baseline; dedicated controller remains |
 | Admin Panel pages and panes | Generic baseline; dedicated controllers remain |
 | Account preferences and information | Generic baseline; dedicated controllers remain |
