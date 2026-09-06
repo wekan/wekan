@@ -8137,11 +8137,11 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after completing Albanian:** all 199
+**Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,090 values across 35 second-tier languages**. Albanian
-is complete after forty 50-value batches and one final 116-value batch. Bosnian
-is also complete:
+remaining work is **76,040 values across 35 second-tier languages**. Southern
+Sotho has 2,074 left after its first 50-value batch. Albanian and Bosnian are
+complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
 to make the counter reach zero.
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** are complete across activity, boards,
-security, storage, migration, integrity repair, monitoring and import;
+**In short:** **Albanian translations** are complete, and **Southern Sotho
+translations** now cover their first activity and workspace batch;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8480,6 +8480,17 @@ broken-card repairs and scoped imports. Albanian now has zero actionable
 English placeholders. Locale-wide tests retain every replaceable token and HTML
 tag, including repair counts and global-search examples. This leaves 76,090
 actionable values across 35 whole-file-sized languages.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58c79fe87">Start Southern Sotho translation backlog</a>. Thanks to xet7.</summary>
+
+The first 50-value Southern Sotho batch adds detailed card movements, member
+changes, activity history, checklist actions and workspace navigation. All
+values required translation. New locale-wide regression coverage retains every
+replaceable token and HTML tag and pins the remaining Southern Sotho count at
+2,074. This leaves 76,040 actionable values across 35 languages.
 
 </details>
 
