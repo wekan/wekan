@@ -2,16 +2,6 @@ const { defineConfig } = require('@meteorjs/rspack');
 const path = require('path');
 
 module.exports = defineConfig(Meteor => ({
-  // Sharp selects a platform-specific native addon at runtime. Bundling its
-  // JavaScript loader rewrites those dynamic requires and drops @img's .node /
-  // libvips files, so the server compiles but dies at startup. Leave the npm
-  // package external on the server; Meteor copies production dependencies and
-  // Node then resolves the correct platform package normally.
-  ...(Meteor.isServer && {
-    externals: {
-      sharp: 'commonjs sharp',
-    },
-  }),
   ...(Meteor.isClient && {
     experiments: {
       css: false,

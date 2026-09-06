@@ -1,10 +1,22 @@
 import crypto from 'crypto';
-import sharp from 'sharp';
+import { createRequire } from 'module';
 
 export const OMI_IMAGE_MAX_BYTES = 32 * 1024 * 1024;
 export const OMI_IMAGE_MAX_PIXELS = 40 * 1000 * 1000;
 export const OMI_IMAGE_MAX_EDGE = 1024;
 const conversionsInProgress = new Map();
+
+// Do not import Sharp at module evaluation time. Rspack rewrites Sharp's
+// platform-selecting loader and a development server that was already running
+// when rspack.config.js changed can keep the old bundled loader until a full
+// restart. Resolve it with Node only when an Omi image actually needs
+// conversion. If the optional native package is unavailable, only that image
+// request fails; WeKan and its HTML4 sign-in page keep running.
+function loadSharpAtRuntime() {
+  const runtimeRequire = createRequire(import.meta.url);
+  const packageName = ['sh', 'arp'].join('');
+  return runtimeRequire(packageName);
+}
 
 export function omiGifCacheKey(fileObj) {
   const version = fileObj?.versions?.original || {};
@@ -38,6 +50,7 @@ export async function convertImageBufferToGif(input) {
   if (!Buffer.isBuffer(input) || input.length === 0 || input.length > OMI_IMAGE_MAX_BYTES) {
     throw new Error('Invalid Legacy Omi image input');
   }
+  const sharp = loadSharpAtRuntime();
   return sharp(input, {
     animated: false,
     failOn: 'error',

@@ -1,13 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { Readable } = require('node:stream');
-const fs = require('node:fs');
-const path = require('node:path');
-
-test('Rspack leaves Sharp native loading to the server runtime', () => {
-  const config = fs.readFileSync(path.join(__dirname, '..', 'rspack.config.js'), 'utf8');
-  assert.match(config, /Meteor\.isServer[\s\S]*externals[\s\S]*sharp:\s*'commonjs sharp'/);
-});
 
 test('Legacy Omi converts an attachment image to a bounded GIF on the server', async () => {
   const {
