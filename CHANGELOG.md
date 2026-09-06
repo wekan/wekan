@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/138556419">Add accessible HTML4 card voting</a>. Thanks to xet7.</summary>
+
+Card voting now preserves its question, audience, privacy, deadline, counts and
+current-user state without JavaScript or cookies. HTML4 uses one labelled native
+fieldset to create a ballot, textual desired-state vote buttons, public voter
+names or private counts, a deadline editor and a two-POST delete confirmation.
+
+Jade and HTML4 now call one actor-bound server state machine. It binds route and
+linked content cards, verifies view access for participants and write access for
+configuration, bounds questions, strictly parses ISO 8601 deadlines, rejects
+closed ballots and derives the voter from the session before an atomic rewrite.
+Tests cover malformed deadlines, forged states, vote/clear, expiry and confirmed
+removal, and leave a public vote visible in paired same-URL screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd1c16bfb">Add accessible HTML4 card dependencies</a>. Thanks to xet7.</summary>
 
 Card dependencies now remain readable and operable without SVG, JavaScript,
