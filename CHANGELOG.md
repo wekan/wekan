@@ -280,6 +280,19 @@ reports show complete, actionable data and controls.
 
 and fixes the following bugs:
 
+**Top header** - compact actions leave room for one-row controls.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8af89a687">Keep the top Add Board button square</a>. Thanks to xet7.</summary>
+
+The icon-only Add Board action is now a fixed 28-by-28-pixel square matching
+the shared quick-access button height. It no longer grows into all spare header
+space, so neighbouring controls remain on one row whenever their actual widths
+fit. A regression test locks the equal dimensions, zero padding and non-growing
+flex contract to prevent the formerly ten-button-wide hit area from returning.
+
+</details>
+
 **All Boards** - Table view uses one compact, themed controls row.
 
 <details>
