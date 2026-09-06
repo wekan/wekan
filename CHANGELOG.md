@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e86b98bcc">Add accessible HTML4 card watching</a>. Thanks to xet7.</summary>
+
+Card Watch and Unwatch now work without JavaScript or cookies through one signed
+desired-state button, with textual selected state and a readable card-details
+row. Linked cards bind the actual content card instead of trusting a submitted
+target.
+
+The existing Meteor method and HTML4 handler now call one actor-bound service.
+It requires authentication, observes the global Watch feature switch, accepts
+only each watchable type's supported levels and repeats the publication-equivalent
+public, membership, active organisation, team and email-domain visibility check.
+Tests cover anonymous and foreign access, invalid levels, Watch/Unwatch persistence,
+linked-card identity and paired same-URL screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b60a4649c">Add accessible HTML4 card completion and time</a>. Thanks to xet7.</summary>
 
 Card details now expose due completion and spent/overtime values without
