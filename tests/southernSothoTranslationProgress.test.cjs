@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 524,
-  'the first thirty-two Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 474,
+  'the first thirty-three Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -203,5 +203,11 @@ assert.equal(sesotho['gridfs-file-id'], 'ID ya faele ya GridFS');
 assert.match(sesotho['mongodb-compact-warning'],
   /Compact.*replica.*oplog.*Meteor/);
 assert.match(sesotho['mongodb-compact-run'], /MongoDB Compact/);
+assert.deepEqual(tokens(sesotho['drag-board-to-workspace']),
+  ['__workspaces__']);
+assert.match(sesotho['preview-pdf-not-supported'], /PDF/);
+assert.match(sesotho['show-week-of-year'], /ISO 8601/);
+assert.match(sesotho['import-board-zip'], /\.zip.*JSON/);
+assert.equal(sesotho['collapse-checklist'], 'Mena lenane la tlhahlobo');
 
-console.log('southernSothoTranslationProgress: first thirty-two batches passed');
+console.log('southernSothoTranslationProgress: first thirty-three batches passed');
