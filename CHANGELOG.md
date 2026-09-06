@@ -268,7 +268,8 @@ installation examples explain the Admin Panel email options. Change-history chec
 retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
 only once before returning to the shell. Uncommon browser code loads on demand, and
 Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
-buttons, move them between lists with a native selector, and manage comments.
+buttons, move them between lists with a native selector, and manage threaded
+comments.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -358,6 +359,27 @@ the server reader for large streamed input.
 
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7022c009">Add accessible HTML4 comment replies</a>. Thanks to xet7.</summary>
+
+Every Legacy HTML4 comment now has a printable Reply button. Its first signed POST
+opens a separately signed, uniquely labelled textarea, while Cancel returns to the
+unchanged card. The submitted reply uses the common bounded comment service and
+therefore requires its parent to belong to the same visible card and board.
+
+Reply rows state “In reply to” and the parent text explicitly, matching the Jade
+view without depending on indentation, color, CSS or script to convey the
+relationship. Unique form IDs also prevent the repeated comment editor labels from
+targeting only the first textarea in assistive technology.
+
+Component tests cover unique labels, the two operations and parent prose.
+Cookieless Playwright opens the reply form, checks its label, creates a real reply,
+verifies the stored parent and activity, and deletes child before parent through
+the two-step confirmation. Same-URL screenshots show the threaded comment in both
+the HTML4 table and Meteor card.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bcbe45abf">Add accessible HTML4 card comment controls</a>. Thanks to xet7.</summary>
