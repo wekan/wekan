@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
-  'the first twenty-five Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 824,
+  'the first twenty-six Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -158,5 +158,12 @@ assert.equal(sesotho['globalSearchViewChange-choice-me'], 'Dikarete tsa ka');
 assert.deepEqual(tokens(sesotho['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(sesotho['swimlane-title-not-found']), ['%s']);
 assert.deepEqual(tokens(sesotho['list-title-not-found']), ['%s']);
+assert.deepEqual(tokens(sesotho['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+for (const key of ['operator-customfield', 'operator-attachment-text',
+  'operator-checklist-text', 'predicate-overdue']) {
+  assert.doesNotMatch(sesotho[key], /\s/, `${key}: parser-safe single word`);
+}
+assert.equal(sesotho['operator-board'], 'boto');
 
-console.log('southernSothoTranslationProgress: first twenty-five batches passed');
+console.log('southernSothoTranslationProgress: first twenty-six batches passed');
