@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1774,
-  'the first eight 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1724,
+  'the first nine 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -101,5 +101,12 @@ assert.match(tigre['card-aging-tier2'], /2/);
 assert.match(tigre['card-aging-tier3'], /3/);
 assert.equal(tigre['color-black'], 'ጸሊም');
 assert.equal(tigre['color-red'], 'ቀይሕ');
+assert.equal(tigre['color-white'], 'ጻዕዳ');
+assert.equal(tigre['color-yellow'], 'ብጫ');
+assert.match(tigre['copyManyCardsPopup-instructions'], /JSON/);
+const copiedCards = JSON.parse(tigre['copyManyCardsPopup-format']);
+assert.equal(copiedCards.length, 3);
+assert.deepEqual(Object.keys(copiedCards[0]), ['title', 'description']);
+assert.match(tigre['custom-field-dropdown-options-placeholder'], /Enter/);
 
-console.log('tigreTranslationProgress: first eight batches passed');
+console.log('tigreTranslationProgress: first nine batches passed');
