@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **75,340 values across 35 second-tier languages**. Southern
-Sotho has 1,374 left after its first fifteen 50-value batches. Albanian and
+remaining work is **75,290 values across 35 second-tier languages**. Southern
+Sotho has 1,324 left after its first sixteen 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first fifteen activity, administration, import,
-access, tracking, upload and branding batches;
+translations** now cover their first sixteen activity, administration, import,
+tracking, upload, transfer-limit, email and webhook batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8625,6 +8625,18 @@ uploads, custom logos and URL schemes, watching, welcome content and template
 swimlanes. All values required translation. Tests pin numeric shortcut and logo
 height limits and representative upload and welcome wording. This leaves 75,340
 actionable values across 35 languages, including 1,374 in Southern Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a9dfb3a4">Translate Southern Sotho transfer and webhook settings</a>. Thanks to xet7.</summary>
+
+The sixteenth 50-value Southern Sotho batch adds WIP warnings, attachment and
+API transfer limits, avatar upload blocking, registration, SMTP/TLS, invitation
+email, authorization errors, webhooks and database labels. All values required
+translation. Tests retain every invitation token and protocol name. This leaves
+75,290 actionable values across 35 languages, including 1,324 in Southern
+Sotho.
 
 </details>
 
