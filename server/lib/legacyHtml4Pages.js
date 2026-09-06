@@ -497,7 +497,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const personById = new Map(people.map(person => [person._id,
     person.profile?.fullname || person.username || person._id]));
   const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
-  const labels = (board.labels || []).filter(label => (card.labelIds || []).includes(label._id));
+  const labels = (contentBoard?.labels || [])
+    .filter(label => (contentCard?.labelIds || []).includes(label._id));
   const canWrite = await canEditCardOrLinkedCard(userId, card);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
@@ -523,6 +524,18 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       maxlength: 1000, fields: { ...commonFields, legacyOperation: 'edit-card-title' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
+    for (const label of contentBoard?.labels || []) {
+      const selected = (contentCard?.labelIds || []).includes(label._id);
+      rows.push({ color: label.color, rowHeader: false, cells: [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + `${label.name || tr(translate, `color-${label.color}`, label.color)}`,
+        fields: {
+          ...commonFields, legacyOperation: 'toggle-card-label', labelId: label._id,
+          enabled: selected ? 'false' : 'true',
+        },
+      }), ''] });
+    }
     rows.push({ rowHeader: false, cells: [uiTextareaForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, 'description', 'Description'), name: 'cardDescription',

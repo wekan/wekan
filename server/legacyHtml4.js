@@ -23,6 +23,7 @@ import {
   createAccessibleCard,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  setAccessibleCardLabel,
   setAccessibleCardArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
@@ -157,7 +158,7 @@ WebApp.handlers.use(async (req, res, next) => {
   const cardOperations = [
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
     'edit-card-description', 'edit-card-date', 'edit-card-color', 'move-card-to-list',
-    'archive-card', 'restore-card',
+    'toggle-card-label', 'archive-card', 'restore-card',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -480,6 +481,12 @@ WebApp.handlers.use(async (req, res, next) => {
           return updateAccessibleCardColor(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             color: requestFields.cardColor,
+          });
+        }
+        if (requestFields.legacyOperation === 'toggle-card-label') {
+          return setAccessibleCardLabel(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            labelId: requestFields.labelId, enabled: requestFields.enabled === 'true',
           });
         }
         if (requestFields.legacyOperation === 'move-card-to-list') {

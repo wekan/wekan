@@ -108,6 +108,22 @@ test('card color uses one allowlisted acknowledged boundary in HTML5 and HTML4',
   assert.match(page, /name: 'cardColor'/);
 });
 
+test('card labels bind the requested label to the real content board', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/labels.js');
+  const legacy = read('server/legacyHtml4.js');
+  assert.match(source, /async function setAccessibleCardLabel/);
+  assert.match(source, /card\.type === 'cardType-linkedCard'/);
+  assert.match(source, /board\.labels \|\| \[\]\)\.some\(label => label\._id === labelId\)/);
+  assert.match(source, /card label did not belong to the content board/);
+  assert.match(source, /if \(input\.enabled\) await target\.addLabel\(labelId\)/);
+  assert.match(methods, /async setAccessibleCardLabel\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('setAccessibleCardLabel'/);
+  assert.doesNotMatch(client, /await card\.toggleLabel\(/);
+  assert.match(legacy, /legacyOperation === 'toggle-card-label'/);
+});
+
 test('archive checks every descendant before the first write', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

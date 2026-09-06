@@ -23,7 +23,7 @@ test('label picker retains a visible-board fallback', () => {
 });
 
 test('adding a label to a linked card uses the popup card and source board', () => {
-  assert.match(labels, /const card = templateInstance\.data;[\s\S]*await card\.toggleLabel\(labelId\)/);
+  assert.match(labels, /const card = templateInstance\.data;[\s\S]*Meteor\.callAsync\('setAccessibleCardLabel'[\s\S]*card\.getRealCard\(\)\.labelIds/);
   assert.match(labels, /defaultColor\(\)[\s\S]*getCardLabelBoard\(Template\.currentData\(\)\)/);
   assert.match(labels, /submit \.create-label[\s\S]*getCardLabelBoard\(templateInstance\.data\)/);
 });

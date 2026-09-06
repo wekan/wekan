@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { LABEL_COLORS } from '/models/metadata/colors';
 import { isHexColor, toHex } from '/models/lib/contrastColor';
@@ -138,8 +139,13 @@ Template.cardLabelsPopup.events({
     const card = templateInstance.data;
     const labelId = this._id;
     event.preventDefault();
-    if (!card?.toggleLabel) return;
-    await card.toggleLabel(labelId);
+    if (!card) return;
+    await Meteor.callAsync('setAccessibleCardLabel', {
+      cardId: card._id,
+      boardId: card.boardId,
+      labelId,
+      enabled: !(card.getRealCard().labelIds || []).includes(labelId),
+    });
   },
   'click .js-edit-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),

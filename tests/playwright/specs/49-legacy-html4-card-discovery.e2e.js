@@ -42,6 +42,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let html4ChecklistItemId;
   let html4CopiedChecklistId;
   let html4ConvertedCardId;
+  const labelId = db.uid('label');
+  const foreignLabelId = db.uid('label');
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -68,6 +70,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     outsiderBoard = db.seedBoard({
       ownerId: outsider.id,
       cardTitlesPerList: [['HTML4 Searchable Secret']],
+    });
+    db.updateOne('boards', { _id: board.boardId }, {
+      $set: { labels: [{ _id: labelId, name: 'HTML4 Label', color: 'green' }] },
+    });
+    db.updateOne('boards', { _id: outsiderBoard.boardId }, {
+      $set: { labels: [{ _id: foreignLabelId, name: 'Foreign Label', color: 'red' }] },
     });
     templateBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Template Container', listCount: 1 });
     archivedBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Archived Board', listCount: 1 });
@@ -1038,6 +1046,25 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).description)
       .toBe('Edited HTML4 card description');
+    const labelForm = () => page.locator(
+      `form:has(input[name="legacyOperation"][value="toggle-card-label"])`
+      + `:has(input[name="labelId"][value="${labelId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), labelForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).labelIds).toContain(labelId);
+    await labelForm().locator('input[name="labelId"]').evaluate(
+      (input, id) => { input.value = id; }, foreignLabelId,
+    );
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        `form:has(input[name="legacyOperation"][value="toggle-card-label"])`
+        + `:has(input[name="labelId"][value="${foreignLabelId}"]) input[type="submit"]`,
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).labelIds).toEqual([labelId]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

@@ -235,6 +235,12 @@ an empty value removes the color. Both renderers call one acknowledged server
 operation that repeats card and linked-target authorization and accepts only a
 canonical shared palette name or exactly six hexadecimal digits.
 
+Every content-board label is a textual `[x]` or `[ ]` POST control. Jade and
+HTML4 submit the desired state rather than a replay-sensitive toggle. The shared
+service resolves a linked card's real content card and board, verifies that the
+label belongs to that board, and repeats write authorization before adding or
+removing it; a route-board or foreign-label substitution is refused and reported.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

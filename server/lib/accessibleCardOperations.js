@@ -184,6 +184,24 @@ async function updateAccessibleCardColor(userId, input) {
   return true;
 }
 
+async function setAccessibleCardLabel(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (typeof input?.enabled !== 'boolean') throw new Meteor.Error('invalid-card-label-state');
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const board = await Boards.findOneAsync(target.boardId, { fields: { labels: 1 } });
+  const labelId = String(input?.labelId || '');
+  if (!board || !(board.labels || []).some(label => label._id === labelId)) {
+    refuseCardWrite(userId, 'card label did not belong to the content board');
+  }
+  if (input.enabled) await target.addLabel(labelId);
+  else await target.removeLabel(labelId);
+  return true;
+}
+
 async function editableCardTree(userId, root) {
   const pending = [root];
   const seen = new Set();
@@ -216,6 +234,7 @@ export {
   editablePlacement,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  setAccessibleCardLabel,
   setAccessibleCardArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
