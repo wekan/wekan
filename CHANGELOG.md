@@ -358,6 +358,22 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/639bff013">Add signed Legacy HTML4 import-part controls</a>. Thanks to xet7.</summary>
+
+The cookieless import page now shows all 18 selectable board parts in the same
+order and with the same translations as the HTML5 import page. Each printable
+`[x]` or `[ ]` control carries its state in the next one-use signed POST, so no
+JavaScript, cookie or hidden server-side browser state is required.
+
+Pure shared helpers distinguish the initial all-selected state from an explicit
+empty selection, retain only allowlisted fields, remove duplicates and ignore a
+forged toggle. Unit tests cover those positive and negative cases; Playwright
+unticks Comments, proves Attachments remains selected, and captures same-URL
+HTML4 and HTML5 Trello import views containing the same fields.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca008534f">Add the Legacy HTML4 import source picker</a>. Thanks to xet7.</summary>
 
 The `/import` and `/import/:source` addresses now have a semantic cookieless
