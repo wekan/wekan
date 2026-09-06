@@ -146,9 +146,21 @@ test('the server joins proxy locations without replacing per-person counts', () 
   assert.ok(/logins: entry\.count \|\| 0/.test(source));
   assert.ok(/initials: initialsFor\(user\)/.test(source));
   assert.ok(/return \{ total, people: await peopleSummaries\(users\) \}/.test(source));
-  assert.strictEqual((source.match(/LoginAddresses\.find\(/g) || []).length, 3,
-    'Office search, Office page and People-location page each use one batch; '
+  assert.strictEqual((source.match(/LoginAddresses\.find\(/g) || []).length, 4,
+    'Office search, current Office page, legacy Office fallback and '
+    + 'People-location page each use one batch; '
     + 'do not query once per person');
+});
+
+test('legacy address-side history keeps Offices visible after upgrade', () => {
+  const source = read('server/methods/loginOffices.js');
+  assert.match(source, /async function legacyPeopleSummaries/);
+  assert.match(source, /tallyList\(address\.users, 200\)/);
+  assert.match(source, /if \(total === 0\) \{\s*return legacyPeopleSummaries/);
+  assert.match(source, /location: address\.location \|\| null/);
+  assert.match(source, /logins: entry\.count \|\| 0/);
+  assert.match(source, /userId: user\?\._id \|\| ''/,
+    'deleted legacy accounts must remain visible without a clickable fake id');
 });
 
 test('People puts Location before Status and opens a country-menu table', () => {

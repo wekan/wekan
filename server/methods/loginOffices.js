@@ -89,6 +89,65 @@ async function peopleSummaries(users) {
   return users.map(user => personSummary(user, byAddress));
 }
 
+// Rows written before per-user loginAddresses existed still contain the same
+// history in LoginAddresses.users. Reconstruct the person-first view from that
+// side when no new-format people match, so an upgrade does not make every
+// existing office disappear until everybody happens to log in again.
+async function legacyPeopleSummaries({ search = '', limit = 25, skip = 0 } = {}) {
+  const addressDocs = await LoginAddresses.find({}, {
+    fields: { address: 1, ipv4: 1, ipv6: 1, location: 1, locationLabel: 1,
+      users: 1 },
+  }).fetchAsync();
+  const byUsername = new Map();
+  for (const address of addressDocs) {
+    for (const entry of tallyList(address.users, 200)) {
+      const username = entry.value;
+      if (!username) continue;
+      if (!byUsername.has(username)) byUsername.set(username, []);
+      byUsername.get(username).push({
+        address: address.address,
+        ipv4: address.ipv4 || '',
+        ipv6: address.ipv6 || '',
+        location: address.location || null,
+        locationLabel: address.locationLabel || '',
+        logins: entry.count || 0,
+        firstAt: entry.firstAt,
+        at: entry.at,
+      });
+    }
+  }
+  const needle = String(search || '').toLocaleLowerCase();
+  const names = [...byUsername.keys()].filter(username => {
+    if (!needle) return true;
+    if (username.toLocaleLowerCase().includes(needle)) return true;
+    return byUsername.get(username).some(row =>
+      String(row.address || '').toLocaleLowerCase().includes(needle)
+      || String(row.locationLabel || '').toLocaleLowerCase().includes(needle));
+  }).sort((a, b) => a.localeCompare(b));
+  const pageNames = names.slice(skip, skip + limit);
+  const users = pageNames.length ? await Meteor.users.find(
+    { username: { $in: pageNames } },
+    { fields: { username: 1, profile: 1, loginDisabled: 1 } },
+  ).fetchAsync() : [];
+  const userByName = new Map(users.map(user => [user.username, user]));
+  return {
+    total: names.length,
+    people: pageNames.map(username => {
+      const user = userByName.get(username);
+      return {
+        userId: user?._id || '',
+        username,
+        fullname: user?.profile?.fullname || '',
+        initials: user ? initialsFor(user) : username.slice(0, 1).toUpperCase(),
+        avatarUrl: user?.profile?.avatarUrl || '',
+        loginDisabled: !!user?.loginDisabled,
+        addresses: byUsername.get(username),
+        moreAddresses: 0,
+      };
+    }),
+  };
+}
+
 // Admin Panel → Problems → Offices: people first, with each person's addresses
 // kept together and the successful-login count shown for every address.
 //
@@ -174,6 +233,9 @@ if (Meteor.isServer) {
       const skip = Math.max(opts.skip || 0, 0);
 
       const total = await Meteor.users.find(selector).countAsync();
+      if (total === 0) {
+        return legacyPeopleSummaries({ search: opts.search, limit, skip });
+      }
       const users = await Meteor.users.find(selector, {
         fields: { username: 1, profile: 1, loginDisabled: 1, loginAddresses: 1 },
         sort: { username: 1 }, limit, skip,
