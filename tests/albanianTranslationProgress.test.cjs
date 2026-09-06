@@ -20,8 +20,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1915,
-  'the first 200 actionable Albanian values stay translated');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1815,
+  'the first 300 actionable Albanian values stay translated');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -195,6 +195,14 @@ assert.equal(albanian['activity-moved'], 'zhvendosi %s nga %s në %s');
 assert.equal(albanian['board-view'], 'Pamja e tabelës');
 assert.equal(albanian['card-due'], 'Afati');
 assert.equal(albanian['positiveVoteMembersPopup-title'], 'Mbështetësit');
+assert.equal(albanian['vote-question'], 'Pyetja e votimit');
+assert.equal(albanian['cardDetailsActionsPopup-title'], 'Veprimet e kartës');
+assert.equal(albanian['rulesImportExportPopup-title'],
+  'Importo / Eksporto rregullat');
+assert.equal(albanian['cardType-linkedCard'], 'Kartë e lidhur');
+assert.equal(albanian['map-to-existing-user-no-results'],
+  'Nuk u gjetën përdorues që përputhen.');
+assert.equal(albanian['auto-list-width'], 'Gjerësia automatike e listës');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first 200 Albanian values passed');
+console.log('albanianTranslationProgress: first 300 Albanian values passed');
