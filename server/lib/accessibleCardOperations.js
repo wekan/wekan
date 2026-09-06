@@ -13,6 +13,7 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { tripCanary } from '/server/lib/canary';
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
+const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -146,6 +147,30 @@ async function updateAccessibleCardContent(userId, input) {
   return true;
 }
 
+async function updateAccessibleCardDate(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  const field = String(input?.field || '');
+  if (!CARD_DATE_FIELDS.includes(field)) throw new Meteor.Error('invalid-card-date-field');
+  await authorizeContentTarget(userId, card);
+  const rawValue = input?.value instanceof Date
+    ? input.value.toISOString() : String(input?.value ?? '').trim();
+  if (!rawValue) {
+    await card[`unset${field[0].toUpperCase()}${field.slice(1, -2)}`]();
+    return true;
+  }
+  if (rawValue.length > 40
+    || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(rawValue)) {
+    throw new Meteor.Error('invalid-card-date');
+  }
+  const date = new Date(rawValue);
+  if (!Number.isFinite(date.getTime())) throw new Meteor.Error('invalid-card-date');
+  const method = {
+    receivedAt: 'setReceived', startAt: 'setStart', dueAt: 'setDue', endAt: 'setEnd',
+  }[field];
+  await card[method](date);
+  return true;
+}
+
 async function editableCardTree(userId, root) {
   const pending = [root];
   const seen = new Set();
@@ -179,5 +204,6 @@ export {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardArchived,
+  updateAccessibleCardDate,
   updateAccessibleCardContent,
 };

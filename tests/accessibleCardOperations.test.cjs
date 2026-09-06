@@ -73,6 +73,25 @@ test('content edits authorize both the pointer and linked target', () => {
   assert.match(client, /Meteor\.callAsync\('updateAccessibleCardContent'/);
 });
 
+test('card dates use one strict acknowledged boundary in HTML5 and HTML4', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDate.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /CARD_DATE_FIELDS = \['receivedAt', 'startAt', 'dueAt', 'endAt'\]/);
+  assert.match(source, /await editableCard\(userId, input\?\.cardId/);
+  assert.match(source, /await authorizeContentTarget\(userId, card\)/);
+  assert.match(source, /invalid-card-date-field/);
+  assert.match(source, /Number\.isFinite\(date\.getTime\(\)\)/);
+  assert.match(methods, /async updateAccessibleCardDate\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardDate'/);
+  assert.doesNotMatch(client, /currentCard\.(?:set|unset)(?:Received|Start|Due|End)\(/);
+  assert.match(legacy, /legacyOperation === 'edit-card-date'/);
+  assert.match(page, /name: 'cardDateValue'/);
+  assert.match(page, /cardDateField: field/);
+});
+
 test('archive checks every descendant before the first write', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

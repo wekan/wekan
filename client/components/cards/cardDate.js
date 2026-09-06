@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 import {
@@ -29,6 +30,12 @@ import {
 import { dueDateClass } from '/client/lib/dueDateColor';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 
+function storeAccessibleCardDate(field, value, card) {
+  return Meteor.callAsync('updateAccessibleCardDate', {
+    cardId: card._id, boardId: card.boardId, field, value: value || '',
+  });
+}
+
 // --- DatePicker popups (edit date forms) ---
 
 // editCardReceivedDatePopup
@@ -38,10 +45,10 @@ Template.editCardReceivedDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card.getReceived() ? card.getReceived() : undefined,
     storeDate(date, currentCard) {
-      return currentCard.setReceived(date);
+      return storeAccessibleCardDate('receivedAt', date, currentCard);
     },
     deleteDate(currentCard) {
-      return currentCard.unsetReceived();
+      return storeAccessibleCardDate('receivedAt', '', currentCard);
     },
   });
 });
@@ -59,10 +66,10 @@ Template.editCardStartDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card.getStart() ? card.getStart() : undefined,
     storeDate(date, currentCard) {
-      return currentCard.setStart(date);
+      return storeAccessibleCardDate('startAt', date, currentCard);
     },
     deleteDate(currentCard) {
-      return currentCard.unsetStart();
+      return storeAccessibleCardDate('startAt', '', currentCard);
     },
   });
 });
@@ -80,10 +87,10 @@ Template.editCardDueDatePopup.onCreated(function () {
     defaultTime: '1970-01-01 17:00:00',
     initialDate: card.getDue() ? card.getDue() : undefined,
     storeDate(date, currentCard) {
-      return currentCard.setDue(date);
+      return storeAccessibleCardDate('dueAt', date, currentCard);
     },
     deleteDate(currentCard) {
-      return currentCard.unsetDue();
+      return storeAccessibleCardDate('dueAt', '', currentCard);
     },
   });
 });
@@ -101,10 +108,10 @@ Template.editCardEndDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card.getEnd() ? card.getEnd() : undefined,
     storeDate(date, currentCard) {
-      return currentCard.setEnd(date);
+      return storeAccessibleCardDate('endAt', date, currentCard);
     },
     deleteDate(currentCard) {
-      return currentCard.unsetEnd();
+      return storeAccessibleCardDate('endAt', '', currentCard);
     },
   });
 });

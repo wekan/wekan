@@ -539,6 +539,23 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: 'move-card-to-list', position: 'top' },
       submitLabel: tr(translate, 'r-move-card-to', 'Move card to'),
     }), ''] });
+    const dateFields = [
+      ['receivedAt', 'r-df-received-at', 'Received'],
+      ['startAt', 'r-df-start-at', 'Start'],
+      ['dueAt', 'due-date', 'Due Date'],
+      ['endAt', 'r-df-end-at', 'End'],
+    ];
+    for (const [field, key, fallback] of dateFields) {
+      rows.push({ rowHeader: false, cells: [uiTextForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, key, fallback)} (ISO 8601)`,
+        name: 'cardDateValue', value: isoDate(card[field]), maxlength: 40,
+        fields: {
+          ...commonFields, legacyOperation: 'edit-card-date', cardDateField: field,
+        },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), ''] });
+    }
     rows.push({ rowHeader: false, cells: [uiAction({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, card.archived ? 'restore' : 'archive-card',

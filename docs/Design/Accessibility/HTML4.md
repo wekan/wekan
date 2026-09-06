@@ -223,6 +223,12 @@ The server repeats card and destination-board write checks, requires the active
 list and swimlane to belong to that board, excludes the moving card from sibling
 order calculation, and computes its new fractional position authoritatively.
 
+Received, Start, Due and End use four naturally ordered labelled text forms with
+unambiguous ISO 8601 values; an empty value clears the date. Jade date pickers
+and HTML4 forms submit to the same acknowledged operation. It allowlists those
+four fields, rejects ambiguous or invalid dates, repeats route-card and linked-
+target write authorization, and never accepts a caller-selected update path.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

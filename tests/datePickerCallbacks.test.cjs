@@ -18,19 +18,19 @@ const datePicker = fs.readFileSync(
   'utf8',
 );
 
-for (const method of ['setReceived', 'setStart', 'setDue', 'setEnd']) {
+for (const field of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {
   assert.match(
     cardDate,
-    new RegExp(`return currentCard\\.${method}\\(date\\);`),
-    `${method} callback must return its update promise`,
+    new RegExp(`return storeAccessibleCardDate\\('${field}', date, currentCard\\);`),
+    `${field} callback must return its acknowledged update promise`,
   );
 }
 
-for (const method of ['unsetReceived', 'unsetStart', 'unsetDue', 'unsetEnd']) {
+for (const field of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {
   assert.match(
     cardDate,
-    new RegExp(`return currentCard\\.${method}\\(\\);`),
-    `${method} callback must return its update promise`,
+    new RegExp(`return storeAccessibleCardDate\\('${field}', '', currentCard\\);`),
+    `${field} delete callback must return its acknowledged update promise`,
   );
 }
 

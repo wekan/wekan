@@ -10,6 +10,7 @@ const { strToU8, zipSync } = require('../../../node_modules/fflate');
 const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 test('cookieless HTML4 card discovery pages show only the signed-in user data', async ({ browser, baseURL }) => {
+  test.setTimeout(90_000);
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
@@ -1037,6 +1038,34 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).description)
       .toBe('Edited HTML4 card description');
+    const dueDateForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-date"])'
+      + ':has(input[name="cardDateField"][value="dueAt"])',
+    );
+    await dueDateForm().locator('input[name="cardDateValue"]')
+      .fill('2027-01-02T03:04:05Z');
+    await Promise.all([
+      page.waitForNavigation(), dueDateForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).dueAt)
+      .toBe('2027-01-02T03:04:05.000Z');
+    await dueDateForm().locator('input[name="cardDateValue"]').fill('not-a-date');
+    await Promise.all([
+      page.waitForNavigation(), dueDateForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).dueAt)
+      .toBe('2027-01-02T03:04:05.000Z');
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await dueDateForm().locator('input[name="cardDateValue"]').fill('');
+    await Promise.all([
+      page.waitForNavigation(), dueDateForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).dueAt).toBeUndefined();
+    await dueDateForm().locator('input[name="cardDateValue"]')
+      .fill('2027-01-02T03:04:05Z');
+    await Promise.all([
+      page.waitForNavigation(), dueDateForm().locator('input[type="submit"]').click(),
+    ]);
     const listForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="move-card-to-list"])',
     );
