@@ -284,6 +284,28 @@ This release fixes the following bugs:
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/43a1a0e5e">Match Legacy HTML4 sign-in branding and translations</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 sign-in now reads the same Settings document and TAPi18n catalogue
+as the HTML5 form. Product name, logo visibility and link, text below the logo,
+legal notice, registration and forgot-password visibility, field labels and
+actions therefore follow the same configuration and requested language. Common
+page families also use their existing translated HTML5 heading keys instead of
+hard-coded English. Unsafe link schemes are omitted.
+
+The configured custom login logo, or the built-in SVG logo when none is set, is
+converted to GIF89a by the server on its first Legacy HTML4 request. The result
+is stored as a system-asset version in Admin Panel / Attachments / Default
+Storage and reused afterward; changing the configured source selects a new
+content-derived asset. Custom logo downloads use the SSRF-safe resolver. Live
+verification returned Finnish sign-in text and a GIF89a logo, and the database
+confirmed its `legacyHtml4Gif` version in the configured filesystem backend.
+Regression tests cover branding and translation parity, hidden options,
+malicious URL schemes, conversion wiring and Default Storage persistence.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/774878a46">Add the progressive Legacy HTML4 HTML4 baseline</a>. Thanks to xet7.</summary>
 
 Every WeKan page URL now first returns a usable HTML 4.01 document. A small
