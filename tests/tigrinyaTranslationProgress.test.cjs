@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
-  'the first thirty-nine Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
+  'the first forty Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -298,5 +298,14 @@ assert.match(tigrinya['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(tigrinya['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(tigrinya['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
 assert.equal(tigrinya['attachment-monitoring'], 'ምክትታል መተሓሓዚ');
+assert.match(tigrinya['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId.*'ዝጠፍኡ ካርድታት'/s);
+assert.match(tigrinya['restore-all-archived-migration-description'],
+  /swimlaneId.*listId/s);
+assert.match(tigrinya['fix-avatar-urls-migration-description'], /URL.*backend/);
+assert.match(tigrinya['fix-all-file-urls-migration-description'], /URL.*backend/);
+assert.match(tigrinya['run-restore-all-archived-migration-confirm'],
+  /ብቐሊሉ ክምለስ ኣይከኣልን/);
+assert.equal(tigrinya['migration-progress-current-step'], 'እዋናዊ ደረጃ');
 
-console.log('tigrinyaTranslationProgress: first thirty-nine batches passed');
+console.log('tigrinyaTranslationProgress: first forty batches passed');
