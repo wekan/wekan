@@ -11,6 +11,7 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const { UI_ICONS, uiControlLabel, uiIcon } = require('../imports/lib/uiComponentLibrary');
+const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 
 function request(url, headers = {}) {
   return { method: 'GET', url, headers };
@@ -115,6 +116,24 @@ test('component library has matching HTML5 and HTML4 routes', () => {
   assert.match(templates, /uiIconClass 'caret-down'/);
   assert.match(pages, /path === '\/accessibility\/components'/);
   assert.match(pages, /UI_ICONS\['caret-down'\]\.ascii/);
+});
+
+test('information pages have dedicated controllers and share shortcut data', () => {
+  const root = path.join(__dirname, '..');
+  const pages = fs.readFileSync(path.join(root, 'server', 'lib', 'legacyHtml4Pages.js'), 'utf8');
+  const keyboard = fs.readFileSync(path.join(root, 'client', 'lib', 'keyboard.js'), 'utf8');
+  for (const route of ['/accessibility', '/support', '/shortcuts']) {
+    assert.match(pages, new RegExp(`path === '${route}'`), route);
+  }
+  assert.match(keyboard, /keyboardShortcutMappings.*KEYBOARD_SHORTCUT_MAPPINGS/);
+  assert.ok(KEYBOARD_SHORTCUT_MAPPINGS.length >= 16);
+  for (const mapping of KEYBOARD_SHORTCUT_MAPPINGS) {
+    assert.ok(mapping.keys.length > 0);
+    assert.match(mapping.action, /^[a-z0-9-]+$/);
+  }
+  assert.match(pages, /supportPagePublic === true \|\| Boolean\(userId\)/);
+  assert.match(pages, /AccessibilitySettings\.findOneAsync/);
+  assert.match(pages, /const allowed = Boolean\(userId\)/);
 });
 
 test('account forms retain semantic labels, grouping and keyboard order', () => {

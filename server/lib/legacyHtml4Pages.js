@@ -2,7 +2,10 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import Settings from '/models/settings';
+import AccessibilitySettings from '/models/accessibilitySettings';
 const { UI_ICONS, uiAction, uiLink } = require('/imports/lib/uiComponentLibrary');
+const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 
 function segment(value) {
   try { return decodeURIComponent(String(value || '')); } catch (_) { return ''; }
@@ -119,9 +122,53 @@ async function boardPage(path, userId, requestFields = {}, translate) {
   };
 }
 
+async function informationPage(path, userId, translate) {
+  if (path === '/shortcuts') return {
+    heading: tr(translate, 'keyboard-shortcuts', 'Keyboard shortcuts'),
+    columns: [tr(translate, 'keyboard-shortcuts', 'Keyboard shortcuts'), tr(translate, 'action', 'Action')],
+    rows: KEYBOARD_SHORTCUT_MAPPINGS.map(mapping => ({
+      cells: [mapping.keys.join(' / '), tr(translate, mapping.action, mapping.action)],
+    })),
+  };
+  if (path === '/accessibility') {
+    const setting = await AccessibilitySettings.findOneAsync({});
+    const allowed = Boolean(userId);
+    return {
+      heading: setting?.title || tr(translate, 'accessibility-title', 'Accessibility'),
+      columns: [tr(translate, 'accessibility', 'Accessibility'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [allowed && setting?.enabled && setting?.body
+        ? setting.body : allowed
+          ? tr(translate, 'accessibility-info-not-added-yet', 'Accessibility info has not been added yet')
+          : tr(translate, 'support-info-only-for-logged-in-users', 'Information is only for logged in users.'),
+      allowed && setting?.enabled
+        ? tr(translate, 'accessibility-page-enabled', 'Accessibility page enabled')
+        : tr(translate, 'change-permissions', 'Permissions')] }],
+    };
+  }
+  if (path === '/support') {
+    const setting = (await Settings.findOneAsync({})) || {};
+    const allowed = setting.supportPagePublic === true || Boolean(userId);
+    const body = !allowed
+      ? tr(translate, 'support-info-only-for-logged-in-users', 'Support info is only for logged in users.')
+      : setting.supportPageEnabled && setting.supportPageText
+        ? setting.supportPageText
+        : tr(translate, 'support-info-not-added-yet', 'Support info has not been added yet');
+    return {
+      heading: setting.supportTitle || tr(translate, 'support', 'Support'),
+      columns: [tr(translate, 'support', 'Support'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [body, allowed
+        ? tr(translate, 'support', 'Support')
+        : tr(translate, 'change-permissions', 'Permissions')] }],
+    };
+  }
+  return null;
+}
+
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
   if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
   if (path === '/public') return boardsPage(userId, true, translate);
+  const information = await informationPage(path, userId, translate);
+  if (information) return information;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) return boardsPage(userId, false, translate);
   if (/^\/b(?:\/|$)/.test(path)) return boardPage(path, userId, requestFields, translate);
   if (path === '/accessibility/components') return {

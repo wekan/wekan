@@ -38,6 +38,14 @@ browsers without drag-and-drop explicit Move up, Move down, Move left, Move
 right and destination-selection POST buttons rather than a board that can be
 viewed but not rearranged.
 
+The complete fallback is intentionally not duplicated inside `noscript`.
+`noscript` is selected only when scripting is disabled; it does not help a
+browser that recognizes scripts but cannot parse or execute Meteor's required
+JavaScript. The semantic HTML4 page is therefore the document body itself. The
+capability bootstrap replaces it with the HTML5/Meteor document only after every
+test succeeds. A small `noscript` explanation may be present, but never contains
+the sole copy of a page or operation.
+
 The bootstrap must not load or parse the large Meteor bundles before the tests
 pass. The upgrade state is an optimization only and never authentication or
 authorization state. Every HTML4 form includes an internal representation field

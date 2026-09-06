@@ -112,3 +112,20 @@ The route inventory remains incomplete until each route is backed by a dedicated
 controller. The generic explanatory page prevents a blank response but does not
 count as feature parity.
 
+## Implementation inventory
+
+This table records dedicated controllers, rather than merely routes that receive
+the generic baseline. It is updated with every implementation batch.
+
+| URL family | Current HTML4 implementation |
+| --- | --- |
+| `/sign-in`, `/sign-up` | Complete cookieless account forms |
+| `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated board-list reader; section filtering and mutations remain |
+| `/b/...` | Dedicated upper-left board reader; full card details and mutations remain |
+| `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
+| `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
+| `/accessibility/components` | Shared component demonstration page |
+| User card/search/import pages | Generic baseline; dedicated controllers remain |
+| Board rules | Generic baseline; dedicated controller remains |
+| Admin Panel pages and panes | Generic baseline; dedicated controllers remain |
+| Account preferences and information | Generic baseline; dedicated controllers remain |
