@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,206 values across 36 second-tier languages**. Albanian
-now has 1,116 left after its first twenty 50-value batches. Bosnian is also
+remaining work is **77,106 values across 36 second-tier languages**. Albanian
+now has 1,016 left after its first twenty-two 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first twenty activity,
-board, import, system, organization, card-setting and automation batches;
+**In short:** **Albanian translations** now cover the first twenty-two activity,
+board, import, system, organization, automation and authentication batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8355,6 +8355,18 @@ Excel and WeKan import guidance, safe Trello ZIP errors, Trello API progress and
 member mapping. The importer placeholders and command examples remain intact.
 This leaves 77,486 actionable values across 36 languages, including 1,515 in
 Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31ebe4eca">Translate Albanian automation actions</a>. Thanks to xet7.</summary>
+
+The twenty-first and twenty-second 50-value Albanian batches add rule conditions
+and actions for cards, labels, members, attachments and checklists, generated
+rule descriptions, date fields, authentication and custom web metadata. All one
+hundred values required translation. Regression coverage now audits both
+replaceable tokens and HTML tags across the entire Albanian locale. This leaves
+77,106 actionable values across 36 languages, including 1,016 in Albanian.
 
 </details>
 
