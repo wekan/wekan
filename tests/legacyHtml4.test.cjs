@@ -293,7 +293,9 @@ test('card discovery pages scope reads to the authenticated user boards', () => 
   assert.match(pages, /Boards\.userBoardIds\(userId, false, \{\}, \{ includePublic: false \}\)/);
   assert.match(pages, /\{ members: userId \}.*\{ assignees: userId \}/s);
   assert.match(pages, /starredPagesOf\(user\?\.profile\?\.starredPages\)/);
-  assert.match(pages, /query\.replace\(\/\[\.\*\+\?\^\$\{\}\(\)\|\[\\\]\\\\\]\/g/);
+  assert.match(pages, /query\.buildParams\(queryText, key => translate\(key\)\)/);
+  assert.match(pages, /searchCardsPage\(/);
+  assert.doesNotMatch(pages, /new RegExp\(escaped, 'i'\)/);
   assert.match(middleware, /if \(query\.has\('q'\)\) requestFields\.q = query\.get\('q'\)/);
 });
 

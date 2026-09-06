@@ -14,6 +14,9 @@ import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import CustomFields from '/models/customFields';
 import { CustomFieldStringTemplate } from '/imports/lib/customFields';
+import { Query } from '/config/query-classes';
+import { DEFAULT_LIMIT, OPERATOR_USER } from '/config/search-const';
+import { searchCardsPage } from '/server/publications/cards';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import { attachmentKind } from '/models/lib/attachmentKind';
 import getSlug from 'limax';
@@ -42,6 +45,7 @@ const {
 } = require('/models/metadata/dependencies');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
 const { cardActivityDescriptor } = require('/models/lib/cardActivityDescription');
+const { GLOBAL_SEARCH_HELP_LINES, GLOBAL_SEARCH_HELP_TAGS } = require('/models/lib/globalSearchHelp');
 const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
@@ -1841,6 +1845,101 @@ async function cardDiscoveryPage(path, userId, requestFields, translate) {
     };
   }
   if (!['/my-cards', '/due-cards', '/global-search'].includes(path)) return null;
+  if (path === '/global-search') {
+    const queryText = String(requestFields.q || '').trim().slice(0, 2000);
+    const searchView = requestFields.searchView === 'me' ? 'me' : 'all';
+    const query = new Query();
+    query.buildParams(queryText, key => translate(key));
+    const currentUser = searchView === 'me'
+      ? await Meteor.users.findOneAsync(userId, { fields: { username: 1 } }) : null;
+    if (currentUser?.username) query.getQueryParams().addPredicate(
+      OPERATOR_USER, currentUser.username,
+    );
+    const parseErrors = query.errors();
+    const shouldSearch = !query.hasErrors() && Boolean(queryText || searchView === 'me');
+    const result = shouldSearch
+      ? await searchCardsPage(
+          userId, query.getQueryParams().getParams(), query.getQueryParams().text,
+          requestFields.page,
+        )
+      : { cards: [], totalHits: 0, errors: [], page: 1, totalPages: 1, limit: DEFAULT_LIMIT };
+    const rows = [{ rowHeader: false, cells: [uiSearchForm({
+      action: path,
+      label: tr(translate, 'globalSearch-title', 'Search All Boards'),
+      value: queryText,
+      fields: { searchView },
+    }), '', ''] }, {
+      rowHeader: false,
+      cells: [[uiAction({
+        action: path,
+        label: `${searchView === 'all' ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + tr(translate, 'globalSearchViewChange-choice-all', 'All cards'),
+        fields: { q: queryText, searchView: 'all', page: 1 },
+      }), uiAction({
+        action: path,
+        label: `${searchView === 'me' ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + tr(translate, 'globalSearchViewChange-choice-me', 'My cards'),
+        fields: { q: queryText, searchView: 'me', page: 1 },
+      })], '', ''],
+    }];
+    for (const error of [...parseErrors, ...(result.errors || [])]) {
+      const argumentsObject = error?.value && typeof error.value === 'object'
+        ? error.value : { sprintf: [String(error?.value || '')] };
+      rows.push({ cells: [tr(translate, 'error', 'Error'),
+        tr(translate, error?.tag || 'operation-failed', error?.tag || 'Operation failed',
+          argumentsObject), ''] });
+    }
+    if (!shouldSearch) {
+      const suggestionBoardIds = await Boards.userBoardIds(
+        userId, false, {}, { includePublic: false },
+      );
+      const [suggestionBoards, suggestionLists] = await Promise.all([
+        Boards.find({ _id: { $in: suggestionBoardIds } }, {
+          fields: { title: 1, labels: 1 }, sort: { title: 1 }, limit: 200,
+        }).fetchAsync(),
+        Lists.find({ boardId: { $in: suggestionBoardIds }, archived: { $ne: true } }, {
+          fields: { title: 1 }, sort: { title: 1 }, limit: 200,
+        }).fetchAsync(),
+      ]);
+      for (const suggestion of suggestionBoards) rows.push({
+        cells: [tr(translate, 'boards', 'Boards'), suggestion.title || '', ''],
+      });
+      for (const suggestion of suggestionLists) rows.push({
+        cells: [tr(translate, 'lists', 'Lists'), suggestion.title || '', ''],
+      });
+      const seenLabels = new Set();
+      for (const label of suggestionBoards.flatMap(item => item.labels || [])) {
+        const value = String(label.name || label.color || '').trim();
+        if (!value || seenLabels.has(value)) continue;
+        seenLabels.add(value);
+        rows.push({ cells: [tr(translate, 'labels', 'Labels'), value, ''] });
+      }
+      const helpTags = Object.fromEntries(Object.entries(GLOBAL_SEARCH_HELP_TAGS)
+        .map(([name, key]) => [name, tr(translate, key, key)]));
+      for (const [prefix, key] of GLOBAL_SEARCH_HELP_LINES) rows.push({
+        cells: [prefix.includes('#') ? tr(translate, key, key, helpTags) : '',
+          `${prefix.replace(/[#\n]/g, '').trim()} ${tr(translate, key, key, helpTags)}`.trim(), ''],
+      });
+    }
+    rows.push(...await cardRows(result.cards || [], userId, translate));
+    if (shouldSearch) rows.push({ cells: [
+      tr(translate, 'globalSearch-title', 'Search All Boards'),
+      `${result.totalHits} (${result.page} / ${result.totalPages})`,
+      [result.page > 1 ? uiAction({
+        action: path, label: tr(translate, 'previous-page', 'Previous'), icon: 'previous',
+        fields: { q: queryText, searchView, page: result.page - 1 },
+      }) : '', result.page < result.totalPages ? uiAction({
+        action: path, label: tr(translate, 'next-page', 'Next'), icon: 'next',
+        fields: { q: queryText, searchView, page: result.page + 1 },
+      }) : ''],
+    ] });
+    return {
+      heading: tr(translate, 'globalSearch-title', 'Search All Boards'),
+      columns: [tr(translate, 'card', 'Card'), tr(translate, 'board', 'Board'),
+        tr(translate, 'due-date', 'Due Date')],
+      rows, empty: tr(translate, 'no-results', 'No results'),
+    };
+  }
   const boardIds = await Boards.userBoardIds(userId, false, {}, { includePublic: false });
   const selector = {
     boardId: { $in: boardIds }, type: 'cardType-card', archived: false,
@@ -1851,13 +1950,6 @@ async function cardDiscoveryPage(path, userId, requestFields, translate) {
     { assigners: userId }, { userId },
   ];
   if (path === '/due-cards') selector.dueAt = { $exists: true, $nin: [null, ''] };
-  if (path === '/global-search') {
-    const query = String(requestFields.q || '').trim().slice(0, 200);
-    if (query) {
-      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      selector.$and = [{ $or: [{ title: new RegExp(escaped, 'i') }, { description: new RegExp(escaped, 'i') }] }];
-    } else selector._id = null;
-  }
   const cards = await Cards.find(selector, {
     fields: { title: 1, color: 1, boardId: 1, listId: 1, dueAt: 1 },
     sort: path === '/due-cards' ? { dueAt: 1 } : { modifiedAt: -1 }, limit: 200,
@@ -1868,9 +1960,6 @@ async function cardDiscoveryPage(path, userId, requestFields, translate) {
     '/global-search': tr(translate, 'globalSearch-title', 'Search All Boards'),
   };
   const rows = await cardRows(cards, userId, translate);
-  if (path === '/global-search') rows.unshift({ rowHeader: false, cells: [uiSearchForm({
-    action: path, label: tr(translate, 'globalSearch-title', 'Search All Boards'), value: requestFields.q,
-  }), '', ''] });
   return {
     heading: headings[path],
     columns: [tr(translate, 'card', 'Card'), tr(translate, 'board', 'Board'), tr(translate, 'due-date', 'Due Date')],

@@ -27,6 +27,7 @@ export class CardSearchPaged {
     // is a paginated page too, so it loads the same 10 rows at a time.
     this.resultsPerPage = TABLE_PAGE_ROWS_PER_PAGE;
     this.sessionId = SessionData.getSessionId();
+    this.currentSearch = null;
     this.subscriptionHandle = null;
     this.serverError = new ReactiveVar(false);
     this.sessionData = null;
@@ -90,6 +91,8 @@ export class CardSearchPaged {
         Meteor.setTimeout(waitForSessionData, 100);
       },
       onError(error) {
+        // eslint-disable-next-line no-console
+        console.error('Global search subscription failed:', error);
         that.searching.set(false);
         that.hasResults.set(false);
         that.serverError.set(true);
@@ -111,7 +114,7 @@ export class CardSearchPaged {
   }
 
   getSessionData(sessionId) {
-    const sessionIdToUse = sessionId || SessionData.getSessionId();
+    const sessionIdToUse = sessionId || this.sessionId;
 
     // Use SessionData.findOne() directly - it's synchronous on the client
     const sessionData = SessionData.findOne({
@@ -179,6 +182,10 @@ export class CardSearchPaged {
   }
 
   getSubscription(queryParams) {
+    this.currentSearch = {
+      params: { ...queryParams.params },
+      text: queryParams.text || '',
+    };
     // Subscribe to globalSearch which includes sessionData as the 11th cursor
     const globalSearchHandle = Meteor.subscribe(
       'globalSearch',
@@ -213,23 +220,36 @@ export class CardSearchPaged {
   }
 
   nextPage() {
-    this.searching.set(true);
-    this.stopSubscription();
-    this.subscriptionHandle = Meteor.subscribe(
-      'nextPage',
-      this.sessionId,
-      this.subscriptionCallbacks,
-    );
+    this.runPageSearch(this.sessionData?.lastHit || 0);
   }
 
   previousPage() {
+    const projection = this.sessionData?.getProjection?.() || {};
+    const currentStart = Math.max(0,
+      (this.sessionData?.lastHit || 0) - (this.sessionData?.resultsCount || 0));
+    this.runPageSearch(Math.max(0, currentStart - (projection.limit || this.resultsPerPage)));
+  }
+
+  runPageSearch(skip) {
+    if (!this.currentSearch) return;
     this.searching.set(true);
-    this.stopSubscription();
-    this.subscriptionHandle = Meteor.subscribe(
-      'previousPage',
+    const previous = this.subscriptionHandle;
+    this.sessionId = `${SessionData.getSessionId()}-${Date.now()}-`
+      + `${Math.floor(Math.random() * 1000000)}`;
+    const next = Meteor.subscribe(
+      'globalSearch',
       this.sessionId,
-      this.subscriptionCallbacks,
+      { ...this.currentSearch.params, skip },
+      this.currentSearch.text,
+      {
+        onReady: () => {
+          if (previous) previous.stop();
+          this.subscriptionCallbacks.onReady();
+        },
+        onError: error => this.subscriptionCallbacks.onError(error),
+      },
     );
+    this.subscriptionHandle = next;
   }
 
   getResultsHeading() {

@@ -39,7 +39,7 @@ assert.doesNotMatch(
 );
 
 const findCards = cards.match(
-  /async function findCards\(sessionId, query, userId\) \{[\s\S]*?ReactiveCache\.getCards\(databaseSelector/,
+  /async function executeCardSearch\(query, userId\) \{[\s\S]*?ReactiveCache\.getCards\(databaseSelector/,
 );
 assert.ok(findCards, 'the shared initial and pagination query path must exist');
 assert.match(

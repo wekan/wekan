@@ -447,6 +447,19 @@ instance-wide activity-hiding setting and repeats visibility for a linked
 content board before reading any history. Unknown or partly orphaned legacy
 events degrade to escaped text rather than disappearing or becoming markup.
 
+Global Search parses the same localized operator and predicate vocabulary in
+HTML4 and HTML5. Both call one server search executor, including board, list,
+swimlane, comment, label, person, organisation, team, number, date, status,
+presence, text, sort and limit handling; selector execution guards and the
+caller's current private-board scope are repeated immediately before each
+database query. The HTML4 empty state shares the modern help-line catalogue and
+shows the same board, list and label suggestions. My Cards/All Cards and native
+Previous/Next POST controls retain the bounded query state. Result limits are
+capped at 200, page offsets are bounded, and the total is counted without the
+current cursor's skip/limit so later pages cannot disappear. Modern pagination
+uses a new owned session document for each page, preventing a slow transport
+from removing the old merged document before the new page is ready.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

@@ -37,6 +37,7 @@ const constants = read('config/search-const.js');
 const queryClasses = read('config/query-classes.js');
 const cards = read('server/publications/cards.js');
 const globalSearch = read('client/components/main/globalSearch.js');
+const globalSearchHelp = read('models/lib/globalSearchHelp.js');
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 
 let passed = 0;
@@ -77,9 +78,10 @@ test('an unparseable predicate never reaches the selector (negative)', () => {
 });
 
 test('the search help documents it, in the users\' own words', () => {
-  assert.ok(/globalSearch-instructions-operator-number/.test(globalSearch),
+  assert.ok(/globalSearch-instructions-operator-number/.test(globalSearchHelp),
     'the instructions list it');
-  assert.ok(/operator_number: TAPi18n\.__\('operator-number'\)/.test(globalSearch),
+  assert.ok(/operator_number: 'operator-number'/.test(globalSearchHelp)
+      && /GLOBAL_SEARCH_HELP_TAGS/.test(globalSearch),
     'and the help shows the translated operator, not the English one');
   assert.ok(/__operator_number__/.test(en['globalSearch-instructions-operator-number']),
     'so a translated WeKan shows its own word for it');

@@ -817,6 +817,8 @@ WebApp.handlers.use(async (req, res, next) => {
   }
   await removeLegacyHtml4Upload(multipartUpload);
   if (query.has('q')) requestFields.q = query.get('q');
+  if (query.has('searchView')) requestFields.searchView = query.get('searchView');
+  if (query.has('page')) requestFields.page = query.get('page');
   const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
 
   res.statusCode = 200;

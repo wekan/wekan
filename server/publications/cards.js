@@ -445,6 +445,7 @@ Meteor.publish('sessionData', async function(sessionId) {
 // YOUR boards. Someone who wants to look inside a public board can still open it
 // and search there.
 const SEARCH_BOARD_SCOPE = { includePublic: false };
+export const MAX_GLOBAL_SEARCH_RESULTS_PER_PAGE = 200;
 
 async function buildSelector(queryParams, userId) {
   const errors = new QueryErrors();
@@ -999,7 +1000,10 @@ function buildProjection(query) {
   }
 
   if (query.getQueryParams().hasOperator(OPERATOR_LIMIT)) {
-    limit = query.getQueryParams().getPredicate(OPERATOR_LIMIT);
+    limit = Math.min(
+      query.getQueryParams().getPredicate(OPERATOR_LIMIT),
+      MAX_GLOBAL_SEARCH_RESULTS_PER_PAGE,
+    );
   }
 
   const projection = {
@@ -1247,7 +1251,7 @@ Meteor.publish('previousPage', async function(sessionId) {
   return prevCursors;
 });
 
-async function findCards(sessionId, query, userId) {
+async function executeCardSearch(query, userId) {
   // SessionData replays selectors for pagination. Scope again here so a session
   // written by an older vulnerable release cannot retain cross-board access,
   // and reject execution operators before either MongoDB or FerretDB sees them.
@@ -1267,8 +1271,8 @@ async function findCards(sessionId, query, userId) {
     ? MATCH_NOTHING
     : { $and: [storedSelector, { boardId: { $in: authorizedBoardIds } }] };
 
-  let textMatches = query.getQueryParams().text;
-  let isTextSearch = !!textMatches;
+  const textMatches = query.getQueryParams().text;
+  const isTextSearch = !!textMatches;
   let dbProjection = query.projection;
   if (isTextSearch) {
     dbProjection = {
@@ -1280,7 +1284,12 @@ async function findCards(sessionId, query, userId) {
   }
 
   let cards = await ReactiveCache.getCards(databaseSelector, dbProjection, true);
-  let totalCardsCount = cards ? (typeof cards.countAsync === 'function' ? await cards.countAsync() : cards.count()) : 0;
+  // A cursor count after skip/limit reports only the current page on MongoDB
+  // and FerretDB. Count the authorized selector independently so both the DDP
+  // and HTML4 pagers know that later pages exist.
+  const countCursor = Cards.find(databaseSelector, { fields: { _id: 1 } });
+  const totalCardsCount = typeof countCursor.countAsync === 'function'
+    ? await countCursor.countAsync() : countCursor.count();
   let orderedIds = [];
 
   if (isTextSearch && totalCardsCount > 0) {
@@ -1304,7 +1313,46 @@ async function findCards(sessionId, query, userId) {
     cards = await ReactiveCache.getCards({ _id: { $in: orderedIds } }, { fields: query.projection.fields }, true);
   }
 
+  return { cards, totalCardsCount, orderedIds, storedSelector };
+}
 
+export async function searchCardsPage(userId, params, text, requestedPage = 1) {
+  if (!userId) return { cards: [], totalHits: 0, errors: [] };
+  const query = await buildQuery(new QueryParams(params, text), userId);
+  const limit = query.projection.limit || DEFAULT_LIMIT;
+  const numericPage = Math.floor(Number(requestedPage));
+  let page = Number.isSafeInteger(numericPage) && numericPage > 0
+    ? Math.min(numericPage, 10000) : 1;
+  query.projection.skip = (page - 1) * limit;
+  let result = await executeCardSearch(query, userId);
+  const totalPages = Math.max(1, Math.ceil(result.totalCardsCount / limit));
+  if (page > totalPages) {
+    page = totalPages;
+    query.projection.skip = (page - 1) * limit;
+    result = await executeCardSearch(query, userId);
+  }
+  const cards = result.cards
+    ? (typeof result.cards.fetchAsync === 'function'
+        ? await result.cards.fetchAsync() : result.cards.fetch())
+    : [];
+  if (result.orderedIds.length) {
+    const byId = new Map(cards.map(card => [card._id, card]));
+    return {
+      cards: result.orderedIds.map(id => byId.get(id)).filter(Boolean),
+      totalHits: result.totalCardsCount,
+      errors: query.errors(),
+      projection: query.projection, page, totalPages, limit,
+    };
+  }
+  return {
+    cards, totalHits: result.totalCardsCount, errors: query.errors(),
+    projection: query.projection, page, totalPages, limit,
+  };
+}
+
+async function findCards(sessionId, query, userId) {
+  const { cards, totalCardsCount, orderedIds, storedSelector } =
+    await executeCardSearch(query, userId);
 
   const update = {
     $set: {
@@ -1327,7 +1375,7 @@ async function findCards(sessionId, query, userId) {
         : totalCardsCount;
 
     // For text search preserve our sorted IDs, else grab from db order
-    if (isTextSearch) {
+    if (query.getQueryParams().text) {
       update.$set.cards = orderedIds;
     } else {
       const cardArray = typeof cards.fetchAsync === 'function' ? await cards.fetchAsync() : cards.fetch();

@@ -133,7 +133,7 @@ the generic baseline. It is updated with every implementation batch.
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |
 | `/my-cards`, `/due-cards`, `/bookmarks` | Dedicated, authenticated card/bookmark readers |
-| `/global-search` | Dedicated authenticated title/description search; advanced operators remain |
+| `/global-search` | Dedicated authenticated search using the same localized parser, all advanced operators, ranked text matching, My Cards/All Cards scope, bounded `limit:` and paged result service as Meteor. The empty view shares the operator help catalogue and lists the user's board, list and label suggestions. Native Previous/Next POST controls preserve the query and view; result links remain signed. Paired same-URL tests cover 26 results, a board/title/limit query, page movement and exclusion of another user's identically named private board |
 | `/import`, `/import/:source` | Shared source picker and import-part toggles; bounded signed JSON/CSV text and streamed JSON, Excel, Trello ZIP and WeKan ZIP files call their common sanitized importers. WeKan ZIP attachments stream into Default Storage; member mapping, Trello workspace naming and Trello API import remain |
 | Board rules | Generic baseline; dedicated controller remains |
 | Admin Panel pages and panes | Generic baseline; dedicated controllers remain |

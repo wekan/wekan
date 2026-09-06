@@ -44,8 +44,8 @@ function uiLink({ href, label, icon = 'caret-right' }) {
   return { component: 'link', href, label, icon };
 }
 
-function uiSearchForm({ action, label, value = '' }) {
-  return { component: 'search', action, label, value };
+function uiSearchForm({ action, label, value = '', fields = {} }) {
+  return { component: 'search', action, label, value, fields };
 }
 
 function uiSelectForm({ action, label, name, value = '', options = [], fields = {}, submitLabel }) {

@@ -120,6 +120,9 @@ export class QueryParams {
   constructor(params = {}, text = '') {
     this.params = params;
     this.text = text;
+    const skip = Math.floor(Number(params?.skip));
+    this.skip = Number.isSafeInteger(skip) && skip > 0
+      ? Math.min(skip, 2000000) : 0;
   }
 
   hasOperator(operator) {
@@ -292,7 +295,7 @@ export class Query {
     this.queryParams.addPredicate(operator, predicate);
   }
 
-  buildParams(queryText) {
+  buildParams(queryText, translate = key => TAPi18n.__(key)) {
     this.queryParams = new QueryParams();
 
     queryText = queryText.trim();
@@ -397,7 +400,7 @@ export class Query {
     Object.entries(predicates).forEach(([category, catPreds]) => {
       predicateTranslations[category] = {};
       Object.entries(catPreds).forEach(([tag, value]) => {
-        predicateTranslations[category][TAPi18n.__(tag)] = value;
+        predicateTranslations[category][translate(tag)] = value;
       });
     });
     // eslint-disable-next-line no-console
@@ -405,7 +408,7 @@ export class Query {
 
     const operatorMap = {};
     Object.entries(operators).forEach(([key, value]) => {
-      operatorMap[TAPi18n.__(key).toLowerCase()] = value;
+      operatorMap[String(translate(key)).toLowerCase()] = value;
     });
     // eslint-disable-next-line no-console
     // console.log('operatorMap:', operatorMap);
