@@ -8282,6 +8282,17 @@ appearance, account, validation, export and filter batches.
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cde94d0b1">Filter Boards Report by permission</a>. Thanks to xet7.</summary>
+
+Boards Report now has an All, Public and Private permission dropdown. Search,
+row publication, count and pagination share one validated server-side selector,
+so changing the filter resets to the first page and cannot leave stale rows or
+an incorrect page count. Source and browser tests cover both permission values
+and reject unsupported direct-call values.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/99b1801e8">Gate and audit Files Report permanent deletion</a>. Thanks to xet7.</summary>
 
 The Files Report shows its permanent-delete icon only to a Global Admin while
