@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
-  'the first thirty-six Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
+  'the first thirty-seven Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -230,5 +230,13 @@ assert.match(sesotho['always-show-code-as-text-description'],
   /HTML.*<!-- -->.*JavaScript/);
 assert.match(sesotho['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(sesotho['backup-time'], /HH:MM/);
+assert.match(sesotho['gcs-permissions-note'],
+  /Google Cloud Console.*client_email.*JSON.*Storage Object Admin/s);
+assert.match(sesotho['s3-endpoint-menu-path'],
+  /AWS.*S3.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
+assert.match(sesotho['gcs-credentials-menu-path'],
+  /IAM & Admin.*Service accounts.*JSON/s);
+assert.equal(sesotho['cloud-secret-none'], '(ha e a behwa)');
 
-console.log('southernSothoTranslationProgress: first thirty-six batches passed');
+console.log('southernSothoTranslationProgress: first thirty-seven batches passed');
