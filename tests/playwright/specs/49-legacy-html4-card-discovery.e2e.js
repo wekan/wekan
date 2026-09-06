@@ -10,7 +10,7 @@ const { strToU8, zipSync } = require('../../../node_modules/fflate');
 const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 test('cookieless HTML4 card discovery pages show only the signed-in user data', async ({ browser, baseURL }) => {
-  test.setTimeout(90_000);
+  test.setTimeout(120_000);
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
@@ -1177,6 +1177,64 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.waitForNavigation(), sortForm().locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).sort).toBe(originalSort);
+    const newLocationForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="save-card-location"])'
+      + ':has(input[name="locationId"][value=""])',
+    );
+    await newLocationForm().locator('input[name="locationName"]').fill('HTML4 Harbour');
+    await newLocationForm().locator('input[name="locationAddress"]').fill('Quay 4');
+    await newLocationForm().locator('input[name="locationLatitude"]').fill('60.17');
+    await newLocationForm().locator('input[name="locationLongitude"]').fill('24.94');
+    await Promise.all([
+      page.waitForNavigation(), newLocationForm().locator('input[type="submit"]').click(),
+    ]);
+    let savedLocation = db.findOne('cards', { _id: due._id }).locations[0];
+    expect(savedLocation).toMatchObject({
+      name: 'HTML4 Harbour', address: 'Quay 4', latitude: 60.17, longitude: 24.94,
+    });
+    const editLocationForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="save-card-location"])'
+      + `:has(input[name="locationId"][value="${savedLocation._id}"])`,
+    );
+    await editLocationForm().locator('input[name="locationLatitude"]').fill('91');
+    await Promise.all([
+      page.waitForNavigation(), editLocationForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).locations[0]).toEqual(savedLocation);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await editLocationForm().locator('input[name="locationId"]')
+      .evaluate(input => { input.value = 'forged-location'; });
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="save-card-location"])'
+        + ':has(input[name="locationId"][value="forged-location"]) input[type="submit"]',
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).locations[0]).toEqual(savedLocation);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await editLocationForm().locator('input[name="locationAddress"]').fill('Quay 5');
+    await editLocationForm().locator('input[name="locationLatitude"]').fill('60.18');
+    await Promise.all([
+      page.waitForNavigation(), editLocationForm().locator('input[type="submit"]').click(),
+    ]);
+    savedLocation = db.findOne('cards', { _id: due._id }).locations[0];
+    expect(savedLocation).toMatchObject({ address: 'Quay 5', latitude: 60.18 });
+    const removeLocationForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="remove-card-location"])'
+      + `:has(input[name="locationId"][value="${savedLocation._id}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), removeLocationForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).locations).toEqual([]);
+    await newLocationForm().locator('input[name="locationName"]').fill('HTML4 Harbour');
+    await newLocationForm().locator('input[name="locationAddress"]').fill('Quay 5');
+    await newLocationForm().locator('input[name="locationLatitude"]').fill('60.18');
+    await newLocationForm().locator('input[name="locationLongitude"]').fill('24.94');
+    await Promise.all([
+      page.waitForNavigation(), newLocationForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).locations).toHaveLength(1);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

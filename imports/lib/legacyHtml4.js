@@ -215,6 +215,20 @@ function contentRows(path, options) {
           ? cell.maxlength : 1000;
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" type="text" maxlength="${maximum}" size="40" value="${escapeHtml(cell.value || '')}"></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'fieldset') {
+        const suffix = String(cell.id || cell.fields?.locationId || 'fields')
+          .replace(/[^a-z0-9_-]/gi, '');
+        const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const inputs = (cell.inputs || []).map((input, index) => {
+          const name = String(input.name || 'field');
+          const id = `legacy-${name.replace(/[^a-z0-9_-]/gi, '')}-${suffix}-${index}`;
+          const maximum = Number.isSafeInteger(input.maxlength) && input.maxlength > 0
+            ? input.maxlength : 1000;
+          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="text" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"></p>`;
+        }).join('');
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${inputs}<p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}"></p></fieldset></form>`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'select') {
         const id = `legacy-${String(cell.name || 'select').replace(/[^a-z0-9_-]/gi, '')}`;
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>

@@ -11,7 +11,8 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon, uiSearchForm,
+  UI_ICONS, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel,
+  uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiSearchForm,
   uiSelectForm, uiTextareaForm, uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
@@ -35,6 +36,27 @@ test('Legacy HTML4 uses only its descriptive feature name', () => {
     if (!fs.existsSync(absolute) || !fs.statSync(absolute).isFile()) continue;
     assert.doesNotMatch(fs.readFileSync(absolute, 'utf8'), forbidden, file);
   }
+});
+
+test('shared fieldset component keeps related labelled fields in one form', () => {
+  const component = uiFieldsetForm({
+    action: '/b/a/board/c', legend: 'Location', id: 'new-location',
+    inputs: [
+      { label: 'Location name', name: 'locationName', value: 'Harbour', maxlength: 1000 },
+      { label: 'Latitude', name: 'locationLatitude', value: '60.1', maxlength: 40 },
+    ],
+    fields: { legacyOperation: 'save-card-location', locationId: '' }, submitLabel: 'Save',
+  });
+  const html = renderLegacyHtml4Page('/b/a/board/c', {
+    authenticated: true, username: 'alice', actionFields: () => ({}),
+    page: { heading: 'Card', columns: ['Field', 'Value'], rows: [{ cells: [component, ''] }] },
+  });
+  assert.match(html, /<fieldset><legend>Location<\/legend>/);
+  assert.match(html, /<label for="legacy-locationName-new-location-0">Location name<\/label>/);
+  assert.match(html, /name="locationLatitude"[^>]*value="60\.1"/);
+  assert.match(html, /name="legacyOperation" value="save-card-location"/);
+  assert.equal((html.match(/name="locationName"/g) || []).length, 1);
+  assert.equal((html.match(/name="locationLatitude"/g) || []).length, 1);
 });
 
 test('every Legacy HTML4 translation key exists in the source catalogue', () => {

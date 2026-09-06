@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import Boards from '/models/boards';
 import Cards, { cardCreation } from '/models/cards';
 import CustomFields from '/models/customFields';
@@ -16,6 +17,7 @@ import { CARD_COLORS } from '/models/metadata/colors';
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
+const MAX_CARD_LOCATIONS = 100;
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -132,6 +134,84 @@ async function authorizeContentTarget(userId, card) {
       refuseCardWrite(userId, 'linked board target did not grant administrator access');
     }
   }
+}
+
+async function accessibleLocationTarget(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const locations = target.getLocations().map(location => ({
+    _id: String(location._id || ''), name: String(location.name || ''),
+    address: String(location.address || ''),
+    ...(typeof location.latitude === 'number' ? { latitude: location.latitude } : {}),
+    ...(typeof location.longitude === 'number' ? { longitude: location.longitude } : {}),
+  }));
+  if (locations.length > MAX_CARD_LOCATIONS) throw new Meteor.Error('too-many-card-locations');
+  return { target, locations };
+}
+
+function cardLocationCoordinate(value, maximum) {
+  if (value === undefined || value === null || String(value).trim() === '') return undefined;
+  const raw = String(value).trim();
+  if (raw.length > 40 || !/^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(raw)) {
+    throw new Meteor.Error('invalid-card-location-coordinate');
+  }
+  const coordinate = Number(raw);
+  if (!Number.isFinite(coordinate) || Math.abs(coordinate) > maximum) {
+    throw new Meteor.Error('invalid-card-location-coordinate');
+  }
+  return coordinate;
+}
+
+async function saveAccessibleCardLocation(userId, input) {
+  const { target, locations } = await accessibleLocationTarget(userId, input);
+  const locationId = String(input?.locationId || '');
+  if (locationId.length > 200) throw new Meteor.Error('invalid-card-location');
+  const name = String(input?.name ?? '').trim();
+  const address = String(input?.address ?? '').trim();
+  if (name.length > 1000 || address.length > 1000) {
+    throw new Meteor.Error('card-location-text-too-long');
+  }
+  const location = {
+    _id: locationId || Random.id(), name, address,
+  };
+  const latitude = cardLocationCoordinate(input?.latitude, 90);
+  const longitude = cardLocationCoordinate(input?.longitude, 180);
+  if (latitude !== undefined) location.latitude = latitude;
+  if (longitude !== undefined) location.longitude = longitude;
+  if (locationId) {
+    const index = locations.findIndex(item => item._id === locationId);
+    if (index < 0) refuseCardWrite(userId, 'card location did not belong to the content card');
+    locations[index] = location;
+  } else {
+    if (locations.length >= MAX_CARD_LOCATIONS) throw new Meteor.Error('too-many-card-locations');
+    locations.push(location);
+  }
+  for (const item of locations) if (item._id === 'legacy') item._id = Random.id();
+  await Cards.updateAsync(target._id, {
+    $set: { locations, locationName: '', locationAddress: '' },
+    $unset: { locationLatitude: '', locationLongitude: '' },
+  });
+  return location._id;
+}
+
+async function removeAccessibleCardLocation(userId, input) {
+  const { target, locations } = await accessibleLocationTarget(userId, input);
+  const locationId = String(input?.locationId || '');
+  const index = locations.findIndex(item => item._id === locationId);
+  if (!locationId || locationId.length > 200 || index < 0) {
+    refuseCardWrite(userId, 'card location did not belong to the content card');
+  }
+  locations.splice(index, 1);
+  for (const item of locations) if (item._id === 'legacy') item._id = Random.id();
+  await Cards.updateAsync(target._id, {
+    $set: { locations, locationName: '', locationAddress: '' },
+    $unset: { locationLatitude: '', locationLongitude: '' },
+  });
+  return true;
 }
 
 async function updateAccessibleCardContent(userId, input) {
@@ -340,6 +420,8 @@ export {
   editablePlacement,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  removeAccessibleCardLocation,
+  saveAccessibleCardLocation,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,

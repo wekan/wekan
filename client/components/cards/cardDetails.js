@@ -1217,7 +1217,9 @@ Template.cardDetails.events({
     // is the location row, not the surrounding card (#6644).
     const card = getCurrentCardFromContext();
     if (card && locationId) {
-      await card.removeLocation(locationId);
+      await Meteor.callAsync('removeAccessibleCardLocation', {
+        cardId: card._id, boardId: card.boardId, locationId,
+      });
     }
   },
   'click .js-received-date': Popup.open('editCardReceivedDate'),
@@ -1855,7 +1857,7 @@ Template.cardLocationsPopup.events({
       TAPi18n.__(filled ? 'location-detect-done' : 'location-detect-none'),
     );
   },
-  'submit .js-card-location-form'(event) {
+  async 'submit .js-card-location-form'(event) {
     event.preventDefault();
     const tpl = Template.instance();
     const card = ReactiveCache.getCard(tpl.cardId);
@@ -1867,24 +1869,22 @@ Template.cardLocationsPopup.events({
     const address = tpl.find('.js-location-address').value.trim();
     const latRaw = tpl.find('.js-location-latitude').value.trim();
     const lonRaw = tpl.find('.js-location-longitude').value.trim();
-    const latitude = latRaw === '' ? undefined : parseFloat(latRaw);
-    const longitude = lonRaw === '' ? undefined : parseFloat(lonRaw);
-    const data = { name, address, latitude, longitude };
     const id = editingLocationId.get();
-    if (id) {
-      card.updateLocation(id, data);
-    } else {
-      card.addLocation(data);
-    }
+    await Meteor.callAsync('saveAccessibleCardLocation', {
+      cardId: card._id, boardId: card.boardId, locationId: id || '',
+      name, address, latitude: latRaw, longitude: lonRaw,
+    });
     Popup.back();
   },
-  'click .js-delete-location'(event) {
+  async 'click .js-delete-location'(event) {
     event.preventDefault();
     const tpl = Template.instance();
     const card = ReactiveCache.getCard(tpl.cardId);
     const id = editingLocationId.get();
     if (card && id) {
-      card.removeLocation(id);
+      await Meteor.callAsync('removeAccessibleCardLocation', {
+        cardId: card._id, boardId: card.boardId, locationId: id,
+      });
     }
     Popup.back();
   },

@@ -264,6 +264,17 @@ Shared services resolve linked content, enforce the content board's field toggle
 require an active member for additions, allow stale identities to be removed and
 refuse Worker writes. Display and mutation both use the real content values.
 
+Locations use the shared multi-field form component: one labelled field each
+for name, address, latitude and longitude inside a fieldset with a meaningful
+legend. Existing locations appear in document order with an HTTPS map link when
+both coordinates exist; add, edit and remove remain usable in natural Tab order
+without script. Jade and HTML4 call the same acknowledged server operations.
+They bind the route card, resolve linked content, cap the location collection
+and text lengths, require complete finite coordinate values in the latitude and
+longitude ranges, and reject unknown location identifiers before one atomic
+update. Legacy flat location fields are folded into the array only as part of a
+successful write.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

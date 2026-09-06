@@ -81,6 +81,30 @@ test('card sort uses one strictly parsed acknowledged boundary in HTML5 and HTML
   assert.match(page, /name: 'cardSort'/);
 });
 
+test('card locations share bounded exact-scope operations in HTML5 and HTML4', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /MAX_CARD_LOCATIONS = 100/);
+  assert.match(source, /async function accessibleLocationTarget/);
+  assert.match(source, /await editableCard\(userId, input\?\.cardId/);
+  assert.match(source, /await authorizeContentTarget\(userId, card\)/);
+  assert.match(source, /Number\.isFinite\(coordinate\)/);
+  assert.match(source, /card location did not belong to the content card/);
+  assert.match(source, /\$set: \{ locations, locationName: '', locationAddress: '' \}/);
+  assert.match(methods, /async saveAccessibleCardLocation\(input\)/);
+  assert.match(methods, /async removeAccessibleCardLocation\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('saveAccessibleCardLocation'/);
+  assert.match(client, /Meteor\.callAsync\('removeAccessibleCardLocation'/);
+  assert.doesNotMatch(client, /card\.(?:addLocation|updateLocation|removeLocation)\(/);
+  assert.match(legacy, /legacyOperation === 'save-card-location'/);
+  assert.match(legacy, /legacyOperation === 'remove-card-location'/);
+  assert.match(page, /uiFieldsetForm\(/);
+  assert.match(page, /mapLinkFor\(currentUser\?\.profile\?\.mapProvider/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

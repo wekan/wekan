@@ -22,8 +22,9 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
-  uiBoardCreateForm, uiSelectForm, uiTextForm, uiTextareaForm,
+  uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
+const { mapLinkFor } = require('/models/lib/mapLink');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
@@ -440,7 +441,9 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    sort: 1, receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
+    sort: 1, locations: 1, locationName: 1, locationAddress: 1,
+    locationLatitude: 1, locationLongitude: 1,
+    receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
   } });
   if (!card) return {
     heading: tr(translate, 'card', 'Card'),
@@ -497,13 +500,16 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     Lists.find({ boardId: card.boardId, archived: { $ne: true } }, {
       fields: { title: 1, sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 500,
     }).fetchAsync(),
-    Meteor.users.findOneAsync(userId, { fields: { 'profile.moveAndCopyDialog': 1 } }),
+    Meteor.users.findOneAsync(userId, {
+      fields: { 'profile.moveAndCopyDialog': 1, 'profile.mapProvider': 1 },
+    }),
   ]);
   const personById = new Map(people.map(person => [person._id,
     person.profile?.fullname || person.username || person._id]));
   const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
   const labels = (contentBoard?.labels || [])
     .filter(label => (contentCard?.labelIds || []).includes(label._id));
+  const locations = contentCard?.getLocations ? contentCard.getLocations() : [];
   const canWrite = await canEditCardOrLinkedCard(userId, card);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
@@ -528,6 +534,40 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       label: tr(translate, 'title', 'Title'), name: 'cardTitle', value: card.title || '',
       maxlength: 1000, fields: { ...commonFields, legacyOperation: 'edit-card-title' },
       submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
+    const locationInputs = location => [
+      { label: tr(translate, 'location-name', 'Location name'),
+        name: 'locationName', value: location?.name || '', maxlength: 1000 },
+      { label: tr(translate, 'location-address', 'Address'),
+        name: 'locationAddress', value: location?.address || '', maxlength: 1000 },
+      { label: tr(translate, 'location-latitude', 'Latitude'),
+        name: 'locationLatitude', value: location?.latitude ?? '', maxlength: 40 },
+      { label: tr(translate, 'location-longitude', 'Longitude'),
+        name: 'locationLongitude', value: location?.longitude ?? '', maxlength: 40 },
+    ];
+    for (const location of locations) {
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        legend: location.name || tr(translate, 'location', 'Location'),
+        id: `location-${location._id}`, inputs: locationInputs(location),
+        fields: {
+          ...commonFields, legacyOperation: 'save-card-location', locationId: location._id,
+        },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: {
+          ...commonFields, legacyOperation: 'remove-card-location', locationId: location._id,
+        },
+      })] });
+    }
+    rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      legend: tr(translate, 'add-location', 'Add location'), id: 'new-location',
+      inputs: locationInputs(null),
+      fields: { ...commonFields, legacyOperation: 'save-card-location', locationId: '' },
+      submitLabel: tr(translate, 'add-location', 'Add location'),
     }), ''] });
     for (const label of contentBoard?.labels || []) {
       const selected = (contentCard?.labelIds || []).includes(label._id);
@@ -711,6 +751,18 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       names(contentCard?.requesters) || contentCard?.requestedBy || ''] },
     { cells: [tr(translate, 'assigned-by', 'Assigned By'),
       names(contentCard?.assigners) || contentCard?.assignedBy || ''] },
+    ...locations.map(location => {
+      const hasCoordinates = typeof location.latitude === 'number'
+        && typeof location.longitude === 'number';
+      const locationText = [location.name, location.address,
+        hasCoordinates ? `${location.latitude}, ${location.longitude}` : ''].filter(Boolean);
+      if (hasCoordinates) locationText.push(uiLink({
+        href: mapLinkFor(currentUser?.profile?.mapProvider || 'openstreetmap',
+          location.latitude, location.longitude),
+        label: tr(translate, 'location-open-map', 'Open in map'),
+      }));
+      return { cells: [tr(translate, 'location', 'Location'), locationText] };
+    }),
     { cells: [tr(translate, 'creator', 'Creator'), personById.get(card.userId) || ''] },
     { cells: [tr(translate, 'r-df-received-at', 'Received'), isoDate(card.receivedAt)] },
     { cells: [tr(translate, 'r-df-start-at', 'Start'), isoDate(card.startAt)] },
