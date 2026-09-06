@@ -27,6 +27,7 @@ import escapeForRegex from 'escape-string-regexp';
 import {
   toggleAccessibleBoardStar,
   toggleAccessibleDefaultBoard,
+  setAccessibleBoardWorkspace,
 } from '/server/lib/accessibleBoardListOperations';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
@@ -803,30 +804,12 @@ Meteor.methods({
   async assignBoardToWorkspace(boardId, spaceId) {
     check(boardId, String);
     check(spaceId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-
-    const user = await Users.findOneAsync(this.userId, { fields: { 'profile.boardWorkspaceAssignments': 1 } });
-    const assignments = user.profile?.boardWorkspaceAssignments || {};
-    assignments[boardId] = spaceId;
-
-    await Users.updateAsync(this.userId, {
-      $set: { 'profile.boardWorkspaceAssignments': assignments },
-    });
-    return true;
+    return setAccessibleBoardWorkspace(this.userId, boardId, spaceId);
   },
 
   async unassignBoardFromWorkspace(boardId) {
     check(boardId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in');
-
-    const user = await Users.findOneAsync(this.userId, { fields: { 'profile.boardWorkspaceAssignments': 1 } });
-    const assignments = user.profile?.boardWorkspaceAssignments || {};
-    delete assignments[boardId];
-
-    await Users.updateAsync(this.userId, {
-      $set: { 'profile.boardWorkspaceAssignments': assignments },
-    });
-    return true;
+    return setAccessibleBoardWorkspace(this.userId, boardId, '');
   },
 
   async toggleHideCheckedItems() {

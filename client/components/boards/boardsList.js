@@ -679,6 +679,7 @@ Template.allBoardsViewPopup.events({
 });
 
 Template.boardList.onCreated(function () {
+  this.subscribe('user-board-workspaces');
   Meteor.subscribe('setting');
   Meteor.subscribe('tableVisibilityModeSettings');
 

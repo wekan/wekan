@@ -6,6 +6,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { tripCanary } from '/server/lib/canary';
 import getSlug from 'limax';
+const { findNode } = require('/models/lib/workspacesTree');
 
 function refuseBoardListWrite(userId, detail) {
   tripCanary('board-list.cross-scope', { userId, detail });
@@ -142,9 +143,28 @@ async function copyAccessibleBoard(userId, boardId, properties = {}) {
   return board.copy();
 }
 
+async function setAccessibleBoardWorkspace(userId, boardId, workspaceId) {
+  const { user, board } = await visibleBoardAndUser(userId, boardId);
+  if (board.archived === true || board.type !== 'board') {
+    throw new Meteor.Error('invalid-workspace-board');
+  }
+  const target = String(workspaceId || '');
+  if (target && !findNode(user.profile?.boardWorkspacesTree || [], target)) {
+    refuseBoardListWrite(userId, 'All Boards assignment targeted an unknown workspace');
+  }
+  const assignments = { ...(user.profile?.boardWorkspaceAssignments || {}) };
+  if (target) assignments[board._id] = target;
+  else delete assignments[board._id];
+  await Users.updateAsync(userId, {
+    $set: { 'profile.boardWorkspaceAssignments': assignments },
+  });
+  return true;
+}
+
 export {
   copyAccessibleBoard,
   createAccessibleBoardWithInitialSwimlanes,
+  setAccessibleBoardWorkspace,
   setAccessibleBoardArchived,
   toggleAccessibleBoardStar,
   toggleAccessibleDefaultBoard,

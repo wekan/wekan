@@ -42,6 +42,7 @@ import {
 import {
   copyAccessibleBoard,
   createAccessibleBoardWithInitialSwimlanes,
+  setAccessibleBoardWorkspace,
   setAccessibleBoardArchived,
   toggleAccessibleBoardStar,
   toggleAccessibleDefaultBoard,
@@ -171,6 +172,7 @@ WebApp.handlers.use(async (req, res, next) => {
   const boardListOperations = [
     'toggle-board-star', 'toggle-default-board', 'archive-board', 'restore-board',
     'create-board', 'copy-board',
+    'set-board-workspace',
   ];
   const isBoardListPath = /^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path);
   if (session && isBoardListPath
@@ -212,6 +214,11 @@ WebApp.handlers.use(async (req, res, next) => {
         if (requestFields.legacyOperation === 'copy-board') {
           const source = await copyAccessibleBoard(session.userId, boardId, {});
           return source;
+        }
+        if (requestFields.legacyOperation === 'set-board-workspace') {
+          return setAccessibleBoardWorkspace(
+            session.userId, boardId, String(requestFields.workspaceId || ''),
+          );
         }
         return setAccessibleBoardArchived(
           session.userId, boardId, requestFields.legacyOperation === 'archive-board',

@@ -337,3 +337,9 @@ are allowlisted, and the source requires board-admin access. The browser test
 forges an inaccessible copy source to verify both non-mutation and the attributed
 Security event. Paired same-URL screenshots compare the created and copied board
 titles, colors and available actions in HTML4 and HTML5.
+The same test assigns and removes a board with the labelled Workspace selector,
+then repeats the shared Meteor operations and captures both renderers at the
+same nested Workspace URL. The server accepts only a visible, live ordinary
+board and an identifier present in that authenticated user's Workspace tree;
+unknown destinations are refused and reported rather than stored as orphaned
+profile data.

@@ -204,6 +204,37 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       candidate.title.startsWith(`HTML4 Created Board ${suffix}`));
     expect(html4CopiedBoard?._id).toBeTruthy();
     html4CopiedBoardId = html4CopiedBoard._id;
+    const workspaceForm = boardId => page.locator(
+      `form:has(input[name="legacyOperation"][value="set-board-workspace"])`
+      + `:has(input[name="boardId"][value="${boardId}"])`,
+    );
+    await expect(workspaceForm(html4CreatedBoardId).locator('select[name="workspaceId"]'))
+      .toHaveValue('');
+    await workspaceForm(html4CreatedBoardId).locator('select[name="workspaceId"]')
+      .selectOption('html4-space');
+    await Promise.all([
+      page.waitForNavigation(),
+      workspaceForm(html4CreatedBoardId).locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('users', { _id: user._id })
+      ?.profile?.boardWorkspaceAssignments?.[html4CreatedBoardId]).toBe('html4-space');
+    await open('/allboards/workspaces/html4-space');
+    await expect(page.locator('tbody')).toContainText(`HTML4 Created Board ${suffix}`);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-allboards-workspace-assignment.png`,
+        fullPage: true,
+      });
+    }
+    await workspaceForm(html4CreatedBoardId).locator('select[name="workspaceId"]')
+      .selectOption('');
+    await Promise.all([
+      page.waitForNavigation(),
+      workspaceForm(html4CreatedBoardId).locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('users', { _id: user._id })
+      ?.profile?.boardWorkspaceAssignments?.[html4CreatedBoardId]).toBeUndefined();
+    await open('/allboards/remaining');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await page.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-allboards-create-copy.png`,
@@ -1215,6 +1246,25 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         fullPage: true,
       });
     }
+    await modern.evaluate(async ({ boardId, workspaceId }) => {
+      await Meteor.callAsync('setWorkspacesTree', [
+        { id: workspaceId, name: 'HTML4 Space', children: [] },
+      ]);
+      await Meteor.callAsync('assignBoardToWorkspace', boardId, workspaceId);
+    }, { boardId: html4CreatedBoardId, workspaceId: 'html4-space' });
+    await expect(modern.locator('body')).toContainText('HTML4 Space');
+    await modern.goto(`${baseURL}/allboards/workspaces/html4-space`);
+    await expect(modern.locator('.admin-pane-title')).toContainText('HTML4 Space');
+    await expect(modern.locator('body')).toContainText(`HTML4 Created Board ${suffix}`);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-workspace-assignment.png`,
+        fullPage: true,
+      });
+    }
+    await modern.evaluate(async boardId => {
+      await Meteor.callAsync('unassignBoardFromWorkspace', boardId);
+    }, html4CreatedBoardId);
     await modern.goto(`${baseURL}/import/trello`);
     await expect(modern.getByRole('heading', { name: 'Import from:' })).toBeVisible();
     await expect(modern.locator('body')).toContainText('Trello');

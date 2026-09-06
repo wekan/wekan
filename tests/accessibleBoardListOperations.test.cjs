@@ -12,6 +12,8 @@ const request = read('server/legacyHtml4.js');
 const pages = read('server/lib/legacyHtml4Pages.js');
 const boardMethods = read('server/models/boards.js');
 const userMethods = read('server/models/users.js');
+const userPublications = read('server/publications/users.js');
+const html5Boards = read('client/components/boards/boardsList.js');
 
 test('star and Home operations bind authenticated users to visible boards', () => {
   assert.match(service, /if \(!userId\) throw new Meteor\.Error\('not-logged-in'/);
@@ -75,4 +77,25 @@ test('HTML4 All Boards exposes textual state and confirms archive', () => {
   assert.match(pages, /legacyOperation: 'confirm-copy-board'/);
   assert.match(pages, /legacyOperation: 'copy-board'/);
   assert.match(pages, /confirmBoardCopy === board\._id/);
+});
+
+test('Workspace assignment binds a visible live board to the authenticated user tree', () => {
+  assert.match(service, /async function setAccessibleBoardWorkspace/);
+  assert.match(service, /visibleBoardAndUser\(userId, boardId\)/);
+  assert.match(service, /board\.archived === true \|\| board\.type !== 'board'/);
+  assert.match(service, /findNode\(user\.profile\?\.boardWorkspacesTree \|\| \[\], target\)/);
+  assert.match(service, /assignment targeted an unknown workspace/);
+  assert.match(service, /delete assignments\[board\._id\]/);
+  assert.match(userMethods, /setAccessibleBoardWorkspace\(this\.userId, boardId, spaceId\)/);
+  assert.match(userMethods, /setAccessibleBoardWorkspace\(this\.userId, boardId, ''\)/);
+  assert.match(request, /setAccessibleBoardWorkspace\(/);
+  assert.match(pages, /legacyOperation: 'set-board-workspace'/);
+  assert.match(pages, /profile\.boardWorkspaceAssignments\?\.\[board\._id\]/);
+  assert.match(userPublications, /Meteor\.publish\('user-board-workspaces'/);
+  assert.match(userPublications, /\{ _id: this\.userId \}/);
+  assert.doesNotMatch(userPublications,
+    /publish\('user-board-workspaces', function \([^)]/);
+  assert.match(userPublications, /'profile\.boardWorkspacesTree': 1/);
+  assert.match(userPublications, /'profile\.boardWorkspaceAssignments': 1/);
+  assert.match(html5Boards, /this\.subscribe\('user-board-workspaces'\)/);
 });

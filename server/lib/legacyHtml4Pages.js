@@ -81,6 +81,7 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
   let profile = {};
   let currentUser = null;
   let section = '';
+  const workspaceOptions = [];
   if (publicOnly) {
     boards = await Boards.find({ permission: 'public', archived: { $ne: true }, type: 'board' }, {
       fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1,
@@ -138,12 +139,14 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
       label: tr(translate, sectionTitleKey(item), item),
     }));
     const workspaceActions = [];
+    workspaceOptions.push({ value: '', label: tr(translate, 'allboards.remaining', 'Remaining') });
     const visitWorkspaces = nodes => {
       for (const node of Array.isArray(nodes) ? nodes : []) {
         const slugPath = workspaceSlugPath(profile.boardWorkspacesTree || [], node.id, getSlug);
         if (slugPath) workspaceActions.push(uiAction({
           action: allBoardsPath('workspaces', slugPath), label: node.name || node.id,
         }));
+        workspaceOptions.push({ value: node.id, label: node.name || node.id });
         visitWorkspaces(node.children);
       }
     };
@@ -232,6 +235,16 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
       ] : uiAction({
         action: actionPath, label: tr(translate, 'duplicate-board', 'Duplicate Board'),
         icon: 'add', fields: { ...boardFields, legacyOperation: 'confirm-copy-board' },
+      }));
+      if (board.archived !== true && board.type === 'board'
+        && !['home', 'templates', 'archive'].includes(section)) actions.push(uiSelectForm({
+        action: actionPath,
+        label: tr(translate, 'allboards.workspaces', 'Workspace'),
+        name: 'workspaceId',
+        value: profile.boardWorkspaceAssignments?.[board._id] || '',
+        options: workspaceOptions,
+        fields: { ...boardFields, legacyOperation: 'set-board-workspace' },
+        submitLabel: tr(translate, 'save', 'Save'),
       }));
       return [{
         color: boardColor(board), boardTheme: true,

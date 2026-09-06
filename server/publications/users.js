@@ -10,6 +10,21 @@ DDPRateLimiter.addRule(
   10 * 1000,
 );
 
+// All Boards needs the authenticated user's own Workspace tree and assignments.
+// Accounts publishes only its standard user fields in this build; without this
+// narrow publication every Workspace is present in MongoDB but the Jade page
+// falls back to Remaining. Never accept a user id from the client.
+Meteor.publish('user-board-workspaces', function () {
+  if (!this.userId) return this.ready();
+  return Meteor.users.find(
+    { _id: this.userId },
+    { fields: {
+      'profile.boardWorkspacesTree': 1,
+      'profile.boardWorkspaceAssignments': 1,
+    } },
+  );
+});
+
 Meteor.publish('user-miniprofile', async function (usernames) {
   check(usernames, Array);
 
