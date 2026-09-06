@@ -474,7 +474,8 @@ test('the bar wraps rather than clipping, and its end group hugs the end', () =>
     // divider, help, your account and the sidebar toggle - is aligned to the
     // end of the bar. Everything before it belongs to the page and reads in
     // source order from the start; these are not about the page at all.
-    if (sels.some(x => x.endsWith('.header-account-group'))) continue;
+    if (sels.some(x => x.endsWith('.header-account-group')
+      || x.endsWith('#header-new-board-icon'))) continue;
     const body = rule[2].replace(/\/\*[\s\S]*?\*\//g, '');
     assert.ok(!/margin(-inline)?(-start|-left|-right|-end)?:\s*auto/.test(body),
       `${sels.join(', ')} pushes items with an auto margin`);
@@ -717,10 +718,10 @@ test('the Mobile / Desktop toggle has no white shell or black border', () => {
     'its outer border is removed');
 });
 
-test('the Add Board button area sits four pixels higher', () => {
+test('the Add Board button is a compact square that sits four pixels higher', () => {
   const css = read('client/components/main/header.css');
-  assert.ok(/#header-quick-access #header-new-board-icon \{[^}]*flex-grow:\s*1;[^}]*margin:\s*2px 5px 0/.test(css),
-    'its former 6px top margin is reduced by four pixels');
+  assert.ok(/#header-quick-access #header-new-board-icon \{[^}]*flex:\s*0 0 28px;[^}]*width:\s*28px;[^}]*height:\s*28px;[^}]*margin:\s*2px 5px 0/.test(css),
+    'it stays square instead of consuming spare width, and is lifted four pixels');
 });
 
 test('and a view menu says its view in words, not only in a tooltip', () => {

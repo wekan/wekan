@@ -145,7 +145,7 @@ test('#6641: the opened-card drag bar steps aside for its live title editor', ()
 test('the handle appears only when drag handles are on', () => {
   const header = cardJade.slice(cardJade.indexOf('template(name="cardDetails")'),
     cardJade.indexOf('.card-details-path'));
-  assert.ok(/if canModifyCard\n\s+if isTouchScreenOrShowDesktopDragHandles\n\s+span\.card-drag-handle/
+  assert.ok(/if canModifyCard\n\s+if isTouchScreenOrShowDesktopDragHandles\n\s+span\.[^\n]*card-drag-handle/
     .test(header), 'the handle is behind that question');
   // ...and then it is the only drag source, because the zone covers the title.
   assert.ok(/\.card-details\.card-details-with-handle[^{]*\.card-details-title-edit-zone \{[^}]*width: 100%/

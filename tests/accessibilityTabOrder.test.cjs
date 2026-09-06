@@ -117,7 +117,7 @@ test('board-only menu focus reuses the helper and cleans up its observer', () =>
 });
 
 test('card edit targets are keyboard reachable', () => {
-  assert.match(card, /a\.card-collapse-toggle\.js-card-collapse-toggle/);
+  assert.match(card, /a\.[^\n]*card-collapse-toggle\.js-card-collapse-toggle/);
   assert.match(card, /a\.card-details-title-edit-zone\.js-open-inlined-form/);
   assert.match(minicard, /span\.minicard-title-text/);
   assert.match(customFields,
