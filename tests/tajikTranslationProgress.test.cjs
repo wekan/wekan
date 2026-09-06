@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 474,
-  'the first thirty-four Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 424,
+  'the first thirty-five Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -273,5 +273,12 @@ assert.deepEqual(tokens(tajik['drag-board-to-workspace']), ['__workspaces__']);
 assert.match(tajik['show-week-of-year'], /ISO 8601/);
 assert.match(tajik['import-board-zip'], /\.zip.*JSON/);
 assert.equal(tajik['support-page-enabled'], 'Саҳифаи дастгирӣ фаъол аст');
+assert.equal(tajik.accessibility, 'Дастрасӣ');
+assert.match(tajik['accounts-lockout-info'], /ҷустуҷӯи фарогир/);
+assert.equal(tajik['accounts-lockout-user-locked'], 'Корбар қулф шудааст');
+assert.equal(tajik['admin-people-filter-inactive'], 'Ғайрифаъол');
+assert.equal(tajik['attachment-storage-configuration'],
+  'Танзимоти анбори замимаҳо');
+assert.match(tajik['board-archive-scheduled'], /бомуваффақият/);
 
-console.log('tajikTranslationProgress: first thirty-four batches passed');
+console.log('tajikTranslationProgress: first thirty-five batches passed');
