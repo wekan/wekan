@@ -5,6 +5,7 @@ const { test, expect } = require('@playwright/test');
 const db = require('../helpers/db');
 const { loginWithToken } = require('../helpers/auth');
 const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+const { strToU8, zipSync } = require('../../../node_modules/fflate');
 
 const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -24,6 +25,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let importedBoardId;
   let importedFileBoardId;
   let importedExcelBoardId;
+  let importedTrelloZipBoardId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -244,6 +246,29 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     expect(importedExcelCard && importedExcelCard.boardId).toBeTruthy();
     importedExcelBoardId = importedExcelCard.boardId;
     await expect(page.locator('tbody')).toContainText('Imported:');
+
+    await open('/import');
+    await open('/import/trello');
+    const trelloZipTitle = `HTML4 Trello ZIP ${suffix}`;
+    const trelloZip = Buffer.from(zipSync({
+      'trello-board.json': strToU8(JSON.stringify({
+        id: `trello-${suffix}`, name: trelloZipTitle, desc: '', closed: false,
+        prefs: { background: 'blue', permissionLevel: 'private' },
+        lists: [], cards: [], labels: [], members: [], actions: [], checklists: [],
+      })),
+    }));
+    await page.locator('input[type="file"][accept=".zip,application/zip"]').setInputFiles({
+      name: 'trello-export.zip', mimeType: 'application/zip', buffer: trelloZip,
+    });
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[type="file"][accept=".zip,application/zip"]) input[type="submit"]')
+        .click(),
+    ]);
+    const importedTrelloZipBoard = db.findOne('boards', { title: trelloZipTitle });
+    expect(importedTrelloZipBoard && importedTrelloZipBoard._id).toBeTruthy();
+    importedTrelloZipBoardId = importedTrelloZipBoard._id;
+    await expect(page.locator('tbody')).toContainText(trelloZipTitle);
     await open('/my-cards');
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');
@@ -327,6 +352,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
     if (importedFileBoardId) db.cleanup({ boardIds: [importedFileBoardId] });
     if (importedExcelBoardId) db.cleanup({ boardIds: [importedExcelBoardId] });
+    if (importedTrelloZipBoardId) db.cleanup({ boardIds: [importedTrelloZipBoardId] });
     if (board) db.cleanup({ boardIds: [board.boardId] });
     if (user) db.cleanup({ userIds: [user._id] });
     await context.close();

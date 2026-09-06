@@ -210,6 +210,10 @@ test('HTML4 file imports stream bounded multipart data to private temporary file
   assert.match(multipart, /req\.on\('aborted'/);
   assert.match(operations, /importLegacyHtml4File/);
   assert.match(operations, /source === 'excel'[\s\S]*excelBase64/);
+  assert.match(operations, /detectedFileMime\(upload\.tempPath\)/);
+  assert.match(operations, /source !== 'trello'/);
+  assert.match(operations, /await assertImportEnabled\(\)/);
+  assert.match(operations, /importZipBuffer\(bytes, userId\)/);
   assert.match(operations, /return await invokeImport/);
   assert.ok(middleware.indexOf('receiveLegacyHtml4Multipart(req)')
     < middleware.indexOf('consumeLegacyHtml4Session(req, path)'),

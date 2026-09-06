@@ -500,6 +500,16 @@ async function importPage(path, userId, requestFields, translate) {
           submitLabel: tr(translate, 'import', 'Import'),
         }), ''],
       });
+      if (selected.key === 'trello') rows.push({
+        rowHeader: false,
+        cells: [uiFileForm({
+          action: `/import/${selected.key}`,
+          label: tr(translate, 'import-trello-zip-file', 'Trello .zip file'),
+          name: 'importFile', accept: '.zip,application/zip',
+          fields: { importFields, legacyOperation: 'import-board-file' },
+          submitLabel: tr(translate, 'import', 'Import'),
+        }), ''],
+      });
       rows.push({ rowHeader: false, cells: [uiTextareaForm({
         action: `/import/${selected.key}`,
         label: `${instruction} ${tr(translate, 'import-board-instruction-about-errors', '')}`.trim(),

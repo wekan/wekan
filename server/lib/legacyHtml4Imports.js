@@ -2,8 +2,11 @@ import { DDP } from 'meteor/ddp';
 import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import { pruneImportDocument } from '/models/lib/importParts';
+import { assertImportEnabled } from '/models/lib/importExportSecurity';
+import { importZipBuffer } from '/server/routes/importTrelloZip';
 const { importSourceByKey } = require('/models/lib/importSources');
 const { parseImportFields } = require('/models/lib/exportFields');
+const { detectedFileMime } = require('/models/lib/fileTypeCorrection');
 
 const MAX_IMPORT_TEXT_BYTES = 5 * 1024 * 1024;
 
@@ -63,6 +66,17 @@ export async function importLegacyHtml4File({
   if (!importSourceByKey(source)) return { ok: false, errorKey: 'invalid-import-source' };
   if (!upload?.tempPath) return { ok: false, errorKey: 'error-json-malformed' };
   try {
+    const detectedMime = await detectedFileMime(upload.tempPath);
+    if (detectedMime === 'application/zip') {
+      if (source !== 'trello') throw new Meteor.Error('import-zip-must-stream-to-server');
+      await assertImportEnabled();
+      const bytes = await fs.promises.readFile(upload.tempPath);
+      const imported = await DDP._CurrentMethodInvocation.withValue({
+        userId,
+        connection: { clientAddress: String(clientAddress || '') },
+      }, async () => importZipBuffer(bytes, userId));
+      return { ok: true, boardId: imported.boardIds?.[0], boardIds: imported.boardIds || [] };
+    }
     const bytes = await fs.promises.readFile(upload.tempPath);
     const document = source === 'excel'
       ? { excelBase64: bytes.toString('base64') }
