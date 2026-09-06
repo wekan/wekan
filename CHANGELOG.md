@@ -8137,10 +8137,10 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after the Albanian accessibility/scheduled-jobs batch:** all 198
+**Current snapshot after the Albanian migration/security-settings batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,506 values across 36 second-tier languages**. Albanian
-now has 416 left after its first thirty-four 50-value batches. Bosnian is also
+remaining work is **76,406 values across 36 second-tier languages**. Albanian
+now has 316 left after its first thirty-six 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first thirty-four activity,
-board, report, attachment, accessibility, account-lockout and scheduling batches;
+**In short:** **Albanian translations** now cover the first thirty-six activity,
+board, accessibility, scheduling, migration, security and backup batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8430,6 +8430,19 @@ scheduled jobs, attachment paths and scheduled board operations. All one
 hundred values required translation. Tests retain the `__workspaces__` token
 and the ISO, PDF, JSON and API technology names. This leaves 76,506 actionable
 values across 36 languages, including 416 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c5af08f2">Translate Albanian migration and security settings</a>. Thanks to xet7.</summary>
+
+The thirty-fifth and thirty-sixth 50-value Albanian batches add scheduled-job
+results, filesystem and cloud-storage settings, MongoDB/FerretDB and Sandstorm
+migration guidance, card-loading modes, safe rich-text display controls,
+import/export restrictions, user anonymization and backups. All one hundred
+values required translation. Tests retain `__db__`, HTML tags, database and
+cloud-service names and environment-variable examples. This leaves 76,406
+actionable values across 36 languages, including 316 in Albanian.
 
 </details>
 
