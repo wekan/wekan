@@ -8139,9 +8139,9 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tajik:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **72,466 values across 34 second-tier languages**. Southern
+remaining work is **72,416 values across 34 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
-Tajik has 674 left after its first thirty 50-value batches. Albanian and
+Tajik has 624 left after its first thirty-one 50-value batches. Albanian and
 Bosnian are also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8256,11 +8256,11 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian and Southern Sotho translations** are complete, and
-**Tajik translations** now cover their first thirty activity, workspace,
+**Tajik translations** now cover their first thirty-one activity, workspace,
 board, notification, upload, template, transfer-limit, webhook, system and
 organization, card, subtask, automation-rule, customization, reminder and
-role-management, card-view, global-search, dependency, location and report
-batches;
+role-management, card-view, global-search, dependency, location, recovery and
+report batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8532,6 +8532,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b57294427">Translate Tajik recovery and ticket reports</a>. Thanks to xet7.</summary>
+
+The thirty-first 50-value Tajik batch adds office login and REST API statistics,
+automatic recovery events and maintenance, swimlane copying, wait-spinner
+styles, organization/team deletion guards and ticket status and history. All
+values required translation. Tests retain REST API, WITH_API, MongoDB and
+spinner names and cover recovery severity and ticket numbering. This leaves
+72,416 actionable values across 34 languages, including 624 in Tajik.
 
 </details>
 
