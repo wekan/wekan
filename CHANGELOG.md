@@ -294,6 +294,21 @@ styles.
 
 </details>
 
+**Cards** - title-bar controls follow each card's contrast color.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ebb35af50">Match card chrome to title color</a>. Thanks to xet7.</summary>
+
+Opened-card collapse, close, maximize/minimize, menu, drag, zoom and display-mode
+controls now inherit the same computed contrast color as the card title in all
+interaction states. Minicard titles, menus and drag handles use that same color;
+light palette colors now use the same black text as their opened cards, while
+dark colors retain white text. Custom hex cards follow their calculated color
+without duplicating the palette. Regression coverage checks every header control
+and both light and dark minicard families.
+
+</details>
+
 **Swimlanes** - header controls follow the title contrast color.
 
 <details>
