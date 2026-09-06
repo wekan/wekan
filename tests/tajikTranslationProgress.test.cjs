@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 424,
-  'the first thirty-five Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
+  'the first thirty-six Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -280,5 +280,11 @@ assert.equal(tajik['admin-people-filter-inactive'], 'Ғайрифаъол');
 assert.equal(tajik['attachment-storage-configuration'],
   'Танзимоти анбори замимаҳо');
 assert.match(tajik['board-archive-scheduled'], /бомуваффақият/);
+assert.equal(tajik['cron-migration-errors'], 'Хатоҳои муҳоҷират');
+assert.match(tajik['s3-force-path-style-description'], /MinIO.*AWS.*S3/);
+assert.match(tajik['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*WEKAN_FERRETDB_URL.*MONGO_URL.*Snap/s);
+assert.deepEqual(tokens(tajik['database-migration-confirm']), ['__db__']);
+assert.equal(tajik['database-migration-phase'], 'Марҳила');
 
-console.log('tajikTranslationProgress: first thirty-five batches passed');
+console.log('tajikTranslationProgress: first thirty-six batches passed');
