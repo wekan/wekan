@@ -41,6 +41,7 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardArchived,
+  updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
@@ -74,6 +75,11 @@ Meteor.methods({
   async updateAccessibleCardDate(input) {
     check(input, Object);
     return updateAccessibleCardDate(this.userId, input);
+  },
+
+  async updateAccessibleCardColor(input) {
+    check(input, Object);
+    return updateAccessibleCardColor(this.userId, input);
   },
 
   async setAccessibleCardArchived(input) {

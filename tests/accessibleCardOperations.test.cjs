@@ -92,6 +92,22 @@ test('card dates use one strict acknowledged boundary in HTML5 and HTML4', () =>
   assert.match(page, /cardDateField: field/);
 });
 
+test('card color uses one allowlisted acknowledged boundary in HTML5 and HTML4', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /CARD_COLORS\.includes\(color\)/);
+  assert.match(source, /\^#\[0-9a-f\]\{6\}\$/);
+  assert.match(source, /await authorizeContentTarget\(userId, card\)/);
+  assert.match(source, /await card\.setColor\(color \|\| null\)/);
+  assert.match(methods, /async updateAccessibleCardColor\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardColor'/);
+  assert.match(legacy, /legacyOperation === 'edit-card-color'/);
+  assert.match(page, /name: 'cardColor'/);
+});
+
 test('archive checks every descendant before the first write', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

@@ -11,6 +11,7 @@ import {
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { tripCanary } from '/server/lib/canary';
+import { CARD_COLORS } from '/models/metadata/colors';
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
@@ -171,6 +172,18 @@ async function updateAccessibleCardDate(userId, input) {
   return true;
 }
 
+async function updateAccessibleCardColor(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  let color = String(input?.color ?? '').trim().toLowerCase();
+  if (color === 'white') color = '';
+  if (color && !CARD_COLORS.includes(color) && !/^#[0-9a-f]{6}$/.test(color)) {
+    throw new Meteor.Error('invalid-card-color');
+  }
+  await card.setColor(color || null);
+  return true;
+}
+
 async function editableCardTree(userId, root) {
   const pending = [root];
   const seen = new Set();
@@ -204,6 +217,7 @@ export {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardArchived,
+  updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardContent,
 };

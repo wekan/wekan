@@ -2305,14 +2305,18 @@ Template.setCardColorPopup.events({
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    await card.setColor(tpl.currentColor.get());
+    await Meteor.callAsync('updateAccessibleCardColor', {
+      cardId: card._id, boardId: card.boardId, color: tpl.currentColor.get(),
+    });
     Popup.back();
   },
   async 'click .js-remove-color'(event) {
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    await card.setColor(null);
+    await Meteor.callAsync('updateAccessibleCardColor', {
+      cardId: card._id, boardId: card.boardId, color: '',
+    });
     Popup.back();
   },
 });

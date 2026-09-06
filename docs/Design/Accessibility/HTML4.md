@@ -229,6 +229,12 @@ and HTML4 forms submit to the same acknowledged operation. It allowlists those
 four fields, rejects ambiguous or invalid dates, repeats route-card and linked-
 target write authorization, and never accepts a caller-selected update path.
 
+Card color uses a labelled text form so both named palette values and the
+HTML5 color wheel's `#rrggbb` values remain representable in HTML4. `white` or
+an empty value removes the color. Both renderers call one acknowledged server
+operation that repeats card and linked-target authorization and accepts only a
+canonical shared palette name or exactly six hexadecimal digits.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

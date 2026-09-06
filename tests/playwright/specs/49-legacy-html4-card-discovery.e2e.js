@@ -1038,6 +1038,30 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).description)
       .toBe('Edited HTML4 card description');
+    const colorForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-color"])',
+    );
+    await colorForm().locator('input[name="cardColor"]').fill('#123abc');
+    await Promise.all([
+      page.waitForNavigation(), colorForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).color).toBe('#123abc');
+    await colorForm().locator('input[name="cardColor"]').fill('url(javascript:alert(1))');
+    await Promise.all([
+      page.waitForNavigation(), colorForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).color).toBe('#123abc');
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await colorForm().locator('input[name="cardColor"]').fill('white');
+    await Promise.all([
+      page.waitForNavigation(), colorForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).color).toBeNull();
+    await colorForm().locator('input[name="cardColor"]').fill('blue');
+    await Promise.all([
+      page.waitForNavigation(), colorForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).color).toBe('blue');
     const dueDateForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-date"])'
       + ':has(input[name="cardDateField"][value="dueAt"])',

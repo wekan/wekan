@@ -530,6 +530,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: 'edit-card-description' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
+    rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: `${tr(translate, 'setCardColorPopup-title', 'Set color')} (name or #rrggbb)`,
+      name: 'cardColor', value: card.color || 'white', maxlength: 20,
+      fields: { ...commonFields, legacyOperation: 'edit-card-color' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
     rows.push({ rowHeader: false, cells: [uiSelectForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, 'list', 'List'), name: 'cardListId', value: card.listId,
