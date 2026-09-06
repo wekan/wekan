@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tn',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1724,
-  'the first nine 50-value Tswana batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1674,
+  'the first ten 50-value Tswana batches stay resolved');
 
 for (const [key, value] of Object.entries(tswana)) {
   if (value !== english[key]) {
@@ -91,4 +91,11 @@ assert.equal(tswana['color-yellow'], 'serolwana');
 assert.match(tswana['confirm-move-list-to-swimlane'], /tseleng/);
 assert.doesNotThrow(() => JSON.parse(tswana['copyManyCardsPopup-format']));
 
-console.log('tswanaTranslationProgress: first nine batches passed');
+assert.deepEqual(tokens(tswana['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(tswana['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.match(tswana['error-json-malformed'], /JSON/);
+assert.match(tswana['error-csv-schema'], /CSV.*TSV/);
+
+console.log('tswanaTranslationProgress: first ten batches passed');
