@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tn',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1824,
-  'the first seven 50-value Tswana batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1774,
+  'the first eight 50-value Tswana batches stay resolved');
 
 for (const [key, value] of Object.entries(tswana)) {
   if (value !== english[key]) {
@@ -81,4 +81,9 @@ assert.match(tswana['font-preview-text'], /0123456789/);
 assert.equal(tswana['restoreArchivedListToSwimlanePopup-title'],
   'Busetsa lenaane mo tseleng');
 
-console.log('tswanaTranslationProgress: first seven batches passed');
+assert.equal(tswana['color-black'], 'ntsho');
+assert.equal(tswana['color-red'], 'khibidu');
+assert.match(tswana['card-aging-days'], /3/);
+assert.match(tswana['close-board-pop'], /Polokelo/);
+
+console.log('tswanaTranslationProgress: first eight batches passed');
