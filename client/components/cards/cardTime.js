@@ -1,4 +1,5 @@
 import { TAPi18n } from '/imports/i18n';
+import { Meteor } from 'meteor/meteor';
 import Cards from '/models/cards';
 import { getCurrentCardIdFromContext } from '/client/lib/currentCard';
 
@@ -26,37 +27,39 @@ Template.editCardSpentTimePopup.helpers({
 
 Template.editCardSpentTimePopup.events({
   //TODO : need checking this portion
-  'submit .edit-time'(evt, tpl) {
+  async 'submit .edit-time'(evt, tpl) {
     evt.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
 
-    const spentTime = parseFloat(evt.target.time.value);
+    const spentTime = evt.target.time.value;
     let isOvertime = false;
     if ($('#overtime').attr('class').indexOf('is-checked') >= 0) {
       isOvertime = true;
     }
-    if (spentTime >= 0) {
-      card.setSpentTime(spentTime);
-      card.setIsOvertime(isOvertime);
+    if (spentTime !== '' && Number.isFinite(Number(spentTime)) && Number(spentTime) >= 0) {
+      await Meteor.callAsync('updateAccessibleCardMetric', {
+        cardId: card._id, boardId: card.boardId, action: 'spent-time',
+        value: spentTime, isOvertime,
+      });
       Popup.back();
     } else {
       tpl.error.set('invalid-time');
       evt.target.time.focus();
     }
   },
-  'click .js-delete-time'(evt) {
+  async 'click .js-delete-time'(evt) {
     evt.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    card.setSpentTime(null);
-    card.setIsOvertime(false);
+    await Meteor.callAsync('updateAccessibleCardMetric', {
+      cardId: card._id, boardId: card.boardId, action: 'spent-time',
+      value: '', isOvertime: false,
+    });
     Popup.back();
   },
   'click a.js-toggle-overtime'(evt) {
-    const card = Cards.findOne(getCardId());
-    if (!card) return;
-    card.setIsOvertime(!card.getIsOvertime());
+    evt.preventDefault();
     $('#overtime .materialCheckBox').toggleClass('is-checked');
     $('#overtime').toggleClass('is-checked');
   },

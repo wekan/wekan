@@ -56,6 +56,7 @@ import {
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
+  updateAccessibleCardMetric,
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
@@ -142,6 +143,11 @@ Meteor.methods({
   async updateAccessibleCardPoker(input) {
     check(input, Object);
     return updateAccessibleCardPoker(this.userId, input);
+  },
+
+  async updateAccessibleCardMetric(input) {
+    check(input, Object);
+    return updateAccessibleCardMetric(this.userId, input);
   },
 
   async removeAccessibleCardDependency(input) {

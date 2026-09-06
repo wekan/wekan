@@ -1016,6 +1016,14 @@ Boards.attachSchema(
       type: Date,
       optional: true,
     },
+    dueComplete: {
+      /**
+       * Has the linked-board card's due date been marked complete?
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     endAt: {
       /**
        * End date of the board.

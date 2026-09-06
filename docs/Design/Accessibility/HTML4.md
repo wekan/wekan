@@ -328,6 +328,15 @@ actor from the session, rejects closed rounds and moves one actor between estima
 arrays with a single atomic database modifier so concurrent participants do not
 overwrite each other.
 
+Card completion and spent time use the same desired-state controls in both
+renderers. HTML4 presents due completion as a textual `[x]`/`[ ]` POST action and
+spent time plus overtime as one labelled fieldset, with a separate clear action.
+The shared acknowledged operation binds the route card and its linked card or
+linked board target, observes the board's due-completion feature flag, requires
+an actual Boolean state, accepts only a complete non-negative finite number, and
+writes time plus overtime together. Clearing time also clears overtime, so an
+interrupted or malicious request cannot leave a contradictory half-update.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

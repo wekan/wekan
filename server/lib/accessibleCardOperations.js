@@ -639,6 +639,52 @@ async function updateAccessibleCardPoker(userId, input) {
   throw new Meteor.Error('invalid-poker-action');
 }
 
+async function accessibleCardMetricTarget(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') {
+    const target = await Boards.findOneAsync(card.linkedId);
+    if (!target) throw new Meteor.Error('not-found');
+    return { card, target, collection: Boards };
+  }
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  return { card, target, collection: Cards };
+}
+
+async function updateAccessibleCardMetric(userId, input) {
+  const { card, target, collection } = await accessibleCardMetricTarget(userId, input);
+  const action = String(input?.action || '');
+  const now = new Date();
+  if (action === 'due-complete') {
+    if (typeof input?.value !== 'boolean') throw new Meteor.Error('invalid-card-due-state');
+    const routeBoard = await Boards.findOneAsync(card.boardId, { fields: { allowsDueComplete: 1 } });
+    if (routeBoard?.allowsDueComplete !== true) throw new Meteor.Error('card-due-complete-disabled');
+    await collection.updateAsync(target._id, {
+      $set: { dueComplete: input.value, modifiedAt: now },
+    });
+    return input.value;
+  }
+  if (action === 'spent-time') {
+    if (typeof input?.isOvertime !== 'boolean') throw new Meteor.Error('invalid-card-time');
+    const raw = String(input?.value ?? '').trim();
+    if (!raw) {
+      await collection.updateAsync(target._id, {
+        $unset: { spentTime: '' }, $set: { isOvertime: false, modifiedAt: now },
+      });
+      return null;
+    }
+    const spentTime = completeCustomFieldNumber(raw, false);
+    if (spentTime < 0) throw new Meteor.Error('invalid-card-time');
+    await collection.updateAsync(target._id, {
+      $set: { spentTime, isOvertime: input.isOvertime, modifiedAt: now },
+    });
+    return spentTime;
+  }
+  throw new Meteor.Error('invalid-card-metric-action');
+}
+
 async function castAccessibleCardPoker(userId, input) {
   const { target, board } = await accessibleBallotTarget(userId, input, false);
   const poker = canonicalPoker(target.poker);
@@ -888,6 +934,7 @@ export {
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
+  updateAccessibleCardMetric,
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,

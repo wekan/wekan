@@ -39,6 +39,7 @@ import {
   updateAccessibleCardColor,
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
+  updateAccessibleCardMetric,
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
@@ -183,6 +184,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'configure-card-vote', 'update-card-vote-end', 'cast-card-vote', 'remove-card-vote',
     'configure-card-poker', 'update-card-poker-end', 'cast-card-poker',
     'finish-card-poker', 'replay-card-poker', 'estimate-card-poker', 'remove-card-poker',
+    'set-card-due-complete', 'set-card-spent-time', 'clear-card-spent-time',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -670,6 +672,23 @@ WebApp.handlers.use(async (req, res, next) => {
         if (requestFields.legacyOperation === 'remove-card-poker') {
           return updateAccessibleCardPoker(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId, action: 'remove',
+          });
+        }
+        if (requestFields.legacyOperation === 'set-card-due-complete') {
+          return updateAccessibleCardMetric(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: 'due-complete', value: requestFields.cardDueComplete === 'true',
+          });
+        }
+        if (requestFields.legacyOperation === 'set-card-spent-time'
+          || requestFields.legacyOperation === 'clear-card-spent-time') {
+          return updateAccessibleCardMetric(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: 'spent-time',
+            value: requestFields.legacyOperation === 'clear-card-spent-time'
+              ? '' : requestFields.cardSpentTime,
+            isOvertime: requestFields.legacyOperation === 'set-card-spent-time'
+              && requestFields.cardIsOvertime === 'true',
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

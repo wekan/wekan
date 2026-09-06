@@ -476,6 +476,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
     sort: 1, stickers: 1, customFields: 1, cardDependencies: 1, vote: 1, poker: 1,
+    dueComplete: 1, spentTime: 1, isOvertime: 1,
     locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
@@ -610,6 +611,36 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       maxlength: 1000, fields: { ...commonFields, legacyOperation: 'edit-card-title' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
+    if (board.allowsDueComplete === true) {
+      const dueComplete = contentCard?.dueComplete === true;
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${dueComplete ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + tr(translate, dueComplete ? 'card-mark-incomplete' : 'card-mark-complete',
+            dueComplete ? 'Mark incomplete' : 'Mark complete'),
+        fields: { ...commonFields, legacyOperation: 'set-card-due-complete',
+          cardDueComplete: dueComplete ? 'false' : 'true' },
+      }), ''] });
+    }
+    rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      legend: tr(translate, 'editCardSpentTimePopup-title', 'Edit spent time'),
+      inputs: [
+        { name: 'cardSpentTime', label: tr(translate, 'time', 'Time'),
+          value: contentCard?.spentTime ?? '', maxlength: 100 },
+        { type: 'select', name: 'cardIsOvertime', label: tr(translate, 'overtime', 'Overtime'),
+          value: contentCard?.isOvertime === true ? 'true' : 'false', options: [
+            { value: 'false', label: tr(translate, 'no', 'No') },
+            { value: 'true', label: tr(translate, 'yes', 'Yes') },
+          ] },
+      ],
+      fields: { ...commonFields, legacyOperation: 'set-card-spent-time' },
+      submitLabel: tr(translate, 'save', 'Save'), id: 'card-spent-time',
+    }), uiAction({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+      fields: { ...commonFields, legacyOperation: 'clear-card-spent-time' },
+    })] });
     const locationInputs = location => [
       { label: tr(translate, 'location-name', 'Location name'),
         name: 'locationName', value: location?.name || '', maxlength: 1000 },
@@ -1149,6 +1180,11 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     { cells: [tr(translate, 'r-df-start-at', 'Start'), isoDate(card.startAt)] },
     { cells: [tr(translate, 'due-date', 'Due Date'), isoDate(card.dueAt)] },
     { cells: [tr(translate, 'r-df-end-at', 'End'), isoDate(card.endAt)] },
+    { cells: [tr(translate, 'card-mark-complete', 'Complete'),
+      contentCard?.dueComplete === true ? tr(translate, 'yes', 'Yes') : tr(translate, 'no', 'No')] },
+    { cells: [tr(translate, contentCard?.isOvertime ? 'overtime-hours' : 'spent-time-hours',
+      contentCard?.isOvertime ? 'Overtime hours' : 'Spent time hours'),
+      contentCard?.spentTime === undefined ? '' : String(contentCard.spentTime)] },
     { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(card.createdAt)] },
     { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
   );

@@ -268,6 +268,31 @@ test('planning poker uses one scoped atomic boundary in HTML5 and HTML4', () => 
   assert.match(page, /requestFields\.confirmPokerRemove === card\._id/);
 });
 
+test('card completion and time use one validated linked-content boundary', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const details = read('client/components/cards/cardDetails.js');
+  const time = read('client/components/cards/cardTime.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /async function accessibleCardMetricTarget/);
+  assert.match(source, /card\.type === 'cardType-linkedBoard'/);
+  assert.match(source, /card\.type === 'cardType-linkedCard'/);
+  assert.match(source, /routeBoard\?\.allowsDueComplete !== true/);
+  assert.match(source, /typeof input\?\.value !== 'boolean'/);
+  assert.match(source, /completeCustomFieldNumber\(raw, false\)/);
+  assert.match(source, /if \(spentTime < 0\)/);
+  assert.match(source, /\$unset: \{ spentTime: '' \}.*isOvertime: false/);
+  assert.match(methods, /async updateAccessibleCardMetric\(input\)/);
+  assert.match(details, /Meteor\.callAsync\('updateAccessibleCardMetric'/);
+  assert.match(time, /Meteor\.callAsync\('updateAccessibleCardMetric'/);
+  assert.doesNotMatch(details, /card\.setDueComplete\(/);
+  assert.doesNotMatch(time, /card\.set(?:SpentTime|IsOvertime)\(/);
+  assert.match(legacy, /legacyOperation === 'set-card-due-complete'/);
+  assert.match(legacy, /legacyOperation === 'set-card-spent-time'/);
+  assert.match(page, /legacyOperation: 'clear-card-spent-time'/);
+});
+
 test('card color uses one allowlisted acknowledged boundary in HTML5 and HTML4', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

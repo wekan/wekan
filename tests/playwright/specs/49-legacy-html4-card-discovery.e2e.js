@@ -81,6 +81,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       $set: {
         labels: [{ _id: labelId, name: 'HTML4 Label', color: 'green' }],
         allowsCustomFields: true,
+        allowsDueComplete: true,
       },
       $push: { members: {
         userId: outsider.id, isAdmin: false, isActive: true, isNoComments: false,
@@ -1686,6 +1687,44 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.waitForNavigation(), finishPokerForm().locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).poker.thirteen).toEqual([user._id]);
+    const dueCompleteForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="set-card-due-complete"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), dueCompleteForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).dueComplete).toBe(true);
+    const spentTimeForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="set-card-spent-time"])',
+    );
+    await spentTimeForm().locator('input[name="cardSpentTime"]').fill('12oops');
+    await Promise.all([
+      page.waitForNavigation(), spentTimeForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).spentTime).toBe(0);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await spentTimeForm().locator('input[name="cardSpentTime"]').fill('1.25');
+    await spentTimeForm().locator('select[name="cardIsOvertime"]').selectOption('true');
+    await Promise.all([
+      page.waitForNavigation(), spentTimeForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id })).toMatchObject({
+      spentTime: 1.25, isOvertime: true,
+    });
+    const clearSpentTimeForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="clear-card-spent-time"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), clearSpentTimeForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).spentTime).toBeUndefined();
+    expect(db.findOne('cards', { _id: due._id }).isOvertime).toBe(false);
+    await spentTimeForm().locator('input[name="cardSpentTime"]').fill('2.5');
+    await spentTimeForm().locator('select[name="cardIsOvertime"]').selectOption('false');
+    await Promise.all([
+      page.waitForNavigation(), spentTimeForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).spentTime).toBe(2.5);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

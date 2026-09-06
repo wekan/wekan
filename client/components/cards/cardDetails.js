@@ -1257,12 +1257,15 @@ Template.cardDetails.events({
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
-  'click .js-toggle-due-complete'(event) {
+  async 'click .js-toggle-due-complete'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const card = Template.currentData();
-    card.setDueComplete(!card.getDueComplete());
+    await Meteor.callAsync('updateAccessibleCardMetric', {
+      cardId: card._id, boardId: card.boardId, action: 'due-complete',
+      value: !card.getDueComplete(),
+    });
   },
   'click .js-end-date': Popup.open('editCardEndDate'),
   'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
