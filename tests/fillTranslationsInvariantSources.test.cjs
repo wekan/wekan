@@ -24,6 +24,8 @@ assert.deepStrictEqual(bosnian, {},
 assert.ok(!Object.hasOwn(list('sq'), 'color-indigo'));
 assert.ok(!Object.hasOwn(list('sq'), 'color-magenta'),
   'international color names are invariant, not untranslated');
+assert.ok(!Object.hasOwn(list('sq'), 'email'),
+  'the international technical loanword Email is invariant');
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
-console.log('fillTranslationsInvariantSources: 9 tests passed');
+console.log('fillTranslationsInvariantSources: 10 tests passed');

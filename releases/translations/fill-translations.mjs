@@ -87,7 +87,7 @@ const isInvariantSource = value => {
   const withoutPlaceholders = value.replace(/__[a-zA-Z0-9_-]+__/g, '');
   if (!/\p{Letter}/u.test(withoutPlaceholders)) return true;
   if (/^(?:YYYY-MM-DD|DD-MM-YYYY|MM-DD-YYYY)$/.test(value)) return true;
-  return /^(Meteor|Node|Server|indigo|magenta|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API)$/.test(value);
+  return /^(Meteor|Node|Server|Email|indigo|magenta|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API)$/.test(value);
 };
 
 function langFile(code) { return path.join(DATA_DIR, `${code}.i18n.json`); }

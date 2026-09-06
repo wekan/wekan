@@ -20,8 +20,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1715,
-  'the first eight Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1615,
+  'the first ten Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -206,6 +206,9 @@ assert.equal(albanian['auto-list-width'], 'Gjerësia automatike e listës');
 assert.equal(albanian['card-aging'], 'Vjetrimi i kartave (zbeh kartat e vjetra)');
 assert.equal(albanian['read-only'], 'Vetëm lexim');
 assert.equal(albanian['custom-field-currency'], 'Monedhë');
+assert.equal(albanian['error-board-doesNotExist'], 'Kjo tabelë nuk ekziston');
+assert.equal(albanian['export-card-attachment-filename'], 'Emri i skedarit');
+assert.equal(albanian['filter-overdue'], 'Me afat të kaluar');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first eight Albanian batches passed');
+console.log('albanianTranslationProgress: first ten Albanian batches passed');
