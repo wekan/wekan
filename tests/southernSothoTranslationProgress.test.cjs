@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1974,
-  'the first three Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1924,
+  'the first four Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -51,5 +51,12 @@ assert.deepEqual(tokens(sesotho['avatar-too-big']), ['__size__']);
 assert.deepEqual(tags(sesotho['board-private-info']),
   ['</strong>', '<strong>']);
 assert.equal(sesotho['board-not-found'], 'Boto ha e a fumanwa');
+assert.deepEqual(tags(sesotho['board-public-info']),
+  ['</strong>', '<strong>']);
+assert.deepEqual(tokens(
+  sesotho['board-open-and-move-between-remaining-and-workspaces']),
+['__workspaces__']);
+assert.deepEqual(tokens(sesotho['card-comments-title']), ['%s']);
+assert.equal(sesotho['mobile-mode'], 'Mokgwa wa selefouno');
 
-console.log('southernSothoTranslationProgress: first three batches passed');
+console.log('southernSothoTranslationProgress: first four batches passed');
