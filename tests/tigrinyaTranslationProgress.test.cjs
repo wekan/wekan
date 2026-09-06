@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1074,
-  'the first twenty-two Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1024,
+  'the first twenty-three Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -187,5 +187,10 @@ assert.equal(tigrinya['r-remove-all'], 'ኩሎም ኣባላት ካብቲ ካር�
 assert.equal(tigrinya['r-send-email'], 'ኢመይል ልኣኽ');
 assert.equal(tigrinya['r-d-move-to-bottom-gen'],
   'ካርድ ናብ ታሕቲ ዝርዝሩ ኣዛውር');
+assert.equal(tigrinya['r-items-list'], 'ነገር1,ነገር2,ነገር3');
+assert.match(tigrinya['r-checklist-note'], /ኮማ/);
+assert.match(tigrinya['custom-head-meta-tags'], /HTML/);
+assert.match(tigrinya['custom-head-manifest-content'], /JSON/);
+assert.match(tigrinya['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
 
-console.log('tigrinyaTranslationProgress: first twenty-two batches passed');
+console.log('tigrinyaTranslationProgress: first twenty-three batches passed');
