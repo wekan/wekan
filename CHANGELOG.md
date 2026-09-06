@@ -8137,17 +8137,18 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after starting Southern Sotho:** all 199
+**Current snapshot after starting Tajik:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **73,966 values across 34 second-tier languages**. Southern
+remaining work is **73,916 values across 34 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
-Albanian and Bosnian are also complete:
+Tajik has 2,124 left after its first 50-value batch. Albanian and Bosnian are
+also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
 to make the counter reach zero.
 
 A release can go out at any point: an untranslated key renders its English
-source, never the key. The work now proceeds through the 36 whole-file-sized
+source, never the key. The work now proceeds through the 34 whole-file-sized
 second-tier locales in resumable, tested batches.
 
 </details>
@@ -8254,9 +8255,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian and Southern Sotho translations** are complete;
-Southern Sotho now covers every activity, administration, automation, security,
-migration, monitoring, account, repair and import/export string;
+**In short:** **Albanian and Southern Sotho translations** are complete, and
+**Tajik translations** now cover their first activity and collaboration batch;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,19 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a6029967">Start complete Tajik translations</a>. Thanks to xet7.</summary>
+
+The first 50-value Tajik batch adds acceptance, title and description changes,
+organization and team membership, comment replies, due-date changes and board,
+card, swimlane, attachment, subtask, label, checklist, comment, custom-field,
+archive and import activity logs. All values required translation. A new test
+audits locale-wide placeholder and HTML inventories and representative activity
+tokens and terminology. This leaves 73,916 actionable values across 34
+languages, including 2,124 in Tajik.
 
 </details>
 
