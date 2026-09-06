@@ -266,7 +266,7 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists, dates, colors and scoped transfers. Attachments have stored
+reactions, checklists, dates, colors, labels and scoped transfers. Attachments have stored
 GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
@@ -472,6 +472,24 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ce1f6cb5">Add accessible HTML4 card label controls</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now render every label from the real content
+board as a textual `[x]` or `[ ]` POST control. Named and unnamed color labels
+remain distinguishable, naturally keyboard ordered and usable without script,
+cookies or a popup.
+
+Jade and HTML4 now submit the desired label state to one acknowledged service
+instead of replaying a toggle. It resolves linked-card content, verifies the
+label belongs to that content board and repeats route-card plus linked-target
+write permission before adding or removing it. Unit tests cover linked scope,
+foreign labels and renderer parity. Chromium selects a valid label and proves a
+foreign-board substitution is reported and leaves the card unchanged; paired
+same-URL screenshots show the result in both views.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e365ed0fc">Add accessible HTML4 card color control</a>. Thanks to xet7.</summary>
