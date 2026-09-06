@@ -8139,13 +8139,13 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tswana:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **67,144 values across 31 second-tier languages**. Southern
+remaining work is **67,094 values across 31 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
 batch. Tigre is complete after forty-three 50-value batches and a final
 24-value batch.
-Tswana has 1,874 left after its first six 50-value batches.
+Tswana has 1,824 left after its first seven 50-value batches.
 Albanian and Bosnian are also complete. Bosnian's final apparent gap,
 `Server`, is a normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8265,8 +8265,8 @@ complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
 backups and migrations; every near-complete locale is complete again, and the
 remaining counter excludes valid international technical and color loanwords.
-**Tswana translations** cover their first six board-activity, workspace,
-board-sizing, archive, view, display and card-dialog batches.
+**Tswana translations** cover their first seven board-activity, workspace,
+board-sizing, archive, view, display, card-dialog and appearance batches.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8536,6 +8536,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a20099e25">Translate Tswana member mapping and appearance</a>. Thanks to xet7.</summary>
+
+The seventh 50-value Tswana batch adds member and import dialogs, safe mapping
+of virtual members to real accounts, board themes, fonts, text colors, avatars,
+language and permissions. All values required translation, with low confidence
+in some grammar pending human refinement. Tests retain CAS, numeric font
+preview and swimlane, organization and permission terminology. This leaves
+67,094 actionable values across 31 languages, including 1,824 in Tswana.
 
 </details>
 
