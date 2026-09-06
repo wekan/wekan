@@ -266,8 +266,8 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists, dates, colors, labels, members, assignees and
-identity fields and transfers. Attachments have stored GIF previews
+reactions, checklists, dates, colors, labels, people, identity, ballots and
+transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
@@ -472,6 +472,24 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e33ce50a">Add accessible HTML4 planning poker</a>. Thanks to xet7.</summary>
+
+Planning Poker now preserves its audience, deadline, ten choices, current-user
+state, closed results, participant names, replay and numeric estimation without
+JavaScript or cookies. HTML4 uses labelled native fields, textual desired-state
+buttons and a two-POST delete confirmation; administrative actions retain their
+board-admin gate.
+
+Jade and HTML4 call one route-bound server state machine. It binds linked content,
+strictly parses deadlines and estimations, allowlists every choice, derives the
+actor from the session, rejects closed rounds and atomically moves an actor between
+choice arrays without overwriting concurrent participants. Tests cover malformed
+deadlines and estimations, forged choices, choice changes, finish, replay, removal,
+administrator authorization and paired same-URL screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/138556419">Add accessible HTML4 card voting</a>. Thanks to xet7.</summary>
