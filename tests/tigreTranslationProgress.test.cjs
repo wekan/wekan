@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
-  'the first twenty-six 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 824,
+  'the first twenty-seven 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -224,4 +224,9 @@ assert.deepEqual(tokens(tigre['board-title-not-found']),
 assert.match(tigre['globalSearchViewChange-choice-all-description'],
   /\*ካርድታተይ\*/);
 
-console.log('tigreTranslationProgress: first twenty-six batches passed');
+assert.deepEqual(tokens(tigre['n-n-of-n-cards-found']),
+  tokens(english['n-n-of-n-cards-found']));
+assert.equal(tigre['operator-customfield'].includes(' '), false);
+assert.equal(tigre['operator-checklist-text'].includes(' '), false);
+
+console.log('tigreTranslationProgress: first twenty-seven batches passed');
