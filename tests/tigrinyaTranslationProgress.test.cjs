@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1874,
-  'the first six Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1824,
+  'the first seven Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -87,5 +87,10 @@ assert.equal(tigrinya['cardDependenciesPopup-title'], 'ጽግዕተኛነት ወ
 assert.equal(tigrinya['exportChecklistPopup-title'],
   'ዝርዝር መረጋገጺ ልኣኽ');
 assert.equal(tigrinya['importBoardIntoPopup-title'], 'ናብ ሰሌዳ ኣእቱ');
+assert.match(tigrinya.casSignIn, /CAS/);
+assert.equal(tigrinya['cardType-linkedCard'], 'ዝተኣሳሰረ ካርድ');
+assert.match(tigrinya['map-to-existing-user-desc'], /ፍቓድ/);
+assert.match(tigrinya['font-preview-text'], /0123456789/);
+assert.equal(tigrinya['changeLanguagePopup-title'], 'ቋንቋ ቀይር');
 
-console.log('tigrinyaTranslationProgress: first six batches passed');
+console.log('tigrinyaTranslationProgress: first seven batches passed');
