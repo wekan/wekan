@@ -358,6 +358,24 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/20b9e2533">Add semantic HTML4 card details</a>. Thanks to xet7.</summary>
+
+Opening a card in the no-JavaScript representation now shows its board,
+swimlane and list path, title, description, labels, members, assignees, creator,
+requester and assigner identities, archive state, and received, start, due, end,
+created and modified dates. Stored text remains escaped by the common table
+renderer and card colors use the validated shared palette.
+
+The controller repeats board visibility and assigned-only membership scopes
+before reading a card or its user display names. A same-URL Playwright test opens
+the same seeded card in Meteor and cookieless HTML4 contexts and compares its
+title and description. Source tests pin the permission selectors, projected user
+fields, semantic rows and translated labels. Navigation buttons now name every
+destination rather than falling back to repeated product names.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dad6c5b3a">Add HTML4 card discovery pages</a>. Thanks to xet7.</summary>
 
 My Cards, Due Cards, Bookmarks and basic Global Search now have authenticated
