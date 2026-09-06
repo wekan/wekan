@@ -269,6 +269,8 @@ uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists and scoped transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
+It also creates and duplicates boards with the same protected server operations
+as the Jade interface.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -487,6 +489,27 @@ Unit tests cover the common boundary, role and state gates, textual controls and
 method parity. Chromium toggles Star and Home both ways, restores and confirms an
 archive, rejects the forged board, verifies its report, and captures paired
 same-URL All Boards screenshots.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a026b12a1">Add accessible HTML4 board creation and copy</a>. Thanks to xet7.</summary>
+
+All Boards now provides one labelled title-and-permission form for ordinary
+boards and Template Containers, plus a two-POST Duplicate confirmation on every
+live board an administrator may copy. The controls stay on the selected section
+or nested Workspace URL and follow natural keyboard order without JavaScript,
+cookies or drag-and-drop.
+
+Jade and HTML4 call the same creation and copy services. Server policy forces
+Private when the Admin setting requires it, derives a safe slug, creates the
+initial swimlane and template pointers, requires source-board administration and
+allowlists every caller-controlled field. Forged scopes, board types,
+permissions and protected fields are refused and reported as `BoardBleed`.
+Tests cover the shared component, method parity and negative gates. Chromium
+creates and duplicates a board, proves confirmation does not write, rejects a
+forged foreign source, verifies its Security report and captures paired same-URL
+HTML4/HTML5 screenshots with matching titles, colors and actions.
 
 </details>
 
