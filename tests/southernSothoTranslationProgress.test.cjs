@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1624,
-  'the first ten Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1574,
+  'the first eleven Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -86,5 +86,10 @@ assert.equal(sesotho['error-user-notAllowSelf'], 'O ke ke wa imema ka bowena');
 assert.match(sesotho['export-card-excel-no-disk-space'], /Excel/);
 assert.equal(sesotho['filter-overdue'], 'E fetilwe ke nako');
 assert.equal(sesotho['filter-no-member'], 'Ha ho setho');
+assert.match(sesotho['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.deepEqual(tokens(sesotho['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(sesotho['import-board-instruction-jira'], /automationRules/);
+assert.match(sesotho['import-trello-json-file-hint'], /Trello API/);
 
-console.log('southernSothoTranslationProgress: first ten batches passed');
+console.log('southernSothoTranslationProgress: first eleven batches passed');
