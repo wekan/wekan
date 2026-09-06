@@ -271,7 +271,8 @@ transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 can create, duplicate, organize and archive boards without JavaScript, including
 gated permanent deletion. Card parents, subtasks and activity history have
-matching, scoped HTML4/HTML5 views.
+matching, scoped HTML4/HTML5 views. Advanced Global Search shares its parser,
+authorization, result ranking, help and pagination across both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -471,6 +472,26 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3b9b9fbd">Add accessible HTML4 advanced global search</a>. Thanks to xet7.</summary>
+
+Global Search now accepts the same localized operators, predicates, ranked text
+matching and All Cards or My Cards scope in cookieless HTML4 as in the modern
+view. Its empty state shares the modern help catalogue and lists suggestions
+from the signed-in user's boards, lists and labels. Native Previous and Next
+POST controls preserve the query and view without JavaScript.
+
+One guarded server executor repeats the caller's private-board scope before
+each query, rejects selector injection, caps result limits at 200 and bounds
+page offsets. An independent authorized count keeps later pages visible.
+Modern pagination now changes to a distinct owned session and retains the old
+subscription until the new page is ready, avoiding an HTTPS transport race.
+Tests cover localized shared parsing, state and bounds, another user's private
+board exclusion, 26-result pagination and paired same-URL HTML4/HTML5
+screenshots on `testi.wekan.fi`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d8af2661">Add accessible HTML4 card activity history</a>. Thanks to xet7.</summary>
