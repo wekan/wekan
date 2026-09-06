@@ -267,24 +267,12 @@ Template.minicard.helpers({
 
 // #459: accessible reordering — keyboard/screen-reader users can move a card up
 // or down within its list via sr-only buttons (no drag-and-drop required). The
-// move swaps the card's sort value with its neighbour in the same list+swimlane.
+// the acknowledged server operation computes a fresh fractional sort value and
+// repeats board write authorization. HTML4 uses the same operation via POST.
 function moveCardBy(card, delta) {
-  const siblings = ReactiveCache.getCards(
-    { listId: card.listId, swimlaneId: card.swimlaneId, archived: false },
-    { sort: { sort: 1 } },
-  );
-  const idx = siblings.findIndex(c => c._id === card._id);
-  const target = siblings[idx + delta];
-  if (idx < 0 || !target) return;
-  // Capture both sort values before either update; the docs are reactive and
-  // card.sort would otherwise change after the first move.
-  const cardSort = card.sort;
-  const targetSort = target.sort;
-  // Persist through the card model's move() mutation — the canonical client
-  // path (e.g. editCardSortOrderPopup). A raw Cards.update of `sort` is the
-  // wrong path here and would be reverted.
-  card.move(card.boardId, card.swimlaneId, card.listId, targetSort);
-  target.move(target.boardId, target.swimlaneId, target.listId, cardSort);
+  Meteor.call(delta < 0 ? 'moveCardUp' : 'moveCardDown', card._id, error => {
+    if (error) console.error('Accessible card move failed', error);
+  });
 }
 
 Template.minicard.events({

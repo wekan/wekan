@@ -36,8 +36,27 @@ import ChecklistItems from '/models/checklistItems';
 import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import {
+  createAccessibleCard,
+  moveAccessibleCard,
+} from '/server/lib/accessibleCardOperations';
 
 Meteor.methods({
+  async createAccessibleCard(input) {
+    check(input, Object);
+    return createAccessibleCard(this.userId, input);
+  },
+
+  async moveCardUp(cardId) {
+    check(cardId, String);
+    return moveAccessibleCard(this.userId, cardId, 'up');
+  },
+
+  async moveCardDown(cardId) {
+    check(cardId, String);
+    return moveAccessibleCard(this.userId, cardId, 'down');
+  },
+
   // #6613: create cross-board card links as an acknowledged, authoritative
   // operation. A direct client insert could be rejected after the optimistic
   // write, leaving the Link popup open without creating anything.

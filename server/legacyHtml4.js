@@ -1,5 +1,6 @@
 import { WebApp } from 'meteor/webapp';
 import { Meteor } from 'meteor/meteor';
+import { DDP } from 'meteor/ddp';
 import Settings from '/models/settings';
 import { TAPi18n } from '/imports/i18n';
 import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml4Session';
@@ -13,6 +14,10 @@ import {
   receiveLegacyHtml4Multipart,
   removeLegacyHtml4Upload,
 } from '/server/lib/legacyHtml4Multipart';
+import {
+  createAccessibleCard,
+  moveAccessibleCard,
+} from '/server/lib/accessibleCardOperations';
 import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
@@ -86,6 +91,29 @@ WebApp.handlers.use(async (req, res, next) => {
   }) : null;
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
+  if (session && /^\/b\/[^/]+/.test(path)
+    && ['create-card', 'move-card-up', 'move-card-down'].includes(requestFields.legacyOperation)) {
+    try {
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      const result = await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        if (requestFields.legacyOperation === 'create-card') {
+          return createAccessibleCard(session.userId, {
+            boardId: requestFields.boardId, listId: requestFields.listId,
+            swimlaneId: requestFields.swimlaneId, title: requestFields.cardTitle,
+            position: requestFields.position,
+          });
+        }
+        return moveAccessibleCard(session.userId, requestFields.cardId,
+          requestFields.legacyOperation === 'move-card-up' ? 'up' : 'down');
+      });
+      requestFields.legacyCardResult = { ok: true, result };
+    } catch (error) {
+      const errorKey = typeof error?.error === 'string' && /^[a-z0-9_-]{1,100}$/i.test(error.error)
+        ? error.error : 'operation-failed';
+      requestFields.legacyCardResult = { ok: false, errorKey };
+    }
+  }
   if (session && requestFields.legacyOperation === 'import-board-text') {
     const source = /^\/import\/([^/]+)$/.exec(path)?.[1] || '';
     requestFields.legacyImportResult = await importLegacyHtml4Text({

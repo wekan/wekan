@@ -145,6 +145,47 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await open('/allboards/home');
     await expect(page.locator('tbody')).toContainText(board.boardId);
     await expect(page.locator('tbody')).not.toContainText('HTML4 Workspace Board');
+    await open(`/b/${board.boardId}/${board.slug}`);
+    await expect(page.locator('tbody')).toContainText('HTML4 Mine');
+    const createForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="create-card"])',
+    );
+    await createForm.locator('input[name="cardTitle"]').fill('FORGED HTML4 CARD');
+    await createForm.locator('input[name="boardId"]').evaluate(
+      (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+    );
+    await Promise.all([
+      page.waitForNavigation(),
+      createForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { title: 'FORGED HTML4 CARD' })).toBeNull();
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    await page.locator('input[name="cardTitle"]').fill('HTML4 Button Created');
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[name="legacyOperation"][value="create-card"]) input[type="submit"]')
+        .click(),
+    ]);
+    const buttonCard = db.findOne('cards', {
+      boardId: board.boardId, title: 'HTML4 Button Created',
+    });
+    expect(buttonCard && buttonCard._id).toBeTruthy();
+    const originalCard = db.findOne('cards', { boardId: board.boardId, title: 'HTML4 Mine' });
+    expect(buttonCard.sort).toBeGreaterThan(originalCard.sort);
+    const moveForm = operation => page.locator(
+      `form:has(input[name="legacyOperation"][value="${operation}"])`
+      + `:has(input[name="cardId"][value="${buttonCard._id}"]) input[type="submit"]`,
+    );
+    await Promise.all([page.waitForNavigation(), moveForm('move-card-up').click()]);
+    expect(db.findOne('cards', { _id: buttonCard._id }).sort).toBeLessThan(originalCard.sort);
+    await Promise.all([page.waitForNavigation(), moveForm('move-card-down').click()]);
+    expect(db.findOne('cards', { _id: buttonCard._id }).sort).toBeGreaterThan(originalCard.sort);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-board-card-actions.png`, fullPage: true,
+      });
+    }
     await open('/import');
     for (const source of ['WeKan', 'Trello', 'CSV / TSV', 'Excel', 'Jira', 'GitHub', 'Asana']) {
       await expect(page.locator('tbody')).toContainText(source);
@@ -398,6 +439,13 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         await Meteor.callAsync('api.attachment.delete', attachmentId);
       }, importedWekanZipAttachmentId);
       importedWekanZipAttachmentId = null;
+    }
+    await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}`);
+    await expect(modern.locator('body')).toContainText('HTML4 Button Created');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-board-card-actions.png`, fullPage: true,
+      });
     }
     await modernContext.close();
 

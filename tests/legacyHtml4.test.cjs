@@ -12,6 +12,7 @@ const {
 } = require('../imports/lib/legacyHtml4');
 const {
   UI_ICONS, uiControlLabel, uiFileForm, uiIcon, uiSearchForm, uiTextareaForm,
+  uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
@@ -300,6 +301,23 @@ test('HTML4 global search is a labelled signed POST form', () => {
   assert.match(html, /name="q"[^>]+value="&lt;query&gt;"/);
   assert.match(html, /name="authHash" value="b{64}"/);
   assert.doesNotMatch(html, /<th scope="row"><form method="post" action="\/global-search">/);
+});
+
+test('HTML4 card creation is labelled and keeps controls in natural tab order', () => {
+  const html = renderLegacyHtml4Page('/b/board/slug', {
+    authenticated: true, username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'Board', columns: ['Content', 'Action'], rows: [{ rowHeader: false,
+      cells: [uiTextForm({ action: '/b/board/slug', label: 'Card title', name: 'cardTitle',
+        fields: { legacyOperation: 'create-card', listId: 'list' }, submitLabel: 'Add card' }),
+      ''] }] },
+  });
+  assert.match(html, /<label for="legacy-cardTitle">Card title<\/label>/);
+  assert.match(html, /name="cardTitle" type="text" maxlength="1000"/);
+  assert.match(html, /name="legacyOperation" value="create-card"/);
+  assert.ok(html.indexOf('name="cardTitle"') < html.indexOf('value="&gt; Add card"'));
+  assert.doesNotMatch(html, /tabindex=/);
 });
 
 test('authenticated navigation gives every HTML4 destination its translated name', () => {

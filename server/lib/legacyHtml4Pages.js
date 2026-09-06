@@ -11,8 +11,9 @@ import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import getSlug from 'limax';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 const {
-  UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiTextareaForm,
+  UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
@@ -150,6 +151,7 @@ async function boardPage(path, userId, requestFields = {}, translate) {
     columns: [tr(translate, 'status', 'Status'), tr(translate, 'action', 'Action')], rows: [],
     empty: 'Board not found or access denied.',
   };
+  const canWrite = allowIsBoardMemberWithWriteAccess(userId, board);
   const cardMatch = /^\/b\/[^/]+\/[^/]+\/([^/]+)$/.exec(path);
   if (cardMatch) return cardDetailsPage(board, segment(cardMatch[1]), userId, translate);
   const swimlanes = await Swimlanes.find({ boardId: board._id, archived: { $ne: true } }, {
@@ -172,6 +174,13 @@ async function boardPage(path, userId, requestFields = {}, translate) {
     ? requestFields.viewList : segment(listPath?.[1]);
   const firstList = lists.find(item => item._id === selectedListId) || lists[0] || null;
   const rows = [];
+  if (requestFields.legacyCardResult?.ok === true) rows.push({
+    cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Saved')],
+  });
+  if (requestFields.legacyCardResult?.ok === false) rows.push({
+    cells: [tr(translate, 'status', 'Status'),
+      tr(translate, requestFields.legacyCardResult.errorKey, 'Operation failed')],
+  });
   if (firstSwimlane) rows.push({
     cells: [`Swimlane: ${firstSwimlane.title}`, swimlanes.map(item => userId ? uiAction({
       action: boardPath(board), label: item.title, fields: { viewSwimlane: item._id },
@@ -186,6 +195,15 @@ async function boardPage(path, userId, requestFields = {}, translate) {
       }) : uiLink({ href: `${boardPath(board)}/list/${encodeURIComponent(item._id)}`, label: item.title }))],
       color: firstList.color,
     });
+    if (canWrite) rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board), label: tr(translate, 'title', 'Card title'),
+      name: 'cardTitle', maxlength: 1000,
+      fields: {
+        legacyOperation: 'create-card', boardId: board._id, listId: firstList._id,
+        swimlaneId: firstSwimlane?._id || '', position: 'bottom',
+      },
+      submitLabel: tr(translate, 'add-card', 'Add card'),
+    }), ''] });
     const otherSwimlaneIds = swimlanes.filter(item => item._id !== firstSwimlane?._id).map(item => item._id);
     const cards = await Cards.find({
       boardId: board._id, listId: firstList._id, archived: { $ne: true },
@@ -194,10 +212,16 @@ async function boardPage(path, userId, requestFields = {}, translate) {
     }, { fields: { title: 1, color: 1, sort: 1 }, sort: { sort: 1 }, limit: 200 }).fetchAsync();
     for (const card of cards) rows.push({
       color: card.color,
-      cells: [card.title || '(untitled card)', userId ? uiAction({
+      cells: [card.title || '(untitled card)', userId ? [uiAction({
         action: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
         label: tr(translate, 'card', 'Card'),
-      }) : uiLink({
+      }), ...(canWrite ? [uiAction({
+        action: boardPath(board), label: tr(translate, 'move-card-up', 'Move card up'),
+        icon: 'move-up', fields: { legacyOperation: 'move-card-up', cardId: card._id },
+      }), uiAction({
+        action: boardPath(board), label: tr(translate, 'move-card-down', 'Move card down'),
+        icon: 'move-down', fields: { legacyOperation: 'move-card-down', cardId: card._id },
+      })] : [])] : uiLink({
         href: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
         label: tr(translate, 'card', 'Card'),
       })],

@@ -43,6 +43,11 @@ function uiSearchForm({ action, label, value = '' }) {
   return { component: 'search', action, label, value };
 }
 
+function uiTextForm({ action, label, name, value = '', fields = {}, submitLabel,
+  maxlength = 1000 }) {
+  return { component: 'text', action, label, name, value, fields, submitLabel, maxlength };
+}
+
 function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLabel }) {
   return { component: 'textarea', action, label, name, value, fields, submitLabel };
 }
@@ -53,5 +58,5 @@ function uiFileForm({ action, label, name, accept = '', fields = {}, submitLabel
 
 module.exports = {
   UI_ICONS, uiAction, uiControlLabel, uiFileForm, uiIcon, uiLink, uiSearchForm,
-  uiTextareaForm,
+  uiTextForm, uiTextareaForm,
 };
