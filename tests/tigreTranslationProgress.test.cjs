@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
-  'the first thirty-seven 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
+  'the first thirty-eight 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -276,4 +276,8 @@ assert.match(tigre['cards-loading-description'], /CARDS_LOADING.*CARDS_LOADING_L
 assert.match(tigre['always-show-code-as-text-description'], /<!-- -->.*JavaScript/);
 assert.match(tigre['backup-description'], /S3\/MinIO.*Azure.*GCS/);
 
-console.log('tigreTranslationProgress: first thirty-seven batches passed');
+assert.match(tigre['backup-time'], /HH:MM/);
+assert.match(tigre['gcs-permissions-note'], /client_email.*Storage Object Admin/);
+assert.match(tigre['s3-secret-key-menu-path'], /Access key ID.*\.csv/);
+
+console.log('tigreTranslationProgress: first thirty-eight batches passed');
