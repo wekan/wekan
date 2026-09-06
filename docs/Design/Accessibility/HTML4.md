@@ -226,10 +226,14 @@ The HTML4 table writes checklist progress as `(finished/total)`, finished state 
 rename, move up/down, toggle and confirm-delete checklists and their items without
 drag-and-drop. The same-URL browser regression exercises valid changes, linked
 content display, ordering, deletion without orphan items and a forged foreign
-checklist refusal, then captures both representations. Advanced checklist copy,
-cross-card movement, import/export and item-to-card conversion remain separate
-parity work because their existing workflows require additional destinations and
-confirmation state.
+checklist refusal, then captures both representations. Copy and cross-card move
+use a bounded native destination selector containing cards from every writable
+board. The server authorizes both source and destination before the first write,
+resolves linked-card content targets, recalculates destination order and updates
+the denormalized card and board identities on the checklist, its items and its
+activities. Copying whitelists checklist and item fields rather than cloning an
+untrusted document. Checklist import/export and item-to-card conversion remain
+separate parity work.
 
 ## Delivery order
 

@@ -248,6 +248,31 @@ function isoDate(value) {
   return value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : '';
 }
 
+async function writableChecklistCardOptions(userId) {
+  const boards = await Boards.userBoards(userId, false, { type: 'board' }, {
+    fields: { title: 1, members: 1, permission: 1 }, sort: { title: 1 }, limit: 200,
+  }, { includePublic: false });
+  const options = [];
+  for (const candidateBoard of boards) {
+    if (!allowIsBoardMemberWithWriteAccess(userId, candidateBoard)) continue;
+    const cards = await Cards.find({
+      ...boardCardScope(candidateBoard),
+      ...(assignedOnlyCardScope(candidateBoard, userId) || {}),
+      archived: false,
+      deletedAt: null,
+    }, {
+      fields: { title: 1, boardId: 1 }, sort: { title: 1, _id: 1 }, limit: 500,
+    }).fetchAsync();
+    for (const candidateCard of cards) options.push({
+      value: `${candidateBoard._id}|${candidateCard._id}`,
+      label: `${candidateBoard.title || candidateBoard._id} / `
+        + `${candidateCard.title || candidateCard._id}`,
+    });
+    if (options.length >= 10000) break;
+  }
+  return options.slice(0, 10000);
+}
+
 async function cardDetailsPage(board, cardId, userId, requestFields, translate) {
   const assignedScope = assignedOnlyCardScope(board, userId);
   const selector = {
@@ -320,6 +345,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
   const labels = (board.labels || []).filter(label => (card.labelIds || []).includes(label._id));
   const canWrite = await canEditCardOrLinkedCard(userId, card);
+  const checklistCardOptions = canWrite ? await writableChecklistCardOptions(userId) : [];
   const rows = [];
   if (requestFields.legacyCardResult?.ok === true) rows.push({
     cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Save')],
@@ -425,6 +451,23 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         icon: 'move-down',
         fields: { ...checklistFields, legacyOperation: 'move-checklist-down' },
       })]] });
+      if (checklistCardOptions.length > 0) {
+        const destination = `${contentBoardId}|${contentCardId}`;
+        rows.push({ rowHeader: false, cells: ['', uiSelectForm({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'moveChecklist', 'Move Checklist'),
+          name: 'targetCardRef', value: destination, options: checklistCardOptions,
+          fields: { ...checklistFields, legacyOperation: 'move-checklist-to-card' },
+          submitLabel: tr(translate, 'moveChecklist', 'Move Checklist'),
+        })] });
+        rows.push({ rowHeader: false, cells: ['', uiSelectForm({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'copyChecklist', 'Copy Checklist'),
+          name: 'targetCardRef', value: destination, options: checklistCardOptions,
+          fields: { ...checklistFields, legacyOperation: 'copy-checklist-to-card' },
+          submitLabel: tr(translate, 'copyChecklist', 'Copy Checklist'),
+        })] });
+      }
       const settings = [
         ['hideCheckedChecklistItems', 'hideCheckedChecklistItems', 'Hide checked checklist items',
           checklist.hideCheckedChecklistItems === true],

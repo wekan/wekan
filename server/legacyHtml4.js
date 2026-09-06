@@ -6,6 +6,7 @@ import { TAPi18n } from '/imports/i18n';
 import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
 import {
+  copyAccessibleChecklist,
   importLegacyHtml4File,
   importLegacyHtml4Text,
 } from '/server/lib/legacyHtml4Imports';
@@ -28,10 +29,12 @@ import {
 } from '/server/lib/accessibleCommentOperations';
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import {
+  copyAccessibleChecklist,
   createAccessibleChecklist,
   createAccessibleChecklistItem,
   moveAccessibleChecklist,
   moveAccessibleChecklistItem,
+  moveAccessibleChecklistToCard,
   removeAccessibleChecklist,
   removeAccessibleChecklistItem,
   toggleAccessibleChecklistItem,
@@ -121,7 +124,8 @@ WebApp.handlers.use(async (req, res, next) => {
   ];
   const checklistOperations = [
     'add-checklist', 'edit-checklist', 'delete-checklist', 'toggle-checklist-setting',
-    'move-checklist-up', 'move-checklist-down',
+    'move-checklist-up', 'move-checklist-down', 'move-checklist-to-card',
+    'copy-checklist-to-card',
     'add-checklist-item', 'edit-checklist-item', 'toggle-checklist-item',
     'delete-checklist-item', 'move-checklist-item-up', 'move-checklist-item-down',
   ];
@@ -196,6 +200,18 @@ WebApp.handlers.use(async (req, res, next) => {
           return moveAccessibleChecklist(session.userId, {
             ...checklistInput,
             direction: requestFields.legacyOperation === 'move-checklist-up' ? 'up' : 'down',
+          });
+        }
+        if (requestFields.legacyOperation === 'move-checklist-to-card') {
+          const [targetBoardId, targetCardId] = String(requestFields.targetCardRef || '').split('|');
+          return moveAccessibleChecklistToCard(session.userId, {
+            ...checklistInput, targetBoardId, targetCardId,
+          });
+        }
+        if (requestFields.legacyOperation === 'copy-checklist-to-card') {
+          const [targetBoardId, targetCardId] = String(requestFields.targetCardRef || '').split('|');
+          return copyAccessibleChecklist(session.userId, {
+            ...checklistInput, targetBoardId, targetCardId,
           });
         }
         if (requestFields.legacyOperation === 'toggle-checklist-setting') {

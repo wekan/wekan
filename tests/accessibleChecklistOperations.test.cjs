@@ -34,6 +34,16 @@ test('checklist deletion removes bound children before their parent', () => {
   assert.match(body, /checklistId: checklist\._id, cardId: checklist\.cardId/);
 });
 
+test('copy and cross-card move authorize both ends and repair every parent field', () => {
+  const source = read('server/lib/accessibleChecklistOperations.js');
+  assert.match(source, /checklistDestination\(userId, input\)/);
+  assert.match(source, /boardId: input\?\.targetBoardId,[\s\S]*?cardId: input\?\.targetCardId/);
+  assert.match(source, /copyAccessibleChecklist[\s\S]*?ChecklistItems\.find\(\{ checklistId: checklist\._id, cardId: checklist\.cardId,[\s\S]*?boardId: checklist\.boardId/);
+  assert.match(source, /moveAccessibleChecklistToCard[\s\S]*?cardId: target\._id,[\s\S]*?boardId: target\.boardId/);
+  assert.match(source, /Activities\.find\(\{ checklistId: checklist\._id \}/);
+  assert.match(source, /Checklists\.direct\.updateAsync\(\{ _id: checklist\._id, cardId: checklist\.cardId,[\s\S]*?boardId: checklist\.boardId/);
+});
+
 test('HTML5 and cookieless HTML4 use the same authenticated checklist methods', () => {
   const client = read('client/components/cards/checklists.js');
   const html4 = read('server/legacyHtml4.js');
@@ -42,6 +52,7 @@ test('HTML5 and cookieless HTML4 use the same authenticated checklist methods', 
     'removeAccessibleChecklist', 'createAccessibleChecklistItem',
     'updateAccessibleChecklistItemTitle', 'toggleAccessibleChecklistItem',
     'removeAccessibleChecklistItem', 'toggleAccessibleChecklistSetting',
+    'copyAccessibleChecklist', 'moveAccessibleChecklistToCard',
   ]) {
     assert.ok(client.includes(`'${operation}'`), `HTML5 calls ${operation}`);
     assert.ok(html4.includes(`${operation}(session.userId`), `HTML4 calls ${operation}`);

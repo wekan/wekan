@@ -393,6 +393,17 @@ test('HTML4 comment forms expose labelled add, edit and delete operations', () =
   assert.match(pages, /comment-in-reply-to/);
 });
 
+test('HTML4 checklist destinations are bounded, labelled and carry board plus card identity', () => {
+  const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
+    'legacyHtml4Pages.js'), 'utf8');
+  assert.match(pages, /async function writableChecklistCardOptions\(userId\)/);
+  assert.match(pages, /allowIsBoardMemberWithWriteAccess\(userId, candidateBoard\)/);
+  assert.match(pages, /limit: 500/);
+  assert.match(pages, /value: `\$\{candidateBoard\._id\}\|\$\{candidateCard\._id\}`/);
+  assert.match(pages, /name: 'targetCardRef'[\s\S]*?legacyOperation: 'move-checklist-to-card'/);
+  assert.match(pages, /name: 'targetCardRef'[\s\S]*?legacyOperation: 'copy-checklist-to-card'/);
+});
+
 test('authenticated navigation gives every HTML4 destination its translated name', () => {
   const html = renderLegacyHtml4Page('/my-cards', {
     authenticated: true,

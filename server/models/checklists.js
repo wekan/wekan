@@ -10,10 +10,12 @@ import Activities from '/models/activities';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
 import {
+  copyAccessibleChecklist,
   createAccessibleChecklist,
   createAccessibleChecklistItem,
   moveAccessibleChecklist,
   moveAccessibleChecklistItem,
+  moveAccessibleChecklistToCard,
   removeAccessibleChecklist,
   removeAccessibleChecklistItem,
   toggleAccessibleChecklistItem,
@@ -23,6 +25,10 @@ import {
 } from '/server/lib/accessibleChecklistOperations';
 
 Meteor.methods({
+  async copyAccessibleChecklist(input) {
+    check(input, Object);
+    return copyAccessibleChecklist(this.userId, input);
+  },
   async createAccessibleChecklist(input) {
     check(input, Object);
     return createAccessibleChecklist(this.userId, input);
@@ -58,6 +64,10 @@ Meteor.methods({
   async moveAccessibleChecklistItem(input) {
     check(input, Object);
     return moveAccessibleChecklistItem(this.userId, input);
+  },
+  async moveAccessibleChecklistToCard(input) {
+    check(input, Object);
+    return moveAccessibleChecklistToCard(this.userId, input);
   },
   async toggleAccessibleChecklistSetting(input) {
     check(input, Object);

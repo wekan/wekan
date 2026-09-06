@@ -3,6 +3,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
+import Activities from '/models/activities';
 import { editableCard } from '/server/lib/accessibleCardOperations';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { computeSortForIndex } from '/server/lib/utils';
@@ -102,6 +103,91 @@ async function createAccessibleChecklistItem(userId, input) {
   });
 }
 
+async function checklistDestination(userId, input) {
+  return editableChecklistCard(userId, {
+    boardId: input?.targetBoardId,
+    cardId: input?.targetCardId,
+  });
+}
+
+async function copyAccessibleChecklist(userId, input) {
+  const [{ checklist }, { contentCard: target }] = await Promise.all([
+    checklistContext(userId, input), checklistDestination(userId, input),
+  ]);
+  const [items, siblings] = await Promise.all([
+    ChecklistItems.find({ checklistId: checklist._id, cardId: checklist.cardId,
+      boardId: checklist.boardId }, {
+      fields: { title: 1, sort: 1, isFinished: 1 }, sort: { sort: 1, _id: 1 }, limit: 10000,
+    }).fetchAsync(),
+    Checklists.find({ cardId: target._id, boardId: target.boardId }, {
+      fields: { sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 10000,
+    }).fetchAsync(),
+  ]);
+  const copiedAt = new Date();
+  const copiedId = await Checklists.direct.insertAsync({
+    cardId: target._id,
+    boardId: target.boardId,
+    userId,
+    title: checklist.title,
+    sort: computeSortForIndex(siblings, siblings.length),
+    createdAt: copiedAt,
+    modifiedAt: copiedAt,
+    ...(typeof checklist.hideCheckedChecklistItems === 'boolean'
+      ? { hideCheckedChecklistItems: checklist.hideCheckedChecklistItems } : {}),
+    ...(typeof checklist.hideAllChecklistItems === 'boolean'
+      ? { hideAllChecklistItems: checklist.hideAllChecklistItems } : {}),
+    ...(typeof checklist.showChecklistAtMinicard === 'boolean'
+      ? { showChecklistAtMinicard: checklist.showChecklistAtMinicard } : {}),
+  });
+  for (const item of items) {
+    await ChecklistItems.direct.insertAsync({
+      checklistId: copiedId,
+      cardId: target._id,
+      boardId: target.boardId,
+      userId,
+      title: item.title,
+      sort: item.sort,
+      isFinished: item.isFinished === true,
+      createdAt: copiedAt,
+      modifiedAt: copiedAt,
+    });
+  }
+  return copiedId;
+}
+
+async function moveAccessibleChecklistToCard(userId, input) {
+  const [{ checklist }, { contentCard: target }] = await Promise.all([
+    checklistContext(userId, input), checklistDestination(userId, input),
+  ]);
+  if (checklist.cardId === target._id && checklist.boardId === target.boardId) return false;
+  const siblings = await Checklists.find({ cardId: target._id, boardId: target.boardId }, {
+    fields: { sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 10000,
+  }).fetchAsync();
+  const moved = {
+    cardId: target._id,
+    boardId: target.boardId,
+  };
+  const items = await ChecklistItems.find({ checklistId: checklist._id,
+    cardId: checklist.cardId, boardId: checklist.boardId }, {
+    fields: { _id: 1 }, limit: 10000,
+  }).fetchAsync();
+  for (const item of items) {
+    await ChecklistItems.updateAsync({ _id: item._id, checklistId: checklist._id,
+      cardId: checklist.cardId, boardId: checklist.boardId }, { $set: moved });
+  }
+  const activities = await Activities.find({ checklistId: checklist._id }, {
+    fields: { _id: 1 }, limit: 10000,
+  }).fetchAsync();
+  for (const activity of activities) {
+    await Activities.updateAsync(activity._id, { $set: moved });
+  }
+  await Checklists.direct.updateAsync({ _id: checklist._id, cardId: checklist.cardId,
+    boardId: checklist.boardId }, { $set: {
+    ...moved, sort: computeSortForIndex(siblings, siblings.length),
+  } });
+  return true;
+}
+
 async function updateAccessibleChecklistItemTitle(userId, input) {
   const { item } = await checklistItemContext(userId, input);
   await ChecklistItems.updateAsync(item._id, { $set: { title: cleanChecklistText(input?.title) } });
@@ -180,11 +266,13 @@ export {
   checklistContext,
   checklistItemContext,
   cleanChecklistText,
+  copyAccessibleChecklist,
   createAccessibleChecklist,
   createAccessibleChecklistItem,
   editableChecklistCard,
   moveAccessibleChecklist,
   moveAccessibleChecklistItem,
+  moveAccessibleChecklistToCard,
   removeAccessibleChecklist,
   removeAccessibleChecklistItem,
   toggleAccessibleChecklistItem,

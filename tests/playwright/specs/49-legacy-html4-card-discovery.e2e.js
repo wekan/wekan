@@ -32,6 +32,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let html4ReplyCommentId;
   let html4ChecklistId;
   let html4ChecklistItemId;
+  let html4CopiedChecklistId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -428,6 +429,22 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     expect(db.findOne('checklists', { _id: html4ChecklistId }).sort)
       .toBeGreaterThan(db.findOne('checklists', { _id: childIds.checklist }).sort);
 
+    const moveSeededChecklist = page.locator(
+      'form:has(input[name="legacyOperation"][value="move-checklist-to-card"])'
+      + `:has(input[name="checklistId"][value="${childIds.checklist}"])`,
+    );
+    await moveSeededChecklist.locator('select[name="targetCardRef"]')
+      .selectOption(`${board.boardId}|${originalCard._id}`);
+    await Promise.all([
+      page.waitForNavigation(), moveSeededChecklist.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: childIds.checklist })).toMatchObject({
+      cardId: originalCard._id, boardId: board.boardId,
+    });
+    expect(db.findOne('checklistItems', { _id: childIds.item })).toMatchObject({
+      cardId: originalCard._id, boardId: board.boardId,
+    });
+
     const editChecklistForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-checklist"])'
       + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
@@ -522,6 +539,45 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('checklists', { _id: html4ChecklistId }).showChecklistAtMinicard)
       .toBe(true);
+
+    const outsiderCard = db.findOne('cards', { boardId: outsiderBoard.boardId });
+    const forgedMove = page.locator(
+      'form:has(input[name="legacyOperation"][value="move-checklist-to-card"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await forgedMove.locator('select[name="targetCardRef"]').evaluate((select, value) => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+      select.value = value;
+    }, `${outsiderBoard.boardId}|${outsiderCard._id}`);
+    await Promise.all([
+      page.waitForNavigation(), forgedMove.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: html4ChecklistId }).cardId).toBe(due._id);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    const copyChecklist = page.locator(
+      'form:has(input[name="legacyOperation"][value="copy-checklist-to-card"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await copyChecklist.locator('select[name="targetCardRef"]')
+      .selectOption(`${board.boardId}|${originalCard._id}`);
+    await Promise.all([
+      page.waitForNavigation(), copyChecklist.locator('input[type="submit"]').click(),
+    ]);
+    const copiedChecklist = db.findOne('checklists', {
+      cardId: originalCard._id, title: 'HTML4 edited checklist',
+    });
+    expect(copiedChecklist && copiedChecklist._id).toBeTruthy();
+    html4CopiedChecklistId = copiedChecklist._id;
+    expect(db.find('checklistItems', { checklistId: html4CopiedChecklistId })
+      .sort((left, right) => left.sort - right.sort)
+      .map(item => [item.title, item.isFinished])).toEqual([
+      ['HTML4 edited checklist item', true],
+      ['HTML4 second checklist item', false],
+    ]);
 
     const addCommentForm = page.locator(
       'form:has(input[name="legacyOperation"][value="add-comment"])',
@@ -875,6 +931,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (html4CopiedChecklistId) {
+      db.deleteMany('checklistItems', { checklistId: html4CopiedChecklistId });
+      db.deleteOne('checklists', { _id: html4CopiedChecklistId });
+    }
     if (html4ChecklistItemId) db.deleteOne('checklistItems', { _id: html4ChecklistItemId });
     if (html4ChecklistId) {
       db.deleteMany('checklistItems', { checklistId: html4ChecklistId });

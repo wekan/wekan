@@ -490,7 +490,10 @@ Template.moveChecklistPopup.onCreated(function () {
     },
     async setDone(cardId, options) {
       ReactiveCache.getCurrentUser().setMoveChecklistDialogOption(this.currentBoardId, options);
-      await Template.currentData().checklist.move(cardId);
+      const checklist = Template.currentData().checklist;
+      await Meteor.callAsync('moveAccessibleChecklistToCard', accessibleChecklistInput(
+        checklist, null, { targetBoardId: options.boardId, targetCardId: cardId },
+      ));
     },
   });
 });
@@ -504,7 +507,10 @@ Template.copyChecklistPopup.onCreated(function () {
     },
     async setDone(cardId, options) {
       ReactiveCache.getCurrentUser().setCopyChecklistDialogOption(this.currentBoardId, options);
-      await Template.currentData().checklist.copy(cardId);
+      const checklist = Template.currentData().checklist;
+      await Meteor.callAsync('copyAccessibleChecklist', accessibleChecklistInput(
+        checklist, null, { targetBoardId: options.boardId, targetCardId: cardId },
+      ));
     },
   });
 });
