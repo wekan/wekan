@@ -8284,6 +8284,18 @@ and fixes the following bugs:
 **Admin Panel** - reports show complete, actionable data and controls.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5d32a5cc">Restore legacy Offices login history</a>. Thanks to xet7.</summary>
+
+Offices now reconstructs its person-first rows from the legacy address-side
+login tally when no newer per-user tallies exist. Upgrading therefore no longer
+hides all previously recorded offices until every user logs in again. Counts,
+IPv4, IPv6, proxy location, timestamps and deleted-account names are preserved
+without inventing user IDs or geography, with regression coverage for both
+storage generations.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cde94d0b1">Filter Boards Report by permission</a>. Thanks to xet7.</summary>
 
 Boards Report now has an All, Public and Private permission dropdown. Search,
