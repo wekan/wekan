@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 674,
-  'the first thirty Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 624,
+  'the first thirty-one Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -247,5 +247,11 @@ assert.match(tajik['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
 assert.equal(tajik.securityReportTitle, 'Гузориши амният');
 assert.match(tajik['office-report-desc'], /IPv4.*IPv6/);
 assert.equal(tajik.officeReportTitle, 'Дафтарҳо');
+assert.match(tajik['api-report-desc'], /REST API/);
+assert.match(tajik['api-no-calls'], /WITH_API=true/);
+assert.match(tajik['recovery-report-desc'], /MongoDB/);
+assert.equal(tajik['recovery-severity'], 'Шиддат');
+assert.match(tajik.Bounce, /Bounce/);
+assert.equal(tajik['ticket-number'], 'Рақами дархост');
 
-console.log('tajikTranslationProgress: first thirty batches passed');
+console.log('tajikTranslationProgress: first thirty-one batches passed');
