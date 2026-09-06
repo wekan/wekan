@@ -358,6 +358,21 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8883cace2">Show card child collections in Legacy HTML4</a>. Thanks to xet7.</summary>
+
+The semantic HTML4 card-details table now includes checklist headings and item
+states, safely normalized attachment metadata, and chronological comments with
+their author and date. Each child query repeats both the authorized card ID and
+its board ID, and attachment content remains outside this read-only batch.
+
+The same-URL Playwright comparison seeds every supported child type and verifies
+its no-JavaScript rendering. Its negative case plants records with the visible
+card ID but another board ID and proves none are disclosed. Source tests pin the
+authorization selectors and shared filename sanitizer.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/20b9e2533">Add semantic HTML4 card details</a>. Thanks to xet7.</summary>
 
 Opening a card in the no-JavaScript representation now shows its board,
