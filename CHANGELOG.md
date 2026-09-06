@@ -358,6 +358,23 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/85e88ea3e">Make Legacy HTML4 sign-up functional without cookies</a>. Thanks to xet7.</summary>
+
+The HTML4 account-creation form now uses the guarded `/users/register` route and
+honours the Admin Panel registration setting. A successful registration returns
+the same signed, short-lived Continue POST used by HTML4 sign-in, without setting
+a cookie or creating a reusable Meteor login token. Validation failures return to
+the clean sign-up URL with a generic error rather than exposing JSON internals.
+
+Source tests cover the route, registration guard, input-field removal, cookieless
+session and early return before token generation. Live testing with an iPhone
+Safari User-Agent, JavaScript disabled and no cookie jar confirmed registration,
+authenticated navigation, counter rotation from 0 to 1 and zero stored resume
+tokens; the test account and session were removed afterward.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/426b505ec">Make Legacy HTML4 sign-in functional without cookies</a>. Thanks to xet7.</summary>
 
 The HTML4 sign-in form now submits to WeKan's existing password, LDAP, two-factor,
