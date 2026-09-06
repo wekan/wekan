@@ -474,6 +474,24 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7dd62f21">Add accessible HTML4 card custom fields</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now display and edit text, integer number,
+checkbox, currency, date, dropdown and string-template custom fields with
+semantic native controls. Every board field has an explicit desired-state
+attach or detach action, and the shared isomorphic string-template formatter
+keeps HTML4 and Jade output consistent.
+
+Both interfaces now cross one acknowledged, definition-driven server boundary.
+It binds definitions to the linked content board, observes the board feature
+flag, strictly parses finite numbers and dates, allowlists dropdown values,
+bounds field arrays and strings, and writes the complete field array atomically.
+Tests cover all seven types, attach/detach, malformed numbers, forged dropdowns
+and foreign definitions, plus paired same-URL HTML4 and HTML5 screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ac4a3b03f">Add accessible HTML4 card stickers</a>. Thanks to xet7.</summary>
 
 Card stickers now remain readable and operable without fonts, JavaScript or
