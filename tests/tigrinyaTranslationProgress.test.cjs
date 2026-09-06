@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 924,
-  'the first twenty-five Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
+  'the first twenty-six Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -205,5 +205,11 @@ assert.match(tigrinya['roles-info'], /ፓነል ኣመሓዳሪ/);
 assert.equal(tigrinya.monday, 'ሰኑይ');
 assert.equal(tigrinya.sunday, 'ሰንበት');
 assert.equal(tigrinya['roles-status-sees-assigned'], 'ዝተመደበ ጥራይ');
+assert.equal(tigrinya.domains, 'ዶሜይናት');
+assert.match(tigrinya['invalid-domain'], /example\.com.*@/);
+assert.match(tigrinya['dueCardsViewChange-choice-all-description'], /\*ገደብ\*/);
+assert.deepEqual(tokens(tigrinya['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(tigrinya['swimlane-title-not-found']), ['%s']);
+assert.deepEqual(tokens(tigrinya['list-title-not-found']), ['%s']);
 
-console.log('tigrinyaTranslationProgress: first twenty-five batches passed');
+console.log('tigrinyaTranslationProgress: first twenty-six batches passed');
