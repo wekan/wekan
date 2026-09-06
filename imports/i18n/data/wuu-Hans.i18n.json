@@ -23,7 +23,7 @@
   "act-removeLabel": "已从卡__card__、列表__list__、泳道__swimlane__、板__board__中删除标签__label__",
   "act-removedLabel": "已从卡__card__、列表__list__、泳道__swimlane__、板__board__中删除标签__label__",
   "act-addChecklist": "将清单 __checklist__ 添加到卡片 __card__ 列表 __list__ 泳道 __swimlane__ 董事会 __board__",
-  "act-addChecklistItem": "添加了清单项目__checklistItem__到清单__checklist__卡__card____list__@泳道__swimlane__板__board__",
+  "act-addChecklistItem": "添加了清单项目__checklistItem__到清单__checklist__卡__card__列表__list__@泳道__swimlane__板__board__",
   "act-removeChecklist": "从卡 __card__ 删除清单 __checklist__ 泳道 __swimlane__ 列表 __list__ 董事会 __board__",
   "act-removeChecklistItem": "从清单 __checkList__ 删除了清单项目 __checklistItem__ 在卡 __card__ 在列表 __list__ 在泳道 __swimlane__ 在董事会 __board__",
   "act-checkedItem": "检查清单 __checklistItem__ __checklist__ 卡 __card__ 列表 __list__ 泳道 __swimlane__ 板 __board__",

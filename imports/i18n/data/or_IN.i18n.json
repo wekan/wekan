@@ -1658,7 +1658,7 @@
   "move-swimlane": "ସନ୍ତରଣକୁ ଘୁଞ୍ଚାନ୍ତୁ |",
   "moveSwimlanePopup-title": "ସନ୍ତରଣକୁ ଘୁଞ୍ଚାନ୍ତୁ |",
   "custom-field-stringtemplate": "ଷ୍ଟ୍ରିଙ୍ଗ୍ ଟେମ୍ପଲେଟ୍ |",
-  "custom-field-stringtemplate-format": "ଫର୍ମାଟ୍ (ସ୍ଥାନଧାରୀ ଭାବରେ% {ମୂଲ୍ୟ use ବ୍ୟବହାର କରନ୍ତୁ)",
+  "custom-field-stringtemplate-format": "ଫର୍ମାଟ୍ (ସ୍ଥାନଧାରୀ ଭାବରେ%{value} use ବ୍ୟବହାର କରନ୍ତୁ)",
   "custom-field-stringtemplate-separator": "ପୃଥକକାରୀ (ଏକ ସ୍ଥାନ ପାଇଁ & # 32; କିମ୍ବା & nbsp; ବ୍ୟବହାର କରନ୍ତୁ)",
   "custom-field-stringtemplate-item-placeholder": "ଅଧିକ ଆଇଟମ୍ ଯୋଡିବାକୁ ଏଣ୍ଟର୍ ଦାବନ୍ତୁ |",
   "creator": "ସୃଷ୍ଟିକର୍ତ୍ତା |",

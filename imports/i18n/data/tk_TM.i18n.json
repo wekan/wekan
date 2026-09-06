@@ -1658,7 +1658,7 @@
   "move-swimlane": "Swimüzmek",
   "moveSwimlanePopup-title": "Swimüzmek",
   "custom-field-stringtemplate": "Setir şablony",
-  "custom-field-stringtemplate-format": "Format (ýer eýesi hökmünde% {baha} ulanyň)",
+  "custom-field-stringtemplate-format": "Format (ýer eýesi hökmünde%{value} } ulanyň)",
   "custom-field-stringtemplate-separator": "Aýyryjy (boş ýer üçin & # 32; ýa-da & nbsp; ulanyň)",
   "custom-field-stringtemplate-item-placeholder": "Has köp zat goşmak üçin enter basyň",
   "creator": "Creatoraradyjy",
