@@ -8137,10 +8137,10 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after the Albanian activity/workspace batch:** all 198
+**Current snapshot after the Albanian accessibility/scheduled-jobs batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,606 values across 36 second-tier languages**. Albanian
-now has 516 left after its first thirty-two 50-value batches. Bosnian is also
+remaining work is **76,506 values across 36 second-tier languages**. Albanian
+now has 416 left after its first thirty-four 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first thirty-two activity,
-board, report, organization, checklist, attachment and storage batches;
+**In short:** **Albanian translations** now cover the first thirty-four activity,
+board, report, attachment, accessibility, account-lockout and scheduling batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8417,6 +8417,19 @@ compaction guidance. All one hundred values required translation. Tests retain
 Node, GridFS, S3, MongoDB and Meteor where they identify concrete technologies.
 This leaves 76,606 actionable values across 36 languages, including 516 in
 Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/990dad824">Translate Albanian accessibility and scheduled jobs</a>. Thanks to xet7.</summary>
+
+The thirty-third and thirty-fourth 50-value Albanian batches add board-status
+summaries, upload rules, custom translations, checklist display, support and
+accessibility settings, account-lockout controls, Admin Panel people filters,
+scheduled jobs, attachment paths and scheduled board operations. All one
+hundred values required translation. Tests retain the `__workspaces__` token
+and the ISO, PDF, JSON and API technology names. This leaves 76,506 actionable
+values across 36 languages, including 416 in Albanian.
 
 </details>
 
