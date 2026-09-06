@@ -263,6 +263,28 @@ body.desktop-mode .card-details.card-details-collapsed {
   display: flow-root;
   min-height: 44px;
 }
+/* Every piece of window chrome beside the title uses the title's computed
+   contrast colour. This outranks the global `a i.fa` grey icon rule without
+   duplicating the card palette, and therefore also follows custom hex colours.
+   Hover/focus/active deliberately keep the same colour: the control may not
+   become grey merely because it is being used. */
+.card-details .card-details-header .card-header-control,
+.card-details .card-details-header .card-header-control .fa,
+.card-details .card-details-header .card-header-control:hover,
+.card-details .card-details-header .card-header-control:hover .fa,
+.card-details .card-details-header .card-header-control:focus,
+.card-details .card-details-header .card-header-control:focus .fa,
+.card-details .card-details-header .card-header-control:active,
+.card-details .card-details-header .card-header-control:active .fa {
+  color: inherit;
+}
+.card-details .card-details-header .card-details-title,
+.card-details .card-details-header .card-details-title .viewer,
+.card-details .card-details-header .card-details-title .viewer p,
+.card-details .card-details-header .card-details-title .viewer a,
+.card-details .card-details-header .card-details-title .viewer a:hover {
+  color: inherit;
+}
 .card-details .card-details-header .card-number {
   color: #b3b3b3;
   display: inline-block;
@@ -278,7 +300,7 @@ body.desktop-mode .card-details.card-details-collapsed {
   margin-inline-end: 5px;
   cursor: pointer;
   user-select: none;
-  color: #000;
+  color: inherit;
   vertical-align: middle;
   line-height: 1.2;
 }
