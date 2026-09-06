@@ -1107,8 +1107,8 @@ function run_all_tests(){
 			fi
 		fi
 	}
-	trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock' EXIT
-	trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
+	trap 'trap - EXIT INT TERM; stop_test_databases; cleanup_everything_processes own; release_everything_lock' EXIT
+	trap 'trap - EXIT INT TERM; stop_test_databases; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
 	# Start one test job in the background: record its exit code in STATDIR/<key>
 	# and send all of its output to $RUN_LOGDIR/wekan-alltests-<key>.log. In "parallel"
 	# mode every job runs at once; in "sequential" mode we wait for each job to
@@ -1545,8 +1545,8 @@ function floating_promises_checks(){
 function run_everything(){
 	local EVERYTHING_MODE="${1:-two-worker}"
 	acquire_everything_lock || return 1
-	trap 'cleanup_everything_processes own; release_everything_lock' EXIT
-	trap 'cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
+	trap 'trap - EXIT INT TERM; cleanup_everything_processes own; release_everything_lock' EXIT
+	trap 'trap - EXIT INT TERM; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM
 	local RUN_TS RUN_LOGDIR FAILED=0
 	# Bound Go package parallelism separately from Node so many compiler processes
 	# cannot drive the workstation into swap. Keep 1-4 workers and a proportional,

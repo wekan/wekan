@@ -1,7 +1,21 @@
 'use strict';
 
 const assert = require('node:assert/strict');
-const { canonical, hashHistoryRow, rowHashIsValid, verifyHistoryRows } = require('../models/lib/changeHistoryIntegrity');
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
+const {
+  canonical, sha256, hashHistoryRow, rowHashIsValid, verifyHistoryRows,
+} = require('../models/lib/changeHistoryIntegrity');
+
+for (const value of ['', 'abc', 'WeKan ® 🐙', 'x'.repeat(1000)]) {
+  assert.equal(sha256(value), crypto.createHash('sha256').update(value).digest('hex'));
+}
+const helperSource = fs.readFileSync(
+  path.join(__dirname, '../models/lib/changeHistoryIntegrity.js'), 'utf8',
+);
+assert.doesNotMatch(helperSource, /require\(['"](?:node:)?crypto['"]\)/,
+  'the isomorphic history helper must not pull Node crypto into the browser');
 
 const first = {
   boardId: 'b1', entityType: 'card', entityId: 'c1', group: 'title',

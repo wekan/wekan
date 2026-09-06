@@ -591,10 +591,13 @@ test('a test run stops the databases it started, on every way out', () => {
   // database that ANSWERS, so a leftover mongod is silently reused holding data
   // this run never seeded, and the failures land somewhere else entirely.
   assert.ok(/stop_test_databases\(\) \{/.test(sh), 'build.sh has one place that stops them');
-  assert.ok(sh.includes("trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock' EXIT") && sh.includes("trap 'stop_test_databases; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM"),
+  assert.ok(sh.includes("trap 'trap - EXIT INT TERM; stop_test_databases; cleanup_everything_processes own; release_everything_lock' EXIT") && sh.includes("trap 'trap - EXIT INT TERM; stop_test_databases; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM"),
     'and it runs on every way out, not only the happy path');
+  assert.ok(sh.includes("trap 'trap - EXIT INT TERM; cleanup_everything_processes own; release_everything_lock; exit 130' INT TERM"),
+    'an interrupt disarms every cleanup trap before cleanup, so repeated Ctrl-C '
+    + 'cannot recursively restart it');
   const fn = sh.slice(sh.indexOf('stop_test_databases() {'));
-  const body = fn.slice(0, fn.indexOf("trap 'stop_test_databases'"));
+  const body = fn.slice(0, fn.indexOf("trap 'trap - EXIT INT TERM; stop_test_databases"));
   assert.ok(/TEST_SERVER_PID=""/.test(body) && /MONGOD_PID=""/.test(body),
     'idempotent: each half clears its PID, so the trap firing after the normal '
     + 'call stops nothing twice');

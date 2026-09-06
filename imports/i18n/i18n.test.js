@@ -22,13 +22,9 @@ describe('TAPi18n', () => {
   });
 
   if (Meteor.isClient) {
-    it('extra languages are not loaded initially', () => {
-      // Using function here to prevent Meteor from including the file
-      // during building time
-      function path(language) {
-        return `./data/${language}.i18n.json`;
-      }
-      expect(() => require(path('de'))).to.throw('Cannot find module');
+    it('extra languages are not loaded initially', async () => {
+      await TAPi18n.init();
+      expect(TAPi18n.i18n.hasResourceBundle('de', 'translation')).to.be.false;
     });
   }
 
