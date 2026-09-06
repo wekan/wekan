@@ -8282,6 +8282,18 @@ appearance, account, validation, export and filter batches.
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2248c012c">Add card-style previews to Files Report</a>. Thanks to xet7.</summary>
+
+Each Files Report row now starts with the opened-card attachment controls: an
+image thumbnail or file-type tile, preview action and sanitized download action.
+Preview opens the existing attachment viewer and its previous/next slideshow is
+limited to the report page currently displayed, excluding unrelated files that
+happen to be cached. Source and browser regression tests cover rendering,
+filename safety, preview opening and download naming.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/37b7eb06a">Show wrapping names in Admin Panel user cells</a>. Thanks to xet7.</summary>
 
 Single-user columns now show the username beside the fixed-size avatar instead
