@@ -266,7 +266,8 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists, dates and scoped transfers. Attachments have stored GIF previews
+reactions, checklists, dates, colors and scoped transfers. Attachments have stored
+GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
@@ -471,6 +472,23 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e365ed0fc">Add accessible HTML4 card color control</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now provide a labelled color field that accepts
+every shared named palette value and the HTML5 color wheel's six-digit hex value.
+`white` or an empty value removes the card color, while malformed names, CSS and
+script-shaped values are rejected without changing the card.
+
+The Jade color popup and HTML4 form now use one acknowledged service. It repeats
+route-card and linked-target write authorization and validates the canonical
+palette or exact `#rrggbb` syntax before calling the existing card operation.
+Unit tests cover its allowlist and renderer parity. Chromium exercises custom,
+hostile, cleared and named values, and paired same-URL screenshots retain the
+card's resulting color in both renderers.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee74bc83b">Add accessible HTML4 card date controls</a>. Thanks to xet7.</summary>
