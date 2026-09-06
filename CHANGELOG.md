@@ -8139,10 +8139,10 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tigrinya:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **71,692 values across 33 second-tier languages**. Southern
+remaining work is **71,642 values across 33 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
-Tigrinya has 2,074 left after its first two 50-value batches. Albanian and
+Tigrinya has 2,024 left after its first three 50-value batches. Albanian and
 Bosnian are also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8257,8 +8257,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian, Southern Sotho and Tajik translations** are complete;
-**Tigrinya translations** now cover their first two activity and workspace
-batches;
+**Tigrinya translations** now cover their first three activity, workspace and
+sizing batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8530,6 +8530,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bca47dfc9">Translate Tigrinya workspace and sizing controls</a>. Thanks to xet7.</summary>
+
+The third 50-value Tigrinya batch adds workspace deletion, multi-board and Home
+selection, card dates, list widths, keyboard shortcuts, swimlane heights and
+checklist/card controls. All values required translation. Tests retain date
+tokens and numeric width constraints and cover Admin Panel, pixels, fixed list
+width and checklist-to-card terminology. This leaves 71,642 actionable values
+across 33 languages, including 2,024 in Tigrinya.
 
 </details>
 
