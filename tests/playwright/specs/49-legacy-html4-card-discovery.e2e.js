@@ -1740,6 +1740,46 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.waitForNavigation(), cardWatchForm().locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).watchers).toContain(user._id);
+    const parentCardForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="set-card-parent"])',
+    );
+    await parentCardForm().locator('select[name="parentCardId"]')
+      .selectOption(dependencyTarget._id);
+    await Promise.all([
+      page.waitForNavigation(), parentCardForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).parentId).toBe(dependencyTarget._id);
+    await expect(parentCardForm().locator('select[name="parentCardId"]')).toHaveValue(
+      dependencyTarget._id,
+    );
+    const parentBoardTitle = db.findOne('boards', { _id: board.boardId }).title;
+    await expect(page.locator('tbody')).toContainText(
+      `${parentBoardTitle} / ${dependencyTarget.title}`,
+    );
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await parentCardForm().screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-parent.png`,
+      });
+    }
+    await parentCardForm().locator(`option[value="${dependencyTarget._id}"]`)
+      .evaluate((option, selfId) => { option.value = selfId; }, due._id);
+    await parentCardForm().locator('select[name="parentCardId"]').selectOption(due._id);
+    await Promise.all([
+      page.waitForNavigation(), parentCardForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).parentId).toBe(dependencyTarget._id);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await parentCardForm().locator('select[name="parentCardId"]').selectOption('');
+    await Promise.all([
+      page.waitForNavigation(), parentCardForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).parentId).toBeUndefined();
+    await parentCardForm().locator('select[name="parentCardId"]')
+      .selectOption(dependencyTarget._id);
+    await Promise.all([
+      page.waitForNavigation(), parentCardForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).parentId).toBe(dependencyTarget._id);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

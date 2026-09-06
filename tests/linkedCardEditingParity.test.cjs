@@ -62,6 +62,8 @@ test('opened-card method calls send the source id', () => {
     /castAccessibleCardPoker'[\s\S]*cardId: card\._id/);
   assert.match(details,
     /updateAccessibleCardPoker'[\s\S]*cardId: card\._id/);
+  assert.match(details,
+    /updateAccessibleCardParent'[\s\S]*cardId: card\._id/);
   assert.match(details, /Meteor\.callAsync\('watch', 'card', currentCard\.getRealId\(\)/);
   assert.match(details, /Cards\.update\(currentCard\.getRealId\(\), \{ \$set: \{ showListOnMinicard/);
 });

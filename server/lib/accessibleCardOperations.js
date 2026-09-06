@@ -13,7 +13,7 @@ import {
   computeSortForIndex,
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
-import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
+import { assertParentCardIsVisible, canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary } from '/server/lib/canary';
 import { CARD_COLORS } from '/models/metadata/colors';
 import { STICKER_PICKER } from '/models/metadata/stickers';
@@ -685,6 +685,42 @@ async function updateAccessibleCardMetric(userId, input) {
   throw new Meteor.Error('invalid-card-metric-action');
 }
 
+async function updateAccessibleCardParent(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const rawParentId = input?.parentCardId;
+  const parentCardId = rawParentId === null || rawParentId === undefined
+    || String(rawParentId) === '' ? null : String(rawParentId);
+  if (parentCardId && parentCardId.length > 200) throw new Meteor.Error('invalid-card-parent');
+  if (parentCardId) {
+    await assertParentCardIsVisible(userId, parentCardId);
+    let ancestorId = parentCardId;
+    const seen = new Set();
+    while (ancestorId) {
+      if (ancestorId === target._id || seen.has(ancestorId)) {
+        throw new Meteor.Error('circular-subtask');
+      }
+      seen.add(ancestorId);
+      if (seen.size > 10000) throw new Meteor.Error('card-tree-too-large');
+      const ancestor = await Cards.findOneAsync({ _id: ancestorId, deletedAt: null }, {
+        fields: { parentId: 1 },
+      });
+      if (!ancestor) throw new Meteor.Error('invalid-card-parent');
+      ancestorId = ancestor.parentId || null;
+    }
+  }
+  const now = new Date();
+  const modifier = parentCardId
+    ? { $set: { parentId: parentCardId, modifiedAt: now, dateLastActivity: now } }
+    : { $unset: { parentId: '' }, $set: { modifiedAt: now, dateLastActivity: now } };
+  await Cards.updateAsync(target._id, modifier);
+  return parentCardId;
+}
+
 async function castAccessibleCardPoker(userId, input) {
   const { target, board } = await accessibleBallotTarget(userId, input, false);
   const poker = canonicalPoker(target.poker);
@@ -935,6 +971,7 @@ export {
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
   updateAccessibleCardMetric,
+  updateAccessibleCardParent,
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,

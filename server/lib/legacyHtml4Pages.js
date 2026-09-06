@@ -22,6 +22,7 @@ import {
   allowIsBoardMemberWithWriteAccess,
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
@@ -460,6 +461,28 @@ async function writableCardDestinationOptions(userId) {
   };
 }
 
+async function parentCardOptions(userId, currentCardId) {
+  const boards = await Boards.userBoards(userId, false, { type: 'board' }, {
+    fields: { title: 1, members: 1, permission: 1 }, sort: { sort: 1 }, limit: 200,
+  }, { includePublic: false });
+  const options = [];
+  for (const candidateBoard of boards) {
+    const cards = await Cards.find({
+      ...boardCardScope(candidateBoard),
+      ...(assignedOnlyCardScope(candidateBoard, userId) || {}),
+      _id: { $ne: currentCardId }, archived: false, deletedAt: null,
+    }, {
+      fields: { title: 1 }, sort: { sort: 1, _id: 1 }, limit: 5000,
+    }).fetchAsync();
+    for (const candidate of cards) options.push({
+      value: candidate._id,
+      label: `${candidateBoard.title || candidateBoard._id} / ${candidate.title || candidate._id}`,
+    });
+    if (options.length >= 10000) break;
+  }
+  return options.slice(0, 10000);
+}
+
 async function cardDetailsPage(board, cardId, userId, requestFields, translate) {
   const assignedScope = assignedOnlyCardScope(board, userId);
   const selector = {
@@ -476,7 +499,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
     sort: 1, stickers: 1, customFields: 1, cardDependencies: 1, vote: 1, poker: 1,
-    dueComplete: 1, spentTime: 1, isOvertime: 1, watchers: 1,
+    dueComplete: 1, spentTime: 1, isOvertime: 1, watchers: 1, parentId: 1,
     locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
@@ -557,6 +580,18 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   ]);
   const personById = new Map(people.map(person => [person._id,
     person.profile?.fullname || person.username || person._id]));
+  let parentCard = null;
+  let parentBoard = null;
+  if (contentCard?.parentId) {
+    const candidate = await Cards.findOneAsync({ _id: contentCard.parentId, deletedAt: null }, {
+      fields: { title: 1, boardId: 1 },
+    });
+    if (candidate && await canUserSeeBoard(userId, candidate.boardId)) {
+      parentCard = candidate;
+      parentBoard = candidate.boardId === board._id
+        ? board : await Boards.findOneAsync(candidate.boardId, { fields: { title: 1, slug: 1 } });
+    }
+  }
   const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
   const labels = (contentBoard?.labels || [])
     .filter(label => (contentCard?.labelIds || []).includes(label._id));
@@ -590,6 +625,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const isWatching = (contentCard?.watchers || []).includes(userId);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
+  const parentOptions = canWrite ? await parentCardOptions(userId, contentCardId) : [];
   const checklistCardOptions = destinations.checklistCards;
   const rememberedCardDestination = currentUser?.profile?.moveAndCopyDialog?.[board._id];
   const rememberedCardDestinationValue = rememberedCardDestination
@@ -642,6 +678,16 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       label: tr(translate, 'delete', 'Delete'), icon: 'remove',
       fields: { ...commonFields, legacyOperation: 'clear-card-spent-time' },
     })] });
+    rows.push({ rowHeader: false, cells: [uiSelectForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'parent-card', 'Parent card'), name: 'parentCardId',
+      value: contentCard?.parentId || '', options: [
+        { value: '', label: tr(translate, 'custom-field-dropdown-none', 'None') },
+        ...parentOptions,
+      ],
+      fields: { ...commonFields, legacyOperation: 'set-card-parent' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
     const locationInputs = location => [
       { label: tr(translate, 'location-name', 'Location name'),
         name: 'locationName', value: location?.name || '', maxlength: 1000 },
@@ -1120,6 +1166,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   }), ''] });
   rows.push(
     { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
+    ...(parentCard && parentBoard ? [{ cells: [tr(translate, 'parent-card', 'Parent card'), uiLink({
+      href: `${boardPath(parentBoard)}/${encodeURIComponent(parentCard._id)}`,
+      label: `${parentBoard.title || parentBoard._id} / ${parentCard.title || parentCard._id}`,
+    })] }] : []),
     { cells: [tr(translate, 'board', 'Board'), board.title || ''] },
     { cells: [tr(translate, 'list', 'List'), list?.title || ''] },
     { cells: ['Swimlane', swimlane?.title || ''] },

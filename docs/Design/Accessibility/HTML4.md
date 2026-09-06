@@ -345,6 +345,16 @@ accepts only the levels supported by each watchable type and repeats the same
 public/member/active organisation, team or email-domain visibility check used by
 publications. Anonymous and foreign-board requests cannot create watcher records.
 
+Parent-card assignment uses the same acknowledged operation from Jade and HTML4.
+HTML4 shows the current parent as a textual board/card link and provides a labelled
+native selector whose None value returns the card to the top level. The server binds
+the submitted route board and visible card, resolves linked-card content, refuses
+linked-board placeholders, verifies that the selected parent is visible to the
+authenticated user, and walks the persisted ancestor chain before the first write.
+Self-parenting, descendant-parenting, pre-existing loops, missing ancestors and
+unbounded trees are rejected; clearing uses an atomic field removal. Consequently a
+forged option cannot disclose a private card or make every ancestor renderer loop.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

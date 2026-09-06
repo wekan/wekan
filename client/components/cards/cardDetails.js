@@ -2395,30 +2395,40 @@ Template.setSelectionColorPopup.events({
 
 Template.cardMorePopup.onCreated(function () {
   const cardId = getCardId();
-  this.currentCard = Cards.findOne(cardId);
+  this.currentCard = null;
   this.parentBoard = new ReactiveVar(null);
+  this.parentCardId = new ReactiveVar(null);
   // #3745: tracks whether the selected parent board's cards have finished
   // loading. The card list stays empty until the subscription is ready, so it
   // is no longer blank the first time another board is picked (the cards()
   // helper queries minimongo, which was empty before the subscription arrived).
   this.parentBoardReady = new ReactiveVar(true);
-  this.parentCard = this.currentCard?.parentCard();
-  if (this.parentCard) {
-    const list = $('.js-field-parent-card');
-    list.val(this.parentCard._id);
-    this.parentBoard.set(this.parentCard.board()._id);
-  } else {
-    this.parentBoard.set(null);
-  }
-
-  this.setParentCardId = (cardId) => {
-    if (cardId) {
-      this.parentCard = ReactiveCache.getCard(cardId);
-    } else {
-      this.parentCard = null;
+  // The popup can be created before the board publication has delivered either
+  // the route card or its cross-board parent. Initialise once both documents
+  // exist instead of permanently presenting an existing parent as "None".
+  this.autorun(computation => {
+    const currentCard = Cards.findOne(cardId);
+    if (!currentCard) return;
+    this.currentCard = currentCard;
+    if (!currentCard.parentId) {
+      computation.stop();
+      return;
     }
+    const parentCard = ReactiveCache.getCard(currentCard.parentId);
+    if (!parentCard) return;
+    this.parentCardId.set(parentCard._id);
+    this.parentBoard.set(parentCard.boardId);
+    computation.stop();
+  });
+
+  this.setParentCardId = async (parentCardId) => {
+    const normalizedParentId = parentCardId && parentCardId !== 'none' ? parentCardId : null;
     const card = Cards.findOne(getCardId());
-    if (card) card.setParentId(cardId);
+    if (!card) return;
+    await Meteor.callAsync('updateAccessibleCardParent', {
+      cardId: card._id, boardId: card.boardId, parentCardId: normalizedParentId,
+    });
+    this.parentCardId.set(normalizedParentId);
   };
 });
 
@@ -2466,10 +2476,7 @@ Template.cardMorePopup.helpers({
   isParentCard() {
     const tpl = Template.instance();
     const card = Template.currentData();
-    if (tpl.parentCard) {
-      return card._id === tpl.parentCard;
-    }
-    return false;
+    return card._id === tpl.parentCardId.get();
   },
 });
 
@@ -2508,7 +2515,7 @@ Template.cardMorePopup.events({
     }
     Utils.goBoardId(card.boardId);
   }),
-  'change .js-field-parent-board'(event, tpl) {
+  async 'change .js-field-parent-board'(event, tpl) {
     const selection = $(event.currentTarget).val();
     const list = $('.js-field-parent-card');
     if (selection === 'none') {
@@ -2525,11 +2532,11 @@ Template.cardMorePopup.events({
       tpl.parentBoard.set(selection);
       list.prop('disabled', false);
     }
-    tpl.setParentCardId(null);
+    await tpl.setParentCardId(null);
   },
-  'change .js-field-parent-card'(event, tpl) {
+  async 'change .js-field-parent-card'(event, tpl) {
     const selection = $(event.currentTarget).val();
-    tpl.setParentCardId(selection);
+    await tpl.setParentCardId(selection);
   },
 });
 

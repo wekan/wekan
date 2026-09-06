@@ -293,6 +293,32 @@ test('card completion and time use one validated linked-content boundary', () =>
   assert.match(page, /legacyOperation: 'clear-card-spent-time'/);
 });
 
+test('card parents use one visible cycle-safe linked-content boundary', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const template = read('client/components/cards/cardDetails.jade');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /async function updateAccessibleCardParent/);
+  assert.match(source, /await editableCard\(userId, input\?\.cardId/);
+  assert.match(source, /await authorizeContentTarget\(userId, card\)/);
+  assert.match(source, /await assertParentCardIsVisible\(userId, parentCardId\)/);
+  assert.match(source, /ancestorId === target\._id \|\| seen\.has\(ancestorId\)/);
+  assert.match(source, /seen\.size > 10000/);
+  assert.match(source, /\$unset: \{ parentId: '' \}/);
+  assert.match(methods, /async updateAccessibleCardParent\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardParent'/);
+  assert.doesNotMatch(client, /card\.setParentId\(/);
+  assert.match(client, /this\.parentCardId = new ReactiveVar\(null\)/);
+  assert.match(client, /const parentCard = ReactiveCache\.getCard\(currentCard\.parentId\)/);
+  assert.match(template, /select\.js-field-parent-card[\s\S]*?each cards[\s\S]*?if isParentCard/);
+  assert.match(legacy, /legacyOperation === 'set-card-parent'/);
+  assert.match(page, /async function parentCardOptions/);
+  assert.match(page, /legacyOperation: 'set-card-parent'/);
+  assert.match(page, /await canUserSeeBoard\(userId, candidate\.boardId\)/);
+});
+
 test('card color uses one allowlisted acknowledged boundary in HTML5 and HTML4', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');
