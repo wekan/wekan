@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **78,120 values across 36 second-tier languages**. Albanian
-now has 2,066 left after its first 50-value batch. Bosnian is also complete:
+remaining work is **78,020 values across 36 second-tier languages**. Albanian
+now has 1,966 left after its first three 50-value batches. Bosnian is also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
 to make the counter reach zero.
@@ -8253,9 +8253,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first activity-history and
-workspace batch, every near-complete locale is complete again, and the remaining
-translation counter excludes the valid Bosnian technical loanword `Server`.
+**In short:** **Albanian translations** now cover the first three activity,
+workspace, board and archive batches, every near-complete locale is complete
+again, and the remaining counter excludes the valid Bosnian loanword `Server`.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8285,6 +8285,16 @@ actionable gaps.
 The same change teaches the fill report that `Server` is an invariant technical
 loanword. This keeps the documented, valid Bosnian spelling instead of changing
 it to Croatian `Poslužitelj` merely to satisfy a counter.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88c7edcaa">Continue Albanian translation backlog</a>. Thanks to xet7.</summary>
+
+Two more 50-value Albanian batches add Home-board, list sizing, keyboard,
+swimlane, administration, archive, attachment and board-background strings.
+Their regression inventory now covers all first 150 values and every replaceable
+token. This leaves 78,020 actionable values across 36 second-tier languages.
 
 </details>
 
