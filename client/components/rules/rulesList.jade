@@ -6,17 +6,17 @@ template(name="rulesList")
 
     if rules.length
       .rules-toolbar
-        button.js-rules-select-all(type="button")
+        button.primary.js-rules-select-all(type="button")
           i.fa.fa-check-square-o
           | {{_ 'r-select-all'}}
-        button.js-rules-select-none(type="button")
+        button.primary.js-rules-select-none(type="button")
           i.fa.fa-square-o
           | {{_ 'r-unselect-all'}}
         if canAdmin
-          button.js-rules-delete-selected(type="button")
+          button.primary.js-rules-delete-selected(type="button")
             i.fa.fa-trash
             | {{_ 'r-delete-selected'}}
-        button.js-rules-export-selected(type="button")
+        button.primary.js-rules-export-selected(type="button")
           i.fa.fa-download
           | {{_ 'r-export-selected'}}
 
