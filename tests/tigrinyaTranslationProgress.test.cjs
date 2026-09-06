@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1474,
-  'the first fourteen Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1424,
+  'the first fifteen Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -139,5 +139,11 @@ assert.match(tigrinya['list-archive-cards-pop'], /“Menu” > “Archive”/);
 assert.match(tigrinya['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(tigrinya['multi-selection'], 'ብዙሕ ምርጫ');
 assert.match(tigrinya['normal-assigned-only-desc'], /ተጠቃሚ/);
+assert.deepEqual(tokens(tigrinya['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(tigrinya['page-maybe-private']), ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(tigrinya['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(tigrinya['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.equal(tigrinya['signupPopup-title'], 'መለያ ፍጠር');
 
-console.log('tigrinyaTranslationProgress: first fourteen batches passed');
+console.log('tigrinyaTranslationProgress: first fifteen batches passed');
