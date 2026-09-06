@@ -1,4 +1,5 @@
 template(name="adminProblems")
+  +attachmentViewer
   .setting-content.admin-reports-content
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}

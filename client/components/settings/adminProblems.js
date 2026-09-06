@@ -20,6 +20,7 @@ import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
+const { attachmentKind } = require('/models/lib/attachmentKind');
 const { filesize } = require('filesize');
 
 // --- Shared helper functions (formerly AdminReport base class methods) ---
@@ -636,6 +637,21 @@ const REPORT_TABLES = {
       }
     },
     columns: [
+      {
+        labelKey: 'preview',
+        value: () => '',
+        attachment: d => {
+          const kind = attachmentKind(d);
+          return {
+            id: d._id,
+            cardId: d.meta?.cardId || '',
+            name: cleanFileName(d.name),
+            link: Attachments.link.call(d),
+            extension: kind.extension || 'file',
+            isImage: kind.isImage,
+          };
+        },
+      },
       // The name is URL-decoded, homoglyphs folded and invisible / exploit
       // characters removed, so it is always shown as a plain, readable name.
       { label: 'Filename', value: d => cleanFileName(d.name) },

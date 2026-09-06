@@ -129,7 +129,19 @@ template(name="tablePage")
                     //- These comments sit ABOVE the chain, all of them. One
                       between an `if` and its `else if` breaks the nesting -
                       see the negative test in tests/jadeCompiles.test.cjs.
-                    if users.length
+                    if attachment
+                      .table-page-attachment
+                        button.table-page-attachment-preview.js-table-page-attachment-preview(type="button" data-attachment-id="{{attachment.id}}" title="{{_ 'preview'}}")
+                          if attachment.isImage
+                            img.table-page-attachment-thumbnail(src="{{attachment.link}}" alt="{{attachment.name}}")
+                          else
+                            span.table-page-attachment-extension {{attachment.extension}}
+                        .table-page-attachment-actions
+                          button.js-table-page-attachment-preview(type="button" data-attachment-id="{{attachment.id}}" title="{{_ 'preview'}}")
+                            i.fa.fa-search-plus(aria-hidden="true")
+                          a.js-table-page-attachment-download(href="{{attachment.link}}?download=true" download="{{attachment.name}}" title="{{_ 'download'}}")
+                            i.fa.fa-arrow-down(aria-hidden="true")
+                    else if users.length
                       .table-page-people
                         each users
                           span.table-page-person

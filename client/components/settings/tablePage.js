@@ -1,5 +1,6 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 import { selectedMapProvider } from '/client/components/main/mapProvider';
+import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
 const { mapLinkFor } = require('/models/lib/mapLink');
 
@@ -25,6 +26,21 @@ Template.tablePage.events({
     if (userId) {
       Popup.open('editUser').call({ userId }, event);
     }
+  },
+
+  'click .js-table-page-attachment-preview'(event, tmpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const attachmentId = event.currentTarget.getAttribute('data-attachment-id');
+    if (!attachmentId) return;
+    const attachmentIds = tmpl.findAll('.js-table-page-attachment-preview')
+      .map(element => element.getAttribute('data-attachment-id'))
+      .filter((id, index, ids) => id && ids.indexOf(id) === index);
+    openAttachmentSlideshow(attachmentId, attachmentIds);
+  },
+
+  'click .js-table-page-attachment-download'(event) {
+    event.stopPropagation();
   },
 
   // A location cell: which map to open it at. The cell itself stays SHORT -

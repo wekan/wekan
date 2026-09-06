@@ -149,6 +149,12 @@ export function buildRows(docs, columns, options = {}) {
             count: typeof u.count === 'number' ? u.count : null,
           }))
           : [],
+        // A file preview cell. The caller supplies already-sanitized display
+        // metadata and a short, server-controlled attachment URL; the shared
+        // table owns the markup and actions just as it owns user/location cells.
+        attachment: typeof column.attachment === 'function'
+          ? (column.attachment(doc) || null)
+          : null,
         // A leading emoji for the cell - the country flag on an office row. Kept
         // apart from `text` so the flag is not searched or sorted as text.
         flag: typeof column.flag === 'function' ? (column.flag(doc) || '') : '',

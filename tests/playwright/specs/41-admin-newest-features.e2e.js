@@ -135,6 +135,18 @@ test.describe('Admin – newest features', () => {
     await expect(table.getByText(`${marker}-xnote.png`, { exact: false })).toBeVisible();
     await expect(table.getByText('<script>')).toHaveCount(0);
 
+    // Every file row starts with the same attachment affordances as an opened
+    // card: thumbnail/type tile, preview button and sanitized download link.
+    const encodedRow = table.locator('tr', { hasText: `${marker}-Гp.png` });
+    await expect(encodedRow.locator('.table-page-attachment-thumbnail')).toBeVisible();
+    await expect(encodedRow.locator('.js-table-page-attachment-preview')).toHaveCount(2);
+    const download = encodedRow.locator('.js-table-page-attachment-download');
+    await expect(download).toBeVisible();
+    await expect(download).toHaveAttribute('download', `${marker}-Гp.png`);
+    await encodedRow.locator('.table-page-attachment-preview').click();
+    await expect(page.locator('#viewer-overlay')).not.toHaveClass(/hidden/);
+    await page.locator('#viewer-close').click();
+
     // NO Search button; the search field + pagination controls ARE present. Every
     // report renders through the ONE shared table page now
     // (docs/Features/Page/Table.md), so the controls carry the shared class names and

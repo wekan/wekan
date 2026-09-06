@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import '/client/components/cards/attachments.jade';
 import { attachmentKind } from '/models/lib/attachmentKind';
 import { ObjectId } from 'bson';
 import DOMPurify from 'dompurify';
@@ -21,6 +22,7 @@ import prettyMilliseconds from 'pretty-ms';
 // when the user clicks on the prev/next button in the attachment viewer.
 let cardId = null;
 let openAttachmentId = null;
+let slideshowAttachmentIds = null;
 
 // Used to store the start and end coordinates of a touch event for attachment swiping
 let touchStartCoords = null;
@@ -37,6 +39,7 @@ Template.attachmentGallery.events({
 
     openAttachmentId = $(event.currentTarget).attr("data-attachment-id");
     cardId = $(event.currentTarget).attr("data-card-id");
+    slideshowAttachmentIds = null;
 
     openAttachmentViewer(openAttachmentId);
   },
@@ -69,7 +72,9 @@ Template.attachmentGallery.events({
 });
 
 function getNextAttachmentId(currentAttachmentId, offset = 0) {
-    const attachments = ReactiveCache.getAttachments({'meta.cardId': cardId});
+  const attachments = slideshowAttachmentIds
+    ? slideshowAttachmentIds.map(id => ReactiveCache.getAttachment(id)).filter(Boolean)
+    : ReactiveCache.getAttachments({'meta.cardId': cardId});
 
   let i = 0;
   for (; i < attachments.length; i++) {
@@ -81,7 +86,9 @@ function getNextAttachmentId(currentAttachmentId, offset = 0) {
 }
 
 function getPrevAttachmentId(currentAttachmentId, offset = 0) {
-  const attachments = ReactiveCache.getAttachments({'meta.cardId': cardId});
+  const attachments = slideshowAttachmentIds
+    ? slideshowAttachmentIds.map(id => ReactiveCache.getAttachment(id)).filter(Boolean)
+    : ReactiveCache.getAttachments({'meta.cardId': cardId});
 
   let i = 0;
   for (; i < attachments.length; i++) {
@@ -191,6 +198,19 @@ function openAttachmentViewer(attachmentId) {
   // and exploit markup removed (plain text; .text() escapes, so never HTML).
   $('#attachment-name').text(cleanFileName(attachment.name));
   $('#viewer-overlay').removeClass('hidden');
+}
+
+// Admin Panel / Files uses the same viewer as an opened card, but its next and
+// previous buttons traverse the currently published report page rather than a
+// single card. Keeping the scope explicit also prevents unrelated attachments
+// that happen to be in Minimongo from entering the slideshow.
+export function openAttachmentSlideshow(attachmentId, attachmentIds = []) {
+  openAttachmentId = attachmentId;
+  cardId = null;
+  slideshowAttachmentIds = Array.isArray(attachmentIds)
+    ? attachmentIds.filter(Boolean)
+    : [];
+  openAttachmentViewer(attachmentId);
 }
 
 function closeAttachmentViewer() {
