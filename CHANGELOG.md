@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **75,890 values across 35 second-tier languages**. Southern
-Sotho has 1,924 left after its first four 50-value batches. Albanian and
+remaining work is **75,840 values across 35 second-tier languages**. Southern
+Sotho has 1,874 left after its first five 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first four activity, layout, administration and
-board-view batches;
+translations** now cover their first five activity, layout, administration,
+board-view, voting and import batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,18 @@ calendar and statistics views, archive safeguards and card editing. All values
 required translation. Tests retain the workspace and comment placeholders and
 public-board HTML emphasis. This leaves 75,890 actionable values across 35
 languages, including 1,924 in Southern Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f86de6255">Translate Southern Sotho voting and imports</a>. Thanks to xet7.</summary>
+
+The fifth 50-value Southern Sotho batch adds card membership and dates, voting,
+Planning Poker, dependencies, organizations, teams, backgrounds, account and
+domain dialogs and checklist, swimlane, list, card and board imports. All values
+required translation. Tests retain product terminology and representative
+voting and export wording. This leaves 75,840 actionable values across 35
+languages, including 1,874 in Southern Sotho.
 
 </details>
 
