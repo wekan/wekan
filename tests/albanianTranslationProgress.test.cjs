@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 816,
-  'the first twenty-six Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 716,
+  'the first twenty-eight Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -243,6 +243,14 @@ assert.equal(albanian['globalSearchViewChange-choice-me'], 'Kartat e mia');
 assert.deepEqual(tokens(albanian['n-n-of-n-cards-found']),
   ['__end__', '__start__', '__total__']);
 assert.equal(albanian['operator-customfield'], 'fushapersonale');
+assert.deepEqual(tokens(albanian['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(albanian['globalSearch-instructions-operator-has']),
+  ['__operator_has__', '__predicate_assignee__', '__predicate_attachment__',
+    '__predicate_checklist__', '__predicate_description__', '__predicate_due__',
+    '__predicate_end__', '__predicate_member__', '__predicate_start__']);
+assert.deepEqual(tokens(albanian['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first twenty-six Albanian batches passed');
+console.log('albanianTranslationProgress: first twenty-eight Albanian batches passed');
