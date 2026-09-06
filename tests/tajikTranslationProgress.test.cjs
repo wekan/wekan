@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1174,
-  'the first twenty Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1124,
+  'the first twenty-one Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -171,5 +171,12 @@ assert.equal(tajik['r-workflow-view'], 'Намуди ҷараёни кор');
 assert.deepEqual(tokens(tajik['r-w-every-day-at']), ['__time__']);
 assert.match(tajik['r-import-trello'], /Trello Butler/);
 assert.deepEqual(tokens(tajik['r-import-done']), ['__count__']);
+assert.equal(tajik['r-workspace'], 'Фазои корӣ');
+assert.match(tajik['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.deepEqual(tokens(tajik['r-import-unmapped']), ['__count__']);
+assert.match(tajik['r-schedule-weekday'], /душанбе–ҷумъа/);
+assert.equal(tajik['r-mark-complete'],
+  'Кортро анҷомшуда қайд кардан');
+assert.equal(tajik['r-trigger'], 'Ангезанда');
 
-console.log('tajikTranslationProgress: first twenty batches passed');
+console.log('tajikTranslationProgress: first twenty-one batches passed');
