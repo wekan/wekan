@@ -20,8 +20,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1615,
-  'the first ten Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1515,
+  'the first twelve Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -209,6 +209,11 @@ assert.equal(albanian['custom-field-currency'], 'Monedhë');
 assert.equal(albanian['error-board-doesNotExist'], 'Kjo tabelë nuk ekziston');
 assert.equal(albanian['export-card-attachment-filename'], 'Emri i skedarit');
 assert.equal(albanian['filter-overdue'], 'Me afat të kaluar');
+assert.match(albanian['import-board-instruction-issues'],
+  /__sourceName__.*__endpoint__/);
+assert.equal(albanian['trello-import-progress'], 'Ecuria e importimit');
+assert.equal(albanian['invalid-year'],
+  'Vit i pavlefshëm. Shkruaj të katër shifrat, për shembull 2026.');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first ten Albanian batches passed');
+console.log('albanianTranslationProgress: first twelve Albanian batches passed');
