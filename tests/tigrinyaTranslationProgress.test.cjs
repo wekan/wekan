@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
-  'the first two Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2024,
+  'the first three Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -58,5 +58,11 @@ assert.deepEqual(tokens(tigrinya['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
 assert.equal(tigrinya['allboards.workspaces'], 'ቦታታት ስራሕ');
 assert.match(tigrinya['allboards.edit-workspace-icon'], /markdown/);
+assert.deepEqual(tokens(tigrinya['activity-dueDate']), ['%s', '%s']);
+assert.match(tigrinya['archive-permanent-delete-disabled-hint'], /ፓነል/);
+assert.match(tigrinya['list-width-error-message'], /270/);
+assert.equal(tigrinya['fixed-list-width'], 'ንኹሎም ዝርዝራት ሓደ ግፍሒ');
+assert.match(tigrinya['set-swimlane-height-value'], /ፒክሰል/);
+assert.equal(tigrinya['convertChecklistItemToCardPopup-title'], 'ናብ ካርድ ቀይር');
 
-console.log('tigrinyaTranslationProgress: first two batches passed');
+console.log('tigrinyaTranslationProgress: first three batches passed');
