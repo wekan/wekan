@@ -267,7 +267,7 @@ Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists and scoped transfers. Attachments have stored GIF previews
-and secure original downloads.
+and secure downloads, rename, cover and confirmed-delete controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -467,6 +467,27 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02be8e71a">Add shared HTML4 attachment operations</a>. Thanks to xet7.</summary>
+
+Attachment rename, image-cover selection and deletion now cross one shared
+authenticated server boundary from both the Jade and cookieless HTML4 views. It
+binds the exact attachment to its content card and board, repeats direct or live
+linked-card write permission, restricts covers to images and removes only the
+exact scoped record. Rename applies the common content-aware, exploit-rejecting,
+30-character portable filename rules; delete clears a matching cover first.
+
+HTML4 adds uniquely labelled rename fields, image-only cover toggles and a
+two-signed-POST delete confirmation in natural keyboard order. Its submitted
+route card and board must resolve to the same direct or linked content target;
+forged scopes leave data unchanged and create an attributed `AttachmentBleed`
+entry in Admin Panel / Problems / Security. Unit coverage checks both renderers,
+exact selectors and negative invariants. The same-URL Chromium regression
+performs every valid operation, verifies the forged refusal and Security event,
+and captures updated HTML4/HTML5 attachment screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6ca53675">Add secure HTML4 attachment responses</a>. Thanks to xet7.</summary>
