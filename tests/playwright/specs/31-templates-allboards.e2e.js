@@ -58,7 +58,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
     await loginWithToken(page, user.id, user.token);
     await navigateInApp(page, '/allboards/remaining');
 
-    const add = page.locator('.all-boards-table-actions .js-add-board');
+    const add = page.locator('.table-page-controls .js-add-board');
     await expect(add).toBeVisible({ timeout: 15_000 });
     await add.click();
     await expect(page.locator('.pop-over form').first()).toBeVisible({
@@ -77,7 +77,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
         timeout: 15_000,
       });
       await expect(
-        page.locator('.all-boards-table-actions .js-add-board'),
+        page.locator('.table-page-controls .js-add-board'),
       ).toHaveCount(0);
     }
   });

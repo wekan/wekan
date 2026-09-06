@@ -24,7 +24,9 @@ test.describe('Admin – newest features', () => {
   test.use({ storageState: undefined });
 
   test('Boards Report filters All, Public and Private on the server', async ({ page, adminUser }) => {
-    const marker = `boards-filter-${Date.now()}`;
+    // Keep the visible title below the report's UI abbreviation boundary so
+    // this test is about filtering, not abbreviated cell presentation.
+    const marker = `bf-${Math.random().toString(36).slice(2, 10)}`;
     const privateBoard = await db.seedBoard({
       ownerId: adminUser.id, title: `${marker}-private`, cardTitlesPerList: [[]],
     });
@@ -62,7 +64,10 @@ test.describe('Admin – newest features', () => {
     expect(cardId, 'seed: findCardIdByTitle must return the seeded card id').toBeTruthy();
     const meta = { boardId: board.boardId, cardId };
     const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const marker = `files-${runId}`;
+    // File display/download names are intentionally capped at 30 Amiga-visible
+    // characters. Keep the per-run prefix short enough that each sanitized
+    // suffix remains observable instead of being truncated away.
+    const marker = `f-${Math.random().toString(36).slice(2, 8)}`;
     await db.insertMany('attachments', [
       { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta },
       { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta }, // -> "Гp.png" after confusable folding
