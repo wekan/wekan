@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
-  'the first thirty-nine Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
+  'the first forty Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -309,5 +309,12 @@ assert.match(tajik['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(tajik['s3-region-description'], /us-east-1/);
 assert.match(tajik['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
 assert.equal(tajik['attachment-monitoring'], 'Назорати замимаҳо');
+assert.equal(tajik['comprehensive-board-migration'],
+  'Муҳоҷирати ҳамаҷонибаи тахта');
+assert.match(tajik['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(tajik['fix-avatar-urls-migration-description'], /URL/);
+assert.match(tajik['run-restore-all-archived-migration-confirm'], /ҲАМАИ.*ID/);
+assert.equal(tajik['migration-progress-current-step'], 'Қадами ҷорӣ');
 
-console.log('tajikTranslationProgress: first thirty-nine batches passed');
+console.log('tajikTranslationProgress: first forty batches passed');
