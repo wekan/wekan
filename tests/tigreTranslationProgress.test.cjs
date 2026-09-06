@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1474,
-  'the first fourteen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1424,
+  'the first fifteen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -147,5 +147,14 @@ assert.match(tigre['list-archive-cards-pop'], /“Menu” > “Archive”/);
 assert.match(tigre['listImportCardsTsvPopup-title'], /Excel.*CSV\/TSV/);
 assert.equal(tigre['no-archived-swimlanes'],
   'ኣብ መዕቀቢ መገድታት የለዉን።');
+assert.deepEqual(tokens(tigre['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(tigre['page-maybe-private']),
+  ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(tigre['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(tigre['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.match(tigre['public-desc'], /Google/);
+assert.match(tigre['search-example'], /Enter/);
+assert.match(tigre['setWipLimitPopup-title'], /WIP/);
 
-console.log('tigreTranslationProgress: first fourteen batches passed');
+console.log('tigreTranslationProgress: first fifteen batches passed');
