@@ -294,6 +294,20 @@ styles.
 
 </details>
 
+**Swimlanes** - header controls follow the title contrast color.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa8c3959c">Match swimlane controls to title color</a>. Thanks to xet7.</summary>
+
+The collapse caret, hamburger menu and add button now inherit the swimlane
+header's computed title color in both their normal and hover states. Named dark
+swimlanes and custom hex colors therefore show white controls with a white
+title, while light swimlanes keep dark controls with their dark title. A source
+regression test covers all three visible controls and rejects hard-coded color
+overrides.
+
+</details>
+
 **Admin Panel** - reports show complete, actionable data and controls.
 
 <details>
