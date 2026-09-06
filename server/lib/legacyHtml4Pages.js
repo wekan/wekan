@@ -30,6 +30,7 @@ const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('/models/lib/importSources');
 const { COMMENT_REACTIONS, commentReaction } = require('/models/lib/commentReactionCatalog');
+const { STICKER_PICKER } = require('/models/metadata/stickers');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('/models/lib/exportFields');
 const {
@@ -441,7 +442,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    sort: 1, locations: 1, locationName: 1, locationAddress: 1,
+    sort: 1, stickers: 1, locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
   } });
@@ -510,6 +511,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const labels = (contentBoard?.labels || [])
     .filter(label => (contentCard?.labelIds || []).includes(label._id));
   const locations = contentCard?.getLocations ? contentCard.getLocations() : [];
+  const stickers = contentCard?.getStickers ? contentCard.getStickers() : [];
   const canWrite = await canEditCardOrLinkedCard(userId, card);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
@@ -568,6 +570,30 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       inputs: locationInputs(null),
       fields: { ...commonFields, legacyOperation: 'save-card-location', locationId: '' },
       submitLabel: tr(translate, 'add-location', 'Add location'),
+    }), ''] });
+    stickers.forEach((sticker, index) => {
+      const description = [sticker.name || sticker.icon,
+        sticker.name ? sticker.icon : '', sticker.highlight || ''].filter(Boolean).join(' - ');
+      rows.push({ rowHeader: false, cells: [
+        `${tr(translate, 'stickers', 'Stickers')}: ${description}`,
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'remove-sticker', 'Remove sticker'), icon: 'remove',
+          fields: {
+            ...commonFields, legacyOperation: 'remove-card-sticker', stickerIndex: index,
+          },
+        }),
+      ] });
+    });
+    rows.push({ rowHeader: false, cells: [uiSelectForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'add-sticker', 'Add sticker'), name: 'stickerChoice',
+      options: STICKER_PICKER.map(sticker => ({
+        value: `${sticker.icon}:${sticker.highlight || ''}`,
+        label: sticker.name || `${sticker.icon}${sticker.highlight ? ` - ${sticker.highlight}` : ''}`,
+      })),
+      fields: { ...commonFields, legacyOperation: 'set-card-sticker' },
+      submitLabel: tr(translate, 'add-sticker', 'Add sticker'),
     }), ''] });
     for (const label of contentBoard?.labels || []) {
       const selected = (contentCard?.labelIds || []).includes(label._id);
@@ -751,6 +777,9 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       names(contentCard?.requesters) || contentCard?.requestedBy || ''] },
     { cells: [tr(translate, 'assigned-by', 'Assigned By'),
       names(contentCard?.assigners) || contentCard?.assignedBy || ''] },
+    { cells: [tr(translate, 'stickers', 'Stickers'), stickers.map(sticker =>
+      [sticker.name || sticker.icon, sticker.name ? sticker.icon : '', sticker.highlight || '']
+        .filter(Boolean).join(' - ')).join(', ')] },
     ...locations.map(location => {
       const hasCoordinates = typeof location.latitude === 'number'
         && typeof location.longitude === 'number';

@@ -1178,14 +1178,16 @@ Template.cardDetails.events({
   'click .js-add-assignees': Popup.open('cardAssignees'),
   'click .js-add-labels': Popup.open('cardLabels'),
   'click .js-add-stickers': Popup.open('cardStickers'),
-  'click .js-remove-sticker'(event) {
+  async 'click .js-remove-sticker'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const index = parseInt(event.currentTarget.dataset.index, 10);
     const card = Template.currentData();
     if (card && !Number.isNaN(index)) {
-      card.removeStickerAt(index);
+      await Meteor.callAsync('removeAccessibleCardStickerAt', {
+        cardId: card._id, boardId: card.boardId, index,
+      });
     }
   },
   'click .js-add-location'(event) {

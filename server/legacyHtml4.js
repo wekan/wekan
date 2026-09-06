@@ -24,7 +24,9 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
+  removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
+  setAccessibleCardSticker,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -166,7 +168,8 @@ WebApp.handlers.use(async (req, res, next) => {
     'edit-card-description', 'edit-card-date', 'edit-card-color', 'move-card-to-list',
     'toggle-card-label', 'toggle-card-person', 'toggle-card-identity',
     'edit-card-identity-text', 'edit-card-sort', 'save-card-location',
-    'remove-card-location', 'archive-card', 'restore-card',
+    'remove-card-location', 'set-card-sticker', 'remove-card-sticker',
+    'archive-card', 'restore-card',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -531,6 +534,21 @@ WebApp.handlers.use(async (req, res, next) => {
           return removeAccessibleCardLocation(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             locationId: requestFields.locationId,
+          });
+        }
+        if (requestFields.legacyOperation === 'set-card-sticker') {
+          const stickerParts = String(requestFields.stickerChoice || '').split(':');
+          if (stickerParts.length !== 2) throw new Meteor.Error('invalid-card-sticker');
+          const [icon, highlight] = stickerParts;
+          return setAccessibleCardSticker(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            icon, highlight, enabled: true,
+          });
+        }
+        if (requestFields.legacyOperation === 'remove-card-sticker') {
+          return removeAccessibleCardStickerAt(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            index: requestFields.stickerIndex,
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

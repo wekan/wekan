@@ -14,10 +14,12 @@ import {
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { tripCanary } from '/server/lib/canary';
 import { CARD_COLORS } from '/models/metadata/colors';
+import { STICKER_PICKER } from '/models/metadata/stickers';
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
 const MAX_CARD_LOCATIONS = 100;
+const MAX_CARD_STICKERS = 200;
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -211,6 +213,56 @@ async function removeAccessibleCardLocation(userId, input) {
     $set: { locations, locationName: '', locationAddress: '' },
     $unset: { locationLatitude: '', locationLongitude: '' },
   });
+  return true;
+}
+
+async function accessibleStickerTarget(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const stickers = (target.stickers || []).map(sticker => ({ ...sticker }));
+  if (stickers.length > MAX_CARD_STICKERS) throw new Meteor.Error('too-many-card-stickers');
+  return { target, stickers };
+}
+
+async function setAccessibleCardSticker(userId, input) {
+  const { target, stickers } = await accessibleStickerTarget(userId, input);
+  if (typeof input?.enabled !== 'boolean') throw new Meteor.Error('invalid-card-sticker-state');
+  const icon = String(input?.icon || '');
+  const highlight = String(input?.highlight || '');
+  const catalog = STICKER_PICKER.find(sticker => sticker.icon === icon
+    && String(sticker.highlight || '') === highlight);
+  if (!catalog) throw new Meteor.Error('invalid-card-sticker');
+  const index = stickers.findIndex(sticker => sticker.icon === icon
+    && String(sticker.highlight || '') === highlight);
+  if (input.enabled && index < 0) {
+    if (stickers.length >= MAX_CARD_STICKERS) throw new Meteor.Error('too-many-card-stickers');
+    stickers.push({
+      icon, ...(highlight ? { highlight } : {}),
+      ...(catalog.name ? { name: catalog.name } : {}), position: stickers.length,
+    });
+  } else if (!input.enabled && index >= 0) {
+    stickers.splice(index, 1);
+  }
+  stickers.forEach((sticker, position) => { sticker.position = position; });
+  await Cards.updateAsync(target._id, { $set: { stickers } });
+  return true;
+}
+
+async function removeAccessibleCardStickerAt(userId, input) {
+  const { target, stickers } = await accessibleStickerTarget(userId, input);
+  const rawIndex = String(input?.index ?? '');
+  if (!/^\d+$/.test(rawIndex)) throw new Meteor.Error('invalid-card-sticker-index');
+  const index = Number(rawIndex);
+  if (!Number.isSafeInteger(index) || index >= stickers.length) {
+    refuseCardWrite(userId, 'card sticker index did not belong to the content card');
+  }
+  stickers.splice(index, 1);
+  stickers.forEach((sticker, position) => { sticker.position = position; });
+  await Cards.updateAsync(target._id, { $set: { stickers } });
   return true;
 }
 
@@ -421,7 +473,9 @@ export {
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
+  removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
+  setAccessibleCardSticker,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,

@@ -105,6 +105,30 @@ test('card locations share bounded exact-scope operations in HTML5 and HTML4', (
   assert.match(page, /mapLinkFor\(currentUser\?\.profile\?\.mapProvider/);
 });
 
+test('card stickers use the shared catalog and acknowledged exact-scope operations', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const details = read('client/components/cards/cardDetails.js');
+  const picker = read('client/components/cards/cardStickers.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /MAX_CARD_STICKERS = 200/);
+  assert.match(source, /STICKER_PICKER\.find\(sticker => sticker\.icon === icon/);
+  assert.match(source, /await authorizeContentTarget\(userId, card\)/);
+  assert.match(source, /card sticker index did not belong to the content card/);
+  assert.match(source, /stickers\.forEach\(\(sticker, position\) => \{ sticker\.position = position; \}\)/);
+  assert.match(methods, /async setAccessibleCardSticker\(input\)/);
+  assert.match(methods, /async removeAccessibleCardStickerAt\(input\)/);
+  assert.match(details, /Meteor\.callAsync\('removeAccessibleCardStickerAt'/);
+  assert.match(picker, /Meteor\.callAsync\('setAccessibleCardSticker'/);
+  assert.doesNotMatch(details, /card\.removeStickerAt\(/);
+  assert.doesNotMatch(picker, /card\.toggleSticker\(/);
+  assert.match(legacy, /stickerParts\.length !== 2/);
+  assert.match(legacy, /legacyOperation === 'remove-card-sticker'/);
+  assert.match(page, /name: 'stickerChoice'/);
+  assert.match(page, /STICKER_PICKER\.map/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

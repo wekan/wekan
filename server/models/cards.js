@@ -41,7 +41,9 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
+  removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
+  setAccessibleCardSticker,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -92,6 +94,16 @@ Meteor.methods({
   async removeAccessibleCardLocation(input) {
     check(input, Object);
     return removeAccessibleCardLocation(this.userId, input);
+  },
+
+  async setAccessibleCardSticker(input) {
+    check(input, Object);
+    return setAccessibleCardSticker(this.userId, input);
+  },
+
+  async removeAccessibleCardStickerAt(input) {
+    check(input, Object);
+    return removeAccessibleCardStickerAt(this.userId, input);
   },
 
   async updateAccessibleCardDate(input) {

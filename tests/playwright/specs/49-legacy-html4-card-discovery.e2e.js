@@ -1235,6 +1235,54 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.waitForNavigation(), newLocationForm().locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).locations).toHaveLength(1);
+    const stickerForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="set-card-sticker"])',
+    );
+    await stickerForm().locator('select[name="stickerChoice"]').selectOption('heart:');
+    await Promise.all([
+      page.waitForNavigation(), stickerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).stickers).toHaveLength(1);
+    expect(db.findOne('cards', { _id: due._id }).stickers[0])
+      .toMatchObject({ icon: 'heart', position: 0 });
+    await stickerForm().locator('select[name="stickerChoice"]').evaluate(select => {
+      const option = document.createElement('option');
+      option.value = 'not-in-catalog:';
+      option.text = 'Forged sticker';
+      select.add(option);
+      select.value = option.value;
+    });
+    await Promise.all([
+      page.waitForNavigation(), stickerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).stickers).toHaveLength(1);
+    expect(db.findOne('cards', { _id: due._id }).stickers[0])
+      .toMatchObject({ icon: 'heart', position: 0 });
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    const removeStickerForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="remove-card-sticker"])',
+    );
+    await removeStickerForm().locator('input[name="stickerIndex"]')
+      .evaluate(input => { input.value = '999'; });
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="remove-card-sticker"])'
+        + ':has(input[name="stickerIndex"][value="999"]) input[type="submit"]',
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).stickers).toHaveLength(1);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await Promise.all([
+      page.waitForNavigation(), removeStickerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).stickers).toEqual([]);
+    await stickerForm().locator('select[name="stickerChoice"]').selectOption('star:');
+    await Promise.all([
+      page.waitForNavigation(), stickerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).stickers).toHaveLength(1);
+    expect(db.findOne('cards', { _id: due._id }).stickers[0])
+      .toMatchObject({ icon: 'star', position: 0 });
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

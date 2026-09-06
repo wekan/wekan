@@ -275,6 +275,14 @@ longitude ranges, and reject unknown location identifiers before one atomic
 update. Legacy flat location fields are folded into the array only as part of a
 successful write.
 
+Stickers are text as well as decoration in HTML4: every existing entry exposes
+its catalog name, icon and optional highlight style, followed by a labelled
+native picker and signed remove controls. Both renderers submit desired state to
+one acknowledged operation. The server resolves linked content, accepts new
+entries only from the shared sticker catalog, caps the collection, derives the
+human name rather than trusting it from the browser, validates removal indexes
+against the current array and rewrites stable positions atomically.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in
