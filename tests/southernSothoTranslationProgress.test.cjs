@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 924,
-  'the first twenty-four Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
+  'the first twenty-five Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -153,5 +153,10 @@ assert.match(sesotho['submit-on-enter-description'], /Shift\+Enter.*Ctrl\/Cmd\+E
 assert.equal(sesotho['roles-status-sees-assigned'], 'Tse abetsweng feela');
 assert.equal(sesotho.monday, 'Mantaha');
 assert.equal(sesotho.sunday, 'Sontaha');
+assert.match(sesotho['invalid-domain'], /example\.com.*@/);
+assert.equal(sesotho['globalSearchViewChange-choice-me'], 'Dikarete tsa ka');
+assert.deepEqual(tokens(sesotho['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(sesotho['swimlane-title-not-found']), ['%s']);
+assert.deepEqual(tokens(sesotho['list-title-not-found']), ['%s']);
 
-console.log('southernSothoTranslationProgress: first twenty-four batches passed');
+console.log('southernSothoTranslationProgress: first twenty-five batches passed');
