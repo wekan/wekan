@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 924,
-  'the first twenty-five Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
+  'the first twenty-six Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -207,5 +207,13 @@ assert.match(tajik['roles-info'], /Панели маъмурӣ/);
 assert.equal(tajik['roles-status-sees-assigned'], 'Танҳо таъиншудаҳо');
 assert.equal(tajik.monday, 'Душанбе');
 assert.equal(tajik.sunday, 'Якшанбе');
+assert.match(tajik['invalid-domain'], /example\.com.*@/);
+assert.equal(tajik['shared-templates'], 'Қолабҳои муштарак');
+assert.match(tajik['dueCardsViewChange-choice-all-description'], /\*Муҳлат\*/);
+assert.match(tajik['globalSearchViewChange-choice-all-description'],
+  /\*Кортҳои ман\*/);
+assert.deepEqual(tokens(tajik['board-title-not-found']), ['%s']);
+assert.deepEqual(tokens(tajik['swimlane-title-not-found']), ['%s']);
+assert.deepEqual(tokens(tajik['list-title-not-found']), ['%s']);
 
-console.log('tajikTranslationProgress: first twenty-five batches passed');
+console.log('tajikTranslationProgress: first twenty-six batches passed');
