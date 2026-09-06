@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2124,
-  'the first 50-value Tigre batch stays resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
+  'the first two 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -53,5 +53,13 @@ assert.deepEqual(tokens(tigre['act-setCustomField']),
 assert.equal(tigre['act-importBoard'], 'ሰሌዳ __board__ ኣእተወ');
 assert.match(tigre['act-addAttachment'], /ተለጣፊ/);
 assert.match(tigre['act-addChecklist'], /ናይ ምርመራ ዝርዝር/);
+assert.deepEqual(tokens(tigre['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(tigre['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(tigre['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(tigre['allboards.workspaces'], 'ቦታታት ዕዮ');
+assert.match(tigre['allboards.edit-workspace-icon'], /markdown/);
 
-console.log('tigreTranslationProgress: first batch passed');
+console.log('tigreTranslationProgress: first two batches passed');
