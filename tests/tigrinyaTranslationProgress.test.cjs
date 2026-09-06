@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 574,
-  'the first thirty-two Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 524,
+  'the first thirty-three Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -256,5 +256,12 @@ assert.equal(tigrinya.newLineNewItem,
   'ሓደ መስመር ጽሑፍ = ሓደ ነገር ዝርዝር መረጋገጺ');
 assert.equal(tigrinya.copyChecklist, 'ዝርዝር መረጋገጺ ቅዳሕ');
 assert.equal(tigrinya['subtaskActionsPopup-title'], 'ተግባራት ንኡስ ዕማም');
+assert.match(tigrinya['attachment-repair-locations-description'],
+  /GridFS.*cloud/);
+assert.match(tigrinya['mongodb-compact-description'], /MongoDB GridFS.*Compact/);
+assert.match(tigrinya['mongodb-compact-warning'],
+  /replica sets.*secondaries.*primary.*oplog.*Meteor/s);
+assert.equal(tigrinya['move-progress-resume'], 'ቀጽል');
+assert.equal(tigrinya['gridfs-file-id'], 'መለለዪ ፋይል GridFS');
 
-console.log('tigrinyaTranslationProgress: first thirty-two batches passed');
+console.log('tigrinyaTranslationProgress: first thirty-three batches passed');
