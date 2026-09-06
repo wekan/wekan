@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 74,
-  'the first forty-two Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
+  'the first forty-three Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -320,5 +320,13 @@ assert.match(tigrinya['migrate-all-to-gridfs'], /GridFS/);
 assert.match(tigrinya['migrate-all-to-s3'], /S3/);
 assert.match(tigrinya['migration-info-text'], /ድሕረ ባይታ/);
 assert.match(tigrinya['migration-batch-size-description'], /1-100/);
+assert.match(tigrinya.otp, /OTP/);
+assert.match(tigrinya['api-endpoints'], /API/);
+assert.match(tigrinya['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(tigrinya['repair-broken-cards-done']), ['__fixed__']);
+assert.deepEqual(tokens(tigrinya['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.deepEqual(tokens(tigrinya['restore-list-swimlanes-done']),
+  ['__remaining__', '__restored__']);
 
-console.log('tigrinyaTranslationProgress: first forty-two batches passed');
+console.log('tigrinyaTranslationProgress: first forty-three batches passed');
