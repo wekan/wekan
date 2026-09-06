@@ -20,6 +20,7 @@ import {
   removeLegacyHtml4Upload,
 } from '/server/lib/legacyHtml4Multipart';
 import {
+  castAccessibleCardVote,
   createAccessibleCard,
   moveAccessibleCard,
   moveAccessibleCardToList,
@@ -40,6 +41,7 @@ import {
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
+  updateAccessibleCardVote,
 } from '/server/lib/accessibleCardOperations';
 import {
   createAccessibleComment,
@@ -176,6 +178,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'assign-card-custom-field', 'edit-card-custom-field',
     'edit-card-custom-field-checkbox',
     'save-card-dependency', 'remove-card-dependency',
+    'configure-card-vote', 'update-card-vote-end', 'cast-card-vote', 'remove-card-vote',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -339,6 +342,10 @@ WebApp.handlers.use(async (req, res, next) => {
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-delete-attachment') {
     requestFields.confirmAttachmentDelete = String(requestFields.attachmentId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'confirm-remove-card-vote') {
+    requestFields.confirmVoteRemove = String(requestFields.cardId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
     && [...cardOperations, ...commentOperations, ...checklistOperations, ...attachmentOperations]
@@ -587,6 +594,36 @@ WebApp.handlers.use(async (req, res, next) => {
           return removeAccessibleCardDependency(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             targetCardId: requestFields.targetCardId,
+          });
+        }
+        if (requestFields.legacyOperation === 'configure-card-vote') {
+          return updateAccessibleCardVote(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: 'configure', question: requestFields.voteQuestion,
+            public: requestFields.votePublic === 'true',
+            allowNonBoardMembers: requestFields.voteAllowNonBoardMembers === 'true',
+            end: requestFields.voteEnd,
+          });
+        }
+        if (requestFields.legacyOperation === 'update-card-vote-end') {
+          return updateAccessibleCardVote(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: 'end', end: requestFields.voteEnd,
+          });
+        }
+        if (requestFields.legacyOperation === 'cast-card-vote') {
+          const states = { positive: true, negative: false, clear: null };
+          if (!Object.prototype.hasOwnProperty.call(states, requestFields.voteState)) {
+            throw new Meteor.Error('invalid-vote-state');
+          }
+          return castAccessibleCardVote(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            state: states[requestFields.voteState],
+          });
+        }
+        if (requestFields.legacyOperation === 'remove-card-vote') {
+          return updateAccessibleCardVote(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId, action: 'remove',
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

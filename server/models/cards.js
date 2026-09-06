@@ -38,6 +38,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import {
   createAccessibleCard,
+  castAccessibleCardVote,
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
@@ -57,6 +58,7 @@ import {
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
+  updateAccessibleCardVote,
 } from '/server/lib/accessibleCardOperations';
 
 Meteor.methods({
@@ -118,6 +120,16 @@ Meteor.methods({
   async saveAccessibleCardDependency(input) {
     check(input, Object);
     return saveAccessibleCardDependency(this.userId, input);
+  },
+
+  async castAccessibleCardVote(input) {
+    check(input, Object);
+    return castAccessibleCardVote(this.userId, input);
+  },
+
+  async updateAccessibleCardVote(input) {
+    check(input, Object);
+    return updateAccessibleCardVote(this.userId, input);
   },
 
   async removeAccessibleCardDependency(input) {

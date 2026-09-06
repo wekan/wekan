@@ -1306,7 +1306,7 @@ Template.cardDetails.events({
     }
     autosize($('.card-details'));
   },
-  'click .js-vote'(e) {
+  async 'click .js-vote'(e) {
     const card = Template.currentData();
     const forIt = $(e.target).hasClass('js-vote-positive');
     let newState = null;
@@ -1317,8 +1317,13 @@ Template.cardDetails.events({
     ) {
       newState = forIt;
     }
-    // Use secure server method; direct client updates to vote are blocked
-    Meteor.call('cards.vote', card.getRealId(), newState);
+    try {
+      await Meteor.callAsync('castAccessibleCardVote', {
+        cardId: card._id, boardId: card.boardId, state: newState,
+      });
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    }
   },
   'click .js-poker'(e) {
     const card = Template.currentData();
@@ -2578,7 +2583,7 @@ Template.cardStartVotingPopup.helpers({
 
 Template.cardStartVotingPopup.events({
   'click .js-end-date': Popup.open('editVoteEndDate'),
-  'submit .edit-vote-question'(evt) {
+  async 'submit .edit-vote-question'(evt) {
     evt.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
@@ -2588,16 +2593,29 @@ Template.cardStartVotingPopup.events({
       'is-checked',
     );
     const endString = card.getVoteEnd();
-    Meteor.call('cards.setVoteQuestion', card.getRealId(), voteQuestion, publicVote, allowNonBoardMembers);
-    if (endString) {
-      Meteor.call('cards.setVoteEnd', card.getRealId(), new Date(endString));
+    try {
+      await Meteor.callAsync('updateAccessibleCardVote', {
+        cardId: card._id, boardId: card.boardId, action: 'configure',
+        question: voteQuestion, public: publicVote, allowNonBoardMembers,
+        end: endString || '',
+      });
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+      return;
     }
     Popup.back();
   },
-  'click .js-remove-vote': Popup.afterConfirm('deleteVote', function () {
+  'click .js-remove-vote': Popup.afterConfirm('deleteVote', async function () {
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    Meteor.call('cards.unsetVote', card.getRealId());
+    try {
+      await Meteor.callAsync('updateAccessibleCardVote', {
+        cardId: card._id, boardId: card.boardId, action: 'remove',
+      });
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+      return;
+    }
     Popup.back();
   }),
   'click a.js-toggle-vote-public'(event) {
@@ -2645,10 +2663,14 @@ Template.editVoteEndDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getVoteEnd ? (card.getVoteEnd() || undefined) : undefined,
     async storeDate(date, currentCard) {
-      await Meteor.callAsync('cards.setVoteEnd', currentCard.getRealId(), date);
+      await Meteor.callAsync('updateAccessibleCardVote', {
+        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: date,
+      });
     },
     async deleteDate(currentCard) {
-      await Meteor.callAsync('cards.unsetVoteEnd', currentCard.getRealId());
+      await Meteor.callAsync('updateAccessibleCardVote', {
+        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: '',
+      });
     },
   });
 });

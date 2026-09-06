@@ -1489,6 +1489,99 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       cardId: dependencyTarget._id, type: 'is-blocked-by',
       color: '#eb144c', icon: 'link',
     });
+    const configureVoteForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="configure-card-vote"])',
+    );
+    await configureVoteForm().locator('input[name="voteQuestion"]')
+      .fill('HTML4 release vote');
+    await configureVoteForm().locator('select[name="votePublic"]').selectOption('true');
+    await configureVoteForm().locator('input[name="voteEnd"]').fill('not-a-date');
+    await Promise.all([
+      page.waitForNavigation(), configureVoteForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote).toMatchObject({
+      question: '', public: false, allowNonBoardMembers: false,
+      positive: [], negative: [],
+    });
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await configureVoteForm().locator('input[name="voteQuestion"]')
+      .fill('HTML4 release vote');
+    await configureVoteForm().locator('select[name="votePublic"]').selectOption('true');
+    await configureVoteForm().locator('input[name="voteEnd"]')
+      .fill('2035-01-02T03:04:00Z');
+    await Promise.all([
+      page.waitForNavigation(), configureVoteForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote).toMatchObject({
+      question: 'HTML4 release vote', public: true, allowNonBoardMembers: false,
+      positive: [], negative: [],
+    });
+    const positiveVoteForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-vote"])'
+      + ':has(input[name="voteState"][value="positive"])',
+    );
+    await positiveVoteForm().locator('input[name="voteState"]')
+      .evaluate(input => { input.value = 'forged-state'; });
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="cast-card-vote"])'
+        + ':has(input[name="voteState"][value="forged-state"]) input[type="submit"]',
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote.positive).toEqual([]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await Promise.all([
+      page.waitForNavigation(), positiveVoteForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote.positive).toEqual([user._id]);
+    const clearPositiveVoteForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-vote"])'
+      + ':has(input[name="voteState"][value="clear"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), clearPositiveVoteForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote.positive).toEqual([]);
+    const voteEndForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="update-card-vote-end"])',
+    );
+    await voteEndForm().locator('input[name="voteEnd"]').fill('2020-01-02T03:04:00Z');
+    await Promise.all([
+      page.waitForNavigation(), voteEndForm().locator('input[type="submit"]').click(),
+    ]);
+    await expect(page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-vote"])',
+    )).toHaveCount(0);
+    const confirmRemoveVote = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-remove-card-vote"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), confirmRemoveVote().locator('input[type="submit"]').click(),
+    ]);
+    await expect(page.locator('tbody')).toContainText('Deleting is permanent');
+    const removeVote = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="remove-card-vote"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), removeVote().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote).toBeUndefined();
+    await configureVoteForm().locator('input[name="voteQuestion"]')
+      .fill('HTML4 final visible vote');
+    await configureVoteForm().locator('select[name="votePublic"]').selectOption('true');
+    await configureVoteForm().locator('input[name="voteEnd"]')
+      .fill('2036-01-02T03:04:00Z');
+    await Promise.all([
+      page.waitForNavigation(), configureVoteForm().locator('input[type="submit"]').click(),
+    ]);
+    const negativeVoteForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-vote"])'
+      + ':has(input[name="voteState"][value="negative"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), negativeVoteForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).vote.negative).toEqual([user._id]);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

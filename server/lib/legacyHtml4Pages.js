@@ -470,7 +470,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    sort: 1, stickers: 1, customFields: 1, cardDependencies: 1,
+    sort: 1, stickers: 1, customFields: 1, cardDependencies: 1, vote: 1, poker: 1,
     locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
@@ -533,6 +533,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ...comments.map(comment => comment.userId),
     ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
       .flatMap(reaction => reaction.userIds || [])),
+    ...(contentCard?.vote?.positive || []), ...(contentCard?.vote?.negative || []),
   ].filter(Boolean))];
   const [list, swimlane, people, activeLists, currentUser] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
@@ -559,6 +560,16 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   );
   const dependencyTargetById = new Map(dependencyTargetCards.map(target => [target._id, target]));
   const canWrite = await canEditCardOrLinkedCard(userId, card);
+  const vote = contentCard?.vote && typeof contentCard.vote === 'object'
+    ? contentCard.vote : null;
+  const voteEnd = vote?.end instanceof Date && Number.isFinite(vote.end.getTime())
+    ? vote.end : (vote?.end ? new Date(vote.end) : null);
+  const voteClosed = voteEnd instanceof Date && Number.isFinite(voteEnd.getTime())
+    && voteEnd.getTime() <= Date.now();
+  const voteState = (vote?.positive || []).includes(userId) ? 'positive'
+    : ((vote?.negative || []).includes(userId) ? 'negative' : 'clear');
+  const canVote = Boolean(vote?.question) && !voteClosed
+    && (activeContentMemberIds.includes(userId) || vote?.allowNonBoardMembers === true);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
   const checklistCardOptions = destinations.checklistCards;
@@ -768,6 +779,45 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         submitLabel: tr(translate, 'add-dependency', 'Add dependency'), id: 'dependency-new',
       }), ''] });
     }
+    const voteAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+    const booleanOptions = [
+      { value: 'false', label: tr(translate, 'no', 'No') },
+      { value: 'true', label: tr(translate, 'yes', 'Yes') },
+    ];
+    if (!vote?.question) {
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: voteAction, legend: tr(translate, 'vote-question', 'Voting question'),
+        inputs: [
+          { name: 'voteQuestion', label: tr(translate, 'vote-question', 'Voting question'),
+            maxlength: 10000 },
+          { type: 'select', name: 'votePublic',
+            label: tr(translate, 'vote-public', 'Show who voted what'), options: booleanOptions },
+          { type: 'select', name: 'voteAllowNonBoardMembers',
+            label: tr(translate, 'allowNonBoardMembers', 'Allow all logged in users'),
+            options: booleanOptions },
+          { name: 'voteEnd', label: tr(translate, 'card-end', 'End'), maxlength: 40 },
+        ],
+        fields: { ...commonFields, legacyOperation: 'configure-card-vote' },
+        submitLabel: tr(translate, 'save', 'Save'), id: 'vote-new',
+      }), ''] });
+    } else {
+      rows.push({ rowHeader: false, cells: [uiTextForm({
+        action: voteAction, label: tr(translate, 'card-end', 'End'), name: 'voteEnd',
+        value: voteEnd instanceof Date && Number.isFinite(voteEnd.getTime())
+          ? voteEnd.toISOString() : '', maxlength: 40,
+        fields: { ...commonFields, legacyOperation: 'update-card-vote-end' },
+        submitLabel: tr(translate, 'save', 'Save'), id: 'vote-end',
+      }), requestFields.confirmVoteRemove === card._id ? [
+        tr(translate, 'vote-delete-pop', 'Delete voting?'),
+        uiAction({
+          action: voteAction, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...commonFields, legacyOperation: 'remove-card-vote' },
+        }),
+      ] : uiAction({
+        action: voteAction, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { ...commonFields, legacyOperation: 'confirm-remove-card-vote' },
+      })] });
+    }
     for (const label of contentBoard?.labels || []) {
       const selected = (contentCard?.labelIds || []).includes(label._id);
       rows.push({ color: label.color, rowHeader: false, cells: [uiAction({
@@ -854,6 +904,23 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       icon: card.archived ? 'move-up' : 'remove',
       fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
     }), ''] });
+  }
+  if (canVote) {
+    const voteAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+    for (const [state, key, fallback] of [
+      ['positive', 'vote-for-it', 'for it'], ['negative', 'vote-against', 'against'],
+    ]) {
+      const selected = voteState === state;
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: voteAction,
+        label: `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + tr(translate, key, fallback),
+        fields: {
+          ...commonFields, legacyOperation: 'cast-card-vote',
+          voteState: selected ? 'clear' : state,
+        },
+      }), ''] });
+    }
   }
   const workerSelf = card.type !== 'cardType-linkedCard'
     && card.type !== 'cardType-linkedBoard'
@@ -968,6 +1035,15 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         })],
       };
     }),
+    ...(vote?.question ? [
+      { cells: [tr(translate, 'vote-question', 'Voting question'), vote.question] },
+      { cells: [tr(translate, 'vote-for-it', 'for it'), vote.public
+        ? names(vote.positive) : String((vote.positive || []).length)] },
+      { cells: [tr(translate, 'vote-against', 'against'), vote.public
+        ? names(vote.negative) : String((vote.negative || []).length)] },
+      { cells: [tr(translate, 'card-end', 'End'), voteEnd instanceof Date
+        && Number.isFinite(voteEnd.getTime()) ? voteEnd.toISOString() : ''] },
+    ] : []),
     ...locations.map(location => {
       const hasCoordinates = typeof location.latitude === 'number'
         && typeof location.longitude === 'number';

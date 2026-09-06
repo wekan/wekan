@@ -7,11 +7,13 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import {
   allowIsBoardAdmin,
+  allowIsBoardMember,
   allowIsBoardMemberWithWriteAccess,
   canAssignCardMember,
   computeSortForIndex,
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary } from '/server/lib/canary';
 import { CARD_COLORS } from '/models/metadata/colors';
 import { STICKER_PICKER } from '/models/metadata/stickers';
@@ -29,6 +31,7 @@ const MAX_CARD_LOCATIONS = 100;
 const MAX_CARD_STICKERS = 200;
 const MAX_CARD_CUSTOM_FIELDS = 500;
 const MAX_CARD_DEPENDENCIES = 500;
+const MAX_BALLOT_QUESTION_LENGTH = 10000;
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -454,6 +457,108 @@ async function removeAccessibleCardDependency(userId, input) {
   return true;
 }
 
+function accessibleBallotEnd(value) {
+  if (value === undefined || value === null || String(value).trim() === '') return undefined;
+  const raw = value instanceof Date ? value.toISOString() : String(value).trim();
+  if (raw.length > 40
+    || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(raw)) {
+    throw new Meteor.Error('invalid-ballot-end');
+  }
+  const date = new Date(raw);
+  if (!Number.isFinite(date.getTime())) throw new Meteor.Error('invalid-ballot-end');
+  return date;
+}
+
+async function accessibleBallotTarget(userId, input, write) {
+  if (!userId) throw new Meteor.Error('not-authorized');
+  const boardId = String(input?.boardId || '');
+  const card = write
+    ? await editableCard(userId, input?.cardId, boardId)
+    : await Cards.findOneAsync({ _id: String(input?.cardId || ''), boardId, deletedAt: null });
+  if (!card) throw new Meteor.Error('not-found');
+  if (!write && !(await canUserSeeBoard(userId, card.boardId))) {
+    refuseCardWrite(userId, 'ballot route board was not visible');
+  }
+  if (write) await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const board = await Boards.findOneAsync(target.boardId);
+  if (!board) throw new Meteor.Error('not-found');
+  return { target, board };
+}
+
+function canonicalVote(vote) {
+  return {
+    question: String(vote?.question || ''), public: vote?.public === true,
+    allowNonBoardMembers: vote?.allowNonBoardMembers === true,
+    positive: [...new Set((vote?.positive || []).filter(value => typeof value === 'string'))]
+      .slice(0, 100000),
+    negative: [...new Set((vote?.negative || []).filter(value => typeof value === 'string'))]
+      .slice(0, 100000),
+    ...(vote?.end instanceof Date && Number.isFinite(vote.end.getTime()) ? { end: vote.end } : {}),
+  };
+}
+
+async function updateAccessibleCardVote(userId, input) {
+  const { target } = await accessibleBallotTarget(userId, input, true);
+  const action = String(input?.action || '');
+  if (action === 'remove') {
+    await Cards.updateAsync(target._id, {
+      $unset: { vote: '' }, $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+    });
+    return true;
+  }
+  if (action === 'end') {
+    if (!target.vote) throw new Meteor.Error('vote-not-found');
+    const end = accessibleBallotEnd(input?.end);
+    const modifier = end ? { $set: { 'vote.end': end } } : { $unset: { 'vote.end': '' } };
+    modifier.$set = { ...(modifier.$set || {}), modifiedAt: new Date(), dateLastActivity: new Date() };
+    await Cards.updateAsync(target._id, modifier);
+    return true;
+  }
+  if (action !== 'configure') throw new Meteor.Error('invalid-vote-action');
+  const question = String(input?.question || '').trim();
+  if (!question || question.length > MAX_BALLOT_QUESTION_LENGTH
+    || typeof input?.public !== 'boolean' || typeof input?.allowNonBoardMembers !== 'boolean') {
+    throw new Meteor.Error('invalid-vote');
+  }
+  const vote = {
+    question, public: input.public, allowNonBoardMembers: input.allowNonBoardMembers,
+    positive: [], negative: [],
+  };
+  const end = accessibleBallotEnd(input?.end);
+  if (end) vote.end = end;
+  await Cards.updateAsync(target._id, {
+    $set: { vote, modifiedAt: new Date(), dateLastActivity: new Date() },
+  });
+  return true;
+}
+
+async function castAccessibleCardVote(userId, input) {
+  const { target, board } = await accessibleBallotTarget(userId, input, false);
+  const vote = canonicalVote(target.vote);
+  if (!vote.question || (vote.end && vote.end.getTime() <= Date.now())) {
+    throw new Meteor.Error('vote-closed');
+  }
+  if (!allowIsBoardMember(userId, board) && !vote.allowNonBoardMembers) {
+    refuseCardWrite(userId, 'vote did not allow this participant');
+  }
+  const state = input?.state;
+  if (state !== true && state !== false && state !== null) {
+    throw new Meteor.Error('invalid-vote-state');
+  }
+  vote.positive = vote.positive.filter(id => id !== userId);
+  vote.negative = vote.negative.filter(id => id !== userId);
+  if (state === true) vote.positive.push(userId);
+  if (state === false) vote.negative.push(userId);
+  await Cards.updateAsync(target._id, {
+    $set: { vote, modifiedAt: new Date(), dateLastActivity: new Date() },
+  });
+  return state;
+}
+
 async function updateAccessibleCardContent(userId, input) {
   const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
   const field = input?.field;
@@ -667,6 +772,7 @@ export {
   setAccessibleCardSticker,
   setAccessibleCardCustomFieldAssigned,
   saveAccessibleCardDependency,
+  castAccessibleCardVote,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -677,4 +783,5 @@ export {
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
+  updateAccessibleCardVote,
 };

@@ -307,6 +307,16 @@ requires the target to be an active card on the same content board, allowlists
 relation and icon catalogs, accepts only a complete `#rrggbb` color, caps the
 array, refuses stale removals and replaces one canonical bounded array atomically.
 
+Voting preserves the same question, visibility, audience, deadline, counts and
+current-user choice in both renderers. HTML4 creates a ballot with one labelled
+fieldset, shows public voter names or private aggregate counts, and casts a
+desired positive, negative or cleared state with textual `[x]`/`[ ]` controls.
+The deadline editor and two-step delete remain usable without script. Jade and
+HTML4 call a shared operation that binds the route and linked content, verifies
+visibility for participants and write capability for configuration, bounds the
+question, strictly parses ISO 8601 deadlines, rejects closed ballots and derives
+the actor from the authenticated session before atomically canonicalizing votes.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

@@ -184,6 +184,29 @@ test('card dependencies share one catalog-bound acknowledged write boundary', ()
   assert.match(page, /dependencyIconOptions/);
 });
 
+test('card voting shares one actor-bound acknowledged state machine', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /MAX_BALLOT_QUESTION_LENGTH = 10000/);
+  assert.match(source, /async function accessibleBallotTarget/);
+  assert.match(source, /canUserSeeBoard\(userId, card\.boardId\)/);
+  assert.match(source, /allowIsBoardMember\(userId, board\)/);
+  assert.match(source, /vote\.end\.getTime\(\) <= Date\.now\(\)/);
+  assert.match(source, /state !== true && state !== false && state !== null/);
+  assert.match(methods, /async castAccessibleCardVote\(input\)/);
+  assert.match(methods, /async updateAccessibleCardVote\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('castAccessibleCardVote'/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardVote'/);
+  assert.doesNotMatch(client, /Meteor\.call\('cards\.(?:vote|setVote|unsetVote)/);
+  assert.match(legacy, /legacyOperation === 'cast-card-vote'/);
+  assert.match(legacy, /legacyOperation === 'configure-card-vote'/);
+  assert.match(page, /requestFields\.confirmVoteRemove === card\._id/);
+  assert.match(page, /vote\.public[\s\S]*names\(vote\.positive\)/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

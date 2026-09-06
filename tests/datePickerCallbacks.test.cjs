@@ -34,12 +34,13 @@ for (const field of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {
   );
 }
 
-for (const method of [
-  'cards.setVoteEnd',
-  'cards.unsetVoteEnd',
-  'cards.setPokerEnd',
-  'cards.unsetPokerEnd',
-]) {
+assert.equal(
+  (cardDetails.match(/await Meteor\.callAsync\('updateAccessibleCardVote'/g) || []).length >= 2,
+  true,
+  'vote end save and clear callbacks must await the shared server method',
+);
+
+for (const method of ['cards.setPokerEnd', 'cards.unsetPokerEnd']) {
   assert.match(
     cardDetails,
     new RegExp(`await Meteor\\.callAsync\\('${method.replace('.', '\\.')}'`),
