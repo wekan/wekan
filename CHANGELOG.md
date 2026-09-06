@@ -358,6 +358,23 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dcffed26">Match All Boards sections in Legacy HTML4</a>. Thanks to xet7.</summary>
+
+All Boards now applies the same Starred, Remaining, Home, Templates, Archive and
+nested Workspace selection rules in its cookieless HTML4 representation. The
+controller reads the user's profile assignments, reuses the shared URL and slug
+helpers, excludes unrelated public boards, and restricts Archive to boards where
+the user is an active administrator.
+
+Every section and workspace is reachable as a visible signed POST control. The
+browser test proves that Templates, Archive, Workspace and Home do not leak one
+another's boards, while same-URL screenshots compare the Templates content,
+heading and color in the HTML4 and HTML5 renderers. Source tests pin the shared
+selectors and URL helpers.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8883cace2">Show card child collections in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 The semantic HTML4 card-details table now includes checklist headings and item
