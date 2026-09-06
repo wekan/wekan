@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
-  'the first nineteen Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1174,
+  'the first twenty Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -170,5 +170,11 @@ assert.match(tigrinya['delete-all-notifications-confirm'], /ክምለስ ኣይ�
 assert.match(tigrinya['checklist-count-on-minicard'], /\(0\/0\)/);
 assert.equal(tigrinya['parent-card'], 'ወላዲ ካርድ');
 assert.equal(tigrinya['source-board'], 'ምንጪ ሰሌዳ');
+assert.deepEqual(tokens(tigrinya['activity-set-customfield']),
+  ['%s', '%s', '%s']);
+assert.deepEqual(tokens(tigrinya['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(tigrinya['r-import-done']), ['__count__']);
+assert.match(tigrinya['r-import-paste'], /JSON.*CSV.*Trello Butler/);
+assert.equal(tigrinya['r-board-rules'], 'ሕግታት ሰሌዳ');
 
-console.log('tigrinyaTranslationProgress: first nineteen batches passed');
+console.log('tigrinyaTranslationProgress: first twenty batches passed');
