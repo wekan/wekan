@@ -8281,6 +8281,8 @@ appearance, account, validation, export and filter batches.
 
 and fixes the following bugs:
 
+**Admin Panel** - reports show complete, actionable data and controls.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cde94d0b1">Filter Boards Report by permission</a>. Thanks to xet7.</summary>
 
