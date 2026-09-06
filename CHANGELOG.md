@@ -8139,11 +8139,11 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tigre:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **68,768 values across 32 second-tier languages**. Southern
+remaining work is **68,718 values across 32 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Tigre has 1,324 left after its first seventeen 50-value batches. Albanian
+batch. Tigre has 1,274 left after its first eighteen 50-value batches. Albanian
 and Bosnian are also complete: Bosnian's final apparent gap, `Server`, is a
 normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8260,8 +8260,8 @@ browser build to verify).
 **In short:** **Albanian, Southern Sotho, Tajik and Tigrinya translations** are
 complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
-backups and migrations; **Tigre translations** cover their first seventeen
-batches spanning boards, imports, tracking, file limits, email and webhooks;
+backups and migrations; **Tigre translations** cover their first eighteen
+batches spanning boards, imports, limits, system and organization settings;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8533,6 +8533,19 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3be9d1b87">Translate Tigre system and organization settings</a>. Thanks to xet7.</summary>
+
+The eighteenth 50-value Tigre batch adds Node, Meteor, FerretDB and operating
+system diagnostics, reactivity and DDP modes, card field display and
+organization tenancy, domains and administration. All values required
+translation, with low confidence in some explanatory grammar pending human
+refinement. Tests retain environment variables, protocols, host examples and
+technical product names. This leaves 68,718 actionable values across 32
+languages, including 1,274 in Tigre.
 
 </details>
 
