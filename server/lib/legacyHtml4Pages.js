@@ -482,6 +482,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     card.userId, contentCard?.userId, ...(card.members || []), ...(card.assignees || []),
     ...(contentCard?.members || []), ...(contentCard?.assignees || []),
     ...(card.requesters || []), ...(card.assigners || []),
+    ...(contentCard?.requesters || []), ...(contentCard?.assigners || []),
     ...activeContentMemberIds,
     ...comments.map(comment => comment.userId),
     ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
@@ -554,6 +555,26 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: 'edit-card-color' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
+    if (contentBoard?.allowsRequestedBy !== false) rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'requested-by', 'Requested By'),
+      name: 'cardIdentityText', value: contentCard?.requestedBy || '', maxlength: 1000,
+      fields: {
+        ...commonFields, legacyOperation: 'edit-card-identity-text',
+        cardIdentityTextField: 'requestedBy',
+      },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
+    if (contentBoard?.allowsAssignedBy !== false) rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'assigned-by', 'Assigned By'),
+      name: 'cardIdentityText', value: contentCard?.assignedBy || '', maxlength: 1000,
+      fields: {
+        ...commonFields, legacyOperation: 'edit-card-identity-text',
+        cardIdentityTextField: 'assignedBy',
+      },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
     rows.push({ rowHeader: false, cells: [uiSelectForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, 'list', 'List'), name: 'cardListId', value: card.listId,
@@ -594,7 +615,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       && member.isActive !== false && member.isWorker === true);
   const personCandidates = [...new Set([
     ...activeContentMemberIds, ...(contentCard?.members || []),
-    ...(contentCard?.assignees || []),
+    ...(contentCard?.assignees || []), ...(contentCard?.requesters || []),
+    ...(contentCard?.assigners || []),
   ])];
   for (const targetUserId of personCandidates) {
     const name = personById.get(targetUserId) || targetUserId;
@@ -619,6 +641,32 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         fields: {
           ...commonFields, legacyOperation: 'toggle-card-person', cardPersonField: 'assignees',
           targetUserId, enabled: selected ? 'false' : 'true',
+        },
+      }), ''] });
+    }
+    if (canWrite && contentBoard?.allowsRequestedBy !== false) {
+      const selected = (contentCard?.requesters || []).includes(targetUserId);
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, 'requested-by', 'Requested By')}: `
+          + `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} ${name}`,
+        fields: {
+          ...commonFields, legacyOperation: 'toggle-card-identity',
+          cardIdentityField: 'requesters', targetUserId,
+          enabled: selected ? 'false' : 'true',
+        },
+      }), ''] });
+    }
+    if (canWrite && contentBoard?.allowsAssignedBy !== false) {
+      const selected = (contentCard?.assigners || []).includes(targetUserId);
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, 'assigned-by', 'Assigned By')}: `
+          + `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} ${name}`,
+        fields: {
+          ...commonFields, legacyOperation: 'toggle-card-identity',
+          cardIdentityField: 'assigners', targetUserId,
+          enabled: selected ? 'false' : 'true',
         },
       }), ''] });
     }
@@ -652,8 +700,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     { cells: [tr(translate, 'labels', 'Labels'), labels.map(label => label.name || label.color).join(', ')] },
     { cells: [tr(translate, 'members', 'Members'), names(card.members)] },
     { cells: [tr(translate, 'assignee', 'Assignee'), names(card.assignees)] },
-    { cells: [tr(translate, 'requested-by', 'Requested By'), names(card.requesters) || card.requestedBy || ''] },
-    { cells: [tr(translate, 'assigned-by', 'Assigned By'), names(card.assigners) || card.assignedBy || ''] },
+    { cells: [tr(translate, 'requested-by', 'Requested By'),
+      names(contentCard?.requesters) || contentCard?.requestedBy || ''] },
+    { cells: [tr(translate, 'assigned-by', 'Assigned By'),
+      names(contentCard?.assigners) || contentCard?.assignedBy || ''] },
     { cells: [tr(translate, 'creator', 'Creator'), personById.get(card.userId) || ''] },
     { cells: [tr(translate, 'r-df-received-at', 'Received'), isoDate(card.receivedAt)] },
     { cells: [tr(translate, 'r-df-start-at', 'Start'), isoDate(card.startAt)] },

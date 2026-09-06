@@ -24,10 +24,12 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardLabel,
+  setAccessibleCardIdentity,
   setAccessibleCardPerson,
   setAccessibleCardArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
+  updateAccessibleCardIdentityText,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 import {
@@ -159,7 +161,8 @@ WebApp.handlers.use(async (req, res, next) => {
   const cardOperations = [
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
     'edit-card-description', 'edit-card-date', 'edit-card-color', 'move-card-to-list',
-    'toggle-card-label', 'toggle-card-person', 'archive-card', 'restore-card',
+    'toggle-card-label', 'toggle-card-person', 'toggle-card-identity',
+    'edit-card-identity-text', 'archive-card', 'restore-card',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -494,6 +497,21 @@ WebApp.handlers.use(async (req, res, next) => {
           return setAccessibleCardPerson(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             field: requestFields.cardPersonField,
+            targetUserId: requestFields.targetUserId,
+            enabled: requestFields.enabled === 'true',
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-card-identity-text') {
+          return updateAccessibleCardIdentityText(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            field: requestFields.cardIdentityTextField,
+            value: requestFields.cardIdentityText,
+          });
+        }
+        if (requestFields.legacyOperation === 'toggle-card-identity') {
+          return setAccessibleCardIdentity(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            field: requestFields.cardIdentityField,
             targetUserId: requestFields.targetUserId,
             enabled: requestFields.enabled === 'true',
           });

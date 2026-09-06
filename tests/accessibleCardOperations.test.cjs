@@ -145,6 +145,29 @@ test('card people use desired state, content-board membership and worker self po
   assert.match(page, /cardPersonField: 'assignees'/);
 });
 
+test('Requested By and Assigned By share scoped text and identity boundaries', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /\['requestedBy', 'assignedBy'\]\.includes\(field\)/);
+  assert.match(source, /\['requesters', 'assigners'\]\.includes\(field\)/);
+  assert.match(source, /card-identity-text-too-long/);
+  assert.match(source, /board\?\.allowsRequestedBy !== false/);
+  assert.match(source, /board\?\.allowsAssignedBy !== false/);
+  assert.match(source, /canAssignCardMember\(board, targetUserId\)/);
+  assert.match(methods, /async updateAccessibleCardIdentityText\(input\)/);
+  assert.match(methods, /async setAccessibleCardIdentity\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardIdentityText'/);
+  assert.match(client, /Meteor\.callAsync\('setAccessibleCardIdentity'/);
+  assert.doesNotMatch(client, /card\.(?:setRequestedBy|setAssignedBy|toggleRequester|toggleAssigner)\(/);
+  assert.match(legacy, /legacyOperation === 'edit-card-identity-text'/);
+  assert.match(legacy, /legacyOperation === 'toggle-card-identity'/);
+  assert.match(page, /cardIdentityField: 'requesters'/);
+  assert.match(page, /cardIdentityField: 'assigners'/);
+});
+
 test('archive checks every descendant before the first write', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

@@ -1110,6 +1110,44 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         .locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).assignees).toEqual(assigneesBefore);
+    const identityTextForm = field => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-identity-text"])'
+      + `:has(input[name="cardIdentityTextField"][value="${field}"])`,
+    );
+    await identityTextForm('requestedBy').locator('input[name="cardIdentityText"]')
+      .fill('External Requester');
+    await Promise.all([
+      page.waitForNavigation(), identityTextForm('requestedBy')
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).requestedBy).toBe('External Requester');
+    await identityTextForm('assignedBy').locator('input[name="cardIdentityText"]')
+      .fill('External Assigner');
+    await Promise.all([
+      page.waitForNavigation(), identityTextForm('assignedBy')
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).assignedBy).toBe('External Assigner');
+    const identityForm = (field, targetUserId) => page.locator(
+      'form:has(input[name="legacyOperation"][value="toggle-card-identity"])'
+      + `:has(input[name="cardIdentityField"][value="${field}"])`
+      + `:has(input[name="targetUserId"][value="${targetUserId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), identityForm('requesters', outsider.id)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).requesters).toEqual([outsider.id]);
+    await identityForm('assigners', user._id).locator('input[name="targetUserId"]')
+      .evaluate((input, id) => { input.value = id; }, nonMemberId);
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="toggle-card-identity"])'
+        + `:has(input[name="targetUserId"][value="${nonMemberId}"]) input[type="submit"]`,
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).assigners || []).toEqual([]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

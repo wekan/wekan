@@ -246,6 +246,52 @@ async function setAccessibleCardPerson(userId, input) {
   return true;
 }
 
+async function identityContentTarget(userId, input, field) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const board = await Boards.findOneAsync(target.boardId);
+  const allowed = field === 'requesters' || field === 'requestedBy'
+    ? board?.allowsRequestedBy !== false : board?.allowsAssignedBy !== false;
+  if (!allowed) throw new Meteor.Error('card-identity-disabled');
+  return { target, board };
+}
+
+async function updateAccessibleCardIdentityText(userId, input) {
+  const field = String(input?.field || '');
+  if (!['requestedBy', 'assignedBy'].includes(field)) {
+    throw new Meteor.Error('invalid-card-identity-text-field');
+  }
+  const { target } = await identityContentTarget(userId, input, field);
+  const value = String(input?.value ?? '').trim();
+  if (value.length > 1000) throw new Meteor.Error('card-identity-text-too-long');
+  await target[field === 'requestedBy' ? 'setRequestedBy' : 'setAssignedBy'](value);
+  return true;
+}
+
+async function setAccessibleCardIdentity(userId, input) {
+  const field = String(input?.field || '');
+  if (!['requesters', 'assigners'].includes(field)) {
+    throw new Meteor.Error('invalid-card-identity-field');
+  }
+  const targetUserId = String(input?.targetUserId || '');
+  if (!targetUserId || targetUserId.length > 200 || typeof input?.enabled !== 'boolean') {
+    throw new Meteor.Error('invalid-card-identity');
+  }
+  const { target, board } = await identityContentTarget(userId, input, field);
+  if (input.enabled && !canAssignCardMember(board, targetUserId)) {
+    refuseCardWrite(userId, 'card identity was not an active content-board member');
+  }
+  const method = input.enabled
+    ? (field === 'requesters' ? 'assignRequester' : 'assignAssigner')
+    : (field === 'requesters' ? 'unassignRequester' : 'unassignAssigner');
+  await target[method](targetUserId);
+  return true;
+}
+
 async function editableCardTree(userId, root) {
   const pending = [root];
   const seen = new Set();
@@ -279,9 +325,11 @@ export {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardLabel,
+  setAccessibleCardIdentity,
   setAccessibleCardPerson,
   setAccessibleCardArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
+  updateAccessibleCardIdentityText,
   updateAccessibleCardContent,
 };

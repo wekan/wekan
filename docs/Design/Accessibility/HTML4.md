@@ -249,6 +249,13 @@ the route and permits removal of stale assignments. The existing Worker policy
 is preserved explicitly: a Worker may change only their own Assignee state on a
 normal card, never Members or another user.
 
+Requested By and Assigned By preserve both representations used by Jade: a
+bounded free-text name and zero or more selected board members. HTML4 provides
+labelled text forms and one desired-state person control per eligible member.
+Shared services resolve linked content, enforce the content board's field toggle,
+require an active member for additions, allow stale identities to be removed and
+refuse Worker writes. Display and mutation both use the real content values.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

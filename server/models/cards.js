@@ -41,10 +41,12 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardLabel,
+  setAccessibleCardIdentity,
   setAccessibleCardPerson,
   setAccessibleCardArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,
+  updateAccessibleCardIdentityText,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 
@@ -92,6 +94,16 @@ Meteor.methods({
   async setAccessibleCardPerson(input) {
     check(input, Object);
     return setAccessibleCardPerson(this.userId, input);
+  },
+
+  async updateAccessibleCardIdentityText(input) {
+    check(input, Object);
+    return updateAccessibleCardIdentityText(this.userId, input);
+  },
+
+  async setAccessibleCardIdentity(input) {
+    check(input, Object);
+    return setAccessibleCardIdentity(this.userId, input);
   },
 
   async setAccessibleCardArchived(input) {

@@ -1092,27 +1092,23 @@ Template.cardDetails.events({
       alert(error?.reason || error?.message || 'Failed to save title');
     }
   },
-  'submit .js-card-details-assigner'(event, tpl) {
+  async 'submit .js-card-details-assigner'(event, tpl) {
     event.preventDefault();
     const assignerInput = tpl.find('.js-edit-card-assigner');
     const assigner = assignerInput ? assignerInput.value.trim() : '';
     const card = Template.currentData();
-    if (assigner) {
-      card.setAssignedBy(assigner);
-    } else {
-      card.setAssignedBy('');
-    }
+    await Meteor.callAsync('updateAccessibleCardIdentityText', {
+      cardId: card._id, boardId: card.boardId, field: 'assignedBy', value: assigner,
+    });
   },
-  'submit .js-card-details-requester'(event, tpl) {
+  async 'submit .js-card-details-requester'(event, tpl) {
     event.preventDefault();
     const requesterInput = tpl.find('.js-edit-card-requester');
     const requester = requesterInput ? requesterInput.value.trim() : '';
     const card = Template.currentData();
-    if (requester) {
-      card.setRequestedBy(requester);
-    } else {
-      card.setRequestedBy('');
-    }
+    await Meteor.callAsync('updateAccessibleCardIdentityText', {
+      cardId: card._id, boardId: card.boardId, field: 'requestedBy', value: requester,
+    });
   },
   'keydown input.js-edit-card-sort'(evt, tpl) {
     // enter = save
@@ -1765,13 +1761,18 @@ Template.cardIdentityPicker.onCreated(function () {
 });
 
 Template.cardIdentityPicker.events({
-  'click .js-select-card-identity'(event, tpl) {
+  async 'click .js-select-card-identity'(event, tpl) {
     event.preventDefault();
     const card = getCurrentCardFromContext();
     const user = ReactiveCache.getUser(this.userId);
     if (!card || !user) return;
-    if (tpl.data.field === 'requesters') card.toggleRequester(user._id);
-    if (tpl.data.field === 'assigners') card.toggleAssigner(user._id);
+    const field = tpl.data.field;
+    if (!['requesters', 'assigners'].includes(field)) return;
+    const selected = field === 'requesters' ? card.getRequesters() : card.getAssigners();
+    await Meteor.callAsync('setAccessibleCardIdentity', {
+      cardId: card._id, boardId: card.boardId, field, targetUserId: user._id,
+      enabled: !(selected || []).includes(user._id),
+    });
   },
   'keyup .card-identity-filter'(event) {
     Template.instance().filterTerm.set(event.target.value);
