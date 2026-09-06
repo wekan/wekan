@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 574,
-  'the first thirty-two Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 524,
+  'the first thirty-three Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -259,5 +259,12 @@ assert.match(tajik.Node_memory_usage_rss, /Node/);
 assert.match(tajik['custom-legal-notice-link-url'], /URL/);
 assert.equal(tajik.moveChecklist, 'Кӯчонидани рӯйхати санҷиш');
 assert.match(tajik.newLineNewItem, /=/);
+assert.equal(tajik['attachment-move-storage-gridfs'],
+  'Кӯчонидани замима ба GridFS');
+assert.match(tajik['attachment-repair-locations-description'], /GridFS/);
+assert.equal(tajik['move-progress-resume'], 'Идома додан');
+assert.equal(tajik['gridfs-file-id'], 'ID-и файли GridFS');
+assert.match(tajik['mongodb-compact-warning'], /oplog.*Meteor/);
+assert.equal(tajik['mongodb-compact-run'], 'Иҷрои MongoDB Compact');
 
-console.log('tajikTranslationProgress: first thirty-two batches passed');
+console.log('tajikTranslationProgress: first thirty-three batches passed');
