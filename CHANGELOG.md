@@ -267,7 +267,8 @@ HTML4 baseline, authentication forms have direct keyboard navigation, and
 installation examples explain the Admin Panel email options. Change-history checks
 retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
 only once before returning to the shell. Uncommon browser code loads on demand, and
-Legacy HTML4 boards can create and reorder cards with buttons.
+Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
+buttons.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -357,6 +358,29 @@ the server reader for large streamed input.
 
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47580e292">Add accessible HTML4 card editing and archive controls</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 card details now provide labelled title and description forms plus
+printable archive and restore buttons. They use the same acknowledged server
+operations as the opened Meteor card and archive sidebar, work without JavaScript,
+cookies or drag and drop, and stay in natural keyboard order.
+
+The common operation verifies the submitted route board, direct or delegated card
+write permission, and the real target of a linked card or board. Linked-board
+content needs target-board administrator access. Archive and restore inspect the
+whole descendant tree before the first write, reject cycles, and bound traversal.
+A forged cross-board operation is refused and reported to Admin Panel / Problems /
+Security with its available username and IP address.
+
+Unit tests cover linked-target authorization, accepted fields and size limits,
+bounded archive traversal, shared HTML5 wiring, labels, escaping and keyboard
+order. Cookieless Playwright coverage edits, archives and restores a real card,
+proves a forged board value changes nothing and creates an attributed security
+event, and captures the same updated card URL in HTML4 and HTML5.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1cf96178">Add accessible HTML4 card creation and ordering</a>. Thanks to xet7.</summary>
