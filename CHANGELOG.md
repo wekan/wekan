@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,506 values across 36 second-tier languages**. Albanian
-now has 1,416 left after its first fourteen 50-value batches. Bosnian is also
+remaining work is **77,406 values across 36 second-tier languages**. Albanian
+now has 1,316 left after its first sixteen 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first fourteen activity,
-workspace, board, card, import, selection, role and navigation batches;
+**In short:** **Albanian translations** now cover the first sixteen activity,
+board, card, import, role, upload, email, webhook and system-setting batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8371,6 +8371,18 @@ Loanword exceptions are now locale-specific. Albanian `Email`, `indigo` and
 other languages. That stricter audit restores eighteen real gaps, so after the
 new translations the authoritative backlog is 77,506 values across 36 languages,
 including 1,416 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ba4ec57a">Translate Albanian uploads and system settings</a>. Thanks to xet7.</summary>
+
+The fifteenth and sixteenth 50-value Albanian batches add time tracking,
+uploads, custom branding, welcome templates, WIP and attachment limits,
+registration, SMTP invitations, webhooks and runtime database information. All
+one hundred values required translation. Tests retain invitation placeholders
+and environment-variable names. This leaves 77,406 actionable values across 36
+languages, including 1,316 in Albanian.
 
 </details>
 
