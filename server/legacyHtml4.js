@@ -24,8 +24,10 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
+  removeAccessibleCardDependency,
   removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
+  saveAccessibleCardDependency,
   setAccessibleCardSticker,
   setAccessibleCardCustomFieldAssigned,
   setAccessibleCardLabel,
@@ -173,6 +175,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'remove-card-location', 'set-card-sticker', 'remove-card-sticker',
     'assign-card-custom-field', 'edit-card-custom-field',
     'edit-card-custom-field-checkbox',
+    'save-card-dependency', 'remove-card-dependency',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -569,6 +572,21 @@ WebApp.handlers.use(async (req, res, next) => {
             customFieldId: requestFields.customFieldId,
             value: requestFields.legacyOperation === 'edit-card-custom-field-checkbox'
               ? requestFields.customFieldValue === 'true' : requestFields.customFieldValue,
+          });
+        }
+        if (requestFields.legacyOperation === 'save-card-dependency') {
+          return saveAccessibleCardDependency(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            targetCardId: requestFields.targetCardId,
+            type: requestFields.dependencyType,
+            color: requestFields.dependencyColor,
+            icon: requestFields.dependencyIcon,
+          });
+        }
+        if (requestFields.legacyOperation === 'remove-card-dependency') {
+          return removeAccessibleCardDependency(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            targetCardId: requestFields.targetCardId,
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

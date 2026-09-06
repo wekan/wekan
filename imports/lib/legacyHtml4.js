@@ -223,6 +223,14 @@ function contentRows(path, options) {
         const inputs = (cell.inputs || []).map((input, index) => {
           const name = String(input.name || 'field');
           const id = `legacy-${name.replace(/[^a-z0-9_-]/gi, '')}-${suffix}-${index}`;
+          if (input.type === 'select') {
+            const options = (input.options || []).map(option => {
+              const value = String(option.value ?? '');
+              const selected = value === String(input.value ?? '') ? ' selected' : '';
+              return `<option value="${escapeHtml(value)}"${selected}>${escapeHtml(option.label)}</option>`;
+            }).join('');
+            return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><select id="${escapeHtml(id)}" name="${escapeHtml(name)}">${options}</select></p>`;
+          }
           const maximum = Number.isSafeInteger(input.maxlength) && input.maxlength > 0
             ? input.maxlength : 1000;
           return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="text" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"></p>`;

@@ -296,6 +296,17 @@ must consume the complete finite value; string-template values have item and
 aggregate limits. Formatting of string-template output is one isomorphic helper,
 and every update replaces one bounded copy of the array atomically.
 
+Card dependencies are links with text, not connector lines alone. HTML4 lists
+the target title, translated relation, icon name and six-digit color, links to
+the target card, and provides native add, edit and remove controls in source
+order. Its multi-field forms use the shared fieldset component with native
+selects, so type and icon choices do not depend on a popup or JavaScript. Jade
+and HTML4 call the same acknowledged operation rather than directly rewriting a
+client collection. The server binds the route card, resolves linked content,
+requires the target to be an active card on the same content board, allowlists
+relation and icon catalogs, accepts only a complete `#rrggbb` color, caps the
+array, refuses stale removals and replaces one canonical bounded array atomically.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

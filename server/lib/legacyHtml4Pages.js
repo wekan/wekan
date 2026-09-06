@@ -33,6 +33,10 @@ const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCard
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('/models/lib/importSources');
 const { COMMENT_REACTIONS, commentReaction } = require('/models/lib/commentReactionCatalog');
 const { STICKER_PICKER } = require('/models/metadata/stickers');
+const {
+  DEFAULT_DEPENDENCY_COLOR, DEFAULT_DEPENDENCY_ICON, DEPENDENCY_ICON_CHOICES,
+  DEPENDENCY_TYPES, normalizeDependencies,
+} = require('/models/metadata/dependencies');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
 const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('/models/lib/exportFields');
@@ -466,7 +470,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    sort: 1, stickers: 1, customFields: 1,
+    sort: 1, stickers: 1, customFields: 1, cardDependencies: 1,
     locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
@@ -491,7 +495,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     }, sort: { sort: 1 }, limit: 200,
   }).fetchAsync();
   const checklistIds = checklists.map(checklist => checklist._id);
-  const [comments, commentReactionDocs, checklistItems, attachments, customFieldDefinitions] = await Promise.all([
+  const dependencies = normalizeDependencies(contentCard?.cardDependencies);
+  const dependencyIds = dependencies.map(dependency => dependency.cardId);
+  const [comments, commentReactionDocs, checklistItems, attachments, customFieldDefinitions,
+    dependencyTargetCards, dependencyCandidateCards] = await Promise.all([
     CardComments.find({ cardId: contentCardId, boardId: contentBoardId }, {
       fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
       sort: { createdAt: 1 }, limit: 500,
@@ -509,6 +516,12 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     CustomFields.find({ boardIds: contentBoardId }, {
       fields: { name: 1, type: 1, settings: 1, alwaysOnCard: 1 },
       sort: { name: 1, _id: 1 }, limit: 500,
+    }).fetchAsync(),
+    Cards.find({ _id: { $in: dependencyIds }, boardId: contentBoardId, deletedAt: null }, {
+      fields: { title: 1 }, limit: 500,
+    }).fetchAsync(),
+    Cards.find({ boardId: contentBoardId, archived: { $ne: true }, deletedAt: null }, {
+      fields: { title: 1, sort: 1 }, sort: { title: 1, _id: 1 }, limit: 1000,
     }).fetchAsync(),
   ]);
   const personIds = [...new Set([
@@ -544,6 +557,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const customFields = buildCustomFieldsWD(
     contentCard?.customFields || [], customFieldDefinitions,
   );
+  const dependencyTargetById = new Map(dependencyTargetCards.map(target => [target._id, target]));
   const canWrite = await canEditCardOrLinkedCard(userId, card);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
@@ -690,6 +704,69 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         }
         rows.push({ rowHeader: false, cells: [editor, ''] });
       }
+    }
+    const dependencyTypeOptions = DEPENDENCY_TYPES.map(type => ({
+      value: type.id,
+      label: tr(translate, `dependency-type-${type.id}`, type.id),
+    }));
+    const dependencyIconOptions = DEPENDENCY_ICON_CHOICES.map(icon => ({
+      value: icon, label: icon,
+    }));
+    const dependencyAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+    for (const dependency of dependencies) {
+      const dependencyCard = dependencyTargetById.get(dependency.cardId);
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: dependencyAction,
+        legend: `${tr(translate, 'card-dependencies', 'Dependencies')}: `
+          + (dependencyCard?.title || dependency.cardId),
+        inputs: [
+          { type: 'select', name: 'dependencyType',
+            label: tr(translate, 'dependency-type', 'Dependency type'),
+            value: dependency.type, options: dependencyTypeOptions },
+          { name: 'dependencyColor', label: tr(translate, 'dependency-color', 'Dependency color'),
+            value: dependency.color, maxlength: 7 },
+          { type: 'select', name: 'dependencyIcon',
+            label: tr(translate, 'dependency-icon', 'Dependency icon'),
+            value: dependency.icon, options: dependencyIconOptions },
+        ],
+        fields: {
+          ...commonFields, legacyOperation: 'save-card-dependency',
+          targetCardId: dependency.cardId,
+        },
+        submitLabel: tr(translate, 'save', 'Save'), id: `dependency-${dependency.cardId}`,
+      }), uiAction({
+        action: dependencyAction,
+        label: tr(translate, 'remove-dependency', 'Remove dependency'), icon: 'remove',
+        fields: {
+          ...commonFields, legacyOperation: 'remove-card-dependency',
+          targetCardId: dependency.cardId,
+        },
+      })] });
+    }
+    const existingDependencyIds = new Set(dependencies.map(dependency => dependency.cardId));
+    const dependencyCandidates = dependencyCandidateCards
+      .filter(candidate => candidate._id !== contentCardId
+        && !existingDependencyIds.has(candidate._id))
+      .map(candidate => ({ value: candidate._id, label: candidate.title || candidate._id }));
+    if (dependencyCandidates.length) {
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: dependencyAction,
+        legend: tr(translate, 'add-dependency', 'Add dependency'),
+        inputs: [
+          { type: 'select', name: 'targetCardId',
+            label: tr(translate, 'card', 'Card'), options: dependencyCandidates },
+          { type: 'select', name: 'dependencyType',
+            label: tr(translate, 'dependency-type', 'Dependency type'),
+            value: DEPENDENCY_TYPES[0].id, options: dependencyTypeOptions },
+          { name: 'dependencyColor', label: tr(translate, 'dependency-color', 'Dependency color'),
+            value: DEFAULT_DEPENDENCY_COLOR, maxlength: 7 },
+          { type: 'select', name: 'dependencyIcon',
+            label: tr(translate, 'dependency-icon', 'Dependency icon'),
+            value: DEFAULT_DEPENDENCY_ICON, options: dependencyIconOptions },
+        ],
+        fields: { ...commonFields, legacyOperation: 'save-card-dependency' },
+        submitLabel: tr(translate, 'add-dependency', 'Add dependency'), id: 'dependency-new',
+      }), ''] });
     }
     for (const label of contentBoard?.labels || []) {
       const selected = (contentCard?.labelIds || []).includes(label._id);
@@ -880,6 +957,17 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       cells: [`${tr(translate, 'custom-fields', 'Custom Fields')}: ${field.definition.name}`,
         customFieldDisplayValue(field)],
     })),
+    ...dependencies.map(dependency => {
+      const dependencyCard = dependencyTargetById.get(dependency.cardId);
+      return {
+        color: dependency.color,
+        cells: [tr(translate, 'card-dependencies', 'Dependencies'), uiLink({
+          href: `${boardPath(contentBoard)}/${encodeURIComponent(dependency.cardId)}`,
+          label: `${dependency.icon}: ${dependencyCard?.title || dependency.cardId} - `
+            + tr(translate, `dependency-type-${dependency.type}`, dependency.type),
+        })],
+      };
+    }),
     ...locations.map(location => {
       const hasCoordinates = typeof location.latitude === 'number'
         && typeof location.longitude === 'number';

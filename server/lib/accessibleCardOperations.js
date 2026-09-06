@@ -15,12 +15,20 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { tripCanary } from '/server/lib/canary';
 import { CARD_COLORS } from '/models/metadata/colors';
 import { STICKER_PICKER } from '/models/metadata/stickers';
+import {
+  DEFAULT_DEPENDENCY_COLOR,
+  DEFAULT_DEPENDENCY_ICON,
+  DEPENDENCY_ICON_CHOICES,
+  DEPENDENCY_TYPE_IDS,
+  normalizeDependencies,
+} from '/models/metadata/dependencies';
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
 const MAX_CARD_LOCATIONS = 100;
 const MAX_CARD_STICKERS = 200;
 const MAX_CARD_CUSTOM_FIELDS = 500;
+const MAX_CARD_DEPENDENCIES = 500;
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -389,6 +397,63 @@ async function updateAccessibleCardCustomField(userId, input) {
   return true;
 }
 
+async function accessibleDependencyTarget(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const dependencies = normalizeDependencies(target.cardDependencies);
+  if (dependencies.length > MAX_CARD_DEPENDENCIES) {
+    throw new Meteor.Error('too-many-card-dependencies');
+  }
+  return { target, dependencies };
+}
+
+async function saveAccessibleCardDependency(userId, input) {
+  const { target, dependencies } = await accessibleDependencyTarget(userId, input);
+  const targetCardId = String(input?.targetCardId || '');
+  if (!targetCardId || targetCardId === target._id) {
+    throw new Meteor.Error('invalid-card-dependency');
+  }
+  const dependencyCard = await Cards.findOneAsync({
+    _id: targetCardId, boardId: target.boardId, archived: { $ne: true }, deletedAt: null,
+  }, { fields: { _id: 1 } });
+  if (!dependencyCard) {
+    refuseCardWrite(userId, 'dependency target did not belong to the active content board');
+  }
+  const type = String(input?.type || '');
+  const color = String(input?.color || '').toLowerCase();
+  const icon = String(input?.icon || '');
+  if (!DEPENDENCY_TYPE_IDS.includes(type) || !/^#[0-9a-f]{6}$/.test(color)
+    || !DEPENDENCY_ICON_CHOICES.includes(icon)) {
+    throw new Meteor.Error('invalid-card-dependency');
+  }
+  const index = dependencies.findIndex(dependency => dependency.cardId === targetCardId);
+  const entry = { cardId: targetCardId, type, color, icon };
+  if (index < 0) {
+    if (dependencies.length >= MAX_CARD_DEPENDENCIES) {
+      throw new Meteor.Error('too-many-card-dependencies');
+    }
+    dependencies.push(entry);
+  } else {
+    dependencies[index] = entry;
+  }
+  await Cards.updateAsync(target._id, { $set: { cardDependencies: dependencies } });
+  return true;
+}
+
+async function removeAccessibleCardDependency(userId, input) {
+  const { target, dependencies } = await accessibleDependencyTarget(userId, input);
+  const targetCardId = String(input?.targetCardId || '');
+  const index = dependencies.findIndex(dependency => dependency.cardId === targetCardId);
+  if (index < 0) throw new Meteor.Error('card-dependency-not-found');
+  dependencies.splice(index, 1);
+  await Cards.updateAsync(target._id, { $set: { cardDependencies: dependencies } });
+  return true;
+}
+
 async function updateAccessibleCardContent(userId, input) {
   const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
   const field = input?.field;
@@ -596,10 +661,12 @@ export {
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
+  removeAccessibleCardDependency,
   removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
   setAccessibleCardSticker,
   setAccessibleCardCustomFieldAssigned,
+  saveAccessibleCardDependency,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,

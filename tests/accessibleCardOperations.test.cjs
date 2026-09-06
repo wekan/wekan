@@ -159,6 +159,31 @@ test('all seven custom field types share one definition-driven write boundary', 
   assert.match(page, /customFieldDisplayValue/);
 });
 
+test('card dependencies share one catalog-bound acknowledged write boundary', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /MAX_CARD_DEPENDENCIES = 500/);
+  assert.match(source, /async function accessibleDependencyTarget/);
+  assert.match(source, /boardId: target\.boardId/);
+  assert.match(source, /DEPENDENCY_TYPE_IDS\.includes\(type\)/);
+  assert.match(source, /DEPENDENCY_ICON_CHOICES\.includes\(icon\)/);
+  assert.match(source, /\^#\[0-9a-f\]\{6\}\$/);
+  assert.match(source, /card-dependency-not-found/);
+  assert.match(methods, /async saveAccessibleCardDependency\(input\)/);
+  assert.match(methods, /async removeAccessibleCardDependency\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('saveAccessibleCardDependency'/);
+  assert.match(client, /Meteor\.callAsync\('removeAccessibleCardDependency'/);
+  assert.doesNotMatch(client, /card\.(?:addDependency|setDependencyProps|removeDependency)\(/);
+  assert.match(legacy, /legacyOperation === 'save-card-dependency'/);
+  assert.match(legacy, /legacyOperation === 'remove-card-dependency'/);
+  assert.match(page, /normalizeDependencies\(contentCard\?\.cardDependencies\)/);
+  assert.match(page, /dependencyTypeOptions/);
+  assert.match(page, /dependencyIconOptions/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

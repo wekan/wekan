@@ -41,8 +41,10 @@ import {
   moveAccessibleCard,
   moveAccessibleCardToList,
   removeAccessibleCardLocation,
+  removeAccessibleCardDependency,
   removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
+  saveAccessibleCardDependency,
   setAccessibleCardSticker,
   setAccessibleCardCustomFieldAssigned,
   setAccessibleCardLabel,
@@ -111,6 +113,16 @@ Meteor.methods({
   async setAccessibleCardCustomFieldAssigned(input) {
     check(input, Object);
     return setAccessibleCardCustomFieldAssigned(this.userId, input);
+  },
+
+  async saveAccessibleCardDependency(input) {
+    check(input, Object);
+    return saveAccessibleCardDependency(this.userId, input);
+  },
+
+  async removeAccessibleCardDependency(input) {
+    check(input, Object);
+    return removeAccessibleCardDependency(this.userId, input);
   },
 
   async updateAccessibleCardCustomField(input) {

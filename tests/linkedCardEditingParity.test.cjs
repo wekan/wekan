@@ -51,6 +51,10 @@ test('opened-card method calls send the source id', () => {
     /setAccessibleCardCustomFieldAssigned'[\s\S]*cardId: card\._id/);
   assert.match(customFields,
     /updateAccessibleCardCustomField'[\s\S]*cardId: card\._id/);
+  assert.match(details,
+    /saveAccessibleCardDependency'[\s\S]*cardId: card\._id/);
+  assert.match(details,
+    /removeAccessibleCardDependency'[\s\S]*cardId: card\._id/);
   assert.match(details, /Meteor\.call\('watch', 'card', currentCard\.getRealId\(\)/);
   assert.match(details, /Cards\.update\(currentCard\.getRealId\(\), \{ \$set: \{ showListOnMinicard/);
 });

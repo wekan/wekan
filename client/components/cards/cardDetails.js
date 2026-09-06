@@ -18,6 +18,22 @@ import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 // the source card + target id here when the picker is opened.
 let editingDependencyTargetId = null;
 let editingDependencyCard = null;
+
+function saveCardDependency(card, targetCardId, props = {}) {
+  if (!card || !targetCardId) return Promise.resolve();
+  const existing = (card.getDependencies ? card.getDependencies() : [])
+    .find(dependency => dependency.cardId === targetCardId);
+  return Meteor.callAsync('saveAccessibleCardDependency', {
+    cardId: card._id, boardId: card.boardId, targetCardId,
+    type: props.type ?? existing?.type ?? DEPENDENCY_TYPES[0].id,
+    color: props.color ?? existing?.color ?? DEFAULT_DEPENDENCY_COLOR,
+    icon: props.icon ?? existing?.icon ?? DEFAULT_DEPENDENCY_ICON,
+  });
+}
+
+function reportDependencyError(error) {
+  alert(error.reason || error.message || TAPi18n.__('server-error'));
+}
 import {
   setupDatePicker,
   datePickerRendered,
@@ -1137,30 +1153,44 @@ Template.cardDetails.events({
     Utils.goCardId(card.linkedId);
   },
   'click .js-add-dependency': Popup.open('cardDependencies'),
-  'click .js-remove-dependency'(event) {
+  async 'click .js-remove-dependency'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const targetId = event.currentTarget.dataset.targetId;
-    const card = Template.currentData();
+    const card = getCurrentCardFromContext();
     if (card && targetId) {
-      card.removeDependency(targetId);
+      try {
+        await Meteor.callAsync('removeAccessibleCardDependency', {
+          cardId: card._id, boardId: card.boardId, targetCardId: targetId,
+        });
+      } catch (error) {
+        reportDependencyError(error);
+      }
     }
   },
-  'change .js-dependency-type'(event) {
+  async 'change .js-dependency-type'(event) {
     if (!Utils.canModifyCard()) return;
     const targetId = event.currentTarget.dataset.targetId;
-    const card = Template.currentData();
+    const card = getCurrentCardFromContext();
     if (card && targetId) {
-      card.setDependencyProps(targetId, { type: event.currentTarget.value });
+      try {
+        await saveCardDependency(card, targetId, { type: event.currentTarget.value });
+      } catch (error) {
+        reportDependencyError(error);
+      }
     }
   },
-  'change .js-dependency-color'(event) {
+  async 'change .js-dependency-color'(event) {
     if (!Utils.canModifyCard()) return;
     const targetId = event.currentTarget.dataset.targetId;
-    const card = Template.currentData();
+    const card = getCurrentCardFromContext();
     if (card && targetId) {
-      card.setDependencyProps(targetId, { color: event.currentTarget.value });
+      try {
+        await saveCardDependency(card, targetId, { color: event.currentTarget.value });
+      } catch (error) {
+        reportDependencyError(error);
+      }
     }
   },
   'click .js-dependency-icon'(event) {
@@ -2898,16 +2928,21 @@ Template.cardDependenciesPopup.events({
   'change .js-new-dependency-color'(event) {
     Template.instance().newColor.set(event.currentTarget.value);
   },
-  'click .js-pick-dependency'(event) {
+  async 'click .js-pick-dependency'(event) {
     event.preventDefault();
     const tpl = Template.instance();
     const sourceCard = Template.currentData();
     const targetId = event.currentTarget.dataset.targetId;
     if (sourceCard && targetId) {
-      sourceCard.addDependency(targetId, {
-        type: tpl.newType.get(),
-        color: tpl.newColor.get(),
-      });
+      try {
+        await saveCardDependency(sourceCard, targetId, {
+          type: tpl.newType.get(), color: tpl.newColor.get(),
+          icon: DEFAULT_DEPENDENCY_ICON,
+        });
+      } catch (error) {
+        reportDependencyError(error);
+        return;
+      }
     }
     Popup.back();
   },
@@ -2923,14 +2958,19 @@ Template.cardDependencyIconPopup.helpers({
 });
 
 Template.cardDependencyIconPopup.events({
-  'click .js-pick-dependency-icon'(event) {
+  async 'click .js-pick-dependency-icon'(event) {
     event.preventDefault();
     // Use the source card captured when the picker was opened (the popup's own
     // data context is the dependency row, which has no setDependencyProps).
     const sourceCard = editingDependencyCard;
     const icon = event.currentTarget.dataset.icon || DEFAULT_DEPENDENCY_ICON;
     if (sourceCard && editingDependencyTargetId) {
-      sourceCard.setDependencyProps(editingDependencyTargetId, { icon });
+      try {
+        await saveCardDependency(sourceCard, editingDependencyTargetId, { icon });
+      } catch (error) {
+        reportDependencyError(error);
+        return;
+      }
     }
     editingDependencyTargetId = null;
     editingDependencyCard = null;

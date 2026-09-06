@@ -111,7 +111,9 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     );
     originalPermanentDelete = settingsDoc?.enablePermanentDelete;
     const cards = db.find('cards', { boardId: board.boardId });
+    const foreignDependencyTarget = db.find('cards', { boardId: outsiderBoard.boardId })[0];
     const due = cards.find(card => card.title === 'HTML4 Due');
+    const dependencyTarget = cards.find(card => card.title === 'HTML4 Searchable');
     const customFieldDefinitions = [
       [customFieldIds.text, 'HTML4 Text', 'text', {}],
       [customFieldIds.number, 'HTML4 Number', 'number', {}],
@@ -156,6 +158,9 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
           { _id: customFieldIds.dropdown, value: 'choice-a' },
           { _id: customFieldIds.stringtemplate, value: ['one', 'two'] },
         ],
+        cardDependencies: [{
+          cardId: dependencyTarget._id, type: 'related-to', color: '#eb144c', icon: 'link',
+        }],
       },
     });
     db.updateOne('users', { _id: user._id }, {
@@ -1435,6 +1440,55 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         .locator('input[type="submit"]').click(),
     ]);
     expect(customValue(customFieldIds.extra)).toBeNull();
+    const dependencyForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="save-card-dependency"])'
+      + `:has(input[name="targetCardId"][value="${dependencyTarget._id}"])`,
+    );
+    await expect(page.locator('tbody')).toContainText('HTML4 Searchable');
+    await dependencyForm().locator('select[name="dependencyType"]').selectOption('blocks');
+    await dependencyForm().locator('input[name="dependencyColor"]').fill('#123456');
+    await dependencyForm().locator('select[name="dependencyIcon"]').selectOption('bug');
+    await Promise.all([
+      page.waitForNavigation(), dependencyForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).cardDependencies[0]).toEqual({
+      cardId: dependencyTarget._id, type: 'blocks', color: '#123456', icon: 'bug',
+    });
+    await dependencyForm().locator('input[name="targetCardId"]')
+      .evaluate((input, id) => { input.value = id; }, foreignDependencyTarget._id);
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="save-card-dependency"])'
+        + `:has(input[name="targetCardId"][value="${foreignDependencyTarget._id}"]) input[type="submit"]`,
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).cardDependencies).toEqual([{
+      cardId: dependencyTarget._id, type: 'blocks', color: '#123456', icon: 'bug',
+    }]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    const removeDependencyForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="remove-card-dependency"])'
+      + `:has(input[name="targetCardId"][value="${dependencyTarget._id}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), removeDependencyForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).cardDependencies).toEqual([]);
+    const addDependencyForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="save-card-dependency"])'
+      + ':not(:has(input[name="targetCardId"][type="hidden"]))',
+    );
+    await addDependencyForm().locator('select[name="targetCardId"]')
+      .selectOption(dependencyTarget._id);
+    await addDependencyForm().locator('select[name="dependencyType"]')
+      .selectOption('is-blocked-by');
+    await Promise.all([
+      page.waitForNavigation(), addDependencyForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).cardDependencies[0]).toMatchObject({
+      cardId: dependencyTarget._id, type: 'is-blocked-by',
+      color: '#eb144c', icon: 'link',
+    });
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

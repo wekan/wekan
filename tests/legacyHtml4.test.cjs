@@ -44,6 +44,8 @@ test('shared fieldset component keeps related labelled fields in one form', () =
     inputs: [
       { label: 'Location name', name: 'locationName', value: 'Harbour', maxlength: 1000 },
       { label: 'Latitude', name: 'locationLatitude', value: '60.1', maxlength: 40 },
+      { type: 'select', label: 'Relation', name: 'dependencyType', value: 'blocks',
+        options: [{ value: 'related-to', label: 'Related' }, { value: 'blocks', label: 'Blocks' }] },
     ],
     fields: { legacyOperation: 'save-card-location', locationId: '' }, submitLabel: 'Save',
   });
@@ -54,6 +56,8 @@ test('shared fieldset component keeps related labelled fields in one form', () =
   assert.match(html, /<fieldset><legend>Location<\/legend>/);
   assert.match(html, /<label for="legacy-locationName-new-location-0">Location name<\/label>/);
   assert.match(html, /name="locationLatitude"[^>]*value="60\.1"/);
+  assert.match(html, /<label for="legacy-dependencyType-new-location-2">Relation<\/label>/);
+  assert.match(html, /<option value="blocks" selected>Blocks<\/option>/);
   assert.match(html, /name="legacyOperation" value="save-card-location"/);
   assert.equal((html.match(/name="locationName"/g) || []).length, 1);
   assert.equal((html.match(/name="locationLatitude"/g) || []).length, 1);
