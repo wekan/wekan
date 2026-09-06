@@ -20,8 +20,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1815,
-  'the first 300 actionable Albanian values stay translated');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1715,
+  'the first eight Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -203,6 +203,9 @@ assert.equal(albanian['cardType-linkedCard'], 'Kartë e lidhur');
 assert.equal(albanian['map-to-existing-user-no-results'],
   'Nuk u gjetën përdorues që përputhen.');
 assert.equal(albanian['auto-list-width'], 'Gjerësia automatike e listës');
+assert.equal(albanian['card-aging'], 'Vjetrimi i kartave (zbeh kartat e vjetra)');
+assert.equal(albanian['read-only'], 'Vetëm lexim');
+assert.equal(albanian['custom-field-currency'], 'Monedhë');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first 300 Albanian values passed');
+console.log('albanianTranslationProgress: first eight Albanian batches passed');
