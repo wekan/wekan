@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
-  'the first nineteen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1174,
+  'the first twenty 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -185,5 +185,10 @@ assert.match(tigre['checklist-count'], /0\/0/);
 assert.equal(tigre['delete-all-notifications-confirm'],
   'ኩሎም ምልክታታት ክትድምስስ ርግጸኛ ዲኻ? እዚ ትግባር ክምለስ ኣይክእልን።');
 assert.equal(tigre['parent-card'], 'ወላዲ ካርድ');
+assert.deepEqual(tokens(tigre['activity-set-customfield']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(tigre['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(tigre['r-import-done']), ['__count__']);
+assert.match(tigre['r-import-paste'], /JSON.*CSV.*Trello Butler/);
+assert.match(tigre['r-import-trello-note'], /Trello.*Butler/);
 
-console.log('tigreTranslationProgress: first nineteen batches passed');
+console.log('tigreTranslationProgress: first twenty batches passed');
