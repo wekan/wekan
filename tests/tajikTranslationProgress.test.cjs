@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2124,
-  'the first Tajik batch stays resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
+  'the first two Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -47,5 +47,15 @@ assert.deepEqual(tokens(tajik['act-removeChecklistItem']),
 assert.match(tajik['board-members-same-org-only'], /Ташкилот/);
 assert.match(tajik['board-members-same-team-only'], /Даста/);
 assert.equal(tajik['act-importBoard'], 'тахтаи __board__-ро ворид кард');
+assert.deepEqual(tokens(tajik['act-moveCard']),
+  ['__board__', '__card__', '__list__', '__oldList__', '__oldSwimlane__',
+    '__swimlane__']);
+assert.deepEqual(tokens(tajik['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(tajik['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(tajik['allboards.workspaces'], 'Фазоҳои корӣ');
+assert.match(tajik['allboards.edit-workspace-icon'], /markdown/);
 
-console.log('tajikTranslationProgress: first batch passed');
+console.log('tajikTranslationProgress: first two batches passed');
