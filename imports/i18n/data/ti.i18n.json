@@ -951,7 +951,7 @@
   "smtp-port-description": "ኣገልጋሊ SMTPኻ ንወጻኢ ኢመይላት ዝጥቀመሉ port።",
   "smtp-tls-description": "ንኣገልጋሊ SMTP ደገፍ TLS ኣኽእል",
   "smtp-host": "ኣአንጋዲ SMTP",
-  "smtp-port": "Port SMTP",
+  "smtp-port": "ወደብ SMTP",
   "smtp-username": "ስም ተጠቃሚ",
   "smtp-password": "መሕለፊ ቃል",
   "smtp-tls": "ደገፍ TLS",
