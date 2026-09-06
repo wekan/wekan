@@ -358,6 +358,23 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/600ee4b02">Import Trello ZIP packages from Legacy HTML4</a>. Thanks to xet7.</summary>
+
+The Trello import page now includes a distinct labelled ZIP upload form that
+works without JavaScript or cookies. After validating its one-use signed session,
+the server detects the real archive type and calls the existing Trello package
+importer instead of adding another ZIP implementation or database write path.
+
+The common importer rejects traversal and absolute entry names, excessive entries,
+oversized compressed, expanded or individual files, and packages without boards.
+Request attribution is retained through its nested Meteor context. The Admin Panel
+global import switch is now enforced by the original HTML5 Trello HTTP route too.
+Negative ZIP safety tests remain shared, while Playwright uploads a real generated
+archive through HTML4, verifies its board, and removes it afterward.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/78fc4794d">Import JSON and Excel files from Legacy HTML4</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 import pages now accept JSON and Excel files without JavaScript or
