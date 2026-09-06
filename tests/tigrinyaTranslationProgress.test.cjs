@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
-  'the first thirty-seven Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
+  'the first thirty-eight Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -286,5 +286,12 @@ assert.match(tigrinya['always-show-code-as-text-description'], /<!-- -->.*JavaSc
 assert.match(tigrinya['anonymize-import-users-description'], /user1, user2, \.\.\..*@username/s);
 assert.match(tigrinya['backup-description'],
   /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(tigrinya['backup-time'], /HH:MM/);
+assert.match(tigrinya['backup-day-of-month'], /1-28/);
+assert.match(tigrinya['gcs-permissions-note'],
+  /Google Cloud Console.*client_email.*Storage Object Admin/);
+assert.match(tigrinya['s3-endpoint-menu-path'],
+  /AWS.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
+assert.match(tigrinya['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
 
-console.log('tigrinyaTranslationProgress: first thirty-seven batches passed');
+console.log('tigrinyaTranslationProgress: first thirty-eight batches passed');
