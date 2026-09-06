@@ -281,8 +281,7 @@ only once before returning to the shell.
 
 This release fixes the following bugs:
 
-**Images** - external branding and board background sources become local, bounded
-GIF attachments in the configured Default Storage.
+**Images** - external images and document previews become local GIF attachments.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3a0079c9">Store searchable document text and GIF attachment previews</a>. Thanks to xet7.</summary>
