@@ -299,11 +299,24 @@ on the server. The first authorized read stores a `legacyOmiGif` attachment
 version in Admin Panel / Attachments / Default Storage; later reads reuse it,
 while changed original version metadata invalidates it. Input-byte and decoded-
 pixel limits, existing board authorization, attachment transfer limits and
-storage write permissions protect the conversion. Sharp stays external to the
-Rspack server bundle so its correct native library remains available on each
-platform. Positive and negative regression tests cover route classification,
+storage write permissions protect the conversion. Sharp is resolved by the
+Node runtime only when a GIF is requested, so its platform-native library is
+not evaluated while WeKan starts. Positive and negative regression tests cover route classification,
 same-URL enhancement, absence of User-Agent detection, escaping, bounded GIF
 conversion and selected default storage.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f2cb9fac">Keep a missing GIF converter from crashing Legacy Omi</a>. Thanks to xet7.</summary>
+
+The Sharp image converter is now loaded lazily through Node only when an
+authorized Omi image request needs conversion. Rspack can no longer evaluate a
+rewritten native-module loader during server startup and replace NetSurf's
+HTML4 sign-in page with Meteor App Error. A converter installation problem is
+contained to the requested image, while WeKan and every HTML4 page remain
+available. Live verification against `testi.wekan.fi/sign-in` now returns the
+HTML 4.01 sign-in form instead of the ARM64 Sharp startup failure.
 
 </details>
 
