@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1724,
-  'the first nine Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1674,
+  'the first ten Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -103,5 +103,17 @@ assert.equal(tigrinya['confirm-move-list-to-swimlane'],
 assert.equal(JSON.parse(tigrinya['copyManyCardsPopup-format']).length, 3);
 assert.match(tigrinya['copyManyCardsPopup-instructions'], /JSON/);
 assert.equal(tigrinya['custom-field-currency'], 'ባጤራ');
+assert.equal(tigrinya['custom-field-text'], 'ጽሑፍ');
+assert.deepEqual(tokens(tigrinya['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(tigrinya['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(tigrinya['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(tigrinya['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(tigrinya['error-json-malformed'], /JSON/);
+assert.match(tigrinya['error-csv-schema'], /CSV.*TSV/);
+assert.match(tigrinya['error-import-empty-board'], /WeKan/);
 
-console.log('tigrinyaTranslationProgress: first nine batches passed');
+console.log('tigrinyaTranslationProgress: first ten batches passed');
