@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b60a4649c">Add accessible HTML4 card completion and time</a>. Thanks to xet7.</summary>
+
+Card details now expose due completion and spent/overtime values without
+JavaScript or cookies. HTML4 uses a textual desired-state completion button, a
+labelled time and overtime fieldset and a distinct clear action, while retaining
+the board feature flag and natural Tab order.
+
+Jade and HTML4 call one acknowledged operation that binds route, linked-card and
+linked-board targets. It accepts only a real Boolean completion state and a
+complete non-negative finite time value, and writes time with its overtime state
+atomically. The Jade overtime selector no longer writes before Save, so cancelling
+the popup cannot leave a hidden partial change. Tests cover malformed time,
+completion, save, clear, linked-target policy and paired same-URL screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e33ce50a">Add accessible HTML4 planning poker</a>. Thanks to xet7.</summary>
 
 Planning Poker now preserves its audience, deadline, ten choices, current-user
