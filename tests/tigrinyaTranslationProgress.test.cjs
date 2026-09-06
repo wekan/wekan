@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1374,
-  'the first sixteen Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
+  'the first seventeen Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -150,5 +150,11 @@ assert.match(tigrinya['toggle-assignees'], /1-9/);
 assert.match(tigrinya['custom-top-left-corner-logo-height'], /27/);
 assert.match(tigrinya['automatic-linked-url-schemes'], /URL Schemes.*URL Scheme/);
 assert.equal(tigrinya['wipLimitErrorPopup-title'], 'ዘይቅቡል ደረት WIP');
+assert.match(tigrinya['attachment-transfer-limits-title'], /API/);
+assert.match(tigrinya['smtp-tls-description'], /SMTP.*TLS/);
+assert.deepEqual(tokens(tigrinya['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.equal(tigrinya.Database, 'ዳታቤዝ');
+assert.match(tigrinya['bidirectional-webhooks'], /Webhooks/);
 
-console.log('tigrinyaTranslationProgress: first sixteen batches passed');
+console.log('tigrinyaTranslationProgress: first seventeen batches passed');
