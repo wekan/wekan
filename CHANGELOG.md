@@ -307,6 +307,20 @@ styles.
 
 </details>
 
+**Board rules** - bulk actions use the same themed button style as rule actions.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a20728ed7">Theme Board Rules toolbar actions</a>. Thanks to xet7.</summary>
+
+Select all, unselect all, delete selected and export selected now use the same
+shared primary-button theme contract as View rule. Their resting, hover, focus
+and active colors therefore follow the selected theme together instead of the
+toolbar falling through to the generic button colors. Regression coverage
+checks all four actions against the shared View-rule style and rejects
+conflicting semantic color classes.
+
+</details>
+
 **Cards** - title-bar controls follow each card's contrast color.
 
 <details>
