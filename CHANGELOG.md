@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **75,540 values across 35 second-tier languages**. Southern
-Sotho has 1,574 left after its first eleven 50-value batches. Albanian and
+remaining work is **75,490 values across 35 second-tier languages**. Southern
+Sotho has 1,524 left after its first twelve 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first eleven activity, administration, email,
-validation, export, filter and board-import batches;
+translations** now cover their first twelve activity, administration, email,
+validation, export, board-import and Trello-control batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8576,6 +8576,18 @@ required translation. Tests prove that the translated multi-card JSON example
 remains parseable and pin representative role and currency terms. This leaves
 75,690 actionable values across 35 languages, including 1,724 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f03c0ff85">Translate Southern Sotho Trello import controls</a>. Thanks to xet7.</summary>
+
+The twelfth 50-value Southern Sotho batch adds safe Trello ZIP paths, direct API
+imports, destination workspaces, job cancellation and resumption, imported
+member mapping, version checks and date validation. All values required
+translation. Tests retain the API URL and product names and pin the four-digit
+year guidance. This leaves 75,490 actionable values across 35 languages,
+including 1,524 in Southern Sotho.
 
 </details>
 
