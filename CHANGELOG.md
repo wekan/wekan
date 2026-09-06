@@ -8137,9 +8137,17 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
+**Current snapshot after the Albanian activity/workspace batch:** all 198
+near-complete locale files have zero actionable untranslated values. The only
+remaining work is **78,120 values across 36 second-tier languages**. Albanian
+now has 2,066 left after its first 50-value batch. Bosnian is also complete:
+its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
+now classified as invariant instead of being replaced with a Croatian form just
+to make the counter reach zero.
+
 A release can go out at any point: an untranslated key renders its English
-source, never the key. What is worth doing before one is the near-complete half,
-because those languages are advertised as complete.
+source, never the key. The work now proceeds through the 36 whole-file-sized
+second-tier locales in resumable, tested batches.
 
 </details>
 
@@ -8245,12 +8253,9 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** **Albanian translations** now cover the first activity-history and
+workspace batch, every near-complete locale is complete again, and the remaining
+translation counter excludes the valid Bosnian technical loanword `Server`.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8262,6 +8267,26 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+and improves the translations:
+
+**Albanian** - activity history and workspace navigation.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47b560ccd">Translate first Albanian backlog batch</a>. Thanks to xet7.</summary>
+
+Fifty activity, checklist, board-selection and workspace strings are now in
+Albanian, with every `%s` and `__name__`-style placeholder preserved exactly.
+Regression coverage prevents the translated batch from returning to English and
+checks the complete token inventory. The backlog is now 78,120 actionable values
+across 36 whole-file-sized locales; all 198 near-complete locale files have no
+actionable gaps.
+
+The same change teaches the fill report that `Server` is an invariant technical
+loanword. This keeps the documented, valid Bosnian spelling instead of changing
+it to Croatian `Poslužitelj` merely to satisfy a counter.
+
+</details>
 
 # v11.53 2026-09-06 WeKan ® release
 
