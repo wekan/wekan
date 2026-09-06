@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,406 values across 36 second-tier languages**. Albanian
-now has 1,316 left after its first sixteen 50-value batches. Bosnian is also
+remaining work is **77,306 values across 36 second-tier languages**. Albanian
+now has 1,216 left after its first eighteen 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first sixteen activity,
-board, card, import, role, upload, email, webhook and system-setting batches;
+**In short:** **Albanian translations** now cover the first eighteen activity,
+board, card, import, system, organization, team and minicard-setting batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8383,6 +8383,19 @@ registration, SMTP invitations, webhooks and runtime database information. All
 one hundred values required translation. Tests retain invitation placeholders
 and environment-variable names. This leaves 77,406 actionable values across 36
 languages, including 1,316 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78f687014">Translate Albanian organization and card settings</a>. Thanks to xet7.</summary>
+
+The seventeenth and eighteenth 50-value Albanian batches add DDP and operating
+system diagnostics, custom-field display, account visibility, organization and
+team tenancy, card dates, destructive safeguards, subtask placement, minicard
+fields and label activity. All one hundred values required translation. Tests
+retain `MULTITENANCY=true`, `__board__` and every activity `%s` token. This
+leaves 77,306 actionable values across 36 languages, including 1,216 in
+Albanian.
 
 </details>
 
