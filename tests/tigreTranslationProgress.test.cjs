@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1574,
-  'the first twelve 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1524,
+  'the first thirteen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -136,5 +136,10 @@ assert.match(tigre['import-board-instruction-jira'],
   /Jira Cloud REST API.*GET \/rest\/api\/2\/search.*automationRules/s);
 assert.match(tigre['import-board-instruction-excel'], /WeKan.*\.xlsx.*Excel/s);
 assert.match(tigre['import-trello-json-file-hint'], /Trello API/);
+assert.match(tigre['trello-api-key'], /Trello API.*https:\/\/trello\.com\/app-key/);
+assert.match(tigre['trello-api-import-desc'], /token.*Trello API/);
+assert.match(tigre['trello-cancel-delete-confirm'], /ክምለስ ኣይክእልን/);
+assert.match(tigre['invalid-year'], /2026/);
+assert.equal(tigre.info, 'ስሪት');
 
-console.log('tigreTranslationProgress: first twelve batches passed');
+console.log('tigreTranslationProgress: first thirteen batches passed');
