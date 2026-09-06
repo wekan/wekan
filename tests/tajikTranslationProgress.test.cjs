@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1474,
-  'the first fourteen Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1424,
+  'the first fifteen Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -132,5 +132,12 @@ assert.deepEqual(tokens(tajik['leave-board-pop']), ['__boardTitle__']);
 assert.match(tajik['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
 assert.equal(tajik.menu, 'Меню');
 assert.equal(tajik.normal, 'Одатӣ');
+assert.deepEqual(tokens(tajik['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(tajik['page-maybe-private']),
+  ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(tajik['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.match(tajik['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
+assert.equal(tajik['sidebar-close'], 'Пӯшидани навори канорӣ');
 
-console.log('tajikTranslationProgress: first fourteen batches passed');
+console.log('tajikTranslationProgress: first fifteen batches passed');
