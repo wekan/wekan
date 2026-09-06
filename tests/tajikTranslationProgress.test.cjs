@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
-  'the first thirty-seven Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
+  'the first thirty-eight Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -295,5 +295,12 @@ assert.deepEqual(tags(tajik['render-links-as-plain-text-description']),
 assert.match(tajik['always-show-code-as-text-description'], /<!-- -->.*JavaScript/);
 assert.match(tajik['disable-all-import-description'], /GitHub.*Forgejo/);
 assert.match(tajik['backup-description'], /backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
+assert.match(tajik['backup-scope-description'], /ташкилот.*замима/);
+assert.match(tajik['backup-time'], /HH:MM/);
+assert.match(tajik['gcs-permissions-note'],
+  /Google Cloud Console.*client_email.*Storage Object Admin/);
+assert.match(tajik['s3-endpoint-menu-path'],
+  /AWS.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
+assert.match(tajik['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
 
-console.log('tajikTranslationProgress: first thirty-seven batches passed');
+console.log('tajikTranslationProgress: first thirty-eight batches passed');
