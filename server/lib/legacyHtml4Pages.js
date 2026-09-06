@@ -11,7 +11,9 @@ import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import getSlug from 'limax';
-const { UI_ICONS, uiAction, uiLink, uiSearchForm } = require('/imports/lib/uiComponentLibrary');
+const {
+  UI_ICONS, uiAction, uiLink, uiSearchForm, uiTextareaForm,
+} = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
@@ -448,6 +450,47 @@ async function importPage(path, userId, requestFields, translate) {
         icon: selectedFields.includes(part.field) ? 'select-on' : 'select-off',
       }),
     ] });
+    const result = requestFields.legacyImportResult;
+    if (result && typeof result === 'object' && result.ok === true && result.boardId) {
+      const importedBoard = await Boards.findOneAsync({ _id: result.boardId }, {
+        fields: { title: 1, slug: 1 },
+      });
+      if (importedBoard) rows.push({ cells: [tr(translate, 'import-done', 'Imported:'),
+        uiAction({ action: boardPath(importedBoard), label: importedBoard.title || 'Board' })] });
+    } else if (result && typeof result === 'object' && result.ok === false) {
+      const fallbacks = {
+        'error-json-malformed': 'Your text is not valid JSON',
+        'error-csv-schema': 'The CSV data is invalid',
+        'error-notAuthorized': 'Not authorized',
+        'import-file-too-large': 'The import text is too large',
+        'invalid-import-source': 'Unknown import source',
+      };
+      rows.push({ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, result.errorKey, fallbacks[result.errorKey] || 'Import failed')] });
+    }
+    if (selected.key === 'excel') {
+      rows.push({ cells: [tr(translate, 'import', 'Import'),
+        tr(translate, 'import-excel-file', 'Excel file (.xlsx)')] });
+    } else {
+      const issueSources = {
+        github: ['GitHub', 'GET /repos/OWNER/REPO/issues'],
+        gitlab: ['GitLab', 'GET /projects/ID/issues'],
+        gitea: ['Gitea', 'GET /repos/OWNER/REPO/issues'],
+        forgejo: ['Forgejo', 'GET /repos/OWNER/REPO/issues'],
+      };
+      const issue = issueSources[selected.key];
+      const instruction = issue
+        ? translate('import-board-instruction-issues', { sourceName: issue[0], endpoint: issue[1] })
+        : tr(translate, `import-board-instruction-${selected.key}`, 'Paste the exported data here.');
+      rows.push({ rowHeader: false, cells: [uiTextareaForm({
+        action: `/import/${selected.key}`,
+        label: `${instruction} ${tr(translate, 'import-board-instruction-about-errors', '')}`.trim(),
+        name: 'importText',
+        value: result?.ok === false ? String(requestFields.importText || '') : '',
+        fields: { importFields, legacyOperation: 'import-board-text' },
+        submitLabel: tr(translate, 'import', 'Import'),
+      }), ''] });
+    }
   }
   return {
     heading: selected

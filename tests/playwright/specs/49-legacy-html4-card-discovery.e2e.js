@@ -18,6 +18,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let templateBoard;
   let archivedBoard;
   let workspaceBoard;
+  let importedBoardId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -156,6 +157,32 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       .locator('input[type="hidden"][name="importFields"]')).not.toHaveValue(/comments/);
     await expect(page.locator('form:has(input[name="toggleImportField"][value="attachments"])')
       .locator('input[type="hidden"][name="importFields"]')).toHaveValue(/attachments/);
+    await page.locator('textarea[name="importText"]').fill('{ invalid json');
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[name="legacyOperation"][value="import-board-text"]) input[type="submit"]')
+        .click(),
+    ]);
+    await expect(page.locator('tbody')).toContainText('not valid JSON');
+    await expect(page.locator('textarea[name="importText"]')).toHaveValue('{ invalid json');
+
+    await open('/import/csv');
+    await page.locator('textarea[name="importText"]')
+      .fill('title,status\nHTML4 Imported Card,HTML4 Imported List');
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[name="legacyOperation"][value="import-board-text"]) input[type="submit"]')
+        .click(),
+    ]);
+    const importedCard = db.findOne('cards', { title: 'HTML4 Imported Card', userId: user._id });
+    expect(importedCard && importedCard.boardId).toBeTruthy();
+    importedBoardId = importedCard.boardId;
+    await expect(page.locator('tbody')).toContainText('Imported:');
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator(`form[action^="/b/${importedBoardId}/"] input[type="submit"]`).click(),
+    ]);
+    await expect(page.locator('tbody')).toContainText('HTML4 Imported Card');
     await open('/my-cards');
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');
@@ -236,6 +263,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (templateBoard) db.cleanup({ boardIds: [templateBoard.boardId] });
     if (archivedBoard) db.cleanup({ boardIds: [archivedBoard.boardId] });
     if (workspaceBoard) db.cleanup({ boardIds: [workspaceBoard.boardId] });
+    if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
     if (board) db.cleanup({ boardIds: [board.boardId] });
     if (user) db.cleanup({ userIds: [user._id] });
     await context.close();

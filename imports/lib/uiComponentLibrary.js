@@ -43,4 +43,10 @@ function uiSearchForm({ action, label, value = '' }) {
   return { component: 'search', action, label, value };
 }
 
-module.exports = { UI_ICONS, uiAction, uiControlLabel, uiIcon, uiLink, uiSearchForm };
+function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLabel }) {
+  return { component: 'textarea', action, label, name, value, fields, submitLabel };
+}
+
+module.exports = {
+  UI_ICONS, uiAction, uiControlLabel, uiIcon, uiLink, uiSearchForm, uiTextareaForm,
+};

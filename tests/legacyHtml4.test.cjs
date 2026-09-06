@@ -10,7 +10,9 @@ const {
   renderLegacyHtml4Page,
   safeColor,
 } = require('../imports/lib/legacyHtml4');
-const { UI_ICONS, uiControlLabel, uiIcon, uiSearchForm } = require('../imports/lib/uiComponentLibrary');
+const {
+  UI_ICONS, uiControlLabel, uiIcon, uiSearchForm, uiTextareaForm,
+} = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('../models/lib/exportFields');
@@ -156,6 +158,34 @@ test('HTML5 and HTML4 import pickers share one safe source registry', () => {
   assert.equal(toggleImportField(undefined, 'comments').includes('comments'), false);
   assert.deepEqual(toggleImportField('comments', 'not-a-real-field'), ['comments']);
   assert.match(pages, /fields: \{ importFields, toggleImportField: part\.field \}/);
+});
+
+test('HTML4 text imports use a bounded signed form and the shared import method', () => {
+  const root = path.join(__dirname, '..');
+  const operations = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Imports.js'), 'utf8');
+  const middleware = fs.readFileSync(path.join(root, 'server', 'legacyHtml4.js'), 'utf8');
+  assert.match(operations, /MAX_IMPORT_TEXT_BYTES = 5 \* 1024 \* 1024/);
+  assert.match(operations, /importSourceByKey\(source\)/);
+  assert.match(operations, /pruneImportDocument\(parseImportText\(source, input\), selected\)/);
+  assert.match(operations, /Meteor\.callAsync\('importBoard', document/);
+  assert.match(operations, /DDP\._CurrentMethodInvocation\.withValue/);
+  assert.match(middleware, /session && requestFields\.legacyOperation === 'import-board-text'/);
+
+  const html = renderLegacyHtml4Page('/import/csv', {
+    authenticated: true,
+    username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'Import', columns: ['Input', 'Action'], rows: [{ rowHeader: false,
+      cells: [uiTextareaForm({ action: '/import/csv', label: 'CSV input', name: 'importText',
+        value: '<unsafe>', fields: { legacyOperation: 'import-board-text' },
+        submitLabel: 'Import' }), ''] }] },
+  });
+  assert.match(html, /<label for="legacy-importText">CSV input<\/label>/);
+  assert.match(html, /<textarea[^>]+name="importText"[^>]*>&lt;unsafe&gt;<\/textarea>/);
+  assert.match(html, /name="legacyOperation" value="import-board-text"/);
+  assert.match(html, /name="authHash" value="b{64}"/);
 });
 
 test('card discovery pages scope reads to the authenticated user boards', () => {

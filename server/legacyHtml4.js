@@ -4,6 +4,7 @@ import Settings from '/models/settings';
 import { TAPi18n } from '/imports/i18n';
 import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
+import { importLegacyHtml4Text } from '/server/lib/legacyHtml4Imports';
 import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
@@ -54,12 +55,22 @@ WebApp.handlers.use(async (req, res, next) => {
   const setting = (await Settings.findOneAsync({})) || {};
   const language = requestLanguage(req);
   await TAPi18n.ensureLanguageLoaded(language);
-  const translate = key => TAPi18n.__(key, {}, language);
+  const translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
   const user = session ? await Meteor.users.findOneAsync(session.userId, {
     fields: { username: 1 },
   }) : null;
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
+  if (session && requestFields.legacyOperation === 'import-board-text') {
+    const source = /^\/import\/([^/]+)$/.exec(path)?.[1] || '';
+    requestFields.legacyImportResult = await importLegacyHtml4Text({
+      userId: session.userId,
+      source,
+      text: requestFields.importText,
+      fields: requestFields.importFields,
+      clientAddress: session.address,
+    });
+  }
   if (query.has('q')) requestFields.q = query.get('q');
   const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
 
