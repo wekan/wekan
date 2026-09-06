@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,390 values across 35 second-tier languages**. Southern
-Sotho has 424 left after its first thirty-four 50-value batches. Albanian and
+remaining work is **74,340 values across 35 second-tier languages**. Southern
+Sotho has 374 left after its first thirty-five 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first thirty-four activity, administration,
-automation, report, storage, support, accessibility and lockout batches;
+translations** now cover their first thirty-five activity, administration,
+automation, storage, accessibility, scheduled-job and migration batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3094dc52d">Translate Southern Sotho jobs and migrations</a>. Thanks to xet7.</summary>
+
+The thirty-fifth 50-value Southern Sotho batch adds board backup and cleanup,
+scheduled-job and migration controls, filesystem storage, S3 and Azure settings
+and MongoDB/FerretDB database migration. All values required translation. Tests
+retain the database placeholder, URLs, ports and environment variables and the
+MinIO, S3 and AWS names. This leaves 74,340 actionable values across 35
+languages, including 374 in Southern Sotho.
 
 </details>
 
