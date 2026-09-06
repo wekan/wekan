@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1574,
-  'the first twelve Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1524,
+  'the first thirteen Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -127,5 +127,11 @@ assert.match(tigrinya['import-board-instruction-jira'], /automationRules/);
 assert.match(tigrinya['import-board-instruction-excel'], /\.xlsx/);
 assert.match(tigrinya['import-trello-zip-file-hint'], /\.json.*\.zip/);
 assert.equal(tigrinya['filter-no-assignee'], 'ተመዳቢ የለን');
+assert.match(tigrinya['trello-api-key'], /https:\/\/trello\.com\/app-key/);
+assert.match(tigrinya['trello-api-import-desc'], /API/);
+assert.match(tigrinya['trello-cancel-delete-confirm'], /ክምለስ ኣይከኣልን/);
+assert.match(tigrinya['import-members-map-note'], /ተጠቃሚ/);
+assert.match(tigrinya['invalid-year'], /2026/);
+assert.equal(tigrinya['label-create'], 'ምልክት ፍጠር');
 
-console.log('tigrinyaTranslationProgress: first twelve batches passed');
+console.log('tigrinyaTranslationProgress: first thirteen batches passed');
