@@ -8137,14 +8137,15 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after starting Tigrinya:** all 200
+**Current snapshot after starting Tigre:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **69,618 values across 32 second-tier languages**. Southern
+remaining work is **69,568 values across 32 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Albanian and Bosnian are also complete:
-its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
+batch. Tigre has 2,124 left after its first 50-value batch. Albanian and
+Bosnian are also complete: Bosnian's final apparent gap, `Server`, is a normal
+technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
 to make the counter reach zero.
 
@@ -8259,7 +8260,8 @@ browser build to verify).
 **In short:** **Albanian, Southern Sotho, Tajik and Tigrinya translations** are
 complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
-backups and migrations;
+backups and migrations; **Tigre translations** cover their first activity
+batch;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8531,6 +8533,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/759f1a173">Start Tigre activity translations</a>. Thanks to xet7.</summary>
+
+The first 50-value Tigre batch adds board, card, attachment, label, checklist
+and comment activity messages. All values required translation. The wording
+uses the locale's established Tigre terms, with low confidence in some complex
+activity grammar pending human refinement. Tests retain every format and
+underscore placeholder and the locale-wide HTML tag inventory. This leaves
+69,568 actionable values across 32 languages, including 2,124 in Tigre.
 
 </details>
 
