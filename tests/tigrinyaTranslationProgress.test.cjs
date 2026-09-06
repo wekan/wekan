@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
-  'the first twenty-nine Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 674,
+  'the first thirty Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -237,5 +237,13 @@ assert.deepEqual(tokens(tigrinya['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(tigrinya['background-too-big']), ['{{size}}']);
 assert.equal(tigrinya['location-open-map'], 'ኣብ ካርታ ክፈት');
+assert.match(tigrinya['server-error-troubleshooting'],
+  /`sudo snap logs wekan\.wekan`.*`sudo docker logs wekan-app`/s);
+assert.deepEqual(tokens(tigrinya['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(tigrinya['custom-field-stringtemplate-separator'],
+  /&#32;.*&nbsp;/);
+assert.match(tigrinya['office-report-desc'], /IPv4.*IPv6/);
+assert.equal(tigrinya.securityReportTitle, 'ጸብጻብ ድሕነት');
 
-console.log('tigrinyaTranslationProgress: first twenty-nine batches passed');
+console.log('tigrinyaTranslationProgress: first thirty batches passed');
