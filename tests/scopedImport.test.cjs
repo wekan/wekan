@@ -196,7 +196,8 @@ test('the files come back too, from a .json and from a .zip', () => {
   assert.ok(/Buffer\.from\(attachment\.file, 'base64'\)/.test(importer),
     'from the base64 a .json carries');
   const zipRoute = read('models/importZip.js');
-  assert.ok(/entriesById\.set/.test(zipRoute) && /const attachmentStream/.test(zipRoute),
+  const zipArchive = read('server/lib/wekanZipArchive.js');
+  assert.ok(/attachmentEntries\.set/.test(zipArchive) && /attachmentStream\(attachment\)/.test(zipArchive),
     'and the streaming server route ties each archived file to its attachment row');
   assert.ok(/new ScopedImporter/.test(zipRoute),
     'so JSON and ZIP reach the same scoped importer');
@@ -236,11 +237,14 @@ test('a .zip is UPLOADED, not unpacked in the browser', () => {
 
 test('the upload route never holds the archive in memory', () => {
   const route = read('models/importZip.js');
+  const archive = read('server/lib/wekanZipArchive.js');
   assert.ok(/req\.pipe\(out\)/.test(route), 'the body is streamed to a temp file');
-  assert.ok(/unzipper\.Open\.file\(tempPath\)/.test(route),
+  assert.ok(/readWekanZipArchive\(tempPath/.test(route),
+    'the route delegates archive validation to the shared reader');
+  assert.ok(/unzipper\.Open\.file\(tempPath\)/.test(archive),
     'and the archive is read through its central directory, entry by entry');
-  assert.ok(/entry\.stream\(\)/.test(route), 'each attachment is opened as a stream');
-  assert.ok(!/\.buffer\(\)[\s\S]{0,80}attachment/i.test(route),
+  assert.ok(/entry\.stream\(\)/.test(archive), 'each attachment is opened as a stream');
+  assert.ok(!/\.buffer\(\)[\s\S]{0,80}attachment/i.test(archive),
     'attachments are never buffered whole - only the document is');
   assert.ok(/finally \{[\s\S]{0,120}unlink/.test(route), 'and the temp file always goes');
 });
@@ -256,8 +260,11 @@ test('an entry name is data, never a path (negative)', () => {
   // ZipBleed: `attachments/../../etc/cron.d/x` must be an attachment with a
   // strange name, not a write outside the storage.
   const route = read('models/importZip.js');
-  assert.ok(/ZipBleed/.test(route), 'the reason is written where the names are read');
-  assert.ok(/base\.slice\(0, dash\)/.test(route),
+  const archive = read('server/lib/wekanZipArchive.js');
+  assert.ok(/ZipBleed/.test(route), 'the reason is written at the upload boundary');
+  assert.ok(/safeArchivePath\(entry\.path\)/.test(archive),
+    'every central-directory name is rejected unless it is a safe relative path');
+  assert.ok(/match\[1\]\.slice\(0, dash\)/.test(archive),
     'only the id before the first dash is read from the entry name');
   const helper = read('models/lib/fileStoreStrategy.js');
   assert.ok(/sanitizeFilename\(fileName \|\| 'attachment'\)/.test(helper),
@@ -268,6 +275,8 @@ test('an uploaded attachment lands in the Admin Panel default storage', () => {
   const helper = read('models/lib/fileStoreStrategy.js');
   assert.ok(/collection\.addFile\(/.test(helper),
     'addFile, not write - a path rather than a Buffer');
+  assert.ok(/await collection\.addFile\([\s\S]*\}, true\)/.test(helper),
+    'Meteor-Files 3 Promise completion and its Default Storage hook are awaited');
   assert.ok(/onAfterUpload/.test(read('models/server/scopedImporter.js')),
     'and the importer says why: addFile fires the hook that moves it there');
   const attachments = read('models/attachments.server.js');

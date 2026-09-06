@@ -495,7 +495,8 @@ async function importPage(path, userId, requestFields, translate) {
           label: selected.key === 'wekan'
             ? tr(translate, 'import-wekan-file', 'Import from a .json export file:')
             : tr(translate, 'import-trello-json-file', 'Trello .json file'),
-          name: 'importFile', accept: '.json,application/json',
+          name: 'importFile', accept: selected.key === 'wekan'
+            ? '.json,.zip,application/json,application/zip' : '.json,application/json',
           fields: { importFields, legacyOperation: 'import-board-file' },
           submitLabel: tr(translate, 'import', 'Import'),
         }), ''],

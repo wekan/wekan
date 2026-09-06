@@ -3,10 +3,13 @@ import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import { pruneImportDocument } from '/models/lib/importParts';
 import { assertImportEnabled } from '/models/lib/importExportSecurity';
+import { withDeadline } from '/models/lib/withDeadline';
+import { WekanCreator } from '/models/wekanCreator';
 import { importZipBuffer } from '/server/routes/importTrelloZip';
 const { importSourceByKey } = require('/models/lib/importSources');
 const { parseImportFields } = require('/models/lib/exportFields');
 const { detectedFileMime } = require('/models/lib/fileTypeCorrection');
+const { readWekanZipArchive } = require('/server/lib/wekanZipArchive');
 
 const MAX_IMPORT_TEXT_BYTES = 5 * 1024 * 1024;
 
@@ -68,14 +71,33 @@ export async function importLegacyHtml4File({
   try {
     const detectedMime = await detectedFileMime(upload.tempPath);
     if (detectedMime === 'application/zip') {
-      if (source !== 'trello') throw new Meteor.Error('import-zip-must-stream-to-server');
       await assertImportEnabled();
-      const bytes = await fs.promises.readFile(upload.tempPath);
-      const imported = await DDP._CurrentMethodInvocation.withValue({
+      const invocation = {
         userId,
         connection: { clientAddress: String(clientAddress || '') },
-      }, async () => importZipBuffer(bytes, userId));
-      return { ok: true, boardId: imported.boardIds?.[0], boardIds: imported.boardIds || [] };
+      };
+      if (source === 'trello') {
+        const bytes = await fs.promises.readFile(upload.tempPath);
+        const imported = await DDP._CurrentMethodInvocation.withValue(invocation,
+          async () => importZipBuffer(bytes, userId));
+        return { ok: true, boardId: imported.boardIds?.[0], boardIds: imported.boardIds || [] };
+      }
+      if (source === 'wekan') {
+        const archive = await readWekanZipArchive(upload.tempPath, {
+          userId, ip: clientAddress,
+        });
+        const selected = parseImportFields(typeof fields === 'string' ? fields : undefined);
+        const document = pruneImportDocument(archive.doc, selected);
+        const creator = new WekanCreator({ membersMapping: {},
+          attachmentStream: archive.attachmentStream });
+        const timeout = Number.parseInt(process.env.WEKAN_IMPORT_TIMEOUT_MS, 10);
+        const boardId = await DDP._CurrentMethodInvocation.withValue(invocation,
+          async () => withDeadline(creator.create(document, null),
+            Number.isFinite(timeout) ? timeout : 120000,
+            () => new Meteor.Error('import-timeout', 'Import took too long and was aborted')));
+        return { ok: true, boardId };
+      }
+      throw new Meteor.Error('invalid-import-source');
     }
     const bytes = await fs.promises.readFile(upload.tempPath);
     const document = source === 'excel'

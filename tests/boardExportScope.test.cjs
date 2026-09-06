@@ -265,6 +265,8 @@ test('JSON and .zip are the same export in two shapes', () => {
     'and it carries no base64 file data, because the files are beside it');
   assert.ok(/archive\.append\(stream, \{ name: `attachments\//.test(zip),
     'each attachment is piped into the archive as the file it is');
+  assert.ok(/`\$\{attachment\._id\}-\$\{attachment\.name/.test(zip),
+    'each archive filename starts with the stable id the importer resolves');
   assert.ok(/getReadStream\(\)/.test(zip) && !/streamToBuffer/.test(zip),
     'piped, never buffered - that is the point of the .zip on a large board');
   assert.ok(/An unselected section is an EMPTY array/.test(exporter),

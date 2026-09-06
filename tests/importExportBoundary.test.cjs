@@ -88,12 +88,15 @@ test('neutralizes every spreadsheet formula prefix', () => {
 
 test('all import transports and export adapters use the common boundary', () => {
   for (const file of [
-    'models/import.js', 'models/importZip.js', 'server/trelloApiImport.js',
+    'models/import.js', 'server/lib/wekanZipArchive.js', 'server/trelloApiImport.js',
     'models/exporter.js', 'models/lib/externalExporters.js',
   ]) {
     const contents = fs.readFileSync(path.join(root, file), 'utf8');
     assert.ok(contents.includes('secureTransfer'), `${file} bypasses common boundary`);
   }
+  const zipRoute = fs.readFileSync(path.join(root, 'models/importZip.js'), 'utf8');
+  assert.match(zipRoute, /readWekanZipArchive\(tempPath/,
+    'ZIP route must pass through the shared secured archive reader');
   const wrapper = fs.readFileSync(path.join(root, 'server/lib/secureTransfer.js'), 'utf8');
   assert.ok(wrapper.includes('sanitizeTransferValue'));
   assert.ok(wrapper.includes("action: 'blocked'"));

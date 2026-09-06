@@ -1158,19 +1158,20 @@ export const addAttachmentFromStream = function(
 
     readStream.on('error', fail);
     writeStream.on('error', fail);
-    writeStream.on('finish', () => {
-      collection.addFile(
-        tempPath,
-        {
+    writeStream.on('finish', async () => {
+      try {
+        const fileRef = await collection.addFile(tempPath, {
           fileName: fileName || 'attachment',
           type: type || 'application/octet-stream',
           meta,
           userId,
           size,
           fileId: new ObjectId().toString(),
-        },
-        (err, fileRef) => (err ? fail(err) : resolve(fileRef)),
-      );
+        }, true);
+        resolve(fileRef);
+      } catch (error) {
+        fail(error);
+      }
     });
 
     readStream.pipe(writeStream);

@@ -89,7 +89,12 @@ class ExporterZip {
         // The id in the name is what ties the file back to its metadata row in
         // wekan.json, and what stops two attachments called "photo.png" from
         // being one file in the archive.
-        const desiredName = sanitizeDownloadFileName(attachment.name || attachment._id);
+        // The importer resolves metadata by the stable id before the first
+        // dash. Keep it in every archive entry; the visible attachment name is
+        // still sanitized and retains its detected extension after extraction.
+        const desiredName = sanitizeDownloadFileName(
+          `${attachment._id}-${attachment.name || attachment._id}`,
+        );
         let name = desiredName;
         for (let suffix = 1; archiveNames.has(name); suffix += 1) {
           name = numberedName(desiredName, suffix);

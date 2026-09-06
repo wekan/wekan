@@ -24,6 +24,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let workspaceBoard;
   let importedBoardId;
   let importedFileBoardId;
+  let importedWekanZipBoardId;
+  let importedWekanZipAttachmentId;
   let importedExcelBoardId;
   let importedTrelloZipBoardId;
   const childIds = {
@@ -196,6 +198,11 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await open('/allboards');
     await open('/import');
     await open('/import/wekan');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-import-wekan.png`, fullPage: true,
+      });
+    }
     const fileImportTitle = `HTML4 File Import ${suffix}`;
     const exportedAt = '2020-01-01T00:00:00.000Z';
     const fileExport = {
@@ -226,6 +233,65 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     expect(importedFileBoard && importedFileBoard._id).toBeTruthy();
     importedFileBoardId = importedFileBoard._id;
     await expect(page.locator('tbody')).toContainText(fileImportTitle);
+
+    await open('/import');
+    await open('/import/wekan');
+    const zipBoardTitle = `HTML4 WeKan ZIP ${suffix}`;
+    const zipAttachmentId = `zipattachment${suffix}`;
+    const zipCardId = `zip-card-${suffix}`;
+    const zipDocument = {
+      ...fileExport,
+      _id: `zip-board-${suffix}`,
+      title: zipBoardTitle,
+      cards: [{
+        ...fileExport.cards[0], _id: zipCardId, title: 'HTML4 WeKan ZIP Card',
+      }],
+      attachments: [{
+        _id: zipAttachmentId, cardId: zipCardId, name: 'zip-note.txt',
+        type: 'text/plain', size: 21, uploadedAt: exportedAt,
+      }],
+      activities: [{
+        _id: `zip-activity-${suffix}`, activityType: 'addAttachment',
+        attachmentId: zipAttachmentId, cardId: zipCardId,
+        userId: 'zip-source-user', createdAt: exportedAt,
+      }],
+    };
+    const unsafeZip = Buffer.from(zipSync({
+      '../wekan.json': strToU8(JSON.stringify({ ...zipDocument,
+        title: `UNSAFE ${zipBoardTitle}` })),
+    }));
+    await page.locator('input[type="file"][accept*=".zip"]').setInputFiles({
+      name: 'unsafe-wekan-export.zip', mimeType: 'application/zip', buffer: unsafeZip,
+    });
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[type="file"][accept*=".zip"]) input[type="submit"]').click(),
+    ]);
+    await expect(page.locator('tbody')).toContainText('Import failed');
+    expect(db.findOne('boards', { title: `UNSAFE ${zipBoardTitle}` })).toBeNull();
+
+    const wekanZip = Buffer.from(zipSync({
+      'wekan.json': strToU8(JSON.stringify(zipDocument)),
+      [`attachments/${zipAttachmentId}-zip-note.txt`]: strToU8('HTML4 ZIP attachment\n'),
+    }));
+    await page.locator('input[type="file"][accept*=".zip"]').setInputFiles({
+      name: 'wekan-export.zip', mimeType: 'application/zip', buffer: wekanZip,
+    });
+    await Promise.all([
+      page.waitForNavigation({ timeout: 60_000 }),
+      page.locator('form:has(input[type="file"][accept*=".zip"]) input[type="submit"]')
+        .click({ noWaitAfter: true }),
+    ]);
+    const importedZipBoard = db.findOne('boards', { title: zipBoardTitle });
+    expect(importedZipBoard && importedZipBoard._id).toBeTruthy();
+    importedWekanZipBoardId = importedZipBoard._id;
+    const importedZipAttachment = db.findOne('attachments', {
+      'meta.boardId': importedWekanZipBoardId, name: 'zip-note.txt',
+    });
+    expect(importedZipAttachment && importedZipAttachment._id).toBeTruthy();
+    expect(importedZipAttachment.size).toBe(21);
+    importedWekanZipAttachmentId = importedZipAttachment._id;
+    await expect(page.locator('tbody')).toContainText(zipBoardTitle);
 
     await open('/import');
     await open('/import/excel');
@@ -308,6 +374,13 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-import-trello.png`, fullPage: true,
       });
     }
+    await modern.goto(`${baseURL}/import/wekan`);
+    await expect(modern.getByRole('heading', { name: 'Import from:' })).toBeVisible();
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-import-wekan.png`, fullPage: true,
+      });
+    }
     await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
     await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due');
     await expect(modern.locator('.card-details')).toContainText('Semantic HTML4 card description');
@@ -319,6 +392,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       await modern.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-details.png`, fullPage: true,
       });
+    }
+    if (importedWekanZipAttachmentId) {
+      await modern.evaluate(async attachmentId => {
+        await Meteor.callAsync('api.attachment.delete', attachmentId);
+      }, importedWekanZipAttachmentId);
+      importedWekanZipAttachmentId = null;
     }
     await modernContext.close();
 
@@ -351,6 +430,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (workspaceBoard) db.cleanup({ boardIds: [workspaceBoard.boardId] });
     if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
     if (importedFileBoardId) db.cleanup({ boardIds: [importedFileBoardId] });
+    if (importedWekanZipAttachmentId) {
+      db.deleteOne('attachments', { _id: importedWekanZipAttachmentId });
+    }
+    if (importedWekanZipBoardId) db.cleanup({ boardIds: [importedWekanZipBoardId] });
     if (importedExcelBoardId) db.cleanup({ boardIds: [importedExcelBoardId] });
     if (importedTrelloZipBoardId) db.cleanup({ boardIds: [importedTrelloZipBoardId] });
     if (board) db.cleanup({ boardIds: [board.boardId] });
