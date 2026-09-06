@@ -54,7 +54,6 @@ import '/client/lib/dialogWithBoardSwimlaneList';
 import '/client/lib/dialogWithBoardSwimlaneListCard';
 import '/client/lib/dropImage';
 import '/client/lib/escapeActions';
-import '/client/lib/exportHTML';
 import '/client/lib/filter';
 import '/client/lib/fixDuplicateLists';
 import '/client/lib/i18n';

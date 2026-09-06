@@ -35,7 +35,8 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('attachmentUploadConfig:');
 
 test('the id is generated once and stamped into meta', () => {
-  assert.ok(/const fileId = new ObjectId\(\)\.toString\(\);/.test(lib), 'an id is made');
+  assert.ok(/const fileId = Random\.hexString\(24\);/.test(lib),
+    'a 24-hex id is made without loading BSON in the browser');
   assert.ok(/fileId,\n\s*fileName/.test(lib), 'the config carries it');
   assert.ok(/meta: \{ \.\.\.meta, fileId \}/.test(lib),
     'and meta carries the SAME one - which is where the naming function reads it');

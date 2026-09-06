@@ -978,7 +978,8 @@ Template.exportBoardPopup.helpers({
 Template.exportBoardPopup.events({
   'click .html-export-board': async event => {
     event.preventDefault();
-    await ExportHtml(Popup)();
+    const { default: createHtmlExport } = await import('/client/lib/exportHTML');
+    await createHtmlExport(Popup)();
   },
   // #3392: export the board's card dependency ("Red Strings") lines.
   'click .js-export-dependencies-json'(event) {

@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { ObjectId } from 'bson';
+import { Random } from 'meteor/random';
 import { sanitizeText } from '/imports/lib/secureDOMPurify';
 
 // The config every attachment upload has to be started with.
@@ -23,7 +23,9 @@ import { sanitizeText } from '/imports/lib/secureDOMPurify';
 // One builder, so a new uploader gets both by having asked for a config rather
 // than by remembering two things nothing would have told it about.
 export function buildAttachmentUploadConfig({ file, meta = {}, fileName }) {
-  const fileId = new ObjectId().toString();
+  // Meteor-Files needs one stable 24-hex id in fileId and meta.fileId. The
+  // browser does not need BSON's parser and polyfills merely to create it.
+  const fileId = Random.hexString(24);
   const config = {
     file,
     fileId,

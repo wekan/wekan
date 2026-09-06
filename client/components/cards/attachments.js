@@ -1,7 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import '/client/components/cards/attachments.jade';
 import { attachmentKind } from '/models/lib/attachmentKind';
-import { ObjectId } from 'bson';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
 import uploadProgressManager from '../../lib/uploadProgressManager';

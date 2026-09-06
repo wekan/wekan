@@ -215,9 +215,6 @@ Template.ganttView.onRendered(function() {
 
 });
 
-import markdownit from 'markdown-it';
 import { TAPi18n } from '/imports/i18n';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { ReactiveCache } from '/imports/reactiveCache';
-
-const md = markdownit({ breaks: true, linkify: true });

@@ -195,12 +195,11 @@ test('the files come back too, from a .json and from a .zip', () => {
   assert.ok(/_importAttachments\(\)/.test(importer), 'the importer writes attachments');
   assert.ok(/Buffer\.from\(attachment\.file, 'base64'\)/.test(importer),
     'from the base64 a .json carries');
-  assert.ok(/attachments\/<attachmentId>-<name>/.test(scopeJs)
-    || /attachment\.file = await archived\.async\('base64'\)/.test(scopeJs),
-    'and from the files a .zip carries, put back on the same field');
-  assert.ok(/one import path rather than one per container/.test(scopeJs)
-    || /one import path/.test(scopeJs),
-    'so the server sees one shape either way');
+  const zipRoute = read('models/importZip.js');
+  assert.ok(/entriesById\.set/.test(zipRoute) && /const attachmentStream/.test(zipRoute),
+    'and the streaming server route ties each archived file to its attachment row');
+  assert.ok(/new ScopedImporter/.test(zipRoute),
+    'so JSON and ZIP reach the same scoped importer');
 });
 
 test('an attachment lands where its card landed, not where it came from', () => {

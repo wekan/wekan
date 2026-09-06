@@ -1,6 +1,4 @@
-const JSZip = require('jszip');
-
-window.ExportHtml = Popup => {
+export default Popup => {
   const saveAs = function(blob, filename) {
     const dl = document.createElement('a');
     dl.href = window.URL.createObjectURL(blob);
@@ -46,54 +44,58 @@ window.ExportHtml = Popup => {
     }
   };
 
-  // Write the zip to disk WITHOUT holding the whole archive in memory. When the
-  // browser supports the File System Access API we pipe JSZip's internal stream
-  // straight to the chosen file, chunk by chunk, applying backpressure so a
-  // board with many attachments/covers never buffers the entire .zip in RAM.
-  // Older browsers fall back to the previous in-memory blob download.
+  const createZipEntries = () => {
+    const entries = [];
+    return { entries, file(name, value) { entries.push({ name, value }); } };
+  };
+
+  // Write one entry at a time with the same small ZIP implementation used by
+  // document conversion. Only old browsers without the File System Access API
+  // retain the completed archive in memory for a Blob download.
   const saveZipStreaming = async (zip, filename) => {
-    const genOpts = {
-      type: 'uint8array',
-      streamFiles: true,
-      compression: 'DEFLATE',
-      compressionOptions: { level: 6 },
-    };
+    const { Zip, ZipDeflate, strToU8 } = await import('fflate');
+    let writable = null;
     if (typeof window.showSaveFilePicker === 'function') {
-      let handle = null;
       try {
-        handle = await window.showSaveFilePicker({
+        const handle = await window.showSaveFilePicker({
           suggestedName: filename,
           types: [{ description: 'Zip archive', accept: { 'application/zip': ['.zip'] } }],
         });
+        writable = await handle.createWritable();
       } catch (e) {
-        // User dismissed the save dialog — nothing to do.
         if (e && e.name === 'AbortError') return;
-        handle = null; // any other failure → fall back to blob download
-      }
-      if (handle) {
-        const writable = await handle.createWritable();
-        await new Promise((resolve, reject) => {
-          const helper = zip.generateInternalStream(genOpts);
-          helper
-            .on('data', data => {
-              // Pause the zip stream until this chunk is flushed to disk.
-              helper.pause();
-              writable.write(data).then(() => helper.resume(), reject);
-            })
-            .on('error', reject)
-            .on('end', () => { writable.close().then(resolve, reject); })
-            .resume();
-        });
-        return;
       }
     }
-    // Fallback: build the blob in memory (older browsers only).
-    const content = await zip.generateAsync({
-      type: 'blob',
-      compression: 'DEFLATE',
-      compressionOptions: { level: 6 },
+    const chunks = [];
+    let writeChain = Promise.resolve();
+    let finish;
+    let fail;
+    const completed = new Promise((resolve, reject) => { finish = resolve; fail = reject; });
+    const archive = new Zip((error, data, final) => {
+      if (error) { fail(error); return; }
+      if (writable) writeChain = writeChain.then(() => writable.write(data));
+      else chunks.push(data);
+      if (final) writeChain.then(finish, fail);
     });
-    saveAs(content, filename);
+    try {
+      for (const entry of zip.entries) {
+        const file = new ZipDeflate(entry.name, { level: 6 });
+        archive.add(file);
+        let bytes;
+        if (entry.value instanceof Blob) bytes = new Uint8Array(await entry.value.arrayBuffer());
+        else if (entry.value instanceof Uint8Array) bytes = entry.value;
+        else bytes = strToU8(String(entry.value));
+        file.push(bytes, true);
+      }
+      archive.end();
+      await completed;
+      if (writable) await writable.close();
+      else saveAs(new Blob(chunks, { type: 'application/zip' }), filename);
+    } catch (error) {
+      archive.terminate();
+      if (writable) await writable.abort(error).catch(() => {});
+      throw error;
+    }
   };
 
   const getPageHtmlString = (clonedElement = null) => {
@@ -636,7 +638,7 @@ body { font-family: sans-serif !important; }
   };
 
   return async () => {
-    const zip = new JSZip();
+    const zip = createZipEntries();
     const boardSlug = getBoardSlug();
     const boardTitle = sanitizeFilename(getBoardTitle());
     const zipFilename = boardTitle || boardSlug;
