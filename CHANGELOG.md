@@ -342,6 +342,23 @@ forged destination on another user's board.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5791df505">Add accessible checklist item conversion</a>. Thanks to xet7.</summary>
+
+Checklist items can now be converted to cards from cookieless HTML4 through a
+shared card-destination component. Its native controls follow the same title,
+board, swimlane, list, optional relative card and above/below order as the Jade
+popup, retain the remembered destination and preserve natural Tab order.
+
+HTML5 no longer creates these cards with a direct client collection insert. One
+server operation binds the source checklist item to its card and board, validates
+the exact active destination and relative card, and applies normal card defaults,
+numbering, automatic custom fields and activity history. Tests cover valid and
+cross-board-refused conversion, remembered state, relative order and paired
+same-URL HTML4/HTML5 screenshots.
+
+</details>
+
 **Images** - external images and document previews become local GIF attachments.
 
 <details>
