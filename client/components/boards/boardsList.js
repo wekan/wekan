@@ -991,6 +991,8 @@ Template.boardList.helpers({
     const all = boardsForView(tpl);
     const info = pageInfo(all.length, tpl.tablePageVar.get());
     const page = all.slice(info.skip, info.skip + TABLE_PAGE_ROWS_PER_PAGE);
+    const selectedMenu = tpl.selectedMenu.get();
+    const canAddBoard = selectedMenu !== 'archive' && selectedMenu !== 'home';
     return {
       header: buildHeader(ALL_BOARDS_COLUMNS),
       rowTemplate: 'allBoardsRow',
@@ -1002,6 +1004,14 @@ Template.boardList.helpers({
       totalPages: info.totalPages,
       hasPrev: info.hasPrev,
       hasNext: info.hasNext,
+      actions: canAddBoard ? [{
+        id: 'add-board',
+        cls: 'js-add-board',
+        icon: 'fa-plus',
+        labelKey: selectedMenu === 'templates'
+          ? 'add-template-container'
+          : 'add-board',
+      }] : [],
       emptyKey: 'no-results',
     };
   },

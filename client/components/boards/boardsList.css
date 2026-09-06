@@ -1674,8 +1674,10 @@
   outline-offset: 2px;
 }
 
-/* Reset background for add-board button */
-.js-add-board {
+/* Reset the background of the add-board TILE. Table view also has a
+   `.js-add-board` action button; scoping this reset to the tile lets that button
+   use the same themed fill as the shared table actions and pager. */
+.board-list > .js-add-board {
   background-color: transparent !important;
   margin: 0 !important; /* grid gap spaces the tiles now (#6523) */
 }
@@ -2255,9 +2257,4 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
 .all-boards-row .all-boards-desc {
   white-space: normal;
   word-break: break-word;
-}
-.all-boards-table-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
 }

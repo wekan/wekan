@@ -363,6 +363,21 @@ test('the Table view is the shared table page', () => {
   assert.ok(/rowTemplate: 'allBoardsRow'/.test(js), 'with its own row template');
 });
 
+test('Table create action shares the compact themed controls row', () => {
+  assert.ok(!/all-boards-table-actions/.test(jade),
+    'the create action must not reserve a separate blank row below the title');
+  assert.ok(/actions: canAddBoard \? \[\{[\s\S]{0,220}cls: 'js-add-board'/.test(js),
+    'the create action is supplied to the shared table controls');
+  assert.ok(/selectedMenu === 'templates'[\s\S]{0,100}'add-template-container'/.test(js),
+    'Templates keeps its specific create label');
+
+  const css = read('client/components/boards/boardsList.css');
+  assert.ok(/\.board-list > \.js-add-board\s*\{[\s\S]{0,100}transparent !important/.test(css),
+    'only the Lists tile is transparent');
+  assert.ok(!/(^|\n)\.js-add-board\s*\{[\s\S]{0,100}transparent !important/.test(css),
+    'the Table action is not stripped of its themed background');
+});
+
 test('its columns are Edit, Board title, Board description', () => {
   const at = js.indexOf('const ALL_BOARDS_COLUMNS = [');
   const spec = js.slice(at, js.indexOf('];', at));
