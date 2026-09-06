@@ -285,6 +285,28 @@ This release fixes the following bugs:
 GIF attachments in the configured Default Storage.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3a0079c9">Store searchable document text and GIF attachment previews</a>. Thanks to xet7.</summary>
+
+PDF, DOCX, XLSX and PPTX previews are now generated on the server and cached in
+Default Storage. Plain Unicode text is stored without formatting in a separate
+unpublished `searchText` field, displayed as selectable text, and exposed to a
+board-authorized attachment-text search method. Embedded document images and PDF
+page imagery are converted to GIF; page controls browse the combined lightweight
+representation.
+
+Source bytes, decoded text, page count, archive entries and expanded OOXML data are
+all bounded. ZIP entries are streamed, malformed images do not suppress readable
+text, generated data is tied to the original checksum, and every manifest, image
+and search request repeats board-read authorization. The small conversion stack is
+MIT and Apache-2.0 only; no GPL, LibreOffice, Ghostscript, browser runtime or OCR
+dependency is added. Tests cover the storage split, authorization, regex escaping,
+selectable safe rendering, GIF routes, size limits, licenses and vulnerable-version
+exclusions. Sharp is updated to 0.35.4 so untrusted image decoding also receives the
+current libvips security fixes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f4aafa05c">Store branding and board background images locally as GIF</a>. Thanks to xet7.</summary>
 
 Admin Panel instance and Organization branding now offers image upload controls
