@@ -12,6 +12,7 @@ const htmlExport = read('client/lib/exportHTML.js');
 const gantt = read('client/components/gantt/gantt.js');
 const uploads = read('client/lib/attachmentUploadConfig.js');
 const attachments = read('client/components/cards/attachments.js');
+const trelloZip = read('server/routes/importTrelloZip.js');
 
 assert.doesNotMatch(imports, /import ['"]\/client\/lib\/exportHTML['"]/,
   'the uncommon HTML exporter is not part of every page bootstrap');
@@ -28,5 +29,9 @@ assert.match(uploads, /Random\.hexString\(24\)/,
   'attachment ids use the already-present Meteor random primitive');
 assert.doesNotMatch(`${uploads}\n${attachments}`, /from ['"]bson['"]/,
   'attachment UI does not load BSON merely to create or display an id');
+assert.doesNotMatch(trelloZip, /jszip|JSZip/i,
+  'Trello import shares the existing streaming server ZIP reader');
+assert.match(trelloZip, /unzipper\.Open\.buffer\(buffer\)/,
+  'Trello ZIP metadata and entries use the common server reader');
 
 console.log('clientLazyLoading: HTML export and its ZIP writer are action-loaded');
