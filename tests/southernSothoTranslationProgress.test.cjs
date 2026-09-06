@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
-  'the first seventeen Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1224,
+  'the first eighteen Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -119,5 +119,10 @@ assert.match(sesotho.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(sesotho.DDP_transport, /DDP_TRANSPORT/);
 assert.match(sesotho['org-domains-description'], /MULTITENANCY=true/);
 assert.equal(sesotho['org-admin'], 'Molaodi wa Mokgatlo');
+assert.deepEqual(tokens(sesotho['default-subtasks-board']), ['__board__']);
+assert.equal(sesotho['delete-board'], 'Hlakola boto');
+assert.equal(sesotho['checklist-count-on-minicard'],
+  'Palo ya dintho tsa lenane la tlhahlobo (0/0) kareteng e nyenyane');
+assert.equal(sesotho['parent-card'], 'Karete ya motswadi');
 
-console.log('southernSothoTranslationProgress: first seventeen batches passed');
+console.log('southernSothoTranslationProgress: first eighteen batches passed');
