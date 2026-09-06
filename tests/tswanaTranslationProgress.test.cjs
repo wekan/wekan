@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tn',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
-  'the first two 50-value Tswana batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2024,
+  'the first three 50-value Tswana batches stay resolved');
 
 for (const [key, value] of Object.entries(tswana)) {
   if (value !== english[key]) {
@@ -50,4 +50,10 @@ assert.deepEqual(tokens(tswana['activity-imported']), ['%s', '%s', '%s']);
 assert.equal(tswana['allboards.workspaces'], 'Mafelo a tiro');
 assert.match(tswana['allboards.edit-workspace-icon'], /markdown/);
 
-console.log('tswanaTranslationProgress: first two batches passed');
+assert.deepEqual(tokens(tswana['activity-dueDate']), ['%s', '%s']);
+assert.match(tswana['list-width-error-message'], /270/);
+assert.match(tswana['set-swimlane-height-value'], /dipiksele/);
+assert.equal(tswana['convertChecklistItemToCardPopup-title'],
+  'Fetolela go karata');
+
+console.log('tswanaTranslationProgress: first three batches passed');
