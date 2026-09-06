@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
-  'the first twenty-eight Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 674,
+  'the first twenty-nine Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -178,5 +178,13 @@ assert.deepEqual(tokens(sesotho['import-dependencies-done']),
 assert.deepEqual(tokens(sesotho['background-too-big']), ['{{size}}']);
 assert.match(sesotho['import-dependencies-file'], /JSON.*SVG/);
 assert.equal(sesotho.location, 'Sebaka');
+assert.deepEqual(tokens(sesotho['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(sesotho['custom-field-stringtemplate-separator'],
+  /&#32;.*&nbsp;/);
+assert.match(sesotho['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.match(sesotho['office-report-desc'], /IPv4.*IPv6/);
+assert.equal(sesotho.securityReportTitle, 'Tlaleho ya tshireletso');
 
-console.log('southernSothoTranslationProgress: first twenty-eight batches passed');
+console.log('southernSothoTranslationProgress: first twenty-nine batches passed');
