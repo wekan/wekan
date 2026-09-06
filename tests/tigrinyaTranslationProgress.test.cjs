@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1424,
-  'the first fifteen Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1374,
+  'the first sixteen Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -145,5 +145,10 @@ assert.deepEqual(tokens(tigrinya['remove-member-pop']),
   ['__boardTitle__', '__name__', '__username__']);
 assert.match(tigrinya['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.equal(tigrinya['signupPopup-title'], 'መለያ ፍጠር');
+assert.equal(tigrinya.team, 'ጉጅለ');
+assert.match(tigrinya['toggle-assignees'], /1-9/);
+assert.match(tigrinya['custom-top-left-corner-logo-height'], /27/);
+assert.match(tigrinya['automatic-linked-url-schemes'], /URL Schemes.*URL Scheme/);
+assert.equal(tigrinya['wipLimitErrorPopup-title'], 'ዘይቅቡል ደረት WIP');
 
-console.log('tigrinyaTranslationProgress: first fifteen batches passed');
+console.log('tigrinyaTranslationProgress: first sixteen batches passed');
