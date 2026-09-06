@@ -284,7 +284,7 @@ This release fixes the following bugs:
 **Images** - external images and document previews become local GIF attachments.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f3a0079c9">Store searchable document text and GIF attachment previews</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/818b57421">Store searchable document text and GIF attachment previews</a>. Thanks to xet7.</summary>
 
 PDF, DOCX, XLSX and PPTX previews are now generated on the server and cached in
 Default Storage. Plain Unicode text is stored without formatting in a separate
@@ -306,7 +306,7 @@ current libvips security fixes.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f4aafa05c">Store branding and board background images locally as GIF</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1b9080bad">Store branding and board background images locally as GIF</a>. Thanks to xet7.</summary>
 
 Admin Panel instance and Organization branding now offers image upload controls
 instead of editable external image URL fields. Every upload is authorized, bounded,
@@ -331,7 +331,7 @@ and import behavior.
 **Browser loading** - uncommon tools load only when their action needs them.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8f1ee8324">Lazy-load browser export code and share its ZIP implementation</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d1b262d29">Lazy-load browser export code and share its ZIP implementation</a>. Thanks to xet7.</summary>
 
 HTML export and its ZIP writer now load only after the HTML Export action is
 clicked. The direct JSZip dependency is removed; export uses the same small MIT
@@ -344,7 +344,7 @@ duplicate ZIP library from returning, and cover the import/export paths.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/66b7b6318">Share the streaming ZIP reader with Trello imports</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cda021ba2">Share the streaming ZIP reader with Trello imports</a>. Thanks to xet7.</summary>
 
 Trello package import no longer relies on an undeclared JSZip copy. It uses the
 same server-side `unzipper` reader as the bounded backup and scoped-import paths,
@@ -358,7 +358,7 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5bf1d37b0">Reuse existing translated labels throughout HTML4 pages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0be47674c">Reuse existing translated labels throughout HTML4 pages</a>. Thanks to xet7.</summary>
 
 The HTML4 renderer now uses the established `skip-to-content`, `username`,
 permission, empty-board, card and account-error vocabulary instead of requesting
@@ -370,7 +370,7 @@ and its controllers and requires it to exist in the English source catalogue.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/96b494510">Add semantic HTML4 page controllers and upper-left board view</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/50ae1d6e1">Add semantic HTML4 page controllers and upper-left board view</a>. Thanks to xet7.</summary>
 
 Every WeKan document URL now has a compact, frame-free HTML4 page with one
 content table instead of falling through to an empty Meteor shell. The shared
@@ -391,7 +391,7 @@ HTML escaping, rejected CSS injection and the shared color palette.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/85e88ea3e">Make Legacy HTML4 sign-up functional without cookies</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d7bfb0afa">Make Legacy HTML4 sign-up functional without cookies</a>. Thanks to xet7.</summary>
 
 The HTML4 account-creation form now uses the guarded `/users/register` route and
 honours the Admin Panel registration setting. A successful registration returns
@@ -408,7 +408,7 @@ tokens; the test account and session were removed afterward.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/426b505ec">Make Legacy HTML4 sign-in functional without cookies</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/229865679">Make Legacy HTML4 sign-in functional without cookies</a>. Thanks to xet7.</summary>
 
 The HTML4 sign-in form now submits to WeKan's existing password, LDAP, two-factor,
 timing-normalization and brute-force-protected login route. A successful login
@@ -427,7 +427,7 @@ refusal.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/43a1a0e5e">Match Legacy HTML4 sign-in branding and translations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f468c9b9a">Match Legacy HTML4 sign-in branding and translations</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 sign-in now reads the same Settings document and TAPi18n catalogue
 as the HTML5 form. Product name, logo visibility and link, text below the logo,
@@ -449,7 +449,7 @@ malicious URL schemes, conversion wiring and Default Storage persistence.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/774878a46">Add the progressive Legacy HTML4 HTML4 baseline</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/98dfb1452">Add the progressive Legacy HTML4 HTML4 baseline</a>. Thanks to xet7.</summary>
 
 Every WeKan page URL now first returns a usable HTML 4.01 document. A small
 external behavioral probe loads the Meteor representation at the same URL only
@@ -473,7 +473,7 @@ conversion and selected default storage.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8f2cb9fac">Keep a missing GIF converter from crashing Legacy HTML4</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/46ecd9dfe">Keep a missing GIF converter from crashing Legacy HTML4</a>. Thanks to xet7.</summary>
 
 The Sharp image converter is now loaded lazily through Node only when an
 authorized Legacy HTML4 image request needs conversion. Rspack can no longer evaluate a
@@ -488,7 +488,7 @@ HTML 4.01 sign-in form instead of the ARM64 Sharp startup failure.
 **Sign in and sign up** - keyboard navigation follows the writing fields.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9a4c17545">Fix authentication form keyboard navigation</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9fb3d91d9">Fix authentication form keyboard navigation</a>. Thanks to xet7.</summary>
 
 Tab now moves directly from each sign-in or sign-up writing field to the next
 one below it without stopping on a show/hide-password control. The controls
@@ -503,7 +503,7 @@ successful account creation.
 reliably.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fbbf73250">Fix the Meteor client test bundle</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e80c92f1e">Fix the Meteor client test bundle</a>. Thanks to xet7.</summary>
 
 The isomorphic change-history integrity helper now computes synchronous SHA-256
 without importing Node `crypto`, so client tests no longer pull in
@@ -520,7 +520,7 @@ from recursively restarting port cleanup.
 variables.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/84dddf8fa">Document Admin Panel email configuration</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9161c20b3">Document Admin Panel email configuration</a>. Thanks to xet7.</summary>
 
 Snap help, every current Docker Compose example, Unix and Windows start scripts,
 and the VirtualBox launcher now explain above `MAIL_URL` that enabling **Enable
