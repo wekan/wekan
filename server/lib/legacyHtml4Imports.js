@@ -5,11 +5,16 @@ import { pruneImportDocument } from '/models/lib/importParts';
 import { assertImportEnabled } from '/models/lib/importExportSecurity';
 import { withDeadline } from '/models/lib/withDeadline';
 import { WekanCreator } from '/models/wekanCreator';
+import Boards from '/models/boards';
+import Cards from '/models/cards';
+import Checklists from '/models/checklists';
 import { importZipBuffer } from '/server/routes/importTrelloZip';
 const { importSourceByKey } = require('/models/lib/importSources');
 const { parseImportFields } = require('/models/lib/exportFields');
 const { detectedFileMime } = require('/models/lib/fileTypeCorrection');
 const { readWekanZipArchive } = require('/server/lib/wekanZipArchive');
+const { BOARD_EXPORT_FIELD_KEYS } = require('/models/lib/exportFields');
+const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
 
 const MAX_IMPORT_TEXT_BYTES = 5 * 1024 * 1024;
 
@@ -104,6 +109,64 @@ export async function importLegacyHtml4File({
       ? { excelBase64: bytes.toString('base64') }
       : parseImportText(source, bytes.toString('utf8'));
     return await invokeImport({ userId, source, document, fields, clientAddress });
+  } catch (error) {
+    return publicImportError(error);
+  }
+}
+
+export async function importLegacyHtml4ScopedFile({
+  userId, target, upload, fields, clientAddress,
+}) {
+  if (!userId) return { ok: false, errorKey: 'error-notAuthorized' };
+  if (!upload?.tempPath) return { ok: false, errorKey: 'error-json-malformed' };
+  try {
+    await assertImportEnabled();
+    const [user, board, card, checklist] = await Promise.all([
+      Meteor.users.findOneAsync(userId, { fields: { _id: 1 } }),
+      Boards.findOneAsync(target.boardId),
+      Cards.findOneAsync({ _id: target.cardId, boardId: target.boardId }),
+      Checklists.findOneAsync({
+        _id: target.checklistId, boardId: target.boardId, cardId: target.cardId,
+      }),
+    ]);
+    if (!user || !board || !board.isVisibleBy(user)
+      || !allowIsBoardMemberWithWriteAccess(userId, board) || !card || !checklist) {
+      throw new Meteor.Error('forbidden');
+    }
+    const selected = [...new Set((Array.isArray(fields) ? fields : [fields])
+      .filter(value => typeof value === 'string'))]
+      .filter(field => BOARD_EXPORT_FIELD_KEYS.includes(field));
+    const detectedMime = await detectedFileMime(upload.tempPath);
+    let document;
+    let attachmentStream = null;
+    if (detectedMime === 'application/zip') {
+      const archive = await readWekanZipArchive(upload.tempPath, {
+        userId, ip: clientAddress,
+      });
+      document = archive.doc;
+      attachmentStream = archive.attachmentStream;
+    } else {
+      const bytes = await fs.promises.readFile(upload.tempPath);
+      document = parseImportText('wekan', bytes.toString('utf8'));
+    }
+    const safeDocument = require('/server/lib/secureTransfer').secureTransfer(document, {
+      direction: 'import', source: 'import:wekan-scoped-html4', userId, ip: clientAddress,
+    });
+    if (safeDocument._format && safeDocument._format !== 'wekan-board-1.0.0') {
+      throw new Meteor.Error('invalid-format');
+    }
+    pruneImportDocument(safeDocument, selected.length ? selected : null);
+    const { ScopedImporter } = require('/models/server/scopedImporter');
+    const importer = new ScopedImporter(target, safeDocument, {
+      userId, fields: selected.length ? selected : null, attachmentStream,
+    });
+    const timeout = Number.parseInt(process.env.WEKAN_IMPORT_TIMEOUT_MS, 10);
+    const counts = await DDP._CurrentMethodInvocation.withValue({
+      userId, connection: { clientAddress: String(clientAddress || '') },
+    }, async () => withDeadline(importer.run(),
+      Number.isFinite(timeout) ? timeout : 120000,
+      () => new Meteor.Error('import-timeout', 'Import took too long and was aborted')));
+    return { ok: true, counts };
   } catch (error) {
     return publicImportError(error);
   }

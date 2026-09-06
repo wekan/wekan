@@ -86,6 +86,7 @@ function sessionHiddenFields(fields) {
     ['authAction', fields.authAction],
     ['authCounter', fields.authCounter],
     ['authHash', fields.authHash],
+    ...(fields.authPurpose ? [['authPurpose', fields.authPurpose]] : []),
   ].map(([name, value]) => `<input type="hidden" name="${name}" value="${escapeHtml(value)}">`).join('\n');
 }
 
@@ -253,7 +254,25 @@ function contentRows(path, options) {
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
           `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
         const accept = cell.accept ? ` accept="${escapeHtml(cell.accept)}"` : '';
-        return `<form method="post" action="${escapeHtml(cell.action)}" enctype="multipart/form-data">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" type="file"${accept}></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
+        const sections = (cell.sections || []).map((section, index) => {
+          const sectionId = `${id}-section-${index}`;
+          return `<p><input id="${escapeHtml(sectionId)}" name="importField" type="checkbox" value="${escapeHtml(section.value)}"${section.selected === false ? '' : ' checked'}><label for="${escapeHtml(sectionId)}">${escapeHtml(section.label)}</label></p>`;
+        }).join('');
+        return `<form method="post" action="${escapeHtml(cell.action)}" enctype="multipart/form-data">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.label)}</legend>${sections}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" type="file"${accept}></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></fieldset></form>`;
+      }
+      if (cell && typeof cell === 'object' && cell.component === 'export') {
+        const suffix = String(cell.fields?.checklistId || cell.fields?.cardId || '')
+          .replace(/[^a-z0-9_-]/gi, '');
+        const formatId = `legacy-export-format-${suffix}`;
+        const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const formats = (cell.formats || []).map(format =>
+          `<option value="${escapeHtml(format.value)}">${escapeHtml(format.label)}</option>`).join('');
+        const sections = (cell.sections || []).map((section, index) => {
+          const id = `legacy-export-section-${suffix}-${index}`;
+          return `<p><input id="${escapeHtml(id)}" name="exportFields" type="checkbox" value="${escapeHtml(section.value)}"${section.selected === false ? '' : ' checked'}><label for="${escapeHtml(id)}">${escapeHtml(section.label)}</label></p>`;
+        }).join('');
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action, `download:${suffix}`))}${extra}<fieldset><legend>${escapeHtml(cell.label)}</legend>${sections}<p><label for="${escapeHtml(formatId)}">${escapeHtml(cell.label)}</label><br><select id="${escapeHtml(formatId)}" name="exportFormat">${formats}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></fieldset></form>`;
       }
       if (cell && typeof cell === 'object' && cell.action) {
         return postForm(cell.action, cell.label, options.actionFields(cell.action), cell.fields, cell.icon);

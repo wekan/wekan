@@ -311,6 +311,7 @@ Template.checklistActionsPopup.helpers({
 
 Template.checklistActionsPopup.events({
   'click .js-export-checklist': Popup.open('exportChecklist'),
+  'click .js-import-checklist': Popup.open('importChecklist', { titleKey: 'import' }),
   'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', async function () {
     Popup.back(2);
     const checklist = this.checklist;

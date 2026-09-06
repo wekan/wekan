@@ -56,8 +56,12 @@ function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLa
   return { component: 'textarea', action, label, name, value, fields, submitLabel, id };
 }
 
-function uiFileForm({ action, label, name, accept = '', fields = {}, submitLabel }) {
-  return { component: 'file', action, label, name, accept, fields, submitLabel };
+function uiFileForm({ action, label, name, accept = '', sections = [], fields = {}, submitLabel }) {
+  return { component: 'file', action, label, name, accept, sections, fields, submitLabel };
+}
+
+function uiExportForm({ action, label, formats = [], sections = [], fields = {}, submitLabel }) {
+  return { component: 'export', action, label, formats, sections, fields, submitLabel };
 }
 
 function uiCardDestinationForm({ action, titleLabel, titleName = 'cardTitle', titleValue = '',
@@ -72,6 +76,6 @@ function uiCardDestinationForm({ action, titleLabel, titleName = 'cardTitle', ti
 }
 
 module.exports = {
-  UI_ICONS, uiAction, uiCardDestinationForm, uiControlLabel, uiFileForm, uiIcon,
+  UI_ICONS, uiAction, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon,
   uiLink, uiSearchForm, uiSelectForm, uiTextForm, uiTextareaForm,
 };

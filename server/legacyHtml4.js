@@ -3,12 +3,15 @@ import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import Settings from '/models/settings';
 import { TAPi18n } from '/imports/i18n';
-import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml4Session';
+import {
+  consumeLegacyHtml4DownloadSession,
+  consumeLegacyHtml4Session,
+  sessionFields,
+} from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
 import {
-  copyAccessibleChecklist,
-  convertAccessibleChecklistItemToCard,
   importLegacyHtml4File,
+  importLegacyHtml4ScopedFile,
   importLegacyHtml4Text,
 } from '/server/lib/legacyHtml4Imports';
 import {
@@ -29,6 +32,7 @@ import {
   updateAccessibleComment,
 } from '/server/lib/accessibleCommentOperations';
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
+import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
 import {
   copyAccessibleChecklist,
   convertAccessibleChecklistItemToCard,
@@ -89,7 +93,9 @@ WebApp.handlers.use(async (req, res, next) => {
     }
   }
   if (req.method === 'POST' && req.body?.legacySession) {
-    session = await consumeLegacyHtml4Session(req, path);
+    session = req.body?.legacyOperation === 'export-checklist'
+      ? await consumeLegacyHtml4DownloadSession(req, path)
+      : await consumeLegacyHtml4Session(req, path);
     if (!session) {
       await removeLegacyHtml4Upload(multipartUpload);
       try {
@@ -132,6 +138,33 @@ WebApp.handlers.use(async (req, res, next) => {
     'delete-checklist-item', 'move-checklist-item-up', 'move-checklist-item-down',
     'convert-checklist-item-to-card',
   ];
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'export-checklist') {
+    try {
+      await serveLegacyHtml4ChecklistExport({
+        res,
+        userId: session.userId,
+        boardId: requestFields.boardId,
+        cardId: requestFields.cardId,
+        checklistId: requestFields.checklistId,
+        format: requestFields.exportFormat,
+        exportFields: requestFields.exportFields,
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-export', {
+          req, userId: session.userId,
+          detail: `refused HTML4 checklist export: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      if (!res.headersSent) {
+        res.statusCode = error?.error === 'forbidden' ? 403 : 400;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('Checklist export denied.');
+      } else res.end();
+    }
+    return;
+  }
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-delete-comment') {
     requestFields.confirmCommentDelete = String(requestFields.commentId || '');
@@ -311,6 +344,32 @@ WebApp.handlers.use(async (req, res, next) => {
       clientAddress: session.address,
     });
   }
+  if (session && multipartUpload && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'import-checklist-file') {
+    requestFields.legacyImportResult = await importLegacyHtml4ScopedFile({
+      userId: session.userId,
+      target: {
+        boardId: requestFields.boardId,
+        cardId: requestFields.cardId,
+        checklistId: requestFields.checklistId,
+      },
+      upload: multipartUpload,
+      fields: requestFields.importField,
+      clientAddress: session.address,
+    });
+    if (!requestFields.legacyImportResult?.ok
+      && requestFields.legacyImportResult?.errorKey === 'forbidden') {
+      try {
+        require('/server/lib/securityLog').record({
+          category: 'authz', bleed: 'ImportBleed', severity: 'high',
+          action: 'blocked', source: 'legacyHtml4:checklist-import', req,
+          userId: session.userId,
+          detail: 'refused checklist import with mismatched board, card or checklist scope',
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+    requestFields.legacyCardResult = requestFields.legacyImportResult;
+  }
   if (session && multipartUpload && requestFields.legacyOperation === 'import-board-file') {
     const source = /^\/import\/([^/]+)$/.exec(path)?.[1] || '';
     requestFields.legacyImportResult = await importLegacyHtml4File({
@@ -343,7 +402,7 @@ WebApp.handlers.use(async (req, res, next) => {
     authenticated: Boolean(session),
     username: user?.username || '',
     sessionFields: session ? sessionFields(session, '/allboards') : null,
-    actionFields: action => session ? sessionFields(session, action) : null,
+    actionFields: (action, purpose) => session ? sessionFields(session, action, purpose) : null,
     page,
     language,
     translate,

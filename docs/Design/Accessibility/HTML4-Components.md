@@ -75,6 +75,8 @@ retain one cell per declared column.
 | Text field | name, label, value, limits | associated `label` and native input | existing form partial |
 | Select field | name, label, selected value, bounded options | associated `label`, native `select` and submit button | native select in the existing Jade form |
 | Card destination | title, board/swimlane/list/card insertion point, relative position | one labelled form in natural Tab order with native selects | shared card destination picker in the Jade popup |
+| Scoped export | part selection, format, board/card/checklist identity | signed POST fieldset with native checkboxes and format select | shared reactive export popup and format catalogue |
+| Scoped file import | part selection, accepted formats, destination identity | bounded multipart fieldset with native checkboxes and one file input | shared import-mode popup with JSON/ZIP picker |
 | Status | severity and text | textual prefix and table row | themed status component |
 
 ## Color contract
@@ -125,7 +127,7 @@ the generic baseline. It is updated with every implementation batch.
 | --- | --- |
 | `/sign-in`, `/sign-up` | Complete cookieless account forms |
 | `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated readers with Starred, Remaining, Templates, Home, Archive and nested Workspace filtering; mutations remain |
-| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls. Comment-capable members can add comments and replies; parent text is explicit, while authors and permitted admins can edit or confirm-delete them. Reactions use the shared safe catalog and authorized toggle service, with ASCII state, count and member names. Core checklist creation, rename, ordering, settings, item state, copy/move destination, item-to-card and confirm-delete operations use the same authorized services as HTML5; HTML4 renders progress and state in text. Remaining card fields, checklist import/export and attachment content remain |
+| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls. Comment-capable members can add comments and replies; parent text is explicit, while authors and permitted admins can edit or confirm-delete them. Reactions use the shared safe catalog and authorized toggle service, with ASCII state, count and member names. Core checklist creation, rename, ordering, settings, item state, copy/move destination, item-to-card, scoped import/export and confirm-delete operations use the same authorized services and transfer formats as HTML5; HTML4 renders progress and state in text. Remaining card fields and attachment content remain |
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |

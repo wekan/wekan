@@ -11,7 +11,7 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiCardDestinationForm, uiControlLabel, uiFileForm, uiIcon, uiSearchForm,
+  UI_ICONS, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon, uiSearchForm,
   uiSelectForm, uiTextareaForm, uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
@@ -202,7 +202,7 @@ test('HTML4 file imports stream bounded multipart data to private temporary file
   assert.match(multipart, /require\('@fastify\/busboy'\)/);
   assert.equal(manifest.dependencies['@fastify/busboy'], '^3.2.2');
   assert.equal(lock.packages['node_modules/@fastify/busboy'].license, 'MIT');
-  assert.match(multipart, /files: 1, fields: 20, parts: 21/);
+  assert.match(multipart, /files: 1, fields: 40, parts: 41/);
   assert.match(multipart, /fileSize: MAX_MULTIPART_FILE_BYTES/);
   assert.match(multipart, /createWriteStream\(tempPath, \{ flags: 'wx', mode: 0o600 \}\)/);
   assert.match(multipart, /fieldName !== 'importFile' \|\| upload/);
@@ -432,6 +432,78 @@ test('HTML4 checklist destinations are bounded, labelled and carry board plus ca
   assert.match(pages, /name: 'targetCardRef'[\s\S]*?legacyOperation: 'move-checklist-to-card'/);
   assert.match(pages, /name: 'targetCardRef'[\s\S]*?legacyOperation: 'copy-checklist-to-card'/);
   assert.match(pages, /uiCardDestinationForm\([\s\S]*?convert-checklist-item-to-card/);
+});
+
+test('HTML4 checklist export is a signed POST with the same formats and sections', () => {
+  const component = uiExportForm({
+    action: '/b/board/slug/card', label: 'Export',
+    formats: ['pdf', 'xlsx', 'json', 'json-no-attachments', 'zip']
+      .map(value => ({ value, label: value })),
+    sections: [{ value: 'checklists', label: 'Checklists' }],
+    fields: { boardId: 'board', cardId: 'card', checklistId: 'checklist',
+      legacyOperation: 'export-checklist' },
+  });
+  const html = renderLegacyHtml4Page('/b/board/slug/card', {
+    authenticated: true, username: 'alice',
+    actionFields: (action, purpose) => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '2', authHash: 'b'.repeat(64), authPurpose: purpose }),
+    page: { heading: 'Card', columns: ['Card', 'Action'], rows: [{ cells: [component, ''] }] },
+  });
+  assert.match(html, /<form method="post" action="\/b\/board\/slug\/card">/);
+  assert.match(html, /name="legacySession"/);
+  assert.match(html, /name="authPurpose" value="download:checklist"/);
+  assert.match(html, /name="legacyOperation" value="export-checklist"/);
+  assert.match(html, /name="exportFields" type="checkbox" value="checklists" checked/);
+  for (const format of ['pdf', 'xlsx', 'json', 'json-no-attachments', 'zip']) {
+    assert.match(html, new RegExp(`value="${format}"`));
+  }
+  assert.doesNotMatch(html, /authToken=|legacySession=/);
+
+  const root = path.join(__dirname, '..');
+  const handler = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4ScopedExport.js'), 'utf8');
+  assert.match(handler, /Checklists\.findOneAsync\(\{ _id: checklistId, boardId, cardId \}\)/);
+  assert.match(handler, /!board\.isVisibleBy\(user\) \|\| !card \|\| !checklist/);
+  assert.match(handler, /new ExporterBoardPDF/);
+  assert.match(handler, /new ExporterExcelBoard/);
+  assert.match(handler, /new ExporterZip/);
+  assert.match(handler, /await exporter\.buildStream\(res\)/);
+  const sessions = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Session.js'), 'utf8');
+  assert.match(sessions, /consumeLegacyHtml4DownloadSession/);
+  assert.match(sessions, /consumedDownloads: \{ \$ne: supplied \}/);
+  assert.match(sessions, /\$push: \{ consumedDownloads: supplied \}/);
+  const middleware = fs.readFileSync(path.join(root, 'server', 'legacyHtml4.js'), 'utf8');
+  assert.match(middleware,
+    /legacyOperation === 'export-checklist'[\s\S]*consumeLegacyHtml4DownloadSession/);
+});
+
+test('HTML4 checklist import is bounded, scoped and uses the shared importer', () => {
+  const root = path.join(__dirname, '..');
+  const multipart = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Multipart.js'), 'utf8');
+  const imports = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Imports.js'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Pages.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client', 'components', 'boards',
+    'exportScope.jade'), 'utf8');
+  const checklistJs = fs.readFileSync(path.join(root, 'client', 'components', 'cards',
+    'checklists.js'), 'utf8');
+  assert.match(multipart, /\/\^\\\/b\\\/\[\^\/\]\+\\\/\[\^\/\]\+\\\/\[\^\/\]\+\$\//);
+  assert.match(multipart, /name !== 'importField'/);
+  assert.match(pages, /legacyOperation: 'import-checklist-file'/);
+  assert.match(pages, /sections: BOARD_EXPORT_FIELDS\.map/);
+  assert.match(imports,
+    /Checklists\.findOneAsync\(\{\s*_id: target\.checklistId, boardId: target\.boardId, cardId: target\.cardId/);
+  assert.match(imports, /allowIsBoardMemberWithWriteAccess\(userId, board\)/);
+  assert.match(imports, /secureTransfer\(document/);
+  assert.match(imports, /readWekanZipArchive\(upload\.tempPath/);
+  assert.match(imports, /new ScopedImporter\(target, safeDocument/);
+  assert.match(imports, /withDeadline\(importer\.run\(\)/);
+  assert.match(jade, /template\(name="importChecklistPopup"\)/);
+  assert.match(checklistJs,
+    /'click \.js-import-checklist': Popup\.open\('importChecklist', \{ titleKey: 'import' \}\)/);
 });
 
 test('authenticated navigation gives every HTML4 destination its translated name', () => {

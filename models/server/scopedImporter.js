@@ -63,6 +63,14 @@ class ScopedImporter {
 
   _now() { return new Date(); }
 
+  _denyTarget(error, detail) {
+    require('/server/lib/securityLog').record({
+      category: 'authz', bleed: 'ImportBleed', severity: 'high', action: 'blocked',
+      source: 'scoped-import', userId: this._userId, detail,
+    });
+    throw new Meteor.Error(error, detail);
+  }
+
   // The document's arrays, defensively: a hand-edited file is a file somebody
   // will import, and an undefined `cards` should not be a stack trace.
   _rows(key) {
@@ -88,9 +96,11 @@ class ScopedImporter {
       _id: this._target.checklistId,
       boardId: board._id,
     });
-    if (!target) throw new Meteor.Error('checklist-not-found', 'Checklist not found');
+    if (!target) this._denyTarget('checklist-not-found',
+      'refused scoped import with a checklist outside the destination board');
     const targetCard = await ReactiveCache.getCard({ _id: target.cardId, boardId: board._id });
-    if (!targetCard) throw new Meteor.Error('card-not-found', 'Checklist card not found');
+    if (!targetCard) this._denyTarget('card-not-found',
+      'refused scoped import with a checklist outside the destination card');
     if (!this.hasField('checklists')) return;
 
     const incoming = this._rows('checklists');

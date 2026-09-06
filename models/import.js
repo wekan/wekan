@@ -31,6 +31,16 @@ function recordAnonymousImportAttempt(method, connection) {
   });
 }
 
+function recordImportAuthorizationDenied(method, invocation, detail) {
+  if (!Meteor.isServer) return;
+  require('/server/lib/securityLog').record({
+    category: 'authz', bleed: 'ImportBleed', severity: 'high', action: 'blocked',
+    source: `ddp:${method}`, userId: invocation?.userId,
+    ip: invocation?.connection?.clientAddress,
+    detail,
+  });
+}
+
 function sanitizeImported(value, source, invocation) {
   if (!Meteor.isServer) return value;
   return require('/server/lib/secureTransfer').secureTransfer(value, {
@@ -171,8 +181,12 @@ Meteor.methods({
     if (!board) throw new Meteor.Error('board-not-found', 'Board not found');
     // Importing WRITES to this board, so it is not the export's "can you see
     // it": it is "may you change it".
-    if (!board.isVisibleBy(await ReactiveCache.getCurrentUser())
-      || !board.isBoardMember()) {
+    const currentUser = await ReactiveCache.getCurrentUser();
+    const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
+    if (!board.isVisibleBy(currentUser)
+      || !allowIsBoardMemberWithWriteAccess(userId, board)) {
+      recordImportAuthorizationDenied('importScoped', this,
+        'refused scoped import without board write access');
       throw new Meteor.Error('forbidden', 'Not allowed to import into this board');
     }
     if (doc._format && doc._format !== 'wekan-board-1.0.0') {

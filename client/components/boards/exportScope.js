@@ -281,8 +281,8 @@ function resolvedFormatGroups() {
 // refuses to do anything.
 function canImportIntoBoard() {
   const user = ReactiveCache.getCurrentUser();
-  return Boolean(user && !user.isWorker && !user.isCommentOnly
-    && !user.isReadOnly && !user.isReadAssignedOnly);
+  return Boolean(user && !user.isWorker() && !user.isCommentOnly()
+    && !user.isReadOnly() && !user.isReadAssignedOnly());
 }
 Template.registerHelper('canImportIntoBoard', canImportIntoBoard);
 

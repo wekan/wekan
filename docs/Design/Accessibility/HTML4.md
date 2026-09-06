@@ -232,7 +232,23 @@ board. The server authorizes both source and destination before the first write,
 resolves linked-card content targets, recalculates destination order and updates
 the denormalized card and board identities on the checklist, its items and its
 activities. Copying whitelists checklist and item fields rather than cloning an
-untrusted document. Checklist import/export remains separate parity work.
+untrusted document.
+
+Checklist import and export use the same part catalogue, document format and
+scope as the Jade popup. HTML4 renders a labelled native fieldset with section
+checkboxes and PDF, Excel, JSON, JSON-without-attachments and ZIP choices. A
+download is returned directly by its signed, single-use POST; neither the
+cookieless session nor a reusable login token enters a URL. The server binds the
+submitted checklist to its exact card and board before any exporter runs.
+Import accepts only one bounded multipart JSON or ZIP upload, streams it to a
+private temporary file, applies the common transfer sanitizer and import feature
+switch, and runs the shared scoped importer under a deadline. The destination
+board must grant write access, and checklist, card and board identities are
+bound together before the first write. HTML5 exposes distinct Export and Import
+rows and uses the same checklist scope instead of silently falling back to a
+whole-board transfer. Missing write permission and mismatched board, card or
+checklist identities are recorded with the available account, address and
+request context in Admin Panel / Problems / Security.
 
 Item-to-card conversion uses the shared card-destination component: title first,
 then one bounded board/swimlane/list/card insertion-point selector, relative

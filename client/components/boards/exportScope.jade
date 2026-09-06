@@ -95,7 +95,7 @@ template(name="exportListPopup")
   +exportScopeBody(listId=_id title=title)
 
 template(name="exportChecklistPopup")
-  +exportScopeBody(checklistId=_id title=title)
+  +exportScopeBody(checklistId=checklist._id title=checklist.title)
 
 //- The IMPORT half of each menu. Same body, same table, same selection - the
   mode decides whether the second pane offers the formats to write out or the
@@ -109,3 +109,6 @@ template(name="importListPopup")
 
 template(name="importCardPopup")
   +exportScopeBody(cardId=_id listId=listId title=title mode="import")
+
+template(name="importChecklistPopup")
+  +exportScopeBody(checklistId=checklist._id title=checklist.title mode="import")

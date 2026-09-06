@@ -18,7 +18,7 @@ import {
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
-  UI_ICONS, uiAction, uiCardDestinationForm, uiFileForm, uiLink, uiSearchForm,
+  UI_ICONS, uiAction, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiSelectForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
@@ -477,9 +477,44 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     const checklistFields = {
       boardId: card.boardId, cardId: card._id, checklistId: checklist._id,
     };
+    const checklistTransferFields = {
+      boardId: contentBoardId, cardId: contentCardId, checklistId: checklist._id,
+    };
     rows.push({ cells: [tr(translate, 'checklist', 'Checklist'),
       `${checklist.title || ''} (${finished}/${items.length})`] });
+    rows.push({ rowHeader: false, cells: [uiExportForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'export', 'Export'),
+      formats: [
+        { value: 'pdf', label: 'PDF' },
+        { value: 'xlsx', label: 'Excel' },
+        { value: 'json', label: 'JSON' },
+        { value: 'json-no-attachments', label: `JSON (${tr(translate,
+          'export-board-without-attachments', 'without attachments')})` },
+        { value: 'zip', label: `.zip (${tr(translate, 'attachments', 'Attachments')})` },
+      ],
+      sections: [
+        { value: 'card-details', label: tr(translate, 'export-card-details', 'Card details') },
+        ...BOARD_EXPORT_FIELDS.map(section => ({
+          value: section.field,
+          label: tr(translate, section.label, section.label),
+        })),
+      ],
+      fields: { ...checklistTransferFields, legacyOperation: 'export-checklist' },
+      submitLabel: tr(translate, 'export', 'Export'),
+    }), ''] });
     if (canWrite) {
+      rows.push({ rowHeader: false, cells: [uiFileForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'import', 'Import'),
+        name: 'importFile', accept: '.json,application/json,.zip,application/zip',
+        sections: BOARD_EXPORT_FIELDS.map(section => ({
+          value: section.field,
+          label: tr(translate, section.label, section.label),
+        })),
+        fields: { ...checklistTransferFields, legacyOperation: 'import-checklist-file' },
+        submitLabel: tr(translate, 'import', 'Import'),
+      }), ''] });
       rows.push({ rowHeader: false, cells: [uiTextForm({
         action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
         label: tr(translate, 'checklist', 'Checklist'), name: 'checklistTitle',

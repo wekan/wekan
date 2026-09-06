@@ -530,6 +530,64 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('checklistItems', { _id: html4ChecklistItemId }).isFinished).toBe(true);
     await expect(page.locator('tbody')).toContainText('[x] HTML4 edited checklist item');
+
+    const checklistExportForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="export-checklist"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await checklistExportForm().locator('select[name="exportFormat"]').selectOption('json');
+    const [checklistDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      checklistExportForm().locator('input[type="submit"]').click(),
+    ]);
+    const checklistExportBytes = await fs.promises.readFile(await checklistDownload.path());
+    const checklistExportDocument = JSON.parse(checklistExportBytes.toString('utf8'));
+    expect(checklistExportDocument.checklists).toHaveLength(1);
+    expect(checklistExportDocument.checklists[0]._id).toBe(html4ChecklistId);
+    expect(checklistExportDocument.cards).toHaveLength(1);
+    expect(checklistExportDocument.cards[0]._id).toBe(due._id);
+    expect(checklistExportDocument.checklistItems.map(item => item.checklistId)
+      .every(checklistId => checklistId === html4ChecklistId)).toBe(true);
+
+    // A file download consumed its own purpose-bound signature, not the page's
+    // action counter: this import form from the SAME response must still work.
+    const checklistImportForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="import-checklist-file"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await checklistImportForm().locator('input[name="importFile"]').setInputFiles({
+      name: 'checklist.json', mimeType: 'application/json', buffer: checklistExportBytes,
+    });
+    await checklistImportForm().locator('input[name="boardId"]').evaluate(
+      (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+    );
+    await Promise.all([
+      page.waitForNavigation(), checklistImportForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.countDocuments('checklists', {
+      boardId: outsiderBoard.boardId, title: 'HTML4 edited checklist',
+    })).toBe(0);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    await checklistImportForm().locator('input[name="importFile"]').setInputFiles({
+      name: 'checklist.json', mimeType: 'application/json', buffer: checklistExportBytes,
+    });
+    await Promise.all([
+      page.waitForNavigation(), checklistImportForm().locator('input[type="submit"]').click(),
+    ]);
+    const importedChecklist = db.find('checklists', {
+      boardId: board.boardId, cardId: due._id, title: 'HTML4 edited checklist',
+    }).find(candidate => candidate._id !== html4ChecklistId);
+    expect(importedChecklist && importedChecklist._id).toBeTruthy();
+    expect(importedChecklist.sort)
+      .toBeGreaterThan(db.findOne('checklists', { _id: html4ChecklistId }).sort);
+    expect(db.find('checklistItems', { checklistId: importedChecklist._id })
+      .map(item => item.title).sort()).toEqual([
+      'HTML4 edited checklist item', 'HTML4 second checklist item',
+    ].sort());
+    db.deleteMany('checklistItems', { checklistId: importedChecklist._id });
+    db.deleteOne('checklists', { _id: importedChecklist._id });
+
     const minicardSettingForm = page.locator(
       'form:has(input[name="legacyOperation"][value="toggle-checklist-setting"])'
       + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`
@@ -834,6 +892,20 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).archived).toBe(false);
 
+    // The forged cross-board import is a high-severity attributed refusal, so
+    // the common Security reporter disables that account. Verify both effects,
+    // then emulate the administrator unblocking this synthetic test account so
+    // the same fixture can compare the HTML5 representation.
+    await expect.poll(() => db.countDocuments('eventlog', {
+      stream: 'security', userId: user._id, bleed: 'ImportBleed', action: 'blocked',
+    })).toBeGreaterThan(0);
+    await expect.poll(() => db.findOne('users', { _id: user._id })?.loginDisabled)
+      .toBe(true);
+    db.updateOne('users', { _id: user._id }, {
+      $set: { loginDisabled: false },
+      $unset: { 'services.securityBlock': '' },
+    });
+
     const modernContext = await browser.newContext();
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -890,6 +962,18 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       ).screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-checklist-item-to-card.png`,
       });
+      await page.locator(
+        'form:has(input[name="legacyOperation"][value="export-checklist"])'
+        + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+      ).screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-checklist-export.png`,
+      });
+      await page.locator(
+        'form:has(input[name="legacyOperation"][value="import-checklist-file"])'
+        + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+      ).screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-checklist-import.png`,
+      });
       await modern.locator('.comment:has(.reaction-count)').screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-comment-reaction.png`,
       });
@@ -899,6 +983,30 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         });
       const modernChecklistForConversion = modern.locator('.js-checklist')
         .filter({ hasText: 'HTML4 edited checklist' });
+      await modernChecklistForConversion.locator('.js-open-checklist-details-menu').click();
+      await modern.locator('.pop-over:visible .js-export-checklist').click();
+      await modern.locator('.pop-over:visible').screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-checklist-export.png`,
+      });
+      await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
+      await modernChecklistForConversion.locator('.js-open-checklist-details-menu').click();
+      await modern.locator('.pop-over:visible .js-import-checklist').click();
+      await modern.locator('.pop-over:visible').screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-checklist-import.png`,
+      });
+      await modern.locator('.pop-over:visible input.js-import-file').setInputFiles({
+        name: 'checklist.json', mimeType: 'application/json', buffer: checklistExportBytes,
+      });
+      await expect.poll(() => db.countDocuments('checklists', {
+        boardId: board.boardId, cardId: due._id, title: 'HTML4 edited checklist',
+      })).toBe(2);
+      const modernImportedChecklist = db.find('checklists', {
+        boardId: board.boardId, cardId: due._id, title: 'HTML4 edited checklist',
+      }).find(candidate => candidate._id !== html4ChecklistId);
+      expect(modernImportedChecklist && modernImportedChecklist._id).toBeTruthy();
+      db.deleteMany('checklistItems', { checklistId: modernImportedChecklist._id });
+      db.deleteOne('checklists', { _id: modernImportedChecklist._id });
+      await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
       const modernChecklistItem = modernChecklistForConversion
         .locator('.checklist-item').filter({ hasText: 'HTML4 edited checklist item' });
       await modernChecklistItem.locator('.item-title').click();

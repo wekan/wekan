@@ -113,6 +113,10 @@ test('a checklist import creates checklists below its exact board-bound target',
     'new checklists and items receive destination card and board identities');
   assert.ok(/check\(target\.checklistId, Match\.Maybe\(String\)\)/.test(importModel),
     'DDP validates the checklist scope explicitly');
+  assert.ok(/_denyTarget\('checklist-not-found'[\s\S]*outside the destination board/.test(importer),
+    'a forged checklist scope is refused and reported');
+  assert.ok(/source: 'scoped-import'[\s\S]*userId: this\._userId/.test(importer),
+    'the Security report receives the available actor identity');
 });
 
 test('a comment comes back under the importing user, not a stranger', () => {
@@ -130,7 +134,7 @@ test('a custom field is matched by NAME, not by id', () => {
 // ── who may do it ───────────────────────────────────────────────────────────
 
 test('importing is a WRITE, and is checked as one', () => {
-  assert.ok(/isBoardMember\(\)/.test(importModel),
+  assert.ok(/allowIsBoardMemberWithWriteAccess\(userId, board\)/.test(importModel),
     'export asks "may you see it"; import asks "may you change it"');
   assert.ok(/assertImportEnabled/.test(importModel),
     'and the Admin Panel master switch still applies');
@@ -138,6 +142,8 @@ test('importing is a WRITE, and is checked as one', () => {
     'a file that is not a WeKan export is refused by format');
   assert.ok(/import-timeout/.test(importModel),
     'and a hung import ends, like the board import');
+  assert.ok(/recordImportAuthorizationDenied\('importScoped', this/.test(importModel),
+    'a write-access bypass attempt is visible in Admin Panel / Problems / Security');
 });
 
 test('the popup offers import only to somebody who may write', () => {
@@ -164,6 +170,7 @@ test('every menu offers Export and Import, named for what they do', () => {
     ['client/components/lists/listHeader.jade', 'js-export-list', 'js-import-list'],
     ['client/components/swimlanes/swimlaneHeader.jade', 'js-export-swimlane', 'js-import-swimlane'],
     ['client/components/cards/cardDetails.jade', 'js-export-card', 'js-import-card'],
+    ['client/components/cards/checklists.jade', 'js-export-checklist', 'js-import-checklist'],
     ['client/components/sidebar/sidebar.jade', 'js-export-board', 'js-import-into-board'],
   ];
   for (const [file, exportClass, importClass] of menus) {
@@ -200,6 +207,13 @@ test('every menu offers Export and Import, named for what they do', () => {
     'importCardPopup-title', 'importBoardIntoPopup-title']) {
     assert.ok(en[key], `${key} is translated`);
   }
+});
+
+test('the checklist popup passes its nested checklist identity as the scope', () => {
+  assert.ok(/exportChecklistPopup"\)\n  \+exportScopeBody\(checklistId=checklist\._id/.test(scopeJade),
+    'export receives the checklist id rather than an undefined popup wrapper id');
+  assert.ok(/importChecklistPopup"\)\n  \+exportScopeBody\(checklistId=checklist\._id/.test(scopeJade),
+    'import receives the same exact scope');
 });
 
 test('the files come back too, from a .json and from a .zip', () => {

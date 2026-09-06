@@ -8,11 +8,13 @@ const Busboy = require('@fastify/busboy');
 const MAX_MULTIPART_FILE_BYTES = 50 * 1024 * 1024;
 const ALLOWED_FIELDS = new Set([
   'legacySession', 'authAction', 'authCounter', 'authHash',
-  'importFields', 'legacyOperation',
+  'importFields', 'importField', 'legacyOperation',
+  'boardId', 'cardId', 'checklistId',
 ]);
 
 function isLegacyHtml4Multipart(req, requestPath) {
-  return req?.method === 'POST' && /^\/import\/[^/]+$/.test(requestPath)
+  return req?.method === 'POST'
+    && (/^\/import\/[^/]+$/.test(requestPath) || /^\/b\/[^/]+\/[^/]+\/[^/]+$/.test(requestPath))
     && /^multipart\/form-data\b/i.test(String(req.headers?.['content-type'] || ''));
 }
 
@@ -36,7 +38,7 @@ function receiveLegacyHtml4Multipart(req) {
     try {
       parser = new Busboy({
         headers: req.headers,
-        limits: { files: 1, fields: 20, parts: 21, fieldSize: 8192,
+        limits: { files: 1, fields: 40, parts: 41, fieldSize: 8192,
           fileSize: MAX_MULTIPART_FILE_BYTES },
       });
     } catch (error) {
@@ -45,11 +47,13 @@ function receiveLegacyHtml4Multipart(req) {
     }
     parser.on('field', (name, value, nameTruncated, valueTruncated) => {
       if (nameTruncated || valueTruncated || !ALLOWED_FIELDS.has(name)
-        || Object.prototype.hasOwnProperty.call(fields, name)) {
+        || (name !== 'importField' && Object.prototype.hasOwnProperty.call(fields, name))) {
         fail(new Error('invalid-import-form-field'));
         return;
       }
-      fields[name] = value;
+      if (name === 'importField') {
+        fields.importField = [...(Array.isArray(fields.importField) ? fields.importField : []), value];
+      } else fields[name] = value;
     });
     parser.on('file', (fieldName, stream, filename, encoding, mimeType) => {
       if (failed || fieldName !== 'importFile' || upload) {

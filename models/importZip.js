@@ -18,6 +18,7 @@ runOnServer(function () {
   const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
   const { assertImportEnabled } = require('./lib/importExportSecurity');
+  const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
 
   // A .zip import that does not hold the archive in memory (#1173).
   //
@@ -134,8 +135,12 @@ runOnServer(function () {
     }
     // Importing WRITES, so this is "may you change it", not "may you see it" -
     // the same check the DDP import method makes.
-    if (!board.isVisibleBy(user) || !(board.members || [])
-      .some(member => member.userId === user._id && member.isActive)) {
+    if (!board.isVisibleBy(user) || !allowIsBoardMemberWithWriteAccess(user._id, board)) {
+      require('/server/lib/securityLog').record({
+        category: 'authz', bleed: 'ImportBleed', severity: 'high', action: 'blocked',
+        source: 'api:import-zip', req, userId: user._id,
+        detail: 'refused ZIP import without board write access',
+      });
       answer(403, { error: 'Forbidden' });
       return;
     }
