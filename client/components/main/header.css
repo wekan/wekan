@@ -740,10 +740,21 @@ body.mobile-mode #header-quick-access .allBoards {
   margin-inline-end: 4px;
 }
 #header-quick-access #header-new-board-icon {
-  flex-grow: 1;
+  /* An icon-only action, not a spacer. Allowing it to grow made this one plus
+     sign consume every spare pixel in the top bar — on a wide screen it could
+     be ten ordinary buttons wide. Its visible box is the same 28px square as
+     the shared quick-access button height, leaving room for neighbouring
+     controls to remain on one row whenever they fit. */
+  flex: 0 0 28px;
+  width: 28px;
+  min-width: 28px;
+  max-width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  justify-content: center;
+  padding: 0;
   /* Lift the whole clickable Add Board area, not only its plus glyph. */
   margin: 2px 5px 0;
-  width: 12px;
 }
 @media screen and (max-width: 800px),
        screen and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
