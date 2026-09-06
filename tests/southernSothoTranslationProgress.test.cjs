@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1024,
-  'the first twenty-two Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 974,
+  'the first twenty-three Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -142,5 +142,12 @@ assert.equal(sesotho['r-items-list'], 'ntho1,ntho2,ntho3');
 assert.match(sesotho['r-checklist-note'], /dikoma/);
 assert.match(sesotho['custom-head-manifest-content'], /JSON/);
 assert.match(sesotho['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(sesotho['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tokens(sesotho['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(sesotho['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.equal(sesotho['drag-to-resize-sidebar'],
+  'Hula ho fetola boholo ba bara e ka thoko');
 
-console.log('southernSothoTranslationProgress: first twenty-two batches passed');
+console.log('southernSothoTranslationProgress: first twenty-three batches passed');
