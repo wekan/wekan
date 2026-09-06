@@ -8139,11 +8139,11 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tigre:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **68,668 values across 32 second-tier languages**. Southern
+remaining work is **68,618 values across 32 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Tigre has 1,224 left after its first nineteen 50-value batches. Albanian
+batch. Tigre has 1,174 left after its first twenty 50-value batches. Albanian
 and Bosnian are also complete: Bosnian's final apparent gap, `Server`, is a
 normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8260,8 +8260,8 @@ browser build to verify).
 **In short:** **Albanian, Southern Sotho, Tajik and Tigrinya translations** are
 complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
-backups and migrations; **Tigre translations** cover their first nineteen
-batches spanning boards, imports, system, organizations, cards and subtasks;
+backups and migrations; **Tigre translations** cover their first twenty batches
+spanning boards, imports, organizations, cards, subtasks and automation;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8533,6 +8533,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f32cc7bf2">Translate Tigre automation rule basics</a>. Thanks to xet7.</summary>
+
+The twentieth 50-value Tigre batch adds label and custom-field activity,
+automation rule editing and workflow views, basic card triggers and JSON, CSV
+and Trello Butler rule import/export. All values required translation, with low
+confidence in some explanatory grammar pending human refinement. Tests retain
+format and time placeholders and every import format name. This leaves 68,618
+actionable values across 32 languages, including 1,174 in Tigre.
 
 </details>
 
