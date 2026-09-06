@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
-  'the first forty-three Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
+  'all Tigrinya translation batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -328,5 +328,14 @@ assert.deepEqual(tokens(tigrinya['repair-broken-cards-done-unfixable']),
   ['__fixed__', '__unfixable__']);
 assert.deepEqual(tokens(tigrinya['restore-list-swimlanes-done']),
   ['__remaining__', '__restored__']);
+assert.match(tigrinya['event-ip'], /IP/);
+assert.match(tigrinya['event-ipv4'], /IPv4/);
+assert.match(tigrinya['event-ipv6'], /IPv6/);
+assert.deepEqual(tokens(tigrinya['globalSearch-instructions-operator-number']),
+  ['__operator_number__']);
+assert.match(tigrinya['globalSearch-instructions-operator-number'],
+  /<number>.*\*<number>\*/);
+assert.match(tigrinya['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
+assert.match(tigrinya['import-here-instruction'], /WeKan.*\.json.*\.zip/);
 
-console.log('tigrinyaTranslationProgress: first forty-three batches passed');
+console.log('tigrinyaTranslationProgress: all forty-four batches passed');
