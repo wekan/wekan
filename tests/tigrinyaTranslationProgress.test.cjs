@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
-  'the first seventeen Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
+  'the first eighteen Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -157,5 +157,13 @@ assert.deepEqual(tokens(tigrinya['email-invite-register-text']),
   ['__icode__', '__inviter__', '__url__', '__user__']);
 assert.equal(tigrinya.Database, 'ዳታቤዝ');
 assert.match(tigrinya['bidirectional-webhooks'], /Webhooks/);
+assert.match(tigrinya.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.equal(tigrinya.FerretDB_commit, 'ለውጢ FerretDB');
+assert.match(tigrinya.DDP_transport, /DDP_TRANSPORT/);
+assert.match(tigrinya['org-domains-description'],
+  /a\.example\.com, kanban\.example\.org.*MULTITENANCY=true/);
+assert.match(tigrinya['org-admins-description'], /Admin/);
+assert.equal(tigrinya['team-propagate-members-to-boards'],
+  'ኣባላት ናብ ሰሌዳታት ኣስፋሕፍሕ');
 
-console.log('tigrinyaTranslationProgress: first seventeen batches passed');
+console.log('tigrinyaTranslationProgress: first eighteen batches passed');
