@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 824,
-  'the first twenty-seven Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 774,
+  'the first twenty-eight Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -221,5 +221,15 @@ for (const [key, value] of Object.entries(tigrinya)) {
 }
 assert.equal(tigrinya['operator-board'], 'ሰሌዳ');
 assert.equal(tigrinya['predicate-checklist'], 'ዝርዝርመረጋገጺ');
+assert.deepEqual(tokens(tigrinya['operator-number-expected']),
+  ['__operator__', '__value__']);
+assert.deepEqual(tokens(tigrinya['globalSearch-instructions-description']),
+  ['__operator_list__']);
+assert.match(tigrinya['globalSearch-instructions-description'],
+  /`list:Blocked`.*`__operator_list__:"To Review"`/);
+assert.deepEqual(tokens(tigrinya['globalSearch-instructions-operator-has']),
+  tokens(english['globalSearch-instructions-operator-has']));
+assert.match(tigrinya['globalSearch-instructions-notes-2'], /\*OR\*/);
+assert.match(tigrinya['globalSearch-instructions-notes-3'], /\*AND\*/);
 
-console.log('tigrinyaTranslationProgress: first twenty-seven batches passed');
+console.log('tigrinyaTranslationProgress: first twenty-eight batches passed');
