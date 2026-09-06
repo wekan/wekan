@@ -358,6 +358,27 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/96b494510">Add semantic HTML4 page controllers and upper-left board view</a>. Thanks to xet7.</summary>
+
+Every WeKan document URL now has a compact, frame-free HTML4 page with one
+content table instead of falling through to an empty Meteor shell. The shared
+renderer uses a caption, scoped row and column headers, labelled and grouped
+forms, a skip link, logical Tab order, visible keyboard focus, textual state and
+contrast-selected text. Stored board, swimlane, list and card colors are reused
+only after strict palette or hex validation.
+
+Authenticated navigation remains a visible, route-bound signed POST operation.
+The first board view reads only the first active swimlane, its first active list
+and ordered cards; explicit POST buttons select another swimlane or list without
+drag-and-drop. Public boards use ordinary clean links. Every board read repeats
+the normal `isVisibleBy` authorization check, and unknown routes receive an
+explanatory table while their dedicated server controls are implemented. Tests
+cover one-table markup, absence of frames, semantics, Tab order, POST signatures,
+HTML escaping, rejected CSS injection and the shared color palette.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/85e88ea3e">Make Legacy HTML4 sign-up functional without cookies</a>. Thanks to xet7.</summary>
 
 The HTML4 account-creation form now uses the guarded `/users/register` route and
