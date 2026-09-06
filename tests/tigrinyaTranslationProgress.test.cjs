@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1624,
-  'the first eleven Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1574,
+  'the first twelve Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -120,5 +120,12 @@ assert.match(tigrinya['export-card-pdf'], /PDF/);
 assert.match(tigrinya['export-card-excel'], /Excel/);
 assert.match(tigrinya['export-card-field-board-info'], /ሰሌዳ.*ዝርዝር.*መስመር/);
 assert.equal(tigrinya['filter-no-member'], 'ኣባል የለን');
+assert.match(tigrinya['advanced-filter-description'], /== != <= >= && \|\|/);
+assert.deepEqual(tokens(tigrinya['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(tigrinya['import-board-instruction-jira'], /automationRules/);
+assert.match(tigrinya['import-board-instruction-excel'], /\.xlsx/);
+assert.match(tigrinya['import-trello-zip-file-hint'], /\.json.*\.zip/);
+assert.equal(tigrinya['filter-no-assignee'], 'ተመዳቢ የለን');
 
-console.log('tigrinyaTranslationProgress: first eleven batches passed');
+console.log('tigrinyaTranslationProgress: first twelve batches passed');
