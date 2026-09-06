@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 774,
-  'the first twenty-eight Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
+  'the first twenty-nine Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -232,5 +232,12 @@ assert.deepEqual(tokens(tajik['globalSearch-instructions-operator-has']),
   tokens(english['globalSearch-instructions-operator-has']));
 assert.deepEqual(tokens(tajik['globalSearch-instructions-notes-3-2']),
   tokens(english['globalSearch-instructions-notes-3-2']));
+assert.equal(tajik['sort-boards-title-asc'], 'Унвон (A → Z)');
+assert.equal(tajik['dependency-type-is-blocked-by'], 'Бо ин монеъ шудааст');
+assert.match(tajik['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(tajik['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(tajik['background-too-big']), ['{{size}}']);
+assert.equal(tajik.location, 'Ҷойгоҳ');
 
-console.log('tajikTranslationProgress: first twenty-eight batches passed');
+console.log('tajikTranslationProgress: first twenty-nine batches passed');
