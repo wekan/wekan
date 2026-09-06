@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1374,
-  'the first sixteen Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
+  'the first seventeen Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -144,5 +144,11 @@ assert.equal(tajik['upload-completed'], 'Воридкунӣ анҷом ёфт');
 assert.match(tajik['custom-top-left-corner-logo-height'], /27/);
 assert.match(tajik['automatic-linked-url-schemes'], /URL/);
 assert.equal(tajik['welcome-list2'], 'Пешрафта');
+assert.match(tajik['attachment-transfer-limits-description'], /API/);
+assert.match(tajik['smtp-tls-description'], /TLS.*SMTP/);
+assert.deepEqual(tokens(tajik['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.equal(tajik.Database, 'Пойгоҳи додаҳо');
+assert.equal(tajik['bidirectional-webhooks'], 'Вебҳукҳои дуҷониба');
 
-console.log('tajikTranslationProgress: first sixteen batches passed');
+console.log('tajikTranslationProgress: first seventeen batches passed');
