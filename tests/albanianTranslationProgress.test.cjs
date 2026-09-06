@@ -13,6 +13,8 @@ const albanian = readLocale('sq');
 const tokens = value => [...value.matchAll(
   /__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
 )].map(([token]) => token).sort();
+const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
+  .map(([tag]) => tag).sort();
 
 const fillResult = spawnSync(process.execPath, [
   path.join(root, 'releases/translations/fill-translations.mjs'),
@@ -20,14 +22,16 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1116,
-  'the first twenty Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1016,
+  'the first twenty-two Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
     assert.deepEqual(tokens(value), tokens(english[key]),
       `${key}: locale-wide placeholder inventory`);
   }
+  assert.deepEqual(tags(value), tags(english[key]),
+    `${key}: locale-wide HTML tag inventory`);
 }
 
 const batchKeys = [
@@ -228,6 +232,9 @@ assert.deepEqual(tokens(albanian['activity-set-customfield']), ['%s', '%s', '%s'
 assert.deepEqual(tokens(albanian['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(albanian['r-import-done']), ['__count__']);
 assert.match(albanian['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
+assert.equal(albanian['r-d-move-to-top-gen'],
+  'Zhvendos kartën në krye të listës së saj');
+assert.deepEqual(tags(albanian['add-custom-html-after-body-start']), ['<body>']);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first twenty Albanian batches passed');
+console.log('albanianTranslationProgress: first twenty-two Albanian batches passed');
