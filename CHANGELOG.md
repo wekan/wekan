@@ -8139,11 +8139,11 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tigre:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **68,468 values across 32 second-tier languages**. Southern
+remaining work is **68,418 values across 32 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Tigre has 1,024 left after its first twenty-three 50-value batches.
+batch. Tigre has 974 left after its first twenty-four 50-value batches.
 Albanian and Bosnian are also complete. Bosnian's final apparent gap,
 `Server`, is a normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8260,7 +8260,7 @@ browser build to verify).
 **In short:** **Albanian, Southern Sotho, Tajik and Tigrinya translations** are
 complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
-backups and migrations; **Tigre translations** cover their first twenty-three
+backups and migrations; **Tigre translations** cover their first twenty-four
 batches spanning boards, imports, cards, subtasks and scheduled automation;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
@@ -8533,6 +8533,19 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8fb8f5ce">Translate Tigre account and due date settings</a>. Thanks to xet7.</summary>
+
+The twenty-fourth 50-value Tigre batch adds logo and card display settings,
+custom HTML placement, authentication errors, board duplication, destructive
+account confirmations, card positioning and due-date activity and reminders.
+All values required translation, with low confidence in some grammar pending
+human refinement. Tests retain HTML structure and all activity placeholders.
+This leaves 68,418 actionable values across 32 languages, including 974 in
+Tigre.
 
 </details>
 
