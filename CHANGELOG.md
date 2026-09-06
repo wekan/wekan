@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,440 values across 35 second-tier languages**. Southern
-Sotho has 474 left after its first thirty-three 50-value batches. Albanian and
+remaining work is **74,390 values across 35 second-tier languages**. Southern
+Sotho has 424 left after its first thirty-four 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first thirty-three activity, administration,
-automation, report, recovery, storage, board-status and support batches;
+translations** now cover their first thirty-four activity, administration,
+automation, report, storage, support, accessibility and lockout batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/759a68d8b">Translate Southern Sotho access and lockout settings</a>. Thanks to xet7.</summary>
+
+The thirty-fourth 50-value Southern Sotho batch adds support and accessibility
+content, brute-force login protection and unlock controls, people-status
+filters, scheduled jobs, attachment and avatar paths and board archive and
+backup scheduling. All values required translation. Tests cover accessibility,
+attack and password language, unlocking and stored file paths. This leaves
+74,390 actionable values across 35 languages, including 424 in Southern Sotho.
 
 </details>
 
