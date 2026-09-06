@@ -337,6 +337,14 @@ an actual Boolean state, accepts only a complete non-negative finite number, and
 writes time plus overtime together. Clearing time also clears overtime, so an
 interrupted or malicious request cannot leave a contradictory half-update.
 
+Card Watch is an actor-bound desired-state action in both renderers. HTML4 shows
+the current state with an ASCII `[x]`/`[ ]` button and a readable table row. The
+signed form binds the real linked content card, while the shared service derives
+the watcher from the authenticated session, observes the global feature switch,
+accepts only the levels supported by each watchable type and repeats the same
+public/member/active organisation, team or email-domain visibility check used by
+publications. Anonymous and foreign-board requests cannot create watcher records.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

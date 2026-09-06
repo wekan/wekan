@@ -28,38 +28,46 @@ async function canSeeBoard(userId, board) {
   return Boolean(visible);
 }
 
-Meteor.methods({
-  async watch(watchableType, id, level) {
-    check(watchableType, String);
-    check(id, String);
-    check(level, Match.OneOf(String, null));
+export async function updateAccessibleWatch(userId, watchableType, id, level) {
+  check(watchableType, String);
+  check(id, String);
+  check(level, Match.OneOf(String, null));
+  if (!userId) throw new Meteor.Error('not-authorized');
+  if (getFeatureFlags().disableWatch) {
+    throw new Meteor.Error('error-watch-disabled');
+  }
 
-    // Admin Panel / Features / Notifications (#5820): the watch feature is
-    // disabled, so ignore any request to change a watch level.
-    if (getFeatureFlags().disableWatch) {
-      throw new Meteor.Error('error-watch-disabled');
-    }
-
-    const userId = this.userId;
-
-    let watchableObj = null;
-    let board = null;
-    if (watchableType === 'board') {
-      watchableObj = await ReactiveCache.getBoard(id);
-      if (!watchableObj) throw new Meteor.Error('error-board-doesNotExist');
-      board = watchableObj;
-    } else if (watchableType === 'list') {
-      watchableObj = await ReactiveCache.getList(id);
-      if (!watchableObj) throw new Meteor.Error('error-list-doesNotExist');
-      board = await watchableObj.board();
-    } else if (watchableType === 'card') {
-      watchableObj = await ReactiveCache.getCard(id);
-      if (!watchableObj) throw new Meteor.Error('error-card-doesNotExist');
-      board = await watchableObj.board();
-    } else {
+  let watchableObj = null;
+  let board = null;
+  if (watchableType === 'board') {
+    if (level !== null && !['watching', 'tracking', 'muted'].includes(level)) {
       throw new Meteor.Error('error-json-schema');
     }
+    watchableObj = await ReactiveCache.getBoard(id);
+    if (!watchableObj) throw new Meteor.Error('error-board-doesNotExist');
+    board = watchableObj;
+  } else if (watchableType === 'list') {
+    if (level !== null && level !== 'watching') throw new Meteor.Error('error-json-schema');
+    watchableObj = await ReactiveCache.getList(id);
+    if (!watchableObj) throw new Meteor.Error('error-list-doesNotExist');
+    board = await watchableObj.board();
+  } else if (watchableType === 'card') {
+    if (level !== null && level !== 'watching') throw new Meteor.Error('error-json-schema');
+    watchableObj = await ReactiveCache.getCard(id);
+    if (!watchableObj) throw new Meteor.Error('error-card-doesNotExist');
+    board = await watchableObj.board();
+  } else {
+    throw new Meteor.Error('error-json-schema');
+  }
+  if (!(await canSeeBoard(userId, board))) {
+    throw new Meteor.Error('error-board-notAMember');
+  }
+  await watchableObj.setWatcher(userId, level);
+  return true;
+}
 
+Meteor.methods({
+  async watch(watchableType, id, level) {
     // MAY THIS USER SEE THE BOARD - which is not the same question as "is this
     // user in board.members", and answering the second one is the bug behind
     // "Silent does not respond. If we try to change it does not change. Nothing
@@ -77,11 +85,6 @@ Meteor.methods({
     // (models/lib/boardVisibilitySelectors), and so does this: ask the database
     // whether this board is among the ones this user may see. It is the same
     // rule, so a watch can never be granted where the board itself is not.
-    if (!(await canSeeBoard(userId, board))) {
-      throw new Meteor.Error('error-board-notAMember');
-    }
-
-    await watchableObj.setWatcher(userId, level);
-    return true;
+    return updateAccessibleWatch(this.userId, watchableType, id, level);
   },
 });

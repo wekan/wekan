@@ -1679,14 +1679,13 @@ Template.cardDetailsActionsPopup.events({
     Utils.goBoardId(card.boardId);
   }),
   'click .js-more': Popup.open('cardMore'),
-  'click .js-toggle-watch-card'() {
+  async 'click .js-toggle-watch-card'() {
     const currentCard = Cards.findOne(getCardId());
     if (!currentCard) return;
     const sourceCard = currentCard.getRealCard();
     const level = sourceCard.findWatcher(Meteor.userId()) ? null : 'watching';
-    Meteor.call('watch', 'card', currentCard.getRealId(), level, (err, ret) => {
-      if (!err && ret) Popup.close();
-    });
+    await Meteor.callAsync('watch', 'card', currentCard.getRealId(), level);
+    Popup.close();
   },
   'click .js-toggle-show-list-on-minicard'() {
     const currentCard = Cards.findOne(getCardId());

@@ -68,6 +68,7 @@ import {
   toggleAccessibleBoardStar,
   toggleAccessibleDefaultBoard,
 } from '/server/lib/accessibleBoardListOperations';
+import { updateAccessibleWatch } from '/server/notifications/watch';
 import {
   copyAccessibleChecklist,
   convertAccessibleChecklistItemToCard,
@@ -185,6 +186,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'configure-card-poker', 'update-card-poker-end', 'cast-card-poker',
     'finish-card-poker', 'replay-card-poker', 'estimate-card-poker', 'remove-card-poker',
     'set-card-due-complete', 'set-card-spent-time', 'clear-card-spent-time',
+    'set-card-watch',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -690,6 +692,10 @@ WebApp.handlers.use(async (req, res, next) => {
             isOvertime: requestFields.legacyOperation === 'set-card-spent-time'
               && requestFields.cardIsOvertime === 'true',
           });
+        }
+        if (requestFields.legacyOperation === 'set-card-watch') {
+          return updateAccessibleWatch(session.userId, 'card', requestFields.watchCardId,
+            requestFields.cardWatch === 'true' ? 'watching' : null);
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {
           return setAccessibleCardIdentity(session.userId, {

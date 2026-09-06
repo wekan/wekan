@@ -476,7 +476,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
     sort: 1, stickers: 1, customFields: 1, cardDependencies: 1, vote: 1, poker: 1,
-    dueComplete: 1, spentTime: 1, isOvertime: 1,
+    dueComplete: 1, spentTime: 1, isOvertime: 1, watchers: 1,
     locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
@@ -587,6 +587,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const canPlayPoker = poker?.question === true && !pokerClosed
     && (activeContentMemberIds.includes(userId) || poker?.allowNonBoardMembers === true);
   const canAdminPoker = allowIsBoardAdmin(userId, board);
+  const isWatching = (contentCard?.watchers || []).includes(userId);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
   const checklistCardOptions = destinations.checklistCards;
@@ -983,6 +984,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
     }), ''] });
   }
+  if (!getFeatureFlags().disableWatch) rows.push({ rowHeader: false, cells: [uiAction({
+    action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+    label: `${isWatching ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+      + tr(translate, isWatching ? 'unwatch' : 'watch', isWatching ? 'Unwatch' : 'Watch'),
+    fields: { ...commonFields, legacyOperation: 'set-card-watch',
+      watchCardId: contentCardId, cardWatch: isWatching ? 'false' : 'true' },
+  }), ''] });
   if (canVote) {
     const voteAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
     for (const [state, key, fallback] of [
@@ -1187,6 +1195,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       contentCard?.spentTime === undefined ? '' : String(contentCard.spentTime)] },
     { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(card.createdAt)] },
     { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
+    { cells: [tr(translate, 'watching', 'Watching'),
+      isWatching ? tr(translate, 'yes', 'Yes') : tr(translate, 'no', 'No')] },
   );
   for (const checklist of checklists) {
     const items = checklistItems.filter(candidate => candidate.checklistId === checklist._id);

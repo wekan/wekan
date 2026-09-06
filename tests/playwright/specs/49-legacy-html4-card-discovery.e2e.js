@@ -1725,6 +1725,21 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.waitForNavigation(), spentTimeForm().locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).spentTime).toBe(2.5);
+    const cardWatchForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="set-card-watch"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), cardWatchForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).watchers).toContain(user._id);
+    await Promise.all([
+      page.waitForNavigation(), cardWatchForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).watchers || []).not.toContain(user._id);
+    await Promise.all([
+      page.waitForNavigation(), cardWatchForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).watchers).toContain(user._id);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );
