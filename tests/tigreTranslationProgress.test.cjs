@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
-  'the first forty-three 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
+  'all Tigre values stay translated');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -301,4 +301,10 @@ assert.deepEqual(tokens(tigre['repair-broken-cards-done-unfixable']),
   tokens(english['repair-broken-cards-done-unfixable']));
 assert.match(tigre['problems-in-progress-help'], /CPU/);
 
-console.log('tigreTranslationProgress: first forty-three batches passed');
+assert.match(tigre['event-ipv4'], /IPv4/);
+assert.match(tigre['event-ipv6'], /IPv6/);
+assert.deepEqual(tokens(tigre['globalSearch-instructions-operator-number']),
+  tokens(english['globalSearch-instructions-operator-number']));
+assert.match(tigre['import-wekan-file'], /\.json.*\.zip/);
+
+console.log('tigreTranslationProgress: all Tigre values passed');
