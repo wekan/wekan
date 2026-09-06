@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2124,
-  'the first Tigrinya batch stays resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 2074,
+  'the first two Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -50,5 +50,13 @@ assert.deepEqual(tokens(tigrinya['act-setCustomField']),
   ['__board__', '__card__', '__customFieldValue__', '__customField__',
     '__list__', '__swimlane__']);
 assert.equal(tigrinya['act-importBoard'], 'ሰሌዳ __board__ ኣእትዩ');
+assert.deepEqual(tokens(tigrinya['act-moveCardToOtherBoard']),
+  ['__board__', '__card__', '__list__', '__oldBoard__', '__oldList__',
+    '__oldSwimlane__', '__swimlane__']);
+assert.deepEqual(tokens(tigrinya['activity-imported']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(tigrinya['activity-checklist-completed-card']),
+  ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
+assert.equal(tigrinya['allboards.workspaces'], 'ቦታታት ስራሕ');
+assert.match(tigrinya['allboards.edit-workspace-icon'], /markdown/);
 
-console.log('tigrinyaTranslationProgress: first batch passed');
+console.log('tigrinyaTranslationProgress: first two batches passed');
