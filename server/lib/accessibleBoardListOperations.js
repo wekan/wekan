@@ -1,8 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import Boards from '/models/boards';
 import Users from '/models/users';
+import Swimlanes from '/models/swimlanes';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { tripCanary } from '/server/lib/canary';
+import getSlug from 'limax';
 
 function refuseBoardListWrite(userId, detail) {
   tripCanary('board-list.cross-scope', { userId, detail });
@@ -59,7 +62,89 @@ async function setAccessibleBoardArchived(userId, boardId, archived) {
   return true;
 }
 
+async function createAccessibleBoardWithInitialSwimlanes(userId, payload) {
+  if (!userId) throw new Meteor.Error('not-authorized');
+  const allowedPayload = new Set([
+    'title', 'slug', 'permission', 'type', 'migrationVersion', 'swimlanes',
+  ]);
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)
+    || Object.keys(payload).some(key => !allowedPayload.has(key))) {
+    refuseBoardListWrite(userId, 'All Boards creation tried to set a protected board field');
+  }
+  const title = String(payload?.title || '').trim();
+  if (!title || title.length > 1000) throw new Meteor.Error('invalid-title');
+  const type = payload?.type || 'board';
+  if (!['board', 'template-container'].includes(type)) {
+    refuseBoardListWrite(userId, 'All Boards creation supplied a forbidden board type');
+  }
+  const privateOnly = (await TableVisibilityModeSettings.findOneAsync(
+    'tableVisibilityMode-allowPrivateOnly',
+  ))?.booleanValue === true;
+  const requestedPermission = payload?.permission || 'private';
+  if (!['private', 'public'].includes(requestedPermission)) {
+    refuseBoardListWrite(userId, 'All Boards creation supplied a forbidden permission');
+  }
+  const permission = privateOnly ? 'private' : requestedPermission;
+  const swimlanes = Array.isArray(payload?.swimlanes) ? payload.swimlanes : [];
+  const boardId = await Boards.insertAsync({
+    title,
+    slug: getSlug(title) || 'board',
+    permission,
+    type,
+    migrationVersion: Number.isFinite(payload?.migrationVersion)
+      ? payload.migrationVersion : 1,
+    members: [{
+      userId, isAdmin: true, isActive: true, isNoComments: false,
+      isCommentOnly: false, isWorker: false,
+    }],
+  });
+  const templateRolePointers = {
+    card: 'profile.cardTemplatesSwimlaneId',
+    list: 'profile.listTemplatesSwimlaneId',
+    board: 'profile.boardTemplatesSwimlaneId',
+  };
+  const profilePointerSet = type === 'template-container'
+    ? { 'profile.templatesBoardId': boardId } : {};
+  for (const swimlane of swimlanes) {
+    const swimlaneId = await Swimlanes.insertAsync({
+      title: String(swimlane.title || ''), boardId,
+      sort: swimlane.sort, type: swimlane.type,
+    });
+    if (type === 'template-container' && templateRolePointers[swimlane.role]) {
+      profilePointerSet[templateRolePointers[swimlane.role]] = swimlaneId;
+    }
+  }
+  if (Object.keys(profilePointerSet).length) {
+    await Users.updateAsync(userId, { $set: profilePointerSet });
+  }
+  return boardId;
+}
+
+async function copyAccessibleBoard(userId, boardId, properties = {}) {
+  if (!userId) throw new Meteor.Error('not-authorized');
+  const board = await ReactiveCache.getBoard(String(boardId || ''));
+  if (!board) throw new Meteor.Error('not-found');
+  if (!board.hasAdmin(userId)) {
+    tripCanary('board-list.cross-scope', {
+      userId, detail: 'All Boards copy action targeted a board without admin access',
+    });
+    throw new Meteor.Error('not-authorized');
+  }
+  const allowedProperties = new Set(['sort', 'title', 'type']);
+  if (Object.keys(properties).some(key => !allowedProperties.has(key))) {
+    refuseBoardListWrite(userId, 'All Boards copy tried to set a protected board field');
+  }
+  if (typeof properties.title === 'string' && properties.title.trim()) {
+    board.title = properties.title.trim().slice(0, 1000);
+  }
+  if (Number.isFinite(properties.sort)) board.sort = properties.sort;
+  board.type = 'board';
+  return board.copy();
+}
+
 export {
+  copyAccessibleBoard,
+  createAccessibleBoardWithInitialSwimlanes,
   setAccessibleBoardArchived,
   toggleAccessibleBoardStar,
   toggleAccessibleDefaultBoard,

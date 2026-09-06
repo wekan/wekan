@@ -244,6 +244,16 @@ function contentRows(path, options) {
         }).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(titleId)}">${escapeHtml(cell.titleLabel)}</label><br><input id="${escapeHtml(titleId)}" name="${escapeHtml(cell.titleName)}" type="text" maxlength="1000" size="40" value="${escapeHtml(cell.titleValue || '')}"></p><p><label for="${escapeHtml(destinationId)}">${escapeHtml(cell.destinationLabel)}</label><br><select id="${escapeHtml(destinationId)}" name="${escapeHtml(cell.destinationName)}">${selectOptions(cell.destinations, cell.destinationValue)}</select></p><p><label for="${escapeHtml(positionId)}">${escapeHtml(cell.positionLabel)}</label><br><select id="${escapeHtml(positionId)}" name="${escapeHtml(cell.positionName)}">${selectOptions(cell.positions, cell.positionValue)}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.destinationLabel))}"></p></form>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'board-create') {
+        const suffix = String(cell.fields?.boardType || 'board').replace(/[^a-z0-9_-]/gi, '');
+        const titleId = `legacy-board-title-${suffix}`;
+        const permissionId = `legacy-board-permission-${suffix}`;
+        const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const permissions = (cell.permissions || []).map(option =>
+          `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join('');
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.submitLabel)}</legend><p><label for="${escapeHtml(titleId)}">${escapeHtml(cell.titleLabel)}</label><br><input id="${escapeHtml(titleId)}" name="boardTitle" type="text" maxlength="1000" size="40" required></p><p><label for="${escapeHtml(permissionId)}">${escapeHtml(cell.permissionLabel)}</label><br><select id="${escapeHtml(permissionId)}" name="boardPermission">${permissions}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('add', cell.submitLabel))}"></p></fieldset></form>`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'textarea') {
         const id = `legacy-${String(cell.id || cell.name || 'text').replace(/[^a-z0-9_-]/gi, '')}`;
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>

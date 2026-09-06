@@ -5,6 +5,7 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Settings from '/models/settings';
 import AccessibilitySettings from '/models/accessibilitySettings';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import CardComments, { canEditComment } from '/models/cardComments';
 import CardCommentReactions from '/models/cardCommentReactions';
 import Checklists from '/models/checklists';
@@ -20,7 +21,7 @@ import {
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
-  uiSelectForm, uiTextForm, uiTextareaForm,
+  uiBoardCreateForm, uiSelectForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
@@ -79,6 +80,7 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
   let sectionRows = [];
   let profile = {};
   let currentUser = null;
+  let section = '';
   if (publicOnly) {
     boards = await Boards.find({ permission: 'public', archived: { $ne: true }, type: 'board' }, {
       fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1,
@@ -92,7 +94,7 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
       'profile.starredBoards': 1, 'profile.defaultBoardId': 1,
       'profile.boardWorkspaceAssignments': 1, 'profile.boardWorkspacesTree': 1,
     } });
-    const section = boardListSection(path, user);
+    section = boardListSection(path, user);
     currentUser = user;
     profile = user?.profile || {};
     const assignments = profile.boardWorkspaceAssignments || {};
@@ -160,6 +162,29 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
       operationError(translate, requestFields.legacyBoardListResult.errorKey)],
   });
   const actionPath = path;
+  if (userId && !['archive', 'home'].includes(section)) {
+    const privateOnly = (await TableVisibilityModeSettings.findOneAsync(
+      'tableVisibilityMode-allowPrivateOnly',
+    ))?.booleanValue === true;
+    const template = section === 'templates';
+    resultRows.push({ rowHeader: false, cells: [uiBoardCreateForm({
+      action: actionPath,
+      titleLabel: tr(translate, 'title', 'Title'),
+      permissionLabel: tr(translate, 'change-permissions', 'Permissions'),
+      permissions: template || privateOnly
+        ? [{ value: 'private', label: tr(translate, 'private', 'Private') }]
+        : [
+          { value: 'private', label: tr(translate, 'private', 'Private') },
+          { value: 'public', label: tr(translate, 'public', 'Public') },
+        ],
+      fields: {
+        legacyOperation: 'create-board',
+        boardType: template ? 'template-container' : 'board',
+      },
+      submitLabel: tr(translate, template ? 'add-template-container' : 'add-board',
+        template ? 'Add Template Container' : 'Add Board'),
+    }), ''] });
+  }
   return {
     heading: heading || tr(translate, 'all-boards', 'All Boards'),
     columns: [tr(translate, 'board', 'Board'), tr(translate, 'change-permissions', 'Permissions')],
@@ -197,6 +222,16 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
         action: actionPath, label: tr(translate, 'archive-board', 'Archive board'),
         icon: 'remove',
         fields: { ...boardFields, legacyOperation: 'confirm-archive-board' },
+      }));
+      const confirmingCopy = requestFields.confirmBoardCopy === board._id;
+      if (canAdmin && board.archived !== true) actions.push(confirmingCopy ? [
+        `${tr(translate, 'duplicate-board-confirm', 'Duplicate this board?')}`,
+        uiAction({ action: actionPath, label: tr(translate, 'duplicate-board', 'Duplicate Board'),
+          icon: 'add', fields: { ...boardFields, legacyOperation: 'copy-board' } }),
+        uiAction({ action: actionPath, label: tr(translate, 'cancel', 'Cancel') }),
+      ] : uiAction({
+        action: actionPath, label: tr(translate, 'duplicate-board', 'Duplicate Board'),
+        icon: 'add', fields: { ...boardFields, legacyOperation: 'confirm-copy-board' },
       }));
       return [{
         color: boardColor(board), boardTheme: true,

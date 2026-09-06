@@ -40,6 +40,28 @@ test('Meteor and HTML4 controllers use the same operations', () => {
     'setAccessibleBoardArchived']) assert.match(request, new RegExp(operation));
 });
 
+test('creation and copy share one server boundary and reject caller-controlled board fields', () => {
+  const publications = read('server/publications/boards.js');
+  assert.match(service, /createAccessibleBoardWithInitialSwimlanes/);
+  assert.match(service, /new Set\(\[\s*'title', 'slug', 'permission', 'type', 'migrationVersion', 'swimlanes'/);
+  assert.match(service, /creation tried to set a protected board field/);
+  assert.match(service, /TableVisibilityModeSettings\.findOneAsync/);
+  assert.match(service, /\['private', 'public'\]\.includes\(requestedPermission\)/);
+  assert.match(service, /slug: getSlug\(title\) \|\| 'board'/);
+  assert.match(service, /\['board', 'template-container'\]\.includes\(type\)/);
+  assert.match(service, /copyAccessibleBoard/);
+  assert.match(service, /if \(!board\.hasAdmin\(userId\)\)/);
+  assert.match(service, /typeof properties\.title === 'string'/);
+  assert.match(service, /Number\.isFinite\(properties\.sort\)/);
+  assert.match(service, /new Set\(\['sort', 'title', 'type'\]\)/);
+  assert.match(service, /Object\.keys\(properties\)\.some/);
+  assert.match(service, /copy tried to set a protected board field/);
+  assert.match(boardMethods, /createAccessibleBoardWithInitialSwimlanes\(this\.userId/);
+  assert.match(publications, /copyAccessibleBoard\(this\.userId, boardId, properties\)/);
+  assert.match(request, /createAccessibleBoardWithInitialSwimlanes\(session\.userId/);
+  assert.match(request, /copyAccessibleBoard\(session\.userId, boardId/);
+});
+
 test('HTML4 All Boards exposes textual state and confirms archive', () => {
   for (const operation of ['toggle-board-star', 'toggle-default-board',
     'confirm-archive-board', 'archive-board', 'restore-board']) {
@@ -49,4 +71,8 @@ test('HTML4 All Boards exposes textual state and confirms archive', () => {
   assert.match(pages, /profile\.defaultBoardId/);
   assert.match(pages, /currentUser\?\.isAdmin \|\| board\.hasAdmin\(userId\)/);
   assert.match(pages, /confirmBoardArchive === board\._id/);
+  assert.match(pages, /legacyOperation: 'create-board'/);
+  assert.match(pages, /legacyOperation: 'confirm-copy-board'/);
+  assert.match(pages, /legacyOperation: 'copy-board'/);
+  assert.match(pages, /confirmBoardCopy === board\._id/);
 });

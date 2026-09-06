@@ -80,7 +80,15 @@ function uiCardDestinationForm({ action, titleLabel, titleName = 'cardTitle', ti
   };
 }
 
+function uiBoardCreateForm({ action, titleLabel, permissionLabel, permissions = [],
+  fields = {}, submitLabel }) {
+  return {
+    component: 'board-create', action, titleLabel, permissionLabel, permissions,
+    fields, submitLabel,
+  };
+}
+
 module.exports = {
-  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon,
+  UI_ICONS, uiAction, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon,
   uiLink, uiSearchForm, uiSelectForm, uiTextForm, uiTextareaForm,
 };

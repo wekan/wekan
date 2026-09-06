@@ -32,7 +32,10 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
-import { setAccessibleBoardArchived } from '/server/lib/accessibleBoardListOperations';
+import {
+  createAccessibleBoardWithInitialSwimlanes,
+  setAccessibleBoardArchived,
+} from '/server/lib/accessibleBoardListOperations';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -135,64 +138,9 @@ Meteor.methods({
       check(swimlane.role, Match.Maybe(String));
     }
 
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
-
-    const boardId = await Boards.insertAsync({
-      title,
-      slug,
-      permission,
-      type,
-      migrationVersion,
-      members: [
-        {
-          userId: this.userId,
-          isAdmin: true,
-          isActive: true,
-          isNoComments: false,
-          isCommentOnly: false,
-          isWorker: false,
-        },
-      ],
+    return createAccessibleBoardWithInitialSwimlanes(this.userId, {
+      title, slug, permission, type, migrationVersion, swimlanes,
     });
-
-    // #2339/#5850: when the user creates a Template Container board (via the
-    // "Add Template Container" button on All Boards / Templates), register it
-    // and its three swimlanes as the user's active templates board so that
-    // adding Card/List/Swimlane/Board templates to it actually works -- the
-    // swimlane.isCardTemplatesSwimlane()/... helpers compare against these
-    // profile pointers. Without this the container would look right but stay
-    // inert. We point the profile at this newly-created container (the most
-    // recently created one becomes the active one).
-    const templateRolePointers = {
-      card: 'profile.cardTemplatesSwimlaneId',
-      list: 'profile.listTemplatesSwimlaneId',
-      board: 'profile.boardTemplatesSwimlaneId',
-    };
-    const isTemplateContainer = type === 'template-container';
-    const profilePointerSet = {};
-    if (isTemplateContainer) {
-      profilePointerSet['profile.templatesBoardId'] = boardId;
-    }
-
-    for (const swimlane of swimlanes) {
-      const swimlaneId = await Swimlanes.insertAsync({
-        title: swimlane.title,
-        boardId,
-        sort: swimlane.sort,
-        type: swimlane.type,
-      });
-      if (isTemplateContainer && templateRolePointers[swimlane.role]) {
-        profilePointerSet[templateRolePointers[swimlane.role]] = swimlaneId;
-      }
-    }
-
-    if (Object.keys(profilePointerSet).length) {
-      await Users.updateAsync(this.userId, { $set: profilePointerSet });
-    }
-
-    return boardId;
   },
 
   async getBackgroundImageURL(boardId) {

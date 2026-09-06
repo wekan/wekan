@@ -16,6 +16,7 @@ import Cards from '/models/cards';
 import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
 import { collectAncestorIds } from '/server/lib/subtaskAncestors';
 import { visibleBoardIds } from '/server/lib/visibleBoardIds';
+import { copyAccessibleBoard } from '/server/lib/accessibleBoardListOperations';
 import {
   showsCardCounterList,
   countCardsByListId,
@@ -1257,20 +1258,7 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board) throw new Meteor.Error('not-found');
-    // Require board admin, matching the REST endpoint
-    // POST /api/boards/:boardId/copy (checkAdminOrCondition with adminAccess).
-    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized');
-
-    // Strip fields the caller must not control on the copy
-    const { members, permission, ...safeProperties } = properties;
-    for (const key of Object.keys(safeProperties)) {
-      board[key] = safeProperties[key];
-    }
-
-    return board.copy();
+    return copyAccessibleBoard(this.userId, boardId, properties);
   },
 
   // Board status for the sidebar Status popup: accurate counts computed on the

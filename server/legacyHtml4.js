@@ -40,6 +40,8 @@ import {
   setAccessibleAttachmentCover,
 } from '/server/lib/accessibleAttachmentOperations';
 import {
+  copyAccessibleBoard,
+  createAccessibleBoardWithInitialSwimlanes,
   setAccessibleBoardArchived,
   toggleAccessibleBoardStar,
   toggleAccessibleDefaultBoard,
@@ -168,11 +170,16 @@ WebApp.handlers.use(async (req, res, next) => {
   ];
   const boardListOperations = [
     'toggle-board-star', 'toggle-default-board', 'archive-board', 'restore-board',
+    'create-board', 'copy-board',
   ];
   const isBoardListPath = /^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path);
   if (session && isBoardListPath
     && requestFields.legacyOperation === 'confirm-archive-board') {
     requestFields.confirmBoardArchive = String(requestFields.boardId || '');
+  }
+  if (session && isBoardListPath
+    && requestFields.legacyOperation === 'confirm-copy-board') {
+    requestFields.confirmBoardCopy = String(requestFields.boardId || '');
   }
   if (session && isBoardListPath
     && boardListOperations.includes(requestFields.legacyOperation)) {
@@ -186,6 +193,25 @@ WebApp.handlers.use(async (req, res, next) => {
         }
         if (requestFields.legacyOperation === 'toggle-default-board') {
           return toggleAccessibleDefaultBoard(session.userId, boardId);
+        }
+        if (requestFields.legacyOperation === 'create-board') {
+          const type = requestFields.boardType === 'template-container'
+            ? 'template-container' : 'board';
+          return createAccessibleBoardWithInitialSwimlanes(session.userId, {
+            title: String(requestFields.boardTitle || ''),
+            permission: String(requestFields.boardPermission || 'private'),
+            type,
+            migrationVersion: 1,
+            swimlanes: type === 'template-container' ? [
+              { title: 'Card Templates', sort: 1, type: 'template-container', role: 'card' },
+              { title: 'List Templates', sort: 2, type: 'template-container', role: 'list' },
+              { title: 'Board Templates', sort: 3, type: 'template-container', role: 'board' },
+            ] : [{ title: 'Default' }],
+          });
+        }
+        if (requestFields.legacyOperation === 'copy-board') {
+          const source = await copyAccessibleBoard(session.userId, boardId, {});
+          return source;
         }
         return setAccessibleBoardArchived(
           session.userId, boardId, requestFields.legacyOperation === 'archive-board',

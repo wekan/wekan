@@ -22,6 +22,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let templateBoard;
   let archivedBoard;
   let workspaceBoard;
+  let html4CreatedBoardId;
+  let html4CopiedBoardId;
   let importedBoardId;
   let importedFileBoardId;
   let importedWekanZipBoardId;
@@ -159,6 +161,55 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Archived Board');
 
     await open('/allboards/remaining');
+    const createBoardForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="create-board"])',
+    );
+    await expect(createBoardForm.locator('label[for="legacy-board-title-board"]'))
+      .toContainText('Title');
+    await expect(createBoardForm.locator('label[for="legacy-board-permission-board"]'))
+      .toContainText('permissions');
+    await createBoardForm.locator('input[name="boardTitle"]')
+      .fill(`HTML4 Created Board ${suffix}`);
+    await createBoardForm.locator('select[name="boardPermission"]').selectOption('public');
+    await Promise.all([
+      page.waitForNavigation(), createBoardForm.locator('input[type="submit"]').click(),
+    ]);
+    const html4CreatedBoard = db.findOne('boards', { title: `HTML4 Created Board ${suffix}` });
+    expect(html4CreatedBoard?.permission).toBe('public');
+    expect(html4CreatedBoard?.members?.some(member =>
+      member.userId === user._id && member.isAdmin === true)).toBe(true);
+    html4CreatedBoardId = html4CreatedBoard._id;
+    expect(db.countDocuments('swimlanes', { boardId: html4CreatedBoardId })).toBe(1);
+
+    const boardCountBeforeCopy = db.countDocuments('boards', { 'members.userId': user._id });
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('confirm-copy-board', html4CreatedBoardId)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(db.countDocuments('boards', { 'members.userId': user._id }))
+      .toBe(boardCountBeforeCopy);
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('copy-board', html4CreatedBoardId).locator('input[type="submit"]').click(),
+    ]);
+    await expect(page.locator('tbody')).toContainText('StatusSave');
+    expect(db.countDocuments('boards', { 'members.userId': user._id }))
+      .toBe(boardCountBeforeCopy + 1);
+    const copiedCandidates = db.find('boards', {
+      'members.userId': user._id, _id: { $nin: [board.boardId, html4CreatedBoardId,
+        templateBoard.boardId, archivedBoard.boardId, workspaceBoard.boardId] },
+    });
+    const html4CopiedBoard = copiedCandidates.find(candidate =>
+      candidate.title.startsWith(`HTML4 Created Board ${suffix}`));
+    expect(html4CopiedBoard?._id).toBeTruthy();
+    html4CopiedBoardId = html4CopiedBoard._id;
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-allboards-create-copy.png`,
+        fullPage: true,
+      });
+    }
     // Star and Home are per-user state and can both be toggled back from the
     // same no-JavaScript page without exposing an identifier in the URL.
     await Promise.all([
@@ -1101,18 +1152,21 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
 
     await open('/allboards');
     await open('/allboards/remaining');
-    const forgedBoardForm = boardOperationForm('toggle-board-star', board.boardId);
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('confirm-copy-board', board.boardId).locator('input[type="submit"]').click(),
+    ]);
+    const boardCountBeforeForgedCopy = db.countDocuments('boards', {});
+    const forgedBoardForm = boardOperationForm('copy-board', board.boardId);
     await forgedBoardForm.locator('input[name="boardId"]').evaluate(
       (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
     );
-    const submittedForgedBoardForm = boardOperationForm(
-      'toggle-board-star', outsiderBoard.boardId,
-    );
+    const submittedForgedBoardForm = boardOperationForm('copy-board', outsiderBoard.boardId);
     await Promise.all([
       page.waitForNavigation(), submittedForgedBoardForm.locator('input[type="submit"]').click(),
     ]);
-    expect(db.findOne('users', { _id: user._id }).profile.starredBoards)
-      .not.toContain(outsiderBoard.boardId);
+    expect(db.countDocuments('boards', {})).toBe(boardCountBeforeForgedCopy);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
     await expect.poll(() => db.countDocuments('eventlog', {
       stream: 'security', userId: user._id, bleed: 'BoardBleed', action: 'detected',
     })).toBeGreaterThan(0);
@@ -1150,6 +1204,15 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await modern.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-templates.png`, fullPage: true,
+      });
+    }
+    await modern.goto(`${baseURL}/allboards/remaining`);
+    await expect(modern.locator('body')).toContainText(`HTML4 Created Board ${suffix}`);
+    await expect(modern.locator('body')).toContainText(html4CopiedBoard.title);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-create-copy.png`,
+        fullPage: true,
       });
     }
     await modern.goto(`${baseURL}/import/trello`);
@@ -1373,6 +1436,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (templateBoard) db.cleanup({ boardIds: [templateBoard.boardId] });
     if (archivedBoard) db.cleanup({ boardIds: [archivedBoard.boardId] });
     if (workspaceBoard) db.cleanup({ boardIds: [workspaceBoard.boardId] });
+    if (html4CopiedBoardId) db.cleanup({ boardIds: [html4CopiedBoardId] });
+    if (html4CreatedBoardId) db.cleanup({ boardIds: [html4CreatedBoardId] });
     if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
     if (importedFileBoardId) db.cleanup({ boardIds: [importedFileBoardId] });
     if (importedWekanZipAttachmentId) {

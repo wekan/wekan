@@ -330,5 +330,10 @@ attachment rename, image cover selection and confirmed deletion, then forges a
 route/attachment scope mismatch and verifies both non-mutation and the attributed
 Security report.
 The All Boards path toggles Star and Home in both directions, restores and
-confirm-archives a board, and forges an inaccessible board identifier to verify
-both non-mutation and the attributed Security event.
+confirm-archives a board, creates a public board with its default swimlane and
+duplicates it only after confirmation. Creation and duplication share the same
+server operations as Jade: Private-only is repeated server-side, copy properties
+are allowlisted, and the source requires board-admin access. The browser test
+forges an inaccessible copy source to verify both non-mutation and the attributed
+Security event. Paired same-URL screenshots compare the created and copied board
+titles, colors and available actions in HTML4 and HTML5.

@@ -11,7 +11,7 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiAttachment, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon, uiSearchForm,
+  UI_ICONS, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon, uiSearchForm,
   uiSelectForm, uiTextareaForm, uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
@@ -108,6 +108,24 @@ test('shared UI icons have printable ASCII and Jade mappings', () => {
   assert.match(jade, /uiIconClass 'caret-right'/);
   assert.match(jade, /uiIconClass 'caret-down'/);
   assert.match(helpers, /uiIcon\(name, 'html5'\)/);
+});
+
+test('shared board creation component keeps title and permission in one semantic form', () => {
+  const component = uiBoardCreateForm({
+    action: '/allboards/remaining', titleLabel: 'Title', permissionLabel: 'Permissions',
+    permissions: [{ value: 'private', label: 'Private' }],
+    fields: { legacyOperation: 'create-board', boardType: 'board' }, submitLabel: 'Add Board',
+  });
+  const html = renderLegacyHtml4Page('/allboards/remaining', {
+    authenticated: true, username: 'alice', actionFields: () => ({}),
+    page: { heading: 'All Boards', columns: ['Board', 'Permissions'], rows: [{ cells: [component, ''] }] },
+  });
+  assert.match(html, /<fieldset><legend>Add Board<\/legend>/);
+  assert.match(html, /name="boardTitle"[^>]*required/);
+  assert.match(html, /name="boardPermission"/);
+  assert.match(html, /name="legacyOperation" value="create-board"/);
+  assert.equal((html.match(/name="boardTitle"/g) || []).length, 1);
+  assert.equal((html.match(/name="boardPermission"/g) || []).length, 1);
 });
 
 test('component library has matching HTML5 and HTML4 routes', () => {
