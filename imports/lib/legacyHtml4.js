@@ -72,11 +72,30 @@ function legacyHtml4AttachmentGifUrl(attachmentId) {
   return `/legacy-html4/attachments/${encodeURIComponent(String(attachmentId || ''))}.gif`;
 }
 
+function sessionHiddenFields(fields) {
+  if (!fields) return '';
+  return [
+    ['legacySession', fields.legacySession],
+    ['authAction', fields.authAction],
+    ['authCounter', fields.authCounter],
+    ['authHash', fields.authHash],
+  ].map(([name, value]) => `<input type="hidden" name="${name}" value="${escapeHtml(value)}">`).join('\n');
+}
+
 function authContent(path, options) {
   const t = (key, fallback) => translated(options, key, fallback);
+  if (options.authenticated) {
+    const identity = options.username ? ` ${escapeHtml(options.username)}` : '';
+    return [
+      `<p>${escapeHtml(t('logged-in', 'Logged in'))}${identity}.</p>`,
+      `<form method="post" action="/allboards">${sessionHiddenFields(options.sessionFields)}<p><input type="submit" value="${escapeHtml(t('all-boards', 'All Boards'))}"></p></form>`,
+      path === '/' || path === '/sign-in' ? ''
+        : `<p><strong>${escapeHtml(pageHeading(path, options))}</strong>: ${escapeHtml(path)}</p>`,
+    ].join('\n');
+  }
   if (path === '/' || path === '/sign-in') {
     return [
-      '<form method="post" action="/sign-in">',
+      '<form method="post" action="/users/login">',
       '<input type="hidden" name="legacyHtml4" value="1">',
       `<p><label for="username">${escapeHtml(`${t('username', 'Username')} / ${t('email', 'Email')}`)}</label><br>`,
       '<input id="username" name="username" type="text" size="30"></p>',
@@ -84,6 +103,7 @@ function authContent(path, options) {
       '<input id="password" name="password" type="password" size="30"></p>',
       `<p><input type="submit" value="${escapeHtml(t('loginPopup-title', 'Log In'))}"></p>`,
       '</form>',
+      options.loginFailed ? `<p role="alert">${escapeHtml(t('error-incorrect-user', 'Incorrect username, email address or password.'))}</p>` : '',
       options.disableForgotPassword ? '' : `<p><a href="/forgot-password">${escapeHtml(t('forgot-password', 'Forgot password'))}</a></p>`,
       options.disableRegistration ? '' : `<p><a href="/sign-up">${escapeHtml(t('signupPopup-title', 'Create an Account'))}</a></p>`,
     ].join('\n');

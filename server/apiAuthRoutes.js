@@ -24,6 +24,8 @@ const {
 const {
   shouldRejectPasswordLogin,
 } = require('/server/lib/ldapPasswordLoginGuard');
+const { createLegacyHtml4Session } = require('/server/lib/legacyHtml4Session');
+const { renderLegacyHtml4Page } = require('/imports/lib/legacyHtml4');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -104,10 +106,25 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       throw error;
     }
 
-    const options = req.body;
+    const legacyHtml4 = req.body?.legacyHtml4 === '1';
+    const submitted = { ...req.body };
+    delete submitted.legacyHtml4;
+    const options = submitted;
 
+    // The HTML5 field accepts either a username or an email address, and the
+    // HTML4 baseline must have the same contract without JavaScript.
     let user;
-    if (options.email) {
+    if (legacyHtml4 && options.username && !options.email) {
+      user = await Meteor.users.findOneAsync({
+        $or: [{ username: options.username }, { 'emails.address': options.username }],
+      });
+      if (user?.emails?.some(item => item?.address === options.username)) {
+        options.email = options.username;
+        delete options.username;
+      }
+    }
+
+    if (!user && options.email) {
       check(options, {
         email: String,
         password: String,
@@ -116,7 +133,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       user = await Meteor.users.findOneAsync({
         'emails.address': options.email,
       });
-    } else {
+    } else if (!user) {
       check(options, {
         username: String,
         password: String,
@@ -196,6 +213,23 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       }
     }
 
+    // HTML4 never creates a reusable Meteor login token. Its authenticated
+    // state travels only in signed, one-time POST fields.
+    if (legacyHtml4) {
+      restLoginThrottle.recordSuccess(clientKey);
+      restLoginThrottle.prune(now);
+      const legacySession = await createLegacyHtml4Session(result.userId, req);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.end(renderLegacyHtml4Page('/allboards', {
+        authenticated: true,
+        username: user.username || '',
+        sessionFields: legacySession,
+      }));
+      return;
+    }
+
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
 
@@ -216,6 +250,15 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       },
     });
   } catch (error) {
+    if (req.body?.legacyHtml4 === '1') {
+      res.statusCode = 303;
+      if (error.retryAfterSeconds) {
+        res.setHeader('Retry-After', String(error.retryAfterSeconds));
+      }
+      res.setHeader('Location', '/sign-in?login=failed');
+      res.end();
+      return;
+    }
     res.statusCode = error.statusCode || 401;
     if (error.retryAfterSeconds) {
       res.setHeader('Retry-After', String(error.retryAfterSeconds));

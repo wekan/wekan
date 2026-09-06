@@ -62,7 +62,7 @@ test('the successful capability request reaches Meteor at the same URL', () => {
 
 test('sign-in baseline is usable and dynamic paths are escaped', () => {
   const login = renderLegacyHtml4Page('/sign-in');
-  assert.match(login, /<form method="post" action="\/sign-in">/);
+  assert.match(login, /<form method="post" action="\/users\/login">/);
   assert.match(login, /name="username"/);
   assert.match(login, /name="password"/);
   assert.match(login, /type="submit" value="Log In"/);
@@ -72,6 +72,37 @@ test('sign-in baseline is usable and dynamic paths are escaped', () => {
 
   const hostile = renderLegacyHtml4Page('/board/%3Cscript%3E');
   assert.doesNotMatch(hostile, /<strong><script>/);
+});
+
+test('sign-in POST uses the protected login route without cookies or URL tokens', () => {
+  const route = fs.readFileSync(path.join(__dirname, '..', 'server',
+    'apiAuthRoutes.js'), 'utf8');
+  const sessions = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
+    'legacyHtml4Session.js'), 'utf8');
+  assert.match(route, /legacyHtml4 = req\.body\?\.legacyHtml4 === '1'/);
+  assert.match(route, /createLegacyHtml4Session\(result\.userId, req\)/);
+  assert.match(route, /renderLegacyHtml4Page\('\/allboards'/);
+  assert.match(route, /Location', '\/sign-in\?login=failed'/);
+  assert.doesNotMatch(route, /setLoginTokenCookies/);
+  assert.match(sessions, /crypto\.timingSafeEqual/);
+  assert.match(sessions, /findOneAndUpdate/);
+  assert.match(sessions, /\$inc: \{ counter: 1 \}/);
+  assert.match(sessions, /expireAfterSeconds: 0/);
+});
+
+test('an authenticated HTML4 request does not draw the login form again', () => {
+  const html = renderLegacyHtml4Page('/allboards', {
+    authenticated: true,
+    username: 'alice',
+  });
+  assert.match(html, /Logged in alice/);
+  assert.doesNotMatch(html, /<form method="post" action="\/users\/login">/);
+
+  const middleware = fs.readFileSync(path.join(__dirname, '..', 'server',
+    'legacyHtml4.js'), 'utf8');
+  assert.match(middleware, /consumeLegacyHtml4Session\(req, path\)/);
+  assert.match(middleware, /authenticated: Boolean\(session\)/);
+  assert.match(middleware, /tripCanary\('authz\.legacy-html4-session'/);
 });
 
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
