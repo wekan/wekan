@@ -8139,13 +8139,13 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tswana:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **67,344 values across 31 second-tier languages**. Southern
+remaining work is **67,294 values across 31 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
 batch. Tigre is complete after forty-three 50-value batches and a final
 24-value batch.
-Tswana has 2,074 left after its first two 50-value batches.
+Tswana has 2,024 left after its first three 50-value batches.
 Albanian and Bosnian are also complete. Bosnian's final apparent gap,
 `Server`, is a normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8265,8 +8265,8 @@ complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
 backups and migrations; every near-complete locale is complete again, and the
 remaining counter excludes valid international technical and color loanwords.
-**Tswana translations** cover their first two board-activity and workspace
-batches.
+**Tswana translations** cover their first three board-activity, workspace and
+board-sizing batches.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8536,6 +8536,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7965f8561">Translate Tswana board sizing controls</a>. Thanks to xet7.</summary>
+
+The third 50-value Tswana batch adds workspace deletion and bulk board actions,
+Home board selection, list width and swimlane height controls, keyboard
+shortcuts and checklist conversion. All values required translation, with low
+confidence in some grammar pending human refinement. Tests retain date
+placeholders, pixel and width limits and card terminology. This leaves 67,294
+actionable values across 31 languages, including 2,024 in Tswana.
 
 </details>
 
