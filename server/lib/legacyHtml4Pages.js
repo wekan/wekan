@@ -16,7 +16,7 @@ import CustomFields from '/models/customFields';
 import { CustomFieldStringTemplate } from '/imports/lib/customFields';
 import { Query } from '/config/query-classes';
 import { DEFAULT_LIMIT, OPERATOR_USER } from '/config/search-const';
-import { searchCardsPage } from '/server/publications/cards';
+import { searchBrokenCardsPage, searchCardsPage } from '/server/publications/cards';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import { attachmentKind } from '/models/lib/attachmentKind';
 import getSlug from 'limax';
@@ -1844,7 +1844,49 @@ async function cardDiscoveryPage(path, userId, requestFields, translate) {
       empty: tr(translate, 'no-results', 'No results'),
     };
   }
-  if (!['/my-cards', '/due-cards', '/global-search'].includes(path)) return null;
+  if (!['/my-cards', '/due-cards', '/global-search', '/broken-cards'].includes(path)) return null;
+  if (path === '/broken-cards') {
+    const result = await searchBrokenCardsPage(userId, requestFields.page);
+    const boardIds = [...new Set(result.cards.map(card => card.boardId).filter(Boolean))];
+    const listIds = [...new Set(result.cards.map(card => card.listId).filter(Boolean))];
+    const swimlaneIds = [...new Set(result.cards.map(card => card.swimlaneId).filter(Boolean))];
+    const [boards, lists, swimlanes] = await Promise.all([
+      Boards.find({ _id: { $in: boardIds } }, { fields: { title: 1, slug: 1 } }).fetchAsync(),
+      Lists.find({ _id: { $in: listIds } }, { fields: { title: 1 } }).fetchAsync(),
+      Swimlanes.find({ _id: { $in: swimlaneIds } }, { fields: { title: 1 } }).fetchAsync(),
+    ]);
+    const boardById = new Map(boards.map(board => [board._id, board]));
+    const listById = new Map(lists.map(list => [list._id, list]));
+    const swimlaneById = new Map(swimlanes.map(swimlane => [swimlane._id, swimlane]));
+    const unknown = tr(translate, 'no-name', '(Unknown)');
+    const rows = result.cards.map(card => {
+      const board = boardById.get(card.boardId);
+      return { color: card.color, cells: [board ? uiAction({
+        action: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
+        label: card.title || tr(translate, 'card', 'Card'),
+      }) : card.title || tr(translate, 'card', 'Card'), board?.title || unknown,
+      swimlaneById.get(card.swimlaneId)?.title || unknown,
+      listById.get(card.listId)?.title || unknown, card.type || unknown] };
+    });
+    rows.push({ cells: [tr(translate, 'broken-cards', 'Broken Cards'),
+      `${result.totalHits} (${result.page} / ${result.totalPages})`, '', '', [
+        result.page > 1 ? uiAction({
+          action: path, label: tr(translate, 'previous-page', 'Previous'), icon: 'previous',
+          fields: { page: result.page - 1 },
+        }) : '',
+        result.page < result.totalPages ? uiAction({
+          action: path, label: tr(translate, 'next-page', 'Next'), icon: 'next',
+          fields: { page: result.page + 1 },
+        }) : '',
+      ]] });
+    return {
+      heading: tr(translate, 'broken-cards', 'Broken Cards'),
+      columns: [tr(translate, 'card', 'Card'), tr(translate, 'board', 'Board'),
+        tr(translate, 'swimlane', 'Swimlane'), tr(translate, 'list', 'List'),
+        tr(translate, 'type', 'Type')],
+      rows, empty: tr(translate, 'no-results', 'No results'),
+    };
+  }
   if (path === '/global-search') {
     const queryText = String(requestFields.q || '').trim().slice(0, 2000);
     const searchView = requestFields.searchView === 'me' ? 'me' : 'all';

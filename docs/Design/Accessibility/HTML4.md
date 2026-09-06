@@ -460,6 +460,12 @@ current cursor's skip/limit so later pages cannot disappear. Modern pagination
 uses a new owned session document for each page, preventing a slow transport
 from removing the old merged document before the new page is ready.
 
+Broken Cards uses the same constructed query and guarded page executor in both
+representations. The HTML4 table names the card, board, swimlane, list and type,
+and says Unknown wherever the broken record has lost its context. Only cards on
+boards still visible to the signed-in user can be returned. Card links and
+bounded Previous/Next navigation are native signed POST controls.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

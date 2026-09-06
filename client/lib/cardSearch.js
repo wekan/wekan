@@ -220,10 +220,15 @@ export class CardSearchPaged {
   }
 
   nextPage() {
-    this.runPageSearch(this.sessionData?.lastHit || 0);
+    if (this.currentSearch) this.runPageSearch(this.sessionData?.lastHit || 0);
+    else this.runSessionPage('nextPage');
   }
 
   previousPage() {
+    if (!this.currentSearch) {
+      this.runSessionPage('previousPage');
+      return;
+    }
     const projection = this.sessionData?.getProjection?.() || {};
     const currentStart = Math.max(0,
       (this.sessionData?.lastHit || 0) - (this.sessionData?.resultsCount || 0));
@@ -249,6 +254,19 @@ export class CardSearchPaged {
         onError: error => this.subscriptionCallbacks.onError(error),
       },
     );
+    this.subscriptionHandle = next;
+  }
+
+  runSessionPage(publication) {
+    this.searching.set(true);
+    const previous = this.subscriptionHandle;
+    const next = Meteor.subscribe(publication, this.sessionId, {
+      onReady: () => {
+        if (previous) previous.stop();
+        this.subscriptionCallbacks.onReady();
+      },
+      onError: error => this.subscriptionCallbacks.onError(error),
+    });
     this.subscriptionHandle = next;
   }
 

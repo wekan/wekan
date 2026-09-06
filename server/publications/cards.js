@@ -1000,11 +1000,9 @@ function buildProjection(query) {
   }
 
   if (query.getQueryParams().hasOperator(OPERATOR_LIMIT)) {
-    limit = Math.min(
-      query.getQueryParams().getPredicate(OPERATOR_LIMIT),
-      MAX_GLOBAL_SEARCH_RESULTS_PER_PAGE,
-    );
+    limit = query.getQueryParams().getPredicate(OPERATOR_LIMIT);
   }
+  limit = Math.min(limit, MAX_GLOBAL_SEARCH_RESULTS_PER_PAGE);
 
   const projection = {
     fields: {
@@ -1112,17 +1110,21 @@ const BROKEN_CARDS_SELECTOR = {
   ],
 };
 
-// The standalone /broken-cards PAGE (client/components/main/brokenCards.js) still
-// runs on the global-search machinery, so its publication stays exactly as it was.
-// Admin Panel / Problems / Broken cards is a separate, admin-only REPORT below.
+// The standalone HTML5 and HTML4 /broken-cards pages share this constructed
+// query and the guarded executor. Admin Panel / Problems / Broken cards remains
+// a separate, admin-only REPORT below.
+async function buildBrokenCardsSearch(userId) {
+  const params = new QueryParams();
+  params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
+  const query = await buildQuery(params, userId);
+  query.selector.$or = BROKEN_CARDS_SELECTOR.$or;
+  return query;
+}
+
 Meteor.publish('brokenCards', async function(sessionId) {
   check(sessionId, String);
 
-  const params = new QueryParams();
-  params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
-  const query = await buildQuery(params, this.userId);
-  query.selector.$or = BROKEN_CARDS_SELECTOR.$or;
-
+  const query = await buildBrokenCardsSearch(this.userId);
   const { cursors: brokenCursors, sessionData: brokenSessionData } = await findCards(sessionId, query, this.userId);
   if (brokenSessionData) this.added('sessiondata', brokenSessionData._id, brokenSessionData);
   return brokenCursors;
@@ -1316,9 +1318,7 @@ async function executeCardSearch(query, userId) {
   return { cards, totalCardsCount, orderedIds, storedSelector };
 }
 
-export async function searchCardsPage(userId, params, text, requestedPage = 1) {
-  if (!userId) return { cards: [], totalHits: 0, errors: [] };
-  const query = await buildQuery(new QueryParams(params, text), userId);
+async function searchQueryPage(query, userId, requestedPage = 1) {
   const limit = query.projection.limit || DEFAULT_LIMIT;
   const numericPage = Math.floor(Number(requestedPage));
   let page = Number.isSafeInteger(numericPage) && numericPage > 0
@@ -1348,6 +1348,17 @@ export async function searchCardsPage(userId, params, text, requestedPage = 1) {
     cards, totalHits: result.totalCardsCount, errors: query.errors(),
     projection: query.projection, page, totalPages, limit,
   };
+}
+
+export async function searchCardsPage(userId, params, text, requestedPage = 1) {
+  if (!userId) return { cards: [], totalHits: 0, errors: [] };
+  const query = await buildQuery(new QueryParams(params, text), userId);
+  return searchQueryPage(query, userId, requestedPage);
+}
+
+export async function searchBrokenCardsPage(userId, requestedPage = 1) {
+  if (!userId) return { cards: [], totalHits: 0, errors: [] };
+  return searchQueryPage(await buildBrokenCardsSearch(userId), userId, requestedPage);
 }
 
 async function findCards(sessionId, query, userId) {
