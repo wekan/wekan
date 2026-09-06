@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
-  'the first thirty-six Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
+  'the first thirty-seven Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -278,5 +278,13 @@ assert.deepEqual(tokens(tigrinya['database-migration-confirm']), ['__db__']);
 assert.match(tigrinya['database-migration-description'],
   /MongoDB.*FerretDB v1 \(SQLite\).*27018.*27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*snap set wekan database=ferretdb.*=mongodb/s);
 assert.equal(tigrinya['cron-migrations-resumed'], 'ፍልሰታት ብዓወት ቀጺሎም');
+assert.match(tigrinya['cards-loading-description'],
+  /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.deepEqual(tags(tigrinya['render-links-as-plain-text-description']),
+  tags(english['render-links-as-plain-text-description']));
+assert.match(tigrinya['always-show-code-as-text-description'], /<!-- -->.*JavaScript/);
+assert.match(tigrinya['anonymize-import-users-description'], /user1, user2, \.\.\..*@username/s);
+assert.match(tigrinya['backup-description'],
+  /backup\/YYYY\/MM\/DD\/HH_MM_SS\/backup\.zip.*S3\/MinIO.*Azure.*GCS/s);
 
-console.log('tigrinyaTranslationProgress: first thirty-six batches passed');
+console.log('tigrinyaTranslationProgress: first thirty-seven batches passed');
