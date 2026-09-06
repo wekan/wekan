@@ -362,11 +362,9 @@ export class WekanCreator {
       stars: 0,
       title: await Boards.uniqueTitle(boardToImport.title),
     };
-    // Carry over an external background image URL. Stored backgrounds (with a
-    // backgroundImageId) are re-created and re-pointed in recreateBackgrounds().
-    if (boardToImport.backgroundImageURL && !boardToImport.backgroundImageId) {
-      boardToCreate.backgroundImageURL = boardToImport.backgroundImageURL;
-    }
+    // External background URLs are intentionally not imported. Stored
+    // backgrounds (with a backgroundImageId) are re-created and re-pointed in
+    // recreateBackgrounds(); a bare third-party URL must never become live CSS.
     // now add other members. Without an explicit (deliberate, later) mapping we keep
     // each ORIGINAL member: the placeholder created in createPlaceholderUsers reuses the
     // original _id, so use wekanId if a mapping exists, else the original id. Imported

@@ -313,9 +313,11 @@ template(name='tableVisibilityModeSettings')
           .materialCheckBox#hide-logo(class="{{#if currentSetting.hideLogo}}is-checked{{/if}}")
           span {{_ 'hide-logo'}}
       li.tableVisibilityMode-form
-        .title {{_ 'custom-login-logo-image-url'}}
+        .title {{_ 'upload'}}
         .form-group
-          input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
+          if currentSetting.customLoginLogoImageUrl
+            img.admin-branding-preview(src=currentSetting.customLoginLogoImageUrl alt="" width="160")
+          input.wekan-form-control#custom-login-logo-image-upload(type="file" accept="image/*")
       li.tableVisibilityMode-form
         .title {{_ 'custom-login-logo-link-url'}}
         .form-group
@@ -325,9 +327,11 @@ template(name='tableVisibilityModeSettings')
         .form-group
           textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
       li.tableVisibilityMode-form
-        .title {{_ 'custom-top-left-corner-logo-image-url'}}
+        .title {{_ 'upload'}}
         .form-group
-          input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
+          if currentSetting.customTopLeftCornerLogoImageUrl
+            img.admin-branding-preview(src=currentSetting.customTopLeftCornerLogoImageUrl alt="" width="160")
+          input.wekan-form-control#custom-top-left-corner-logo-image-upload(type="file" accept="image/*")
       li.tableVisibilityMode-form
         .title {{_ 'custom-top-left-corner-logo-link-url'}}
         .form-group

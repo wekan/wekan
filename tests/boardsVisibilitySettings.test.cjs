@@ -265,8 +265,9 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
     // checked in the group list above - the group holds one field, so the title is
     // its label.
     ['hide-logo', 'settings-group-logo'],
-    ['custom-login-logo-image-url', 'settings-group-logo'],
+    ['custom-login-logo-image-upload', 'settings-group-logo'],
     ['text-below-custom-login-logo', 'settings-group-logo'],
+    ['custom-top-left-corner-logo-image-upload', 'settings-group-logo'],
     ['custom-top-left-corner-logo-height', 'settings-group-logo'],
   ]) {
     assert.ok(at(key) > -1, `${key} must still be in the pane`);
@@ -598,9 +599,9 @@ test('PWA is a literal label, never a translated string', () => {
 
 test('the branding group landed in Visibility with a guarded save', () => {
   const visibility = template('tableVisibilityModeSettings');
-  for (const moved of ['custom-product-name', 'hide-logo', 'custom-login-logo-image-url',
+  for (const moved of ['custom-product-name', 'hide-logo', 'custom-login-logo-image-upload',
     'custom-login-logo-link-url', 'text-below-custom-login-logo',
-    'custom-top-left-corner-logo-image-url', 'custom-top-left-corner-logo-link-url',
+    'custom-top-left-corner-logo-image-upload', 'custom-top-left-corner-logo-link-url',
     'custom-top-left-corner-logo-height', 'custom-help-link-url',
     'automatic-linked-url-schemes']) {
     assert.ok(visibility.includes(moved), `${moved} must be in Visibility`);

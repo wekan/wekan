@@ -44,14 +44,25 @@ const {
 const TENANT_ORG_FIELDS = [
   'orgDomains',
   'orgProductName',
-  'orgCustomLoginLogoImageUrl',
   'orgCustomLoginLogoLinkUrl',
   'orgTextBelowCustomLoginLogo',
-  'orgCustomTopLeftCornerLogoImageUrl',
   'orgCustomTopLeftCornerLogoLinkUrl',
   'orgCustomHelpLinkUrl',
   'orgLegalNotice',
 ];
+
+function uploadOrgBrandingInput(templateInstance, selector, orgId, slot) {
+  const file = templateInstance.find(selector)?.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const base64 = String(reader.result || '').split(',')[1] || '';
+    Meteor.call('uploadBrandingImage', 'org', orgId, slot, base64, error => {
+      if (error) alert(error.reason || error.message);
+    });
+  };
+  reader.readAsDataURL(file);
+}
 
 // One rows-per-page for the whole app (docs/Features/Page/Table.md): these four
 // panes page exactly like every other paginated page in WeKan.
@@ -1905,6 +1916,11 @@ Template.editOrgPopup.events({
         }
       });
     }
+
+    uploadOrgBrandingInput(
+      templateInstance, '.js-orgCustomLoginLogoImageUpload', org._id, 'login');
+    uploadOrgBrandingInput(
+      templateInstance, '.js-orgCustomTopLeftCornerLogoImageUpload', org._id, 'topLeft');
 
     Popup.back();
   },

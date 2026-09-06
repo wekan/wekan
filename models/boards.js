@@ -2065,6 +2065,11 @@ Boards.helpers({
   async setBackgroundImageURL(backgroundImageURL) {
     const currentUser = await ReactiveCache.getCurrentUser();
     if (currentUser.isBoardAdmin() || currentUser.isAdmin()) {
+      // Kept for card-attachment actions and clearing old backgrounds. A board
+      // must never be pointed at an arbitrary third-party image again.
+      if (backgroundImageURL && !/^\/cdn\/storage\/attachments\/[A-Za-z0-9_-]+(?:[/?#]|$)/.test(backgroundImageURL)) {
+        return false;
+      }
       return await Boards.updateAsync(this._id, { $set: { backgroundImageURL } });
     }
     return false;

@@ -512,6 +512,16 @@ if (Meteor.isServer) {
 
   async function loginLogoSource(setting) {
     if (setting?.customLoginLogoImageUrl) {
+      const local = setting.customLoginLogoImageUrl.match(/^\/branding\/images\/([^/]+)\.gif$/);
+      if (local) {
+        const fileObj = await Attachments.collection.findOneAsync({
+          _id: decodeURIComponent(local[1]),
+          'meta.systemAsset': 'branding-image',
+        });
+        if (!fileObj?.versions?.original) throw new Error('Stored branding logo is unavailable');
+        const strategy = attachmentStoreFactory.getFileStrategy(fileObj, 'original');
+        return boundedStreamBuffer(strategy.getReadStream());
+      }
       const response = await fetchSafe(setting.customLoginLogoImageUrl, { maxRedirects: 3 });
       if ((response.statusCode || response.status) < 200 ||
           (response.statusCode || response.status) >= 300) {

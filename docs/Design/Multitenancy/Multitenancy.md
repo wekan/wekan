@@ -381,6 +381,15 @@ host.
 | `orgCustomHelpLinkUrl` | the custom help link |
 | `orgLegalNotice` | the legal notice URL |
 
+The two image fields are storage references, not administrator-editable external
+URLs. Instance and Organization admins upload image bytes through the common branding
+method; the server validates, bounds, decodes and converts every upload to GIF before
+writing it to Admin Panel / Attachments / Default Storage. On startup, legacy external
+values in these fields are imported sequentially through the SSRF-safe downloader and
+replaced atomically by the same internal reference. Direct REST and tenant-setting
+writes cannot set image source URLs. The separate logo link fields remain optional
+click destinations.
+
 **The site theme** is the one branding field an Organization's own admin sets from
 the Admin Panel rather than from the org row: Admin Panel / Settings / Visibility /
 **Change color**, the same shared picker as Board Settings and Member Settings

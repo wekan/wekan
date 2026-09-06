@@ -225,21 +225,8 @@ export class TrelloCreator {
       stars: 0,
       title: await Boards.uniqueTitle(trelloBoard.name),
     };
-    // Import the board background image. When Trello uses an image background,
-    // prefs.backgroundImage is a public URL (and prefs.backgroundImageScaled
-    // holds scaled variants); Wekan references it directly via
-    // backgroundImageURL. A solid-color background is already covered by
-    // `color` above.
-    const prefs = trelloBoard.prefs || {};
-    const scaled = Array.isArray(prefs.backgroundImageScaled)
-      ? prefs.backgroundImageScaled
-      : [];
-    const bgImage =
-      prefs.backgroundImage ||
-      (scaled.length && scaled[scaled.length - 1] && scaled[scaled.length - 1].url);
-    if (bgImage && /^https?:\/\//i.test(bgImage)) {
-      boardToCreate.backgroundImageURL = bgImage;
-    }
+    // Live Trello imports attach downloaded background bytes below. Offline
+    // JSON imports do not activate Trello's external image URL.
     // now add other members
     if (trelloBoard.memberships) {
       trelloBoard.memberships.forEach(trelloMembership => {
@@ -340,7 +327,7 @@ export class TrelloCreator {
     // route as every other attachment. The bytes are downloaded server-side by
     // the live API import (which has credentials) and injected as
     // trelloBoard.backgroundFile. If there are no bytes (offline JSON import),
-    // the backgroundImageURL set above keeps Trello's public URL as a fallback.
+    // the board has no image rather than loading one from a third party.
     if (
       trelloBoard.backgroundFile &&
       trelloBoard.backgroundFile.file &&
