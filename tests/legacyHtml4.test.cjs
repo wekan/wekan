@@ -11,8 +11,8 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiControlLabel, uiFileForm, uiIcon, uiSearchForm, uiTextareaForm,
-  uiTextForm,
+  UI_ICONS, uiControlLabel, uiFileForm, uiIcon, uiSearchForm, uiSelectForm,
+  uiTextareaForm, uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
@@ -332,13 +332,21 @@ test('HTML4 card editing components remain labelled and keyboard ordered', () =>
       { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
         label: 'Description', name: 'cardDescription', value: '<description>',
         fields: { legacyOperation: 'edit-card-description' }, submitLabel: 'Save' }), ''] },
+      { rowHeader: false, cells: [uiSelectForm({ action: '/b/board/slug/card',
+        label: 'List', name: 'cardListId', value: 'list-b', options: [
+          { value: 'list-a', label: '<List A>' }, { value: 'list-b', label: 'List B' },
+        ], fields: { legacyOperation: 'move-card-to-list' }, submitLabel: 'Move card to' }), ''] },
     ] },
   });
   assert.match(html, /<label for="legacy-cardTitle">Title<\/label>/);
   assert.match(html, /value="&lt;title&gt;"/);
   assert.match(html, /<label for="legacy-cardDescription">Description<\/label>/);
   assert.match(html, /&lt;description&gt;<\/textarea>/);
+  assert.match(html, /<label for="legacy-cardListId">List<\/label>/);
+  assert.match(html, /<option value="list-a">&lt;List A&gt;<\/option>/);
+  assert.match(html, /<option value="list-b" selected>List B<\/option>/);
   assert.ok(html.indexOf('name="cardTitle"') < html.indexOf('name="cardDescription"'));
+  assert.ok(html.indexOf('name="cardDescription"') < html.indexOf('name="cardListId"'));
   assert.doesNotMatch(html, /tabindex=/);
 });
 

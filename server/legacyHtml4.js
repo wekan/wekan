@@ -17,6 +17,7 @@ import {
 import {
   createAccessibleCard,
   moveAccessibleCard,
+  moveAccessibleCardToList,
   setAccessibleCardArchived,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
@@ -95,7 +96,7 @@ WebApp.handlers.use(async (req, res, next) => {
   const requestFields = { ...(req.body || {}) };
   const cardOperations = [
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
-    'edit-card-description', 'archive-card', 'restore-card',
+    'edit-card-description', 'move-card-to-list', 'archive-card', 'restore-card',
   ];
   if (session && /^\/b\/[^/]+/.test(path)
     && cardOperations.includes(requestFields.legacyOperation)) {
@@ -122,6 +123,12 @@ WebApp.handlers.use(async (req, res, next) => {
             field: requestFields.legacyOperation === 'edit-card-title' ? 'title' : 'description',
             value: requestFields.legacyOperation === 'edit-card-title'
               ? requestFields.cardTitle : requestFields.cardDescription,
+          });
+        }
+        if (requestFields.legacyOperation === 'move-card-to-list') {
+          return moveAccessibleCardToList(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            listId: requestFields.cardListId, position: requestFields.position,
           });
         }
         return setAccessibleCardArchived(session.userId, {

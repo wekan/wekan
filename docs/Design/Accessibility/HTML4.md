@@ -184,6 +184,12 @@ validate every descendant before the first recursive write, bound the traversal,
 and reject cycles. These checks belong to the shared server operation because a
 trusted server call must not rely on client collection allow rules.
 
+List movement uses the shared labelled select component. Its options contain only
+active lists from the card's board; the submitted IDs are nevertheless untrusted.
+The server repeats card and destination-board write checks, requires the active
+list and swimlane to belong to that board, excludes the moving card from sibling
+order calculation, and computes its new fractional position authoritatively.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

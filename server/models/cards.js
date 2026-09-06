@@ -39,6 +39,7 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import {
   createAccessibleCard,
   moveAccessibleCard,
+  moveAccessibleCardToList,
   setAccessibleCardArchived,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
@@ -57,6 +58,11 @@ Meteor.methods({
   async moveCardDown(cardId) {
     check(cardId, String);
     return moveAccessibleCard(this.userId, cardId, 'down');
+  },
+
+  async moveAccessibleCardToList(input) {
+    check(input, Object);
+    return moveAccessibleCardToList(this.userId, input);
   },
 
   async updateAccessibleCardContent(input) {

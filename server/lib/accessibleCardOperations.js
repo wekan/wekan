@@ -82,6 +82,20 @@ async function moveAccessibleCard(userId, cardId, direction) {
   return true;
 }
 
+async function moveAccessibleCardToList(userId, input) {
+  const boardId = String(input?.boardId || '');
+  const card = await editableCard(userId, input?.cardId, boardId);
+  await editablePlacement(userId, boardId, String(input?.listId || ''), card.swimlaneId);
+  const siblings = await Cards.find({
+    boardId, listId: String(input.listId), swimlaneId: card.swimlaneId,
+    archived: false, deletedAt: null, _id: { $ne: card._id },
+  }, { fields: { sort: 1 }, sort: { sort: 1, _id: 1 } }).fetchAsync();
+  const position = input?.position === 'bottom' ? siblings.length : 0;
+  await card.move(boardId, card.swimlaneId, String(input.listId),
+    computeSortForIndex(siblings, position));
+  return true;
+}
+
 async function editableCard(userId, cardId, expectedBoardId) {
   if (!userId) throw new Meteor.Error('not-authorized');
   const card = await Cards.findOneAsync({ _id: String(cardId || ''), deletedAt: null });
@@ -155,6 +169,7 @@ export {
   editableCard,
   editablePlacement,
   moveAccessibleCard,
+  moveAccessibleCardToList,
   setAccessibleCardArchived,
   updateAccessibleCardContent,
 };

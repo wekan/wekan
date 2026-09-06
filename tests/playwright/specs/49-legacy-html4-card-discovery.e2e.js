@@ -430,6 +430,30 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).description)
       .toBe('Edited HTML4 card description');
+    const listForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="move-card-to-list"])',
+    );
+    await listForm().locator('select[name="cardListId"]').evaluate(
+      (select, listId) => {
+        const option = document.createElement('option');
+        option.value = listId;
+        option.text = 'Forged foreign list';
+        select.add(option);
+        select.value = listId;
+      }, outsiderBoard.listIds[0],
+    );
+    await Promise.all([page.waitForNavigation(), listForm().locator('input[type="submit"]').click()]);
+    expect(db.findOne('cards', { _id: due._id }).listId).toBe(board.listIds[1]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    await listForm().locator('select[name="cardListId"]').selectOption(board.listIds[2]);
+    await Promise.all([page.waitForNavigation(), listForm().locator('input[type="submit"]').click()]);
+    expect(db.findOne('cards', { _id: due._id }).listId).toBe(board.listIds[2]);
+    await expect(page.locator('caption')).toContainText('List C');
+    await listForm().locator('select[name="cardListId"]').selectOption(board.listIds[1]);
+    await Promise.all([page.waitForNavigation(), listForm().locator('input[type="submit"]').click()]);
+    expect(db.findOne('cards', { _id: due._id }).listId).toBe(board.listIds[1]);
+    await expect(page.locator('caption')).toContainText('List B');
     const archiveForm = operation => page.locator(
       `form:has(input[name="legacyOperation"][value="${operation}"])`,
     );

@@ -14,7 +14,8 @@ import getSlug from 'limax';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
-  UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiTextForm, uiTextareaForm,
+  UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiSelectForm, uiTextForm,
+  uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
@@ -282,11 +283,14 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ...(card.requesters || []), ...(card.assigners || []),
     ...comments.map(comment => comment.userId),
   ].filter(Boolean))];
-  const [list, swimlane, people] = await Promise.all([
+  const [list, swimlane, people, activeLists] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
     Swimlanes.findOneAsync({ _id: card.swimlaneId, boardId: card.boardId }, { fields: { title: 1 } }),
     Meteor.users.find({ _id: { $in: personIds } }, {
       fields: { username: 1, 'profile.fullname': 1 },
+    }).fetchAsync(),
+    Lists.find({ boardId: card.boardId, archived: { $ne: true } }, {
+      fields: { title: 1, sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 500,
     }).fetchAsync(),
   ]);
   const personById = new Map(people.map(person => [person._id,
@@ -316,6 +320,15 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       value: card.description || '',
       fields: { ...commonFields, legacyOperation: 'edit-card-description' },
       submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
+    rows.push({ rowHeader: false, cells: [uiSelectForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'list', 'List'), name: 'cardListId', value: card.listId,
+      options: activeLists.map(activeList => ({
+        value: activeList._id, label: activeList.title || activeList._id,
+      })),
+      fields: { ...commonFields, legacyOperation: 'move-card-to-list', position: 'top' },
+      submitLabel: tr(translate, 'r-move-card-to', 'Move card to'),
     }), ''] });
     rows.push({ rowHeader: false, cells: [uiAction({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,

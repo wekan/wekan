@@ -40,6 +40,22 @@ test('up and down use one acknowledged server operation', () => {
   assert.match(legacy, /DDP\._CurrentMethodInvocation\.withValue/);
 });
 
+test('list selection uses one server-authorized placement move', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  assert.match(source, /async function moveAccessibleCardToList/);
+  assert.match(source, /await editableCard\(userId, input\?\.cardId, boardId\)/);
+  assert.match(source, /await editablePlacement\(userId, boardId, String\(input\?\.listId/);
+  assert.match(source, /_id: \{ \$ne: card\._id \}/);
+  assert.match(source, /computeSortForIndex\(siblings, position\)/);
+  assert.match(methods, /async moveAccessibleCardToList\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('moveAccessibleCardToList'/);
+  assert.doesNotMatch(client, /getMinSort\(listId, card\.swimlaneId\)/);
+  assert.match(legacy, /moveAccessibleCardToList\(session\.userId/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

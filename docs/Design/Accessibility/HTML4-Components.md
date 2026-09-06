@@ -71,6 +71,7 @@ retain one cell per declared column.
 | Pager | previous/next availability | `< Previous` and `> Next` signed buttons | shared pager controls |
 | Choice | name, value, label, selected | native radio/checkbox plus label | themed HTML5 choice control |
 | Text field | name, label, value, limits | associated `label` and native input | existing form partial |
+| Select field | name, label, selected value, bounded options | associated `label`, native `select` and submit button | native select in the existing Jade form |
 | Status | severity and text | textual prefix and table row | themed status component |
 
 ## Color contract
@@ -121,7 +122,7 @@ the generic baseline. It is updated with every implementation batch.
 | --- | --- |
 | `/sign-in`, `/sign-up` | Complete cookieless account forms |
 | `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated readers with Starred, Remaining, Templates, Home, Archive and nested Workspace filtering; mutations remain |
-| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, move-up, move-down, title, description, archive and restore controls; cross-list movement, remaining card fields, child mutations and attachment content remain |
+| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls; remaining card fields, child mutations and attachment content remain |
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |

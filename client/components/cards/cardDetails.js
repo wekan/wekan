@@ -1132,9 +1132,9 @@ Template.cardDetails.events({
   async 'change .js-select-card-details-lists'(event, tpl) {
     const listId = event.target.value;
     let card = Template.currentData();
-
-    const minOrder = await card.getMinSort(listId, card.swimlaneId);
-    await card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
+    await Meteor.callAsync('moveAccessibleCardToList', {
+      cardId: card._id, boardId: card.boardId, listId, position: 'top',
+    });
   },
   'click .js-go-to-linked-card'() {
     const card = Template.currentData();
