@@ -1,0 +1,20 @@
+body {
+  background: #f5f5f5;
+  color: #222;
+  font-family: sans-serif;
+  line-height: 1.4;
+  margin: 0;
+  padding: 1em;
+}
+#legacy-omi-page {
+  background: #fff;
+  border: 1px solid #aaa;
+  margin: 0 auto;
+  max-width: 42em;
+  padding: 1em;
+}
+input {
+  font: inherit;
+  max-width: 95%;
+  padding: 0.35em;
+}

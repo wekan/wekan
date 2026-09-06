@@ -10,7 +10,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Accounts } from 'meteor/accounts-base';
 import Attachments from '/models/attachments';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
-import { STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
+import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
 import { fileStoreStrategyFactory as attachmentStoreFactory } from '/models/attachments.server';
 import Avatars from '/models/avatars';
 import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.server';
@@ -21,6 +21,7 @@ import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '
 import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
 import path from 'path';
+import { attachmentAsStoredGif } from '/server/lib/legacyOmiGif';
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
   if (!fileObj) return fileObj;
@@ -501,6 +502,48 @@ if (Meteor.isServer) {
   // ============================================================================
   // NEW METEOR-FILES ROUTES (URL-agnostic)
   // ============================================================================
+
+  // Legacy Omi image representation. The first authorized request converts the
+  // original on the server and persists versions.legacyOmiGif in Admin Panel /
+  // Attachments / Default Storage; later requests stream that stored version.
+  WebApp.handlers.get('/legacy-omi/attachments/:fileId.gif', async (req, res) => {
+    try {
+      const attachment = await getAttachmentWithBackwardCompatibility(req.params.fileId);
+      if (!attachment) {
+        res.writeHead(404); res.end('Attachment not found'); return;
+      }
+      const board = await ReactiveCache.getBoard(attachment.meta?.boardId);
+      if (!board || !(await isAuthorizedForBoard(req, board))) {
+        res.writeHead(403); res.end('Access denied'); return;
+      }
+      const limits = await getAttachmentDownloadLimitSettings();
+      if (limits.blocked || (limits.maxBytes > 0 && attachment.size > limits.maxBytes)) {
+        res.writeHead(403); res.end('Attachment conversion is disabled'); return;
+      }
+      const settings = await AttachmentStorageSettings.findOneAsync({});
+      const defaultStorage = settings?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
+      if (settings && !attachment.versions?.legacyOmiGif &&
+          !settings.isStorageWriteEnabled(defaultStorage)) {
+        res.writeHead(403); res.end('Default attachment storage is not writable'); return;
+      }
+      const gif = await attachmentAsStoredGif(attachment, {
+        factory: attachmentStoreFactory,
+        collection: Attachments,
+        getDefaultStorage: async () => defaultStorage,
+      });
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'image/gif');
+      res.setHeader('Content-Length', gif.length);
+      res.setHeader('Content-Disposition', 'inline; filename="image.gif"');
+      res.setHeader('Cache-Control', 'private, max-age=31536000, immutable');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox");
+      res.end(gif);
+    } catch (error) {
+      if (process.env.DEBUG === 'true') console.warn('Legacy Omi GIF conversion failed:', error);
+      res.writeHead(415); res.end('Attachment is not a convertible image');
+    }
+  });
 
   /**
    * Serve attachments from new Meteor-Files structure

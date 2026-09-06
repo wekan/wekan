@@ -59,6 +59,27 @@ access data.
   Admin Panel URLs. An unsupported action must render an explanatory page, not
   fall through to a JavaScript-only shell.
 
+### Image attachments
+
+The compatibility representation never asks the old browser to decode the
+original PNG, JPEG, WebP, AVIF, BMP or SVG attachment. When an Omi controller
+reads an image, the server converts it to GIF on demand; the original attachment
+is not changed. Conversion detects and decodes the bytes on the server, limits
+input bytes and decoded pixels, applies orientation, scales oversized images
+down, and emits a 256-colour GIF. Its cache key includes the attachment identity,
+content checksum or version metadata, size and update time, so changed content
+cannot reuse an earlier conversion. On the first Omi page load that reads the
+image, the generated data is saved as the attachment's `legacyOmiGif` version in
+the backend selected by Admin Panel / Attachments / Default Storage. Later Omi
+loads read that stored version rather than converting again. The normal storage
+write permissions and free-space protections apply.
+
+Public-board pages may use the authorized GIF response as an `img` source.
+Cookieless private pages must not put a session secret in an image URL: an
+explicit POST `Show image` control returns the GIF from the authenticated form
+request. Every attachment also retains a separately labelled original-file
+download control. All conversion and authorization remains server-side.
+
 ## Cookieless authentication and request integrity
 
 Successful sign-in creates a short-lived opaque server-side session. The session
