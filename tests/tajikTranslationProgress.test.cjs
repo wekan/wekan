@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 74,
-  'the first forty-two Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 24,
+  'the first forty-three Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -329,5 +329,13 @@ assert.match(tajik['migration-cpu-threshold-description'], /CPU.*10-90/);
 assert.match(tajik['migration-delay-ms-description'], /100-10000/);
 assert.match(tajik['migration-info-text'], /браузер.*замина/);
 assert.equal(tajik['storage-distribution'], 'Тақсимоти анбор');
+assert.equal(tajik.otp, 'Рамзи OTP');
+assert.match(tajik['api-endpoints'], /API/);
+assert.equal(tajik.server, 'Сервер');
+assert.match(tajik['problems-in-progress-help'], /CPU/);
+assert.deepEqual(tokens(tajik['repair-broken-cards-done-unfixable']),
+  ['__fixed__', '__unfixable__']);
+assert.deepEqual(tokens(tajik['restore-list-swimlanes-done']),
+  ['__remaining__', '__restored__']);
 
-console.log('tajikTranslationProgress: first forty-two batches passed');
+console.log('tajikTranslationProgress: first forty-three batches passed');
