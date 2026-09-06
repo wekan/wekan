@@ -24,6 +24,10 @@ import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
+import {
+  toggleAccessibleBoardStar,
+  toggleAccessibleDefaultBoard,
+} from '/server/lib/accessibleBoardListOperations';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
@@ -456,32 +460,13 @@ Meteor.methods({
 
   async toggleBoardStar(boardId) {
     check(boardId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    const starredBoards = (user.profile && user.profile.starredBoards) || [];
-    const isStarred = starredBoards.includes(boardId);
-    const updateObject = isStarred
-      ? { $pull: { 'profile.starredBoards': boardId } }
-      : { $addToSet: { 'profile.starredBoards': boardId } };
-
-    await Users.updateAsync(this.userId, updateObject);
+    return toggleAccessibleBoardStar(this.userId, boardId);
   },
 
   // #2220: toggle the board that opens after login (the user's "home" board).
   async toggleDefaultBoard(boardId) {
     check(boardId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    const isDefault = (user.profile && user.profile.defaultBoardId) === boardId;
-    const updateObject = isDefault
-      ? { $unset: { 'profile.defaultBoardId': '' } }
-      : { $set: { 'profile.defaultBoardId': boardId } };
-
-    await Users.updateAsync(this.userId, updateObject);
+    return toggleAccessibleDefaultBoard(this.userId, boardId);
   },
 
   // Star the page the caller is on, or unstar it if it is already starred.

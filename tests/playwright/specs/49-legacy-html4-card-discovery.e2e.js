@@ -145,6 +145,63 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('h1')).toContainText('Archive');
     await expect(page.locator('tbody')).toContainText('HTML4 Archived Board');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Template Container');
+    const boardOperationForm = (operation, boardId) => page.locator(
+      `form:has(input[name="legacyOperation"][value="${operation}"])`
+      + `:has(input[name="boardId"][value="${boardId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('restore-board', archivedBoard.boardId)
+        .locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('boards', { _id: archivedBoard.boardId })?.archived)
+      .toBe(false);
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Archived Board');
+
+    await open('/allboards/remaining');
+    // Star and Home are per-user state and can both be toggled back from the
+    // same no-JavaScript page without exposing an identifier in the URL.
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('toggle-board-star', board.boardId).locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('users', { _id: user._id })?.profile?.starredBoards || [])
+      .not.toContain(board.boardId);
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('toggle-board-star', board.boardId).locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('users', { _id: user._id })?.profile?.starredBoards || [])
+      .toContain(board.boardId);
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('toggle-default-board', board.boardId)
+        .locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('users', { _id: user._id })?.profile?.defaultBoardId)
+      .toBeUndefined();
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('toggle-default-board', board.boardId)
+        .locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('users', { _id: user._id })?.profile?.defaultBoardId)
+      .toBe(board.boardId);
+
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('confirm-archive-board', archivedBoard.boardId)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('boards', { _id: archivedBoard.boardId })?.archived).toBe(false);
+    await Promise.all([
+      page.waitForNavigation(),
+      boardOperationForm('archive-board', archivedBoard.boardId)
+        .locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('boards', { _id: archivedBoard.boardId })?.archived)
+      .toBe(true);
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Archived Board');
     await open('/allboards/workspaces/html4-space');
     await expect(page.locator('h1')).toContainText('HTML4 Space');
     await expect(page.locator('tbody')).toContainText('HTML4 Workspace Board');
@@ -1040,6 +1097,24 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).toContainText('Operation failed');
     await expect.poll(() => db.countDocuments('eventlog', {
       stream: 'security', userId: user._id, bleed: 'AttachmentBleed', action: 'detected',
+    })).toBeGreaterThan(0);
+
+    await open('/allboards');
+    await open('/allboards/remaining');
+    const forgedBoardForm = boardOperationForm('toggle-board-star', board.boardId);
+    await forgedBoardForm.locator('input[name="boardId"]').evaluate(
+      (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+    );
+    const submittedForgedBoardForm = boardOperationForm(
+      'toggle-board-star', outsiderBoard.boardId,
+    );
+    await Promise.all([
+      page.waitForNavigation(), submittedForgedBoardForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('users', { _id: user._id }).profile.starredBoards)
+      .not.toContain(outsiderBoard.boardId);
+    await expect.poll(() => db.countDocuments('eventlog', {
+      stream: 'security', userId: user._id, bleed: 'BoardBleed', action: 'detected',
     })).toBeGreaterThan(0);
     await open('/my-cards');
     await open(`/b/${board.boardId}/${board.slug}/${due._id}`);

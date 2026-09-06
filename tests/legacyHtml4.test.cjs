@@ -266,6 +266,19 @@ test('All Boards HTML4 routes use the shared section and workspace selectors', (
   assert.match(pages, /selector\._id = \{ \$nin: Object\.keys\(assignments\) \}/);
 });
 
+test('All Boards HTML4 mutations are signed, textual and share server boundaries', () => {
+  const root = path.join(__dirname, '..');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const request = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  for (const operation of ['toggle-board-star', 'toggle-default-board',
+    'confirm-archive-board', 'archive-board', 'restore-board']) {
+    assert.match(pages + request, new RegExp(operation));
+  }
+  assert.match(request, /boardListOperations\.includes\(requestFields\.legacyOperation\)/);
+  assert.match(request, /DDP\._CurrentMethodInvocation\.withValue/);
+  assert.match(pages, /confirmBoardArchive === board\._id/);
+});
+
 test('card details repeat board and assigned-only authorization scopes', () => {
   const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
     'legacyHtml4Pages.js'), 'utf8');

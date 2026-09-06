@@ -83,6 +83,10 @@ const CANARIES = {
     key: 'authz.attachment',
     what: 'tried to change an attachment outside its authorized card and board scope',
   },
+  'board-list.cross-scope': {
+    key: 'authz.board',
+    what: 'tried to change All Boards state for a board outside their access',
+  },
   'avatar.restricted-field': {
     key: 'authz.file-path',
     what: 'tried to write a restricted avatar field',

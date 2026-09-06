@@ -200,6 +200,16 @@ the same tested service functions as Meteor methods and REST routes, then render
 the resulting URL directly because a redirect would discard the cookieless
 session.
 
+All Boards rows expose their per-user Star and Home state as `[x]` or `[ ]`,
+plus Restore for archived boards and a two-POST Archive confirmation for board
+or global administrators. These controls and the Meteor methods call one shared
+boundary. Star and Home require the board to remain visible to the authenticated
+user, Home additionally accepts only a live ordinary board, and archive/restore
+repeat board-admin or global-admin authorization. A submitted inaccessible board
+identifier changes nothing and is attributed as `BoardBleed` in Admin Panel /
+Problems / Security. Section and nested-workspace selection stay at the same URL
+family after each operation, without cookies, script or identifiers in a query.
+
 Card content writes resolve both the visible pointer and its real linked target.
 Changing a linked card requires the delegated card permission; changing a linked
 board requires administrator permission on that target board. Archive and restore
@@ -319,3 +329,6 @@ visible in paired same-URL HTML4 and HTML5 screenshots. It also exercises valid
 attachment rename, image cover selection and confirmed deletion, then forges a
 route/attachment scope mismatch and verifies both non-mutation and the attributed
 Security report.
+The All Boards path toggles Star and Home in both directions, restores and
+confirm-archives a board, and forges an inaccessible board identifier to verify
+both non-mutation and the attributed Security event.

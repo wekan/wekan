@@ -40,6 +40,11 @@ import {
   setAccessibleAttachmentCover,
 } from '/server/lib/accessibleAttachmentOperations';
 import {
+  setAccessibleBoardArchived,
+  toggleAccessibleBoardStar,
+  toggleAccessibleDefaultBoard,
+} from '/server/lib/accessibleBoardListOperations';
+import {
   copyAccessibleChecklist,
   convertAccessibleChecklistItemToCard,
   createAccessibleChecklist,
@@ -161,6 +166,40 @@ WebApp.handlers.use(async (req, res, next) => {
   const attachmentOperations = [
     'rename-attachment', 'delete-attachment', 'set-attachment-cover',
   ];
+  const boardListOperations = [
+    'toggle-board-star', 'toggle-default-board', 'archive-board', 'restore-board',
+  ];
+  const isBoardListPath = /^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path);
+  if (session && isBoardListPath
+    && requestFields.legacyOperation === 'confirm-archive-board') {
+    requestFields.confirmBoardArchive = String(requestFields.boardId || '');
+  }
+  if (session && isBoardListPath
+    && boardListOperations.includes(requestFields.legacyOperation)) {
+    try {
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      const result = await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        const boardId = String(requestFields.boardId || '');
+        if (requestFields.legacyOperation === 'toggle-board-star') {
+          return toggleAccessibleBoardStar(session.userId, boardId);
+        }
+        if (requestFields.legacyOperation === 'toggle-default-board') {
+          return toggleAccessibleDefaultBoard(session.userId, boardId);
+        }
+        return setAccessibleBoardArchived(
+          session.userId, boardId, requestFields.legacyOperation === 'archive-board',
+        );
+      });
+      requestFields.legacyBoardListResult = { ok: true, result };
+    } catch (error) {
+      requestFields.legacyBoardListResult = {
+        ok: false,
+        errorKey: typeof error?.error === 'string' && /^[a-z0-9_-]{1,100}$/i.test(error.error)
+          ? error.error : 'operation-failed',
+      };
+    }
+  }
   if (session && /^\/b\/[^/]+/.test(path)
     && ['preview-attachment-gif', 'download-attachment-original']
       .includes(requestFields.legacyOperation)) {

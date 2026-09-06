@@ -32,6 +32,7 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 import RecoveryEvents from '/models/recoveryEvents';
 import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
+import { setAccessibleBoardArchived } from '/server/lib/accessibleBoardListOperations';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -312,23 +313,7 @@ Meteor.methods({
   // unreachable from the UI and its only effect was the destructive write.
   async archiveBoard(boardId) {
     check(boardId, String);
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board) {
-      throw new Meteor.Error('error-board-doesNotExist');
-    }
-
-    const userId = this.userId;
-    // Archiving a board hides it for everyone, so it is a board-admin action,
-    // matching the client gating (boardArchive.js `isBoardAdmin`) and the
-    // Boards.allow update/remove rules. Previously any member (incl. read-only)
-    // could archive a board over DDP. Global admins are also allowed.
-    const user = await ReactiveCache.getUser(userId);
-    if (!board.hasAdmin(userId) && !(user && user.isAdmin)) {
-      throw new Meteor.Error('error-board-notAdmin');
-    }
-
-    await board.archive();
-    return true;
+    return setAccessibleBoardArchived(this.userId, boardId, true);
   },
 
   // The other direction, and gated the same way. Restoring puts a board back in
@@ -343,19 +328,7 @@ Meteor.methods({
   // boards or say why it refused. docs/Features/Page/Archive.md
   async restoreBoard(boardId) {
     check(boardId, String);
-    const board = await ReactiveCache.getBoard(boardId);
-    if (!board) {
-      throw new Meteor.Error('error-board-doesNotExist');
-    }
-
-    const userId = this.userId;
-    const user = await ReactiveCache.getUser(userId);
-    if (!board.hasAdmin(userId) && !(user && user.isAdmin)) {
-      throw new Meteor.Error('error-board-notAdmin');
-    }
-
-    await board.restore();
-    return true;
+    return setAccessibleBoardArchived(this.userId, boardId, false);
   },
 
   // Permanently remove archived boards selected in All Boards / Archive.

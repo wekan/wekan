@@ -73,23 +73,28 @@ function boardListSection(path, user) {
   return requested || defaultSection(starred.length > 0);
 }
 
-async function boardsPage(path, userId, publicOnly = false, translate) {
+async function boardsPage(path, userId, publicOnly = false, requestFields = {}, translate) {
   let boards;
   let heading;
   let sectionRows = [];
+  let profile = {};
+  let currentUser = null;
   if (publicOnly) {
     boards = await Boards.find({ permission: 'public', archived: { $ne: true }, type: 'board' }, {
-      fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1 },
+      fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1,
+        type: 1, archived: 1, members: 1 },
       sort: { title: 1 }, limit: 200,
     }).fetchAsync();
     heading = tr(translate, 'public-boards', 'Public Boards');
   } else if (userId) {
     const user = await Meteor.users.findOneAsync(userId, { fields: {
+      isAdmin: 1,
       'profile.starredBoards': 1, 'profile.defaultBoardId': 1,
       'profile.boardWorkspaceAssignments': 1, 'profile.boardWorkspacesTree': 1,
     } });
     const section = boardListSection(path, user);
-    const profile = user?.profile || {};
+    currentUser = user;
+    profile = user?.profile || {};
     const assignments = profile.boardWorkspaceAssignments || {};
     const selector = { type: { $in: ['board', 'template-container'] } };
     let archived = false;
@@ -118,7 +123,8 @@ async function boardsPage(path, userId, publicOnly = false, translate) {
         : [] };
     }
     boards = await Boards.userBoards(userId, archived, selector, {
-      fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1 },
+      fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1,
+        type: 1, archived: 1, members: 1 },
       sort: { title: 1 }, limit: 200,
     }, { includePublic: false });
     const sectionName = tr(translate, sectionTitleKey(section), section);
@@ -145,16 +151,61 @@ async function boardsPage(path, userId, publicOnly = false, translate) {
       tr(translate, 'all-boards', 'All Boards'),
     ] }];
   } else boards = [];
+  const resultRows = [];
+  if (requestFields.legacyBoardListResult?.ok === true) resultRows.push({
+    cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Saved')],
+  });
+  if (requestFields.legacyBoardListResult?.ok === false) resultRows.push({
+    cells: [tr(translate, 'status', 'Status'),
+      operationError(translate, requestFields.legacyBoardListResult.errorKey)],
+  });
+  const actionPath = path;
   return {
     heading: heading || tr(translate, 'all-boards', 'All Boards'),
     columns: [tr(translate, 'board', 'Board'), tr(translate, 'change-permissions', 'Permissions')],
     empty: tr(translate, 'no-boards-selected', 'No boards'),
-    rows: [...sectionRows, ...boards.map(board => ({
-      color: boardColor(board), boardTheme: true,
-      cells: [userId
-        ? uiAction({ action: boardPath(board), label: board.title || 'Board' })
-        : uiLink({ href: boardPath(board), label: board.title || 'Board' }), board.permission || ''],
-    }))],
+    rows: [...sectionRows, ...resultRows, ...boards.flatMap(board => {
+      const boardFields = { boardId: board._id };
+      const isStarred = (profile.starredBoards || []).includes(board._id);
+      const isDefault = profile.defaultBoardId === board._id;
+      const canAdmin = !!(currentUser?.isAdmin || board.hasAdmin(userId));
+      const actions = userId ? [uiAction({
+        action: actionPath,
+        label: tr(translate, isStarred ? 'click-to-unstar' : 'click-to-star',
+          isStarred ? 'Unstar board' : 'Star board'),
+        icon: isStarred ? 'select-on' : 'select-off',
+        fields: { ...boardFields, legacyOperation: 'toggle-board-star' },
+      })] : [];
+      if (userId && board.type === 'board' && board.archived !== true) actions.push(uiAction({
+        action: actionPath,
+        label: tr(translate, isDefault ? 'unset-selected-home' : 'set-selected-home',
+          isDefault ? 'Unset Home board' : 'Set Home board'),
+        icon: isDefault ? 'select-on' : 'select-off',
+        fields: { ...boardFields, legacyOperation: 'toggle-default-board' },
+      }));
+      if (canAdmin && board.archived === true) actions.push(uiAction({
+        action: actionPath, label: tr(translate, 'restore-board', 'Restore board'),
+        icon: 'move-up', fields: { ...boardFields, legacyOperation: 'restore-board' },
+      }));
+      const confirmingArchive = requestFields.confirmBoardArchive === board._id;
+      if (canAdmin && board.archived !== true) actions.push(confirmingArchive ? [
+        `${tr(translate, 'archive-board', 'Archive board')}?`,
+        uiAction({ action: actionPath, label: tr(translate, 'archive-board', 'Archive board'),
+          icon: 'remove', fields: { ...boardFields, legacyOperation: 'archive-board' } }),
+        uiAction({ action: actionPath, label: tr(translate, 'cancel', 'Cancel') }),
+      ] : uiAction({
+        action: actionPath, label: tr(translate, 'archive-board', 'Archive board'),
+        icon: 'remove',
+        fields: { ...boardFields, legacyOperation: 'confirm-archive-board' },
+      }));
+      return [{
+        color: boardColor(board), boardTheme: true,
+        cells: [userId
+          ? uiAction({ action: boardPath(board), label: board.title || 'Board' })
+          : uiLink({ href: boardPath(board), label: board.title || 'Board' }),
+        [board.permission || '', ...actions]],
+      }];
+    })],
   };
 }
 
@@ -1059,7 +1110,7 @@ async function importPage(path, userId, requestFields, translate) {
 
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
   if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
-  if (path === '/public') return boardsPage(path, userId, true, translate);
+  if (path === '/public') return boardsPage(path, userId, true, requestFields, translate);
   const information = await informationPage(path, userId, translate);
   if (information) return information;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
@@ -1067,7 +1118,7 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   const importer = await importPage(path, userId, requestFields, translate);
   if (importer) return importer;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
-    return boardsPage(path, userId, false, translate);
+    return boardsPage(path, userId, false, requestFields, translate);
   }
   if (/^\/b(?:\/|$)/.test(path)) return boardPage(path, userId, requestFields, translate);
   if (path === '/accessibility/components') return {
