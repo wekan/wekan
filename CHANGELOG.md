@@ -267,7 +267,8 @@ Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists and scoped transfers. Attachments have stored GIF previews
-and secure downloads, rename, cover and confirmed-delete controls.
+and secure downloads, rename, cover and confirmed-delete controls. All Boards
+supports Star, Home, Archive and Restore without JavaScript.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -467,6 +468,27 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee5300e38">Add accessible HTML4 All Boards actions</a>. Thanks to xet7.</summary>
+
+All Boards rows now show their Star and Home state with printable text and offer
+signed toggles, plus Restore and a two-POST Archive confirmation for authorized
+administrators. They remain on the selected Starred, Remaining, Home, Templates,
+Archive or nested Workspace URL and require no JavaScript, cookies, drag-and-drop
+or identifiers in a query string.
+
+The Meteor methods and HTML4 controller now call one shared operation boundary.
+Star and Home require a board that is still visible to the authenticated user;
+Home accepts only a live ordinary board; Archive and Restore repeat board-admin
+or global-admin authorization. A forged inaccessible board ID leaves user and
+board state unchanged and creates an attributed `BoardBleed` Security report.
+Unit tests cover the common boundary, role and state gates, textual controls and
+method parity. Chromium toggles Star and Home both ways, restores and confirms an
+archive, rejects the forged board, verifies its report, and captures paired
+same-URL All Boards screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/02be8e71a">Add shared HTML4 attachment operations</a>. Thanks to xet7.</summary>
