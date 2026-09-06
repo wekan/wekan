@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,090 values across 35 second-tier languages**. Southern
-Sotho has 124 left after its first forty 50-value batches. Albanian and
+remaining work is **74,040 values across 35 second-tier languages**. Southern
+Sotho has 74 left after its first forty-one 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first forty activity, administration, automation,
-security, backup, storage-migration and board-repair batches;
+translations** now cover their first forty-one activity, administration,
+automation, security, storage-migration, board-repair and monitoring batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18023794b">Translate Southern Sotho migration monitoring</a>. Thanks to xet7.</summary>
+
+The forty-first 50-value Southern Sotho batch adds job queues, attachment
+migration destinations, batch size, CPU and delay controls, migration logs,
+markers and controls, monitoring export and refresh and mini-card list and
+checklist display. All values required translation. Tests retain every numeric
+limit and representative background-process and mini-card language. This leaves
+74,040 actionable values across 35 languages, including 74 in Southern Sotho.
 
 </details>
 
