@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,906 values across 36 second-tier languages**. Albanian
-now has 816 left after its first twenty-six 50-value batches. Bosnian is also
+remaining work is **76,806 values across 36 second-tier languages**. Albanian
+now has 716 left after its first twenty-eight 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first twenty-six activity,
-board, import, account, shared-view, due-card and global-search batches;
+**In short:** **Albanian translations** now cover the first twenty-eight activity,
+board, import, shared-view, search-help, dependency and location batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8379,6 +8379,18 @@ operators and predicates. All one hundred values required translation. Search
 operator names stay single words for parser compatibility, and tests retain all
 result-count tokens. This leaves 76,906 actionable values across 36 languages,
 including 816 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3ed2cd5e">Translate Albanian search help and dependencies</a>. Thanks to xet7.</summary>
+
+The twenty-seventh and twenty-eighth 50-value Albanian batches add global-search
+validation, paging and complete operator instructions, board and card sorting,
+stickers, card dependencies, dependency import, board backgrounds and locations.
+All one hundred values required translation. Tests retain every search token,
+HTML example tag, dependency count and image-size placeholder. This leaves
+76,806 actionable values across 36 languages, including 716 in Albanian.
 
 </details>
 
