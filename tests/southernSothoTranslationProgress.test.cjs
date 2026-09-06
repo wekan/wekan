@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
-  'the first thirty-seven Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
+  'the first thirty-eight Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -238,5 +238,10 @@ assert.match(sesotho['s3-endpoint-menu-path'],
 assert.match(sesotho['gcs-credentials-menu-path'],
   /IAM & Admin.*Service accounts.*JSON/s);
 assert.equal(sesotho['cloud-secret-none'], '(ha e a behwa)');
+assert.match(sesotho['attachment-move-storage-azure'], /Azure Blob Storage/);
+assert.match(sesotho['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(sesotho['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(sesotho['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(sesotho['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
 
-console.log('southernSothoTranslationProgress: first thirty-seven batches passed');
+console.log('southernSothoTranslationProgress: first thirty-eight batches passed');
