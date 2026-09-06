@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
-  'the first thirty-six 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 324,
+  'the first thirty-seven 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -272,4 +272,8 @@ assert.deepEqual(tokens(tigre['database-migration-confirm']),
   tokens(english['database-migration-confirm']));
 assert.match(tigre['database-migration-description'], /WEKAN_FERRETDB_URL/);
 
-console.log('tigreTranslationProgress: first thirty-six batches passed');
+assert.match(tigre['cards-loading-description'], /CARDS_LOADING.*CARDS_LOADING_LAZY_THRESHOLD/);
+assert.match(tigre['always-show-code-as-text-description'], /<!-- -->.*JavaScript/);
+assert.match(tigre['backup-description'], /S3\/MinIO.*Azure.*GCS/);
+
+console.log('tigreTranslationProgress: first thirty-seven batches passed');
