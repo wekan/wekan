@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1724,
-  'the first nine 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1674,
+  'the first ten 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -108,5 +108,17 @@ const copiedCards = JSON.parse(tigre['copyManyCardsPopup-format']);
 assert.equal(copiedCards.length, 3);
 assert.deepEqual(Object.keys(copiedCards[0]), ['title', 'description']);
 assert.match(tigre['custom-field-dropdown-options-placeholder'], /Enter/);
+assert.match(tigre['edit-wip-limit'], /WIP/);
+assert.deepEqual(tokens(tigre['email-enrollAccount-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(tigre['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(tigre['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.deepEqual(tokens(tigre['email-verifyEmail-text']),
+  ['__url__', '__user__']);
+assert.match(tigre['error-json-malformed'], /JSON/);
+assert.match(tigre['error-csv-schema'], /CSV.*TSV/);
+assert.match(tigre['error-import-empty-board'], /WeKan/);
 
-console.log('tigreTranslationProgress: first nine batches passed');
+console.log('tigreTranslationProgress: first ten batches passed');
