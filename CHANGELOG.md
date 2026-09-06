@@ -8137,10 +8137,10 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after the Albanian migration/security-settings batch:** all 198
+**Current snapshot after the Albanian backup/cloud-storage batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,406 values across 36 second-tier languages**. Albanian
-now has 316 left after its first thirty-six 50-value batches. Bosnian is also
+remaining work is **76,306 values across 36 second-tier languages**. Albanian
+now has 216 left after its first thirty-eight 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first thirty-six activity,
-board, accessibility, scheduling, migration, security and backup batches;
+**In short:** **Albanian translations** now cover the first thirty-eight activity,
+board, security, migration, backup and cloud-storage batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8443,6 +8443,18 @@ import/export restrictions, user anonymization and backups. All one hundred
 values required translation. Tests retain `__db__`, HTML tags, database and
 cloud-service names and environment-variable examples. This leaves 76,406
 actionable values across 36 languages, including 316 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9055e4fa5">Translate Albanian backup and cloud storage settings</a>. Thanks to xet7.</summary>
+
+The thirty-seventh and thirty-eighth 50-value Albanian batches add backup
+scheduling and restoration, GCS, Azure and S3 setup guidance, connection tests,
+attachment-storage migrations, scheduled board operations and minicard list
+settings. All one hundred values required translation. Tests retain HTML tags,
+cloud-console labels, environment-variable names and storage technologies. This
+leaves 76,306 actionable values across 36 languages, including 216 in Albanian.
 
 </details>
 
