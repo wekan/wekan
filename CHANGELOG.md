@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,806 values across 36 second-tier languages**. Albanian
-now has 716 left after its first twenty-eight 50-value batches. Bosnian is also
+remaining work is **76,706 values across 36 second-tier languages**. Albanian
+now has 616 left after its first thirty 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first twenty-eight activity,
-board, import, shared-view, search-help, dependency and location batches;
+**In short:** **Albanian translations** now cover the first thirty activity,
+board, search, location, diagnostics, report, recovery and support batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8391,6 +8391,19 @@ stickers, card dependencies, dependency import, board backgrounds and locations.
 All one hundred values required translation. Tests retain every search token,
 HTML example tag, dependency count and image-size placeholder. This leaves
 76,806 actionable values across 36 languages, including 716 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cf11e4a4">Translate Albanian reports and support</a>. Thanks to xet7.</summary>
+
+The twenty-ninth and thirtieth 50-value Albanian batches add map selection,
+server troubleshooting, string templates, Admin Panel problem reports, office
+and API usage, recovery status, wait indicators, destructive safeguards and
+support requests. All one hundred values required translation. Tests retain the
+shell commands, configuration names, IP protocol labels and string-template
+placeholder. This leaves 76,706 actionable values across 36 languages,
+including 616 in Albanian.
 
 </details>
 
