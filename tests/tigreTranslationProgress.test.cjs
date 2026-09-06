@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1374,
-  'the first sixteen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
+  'the first seventeen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -162,5 +162,13 @@ assert.match(tigre['custom-top-left-corner-logo-height'], /27/);
 assert.match(tigre['custom-top-left-corner-logo-image-url'], /URL/);
 assert.match(tigre['automatic-linked-url-schemes'], /URL.*URL/);
 assert.match(tigre['wipLimitErrorPopup-title'], /WIP/);
+assert.match(tigre['wipLimitErrorPopup-dialog-pt1'], /WIP/);
+assert.match(tigre['attachment-transfer-limits-title'], /API/);
+assert.match(tigre['smtp-host'], /SMTP/);
+assert.match(tigre['smtp-port'], /SMTP/);
+assert.match(tigre['smtp-tls-description'], /SMTP.*TLS/);
+assert.deepEqual(tokens(tigre['email-invite-register-text']),
+  ['__icode__', '__inviter__', '__url__', '__user__']);
+assert.match(tigre['email-smtp-test-subject'], /SMTP/);
 
-console.log('tigreTranslationProgress: first sixteen batches passed');
+console.log('tigreTranslationProgress: first seventeen batches passed');
