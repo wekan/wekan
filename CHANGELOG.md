@@ -266,7 +266,7 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists and scoped transfers. Attachments have stored GIF previews
+reactions, checklists, dates and scoped transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
@@ -471,6 +471,23 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee74bc83b">Add accessible HTML4 card date controls</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now provide naturally ordered labelled forms
+for Received, Start, Due and End. They accept explicit ISO 8601 timestamps and
+an empty value clears the field, so the complete date lifecycle works without
+JavaScript or a date-picker widget.
+
+Jade date pickers and HTML4 forms now call the same acknowledged server service.
+It allowlists the four fields, rejects ambiguous and invalid values, and repeats
+route-card plus linked-target write authorization before using the existing card
+date methods. Unit tests cover the shared boundary and callback promises. The
+Chromium regression sets, rejects and clears a Due value and the paired same-URL
+card screenshots show the date controls in both renderers.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee5300e38">Add accessible HTML4 All Boards actions</a>. Thanks to xet7.</summary>
