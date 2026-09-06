@@ -8,6 +8,7 @@ const {
   isDocumentRequest,
   legacyHtml4AttachmentGifUrl,
   renderLegacyHtml4Page,
+  safeColor,
 } = require('../imports/lib/legacyHtml4');
 
 function request(url, headers = {}) {
@@ -38,6 +39,68 @@ test('all WeKan page URLs receive the HTML4 baseline', () => {
     assert.match(html, /^<!DOCTYPE HTML PUBLIC "-\/\/W3C\/\/DTD HTML 4\.01\/\/EN"/);
     assert.match(html, /Legacy HTML4 view because JavaScript drag and drop is not available/);
   }
+});
+
+test('every Legacy HTML4 page has one content table and no frames', () => {
+  for (const url of ['/sign-in', '/sign-up', '/allboards', '/b/x/board', '/admin/problems']) {
+    const html = renderLegacyHtml4Page(url, {
+      authenticated: url !== '/sign-in' && url !== '/sign-up',
+      username: 'alice',
+      actionFields: action => ({
+        legacySession: 'a'.repeat(48), authAction: action,
+        authCounter: '1', authHash: 'b'.repeat(64),
+      }),
+      page: url.startsWith('/sign') ? null : {
+        heading: 'Page', columns: ['Content', 'Action'],
+        rows: [{ cells: ['safe', { action: url, label: 'Open' }] }],
+      },
+    });
+    assert.equal((html.match(/<table\b/g) || []).length, 1, url);
+    assert.equal((html.match(/<\/table>/g) || []).length, 1, url);
+    assert.doesNotMatch(html, /<\/?(?:frame|frameset|iframe)\b/i, url);
+    assert.match(html, /<a href="#content">Skip to main content<\/a>/, url);
+    assert.match(html, /<h1 id="content">/, url);
+    assert.match(html, /<caption>/, url);
+    assert.match(html, /<th scope="col">/, url);
+    assert.match(html, /<th scope="row">/, url);
+  }
+});
+
+test('account forms retain semantic labels, grouping and keyboard order', () => {
+  const login = renderLegacyHtml4Page('/sign-in');
+  assert.match(login, /<fieldset><legend>Log In<\/legend>/);
+  assert.ok(login.indexOf('for="username"') < login.indexOf('for="password"'));
+  assert.ok(login.indexOf('name="username"') < login.indexOf('name="password"'));
+  assert.ok(login.indexOf('name="password"') < login.indexOf('type="submit"'));
+  assert.doesNotMatch(login, /tabindex\s*=\s*["']?[1-9]/i);
+  const css = fs.readFileSync(path.join(__dirname, '..', 'public', 'legacy-html4.css'), 'utf8');
+  assert.match(css, /a:focus,[\s\S]*input:focus[\s\S]*outline:/);
+});
+
+test('HTML4 page actions are visible signed POST controls', () => {
+  const html = renderLegacyHtml4Page('/b/board/example', {
+    authenticated: true,
+    actionFields: action => ({
+      legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '4', authHash: 'b'.repeat(64),
+    }),
+    page: {
+      heading: 'Board', columns: ['Content', 'Action'],
+      rows: [{ cells: ['List', [{ action: '/b/board/example', label: 'Next list', fields: { viewList: 'list2' } }]] }],
+    },
+  });
+  assert.match(html, /<form class="legacy-action" method="post" action="\/b\/board\/example">/);
+  assert.match(html, /name="authAction" value="\/b\/board\/example"/);
+  assert.match(html, /name="viewList" value="list2"/);
+  assert.match(html, /type="submit" value="Next list"/);
+});
+
+test('HTML4 colors accept only the shared palette or a six-digit hex', () => {
+  assert.equal(safeColor('green'), '#3cb500');
+  assert.equal(safeColor('belize', true), '#2980b9');
+  assert.equal(safeColor('#Aa00ff'), '#aa00ff');
+  assert.equal(safeColor('red;position:fixed'), '');
+  assert.equal(safeColor('url(javascript:alert(1))'), '');
 });
 
 test('Legacy HTML4 image URLs always select the server-side GIF representation', () => {

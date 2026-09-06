@@ -55,6 +55,22 @@ access data.
   every mutation as POST forms whose `action` is the same clean WeKan URL.
 - Every button has visible text. Tables have captions or adjacent headings,
   header cells and a plain-text empty state.
+- Use one compact content table on every page, with no frames. The page follows
+  the plain, dense Aminet-style HTML4 structure while retaining WeKan's product
+  name, information hierarchy and translated labels. Safe server-resolved board,
+  swimlane, list and card colors match their HTML5 counterparts; untrusted color
+  strings can never enter a style attribute.
+- Forms and visible page content live in that single table. Public navigation
+  may use links, while authenticated navigation and operations use visible,
+  signed POST buttons that work with keyboard-only and pointer-free browsers.
+- The baseline is semantic and usable across disability groups: it has a skip
+  link, one descriptive `h1`, a table caption, column and row headers with
+  `scope`, associated form labels, grouped forms with legends, logical source
+  and Tab order without positive `tabindex` overrides, visible high-contrast
+  focus, text names for every action, and WCAG
+  contrast-selected text on stored colors. Meaning is always present in text;
+  color, position, sound, pointer precision and drag-and-drop are never the only
+  way to understand or operate a control.
 - Preserve the existing URL families, including `/sign-in`, `/sign-up`, `/`,
   `/allboards/...`, `/b/...`, card URLs, search, import, account preferences and
   Admin Panel URLs. An unsupported action must render an explanatory page, not
@@ -125,6 +141,13 @@ User-Agent parsing is not part of this decision. Assets, DDP, SockJS, REST API
 and file-download routes are never captured. A single page shell owns headers,
 escaping, language, navigation and messages.
 Shared form helpers own hidden session fields and signed action tokens.
+
+The initial board controller deliberately renders only the upper-left part of
+the Kanban canvas: the first active swimlane, its first active list, and that
+list's ordered cards. Direct item URLs may reveal the addressed item. This keeps
+the baseline bounded and readable on small, memory-constrained browsers; moving
+between lanes and lists is explicit POST navigation rather than horizontal drag
+and drop.
 
 Route handlers translate the existing URL into a page controller. Controllers
 call shared domain operations; they must not duplicate collection writes from

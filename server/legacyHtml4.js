@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import Settings from '/models/settings';
 import { TAPi18n } from '/imports/i18n';
 import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml4Session';
+import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
 import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
@@ -57,6 +58,7 @@ WebApp.handlers.use(async (req, res, next) => {
   const user = session ? await Meteor.users.findOneAsync(session.userId, {
     fields: { username: 1 },
   }) : null;
+  const page = await legacyHtml4Page(path, session?.userId || null, req.body || {}, translate);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -76,6 +78,8 @@ WebApp.handlers.use(async (req, res, next) => {
     authenticated: Boolean(session),
     username: user?.username || '',
     sessionFields: session ? sessionFields(session, '/allboards') : null,
+    actionFields: action => session ? sessionFields(session, action) : null,
+    page,
     language,
     translate,
   }));
