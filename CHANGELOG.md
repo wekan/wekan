@@ -358,6 +358,28 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b48906be">Add shared HTML4 component library and ASCII controls</a>. Thanks to xet7.</summary>
+
+The HTML5 Jade interface and server-rendered HTML4 pages now share one semantic
+control registry. Modern templates receive their Font Awesome classes while
+HTML4 forms receive printable ASCII such as `v`, `>`, `+` and `=`, always beside
+visible text. The first converted swimlane control and matching component-gallery
+routes demonstrate both renderers at the same URL.
+
+The component guide documents the supported intersection of IBrowse, NetSurf and
+Dillo, one-table page contracts, native form controls, CSS-independent colors,
+logical Tab order, accessibility requirements and a route-by-route delivery
+checklist. Live no-JavaScript comparison against the local test service verified
+the same board, swimlane, list and card order and corrected HTML4 row colors.
+
+Login-logo conversion now resolves Sharp from the application package and repairs
+a database cache record whose stored GIF has disappeared. Tests cover the shared
+route and icon registry, printable ASCII, semantic tables, escaping, signed POST
+controls and keyboard order; the generated logo was also verified as GIF89a.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0be47674c">Reuse existing translated labels throughout HTML4 pages</a>. Thanks to xet7.</summary>
 
 The HTML4 renderer now uses the established `skip-to-content`, `username`,
