@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1024,
-  'the first twenty-three Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 974,
+  'the first twenty-four Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -192,5 +192,14 @@ assert.match(tajik['r-checklist-note'], /вергул/);
 assert.equal(tajik['authentication-method'], 'Усули аутентификатсия');
 assert.match(tajik['custom-head-meta-tags'], /HTML/);
 assert.match(tajik['custom-head-manifest-content'], /JSON/);
+assert.deepEqual(tags(tajik['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(tajik['add-custom-html-before-body-end']), ['</body>']);
+assert.match(tajik['oidc-button-text'], /OIDC/);
+assert.deepEqual(tokens(tajik['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(tajik['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.equal(tajik['show-desktop-drag-handles'],
+  'Нишон додани дастакҳои кашиши мизи корӣ');
 
-console.log('tajikTranslationProgress: first twenty-three batches passed');
+console.log('tajikTranslationProgress: first twenty-four batches passed');
