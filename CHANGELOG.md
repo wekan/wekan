@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **75,040 values across 35 second-tier languages**. Southern
-Sotho has 1,074 left after its first twenty-one 50-value batches. Albanian and
+remaining work is **74,990 values across 35 second-tier languages**. Southern
+Sotho has 1,024 left after its first twenty-two 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first twenty-one activity, administration,
-system, card, automation-builder, trigger and action batches;
+translations** now cover their first twenty-two activity, administration,
+system, automation, authentication and web-metadata batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,18 @@ restoration, color, selection and email actions. All values required
 translation. Tests pin representative archive, membership, email and list
 movement wording. This leaves 75,040 actionable values across 35 languages,
 including 1,074 in Southern Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dfc631420">Translate Southern Sotho automation and web metadata</a>. Thanks to xet7.</summary>
+
+The twenty-second 50-value Southern Sotho batch adds card, member, checklist,
+swimlane and date rule actions, authentication and custom HTML head tags, web
+manifests and `assetlinks.json`. All values required translation. Tests retain
+the comma-separated item format and JSON, HTML and asset filename terminology.
+This leaves 74,990 actionable values across 35 languages, including 1,024 in
+Southern Sotho.
 
 </details>
 
