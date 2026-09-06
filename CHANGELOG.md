@@ -160,7 +160,7 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 </details>
 
 <details>
-<summary>Fill the remaining untranslated strings directly, no external service</summary>
+<summary>Translation completion record and maintenance rules.</summary>
 
 Not an issue, and recorded so the next session can pick it up without measuring
 the ground again. Run this first — it is the status, and it is always current:
@@ -8137,23 +8137,14 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after starting Tswana:** all 200
-near-complete locale files have zero actionable untranslated values. The only
-remaining work is **66,894 values across 31 second-tier languages**. Southern
-Sotho is complete after forty-two 50-value batches and a final 24-value batch.
-Tajik is complete after forty-three 50-value batches and a final 24-value batch.
-Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Tigre is complete after forty-three 50-value batches and a final
-24-value batch.
-Tswana has 1,624 left after its first eleven 50-value batches.
-Albanian and Bosnian are also complete. Bosnian's final apparent gap,
-`Server`, is a normal technical loanword and is
-now classified as invariant instead of being replaced with a Croatian form just
-to make the counter reach zero.
-
-A release can go out at any point: an untranslated key renders its English
-source, never the key. The work now proceeds through the 34 whole-file-sized
-second-tier locales in resumable, tested batches.
+**Current snapshot:** all supported non-English locale files have zero
+actionable untranslated values. The final 31 whole-file locales were completed
+in language-specific, independently verified batches. The repository-wide
+token and wrong-script checks are clean, and each completed locale has a
+regression test that requires zero English placeholders while preserving format
+tokens and HTML structure. Future English source additions remain visible to
+the same safe fill workflow; Transifex human translations still take
+precedence.
 
 </details>
 
@@ -8259,14 +8250,11 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian, Southern Sotho, Tajik, Tigrinya and Tigre
-translations** are
-complete across boards and cards, workflows, import/export, search,
-administration, security, recovery, file and cloud storage, data safety,
-backups and migrations; every near-complete locale is complete again, and the
-remaining counter excludes valid international technical and color loanwords.
-**Tswana translations** cover their first eleven board, card, workspace,
-appearance, account, validation, export and filter batches.
+**In short:** **all supported non-English translations are complete** across
+boards and cards, workflows, import/export, search, administration, security,
+recovery, file and cloud storage, data safety, backups and migrations. All
+Boards Table view now has a compact, themed controls row, and Admin Panel
+reports show complete, actionable data and controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8369,6 +8357,22 @@ writer and table.
 </details>
 
 and improves the translations:
+
+**All remaining languages** - every supported non-English locale is complete.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2880c4e6">Complete all remaining translations</a>. Thanks to xet7.</summary>
+
+Akan, Aragonese, Aymara, Bislama, Corsican, Friulian, Hawaiian, Kashubian,
+Latin, Ladin, Luganda, Luxembourgish, Maltese, Neapolitan, Papiamento, Quechua,
+Romansh, Aromanian, Sardinian, Shona, Sicilian, Silesian, Tagalog, Tatar, Tok
+Pisin, Tongan, Tsonga, Tswana, Upper Sorbian, Urdu and Wolaytta now cover every
+actionable source string.
+Language-specific tests require zero English placeholders and preserve all
+format tokens and HTML structure. The global fill report is now zero, the
+wrong-script audit is clean and human Transifex translations remain preferred.
+
+</details>
 
 **Albanian** - activity history and workspace navigation.
 
