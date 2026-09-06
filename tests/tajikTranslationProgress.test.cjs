@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
-  'the first seventeen Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
+  'the first eighteen Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -150,5 +150,13 @@ assert.deepEqual(tokens(tajik['email-invite-register-text']),
   ['__icode__', '__inviter__', '__url__', '__user__']);
 assert.equal(tajik.Database, 'Пойгоҳи додаҳо');
 assert.equal(tajik['bidirectional-webhooks'], 'Вебҳукҳои дуҷониба');
+assert.equal(tajik.Node_version, 'Версияи Node');
+assert.match(tajik.Reactivity_mode, /changeStreams.*oplog.*polling/);
+assert.equal(tajik.OS_Uptime, 'Муддати кори низоми амалкунанда');
+assert.equal(tajik['show-field-on-card'],
+  'Нишон додани ин майдон дар корт');
+assert.equal(tajik['active-org'], 'Ташкилоти фаъол');
+assert.match(tajik['org-domains-description'], /MULTITENANCY=true/);
+assert.equal(tajik['org-admin'], 'Маъмури ташкилот');
 
-console.log('tajikTranslationProgress: first seventeen batches passed');
+console.log('tajikTranslationProgress: first eighteen batches passed');
