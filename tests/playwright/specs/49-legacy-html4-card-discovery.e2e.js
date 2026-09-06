@@ -15,6 +15,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let board;
   let outsider;
   let outsiderBoard;
+  const childIds = {
+    checklist: db.uid('checklist'), item: db.uid('item'),
+    comment: db.uid('comment'), attachment: db.uid('attachment'),
+    foreignChecklist: db.uid('checklist'), foreignComment: db.uid('comment'),
+    foreignAttachment: db.uid('attachment'),
+  };
   try {
     await page.goto(`${baseURL}/sign-up`);
     await page.locator('input[name="username"]').fill(username);
@@ -49,6 +55,35 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     db.updateOne('users', { _id: user._id }, {
       $set: { 'profile.starredPages': [{ url: '/shortcuts', title: 'Saved shortcuts' }] },
     });
+    db.insertOne('checklists', {
+      _id: childIds.checklist, cardId: due._id, boardId: board.boardId,
+      title: 'HTML4 checklist', sort: 1,
+    });
+    db.insertOne('checklistItems', {
+      _id: childIds.item, checklistId: childIds.checklist, cardId: due._id,
+      boardId: board.boardId, title: 'HTML4 checked item', sort: 1, isFinished: true,
+    });
+    db.insertOne('card_comments', {
+      _id: childIds.comment, cardId: due._id, boardId: board.boardId,
+      userId: user._id, text: 'HTML4 visible comment', createdAt: new Date(),
+    });
+    db.insertOne('attachments', {
+      _id: childIds.attachment, name: 'HTML4 report.png', type: 'image/png', size: 123,
+      uploadedAt: new Date(), meta: { cardId: due._id, boardId: board.boardId }, versions: {},
+    });
+    db.insertOne('checklists', {
+      _id: childIds.foreignChecklist, cardId: due._id, boardId: outsiderBoard.boardId,
+      title: 'FOREIGN CHECKLIST MUST NOT LEAK', sort: 2,
+    });
+    db.insertOne('card_comments', {
+      _id: childIds.foreignComment, cardId: due._id, boardId: outsiderBoard.boardId,
+      userId: outsider.id, text: 'FOREIGN COMMENT MUST NOT LEAK', createdAt: new Date(),
+    });
+    db.insertOne('attachments', {
+      _id: childIds.foreignAttachment, name: 'FOREIGN-ATTACHMENT.png', type: 'image/png',
+      size: 999, uploadedAt: new Date(),
+      meta: { cardId: due._id, boardId: outsiderBoard.boardId }, versions: {},
+    });
 
     if (await page.locator('form[action="/allboards"] input[type="submit"]').count()) {
       await Promise.all([
@@ -76,6 +111,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).toContainText('Semantic HTML4 card description');
     await expect(page.locator('tbody')).toContainText('2030-01-02T12:00:00.000Z');
     await expect(page.locator('tbody')).toContainText(username);
+    await expect(page.locator('tbody')).toContainText('HTML4 checklist');
+    await expect(page.locator('tbody')).toContainText('[x]');
+    await expect(page.locator('tbody')).toContainText('HTML4 checked item');
+    await expect(page.locator('tbody')).toContainText('HTML4 report.png');
+    await expect(page.locator('tbody')).toContainText('HTML4 visible comment');
+    await expect(page.locator('tbody')).not.toContainText('FOREIGN');
 
     const modernContext = await browser.newContext();
     const modern = await modernContext.newPage();
@@ -109,6 +150,13 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    db.deleteOne('attachments', { _id: childIds.foreignAttachment });
+    db.deleteOne('card_comments', { _id: childIds.foreignComment });
+    db.deleteOne('checklists', { _id: childIds.foreignChecklist });
+    db.deleteOne('attachments', { _id: childIds.attachment });
+    db.deleteOne('card_comments', { _id: childIds.comment });
+    db.deleteOne('checklistItems', { _id: childIds.item });
+    db.deleteOne('checklists', { _id: childIds.checklist });
     if (outsiderBoard) db.cleanup({ boardIds: [outsiderBoard.boardId] });
     if (outsider) db.cleanup({ userIds: [outsider.id] });
     if (board) db.cleanup({ boardIds: [board.boardId] });

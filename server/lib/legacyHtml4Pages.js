@@ -5,6 +5,11 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Settings from '/models/settings';
 import AccessibilitySettings from '/models/accessibilitySettings';
+import CardComments from '/models/cardComments';
+import Checklists from '/models/checklists';
+import ChecklistItems from '/models/checklistItems';
+import Attachments from '/models/attachments';
+import { cleanFileName } from '/imports/lib/fileNameDisplay';
 const { UI_ICONS, uiAction, uiLink, uiSearchForm } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
@@ -151,9 +156,26 @@ async function cardDetailsPage(board, cardId, userId, translate) {
     columns: [tr(translate, 'status', 'Status'), tr(translate, 'action', 'Action')],
     rows: [], empty: 'Card not found or access denied.',
   };
+  const checklists = await Checklists.find({ cardId: card._id, boardId: card.boardId }, {
+    fields: { title: 1, sort: 1 }, sort: { sort: 1 }, limit: 200,
+  }).fetchAsync();
+  const checklistIds = checklists.map(checklist => checklist._id);
+  const [comments, checklistItems, attachments] = await Promise.all([
+    CardComments.find({ cardId: card._id, boardId: card.boardId }, {
+      fields: { text: 1, userId: 1, createdAt: 1 }, sort: { createdAt: 1 }, limit: 500,
+    }).fetchAsync(),
+    ChecklistItems.find({ cardId: card._id, boardId: card.boardId,
+      checklistId: { $in: checklistIds } }, {
+      fields: { title: 1, isFinished: 1, checklistId: 1, sort: 1 }, sort: { sort: 1 }, limit: 2000,
+    }).fetchAsync(),
+    Attachments.collection.find({ 'meta.cardId': card._id, 'meta.boardId': card.boardId }, {
+      fields: { name: 1, type: 1, size: 1, uploadedAt: 1 }, sort: { uploadedAt: 1 }, limit: 500,
+    }).fetchAsync(),
+  ]);
   const personIds = [...new Set([
     card.userId, ...(card.members || []), ...(card.assignees || []),
     ...(card.requesters || []), ...(card.assigners || []),
+    ...comments.map(comment => comment.userId),
   ].filter(Boolean))];
   const [list, swimlane, people] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
@@ -185,6 +207,21 @@ async function cardDetailsPage(board, cardId, userId, translate) {
     { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(card.createdAt)] },
     { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
   ];
+  for (const checklist of checklists) {
+    rows.push({ cells: [tr(translate, 'checklist', 'Checklist'), checklist.title || ''] });
+    for (const item of checklistItems.filter(candidate => candidate.checklistId === checklist._id)) {
+      rows.push({ cells: [item.isFinished ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii,
+        item.title || ''] });
+    }
+  }
+  for (const attachment of attachments) rows.push({
+    cells: [tr(translate, 'attachment', 'Attachment'),
+      `${cleanFileName(attachment.name)} (${attachment.type || 'application/octet-stream'}, ${attachment.size || 0})`],
+  });
+  for (const comment of comments) rows.push({
+    cells: [`${tr(translate, 'comment', 'Comment')} - ${personById.get(comment.userId) || comment.userId || ''}`,
+      `${comment.text || ''}${isoDate(comment.createdAt) ? ` (${isoDate(comment.createdAt)})` : ''}`],
+  });
   if (card.archived) rows.unshift({ cells: [tr(translate, 'status', 'Status'),
     tr(translate, 'card-archived', 'This card is moved to Archive.')] });
   return {

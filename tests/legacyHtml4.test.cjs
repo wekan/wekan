@@ -160,6 +160,10 @@ test('card details repeat board and assigned-only authorization scopes', () => {
   assert.match(pages, /deletedAt: null/);
   assert.match(pages, /Meteor\.users\.find\(\{ _id: \{ \$in: personIds \} \}/);
   assert.match(pages, /fields: \{ username: 1, 'profile\.fullname': 1 \}/);
+  assert.match(pages, /CardComments\.find\(\{ cardId: card\._id, boardId: card\.boardId \}/);
+  assert.match(pages, /ChecklistItems\.find\(\{ cardId: card\._id, boardId: card\.boardId/);
+  assert.match(pages, /Attachments\.collection\.find\(\{ 'meta\.cardId': card\._id, 'meta\.boardId': card\.boardId \}/);
+  assert.match(pages, /cleanFileName\(attachment\.name\)/);
 });
 
 test('HTML4 global search is a labelled signed POST form', () => {
