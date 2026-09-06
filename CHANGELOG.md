@@ -8139,9 +8139,9 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tajik:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **73,866 values across 34 second-tier languages**. Southern
+remaining work is **73,816 values across 34 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
-Tajik has 2,074 left after its first two 50-value batches. Albanian and Bosnian are
+Tajik has 2,024 left after its first three 50-value batches. Albanian and Bosnian are
 also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8256,7 +8256,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian and Southern Sotho translations** are complete, and
-**Tajik translations** now cover their first two activity and workspace batches;
+**Tajik translations** now cover their first three activity, workspace and board
+layout batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8529,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2435b471">Translate Tajik board layout controls</a>. Thanks to xet7.</summary>
+
+The third 50-value Tajik batch adds workspace deletion, multi-board selection,
+the home board, list widths, keyboard shortcuts, swimlane height and checklist,
+cover, label and member additions. All values required translation. Tests retain
+date placeholders, the minimum list width, pixel units and representative fixed
+width and checklist-to-card language. This leaves 73,816 actionable values
+across 34 languages, including 2,024 in Tajik.
 
 </details>
 
