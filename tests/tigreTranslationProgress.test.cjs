@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1424,
-  'the first fifteen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1374,
+  'the first sixteen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -156,5 +156,11 @@ assert.match(tigre['sandstorm-remove-member-warning'], /WeKan.*Sandstorm/);
 assert.match(tigre['public-desc'], /Google/);
 assert.match(tigre['search-example'], /Enter/);
 assert.match(tigre['setWipLimitPopup-title'], /WIP/);
+assert.match(tigre['toggle-assignees'], /1-9/);
+assert.match(tigre['toggle-labels'], /1-9/);
+assert.match(tigre['custom-top-left-corner-logo-height'], /27/);
+assert.match(tigre['custom-top-left-corner-logo-image-url'], /URL/);
+assert.match(tigre['automatic-linked-url-schemes'], /URL.*URL/);
+assert.match(tigre['wipLimitErrorPopup-title'], /WIP/);
 
-console.log('tigreTranslationProgress: first fifteen batches passed');
+console.log('tigreTranslationProgress: first sixteen batches passed');
