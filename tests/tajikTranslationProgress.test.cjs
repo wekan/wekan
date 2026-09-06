@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 974,
-  'the first twenty-four Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 924,
+  'the first twenty-five Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -201,5 +201,11 @@ assert.deepEqual(tokens(tajik['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.equal(tajik['show-desktop-drag-handles'],
   'Нишон додани дастакҳои кашиши мизи корӣ');
+assert.match(tajik['submit-on-enter-description'], /Shift\+Enter.*Ctrl\/Cmd\+Enter/);
+assert.equal(tajik['newOrgPopup-title'], 'Ташкилоти нав');
+assert.match(tajik['roles-info'], /Панели маъмурӣ/);
+assert.equal(tajik['roles-status-sees-assigned'], 'Танҳо таъиншудаҳо');
+assert.equal(tajik.monday, 'Душанбе');
+assert.equal(tajik.sunday, 'Якшанбе');
 
-console.log('tajikTranslationProgress: first twenty-four batches passed');
+console.log('tajikTranslationProgress: first twenty-five batches passed');
