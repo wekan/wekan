@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1724,
-  'the first nine Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1674,
+  'the first ten Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -101,5 +101,12 @@ assert.equal(tajik['confirm-move-list-to-swimlane'],
 assert.equal(JSON.parse(tajik['copyManyCardsPopup-format']).length, 3);
 assert.match(tajik['copyManyCardsPopup-instructions'], /JSON/);
 assert.equal(tajik['custom-field-currency'], 'Асъор');
+assert.deepEqual(tokens(tajik['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(tajik['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.match(tajik['error-json-schema'], /JSON/);
+assert.match(tajik['error-csv-schema'], /CSV.*TSV/);
+assert.match(tajik['error-import-empty-board'], /WeKan/);
 
-console.log('tajikTranslationProgress: first nine batches passed');
+console.log('tajikTranslationProgress: first ten batches passed');
