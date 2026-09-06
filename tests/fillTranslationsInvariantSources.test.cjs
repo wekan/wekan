@@ -18,6 +18,9 @@ assert.deepStrictEqual(hebrew, {}, 'date-format masks are invariant');
 const finnish = list('fi');
 assert.deepStrictEqual(finnish, {},
   'a completed locale contains only translations and invariant values');
+const bosnian = list('bs');
+assert.deepStrictEqual(bosnian, {},
+  'the Bosnian technical loanword Server is invariant, not untranslated');
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
-console.log('fillTranslationsInvariantSources: 6 tests passed');
+console.log('fillTranslationsInvariantSources: 7 tests passed');
