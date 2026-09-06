@@ -269,7 +269,7 @@ retain synchronous SHA-256 on both architectures, and interrupted test runs clea
 only once before returning to the shell. Uncommon browser code loads on demand, and
 Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
 buttons, move them between lists with a native selector, and manage threaded
-comments and reactions.
+comments, reactions and core checklist operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -303,6 +303,26 @@ keyboard buttons and render only escaped characters from the catalog, so corrupt
 legacy data cannot become markup. Tests cover valid toggles, unknown active markup,
 submitted user spoofing, cross-board comment IDs, direct collection writes,
 translation keys and same-URL HTML4/HTML5 reaction screenshots.
+
+</details>
+
+**Legacy HTML4 checklists** - core checklist operations work without JavaScript,
+cookies or drag-and-drop.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5bf9ac1d">Add accessible HTML4 checklist controls</a>. Thanks to xet7.</summary>
+
+Card details now render checklist progress, item completion and visibility
+settings as text, with signed controls to create, rename, reorder, toggle and
+confirm-delete checklists and items. The Jade view calls the same acknowledged
+server operations instead of direct client collection writes.
+
+Every write repeats card and linked-card authorization and binds checklist, item,
+card, board and parent identifiers before changing data. Titles and queries are
+bounded, ordering is calculated by the server, and deleting a checklist removes
+its children first. Tests cover valid operations, cross-board parent spoofing,
+linked content, ordering, orphan-free deletion and paired same-URL HTML4/HTML5
+screenshots.
 
 </details>
 
