@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,940 values across 35 second-tier languages**. Southern
-Sotho has 974 left after its first twenty-three 50-value batches. Albanian and
+remaining work is **74,890 values across 35 second-tier languages**. Southern
+Sotho has 924 left after its first twenty-four 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first twenty-three activity, administration,
-automation, authentication, event and interface-setting batches;
+translations** now cover their first twenty-four activity, administration,
+automation, interface, role and weekday batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8504,6 +8504,18 @@ heights and card-addition controls. All values required translation. Tests
 retain activity placeholders and representative board-layout terminology. This
 leaves 75,990 actionable values across 35 languages, including 2,024 in
 Southern Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f8781cd9">Translate Southern Sotho roles and weekdays</a>. Thanks to xet7.</summary>
+
+The twenty-fourth 50-value Southern Sotho batch adds multi-card windows,
+Enter-key editing, organization, team and user dialogs, notification read
+states, board role permissions and weekdays. All values required translation.
+Tests retain Shift, Ctrl and Cmd keyboard combinations and pin assigned-role and
+weekday wording. This leaves 74,890 actionable values across 35 languages,
+including 924 in Southern Sotho.
 
 </details>
 
