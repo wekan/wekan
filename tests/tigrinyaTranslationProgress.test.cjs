@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
-  'the first forty Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 124,
+  'the first forty-one Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -307,5 +307,12 @@ assert.match(tigrinya['fix-all-file-urls-migration-description'], /URL.*backend/
 assert.match(tigrinya['run-restore-all-archived-migration-confirm'],
   /ብቐሊሉ ክምለስ ኣይከኣልን/);
 assert.equal(tigrinya['migration-progress-current-step'], 'እዋናዊ ደረጃ');
+assert.equal(tigrinya['step-validate-migration'], 'ፍልሰት ኣረጋግጽ');
+assert.match(tigrinya['step-fix-avatar-urls'], /URL/);
+assert.match(tigrinya['step-fix-attachment-urls'], /URL/);
+assert.match(tigrinya['step-fix-file-urls'], /URL/);
+assert.match(tigrinya['cpu-usage'], /CPU/);
+assert.match(tigrinya['gridfs-attachments'], /GridFS/);
+assert.match(tigrinya['conversion-info-text'], /ሓንሳእ ጥራይ/);
 
-console.log('tigrinyaTranslationProgress: first forty batches passed');
+console.log('tigrinyaTranslationProgress: first forty-one batches passed');
