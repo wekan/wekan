@@ -142,11 +142,13 @@ template(name="tablePage")
                             if count
                               span.table-page-people-count {{count}}
                     else if userId
-                      a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
-                        if userAvatarUrl
-                          img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
-                        else
-                          +userAvatarInitials(userId=userId)
+                      .table-page-single-person
+                        a.member.edit-user.js-table-page-edit-user(data-user-id="{{userId}}" title="{{text}}")
+                          if userAvatarUrl
+                            img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
+                          else
+                            +userAvatarInitials(userId=userId)
+                        span.table-page-single-person-name {{text}}
                     else if location
                       a.js-table-page-map(href="#" data-latitude="{{location.latitude}}" data-longitude="{{location.longitude}}" data-label="{{location.label}}" title="{{_ 'location-open-map-at'}}")
                         if flag

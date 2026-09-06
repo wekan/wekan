@@ -67,6 +67,21 @@ test('the shared table page draws every avatar inside a .member', () => {
     + `at whatever the file is: ${unsized.join(', ')}`);
 });
 
+test('a single-user cell shows a wrapping name beside its fixed avatar', () => {
+  const jade = read('client/components/settings/tablePage.jade');
+  const css = read('client/components/settings/tablePage.css');
+  assert.match(jade,
+    /\.table-page-single-person[\s\S]*a\.member\.edit-user\.js-table-page-edit-user[\s\S]*\.table-page-single-person-name \{\{text\}\}/,
+    'a user name must be visible, not hidden in the avatar tooltip');
+  const avatar = /\.table-page-single-person \.member\s*\{([\s\S]*?)\}/.exec(css);
+  const name = /\.table-page-single-person-name\s*\{([\s\S]*?)\}/.exec(css);
+  assert.ok(avatar && /flex:\s*0 0 24px/.test(avatar[1]),
+    'long text must not squeeze the avatar');
+  assert.ok(name && /overflow-wrap:\s*anywhere/.test(name[1])
+    && /word-break:\s*break-word/.test(name[1]),
+  'long usernames must wrap inside their table cell');
+});
+
 test('and no Admin Panel template draws one anywhere else (negative)', () => {
   // The whole class: an avatar added to a new pane, with its own markup and no
   // box. Admin Panel / People is the one deliberate exception - it has its own

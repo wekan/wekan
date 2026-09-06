@@ -285,6 +285,27 @@
   align-items: center;
   gap: 2px;
 }
+
+/* A one-user column must show the identity as text as well as an avatar. Keep
+   the avatar fixed and let a long username wrap in the rest of the cell. */
+.table-page-single-person {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+.table-page-single-person .member {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+}
+.table-page-single-person-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 /* How many times that person logged in from here. Small and quiet: it is the
    second question, after who. */
 .table-page-people-count {
