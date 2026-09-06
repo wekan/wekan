@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1874,
-  'the first five Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1824,
+  'the first six Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -63,5 +63,9 @@ assert.equal(sesotho['vote-question'], 'Potso ya kgetho');
 assert.match(sesotho['poker-delete-pop'], /Planning Poker/);
 assert.equal(sesotho['exportChecklistPopup-title'],
   'Ntsha lenane la tlhahlobo');
+assert.equal(sesotho['cardType-linkedCard'], 'Karete e hoketsweng');
+assert.match(sesotho['map-to-existing-user-desc'], /ditumello/);
+assert.match(sesotho['font-preview-text'], /0123456789/);
+assert.equal(sesotho['changeLanguagePopup-title'], 'Fetola puo');
 
-console.log('southernSothoTranslationProgress: first five batches passed');
+console.log('southernSothoTranslationProgress: first six batches passed');
