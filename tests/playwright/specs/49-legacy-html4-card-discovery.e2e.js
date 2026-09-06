@@ -135,6 +135,19 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await open('/allboards/home');
     await expect(page.locator('tbody')).toContainText(board.boardId);
     await expect(page.locator('tbody')).not.toContainText('HTML4 Workspace Board');
+    await open('/import');
+    for (const source of ['WeKan', 'Trello', 'CSV / TSV', 'Excel', 'Jira', 'GitHub', 'Asana']) {
+      await expect(page.locator('tbody')).toContainText(source);
+    }
+    await open('/import/trello');
+    await expect(page.locator('h1')).toContainText('Trello');
+    await expect(page.locator('tbody')).toContainText('[x]');
+    await expect(page.locator('tbody')).toContainText('Only the ticked parts are imported');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-import-trello.png`, fullPage: true,
+      });
+    }
     await open('/my-cards');
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');
@@ -164,6 +177,14 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await modern.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-templates.png`, fullPage: true,
+      });
+    }
+    await modern.goto(`${baseURL}/import/trello`);
+    await expect(modern.getByRole('heading', { name: 'Import from:' })).toBeVisible();
+    await expect(modern.locator('body')).toContainText('Trello');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-import-trello.png`, fullPage: true,
       });
     }
     await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);

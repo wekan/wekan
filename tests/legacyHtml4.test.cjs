@@ -12,6 +12,7 @@ const {
 } = require('../imports/lib/legacyHtml4');
 const { UI_ICONS, uiControlLabel, uiIcon, uiSearchForm } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
+const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
 
 function request(url, headers = {}) {
   return { method: 'GET', url, headers };
@@ -136,6 +137,22 @@ test('information pages have dedicated controllers and share shortcut data', () 
   assert.match(pages, /const allowed = Boolean\(userId\)/);
 });
 
+test('HTML5 and HTML4 import pickers share one safe source registry', () => {
+  const root = path.join(__dirname, '..');
+  const pages = fs.readFileSync(path.join(root, 'server', 'lib', 'legacyHtml4Pages.js'), 'utf8');
+  const html5 = fs.readFileSync(path.join(root, 'client', 'components', 'import', 'import.js'), 'utf8');
+  assert.ok(IMPORT_SOURCES.length >= 14);
+  assert.equal(new Set(IMPORT_SOURCES.map(source => source.key)).size, IMPORT_SOURCES.length);
+  for (const source of IMPORT_SOURCES) assert.match(source.key, /^[a-z0-9-]+$/);
+  assert.equal(importSourceByKey('trello').name, 'Trello');
+  assert.equal(importSourceByKey('../admin'), null);
+  assert.equal(importSourceName(importSourceByKey('wekan'), 'Branded'), 'Branded (JSON, .zip)');
+  assert.match(html5, /require\('\/models\/lib\/importSources'\)/);
+  assert.match(pages, /importSourceByKey\(selectedKey\)/);
+  assert.match(pages, /uiAction\(\{ action: `\/import\/\$\{source\.key\}`/);
+  assert.match(pages, /if \(!userId \|\| !\/\^\\\/import/);
+});
+
 test('card discovery pages scope reads to the authenticated user boards', () => {
   const root = path.join(__dirname, '..');
   const pages = fs.readFileSync(path.join(root, 'server', 'lib', 'legacyHtml4Pages.js'), 'utf8');
@@ -210,7 +227,7 @@ test('authenticated navigation gives every HTML4 destination its translated name
     page: { heading: 'My Cards', columns: ['Card', 'Board'], rows: [] },
   });
   for (const label of ['All Boards', 'My Cards', 'Due Cards', 'Search All Boards',
-    'Starred boards', 'Support', 'Accessibility', 'Keyboard shortcuts']) {
+    'Starred boards', 'Import', 'Support', 'Accessibility', 'Keyboard shortcuts']) {
     assert.match(html, new RegExp(`value="&gt; ${label}"`), label);
   }
 });

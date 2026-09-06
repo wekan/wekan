@@ -18,6 +18,7 @@ import {
 import { pruneImportDocument } from '/models/lib/importParts';
 import { TAPi18n } from '/imports/i18n';
 import TrelloImportJobs from '/models/trelloImportJobs';
+const { IMPORT_SOURCES, importSourceName } = require('/models/lib/importSources');
 
 const Papa = require('papaparse');
 
@@ -390,28 +391,12 @@ Template.import.onCreated(function () {
   };
 });
 
-// #1173: every import source, in one list, so the page says what it can read
+// #1173: every import source comes from the shared registry, so both renderers
+// show what the page can read
 // instead of the answer living in a menu somewhere else. The order is the one
 // the board sidebar's links were in - the familiar one - and the WeKan entry is
 // named for the PRODUCT NAME this instance is branded with, because "a previous
 // export of ..." should say the name the person sees at the top of their screen.
-const IMPORT_SOURCES = [
-  { key: 'wekan', product: true },
-  { key: 'trello', name: 'Trello' },
-  { key: 'csv', name: 'CSV / TSV' },
-  { key: 'excel', name: 'Excel' },
-  { key: 'jira', name: 'Jira' },
-  { key: 'kanboard', name: 'Kanboard' },
-  { key: 'deck', name: 'NextCloud Deck' },
-  { key: 'openproject', name: 'OpenProject' },
-  { key: 'github', name: 'GitHub' },
-  { key: 'gitlab', name: 'GitLab' },
-  { key: 'gitea', name: 'Gitea' },
-  { key: 'forgejo', name: 'Forgejo' },
-  { key: 'asana', name: 'Asana' },
-  { key: 'zenkit', name: 'Zenkit' },
-];
-
 Template.import.helpers({
   error() {
     return Template.instance().error;
@@ -424,7 +409,7 @@ Template.import.helpers({
       key: source.key,
       // "a previous export of <Product name>", which for an unbranded WeKan is
       // "WeKan" and for a rebranded one is whatever it was rebranded to.
-      name: source.product ? `${product} (JSON, .zip)` : source.name,
+      name: importSourceName(source, product),
       selected: source.key === current,
     }));
   },

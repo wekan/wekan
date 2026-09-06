@@ -64,6 +64,7 @@ function pageHeading(path, options) {
     [/^\/due-cards(?:\/|$)/, 'dueCards-title', 'Due Cards'],
     [/^\/global-search(?:\/|$)/, 'globalSearch-title', 'Search All Boards'],
     [/^\/bookmarks(?:\/|$)/, 'bookmarksPopup-title', 'Starred boards'],
+    [/^\/import(?:\/|$)/, 'import', 'Import'],
     [/^\/support(?:\/|$)/, 'support', 'Support'],
     [/^\/accessibility(?:\/|$)/, 'accessibility', 'Accessibility'],
     [/^\/shortcuts(?:\/|$)/, 'keyboard-shortcuts', 'Keyboard shortcuts'],
@@ -190,7 +191,7 @@ function contentRows(path, options) {
     rows.push(tableRow([
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/bookmarks',
-        '/support', '/accessibility', '/shortcuts'].map(target => postForm(
+        '/import', '/support', '/accessibility', '/shortcuts'].map(target => postForm(
         target, pageHeading(target, options), options.actionFields(target),
       )).join(' '),
     ]));

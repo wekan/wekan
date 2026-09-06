@@ -15,6 +15,7 @@ const { UI_ICONS, uiAction, uiLink, uiSearchForm } = require('/imports/lib/uiCom
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
+const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('/models/lib/importSources');
 const {
   allBoardsPath, defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey,
   splitWorkspacePath, workspaceIdForSlugPath, workspaceNamePath, workspaceSlugPath,
@@ -421,6 +422,28 @@ async function cardDiscoveryPage(path, userId, requestFields, translate) {
   };
 }
 
+async function importPage(path, userId, translate) {
+  if (!userId || !/^\/import(?:\/|$)/.test(path)) return null;
+  const setting = (await Settings.findOneAsync({}, { fields: { productName: 1 } })) || {};
+  const selectedKey = segment(/^\/import\/([^/]+)$/.exec(path)?.[1]);
+  const selected = importSourceByKey(selectedKey);
+  const rows = IMPORT_SOURCES.map(source => ({
+    cells: [source.key === selected?.key ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii,
+      uiAction({ action: `/import/${source.key}`, label: importSourceName(source, setting.productName || 'WeKan') })],
+  }));
+  if (selected) rows.push({ cells: [
+    tr(translate, 'status', 'Status'),
+    tr(translate, 'import-parts-instruction', 'Only the ticked parts are imported.'),
+  ] });
+  return {
+    heading: selected
+      ? `${tr(translate, 'import-source-heading', 'Import from:')} ${importSourceName(selected, setting.productName || 'WeKan')}`
+      : tr(translate, 'import-source-heading', 'Import from:'),
+    columns: [tr(translate, 'status', 'Status'), tr(translate, 'import', 'Import')],
+    rows,
+  };
+}
+
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
   if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
   if (path === '/public') return boardsPage(path, userId, true, translate);
@@ -428,6 +451,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (information) return information;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
+  const importer = await importPage(path, userId, translate);
+  if (importer) return importer;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, translate);
   }
