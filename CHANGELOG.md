@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,006 values across 36 second-tier languages**. Albanian
-now has 916 left after its first twenty-four 50-value batches. Bosnian is also
+remaining work is **76,906 values across 36 second-tier languages**. Albanian
+now has 816 left after its first twenty-six 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first twenty-four activity,
-board, import, automation, account, notification and role-setting batches;
+**In short:** **Albanian translations** now cover the first twenty-six activity,
+board, import, account, shared-view, due-card and global-search batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8367,6 +8367,18 @@ notifications, role permissions, weekdays, status and linked-card safeguards.
 All one hundred values required translation. Regression coverage pins the full
 mention-event token set and representative role and weekday wording. This leaves
 77,006 actionable values across 36 languages, including 916 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6bd9f6fae">Translate Albanian shared views and search</a>. Thanks to xet7.</summary>
+
+The twenty-fifth and twenty-sixth 50-value Albanian batches add domain-scoped
+shared templates, My Cards and Due Cards views, global search result messages,
+operators and predicates. All one hundred values required translation. Search
+operator names stay single words for parser compatibility, and tests retain all
+result-count tokens. This leaves 76,906 actionable values across 36 languages,
+including 816 in Albanian.
 
 </details>
 
