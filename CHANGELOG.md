@@ -358,6 +358,31 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/034d3b920">Import WeKan ZIP exports with attachments from Legacy HTML4</a>. Thanks to xet7.</summary>
+
+The WeKan import page now accepts its canonical ZIP export without JavaScript or
+cookies. Its signed operation creates a new board through `WekanCreator`, applies
+the shared part selection and security boundary, and streams each archived card
+attachment or board background through the normal Admin Panel Default Storage
+upload hook. JSON import remains on the same creator and selection path.
+
+Whole-board and scoped ZIP imports now share one central-directory reader. It
+rejects unsafe and non-portable paths, duplicate documents or attachment IDs,
+excessive entries, oversized JSON and excessive declared or actual expanded data.
+Only bounded `wekan.json` is buffered; files remain one-at-a-time streams. ZIP
+exports now prefix each file with its stable attachment ID so the reader can match
+bytes to metadata. The Meteor-Files 3 Promise is awaited, fixing an import that
+otherwise waited forever instead of completing its Default Storage hook.
+
+Unit and security tests cover path traversal, all archive limits, duplicate guards,
+the common sanitization boundary, stable export names and streamed storage. The
+cookieless Playwright test rejects a `../wekan.json` package, imports a valid board
+with a real text attachment, verifies its stored metadata, deletes it through the
+authorized attachment method, and captures same-URL HTML4 and HTML5 screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/600ee4b02">Import Trello ZIP packages from Legacy HTML4</a>. Thanks to xet7.</summary>
 
 The Trello import page now includes a distinct labelled ZIP upload form that
