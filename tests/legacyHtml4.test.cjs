@@ -350,6 +350,32 @@ test('HTML4 card editing components remain labelled and keyboard ordered', () =>
   assert.doesNotMatch(html, /tabindex=/);
 });
 
+test('HTML4 comment forms expose labelled add, edit and delete operations', () => {
+  const html = renderLegacyHtml4Page('/b/board/slug/card', {
+    authenticated: true, username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'Card', columns: ['Card', 'Description'], rows: [
+      { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
+        label: 'Comment', name: 'commentText', fields: { legacyOperation: 'add-comment' },
+        submitLabel: 'Comment' }), ''] },
+      { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
+        label: 'Comment', name: 'commentText', value: '<edit>',
+        fields: { legacyOperation: 'edit-comment', commentId: 'comment-1' },
+        submitLabel: 'Save' }), { component: 'action', action: '/b/board/slug/card',
+        label: 'Delete', icon: 'remove',
+        fields: { legacyOperation: 'confirm-delete-comment', commentId: 'comment-1' } }] },
+    ] },
+  });
+  assert.equal((html.match(/<label for="legacy-commentText">Comment<\/label>/g) || []).length, 2);
+  for (const operation of ['add-comment', 'edit-comment', 'confirm-delete-comment']) {
+    assert.match(html, new RegExp(`name="legacyOperation" value="${operation}"`));
+  }
+  assert.match(html, /&lt;edit&gt;<\/textarea>/);
+  assert.match(html, /value="- Delete"/);
+  assert.doesNotMatch(html, /tabindex=/);
+});
+
 test('authenticated navigation gives every HTML4 destination its translated name', () => {
   const html = renderLegacyHtml4Page('/my-cards', {
     authenticated: true,

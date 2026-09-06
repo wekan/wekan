@@ -22,6 +22,11 @@ import {
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 import {
+  createAccessibleComment,
+  removeAccessibleComment,
+  updateAccessibleComment,
+} from '/server/lib/accessibleCommentOperations';
+import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
   isDocumentRequest,
@@ -98,12 +103,35 @@ WebApp.handlers.use(async (req, res, next) => {
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
     'edit-card-description', 'move-card-to-list', 'archive-card', 'restore-card',
   ];
+  const commentOperations = ['add-comment', 'edit-comment', 'delete-comment'];
   if (session && /^\/b\/[^/]+/.test(path)
-    && cardOperations.includes(requestFields.legacyOperation)) {
+    && requestFields.legacyOperation === 'confirm-delete-comment') {
+    requestFields.confirmCommentDelete = String(requestFields.commentId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && [...cardOperations, ...commentOperations].includes(requestFields.legacyOperation)) {
     try {
       const invocation = { userId: session.userId,
         connection: { clientAddress: String(session.address || '') } };
       const result = await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        if (requestFields.legacyOperation === 'add-comment') {
+          return createAccessibleComment(session.userId, {
+            boardId: requestFields.boardId, cardId: requestFields.cardId,
+            text: requestFields.commentText, parentId: requestFields.parentId,
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-comment') {
+          return updateAccessibleComment(session.userId, {
+            boardId: requestFields.boardId, cardId: requestFields.cardId,
+            commentId: requestFields.commentId, text: requestFields.commentText,
+          });
+        }
+        if (requestFields.legacyOperation === 'delete-comment') {
+          return removeAccessibleComment(session.userId, {
+            boardId: requestFields.boardId, cardId: requestFields.cardId,
+            commentId: requestFields.commentId,
+          });
+        }
         if (requestFields.legacyOperation === 'create-card') {
           return createAccessibleCard(session.userId, {
             boardId: requestFields.boardId, listId: requestFields.listId,

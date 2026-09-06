@@ -190,6 +190,15 @@ The server repeats card and destination-board write checks, requires the active
 list and swimlane to belong to that board, excludes the moving card from sibling
 order calculation, and computes its new fractional position authoritatively.
 
+Comment forms call one common server boundary from both renderers. Creation binds
+the submitted card to its real board and assigned-only scope, checks the board
+role's comment capability, bounds non-empty text, and validates a reply parent in
+the same card. Editing and deletion bind all three object IDs and then apply the
+shared author/administrator and `restrictCommentEditing` policy. Refused boundary
+or ownership probes enter Security reporting with the available actor data.
+HTML4 deletion uses two one-use signed POSTs so its confirmation is functional
+without script, cookies or client storage.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

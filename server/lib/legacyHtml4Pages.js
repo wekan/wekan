@@ -5,13 +5,16 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Settings from '/models/settings';
 import AccessibilitySettings from '/models/accessibilitySettings';
-import CardComments from '/models/cardComments';
+import CardComments, { canEditComment } from '/models/cardComments';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import getSlug from 'limax';
-import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import {
+  allowIsBoardMemberCommentOnly,
+  allowIsBoardMemberWithWriteAccess,
+} from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
   UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiSelectForm, uiTextForm,
@@ -338,6 +341,16 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
     }), ''] });
   }
+  if (allowIsBoardMemberCommentOnly(userId, board)) {
+    rows.push({ rowHeader: false, cells: [uiTextareaForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'comment', 'Comment'), name: 'commentText', value: '',
+      fields: {
+        boardId: card.boardId, cardId: card._id, parentId: '', legacyOperation: 'add-comment',
+      },
+      submitLabel: tr(translate, 'comment', 'Comment'),
+    }), ''] });
+  }
   rows.push(
     { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
     { cells: [tr(translate, 'board', 'Board'), board.title || ''] },
@@ -368,10 +381,42 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     cells: [tr(translate, 'attachment', 'Attachment'),
       `${cleanFileName(attachment.name)} (${attachment.type || 'application/octet-stream'}, ${attachment.size || 0})`],
   });
-  for (const comment of comments) rows.push({
-    cells: [`${tr(translate, 'comment', 'Comment')} - ${personById.get(comment.userId) || comment.userId || ''}`,
-      `${comment.text || ''}${isoDate(comment.createdAt) ? ` (${isoDate(comment.createdAt)})` : ''}`],
-  });
+  for (const comment of comments) {
+    rows.push({
+      cells: [`${tr(translate, 'comment', 'Comment')} - ${personById.get(comment.userId) || comment.userId || ''}`,
+        `${comment.text || ''}${isoDate(comment.createdAt) ? ` (${isoDate(comment.createdAt)})` : ''}`],
+    });
+    const mayMutate = canEditComment({
+      isAuthor: userId === comment.userId,
+      isBoardAdmin: board.hasAdmin(userId),
+      restrictCommentEditing: Boolean(board.restrictCommentEditing),
+    });
+    if (mayMutate) {
+      const fields = { boardId: card.boardId, cardId: card._id, commentId: comment._id };
+      const confirmingDelete = requestFields.confirmCommentDelete === comment._id;
+      rows.push({ rowHeader: false, cells: [uiTextareaForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'comment', 'Comment'), name: 'commentText', value: comment.text || '',
+        fields: { ...fields, legacyOperation: 'edit-comment' },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), confirmingDelete ? [
+        `${tr(translate, 'delete', 'Delete')}?`,
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...fields, legacyOperation: 'delete-comment' },
+        }),
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'cancel', 'Cancel'), icon: 'caret-right',
+        }),
+      ] : uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...fields, legacyOperation: 'confirm-delete-comment' },
+        })] });
+    }
+  }
   if (card.archived) rows.unshift({ cells: [tr(translate, 'status', 'Status'),
     tr(translate, 'card-archived', 'This card is moved to Archive.')] });
   return {

@@ -122,7 +122,7 @@ the generic baseline. It is updated with every implementation batch.
 | --- | --- |
 | `/sign-in`, `/sign-up` | Complete cookieless account forms |
 | `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated readers with Starred, Remaining, Templates, Home, Archive and nested Workspace filtering; mutations remain |
-| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls; remaining card fields, child mutations and attachment content remain |
+| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls. Comment-capable members can add top-level comments; authors and permitted admins can edit or confirm-delete them. Remaining card fields, comment replies/reactions, checklist mutations and attachment content remain |
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |

@@ -28,6 +28,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let importedWekanZipAttachmentId;
   let importedExcelBoardId;
   let importedTrelloZipBoardId;
+  let html4CreatedCommentId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -396,6 +397,53 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).toContainText('HTML4 visible comment');
     await expect(page.locator('tbody')).not.toContainText('FOREIGN');
 
+    const addCommentForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="add-comment"])',
+    );
+    await addCommentForm.locator('textarea[name="commentText"]')
+      .fill('HTML4 created comment');
+    await Promise.all([
+      page.waitForNavigation(), addCommentForm.locator('input[type="submit"]').click(),
+    ]);
+    const createdComment = db.findOne('card_comments', {
+      cardId: due._id, userId: user._id, text: 'HTML4 created comment',
+    });
+    expect(createdComment && createdComment._id).toBeTruthy();
+    html4CreatedCommentId = createdComment._id;
+    await expect.poll(() => db.countDocuments('activities', {
+      activityType: 'addComment', commentId: html4CreatedCommentId, userId: user._id,
+    })).toBeGreaterThan(0);
+    const editCommentForm = () => page.locator(
+      `form:has(input[name="legacyOperation"][value="edit-comment"])`
+      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`,
+    );
+    await editCommentForm().locator('textarea[name="commentText"]').fill('FORGED COMMENT EDIT');
+    await editCommentForm().locator('input[name="commentId"]').evaluate(
+      (input, commentId) => { input.value = commentId; }, childIds.foreignComment,
+    );
+    const forgedEditSubmit = page.locator(
+      `form:has(input[name="legacyOperation"][value="edit-comment"])`
+      + `:has(input[name="commentId"][value="${childIds.foreignComment}"]) input[type="submit"]`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), forgedEditSubmit.click(),
+    ]);
+    expect(db.findOne('card_comments', { _id: childIds.foreignComment }).text)
+      .toBe('FOREIGN COMMENT MUST NOT LEAK');
+    expect(db.findOne('card_comments', { _id: html4CreatedCommentId }).text)
+      .toBe('HTML4 created comment');
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await editCommentForm().locator('textarea[name="commentText"]')
+      .fill('HTML4 edited comment');
+    await Promise.all([
+      page.waitForNavigation(), editCommentForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('card_comments', { _id: html4CreatedCommentId }).text)
+      .toBe('HTML4 edited comment');
+    await expect.poll(() => db.countDocuments('activities', {
+      activityType: 'editComment', commentId: html4CreatedCommentId, userId: user._id,
+    })).toBeGreaterThan(0);
+
     const titleForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-title"])',
     );
@@ -496,6 +544,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
     await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due Edited');
     await expect(modern.locator('.card-details')).toContainText('Edited HTML4 card description');
+    await expect(modern.locator('.card-details')).toContainText('HTML4 edited comment');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
       await page.screenshot({
@@ -505,6 +554,23 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-details.png`, fullPage: true,
       });
     }
+    const requestDeleteCommentForm = page.locator(
+      `form:has(input[name="legacyOperation"][value="confirm-delete-comment"])`
+      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), requestDeleteCommentForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('card_comments', { _id: html4CreatedCommentId })).not.toBeNull();
+    const deleteCommentForm = page.locator(
+      `form:has(input[name="legacyOperation"][value="delete-comment"])`
+      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), deleteCommentForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('card_comments', { _id: html4CreatedCommentId })).toBeNull();
+    html4CreatedCommentId = null;
     if (importedWekanZipAttachmentId) {
       await modern.evaluate(async attachmentId => {
         await Meteor.callAsync('api.attachment.delete', attachmentId);
@@ -535,6 +601,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (html4CreatedCommentId) db.deleteOne('card_comments', { _id: html4CreatedCommentId });
     if (user) db.deleteMany('eventlog', { userId: user._id });
     db.deleteOne('attachments', { _id: childIds.foreignAttachment });
     db.deleteOne('card_comments', { _id: childIds.foreignComment });
