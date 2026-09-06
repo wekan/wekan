@@ -7,6 +7,7 @@ import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
 import {
   copyAccessibleChecklist,
+  convertAccessibleChecklistItemToCard,
   importLegacyHtml4File,
   importLegacyHtml4Text,
 } from '/server/lib/legacyHtml4Imports';
@@ -30,6 +31,7 @@ import {
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import {
   copyAccessibleChecklist,
+  convertAccessibleChecklistItemToCard,
   createAccessibleChecklist,
   createAccessibleChecklistItem,
   moveAccessibleChecklist,
@@ -128,6 +130,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'copy-checklist-to-card',
     'add-checklist-item', 'edit-checklist-item', 'toggle-checklist-item',
     'delete-checklist-item', 'move-checklist-item-up', 'move-checklist-item-down',
+    'convert-checklist-item-to-card',
   ];
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-delete-comment') {
@@ -236,6 +239,19 @@ WebApp.handlers.use(async (req, res, next) => {
         if (requestFields.legacyOperation === 'delete-checklist-item') {
           return removeAccessibleChecklistItem(session.userId, checklistInput);
         }
+        if (requestFields.legacyOperation === 'convert-checklist-item-to-card') {
+          const [targetBoardId, targetSwimlaneId, targetListId, targetCardId] =
+            String(requestFields.cardDestination || '').split('|');
+          return convertAccessibleChecklistItemToCard(session.userId, {
+            ...checklistInput,
+            title: requestFields.convertedCardTitle,
+            targetBoardId,
+            targetSwimlaneId,
+            targetListId,
+            targetCardId,
+            position: requestFields.position,
+          });
+        }
         if (requestFields.legacyOperation === 'move-checklist-item-up'
           || requestFields.legacyOperation === 'move-checklist-item-down') {
           return moveAccessibleChecklistItem(session.userId, {
@@ -279,7 +295,10 @@ WebApp.handlers.use(async (req, res, next) => {
     } catch (error) {
       const errorKey = typeof error?.error === 'string' && /^[a-z0-9_-]{1,100}$/i.test(error.error)
         ? error.error : 'operation-failed';
-      requestFields.legacyCardResult = { ok: false, errorKey };
+      requestFields.legacyCardResult = {
+        ok: false,
+        errorKey,
+      };
     }
   }
   if (session && requestFields.legacyOperation === 'import-board-text') {

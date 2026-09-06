@@ -4,7 +4,7 @@ import Cards from '/models/cards';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
-import { editableCard } from '/server/lib/accessibleCardOperations';
+import { createAccessibleCard, editableCard } from '/server/lib/accessibleCardOperations';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { computeSortForIndex } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
@@ -188,6 +188,27 @@ async function moveAccessibleChecklistToCard(userId, input) {
   return true;
 }
 
+async function convertAccessibleChecklistItemToCard(userId, input) {
+  const { item } = await checklistItemContext(userId, input);
+  const target = {
+    boardId: String(input?.targetBoardId || ''),
+    swimlaneId: String(input?.targetSwimlaneId || ''),
+    listId: String(input?.targetListId || ''),
+    cardId: String(input?.targetCardId || ''),
+  };
+  const cardId = await createAccessibleCard(userId, {
+    boardId: target.boardId,
+    swimlaneId: target.swimlaneId,
+    listId: target.listId,
+    relativeCardId: target.cardId,
+    position: input?.position,
+    title: cleanChecklistText(input?.title || item.title),
+  });
+  const user = await Meteor.users.findOneAsync(userId);
+  if (user) await user.setMoveAndCopyDialogOption(String(input?.boardId || ''), target);
+  return cardId;
+}
+
 async function updateAccessibleChecklistItemTitle(userId, input) {
   const { item } = await checklistItemContext(userId, input);
   await ChecklistItems.updateAsync(item._id, { $set: { title: cleanChecklistText(input?.title) } });
@@ -266,6 +287,7 @@ export {
   checklistContext,
   checklistItemContext,
   cleanChecklistText,
+  convertAccessibleChecklistItemToCard,
   copyAccessibleChecklist,
   createAccessibleChecklist,
   createAccessibleChecklistItem,

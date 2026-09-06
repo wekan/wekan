@@ -18,8 +18,8 @@ import {
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
-  UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiSelectForm, uiTextForm,
-  uiTextareaForm,
+  UI_ICONS, uiAction, uiCardDestinationForm, uiFileForm, uiLink, uiSearchForm,
+  uiSelectForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
@@ -54,6 +54,12 @@ async function visibleBoard(boardId, userId) {
 function tr(translate, key, fallback) {
   const value = typeof translate === 'function' ? translate(key) : '';
   return value && value !== key ? value : fallback;
+}
+
+function operationError(translate, errorKey) {
+  const message = tr(translate, errorKey, 'Operation failed');
+  return message === 'Operation failed' && errorKey !== 'operation-failed'
+    ? `${message} (${errorKey})` : message;
 }
 
 function boardListSection(path, user) {
@@ -189,7 +195,7 @@ async function boardPage(path, userId, requestFields = {}, translate) {
   });
   if (requestFields.legacyCardResult?.ok === false) rows.push({
     cells: [tr(translate, 'status', 'Status'),
-      tr(translate, requestFields.legacyCardResult.errorKey, 'Operation failed')],
+      operationError(translate, requestFields.legacyCardResult.errorKey)],
   });
   if (firstSwimlane) rows.push({
     cells: [`Swimlane: ${firstSwimlane.title}`, swimlanes.map(item => userId ? uiAction({
@@ -248,29 +254,61 @@ function isoDate(value) {
   return value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : '';
 }
 
-async function writableChecklistCardOptions(userId) {
+async function writableCardDestinationOptions(userId) {
   const boards = await Boards.userBoards(userId, false, { type: 'board' }, {
     fields: { title: 1, members: 1, permission: 1 }, sort: { title: 1 }, limit: 200,
   }, { includePublic: false });
-  const options = [];
+  const checklistCards = [];
+  const cardPlacements = [];
   for (const candidateBoard of boards) {
     if (!allowIsBoardMemberWithWriteAccess(userId, candidateBoard)) continue;
-    const cards = await Cards.find({
-      ...boardCardScope(candidateBoard),
-      ...(assignedOnlyCardScope(candidateBoard, userId) || {}),
-      archived: false,
-      deletedAt: null,
-    }, {
-      fields: { title: 1, boardId: 1 }, sort: { title: 1, _id: 1 }, limit: 500,
-    }).fetchAsync();
-    for (const candidateCard of cards) options.push({
-      value: `${candidateBoard._id}|${candidateCard._id}`,
+    const [swimlanes, lists, cards] = await Promise.all([
+      Swimlanes.find({ boardId: candidateBoard._id, archived: { $ne: true } }, {
+        fields: { title: 1, sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 200,
+      }).fetchAsync(),
+      Lists.find({ boardId: candidateBoard._id, archived: { $ne: true } }, {
+        fields: { title: 1, sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 500,
+      }).fetchAsync(),
+      Cards.find({
+        ...boardCardScope(candidateBoard),
+        ...(assignedOnlyCardScope(candidateBoard, userId) || {}),
+        archived: false,
+        deletedAt: null,
+      }, {
+        fields: { title: 1, boardId: 1, listId: 1, swimlaneId: 1, sort: 1 },
+        sort: { sort: 1, _id: 1 }, limit: 5000,
+      }).fetchAsync(),
+    ]);
+    const listById = new Map(lists.map(list => [list._id, list]));
+    const swimlaneById = new Map(swimlanes.map(swimlane => [swimlane._id, swimlane]));
+    for (const swimlane of swimlanes) for (const list of lists) cardPlacements.push({
+      value: `${candidateBoard._id}|${swimlane._id}|${list._id}|`,
       label: `${candidateBoard.title || candidateBoard._id} / `
-        + `${candidateCard.title || candidateCard._id}`,
+        + `${swimlane.title || swimlane._id} / ${list.title || list._id}`,
     });
-    if (options.length >= 10000) break;
+    for (const candidateCard of cards) {
+      const list = listById.get(candidateCard.listId);
+      const swimlane = swimlaneById.get(candidateCard.swimlaneId);
+      if (!list || !swimlane) continue;
+      checklistCards.push({
+        value: `${candidateBoard._id}|${candidateCard._id}`,
+        label: `${candidateBoard.title || candidateBoard._id} / `
+          + `${candidateCard.title || candidateCard._id}`,
+      });
+      cardPlacements.push({
+        value: `${candidateBoard._id}|${candidateCard.swimlaneId}|`
+          + `${candidateCard.listId}|${candidateCard._id}`,
+        label: `${candidateBoard.title || candidateBoard._id} / `
+          + `${swimlane.title || swimlane._id} / ${list.title || list._id} / `
+          + `${candidateCard.title || candidateCard._id}`,
+      });
+    }
+    if (checklistCards.length >= 10000 || cardPlacements.length >= 10000) break;
   }
-  return options.slice(0, 10000);
+  return {
+    checklistCards: checklistCards.slice(0, 10000),
+    cardPlacements: cardPlacements.slice(0, 10000),
+  };
 }
 
 async function cardDetailsPage(board, cardId, userId, requestFields, translate) {
@@ -330,7 +368,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
       .flatMap(reaction => reaction.userIds || [])),
   ].filter(Boolean))];
-  const [list, swimlane, people, activeLists] = await Promise.all([
+  const [list, swimlane, people, activeLists, currentUser] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
     Swimlanes.findOneAsync({ _id: card.swimlaneId, boardId: card.boardId }, { fields: { title: 1 } }),
     Meteor.users.find({ _id: { $in: personIds } }, {
@@ -339,20 +377,28 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     Lists.find({ boardId: card.boardId, archived: { $ne: true } }, {
       fields: { title: 1, sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 500,
     }).fetchAsync(),
+    Meteor.users.findOneAsync(userId, { fields: { 'profile.moveAndCopyDialog': 1 } }),
   ]);
   const personById = new Map(people.map(person => [person._id,
     person.profile?.fullname || person.username || person._id]));
   const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
   const labels = (board.labels || []).filter(label => (card.labelIds || []).includes(label._id));
   const canWrite = await canEditCardOrLinkedCard(userId, card);
-  const checklistCardOptions = canWrite ? await writableChecklistCardOptions(userId) : [];
+  const destinations = canWrite ? await writableCardDestinationOptions(userId)
+    : { checklistCards: [], cardPlacements: [] };
+  const checklistCardOptions = destinations.checklistCards;
+  const rememberedCardDestination = currentUser?.profile?.moveAndCopyDialog?.[board._id];
+  const rememberedCardDestinationValue = rememberedCardDestination
+    ? `${rememberedCardDestination.boardId || ''}|${rememberedCardDestination.swimlaneId || ''}|`
+      + `${rememberedCardDestination.listId || ''}|${rememberedCardDestination.cardId || ''}`
+    : '';
   const rows = [];
   if (requestFields.legacyCardResult?.ok === true) rows.push({
     cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Save')],
   });
   if (requestFields.legacyCardResult?.ok === false) rows.push({
     cells: [tr(translate, 'status', 'Status'),
-      tr(translate, requestFields.legacyCardResult.errorKey, 'Operation failed')],
+      operationError(translate, requestFields.legacyCardResult.errorKey)],
   });
   if (canWrite) {
     const commonFields = { cardId: card._id, boardId: card.boardId };
@@ -525,6 +571,30 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         submitLabel: tr(translate, 'save', 'Save'),
       }) : item.title || ''] });
       if (canWrite) {
+        if (destinations.cardPlacements.length > 0) rows.push({
+          rowHeader: false,
+          cells: ['', uiCardDestinationForm({
+            action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            titleLabel: tr(translate, 'title', 'Title'),
+            titleName: 'convertedCardTitle', titleValue: item.title || '',
+            destinationLabel: tr(translate, 'r-move-card-to', 'Move card to'),
+            destinationName: 'cardDestination',
+            destinationValue: destinations.cardPlacements.some(
+              option => option.value === rememberedCardDestinationValue,
+            ) ? rememberedCardDestinationValue
+              : `${card.boardId}|${card.swimlaneId}|${card.listId}|`,
+            destinations: destinations.cardPlacements,
+            positionLabel: tr(translate, 'sort', 'Sort'),
+            positions: [
+              { value: 'above', label: tr(translate, 'above-selected-card', 'Above selected card') },
+              { value: 'below', label: tr(translate, 'below-selected-card', 'Below selected card') },
+            ],
+            positionValue: 'above',
+            fields: { ...itemFields, legacyOperation: 'convert-checklist-item-to-card' },
+            submitLabel: tr(translate, 'convertChecklistItemToCardPopup-title',
+              'Convert checklist item to card'),
+          })],
+        });
         rows.push({ rowHeader: false, cells: ['', [uiAction({
           action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
           label: `${tr(translate, 'moveChecklist', 'Move Checklist')} ${UI_ICONS['move-up'].ascii}`,

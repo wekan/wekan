@@ -33,6 +33,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let html4ChecklistId;
   let html4ChecklistItemId;
   let html4CopiedChecklistId;
+  let html4ConvertedCardId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -579,6 +580,57 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       ['HTML4 second checklist item', false],
     ]);
 
+    const convertItem = page.locator(
+      'form:has(input[name="legacyOperation"][value="convert-checklist-item-to-card"])'
+      + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+    );
+    await convertItem.locator('input[name="convertedCardTitle"]')
+      .fill('FORGED CONVERTED CARD');
+    await convertItem.locator('select[name="cardDestination"]').evaluate((select, value) => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+      select.value = value;
+    }, `${outsiderBoard.boardId}|${outsiderBoard.swimlaneId}|`
+      + `${outsiderBoard.listIds[0]}|${outsiderCard._id}`);
+    await Promise.all([
+      page.waitForNavigation(), convertItem.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { title: 'FORGED CONVERTED CARD' })).toBeNull();
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    const validConvertItem = page.locator(
+      'form:has(input[name="legacyOperation"][value="convert-checklist-item-to-card"])'
+      + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+    );
+    await validConvertItem.locator('input[name="convertedCardTitle"]')
+      .fill('HTML4 converted checklist item');
+    await validConvertItem.locator('select[name="cardDestination"]')
+      .selectOption(`${board.boardId}|${originalCard.swimlaneId}|`
+        + `${originalCard.listId}|${originalCard._id}`);
+    await validConvertItem.locator('select[name="position"]').selectOption('above');
+    await Promise.all([
+      page.waitForNavigation(), validConvertItem.locator('input[type="submit"]').click(),
+    ]);
+    const convertedCard = db.findOne('cards', {
+      title: 'HTML4 converted checklist item', boardId: board.boardId,
+    });
+    expect(convertedCard && convertedCard._id).toBeTruthy();
+    html4ConvertedCardId = convertedCard._id;
+    expect(convertedCard).toMatchObject({
+      listId: originalCard.listId, swimlaneId: originalCard.swimlaneId,
+    });
+    expect(convertedCard.sort).toBeLessThan(originalCard.sort);
+    expect(db.findOne('checklistItems', { _id: html4ChecklistItemId })).not.toBeNull();
+    expect(db.findOne('users', { _id: user._id }).profile.moveAndCopyDialog[board.boardId])
+      .toEqual({
+        boardId: board.boardId,
+        swimlaneId: originalCard.swimlaneId,
+        listId: originalCard.listId,
+        cardId: originalCard._id,
+      });
+
     const addCommentForm = page.locator(
       'form:has(input[name="legacyOperation"][value="add-comment"])',
     );
@@ -832,6 +884,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       ).screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-checklist-controls.png`,
       });
+      await page.locator(
+        'form:has(input[name="legacyOperation"][value="convert-checklist-item-to-card"])'
+        + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+      ).screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-checklist-item-to-card.png`,
+      });
       await modern.locator('.comment:has(.reaction-count)').screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-comment-reaction.png`,
       });
@@ -839,6 +897,15 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         .screenshot({
           path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-checklist-controls.png`,
         });
+      const modernChecklistForConversion = modern.locator('.js-checklist')
+        .filter({ hasText: 'HTML4 edited checklist' });
+      const modernChecklistItem = modernChecklistForConversion
+        .locator('.checklist-item').filter({ hasText: 'HTML4 edited checklist item' });
+      await modernChecklistItem.locator('.item-title').click();
+      await modernChecklistForConversion.locator('.js-convert-checklist-item-to-card').click();
+      await modern.locator('.pop-over:visible').screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-checklist-item-to-card.png`,
+      });
       await page.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-details.png`, fullPage: true,
       });
@@ -931,6 +998,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (html4ConvertedCardId) {
+      db.deleteMany('activities', { cardId: html4ConvertedCardId });
+      db.deleteOne('cards', { _id: html4ConvertedCardId });
+    }
     if (html4CopiedChecklistId) {
       db.deleteMany('checklistItems', { checklistId: html4CopiedChecklistId });
       db.deleteOne('checklists', { _id: html4CopiedChecklistId });

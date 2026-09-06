@@ -60,7 +60,18 @@ function uiFileForm({ action, label, name, accept = '', fields = {}, submitLabel
   return { component: 'file', action, label, name, accept, fields, submitLabel };
 }
 
+function uiCardDestinationForm({ action, titleLabel, titleName = 'cardTitle', titleValue = '',
+  destinationLabel, destinationName = 'cardDestination', destinationValue = '',
+  destinations = [], positionLabel, positionName = 'position', positionValue = 'below',
+  positions = [], fields = {}, submitLabel }) {
+  return {
+    component: 'card-destination', action, titleLabel, titleName, titleValue,
+    destinationLabel, destinationName, destinationValue, destinations,
+    positionLabel, positionName, positionValue, positions, fields, submitLabel,
+  };
+}
+
 module.exports = {
-  UI_ICONS, uiAction, uiControlLabel, uiFileForm, uiIcon, uiLink, uiSearchForm,
-  uiSelectForm, uiTextForm, uiTextareaForm,
+  UI_ICONS, uiAction, uiCardDestinationForm, uiControlLabel, uiFileForm, uiIcon,
+  uiLink, uiSearchForm, uiSelectForm, uiTextForm, uiTextareaForm,
 };

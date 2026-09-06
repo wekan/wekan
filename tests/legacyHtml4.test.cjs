@@ -11,8 +11,8 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiControlLabel, uiFileForm, uiIcon, uiSearchForm, uiSelectForm,
-  uiTextareaForm, uiTextForm,
+  UI_ICONS, uiCardDestinationForm, uiControlLabel, uiFileForm, uiIcon, uiSearchForm,
+  uiSelectForm, uiTextareaForm, uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
@@ -352,6 +352,34 @@ test('HTML4 card editing components remain labelled and keyboard ordered', () =>
   assert.doesNotMatch(html, /tabindex=/);
 });
 
+test('HTML4 card destination component exposes title, destination and position in order', () => {
+  const html = renderLegacyHtml4Page('/b/board/slug/card', {
+    authenticated: true, username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'Card', columns: ['Card', 'Action'], rows: [{ rowHeader: false,
+      cells: ['', uiCardDestinationForm({
+        action: '/b/board/slug/card', titleLabel: 'Title', titleValue: '<Item>',
+        destinationLabel: 'Destination', destinationValue: 'b|s|l|c',
+        destinations: [{ value: 'b|s|l|', label: 'Board / Lane / List' },
+          { value: 'b|s|l|c', label: '<Card>' }],
+        positionLabel: 'Position', positions: [{ value: 'above', label: 'Above' },
+          { value: 'below', label: 'Below' }],
+        fields: { itemId: 'item-1', legacyOperation: 'convert-checklist-item-to-card' },
+        submitLabel: 'Convert',
+      })] }] },
+  });
+  assert.match(html, /for="legacy-cardTitle-item-1">Title<\/label>/);
+  assert.match(html, /value="&lt;Item&gt;"/);
+  assert.match(html, /for="legacy-cardDestination-item-1">Destination<\/label>/);
+  assert.match(html, /<option value="b\|s\|l\|c" selected>&lt;Card&gt;<\/option>/);
+  assert.match(html, /for="legacy-position-item-1">Position<\/label>/);
+  assert.match(html, /name="legacyOperation" value="convert-checklist-item-to-card"/);
+  assert.ok(html.indexOf('name="cardTitle"') < html.indexOf('name="cardDestination"'));
+  assert.ok(html.indexOf('name="cardDestination"') < html.indexOf('name="position"'));
+  assert.doesNotMatch(html, /tabindex=/);
+});
+
 test('HTML4 comment forms expose labelled add, edit and delete operations', () => {
   const html = renderLegacyHtml4Page('/b/board/slug/card', {
     authenticated: true, username: 'alice',
@@ -396,12 +424,14 @@ test('HTML4 comment forms expose labelled add, edit and delete operations', () =
 test('HTML4 checklist destinations are bounded, labelled and carry board plus card identity', () => {
   const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
     'legacyHtml4Pages.js'), 'utf8');
-  assert.match(pages, /async function writableChecklistCardOptions\(userId\)/);
+  assert.match(pages, /async function writableCardDestinationOptions\(userId\)/);
   assert.match(pages, /allowIsBoardMemberWithWriteAccess\(userId, candidateBoard\)/);
-  assert.match(pages, /limit: 500/);
+  assert.match(pages, /limit: 5000/);
   assert.match(pages, /value: `\$\{candidateBoard\._id\}\|\$\{candidateCard\._id\}`/);
+  assert.match(pages, /value: `\$\{candidateBoard\._id\}\|\$\{swimlane\._id\}\|\$\{list\._id\}\|`/);
   assert.match(pages, /name: 'targetCardRef'[\s\S]*?legacyOperation: 'move-checklist-to-card'/);
   assert.match(pages, /name: 'targetCardRef'[\s\S]*?legacyOperation: 'copy-checklist-to-card'/);
+  assert.match(pages, /uiCardDestinationForm\([\s\S]*?convert-checklist-item-to-card/);
 });
 
 test('authenticated navigation gives every HTML4 destination its translated name', () => {

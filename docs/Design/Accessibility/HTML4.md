@@ -232,8 +232,19 @@ board. The server authorizes both source and destination before the first write,
 resolves linked-card content targets, recalculates destination order and updates
 the denormalized card and board identities on the checklist, its items and its
 activities. Copying whitelists checklist and item fields rather than cloning an
-untrusted document. Checklist import/export and item-to-card conversion remain
-separate parity work.
+untrusted document. Checklist import/export remains separate parity work.
+
+Item-to-card conversion uses the shared card-destination component: title first,
+then one bounded board/swimlane/list/card insertion-point selector, relative
+above/below selection and submit. This is both its semantic reading order and
+native Tab order. Empty lists are explicit destinations, while an existing card
+can be selected for exact relative placement. The server binds the source item
+to its checklist, content card and board before authorizing the destination
+board, active swimlane and active list. If a relative card is submitted it must
+belong to that exact placement. Card defaults, sequence number, automatic custom
+fields and creation activity come from the same server card-creation operation
+as the ordinary HTML4 and HTML5 add-card controls. Conversion retains the source
+checklist item, matching the existing Jade behavior.
 
 ## Delivery order
 

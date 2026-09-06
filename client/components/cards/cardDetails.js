@@ -2190,38 +2190,22 @@ Template.convertChecklistItemToCardPopup.onCreated(function () {
       const position = tpl.$('input[name="position"]:checked').val();
 
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
-      const card = Template.currentData();
-
-      if (title) {
-        const _id = Cards.insert({
-          title: title,
-          listId: options.listId,
-          boardId: options.boardId,
-          swimlaneId: options.swimlaneId,
-          sort: 0,
-        });
-        const newCard = ReactiveCache.getCard(_id);
-
-        let sortIndex = 0;
-        if (cardId) {
-          const targetCard = ReactiveCache.getCard(cardId);
-          if (targetCard) {
-            const targetSort = targetCard.sort || 0;
-            if (position === 'above') {
-              sortIndex = targetSort - 0.5;
-            } else {
-              sortIndex = targetSort + 0.5;
-            }
-          }
-        } else {
-          const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
-          sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
-        }
-
-        await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
-
-        Filter.addException(_id);
-      }
+      const data = Template.currentData() || {};
+      const routeCard = Utils.getCurrentCard() || data.card;
+      if (!title || !data.checklist?._id || !data.item?._id || !routeCard?._id) return;
+      const newCardId = await Meteor.callAsync('convertAccessibleChecklistItemToCard', {
+        boardId: routeCard.boardId,
+        cardId: routeCard._id,
+        checklistId: data.checklist._id,
+        itemId: data.item._id,
+        title,
+        targetBoardId: options.boardId,
+        targetSwimlaneId: options.swimlaneId,
+        targetListId: options.listId,
+        targetCardId: cardId || '',
+        position,
+      });
+      Filter.addException(newCardId);
     },
   });
 });

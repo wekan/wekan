@@ -44,7 +44,15 @@ async function createAccessibleCard(userId, input) {
   const siblings = await Cards.find({
     boardId, listId, swimlaneId, archived: false, deletedAt: null,
   }, { fields: { sort: 1 }, sort: { sort: 1, _id: 1 } }).fetchAsync();
-  const position = input?.position === 'top' ? 0 : siblings.length;
+  let position = input?.position === 'top' ? 0 : siblings.length;
+  const relativeCardId = String(input?.relativeCardId || '');
+  if (relativeCardId) {
+    const relativeIndex = siblings.findIndex(card => card._id === relativeCardId);
+    if (relativeIndex < 0) {
+      refuseCardWrite(userId, 'relative card did not belong to the submitted destination');
+    }
+    position = relativeIndex + (input?.position === 'below' ? 1 : 0);
+  }
   const automaticFields = await CustomFields.find({ boardIds: boardId }, {
     fields: { automaticallyOnCard: 1, alwaysOnCard: 1 },
   }).fetchAsync();

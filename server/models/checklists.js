@@ -11,6 +11,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
 import {
   copyAccessibleChecklist,
+  convertAccessibleChecklistItemToCard,
   createAccessibleChecklist,
   createAccessibleChecklistItem,
   moveAccessibleChecklist,
@@ -28,6 +29,10 @@ Meteor.methods({
   async copyAccessibleChecklist(input) {
     check(input, Object);
     return copyAccessibleChecklist(this.userId, input);
+  },
+  async convertAccessibleChecklistItemToCard(input) {
+    check(input, Object);
+    return convertAccessibleChecklistItemToCard(this.userId, input);
   },
   async createAccessibleChecklist(input) {
     check(input, Object);

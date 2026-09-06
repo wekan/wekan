@@ -224,6 +224,24 @@ function contentRows(path, options) {
         }).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><select id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}">${renderedOptions}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'card-destination') {
+        const suffix = String(cell.fields?.itemId || cell.fields?.checklistId || '')
+          .replace(/[^a-z0-9_-]/gi, '');
+        const titleId = `legacy-${String(cell.titleName || 'cardTitle')
+          .replace(/[^a-z0-9_-]/gi, '')}-${suffix}`;
+        const destinationId = `legacy-${String(cell.destinationName || 'cardDestination')
+          .replace(/[^a-z0-9_-]/gi, '')}-${suffix}`;
+        const positionId = `legacy-${String(cell.positionName || 'position')
+          .replace(/[^a-z0-9_-]/gi, '')}-${suffix}`;
+        const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const selectOptions = (values, selectedValue) => (values || []).map(option => {
+          const value = String(option.value ?? '');
+          const selected = value === String(selectedValue ?? '') ? ' selected' : '';
+          return `<option value="${escapeHtml(value)}"${selected}>${escapeHtml(option.label)}</option>`;
+        }).join('');
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(titleId)}">${escapeHtml(cell.titleLabel)}</label><br><input id="${escapeHtml(titleId)}" name="${escapeHtml(cell.titleName)}" type="text" maxlength="1000" size="40" value="${escapeHtml(cell.titleValue || '')}"></p><p><label for="${escapeHtml(destinationId)}">${escapeHtml(cell.destinationLabel)}</label><br><select id="${escapeHtml(destinationId)}" name="${escapeHtml(cell.destinationName)}">${selectOptions(cell.destinations, cell.destinationValue)}</select></p><p><label for="${escapeHtml(positionId)}">${escapeHtml(cell.positionLabel)}</label><br><select id="${escapeHtml(positionId)}" name="${escapeHtml(cell.positionName)}">${selectOptions(cell.positions, cell.positionValue)}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.destinationLabel))}"></p></form>`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'textarea') {
         const id = `legacy-${String(cell.id || cell.name || 'text').replace(/[^a-z0-9_-]/gi, '')}`;
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>

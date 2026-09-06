@@ -26,6 +26,9 @@ test('card creation preserves common defaults and activity history', () => {
   assert.match(source, /await board\.getNextCardNumber\(\)/);
   assert.match(source, /automaticallyOnCard \|\| field\.alwaysOnCard/);
   assert.match(source, /await cardCreation\(userId, card\)/);
+  assert.match(source, /relativeIndex = siblings\.findIndex\(card => card\._id === relativeCardId\)/);
+  assert.match(source, /relative card did not belong to the submitted destination/);
+  assert.match(source, /relativeIndex \+ \(input\?\.position === 'below' \? 1 : 0\)/);
 });
 
 test('up and down use one acknowledged server operation', () => {

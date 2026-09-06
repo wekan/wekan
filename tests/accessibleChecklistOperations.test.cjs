@@ -44,8 +44,22 @@ test('copy and cross-card move authorize both ends and repair every parent field
   assert.match(source, /Checklists\.direct\.updateAsync\(\{ _id: checklist\._id, cardId: checklist\.cardId,[\s\S]*?boardId: checklist\.boardId/);
 });
 
+test('item-to-card conversion authorizes the exact source and server-side destination', () => {
+  const source = read('server/lib/accessibleChecklistOperations.js');
+  assert.match(source, /convertAccessibleChecklistItemToCard[\s\S]*?checklistItemContext\(userId, input\)/);
+  assert.match(source, /cardId = await createAccessibleCard\(userId, \{/);
+  for (const field of ['targetBoardId', 'targetSwimlaneId', 'targetListId', 'targetCardId']) {
+    assert.ok(source.includes(`input?.${field}`), `conversion binds ${field}`);
+  }
+  const client = read('client/components/cards/cardDetails.js');
+  assert.match(client, /Meteor\.callAsync\('convertAccessibleChecklistItemToCard'/);
+  assert.doesNotMatch(client, /const _id = Cards\.insert\(\{\s*title: title/);
+  assert.match(source, /setMoveAndCopyDialogOption\(String\(input\?\.boardId \|\| ''\), target\)/);
+});
+
 test('HTML5 and cookieless HTML4 use the same authenticated checklist methods', () => {
   const client = read('client/components/cards/checklists.js');
+  const cardDetails = read('client/components/cards/cardDetails.js');
   const html4 = read('server/legacyHtml4.js');
   for (const operation of [
     'createAccessibleChecklist', 'updateAccessibleChecklistTitle',
@@ -53,8 +67,9 @@ test('HTML5 and cookieless HTML4 use the same authenticated checklist methods', 
     'updateAccessibleChecklistItemTitle', 'toggleAccessibleChecklistItem',
     'removeAccessibleChecklistItem', 'toggleAccessibleChecklistSetting',
     'copyAccessibleChecklist', 'moveAccessibleChecklistToCard',
+    'convertAccessibleChecklistItemToCard',
   ]) {
-    assert.ok(client.includes(`'${operation}'`), `HTML5 calls ${operation}`);
+    assert.ok((client + cardDetails).includes(`'${operation}'`), `HTML5 calls ${operation}`);
     assert.ok(html4.includes(`${operation}(session.userId`), `HTML4 calls ${operation}`);
   }
   assert.doesNotMatch(client, /(?:Checklists|ChecklistItems)\.(?:insert|remove)\(/);
