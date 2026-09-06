@@ -143,6 +143,8 @@ test.describe('Admin – newest features', () => {
     const download = encodedRow.locator('.js-table-page-attachment-download');
     await expect(download).toBeVisible();
     await expect(download).toHaveAttribute('download', `${marker}-Гp.png`);
+    // Permanent deletion is off by default; no client-only button may expose it.
+    await expect(encodedRow.locator('.js-table-page-attachment-delete')).toHaveCount(0);
     await encodedRow.locator('.table-page-attachment-preview').click();
     await expect(page.locator('#viewer-overlay')).not.toHaveClass(/hidden/);
     await page.locator('#viewer-close').click();

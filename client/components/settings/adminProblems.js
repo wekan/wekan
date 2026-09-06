@@ -51,7 +51,7 @@ function abbreviate(text) {
 // The same audit trail is relevant where permanent deletion is enabled and where
 // its events are reviewed. Keep one sentence so the two panes cannot drift apart.
 const PERMANENT_DELETE_RECOVERY_DESCRIPTION =
-  'Recovery also logs permanent-delete setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address, and attempted board IDs and titles.';
+  'The permanent-delete setting must be enabled before a delete icon is shown. Recovery logs setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address and available location. Board deletion records IDs and titles; file deletion records the attachment ID, sanitized filename and card ID.';
 
 // The report publications already send only the current page (server-side
 // search + limit/skip, sorted). Display exactly what was published, applying
@@ -412,6 +412,11 @@ Template.adminProblems.helpers({
 });
 
 Template.adminProblems.events({
+  'files-report-changed'(event, tmpl) {
+    event.stopPropagation();
+    tmpl.loadReport('report-files', { recount: true });
+  },
+
   // One handler for the whole menu: the shared left menu gives every entry the
   // same class and puts the pane id in data-id, so the twelve identical
   // 'click a.js-report-<name>' handlers collapsed to this.
@@ -614,6 +619,7 @@ function formatDate(date) {
 // repeat.
 const REPORT_TABLES = {
   'report-files': {
+    additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION,
     emptyKey: 'no-results',
     docs: () => {
       // The UNDERLYING reactive minimongo collection: the 'attachmentsList'
@@ -649,6 +655,9 @@ const REPORT_TABLES = {
             link: Attachments.link.call(d),
             extension: kind.extension || 'file',
             isImage: kind.isImage,
+            canPermanentlyDelete:
+              ReactiveCache.getCurrentUser()?.isAdmin === true
+              && ReactiveCache.getCurrentSetting()?.enablePermanentDelete === true,
           };
         },
       },

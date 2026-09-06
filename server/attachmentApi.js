@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Attachments from '/models/attachments';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
@@ -10,6 +11,10 @@ import path from 'path';
 import { ObjectId } from 'bson';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import { getFeatureFlags } from '/models/lib/featureFlags';
+import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
+const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 
 const HARD_MAX_API_FILE_BYTES = 64 * 1024 * 1024;
 
@@ -104,6 +109,42 @@ async function getApiTransferLimits() {
 
 // Attachment API methods
 Meteor.methods({
+    async permanentlyDeleteAttachmentFromFilesReport(attachmentId) {
+      let user;
+      let attachment;
+      try {
+        check(attachmentId, String);
+        user = this.userId && await ReactiveCache.getUser(this.userId);
+        if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
+          throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
+        }
+        attachment = await Attachments.collection.findOneAsync(
+          { _id: attachmentId },
+          { fields: { _id: 1, name: 1, meta: 1 } },
+        );
+        if (!attachment) throw new Meteor.Error('attachment-not-found');
+        await Attachments.removeAsync(attachmentId);
+        await recordRecoveryAudit({
+          type: RecoveryEvents.types.ATTACHMENT_PERMANENTLY_DELETED,
+          user,
+          connection: this.connection,
+          done: true,
+          deletedData: true,
+          detail: `Global Admin ${user.username || user._id} (${user._id}) permanently deleted attachment ${attachmentId} named ${JSON.stringify(cleanFileName(attachment.name || ''))} from card ${attachment.meta?.cardId || '(unknown)'}.`,
+        });
+        return true;
+      } catch (error) {
+        await recordRecoveryAudit({
+          type: RecoveryEvents.types.ATTACHMENT_PERMANENTLY_DELETED,
+          user,
+          connection: this.connection,
+          done: false,
+          detail: `User ${user?.username || user?._id || 'unknown'} (${user?._id || 'not logged in'}) failed to permanently delete attachment ${String(attachmentId || '').slice(0, 100)}: ${error.reason || error.message || 'unknown error'}.`,
+        });
+        throw error;
+      }
+    },
+
     // Upload attachment via API
     async 'api.attachment.upload'(boardId, swimlaneId, listId, cardId, fileData, fileName, fileType, storageBackend) {
       if (!this.userId) {

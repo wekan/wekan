@@ -141,6 +141,9 @@ template(name="tablePage")
                             i.fa.fa-search-plus(aria-hidden="true")
                           a.js-table-page-attachment-download(href="{{attachment.link}}?download=true" download="{{attachment.name}}" title="{{_ 'download'}}")
                             i.fa.fa-arrow-down(aria-hidden="true")
+                          if attachment.canPermanentlyDelete
+                            button.negate.js-table-page-attachment-delete(type="button" data-attachment-id="{{attachment.id}}" title="{{_ 'delete'}}")
+                              i.fa.fa-trash(aria-hidden="true")
                     else if users.length
                       .table-page-people
                         each users

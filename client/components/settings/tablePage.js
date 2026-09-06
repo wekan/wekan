@@ -1,4 +1,5 @@
 import { ReactiveVar } from 'meteor/reactive-var';
+import { TAPi18n } from '/imports/i18n';
 import { selectedMapProvider } from '/client/components/main/mapProvider';
 import { openAttachmentSlideshow } from '/client/components/cards/attachments';
 
@@ -41,6 +42,23 @@ Template.tablePage.events({
 
   'click .js-table-page-attachment-download'(event) {
     event.stopPropagation();
+  },
+
+  'click .js-table-page-attachment-delete'(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const attachmentId = event.currentTarget.getAttribute('data-attachment-id');
+    if (!attachmentId || !window.confirm(TAPi18n.__('attachment-delete-pop'))) return;
+    const button = event.currentTarget;
+    button.disabled = true;
+    Meteor.call('permanentlyDeleteAttachmentFromFilesReport', attachmentId, error => {
+      button.disabled = false;
+      if (error) {
+        window.alert(error.reason || error.message);
+        return;
+      }
+      button.dispatchEvent(new CustomEvent('files-report-changed', { bubbles: true }));
+    });
   },
 
   // A location cell: which map to open it at. The cell itself stays SHORT -
