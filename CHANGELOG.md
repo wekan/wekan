@@ -270,6 +270,7 @@ only once before returning to the shell. Uncommon browser code loads on demand, 
 Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
 buttons, move them between lists with a native selector, and manage threaded
 comments, reactions and core checklist operations.
+Checklist import and export now work in both representations with exact scope.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -356,6 +357,44 @@ the exact active destination and relative card, and applies normal card defaults
 numbering, automatic custom fields and activity history. Tests cover valid and
 cross-board-refused conversion, remembered state, relative order and paired
 same-URL HTML4/HTML5 screenshots.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c95f4c00">Complete checklist-scoped import and export</a>. Thanks to xet7.</summary>
+
+Checklist scope now reaches every JSON, ZIP, PDF and Excel exporter instead of
+silently becoming a whole-board transfer. The selected checklist is rebound to
+its exact board and card, its items are constrained by all three identities, and
+card/checklist documents start at the selected level without empty ancestor
+headings. Scoped import creates bound checklist and item copies immediately
+below the selected checklist.
+
+Regression tests cover scope propagation, localized filenames, exact selectors,
+destination identities and invalid import boundaries.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8dbb528e">Add accessible checklist import and export</a>. Thanks to xet7.</summary>
+
+Cookieless HTML4 card details now provide native, labelled checklist transfer
+forms with the same part selection and PDF, Excel, JSON, attachment-free JSON
+and ZIP formats as the Jade popup. Downloads use purpose-bound single-use POST
+signatures, so no session or reusable login token enters a URL and a completed
+download does not invalidate the other controls on the page. JSON and ZIP
+imports are streamed through bounded private temporary files, sanitized and run
+through the shared scoped importer under a deadline.
+
+HTML5 now has distinct checklist Export and Import rows, passes the nested
+checklist identity correctly and calls its role methods instead of treating the
+methods themselves as boolean values. All transports enforce board write roles;
+forged board/card/checklist scopes are refused, reported with available actor
+and address details in Admin Panel / Problems / Security, and trigger the common
+account protection. Unit coverage includes positive and negative cases. A
+Chromium same-URL test performs both representations' imports, verifies a
+download's exact contents, refuses a cross-board form and captures paired
+screenshots.
 
 </details>
 
