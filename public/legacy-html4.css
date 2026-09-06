@@ -47,7 +47,7 @@ table.legacy-content td {
 fieldset {
   border: 1px solid #888;
 }
-table.legacy-content th {
+table.legacy-content thead th {
   background: #2980b9;
   color: #fff;
 }

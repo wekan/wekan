@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { createRequire } from 'module';
+import path from 'path';
 
 export const OMI_IMAGE_MAX_BYTES = 32 * 1024 * 1024;
 export const OMI_IMAGE_MAX_PIXELS = 40 * 1000 * 1000;
@@ -13,7 +14,9 @@ const conversionsInProgress = new Map();
 // conversion. If the optional native package is unavailable, only that image
 // request fails; WeKan and its HTML4 sign-in page keep running.
 function loadSharpAtRuntime() {
-  const runtimeRequire = createRequire(import.meta.url);
+  // Resolve native optional dependencies from the application package. During
+  // development import.meta.url points below _build/, which has no node_modules.
+  const runtimeRequire = createRequire(path.join(process.cwd(), 'package.json'));
   const packageName = ['sh', 'arp'].join('');
   return runtimeRequire(packageName);
 }

@@ -1,4 +1,5 @@
 import '/client/components/main/accessibility.jade';
+import '/client/components/main/uiComponentLibrary.jade';
 import '/client/components/main/bookmarks.jade';
 import '/client/components/main/brokenCards.jade';
 import '/client/components/main/dueCards.jade';

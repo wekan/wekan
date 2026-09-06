@@ -30,9 +30,9 @@ template(name="swimlaneFixedHeader")
             unless currentUser.isWorker
               a.swimlane-collapse-indicator.js-collapse-swimlane.swimlane-header-collapse(title="{{_ 'collapse'}}")
                 if collapseSwimlane
-                  i.fa.fa-caret-right
+                  i.fa(class="{{uiIconClass 'caret-right'}}")
                 else
-                  i.fa.fa-caret-down
+                  i.fa(class="{{uiIconClass 'caret-down'}}")
               a.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
                 i.fa.fa-bars
               a.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")

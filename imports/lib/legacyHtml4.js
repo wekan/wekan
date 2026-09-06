@@ -1,5 +1,6 @@
 const MODERN_REQUEST_HEADER = 'x-wekan-progressive-client';
 const CAPABILITY_SCRIPT_PATH = '/legacy-html4-capabilities.js';
+const { uiControlLabel } = require('./uiComponentLibrary');
 
 function escapeHtml(value) {
   return String(value == null ? '' : value)
@@ -122,18 +123,20 @@ function textColor(background) {
   return luminance > 0.179 ? '#000000' : '#ffffff';
 }
 
-function postForm(action, label, fields, extraFields = {}) {
+function postForm(action, label, fields, extraFields = {}, icon = 'caret-right') {
   const hidden = Object.entries(extraFields).map(([name, value]) =>
     `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
-  return `<form class="legacy-action" method="post" action="${escapeHtml(action)}">${sessionHiddenFields(fields)}${hidden}<input type="submit" value="${escapeHtml(label)}"></form>`;
+  return `<form class="legacy-action" method="post" action="${escapeHtml(action)}">${sessionHiddenFields(fields)}${hidden}<input type="submit" value="${escapeHtml(uiControlLabel(icon, label))}"></form>`;
 }
 
 function tableRow(cells, options = {}) {
   const background = safeColor(options.color, options.boardTheme);
   const style = background
     ? ` style="background-color:${background};color:${textColor(background)}"` : '';
-  return `<tr${style}>${cells.map((cell, index) => index === 0 && options.rowHeader !== false
-    ? `<th scope="row">${cell}</th>` : `<td>${cell}</td>`).join('')}</tr>`;
+  const backgroundAttribute = background ? ` bgcolor="${background}"` : '';
+  const colored = cell => background ? `<font color="${textColor(background)}">${cell}</font>` : cell;
+  return `<tr${backgroundAttribute}${style}>${cells.map((cell, index) => index === 0 && options.rowHeader !== false
+    ? `<th scope="row">${colored(cell)}</th>` : `<td>${colored(cell)}</td>`).join('')}</tr>`;
 }
 
 function authRows(path, options) {
@@ -151,7 +154,7 @@ function authRows(path, options) {
       `<p><label for="username">${escapeHtml(`${t('username', 'Username')} / ${t('email', 'Email')}`)}</label><br><input id="username" name="username" type="text" size="30"></p>`,
       `<p><label for="password">${escapeHtml(t('password', 'Password'))}</label><br><input id="password" name="password" type="password" size="30"></p>`,
       `<p><input type="submit" value="${escapeHtml(t('loginPopup-title', 'Log In'))}"></p></fieldset></form></td></tr>`,
-      options.loginFailed ? tableRow([`<span role="alert">${escapeHtml(t('invalid-credentials', 'Incorrect username, email address or password.'))}</span>`, '']) : '',
+      options.loginFailed ? tableRow([`<strong>${escapeHtml(t('invalid-credentials', 'Incorrect username, email address or password.'))}</strong>`, '']) : '',
       tableRow([
         options.disableForgotPassword ? '' : `<a href="/forgot-password">${escapeHtml(t('forgot-password', 'Forgot password'))}</a>`,
         options.disableRegistration ? '' : `<a href="/sign-up">${escapeHtml(t('signupPopup-title', 'Create an Account'))}</a>`,
@@ -165,7 +168,7 @@ function authRows(path, options) {
       `<p><label for="email">${escapeHtml(t('email', 'Email'))}</label><br><input id="email" name="email" type="text" size="30"></p>`,
       `<p><label for="password">${escapeHtml(t('password', 'Password'))}</label><br><input id="password" name="password" type="password" size="30"></p>`,
       `<p><input type="submit" value="${escapeHtml(t('register', 'Register'))}"></p></fieldset></form></td></tr>`,
-      options.registrationFailed ? tableRow([`<span role="alert">${escapeHtml(t('account-creation-failed', 'Account creation failed.'))}</span>`, '']) : '',
+      options.registrationFailed ? tableRow([`<strong>${escapeHtml(t('account-creation-failed', 'Account creation failed.'))}</strong>`, '']) : '',
       tableRow([`<a href="/sign-in">${escapeHtml(t('already-account', 'Already have an account? Sign in'))}</a>`, '']),
     ];
   }
@@ -192,10 +195,10 @@ function contentRows(path, options) {
     const renderCell = cell => {
       if (Array.isArray(cell)) return cell.map(renderCell).join(' ');
       if (cell && typeof cell === 'object' && cell.action) {
-        return postForm(cell.action, cell.label, options.actionFields(cell.action), cell.fields);
+        return postForm(cell.action, cell.label, options.actionFields(cell.action), cell.fields, cell.icon);
       }
       if (cell && typeof cell === 'object' && cell.href) {
-        return `<a href="${escapeHtml(cell.href)}">${escapeHtml(cell.label)}</a>`;
+        return `<a href="${escapeHtml(cell.href)}">${escapeHtml(uiControlLabel(cell.icon, cell.label))}</a>`;
       }
       return escapeHtml(cell);
     };
@@ -228,7 +231,7 @@ function renderLegacyHtml4Page(requestUrl, pageOptions = {}) {
   const legal = legalUrl
     ? `<p>${escapeHtml(translated(options, 'acceptance_of_our_legalNotice', 'By continuing, you accept our'))} <a href="${escapeHtml(legalUrl)}">${escapeHtml(translated(options, 'legalNotice', 'legal notice'))}</a>.</p>` : '';
   return [
-    '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">',
+    '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
     `<html lang="${escapeHtml(options.language)}"><head>`,
     '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
     `<title>${escapeHtml(options.productName)} - ${escapeHtml(heading)}</title>`,
@@ -241,9 +244,9 @@ function renderLegacyHtml4Page(requestUrl, pageOptions = {}) {
     logo,
     belowLogo,
     `<h1 id="content">${escapeHtml(options.page?.heading || heading)}</h1>`,
-    `<table class="legacy-content" summary="${escapeHtml(options.page?.heading || heading)}">`,
+    `<table class="legacy-content" summary="${escapeHtml(options.page?.heading || heading)}" border="1" cellpadding="4" cellspacing="0" width="100%">`,
     `<caption>${escapeHtml(options.page?.caption || options.page?.heading || heading)}</caption>`,
-    `<thead><tr>${(options.page?.columns || ['', '']).map(column => `<th scope="col">${escapeHtml(column)}</th>`).join('')}</tr></thead>`,
+    `<thead><tr bgcolor="#2980b9">${(options.page?.columns || ['', '']).map(column => `<th scope="col"><font color="#ffffff">${escapeHtml(column)}</font></th>`).join('')}</tr></thead>`,
     `<tbody>${contentRows(path, options).join('\n')}</tbody>`,
     '</table>',
     legal,

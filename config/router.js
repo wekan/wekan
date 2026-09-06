@@ -322,6 +322,20 @@ FlowRouter.route('/accessibility', {
   },
 });
 
+FlowRouter.route('/accessibility/components', {
+  name: 'ui-component-library',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+    Filter.reset();
+    EscapeActions.executeAll();
+    Utils.manageCustomUI();
+    this.render('defaultLayout', { content: 'uiComponentLibrary' });
+  },
+});
+
 FlowRouter.route('/support', {
   name: 'support',
   triggersEnter: [ensureSignedInUnlessSandstorm],

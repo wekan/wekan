@@ -10,6 +10,7 @@ const {
   renderLegacyHtml4Page,
   safeColor,
 } = require('../imports/lib/legacyHtml4');
+const { UI_ICONS, uiControlLabel, uiIcon } = require('../imports/lib/uiComponentLibrary');
 
 function request(url, headers = {}) {
   return { method: 'GET', url, headers };
@@ -54,7 +55,7 @@ test('all WeKan page URLs receive the HTML4 baseline', () => {
     '/admin/problems/security-report', '/my-cards']) {
     assert.equal(isDocumentRequest(request(url, { accept: 'text/html' })), true, url);
     const html = renderLegacyHtml4Page(url);
-    assert.match(html, /^<!DOCTYPE HTML PUBLIC "-\/\/W3C\/\/DTD HTML 4\.01\/\/EN"/);
+    assert.match(html, /^<!DOCTYPE HTML PUBLIC "-\/\/W3C\/\/DTD HTML 4\.01 Transitional\/\/EN"/);
     assert.match(html, /Legacy HTML4 view because JavaScript drag and drop is not available/);
   }
 });
@@ -81,7 +82,39 @@ test('every Legacy HTML4 page has one content table and no frames', () => {
     assert.match(html, /<caption>/, url);
     assert.match(html, /<th scope="col">/, url);
     assert.match(html, /<th scope="row">/, url);
+    assert.match(html, /border="1" cellpadding="4" cellspacing="0" width="100%"/, url);
   }
+});
+
+test('shared UI icons have printable ASCII and Jade mappings', () => {
+  for (const [name, icon] of Object.entries(UI_ICONS)) {
+    assert.match(icon.ascii, /^[\x20-\x7e]+$/, name);
+    assert.match(icon.html5, /^fa-[a-z-]+$/, name);
+  }
+  assert.equal(uiIcon('caret-down'), 'v');
+  assert.equal(uiIcon('caret-right'), '>');
+  assert.equal(uiControlLabel('caret-right', 'Board'), '> Board');
+  assert.equal(uiControlLabel('add', 'Card'), '+ Card');
+  const jade = fs.readFileSync(path.join(__dirname, '..', 'client', 'components',
+    'swimlanes', 'swimlaneHeader.jade'), 'utf8');
+  const helpers = fs.readFileSync(path.join(__dirname, '..', 'client', 'config',
+    'blazeHelpers.js'), 'utf8');
+  assert.match(jade, /uiIconClass 'caret-right'/);
+  assert.match(jade, /uiIconClass 'caret-down'/);
+  assert.match(helpers, /uiIcon\(name, 'html5'\)/);
+});
+
+test('component library has matching HTML5 and HTML4 routes', () => {
+  const root = path.join(__dirname, '..');
+  const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+  const router = read('config/router.js');
+  const templates = read('client/components/main/uiComponentLibrary.jade');
+  const pages = read('server/lib/legacyHtml4Pages.js');
+  assert.match(router, /FlowRouter\.route\('\/accessibility\/components'/);
+  assert.match(templates, /template\(name="uiComponentLibrary"\)/);
+  assert.match(templates, /uiIconClass 'caret-down'/);
+  assert.match(pages, /path === '\/accessibility\/components'/);
+  assert.match(pages, /UI_ICONS\['caret-down'\]\.ascii/);
 });
 
 test('account forms retain semantic labels, grouping and keyboard order', () => {
@@ -110,7 +143,7 @@ test('HTML4 page actions are visible signed POST controls', () => {
   assert.match(html, /<form class="legacy-action" method="post" action="\/b\/board\/example">/);
   assert.match(html, /name="authAction" value="\/b\/board\/example"/);
   assert.match(html, /name="viewList" value="list2"/);
-  assert.match(html, /type="submit" value="Next list"/);
+  assert.match(html, /type="submit" value="&gt; Next list"/);
 });
 
 test('HTML4 colors accept only the shared palette or a six-digit hex', () => {

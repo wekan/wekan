@@ -47,7 +47,15 @@ access data.
 
 ## HTML contract
 
-- Emit the HTML 4.01 Strict doctype and a declared character encoding.
+The normative widget and page rules are in
+[Shared HTML4 and HTML5 component library](HTML4-Components.md). This document
+defines representation selection, security and server architecture; the
+component guide defines how the same semantic UI is rendered by Jade/HTML5 and
+server HTML4.
+
+- Emit the HTML 4.01 Transitional doctype and a declared character encoding.
+  Transitional is intentional: IBrowse has no CSS support, so essential table
+  colors, borders, spacing and alignment also need their HTML attribute fallback.
 - Do not emit `script`, event-handler attributes, JavaScript URLs, cookies,
   local storage, SVG-only controls, or CSS-dependent hidden functionality.
 - Escape every dynamic value according to its HTML context.
@@ -71,6 +79,10 @@ access data.
   contrast-selected text on stored colors. Meaning is always present in text;
   color, position, sound, pointer precision and drag-and-drop are never the only
   way to understand or operate a control.
+- Use only printable ASCII for control glyphs: `v`, `>`, `<`, `^`, `+`, `-`,
+  `=` and `[x]`. Each glyph is paired with translated text. Font Awesome, SVG,
+  Unicode symbols and CSS generated content are enhancements, never the HTML4
+  control itself.
 - Preserve the existing URL families, including `/sign-in`, `/sign-up`, `/`,
   `/allboards/...`, `/b/...`, card URLs, search, import, account preferences and
   Admin Panel URLs. An unsupported action must render an explanatory page, not

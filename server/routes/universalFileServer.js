@@ -583,9 +583,20 @@ if (Meteor.isServer) {
       }
       let gif;
       if (fileObj.versions?.legacyHtml4Gif) {
-        const strategy = attachmentStoreFactory.getFileStrategy(fileObj, 'legacyHtml4Gif');
-        gif = await boundedStreamBuffer(strategy.getReadStream());
-      } else {
+        try {
+          const strategy = attachmentStoreFactory.getFileStrategy(fileObj, 'legacyHtml4Gif');
+          gif = await boundedStreamBuffer(strategy?.getReadStream());
+        } catch (_) {
+          // A database record can outlive a removed or moved storage object.
+          // Repair the cached representation from the source on this read.
+          await Attachments.collection.updateAsync(
+            { _id: fileObj._id },
+            { $unset: { 'versions.legacyHtml4Gif': 1 } },
+          );
+          delete fileObj.versions.legacyHtml4Gif;
+        }
+      }
+      if (!gif) {
         gif = await convertImageBufferToGif(await loginLogoSource(currentSetting));
         const defaultStorage = setting?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
         if (setting?.isStorageWriteEnabled && !setting.isStorageWriteEnabled(defaultStorage)) {

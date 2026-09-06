@@ -2,6 +2,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+const { UI_ICONS, uiAction, uiLink } = require('/imports/lib/uiComponentLibrary');
 
 function segment(value) {
   try { return decodeURIComponent(String(value || '')); } catch (_) { return ''; }
@@ -46,8 +47,8 @@ async function boardsPage(userId, publicOnly = false, translate) {
     rows: boards.map(board => ({
       color: boardColor(board), boardTheme: true,
       cells: [userId
-        ? { action: boardPath(board), label: board.title || 'Board' }
-        : { href: boardPath(board), label: board.title || 'Board' }, board.permission || ''],
+        ? uiAction({ action: boardPath(board), label: board.title || 'Board' })
+        : uiLink({ href: boardPath(board), label: board.title || 'Board' }), board.permission || ''],
     })),
   };
 }
@@ -81,17 +82,17 @@ async function boardPage(path, userId, requestFields = {}, translate) {
   const firstList = lists.find(item => item._id === selectedListId) || lists[0] || null;
   const rows = [];
   if (firstSwimlane) rows.push({
-    cells: [`Swimlane: ${firstSwimlane.title}`, swimlanes.map(item => userId ? ({
+    cells: [`Swimlane: ${firstSwimlane.title}`, swimlanes.map(item => userId ? uiAction({
       action: boardPath(board), label: item.title, fields: { viewSwimlane: item._id },
-    }) : ({ href: `${boardPath(board)}/swimlane/${encodeURIComponent(item._id)}`, label: item.title }))],
+    }) : uiLink({ href: `${boardPath(board)}/swimlane/${encodeURIComponent(item._id)}`, label: item.title }))],
     color: firstSwimlane.color,
   });
   if (firstList) {
     rows.push({
-      cells: [`List: ${firstList.title}`, lists.map(item => userId ? ({
+      cells: [`List: ${firstList.title}`, lists.map(item => userId ? uiAction({
         action: boardPath(board), label: item.title,
         fields: { viewSwimlane: firstSwimlane?._id || '', viewList: item._id },
-      }) : ({ href: `${boardPath(board)}/list/${encodeURIComponent(item._id)}`, label: item.title }))],
+      }) : uiLink({ href: `${boardPath(board)}/list/${encodeURIComponent(item._id)}`, label: item.title }))],
       color: firstList.color,
     });
     const otherSwimlaneIds = swimlanes.filter(item => item._id !== firstSwimlane?._id).map(item => item._id);
@@ -102,13 +103,13 @@ async function boardPage(path, userId, requestFields = {}, translate) {
     }, { fields: { title: 1, color: 1, sort: 1 }, sort: { sort: 1 }, limit: 200 }).fetchAsync();
     for (const card of cards) rows.push({
       color: card.color,
-      cells: [card.title || '(untitled card)', userId ? {
+      cells: [card.title || '(untitled card)', userId ? uiAction({
         action: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
         label: tr(translate, 'card', 'Card'),
-      } : {
+      }) : uiLink({
         href: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
         label: tr(translate, 'card', 'Card'),
-      }],
+      })],
     });
   }
   return {
@@ -123,6 +124,17 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (path === '/public') return boardsPage(userId, true, translate);
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) return boardsPage(userId, false, translate);
   if (/^\/b(?:\/|$)/.test(path)) return boardPage(path, userId, requestFields, translate);
+  if (path === '/accessibility/components') return {
+    heading: 'Legacy HTML4 component library',
+    caption: 'Shared controls rendered with printable ASCII',
+    columns: ['Component', 'HTML4 control', 'Meaning'],
+    rows: [
+      { cells: ['Expanded section', `${UI_ICONS['caret-down'].ascii} Section`, 'Collapse an expanded section'] },
+      { cells: ['Collapsed section', `${UI_ICONS['caret-right'].ascii} Section`, 'Expand a collapsed section'] },
+      { cells: ['Add', `${UI_ICONS.add.ascii} Add`, 'Add an item'] },
+      { cells: ['Menu', `${UI_ICONS.menu.ascii} Menu`, 'Open actions'] },
+    ],
+  };
   return {
     heading: path.split('/').filter(Boolean).join(' / ') || 'WeKan',
     columns: ['Page', 'Status'],

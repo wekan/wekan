@@ -30,6 +30,11 @@ import {
 } from '/imports/lib/dateUtils';
 import { Utils } from '/client/lib/utils';
 import { isHexColor, contrastText } from '/models/lib/contrastColor';
+const { uiIcon } = require('/imports/lib/uiComponentLibrary');
+
+// Jade and server HTML4 ask the same registry for a semantic icon. Jade gets
+// the Font Awesome class; HTML4 gets the printable ASCII fallback.
+Blaze.registerHelper('uiIconClass', name => uiIcon(name, 'html5'));
 
 // #5514: a color (label / list / swimlane / card) may be either a named palette
 // color rendered via a CSS class (e.g. `card-label-green`) or a custom
