@@ -23,6 +23,35 @@ const ZW = '\u200b'; // zero-width space (escape sequence — no literal invisib
 test.describe('Admin – newest features', () => {
   test.use({ storageState: undefined });
 
+  test('Boards Report filters All, Public and Private on the server', async ({ page, adminUser }) => {
+    const marker = `boards-filter-${Date.now()}`;
+    const privateBoard = await db.seedBoard({
+      ownerId: adminUser.id, title: `${marker}-private`, cardTitlesPerList: [[]],
+    });
+    await db.updateOne('boards', { _id: privateBoard.boardId },
+      { $set: { permission: 'private' } });
+    const publicBoard = await db.seedBoard({
+      ownerId: adminUser.id, title: `${marker}-public`, cardTitlesPerList: [[]],
+    });
+    await db.updateOne('boards', { _id: publicBoard.boardId },
+      { $set: { permission: 'public' } });
+
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/boards');
+    await waitForMeteor(page);
+    const search = page.locator('input.js-table-page-search');
+    await search.fill(marker);
+    await search.press('Enter');
+    const filter = page.locator('select.js-table-page-filter[data-filter="board-permission"]');
+    await expect(filter).toBeVisible();
+    await filter.selectOption('public');
+    await expect(page.getByText(`${marker}-public`, { exact: false })).toBeVisible();
+    await expect(page.getByText(`${marker}-private`, { exact: false })).toHaveCount(0);
+    await filter.selectOption('private');
+    await expect(page.getByText(`${marker}-private`, { exact: false })).toBeVisible();
+    await expect(page.getByText(`${marker}-public`, { exact: false })).toHaveCount(0);
+  });
+
   test('Files report shows clean filenames (decoded, homoglyphs folded, invisible/exploit removed), no Search button', async ({ page, adminUser }) => {
     // Seed a board + card owned by the admin so the attachments are "accessible"
     // (the report restricts to attachments on cards the user can see).

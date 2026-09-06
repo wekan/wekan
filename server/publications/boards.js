@@ -246,8 +246,20 @@ Meteor.methods({
   },
 });
 
-Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) {
+function boardsReportQuery(searchTerm = '', permission = 'all') {
+  const query = {};
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+  if (permission === 'public' || permission === 'private') {
+    query.permission = permission;
+  }
+  return query;
+}
+
+Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
+  check(permission, Match.OneOf('all', 'public', 'private'));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
   // An ADMIN report, over the whole instance - like the Cards report beside it in
@@ -261,10 +273,7 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
     return this.ready();
   }
 
-  const query = {};
-  if (searchTerm) {
-    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-  }
+  const query = boardsReportQuery(searchTerm, permission);
 
   // Publish the page MANUALLY (fetch + this.added + this.ready): a returned sorted+
   // limited cursor triggers a LIMITED live observe that hangs on FerretDB's OpLog,
@@ -332,17 +341,15 @@ Meteor.publish('boardsReport', async function(searchTerm = '', limit, skip = 0) 
 });
 
 Meteor.methods({
-  async getBoardsReportCount(searchTerm = '') {
+  async getBoardsReportCount(searchTerm = '', permission = 'all') {
     check(searchTerm, Match.OneOf(String, null, undefined));
+    check(permission, Match.OneOf('all', 'public', 'private'));
     const user = await ReactiveCache.getCurrentUser();
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized');
     }
     // The same set the publication pages: every board on the instance, admin-only.
-    const query = {};
-    if (searchTerm) {
-      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-    }
+    const query = boardsReportQuery(searchTerm, permission);
     const cursor = await ReactiveCache.getBoards(query, {}, true);
     return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },

@@ -98,7 +98,7 @@ function reportConfig(tmpl) {
   return {
     'report-files': { page: tmpl.filesPage, count: tmpl.filesCount, search: tmpl.filesSearch, pub: 'attachmentsList', countMethod: 'getAttachmentsReportCount' },
     'report-rules': { page: tmpl.rulesPage, count: tmpl.rulesCount, search: tmpl.rulesSearch, pub: 'rulesReport', countMethod: 'getRulesReportCount' },
-    'report-boards': { page: tmpl.boardsPage, count: tmpl.boardsCount, search: tmpl.boardsSearch, pub: 'boardsReport', countMethod: 'getBoardsReportCount' },
+    'report-boards': { page: tmpl.boardsPage, count: tmpl.boardsCount, search: tmpl.boardsSearch, filter: tmpl.boardsFilter, pub: 'boardsReport', countMethod: 'getBoardsReportCount' },
     'report-cards': { page: tmpl.cardsPage, count: tmpl.cardsCount, search: tmpl.cardsSearch, pub: 'cardsReport', countMethod: 'getCardsReportCount' },
     'report-broken': { page: tmpl.brokenPage, count: tmpl.brokenCount, search: tmpl.brokenSearch, pub: 'brokenCardsReport', countMethod: 'getBrokenCardsReportCount' },
     'report-impersonation': { page: tmpl.impersonationPage, count: tmpl.impersonationCount, search: tmpl.impersonationSearch, pub: 'impersonationReport', countMethod: 'getImpersonationReportCount' },
@@ -136,6 +136,7 @@ Template.adminProblems.onCreated(function () {
   this.impersonationSearch = new ReactiveVar('');
   this.recoverySearch = new ReactiveVar('');
   this.recoveryFilter = new ReactiveVar('all');
+  this.boardsFilter = new ReactiveVar('all');
 
   // Which search term each report's total count was last computed for, so
   // paging does not recount. See loadReport().
@@ -449,10 +450,12 @@ Template.adminProblems.events({
     }
   },
   'change .js-table-page-filter'(event, tmpl) {
-    if (tmpl.activeReport.get() !== 'report-recovery') return;
-    tmpl.recoveryFilter.set($(event.currentTarget).val() || 'all');
-    tmpl.recoveryPage.set(1);
-    tmpl.loadReport('report-recovery', { recount: true });
+    const reportId = tmpl.activeReport.get();
+    const cfg = reportConfig(tmpl)[reportId];
+    if (!cfg || !cfg.filter) return;
+    cfg.filter.set($(event.currentTarget).val() || 'all');
+    cfg.page.set(1);
+    tmpl.loadReport(reportId, { recount: true });
   },
 });
 
@@ -809,14 +812,17 @@ function reportTablePageData(tmpl) {
     additionalDesc: spec.additionalDesc,
     emptyKey: spec.emptyKey,
     searchTerm: cfg.search.get(),
-    filters: reportId === 'report-recovery' ? buildFilters([{
-      id: 'recovery-status',
-      label: 'Show',
-      options: [
-        { value: 'all', label: 'All' },
-        { value: 'done', label: 'Done' },
+    filters: cfg.filter ? buildFilters([reportId === 'report-recovery' ? {
+      id: 'recovery-status', label: 'Show', options: [
+        { value: 'all', label: 'All' }, { value: 'done', label: 'Done' },
         { value: 'failed', label: 'Failed' },
         { value: 'deleted', label: 'Deleted' },
+      ],
+    } : {
+      id: 'board-permission', label: 'Permission', options: [
+        { value: 'all', label: 'All' },
+        { value: 'public', labelKey: 'public' },
+        { value: 'private', labelKey: 'private' },
       ],
     }], cfg.filter.get()) : [],
     header: buildHeader(spec.columns),
