@@ -266,7 +266,7 @@ Meteor tests build again, unsupported and no-JavaScript browsers receive a Legac
 HTML4 baseline, authentication forms have direct keyboard navigation, and
 installation examples explain the Admin Panel email options. Change-history checks
 retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
-only once before returning to the shell.
+only once before returning to the shell. Uncommon browser code loads on demand.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -325,6 +325,21 @@ Offline imports no longer activate third-party background URLs. Regression cover
 checks authorization, input limits, SSRF-safe migration, Default Storage selection,
 GIF-only output, response hardening, hidden URL write paths, board-background upload
 and import behavior.
+
+</details>
+
+**Browser loading** - uncommon tools load only when their action needs them.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f1ee8324">Lazy-load browser export code and share its ZIP implementation</a>. Thanks to xet7.</summary>
+
+HTML export and its ZIP writer now load only after the HTML Export action is
+clicked. The direct JSZip dependency is removed; export uses the same small MIT
+`fflate` implementation as server-side document conversion, while ZIP imports
+continue through the bounded streaming server route. Gantt no longer imports an
+unused Markdown parser, and attachment UI no longer loads BSON merely to create
+or display an identifier. Tests keep the feature boundary dynamic, prevent the
+duplicate ZIP library from returning, and cover the import/export paths.
 
 </details>
 
