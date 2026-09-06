@@ -18,6 +18,7 @@ const formsCss = read('client/components/forms/forms.css');
 const editorCss = read('client/components/main/editor.css');
 const minicardClient = read('client/components/cards/minicard.js');
 const server = read('server/models/cards.js');
+const operations = read('server/lib/accessibleCardOperations.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -25,14 +26,14 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('customFieldInteraction:');
 
 test('selection waits for an authorized server method', () => {
-  assert.match(client, /async 'click \.js-select-field'[\s\S]*?await Meteor\.callAsync\(\s*'setCardCustomFieldAssigned'/);
+  assert.match(client, /async 'click \.js-select-field'[\s\S]*?await Meteor\.callAsync\('setAccessibleCardCustomFieldAssigned'/);
   assert.doesNotMatch(client, /card\.toggleCustomField\(customFieldId\)/);
 });
 
 test('opened-card checkbox saves its value independently of visibility', () => {
   const at = client.indexOf("async 'click .js-card-custom-field-checkbox .check-box-container'");
   const body = client.slice(at, client.indexOf('\n  },', at));
-  assert.match(body, /await Meteor\.callAsync\(\s*'setCardCustomFieldCheckbox'/);
+  assert.match(body, /await saveCardCustomField\(tpl\.card, tpl\.customFieldId, value\)/);
   assert.match(body, /Template\.currentData\(\)/);
   assert.match(body, /!Boolean\(currentField\.value\)/);
   assert.match(body, /event\.stopPropagation\(\)/);
@@ -50,9 +51,8 @@ test('opened-card checkbox renders the persisted value in its own context', () =
 test('currency save is acknowledged and has an X beside Save', () => {
   const clientAt = client.indexOf("async 'submit .js-card-customfield-currency'");
   const clientBody = client.slice(clientAt, client.indexOf('\n  },', clientAt));
-  assert.match(clientBody,
-    /await Meteor\.callAsync\(\s*'setCardCustomFieldCurrency'/);
-  assert.match(clientBody, /Number\.isFinite\(value\)/);
+  assert.match(clientBody, /await saveCardCustomField\(/);
+  assert.doesNotMatch(clientBody, /Number\(/);
   assert.doesNotMatch(clientBody, /tpl\.card\.setCustomField/);
 
   const templateAt = template.indexOf('template(name="cardCustomField-currency")');
@@ -296,35 +296,23 @@ test('minicard Currency and String Template format their row without throwing', 
 });
 
 test('server validates actor, board field definition and value type', () => {
-  for (const method of [
-    'setCardCustomFieldAssigned',
-    'setCardCustomFieldCheckbox',
-    'setCardCustomFieldCurrency',
-  ]) {
-    const at = server.indexOf(`async ${method}(`);
-    const body = server.slice(at, server.indexOf('\n  },', at));
-    assert.ok(at >= 0, `${method} exists`);
-    assert.ok(body.indexOf('check(') < body.indexOf('await '), `${method} checks before await`);
-    assert.match(body, /canEditCardOrLinkedCard\(this\.userId, card, board\)/);
-    assert.match(body, /boardIds: card\.boardId/);
-  }
-  const checkbox = server.slice(server.indexOf('async setCardCustomFieldCheckbox'));
-  assert.match(checkbox, /type: 'checkbox'/);
-  assert.match(checkbox, /if \(index < 0\) throw new Meteor\.Error\('custom-field-not-on-card'\)/);
-  const currency = server.slice(server.indexOf('async setCardCustomFieldCurrency'));
-  assert.match(currency, /type: 'currency'/);
-  assert.match(currency, /Number\.isFinite\(value\)/);
+  assert.match(server, /async setAccessibleCardCustomFieldAssigned\(input\)/);
+  assert.match(server, /async updateAccessibleCardCustomField\(input\)/);
+  assert.match(operations, /await editableCard\(userId, input\?\.cardId/);
+  assert.match(operations, /await authorizeContentTarget\(userId, card\)/);
+  assert.match(operations, /boardIds: target\.boardId/);
+  assert.match(operations, /case 'checkbox':[\s\S]*typeof inputValue !== 'boolean'/);
+  assert.match(operations, /case 'currency':[\s\S]*completeCustomFieldNumber/);
+  assert.match(operations, /if \(index < 0\) throw new Meteor\.Error\('custom-field-not-on-card'\)/);
 });
 
 test('unassign uses a document condition that preserves unrelated fields', () => {
-  const assigned = server.slice(server.indexOf('async setCardCustomFieldAssigned'));
-  const body = assigned.slice(0, assigned.indexOf('\n  },'));
-  const unassign = body.slice(body.indexOf('} else {'));
-  assert.match(unassign,
-    /\$pull: \{ customFields: \{ _id: customFieldId \} \}/,
-    'the database removes the matching field even when its element also has a value');
-  assert.doesNotMatch(unassign, /customFields: \{ _id: customFieldId, value:/,
-    'unassign does not depend on knowing the current value');
+  const at = operations.indexOf('async function setAccessibleCardCustomFieldAssigned');
+  const body = operations.slice(at, operations.indexOf('\n}', at) + 2);
+  assert.match(body, /customFields\.splice\(index, 1\)/,
+    'the bounded array removes the complete matching field regardless of value');
+  assert.match(body, /Cards\.updateAsync\(target\._id, \{ \$set: \{ customFields \} \}\)/,
+    'one acknowledged update preserves every unrelated copied field');
 });
 
 test('deleted definitions are omitted from detailed exports', () => {

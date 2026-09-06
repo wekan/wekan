@@ -48,9 +48,9 @@ test('opened-card method calls send the source id', () => {
   );
   assert.match(details, /Meteor\.call\('cards\.vote', card\.getRealId\(\)/);
   assert.match(customFields,
-    /setCardCustomFieldAssigned', card\.getRealId\(\)/);
+    /setAccessibleCardCustomFieldAssigned'[\s\S]*cardId: card\._id/);
   assert.match(customFields,
-    /setCardCustomFieldCheckbox', tpl\.card\.getRealId\(\)/);
+    /updateAccessibleCardCustomField'[\s\S]*cardId: card\._id/);
   assert.match(details, /Meteor\.call\('watch', 'card', currentCard\.getRealId\(\)/);
   assert.match(details, /Cards\.update\(currentCard\.getRealId\(\), \{ \$set: \{ showListOnMinicard/);
 });

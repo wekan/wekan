@@ -20,6 +20,7 @@ const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
 const MAX_CARD_LOCATIONS = 100;
 const MAX_CARD_STICKERS = 200;
+const MAX_CARD_CUSTOM_FIELDS = 500;
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -266,6 +267,128 @@ async function removeAccessibleCardStickerAt(userId, input) {
   return true;
 }
 
+async function accessibleCustomFieldTarget(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  await authorizeContentTarget(userId, card);
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const board = await Boards.findOneAsync(target.boardId, { fields: { allowsCustomFields: 1 } });
+  if (!board || board.allowsCustomFields === false) {
+    throw new Meteor.Error('custom-fields-disabled');
+  }
+  const definition = await CustomFields.findOneAsync({
+    _id: String(input?.customFieldId || ''), boardIds: target.boardId,
+  });
+  if (!definition) {
+    refuseCardWrite(userId, 'custom field definition did not belong to the content board');
+  }
+  const customFields = (target.customFields || []).map(field => ({
+    _id: String(field?._id || ''), value: field?.value,
+  }));
+  if (customFields.length > MAX_CARD_CUSTOM_FIELDS) {
+    throw new Meteor.Error('too-many-card-custom-fields');
+  }
+  return { target, definition, customFields };
+}
+
+async function setAccessibleCardCustomFieldAssigned(userId, input) {
+  if (typeof input?.assigned !== 'boolean') {
+    throw new Meteor.Error('invalid-custom-field-state');
+  }
+  const { target, definition, customFields } = await accessibleCustomFieldTarget(userId, input);
+  const index = customFields.findIndex(field => field._id === definition._id);
+  if (input.assigned && index < 0) {
+    if (customFields.length >= MAX_CARD_CUSTOM_FIELDS) {
+      throw new Meteor.Error('too-many-card-custom-fields');
+    }
+    customFields.push({ _id: definition._id, value: null });
+  } else if (!input.assigned && index >= 0) {
+    customFields.splice(index, 1);
+  }
+  await Cards.updateAsync(target._id, { $set: { customFields } });
+  return input.assigned;
+}
+
+function completeCustomFieldNumber(rawValue, integer) {
+  const raw = String(rawValue ?? '').trim();
+  if (!raw) return '';
+  const normalized = integer ? raw : raw.replace(/,/g, '.');
+  const expression = integer
+    ? /^-?\d+$/ : /^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
+  if (normalized.length > 100 || !expression.test(normalized)) {
+    throw new Meteor.Error('invalid-custom-field-value');
+  }
+  const value = Number(normalized);
+  if (!Number.isFinite(value) || Math.abs(value) > 1e15
+    || (integer && !Number.isSafeInteger(value))) {
+    throw new Meteor.Error('invalid-custom-field-value');
+  }
+  return value;
+}
+
+function accessibleCustomFieldValue(definition, inputValue) {
+  switch (definition.type) {
+    case 'text': {
+      const value = String(inputValue ?? '');
+      if (value.length > MAX_CARD_DESCRIPTION_LENGTH) {
+        throw new Meteor.Error('custom-field-value-too-long');
+      }
+      return value;
+    }
+    case 'number':
+      return completeCustomFieldNumber(inputValue, true);
+    case 'currency':
+      return completeCustomFieldNumber(inputValue, false);
+    case 'checkbox':
+      if (typeof inputValue !== 'boolean') throw new Meteor.Error('invalid-custom-field-value');
+      return inputValue;
+    case 'date': {
+      const raw = inputValue instanceof Date
+        ? inputValue.toISOString() : String(inputValue ?? '').trim();
+      if (!raw) return '';
+      if (raw.length > 40
+        || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(raw)) {
+        throw new Meteor.Error('invalid-custom-field-value');
+      }
+      const value = new Date(raw);
+      if (!Number.isFinite(value.getTime())) throw new Meteor.Error('invalid-custom-field-value');
+      return value;
+    }
+    case 'dropdown': {
+      const value = String(inputValue ?? '');
+      if (value && !(definition.settings?.dropdownItems || [])
+        .some(item => item._id === value)) {
+        throw new Meteor.Error('invalid-custom-field-value');
+      }
+      return value;
+    }
+    case 'stringtemplate': {
+      const values = Array.isArray(inputValue)
+        ? inputValue : String(inputValue ?? '').split(/\r?\n/);
+      if (values.length > 200) throw new Meteor.Error('custom-field-value-too-long');
+      const normalized = values.map(value => String(value));
+      if (normalized.some(value => value.length > 1000)
+        || normalized.reduce((size, value) => size + value.length, 0) > 100000) {
+        throw new Meteor.Error('custom-field-value-too-long');
+      }
+      return normalized.filter(value => value.trim());
+    }
+    default:
+      throw new Meteor.Error('invalid-custom-field-type');
+  }
+}
+
+async function updateAccessibleCardCustomField(userId, input) {
+  const { target, definition, customFields } = await accessibleCustomFieldTarget(userId, input);
+  const index = customFields.findIndex(field => field._id === definition._id);
+  if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
+  customFields[index].value = accessibleCustomFieldValue(definition, input?.value);
+  await Cards.updateAsync(target._id, { $set: { customFields } });
+  return true;
+}
+
 async function updateAccessibleCardContent(userId, input) {
   const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
   const field = input?.field;
@@ -476,6 +599,7 @@ export {
   removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
   setAccessibleCardSticker,
+  setAccessibleCardCustomFieldAssigned,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -484,5 +608,6 @@ export {
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
   updateAccessibleCardSort,
+  updateAccessibleCardCustomField,
   updateAccessibleCardContent,
 };

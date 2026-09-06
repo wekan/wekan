@@ -26,7 +26,7 @@ import {
   fromNow,
   calendar
 } from '/imports/lib/dateUtils';
-import { CustomFieldStringTemplate } from '/client/lib/customFields'
+import { CustomFieldStringTemplate } from '/imports/lib/customFields';
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { formatNumberValue } from '/imports/lib/customNumberFormat';
 import { Utils } from '/client/lib/utils';
@@ -87,6 +87,12 @@ Template.cardCustomFieldsPopup.helpers({
   },
 });
 
+function saveCardCustomField(card, customFieldId, value) {
+  return Meteor.callAsync('updateAccessibleCardCustomField', {
+    cardId: card._id, boardId: card.boardId, customFieldId, value,
+  });
+}
+
 Template.cardCustomFieldsPopup.events({
   async 'click .js-select-field'(event) {
     event.preventDefault();
@@ -95,8 +101,9 @@ Template.cardCustomFieldsPopup.events({
     const customFieldId = this._id;
     const assigned = card.customFieldIndex(customFieldId) < 0;
     try {
-      await Meteor.callAsync(
-        'setCardCustomFieldAssigned', card.getRealId(), customFieldId, assigned);
+      await Meteor.callAsync('setAccessibleCardCustomFieldAssigned', {
+        cardId: card._id, boardId: card.boardId, customFieldId, assigned,
+      });
     } catch (error) {
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
@@ -183,10 +190,10 @@ Template['cardCustomField-text'].helpers({
 });
 
 Template['cardCustomField-text'].events({
-  'submit .js-card-customfield-text'(event, tpl) {
+  async 'submit .js-card-customfield-text'(event, tpl) {
     event.preventDefault();
     const value = tpl.currentComponent ? tpl.currentComponent().getValue() : tpl.$('textarea').val();
-    tpl.card.setCustomField(tpl.customFieldId, value);
+    await saveCardCustomField(tpl.card, tpl.customFieldId, value);
   },
 });
 
@@ -205,14 +212,10 @@ Template['cardCustomField-number'].helpers({
 });
 
 Template['cardCustomField-number'].events({
-  'submit .js-card-customfield-number'(event, tpl) {
+  async 'submit .js-card-customfield-number'(event, tpl) {
     event.preventDefault();
     const rawValue = tpl.find('input').value;
-    // A cleared/blank input parses to NaN; store '' instead so it renders empty
-    // rather than as "NaN" (#2091).
-    const parsed = parseInt(rawValue, 10);
-    const value = Number.isNaN(parsed) ? '' : parsed;
-    tpl.card.setCustomField(tpl.customFieldId, value);
+    await saveCardCustomField(tpl.card, tpl.customFieldId, rawValue);
   },
 });
 
@@ -240,8 +243,7 @@ Template['cardCustomField-checkbox'].events({
       tpl.find('.js-card-customfield-checkbox-input')?.checked,
     );
     try {
-      await Meteor.callAsync(
-        'setCardCustomFieldCheckbox', tpl.card.getRealId(), tpl.customFieldId, value);
+      await saveCardCustomField(tpl.card, tpl.customFieldId, value);
     } catch (error) {
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
@@ -256,8 +258,7 @@ Template['cardCustomField-checkbox'].events({
     if (!currentField || currentField._id !== tpl.customFieldId) return;
     const value = !Boolean(currentField.value);
     try {
-      await Meteor.callAsync(
-        'setCardCustomFieldCheckbox', tpl.card.getRealId(), tpl.customFieldId, value);
+      await saveCardCustomField(tpl.card, tpl.customFieldId, value);
     } catch (error) {
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
@@ -286,16 +287,8 @@ Template['cardCustomField-currency'].helpers({
 Template['cardCustomField-currency'].events({
   async 'submit .js-card-customfield-currency'(event, tpl) {
     event.preventDefault();
-    // To allow input separated by comma, the comma is replaced by a period.
-    const value = Number(tpl.find('input').value.trim().replace(/,/g, '.'));
-    if (!Number.isFinite(value)) return;
     try {
-      await Meteor.callAsync(
-        'setCardCustomFieldCurrency',
-        tpl.card.getRealId(),
-        tpl.customFieldId,
-        value,
-      );
+      await saveCardCustomField(tpl.card, tpl.customFieldId, tpl.find('input').value);
     } catch (error) {
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
@@ -363,8 +356,8 @@ Template['cardCustomField-datePopup'].onCreated(function () {
   const data = Template.currentData();
   setupDatePicker(this, {
     initialDate: data.value ? data.value : undefined,
-    storeDate: (date, card) => card.setCustomField(data._id, date),
-    deleteDate: card => card.setCustomField(data._id, ''),
+    storeDate: (date, card) => saveCardCustomField(card, data._id, date),
+    deleteDate: card => saveCardCustomField(card, data._id, ''),
   });
   // A custom-field popup's data is the field definition, not the card.
   this.datePicker.card = getCurrentCardFromContext();
@@ -408,10 +401,10 @@ Template['cardCustomField-dropdown'].helpers({
 });
 
 Template['cardCustomField-dropdown'].events({
-  'submit .js-card-customfield-dropdown'(event, tpl) {
+  async 'submit .js-card-customfield-dropdown'(event, tpl) {
     event.preventDefault();
     const value = tpl.find('select').value;
-    tpl.card.setCustomField(tpl.customFieldId, value);
+    await saveCardCustomField(tpl.card, tpl.customFieldId, value);
   },
 });
 
@@ -435,10 +428,10 @@ Template['cardCustomField-stringtemplate'].helpers({
 });
 
 Template['cardCustomField-stringtemplate'].events({
-  'submit .js-card-customfield-stringtemplate'(event, tpl) {
+  async 'submit .js-card-customfield-stringtemplate'(event, tpl) {
     event.preventDefault();
     const items = tpl.stringtemplateItems.get();
-    tpl.card.setCustomField(tpl.customFieldId, items);
+    await saveCardCustomField(tpl.card, tpl.customFieldId, items);
   },
 
   'keydown .js-card-customfield-stringtemplate-item'(event, tpl) {

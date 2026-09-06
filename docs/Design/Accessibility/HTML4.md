@@ -283,6 +283,19 @@ entries only from the shared sticker catalog, caps the collection, derives the
 human name rather than trusting it from the browser, validates removal indexes
 against the current array and rewrites stable positions atomically.
 
+Custom Fields expose the same board definitions and attached card values in
+both representations. HTML4 renders field name, type and a plain-text value,
+uses textual desired-state controls to attach or detach a field, and selects a
+native labelled editor for text, integer number, checkbox, currency, ISO 8601
+date, dropdown and multi-line string-template values. The shared server boundary
+binds the route card and linked content board, requires the feature to be enabled,
+requires the definition to belong to that board and the value field to be on the
+card, then validates and bounds the value according to the stored definition.
+Dropdown identifiers come only from its definition; number and currency parsing
+must consume the complete finite value; string-template values have item and
+aggregate limits. Formatting of string-template output is one isomorphic helper,
+and every update replaces one bounded copy of the array atomically.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

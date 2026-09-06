@@ -129,6 +129,36 @@ test('card stickers use the shared catalog and acknowledged exact-scope operatio
   assert.match(page, /STICKER_PICKER\.map/);
 });
 
+test('all seven custom field types share one definition-driven write boundary', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardCustomFields.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /MAX_CARD_CUSTOM_FIELDS = 500/);
+  assert.match(source, /async function accessibleCustomFieldTarget/);
+  assert.match(source, /boardIds: target\.boardId/);
+  assert.match(source, /board\.allowsCustomFields === false/);
+  assert.match(source, /case 'text'/);
+  assert.match(source, /case 'number'/);
+  assert.match(source, /case 'currency'/);
+  assert.match(source, /case 'checkbox'/);
+  assert.match(source, /case 'date'/);
+  assert.match(source, /case 'dropdown'/);
+  assert.match(source, /case 'stringtemplate'/);
+  assert.match(source, /Number\.isFinite\(value\)/);
+  assert.match(source, /custom-field-not-on-card/);
+  assert.match(methods, /async setAccessibleCardCustomFieldAssigned\(input\)/);
+  assert.match(methods, /async updateAccessibleCardCustomField\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('setAccessibleCardCustomFieldAssigned'/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardCustomField'/);
+  assert.doesNotMatch(client, /(?:card|tpl\.card)\.setCustomField\(/);
+  assert.match(legacy, /legacyOperation === 'assign-card-custom-field'/);
+  assert.match(legacy, /legacyOperation === 'edit-card-custom-field-checkbox'/);
+  assert.match(page, /buildCustomFieldsWD/);
+  assert.match(page, /customFieldDisplayValue/);
+});
+
 test('content edits authorize both the pointer and linked target', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

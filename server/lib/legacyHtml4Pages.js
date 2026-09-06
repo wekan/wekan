@@ -11,6 +11,8 @@ import CardCommentReactions from '/models/cardCommentReactions';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
+import CustomFields from '/models/customFields';
+import { CustomFieldStringTemplate } from '/imports/lib/customFields';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import { attachmentKind } from '/models/lib/attachmentKind';
 import getSlug from 'limax';
@@ -32,6 +34,7 @@ const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('/models
 const { COMMENT_REACTIONS, commentReaction } = require('/models/lib/commentReactionCatalog');
 const { STICKER_PICKER } = require('/models/metadata/stickers');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
+const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('/models/lib/exportFields');
 const {
   allBoardsPath, defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey,
@@ -370,6 +373,27 @@ function isoDate(value) {
   return value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : '';
 }
 
+function customFieldDisplayValue(field) {
+  const { definition, trueValue, value } = field;
+  if (definition.type === 'checkbox') return value ? UI_ICONS['select-on'].ascii
+    : UI_ICONS['select-off'].ascii;
+  if (definition.type === 'date') return isoDate(value);
+  if (definition.type === 'currency') {
+    return value === '' || value == null ? ''
+      : `${definition.settings?.currencyCode || ''} ${value}`.trim();
+  }
+  if (definition.type === 'stringtemplate') {
+    try {
+      return new CustomFieldStringTemplate(definition).getFormattedValue(
+        Array.isArray(value) ? value : [],
+      );
+    } catch (_) {
+      return Array.isArray(value) ? value.join(definition.settings?.stringtemplateSeparator || '') : '';
+    }
+  }
+  return trueValue == null ? '' : String(trueValue);
+}
+
 async function writableCardDestinationOptions(userId) {
   const boards = await Boards.userBoards(userId, false, { type: 'board' }, {
     fields: { title: 1, members: 1, permission: 1 }, sort: { title: 1 }, limit: 200,
@@ -442,7 +466,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    sort: 1, stickers: 1, locations: 1, locationName: 1, locationAddress: 1,
+    sort: 1, stickers: 1, customFields: 1,
+    locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
   } });
@@ -466,7 +491,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     }, sort: { sort: 1 }, limit: 200,
   }).fetchAsync();
   const checklistIds = checklists.map(checklist => checklist._id);
-  const [comments, commentReactionDocs, checklistItems, attachments] = await Promise.all([
+  const [comments, commentReactionDocs, checklistItems, attachments, customFieldDefinitions] = await Promise.all([
     CardComments.find({ cardId: contentCardId, boardId: contentBoardId }, {
       fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
       sort: { createdAt: 1 }, limit: 500,
@@ -480,6 +505,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     }).fetchAsync(),
     Attachments.collection.find({ 'meta.cardId': contentCardId, 'meta.boardId': contentBoardId }, {
       fields: { name: 1, type: 1, size: 1, uploadedAt: 1 }, sort: { uploadedAt: 1 }, limit: 500,
+    }).fetchAsync(),
+    CustomFields.find({ boardIds: contentBoardId }, {
+      fields: { name: 1, type: 1, settings: 1, alwaysOnCard: 1 },
+      sort: { name: 1, _id: 1 }, limit: 500,
     }).fetchAsync(),
   ]);
   const personIds = [...new Set([
@@ -512,6 +541,9 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     .filter(label => (contentCard?.labelIds || []).includes(label._id));
   const locations = contentCard?.getLocations ? contentCard.getLocations() : [];
   const stickers = contentCard?.getStickers ? contentCard.getStickers() : [];
+  const customFields = buildCustomFieldsWD(
+    contentCard?.customFields || [], customFieldDefinitions,
+  );
   const canWrite = await canEditCardOrLinkedCard(userId, card);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
@@ -595,6 +627,70 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: 'set-card-sticker' },
       submitLabel: tr(translate, 'add-sticker', 'Add sticker'),
     }), ''] });
+    if (contentBoard?.allowsCustomFields !== false) {
+      for (const definition of customFieldDefinitions) {
+        const assigned = customFields.some(field => field._id === definition._id);
+        rows.push({ rowHeader: false, cells: [uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: `${tr(translate, 'custom-fields', 'Custom Fields')}: `
+            + `${assigned ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+            + definition.name,
+          fields: {
+            ...commonFields, legacyOperation: 'assign-card-custom-field',
+            customFieldId: definition._id, assigned: assigned ? 'false' : 'true',
+          },
+        }), ''] });
+      }
+      for (const field of customFields) {
+        const definition = field.definition;
+        const editorFields = {
+          ...commonFields, legacyOperation: 'edit-card-custom-field',
+          customFieldId: field._id,
+        };
+        const label = `${definition.name} (${definition.type})`;
+        let editor;
+        if (definition.type === 'dropdown') {
+          editor = uiSelectForm({
+            action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            label, name: 'customFieldValue', value: field.value ?? '',
+            options: [{ value: '', label: tr(translate, 'custom-field-dropdown-none', 'None') },
+              ...(definition.settings?.dropdownItems || []).map(item => ({
+                value: item._id, label: item.name,
+              }))],
+            fields: editorFields, submitLabel: tr(translate, 'save', 'Save'),
+          });
+        } else if (definition.type === 'checkbox') {
+          editor = uiAction({
+            action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            label: `${label}: ${field.value ? UI_ICONS['select-on'].ascii
+              : UI_ICONS['select-off'].ascii}`,
+            fields: {
+              ...editorFields, legacyOperation: 'edit-card-custom-field-checkbox',
+              customFieldValue: field.value ? 'false' : 'true',
+            },
+          });
+        } else if (definition.type === 'text' || definition.type === 'stringtemplate') {
+          editor = uiTextareaForm({
+            action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            label, name: 'customFieldValue',
+            value: definition.type === 'stringtemplate'
+              ? (Array.isArray(field.value) ? field.value.join('\n') : '') : field.value ?? '',
+            fields: editorFields, submitLabel: tr(translate, 'save', 'Save'),
+            id: `custom-field-${field._id}`,
+          });
+        } else {
+          editor = uiTextForm({
+            action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            label, name: 'customFieldValue',
+            value: definition.type === 'date' ? isoDate(field.value) : field.value ?? '',
+            maxlength: definition.type === 'date' ? 40 : 100,
+            fields: editorFields, submitLabel: tr(translate, 'save', 'Save'),
+            id: `custom-field-${field._id}`,
+          });
+        }
+        rows.push({ rowHeader: false, cells: [editor, ''] });
+      }
+    }
     for (const label of contentBoard?.labels || []) {
       const selected = (contentCard?.labelIds || []).includes(label._id);
       rows.push({ color: label.color, rowHeader: false, cells: [uiAction({
@@ -780,6 +876,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     { cells: [tr(translate, 'stickers', 'Stickers'), stickers.map(sticker =>
       [sticker.name || sticker.icon, sticker.name ? sticker.icon : '', sticker.highlight || '']
         .filter(Boolean).join(' - ')).join(', ')] },
+    ...customFields.map(field => ({
+      cells: [`${tr(translate, 'custom-fields', 'Custom Fields')}: ${field.definition.name}`,
+        customFieldDisplayValue(field)],
+    })),
     ...locations.map(location => {
       const hasCoordinates = typeof location.latitude === 'number'
         && typeof location.longitude === 'number';

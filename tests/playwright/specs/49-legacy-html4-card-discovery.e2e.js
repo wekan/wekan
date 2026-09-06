@@ -45,6 +45,11 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   const labelId = db.uid('label');
   const foreignLabelId = db.uid('label');
   const nonMemberId = db.uid('user');
+  const customFieldIds = {
+    text: db.uid('cftext'), number: db.uid('cfnumber'), checkbox: db.uid('cfcheckbox'),
+    currency: db.uid('cfcurrency'), date: db.uid('cfdate'), dropdown: db.uid('cfdropdown'),
+    stringtemplate: db.uid('cfstring'), extra: db.uid('cfextra'), foreign: db.uid('cfforeign'),
+  };
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -73,7 +78,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       cardTitlesPerList: [['HTML4 Searchable Secret']],
     });
     db.updateOne('boards', { _id: board.boardId }, {
-      $set: { labels: [{ _id: labelId, name: 'HTML4 Label', color: 'green' }] },
+      $set: {
+        labels: [{ _id: labelId, name: 'HTML4 Label', color: 'green' }],
+        allowsCustomFields: true,
+      },
       $push: { members: {
         userId: outsider.id, isAdmin: false, isActive: true, isNoComments: false,
         isCommentOnly: false, isWorker: false, isReadOnly: false,
@@ -104,12 +112,50 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     originalPermanentDelete = settingsDoc?.enablePermanentDelete;
     const cards = db.find('cards', { boardId: board.boardId });
     const due = cards.find(card => card.title === 'HTML4 Due');
+    const customFieldDefinitions = [
+      [customFieldIds.text, 'HTML4 Text', 'text', {}],
+      [customFieldIds.number, 'HTML4 Number', 'number', {}],
+      [customFieldIds.checkbox, 'HTML4 Checkbox', 'checkbox', {}],
+      [customFieldIds.currency, 'HTML4 Currency', 'currency', { currencyCode: 'EUR' }],
+      [customFieldIds.date, 'HTML4 Custom Date', 'date', {}],
+      [customFieldIds.dropdown, 'HTML4 Dropdown', 'dropdown', {
+        dropdownItems: [{ _id: 'choice-a', name: 'Choice A' }, { _id: 'choice-b', name: 'Choice B' }],
+      }],
+      [customFieldIds.stringtemplate, 'HTML4 String Template', 'stringtemplate', {
+        stringtemplateFormat: '[%{value}]', stringtemplateSeparator: ' / ',
+      }],
+      [customFieldIds.extra, 'HTML4 Extra', 'text', {}],
+    ];
+    for (const [id, name, type, settings] of customFieldDefinitions) {
+      db.insertOne('customFields', {
+        _id: id, boardIds: [board.boardId], name, type, settings,
+        showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: true, showSumAtTopOfList: false,
+        createdAt: new Date(), modifiedAt: new Date(),
+      });
+    }
+    db.insertOne('customFields', {
+      _id: customFieldIds.foreign, boardIds: [outsiderBoard.boardId],
+      name: 'FOREIGN CUSTOM FIELD', type: 'text', settings: {},
+      showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false,
+      showLabelOnMiniCard: false, showSumAtTopOfList: false,
+      createdAt: new Date(), modifiedAt: new Date(),
+    });
     db.updateOne('cards', { _id: due._id }, {
       $set: {
         dueAt: new Date('2030-01-02T12:00:00Z'),
         startAt: new Date('2029-12-31T12:00:00Z'),
         members: [user._id],
         description: 'Semantic HTML4 card description',
+        customFields: [
+          { _id: customFieldIds.text, value: 'Initial text' },
+          { _id: customFieldIds.number, value: 1 },
+          { _id: customFieldIds.checkbox, value: false },
+          { _id: customFieldIds.currency, value: 2.5 },
+          { _id: customFieldIds.date, value: new Date('2031-02-03T04:05:00Z') },
+          { _id: customFieldIds.dropdown, value: 'choice-a' },
+          { _id: customFieldIds.stringtemplate, value: ['one', 'two'] },
+        ],
       },
     });
     db.updateOne('users', { _id: user._id }, {
@@ -1283,6 +1329,112 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     expect(db.findOne('cards', { _id: due._id }).stickers).toHaveLength(1);
     expect(db.findOne('cards', { _id: due._id }).stickers[0])
       .toMatchObject({ icon: 'star', position: 0 });
+    const customFieldForm = customFieldId => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-custom-field"])'
+      + `:has(input[name="customFieldId"][value="${customFieldId}"])`,
+    );
+    const customValue = customFieldId => db.findOne('cards', { _id: due._id })
+      .customFields.find(field => field._id === customFieldId)?.value;
+    await customFieldForm(customFieldIds.text).locator('[name="customFieldValue"]')
+      .fill('Edited HTML4 custom text');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.text)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.text)).toBe('Edited HTML4 custom text');
+    await customFieldForm(customFieldIds.number).locator('[name="customFieldValue"]')
+      .fill('42junk');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.number)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.number)).toBe(1);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await customFieldForm(customFieldIds.number).locator('[name="customFieldValue"]').fill('42');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.number)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.number)).toBe(42);
+    const checkboxForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-custom-field-checkbox"])'
+      + `:has(input[name="customFieldId"][value="${customFieldIds.checkbox}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), checkboxForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.checkbox)).toBe(true);
+    await customFieldForm(customFieldIds.currency).locator('[name="customFieldValue"]')
+      .fill('12,50');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.currency)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.currency)).toBe(12.5);
+    await customFieldForm(customFieldIds.date).locator('[name="customFieldValue"]')
+      .fill('2032-03-04T05:06:00Z');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.date)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.date)).toBe('2032-03-04T05:06:00.000Z');
+    await customFieldForm(customFieldIds.dropdown).locator('select[name="customFieldValue"]')
+      .evaluate(select => {
+        const option = document.createElement('option');
+        option.value = 'forged-choice';
+        option.text = 'Forged choice';
+        select.add(option);
+        select.value = option.value;
+      });
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.dropdown)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.dropdown)).toBe('choice-a');
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await customFieldForm(customFieldIds.dropdown).locator('select[name="customFieldValue"]')
+      .selectOption('choice-b');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.dropdown)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.dropdown)).toBe('choice-b');
+    await customFieldForm(customFieldIds.stringtemplate).locator('textarea[name="customFieldValue"]')
+      .fill('alpha\nbeta');
+    await Promise.all([
+      page.waitForNavigation(), customFieldForm(customFieldIds.stringtemplate)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.stringtemplate)).toEqual(['alpha', 'beta']);
+    const assignCustomFieldForm = customFieldId => page.locator(
+      'form:has(input[name="legacyOperation"][value="assign-card-custom-field"])'
+      + `:has(input[name="customFieldId"][value="${customFieldId}"])`,
+    );
+    await assignCustomFieldForm(customFieldIds.extra).locator('input[name="customFieldId"]')
+      .evaluate((input, id) => { input.value = id; }, customFieldIds.foreign);
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="assign-card-custom-field"])'
+        + `:has(input[name="customFieldId"][value="${customFieldIds.foreign}"]) input[type="submit"]`,
+      ).click(),
+    ]);
+    expect(customValue(customFieldIds.foreign)).toBeUndefined();
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await Promise.all([
+      page.waitForNavigation(), assignCustomFieldForm(customFieldIds.extra)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.extra)).toBeNull();
+    await Promise.all([
+      page.waitForNavigation(), assignCustomFieldForm(customFieldIds.extra)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.extra)).toBeUndefined();
+    await Promise.all([
+      page.waitForNavigation(), assignCustomFieldForm(customFieldIds.extra)
+        .locator('input[type="submit"]').click(),
+    ]);
+    expect(customValue(customFieldIds.extra)).toBeNull();
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

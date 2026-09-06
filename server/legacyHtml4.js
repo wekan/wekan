@@ -27,6 +27,7 @@ import {
   removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
   setAccessibleCardSticker,
+  setAccessibleCardCustomFieldAssigned,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -35,6 +36,7 @@ import {
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
   updateAccessibleCardSort,
+  updateAccessibleCardCustomField,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 import {
@@ -169,6 +171,8 @@ WebApp.handlers.use(async (req, res, next) => {
     'toggle-card-label', 'toggle-card-person', 'toggle-card-identity',
     'edit-card-identity-text', 'edit-card-sort', 'save-card-location',
     'remove-card-location', 'set-card-sticker', 'remove-card-sticker',
+    'assign-card-custom-field', 'edit-card-custom-field',
+    'edit-card-custom-field-checkbox',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -549,6 +553,22 @@ WebApp.handlers.use(async (req, res, next) => {
           return removeAccessibleCardStickerAt(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             index: requestFields.stickerIndex,
+          });
+        }
+        if (requestFields.legacyOperation === 'assign-card-custom-field') {
+          return setAccessibleCardCustomFieldAssigned(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            customFieldId: requestFields.customFieldId,
+            assigned: requestFields.assigned === 'true',
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-card-custom-field'
+          || requestFields.legacyOperation === 'edit-card-custom-field-checkbox') {
+          return updateAccessibleCardCustomField(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            customFieldId: requestFields.customFieldId,
+            value: requestFields.legacyOperation === 'edit-card-custom-field-checkbox'
+              ? requestFields.customFieldValue === 'true' : requestFields.customFieldValue,
           });
         }
         if (requestFields.legacyOperation === 'toggle-card-identity') {

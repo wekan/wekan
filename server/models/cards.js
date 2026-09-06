@@ -44,6 +44,7 @@ import {
   removeAccessibleCardStickerAt,
   saveAccessibleCardLocation,
   setAccessibleCardSticker,
+  setAccessibleCardCustomFieldAssigned,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -52,6 +53,7 @@ import {
   updateAccessibleCardDate,
   updateAccessibleCardIdentityText,
   updateAccessibleCardSort,
+  updateAccessibleCardCustomField,
   updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 
@@ -104,6 +106,16 @@ Meteor.methods({
   async removeAccessibleCardStickerAt(input) {
     check(input, Object);
     return removeAccessibleCardStickerAt(this.userId, input);
+  },
+
+  async setAccessibleCardCustomFieldAssigned(input) {
+    check(input, Object);
+    return setAccessibleCardCustomFieldAssigned(this.userId, input);
+  },
+
+  async updateAccessibleCardCustomField(input) {
+    check(input, Object);
+    return updateAccessibleCardCustomField(this.userId, input);
   },
 
   async updateAccessibleCardDate(input) {
@@ -234,99 +246,40 @@ Meteor.methods({
     return { archived: ids.length };
   },
 
-  // #6611: custom-field selection and checkbox values are acknowledged server
-  // writes. Direct client collection writes could be refused silently, making
-  // a removed field immediately reappear and a checkbox appear inert.
+  // Compatibility wrappers for clients predating the object-shaped accessible
+  // methods. They resolve the route board, then cross the same authorization
+  // and definition-driven boundary as HTML4 and current Jade.
   async setCardCustomFieldAssigned(cardId, customFieldId, assigned) {
     check(cardId, String);
     check(customFieldId, String);
     check(assigned, Boolean);
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-
-    const card = await Cards.findOneAsync(cardId);
+    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1 } });
     if (!card) throw new Meteor.Error('not-found');
-    const board = await Boards.findOneAsync(card.boardId);
-    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const definition = await CustomFields.findOneAsync({
-      _id: customFieldId,
-      boardIds: card.boardId,
+    return setAccessibleCardCustomFieldAssigned(this.userId, {
+      cardId, boardId: card.boardId, customFieldId, assigned,
     });
-    if (!definition) throw new Meteor.Error('custom-field-not-found');
-
-    if (assigned) {
-      await Cards.updateAsync(cardId, {
-        $addToSet: { customFields: { _id: customFieldId, value: null } },
-      });
-    } else {
-      // #6611: MongoDB document conditions match fields within each array
-      // element. FerretDB must do the same here; exact document equality would
-      // not match an element that also contains its custom-field value.
-      await Cards.updateAsync(cardId, {
-        $pull: { customFields: { _id: customFieldId } },
-      });
-    }
-    return assigned;
   },
 
   async setCardCustomFieldCheckbox(cardId, customFieldId, value) {
     check(cardId, String);
     check(customFieldId, String);
     check(value, Boolean);
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-
-    const card = await Cards.findOneAsync(cardId);
+    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1 } });
     if (!card) throw new Meteor.Error('not-found');
-    const board = await Boards.findOneAsync(card.boardId);
-    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const definition = await CustomFields.findOneAsync({
-      _id: customFieldId,
-      boardIds: card.boardId,
-      type: 'checkbox',
+    return updateAccessibleCardCustomField(this.userId, {
+      cardId, boardId: card.boardId, customFieldId, value,
     });
-    if (!definition) throw new Meteor.Error('custom-field-not-found');
-
-    const index = (card.customFields || []).findIndex(field =>
-      field && field._id === customFieldId);
-    if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
-    await Cards.updateAsync(cardId, {
-      $set: { [`customFields.${index}.value`]: value },
-    });
-    return value;
   },
 
   async setCardCustomFieldCurrency(cardId, customFieldId, value) {
     check(cardId, String);
     check(customFieldId, String);
     check(value, Number);
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-    if (!Number.isFinite(value)) {
-      throw new Meteor.Error('invalid-custom-field-value');
-    }
-
-    const card = await Cards.findOneAsync(cardId);
+    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1 } });
     if (!card) throw new Meteor.Error('not-found');
-    const board = await Boards.findOneAsync(card.boardId);
-    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const definition = await CustomFields.findOneAsync({
-      _id: customFieldId,
-      boardIds: card.boardId,
-      type: 'currency',
+    return updateAccessibleCardCustomField(this.userId, {
+      cardId, boardId: card.boardId, customFieldId, value,
     });
-    if (!definition) throw new Meteor.Error('custom-field-not-found');
-
-    const index = (card.customFields || []).findIndex(field =>
-      field && field._id === customFieldId);
-    if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
-    await Cards.updateAsync(cardId, {
-      $set: { [`customFields.${index}.value`]: value },
-    });
-    return value;
   },
 
   // Server-authoritative subtask creation. Fixes:
