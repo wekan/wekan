@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/93ef25a8d">Add accessible HTML4 card locations</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now show locations, coordinates and HTTPS map
+links and provide naturally ordered labelled forms to add, edit and remove them.
+A new shared fieldset component keeps related fields semantic without requiring
+JavaScript. Jade location controls call the same acknowledged operations.
+
+The server binds every request to the route card, resolves linked content, caps
+the collection and text sizes, strictly parses finite latitude and longitude in
+their geographic ranges, and rejects unknown location identifiers before one
+atomic update. Legacy flat location fields are folded into the array only on a
+successful write. Tests cover rendering, valid create/edit/delete, an invalid
+coordinate, a forged ID, map output and paired same-URL screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/661146324">Add accessible HTML4 card sort control</a>. Thanks to xet7.</summary>
 
 Card details in cookieless HTML4 now provide a labelled card-sort field in
