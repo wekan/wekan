@@ -268,7 +268,7 @@ installation examples explain the Admin Panel email options. Change-history chec
 retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
 only once before returning to the shell. Uncommon browser code loads on demand, and
 Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
-buttons, and move them between lists with a native selector.
+buttons, move them between lists with a native selector, and manage comments.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -358,6 +358,33 @@ the server reader for large streamed input.
 
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bcbe45abf">Add accessible HTML4 card comment controls</a>. Thanks to xet7.</summary>
+
+Comment-capable members can now add comments from a labelled Legacy HTML4 form.
+Authors and permitted board administrators can edit them or use a functional
+two-step Delete/Cancel confirmation. Every operation works without JavaScript,
+cookies or client storage and calls the same acknowledged service as the Meteor
+comment UI.
+
+The common service binds every comment and optional reply parent to the submitted
+card and its real board, applies assigned-only visibility and the board role's
+comment capability, and bounds non-empty text. Editing and deletion repeat the
+shared author-or-administrator policy including `restrictCommentEditing`. Forged
+cross-board or object IDs are refused and enter the attributed Admin Panel /
+Problems / Security reporting path. Moving HTML5 writes behind the same service
+also closes the earlier direct-insert gap where a client could pair its writable
+board ID with a card ID from another board.
+
+Unit tests cover board/card/reply consistency, roles, ownership, input limits,
+exact mutation selectors, common HTML5 wiring, escaping, labels and keyboard
+order. Cookieless Playwright creates, edits, confirms deletion and rejects a
+foreign comment ID while verifying attributed add/edit activity history. The
+same card screenshot contains the edited comment in HTML4 and HTML5, and separate
+HTML5 publication tests retain positive and cross-board-negative coverage.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8443789ad">Add accessible HTML4 card list movement</a>. Thanks to xet7.</summary>
