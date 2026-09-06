@@ -8139,11 +8139,11 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tigre:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **69,018 values across 32 second-tier languages**. Southern
+remaining work is **68,968 values across 32 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Tigre has 1,574 left after its first twelve 50-value batches. Albanian
+batch. Tigre has 1,524 left after its first thirteen 50-value batches. Albanian
 and Bosnian are also complete: Bosnian's final apparent gap, `Server`, is a
 normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8260,8 +8260,8 @@ browser build to verify).
 **In short:** **Albanian, Southern Sotho, Tajik and Tigrinya translations** are
 complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
-backups and migrations; **Tigre translations** cover their first twelve batches
-spanning activity, boards, roles, email, exports, filters and import formats;
+backups and migrations; **Tigre translations** cover their first thirteen
+batches spanning activity, boards, email, filters and resumable imports;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8533,6 +8533,19 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92dc21d53">Translate Tigre Trello import controls</a>. Thanks to xet7.</summary>
+
+The thirteenth 50-value Tigre batch adds safe Trello ZIP validation, workspace
+placement, saved API credentials, selection, cancellation, resumption, results
+and member mapping. All values required translation, with low confidence in
+some explanatory grammar pending human refinement. Tests retain the Trello API
+URL and token, irreversible cancellation warning and four-digit year example.
+This leaves 68,968 actionable values across 32 languages, including 1,524 in
+Tigre.
 
 </details>
 
