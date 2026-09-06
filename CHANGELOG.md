@@ -8137,13 +8137,14 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after starting Tigre:** all 200
+**Current snapshot after completing Tigre:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **67,468 values across 32 second-tier languages**. Southern
+remaining work is **67,444 values across 31 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
 Tigrinya is complete after forty-three 50-value batches and a final 24-value
-batch. Tigre has 24 left after its first forty-three 50-value batches.
+batch. Tigre is complete after forty-three 50-value batches and a final
+24-value batch.
 Albanian and Bosnian are also complete. Bosnian's final apparent gap,
 `Server`, is a normal technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8257,13 +8258,12 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian, Southern Sotho, Tajik and Tigrinya translations** are
+**In short:** **Albanian, Southern Sotho, Tajik, Tigrinya and Tigre
+translations** are
 complete across boards and cards, workflows, import/export, search,
 administration, security, recovery, file and cloud storage, data safety,
-backups and migrations; **Tigre translations** cover their first forty-three
-batches spanning boards, imports, cards, subtasks and scheduled automation;
-every near-complete locale is complete again, and the remaining counter excludes
-valid international technical and color loanwords.
+backups and migrations; every near-complete locale is complete again, and the
+remaining counter excludes valid international technical and color loanwords.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8533,6 +8533,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8fefb4b7">Complete Tigre translations</a>. Thanks to xet7.</summary>
+
+The final 24-value Tigre batch adds CPU and security-event columns,
+filesystem-integrity reporting, scoped export and WeKan JSON/ZIP import. All
+values required translation, with low confidence in some terminology pending
+human refinement. Tests retain IP protocol, format, search and result
+placeholders and now require zero remaining Tigre values. This leaves 67,444
+actionable values across 31 languages.
 
 </details>
 
