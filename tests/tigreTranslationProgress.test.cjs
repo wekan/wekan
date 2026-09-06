@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1324,
-  'the first seventeen 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1274,
+  'the first eighteen 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -170,5 +170,14 @@ assert.match(tigre['smtp-tls-description'], /SMTP.*TLS/);
 assert.deepEqual(tokens(tigre['email-invite-register-text']),
   ['__icode__', '__inviter__', '__url__', '__user__']);
 assert.match(tigre['email-smtp-test-subject'], /SMTP/);
+assert.match(tigre.Node_version, /Node/);
+assert.match(tigre.Meteor_version, /Meteor/);
+assert.match(tigre.FerretDB_version, /FerretDB/);
+assert.match(tigre.FerretDB_commit, /FerretDB/);
+assert.match(tigre.Reactivity_mode, /changeStreams.*oplog.*polling/);
+assert.match(tigre.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
+assert.match(tigre.DDP_transport, /DDP.*DDP_TRANSPORT/);
+assert.match(tigre['org-domains-description'],
+  /a\.example\.com.*kanban\.example\.org.*MULTITENANCY=true/s);
 
-console.log('tigreTranslationProgress: first seventeen batches passed');
+console.log('tigreTranslationProgress: first eighteen batches passed');
