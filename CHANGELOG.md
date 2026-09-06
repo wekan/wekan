@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,106 values across 36 second-tier languages**. Albanian
-now has 1,016 left after its first twenty-two 50-value batches. Bosnian is also
+remaining work is **77,006 values across 36 second-tier languages**. Albanian
+now has 916 left after its first twenty-four 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first twenty-two activity,
-board, import, system, organization, automation and authentication batches;
+**In short:** **Albanian translations** now cover the first twenty-four activity,
+board, import, automation, account, notification and role-setting batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8355,6 +8355,18 @@ Excel and WeKan import guidance, safe Trello ZIP errors, Trello API progress and
 member mapping. The importer placeholders and command examples remain intact.
 This leaves 77,486 actionable values across 36 languages, including 1,515 in
 Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71021503a">Translate Albanian roles and account controls</a>. Thanks to xet7.</summary>
+
+The twenty-third and twenty-fourth 50-value Albanian batches add account and
+layout controls, due-reminder activity, organization, team and user dialogs,
+notifications, role permissions, weekdays, status and linked-card safeguards.
+All one hundred values required translation. Regression coverage pins the full
+mention-event token set and representative role and weekday wording. This leaves
+77,006 actionable values across 36 languages, including 916 in Albanian.
 
 </details>
 
