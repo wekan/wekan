@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1074,
-  'the first twenty-one Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1024,
+  'the first twenty-two Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -138,5 +138,9 @@ assert.equal(sesotho['r-remove-all'], 'Tlosa ditho tsohle kareteng');
 assert.equal(sesotho['r-send-email'], 'Romela imeile');
 assert.equal(sesotho['r-d-move-to-top-gen'],
   'Fallisetsa karete hodimo lenaneng la yona');
+assert.equal(sesotho['r-items-list'], 'ntho1,ntho2,ntho3');
+assert.match(sesotho['r-checklist-note'], /dikoma/);
+assert.match(sesotho['custom-head-manifest-content'], /JSON/);
+assert.match(sesotho['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
 
-console.log('southernSothoTranslationProgress: first twenty-one batches passed');
+console.log('southernSothoTranslationProgress: first twenty-two batches passed');
