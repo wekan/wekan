@@ -261,11 +261,12 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Meteor tests build again**, unsupported and no-JavaScript
-browsers receive a Legacy HTML4 HTML4 baseline, authentication forms have direct
-keyboard navigation, and installation examples explain the Admin Panel email
-options. Change-history checks retain synchronous SHA-256 on both architectures,
-and interrupted test runs clean up only once before returning to the shell.
+**In short:** **Branding and board background images are stored locally as GIF**,
+Meteor tests build again, unsupported and no-JavaScript browsers receive a Legacy
+HTML4 baseline, authentication forms have direct keyboard navigation, and
+installation examples explain the Admin Panel email options. Change-history checks
+retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
+only once before returning to the shell.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -279,6 +280,32 @@ and interrupted test runs clean up only once before returning to the shell.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following bugs:
+
+**Images** - external branding and board background sources become local, bounded
+GIF attachments in the configured Default Storage.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f4aafa05c">Store branding and board background images locally as GIF</a>. Thanks to xet7.</summary>
+
+Admin Panel instance and Organization branding now offers image upload controls
+instead of editable external image URL fields. Every upload is authorized, bounded,
+decoded and converted to GIF on the server before it is written to Admin Panel /
+Attachments / Default Storage. Direct REST and tenant-setting writes cannot restore
+an arbitrary image source URL. The separately configured logo click destination is
+unchanged.
+
+At startup, existing external login logos, header logos and board backgrounds are
+downloaded through the SSRF-safe fetcher, converted to GIF and atomically replaced
+with internal URLs. A failed legacy download is removed immediately from client-
+visible data and retained only in an unpublished retry queue for the next startup.
+Board Settings likewise offers only upload, unset and the stored-background list;
+new board backgrounds pass through a board-admin-checked GIF conversion method.
+Offline imports no longer activate third-party background URLs. Regression coverage
+checks authorization, input limits, SSRF-safe migration, Default Storage selection,
+GIF-only output, response hardening, hidden URL write paths, board-background upload
+and import behavior.
+
+</details>
 
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
