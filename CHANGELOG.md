@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,990 values across 35 second-tier languages**. Southern
-Sotho has 1,024 left after its first twenty-two 50-value batches. Albanian and
+remaining work is **74,940 values across 35 second-tier languages**. Southern
+Sotho has 974 left after its first twenty-three 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first twenty-two activity, administration,
-system, automation, authentication and web-metadata batches;
+translations** now cover their first twenty-three activity, administration,
+automation, authentication, event and interface-setting batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8503,6 +8503,18 @@ selection, Home-board settings, list widths, keyboard shortcuts, swimlane
 heights and card-addition controls. All values required translation. Tests
 retain activity placeholders and representative board-layout terminology. This
 leaves 75,990 actionable values across 35 languages, including 2,024 in
+Southern Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b430fa06a">Translate Southern Sotho events and interface settings</a>. Thanks to xet7.</summary>
+
+The twenty-third 50-value Southern Sotho batch adds custom body HTML, LDAP and
+OIDC settings, board duplication, swimlane and account deletion, date changes,
+due reminders, user mentions and minicard and drag-handle controls. All values
+required translation. Tests retain body tags and every date and mention token.
+This leaves 74,940 actionable values across 35 languages, including 974 in
 Southern Sotho.
 
 </details>
