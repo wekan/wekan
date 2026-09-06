@@ -35,6 +35,11 @@ import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentRe
 import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
 import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
 import {
+  removeAccessibleAttachment,
+  renameAccessibleAttachment,
+  setAccessibleAttachmentCover,
+} from '/server/lib/accessibleAttachmentOperations';
+import {
   copyAccessibleChecklist,
   convertAccessibleChecklistItemToCard,
   createAccessibleChecklist,
@@ -153,6 +158,9 @@ WebApp.handlers.use(async (req, res, next) => {
     'delete-checklist-item', 'move-checklist-item-up', 'move-checklist-item-down',
     'convert-checklist-item-to-card',
   ];
+  const attachmentOperations = [
+    'rename-attachment', 'delete-attachment', 'set-attachment-cover',
+  ];
   if (session && /^\/b\/[^/]+/.test(path)
     && ['preview-attachment-gif', 'download-attachment-original']
       .includes(requestFields.legacyOperation)) {
@@ -224,12 +232,33 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.confirmChecklistItemDelete = String(requestFields.itemId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
-    && [...cardOperations, ...commentOperations, ...checklistOperations]
+    && requestFields.legacyOperation === 'confirm-delete-attachment') {
+    requestFields.confirmAttachmentDelete = String(requestFields.attachmentId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && [...cardOperations, ...commentOperations, ...checklistOperations, ...attachmentOperations]
       .includes(requestFields.legacyOperation)) {
     try {
       const invocation = { userId: session.userId,
         connection: { clientAddress: String(session.address || '') } };
       const result = await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        const attachmentInput = {
+          boardId: requestFields.boardId, cardId: requestFields.cardId,
+          attachmentId: requestFields.attachmentId,
+        };
+        if (requestFields.legacyOperation === 'rename-attachment') {
+          return renameAccessibleAttachment(session.userId, {
+            ...attachmentInput, name: requestFields.attachmentName,
+          });
+        }
+        if (requestFields.legacyOperation === 'delete-attachment') {
+          return removeAccessibleAttachment(session.userId, attachmentInput);
+        }
+        if (requestFields.legacyOperation === 'set-attachment-cover') {
+          return setAccessibleAttachmentCover(session.userId, {
+            ...attachmentInput, enabled: requestFields.coverState === 'on',
+          });
+        }
         if (requestFields.legacyOperation === 'add-comment') {
           return createAccessibleComment(session.userId, {
             boardId: requestFields.boardId, cardId: requestFields.cardId,

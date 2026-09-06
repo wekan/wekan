@@ -13,7 +13,6 @@ import { getAttachmentWithBackwardCompatibility, getAttachmentsWithBackwardCompa
 import AttachmentStorageSettings from './attachmentStorageSettings';
 import Attachments, { normalizeRemovedFiles } from './attachments';
 import Boards from '/models/boards';
-import { allowIsBoardMember } from '/server/lib/utils';
 import { ensureIndex } from '/server/lib/mongoStartup';
 
 // ---------------------------------------------------------------------------
@@ -339,35 +338,6 @@ Meteor.methods({
     }
 
     moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
-  },
-  async renameAttachment(fileObjId, newName) {
-    check(fileObjId, String);
-    check(newName, String);
-
-    const currentUserId = this.userId;
-    if (!currentUserId) {
-      throw new Meteor.Error('not-authorized', 'User must be logged in');
-    }
-
-    const fileObj = await ReactiveCache.getAttachment(fileObjId);
-    if (!fileObj) {
-      throw new Meteor.Error('file-not-found', 'Attachment not found');
-    }
-
-    // Verify the user has permission to modify this attachment
-    const board = await ReactiveCache.getBoard(fileObj.meta?.boardId);
-    if (!board) {
-      throw new Meteor.Error('board-not-found', 'Board not found');
-    }
-
-    if (!allowIsBoardMember(currentUserId, board)) {
-      if (process.env.DEBUG === 'true') {
-        console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.meta?.boardId}`);
-      }
-      throw new Meteor.Error('not-authorized', 'You do not have permission to modify this attachment');
-    }
-
-    rename(fileObj, newName, fileStoreStrategyFactory);
   },
   async validateAttachment(fileObjId) {
     check(fileObjId, String);

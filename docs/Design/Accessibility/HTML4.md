@@ -131,6 +131,18 @@ download filename on read, and emits no session value in a URL. Refusals are
 recorded in Admin Panel / Problems / Security with available actor and request
 context. All conversion and authorization remains server-side.
 
+Attachment mutations also cross one shared server boundary. Both the Jade view
+and HTML4 forms resolve the exact attachment, its content card and board, then
+apply direct or live-linked-card write permission. HTML4 additionally binds the
+submitted route board and card to that content target, so hidden-field changes
+cannot turn a visible attachment control into a cross-board write. Rename uses
+the common content-aware, exploit-rejecting, 30-character portable filename
+sanitizer. Cover assignment accepts images only and delete clears an exact
+matching cover before removing the exact scoped attachment. HTML4 renders a
+uniquely labelled rename field, an image-only cover toggle and two signed POSTs
+for delete confirmation. Scope probes use the same indistinguishable refusal
+and are attributed as `AttachmentBleed` in Admin Panel / Problems / Security.
+
 The login logo follows the same rule. The configured custom login-logo URL is
 downloaded only through the SSRF-safe pinned resolver; without one, WeKan's
 built-in SVG logo is read from the generated client asset manifest. Its first
@@ -303,4 +315,7 @@ authorization.
 The card-detail browser regression additionally forges an unknown active-markup
 reaction, a submitted foreign user ID, a cross-board comment ID and a foreign
 checklist parent; each is refused. Valid reaction and checklist changes are
-visible in paired same-URL HTML4 and HTML5 screenshots.
+visible in paired same-URL HTML4 and HTML5 screenshots. It also exercises valid
+attachment rename, image cover selection and confirmed deletion, then forges a
+route/attachment scope mismatch and verifies both non-mutation and the attributed
+Security report.

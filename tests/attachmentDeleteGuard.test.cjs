@@ -24,19 +24,19 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-test('attachment delete only removes when the doc is still in the local cache', () => {
+test('attachment delete only calls the server when the doc is still in the local cache', () => {
   assert.ok(
-    /if \(this\._id && ReactiveCache\.getAttachment\(this\._id\)\) \{\s*\n\s*await Attachments\.removeAsync\(this\._id\);/.test(attachments),
-    'removeAsync must be guarded by a Minimongo presence check',
+    /if \(this\._id && ReactiveCache\.getAttachment\(this\._id\)\) \{\s*\n\s*await Meteor\.callAsync\('removeAttachment', this\._id\);/.test(attachments),
+    'server removal must be guarded by a Minimongo presence check',
   );
 });
 
-test('negative: no unguarded removeAsync remains in the delete handler', () => {
+test('negative: no direct client collection removal remains in the delete handler', () => {
   const handler = attachments.match(/'click \.js-confirm-delete'[\s\S]*?\n  \}\),/);
   assert.ok(handler, 'delete handler found');
   const body = handler[0];
-  const removes = body.match(/Attachments\.removeAsync/g) || [];
-  assert.strictEqual(removes.length, 1, 'exactly one remove call, inside the guard');
+  assert.doesNotMatch(body, /Attachments\.removeAsync/);
+  assert.strictEqual((body.match(/Meteor\.callAsync\('removeAttachment'/g) || []).length, 1);
 });
 
 test('the sibling #3252 guard for comments is still in place (same bug class)', () => {

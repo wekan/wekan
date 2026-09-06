@@ -208,7 +208,7 @@ function contentRows(path, options) {
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}<label for="${id}">${escapeHtml(cell.label)}</label> <input id="${id}" name="q" type="text" size="30" value="${escapeHtml(cell.value || '')}"> <input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.label))}"></form>`;
       }
       if (cell && typeof cell === 'object' && cell.component === 'text') {
-        const id = `legacy-${String(cell.name || 'text').replace(/[^a-z0-9_-]/gi, '')}`;
+        const id = `legacy-${String(cell.id || cell.name || 'text').replace(/[^a-z0-9_-]/gi, '')}`;
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
           `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
         const maximum = Number.isSafeInteger(cell.maxlength) && cell.maxlength > 0

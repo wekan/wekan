@@ -97,17 +97,8 @@ Template.attachmentGallery.events({
   },
   'click .js-rename': Popup.open('attachmentRename'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', async function() {
-      const card = this.meta && this.meta.cardId ? ReactiveCache.getCard(this.meta.cardId) : null;
-      if (card && card.coverId === this._id) {
-        await card.unsetCover();
-      }
-      // #5282 (same class as #3252 for comments/checklists): only remove if the
-      // doc is still in the local cache. Under publication churn the attachment
-      // can already be evicted from Minimongo, and removing a missing _id
-      // throws "Removed nonexistent document" even though the delete itself
-      // succeeded on the server.
       if (this._id && ReactiveCache.getAttachment(this._id)) {
-        await Attachments.removeAsync(this._id);
+        await Meteor.callAsync('removeAttachment', this._id);
       }
       Popup.back();
   }),
@@ -678,12 +669,12 @@ Template.attachmentActionsPopup.helpers({
 });
 
 Template.attachmentActionsPopup.events({
-  'click .js-add-cover'() {
-    ReactiveCache.getCard(this.meta.cardId).setCover(this._id);
+  async 'click .js-add-cover'() {
+    await Meteor.callAsync('setAttachmentCover', this._id, true);
     Popup.back();
   },
-  'click .js-remove-cover'() {
-    ReactiveCache.getCard(this.meta.cardId).unsetCover();
+  async 'click .js-remove-cover'() {
+    await Meteor.callAsync('setAttachmentCover', this._id, false);
     Popup.back();
   },
   'click .js-add-background-image'(event) {
@@ -717,14 +708,14 @@ Template.attachmentRenamePopup.events({
       tpl.find('button[type=submit]').click();
     }
   },
-  'click button.js-submit-edit-attachment-name'(event, tpl) {
+  async 'click button.js-submit-edit-attachment-name'(event, tpl) {
     // save button pressed
     event.preventDefault();
     const name = tpl.$('.js-edit-attachment-name')[0]
       .value
       .trim() + this.extensionWithDot;
     if (name === sanitizeText(name)) {
-      Meteor.call('renameAttachment', this._id, name);
+      await Meteor.callAsync('renameAttachment', this._id, name);
     }
     Popup.back();
   },

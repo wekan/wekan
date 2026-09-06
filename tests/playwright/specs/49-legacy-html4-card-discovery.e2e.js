@@ -356,6 +356,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     });
     expect(importedZipImageAttachment && importedZipImageAttachment._id).toBeTruthy();
     importedWekanZipImageAttachmentId = importedZipImageAttachment._id;
+    const disposableAttachmentId = `zipdelete${suffix}`;
+    db.insertOne('attachments', {
+      _id: disposableAttachmentId, name: 'delete-me.txt', type: 'text/plain', size: 0,
+      uploadedAt: new Date(), versions: {},
+      meta: { cardId: importedZipImageAttachment.meta.cardId, boardId: importedWekanZipBoardId },
+    });
     await expect(page.locator('tbody')).toContainText(zipBoardTitle);
 
     await open('/import');
@@ -922,6 +928,53 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await open(`/b/${attachmentBoard._id}/${attachmentBoard.slug}/${importedZipImage.meta.cardId}`);
     await expect(page.locator('tbody')).toContainText('zip-pixel.png');
     await expect(page.locator('tbody')).toContainText('zip-note.txt');
+    await expect(page.locator('tbody')).toContainText('delete-me.txt');
+
+    const renameAttachmentForm = attachmentId => page.locator(
+      'form:has(input[name="legacyOperation"][value="rename-attachment"])'
+      + `:has(input[name="attachmentId"][value="${attachmentId}"])`,
+    );
+    await renameAttachmentForm(importedWekanZipAttachmentId)
+      .locator('input[name="attachmentName"]').fill('Legacy renamed note.txt');
+    await Promise.all([
+      page.waitForNavigation(),
+      renameAttachmentForm(importedWekanZipAttachmentId).locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('attachments', { _id: importedWekanZipAttachmentId })?.name)
+      .toBe('Legacy renamed note.txt');
+    await expect(page.locator('tbody')).toContainText('Legacy renamed note.txt');
+
+    const coverForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="set-attachment-cover"])'
+      + `:has(input[name="attachmentId"][value="${importedWekanZipImageAttachmentId}"])`,
+    );
+    await expect(coverForm.locator('input[name="coverState"]')).toHaveValue('on');
+    await Promise.all([page.waitForNavigation(), coverForm.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('cards', { _id: importedZipImage.meta.cardId })?.coverId)
+      .toBe(importedWekanZipImageAttachmentId);
+    await expect(page.locator(
+      'form:has(input[name="legacyOperation"][value="set-attachment-cover"])'
+      + `:has(input[name="attachmentId"][value="${importedWekanZipImageAttachmentId}"])`
+      + ' input[name="coverState"]',
+    )).toHaveValue('off');
+
+    const requestDelete = page.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-delete-attachment"])'
+      + `:has(input[name="attachmentId"][value="${disposableAttachmentId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), requestDelete.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('attachments', { _id: disposableAttachmentId })).toBeTruthy();
+    const confirmDelete = page.locator(
+      'form:has(input[name="legacyOperation"][value="delete-attachment"])'
+      + `:has(input[name="attachmentId"][value="${disposableAttachmentId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), confirmDelete.locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('attachments', { _id: disposableAttachmentId })).toBeNull();
+    await expect(page.locator('tbody')).not.toContainText('delete-me.txt');
     const imagePreviewForm = page.locator(
       'form:has(input[name="legacyOperation"][value="preview-attachment-gif"])'
       + `:has(input[name="attachmentId"][value="${importedWekanZipImageAttachmentId}"])`,
@@ -961,7 +1014,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     const [attachmentDownload] = await Promise.all([
       page.waitForEvent('download'), noteDownloadForm.locator('input[type="submit"]').click(),
     ]);
-    expect(attachmentDownload.suggestedFilename()).toBe('zip-note.txt');
+    expect(attachmentDownload.suggestedFilename()).toBe('Legacy renamed note.txt');
     expect(await fs.promises.readFile(await attachmentDownload.path(), 'utf8'))
       .toBe('HTML4 ZIP attachment\n');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
@@ -969,6 +1022,25 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-attachments.png`, fullPage: true,
       });
     }
+
+    // A route/attachment mismatch is refused by the same mutation boundary and
+    // attributed in Admin Panel / Problems / Security without changing data.
+    await renameAttachmentForm(importedWekanZipImageAttachmentId)
+      .locator('input[name="attachmentName"]').fill('forged.png');
+    await renameAttachmentForm(importedWekanZipImageAttachmentId)
+      .locator('input[name="boardId"]').evaluate(
+        (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+      );
+    await Promise.all([
+      page.waitForNavigation(),
+      renameAttachmentForm(importedWekanZipImageAttachmentId).locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('attachments', { _id: importedWekanZipImageAttachmentId }).name)
+      .toBe('zip-pixel.png');
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await expect.poll(() => db.countDocuments('eventlog', {
+      stream: 'security', userId: user._id, bleed: 'AttachmentBleed', action: 'detected',
+    })).toBeGreaterThan(0);
     await open('/my-cards');
     await open(`/b/${board.boardId}/${board.slug}/${due._id}`);
 
@@ -991,7 +1063,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
     await modern.goto(`${baseURL}/b/${attachmentBoard._id}/${attachmentBoard.slug}/${importedZipImage.meta.cardId}`);
     await expect(modern.locator('.attachment-gallery')).toContainText('zip-pixel.png');
-    await expect(modern.locator('.attachment-gallery')).toContainText('zip-note.txt');
+    await expect(modern.locator('.attachment-gallery')).toContainText('Legacy renamed note.txt');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await modern.locator('.attachment-gallery').screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-attachments.png`,

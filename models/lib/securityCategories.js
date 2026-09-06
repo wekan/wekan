@@ -55,6 +55,7 @@ const CATALOG = {
   'authz.checklist': { category: 'authz', bleed: 'ChecklistBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.comment':   { category: 'authz', bleed: 'CommentBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.file-path': { category: 'authz', bleed: 'PathBleed', severity: 'high', cwe: 'CWE-22' },
+  'authz.attachment': { category: 'authz', bleed: 'AttachmentBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.parent':    { category: 'authz', bleed: 'ParentBleed', severity: 'high', cwe: 'CWE-862' },
   'authz.share':     { category: 'authz', bleed: 'RevokeBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.readonly':  { category: 'authz', bleed: 'ReadOnlyBleed', severity: 'medium', cwe: 'CWE-863' },

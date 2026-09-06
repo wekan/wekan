@@ -79,6 +79,10 @@ const CANARIES = {
     key: 'authz.file-path',
     what: 'tried to write a restricted attachment field',
   },
+  'attachment.cross-scope': {
+    key: 'authz.attachment',
+    what: 'tried to change an attachment outside its authorized card and board scope',
+  },
   'avatar.restricted-field': {
     key: 'authz.file-path',
     what: 'tried to write a restricted avatar field',

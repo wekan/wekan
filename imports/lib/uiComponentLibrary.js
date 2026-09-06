@@ -53,8 +53,8 @@ function uiSelectForm({ action, label, name, value = '', options = [], fields = 
 }
 
 function uiTextForm({ action, label, name, value = '', fields = {}, submitLabel,
-  maxlength = 1000 }) {
-  return { component: 'text', action, label, name, value, fields, submitLabel, maxlength };
+  maxlength = 1000, id = '' }) {
+  return { component: 'text', action, label, name, value, fields, submitLabel, maxlength, id };
 }
 
 function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLabel, id = '' }) {

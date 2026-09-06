@@ -323,6 +323,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   };
   const card = await Cards.findOneAsync(selector, { fields: {
     title: 1, description: 1, color: 1, archived: 1, boardId: 1,
+    coverId: 1,
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
@@ -663,8 +664,14 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const attachmentAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
   for (const attachment of attachments) {
     const kind = attachmentKind(attachment);
-    const attachmentFields = {
+    const responseFields = {
       boardId: contentBoardId, cardId: contentCardId, attachmentId: attachment._id,
+    };
+    // Mutations are bound to the card the user is actually visiting. The shared
+    // operation resolves a linked card's content target itself and refuses a
+    // submitted board/card/attachment combination that does not match exactly.
+    const mutationFields = {
+      boardId: card.boardId, cardId: card._id, attachmentId: attachment._id,
     };
     const actions = [];
     if (kind.isImage) actions.push({
@@ -673,7 +680,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       icon: 'caret-right',
       target: '_blank',
       authPurpose: `download:gif-${attachment._id}`,
-      fields: { ...attachmentFields, legacyOperation: 'preview-attachment-gif' },
+      fields: { ...responseFields, legacyOperation: 'preview-attachment-gif' },
     });
     actions.push({
       action: attachmentAction,
@@ -681,14 +688,51 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       icon: 'move-down',
       target: '_blank',
       authPurpose: `download:original-${attachment._id}`,
-      fields: { ...attachmentFields, legacyOperation: 'download-attachment-original' },
+      fields: { ...responseFields, legacyOperation: 'download-attachment-original' },
     });
+    if (canWrite && kind.isImage) {
+      actions.push({
+        action: attachmentAction,
+        label: tr(translate, contentCard?.coverId === attachment._id ? 'remove-cover' : 'add-cover',
+          contentCard?.coverId === attachment._id
+            ? 'Remove cover image from minicard' : 'Add cover image to minicard'),
+        icon: contentCard?.coverId === attachment._id ? 'remove' : 'add',
+        fields: {
+          ...mutationFields, legacyOperation: 'set-attachment-cover',
+          coverState: contentCard?.coverId === attachment._id ? 'off' : 'on',
+        },
+      });
+    }
     rows.push({ cells: [tr(translate, 'attachment', 'Attachment'), uiAttachment({
       name: cleanFileName(attachment.name),
       type: attachment.type || 'application/octet-stream',
       size: Number(attachment.size) || 0,
       actions,
     })] });
+    if (canWrite) {
+      rows.push({ rowHeader: false, cells: ['', uiTextForm({
+        action: attachmentAction,
+        id: `attachment-name-${attachment._id}`,
+        label: tr(translate, 'rename', 'Rename'), name: 'attachmentName',
+        value: cleanFileName(attachment.name), maxlength: 1000,
+        fields: { ...mutationFields, legacyOperation: 'rename-attachment' },
+        submitLabel: tr(translate, 'save', 'Save'),
+      })] });
+      const confirmingAttachment = requestFields.confirmAttachmentDelete === attachment._id;
+      rows.push({ rowHeader: false, cells: ['', confirmingAttachment ? [
+        `${tr(translate, 'delete', 'Delete')}?`,
+        uiAction({
+          action: attachmentAction,
+          label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...mutationFields, legacyOperation: 'delete-attachment' },
+        }),
+        uiAction({ action: attachmentAction, label: tr(translate, 'cancel', 'Cancel') }),
+      ] : uiAction({
+        action: attachmentAction,
+        label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { ...mutationFields, legacyOperation: 'confirm-delete-attachment' },
+      })] });
+    }
   }
   const commentById = new Map(comments.map(comment => [comment._id, comment]));
   const reactionsByComment = new Map(commentReactionDocs.map(doc => [doc.cardCommentId,
