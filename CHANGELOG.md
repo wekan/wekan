@@ -358,6 +358,18 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5bf1d37b0">Reuse existing translated labels throughout HTML4 pages</a>. Thanks to xet7.</summary>
+
+The HTML4 renderer now uses the established `skip-to-content`, `username`,
+permission, empty-board, card and account-error vocabulary instead of requesting
+new keys that were absent from the translation catalogue. This removes repeated
+i18next `missingKey` messages in English, Finnish and every other locale. A
+regression test extracts every literal translation key used by the HTML4 renderer
+and its controllers and requires it to exist in the English source catalogue.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/96b494510">Add semantic HTML4 page controllers and upper-left board view</a>. Thanks to xet7.</summary>
 
 Every WeKan document URL now has a compact, frame-free HTML4 page with one
