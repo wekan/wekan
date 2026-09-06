@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1724,
-  'the first eight Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1674,
+  'the first nine Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -76,5 +76,11 @@ assert.equal(sesotho['confirm-move-list-to-swimlane'],
   'Fallisetsa lenane lena le dikarete tsohle tsa lona tseleng e nngwe?');
 assert.equal(JSON.parse(sesotho['copyManyCardsPopup-format']).length, 3);
 assert.equal(sesotho['custom-field-currency'], 'Tjhelete');
+assert.deepEqual(tokens(sesotho['email-invite-text']),
+  ['__board__', '__inviter__', '__url__', '__user__']);
+assert.deepEqual(tokens(sesotho['email-resetPassword-text']),
+  ['__url__', '__user__']);
+assert.match(sesotho['error-json-schema'], /JSON/);
+assert.match(sesotho['error-import-empty-board'], /WeKan/);
 
-console.log('southernSothoTranslationProgress: first eight batches passed');
+console.log('southernSothoTranslationProgress: first nine batches passed');
