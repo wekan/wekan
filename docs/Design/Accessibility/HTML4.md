@@ -241,6 +241,14 @@ service resolves a linked card's real content card and board, verifies that the
 label belongs to that board, and repeats write authorization before adding or
 removing it; a route-board or foreign-label substitution is refused and reported.
 
+Members and Assignees use one textual desired-state control per eligible person,
+with the full name or username available in natural tab order. Both Jade pickers
+and HTML4 call one acknowledged service. It resolves linked-card content, checks
+that additions are active members of the real content board, binds every ID to
+the route and permits removal of stale assignments. The existing Worker policy
+is preserved explicitly: a Worker may change only their own Assignee state on a
+normal card, never Members or another user.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

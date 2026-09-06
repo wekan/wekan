@@ -1719,12 +1719,16 @@ Template.cardMembersPopup.onCreated(function () {
 });
 
 Template.cardMembersPopup.events({
-  'click .js-select-member'(event) {
+  async 'click .js-select-member'(event) {
     const card = getCurrentCardFromContext();
     if (!card) return;
     const memberId = this.userId;
-    card.toggleMember(memberId);
     event.preventDefault();
+    await Meteor.callAsync('setAccessibleCardPerson', {
+      cardId: card._id, boardId: card.boardId, field: 'members',
+      targetUserId: memberId,
+      enabled: !(card.getMembers() || []).includes(memberId),
+    });
   },
   'keyup .card-members-filter'(event) {
     Template.instance().filterTerm.set(event.target.value);
@@ -2755,12 +2759,16 @@ Template.cardAssigneesPopup.onCreated(function () {
 });
 
 Template.cardAssigneesPopup.events({
-  'click .js-select-assignee'(event) {
+  async 'click .js-select-assignee'(event) {
     const card = getCurrentCardFromContext();
     if (!card) return;
     const assigneeId = this.userId;
-    card.toggleAssignee(assigneeId);
     event.preventDefault();
+    await Meteor.callAsync('setAccessibleCardPerson', {
+      cardId: card._id, boardId: card.boardId, field: 'assignees',
+      targetUserId: assigneeId,
+      enabled: !(card.getAssignees() || []).includes(assigneeId),
+    });
   },
   'keyup .card-assignees-filter'(event) {
     const members = filterMembers(event.target.value);
@@ -2823,8 +2831,13 @@ Template.cardAssigneePopup.helpers({
 });
 
 Template.cardAssigneePopup.events({
-  'click .js-remove-assignee'() {
-    ReactiveCache.getCard(this.cardId).unassignAssignee(this.userId);
+  async 'click .js-remove-assignee'() {
+    const card = ReactiveCache.getCard(this.cardId);
+    if (!card) return;
+    await Meteor.callAsync('setAccessibleCardPerson', {
+      cardId: card._id, boardId: card.boardId, field: 'assignees',
+      targetUserId: this.userId, enabled: false,
+    });
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),

@@ -124,6 +124,27 @@ test('card labels bind the requested label to the real content board', () => {
   assert.match(legacy, /legacyOperation === 'toggle-card-label'/);
 });
 
+test('card people use desired state, content-board membership and worker self policy', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /\['members', 'assignees'\]\.includes\(field\)/);
+  assert.match(source, /workerSelfAssignment = field === 'assignees'/);
+  assert.match(source, /targetUserId === userId/);
+  assert.match(source, /routeBoard\.hasWorker\(userId\)/);
+  assert.match(source, /canAssignCardMember\(targetBoard, targetUserId\)/);
+  assert.match(source, /card person was not an active content-board member/);
+  assert.match(source, /await target\[method\]\(targetUserId\)/);
+  assert.match(methods, /async setAccessibleCardPerson\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('setAccessibleCardPerson'/);
+  assert.doesNotMatch(client, /card\.toggle(?:Member|Assignee)\(/);
+  assert.match(legacy, /legacyOperation === 'toggle-card-person'/);
+  assert.match(page, /cardPersonField: 'members'/);
+  assert.match(page, /cardPersonField: 'assignees'/);
+});
+
 test('archive checks every descendant before the first write', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

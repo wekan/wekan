@@ -7,6 +7,7 @@ import Swimlanes from '/models/swimlanes';
 import {
   allowIsBoardAdmin,
   allowIsBoardMemberWithWriteAccess,
+  canAssignCardMember,
   computeSortForIndex,
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
@@ -202,6 +203,49 @@ async function setAccessibleCardLabel(userId, input) {
   return true;
 }
 
+async function setAccessibleCardPerson(userId, input) {
+  const field = String(input?.field || '');
+  const targetUserId = String(input?.targetUserId || '');
+  const boardId = String(input?.boardId || '');
+  if (!['members', 'assignees'].includes(field)) {
+    throw new Meteor.Error('invalid-card-person-field');
+  }
+  if (!targetUserId || targetUserId.length > 200 || typeof input?.enabled !== 'boolean') {
+    throw new Meteor.Error('invalid-card-person');
+  }
+  if (!userId) throw new Meteor.Error('not-authorized');
+  const [card, routeBoard] = await Promise.all([
+    Cards.findOneAsync({ _id: String(input?.cardId || ''), boardId, deletedAt: null }),
+    Boards.findOneAsync(boardId),
+  ]);
+  if (!card || !routeBoard) {
+    refuseCardWrite(userId, 'card person route did not match a card and board');
+  }
+  const workerSelfAssignment = field === 'assignees' && targetUserId === userId
+    && card.type !== 'cardType-linkedCard' && card.type !== 'cardType-linkedBoard'
+    && routeBoard.hasWorker(userId);
+  if (!workerSelfAssignment) {
+    if (!(await canEditCardOrLinkedCard(userId, card))) {
+      refuseCardWrite(userId, 'card person field did not grant write access');
+    }
+    await authorizeContentTarget(userId, card);
+  }
+  if (card.type === 'cardType-linkedBoard') throw new Meteor.Error('invalid-card-type');
+  const target = card.type === 'cardType-linkedCard'
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  if (!target) throw new Meteor.Error('not-found');
+  const targetBoard = target.boardId === routeBoard._id
+    ? routeBoard : await Boards.findOneAsync(target.boardId);
+  if (input.enabled && !canAssignCardMember(targetBoard, targetUserId)) {
+    refuseCardWrite(userId, 'card person was not an active content-board member');
+  }
+  const method = input.enabled
+    ? (field === 'members' ? 'assignMember' : 'assignAssignee')
+    : (field === 'members' ? 'unassignMember' : 'unassignAssignee');
+  await target[method](targetUserId);
+  return true;
+}
+
 async function editableCardTree(userId, root) {
   const pending = [root];
   const seen = new Set();
@@ -235,6 +279,7 @@ export {
   moveAccessibleCard,
   moveAccessibleCardToList,
   setAccessibleCardLabel,
+  setAccessibleCardPerson,
   setAccessibleCardArchived,
   updateAccessibleCardColor,
   updateAccessibleCardDate,

@@ -453,6 +453,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const contentBoardId = contentCard?.boardId || card.boardId;
   const contentBoard = contentBoardId === board._id
     ? board : await Boards.findOneAsync(contentBoardId);
+  const activeContentMemberIds = (contentBoard?.members || [])
+    .filter(member => member.isActive !== false).map(member => member.userId).filter(Boolean);
   const checklists = await Checklists.find({ cardId: contentCardId, boardId: contentBoardId }, {
     fields: {
       title: 1, sort: 1, hideCheckedChecklistItems: 1,
@@ -477,8 +479,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     }).fetchAsync(),
   ]);
   const personIds = [...new Set([
-    card.userId, ...(card.members || []), ...(card.assignees || []),
+    card.userId, contentCard?.userId, ...(card.members || []), ...(card.assignees || []),
+    ...(contentCard?.members || []), ...(contentCard?.assignees || []),
     ...(card.requesters || []), ...(card.assigners || []),
+    ...activeContentMemberIds,
     ...comments.map(comment => comment.userId),
     ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
       .flatMap(reaction => reaction.userIds || [])),
@@ -509,6 +513,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       + `${rememberedCardDestination.listId || ''}|${rememberedCardDestination.cardId || ''}`
     : '';
   const rows = [];
+  const commonFields = { cardId: card._id, boardId: card.boardId };
   if (requestFields.legacyCardResult?.ok === true) rows.push({
     cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Save')],
   });
@@ -517,7 +522,6 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       operationError(translate, requestFields.legacyCardResult.errorKey)],
   });
   if (canWrite) {
-    const commonFields = { cardId: card._id, boardId: card.boardId };
     rows.push({ rowHeader: false, cells: [uiTextForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, 'title', 'Title'), name: 'cardTitle', value: card.title || '',
@@ -583,6 +587,41 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       icon: card.archived ? 'move-up' : 'remove',
       fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
     }), ''] });
+  }
+  const workerSelf = card.type !== 'cardType-linkedCard'
+    && card.type !== 'cardType-linkedBoard'
+    && (board.members || []).some(member => member.userId === userId
+      && member.isActive !== false && member.isWorker === true);
+  const personCandidates = [...new Set([
+    ...activeContentMemberIds, ...(contentCard?.members || []),
+    ...(contentCard?.assignees || []),
+  ])];
+  for (const targetUserId of personCandidates) {
+    const name = personById.get(targetUserId) || targetUserId;
+    if (canWrite) {
+      const selected = (contentCard?.members || []).includes(targetUserId);
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, 'members', 'Members')}: `
+          + `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} ${name}`,
+        fields: {
+          ...commonFields, legacyOperation: 'toggle-card-person', cardPersonField: 'members',
+          targetUserId, enabled: selected ? 'false' : 'true',
+        },
+      }), ''] });
+    }
+    if (canWrite || (workerSelf && targetUserId === userId)) {
+      const selected = (contentCard?.assignees || []).includes(targetUserId);
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, 'assignee', 'Assignee')}: `
+          + `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} ${name}`,
+        fields: {
+          ...commonFields, legacyOperation: 'toggle-card-person', cardPersonField: 'assignees',
+          targetUserId, enabled: selected ? 'false' : 'true',
+        },
+      }), ''] });
+    }
   }
   const canComment = allowIsBoardMemberCommentOnly(userId, board);
   if (canComment) {
