@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,706 values across 36 second-tier languages**. Albanian
-now has 616 left after its first thirty 50-value batches. Bosnian is also
+remaining work is **76,606 values across 36 second-tier languages**. Albanian
+now has 516 left after its first thirty-two 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first thirty activity,
-board, search, location, diagnostics, report, recovery and support batches;
+**In short:** **Albanian translations** now cover the first thirty-two activity,
+board, report, organization, checklist, attachment and storage batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8404,6 +8404,19 @@ support requests. All one hundred values required translation. Tests retain the
 shell commands, configuration names, IP protocol labels and string-template
 placeholder. This leaves 76,706 actionable values across 36 languages,
 including 616 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f48675db">Translate Albanian attachment administration</a>. Thanks to xet7.</summary>
+
+The thirty-first and thirty-second 50-value Albanian batches add invitations,
+Node memory metrics, organization administration, legal notices, checklist and
+attachment actions, storage moves and repair, file statistics and MongoDB
+compaction guidance. All one hundred values required translation. Tests retain
+Node, GridFS, S3, MongoDB and Meteor where they identify concrete technologies.
+This leaves 76,606 actionable values across 36 languages, including 516 in
+Albanian.
 
 </details>
 
