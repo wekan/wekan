@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1016,
-  'the first twenty-two Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 916,
+  'the first twenty-four Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -235,6 +235,10 @@ assert.match(albanian['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
 assert.equal(albanian['r-d-move-to-top-gen'],
   'Zhvendos kartën në krye të listës së saj');
 assert.deepEqual(tags(albanian['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tokens(albanian['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.equal(albanian.monday, 'E hënë');
+assert.equal(albanian['roles-status-sees-assigned'], 'Vetëm të caktuarat');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first twenty-two Albanian batches passed');
+console.log('albanianTranslationProgress: first twenty-four Albanian batches passed');
