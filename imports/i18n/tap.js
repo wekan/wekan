@@ -134,6 +134,15 @@ export const TAPi18n = {
   getSupportedLanguages() {
     return Object.values(languages).map(({ name, code, tag, rtl }) => ({ name, code, tag, rtl }));
   },
+  // Canonical built-in English source strings, for code that must localize a
+  // value stored by an older UI instead of looking up an i18n key directly.
+  // Return a copy so callers cannot mutate the statically bundled fallback.
+  // A prefix keeps consumers scoped (rule details use only `r-*`).
+  getDefaultTranslations(prefix = '') {
+    const source = unwrapI18nModule(enData);
+    return Object.fromEntries(Object.entries(source)
+      .filter(([key]) => !prefix || key.startsWith(prefix)));
+  },
   getLanguage() {
     return this.current.get();
   },
