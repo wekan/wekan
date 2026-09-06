@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **75,790 values across 35 second-tier languages**. Southern
-Sotho has 1,824 left after its first six 50-value batches. Albanian and
+remaining work is **75,740 values across 35 second-tier languages**. Southern
+Sotho has 1,774 left after its first seven 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first six activity, layout, administration,
-voting, import, member and appearance batches;
+translations** now cover their first seven activity, layout, administration,
+voting, import, appearance, navigation and color batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8552,6 +8552,17 @@ avatars, language and permission controls. All values required translation.
 Tests pin linked-card terminology, permission guidance and the font-preview
 digits. This leaves 75,790 actionable values across 35 languages, including
 1,824 in Southern Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92d54efa1">Translate Southern Sotho navigation and colors</a>. Thanks to xet7.</summary>
+
+The seventh 50-value Southern Sotho batch adds starring, automatic list width,
+card aging, card and list movement, accessible dialog navigation, board closure
+and the color palette. All values required translation. Tests pin aging tiers
+and representative compound color names. This leaves 75,740 actionable values
+across 35 languages, including 1,774 in Southern Sotho.
 
 </details>
 
