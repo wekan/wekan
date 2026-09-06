@@ -39,5 +39,8 @@ function uiLink({ href, label, icon = 'caret-right' }) {
   return { component: 'link', href, label, icon };
 }
 
-module.exports = { UI_ICONS, uiAction, uiControlLabel, uiIcon, uiLink };
+function uiSearchForm({ action, label, value = '' }) {
+  return { component: 'search', action, label, value };
+}
 
+module.exports = { UI_ICONS, uiAction, uiControlLabel, uiIcon, uiLink, uiSearchForm };

@@ -1,11 +1,13 @@
+import { Meteor } from 'meteor/meteor';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Settings from '/models/settings';
 import AccessibilitySettings from '/models/accessibilitySettings';
-const { UI_ICONS, uiAction, uiLink } = require('/imports/lib/uiComponentLibrary');
+const { UI_ICONS, uiAction, uiLink, uiSearchForm } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
+const { starredPagesOf } = require('/models/lib/starredPages');
 
 function segment(value) {
   try { return decodeURIComponent(String(value || '')); } catch (_) { return ''; }
@@ -164,11 +166,86 @@ async function informationPage(path, userId, translate) {
   return null;
 }
 
+async function cardRows(cards, userId, translate) {
+  const boardIds = [...new Set(cards.map(card => card.boardId))];
+  const listIds = [...new Set(cards.map(card => card.listId))];
+  const [boards, lists] = await Promise.all([
+    Boards.find({ _id: { $in: boardIds } }, { fields: { title: 1, slug: 1 } }).fetchAsync(),
+    Lists.find({ _id: { $in: listIds } }, { fields: { title: 1 } }).fetchAsync(),
+  ]);
+  const boardById = new Map(boards.map(board => [board._id, board]));
+  const listById = new Map(lists.map(list => [list._id, list]));
+  return cards.flatMap(card => {
+    const board = boardById.get(card.boardId);
+    if (!board) return [];
+    const destination = `${boardPath(board)}/${encodeURIComponent(card._id)}`;
+    return [{
+      color: card.color,
+      cells: [uiAction({ action: destination, label: card.title || tr(translate, 'card', 'Card') }),
+        `${board.title || ''} / ${listById.get(card.listId)?.title || ''}`,
+        card.dueAt instanceof Date ? card.dueAt.toISOString() : ''],
+    }];
+  });
+}
+
+async function cardDiscoveryPage(path, userId, requestFields, translate) {
+  if (!userId) return null;
+  if (path === '/bookmarks') {
+    const user = await Meteor.users.findOneAsync(userId, { fields: { 'profile.starredPages': 1 } });
+    return {
+      heading: tr(translate, 'bookmarksPopup-title', 'Starred boards'),
+      columns: [tr(translate, 'title', 'Title'), tr(translate, 'link', 'Link')],
+      rows: starredPagesOf(user?.profile?.starredPages).map(page => ({
+        cells: [page.title, uiAction({ action: page.url, label: page.title })],
+      })),
+      empty: tr(translate, 'no-results', 'No results'),
+    };
+  }
+  if (!['/my-cards', '/due-cards', '/global-search'].includes(path)) return null;
+  const boardIds = await Boards.userBoardIds(userId, false, {}, { includePublic: false });
+  const selector = {
+    boardId: { $in: boardIds }, type: 'cardType-card', archived: false,
+    deletedAt: null,
+  };
+  if (path === '/my-cards' || path === '/due-cards') selector.$or = [
+    { members: userId }, { assignees: userId }, { requesters: userId },
+    { assigners: userId }, { userId },
+  ];
+  if (path === '/due-cards') selector.dueAt = { $exists: true, $nin: [null, ''] };
+  if (path === '/global-search') {
+    const query = String(requestFields.q || '').trim().slice(0, 200);
+    if (query) {
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      selector.$and = [{ $or: [{ title: new RegExp(escaped, 'i') }, { description: new RegExp(escaped, 'i') }] }];
+    } else selector._id = null;
+  }
+  const cards = await Cards.find(selector, {
+    fields: { title: 1, color: 1, boardId: 1, listId: 1, dueAt: 1 },
+    sort: path === '/due-cards' ? { dueAt: 1 } : { modifiedAt: -1 }, limit: 200,
+  }).fetchAsync();
+  const headings = {
+    '/my-cards': tr(translate, 'my-cards', 'My Cards'),
+    '/due-cards': tr(translate, 'dueCards-title', 'Due Cards'),
+    '/global-search': tr(translate, 'globalSearch-title', 'Search All Boards'),
+  };
+  const rows = await cardRows(cards, userId, translate);
+  if (path === '/global-search') rows.unshift({ rowHeader: false, cells: [uiSearchForm({
+    action: path, label: tr(translate, 'globalSearch-title', 'Search All Boards'), value: requestFields.q,
+  }), '', ''] });
+  return {
+    heading: headings[path],
+    columns: [tr(translate, 'card', 'Card'), tr(translate, 'board', 'Board'), tr(translate, 'due-date', 'Due Date')],
+    rows, empty: tr(translate, 'no-results', 'No results'),
+  };
+}
+
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
   if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
   if (path === '/public') return boardsPage(userId, true, translate);
   const information = await informationPage(path, userId, translate);
   if (information) return information;
+  const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
+  if (discovery) return discovery;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) return boardsPage(userId, false, translate);
   if (/^\/b(?:\/|$)/.test(path)) return boardPage(path, userId, requestFields, translate);
   if (path === '/accessibility/components') return {

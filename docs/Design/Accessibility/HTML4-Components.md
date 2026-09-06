@@ -125,7 +125,9 @@ the generic baseline. It is updated with every implementation batch.
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |
-| User card/search/import pages | Generic baseline; dedicated controllers remain |
+| `/my-cards`, `/due-cards`, `/bookmarks` | Dedicated, authenticated card/bookmark readers |
+| `/global-search` | Dedicated authenticated title/description search; advanced operators remain |
+| Import pages | Generic baseline; dedicated controllers remain |
 | Board rules | Generic baseline; dedicated controller remains |
 | Admin Panel pages and panes | Generic baseline; dedicated controllers remain |
 | Account preferences and information | Generic baseline; dedicated controllers remain |

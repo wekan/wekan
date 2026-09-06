@@ -10,7 +10,7 @@ const {
   renderLegacyHtml4Page,
   safeColor,
 } = require('../imports/lib/legacyHtml4');
-const { UI_ICONS, uiControlLabel, uiIcon } = require('../imports/lib/uiComponentLibrary');
+const { UI_ICONS, uiControlLabel, uiIcon, uiSearchForm } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 
 function request(url, headers = {}) {
@@ -134,6 +134,43 @@ test('information pages have dedicated controllers and share shortcut data', () 
   assert.match(pages, /supportPagePublic === true \|\| Boolean\(userId\)/);
   assert.match(pages, /AccessibilitySettings\.findOneAsync/);
   assert.match(pages, /const allowed = Boolean\(userId\)/);
+});
+
+test('card discovery pages scope reads to the authenticated user boards', () => {
+  const root = path.join(__dirname, '..');
+  const pages = fs.readFileSync(path.join(root, 'server', 'lib', 'legacyHtml4Pages.js'), 'utf8');
+  const middleware = fs.readFileSync(path.join(root, 'server', 'legacyHtml4.js'), 'utf8');
+  for (const route of ['/my-cards', '/due-cards', '/global-search', '/bookmarks']) {
+    assert.match(pages, new RegExp(route.replace('/', '\\/')), route);
+  }
+  assert.match(pages, /if \(!userId\) return null/);
+  assert.match(pages, /Boards\.userBoardIds\(userId, false, \{\}, \{ includePublic: false \}\)/);
+  assert.match(pages, /\{ members: userId \}.*\{ assignees: userId \}/s);
+  assert.match(pages, /starredPagesOf\(user\?\.profile\?\.starredPages\)/);
+  assert.match(pages, /query\.replace\(\/\[\.\*\+\?\^\$\{\}\(\)\|\[\\\]\\\\\]\/g/);
+  assert.match(middleware, /if \(query\.has\('q'\)\) requestFields\.q = query\.get\('q'\)/);
+});
+
+test('HTML4 global search is a labelled signed POST form', () => {
+  const html = renderLegacyHtml4Page('/global-search', {
+    authenticated: true,
+    username: 'alice',
+    actionFields: action => ({
+      legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64),
+    }),
+    page: {
+      heading: 'Search All Boards', columns: ['Card', 'Board', 'Due Date'],
+      rows: [{ rowHeader: false, cells: [uiSearchForm({
+        action: '/global-search', label: 'Search All Boards', value: '<query>',
+      }), '', ''] }],
+    },
+  });
+  assert.match(html, /<form method="post" action="\/global-search">/);
+  assert.match(html, /<label for="legacy-search-query">Search All Boards<\/label>/);
+  assert.match(html, /name="q"[^>]+value="&lt;query&gt;"/);
+  assert.match(html, /name="authHash" value="b{64}"/);
+  assert.doesNotMatch(html, /<th scope="row"><form method="post" action="\/global-search">/);
 });
 
 test('account forms retain semantic labels, grouping and keyboard order', () => {

@@ -58,7 +58,10 @@ WebApp.handlers.use(async (req, res, next) => {
   const user = session ? await Meteor.users.findOneAsync(session.userId, {
     fields: { username: 1 },
   }) : null;
-  const page = await legacyHtml4Page(path, session?.userId || null, req.body || {}, translate);
+  const query = new URL(req.url, 'http://wekan.invalid').searchParams;
+  const requestFields = { ...(req.body || {}) };
+  if (query.has('q')) requestFields.q = query.get('q');
+  const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');

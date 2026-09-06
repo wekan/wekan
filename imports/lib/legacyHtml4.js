@@ -184,7 +184,8 @@ function contentRows(path, options) {
   if (options.authenticated) {
     rows.push(tableRow([
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
-      ['/allboards', '/my-cards', '/global-search'].map(target => postForm(
+      ['/allboards', '/my-cards', '/due-cards', '/global-search', '/bookmarks',
+        '/support', '/accessibility', '/shortcuts'].map(target => postForm(
         target, pageHeading(target, options), options.actionFields(target),
       )).join(' '),
     ]));
@@ -194,6 +195,10 @@ function contentRows(path, options) {
   for (const row of options.page.rows || []) {
     const renderCell = cell => {
       if (Array.isArray(cell)) return cell.map(renderCell).join(' ');
+      if (cell && typeof cell === 'object' && cell.component === 'search') {
+        const id = 'legacy-search-query';
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}<label for="${id}">${escapeHtml(cell.label)}</label> <input id="${id}" name="q" type="text" size="30" value="${escapeHtml(cell.value || '')}"> <input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.label))}"></form>`;
+      }
       if (cell && typeof cell === 'object' && cell.action) {
         return postForm(cell.action, cell.label, options.actionFields(cell.action), cell.fields, cell.icon);
       }
@@ -203,7 +208,7 @@ function contentRows(path, options) {
       return escapeHtml(cell);
     };
     const cells = (row.cells || []).map(renderCell);
-    rows.push(tableRow(cells, { color: row.color, boardTheme: row.boardTheme }));
+    rows.push(tableRow(cells, { color: row.color, boardTheme: row.boardTheme, rowHeader: row.rowHeader }));
   }
   if (!(options.page.rows || []).length) {
     rows.push(tableRow([escapeHtml(options.page.empty || translated(options, 'no-results', 'No results')), '']));
