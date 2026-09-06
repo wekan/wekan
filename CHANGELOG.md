@@ -266,8 +266,8 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists, dates, colors, labels, members, assignees and scoped
-transfers. Attachments have stored GIF previews
+reactions, checklists, dates, colors, labels, members, assignees and
+identity fields and transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
@@ -472,6 +472,24 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/132570614">Add accessible HTML4 card identity controls</a>. Thanks to xet7.</summary>
+
+Requested By and Assigned By in cookieless HTML4 now preserve both parts of the
+Jade fields: a labelled bounded free-text name and textual `[x]` or `[ ]` person
+controls. Eligible people come from the real content board, follow natural tab
+order and remain distinct from Members and Assignees.
+
+Jade and HTML4 now use shared acknowledged operations for both text and selected
+people. They bind the route card, resolve linked content, enforce each content
+board's field toggle, require additions to be active members and permit stale
+identities to be removed. Unit tests cover the field allowlists, bounds, linked
+scope and client parity. Chromium saves both text values, selects a requester,
+refuses a non-member assigner without mutation and captures paired same-URL card
+screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d781c6e12">Add accessible HTML4 card people controls</a>. Thanks to xet7.</summary>
