@@ -358,6 +358,27 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dad6c5b3a">Add HTML4 card discovery pages</a>. Thanks to xet7.</summary>
+
+My Cards, Due Cards, Bookmarks and basic Global Search now have authenticated
+HTML4 controllers. Card queries are restricted to the signed-in user's boards;
+My Cards and Due Cards apply the existing creator, member, assignee, requester
+and assigner relationship filter. Stored bookmark URLs pass through the shared
+same-origin sanitizer before becoming signed navigation controls.
+
+Global Search has a labelled keyboard-submittable text field whose query remains
+in the signed POST body. It escapes regular-expression syntax, limits input and
+searches card titles and descriptions. The advanced HTML5 operator grammar remains
+listed in the implementation inventory for a later shared-query batch.
+
+A no-JavaScript Playwright test creates a real cookieless account and verifies
+card discovery, due-date filtering, bookmarks and search through visible POST
+controls. A second user's matching private-board card is absent from every result,
+and all temporary test data is removed afterward.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ec6d1aa99">Add HTML4 information page controllers</a>. Thanks to xet7.</summary>
 
 Accessibility, Support and Keyboard Shortcuts now have dedicated HTML4 readers
