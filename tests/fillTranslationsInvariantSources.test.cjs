@@ -29,8 +29,8 @@ assert.ok(!Object.hasOwn(list('sq'), 'email'),
 assert.ok(!Object.hasOwn(list('sq'), 'normal'));
 assert.ok(!Object.hasOwn(list('sq'), 'private'),
   'correct Albanian loanwords are locale-specific invariants');
-assert.ok(Object.hasOwn(list('ak'), 'email'),
-  'an Albanian loanword exception must not hide another locale\'s work');
+assert.deepStrictEqual(list('ak'), {},
+  'completed Akan contains no placeholders after its own email translation');
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
 console.log('fillTranslationsInvariantSources: 13 tests passed');

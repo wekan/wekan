@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tn',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1624,
-  'the first eleven 50-value Tswana batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 0,
+  'every actionable Tswana value stays translated');
 
 for (const [key, value] of Object.entries(tswana)) {
   if (value !== english[key]) {
@@ -103,4 +103,16 @@ assert.match(tswana['export-card-excel'], /Excel/);
 assert.match(tswana['export-card-field-board-info'], /Boto.*Lenaane.*Tsela/);
 assert.match(tswana['filter-due-tomorrow'], /kamoso/);
 
-console.log('tswanaTranslationProgress: first eleven batches passed');
+assert.deepEqual(tokens(tswana['import-board-instruction-issues']),
+  ['__endpoint__', '__sourceName__']);
+assert.match(tswana['advanced-filter-description'], /F1 == \/Tes\.\*\/i/);
+assert.match(tswana['import-board-instruction-jira'], /automationRules/);
+assert.match(tswana['import-trello-zip-file-hint'], /\.zip.*\.json/);
+
+assert.equal(tswana['select-none'], 'Se tlhophe sepe');
+assert.deepEqual(tokens(tswana['restore-list-swimlanes-done']),
+  ['__remaining__', '__restored__']);
+assert.match(tswana['sandstorm-remove-member-warning'], /tetla/);
+assert.equal(tswana['history-change-restored'], 'E buseditswe');
+
+console.log('tswanaTranslationProgress: complete locale passed');
