@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1674,
-  'the first ten 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1624,
+  'the first eleven 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -120,5 +120,11 @@ assert.deepEqual(tokens(tigre['email-verifyEmail-text']),
 assert.match(tigre['error-json-malformed'], /JSON/);
 assert.match(tigre['error-csv-schema'], /CSV.*TSV/);
 assert.match(tigre['error-import-empty-board'], /WeKan/);
+assert.match(tigre['export-card-pdf'], /PDF/);
+assert.match(tigre['export-card-excel'], /Excel/);
+assert.match(tigre['export-card-excel-no-disk-space'], /Excel/);
+assert.match(tigre['export-card-field-board-info'], /መገዲ/);
+assert.equal(tigre['filter-due-today'], 'ሎሚ ዝውዳእ');
+assert.equal(tigre['filter-due-tomorrow'], 'ጽባሕ ዝውዳእ');
 
-console.log('tigreTranslationProgress: first ten batches passed');
+console.log('tigreTranslationProgress: first eleven batches passed');
