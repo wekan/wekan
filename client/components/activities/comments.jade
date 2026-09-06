@@ -69,8 +69,8 @@ template(name="deleteCommentPopup")
 template(name="commentReactions")
   .reactions
     each reaction in reactions
-      span.reaction(class="{{#if isSelected reaction.userIds}}selected{{/if}}" data-codepoint="#{reaction.reactionCodepoint}" title="{{userNames reaction.userIds}}")
-        span.reaction-codepoint !{reaction.reactionCodepoint}
+      button.reaction(type="button" class="{{#if isSelected reaction.userIds}}selected{{/if}}" data-codepoint="#{reaction.reactionCodepoint}" title="{{userNames reaction.userIds}}" aria-pressed="{{isSelected reaction.userIds}}")
+        span.reaction-codepoint {{reactionCharacter reaction.reactionCodepoint}}
         span.reaction-count #{reaction.userIds.length}
     if (currentUser.isBoardMember)
       unless currentUser.isReadOnly
@@ -81,5 +81,5 @@ template(name="commentReactions")
 
 template(name="addReactionPopup")
   .reactions-popup
-    each codepoint in codepoints
-      span.add-comment-reaction(data-codepoint="#{codepoint}") !{codepoint}
+    each reaction in reactions
+      button.add-comment-reaction(type="button" data-codepoint="#{reaction.codepoint}" aria-label="#{reaction.ascii}")= reaction.character

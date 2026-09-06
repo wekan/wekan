@@ -26,6 +26,7 @@ import {
   removeAccessibleComment,
   updateAccessibleComment,
 } from '/server/lib/accessibleCommentOperations';
+import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
@@ -103,7 +104,9 @@ WebApp.handlers.use(async (req, res, next) => {
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
     'edit-card-description', 'move-card-to-list', 'archive-card', 'restore-card',
   ];
-  const commentOperations = ['add-comment', 'edit-comment', 'delete-comment'];
+  const commentOperations = [
+    'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
+  ];
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-delete-comment') {
     requestFields.confirmCommentDelete = String(requestFields.commentId || '');
@@ -134,6 +137,13 @@ WebApp.handlers.use(async (req, res, next) => {
           return removeAccessibleComment(session.userId, {
             boardId: requestFields.boardId, cardId: requestFields.cardId,
             commentId: requestFields.commentId,
+          });
+        }
+        if (requestFields.legacyOperation === 'toggle-comment-reaction') {
+          return toggleAccessibleCommentReaction(session.userId, {
+            boardId: requestFields.boardId, cardId: requestFields.cardId,
+            commentId: requestFields.commentId,
+            reactionCodepoint: requestFields.reactionCodepoint,
           });
         }
         if (requestFields.legacyOperation === 'create-card') {

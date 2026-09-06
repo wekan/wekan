@@ -166,20 +166,22 @@ test('negative: junk in the stored or incoming array does not throw or pass', ()
 
 // -------------------------------------------------------------- the wiring
 
-test('the deny rule is registered on the collection, with the reactions fetched', () => {
+test('the collection refuses every direct client mutation', () => {
   const src = read('server/permissions/cardCommentReactions.js');
   assert.ok(/CardCommentReactions\.deny\(\{/.test(src), 'a deny rule exists');
-  assert.ok(/denyForeignReactionChange\(userId, doc, modifier\)/.test(src));
-  assert.ok(/fetch: \['reactions'\]/.test(src),
-    'the deny rule must be given the stored reactions, or it has nothing to compare against');
+  for (const operation of ['insert', 'update', 'remove']) {
+    assert.match(src, new RegExp(`${operation}\\(userId\\) \\{[\\s\\S]*?reaction\\.foreign`));
+  }
 });
 
-test('the membership rule it sits on top of is unchanged', () => {
+test('the authenticated method replaces the old client-side membership allow rules', () => {
   const src = read('server/permissions/cardCommentReactions.js');
-  // Read-only / no-comment members still may not react at all (the earlier fix).
-  // Count the CALLS, not the import line that also carries the name.
-  const allows = src.match(/allowIsBoardMemberCommentOnly\(userId,/g) || [];
-  assert.strictEqual(allows.length, 3, 'insert, update and remove all still require comment rights');
+  const service = read('server/lib/accessibleCommentReactionOperations.js');
+  assert.doesNotMatch(src, /CardCommentReactions\.allow/);
+  assert.match(service, /accessibleCommentCard\(userId, boardId, cardId, true\)/,
+    'the common server operation enforces comment capability');
+  assert.match(service, /userIds: \[userId\]/,
+    'the common server operation derives the reaction actor from its invocation');
 });
 
 console.log(`\n${passed} tests passed`);

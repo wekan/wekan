@@ -469,6 +469,67 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       'In reply to: HTML4 edited comment - HTML4 reply comment',
     );
 
+    const reactionForm = () => page.locator(
+      `form:has(input[name="legacyOperation"][value="toggle-comment-reaction"])`
+      + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`
+      + ':has(select[name="reactionCodepoint"])',
+    );
+    // Unknown entities and active markup are not accepted merely because a
+    // client adds them to the select control.
+    await reactionForm().locator('select[name="reactionCodepoint"]').evaluate(select => {
+      const option = document.createElement('option');
+      option.value = '<img src=x onerror=alert(1)>';
+      option.text = 'forged';
+      select.add(option);
+      select.value = option.value;
+    });
+    await Promise.all([
+      page.waitForNavigation(), reactionForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('card_comment_reactions', { cardCommentId: html4CreatedCommentId }))
+      .toBeNull();
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    // A submitted userId is ignored. The server derives the actor from the
+    // one-use signed HTML4 session and records only that actor's reaction.
+    await reactionForm().evaluate((form, outsiderId) => {
+      const forged = document.createElement('input');
+      forged.type = 'hidden';
+      forged.name = 'userId';
+      forged.value = outsiderId;
+      form.append(forged);
+    }, outsider.id);
+    await reactionForm().locator('select[name="reactionCodepoint"]')
+      .selectOption('&#128522;');
+    await Promise.all([
+      page.waitForNavigation(), reactionForm().locator('input[type="submit"]').click(),
+    ]);
+    const reactionDoc = db.findOne('card_comment_reactions', {
+      cardCommentId: html4CreatedCommentId,
+    });
+    expect(reactionDoc.reactions).toEqual([
+      { reactionCodepoint: '&#128522;', userIds: [user._id] },
+    ]);
+    await expect(page.locator('tbody')).toContainText('[x] smile (1)');
+    await expect(page.locator('tbody')).toContainText(username);
+
+    // A valid reaction cannot be redirected to a comment whose denormalized
+    // card/board boundary differs from the visible card.
+    await reactionForm().locator('input[name="commentId"]').evaluate(
+      (input, commentId) => { input.value = commentId; }, childIds.foreignComment,
+    );
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        `form:has(input[name="legacyOperation"][value="toggle-comment-reaction"])`
+        + `:has(input[name="commentId"][value="${childIds.foreignComment}"]) input[type="submit"]`,
+      ).click(),
+    ]);
+    expect(db.findOne('card_comment_reactions', { cardCommentId: childIds.foreignComment }))
+      .toBeNull();
+    expect(db.findOne('card_comment_reactions', { cardCommentId: html4CreatedCommentId })
+      .reactions[0].userIds).toEqual([user._id]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
     const titleForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-title"])',
     );
@@ -571,8 +632,20 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(modern.locator('.card-details')).toContainText('Edited HTML4 card description');
     await expect(modern.locator('.card-details')).toContainText('HTML4 edited comment');
     await expect(modern.locator('.card-details')).toContainText('HTML4 reply comment');
+    await expect(modern.locator('.comment').filter({ hasText: 'HTML4 edited comment' })
+      .locator('.reaction-count')).toHaveText('1');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
+      await page.locator(
+        `form:has(input[name="legacyOperation"][value="toggle-comment-reaction"])`
+        + `:has(input[name="commentId"][value="${html4CreatedCommentId}"])`
+        + `:has(input[name="reactionCodepoint"][value="&#128522;"])`,
+      ).screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-comment-reaction.png`,
+      });
+      await modern.locator('.comment:has(.reaction-count)').screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-comment-reaction.png`,
+      });
       await page.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-details.png`, fullPage: true,
       });
@@ -632,6 +705,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (html4CreatedCommentId) {
+      db.deleteMany('card_comment_reactions', { cardCommentId: html4CreatedCommentId });
+    }
+    db.deleteMany('card_comment_reactions', { cardCommentId: childIds.foreignComment });
     if (html4ReplyCommentId) db.deleteOne('card_comments', { _id: html4ReplyCommentId });
     if (html4CreatedCommentId) db.deleteOne('card_comments', { _id: html4CreatedCommentId });
     if (user) db.deleteMany('eventlog', { userId: user._id });

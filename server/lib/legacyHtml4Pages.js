@@ -6,6 +6,7 @@ import Swimlanes from '/models/swimlanes';
 import Settings from '/models/settings';
 import AccessibilitySettings from '/models/accessibilitySettings';
 import CardComments, { canEditComment } from '/models/cardComments';
+import CardCommentReactions from '/models/cardCommentReactions';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
@@ -24,6 +25,7 @@ const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMap
 const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('/models/lib/importSources');
+const { COMMENT_REACTIONS, commentReaction } = require('/models/lib/commentReactionCatalog');
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('/models/lib/exportFields');
 const {
   allBoardsPath, defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey,
@@ -269,10 +271,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     fields: { title: 1, sort: 1 }, sort: { sort: 1 }, limit: 200,
   }).fetchAsync();
   const checklistIds = checklists.map(checklist => checklist._id);
-  const [comments, checklistItems, attachments] = await Promise.all([
+  const [comments, commentReactionDocs, checklistItems, attachments] = await Promise.all([
     CardComments.find({ cardId: card._id, boardId: card.boardId }, {
       fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
       sort: { createdAt: 1 }, limit: 500,
+    }).fetchAsync(),
+    CardCommentReactions.find({ cardId: card._id, boardId: card.boardId }, {
+      fields: { cardCommentId: 1, reactions: 1 }, limit: 500,
     }).fetchAsync(),
     ChecklistItems.find({ cardId: card._id, boardId: card.boardId,
       checklistId: { $in: checklistIds } }, {
@@ -286,6 +291,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     card.userId, ...(card.members || []), ...(card.assignees || []),
     ...(card.requesters || []), ...(card.assigners || []),
     ...comments.map(comment => comment.userId),
+    ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
+      .flatMap(reaction => reaction.userIds || [])),
   ].filter(Boolean))];
   const [list, swimlane, people, activeLists] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
@@ -384,6 +391,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       `${cleanFileName(attachment.name)} (${attachment.type || 'application/octet-stream'}, ${attachment.size || 0})`],
   });
   const commentById = new Map(comments.map(comment => [comment._id, comment]));
+  const reactionsByComment = new Map(commentReactionDocs.map(doc => [doc.cardCommentId,
+    Array.isArray(doc.reactions) ? doc.reactions : []]));
   for (const comment of comments) {
     const parent = comment.parentId ? commentById.get(comment.parentId) : null;
     const replyDescription = parent
@@ -392,6 +401,35 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       cells: [`${tr(translate, 'comment', 'Comment')} - ${personById.get(comment.userId) || comment.userId || ''}`,
         `${replyDescription}${comment.text || ''}${isoDate(comment.createdAt) ? ` (${isoDate(comment.createdAt)})` : ''}`],
     });
+    const reactionFields = {
+      boardId: card.boardId, cardId: card._id, commentId: comment._id,
+      legacyOperation: 'toggle-comment-reaction',
+    };
+    for (const reaction of reactionsByComment.get(comment._id) || []) {
+      const catalogued = commentReaction(reaction.reactionCodepoint);
+      if (!catalogued || !Array.isArray(reaction.userIds) || reaction.userIds.length === 0) continue;
+      const selected = reaction.userIds.includes(userId);
+      rows.push({ rowHeader: false, cells: [
+        `${tr(translate, 'addReactionPopup-title', 'Add reaction')}: ${catalogued.ascii}`,
+        canComment ? uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+            + `${catalogued.ascii} (${reaction.userIds.length}) - `
+            + names(reaction.userIds),
+          fields: { ...reactionFields, reactionCodepoint: catalogued.codepoint },
+        }) : `${catalogued.ascii} (${reaction.userIds.length}) - ${names(reaction.userIds)}`,
+      ] });
+    }
+    if (canComment) rows.push({ rowHeader: false, cells: ['', uiSelectForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'addReactionPopup-title', 'Add reaction'),
+      name: 'reactionCodepoint',
+      options: COMMENT_REACTIONS.map(reaction => ({
+        value: reaction.codepoint, label: reaction.ascii,
+      })),
+      fields: reactionFields,
+      submitLabel: tr(translate, 'addReactionPopup-title', 'Add reaction'),
+    })] });
     const mayMutate = canEditComment({
       isAuthor: userId === comment.userId,
       isBoardAdmin: board.hasAdmin(userId),

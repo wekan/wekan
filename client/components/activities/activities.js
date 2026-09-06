@@ -347,25 +347,15 @@ Template.addReactionPopup.events({
 })
 
 Template.addReactionPopup.helpers({
-  codepoints() {
-    // Starting set of unicode codepoints as comment reactions
-    return [
-      '&#128077;',
-      '&#128078;',
-      '&#128064;',
-      '&#9989;',
-      '&#10060;',
-      '&#128591;',
-      '&#128079;',
-      '&#127881;',
-      '&#128640;',
-      '&#128522;',
-      '&#129300;',
-      '&#128532;'];
+  reactions() {
+    return require('/models/lib/commentReactionCatalog').COMMENT_REACTIONS;
   }
 })
 
 Template.commentReactions.helpers({
+  reactionCharacter(codepoint) {
+    return require('/models/lib/commentReactionCatalog').commentReaction(codepoint)?.character || '';
+  },
   isSelected(userIds) {
     return Meteor.userId() && userIds.includes(Meteor.userId());
   },

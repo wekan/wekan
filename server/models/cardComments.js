@@ -19,6 +19,7 @@ import {
   removeAccessibleComment,
   updateAccessibleComment,
 } from '/server/lib/accessibleCommentOperations';
+import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 
 Meteor.methods({
   async createAccessibleComment(input) {
@@ -32,6 +33,10 @@ Meteor.methods({
   async removeAccessibleComment(input) {
     check(input, Object);
     return removeAccessibleComment(this.userId, input);
+  },
+  async toggleAccessibleCommentReaction(input) {
+    check(input, Object);
+    return toggleAccessibleCommentReaction(this.userId, input);
   },
 });
 

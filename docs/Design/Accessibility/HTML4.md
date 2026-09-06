@@ -202,6 +202,16 @@ button and submits through a separately signed, uniquely labelled textarea. The
 rendered reply states its parent text in prose, so indentation or color is never
 the only indication of the relationship.
 
+Comment reactions also use one common server operation. The accepted numeric
+character references live in a fixed shared catalog rather than client popup
+code. The server derives the reacting user from the authenticated invocation,
+checks comment, card, board, role and assigned-only scope, and canonicalizes the
+bounded aggregate; all direct client writes to that aggregate are denied and
+reported in Admin Panel / Problems / Security. HTML4 renders each reaction as a
+signed toggle with `[x]` or `[ ]`, count and member names, plus a labelled select
+for adding one. Its catalog has printable ASCII names such as `+1`, `done` and
+`smile`, so an absent emoji font does not erase meaning.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
@@ -229,3 +239,7 @@ is absent; and escaped content cannot create markup. Browser tests also disable
 cookies and follow the route inventory. Security tests cover login throttling,
 CSRF, fixation, replay, body limits, open redirects and cross-board
 authorization.
+The card-detail browser regression additionally forges an unknown active-markup
+reaction, a submitted foreign user ID and a cross-board comment ID; each is
+refused while a valid toggle is visible in same-URL HTML4 and HTML5 reaction
+screenshots.

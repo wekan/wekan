@@ -68,6 +68,7 @@ retain one cell per declared column.
 | Disclosure | state, label | `v Label` / `> Label` POST button | caret icon and reactive content |
 | Kanban viewport | board, selected swimlane/list, cards | one selected swimlane and list, explicit navigation buttons | full reactive canvas |
 | Card | title, color, destination, operations | colored row and textual buttons | minicard/card-details Jade templates |
+| Comment reaction | catalog item, selected state, count, member names | `[x] smile (2)` signed toggle and labelled catalog select | emoji toggle and reaction popup |
 | Pager | previous/next availability | `< Previous` and `> Next` signed buttons | shared pager controls |
 | Choice | name, value, label, selected | native radio/checkbox plus label | themed HTML5 choice control |
 | Text field | name, label, value, limits | associated `label` and native input | existing form partial |
@@ -122,7 +123,7 @@ the generic baseline. It is updated with every implementation batch.
 | --- | --- |
 | `/sign-in`, `/sign-up` | Complete cookieless account forms |
 | `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated readers with Starred, Remaining, Templates, Home, Archive and nested Workspace filtering; mutations remain |
-| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls. Comment-capable members can add comments and replies; parent text is explicit, while authors and permitted admins can edit or confirm-delete them. Remaining card fields, comment reactions, checklist mutations and attachment content remain |
+| `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata. Writable boards share authorized services with Meteor and provide signed create, ordering, list movement, title, description, archive and restore controls. Comment-capable members can add comments and replies; parent text is explicit, while authors and permitted admins can edit or confirm-delete them. Reactions use the shared safe catalog and authorized toggle service, with ASCII state, count and member names. Remaining card fields, checklist mutations and attachment content remain |
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |
