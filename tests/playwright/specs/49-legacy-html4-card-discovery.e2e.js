@@ -26,6 +26,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let importedFileBoardId;
   let importedWekanZipBoardId;
   let importedWekanZipAttachmentId;
+  let importedWekanZipImageAttachmentId;
   let importedExcelBoardId;
   let importedTrelloZipBoardId;
   let html4CreatedCommentId;
@@ -285,6 +286,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await open('/import/wekan');
     const zipBoardTitle = `HTML4 WeKan ZIP ${suffix}`;
     const zipAttachmentId = `zipattachment${suffix}`;
+    const zipImageAttachmentId = `zipimage${suffix}`;
     const zipCardId = `zip-card-${suffix}`;
     const zipDocument = {
       ...fileExport,
@@ -296,10 +298,17 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       attachments: [{
         _id: zipAttachmentId, cardId: zipCardId, name: 'zip-note.txt',
         type: 'text/plain', size: 21, uploadedAt: exportedAt,
+      }, {
+        _id: zipImageAttachmentId, cardId: zipCardId, name: 'zip-pixel.png',
+        type: 'image/png', size: 68, uploadedAt: exportedAt,
       }],
       activities: [{
         _id: `zip-activity-${suffix}`, activityType: 'addAttachment',
         attachmentId: zipAttachmentId, cardId: zipCardId,
+        userId: 'zip-source-user', createdAt: exportedAt,
+      }, {
+        _id: `zip-image-activity-${suffix}`, activityType: 'addAttachment',
+        attachmentId: zipImageAttachmentId, cardId: zipCardId,
         userId: 'zip-source-user', createdAt: exportedAt,
       }],
     };
@@ -320,6 +329,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     const wekanZip = Buffer.from(zipSync({
       'wekan.json': strToU8(JSON.stringify(zipDocument)),
       [`attachments/${zipAttachmentId}-zip-note.txt`]: strToU8('HTML4 ZIP attachment\n'),
+      [`attachments/${zipImageAttachmentId}-zip-pixel.png`]: Buffer.from(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+        'base64',
+      ),
     }));
     await page.locator('input[type="file"][accept*=".zip"]').setInputFiles({
       name: 'wekan-export.zip', mimeType: 'application/zip', buffer: wekanZip,
@@ -338,6 +351,11 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     expect(importedZipAttachment && importedZipAttachment._id).toBeTruthy();
     expect(importedZipAttachment.size).toBe(21);
     importedWekanZipAttachmentId = importedZipAttachment._id;
+    const importedZipImageAttachment = db.findOne('attachments', {
+      'meta.boardId': importedWekanZipBoardId, name: 'zip-pixel.png',
+    });
+    expect(importedZipImageAttachment && importedZipImageAttachment._id).toBeTruthy();
+    importedWekanZipImageAttachmentId = importedZipImageAttachment._id;
     await expect(page.locator('tbody')).toContainText(zipBoardTitle);
 
     await open('/import');
@@ -892,6 +910,68 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     ]);
     expect(db.findOne('cards', { _id: due._id }).archived).toBe(false);
 
+    // The same cookieless card page exposes purpose-bound POST controls for
+    // attachment previews and originals. No session secret is copied into an
+    // image or download URL, and one binary response does not rotate the other
+    // controls on the page.
+    await open('/allboards');
+    await open('/allboards/remaining');
+    const attachmentBoard = db.findOne('boards', { _id: importedWekanZipBoardId });
+    await open(`/b/${attachmentBoard._id}/${attachmentBoard.slug}`);
+    const importedZipImage = db.findOne('attachments', { _id: importedWekanZipImageAttachmentId });
+    await open(`/b/${attachmentBoard._id}/${attachmentBoard.slug}/${importedZipImage.meta.cardId}`);
+    await expect(page.locator('tbody')).toContainText('zip-pixel.png');
+    await expect(page.locator('tbody')).toContainText('zip-note.txt');
+    const imagePreviewForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="preview-attachment-gif"])'
+      + `:has(input[name="attachmentId"][value="${importedWekanZipImageAttachmentId}"])`,
+    );
+    const [previewPage] = await Promise.all([
+      context.waitForEvent('page'), imagePreviewForm.locator('input[type="submit"]').click(),
+    ]);
+    await previewPage.waitForLoadState();
+    expect(await previewPage.evaluate(() => document.contentType)).toBe('image/gif');
+    await expect(previewPage.locator('img')).toHaveCount(1);
+    await previewPage.close();
+    expect(db.findOne('attachments', { _id: importedWekanZipImageAttachmentId })
+      .versions.legacyHtml4Gif).toBeTruthy();
+
+    const forgedOriginalForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="download-attachment-original"])'
+      + `:has(input[name="attachmentId"][value="${importedWekanZipImageAttachmentId}"])`,
+    );
+    await forgedOriginalForm.locator('input[name="boardId"]').evaluate(
+      (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+    );
+    const [deniedPage] = await Promise.all([
+      context.waitForEvent('page'), forgedOriginalForm.locator('input[type="submit"]').click(),
+    ]);
+    await deniedPage.waitForLoadState();
+    await expect(deniedPage.locator('body')).toContainText('Attachment response denied');
+    await deniedPage.close();
+    await expect.poll(() => db.countDocuments('eventlog', {
+      stream: 'security', userId: user._id,
+      source: 'canary:authz.legacy-html4-attachment',
+    })).toBeGreaterThan(0);
+
+    const noteDownloadForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="download-attachment-original"])'
+      + `:has(input[name="attachmentId"][value="${importedWekanZipAttachmentId}"])`,
+    );
+    const [attachmentDownload] = await Promise.all([
+      page.waitForEvent('download'), noteDownloadForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(attachmentDownload.suggestedFilename()).toBe('zip-note.txt');
+    expect(await fs.promises.readFile(await attachmentDownload.path(), 'utf8'))
+      .toBe('HTML4 ZIP attachment\n');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-attachments.png`, fullPage: true,
+      });
+    }
+    await open('/my-cards');
+    await open(`/b/${board.boardId}/${board.slug}/${due._id}`);
+
     // The forged cross-board import is a high-severity attributed refusal, so
     // the common Security reporter disables that account. Verify both effects,
     // then emulate the administrator unblocking this synthetic test account so
@@ -909,6 +989,14 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     const modernContext = await browser.newContext();
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
+    await modern.goto(`${baseURL}/b/${attachmentBoard._id}/${attachmentBoard.slug}/${importedZipImage.meta.cardId}`);
+    await expect(modern.locator('.attachment-gallery')).toContainText('zip-pixel.png');
+    await expect(modern.locator('.attachment-gallery')).toContainText('zip-note.txt');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.locator('.attachment-gallery').screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-attachments.png`,
+      });
+    }
     await modern.goto(`${baseURL}/allboards/templates`);
     await expect(modern.getByRole('heading', { name: 'Templates' })).toBeVisible();
     await expect(modern.locator('body')).toContainText('HTML4 Template Container');

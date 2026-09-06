@@ -11,7 +11,7 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon, uiSearchForm,
+  UI_ICONS, uiAttachment, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon, uiSearchForm,
   uiSelectForm, uiTextareaForm, uiTextForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
@@ -504,6 +504,50 @@ test('HTML4 checklist import is bounded, scoped and uses the shared importer', (
   assert.match(jade, /template\(name="importChecklistPopup"\)/);
   assert.match(checklistJs,
     /'click \.js-import-checklist': Popup\.open\('importChecklist', \{ titleKey: 'import' \}\)/);
+});
+
+test('HTML4 attachments use separate signed POST preview and download controls', () => {
+  const component = uiAttachment({
+    name: 'report.png', type: 'image/png', size: 123,
+    actions: [{
+      action: '/b/board/slug/card', label: 'Preview',
+      authPurpose: 'download:gif-attachment',
+      fields: { legacyOperation: 'preview-attachment-gif', boardId: 'board',
+        cardId: 'card', attachmentId: 'attachment' },
+    }, {
+      action: '/b/board/slug/card', label: 'Download', icon: 'move-down',
+      authPurpose: 'download:original-attachment',
+      fields: { legacyOperation: 'download-attachment-original', boardId: 'board',
+        cardId: 'card', attachmentId: 'attachment' },
+    }],
+  });
+  const html = renderLegacyHtml4Page('/b/board/slug/card', {
+    authenticated: true, username: 'alice',
+    actionFields: (action, purpose) => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '2', authHash: 'b'.repeat(64), authPurpose: purpose }),
+    page: { heading: 'Card', columns: ['Card', 'Action'], rows: [{ cells: ['Attachment', component] }] },
+  });
+  assert.match(html, /<strong>report\.png<\/strong> \(image\/png, 123 bytes\)/);
+  assert.match(html, /name="authPurpose" value="download:gif-attachment"/);
+  assert.match(html, /name="legacyOperation" value="preview-attachment-gif"/);
+  assert.match(html, /name="authPurpose" value="download:original-attachment"/);
+  assert.match(html, /name="legacyOperation" value="download-attachment-original"/);
+  assert.doesNotMatch(html, /legacySession=|authHash=/);
+
+  const root = path.join(__dirname, '..');
+  const response = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4AttachmentResponse.js'), 'utf8');
+  assert.match(response, /attachment\.meta\?\.boardId !== String\(boardId/);
+  assert.match(response, /attachment\.meta\?\.cardId !== String\(cardId/);
+  assert.match(response, /canReadBoard\(userId, board\)/);
+  assert.match(response, /attachmentAsStoredGif/);
+  assert.match(response, /correctedNameForStoredFile/);
+  assert.match(response, /isStorageReadEnabled/);
+  assert.match(response, /sanitizeDownloadFileName/);
+  const sessions = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Session.js'), 'utf8');
+  assert.match(sessions, /purpose !== expectedPurpose/);
+  assert.match(sessions, /consumedDownloads: \{ \$ne: supplied \}/);
 });
 
 test('authenticated navigation gives every HTML4 destination its translated name', () => {

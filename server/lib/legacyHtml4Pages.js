@@ -11,6 +11,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
+import { attachmentKind } from '/models/lib/attachmentKind';
 import getSlug from 'limax';
 import {
   allowIsBoardMemberCommentOnly,
@@ -18,7 +19,7 @@ import {
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
-  UI_ICONS, uiAction, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
+  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiSelectForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
@@ -659,10 +660,36 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       }
     }
   }
-  for (const attachment of attachments) rows.push({
-    cells: [tr(translate, 'attachment', 'Attachment'),
-      `${cleanFileName(attachment.name)} (${attachment.type || 'application/octet-stream'}, ${attachment.size || 0})`],
-  });
+  const attachmentAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+  for (const attachment of attachments) {
+    const kind = attachmentKind(attachment);
+    const attachmentFields = {
+      boardId: contentBoardId, cardId: contentCardId, attachmentId: attachment._id,
+    };
+    const actions = [];
+    if (kind.isImage) actions.push({
+      action: attachmentAction,
+      label: tr(translate, 'preview', 'Preview'),
+      icon: 'caret-right',
+      target: '_blank',
+      authPurpose: `download:gif-${attachment._id}`,
+      fields: { ...attachmentFields, legacyOperation: 'preview-attachment-gif' },
+    });
+    actions.push({
+      action: attachmentAction,
+      label: tr(translate, 'download', 'Download'),
+      icon: 'move-down',
+      target: '_blank',
+      authPurpose: `download:original-${attachment._id}`,
+      fields: { ...attachmentFields, legacyOperation: 'download-attachment-original' },
+    });
+    rows.push({ cells: [tr(translate, 'attachment', 'Attachment'), uiAttachment({
+      name: cleanFileName(attachment.name),
+      type: attachment.type || 'application/octet-stream',
+      size: Number(attachment.size) || 0,
+      actions,
+    })] });
+  }
   const commentById = new Map(comments.map(comment => [comment._id, comment]));
   const reactionsByComment = new Map(commentReactionDocs.map(doc => [doc.cardCommentId,
     Array.isArray(doc.reactions) ? doc.reactions : []]));

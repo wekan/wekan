@@ -81,7 +81,7 @@ export async function consumeLegacyHtml4Session(req, action) {
 // A download cannot return the next page of rotated form tokens. Give it a
 // purpose-bound one-use signature of its own: replay is still rejected, while
 // the other controls on the page keep their current session counter.
-export async function consumeLegacyHtml4DownloadSession(req, action) {
+export async function consumeLegacyHtml4DownloadSession(req, action, expectedPurpose) {
   const body = req.body || {};
   const id = typeof body.legacySession === 'string' ? body.legacySession : '';
   const counter = Number(body.authCounter);
@@ -90,6 +90,7 @@ export async function consumeLegacyHtml4DownloadSession(req, action) {
   if (!/^[0-9a-f]{48}$/.test(id) || !Number.isSafeInteger(counter)
     || !/^[0-9a-f]{64}$/.test(supplied)
     || !/^download:[A-Za-z0-9_-]{1,64}$/.test(purpose)
+    || purpose !== expectedPurpose
     || body.authAction !== action) return null;
   const session = await LegacyHtml4Sessions.findOneAsync({ _id: id });
   const requestContext = context(req);

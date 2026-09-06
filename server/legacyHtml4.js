@@ -33,6 +33,7 @@ import {
 } from '/server/lib/accessibleCommentOperations';
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
+import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
 import {
   copyAccessibleChecklist,
   convertAccessibleChecklistItemToCard,
@@ -76,6 +77,19 @@ function requestLanguage(req) {
   return 'en';
 }
 
+function binaryPurpose(body = {}) {
+  if (body.legacyOperation === 'export-checklist') {
+    return `download:${String(body.checklistId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
+  if (body.legacyOperation === 'preview-attachment-gif') {
+    return `download:gif-${String(body.attachmentId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
+  if (body.legacyOperation === 'download-attachment-original') {
+    return `download:original-${String(body.attachmentId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
+  return '';
+}
+
 WebApp.handlers.use(async (req, res, next) => {
   const path = new URL(req.url, 'http://wekan.invalid').pathname;
   let session = null;
@@ -93,8 +107,9 @@ WebApp.handlers.use(async (req, res, next) => {
     }
   }
   if (req.method === 'POST' && req.body?.legacySession) {
-    session = req.body?.legacyOperation === 'export-checklist'
-      ? await consumeLegacyHtml4DownloadSession(req, path)
+    session = ['export-checklist', 'preview-attachment-gif',
+      'download-attachment-original'].includes(req.body?.legacyOperation)
+      ? await consumeLegacyHtml4DownloadSession(req, path, binaryPurpose(req.body))
       : await consumeLegacyHtml4Session(req, path);
     if (!session) {
       await removeLegacyHtml4Upload(multipartUpload);
@@ -138,6 +153,33 @@ WebApp.handlers.use(async (req, res, next) => {
     'delete-checklist-item', 'move-checklist-item-up', 'move-checklist-item-down',
     'convert-checklist-item-to-card',
   ];
+  if (session && /^\/b\/[^/]+/.test(path)
+    && ['preview-attachment-gif', 'download-attachment-original']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      await serveLegacyHtml4Attachment({
+        res, userId: session.userId,
+        boardId: requestFields.boardId,
+        cardId: requestFields.cardId,
+        attachmentId: requestFields.attachmentId,
+        representation: requestFields.legacyOperation === 'preview-attachment-gif'
+          ? 'gif' : 'original',
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-attachment', {
+          req, userId: session.userId,
+          detail: `refused HTML4 attachment response: ${String(error?.message || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      if (!res.headersSent) {
+        res.statusCode = error?.statusCode || (error?.message === 'forbidden' ? 403 : 415);
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('Attachment response denied.');
+      } else res.end();
+    }
+    return;
+  }
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'export-checklist') {
     try {

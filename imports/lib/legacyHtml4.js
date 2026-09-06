@@ -130,10 +130,11 @@ function textColor(background) {
   return luminance > 0.179 ? '#000000' : '#ffffff';
 }
 
-function postForm(action, label, fields, extraFields = {}, icon = 'caret-right') {
+function postForm(action, label, fields, extraFields = {}, icon = 'caret-right', target = '') {
   const hidden = Object.entries(extraFields).map(([name, value]) =>
     `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
-  return `<form class="legacy-action" method="post" action="${escapeHtml(action)}">${sessionHiddenFields(fields)}${hidden}<input type="submit" value="${escapeHtml(uiControlLabel(icon, label))}"></form>`;
+  const targetAttribute = target === '_blank' ? ' target="_blank"' : '';
+  return `<form class="legacy-action" method="post" action="${escapeHtml(action)}"${targetAttribute}>${sessionHiddenFields(fields)}${hidden}<input type="submit" value="${escapeHtml(uiControlLabel(icon, label))}"></form>`;
 }
 
 function tableRow(cells, options = {}) {
@@ -274,8 +275,22 @@ function contentRows(path, options) {
         }).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action, `download:${suffix}`))}${extra}<fieldset><legend>${escapeHtml(cell.label)}</legend>${sections}<p><label for="${escapeHtml(formatId)}">${escapeHtml(cell.label)}</label><br><select id="${escapeHtml(formatId)}" name="exportFormat">${formats}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></fieldset></form>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'attachment') {
+        const details = [cell.type, Number.isFinite(cell.size) ? `${cell.size} bytes` : '']
+          .filter(Boolean).join(', ');
+        const actions = (cell.actions || []).map(action => postForm(
+          action.action,
+          action.label,
+          options.actionFields(action.action, action.authPurpose),
+          action.fields,
+          action.icon,
+          action.target,
+        )).join(' ');
+        return `<strong>${escapeHtml(cell.name || '')}</strong>${details ? ` (${escapeHtml(details)})` : ''}${actions ? `<p>${actions}</p>` : ''}`;
+      }
       if (cell && typeof cell === 'object' && cell.action) {
-        return postForm(cell.action, cell.label, options.actionFields(cell.action), cell.fields, cell.icon);
+        return postForm(cell.action, cell.label,
+          options.actionFields(cell.action, cell.authPurpose), cell.fields, cell.icon, cell.target);
       }
       if (cell && typeof cell === 'object' && cell.href) {
         return `<a href="${escapeHtml(cell.href)}">${escapeHtml(uiControlLabel(cell.icon, cell.label))}</a>`;

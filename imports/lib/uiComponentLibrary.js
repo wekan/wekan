@@ -31,8 +31,13 @@ function uiControlLabel(iconName, label) {
   return icon && text ? `${icon} ${text}` : icon || text;
 }
 
-function uiAction({ action, label, icon = 'caret-right', fields = {} }) {
-  return { component: 'action', action, label, icon, fields };
+function uiAction({ action, label, icon = 'caret-right', fields = {}, authPurpose = '',
+  target = '' }) {
+  return { component: 'action', action, label, icon, fields, authPurpose, target };
+}
+
+function uiAttachment({ name, type, size, actions = [] }) {
+  return { component: 'attachment', name, type, size, actions };
 }
 
 function uiLink({ href, label, icon = 'caret-right' }) {
@@ -76,6 +81,6 @@ function uiCardDestinationForm({ action, titleLabel, titleName = 'cardTitle', ti
 }
 
 module.exports = {
-  UI_ICONS, uiAction, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon,
+  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiControlLabel, uiExportForm, uiFileForm, uiIcon,
   uiLink, uiSearchForm, uiSelectForm, uiTextForm, uiTextareaForm,
 };

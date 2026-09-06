@@ -111,7 +111,7 @@ is not changed. Conversion detects and decodes the bytes on the server, limits
 input bytes and decoded pixels, applies orientation, scales oversized images
 down, and emits a 256-colour GIF. Its cache key includes the attachment identity,
 content checksum or version metadata, size and update time, so changed content
-cannot reuse an earlier conversion. On the first Legacy HTML4 page load that reads the
+cannot reuse an earlier conversion. On the first signed preview request that reads the
 image, the generated data is saved as the attachment's `legacyHtml4Gif` version in
 the backend selected by Admin Panel / Attachments / Default Storage. Later Legacy HTML4
 loads read that stored version rather than converting again. The normal storage
@@ -119,9 +119,17 @@ write permissions and free-space protections apply.
 
 Public-board pages may use the authorized GIF response as an `img` source.
 Cookieless private pages must not put a session secret in an image URL: an
-explicit POST `Show image` control returns the GIF from the authenticated form
-request. Every attachment also retains a separately labelled original-file
-download control. All conversion and authorization remains server-side.
+explicit POST `Preview` control returns the GIF from the authenticated form
+request in a separate browsing context, leaving the card and its natural Tab
+position intact. Every attachment also retains a separately labelled
+`Download` control for the original file. Both responses use distinct,
+purpose-bound, single-use signatures, so previewing one attachment cannot be
+replayed as an original download or invalidate an unrelated form. The server
+binds the submitted attachment to its exact content card and board, repeats
+board visibility and storage read/write limits, corrects the safe detected
+download filename on read, and emits no session value in a URL. Refusals are
+recorded in Admin Panel / Problems / Security with available actor and request
+context. All conversion and authorization remains server-side.
 
 The login logo follows the same rule. The configured custom login-logo URL is
 downloaded only through the SSRF-safe pinned resolver; without one, WeKan's
@@ -139,7 +147,10 @@ redirect, log message or response header. Reloading a GET therefore returns the
 same public URL logged out.
 
 Each rendered authenticated form carries a form-specific, single-use token bound
-to the session, HTTP method, normalized target path and operation. Tokens use a
+to the session, HTTP method, normalized target path and operation. Binary response
+forms additionally bind the representation and exact object identifier in a
+purpose string and keep an atomic consumed-signature set because a file response
+cannot carry the next rotated page token. Tokens use a
 constant-time comparison, expire with the session and are consumed atomically.
 Navigation POSTs also rotate the token. Sign-in uses WeKan's common password,
 LDAP, two-factor, lockout and timing-normalization path; compatibility mode must
