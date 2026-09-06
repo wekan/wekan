@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
-  'the first twenty-six Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 824,
+  'the first twenty-seven Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -215,5 +215,12 @@ assert.match(tajik['globalSearchViewChange-choice-all-description'],
 assert.deepEqual(tokens(tajik['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(tajik['swimlane-title-not-found']), ['%s']);
 assert.deepEqual(tokens(tajik['list-title-not-found']), ['%s']);
+assert.deepEqual(tokens(tajik['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.deepEqual(tokens(tajik['comment-not-found']), ['%s']);
+assert.equal(tajik['operator-board'], 'тахта');
+assert.doesNotMatch(tajik['operator-customfield'], /\s/);
+assert.doesNotMatch(tajik['operator-checklist-text'], /\s/);
+assert.equal(tajik['predicate-overdue'], 'муҳлатгузашта');
 
-console.log('tajikTranslationProgress: first twenty-six batches passed');
+console.log('tajikTranslationProgress: first twenty-seven batches passed');
