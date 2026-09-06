@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1524,
-  'the first thirteen Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1474,
+  'the first fourteen Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -127,5 +127,10 @@ assert.equal(tajik['import-members-map-note'],
 assert.equal(tajik['invalid-year'],
   'Соли нодуруст. Лутфан ҳамаи чор рақамро ворид кунед, масалан 2026.');
 assert.equal(tajik['label-create'], 'Сохтани барчасп');
+assert.deepEqual(tokens(tajik['label-default']), ['%s']);
+assert.deepEqual(tokens(tajik['leave-board-pop']), ['__boardTitle__']);
+assert.match(tajik['listImportCardsTsvPopup-title'], /Excel CSV\/TSV/);
+assert.equal(tajik.menu, 'Меню');
+assert.equal(tajik.normal, 'Одатӣ');
 
-console.log('tajikTranslationProgress: first thirteen batches passed');
+console.log('tajikTranslationProgress: first fourteen batches passed');
