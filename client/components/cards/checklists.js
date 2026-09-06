@@ -1,7 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import Cards from '/models/cards';
-import Boards from '/models/boards';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
 import { BoardSwimlaneListCardDialog } from '/client/lib/dialogWithBoardSwimlaneListCard';
@@ -12,6 +10,17 @@ import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibil
 
 // SubsManager removed for Meteor 3 migration
 const { calculateIndexData } = Utils;
+
+function accessibleChecklistInput(checklist, item, extra = {}) {
+  const routeCard = Utils.getCurrentCard();
+  return {
+    boardId: routeCard?.boardId || checklist?.boardId || '',
+    cardId: routeCard?._id || checklist?.cardId || '',
+    ...(checklist?._id ? { checklistId: checklist._id } : {}),
+    ...(item?._id ? { itemId: item._id } : {}),
+    ...extra,
+  };
+}
 
 function initSorting(items) {
   items.sortable({
@@ -139,31 +148,22 @@ Template.checklists.helpers({
 
 Template.checklists.events({
   'click .js-open-checklist-details-menu': Popup.open('checklistActions'),
-  'submit .js-add-checklist'(event, tpl) {
+  async 'submit .js-add-checklist'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
-    let cardId = Template.currentData().cardId;
-    const card = ReactiveCache.getCard(cardId);
-    if (card.isLinkedCard()) {
-      cardId = card.linkedId;
-    }
-
-    let sortIndex;
     let checklistItemIndex;
     if (Template.currentData().position === 'top') {
-      sortIndex = Utils.calculateIndexData(null, card.firstChecklist()).base;
       checklistItemIndex = 0;
     } else {
-      sortIndex = Utils.calculateIndexData(card.lastChecklist(), null).base;
       checklistItemIndex = -1;
     }
 
     if (title) {
-      Checklists.insert({
-        cardId,
-        title,
-        sort: sortIndex,
+      const routeCard = Utils.getCurrentCard() || ReactiveCache.getCard(Template.currentData().cardId);
+      await Meteor.callAsync('createAccessibleChecklist', {
+        boardId: routeCard?.boardId || '', cardId: routeCard?._id || '', title,
+        position: Template.currentData().position,
       });
       tpl.$('.js-close-inlined-form').click();
       setTimeout(() => {
@@ -173,17 +173,18 @@ Template.checklists.events({
       }, 100);
     }
   },
-  'submit .js-edit-checklist-title'(event, tpl) {
+  async 'submit .js-edit-checklist-title'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
     const formData = Blaze.getData(event.currentTarget) || Blaze.getData(event.target);
     const checklist = formData?.checklist;
     if (checklist) {
-      checklist.setTitle(title);
+      await Meteor.callAsync('updateAccessibleChecklistTitle',
+        accessibleChecklistInput(checklist, null, { title }));
     }
   },
-  'submit .js-add-checklist-item'(event, tpl) {
+  async 'submit .js-add-checklist-item'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-add-checklist-item');
     if (!textarea) {
@@ -213,53 +214,45 @@ Template.checklists.events({
       let checklistItems = [title];
       if (newlineBecomesNewChecklistItem?.checked) {
         checklistItems = title.split('\n').map(_value => _value.trim());
-        if (resolvedData.position === 'top') {
-          if (newlineBecomesNewChecklistItemOriginOrder?.checked === false) {
-            checklistItems = checklistItems.reverse();
-          }
+      }
+      if (resolvedData.position === 'top') {
+        // Repeated top inserts reverse their call order. Preserve the existing
+        // multiline behavior by reversing the input in the same case as before.
+        if (newlineBecomesNewChecklistItemOriginOrder?.checked === false) {
+          checklistItems = checklistItems.reverse();
         }
       }
-      let addIndex;
-      let sortIndex;
-      if (resolvedData.position === 'top') {
-        sortIndex = Utils.calculateIndexData(null, checklist.firstItem()).base;
-        addIndex = -1;
-      } else {
-        sortIndex = Utils.calculateIndexData(checklist.lastItem(), null).base;
-        addIndex = 1;
-      }
       for (let checklistItem of checklistItems) {
-        ChecklistItems.insert({
-          title: checklistItem,
-          checklistId: checklist._id,
-          cardId: checklist.cardId,
-          sort: sortIndex,
-        });
-        sortIndex += addIndex;
+        await Meteor.callAsync('createAccessibleChecklistItem', accessibleChecklistInput(
+          checklist, null, { title: checklistItem, position: resolvedData.position },
+        ));
       }
     }
     // We keep the form opened, empty it.
     textarea.value = '';
     textarea.focus();
   },
-  'submit .js-edit-checklist-item'(event, tpl) {
+  async 'submit .js-edit-checklist-item'(event, tpl) {
     event.preventDefault();
     const textarea = tpl.find('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
     const formData = Blaze.getData(event.currentTarget) || Blaze.getData(event.target);
     const item = formData?.item;
     if (item) {
-      item.setTitle(title);
+      await Meteor.callAsync('updateAccessibleChecklistItemTitle',
+        accessibleChecklistInput(formData?.checklist, item, { title }));
     }
   },
   'click .js-convert-checklist-item-to-card': Popup.open('convertChecklistItemToCard'),
-  'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', function () {
+  'click .js-delete-checklist-item': Popup.afterConfirm('checklistItemDelete', async function () {
     Popup.back();
     const item = this?.item || this;
     // #3252: guard against removing a doc already evicted from Minimongo (heavy
     // archive/delete churn), which throws "Removed nonexistent document".
     if (item && item._id && ChecklistItems.findOne(item._id)) {
-      ChecklistItems.remove(item._id);
+      const checklist = ReactiveCache.getChecklist(item.checklistId);
+      await Meteor.callAsync('removeAccessibleChecklistItem',
+        accessibleChecklistInput(checklist, item));
     }
   }),
   // add and delete checklist / checklist-item
@@ -318,34 +311,42 @@ Template.checklistActionsPopup.helpers({
 
 Template.checklistActionsPopup.events({
   'click .js-export-checklist': Popup.open('exportChecklist'),
-  'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', function () {
+  'click .js-delete-checklist': Popup.afterConfirm('checklistDelete', async function () {
     Popup.back(2);
     const checklist = this.checklist;
     // #3252: see js-delete-checklist-item — avoid "Removed nonexistent document".
     if (checklist && checklist._id && Checklists.findOne(checklist._id)) {
-      Checklists.remove(checklist._id);
+      await Meteor.callAsync('removeAccessibleChecklist', accessibleChecklistInput(checklist));
     }
   }),
   'click .js-move-checklist': Popup.open('moveChecklist'),
   'click .js-copy-checklist': Popup.open('copyChecklist'),
-  'click .js-hide-checked-checklist-items'(event) {
+  async 'click .js-hide-checked-checklist-items'(event) {
     event.preventDefault();
-    Template.currentData().checklist.toggleHideCheckedChecklistItems();
+    const checklist = Template.currentData().checklist;
+    await Meteor.callAsync('toggleAccessibleChecklistSetting', accessibleChecklistInput(
+      checklist, null, { setting: 'hideCheckedChecklistItems' },
+    ));
     Popup.back();
   },
-  'click .js-hide-all-checklist-items'(event) {
+  async 'click .js-hide-all-checklist-items'(event) {
     event.preventDefault();
-    Template.currentData().checklist.toggleHideAllChecklistItems();
+    const checklist = Template.currentData().checklist;
+    await Meteor.callAsync('toggleAccessibleChecklistSetting', accessibleChecklistInput(
+      checklist, null, { setting: 'hideAllChecklistItems' },
+    ));
     Popup.back();
   },
-  'click .js-show-checklist-at-minicard'(event) {
+  async 'click .js-show-checklist-at-minicard'(event) {
     event.preventDefault();
     const checklist = Template.currentData().checklist;
     // The board's setting is the default this one overrides, so the toggle has to
     // flip what is ON SCREEN, not the raw field. Flipping the field is what made
     // the first click do nothing while the board default was on (false -> true,
     // still shown) - reported by email.
-    checklist.toggleShowChecklistAtMinicard(boardAllowsChecklistsOnMinicard(checklist));
+    await Meteor.callAsync('toggleAccessibleChecklistSetting', accessibleChecklistInput(
+      checklist, null, { setting: 'showChecklistAtMinicard' },
+    ));
     Popup.back();
   },
 });
@@ -368,11 +369,12 @@ Template.checklistItemDetail.helpers({
 });
 
 Template.checklistItemDetail.events({
-  'click .js-checklist-item .check-box-container'() {
+  async 'click .js-checklist-item .check-box-container'() {
     const checklist = Template.currentData().checklist;
     const item = Template.currentData().item;
     if (checklist && item && item._id) {
-      item.toggleItem();
+      await Meteor.callAsync('toggleAccessibleChecklistItem',
+        accessibleChecklistInput(checklist, item));
     }
   },
 });

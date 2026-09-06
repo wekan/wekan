@@ -28,6 +28,18 @@ import {
 } from '/server/lib/accessibleCommentOperations';
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import {
+  createAccessibleChecklist,
+  createAccessibleChecklistItem,
+  moveAccessibleChecklist,
+  moveAccessibleChecklistItem,
+  removeAccessibleChecklist,
+  removeAccessibleChecklistItem,
+  toggleAccessibleChecklistItem,
+  toggleAccessibleChecklistSetting,
+  updateAccessibleChecklistItemTitle,
+  updateAccessibleChecklistTitle,
+} from '/server/lib/accessibleChecklistOperations';
+import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
   isDocumentRequest,
@@ -107,6 +119,12 @@ WebApp.handlers.use(async (req, res, next) => {
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
   ];
+  const checklistOperations = [
+    'add-checklist', 'edit-checklist', 'delete-checklist', 'toggle-checklist-setting',
+    'move-checklist-up', 'move-checklist-down',
+    'add-checklist-item', 'edit-checklist-item', 'toggle-checklist-item',
+    'delete-checklist-item', 'move-checklist-item-up', 'move-checklist-item-down',
+  ];
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-delete-comment') {
     requestFields.confirmCommentDelete = String(requestFields.commentId || '');
@@ -116,7 +134,16 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.replyToComment = String(requestFields.commentId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
-    && [...cardOperations, ...commentOperations].includes(requestFields.legacyOperation)) {
+    && requestFields.legacyOperation === 'confirm-delete-checklist') {
+    requestFields.confirmChecklistDelete = String(requestFields.checklistId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'confirm-delete-checklist-item') {
+    requestFields.confirmChecklistItemDelete = String(requestFields.itemId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && [...cardOperations, ...commentOperations, ...checklistOperations]
+      .includes(requestFields.legacyOperation)) {
     try {
       const invocation = { userId: session.userId,
         connection: { clientAddress: String(session.address || '') } };
@@ -144,6 +171,60 @@ WebApp.handlers.use(async (req, res, next) => {
             boardId: requestFields.boardId, cardId: requestFields.cardId,
             commentId: requestFields.commentId,
             reactionCodepoint: requestFields.reactionCodepoint,
+          });
+        }
+        const checklistInput = {
+          boardId: requestFields.boardId, cardId: requestFields.cardId,
+          checklistId: requestFields.checklistId, itemId: requestFields.itemId,
+        };
+        if (requestFields.legacyOperation === 'add-checklist') {
+          return createAccessibleChecklist(session.userId, {
+            ...checklistInput, title: requestFields.checklistTitle,
+            position: requestFields.position,
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-checklist') {
+          return updateAccessibleChecklistTitle(session.userId, {
+            ...checklistInput, title: requestFields.checklistTitle,
+          });
+        }
+        if (requestFields.legacyOperation === 'delete-checklist') {
+          return removeAccessibleChecklist(session.userId, checklistInput);
+        }
+        if (requestFields.legacyOperation === 'move-checklist-up'
+          || requestFields.legacyOperation === 'move-checklist-down') {
+          return moveAccessibleChecklist(session.userId, {
+            ...checklistInput,
+            direction: requestFields.legacyOperation === 'move-checklist-up' ? 'up' : 'down',
+          });
+        }
+        if (requestFields.legacyOperation === 'toggle-checklist-setting') {
+          return toggleAccessibleChecklistSetting(session.userId, {
+            ...checklistInput, setting: requestFields.checklistSetting,
+          });
+        }
+        if (requestFields.legacyOperation === 'add-checklist-item') {
+          return createAccessibleChecklistItem(session.userId, {
+            ...checklistInput, title: requestFields.checklistItemTitle,
+            position: requestFields.position,
+          });
+        }
+        if (requestFields.legacyOperation === 'edit-checklist-item') {
+          return updateAccessibleChecklistItemTitle(session.userId, {
+            ...checklistInput, title: requestFields.checklistItemTitle,
+          });
+        }
+        if (requestFields.legacyOperation === 'toggle-checklist-item') {
+          return toggleAccessibleChecklistItem(session.userId, checklistInput);
+        }
+        if (requestFields.legacyOperation === 'delete-checklist-item') {
+          return removeAccessibleChecklistItem(session.userId, checklistInput);
+        }
+        if (requestFields.legacyOperation === 'move-checklist-item-up'
+          || requestFields.legacyOperation === 'move-checklist-item-down') {
+          return moveAccessibleChecklistItem(session.userId, {
+            ...checklistInput,
+            direction: requestFields.legacyOperation === 'move-checklist-item-up' ? 'up' : 'down',
           });
         }
         if (requestFields.legacyOperation === 'create-card') {

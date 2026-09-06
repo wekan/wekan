@@ -9,8 +9,60 @@ import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
+import {
+  createAccessibleChecklist,
+  createAccessibleChecklistItem,
+  moveAccessibleChecklist,
+  moveAccessibleChecklistItem,
+  removeAccessibleChecklist,
+  removeAccessibleChecklistItem,
+  toggleAccessibleChecklistItem,
+  toggleAccessibleChecklistSetting,
+  updateAccessibleChecklistItemTitle,
+  updateAccessibleChecklistTitle,
+} from '/server/lib/accessibleChecklistOperations';
 
 Meteor.methods({
+  async createAccessibleChecklist(input) {
+    check(input, Object);
+    return createAccessibleChecklist(this.userId, input);
+  },
+  async updateAccessibleChecklistTitle(input) {
+    check(input, Object);
+    return updateAccessibleChecklistTitle(this.userId, input);
+  },
+  async removeAccessibleChecklist(input) {
+    check(input, Object);
+    return removeAccessibleChecklist(this.userId, input);
+  },
+  async moveAccessibleChecklist(input) {
+    check(input, Object);
+    return moveAccessibleChecklist(this.userId, input);
+  },
+  async createAccessibleChecklistItem(input) {
+    check(input, Object);
+    return createAccessibleChecklistItem(this.userId, input);
+  },
+  async updateAccessibleChecklistItemTitle(input) {
+    check(input, Object);
+    return updateAccessibleChecklistItemTitle(this.userId, input);
+  },
+  async toggleAccessibleChecklistItem(input) {
+    check(input, Object);
+    return toggleAccessibleChecklistItem(this.userId, input);
+  },
+  async removeAccessibleChecklistItem(input) {
+    check(input, Object);
+    return removeAccessibleChecklistItem(this.userId, input);
+  },
+  async moveAccessibleChecklistItem(input) {
+    check(input, Object);
+    return moveAccessibleChecklistItem(this.userId, input);
+  },
+  async toggleAccessibleChecklistSetting(input) {
+    check(input, Object);
+    return toggleAccessibleChecklistSetting(this.userId, input);
+  },
   async moveChecklist(checklistId, newCardId) {
     check(checklistId, String);
     check(newCardId, String);

@@ -30,6 +30,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let importedTrelloZipBoardId;
   let html4CreatedCommentId;
   let html4ReplyCommentId;
+  let html4ChecklistId;
+  let html4ChecklistItemId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -398,6 +400,129 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).toContainText('HTML4 visible comment');
     await expect(page.locator('tbody')).not.toContainText('FOREIGN');
 
+    const addChecklistForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="add-checklist"])',
+    );
+    await addChecklistForm.locator('input[name="checklistTitle"]')
+      .fill('HTML4 created checklist');
+    await Promise.all([
+      page.waitForNavigation(), addChecklistForm.locator('input[type="submit"]').click(),
+    ]);
+    const createdChecklist = db.findOne('checklists', {
+      cardId: due._id, title: 'HTML4 created checklist',
+    });
+    expect(createdChecklist && createdChecklist._id).toBeTruthy();
+    html4ChecklistId = createdChecklist._id;
+    const moveChecklist = direction => page.locator(
+      `form:has(input[name="legacyOperation"][value="move-checklist-${direction}"])`
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), moveChecklist('up').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: html4ChecklistId }).sort)
+      .toBeLessThan(db.findOne('checklists', { _id: childIds.checklist }).sort);
+    await Promise.all([
+      page.waitForNavigation(), moveChecklist('down').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: html4ChecklistId }).sort)
+      .toBeGreaterThan(db.findOne('checklists', { _id: childIds.checklist }).sort);
+
+    const editChecklistForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-checklist"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await editChecklistForm().locator('input[name="checklistTitle"]')
+      .fill('HTML4 edited checklist');
+    await Promise.all([
+      page.waitForNavigation(), editChecklistForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: html4ChecklistId }).title)
+      .toBe('HTML4 edited checklist');
+
+    const addChecklistItemForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="add-checklist-item"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await addChecklistItemForm().locator('input[name="checklistItemTitle"]')
+      .fill('FORGED CHECKLIST ITEM');
+    await addChecklistItemForm().locator('input[name="checklistId"]').evaluate(
+      (input, checklistId) => { input.value = checklistId; }, childIds.foreignChecklist,
+    );
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="add-checklist-item"])'
+        + `:has(input[name="checklistId"][value="${childIds.foreignChecklist}"]) input[type="submit"]`,
+      ).click(),
+    ]);
+    expect(db.findOne('checklistItems', { title: 'FORGED CHECKLIST ITEM' })).toBeNull();
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+
+    await addChecklistItemForm().locator('input[name="checklistItemTitle"]')
+      .fill('HTML4 created checklist item');
+    await Promise.all([
+      page.waitForNavigation(), addChecklistItemForm().locator('input[type="submit"]').click(),
+    ]);
+    const createdChecklistItem = db.findOne('checklistItems', {
+      checklistId: html4ChecklistId, title: 'HTML4 created checklist item',
+    });
+    expect(createdChecklistItem && createdChecklistItem._id).toBeTruthy();
+    html4ChecklistItemId = createdChecklistItem._id;
+    await addChecklistItemForm().locator('input[name="checklistItemTitle"]')
+      .fill('HTML4 second checklist item');
+    await Promise.all([
+      page.waitForNavigation(), addChecklistItemForm().locator('input[type="submit"]').click(),
+    ]);
+    const secondChecklistItem = db.findOne('checklistItems', {
+      checklistId: html4ChecklistId, title: 'HTML4 second checklist item',
+    });
+    expect(secondChecklistItem && secondChecklistItem._id).toBeTruthy();
+    const moveSecondItem = direction => page.locator(
+      `form:has(input[name="legacyOperation"][value="move-checklist-item-${direction}"])`
+      + `:has(input[name="itemId"][value="${secondChecklistItem._id}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), moveSecondItem('up').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklistItems', { _id: secondChecklistItem._id }).sort)
+      .toBeLessThan(db.findOne('checklistItems', { _id: html4ChecklistItemId }).sort);
+    await Promise.all([
+      page.waitForNavigation(), moveSecondItem('down').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklistItems', { _id: secondChecklistItem._id }).sort)
+      .toBeGreaterThan(db.findOne('checklistItems', { _id: html4ChecklistItemId }).sort);
+
+    const editChecklistItemForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-checklist-item"])'
+      + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+    );
+    await editChecklistItemForm().locator('input[name="checklistItemTitle"]')
+      .fill('HTML4 edited checklist item');
+    await Promise.all([
+      page.waitForNavigation(), editChecklistItemForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklistItems', { _id: html4ChecklistItemId }).title)
+      .toBe('HTML4 edited checklist item');
+    const toggleChecklistItemForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="toggle-checklist-item"])'
+      + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), toggleChecklistItemForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklistItems', { _id: html4ChecklistItemId }).isFinished).toBe(true);
+    await expect(page.locator('tbody')).toContainText('[x] HTML4 edited checklist item');
+    const minicardSettingForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="toggle-checklist-setting"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`
+      + ':has(input[name="checklistSetting"][value="showChecklistAtMinicard"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), minicardSettingForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: html4ChecklistId }).showChecklistAtMinicard)
+      .toBe(true);
+
     const addCommentForm = page.locator(
       'form:has(input[name="legacyOperation"][value="add-comment"])',
     );
@@ -632,6 +757,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(modern.locator('.card-details')).toContainText('Edited HTML4 card description');
     await expect(modern.locator('.card-details')).toContainText('HTML4 edited comment');
     await expect(modern.locator('.card-details')).toContainText('HTML4 reply comment');
+    await expect(modern.locator('.card-details')).toContainText('HTML4 edited checklist');
+    await expect(modern.locator('.card-details')).toContainText('HTML4 edited checklist item');
     await expect(modern.locator('.comment').filter({ hasText: 'HTML4 edited comment' })
       .locator('.reaction-count')).toHaveText('1');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
@@ -643,9 +770,19 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       ).screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-comment-reaction.png`,
       });
+      await page.locator(
+        'form:has(input[name="legacyOperation"][value="toggle-checklist-item"])'
+        + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+      ).screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-checklist-controls.png`,
+      });
       await modern.locator('.comment:has(.reaction-count)').screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-comment-reaction.png`,
       });
+      await modern.locator('.js-checklist').filter({ hasText: 'HTML4 edited checklist' })
+        .screenshot({
+          path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-checklist-controls.png`,
+        });
       await page.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-details.png`, fullPage: true,
       });
@@ -671,6 +808,39 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       ]);
       expect(db.findOne('card_comments', { _id: commentId })).toBeNull();
     };
+    const requestItemDelete = page.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-delete-checklist-item"])'
+      + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), requestItemDelete.locator('input[type="submit"]').click(),
+    ]);
+    const deleteItem = page.locator(
+      'form:has(input[name="legacyOperation"][value="delete-checklist-item"])'
+      + `:has(input[name="itemId"][value="${html4ChecklistItemId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), deleteItem.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklistItems', { _id: html4ChecklistItemId })).toBeNull();
+    html4ChecklistItemId = null;
+    const requestChecklistDelete = page.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-delete-checklist"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), requestChecklistDelete.locator('input[type="submit"]').click(),
+    ]);
+    const deleteChecklist = page.locator(
+      'form:has(input[name="legacyOperation"][value="delete-checklist"])'
+      + `:has(input[name="checklistId"][value="${html4ChecklistId}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), deleteChecklist.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('checklists', { _id: html4ChecklistId })).toBeNull();
+    expect(db.countDocuments('checklistItems', { checklistId: html4ChecklistId })).toBe(0);
+    html4ChecklistId = null;
     await confirmAndDeleteComment(html4ReplyCommentId);
     html4ReplyCommentId = null;
     await confirmAndDeleteComment(html4CreatedCommentId);
@@ -705,6 +875,11 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (html4ChecklistItemId) db.deleteOne('checklistItems', { _id: html4ChecklistItemId });
+    if (html4ChecklistId) {
+      db.deleteMany('checklistItems', { checklistId: html4ChecklistId });
+      db.deleteOne('checklists', { _id: html4ChecklistId });
+    }
     if (html4CreatedCommentId) {
       db.deleteMany('card_comment_reactions', { cardCommentId: html4CreatedCommentId });
     }

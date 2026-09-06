@@ -26,6 +26,7 @@ const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('/models/lib/importSources');
 const { COMMENT_REACTIONS, commentReaction } = require('/models/lib/commentReactionCatalog');
+const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('/models/lib/exportFields');
 const {
   allBoardsPath, defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey,
@@ -258,6 +259,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   };
   const card = await Cards.findOneAsync(selector, { fields: {
     title: 1, description: 1, color: 1, archived: 1, boardId: 1,
+    type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
     receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
@@ -267,23 +269,32 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     columns: [tr(translate, 'status', 'Status'), tr(translate, 'action', 'Action')],
     rows: [], empty: 'Card not found or access denied.',
   };
-  const checklists = await Checklists.find({ cardId: card._id, boardId: card.boardId }, {
-    fields: { title: 1, sort: 1 }, sort: { sort: 1 }, limit: 200,
+  const contentCard = card.type === 'cardType-linkedCard' && card.linkedId
+    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  const contentCardId = contentCard?._id || card._id;
+  const contentBoardId = contentCard?.boardId || card.boardId;
+  const contentBoard = contentBoardId === board._id
+    ? board : await Boards.findOneAsync(contentBoardId);
+  const checklists = await Checklists.find({ cardId: contentCardId, boardId: contentBoardId }, {
+    fields: {
+      title: 1, sort: 1, hideCheckedChecklistItems: 1,
+      hideAllChecklistItems: 1, showChecklistAtMinicard: 1,
+    }, sort: { sort: 1 }, limit: 200,
   }).fetchAsync();
   const checklistIds = checklists.map(checklist => checklist._id);
   const [comments, commentReactionDocs, checklistItems, attachments] = await Promise.all([
-    CardComments.find({ cardId: card._id, boardId: card.boardId }, {
+    CardComments.find({ cardId: contentCardId, boardId: contentBoardId }, {
       fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
       sort: { createdAt: 1 }, limit: 500,
     }).fetchAsync(),
-    CardCommentReactions.find({ cardId: card._id, boardId: card.boardId }, {
+    CardCommentReactions.find({ cardId: contentCardId, boardId: contentBoardId }, {
       fields: { cardCommentId: 1, reactions: 1 }, limit: 500,
     }).fetchAsync(),
-    ChecklistItems.find({ cardId: card._id, boardId: card.boardId,
+    ChecklistItems.find({ cardId: contentCardId, boardId: contentBoardId,
       checklistId: { $in: checklistIds } }, {
       fields: { title: 1, isFinished: 1, checklistId: 1, sort: 1 }, sort: { sort: 1 }, limit: 2000,
     }).fetchAsync(),
-    Attachments.collection.find({ 'meta.cardId': card._id, 'meta.boardId': card.boardId }, {
+    Attachments.collection.find({ 'meta.cardId': contentCardId, 'meta.boardId': contentBoardId }, {
       fields: { name: 1, type: 1, size: 1, uploadedAt: 1 }, sort: { uploadedAt: 1 }, limit: 500,
     }).fetchAsync(),
   ]);
@@ -360,6 +371,15 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       submitLabel: tr(translate, 'comment', 'Comment'),
     }), ''] });
   }
+  if (canWrite) rows.push({ rowHeader: false, cells: [uiTextForm({
+    action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+    label: tr(translate, 'add-checklist', 'Add checklist'), name: 'checklistTitle', value: '',
+    fields: {
+      boardId: card.boardId, cardId: card._id, position: 'bottom',
+      legacyOperation: 'add-checklist',
+    },
+    submitLabel: tr(translate, 'add-checklist', 'Add checklist'),
+  }), ''] });
   rows.push(
     { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
     { cells: [tr(translate, 'board', 'Board'), board.title || ''] },
@@ -380,10 +400,115 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
   );
   for (const checklist of checklists) {
-    rows.push({ cells: [tr(translate, 'checklist', 'Checklist'), checklist.title || ''] });
-    for (const item of checklistItems.filter(candidate => candidate.checklistId === checklist._id)) {
-      rows.push({ cells: [item.isFinished ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii,
-        item.title || ''] });
+    const items = checklistItems.filter(candidate => candidate.checklistId === checklist._id);
+    const finished = items.filter(item => item.isFinished).length;
+    const checklistFields = {
+      boardId: card.boardId, cardId: card._id, checklistId: checklist._id,
+    };
+    rows.push({ cells: [tr(translate, 'checklist', 'Checklist'),
+      `${checklist.title || ''} (${finished}/${items.length})`] });
+    if (canWrite) {
+      rows.push({ rowHeader: false, cells: [uiTextForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'checklist', 'Checklist'), name: 'checklistTitle',
+        value: checklist.title || '', fields: { ...checklistFields, legacyOperation: 'edit-checklist' },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), ''] });
+      rows.push({ rowHeader: false, cells: ['', [uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, 'moveChecklist', 'Move Checklist')} ${UI_ICONS['move-up'].ascii}`,
+        icon: 'move-up',
+        fields: { ...checklistFields, legacyOperation: 'move-checklist-up' },
+      }), uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${tr(translate, 'moveChecklist', 'Move Checklist')} ${UI_ICONS['move-down'].ascii}`,
+        icon: 'move-down',
+        fields: { ...checklistFields, legacyOperation: 'move-checklist-down' },
+      })]] });
+      const settings = [
+        ['hideCheckedChecklistItems', 'hideCheckedChecklistItems', 'Hide checked checklist items',
+          checklist.hideCheckedChecklistItems === true],
+        ['hideAllChecklistItems', 'hideAllChecklistItems', 'Hide all checklist items',
+          checklist.hideAllChecklistItems === true],
+        ['showChecklistAtMinicard', 'show-on-minicard', 'Show on minicard',
+          isChecklistShownAtMinicard(checklist,
+            contentBoard?.allowsChecklistsOnMinicard === true)],
+      ];
+      for (const [setting, key, fallback, selected] of settings) rows.push({
+        rowHeader: false,
+        cells: ['', uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+            + tr(translate, key, fallback),
+          fields: { ...checklistFields, legacyOperation: 'toggle-checklist-setting',
+            checklistSetting: setting },
+        })],
+      });
+      const confirmingChecklist = requestFields.confirmChecklistDelete === checklist._id;
+      rows.push({ rowHeader: false, cells: ['', confirmingChecklist ? [
+        `${tr(translate, 'delete', 'Delete')}?`,
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...checklistFields, legacyOperation: 'delete-checklist' },
+        }),
+        uiAction({ action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'cancel', 'Cancel') }),
+      ] : uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { ...checklistFields, legacyOperation: 'confirm-delete-checklist' },
+      })] });
+      rows.push({ rowHeader: false, cells: [uiTextForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'add-checklist-item', 'Add checklist item'),
+        name: 'checklistItemTitle', value: '',
+        fields: { ...checklistFields, position: 'bottom', legacyOperation: 'add-checklist-item' },
+        submitLabel: tr(translate, 'add-checklist-item', 'Add checklist item'),
+      }), ''] });
+    }
+    for (const item of items) {
+      const itemFields = { ...checklistFields, itemId: item._id };
+      rows.push({ cells: [canWrite ? uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: `${item.isFinished ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + (item.title || ''),
+        fields: { ...itemFields, legacyOperation: 'toggle-checklist-item' },
+      }) : item.isFinished ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii,
+      canWrite ? uiTextForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'checklist', 'Checklist'), name: 'checklistItemTitle',
+        value: item.title || '', fields: { ...itemFields, legacyOperation: 'edit-checklist-item' },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }) : item.title || ''] });
+      if (canWrite) {
+        rows.push({ rowHeader: false, cells: ['', [uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: `${tr(translate, 'moveChecklist', 'Move Checklist')} ${UI_ICONS['move-up'].ascii}`,
+          icon: 'move-up',
+          fields: { ...itemFields, legacyOperation: 'move-checklist-item-up' },
+        }), uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: `${tr(translate, 'moveChecklist', 'Move Checklist')} ${UI_ICONS['move-down'].ascii}`,
+          icon: 'move-down',
+          fields: { ...itemFields, legacyOperation: 'move-checklist-item-down' },
+        })]] });
+        const confirmingItem = requestFields.confirmChecklistItemDelete === item._id;
+        rows.push({ rowHeader: false, cells: ['', confirmingItem ? [
+          `${tr(translate, 'delete', 'Delete')}?`,
+          uiAction({
+            action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+            fields: { ...itemFields, legacyOperation: 'delete-checklist-item' },
+          }),
+          uiAction({ action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+            label: tr(translate, 'cancel', 'Cancel') }),
+        ] : uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...itemFields, legacyOperation: 'confirm-delete-checklist-item' },
+        })] });
+      }
     }
   }
   for (const attachment of attachments) rows.push({

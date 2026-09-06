@@ -212,6 +212,25 @@ signed toggle with `[x]` or `[ ]`, count and member names, plus a labelled selec
 for adding one. Its catalog has printable ASCII names such as `+1`, `done` and
 `smile`, so an absent emoji font does not erase meaning.
 
+Checklist forms share authenticated server operations with the Jade card view.
+The visible route card and board are always submitted, while the server resolves
+a linked card's content target and repeats delegated-write authorization. Every
+checklist and item lookup binds its identifier to the resolved card, board and
+parent checklist, so a forged cross-board or cross-parent identifier cannot move,
+change or delete another object. Titles are trimmed, non-empty and bounded; sort
+positions are calculated from bounded server queries rather than trusted client
+values. Removing a checklist removes its bound items before the parent.
+
+The HTML4 table writes checklist progress as `(finished/total)`, finished state as
+`[x]`, and each visibility setting as `[x]` or `[ ]`. Labelled signed controls add,
+rename, move up/down, toggle and confirm-delete checklists and their items without
+drag-and-drop. The same-URL browser regression exercises valid changes, linked
+content display, ordering, deletion without orphan items and a forged foreign
+checklist refusal, then captures both representations. Advanced checklist copy,
+cross-card movement, import/export and item-to-card conversion remain separate
+parity work because their existing workflows require additional destinations and
+confirmation state.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
@@ -240,6 +259,6 @@ cookies and follow the route inventory. Security tests cover login throttling,
 CSRF, fixation, replay, body limits, open redirects and cross-board
 authorization.
 The card-detail browser regression additionally forges an unknown active-markup
-reaction, a submitted foreign user ID and a cross-board comment ID; each is
-refused while a valid toggle is visible in same-URL HTML4 and HTML5 reaction
-screenshots.
+reaction, a submitted foreign user ID, a cross-board comment ID and a foreign
+checklist parent; each is refused. Valid reaction and checklist changes are
+visible in paired same-URL HTML4 and HTML5 screenshots.
