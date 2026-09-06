@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 624,
-  'the first thirty Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 574,
+  'the first thirty-one Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -191,5 +191,10 @@ assert.match(sesotho['api-no-calls'], /WITH_API=true/);
 assert.match(sesotho['recovery-report-desc'], /MongoDB/);
 assert.equal(sesotho['copy-swimlane'], 'Kopitsa tsela');
 assert.equal(sesotho['history-change-moved'], 'E tsamaisitswe');
+assert.match(sesotho['email-domain-allowed-to-invite'], /Domeine ya imeile/);
+assert.match(sesotho.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(sesotho['custom-legal-notice-link-url'], /URL/);
+assert.equal(sesotho.copyChecklist, 'Kopitsa lenane la tlhahlobo');
+assert.match(sesotho.newLineNewItem, /=/);
 
-console.log('southernSothoTranslationProgress: first thirty batches passed');
+console.log('southernSothoTranslationProgress: first thirty-one batches passed');
