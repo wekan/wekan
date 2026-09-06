@@ -39,6 +39,8 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import {
   createAccessibleCard,
   moveAccessibleCard,
+  setAccessibleCardArchived,
+  updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 
 Meteor.methods({
@@ -55,6 +57,16 @@ Meteor.methods({
   async moveCardDown(cardId) {
     check(cardId, String);
     return moveAccessibleCard(this.userId, cardId, 'down');
+  },
+
+  async updateAccessibleCardContent(input) {
+    check(input, Object);
+    return updateAccessibleCardContent(this.userId, input);
+  },
+
+  async setAccessibleCardArchived(input) {
+    check(input, Object);
+    return setAccessibleCardArchived(this.userId, input);
   },
 
   // #6613: create cross-board card links as an acknowledged, authoritative

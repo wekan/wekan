@@ -14,6 +14,7 @@ test('accessible card writes repeat authorization and placement consistency', ()
   assert.match(source, /list\.boardId !== boardId/);
   assert.match(source, /swimlane\.boardId !== boardId/);
   assert.match(source, /allowIsBoardMemberWithWriteAccess\(userId, board\)/);
+  assert.match(source, /tripCanary\('board\.write-without-capability'/);
   assert.ok(source.indexOf('allowIsBoardMemberWithWriteAccess(userId, board)')
     < source.indexOf('Cards.direct.insertAsync'), 'authorization precedes the first write');
 });
@@ -37,4 +38,32 @@ test('up and down use one acknowledged server operation', () => {
   assert.doesNotMatch(client, /target\.move\(/);
   assert.match(legacy, /moveAccessibleCard\(session\.userId/);
   assert.match(legacy, /DDP\._CurrentMethodInvocation\.withValue/);
+});
+
+test('content edits authorize both the pointer and linked target', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  assert.match(source, /await canEditCardOrLinkedCard\(userId, card\)/);
+  assert.match(source, /card\.type === 'cardType-linkedCard'/);
+  assert.match(source, /card\.type === 'cardType-linkedBoard'/);
+  assert.match(source, /allowIsBoardAdmin\(userId, target\)/);
+  assert.match(source, /\['title', 'description'\]\.includes\(field\)/);
+  assert.match(source, /description-too-long/);
+  assert.match(methods, /async updateAccessibleCardContent\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardContent'/);
+});
+
+test('archive checks every descendant before the first write', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const archives = read('client/components/sidebar/sidebarArchives.js');
+  assert.match(source, /await editableCardTree\(userId, card\);\s*if \(archived\) await card\.archive\(\)/);
+  assert.match(source, /if \(seen\.size > 10000\)/);
+  assert.match(source, /if \(seen\.has\(card\._id\)\)/);
+  assert.match(source, /Cards\.find\(\{ parentId: card\._id, deletedAt: null \}\)/);
+  assert.match(methods, /async setAccessibleCardArchived\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('setAccessibleCardArchived'/);
+  assert.match(archives, /Meteor\.callAsync\('setAccessibleCardArchived'/);
 });

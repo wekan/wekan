@@ -12,6 +12,7 @@ import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import getSlug from 'limax';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const {
   UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiTextForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
@@ -153,7 +154,9 @@ async function boardPage(path, userId, requestFields = {}, translate) {
   };
   const canWrite = allowIsBoardMemberWithWriteAccess(userId, board);
   const cardMatch = /^\/b\/[^/]+\/[^/]+\/([^/]+)$/.exec(path);
-  if (cardMatch) return cardDetailsPage(board, segment(cardMatch[1]), userId, translate);
+  if (cardMatch) return cardDetailsPage(
+    board, segment(cardMatch[1]), userId, requestFields, translate,
+  );
   const swimlanes = await Swimlanes.find({ boardId: board._id, archived: { $ne: true } }, {
     fields: { title: 1, color: 1, sort: 1 }, sort: { sort: 1 },
   }).fetchAsync();
@@ -238,7 +241,7 @@ function isoDate(value) {
   return value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : '';
 }
 
-async function cardDetailsPage(board, cardId, userId, translate) {
+async function cardDetailsPage(board, cardId, userId, requestFields, translate) {
   const assignedScope = assignedOnlyCardScope(board, userId);
   const selector = {
     _id: cardId,
@@ -290,7 +293,39 @@ async function cardDetailsPage(board, cardId, userId, translate) {
     person.profile?.fullname || person.username || person._id]));
   const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
   const labels = (board.labels || []).filter(label => (card.labelIds || []).includes(label._id));
-  const rows = [
+  const canWrite = await canEditCardOrLinkedCard(userId, card);
+  const rows = [];
+  if (requestFields.legacyCardResult?.ok === true) rows.push({
+    cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Save')],
+  });
+  if (requestFields.legacyCardResult?.ok === false) rows.push({
+    cells: [tr(translate, 'status', 'Status'),
+      tr(translate, requestFields.legacyCardResult.errorKey, 'Operation failed')],
+  });
+  if (canWrite) {
+    const commonFields = { cardId: card._id, boardId: card.boardId };
+    rows.push({ rowHeader: false, cells: [uiTextForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'title', 'Title'), name: 'cardTitle', value: card.title || '',
+      maxlength: 1000, fields: { ...commonFields, legacyOperation: 'edit-card-title' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
+    rows.push({ rowHeader: false, cells: [uiTextareaForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'description', 'Description'), name: 'cardDescription',
+      value: card.description || '',
+      fields: { ...commonFields, legacyOperation: 'edit-card-description' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
+    rows.push({ rowHeader: false, cells: [uiAction({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, card.archived ? 'restore' : 'archive-card',
+        card.archived ? 'Restore' : 'Move Card to Archive'),
+      icon: card.archived ? 'move-up' : 'remove',
+      fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
+    }), ''] });
+  }
+  rows.push(
     { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
     { cells: [tr(translate, 'board', 'Board'), board.title || ''] },
     { cells: [tr(translate, 'list', 'List'), list?.title || ''] },
@@ -308,7 +343,7 @@ async function cardDetailsPage(board, cardId, userId, translate) {
     { cells: [tr(translate, 'r-df-end-at', 'End'), isoDate(card.endAt)] },
     { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(card.createdAt)] },
     { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
-  ];
+  );
   for (const checklist of checklists) {
     rows.push({ cells: [tr(translate, 'checklist', 'Checklist'), checklist.title || ''] });
     for (const item of checklistItems.filter(candidate => candidate.checklistId === checklist._id)) {

@@ -177,6 +177,13 @@ the same tested service functions as Meteor methods and REST routes, then render
 the resulting URL directly because a redirect would discard the cookieless
 session.
 
+Card content writes resolve both the visible pointer and its real linked target.
+Changing a linked card requires the delegated card permission; changing a linked
+board requires administrator permission on that target board. Archive and restore
+validate every descendant before the first recursive write, bound the traversal,
+and reject cycles. These checks belong to the shared server operation because a
+trusted server call must not rely on client collection allow rules.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

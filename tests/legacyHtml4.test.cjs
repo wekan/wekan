@@ -269,7 +269,7 @@ test('All Boards HTML4 routes use the shared section and workspace selectors', (
 test('card details repeat board and assigned-only authorization scopes', () => {
   const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
     'legacyHtml4Pages.js'), 'utf8');
-  assert.match(pages, /cardDetailsPage\(board, segment\(cardMatch\[1\]\), userId, translate\)/);
+  assert.match(pages, /cardDetailsPage\(\s*board, segment\(cardMatch\[1\]\), userId, requestFields, translate/);
   assert.match(pages, /const assignedScope = assignedOnlyCardScope\(board, userId\)/);
   assert.match(pages, /\.\.\.boardCardScope\(board\)/);
   assert.match(pages, /deletedAt: null/);
@@ -317,6 +317,28 @@ test('HTML4 card creation is labelled and keeps controls in natural tab order', 
   assert.match(html, /name="cardTitle" type="text" maxlength="1000"/);
   assert.match(html, /name="legacyOperation" value="create-card"/);
   assert.ok(html.indexOf('name="cardTitle"') < html.indexOf('value="&gt; Add card"'));
+  assert.doesNotMatch(html, /tabindex=/);
+});
+
+test('HTML4 card editing components remain labelled and keyboard ordered', () => {
+  const html = renderLegacyHtml4Page('/b/board/slug/card', {
+    authenticated: true, username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'Card', columns: ['Card', 'Description'], rows: [
+      { rowHeader: false, cells: [uiTextForm({ action: '/b/board/slug/card', label: 'Title',
+        name: 'cardTitle', value: '<title>', fields: { legacyOperation: 'edit-card-title' },
+        submitLabel: 'Save' }), ''] },
+      { rowHeader: false, cells: [uiTextareaForm({ action: '/b/board/slug/card',
+        label: 'Description', name: 'cardDescription', value: '<description>',
+        fields: { legacyOperation: 'edit-card-description' }, submitLabel: 'Save' }), ''] },
+    ] },
+  });
+  assert.match(html, /<label for="legacy-cardTitle">Title<\/label>/);
+  assert.match(html, /value="&lt;title&gt;"/);
+  assert.match(html, /<label for="legacy-cardDescription">Description<\/label>/);
+  assert.match(html, /&lt;description&gt;<\/textarea>/);
+  assert.ok(html.indexOf('name="cardTitle"') < html.indexOf('name="cardDescription"'));
   assert.doesNotMatch(html, /tabindex=/);
 });
 

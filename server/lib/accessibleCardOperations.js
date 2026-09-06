@@ -4,7 +4,20 @@ import Cards, { cardCreation } from '/models/cards';
 import CustomFields from '/models/customFields';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
-import { allowIsBoardMemberWithWriteAccess, computeSortForIndex } from '/server/lib/utils';
+import {
+  allowIsBoardAdmin,
+  allowIsBoardMemberWithWriteAccess,
+  computeSortForIndex,
+} from '/server/lib/utils';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import { tripCanary } from '/server/lib/canary';
+
+const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
+
+function refuseCardWrite(userId, detail) {
+  tripCanary('board.write-without-capability', { userId, detail });
+  throw new Meteor.Error('not-authorized');
+}
 
 async function editablePlacement(userId, boardId, listId, swimlaneId) {
   if (!userId) throw new Meteor.Error('not-authorized');
@@ -13,10 +26,10 @@ async function editablePlacement(userId, boardId, listId, swimlaneId) {
   ]);
   if (!board || !list || !swimlane || list.boardId !== boardId
     || swimlane.boardId !== boardId || list.archived === true || swimlane.archived === true) {
-    throw new Meteor.Error('not-found');
+    refuseCardWrite(userId, 'card placement did not match one active board/list/swimlane');
   }
   if (!allowIsBoardMemberWithWriteAccess(userId, board)) {
-    throw new Meteor.Error('not-authorized');
+    refuseCardWrite(userId, 'card placement board did not grant write access');
   }
   return { board, list, swimlane };
 }
@@ -69,4 +82,79 @@ async function moveAccessibleCard(userId, cardId, direction) {
   return true;
 }
 
-export { createAccessibleCard, editablePlacement, moveAccessibleCard };
+async function editableCard(userId, cardId, expectedBoardId) {
+  if (!userId) throw new Meteor.Error('not-authorized');
+  const card = await Cards.findOneAsync({ _id: String(cardId || ''), deletedAt: null });
+  if (!card) throw new Meteor.Error('not-found');
+  if (expectedBoardId && card.boardId !== expectedBoardId) {
+    refuseCardWrite(userId, 'card did not belong to the submitted route board');
+  }
+  if (!(await canEditCardOrLinkedCard(userId, card))) {
+    refuseCardWrite(userId, 'card did not grant direct or delegated write access');
+  }
+  return card;
+}
+
+async function authorizeContentTarget(userId, card) {
+  if (card.type === 'cardType-linkedCard') {
+    const target = await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null });
+    if (!target || !(await canEditCardOrLinkedCard(userId, target))) {
+      refuseCardWrite(userId, 'linked card target did not grant write access');
+    }
+  } else if (card.type === 'cardType-linkedBoard') {
+    const target = await Boards.findOneAsync(card.linkedId);
+    if (!target || !allowIsBoardAdmin(userId, target)) {
+      refuseCardWrite(userId, 'linked board target did not grant administrator access');
+    }
+  }
+}
+
+async function updateAccessibleCardContent(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  const field = input?.field;
+  if (!['title', 'description'].includes(field)) throw new Meteor.Error('invalid-card-field');
+  await authorizeContentTarget(userId, card);
+  let value = String(input?.value ?? '');
+  if (field === 'title') value = value.trim().slice(0, 1000);
+  else if (value.length > MAX_CARD_DESCRIPTION_LENGTH) {
+    throw new Meteor.Error('description-too-long');
+  }
+  if (field === 'title') await card.setTitle(value);
+  else await card.setDescription(value);
+  return true;
+}
+
+async function editableCardTree(userId, root) {
+  const pending = [root];
+  const seen = new Set();
+  while (pending.length) {
+    const card = pending.shift();
+    if (seen.has(card._id)) throw new Meteor.Error('invalid-card-tree');
+    seen.add(card._id);
+    if (seen.size > 10000) throw new Meteor.Error('card-tree-too-large');
+    if (!(await canEditCardOrLinkedCard(userId, card))) {
+      refuseCardWrite(userId, 'a descendant card did not grant write access');
+    }
+    const children = await Cards.find({ parentId: card._id, deletedAt: null }).fetchAsync();
+    pending.push(...children);
+  }
+}
+
+async function setAccessibleCardArchived(userId, input) {
+  const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
+  const archived = input?.archived;
+  if (typeof archived !== 'boolean') throw new Meteor.Error('invalid-card-archive-state');
+  await editableCardTree(userId, card);
+  if (archived) await card.archive();
+  else await card.restore();
+  return true;
+}
+
+export {
+  createAccessibleCard,
+  editableCard,
+  editablePlacement,
+  moveAccessibleCard,
+  setAccessibleCardArchived,
+  updateAccessibleCardContent,
+};

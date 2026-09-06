@@ -1065,7 +1065,9 @@ Template.cardDetails.events({
     // a linked card whose target is on a board the user cannot write to gets a
     // permission denial that otherwise vanished with no feedback.
     try {
-      await card.setDescription(description);
+      await Meteor.callAsync('updateAccessibleCardContent', {
+        cardId: card._id, boardId: card.boardId, field: 'description', value: description,
+      });
       // #6455: a successful save means there is no unsaved draft anymore.
       // Clear the record explicitly instead of relying on the inlined form's
       // close-time draft/description comparison, which can run before the
@@ -1083,7 +1085,9 @@ Template.cardDetails.events({
     const card = Template.currentData();
     // #5809: surface a visible error instead of failing silently (see above).
     try {
-      await card.setTitle(title || '');
+      await Meteor.callAsync('updateAccessibleCardContent', {
+        cardId: card._id, boardId: card.boardId, field: 'title', value: title || '',
+      });
     } catch (error) {
       alert(error?.reason || error?.message || 'Failed to save title');
     }
@@ -1647,7 +1651,9 @@ Template.cardDetailsActionsPopup.events({
     const card = Cards.findOne(getCardId());
     Popup.close();
     if (!card) return;
-    await card.archive();
+    await Meteor.callAsync('setAccessibleCardArchived', {
+      cardId: card._id, boardId: card.boardId, archived: true,
+    });
     // #6465 follow-up: archiving must also CLOSE the card's details window.
     // The card id stayed in the openCards session list, so the floating window
     // kept rendering above the board — and, docked to the right edge, exactly

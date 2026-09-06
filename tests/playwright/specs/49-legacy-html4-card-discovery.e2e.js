@@ -396,6 +396,53 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('tbody')).toContainText('HTML4 visible comment');
     await expect(page.locator('tbody')).not.toContainText('FOREIGN');
 
+    const titleForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-title"])',
+    );
+    await titleForm().locator('input[name="cardTitle"]').fill('FORGED CARD EDIT');
+    await titleForm().locator('input[name="boardId"]').evaluate(
+      (input, boardId) => { input.value = boardId; }, outsiderBoard.boardId,
+    );
+    await Promise.all([page.waitForNavigation(), titleForm().locator('input[type="submit"]').click()]);
+    expect(db.findOne('cards', { _id: due._id }).title).toBe('HTML4 Due');
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await expect.poll(() => db.countDocuments('eventlog', {
+      stream: 'security', userId: user._id,
+      source: 'canary:board.write-without-capability',
+    })).toBeGreaterThan(0);
+    const refusalEvent = db.findOne('eventlog', {
+      stream: 'security', userId: user._id,
+      source: 'canary:board.write-without-capability',
+    });
+    expect(refusalEvent.username).toBe(username);
+    expect(refusalEvent.ip).toBeTruthy();
+
+    await titleForm().locator('input[name="cardTitle"]').fill('HTML4 Due Edited');
+    await Promise.all([page.waitForNavigation(), titleForm().locator('input[type="submit"]').click()]);
+    await expect(page.locator('h1')).toHaveText('HTML4 Due Edited');
+    const descriptionForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="edit-card-description"])',
+    );
+    await descriptionForm.locator('textarea[name="cardDescription"]')
+      .fill('Edited HTML4 card description');
+    await Promise.all([
+      page.waitForNavigation(), descriptionForm.locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).description)
+      .toBe('Edited HTML4 card description');
+    const archiveForm = operation => page.locator(
+      `form:has(input[name="legacyOperation"][value="${operation}"])`,
+    );
+    await Promise.all([
+      page.waitForNavigation(), archiveForm('archive-card').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).archived).toBe(true);
+    await expect(page.locator('tbody')).toContainText('This card is moved to Archive.');
+    await Promise.all([
+      page.waitForNavigation(), archiveForm('restore-card').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).archived).toBe(false);
+
     const modernContext = await browser.newContext();
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -423,8 +470,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       });
     }
     await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
-    await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due');
-    await expect(modern.locator('.card-details')).toContainText('Semantic HTML4 card description');
+    await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due Edited');
+    await expect(modern.locator('.card-details')).toContainText('Edited HTML4 card description');
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
       await page.screenshot({
@@ -451,7 +498,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
 
     await open('/due-cards');
     await expect(page.locator('h1')).toHaveText('Due Cards');
-    await expect(page.locator('tbody')).toContainText('HTML4 Due');
+    await expect(page.locator('tbody')).toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable');
 
     await open('/bookmarks');
@@ -461,9 +508,10 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await page.locator('input[name="q"]').fill('Searchable');
     await Promise.all([page.waitForNavigation(), page.locator('#legacy-search-query').press('Enter')]);
     await expect(page.locator('tbody')).toContainText('HTML4 Searchable');
-    await expect(page.locator('tbody')).not.toContainText('HTML4 Due');
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Due Edited');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
   } finally {
+    if (user) db.deleteMany('eventlog', { userId: user._id });
     db.deleteOne('attachments', { _id: childIds.foreignAttachment });
     db.deleteOne('card_comments', { _id: childIds.foreignComment });
     db.deleteOne('checklists', { _id: childIds.foreignChecklist });

@@ -17,6 +17,8 @@ import {
 import {
   createAccessibleCard,
   moveAccessibleCard,
+  setAccessibleCardArchived,
+  updateAccessibleCardContent,
 } from '/server/lib/accessibleCardOperations';
 import {
   CAPABILITY_SCRIPT_PATH,
@@ -91,8 +93,12 @@ WebApp.handlers.use(async (req, res, next) => {
   }) : null;
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
+  const cardOperations = [
+    'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
+    'edit-card-description', 'archive-card', 'restore-card',
+  ];
   if (session && /^\/b\/[^/]+/.test(path)
-    && ['create-card', 'move-card-up', 'move-card-down'].includes(requestFields.legacyOperation)) {
+    && cardOperations.includes(requestFields.legacyOperation)) {
     try {
       const invocation = { userId: session.userId,
         connection: { clientAddress: String(session.address || '') } };
@@ -104,8 +110,24 @@ WebApp.handlers.use(async (req, res, next) => {
             position: requestFields.position,
           });
         }
-        return moveAccessibleCard(session.userId, requestFields.cardId,
-          requestFields.legacyOperation === 'move-card-up' ? 'up' : 'down');
+        if (requestFields.legacyOperation === 'move-card-up'
+          || requestFields.legacyOperation === 'move-card-down') {
+          return moveAccessibleCard(session.userId, requestFields.cardId,
+            requestFields.legacyOperation === 'move-card-up' ? 'up' : 'down');
+        }
+        if (requestFields.legacyOperation === 'edit-card-title'
+          || requestFields.legacyOperation === 'edit-card-description') {
+          return updateAccessibleCardContent(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            field: requestFields.legacyOperation === 'edit-card-title' ? 'title' : 'description',
+            value: requestFields.legacyOperation === 'edit-card-title'
+              ? requestFields.cardTitle : requestFields.cardDescription,
+          });
+        }
+        return setAccessibleCardArchived(session.userId, {
+          cardId: requestFields.cardId, boardId: requestFields.boardId,
+          archived: requestFields.legacyOperation === 'archive-card',
+        });
       });
       requestFields.legacyCardResult = { ok: true, result };
     } catch (error) {
