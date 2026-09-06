@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,970 values across 36 second-tier languages**. Albanian
-now has 1,915 left after its first four 50-value batches. Bosnian is also
+remaining work is **77,870 values across 36 second-tier languages**. Albanian
+now has 1,815 left after its first six 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,10 +8254,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first four activity,
-workspace, board, archive and card-view batches, every near-complete locale is
-complete again, and the remaining counter excludes the valid Bosnian loanword
-`Server`.
+**In short:** **Albanian translations** now cover the first six activity,
+workspace, board, archive, card-view and appearance batches; every near-complete
+locale is complete again, and the remaining counter excludes the valid Bosnian
+loanword `Server`.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8308,6 +8308,17 @@ navigation, archive warnings, card details, voting, board backgrounds and member
 summaries. Locale-wide regression coverage checks every translated Albanian
 value's replaceable tokens and pins the remaining actionable count at 1,915.
 The repository-wide backlog is now 77,970 values across 36 languages.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa447f0ab">Translate Albanian dialogs and appearance</a>. Thanks to xet7.</summary>
+
+Two 50-value batches add Albanian voting, Planning Poker, dependencies,
+organization and team dialogs, import windows, themes, fonts, permissions and
+imported-user mapping. The locale-wide token audit and representative regression
+assertions now cover the first 300 actionable values. This leaves 77,870 values
+across 36 languages.
 
 </details>
 
