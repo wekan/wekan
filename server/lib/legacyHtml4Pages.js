@@ -12,7 +12,7 @@ import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import getSlug from 'limax';
 const {
-  UI_ICONS, uiAction, uiLink, uiSearchForm, uiTextareaForm,
+  UI_ICONS, uiAction, uiFileForm, uiLink, uiSearchForm, uiTextareaForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
@@ -469,8 +469,14 @@ async function importPage(path, userId, requestFields, translate) {
         tr(translate, result.errorKey, fallbacks[result.errorKey] || 'Import failed')] });
     }
     if (selected.key === 'excel') {
-      rows.push({ cells: [tr(translate, 'import', 'Import'),
-        tr(translate, 'import-excel-file', 'Excel file (.xlsx)')] });
+      rows.push({ rowHeader: false, cells: [uiFileForm({
+        action: `/import/${selected.key}`,
+        label: tr(translate, 'import-excel-file', 'Excel file (.xlsx)'),
+        name: 'importFile',
+        accept: '.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        fields: { importFields, legacyOperation: 'import-board-file' },
+        submitLabel: tr(translate, 'import', 'Import'),
+      }), ''] });
     } else {
       const issueSources = {
         github: ['GitHub', 'GET /repos/OWNER/REPO/issues'],
@@ -482,6 +488,18 @@ async function importPage(path, userId, requestFields, translate) {
       const instruction = issue
         ? translate('import-board-instruction-issues', { sourceName: issue[0], endpoint: issue[1] })
         : tr(translate, `import-board-instruction-${selected.key}`, 'Paste the exported data here.');
+      if (selected.key === 'wekan' || selected.key === 'trello') rows.push({
+        rowHeader: false,
+        cells: [uiFileForm({
+          action: `/import/${selected.key}`,
+          label: selected.key === 'wekan'
+            ? tr(translate, 'import-wekan-file', 'Import from a .json export file:')
+            : tr(translate, 'import-trello-json-file', 'Trello .json file'),
+          name: 'importFile', accept: '.json,application/json',
+          fields: { importFields, legacyOperation: 'import-board-file' },
+          submitLabel: tr(translate, 'import', 'Import'),
+        }), ''],
+      });
       rows.push({ rowHeader: false, cells: [uiTextareaForm({
         action: `/import/${selected.key}`,
         label: `${instruction} ${tr(translate, 'import-board-instruction-about-errors', '')}`.trim(),

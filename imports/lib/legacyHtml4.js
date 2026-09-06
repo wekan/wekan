@@ -211,6 +211,13 @@ function contentRows(path, options) {
           `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" rows="20" cols="80">${escapeHtml(cell.value || '')}</textarea></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'file') {
+        const id = `legacy-${String(cell.name || 'file').replace(/[^a-z0-9_-]/gi, '')}`;
+        const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const accept = cell.accept ? ` accept="${escapeHtml(cell.accept)}"` : '';
+        return `<form method="post" action="${escapeHtml(cell.action)}" enctype="multipart/form-data">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" type="file"${accept}></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
+      }
       if (cell && typeof cell === 'object' && cell.action) {
         return postForm(cell.action, cell.label, options.actionFields(cell.action), cell.fields, cell.icon);
       }

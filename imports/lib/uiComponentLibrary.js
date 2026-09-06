@@ -47,6 +47,11 @@ function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLa
   return { component: 'textarea', action, label, name, value, fields, submitLabel };
 }
 
+function uiFileForm({ action, label, name, accept = '', fields = {}, submitLabel }) {
+  return { component: 'file', action, label, name, accept, fields, submitLabel };
+}
+
 module.exports = {
-  UI_ICONS, uiAction, uiControlLabel, uiIcon, uiLink, uiSearchForm, uiTextareaForm,
+  UI_ICONS, uiAction, uiControlLabel, uiFileForm, uiIcon, uiLink, uiSearchForm,
+  uiTextareaForm,
 };

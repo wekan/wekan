@@ -11,7 +11,7 @@ const {
   safeColor,
 } = require('../imports/lib/legacyHtml4');
 const {
-  UI_ICONS, uiControlLabel, uiIcon, uiSearchForm, uiTextareaForm,
+  UI_ICONS, uiControlLabel, uiFileForm, uiIcon, uiSearchForm, uiTextareaForm,
 } = require('../imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('../imports/lib/keyboardShortcutMappings');
 const { IMPORT_SOURCES, importSourceByKey, importSourceName } = require('../models/lib/importSources');
@@ -167,8 +167,9 @@ test('HTML4 text imports use a bounded signed form and the shared import method'
   const middleware = fs.readFileSync(path.join(root, 'server', 'legacyHtml4.js'), 'utf8');
   assert.match(operations, /MAX_IMPORT_TEXT_BYTES = 5 \* 1024 \* 1024/);
   assert.match(operations, /importSourceByKey\(source\)/);
-  assert.match(operations, /pruneImportDocument\(parseImportText\(source, input\), selected\)/);
-  assert.match(operations, /Meteor\.callAsync\('importBoard', document/);
+  assert.match(operations, /document: parseImportText\(source, input\)/);
+  assert.match(operations, /pruneImportDocument\(document, selected\)/);
+  assert.match(operations, /Meteor\.callAsync\('importBoard', pruned/);
   assert.match(operations, /DDP\._CurrentMethodInvocation\.withValue/);
   assert.match(middleware, /session && requestFields\.legacyOperation === 'import-board-text'/);
 
@@ -186,6 +187,48 @@ test('HTML4 text imports use a bounded signed form and the shared import method'
   assert.match(html, /<textarea[^>]+name="importText"[^>]*>&lt;unsafe&gt;<\/textarea>/);
   assert.match(html, /name="legacyOperation" value="import-board-text"/);
   assert.match(html, /name="authHash" value="b{64}"/);
+});
+
+test('HTML4 file imports stream bounded multipart data to private temporary files', () => {
+  const root = path.join(__dirname, '..');
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  const lock = JSON.parse(fs.readFileSync(path.join(root, 'package-lock.json'), 'utf8'));
+  const multipart = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Multipart.js'), 'utf8');
+  const operations = fs.readFileSync(path.join(root, 'server', 'lib',
+    'legacyHtml4Imports.js'), 'utf8');
+  const middleware = fs.readFileSync(path.join(root, 'server', 'legacyHtml4.js'), 'utf8');
+  assert.match(multipart, /require\('@fastify\/busboy'\)/);
+  assert.equal(manifest.dependencies['@fastify/busboy'], '^3.2.2');
+  assert.equal(lock.packages['node_modules/@fastify/busboy'].license, 'MIT');
+  assert.match(multipart, /files: 1, fields: 20, parts: 21/);
+  assert.match(multipart, /fileSize: MAX_MULTIPART_FILE_BYTES/);
+  assert.match(multipart, /createWriteStream\(tempPath, \{ flags: 'wx', mode: 0o600 \}\)/);
+  assert.match(multipart, /fieldName !== 'importFile' \|\| upload/);
+  assert.match(multipart, /upload\.truncated/);
+  assert.match(multipart, /Promise\.resolve\(fileWrite\)[\s\S]*then\(cleanup\)/);
+  assert.match(multipart, /req\.on\('aborted'/);
+  assert.match(operations, /importLegacyHtml4File/);
+  assert.match(operations, /source === 'excel'[\s\S]*excelBase64/);
+  assert.match(operations, /return await invokeImport/);
+  assert.ok(middleware.indexOf('receiveLegacyHtml4Multipart(req)')
+    < middleware.indexOf('consumeLegacyHtml4Session(req, path)'),
+  'multipart fields are parsed before their signature is checked');
+  assert.match(middleware, /removeLegacyHtml4Upload\(multipartUpload\)/);
+
+  const html = renderLegacyHtml4Page('/import/wekan', {
+    authenticated: true, username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'Import', columns: ['Input', 'Action'], rows: [{ rowHeader: false,
+      cells: [uiFileForm({ action: '/import/wekan', label: 'JSON file', name: 'importFile',
+        accept: '.json,application/json', fields: { legacyOperation: 'import-board-file' },
+        submitLabel: 'Import' }), ''] }] },
+  });
+  assert.match(html, /enctype="multipart\/form-data"/);
+  assert.match(html, /<label for="legacy-importFile">JSON file<\/label>/);
+  assert.match(html, /type="file" accept="\.json,application\/json"/);
+  assert.match(html, /name="legacyOperation" value="import-board-file"/);
 });
 
 test('card discovery pages scope reads to the authenticated user boards', () => {

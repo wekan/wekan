@@ -4,7 +4,15 @@ import Settings from '/models/settings';
 import { TAPi18n } from '/imports/i18n';
 import { consumeLegacyHtml4Session, sessionFields } from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
-import { importLegacyHtml4Text } from '/server/lib/legacyHtml4Imports';
+import {
+  importLegacyHtml4File,
+  importLegacyHtml4Text,
+} from '/server/lib/legacyHtml4Imports';
+import {
+  isLegacyHtml4Multipart,
+  receiveLegacyHtml4Multipart,
+  removeLegacyHtml4Upload,
+} from '/server/lib/legacyHtml4Multipart';
 import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
@@ -36,9 +44,23 @@ function requestLanguage(req) {
 WebApp.handlers.use(async (req, res, next) => {
   const path = new URL(req.url, 'http://wekan.invalid').pathname;
   let session = null;
+  let multipartUpload = null;
+  if (isLegacyHtml4Multipart(req, path)) {
+    try {
+      const multipart = await receiveLegacyHtml4Multipart(req);
+      req.body = multipart.fields;
+      multipartUpload = multipart.upload;
+    } catch (_) {
+      res.statusCode = 400;
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.end('Invalid or oversized import upload.');
+      return;
+    }
+  }
   if (req.method === 'POST' && req.body?.legacySession) {
     session = await consumeLegacyHtml4Session(req, path);
     if (!session) {
+      await removeLegacyHtml4Upload(multipartUpload);
       try {
         require('/server/lib/canary').tripCanary('authz.legacy-html4-session', {
           req,
@@ -50,7 +72,10 @@ WebApp.handlers.use(async (req, res, next) => {
       res.end();
       return;
     }
-  } else if (!isDocumentRequest(req)) return next();
+  } else if (!isDocumentRequest(req)) {
+    await removeLegacyHtml4Upload(multipartUpload);
+    return next();
+  }
 
   const setting = (await Settings.findOneAsync({})) || {};
   const language = requestLanguage(req);
@@ -71,6 +96,17 @@ WebApp.handlers.use(async (req, res, next) => {
       clientAddress: session.address,
     });
   }
+  if (session && multipartUpload && requestFields.legacyOperation === 'import-board-file') {
+    const source = /^\/import\/([^/]+)$/.exec(path)?.[1] || '';
+    requestFields.legacyImportResult = await importLegacyHtml4File({
+      userId: session.userId,
+      source,
+      upload: multipartUpload,
+      fields: requestFields.importFields,
+      clientAddress: session.address,
+    });
+  }
+  await removeLegacyHtml4Upload(multipartUpload);
   if (query.has('q')) requestFields.q = query.get('q');
   const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
 

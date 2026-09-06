@@ -4,6 +4,9 @@ const fs = require('node:fs');
 const { test, expect } = require('@playwright/test');
 const db = require('../helpers/db');
 const { loginWithToken } = require('../helpers/auth');
+const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+
+const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 test('cookieless HTML4 card discovery pages show only the signed-in user data', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
@@ -19,6 +22,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let archivedBoard;
   let workspaceBoard;
   let importedBoardId;
+  let importedFileBoardId;
+  let importedExcelBoardId;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -183,6 +188,62 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.locator(`form[action^="/b/${importedBoardId}/"] input[type="submit"]`).click(),
     ]);
     await expect(page.locator('tbody')).toContainText('HTML4 Imported Card');
+
+    // Return through signed navigation: board pages intentionally expose only
+    // their nearest destinations, and the cookieless session is never put in a URL.
+    await open('/allboards');
+    await open('/import');
+    await open('/import/wekan');
+    const fileImportTitle = `HTML4 File Import ${suffix}`;
+    const exportedAt = '2020-01-01T00:00:00.000Z';
+    const fileExport = {
+      _format: 'wekan-board-1.0.0', _id: 'html4-source-board', title: fileImportTitle,
+      archived: false, color: 'belize', permission: 'private',
+      createdAt: exportedAt, modifiedAt: exportedAt,
+      members: [], labels: [],
+      swimlanes: [{ _id: 'html4-source-swimlane', title: 'Default', archived: false, sort: 0 }],
+      lists: [{ _id: 'html4-source-list', title: 'File List', archived: false, sort: 0 }],
+      cards: [{
+        _id: 'html4-source-card', title: 'HTML4 JSON File Card', archived: false,
+        swimlaneId: 'html4-source-swimlane', listId: 'html4-source-list', sort: 0,
+        description: '', dateLastActivity: exportedAt, labelIds: [],
+      }],
+      comments: [], activities: [], checklists: [], checklistItems: [], subtaskItems: [],
+      customFields: [], rules: [], triggers: [], actions: [], users: [],
+    };
+    await page.locator('input[type="file"][name="importFile"]').setInputFiles({
+      name: 'wekan-export.json', mimeType: 'application/json',
+      buffer: Buffer.from(JSON.stringify(fileExport)),
+    });
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[name="legacyOperation"][value="import-board-file"]) input[type="submit"]')
+        .click(),
+    ]);
+    const importedFileBoard = db.findOne('boards', { title: fileImportTitle });
+    expect(importedFileBoard && importedFileBoard._id).toBeTruthy();
+    importedFileBoardId = importedFileBoard._id;
+    await expect(page.locator('tbody')).toContainText(fileImportTitle);
+
+    await open('/import');
+    await open('/import/excel');
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Board');
+    worksheet.addRow(['Title', 'Description', 'Status']);
+    worksheet.addRow(['HTML4 Excel File Card', 'uploaded without JavaScript', 'HTML4 Excel List']);
+    const excelBuffer = Buffer.from(await workbook.xlsx.writeBuffer());
+    await page.locator('input[type="file"][name="importFile"]').setInputFiles({
+      name: 'wekan-board.xlsx', mimeType: XLSX_MIME, buffer: excelBuffer,
+    });
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[name="legacyOperation"][value="import-board-file"]) input[type="submit"]')
+        .click(),
+    ]);
+    const importedExcelCard = db.findOne('cards', { title: 'HTML4 Excel File Card' });
+    expect(importedExcelCard && importedExcelCard.boardId).toBeTruthy();
+    importedExcelBoardId = importedExcelCard.boardId;
+    await expect(page.locator('tbody')).toContainText('Imported:');
     await open('/my-cards');
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');
@@ -264,6 +325,8 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (archivedBoard) db.cleanup({ boardIds: [archivedBoard.boardId] });
     if (workspaceBoard) db.cleanup({ boardIds: [workspaceBoard.boardId] });
     if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
+    if (importedFileBoardId) db.cleanup({ boardIds: [importedFileBoardId] });
+    if (importedExcelBoardId) db.cleanup({ boardIds: [importedExcelBoardId] });
     if (board) db.cleanup({ boardIds: [board.boardId] });
     if (user) db.cleanup({ userIds: [user._id] });
     await context.close();

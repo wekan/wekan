@@ -1,5 +1,6 @@
 import { DDP } from 'meteor/ddp';
 import { Meteor } from 'meteor/meteor';
+import fs from 'fs';
 import { pruneImportDocument } from '/models/lib/importParts';
 const { importSourceByKey } = require('/models/lib/importSources');
 const { parseImportFields } = require('/models/lib/exportFields');
@@ -29,6 +30,16 @@ function publicImportError(error) {
   return { ok: false, errorKey: key };
 }
 
+async function invokeImport({ userId, source, document, fields, clientAddress }) {
+  const selected = parseImportFields(typeof fields === 'string' ? fields : undefined);
+  const pruned = source === 'excel' ? document : pruneImportDocument(document, selected);
+  const boardId = await DDP._CurrentMethodInvocation.withValue({
+    userId,
+    connection: { clientAddress: String(clientAddress || '') },
+  }, async () => Meteor.callAsync('importBoard', pruned, { membersMapping: {} }, source, null));
+  return { ok: true, boardId };
+}
+
 export async function importLegacyHtml4Text({ userId, source, text, fields, clientAddress }) {
   if (!userId) return { ok: false, errorKey: 'error-notAuthorized' };
   if (!importSourceByKey(source)) return { ok: false, errorKey: 'invalid-import-source' };
@@ -38,16 +49,28 @@ export async function importLegacyHtml4Text({ userId, source, text, fields, clie
     return { ok: false, errorKey: 'import-file-too-large' };
   }
   try {
-    const selected = parseImportFields(typeof fields === 'string' ? fields : undefined);
-    const document = pruneImportDocument(parseImportText(source, input), selected);
-    const boardId = await DDP._CurrentMethodInvocation.withValue({
-      userId,
-      connection: { clientAddress: String(clientAddress || '') },
-    }, async () => Meteor.callAsync('importBoard', document, { membersMapping: {} }, source, null));
-    return { ok: true, boardId };
+    return await invokeImport({ userId, source, document: parseImportText(source, input),
+      fields, clientAddress });
   } catch (error) {
     return publicImportError(error);
   }
 }
 
-export { MAX_IMPORT_TEXT_BYTES, parseImportText, publicImportError };
+export async function importLegacyHtml4File({
+  userId, source, upload, fields, clientAddress,
+}) {
+  if (!userId) return { ok: false, errorKey: 'error-notAuthorized' };
+  if (!importSourceByKey(source)) return { ok: false, errorKey: 'invalid-import-source' };
+  if (!upload?.tempPath) return { ok: false, errorKey: 'error-json-malformed' };
+  try {
+    const bytes = await fs.promises.readFile(upload.tempPath);
+    const document = source === 'excel'
+      ? { excelBase64: bytes.toString('base64') }
+      : parseImportText(source, bytes.toString('utf8'));
+    return await invokeImport({ userId, source, document, fields, clientAddress });
+  } catch (error) {
+    return publicImportError(error);
+  }
+}
+
+export { MAX_IMPORT_TEXT_BYTES, invokeImport, parseImportText, publicImportError };
