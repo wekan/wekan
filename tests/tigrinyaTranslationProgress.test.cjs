@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 874,
-  'the first twenty-six Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 824,
+  'the first twenty-seven Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -211,5 +211,15 @@ assert.match(tigrinya['dueCardsViewChange-choice-all-description'], /\*ገደብ
 assert.deepEqual(tokens(tigrinya['board-title-not-found']), ['%s']);
 assert.deepEqual(tokens(tigrinya['swimlane-title-not-found']), ['%s']);
 assert.deepEqual(tokens(tigrinya['list-title-not-found']), ['%s']);
+assert.deepEqual(tokens(tigrinya['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+for (const [key, value] of Object.entries(tigrinya)) {
+  if ((key.startsWith('operator-') || key.startsWith('predicate-')) &&
+      !/\s/.test(english[key])) {
+    assert.doesNotMatch(value, /\s/, `${key}: search terms remain one word`);
+  }
+}
+assert.equal(tigrinya['operator-board'], 'ሰሌዳ');
+assert.equal(tigrinya['predicate-checklist'], 'ዝርዝርመረጋገጺ');
 
-console.log('tigrinyaTranslationProgress: first twenty-six batches passed');
+console.log('tigrinyaTranslationProgress: first twenty-seven batches passed');
