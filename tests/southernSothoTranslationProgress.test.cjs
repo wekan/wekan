@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1474,
-  'the first thirteen Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1424,
+  'the first fourteen Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -100,5 +100,11 @@ assert.deepEqual(tokens(sesotho['label-default']), ['%s']);
 assert.deepEqual(tokens(sesotho['leave-board-pop']), ['__boardTitle__']);
 assert.equal(sesotho.menu, 'Lenane la dikgetho');
 assert.equal(sesotho.normal, 'Tlwaelehileng');
+assert.deepEqual(tokens(sesotho['page-maybe-private']), ['%s']);
+assert.deepEqual(tags(sesotho['page-maybe-private']),
+  ['</a>', "<a href='%s'>"]);
+assert.deepEqual(tokens(sesotho['remove-member-pop']),
+  ['__boardTitle__', '__name__', '__username__']);
+assert.equal(sesotho['sidebar-close'], 'Kwala bara e ka thoko');
 
-console.log('southernSothoTranslationProgress: first thirteen batches passed');
+console.log('southernSothoTranslationProgress: first fourteen batches passed');
