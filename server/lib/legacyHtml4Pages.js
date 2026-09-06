@@ -19,6 +19,7 @@ import {
   allowIsBoardMemberWithWriteAccess,
 } from '/server/lib/utils';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
+import { getFeatureFlags } from '/models/lib/featureFlags';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -214,6 +215,19 @@ async function boardsPage(path, userId, publicOnly = false, requestFields = {}, 
       if (canAdmin && board.archived === true) actions.push(uiAction({
         action: actionPath, label: tr(translate, 'restore-board', 'Restore board'),
         icon: 'move-up', fields: { ...boardFields, legacyOperation: 'restore-board' },
+      }));
+      const confirmingPermanentDelete = requestFields.confirmBoardPermanentDelete === board._id;
+      if (currentUser?.isAdmin === true && board.archived === true
+        && getFeatureFlags().enablePermanentDelete) actions.push(confirmingPermanentDelete ? [
+        `${tr(translate, 'delete-board-confirm-popup', 'Permanently delete this board?')}`,
+        uiAction({ action: actionPath, label: tr(translate, 'delete', 'Delete'),
+          icon: 'remove', fields: {
+            ...boardFields, legacyOperation: 'permanently-delete-board',
+          } }),
+        uiAction({ action: actionPath, label: tr(translate, 'cancel', 'Cancel') }),
+      ] : uiAction({
+        action: actionPath, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { ...boardFields, legacyOperation: 'confirm-permanently-delete-board' },
       }));
       const confirmingArchive = requestFields.confirmBoardArchive === board._id;
       if (canAdmin && board.archived !== true) actions.push(confirmingArchive ? [

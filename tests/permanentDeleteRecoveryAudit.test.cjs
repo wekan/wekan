@@ -10,6 +10,7 @@ const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const settingsServer = read('server/models/settings.js');
 const settingsClient = read('client/components/settings/adminProblems.js');
 const boardsServer = read('server/models/boards.js');
+const boardOperations = read('server/lib/accessibleBoardListOperations.js');
 const recoveryModel = read('models/recoveryEvents.js');
 const settingsJade = read('client/components/settings/adminProblems.jade');
 
@@ -56,7 +57,9 @@ test('a changed setting logs the username and enabled or disabled state', () => 
 
 test('each successfully deleted board logs actor, board ID and title', () => {
   const at = boardsServer.indexOf('async permanentlyDeleteArchivedBoards(boardIds)');
-  const body = boardsServer.slice(at, boardsServer.indexOf('\n  },', at));
+  const method = boardsServer.slice(at, boardsServer.indexOf('\n  },', at));
+  const serviceAt = boardOperations.indexOf('async function permanentlyDeleteAccessibleArchivedBoards');
+  const body = boardOperations.slice(serviceAt);
 
   assert.ok(
     body.indexOf('await Boards.removeAsync(board._id)') < body.indexOf('await recordRecoveryAudit({'),
@@ -65,6 +68,7 @@ test('each successfully deleted board logs actor, board ID and title', () => {
   assert.match(body, /user\?\.username \|\| user\?\._id/);
   assert.match(body, /BOARD_PERMANENTLY_DELETED/);
   assert.match(body, /board \$\{board\._id\} titled \$\{JSON\.stringify\(board\.title \|\| ''\)\}/);
+  assert.match(method, /permanentlyDeleteAccessibleArchivedBoards\(/);
 });
 
 test('unauthorized and failed attempts are logged with actor, address, and requested boards', () => {
@@ -79,9 +83,9 @@ test('unauthorized and failed attempts are logged with actor, address, and reque
   const boardAt = boardsServer.indexOf('async permanentlyDeleteArchivedBoards(boardIds)');
   const boardBody = boardsServer.slice(boardAt, boardsServer.indexOf('\n  },', boardAt));
   assert.ok(boardBody.indexOf('check(boardIds, [String])')
-    < boardBody.indexOf('await ReactiveCache.getUser'),
+    < boardBody.indexOf('permanentlyDeleteAccessibleArchivedBoards'),
   'argument validation precedes the async actor lookup');
-  assert.match(boardBody, /catch \(error\)[\s\S]*?done: false[\s\S]*?boards: attemptedBoards/);
+  assert.match(boardOperations, /catch \(error\)[\s\S]*?done: false, boards: attemptedBoards/);
 
   const settingAt = settingsServer.indexOf('async setPermanentDeleteEnabled(enabled)');
   const settingBody = settingsServer.slice(settingAt, settingsServer.indexOf('\n  },', settingAt));

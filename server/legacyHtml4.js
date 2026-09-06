@@ -42,6 +42,7 @@ import {
 import {
   copyAccessibleBoard,
   createAccessibleBoardWithInitialSwimlanes,
+  permanentlyDeleteAccessibleArchivedBoards,
   setAccessibleBoardWorkspace,
   setAccessibleBoardArchived,
   toggleAccessibleBoardStar,
@@ -173,6 +174,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'toggle-board-star', 'toggle-default-board', 'archive-board', 'restore-board',
     'create-board', 'copy-board',
     'set-board-workspace',
+    'permanently-delete-board',
   ];
   const isBoardListPath = /^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path);
   if (session && isBoardListPath
@@ -182,6 +184,10 @@ WebApp.handlers.use(async (req, res, next) => {
   if (session && isBoardListPath
     && requestFields.legacyOperation === 'confirm-copy-board') {
     requestFields.confirmBoardCopy = String(requestFields.boardId || '');
+  }
+  if (session && isBoardListPath
+    && requestFields.legacyOperation === 'confirm-permanently-delete-board') {
+    requestFields.confirmBoardPermanentDelete = String(requestFields.boardId || '');
   }
   if (session && isBoardListPath
     && boardListOperations.includes(requestFields.legacyOperation)) {
@@ -218,6 +224,11 @@ WebApp.handlers.use(async (req, res, next) => {
         if (requestFields.legacyOperation === 'set-board-workspace') {
           return setAccessibleBoardWorkspace(
             session.userId, boardId, String(requestFields.workspaceId || ''),
+          );
+        }
+        if (requestFields.legacyOperation === 'permanently-delete-board') {
+          return permanentlyDeleteAccessibleArchivedBoards(
+            session.userId, [boardId], invocation.connection,
           );
         }
         return setAccessibleBoardArchived(

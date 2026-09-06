@@ -21,7 +21,11 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let outsiderBoard;
   let templateBoard;
   let archivedBoard;
+  let permanentDeleteBoard;
   let workspaceBoard;
+  let settingsId;
+  let originalPermanentDelete;
+  let originalPermanentDeletePresent = false;
   let html4CreatedBoardId;
   let html4CopiedBoardId;
   let importedBoardId;
@@ -66,11 +70,23 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     });
     templateBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Template Container', listCount: 1 });
     archivedBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Archived Board', listCount: 1 });
+    permanentDeleteBoard = db.seedBoard({
+      ownerId: user._id, title: 'HTML4 Permanently Deleted Board', listCount: 1,
+    });
     workspaceBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Workspace Board', listCount: 1 });
     db.updateOne('boards', { _id: templateBoard.boardId }, { $set: { type: 'template-container' } });
     db.updateOne('boards', { _id: archivedBoard.boardId }, {
       $set: { archived: true, archivedAt: new Date() },
     });
+    db.updateOne('boards', { _id: permanentDeleteBoard.boardId }, {
+      $set: { archived: true, archivedAt: new Date() },
+    });
+    const settingsDoc = db.findOne('settings', {});
+    settingsId = settingsDoc?._id;
+    originalPermanentDeletePresent = Object.prototype.hasOwnProperty.call(
+      settingsDoc || {}, 'enablePermanentDelete',
+    );
+    originalPermanentDelete = settingsDoc?.enablePermanentDelete;
     const cards = db.find('cards', { boardId: board.boardId });
     const due = cards.find(card => card.title === 'HTML4 Due');
     db.updateOne('cards', { _id: due._id }, {
@@ -151,6 +167,9 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       `form:has(input[name="legacyOperation"][value="${operation}"])`
       + `:has(input[name="boardId"][value="${boardId}"])`,
     );
+    await expect(boardOperationForm(
+      'confirm-permanently-delete-board', permanentDeleteBoard.boardId,
+    )).toHaveCount(0);
     await Promise.all([
       page.waitForNavigation(),
       boardOperationForm('restore-board', archivedBoard.boardId)
@@ -1060,6 +1079,36 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     // image or download URL, and one binary response does not rotate the other
     // controls on the page.
     await open('/allboards');
+    db.updateOne('users', { _id: user._id }, { $set: { isAdmin: true } });
+    db.updateOne('settings', { _id: settingsId }, { $set: { enablePermanentDelete: true } });
+    await page.waitForTimeout(500);
+    await open('/allboards/archive');
+    const permanentDeleteForm = operation => boardOperationForm(
+      operation, permanentDeleteBoard.boardId,
+    );
+    await expect(permanentDeleteForm('confirm-permanently-delete-board')).toHaveCount(1);
+    await Promise.all([
+      page.waitForNavigation(),
+      permanentDeleteForm('confirm-permanently-delete-board').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('boards', { _id: permanentDeleteBoard.boardId })).not.toBeNull();
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-allboards-permanent-delete.png`,
+        fullPage: true,
+      });
+    }
+    await Promise.all([
+      page.waitForNavigation(),
+      permanentDeleteForm('permanently-delete-board').locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('boards', { _id: permanentDeleteBoard.boardId })).toBeNull();
+    await expect.poll(() => db.findOne('recoveryEvents', {
+      type: 'board-permanently-deleted', userId: user._id,
+      boardIds: permanentDeleteBoard.boardId, done: true,
+    })?.username).toBe(username);
+    db.updateOne('users', { _id: user._id }, { $set: { isAdmin: false } });
+    permanentDeleteBoard = null;
     await open('/allboards/remaining');
     const attachmentBoard = db.findOne('boards', { _id: importedWekanZipBoardId });
     await open(`/b/${attachmentBoard._id}/${attachmentBoard.slug}`);
@@ -1214,7 +1263,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect.poll(() => db.findOne('users', { _id: user._id })?.loginDisabled)
       .toBe(true);
     db.updateOne('users', { _id: user._id }, {
-      $set: { loginDisabled: false },
+      $set: { loginDisabled: false, isAdmin: true },
       $unset: { 'services.securityBlock': '' },
     });
 
@@ -1237,6 +1286,17 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-templates.png`, fullPage: true,
       });
     }
+    await modern.goto(`${baseURL}/allboards/archive`);
+    await modern.locator('.js-all-boards-sidebar-multiselection').click();
+    await modern.locator('.js-board-select-all').click();
+    await expect(modern.locator('.js-delete-selected-boards')).toBeVisible();
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-permanent-delete.png`,
+        fullPage: true,
+      });
+    }
+    await modern.locator('.js-multiselection-reset').first().click();
     await modern.goto(`${baseURL}/allboards/remaining`);
     await expect(modern.locator('body')).toContainText(`HTML4 Created Board ${suffix}`);
     await expect(modern.locator('body')).toContainText(html4CopiedBoard.title);
@@ -1474,6 +1534,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (html4ReplyCommentId) db.deleteOne('card_comments', { _id: html4ReplyCommentId });
     if (html4CreatedCommentId) db.deleteOne('card_comments', { _id: html4CreatedCommentId });
     if (user) db.deleteMany('eventlog', { userId: user._id });
+    if (user) db.deleteMany('recoveryEvents', { userId: user._id });
     db.deleteOne('attachments', { _id: childIds.foreignAttachment });
     db.deleteOne('card_comments', { _id: childIds.foreignComment });
     db.deleteOne('checklists', { _id: childIds.foreignChecklist });
@@ -1486,6 +1547,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (templateBoard) db.cleanup({ boardIds: [templateBoard.boardId] });
     if (archivedBoard) db.cleanup({ boardIds: [archivedBoard.boardId] });
     if (workspaceBoard) db.cleanup({ boardIds: [workspaceBoard.boardId] });
+    if (permanentDeleteBoard) db.cleanup({ boardIds: [permanentDeleteBoard.boardId] });
     if (html4CopiedBoardId) db.cleanup({ boardIds: [html4CopiedBoardId] });
     if (html4CreatedBoardId) db.cleanup({ boardIds: [html4CreatedBoardId] });
     if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
@@ -1498,6 +1560,9 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (importedTrelloZipBoardId) db.cleanup({ boardIds: [importedTrelloZipBoardId] });
     if (board) db.cleanup({ boardIds: [board.boardId] });
     if (user) db.cleanup({ userIds: [user._id] });
+    if (settingsId) db.updateOne('settings', { _id: settingsId }, originalPermanentDeletePresent
+      ? { $set: { enablePermanentDelete: originalPermanentDelete } }
+      : { $unset: { enablePermanentDelete: '' } });
     await context.close();
   }
 });

@@ -343,3 +343,13 @@ same nested Workspace URL. The server accepts only a visible, live ordinary
 board and an identifier present in that authenticated user's Workspace tree;
 unknown destinations are refused and reported rather than stored as orphaned
 profile data.
+Archive exposes physical deletion only when all three server-checked conditions
+are true: the actor is Global Admin, the board is archived and Admin Panel /
+Problems / Delete has enabled permanent deletion. Its first one-use POST only
+renders the warning; the second calls the same bounded, validate-all-first
+service as Jade bulk deletion. Every success or refusal retains the existing
+actor, address, board ID and title reporting in Admin Panel / Problems /
+Recovery. Browser coverage proves the disabled state has no control, the
+confirmation does not write, deletion removes the board and its children, and
+the attributed successful Recovery record exists; paired Archive screenshots
+show the HTML4 confirmation and HTML5 multi-selection action.

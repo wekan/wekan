@@ -28,12 +28,10 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import Triggers from '/models/triggers';
 import Users from '/models/users';
 import { ensureIndex } from '/server/lib/mongoStartup';
-import { getFeatureFlags } from '/models/lib/featureFlags';
-import RecoveryEvents from '/models/recoveryEvents';
-import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import {
   createAccessibleBoardWithInitialSwimlanes,
+  permanentlyDeleteAccessibleArchivedBoards,
   setAccessibleBoardArchived,
 } from '/server/lib/accessibleBoardListOperations';
 
@@ -285,76 +283,10 @@ Meteor.methods({
   // Validate the whole selection before deleting the first board so one bad id
   // cannot leave a partially applied bulk action.
   async permanentlyDeleteArchivedBoards(boardIds) {
-    const attemptedIds = Array.isArray(boardIds)
-      ? [...new Set(boardIds.filter(id => typeof id === 'string'))].slice(0, 200)
-      : [];
-    let attemptedBoards = attemptedIds.map(_id => ({ _id, title: '' }));
-    let user;
-    let username = 'unknown';
-
-    try {
-      // audit-argument-checks must see the method argument before the first
-      // await. Otherwise the asynchronous user lookup can leave the audit
-      // context believing boardIds was never checked and mask the real result
-      // with "Did not check() all arguments".
-      check(boardIds, [String]);
-      user = this.userId && await ReactiveCache.getUser(this.userId);
-      username = user?.username || user?._id || 'unknown';
-      const ids = [...new Set(boardIds)];
-      if (!ids.length || ids.length > 200) {
-        throw new Meteor.Error('invalid-board-selection');
-      }
-
-      const foundBoards = await Boards.find(
-        { _id: { $in: ids } },
-        { fields: { _id: 1, title: 1, archived: 1 } },
-      ).fetchAsync();
-      const foundById = new Map(foundBoards.map(board => [board._id, board]));
-      attemptedBoards = ids.map(_id => foundById.get(_id) || { _id, title: '' });
-
-      if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
-        throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
-      }
-      if (foundBoards.length !== ids.length || foundBoards.some(board => !board.archived)) {
-        throw new Meteor.Error(
-          'not-archived',
-          'Only archived boards can be permanently deleted.',
-        );
-      }
-      for (const board of foundBoards) {
-        await Boards.removeAsync(board._id);
-        await recordRecoveryAudit({
-          type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
-          user,
-          connection: this.connection,
-          done: true,
-          deletedData: true,
-          boards: [board],
-          detail: `Global Admin ${username} (${user._id}) permanently deleted board ${board._id} titled ${JSON.stringify(board.title || '')}.`,
-        });
-      }
-      return { deleted: foundBoards.length };
-    } catch (error) {
-      // A malformed argument still belongs in Recovery. Resolve the actor here
-      // only when validation failed before the ordinary lookup above.
-      if (!user && this.userId) {
-        try {
-          user = await ReactiveCache.getUser(this.userId);
-          username = user?.username || user?._id || 'unknown';
-        } catch {
-          // Best effort: the original deletion error is the one returned.
-        }
-      }
-      await recordRecoveryAudit({
-        type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
-        user,
-        connection: this.connection,
-        done: false,
-        boards: attemptedBoards,
-        detail: `User ${username} (${user?._id || 'not logged in'}) failed to permanently delete boards ${attemptedBoards.map(board => `${board._id} titled ${JSON.stringify(board.title || '')}`).join(', ') || '(none)'}: ${error.reason || error.message || 'unknown error'}.`,
-      });
-      throw error;
-    }
+    check(boardIds, [String]);
+    return permanentlyDeleteAccessibleArchivedBoards(
+      this.userId, boardIds, this.connection,
+    );
   },
 
   async setBoardOrgs(boardOrgsArray, currBoardId) {

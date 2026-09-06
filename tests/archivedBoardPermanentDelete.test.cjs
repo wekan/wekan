@@ -16,6 +16,8 @@ const sidebarJs = read('client/components/boards/allBoardsSidebar.js');
 const allBoardsJade = read('client/components/boards/boardsList.jade');
 const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 const server = read('server/models/boards.js');
+const service = read('server/lib/accessibleBoardListOperations.js');
+const html4Pages = read('server/lib/legacyHtml4Pages.js');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
@@ -84,15 +86,25 @@ test('the server independently enforces admin, flag, archive and bounded input',
   assert.notStrictEqual(at, -1, 'the method exists');
   const body = server.slice(at, server.indexOf('\n  },', at));
   assert.ok(/check\(boardIds, \[String\]\)/.test(body), 'ids have a shape');
-  assert.ok(body.indexOf('check(boardIds, [String])') < body.indexOf('await ReactiveCache.getUser'),
+  assert.ok(body.indexOf('check(boardIds, [String])')
+    < body.indexOf('permanentlyDeleteAccessibleArchivedBoards'),
     'Meteor audits the argument before the first asynchronous boundary');
-  assert.ok(/!ids\.length \|\| ids\.length > 200/.test(body), 'the batch is bounded');
-  assert.ok(/user\?\.isAdmin !== true \|\| !getFeatureFlags\(\)\.enablePermanentDelete/.test(body),
+  assert.ok(/!ids\.length \|\| ids\.length > 200/.test(service), 'the batch is bounded');
+  assert.ok(/user\?\.isAdmin !== true \|\| !getFeatureFlags\(\)\.enablePermanentDelete/.test(service),
     'a forged call, board admin, or truthy non-Boolean flag cannot bypass either gate');
-  assert.ok(/foundBoards\.some\(board => !board\.archived\)/.test(body),
+  assert.ok(/foundBoards\.some\(board => !board\.archived\)/.test(service),
     'a live board cannot be permanently deleted through this method');
-  assert.ok(body.indexOf('foundBoards.some') < body.indexOf('Boards.removeAsync'),
+  assert.ok(service.indexOf('foundBoards.some') < service.indexOf('Boards.removeAsync'),
     'the whole selection is validated before deletion starts');
+  assert.match(service, /recordRecoveryAudit\(/,
+    'the shared DDP/HTML4 boundary retains Recovery reporting');
+});
+
+test('HTML4 exposes a confirmed per-board delete only behind the same two gates', () => {
+  assert.match(html4Pages,
+    /currentUser\?\.isAdmin === true && board\.archived === true\s*&& getFeatureFlags\(\)\.enablePermanentDelete/);
+  assert.match(html4Pages, /legacyOperation: 'confirm-permanently-delete-board'/);
+  assert.match(html4Pages, /legacyOperation: 'permanently-delete-board'/);
 });
 
 console.log(`\narchivedBoardPermanentDelete: ${passed} tests passed`);

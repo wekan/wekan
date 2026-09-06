@@ -6,6 +6,9 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { tripCanary } from '/server/lib/canary';
 import getSlug from 'limax';
+import { getFeatureFlags } from '/models/lib/featureFlags';
+import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 const { findNode } = require('/models/lib/workspacesTree');
 
 function refuseBoardListWrite(userId, detail) {
@@ -161,9 +164,66 @@ async function setAccessibleBoardWorkspace(userId, boardId, workspaceId) {
   return true;
 }
 
+async function permanentlyDeleteAccessibleArchivedBoards(userId, boardIds, connection) {
+  const attemptedIds = Array.isArray(boardIds)
+    ? [...new Set(boardIds.filter(id => typeof id === 'string'))].slice(0, 200)
+    : [];
+  let attemptedBoards = attemptedIds.map(_id => ({ _id, title: '' }));
+  let user;
+  let username = 'unknown';
+  try {
+    user = userId && await ReactiveCache.getUser(userId);
+    username = user?.username || user?._id || 'unknown';
+    if (!Array.isArray(boardIds) || boardIds.some(id => typeof id !== 'string')) {
+      throw new Meteor.Error('invalid-board-selection');
+    }
+    const ids = [...new Set(boardIds)];
+    if (!ids.length || ids.length > 200) {
+      throw new Meteor.Error('invalid-board-selection');
+    }
+    const foundBoards = await Boards.find(
+      { _id: { $in: ids } },
+      { fields: { _id: 1, title: 1, archived: 1 } },
+    ).fetchAsync();
+    const foundById = new Map(foundBoards.map(board => [board._id, board]));
+    attemptedBoards = ids.map(_id => foundById.get(_id) || { _id, title: '' });
+    if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
+      throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
+    }
+    if (foundBoards.length !== ids.length || foundBoards.some(board => !board.archived)) {
+      throw new Meteor.Error('not-archived', 'Only archived boards can be permanently deleted.');
+    }
+    for (const board of foundBoards) {
+      await Boards.removeAsync(board._id);
+      await recordRecoveryAudit({
+        type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+        user, connection, done: true, deletedData: true, boards: [board],
+        detail: `Global Admin ${username} (${user._id}) permanently deleted board ${board._id} titled ${JSON.stringify(board.title || '')}.`,
+      });
+    }
+    return { deleted: foundBoards.length };
+  } catch (error) {
+    if (!user && userId) {
+      try {
+        user = await ReactiveCache.getUser(userId);
+        username = user?.username || user?._id || 'unknown';
+      } catch {
+        // Best effort: retain the original deletion error.
+      }
+    }
+    await recordRecoveryAudit({
+      type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+      user, connection, done: false, boards: attemptedBoards,
+      detail: `User ${username} (${user?._id || 'not logged in'}) failed to permanently delete boards ${attemptedBoards.map(board => `${board._id} titled ${JSON.stringify(board.title || '')}`).join(', ') || '(none)'}: ${error.reason || error.message || 'unknown error'}.`,
+    });
+    throw error;
+  }
+}
+
 export {
   copyAccessibleBoard,
   createAccessibleBoardWithInitialSwimlanes,
+  permanentlyDeleteAccessibleArchivedBoards,
   setAccessibleBoardWorkspace,
   setAccessibleBoardArchived,
   toggleAccessibleBoardStar,
