@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 424,
-  'the first thirty-five Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
+  'the first thirty-six Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -273,5 +273,10 @@ assert.match(tigrinya['accounts-lockout-known-users'], /መሕለፊ ቃል/);
 assert.equal(tigrinya['accounts-lockout-unlock-all'], 'ኩሉ ፍታሕ');
 assert.equal(tigrinya['attachments-path'], 'መንገዲ መተሓሓዚታት');
 assert.equal(tigrinya['board-archive-scheduled'], 'ምዝገባ ሰሌዳ ብዓወት ተመዲቡ');
+assert.match(tigrinya['s3-force-path-style-description'], /MinIO.*AWS.*S3-compatible/);
+assert.deepEqual(tokens(tigrinya['database-migration-confirm']), ['__db__']);
+assert.match(tigrinya['database-migration-description'],
+  /MongoDB.*FerretDB v1 \(SQLite\).*27018.*27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*snap set wekan database=ferretdb.*=mongodb/s);
+assert.equal(tigrinya['cron-migrations-resumed'], 'ፍልሰታት ብዓወት ቀጺሎም');
 
-console.log('tigrinyaTranslationProgress: first thirty-five batches passed');
+console.log('tigrinyaTranslationProgress: first thirty-six batches passed');
