@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tg',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
-  'the first twenty-nine Tajik batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 674,
+  'the first thirty Tajik batches stay resolved');
 
 for (const [key, value] of Object.entries(tajik)) {
   if (value !== english[key]) {
@@ -239,5 +239,13 @@ assert.deepEqual(tokens(tajik['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
 assert.deepEqual(tokens(tajik['background-too-big']), ['{{size}}']);
 assert.equal(tajik.location, 'Ҷойгоҳ');
+assert.match(tajik['server-error-troubleshooting'],
+  /sudo snap logs wekan\.wekan.*sudo docker logs wekan-app/s);
+assert.deepEqual(tokens(tajik['custom-field-stringtemplate-format']),
+  ['%{value}']);
+assert.match(tajik['custom-field-stringtemplate-separator'], /&#32;.*&nbsp;/);
+assert.equal(tajik.securityReportTitle, 'Гузориши амният');
+assert.match(tajik['office-report-desc'], /IPv4.*IPv6/);
+assert.equal(tajik.officeReportTitle, 'Дафтарҳо');
 
-console.log('tajikTranslationProgress: first twenty-nine batches passed');
+console.log('tajikTranslationProgress: first thirty batches passed');
