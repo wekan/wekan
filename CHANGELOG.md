@@ -269,10 +269,9 @@ uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists, dates, colors, labels, people, identity, ballots and
 transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
-supports Star, Home, Archive and Restore without JavaScript.
-It also creates and duplicates boards with the same protected server operations
-as the Jade interface, assigns them to Workspaces without drag-and-drop, and
-permanently deletes archived boards through the same audited Global Admin gate.
+can create, duplicate, organize and archive boards without JavaScript, including
+gated permanent deletion. Card parents have matching cycle-safe HTML4/HTML5
+controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -472,6 +471,26 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ab9fd4bc">Add accessible HTML4 card parent controls</a>. Thanks to xet7.</summary>
+
+Card details now show the current parent as a textual board/card link and offer
+a labelled native parent selector in cookieless HTML4. None returns a card to the
+top level. Jade and HTML4 use one acknowledged operation that binds the route
+card, resolves linked content, checks parent visibility and walks the persisted
+ancestor chain before changing anything. Missing ancestors, forged private IDs,
+self-parenting, descendant-parenting, existing loops and unbounded trees are
+refused.
+
+The Jade More popup now waits for its published card and parent, lists candidate
+cards even when a parent already exists, and selects the stored parent rather
+than incorrectly displaying None. Playwright readiness now supports the HTTPS
+comparison target. Tests cover valid set/clear, a forged cycle, linked-card scope,
+the popup's delayed publication state, the full cookieless card path and paired
+same-URL HTML4/HTML5 screenshots on `testi.wekan.fi`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e86b98bcc">Add accessible HTML4 card watching</a>. Thanks to xet7.</summary>
