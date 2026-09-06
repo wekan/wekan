@@ -8139,10 +8139,10 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tigrinya:** all 200
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **69,942 values across 33 second-tier languages**. Southern
+remaining work is **69,892 values across 33 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
 Tajik is complete after forty-three 50-value batches and a final 24-value batch.
-Tigrinya has 324 left after its first thirty-seven 50-value batches. Albanian
+Tigrinya has 274 left after its first thirty-eight 50-value batches. Albanian
 and Bosnian are also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8257,9 +8257,9 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian, Southern Sotho and Tajik translations** are complete;
-**Tigrinya translations** now cover their first thirty-seven batches spanning
+**Tigrinya translations** now cover their first thirty-eight batches spanning
 boards and cards, workflows, import/export, search, administration, security,
-recovery, file and cloud storage and data safety;
+recovery, file and cloud storage, data safety and backups;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8531,6 +8531,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac3909d85">Translate Tigrinya backup and cloud storage</a>. Thanks to xet7.</summary>
+
+The thirty-eighth 50-value Tigrinya batch adds instance and organization
+backups, schedules and restore modes and GCS, S3 and Azure credentials and
+console guidance. All values required translation. Tests retain time and day
+formats, provider and product names, the service-account role and JSON paths.
+This leaves 69,892 actionable values across 33 languages, including 274 in
+Tigrinya.
 
 </details>
 
