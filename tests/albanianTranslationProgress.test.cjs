@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 716,
-  'the first twenty-eight Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 616,
+  'the first thirty Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -251,6 +251,9 @@ assert.deepEqual(tokens(albanian['globalSearch-instructions-operator-has']),
     '__predicate_end__', '__predicate_member__', '__predicate_start__']);
 assert.deepEqual(tokens(albanian['import-dependencies-done']),
   ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(albanian['custom-field-stringtemplate-format']), ['%{value}']);
+assert.match(albanian['server-error-troubleshooting'], /sudo docker logs wekan-app/);
+assert.match(albanian['api-no-calls'], /WITH_API=true/);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first twenty-eight Albanian batches passed');
+console.log('albanianTranslationProgress: first thirty Albanian batches passed');
