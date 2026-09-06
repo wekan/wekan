@@ -1,5 +1,5 @@
 const MODERN_REQUEST_HEADER = 'x-wekan-progressive-client';
-const CAPABILITY_SCRIPT_PATH = '/legacy-omi-capabilities.js';
+const CAPABILITY_SCRIPT_PATH = '/legacy-html4-capabilities.js';
 
 function escapeHtml(value) {
   return String(value == null ? '' : value)
@@ -40,15 +40,15 @@ function pageHeading(path) {
   return 'WeKan';
 }
 
-function legacyOmiAttachmentGifUrl(attachmentId) {
-  return `/legacy-omi/attachments/${encodeURIComponent(String(attachmentId || ''))}.gif`;
+function legacyHtml4AttachmentGifUrl(attachmentId) {
+  return `/legacy-html4/attachments/${encodeURIComponent(String(attachmentId || ''))}.gif`;
 }
 
 function authContent(path) {
   if (path === '/' || path === '/sign-in') {
     return [
       '<form method="post" action="/sign-in">',
-      '<input type="hidden" name="legacyOmi" value="1">',
+      '<input type="hidden" name="legacyHtml4" value="1">',
       '<p><label for="username">Username or email</label><br>',
       '<input id="username" name="username" type="text" size="30"></p>',
       '<p><label for="password">Password</label><br>',
@@ -61,7 +61,7 @@ function authContent(path) {
   if (path === '/sign-up') {
     return [
       '<form method="post" action="/sign-up">',
-      '<input type="hidden" name="legacyOmi" value="1">',
+      '<input type="hidden" name="legacyHtml4" value="1">',
       '<p><label for="username">Username</label><br>',
       '<input id="username" name="username" type="text" size="30"></p>',
       '<p><label for="email">Email</label><br>',
@@ -80,7 +80,7 @@ function authContent(path) {
   ].join('\n');
 }
 
-function renderLegacyOmiPage(requestUrl) {
+function renderLegacyHtml4Page(requestUrl) {
   const path = normalizedPath(requestUrl);
   const heading = pageHeading(path);
   return [
@@ -88,15 +88,15 @@ function renderLegacyOmiPage(requestUrl) {
     '<html lang="en"><head>',
     '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
     `<title>${escapeHtml(heading)}</title>`,
-    '<link rel="stylesheet" type="text/css" href="/legacy-omi.css">',
+    '<link rel="stylesheet" type="text/css" href="/legacy-html4.css">',
     `<script type="text/javascript" src="${CAPABILITY_SCRIPT_PATH}"></script>`,
     '</head><body>',
-    '<div id="legacy-omi-page">',
+    '<div id="legacy-html4-page">',
     '<p><a href="/">WeKan</a></p>',
     `<h1>${escapeHtml(heading)}</h1>`,
     authContent(path),
     '<hr>',
-    '<p>Legacy Omi HTML4 view. Navigation and changes work with server-side forms; JavaScript and cookies are not required.</p>',
+    '<p>Legacy HTML4 view because JavaScript drag and drop is not available.</p>',
     '</div>',
     '</body></html>',
   ].join('\n');
@@ -138,7 +138,7 @@ module.exports = {
   capabilityScript,
   escapeHtml,
   isDocumentRequest,
-  legacyOmiAttachmentGifUrl,
+  legacyHtml4AttachmentGifUrl,
   normalizedPath,
-  renderLegacyOmiPage,
+  renderLegacyHtml4Page,
 };

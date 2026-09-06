@@ -32,7 +32,7 @@ import '/server/00waitForMongo';
 // Every page request starts as a usable HTML4 document. The capability probe
 // asks for the normal Meteor shell only after the browser proves it can run it.
 // Register before API/model routes and Meteor's final boilerplate handler.
-import '/server/legacyOmi';
+import '/server/legacyHtml4';
 
 // ****IMPORTANT**** Initialize upload directories BEFORE models are loaded
 // This ensures ostrio:files can create necessary directories without permission errors

@@ -7,8 +7,9 @@ browser cannot execute the JavaScript capabilities required by the Meteor
 client. The compatibility response is server-rendered HTML 4.01, uses no
 JavaScript, cookies or client-side storage, and performs navigation and changes
 with HTML forms.
-The interaction model follows the maintained Omi design in
-`.tools/omi/docs/WEB_DESIGN.md`; Wami's static pages are presentation references.
+The interaction model follows progressive enhancement: server-rendered forms
+remain functional without client JavaScript, while capable browsers upgrade to
+the full application.
 
 This is an alternate representation of WeKan data, not a second application or
 a redirect to different URLs. Modern browsers continue to receive the existing
@@ -62,15 +63,15 @@ access data.
 ### Image attachments
 
 The compatibility representation never asks the old browser to decode the
-original PNG, JPEG, WebP, AVIF, BMP or SVG attachment. When an Omi controller
+original PNG, JPEG, WebP, AVIF, BMP or SVG attachment. When a Legacy HTML4 controller
 reads an image, the server converts it to GIF on demand; the original attachment
 is not changed. Conversion detects and decodes the bytes on the server, limits
 input bytes and decoded pixels, applies orientation, scales oversized images
 down, and emits a 256-colour GIF. Its cache key includes the attachment identity,
 content checksum or version metadata, size and update time, so changed content
-cannot reuse an earlier conversion. On the first Omi page load that reads the
-image, the generated data is saved as the attachment's `legacyOmiGif` version in
-the backend selected by Admin Panel / Attachments / Default Storage. Later Omi
+cannot reuse an earlier conversion. On the first Legacy HTML4 page load that reads the
+image, the generated data is saved as the attachment's `legacyHtml4Gif` version in
+the backend selected by Admin Panel / Attachments / Default Storage. Later Legacy HTML4
 loads read that stored version rather than converting again. The normal storage
 write permissions and free-space protections apply.
 
@@ -85,7 +86,7 @@ download control. All conversion and authorization remains server-side.
 Successful sign-in creates a short-lived opaque server-side session. The session
 identifier is carried only in hidden POST fields, never in a URL, Referer,
 redirect, log message or response header. Reloading a GET therefore returns the
-same public URL logged out, as in Omi.
+same public URL logged out.
 
 Each rendered authenticated form carries a form-specific, single-use token bound
 to the session, HTTP method, normalized target path and operation. Tokens use a

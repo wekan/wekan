@@ -262,7 +262,7 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Meteor tests build again**, unsupported and no-JavaScript
-browsers receive a Legacy Omi HTML4 baseline, authentication forms have direct
+browsers receive a Legacy HTML4 HTML4 baseline, authentication forms have direct
 keyboard navigation, and installation examples explain the Admin Panel email
 options. Change-history checks retain synchronous SHA-256 on both architectures,
 and interrupted test runs clean up only once before returning to the shell.
@@ -280,11 +280,11 @@ and interrupted test runs clean up only once before returning to the shell.
 
 This release fixes the following bugs:
 
-**Legacy Omi** - every page starts with progressively enhanced HTML4 and images
+**Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/774878a46">Add the progressive Legacy Omi HTML4 baseline</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/774878a46">Add the progressive Legacy HTML4 HTML4 baseline</a>. Thanks to xet7.</summary>
 
 Every WeKan page URL now first returns a usable HTML 4.01 document. A small
 external behavioral probe loads the Meteor representation at the same URL only
@@ -294,8 +294,8 @@ with JavaScript disabled therefore retains the server-rendered page instead of
 an empty client shell. API, DDP, websocket, attachment and static-resource
 routes are excluded from document interception.
 
-Legacy Omi image reads convert the original attachment to bounded GIF89a data
-on the server. The first authorized read stores a `legacyOmiGif` attachment
+Legacy HTML4 image reads convert the original attachment to bounded GIF89a data
+on the server. The first authorized read stores a `legacyHtml4Gif` attachment
 version in Admin Panel / Attachments / Default Storage; later reads reuse it,
 while changed original version metadata invalidates it. Input-byte and decoded-
 pixel limits, existing board authorization, attachment transfer limits and
@@ -308,10 +308,10 @@ conversion and selected default storage.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8f2cb9fac">Keep a missing GIF converter from crashing Legacy Omi</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8f2cb9fac">Keep a missing GIF converter from crashing Legacy HTML4</a>. Thanks to xet7.</summary>
 
 The Sharp image converter is now loaded lazily through Node only when an
-authorized Omi image request needs conversion. Rspack can no longer evaluate a
+authorized Legacy HTML4 image request needs conversion. Rspack can no longer evaluate a
 rewritten native-module loader during server startup and replace NetSurf's
 HTML4 sign-in page with Meteor App Error. A converter installation problem is
 contained to the requested image, while WeKan and every HTML4 page remain

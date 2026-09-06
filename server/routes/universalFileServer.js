@@ -21,7 +21,7 @@ import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '
 import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
 import path from 'path';
-import { attachmentAsStoredGif } from '/server/lib/legacyOmiGif';
+import { attachmentAsStoredGif } from '/server/lib/legacyHtml4Gif';
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
   if (!fileObj) return fileObj;
@@ -503,10 +503,10 @@ if (Meteor.isServer) {
   // NEW METEOR-FILES ROUTES (URL-agnostic)
   // ============================================================================
 
-  // Legacy Omi image representation. The first authorized request converts the
-  // original on the server and persists versions.legacyOmiGif in Admin Panel /
+  // Legacy HTML4 image representation. The first authorized request converts the
+  // original on the server and persists versions.legacyHtml4Gif in Admin Panel /
   // Attachments / Default Storage; later requests stream that stored version.
-  WebApp.handlers.get('/legacy-omi/attachments/:fileId.gif', async (req, res) => {
+  WebApp.handlers.get('/legacy-html4/attachments/:fileId.gif', async (req, res) => {
     try {
       const attachment = await getAttachmentWithBackwardCompatibility(req.params.fileId);
       if (!attachment) {
@@ -522,7 +522,7 @@ if (Meteor.isServer) {
       }
       const settings = await AttachmentStorageSettings.findOneAsync({});
       const defaultStorage = settings?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
-      if (settings && !attachment.versions?.legacyOmiGif &&
+      if (settings && !attachment.versions?.legacyHtml4Gif &&
           !settings.isStorageWriteEnabled(defaultStorage)) {
         res.writeHead(403); res.end('Default attachment storage is not writable'); return;
       }
@@ -540,7 +540,7 @@ if (Meteor.isServer) {
       res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox");
       res.end(gif);
     } catch (error) {
-      if (process.env.DEBUG === 'true') console.warn('Legacy Omi GIF conversion failed:', error);
+      if (process.env.DEBUG === 'true') console.warn('Legacy HTML4 GIF conversion failed:', error);
       res.writeHead(415); res.end('Attachment is not a convertible image');
     }
   });

@@ -3,8 +3,8 @@ import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
   isDocumentRequest,
-  renderLegacyOmiPage,
-} from '/imports/lib/legacyOmi';
+  renderLegacyHtml4Page,
+} from '/imports/lib/legacyHtml4';
 
 // Progressive enhancement starts with a usable document. A capable browser
 // requests the normal Meteor document using a request header after the small
@@ -24,5 +24,5 @@ WebApp.handlers.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Vary', 'X-Wekan-Progressive-Client, Accept');
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.end(renderLegacyOmiPage(req.url));
+  res.end(renderLegacyHtml4Page(req.url));
 });

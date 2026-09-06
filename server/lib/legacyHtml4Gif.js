@@ -9,7 +9,7 @@ const conversionsInProgress = new Map();
 // Do not import Sharp at module evaluation time. Rspack rewrites Sharp's
 // platform-selecting loader and a development server that was already running
 // when rspack.config.js changed can keep the old bundled loader until a full
-// restart. Resolve it with Node only when an Omi image actually needs
+// restart. Resolve it with Node only when a Legacy HTML4 image actually needs
 // conversion. If the optional native package is unavailable, only that image
 // request fails; WeKan and its HTML4 sign-in page keep running.
 function loadSharpAtRuntime() {
@@ -39,7 +39,7 @@ export async function boundedStreamBuffer(stream, maxBytes = OMI_IMAGE_MAX_BYTES
     length += chunk.length;
     if (length > maxBytes) {
       if (typeof stream.destroy === 'function') stream.destroy();
-      throw new Error('Attachment image exceeds the Legacy Omi conversion limit');
+      throw new Error('Attachment image exceeds the Legacy HTML4 conversion limit');
     }
     chunks.push(chunk);
   }
@@ -48,7 +48,7 @@ export async function boundedStreamBuffer(stream, maxBytes = OMI_IMAGE_MAX_BYTES
 
 export async function convertImageBufferToGif(input) {
   if (!Buffer.isBuffer(input) || input.length === 0 || input.length > OMI_IMAGE_MAX_BYTES) {
-    throw new Error('Invalid Legacy Omi image input');
+    throw new Error('Invalid Legacy HTML4 image input');
   }
   const sharp = loadSharpAtRuntime();
   return sharp(input, {
@@ -72,9 +72,9 @@ export async function convertImageBufferToGif(input) {
 // spending CPU on the same conversion again.
 async function createOrReadStoredGif(fileObj, options) {
   const { factory, collection, getDefaultStorage } = options;
-  const existing = fileObj?.versions?.legacyOmiGif;
+  const existing = fileObj?.versions?.legacyHtml4Gif;
   if (existing && existing.cacheKey === omiGifCacheKey(fileObj)) {
-    const strategy = factory.getFileStrategy(fileObj, 'legacyOmiGif');
+    const strategy = factory.getFileStrategy(fileObj, 'legacyHtml4Gif');
     return boundedStreamBuffer(strategy.getReadStream());
   }
 
@@ -83,8 +83,8 @@ async function createOrReadStoredGif(fileObj, options) {
   const gif = await convertImageBufferToGif(input);
 
   const storage = await getDefaultStorage();
-  const target = factory.getFileStrategy(fileObj, 'legacyOmiGif', storage);
-  if (!target) throw new Error('Legacy Omi GIF default storage is unavailable');
+  const target = factory.getFileStrategy(fileObj, 'legacyHtml4Gif', storage);
+  if (!target) throw new Error('Legacy HTML4 GIF default storage is unavailable');
   const targetPath = target.getNewPath(factory.storagePath, `${fileObj._id}.gif`);
   const version = {
     path: targetPath,
@@ -96,14 +96,14 @@ async function createOrReadStoredGif(fileObj, options) {
   };
   await collection.updateAsync(
     { _id: fileObj._id },
-    { $set: { 'versions.legacyOmiGif': version } },
+    { $set: { 'versions.legacyHtml4Gif': version } },
   );
-  fileObj.versions.legacyOmiGif = version;
+  fileObj.versions.legacyHtml4Gif = version;
 
   const output = target.getWriteStream(targetPath);
   if (!output) {
-    await collection.updateAsync({ _id: fileObj._id }, { $unset: { 'versions.legacyOmiGif': 1 } });
-    throw new Error('Legacy Omi GIF default storage is not writable');
+    await collection.updateAsync({ _id: fileObj._id }, { $unset: { 'versions.legacyHtml4Gif': 1 } });
+    throw new Error('Legacy HTML4 GIF default storage is not writable');
   }
   await new Promise((resolve, reject) => {
     output.once('error', reject);
