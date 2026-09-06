@@ -261,16 +261,13 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Branding and board background images are stored locally as GIF**,
-Meteor tests build again, unsupported and no-JavaScript browsers receive a Legacy
-HTML4 baseline, authentication forms have direct keyboard navigation, and
-installation examples explain the Admin Panel email options. Change-history checks
-retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
-only once before returning to the shell. Uncommon browser code loads on demand, and
-Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
-buttons, move them between lists with a native selector, and manage threaded
-comments, reactions and core checklist operations.
-Checklist import and export now work in both representations with exact scope.
+**In short:** **Branding and board images are stored locally as GIF**, Meteor tests
+compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
+Authentication follows keyboard order and deployment examples explain email
+options. History SHA-256 stays synchronous, interrupted tests clean up once, and
+uncommon browser code loads on demand. HTML4 boards manage cards, comments,
+reactions, checklists and scoped transfers. Attachments have stored GIF previews
+and secure original downloads.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -285,8 +282,7 @@ Checklist import and export now work in both representations with exact scope.
 
 This release fixes the following bugs:
 
-**Security and Legacy HTML4** - comment reactions are attributable and work
-without JavaScript.
+**Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c8e9c40ac">Add safe accessible HTML4 comment reactions</a>. Thanks to xet7.</summary>
@@ -307,8 +303,7 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 
 </details>
 
-**Legacy HTML4 checklists** - core checklist operations work without JavaScript,
-cookies or drag-and-drop.
+**Checklists** - core operations and transfers work in Legacy HTML4.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5bf9ac1d">Add accessible HTML4 checklist controls</a>. Thanks to xet7.</summary>
@@ -471,8 +466,26 @@ the server reader for large streamed input.
 
 </details>
 
-**Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
-are converted to GIF on the server.
+**Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6ca53675">Add secure HTML4 attachment responses</a>. Thanks to xet7.</summary>
+
+Card attachments now use the shared semantic component contract in cookieless
+HTML4. Image files have a labelled Preview button that converts, stores and opens
+a GIF representation, while every file retains a separately labelled original
+Download button. Both work without JavaScript, cookies or a secret in the URL.
+
+Each binary POST has a distinct object- and representation-bound, single-use
+signature that does not rotate unrelated page controls. The server repeats exact
+attachment, content-card, board, visibility, size and storage authorization,
+normalizes the detected safe filename on read, hardens both responses and reports
+forged scopes to Admin Panel / Problems / Security with available actor context.
+Tests cover semantic rendering, purpose substitution and replay boundaries,
+cross-board refusal, stored GIF creation, exact original bytes and filename, plus
+same-URL HTML4/HTML5 attachment screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7022c009">Add accessible HTML4 comment replies</a>. Thanks to xet7.</summary>
