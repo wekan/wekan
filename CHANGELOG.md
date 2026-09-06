@@ -8139,8 +8139,9 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **78,020 values across 36 second-tier languages**. Albanian
-now has 1,966 left after its first three 50-value batches. Bosnian is also complete:
+remaining work is **77,970 values across 36 second-tier languages**. Albanian
+now has 1,915 left after its first four 50-value batches. Bosnian is also
+complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
 to make the counter reach zero.
@@ -8253,9 +8254,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first three activity,
-workspace, board and archive batches, every near-complete locale is complete
-again, and the remaining counter excludes the valid Bosnian loanword `Server`.
+**In short:** **Albanian translations** now cover the first four activity,
+workspace, board, archive and card-view batches, every near-complete locale is
+complete again, and the remaining counter excludes the valid Bosnian loanword
+`Server`.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8295,6 +8297,17 @@ Two more 50-value Albanian batches add Home-board, list sizing, keyboard,
 swimlane, administration, archive, attachment and board-background strings.
 Their regression inventory now covers all first 150 values and every replaceable
 token. This leaves 78,020 actionable values across 36 second-tier languages.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/674abb4ff">Translate Albanian board and card views</a>. Thanks to xet7.</summary>
+
+The fourth 50-value Albanian batch adds desktop/mobile and zoom modes, calendar
+navigation, archive warnings, card details, voting, board backgrounds and member
+summaries. Locale-wide regression coverage checks every translated Albanian
+value's replaceable tokens and pins the remaining actionable count at 1,915.
+The repository-wide backlog is now 77,970 values across 36 languages.
 
 </details>
 
