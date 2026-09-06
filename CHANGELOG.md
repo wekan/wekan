@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,870 values across 36 second-tier languages**. Albanian
-now has 1,815 left after its first six 50-value batches. Bosnian is also
+remaining work is **77,700 values across 36 second-tier languages**. Albanian
+now has 1,715 left after its first eight 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,10 +8254,10 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first six activity,
-workspace, board, archive, card-view and appearance batches; every near-complete
-locale is complete again, and the remaining counter excludes the valid Bosnian
-loanword `Server`.
+**In short:** **Albanian translations** now cover the first eight activity,
+workspace, board, archive, card, appearance, role and custom-field batches;
+every near-complete locale is complete again, and the remaining counter excludes
+valid international technical and color loanwords.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -8319,6 +8319,18 @@ organization and team dialogs, import windows, themes, fonts, permissions and
 imported-user mapping. The locale-wide token audit and representative regression
 assertions now cover the first 300 actionable values. This leaves 77,870 values
 across 36 languages.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1605063bd">Translate Albanian roles and custom fields</a>. Thanks to xet7.</summary>
+
+The seventh and eighth 50-value Albanian batches add card aging, navigation,
+colors, restricted roles, deletion confirmations, clipboard actions, templates
+and custom fields. Ninety-eight values required translation; `indigo` and
+`magenta` remain correct international color names and are now classified as
+invariant instead of recurring as false gaps across languages. This leaves
+77,700 actionable values across 36 languages, including 1,715 in Albanian.
 
 </details>
 
