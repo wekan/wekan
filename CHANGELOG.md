@@ -269,7 +269,7 @@ retain synchronous SHA-256 on both architectures, and interrupted test runs clea
 only once before returning to the shell. Uncommon browser code loads on demand, and
 Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
 buttons, move them between lists with a native selector, and manage threaded
-comments.
+comments and reactions.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -283,6 +283,28 @@ comments.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following bugs:
+
+**Security and Legacy HTML4** - comment reactions are attributable and work
+without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8e9c40ac">Add safe accessible HTML4 comment reactions</a>. Thanks to xet7.</summary>
+
+Comment reactions now use one fixed shared catalog and one authenticated server
+operation in the Meteor and cookieless HTML4 views. The server derives the actor
+from the invocation, repeats board, card, comment, assigned-scope and role checks,
+and canonicalizes the bounded aggregate. All direct client writes are refused and
+reported in Admin Panel / Problems / Security, closing the remaining path for a
+member to insert a new reaction attributed to somebody else.
+
+HTML4 renders printable ASCII names, selected state, count and member names with
+signed toggle buttons and a labelled native selector. HTML5 reaction controls are
+keyboard buttons and render only escaped characters from the catalog, so corrupted
+legacy data cannot become markup. Tests cover valid toggles, unknown active markup,
+submitted user spoofing, cross-board comment IDs, direct collection writes,
+translation keys and same-URL HTML4/HTML5 reaction screenshots.
+
+</details>
 
 **Images** - external images and document previews become local GIF attachments.
 
