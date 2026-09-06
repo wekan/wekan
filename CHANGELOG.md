@@ -8139,9 +8139,9 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Tajik:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **73,216 values across 34 second-tier languages**. Southern
+remaining work is **73,166 values across 34 second-tier languages**. Southern
 Sotho is complete after forty-two 50-value batches and a final 24-value batch.
-Tajik has 1,424 left after its first fifteen 50-value batches. Albanian and Bosnian are
+Tajik has 1,374 left after its first sixteen 50-value batches. Albanian and Bosnian are
 also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8256,8 +8256,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian and Southern Sotho translations** are complete, and
-**Tajik translations** now cover their first fifteen activity, workspace, board,
-filter, import, selection, role, notification and shortcut batches;
+**Tajik translations** now cover their first sixteen activity, workspace, board,
+selection, notification, shortcut, upload and template batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8529,6 +8529,18 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c487639dc">Translate Tajik uploads and templates</a>. Thanks to xet7.</summary>
+
+The sixteenth 50-value Tajik batch adds default and starred boards, time and
+overtime tracking, assignee and label shortcuts, uploads, custom logo, help and
+URL settings, welcome-board content and card, list and board templates. All
+values required translation. Tests retain shortcut ranges, upload completion,
+logo height and URL terminology. This leaves 73,166 actionable values across 34
+languages, including 1,374 in Tajik.
 
 </details>
 
