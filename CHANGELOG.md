@@ -358,6 +358,25 @@ the server reader for large streamed input.
 are converted to GIF on the server.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/426b505ec">Make Legacy HTML4 sign-in functional without cookies</a>. Thanks to xet7.</summary>
+
+The HTML4 sign-in form now submits to WeKan's existing password, LDAP, two-factor,
+timing-normalization and brute-force-protected login route. A successful login
+creates no browser cookie or reusable Meteor login token. Instead it renders a
+Continue form containing an opaque short-lived session id and a route-bound HMAC
+token in hidden POST fields; neither appears in a URL, redirect or Referer.
+
+Authenticated navigation verifies IP and User-Agent context, compares the token
+in constant time and atomically consumes its counter before rendering the next
+token. Expired sessions have a TTL index, and invalid, moved or replayed actions
+are refused and reported to Admin Panel / Problems / Security. Source tests cover
+the positive form path and negative cookie, URL-token and replay boundaries. Live
+testing on `testi.wekan.fi` confirmed cookie-free login, counters 0 to 1 and replay
+refusal.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/43a1a0e5e">Match Legacy HTML4 sign-in branding and translations</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 sign-in now reads the same Settings document and TAPi18n catalogue
