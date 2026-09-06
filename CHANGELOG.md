@@ -8282,6 +8282,18 @@ appearance, account, validation, export and filter batches.
 and fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/99b1801e8">Gate and audit Files Report permanent deletion</a>. Thanks to xet7.</summary>
+
+The Files Report shows its permanent-delete icon only to a Global Admin while
+the Admin Panel permanent-delete setting is enabled, and the server enforces
+both gates against direct method calls. Every successful, failed or unauthorized
+attempt records the actor, addresses, available location, attachment ID,
+sanitized filename and card ID in Problems / Recovery. The same audit notice is
+shown above Files Report and Recovery.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2248c012c">Add card-style previews to Files Report</a>. Thanks to xet7.</summary>
 
 Each Files Report row now starts with the opened-card attachment controls: an
