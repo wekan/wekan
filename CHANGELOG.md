@@ -270,7 +270,8 @@ reactions, checklists and scoped transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
-as the Jade interface, and assigns them to Workspaces without drag-and-drop.
+as the Jade interface, assigns them to Workspaces without drag-and-drop, and
+permanently deletes archived boards through the same audited Global Admin gate.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -528,6 +529,24 @@ incorrectly appeared in Remaining and the Workspace menu was empty. Tests prove
 the publication accepts no client-selected user ID, exercise assignment and
 removal in both renderers, and capture matching same-URL HTML4/HTML5 Workspace
 screenshots.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed99bb88e">Add accessible HTML4 permanent board deletion</a>. Thanks to xet7.</summary>
+
+Global Admins can now permanently delete an archived board from cookieless
+HTML4 when permanent deletion is enabled. A separate confirmation POST explains
+that the board content cannot be recovered; the control is absent unless the
+account, setting and board state all permit the operation.
+
+The Meteor and HTML4 controllers use one shared service that bounds and validates
+the complete selection before deleting anything, repeats authorization and logs
+both successful and refused attempts in Problems / Recovery with the available
+actor, connection, board ID and title. Unit tests cover positive and negative
+gates, shared-controller parity and audit details. Chromium confirms without
+writing, performs the deletion, verifies its Recovery record and captures paired
+HTML4/HTML5 Archive screenshots.
 
 </details>
 
