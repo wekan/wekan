@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after starting Southern Sotho:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **74,640 values across 35 second-tier languages**. Southern
-Sotho has 674 left after its first twenty-nine 50-value batches. Albanian and
+remaining work is **74,590 values across 35 second-tier languages**. Southern
+Sotho has 624 left after its first thirty 50-value batches. Albanian and
 Bosnian are complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8255,8 +8255,8 @@ browser build to verify).
 # Upcoming WeKan ® release
 
 **In short:** **Albanian translations** are complete, and **Southern Sotho
-translations** now cover their first twenty-nine activity, administration,
-automation, search, dependency, location and administration-report batches;
+translations** now cover their first thirty activity, administration,
+automation, search, dependency, location, report and recovery batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8528,6 +8528,19 @@ global search views. All values required translation. Tests retain the domain
 example and restriction and every missing board, swimlane and list token. This
 leaves 74,840 actionable values across 35 languages, including 874 in Southern
 Sotho.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/434e5c2ae">Translate Southern Sotho recovery and support</a>. Thanks to xet7.</summary>
+
+The thirtieth 50-value Southern Sotho batch adds office and API report details,
+recovery events and maintenance, swimlane copying, wait-spinner styles, card
+sizing, organization and team deletion warnings and support-ticket states and
+history. All values required translation. Tests retain REST API,
+`WITH_API=true` and MongoDB technical terms and representative swimlane and
+history values. This leaves 74,590 actionable values across 35 languages,
+including 624 in Southern Sotho.
 
 </details>
 
