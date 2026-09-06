@@ -386,6 +386,19 @@ wrong-script audit is clean and human Transifex translations remain preferred.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cae1d48b">Enforce translation completeness globally</a>. Thanks to xet7.</summary>
+
+A repository-wide regression gate now verifies all 234 non-English locale files
+against English for exact keys, key order and every underscore-delimited or
+percent-prefixed placeholder. Its first run restored the required `%{value}`
+token without replacing surrounding human prose in 36 locale tags, separated
+joined card/list placeholders in three Chinese locales and restored Wolaytta's
+key order. The actionable backlog, wrong-script audit and human-preference
+checks remain clean.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c37b7c77">Retire the completed translation backlog</a>. Thanks to xet7.</summary>
 
 The finished translation work is no longer presented as future work in TODO
