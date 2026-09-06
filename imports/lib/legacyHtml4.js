@@ -141,7 +141,7 @@ function authRows(path, options) {
   if (options.authenticated) {
     const identity = options.username ? ` ${escapeHtml(options.username)}` : '';
     return [tableRow([
-      `${escapeHtml(t('logged-in', 'Logged in'))}${identity}.`,
+      `${escapeHtml(t('username', 'Username'))}:${identity}`,
       postForm('/allboards', t('all-boards', 'All Boards'), options.actionFields?.('/allboards') || options.sessionFields),
     ])];
   }
@@ -151,7 +151,7 @@ function authRows(path, options) {
       `<p><label for="username">${escapeHtml(`${t('username', 'Username')} / ${t('email', 'Email')}`)}</label><br><input id="username" name="username" type="text" size="30"></p>`,
       `<p><label for="password">${escapeHtml(t('password', 'Password'))}</label><br><input id="password" name="password" type="password" size="30"></p>`,
       `<p><input type="submit" value="${escapeHtml(t('loginPopup-title', 'Log In'))}"></p></fieldset></form></td></tr>`,
-      options.loginFailed ? tableRow([`<span role="alert">${escapeHtml(t('error-incorrect-user', 'Incorrect username, email address or password.'))}</span>`, '']) : '',
+      options.loginFailed ? tableRow([`<span role="alert">${escapeHtml(t('invalid-credentials', 'Incorrect username, email address or password.'))}</span>`, '']) : '',
       tableRow([
         options.disableForgotPassword ? '' : `<a href="/forgot-password">${escapeHtml(t('forgot-password', 'Forgot password'))}</a>`,
         options.disableRegistration ? '' : `<a href="/sign-up">${escapeHtml(t('signupPopup-title', 'Create an Account'))}</a>`,
@@ -165,7 +165,7 @@ function authRows(path, options) {
       `<p><label for="email">${escapeHtml(t('email', 'Email'))}</label><br><input id="email" name="email" type="text" size="30"></p>`,
       `<p><label for="password">${escapeHtml(t('password', 'Password'))}</label><br><input id="password" name="password" type="password" size="30"></p>`,
       `<p><input type="submit" value="${escapeHtml(t('register', 'Register'))}"></p></fieldset></form></td></tr>`,
-      options.registrationFailed ? tableRow([`<span role="alert">${escapeHtml(t('error-user-registration-disabled', 'Account creation failed.'))}</span>`, '']) : '',
+      options.registrationFailed ? tableRow([`<span role="alert">${escapeHtml(t('account-creation-failed', 'Account creation failed.'))}</span>`, '']) : '',
       tableRow([`<a href="/sign-in">${escapeHtml(t('already-account', 'Already have an account? Sign in'))}</a>`, '']),
     ];
   }
@@ -180,7 +180,7 @@ function contentRows(path, options) {
   const rows = [];
   if (options.authenticated) {
     rows.push(tableRow([
-      `${escapeHtml(translated(options, 'logged-in', 'Logged in'))} ${escapeHtml(options.username || '')}`,
+      `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/global-search'].map(target => postForm(
         target, pageHeading(target, options), options.actionFields(target),
       )).join(' '),
@@ -235,7 +235,7 @@ function renderLegacyHtml4Page(requestUrl, pageOptions = {}) {
     '<link rel="stylesheet" type="text/css" href="/legacy-html4.css">',
     `<script type="text/javascript" src="${CAPABILITY_SCRIPT_PATH}"></script>`,
     '</head><body>',
-    `<p class="skip-link"><a href="#content">${escapeHtml(translated(options, 'skip-to-main-content', 'Skip to main content'))}</a></p>`,
+    `<p class="skip-link"><a href="#content">${escapeHtml(translated(options, 'skip-to-content', 'Skip to main content'))}</a></p>`,
     '<div id="legacy-html4-page">',
     `<p><a href="/">${escapeHtml(options.productName)}</a></p>`,
     logo,

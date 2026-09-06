@@ -30,6 +30,24 @@ test('Legacy HTML4 uses only its descriptive feature name', () => {
   }
 });
 
+test('every Legacy HTML4 translation key exists in the source catalogue', () => {
+  const root = path.join(__dirname, '..');
+  const english = JSON.parse(fs.readFileSync(path.join(root, 'imports', 'i18n', 'data',
+    'en.i18n.json'), 'utf8'));
+  const sources = [
+    path.join(root, 'imports', 'lib', 'legacyHtml4.js'),
+    path.join(root, 'server', 'lib', 'legacyHtml4Pages.js'),
+  ].map(file => fs.readFileSync(file, 'utf8')).join('\n');
+  const missing = [];
+  for (const calls of [/(?:translated|tr)\([^,]+,\s*'([^']+)'/g, /\bt\(\s*'([^']+)'/g]) {
+    let match;
+    while ((match = calls.exec(sources))) {
+      if (!Object.prototype.hasOwnProperty.call(english, match[1])) missing.push(match[1]);
+    }
+  }
+  assert.deepEqual([...new Set(missing)], []);
+});
+
 test('all WeKan page URLs receive the HTML4 baseline', () => {
   for (const url of ['/', '/sign-in', '/sign-up', '/allboards/table',
     '/b/KfGA54csY72ir5H6p/taulu-1', '/b/x/board/card/y',
@@ -158,7 +176,7 @@ test('an authenticated HTML4 request does not draw the login form again', () => 
     authenticated: true,
     username: 'alice',
   });
-  assert.match(html, /Logged in alice/);
+  assert.match(html, /Username: alice/);
   assert.doesNotMatch(html, /<form method="post" action="\/users\/login">/);
 
   const middleware = fs.readFileSync(path.join(__dirname, '..', 'server',
@@ -194,6 +212,7 @@ test('sign-in uses the HTML5 view branding, settings and translations', () => {
     'forgot-password': 'Unohtunut salasana',
     'signupPopup-title': 'Luo käyttäjätili',
     acceptance_of_our_legalNotice: 'Jatkamalla hyväksyt', legalNotice: 'käyttöehdot',
+    'skip-to-content': 'Siirry pääsisältöön',
   };
   const html = renderLegacyHtml4Page('/sign-in', {
     productName: 'Example Kanban', language: 'fi',
@@ -209,6 +228,7 @@ test('sign-in uses the HTML5 view branding, settings and translations', () => {
   assert.match(html, />Salasana<\/label>/);
   assert.match(html, /Welcome to this service/);
   assert.match(html, /Jatkamalla hyväksyt/);
+  assert.match(html, /Siirry pääsisältöön/);
   assert.match(html, />käyttöehdot<\/a>/);
 });
 

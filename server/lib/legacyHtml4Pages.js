@@ -41,8 +41,8 @@ async function boardsPage(userId, publicOnly = false, translate) {
   } else boards = [];
   return {
     heading: publicOnly ? tr(translate, 'public-boards', 'Public Boards') : tr(translate, 'all-boards', 'All Boards'),
-    columns: [tr(translate, 'board', 'Board'), tr(translate, 'permission', 'Permission')],
-    empty: tr(translate, 'no-boards', 'No boards'),
+    columns: [tr(translate, 'board', 'Board'), tr(translate, 'change-permissions', 'Permissions')],
+    empty: tr(translate, 'no-boards-selected', 'No boards'),
     rows: boards.map(board => ({
       color: boardColor(board), boardTheme: true,
       cells: [userId
@@ -104,16 +104,16 @@ async function boardPage(path, userId, requestFields = {}, translate) {
       color: card.color,
       cells: [card.title || '(untitled card)', userId ? {
         action: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
-        label: tr(translate, 'open-card', 'Open card'),
+        label: tr(translate, 'card', 'Card'),
       } : {
         href: `${boardPath(board)}/${encodeURIComponent(card._id)}`,
-        label: tr(translate, 'open-card', 'Open card'),
+        label: tr(translate, 'card', 'Card'),
       }],
     });
   }
   return {
     heading: board.title || 'Board', caption: `${board.title || 'Board'} — upper-left list`,
-    columns: [tr(translate, 'content', 'Content'), tr(translate, 'action', 'Action')], rows,
+    columns: [tr(translate, 'board', 'Content'), tr(translate, 'action', 'Action')], rows,
     empty: 'The upper-left swimlane or list is empty.',
   };
 }
