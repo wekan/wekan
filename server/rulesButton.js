@@ -5,9 +5,12 @@ import { RulesHelper } from '/server/rulesHelper';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import {
+  removeAccessibleRule,
+  renameAccessibleRule,
+} from '/server/lib/accessibleRuleOperations';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -124,21 +127,12 @@ Meteor.methods({
   // (which bypasses allow/deny) fixes that without loosening any permission.
   async 'rules.deleteRule'(ruleId) {
     check(ruleId, String);
+    return removeAccessibleRule(this.userId, { ruleId });
+  },
 
-    const rule = await ReactiveCache.getRule(ruleId);
-    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
-
-    const board = await ReactiveCache.getBoard(rule.boardId);
-    if (!board) throw new Meteor.Error('not-found', 'Board not found');
-
-    const user = await ReactiveCache.getUser(this.userId);
-    if (!canDeleteBoardRule(board, this.userId, { isSiteAdmin: !!(user && user.isAdmin) })) {
-      throw new Meteor.Error('not-authorized', 'Must be a board admin');
-    }
-
-    await Rules.removeAsync(rule._id);
-    if (rule.triggerId) await Triggers.removeAsync(rule.triggerId);
-    if (rule.actionId) await Actions.removeAsync(rule.actionId);
-    return { _id: rule._id };
+  async 'rules.renameRule'(ruleId, title) {
+    check(ruleId, String);
+    check(title, String);
+    return renameAccessibleRule(this.userId, { ruleId, title });
   },
 });

@@ -466,6 +466,18 @@ and says Unknown wherever the broken record has lost its context. Only cards on
 boards still visible to the signed-in user can be returned. Card links and
 bounded Previous/Next navigation are native signed POST controls.
 
+Board Rules is delivered in vertical slices. The first slice shares the board-
+scoped rule, trigger and action reader, localized stored-description formatter,
+and exact rule mutation service between HTML5 and HTML4. A visible board member
+may read titles and trigger/action descriptions. Only an active board admin or
+site admin receives rename and two-step delete controls. Every mutation binds
+the rule to the board named by the URL before writing, bounds the title, removes
+the rule/trigger/action tuple together, and reports cross-board attempts through
+the security canary. Native controls preserve natural title, details, rename,
+delete-confirmation and back-to-board Tab order. Later slices add the creation
+wizard, workflow graph and all import/export formats without weakening this
+baseline.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

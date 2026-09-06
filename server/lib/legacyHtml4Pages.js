@@ -13,7 +13,11 @@ import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import CustomFields from '/models/customFields';
+import Rules from '/models/rules';
+import Triggers from '/models/triggers';
+import Actions from '/models/actions';
 import { CustomFieldStringTemplate } from '/imports/lib/customFields';
+import { TAPi18n } from '/imports/i18n';
 import { Query } from '/config/query-classes';
 import { DEFAULT_LIMIT, OPERATOR_USER } from '/config/search-const';
 import { searchBrokenCardsPage, searchCardsPage } from '/server/publications/cards';
@@ -28,6 +32,7 @@ import {
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { canUserSeeBoard, visibleBoardIds } from '/server/lib/visibleBoardIds';
 import { getFeatureFlags } from '/models/lib/featureFlags';
+import { localizedStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -73,6 +78,79 @@ function boardColor(board) {
 async function visibleBoard(boardId, userId) {
   const board = await Boards.findOneAsync(boardId);
   return board && board.isVisibleBy(userId ? { _id: userId } : null) ? board : null;
+}
+
+async function boardRulesPage(path, userId, requestFields, translate) {
+  const match = /^\/b\/([^/]+)\/([^/]+)\/rules$/.exec(path);
+  if (!match || !userId) return null;
+  const board = await visibleBoard(segment(match[1]), userId);
+  if (!board) return null;
+  const user = await Meteor.users.findOneAsync(userId, { fields: { isAdmin: 1 } });
+  const canAdmin = !!(user?.isAdmin || board.hasAdmin(userId));
+  const rules = await Rules.find({ boardId: board._id }, { sort: { title: 1, _id: 1 } }).fetchAsync();
+  const triggerIds = rules.map(rule => rule.triggerId).filter(Boolean);
+  const actionIds = rules.map(rule => rule.actionId).filter(Boolean);
+  const [triggers, actions] = await Promise.all([
+    Triggers.find({ _id: { $in: triggerIds } }).fetchAsync(),
+    Actions.find({ _id: { $in: actionIds } }).fetchAsync(),
+  ]);
+  const triggerById = new Map(triggers.map(trigger => [trigger._id, trigger]));
+  const actionById = new Map(actions.map(action => [action._id, action]));
+  const sources = TAPi18n.getDefaultTranslations('r-');
+  const describe = value => localizedStoredRuleDescription(
+    value, key => translate(key), sources,
+  );
+  const selected = rules.find(rule => rule._id === requestFields.viewRuleId);
+  const rows = [{ rowHeader: false, cells: [uiAction({
+    action: boardPath(board), label: tr(translate, 'back', 'Back'), icon: 'previous',
+  }), board.title, ''] }];
+  if (requestFields.legacyRuleResult?.ok === false) rows.push({
+    cells: [tr(translate, 'error', 'Error'),
+      tr(translate, requestFields.legacyRuleResult.errorKey, 'Operation failed'), ''],
+  });
+  if (selected) {
+    const trigger = triggerById.get(selected.triggerId);
+    const action = actionById.get(selected.actionId);
+    rows.push({ cells: [tr(translate, 'r-rule-details', 'Rule details'), selected.title, ''] });
+    rows.push({ cells: [tr(translate, 'r-trigger', 'Trigger'),
+      describe(trigger?.desc) || tr(translate, 'no-name', '(Unknown)'), ''] });
+    rows.push({ cells: [tr(translate, 'r-action', 'Action'),
+      describe(action?.desc) || tr(translate, 'no-name', '(Unknown)'), ''] });
+    rows.push({ rowHeader: false, cells: [uiAction({
+      action: path, label: tr(translate, 'back', 'Back'), icon: 'previous',
+    }), '', ''] });
+  } else {
+    for (const rule of rules) {
+      const controls = [uiAction({
+        action: path, label: tr(translate, 'r-view-rule', 'View rule'),
+        fields: { viewRuleId: rule._id },
+      })];
+      if (canAdmin) {
+        controls.push(uiTextForm({
+          action: path, label: tr(translate, 'r-new-rule-name', 'Rule name'),
+          name: 'ruleTitle', value: rule.title, maxlength: 500,
+          fields: { legacyOperation: 'rename-rule', boardId: board._id, ruleId: rule._id },
+          submitLabel: tr(translate, 'r-edit-rule', 'Edit rule'),
+        }));
+        controls.push(requestFields.confirmRuleDelete === rule._id ? [
+          uiAction({ action: path, label: tr(translate, 'r-delete-rule', 'Delete rule'),
+            icon: 'delete', fields: { legacyOperation: 'delete-rule',
+              boardId: board._id, ruleId: rule._id } }),
+          uiAction({ action: path, label: tr(translate, 'cancel', 'Cancel') }),
+        ] : uiAction({ action: path, label: tr(translate, 'r-delete-rule', 'Delete rule'),
+          icon: 'delete', fields: { legacyOperation: 'confirm-delete-rule',
+            boardId: board._id, ruleId: rule._id } }));
+      }
+      rows.push({ cells: [rule.title, describe(triggerById.get(rule.triggerId)?.desc)
+        || tr(translate, 'no-name', '(Unknown)'), controls] });
+    }
+  }
+  return {
+    heading: `${board.title}: ${tr(translate, 'r-board-rules', 'Board Rules')}`,
+    columns: [tr(translate, 'title', 'Title'), tr(translate, 'r-trigger', 'Trigger'),
+      tr(translate, 'actions', 'Actions')],
+    rows, empty: tr(translate, 'r-no-rules', 'No rules'),
+  };
 }
 
 function tr(translate, key, fallback, argumentsObject) {
@@ -324,7 +402,10 @@ async function boardPage(path, userId, requestFields = {}, translate) {
   const selectedListId = typeof requestFields.viewList === 'string'
     ? requestFields.viewList : segment(listPath?.[1]);
   const firstList = lists.find(item => item._id === selectedListId) || lists[0] || null;
-  const rows = [];
+  const rows = [{ rowHeader: false, cells: [uiAction({
+    action: `${boardPath(board)}/rules`,
+    label: tr(translate, 'r-board-rules', 'Board Rules'),
+  }), ''] }];
   if (requestFields.legacyCardResult?.ok === true) rows.push({
     cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Saved')],
   });
@@ -2126,6 +2207,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }
+  const rules = await boardRulesPage(path, userId, requestFields, translate);
+  if (rules) return rules;
   if (/^\/b(?:\/|$)/.test(path)) return boardPage(path, userId, requestFields, translate);
   if (path === '/accessibility/components') return {
     heading: 'Legacy HTML4 component library',

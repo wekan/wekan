@@ -90,6 +90,10 @@ import {
   updateAccessibleChecklistTitle,
 } from '/server/lib/accessibleChecklistOperations';
 import {
+  removeAccessibleRule,
+  renameAccessibleRule,
+} from '/server/lib/accessibleRuleOperations';
+import {
   CAPABILITY_SCRIPT_PATH,
   capabilityScript,
   isDocumentRequest,
@@ -178,6 +182,36 @@ WebApp.handlers.use(async (req, res, next) => {
   }) : null;
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
+  const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
+  if (session && rulesPath
+    && requestFields.legacyOperation === 'confirm-delete-rule') {
+    requestFields.confirmRuleDelete = String(requestFields.ruleId || '');
+  }
+  if (session && rulesPath
+    && ['rename-rule', 'delete-rule'].includes(requestFields.legacyOperation)) {
+    try {
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      const result = await DDP._CurrentMethodInvocation.withValue(invocation, () => {
+        const input = {
+          boardId: decodeURIComponent(rulesPath[1]),
+          ruleId: String(requestFields.ruleId || ''),
+        };
+        return requestFields.legacyOperation === 'rename-rule'
+          ? renameAccessibleRule(session.userId, {
+              ...input, title: requestFields.ruleTitle,
+            })
+          : removeAccessibleRule(session.userId, input);
+      });
+      requestFields.legacyRuleResult = { ok: true, result };
+    } catch (error) {
+      requestFields.legacyRuleResult = {
+        ok: false,
+        errorKey: typeof error?.error === 'string' && /^[a-z0-9_-]{1,100}$/i.test(error.error)
+          ? error.error : 'operation-failed',
+      };
+    }
+  }
   const cardOperations = [
     'create-card', 'move-card-up', 'move-card-down', 'edit-card-title',
     'edit-card-description', 'edit-card-date', 'edit-card-color', 'move-card-to-list',
