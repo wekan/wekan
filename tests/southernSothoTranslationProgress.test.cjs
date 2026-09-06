@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 774,
-  'the first twenty-seven Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
+  'the first twenty-eight Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -173,5 +173,10 @@ assert.deepEqual(tokens(sesotho['globalSearch-instructions-notes-3-2']),
   ['__predicate_month__', '__predicate_quarter__', '__predicate_week__',
     '__predicate_year__']);
 assert.match(sesotho['globalSearch-instructions-notes-2'], /\*OR\*/);
+assert.deepEqual(tokens(sesotho['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(sesotho['background-too-big']), ['{{size}}']);
+assert.match(sesotho['import-dependencies-file'], /JSON.*SVG/);
+assert.equal(sesotho.location, 'Sebaka');
 
-console.log('southernSothoTranslationProgress: first twenty-seven batches passed');
+console.log('southernSothoTranslationProgress: first twenty-eight batches passed');
