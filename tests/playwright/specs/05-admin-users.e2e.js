@@ -157,4 +157,58 @@ test.describe('Admin – user management', () => {
     await expect(usernameInput).toBeVisible({ timeout: 10_000 });
     await expect(passwordInput).toBeVisible({ timeout: 10_000 });
   });
+
+  test('sign-in tabs directly between fields and Enter in password submits', async ({ page }) => {
+    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+    const usernameInput = page.locator('#at-field-username_and_email');
+    const passwordInput = page.locator('#at-field-password');
+
+    await usernameInput.focus();
+    await page.keyboard.press('Tab');
+    await expect(passwordInput).toBeFocused();
+    await expect(page.locator('.password-toggle-btn')).not.toBeFocused();
+
+    await usernameInput.fill(`missing_${Date.now()}`);
+    await passwordInput.fill('InvalidKeyboardTest@55!');
+    await passwordInput.press('Enter');
+    const errorMessage = page.locator('.at-error, #login-error-message')
+      .filter({ hasText: /.+/ }).first();
+    await expect(errorMessage).toBeVisible({ timeout: 15_000 });
+  });
+
+  test('sign-up tabs only through fields and Enter in the bottom field submits', async ({ page }) => {
+    const suffix = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    const username = `keyboard_${suffix}`;
+    await page.goto(`${BASE_URL}/sign-up`, { waitUntil: 'networkidle' });
+
+    const fields = [
+      page.locator('#at-field-username'),
+      page.locator('#at-field-email'),
+      page.locator('#at-field-password'),
+      page.locator('#at-field-password_again'),
+    ];
+    for (const field of fields) {
+      await expect(field).toBeVisible({ timeout: 10_000 });
+    }
+
+    await fields[0].focus();
+    for (let index = 1; index < fields.length; index += 1) {
+      await page.keyboard.press('Tab');
+      await expect(fields[index]).toBeFocused();
+      await expect(page.locator('.password-toggle-btn').first()).not.toBeFocused();
+    }
+
+    await fields[0].fill(username);
+    await fields[1].fill(`${username}@wekan-test.invalid`);
+    await fields[2].fill('KeyboardTest@55!');
+    await fields[3].fill('KeyboardTest@55!');
+    await fields[3].press('Enter');
+
+    let createdUser = null;
+    await expect.poll(() => {
+      createdUser = db.findOne('users', { username }, { _id: 1 });
+      return createdUser?._id;
+    }, { timeout: 15_000 }).toBeTruthy();
+    if (createdUser?._id) db.cleanup({ userIds: [createdUser._id] });
+  });
 });
