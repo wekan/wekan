@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1574,
-  'the first eleven Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1524,
+  'the first twelve Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -91,5 +91,10 @@ assert.deepEqual(tokens(sesotho['import-board-instruction-issues']),
   ['__endpoint__', '__sourceName__']);
 assert.match(sesotho['import-board-instruction-jira'], /automationRules/);
 assert.match(sesotho['import-trello-json-file-hint'], /Trello API/);
+assert.match(sesotho['trello-api-key'], /https:\/\/trello\.com\/app-key/);
+assert.match(sesotho['trello-api-import-desc'], /Trello API/);
+assert.equal(sesotho['invalid-year'],
+  'Selemo ha se sebetse. Ka kopo ngola dipalo tsohle tse nne, mohlala 2026.');
+assert.equal(sesotho['label-create'], 'Theha leibole');
 
-console.log('southernSothoTranslationProgress: first eleven batches passed');
+console.log('southernSothoTranslationProgress: first twelve batches passed');
