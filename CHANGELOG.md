@@ -266,7 +266,8 @@ Meteor tests build again, unsupported and no-JavaScript browsers receive a Legac
 HTML4 baseline, authentication forms have direct keyboard navigation, and
 installation examples explain the Admin Panel email options. Change-history checks
 retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
-only once before returning to the shell. Uncommon browser code loads on demand.
+only once before returning to the shell. Uncommon browser code loads on demand, and
+Legacy HTML4 boards can create and reorder cards with buttons.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -356,6 +357,27 @@ the server reader for large streamed input.
 
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1cf96178">Add accessible HTML4 card creation and ordering</a>. Thanks to xet7.</summary>
+
+Writable Legacy HTML4 boards now provide a labelled card-title form and printable
+move-up and move-down buttons. They work without JavaScript, cookies, drag and drop
+or precise pointer input, preserve natural keyboard order, and call the same common
+domain operations as the Meteor view. The pre-existing accessible Meteor card
+buttons now use one acknowledged server mutation instead of swapping two reactive
+documents on the client.
+
+Every operation repeats board write authorization and verifies that the board,
+active list and active swimlane belong together before writing. Card creation keeps
+the atomic board card number, automatic custom fields, fractional order and normal
+activity history; ordering is deterministic when existing sort values tie. A
+negative browser test forges a cross-board form value and proves that no card is
+created. Positive browser coverage creates and reorders a card, then captures the
+same board URL in HTML4 and HTML5 for comparison. Unit tests cover authorization,
+placement, defaults, history, keyboard order and shared server wiring.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/034d3b920">Import WeKan ZIP exports with attachments from Legacy HTML4</a>. Thanks to xet7.</summary>
