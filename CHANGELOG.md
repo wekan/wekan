@@ -266,8 +266,8 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order and deployment examples explain email
 options. History SHA-256 stays synchronous, interrupted tests clean up once, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists, dates, colors, labels and scoped transfers. Attachments have stored
-GIF previews
+reactions, checklists, dates, colors, labels, members, assignees and scoped
+transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 supports Star, Home, Archive and Restore without JavaScript.
 It also creates and duplicates boards with the same protected server operations
@@ -472,6 +472,25 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d781c6e12">Add accessible HTML4 card people controls</a>. Thanks to xet7.</summary>
+
+Card details in cookieless HTML4 now list eligible Members and Assignees as
+textual `[x]` or `[ ]` POST controls with the available full name or username.
+They follow natural keyboard order, include the real linked-card board's people
+and preserve the Worker role's self-assignment control without granting broader
+card writes.
+
+Jade and HTML4 submit desired state to one acknowledged service. It binds the
+route card, resolves linked content, requires additions to be active members of
+the content board and still permits stale assignments to be removed. A Worker
+may change only their own Assignee state on a normal card. Unit tests cover
+field, board, user, linked-target and Worker gates. Chromium adds and removes
+both roles, refuses a non-member substitution without mutation, and captures
+paired same-URL card screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ce1f6cb5">Add accessible HTML4 card label controls</a>. Thanks to xet7.</summary>
