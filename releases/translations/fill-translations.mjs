@@ -78,6 +78,14 @@ const isPlaceholder = (j, k) =>
 // English and its regional variants are English by design — never "missing".
 const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 
+// A loanword can be the correct translation in one locale while another locale
+// needs a different word. Keep those exceptions per locale; putting them in the
+// source-wide list would hide real work in every language.
+const LOCALE_INVARIANTS = {
+  bs: new Set(['server']),
+  sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private']),
+};
+
 // Values that intentionally stay identical in every language are complete, not
 // placeholders that a translator can or should change. Keep this exact: a
 // sentence containing an application placeholder is still translatable.
@@ -87,8 +95,10 @@ const isInvariantSource = value => {
   const withoutPlaceholders = value.replace(/__[a-zA-Z0-9_-]+__/g, '');
   if (!/\p{Letter}/u.test(withoutPlaceholders)) return true;
   if (/^(?:YYYY-MM-DD|DD-MM-YYYY|MM-DD-YYYY)$/.test(value)) return true;
-  return /^(Meteor|Node|Server|Email|indigo|magenta|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API)$/.test(value);
+  return /^(Meteor|Node|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API)$/.test(value);
 };
+const isInvariantForLocale = (code, key) =>
+  isInvariantSource(en[key]) || Boolean(LOCALE_INVARIANTS[code]?.has(key));
 
 function langFile(code) { return path.join(DATA_DIR, `${code}.i18n.json`); }
 
@@ -110,7 +120,7 @@ if (mode === '--missing') {
     const code = path.basename(f, '.i18n.json');
     if (isEnglishVariant(code)) continue;
     const j = readJson(path.join(DATA_DIR, f)) || {};
-    const miss = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantSource(en[k])).length;
+    const miss = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k)).length;
     if (miss) rows.push([code, miss]);
   }
   rows.sort((a, b) => a[1] - b[1]);
@@ -125,7 +135,7 @@ if (mode === '--list') {
   const limIdx = args.indexOf('--limit');
   const limit = limIdx !== -1 ? parseInt(args[limIdx + 1], 10) || 0 : 0;
   const j = readJson(langFile(code)) || {};
-  let keys = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantSource(en[k]));
+  let keys = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k));
   if (limit > 0) keys = keys.slice(0, limit);
   const out = {};
   for (const k of keys) out[k] = en[k];
@@ -198,7 +208,7 @@ if (mode === '--status') {
     const b = bucket[name];
     b[0]++;
     for (const k of miss) {
-      if (isInvariantSource(en[k])) { b[2]++; continue; }
+      if (isInvariantForLocale(code, k)) { b[2]++; continue; }
       b[1]++;
       if (name !== 'second tier (over 400 missing)') perKey[k] = (perKey[k] || 0) + 1;
     }

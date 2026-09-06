@@ -25,7 +25,12 @@ assert.ok(!Object.hasOwn(list('sq'), 'color-indigo'));
 assert.ok(!Object.hasOwn(list('sq'), 'color-magenta'),
   'international color names are invariant, not untranslated');
 assert.ok(!Object.hasOwn(list('sq'), 'email'),
-  'the international technical loanword Email is invariant');
+  'the Albanian technical loanword Email is invariant');
+assert.ok(!Object.hasOwn(list('sq'), 'normal'));
+assert.ok(!Object.hasOwn(list('sq'), 'private'),
+  'correct Albanian loanwords are locale-specific invariants');
+assert.ok(Object.hasOwn(list('ak'), 'email'),
+  'an Albanian loanword exception must not hide another locale\'s work');
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
-console.log('fillTranslationsInvariantSources: 10 tests passed');
+console.log('fillTranslationsInvariantSources: 13 tests passed');
