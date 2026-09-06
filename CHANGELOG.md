@@ -8139,8 +8139,8 @@ and so stops being offered — 290 values were hiding that way and were reset.
 
 **Current snapshot after the Albanian activity/workspace batch:** all 198
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **77,700 values across 36 second-tier languages**. Albanian
-now has 1,715 left after its first eight 50-value batches. Bosnian is also
+remaining work is **77,586 values across 36 second-tier languages**. Albanian
+now has 1,615 left after its first ten 50-value batches. Bosnian is also
 complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first eight activity,
-workspace, board, archive, card, appearance, role and custom-field batches;
+**In short:** **Albanian translations** now cover the first ten activity,
+workspace, board, card, appearance, role, email, export and filter batches;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8331,6 +8331,18 @@ and custom fields. Ninety-eight values required translation; `indigo` and
 `magenta` remain correct international color names and are now classified as
 invariant instead of recurring as false gaps across languages. This leaves
 77,700 actionable values across 36 languages, including 1,715 in Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecfdfbbef">Translate Albanian email exports and filters</a>. Thanks to xet7.</summary>
+
+The ninth and tenth 50-value Albanian batches add profile and date editing,
+account emails, validation errors, card PDF and Excel exports, sorting and card
+filters. Ninety-nine values required translation; `Email` is now treated as the
+valid international technical loanword it is, removing fourteen false gaps from
+the repository-wide report. This leaves 77,586 actionable values across 36
+languages, including 1,615 in Albanian.
 
 </details>
 
