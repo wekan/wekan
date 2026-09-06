@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1924,
-  'the first five 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1874,
+  'the first six 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -83,5 +83,11 @@ assert.deepEqual(tokens(
 assert.match(tigre['enter-zoom-level'], /50-300%/);
 assert.deepEqual(tokens(tigre['card-comments-title']), ['%s']);
 assert.match(tigre['mobile-desktop-toggle'], /ሞባይል.*ዴስክቶፕ/);
+assert.match(tigre['cardStartPlanningPokerPopup-title'], /Planning Poker/);
+assert.match(tigre['editPokerEndDatePopup-title'], /Planning Poker/);
+assert.match(tigre['poker-delete-pop'], /Planning Poker/);
+assert.equal(tigre['importSwimlanePopup-title'], 'መገዲ ኣእቱ');
+assert.match(tigre['addBoardOrgPopup-title'], /ውድብ/);
+assert.match(tigre['addBoardTeamPopup-title'], /ጉጅለ/);
 
-console.log('tigreTranslationProgress: first five batches passed');
+console.log('tigreTranslationProgress: first six batches passed');
