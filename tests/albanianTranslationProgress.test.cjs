@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 916,
-  'the first twenty-four Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 816,
+  'the first twenty-six Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -239,6 +239,10 @@ assert.deepEqual(tokens(albanian['act-atUserComment']),
   ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
 assert.equal(albanian.monday, 'E hënë');
 assert.equal(albanian['roles-status-sees-assigned'], 'Vetëm të caktuarat');
+assert.equal(albanian['globalSearchViewChange-choice-me'], 'Kartat e mia');
+assert.deepEqual(tokens(albanian['n-n-of-n-cards-found']),
+  ['__end__', '__start__', '__total__']);
+assert.equal(albanian['operator-customfield'], 'fushapersonale');
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first twenty-four Albanian batches passed');
+console.log('albanianTranslationProgress: first twenty-six Albanian batches passed');
