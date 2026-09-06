@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'tig',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 624,
-  'the first thirty-one 50-value Tigre batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 574,
+  'the first thirty-two 50-value Tigre batches stay resolved');
 
 for (const [key, value] of Object.entries(tigre)) {
   if (value !== english[key]) {
@@ -249,4 +249,8 @@ assert.match(tigre['api-report-desc'], /REST API/);
 assert.match(tigre['api-no-calls'], /WITH_API=true/);
 assert.match(tigre['recovery-report-desc'], /MongoDB/);
 
-console.log('tigreTranslationProgress: first thirty-one batches passed');
+assert.match(tigre.Node_heap_malloced_memory, /Node.*malloc/);
+assert.match(tigre['custom-legal-notice-link-url'], /URL/);
+assert.match(tigre.newLineNewItem, /=/);
+
+console.log('tigreTranslationProgress: first thirty-two batches passed');
