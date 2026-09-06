@@ -270,8 +270,8 @@ reactions, checklists, dates, colors, labels, people, identity, ballots and
 transfers. Attachments have stored GIF previews
 and secure downloads, rename, cover and confirmed-delete controls. All Boards
 can create, duplicate, organize and archive boards without JavaScript, including
-gated permanent deletion. Card parents and subtasks have matching, scoped
-HTML4/HTML5 controls.
+gated permanent deletion. Card parents, subtasks and activity history have
+matching, scoped HTML4/HTML5 views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -471,6 +471,22 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d8af2661">Add accessible HTML4 card activity history</a>. Thanks to xet7.</summary>
+
+Card administrators can now read the newest 50 card activities in cookieless
+HTML4, including the actor, translated description and ISO timestamp. A shared
+plain-text descriptor supplies both the HTML4 description and each Jade activity
+row's accessible name; the modern view retains its richer links and previews.
+
+The server obeys the instance-wide activity-hiding setting and repeats linked
+content-board visibility before querying history. Unknown and orphaned legacy
+events remain escaped readable text. Tests cover translation arguments, unsafe
+fallback data, the query boundary, HTML4 and HTML5 output at the same URL, and
+prove that a non-administrator receives no activity rows.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad03665bc">Add accessible HTML4 subtask controls</a>. Thanks to xet7.</summary>
