@@ -268,7 +268,7 @@ installation examples explain the Admin Panel email options. Change-history chec
 retain synchronous SHA-256 on both architectures, and interrupted test runs clean up
 only once before returning to the shell. Uncommon browser code loads on demand, and
 Legacy HTML4 boards can create, reorder, edit, archive and restore cards with
-buttons.
+buttons, and move them between lists with a native selector.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -358,6 +358,30 @@ the server reader for large streamed input.
 
 **Legacy HTML4** - every page starts with progressively enhanced HTML4 and images
 are converted to GIF on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8443789ad">Add accessible HTML4 card list movement</a>. Thanks to xet7.</summary>
+
+The shared component library now renders a labelled native list selector with
+escaped options, selected state and an explicit submit button. A Legacy HTML4
+card can therefore move between active lists without JavaScript, cookies, drag
+and drop or precise pointer input. The opened Meteor card uses the same
+acknowledged operation instead of calculating and writing its position on the
+client.
+
+The server repeats source-card and destination-board authorization, verifies the
+list and swimlane belong to one active placement, excludes the moving card from
+the sibling set, and computes a deterministic fractional sort value. A forged
+foreign-board list is refused, leaves the card in place and enters the existing
+attributed Security reporting path.
+
+Component tests cover label association, option escaping, selected state and
+natural keyboard order. Operation and move regression tests cover common wiring,
+authorization, placement and ordering. Cookieless Playwright moves a real card
+from List B to List C and back, checks each semantic caption, rejects a planted
+foreign list, and captures the same final card URL in HTML4 and HTML5.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/47580e292">Add accessible HTML4 card editing and archive controls</a>. Thanks to xet7.</summary>
