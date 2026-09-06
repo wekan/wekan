@@ -474,6 +474,23 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac4a3b03f">Add accessible HTML4 card stickers</a>. Thanks to xet7.</summary>
+
+Card stickers now remain readable and operable without fonts, JavaScript or
+cookies. HTML4 writes each sticker's catalog name, icon and highlight style,
+provides signed remove controls and offers the shared catalog in a labelled
+native selector. Jade add and remove controls call the same acknowledged
+operations.
+
+The server binds the route card, resolves linked content, accepts additions
+only from the curated catalog, derives their names, caps the collection and
+validates a removal index against the current array before rewriting positions
+atomically. Tests cover valid add/remove, a catalog forgery, a stale-index
+probe, linked authorization, textual rendering and paired same-URL screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/93ef25a8d">Add accessible HTML4 card locations</a>. Thanks to xet7.</summary>
 
 Card details in cookieless HTML4 now show locations, coordinates and HTTPS map
