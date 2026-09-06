@@ -10,10 +10,15 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Attachments from '/models/attachments';
 import { cleanFileName } from '/imports/lib/fileNameDisplay';
+import getSlug from 'limax';
 const { UI_ICONS, uiAction, uiLink, uiSearchForm } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
+const {
+  allBoardsPath, defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey,
+  splitWorkspacePath, workspaceIdForSlugPath, workspaceNamePath, workspaceSlugPath,
+} = require('/models/lib/allBoardsUrls');
 
 function segment(value) {
   try { return decodeURIComponent(String(value || '')); } catch (_) { return ''; }
@@ -38,29 +43,98 @@ function tr(translate, key, fallback) {
   return value && value !== key ? value : fallback;
 }
 
-async function boardsPage(userId, publicOnly = false, translate) {
+function boardListSection(path, user) {
+  if (path === '/templates') return 'templates';
+  if (path === '/remaining') return 'remaining';
+  if (path === '/archive') return 'archive';
+  const match = /^\/allboards(?:\/([^/]+))?(?:\/(.*))?$/.exec(path);
+  const requested = normalizeSection(segment(match?.[1]));
+  const starred = user?.profile?.starredBoards || [];
+  return requested || defaultSection(starred.length > 0);
+}
+
+async function boardsPage(path, userId, publicOnly = false, translate) {
   let boards;
+  let heading;
+  let sectionRows = [];
   if (publicOnly) {
     boards = await Boards.find({ permission: 'public', archived: { $ne: true }, type: 'board' }, {
       fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1 },
       sort: { title: 1 }, limit: 200,
     }).fetchAsync();
+    heading = tr(translate, 'public-boards', 'Public Boards');
   } else if (userId) {
-    boards = await Boards.userBoards(userId, false, {}, {
+    const user = await Meteor.users.findOneAsync(userId, { fields: {
+      'profile.starredBoards': 1, 'profile.defaultBoardId': 1,
+      'profile.boardWorkspaceAssignments': 1, 'profile.boardWorkspacesTree': 1,
+    } });
+    const section = boardListSection(path, user);
+    const profile = user?.profile || {};
+    const assignments = profile.boardWorkspaceAssignments || {};
+    const selector = { type: { $in: ['board', 'template-container'] } };
+    let archived = false;
+    let workspaceNames = [];
+    if (section === 'starred') selector._id = { $in: profile.starredBoards || [] };
+    else if (section === 'templates') selector.type = 'template-container';
+    else if (section === 'remaining') {
+      selector.type = 'board';
+      selector._id = { $nin: Object.keys(assignments) };
+    } else if (section === 'home') {
+      selector.type = 'board';
+      selector._id = profile.defaultBoardId || '__no-home-board__';
+    } else if (section === 'archive') {
+      archived = true;
+      selector.type = { $nin: ['template-container', 'template-board'] };
+      selector.members = { $elemMatch: { userId, isActive: true, isAdmin: true } };
+    } else if (section === 'workspaces') {
+      const match = /^\/allboards\/workspaces(?:\/(.*))?$/.exec(path);
+      const slugPath = splitWorkspacePath(match?.[1]);
+      const tree = profile.boardWorkspacesTree || [];
+      const workspaceId = workspaceIdForSlugPath(tree, slugPath, getSlug);
+      workspaceNames = workspaceNamePath(tree, slugPath, getSlug);
+      selector.type = 'board';
+      selector._id = { $in: workspaceId
+        ? Object.keys(assignments).filter(boardId => assignments[boardId] === workspaceId)
+        : [] };
+    }
+    boards = await Boards.userBoards(userId, archived, selector, {
       fields: { title: 1, slug: 1, color: 1, customThemeColors: 1, permission: 1 },
       sort: { title: 1 }, limit: 200,
-    });
+    }, { includePublic: false });
+    const sectionName = tr(translate, sectionTitleKey(section), section);
+    heading = [tr(translate, 'all-boards', 'All Boards'), sectionName, ...workspaceNames]
+      .filter(Boolean).join(' / ');
+    const hasStarred = (profile.starredBoards || []).length > 0;
+    const standardActions = menuSectionOrder(hasStarred).map(item => uiAction({
+      action: allBoardsPath(item, []),
+      label: tr(translate, sectionTitleKey(item), item),
+    }));
+    const workspaceActions = [];
+    const visitWorkspaces = nodes => {
+      for (const node of Array.isArray(nodes) ? nodes : []) {
+        const slugPath = workspaceSlugPath(profile.boardWorkspacesTree || [], node.id, getSlug);
+        if (slugPath) workspaceActions.push(uiAction({
+          action: allBoardsPath('workspaces', slugPath), label: node.name || node.id,
+        }));
+        visitWorkspaces(node.children);
+      }
+    };
+    visitWorkspaces(profile.boardWorkspacesTree);
+    sectionRows = [{ rowHeader: false, cells: [
+      [...standardActions, ...workspaceActions],
+      tr(translate, 'all-boards', 'All Boards'),
+    ] }];
   } else boards = [];
   return {
-    heading: publicOnly ? tr(translate, 'public-boards', 'Public Boards') : tr(translate, 'all-boards', 'All Boards'),
+    heading: heading || tr(translate, 'all-boards', 'All Boards'),
     columns: [tr(translate, 'board', 'Board'), tr(translate, 'change-permissions', 'Permissions')],
     empty: tr(translate, 'no-boards-selected', 'No boards'),
-    rows: boards.map(board => ({
+    rows: [...sectionRows, ...boards.map(board => ({
       color: boardColor(board), boardTheme: true,
       cells: [userId
         ? uiAction({ action: boardPath(board), label: board.title || 'Board' })
         : uiLink({ href: boardPath(board), label: board.title || 'Board' }), board.permission || ''],
-    })),
+    }))],
   };
 }
 
@@ -349,12 +423,14 @@ async function cardDiscoveryPage(path, userId, requestFields, translate) {
 
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
   if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
-  if (path === '/public') return boardsPage(userId, true, translate);
+  if (path === '/public') return boardsPage(path, userId, true, translate);
   const information = await informationPage(path, userId, translate);
   if (information) return information;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
-  if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) return boardsPage(userId, false, translate);
+  if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
+    return boardsPage(path, userId, false, translate);
+  }
   if (/^\/b(?:\/|$)/.test(path)) return boardPage(path, userId, requestFields, translate);
   if (path === '/accessibility/components') return {
     heading: 'Legacy HTML4 component library',

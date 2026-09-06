@@ -120,7 +120,7 @@ the generic baseline. It is updated with every implementation batch.
 | URL family | Current HTML4 implementation |
 | --- | --- |
 | `/sign-in`, `/sign-up` | Complete cookieless account forms |
-| `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated board-list reader; section filtering and mutations remain |
+| `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated readers with Starred, Remaining, Templates, Home, Archive and nested Workspace filtering; mutations remain |
 | `/b/...` | Dedicated upper-left board and semantic card-detail readers including comments, checklists and attachment metadata; mutations and attachment content remain |
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |

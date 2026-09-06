@@ -15,6 +15,9 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let board;
   let outsider;
   let outsiderBoard;
+  let templateBoard;
+  let archivedBoard;
+  let workspaceBoard;
   const childIds = {
     checklist: db.uid('checklist'), item: db.uid('item'),
     comment: db.uid('comment'), attachment: db.uid('attachment'),
@@ -42,6 +45,13 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       ownerId: outsider.id,
       cardTitlesPerList: [['HTML4 Searchable Secret']],
     });
+    templateBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Template Container', listCount: 1 });
+    archivedBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Archived Board', listCount: 1 });
+    workspaceBoard = db.seedBoard({ ownerId: user._id, title: 'HTML4 Workspace Board', listCount: 1 });
+    db.updateOne('boards', { _id: templateBoard.boardId }, { $set: { type: 'template-container' } });
+    db.updateOne('boards', { _id: archivedBoard.boardId }, {
+      $set: { archived: true, archivedAt: new Date() },
+    });
     const cards = db.find('cards', { boardId: board.boardId });
     const due = cards.find(card => card.title === 'HTML4 Due');
     db.updateOne('cards', { _id: due._id }, {
@@ -53,7 +63,13 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       },
     });
     db.updateOne('users', { _id: user._id }, {
-      $set: { 'profile.starredPages': [{ url: '/shortcuts', title: 'Saved shortcuts' }] },
+      $set: {
+        'profile.starredPages': [{ url: '/shortcuts', title: 'Saved shortcuts' }],
+        'profile.starredBoards': [board.boardId],
+        'profile.defaultBoardId': board.boardId,
+        'profile.boardWorkspacesTree': [{ id: 'html4-space', name: 'HTML4 Space', children: [] }],
+        'profile.boardWorkspaceAssignments': { [workspaceBoard.boardId]: 'html4-space' },
+      },
     });
     db.insertOne('checklists', {
       _id: childIds.checklist, cardId: due._id, boardId: board.boardId,
@@ -98,6 +114,27 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
         page.locator(`form[action="${action}"] input[type="submit"]`).first().click(),
       ]);
     };
+    await open('/allboards/templates');
+    await expect(page.locator('h1')).toContainText('Templates');
+    await expect(page.locator('tbody')).toContainText('HTML4 Template Container');
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Archived Board');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-allboards-templates.png`, fullPage: true,
+      });
+    }
+    await open('/allboards/archive');
+    await expect(page.locator('h1')).toContainText('Archive');
+    await expect(page.locator('tbody')).toContainText('HTML4 Archived Board');
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Template Container');
+    await open('/allboards/workspaces/html4-space');
+    await expect(page.locator('h1')).toContainText('HTML4 Space');
+    await expect(page.locator('tbody')).toContainText('HTML4 Workspace Board');
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Archived Board');
+    await open('/allboards/home');
+    await expect(page.locator('tbody')).toContainText(board.boardId);
+    await expect(page.locator('tbody')).not.toContainText('HTML4 Workspace Board');
     await open('/my-cards');
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');
@@ -121,6 +158,14 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     const modernContext = await browser.newContext();
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
+    await modern.goto(`${baseURL}/allboards/templates`);
+    await expect(modern.getByRole('heading', { name: 'Templates' })).toBeVisible();
+    await expect(modern.locator('body')).toContainText('HTML4 Template Container');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-allboards-templates.png`, fullPage: true,
+      });
+    }
     await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
     await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due');
     await expect(modern.locator('.card-details')).toContainText('Semantic HTML4 card description');
@@ -159,6 +204,9 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     db.deleteOne('checklists', { _id: childIds.checklist });
     if (outsiderBoard) db.cleanup({ boardIds: [outsiderBoard.boardId] });
     if (outsider) db.cleanup({ userIds: [outsider.id] });
+    if (templateBoard) db.cleanup({ boardIds: [templateBoard.boardId] });
+    if (archivedBoard) db.cleanup({ boardIds: [archivedBoard.boardId] });
+    if (workspaceBoard) db.cleanup({ boardIds: [workspaceBoard.boardId] });
     if (board) db.cleanup({ boardIds: [board.boardId] });
     if (user) db.cleanup({ userIds: [user._id] });
     await context.close();

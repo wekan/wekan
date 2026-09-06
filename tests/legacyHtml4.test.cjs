@@ -151,6 +151,19 @@ test('card discovery pages scope reads to the authenticated user boards', () => 
   assert.match(middleware, /if \(query\.has\('q'\)\) requestFields\.q = query\.get\('q'\)/);
 });
 
+test('All Boards HTML4 routes use the shared section and workspace selectors', () => {
+  const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
+    'legacyHtml4Pages.js'), 'utf8');
+  assert.match(pages, /defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey/);
+  assert.match(pages, /workspaceIdForSlugPath\(tree, slugPath, getSlug\)/);
+  assert.match(pages, /workspaceSlugPath\(profile\.boardWorkspacesTree \|\| \[\], node\.id, getSlug\)/);
+  assert.match(pages, /selector\.members = \{ \$elemMatch: \{ userId, isActive: true, isAdmin: true \} \}/);
+  assert.match(pages, /Boards\.userBoards\(userId, archived, selector/);
+  assert.match(pages, /\{ includePublic: false \}/);
+  assert.match(pages, /selector\.type = 'template-container'/);
+  assert.match(pages, /selector\._id = \{ \$nin: Object\.keys\(assignments\) \}/);
+});
+
 test('card details repeat board and assigned-only authorization scopes', () => {
   const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
     'legacyHtml4Pages.js'), 'utf8');
