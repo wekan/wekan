@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 274,
-  'the first thirty-eight Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
+  'the first thirty-nine Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -293,5 +293,10 @@ assert.match(tigrinya['gcs-permissions-note'],
 assert.match(tigrinya['s3-endpoint-menu-path'],
   /AWS.*MinIO.*Cloudflare R2.*Backblaze B2.*Wasabi.*DigitalOcean Spaces/);
 assert.match(tigrinya['gcs-credentials-menu-path'], /IAM & Admin.*JSON/);
+assert.match(tigrinya['gridfs-enabled-description'], /MongoDB GridFS/);
+assert.match(tigrinya['gridfs-move-collectionfs-note'], /CollectionFS/);
+assert.match(tigrinya['s3-region-description'], /AWS S3.*us-east-1/);
+assert.match(tigrinya['s3-ssl-enabled-description'], /S3.*SSL\/TLS/);
+assert.equal(tigrinya['attachment-monitoring'], 'ምክትታል መተሓሓዚ');
 
-console.log('tigrinyaTranslationProgress: first thirty-eight batches passed');
+console.log('tigrinyaTranslationProgress: first thirty-nine batches passed');
