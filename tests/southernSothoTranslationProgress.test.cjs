@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 424,
-  'the first thirty-four Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 374,
+  'the first thirty-five Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -214,5 +214,11 @@ assert.match(sesotho['accounts-lockout-info'], /ditlhaselo/);
 assert.match(sesotho['accounts-lockout-known-users'], /phasewete/);
 assert.equal(sesotho['accounts-lockout-unlock-all'], 'Notlolla bohle');
 assert.match(sesotho['attachments-path-description'], /difaele/);
+assert.match(sesotho['s3-force-path-style-description'], /MinIO.*S3.*AWS/);
+assert.match(sesotho['database-migration-description'],
+  /MongoDB.*FerretDB v1.*SQLite.*127\.0\.0\.1:27018.*127\.0\.0\.1:27019.*WEKAN_FERRETDB_URL.*WEKAN_MONGODB_URL.*MONGO_URL.*Snap/s);
+assert.deepEqual(tokens(sesotho['database-migration-confirm']), ['__db__']);
+assert.equal(sesotho['cron-job-started'],
+  'Mosebetsi o rerilweng o qadile ka katleho');
 
-console.log('southernSothoTranslationProgress: first thirty-four batches passed');
+console.log('southernSothoTranslationProgress: first thirty-five batches passed');
