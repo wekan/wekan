@@ -317,6 +317,17 @@ visibility for participants and write capability for configuration, bounds the
 question, strictly parses ISO 8601 deadlines, rejects closed ballots and derives
 the actor from the authenticated session before atomically canonicalizing votes.
 
+Planning Poker preserves the same audience, optional deadline, ten estimates,
+current-user choice, closed results, participant names, replay and final numeric
+estimation in both renderers. HTML4 uses labelled native fields and textual
+`[x]`/`[ ]` POST controls, reveals individual estimates only after the round is
+closed, and keeps finish, replay, estimation and confirmed removal restricted to
+board administrators. Jade and HTML4 call the same route-bound operation. It
+strictly parses deadlines and estimations, allowlists every estimate, derives the
+actor from the session, rejects closed rounds and moves one actor between estimate
+arrays with a single atomic database modifier so concurrent participants do not
+overwrite each other.
+
 Comment forms call one common server boundary from both renderers. Creation binds
 the submitted card to its real board and assigned-only scope, checks the board
 role's comment capability, bounds non-empty text, and validates a reply parent in

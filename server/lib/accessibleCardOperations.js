@@ -32,6 +32,10 @@ const MAX_CARD_STICKERS = 200;
 const MAX_CARD_CUSTOM_FIELDS = 500;
 const MAX_CARD_DEPENDENCIES = 500;
 const MAX_BALLOT_QUESTION_LENGTH = 10000;
+const POKER_STATES = [
+  'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
+  'oneHundred', 'unsure',
+];
 
 function refuseCardWrite(userId, detail) {
   tripCanary('board.write-without-capability', { userId, detail });
@@ -559,6 +563,109 @@ async function castAccessibleCardVote(userId, input) {
   return state;
 }
 
+function canonicalPoker(poker) {
+  const normalized = {
+    question: poker?.question === true,
+    allowNonBoardMembers: poker?.allowNonBoardMembers === true,
+  };
+  for (const state of POKER_STATES) {
+    normalized[state] = [...new Set((poker?.[state] || [])
+      .filter(value => typeof value === 'string'))].slice(0, 100000);
+  }
+  if (poker?.end instanceof Date && Number.isFinite(poker.end.getTime())) {
+    normalized.end = poker.end;
+  }
+  if (Number.isSafeInteger(poker?.estimation) && Math.abs(poker.estimation) <= 1e15) {
+    normalized.estimation = poker.estimation;
+  }
+  return normalized;
+}
+
+async function updateAccessibleCardPoker(userId, input) {
+  const { target } = await accessibleBallotTarget(userId, input, true);
+  const action = String(input?.action || '');
+  if (['finish', 'replay', 'estimation', 'remove'].includes(action)) {
+    const routeBoard = await Boards.findOneAsync(String(input?.boardId || ''));
+    if (!allowIsBoardAdmin(userId, routeBoard)) {
+      refuseCardWrite(userId, `planning poker ${action} required board admin`);
+    }
+  }
+  if (action === 'remove') {
+    await Cards.updateAsync(target._id, {
+      $unset: { poker: '' }, $set: { modifiedAt: new Date(), dateLastActivity: new Date() },
+    });
+    return true;
+  }
+  if (action === 'configure') {
+    if (typeof input?.allowNonBoardMembers !== 'boolean') {
+      throw new Meteor.Error('invalid-poker');
+    }
+    const poker = { question: true, allowNonBoardMembers: input.allowNonBoardMembers };
+    for (const state of POKER_STATES) poker[state] = [];
+    const end = accessibleBallotEnd(input?.end);
+    if (end) poker.end = end;
+    await Cards.updateAsync(target._id, {
+      $set: { poker, modifiedAt: new Date(), dateLastActivity: new Date() },
+    });
+    return true;
+  }
+  if (!target.poker?.question) throw new Meteor.Error('poker-not-found');
+  if (action === 'end' || action === 'finish') {
+    const end = action === 'finish' ? new Date() : accessibleBallotEnd(input?.end);
+    const modifier = end ? { $set: { 'poker.end': end } } : { $unset: { 'poker.end': '' } };
+    modifier.$set = { ...(modifier.$set || {}), modifiedAt: new Date(), dateLastActivity: new Date() };
+    await Cards.updateAsync(target._id, modifier);
+    return true;
+  }
+  if (action === 'replay') {
+    const poker = canonicalPoker(target.poker);
+    for (const state of POKER_STATES) poker[state] = [];
+    delete poker.end;
+    delete poker.estimation;
+    await Cards.updateAsync(target._id, {
+      $set: { poker, modifiedAt: new Date(), dateLastActivity: new Date() },
+    });
+    return true;
+  }
+  if (action === 'estimation') {
+    const estimation = completeCustomFieldNumber(input?.estimation, true);
+    const modifier = estimation === ''
+      ? { $unset: { 'poker.estimation': '' } }
+      : { $set: { 'poker.estimation': estimation } };
+    modifier.$set = { ...(modifier.$set || {}), modifiedAt: new Date(), dateLastActivity: new Date() };
+    await Cards.updateAsync(target._id, modifier);
+    return true;
+  }
+  throw new Meteor.Error('invalid-poker-action');
+}
+
+async function castAccessibleCardPoker(userId, input) {
+  const { target, board } = await accessibleBallotTarget(userId, input, false);
+  const poker = canonicalPoker(target.poker);
+  if (!poker.question || (poker.end && poker.end.getTime() <= Date.now())) {
+    throw new Meteor.Error('poker-closed');
+  }
+  if (!allowIsBoardMember(userId, board) && !poker.allowNonBoardMembers) {
+    refuseCardWrite(userId, 'planning poker did not allow this participant');
+  }
+  const state = input?.state;
+  if (state !== null && !POKER_STATES.includes(state)) {
+    throw new Meteor.Error('invalid-poker-state');
+  }
+  const pull = {};
+  for (const name of POKER_STATES) {
+    if (name !== state) pull[`poker.${name}`] = userId;
+  }
+  const now = new Date();
+  const modifier = {
+    $pull: pull,
+    $set: { modifiedAt: now, dateLastActivity: now },
+  };
+  if (state) modifier.$addToSet = { [`poker.${state}`]: userId };
+  await Cards.updateAsync(target._id, modifier);
+  return state;
+}
+
 async function updateAccessibleCardContent(userId, input) {
   const card = await editableCard(userId, input?.cardId, String(input?.boardId || ''));
   const field = input?.field;
@@ -773,6 +880,7 @@ export {
   setAccessibleCardCustomFieldAssigned,
   saveAccessibleCardDependency,
   castAccessibleCardVote,
+  castAccessibleCardPoker,
   setAccessibleCardLabel,
   setAccessibleCardIdentity,
   setAccessibleCardPerson,
@@ -784,4 +892,5 @@ export {
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
   updateAccessibleCardVote,
+  updateAccessibleCardPoker,
 };

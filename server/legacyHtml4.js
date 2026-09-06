@@ -20,6 +20,7 @@ import {
   removeLegacyHtml4Upload,
 } from '/server/lib/legacyHtml4Multipart';
 import {
+  castAccessibleCardPoker,
   castAccessibleCardVote,
   createAccessibleCard,
   moveAccessibleCard,
@@ -41,6 +42,7 @@ import {
   updateAccessibleCardSort,
   updateAccessibleCardCustomField,
   updateAccessibleCardContent,
+  updateAccessibleCardPoker,
   updateAccessibleCardVote,
 } from '/server/lib/accessibleCardOperations';
 import {
@@ -179,6 +181,8 @@ WebApp.handlers.use(async (req, res, next) => {
     'edit-card-custom-field-checkbox',
     'save-card-dependency', 'remove-card-dependency',
     'configure-card-vote', 'update-card-vote-end', 'cast-card-vote', 'remove-card-vote',
+    'configure-card-poker', 'update-card-poker-end', 'cast-card-poker',
+    'finish-card-poker', 'replay-card-poker', 'estimate-card-poker', 'remove-card-poker',
     'archive-card', 'restore-card',
   ];
   const commentOperations = [
@@ -346,6 +350,10 @@ WebApp.handlers.use(async (req, res, next) => {
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'confirm-remove-card-vote') {
     requestFields.confirmVoteRemove = String(requestFields.cardId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'confirm-remove-card-poker') {
+    requestFields.confirmPokerRemove = String(requestFields.cardId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
     && [...cardOperations, ...commentOperations, ...checklistOperations, ...attachmentOperations]
@@ -623,6 +631,44 @@ WebApp.handlers.use(async (req, res, next) => {
         }
         if (requestFields.legacyOperation === 'remove-card-vote') {
           return updateAccessibleCardVote(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId, action: 'remove',
+          });
+        }
+        if (requestFields.legacyOperation === 'configure-card-poker') {
+          return updateAccessibleCardPoker(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: 'configure',
+            allowNonBoardMembers: requestFields.pokerAllowNonBoardMembers === 'true',
+            end: requestFields.pokerEnd,
+          });
+        }
+        if (requestFields.legacyOperation === 'update-card-poker-end'
+          || requestFields.legacyOperation === 'finish-card-poker') {
+          return updateAccessibleCardPoker(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: requestFields.legacyOperation === 'finish-card-poker' ? 'finish' : 'end',
+            end: requestFields.pokerEnd,
+          });
+        }
+        if (requestFields.legacyOperation === 'cast-card-poker') {
+          return castAccessibleCardPoker(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            state: requestFields.pokerState === 'clear' ? null : requestFields.pokerState,
+          });
+        }
+        if (requestFields.legacyOperation === 'replay-card-poker') {
+          return updateAccessibleCardPoker(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId, action: 'replay',
+          });
+        }
+        if (requestFields.legacyOperation === 'estimate-card-poker') {
+          return updateAccessibleCardPoker(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            action: 'estimation', estimation: requestFields.pokerEstimation,
+          });
+        }
+        if (requestFields.legacyOperation === 'remove-card-poker') {
+          return updateAccessibleCardPoker(session.userId, {
             cardId: requestFields.cardId, boardId: requestFields.boardId, action: 'remove',
           });
         }

@@ -10,7 +10,7 @@ const { strToU8, zipSync } = require('../../../node_modules/fflate');
 const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 test('cookieless HTML4 card discovery pages show only the signed-in user data', async ({ browser, baseURL }) => {
-  test.setTimeout(120_000);
+  test.setTimeout(180_000);
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
@@ -1582,6 +1582,110 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       page.waitForNavigation(), negativeVoteForm().locator('input[type="submit"]').click(),
     ]);
     expect(db.findOne('cards', { _id: due._id }).vote.negative).toEqual([user._id]);
+    const configurePokerForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="configure-card-poker"])',
+    );
+    await configurePokerForm().locator('input[name="pokerEnd"]').fill('not-a-date');
+    await Promise.all([
+      page.waitForNavigation(), configurePokerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker).toBeUndefined();
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await configurePokerForm().locator('input[name="pokerEnd"]')
+      .fill('2037-01-02T03:04:00Z');
+    await Promise.all([
+      page.waitForNavigation(), configurePokerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker).toMatchObject({
+      question: true, allowNonBoardMembers: false, one: [], thirteen: [], unsure: [],
+    });
+    const pokerOneForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-poker"])'
+      + ':has(input[name="pokerState"][value="one"])',
+    );
+    await pokerOneForm().locator('input[name="pokerState"]')
+      .evaluate(input => { input.value = 'forged-state'; });
+    await Promise.all([
+      page.waitForNavigation(), page.locator(
+        'form:has(input[name="legacyOperation"][value="cast-card-poker"])'
+        + ':has(input[name="pokerState"][value="forged-state"]) input[type="submit"]',
+      ).click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker.one).toEqual([]);
+    await expect(page.locator('tbody')).toContainText('Operation failed');
+    await Promise.all([
+      page.waitForNavigation(), pokerOneForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker.one).toEqual([user._id]);
+    const pokerThirteenForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-poker"])'
+      + ':has(input[name="pokerState"][value="thirteen"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), pokerThirteenForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker.one).toEqual([]);
+    expect(db.findOne('cards', { _id: due._id }).poker.thirteen).toEqual([user._id]);
+    const finishPokerForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="finish-card-poker"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), finishPokerForm().locator('input[type="submit"]').click(),
+    ]);
+    await expect(page.locator(
+      'form:has(input[name="legacyOperation"][value="cast-card-poker"])',
+    )).toHaveCount(0);
+    await expect(page.locator('tbody')).toContainText(username);
+    const estimatePokerForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="estimate-card-poker"])',
+    );
+    await estimatePokerForm().locator('input[name="pokerEstimation"]').fill('13oops');
+    await Promise.all([
+      page.waitForNavigation(), estimatePokerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker.estimation).toBeUndefined();
+    await estimatePokerForm().locator('input[name="pokerEstimation"]').fill('13');
+    await Promise.all([
+      page.waitForNavigation(), estimatePokerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker.estimation).toBe(13);
+    const replayPokerForm = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="replay-card-poker"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), replayPokerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker).toMatchObject({
+      question: true, thirteen: [],
+    });
+    expect(db.findOne('cards', { _id: due._id }).poker.end).toBeUndefined();
+    expect(db.findOne('cards', { _id: due._id }).poker.estimation).toBeUndefined();
+    const confirmRemovePoker = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-remove-card-poker"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), confirmRemovePoker().locator('input[type="submit"]').click(),
+    ]);
+    await expect(page.locator('tbody')).toContainText('Deleting is permanent');
+    const removePoker = () => page.locator(
+      'form:has(input[name="legacyOperation"][value="remove-card-poker"])',
+    );
+    await Promise.all([
+      page.waitForNavigation(), removePoker().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker).toBeUndefined();
+    await configurePokerForm().locator('input[name="pokerEnd"]')
+      .fill('2038-01-02T03:04:00Z');
+    await Promise.all([
+      page.waitForNavigation(), configurePokerForm().locator('input[type="submit"]').click(),
+    ]);
+    await Promise.all([
+      page.waitForNavigation(), pokerThirteenForm().locator('input[type="submit"]').click(),
+    ]);
+    await Promise.all([
+      page.waitForNavigation(), finishPokerForm().locator('input[type="submit"]').click(),
+    ]);
+    expect(db.findOne('cards', { _id: due._id }).poker.thirteen).toEqual([user._id]);
     const colorForm = () => page.locator(
       'form:has(input[name="legacyOperation"][value="edit-card-color"])',
     );

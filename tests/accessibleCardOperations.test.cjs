@@ -240,6 +240,34 @@ test('card dates use one strict acknowledged boundary in HTML5 and HTML4', () =>
   assert.match(page, /cardDateField: field/);
 });
 
+test('planning poker uses one scoped atomic boundary in HTML5 and HTML4', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /POKER_STATES = \[/);
+  assert.match(source, /async function updateAccessibleCardPoker/);
+  assert.match(source, /async function castAccessibleCardPoker/);
+  assert.match(source, /await accessibleBallotTarget\(userId, input, true\)/);
+  assert.match(source, /poker\.end\.getTime\(\) <= Date\.now\(\)/);
+  assert.match(source, /!allowIsBoardMember\(userId, board\)/);
+  assert.match(source, /\['finish', 'replay', 'estimation', 'remove'\]\.includes\(action\)/);
+  assert.match(source, /allowIsBoardAdmin\(userId, routeBoard\)/);
+  assert.match(source, /\$pull: pull/);
+  assert.match(source, /\$addToSet = \{ \[`poker\.\$\{state\}`\]: userId \}/);
+  assert.match(methods, /async castAccessibleCardPoker\(input\)/);
+  assert.match(methods, /async updateAccessibleCardPoker\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('castAccessibleCardPoker'/);
+  assert.match(client, /Meteor\.callAsync\('updateAccessibleCardPoker'/);
+  assert.doesNotMatch(client, /Meteor\.call\('cards\.pokerVote'/);
+  assert.match(legacy, /legacyOperation === 'cast-card-poker'/);
+  assert.match(legacy, /legacyOperation === 'replay-card-poker'/);
+  assert.match(page, /legacyOperation: 'configure-card-poker'/);
+  assert.match(page, /legacyOperation: 'estimate-card-poker'/);
+  assert.match(page, /requestFields\.confirmPokerRemove === card\._id/);
+});
+
 test('card color uses one allowlisted acknowledged boundary in HTML5 and HTML4', () => {
   const source = read('server/lib/accessibleCardOperations.js');
   const methods = read('server/models/cards.js');

@@ -17,6 +17,7 @@ import { cleanFileName } from '/imports/lib/fileNameDisplay';
 import { attachmentKind } from '/models/lib/attachmentKind';
 import getSlug from 'limax';
 import {
+  allowIsBoardAdmin,
   allowIsBoardMemberCommentOnly,
   allowIsBoardMemberWithWriteAccess,
 } from '/server/lib/utils';
@@ -39,6 +40,10 @@ const {
 } = require('/models/metadata/dependencies');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
 const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
+const POKER_STATES = [
+  'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
+  'oneHundred', 'unsure',
+];
 const { BOARD_EXPORT_FIELDS, parseImportFields, toggleImportField } = require('/models/lib/exportFields');
 const {
   allBoardsPath, defaultSection, menuSectionOrder, normalizeSection, sectionTitleKey,
@@ -534,6 +539,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
       .flatMap(reaction => reaction.userIds || [])),
     ...(contentCard?.vote?.positive || []), ...(contentCard?.vote?.negative || []),
+    ...POKER_STATES.flatMap(state => contentCard?.poker?.[state] || []),
   ].filter(Boolean))];
   const [list, swimlane, people, activeLists, currentUser] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
@@ -570,6 +576,16 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     : ((vote?.negative || []).includes(userId) ? 'negative' : 'clear');
   const canVote = Boolean(vote?.question) && !voteClosed
     && (activeContentMemberIds.includes(userId) || vote?.allowNonBoardMembers === true);
+  const poker = contentCard?.poker && typeof contentCard.poker === 'object'
+    ? contentCard.poker : null;
+  const pokerEnd = poker?.end instanceof Date && Number.isFinite(poker.end.getTime())
+    ? poker.end : (poker?.end ? new Date(poker.end) : null);
+  const pokerClosed = pokerEnd instanceof Date && Number.isFinite(pokerEnd.getTime())
+    && pokerEnd.getTime() <= Date.now();
+  const pokerState = POKER_STATES.find(state => (poker?.[state] || []).includes(userId)) || null;
+  const canPlayPoker = poker?.question === true && !pokerClosed
+    && (activeContentMemberIds.includes(userId) || poker?.allowNonBoardMembers === true);
+  const canAdminPoker = allowIsBoardAdmin(userId, board);
   const destinations = canWrite ? await writableCardDestinationOptions(userId)
     : { checklistCards: [], cardPlacements: [] };
   const checklistCardOptions = destinations.checklistCards;
@@ -818,6 +834,37 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         fields: { ...commonFields, legacyOperation: 'confirm-remove-card-vote' },
       })] });
     }
+    if (!poker?.question) {
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: voteAction, legend: tr(translate, 'poker-question', 'Planning Poker'),
+        inputs: [
+          { type: 'select', name: 'pokerAllowNonBoardMembers',
+            label: tr(translate, 'allowNonBoardMembers', 'Allow all logged in users'),
+            options: booleanOptions },
+          { name: 'pokerEnd', label: `${tr(translate, 'card-end', 'End')} (ISO 8601)`,
+            maxlength: 40 },
+        ],
+        fields: { ...commonFields, legacyOperation: 'configure-card-poker' },
+        submitLabel: tr(translate, 'save', 'Save'), id: 'poker-new',
+      }), ''] });
+    } else {
+      rows.push({ rowHeader: false, cells: [uiTextForm({
+        action: voteAction, label: `${tr(translate, 'card-end', 'End')} (ISO 8601)`,
+        name: 'pokerEnd', value: pokerEnd instanceof Date
+          && Number.isFinite(pokerEnd.getTime()) ? pokerEnd.toISOString() : '', maxlength: 40,
+        fields: { ...commonFields, legacyOperation: 'update-card-poker-end' },
+        submitLabel: tr(translate, 'save', 'Save'), id: 'poker-end',
+      }), canAdminPoker ? (requestFields.confirmPokerRemove === card._id ? [
+        tr(translate, 'poker-delete-pop', 'Delete planning poker?'),
+        uiAction({
+          action: voteAction, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...commonFields, legacyOperation: 'remove-card-poker' },
+        }),
+      ] : uiAction({
+        action: voteAction, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { ...commonFields, legacyOperation: 'confirm-remove-card-poker' },
+      })) : ''] });
+    }
     for (const label of contentBoard?.labels || []) {
       const selected = (contentCard?.labelIds || []).includes(label._id);
       rows.push({ color: label.color, rowHeader: false, cells: [uiAction({
@@ -921,6 +968,34 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         },
       }), ''] });
     }
+  }
+  if (canPlayPoker) {
+    const pokerAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+    for (const state of POKER_STATES) {
+      const selected = pokerState === state;
+      rows.push({ rowHeader: false, cells: [uiAction({
+        action: pokerAction,
+        label: `${selected ? UI_ICONS['select-on'].ascii : UI_ICONS['select-off'].ascii} `
+          + tr(translate, `poker-${state}`, state),
+        fields: { ...commonFields, legacyOperation: 'cast-card-poker', pokerState: state },
+      }), ''] });
+    }
+    if (canAdminPoker) rows.push({ rowHeader: false, cells: [uiAction({
+      action: pokerAction, label: tr(translate, 'poker-finish', 'Finish'),
+      fields: { ...commonFields, legacyOperation: 'finish-card-poker' },
+    }), ''] });
+  }
+  if (poker?.question && pokerClosed && canAdminPoker) {
+    const pokerAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+    rows.push({ rowHeader: false, cells: [uiAction({
+      action: pokerAction, label: tr(translate, 'poker-replay', 'Replay'),
+      fields: { ...commonFields, legacyOperation: 'replay-card-poker' },
+    }), uiTextForm({
+      action: pokerAction, label: tr(translate, 'set-estimation', 'Set estimation'),
+      name: 'pokerEstimation', value: poker.estimation ?? '', maxlength: 40,
+      fields: { ...commonFields, legacyOperation: 'estimate-card-poker' },
+      submitLabel: tr(translate, 'save', 'Save'), id: 'poker-estimation',
+    })] });
   }
   const workerSelf = card.type !== 'cardType-linkedCard'
     && card.type !== 'cardType-linkedBoard'
@@ -1043,6 +1118,19 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         ? names(vote.negative) : String((vote.negative || []).length)] },
       { cells: [tr(translate, 'card-end', 'End'), voteEnd instanceof Date
         && Number.isFinite(voteEnd.getTime()) ? voteEnd.toISOString() : ''] },
+    ] : []),
+    ...(poker?.question ? [
+      { cells: [tr(translate, 'poker-question', 'Planning Poker'),
+        pokerClosed ? tr(translate, 'poker-finish', 'Finished') : tr(translate, 'active', 'Active')] },
+      { cells: [tr(translate, 'card-end', 'End'), pokerEnd instanceof Date
+        && Number.isFinite(pokerEnd.getTime()) ? pokerEnd.toISOString() : ''] },
+      ...(poker.estimation !== undefined ? [{
+        cells: [tr(translate, 'set-estimation', 'Estimation'), String(poker.estimation)],
+      }] : []),
+      ...(pokerClosed ? POKER_STATES.map(state => ({
+        cells: [tr(translate, `poker-${state}`, state),
+          `${(poker[state] || []).length} - ${names(poker[state])}`],
+      })) : []),
     ] : []),
     ...locations.map(location => {
       const hasCoordinates = typeof location.latitude === 'number'

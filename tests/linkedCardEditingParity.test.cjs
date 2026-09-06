@@ -58,6 +58,10 @@ test('opened-card method calls send the source id', () => {
     /castAccessibleCardVote'[\s\S]*cardId: card\._id/);
   assert.match(details,
     /updateAccessibleCardVote'[\s\S]*cardId: card\._id/);
+  assert.match(details,
+    /castAccessibleCardPoker'[\s\S]*cardId: card\._id/);
+  assert.match(details,
+    /updateAccessibleCardPoker'[\s\S]*cardId: card\._id/);
   assert.match(details, /Meteor\.call\('watch', 'card', currentCard\.getRealId\(\)/);
   assert.match(details, /Cards\.update\(currentCard\.getRealId\(\), \{ \$set: \{ showListOnMinicard/);
 });

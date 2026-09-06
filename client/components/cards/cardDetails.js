@@ -1325,79 +1325,54 @@ Template.cardDetails.events({
       alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
   },
-  'click .js-poker'(e) {
+  async 'click .js-poker'(e) {
     const card = Template.currentData();
-    let newState = null;
-    if ($(e.target).hasClass('js-poker-vote-one')) {
-      newState = 'one';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-two')) {
-      newState = 'two';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-three')) {
-      newState = 'three';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-five')) {
-      newState = 'five';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-eight')) {
-      newState = 'eight';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-thirteen')) {
-      newState = 'thirteen';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-twenty')) {
-      newState = 'twenty';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-forty')) {
-      newState = 'forty';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-one-hundred')) {
-      newState = 'oneHundred';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
-    }
-    if ($(e.target).hasClass('js-poker-vote-unsure')) {
-      newState = 'unsure';
-      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    const choices = [
+      ['js-poker-vote-one', 'one'], ['js-poker-vote-two', 'two'],
+      ['js-poker-vote-three', 'three'], ['js-poker-vote-five', 'five'],
+      ['js-poker-vote-eight', 'eight'], ['js-poker-vote-thirteen', 'thirteen'],
+      ['js-poker-vote-twenty', 'twenty'], ['js-poker-vote-forty', 'forty'],
+      ['js-poker-vote-one-hundred', 'oneHundred'], ['js-poker-vote-unsure', 'unsure'],
+    ];
+    const newState = choices.find(([className]) => $(e.target).hasClass(className))?.[1];
+    if (!newState) return;
+    try {
+      await Meteor.callAsync('castAccessibleCardPoker', {
+        cardId: card._id, boardId: card.boardId, state: newState,
+      });
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
     }
   },
-  'click .js-poker-finish'(e) {
+  async 'click .js-poker-finish'(e) {
     if ($(e.target).hasClass('js-poker-finish')) {
       e.preventDefault();
       const card = Template.currentData();
-      const now = new Date();
-      Meteor.call('cards.setPokerEnd', card.getRealId(), now);
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: card._id, boardId: card.boardId, action: 'finish',
+      });
     }
   },
-  'click .js-poker-replay'(e) {
+  async 'click .js-poker-replay'(e) {
     if ($(e.target).hasClass('js-poker-replay')) {
       e.preventDefault();
       const currentCard = Template.currentData();
-      Meteor.call('cards.replayPoker', currentCard.getRealId());
-      Meteor.call('cards.unsetPokerEnd', currentCard.getRealId());
-      Meteor.call('cards.unsetPokerEstimation', currentCard.getRealId());
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: currentCard._id, boardId: currentCard.boardId, action: 'replay',
+      });
     }
   },
-  'click .js-poker-estimation'(event, tpl) {
+  async 'click .js-poker-estimation'(event, tpl) {
     event.preventDefault();
     const card = Template.currentData();
     const ruleTitle = tpl.find('#pokerEstimation').value;
     if (ruleTitle !== undefined && ruleTitle !== '') {
       tpl.find('#pokerEstimation').value = '';
 
-      if (ruleTitle) {
-        Meteor.call('cards.setPokerEstimation', card.getRealId(), parseInt(ruleTitle, 10));
-      } else {
-        Meteor.call('cards.unsetPokerEstimation', card.getRealId());
-      }
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: card._id, boardId: card.boardId, action: 'estimation',
+        estimation: ruleTitle,
+      });
     }
   },
   // Drag and drop file upload handlers
@@ -2704,7 +2679,7 @@ Template.cardStartPlanningPokerPopup.helpers({
 
 Template.cardStartPlanningPokerPopup.events({
   'click .js-end-date': Popup.open('editPokerEndDate'),
-  'submit .edit-poker-question'(evt) {
+  async 'submit .edit-poker-question'(evt) {
     evt.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
@@ -2714,16 +2689,28 @@ Template.cardStartPlanningPokerPopup.events({
     );
     const endString = card.getPokerEnd();
 
-    Meteor.call('cards.setPokerQuestion', card.getRealId(), pokerQuestion, allowNonBoardMembers);
-    if (endString) {
-      Meteor.call('cards.setPokerEnd', card.getRealId(), new Date(endString));
+    try {
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: card._id, boardId: card.boardId, action: 'configure',
+        question: pokerQuestion, allowNonBoardMembers, end: endString || '',
+      });
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+      return;
     }
     Popup.back();
   },
-  'click .js-remove-poker': Popup.afterConfirm('deletePoker', function () {
+  'click .js-remove-poker': Popup.afterConfirm('deletePoker', async function () {
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    Meteor.call('cards.unsetPoker', card.getRealId());
+    try {
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: card._id, boardId: card.boardId, action: 'remove',
+      });
+    } catch (error) {
+      alert(error.reason || error.message || TAPi18n.__('server-error'));
+      return;
+    }
     Popup.back();
   }),
   'click a.js-toggle-poker-allow-non-members'(event) {
@@ -2739,10 +2726,14 @@ Template.editPokerEndDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getPokerEnd ? (card.getPokerEnd() || undefined) : undefined,
     async storeDate(date, currentCard) {
-      await Meteor.callAsync('cards.setPokerEnd', currentCard.getRealId(), date);
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: date,
+      });
     },
     async deleteDate(currentCard) {
-      await Meteor.callAsync('cards.unsetPokerEnd', currentCard.getRealId());
+      await Meteor.callAsync('updateAccessibleCardPoker', {
+        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: '',
+      });
     },
   });
 });

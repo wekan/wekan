@@ -40,13 +40,11 @@ assert.equal(
   'vote end save and clear callbacks must await the shared server method',
 );
 
-for (const method of ['cards.setPokerEnd', 'cards.unsetPokerEnd']) {
-  assert.match(
-    cardDetails,
-    new RegExp(`await Meteor\\.callAsync\\('${method.replace('.', '\\.')}'`),
-    `${method} callback must await the server method`,
-  );
-}
+assert.equal(
+  (cardDetails.match(/await Meteor\.callAsync\('updateAccessibleCardPoker'/g) || []).length >= 2,
+  true,
+  'poker end save and clear callbacks must await the shared server method',
+);
 
 assert.match(
   datePicker,
