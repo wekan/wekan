@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 774,
-  'the first twenty-eight Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 724,
+  'the first twenty-nine Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -231,5 +231,11 @@ assert.deepEqual(tokens(tigrinya['globalSearch-instructions-operator-has']),
   tokens(english['globalSearch-instructions-operator-has']));
 assert.match(tigrinya['globalSearch-instructions-notes-2'], /\*OR\*/);
 assert.match(tigrinya['globalSearch-instructions-notes-3'], /\*AND\*/);
+assert.match(tigrinya['sort-boards-title-asc'], /A → Z/);
+assert.match(tigrinya['import-dependencies-file'], /JSON.*SVG/);
+assert.deepEqual(tokens(tigrinya['import-dependencies-done']),
+  ['__imported__', '__unmatched__']);
+assert.deepEqual(tokens(tigrinya['background-too-big']), ['{{size}}']);
+assert.equal(tigrinya['location-open-map'], 'ኣብ ካርታ ክፈት');
 
-console.log('tigrinyaTranslationProgress: first twenty-eight batches passed');
+console.log('tigrinyaTranslationProgress: first twenty-nine batches passed');
