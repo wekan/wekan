@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 224,
-  'the first thirty-eight Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
+  'the first thirty-nine Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -243,5 +243,12 @@ assert.match(sesotho['gridfs-enabled-description'], /MongoDB GridFS/);
 assert.match(sesotho['gridfs-move-collectionfs-note'], /CollectionFS/);
 assert.match(sesotho['s3-region-description'], /AWS S3.*us-east-1/);
 assert.match(sesotho['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+assert.match(sesotho['restore-lost-cards-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(sesotho['restore-all-archived-migration-description'],
+  /swimlaneId.*listId/);
+assert.match(sesotho['fix-avatar-urls-migration'], /URL/);
+assert.match(sesotho['run-restore-all-archived-migration-confirm'], /TSOHLE/);
+assert.equal(sesotho['lost-cards'], 'Dikarete tse lahlehileng');
 
-console.log('southernSothoTranslationProgress: first thirty-eight batches passed');
+console.log('southernSothoTranslationProgress: first thirty-nine batches passed');
