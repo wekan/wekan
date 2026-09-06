@@ -385,6 +385,17 @@ wrong-script audit is clean and human Transifex translations remain preferred.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c37b7c77">Retire the completed translation backlog</a>. Thanks to xet7.</summary>
+
+The finished translation work is no longer presented as future work in TODO
+Later, and the README now derives the same 234 essentially complete non-English
+locales that the registry test counts from the data files. The resumable work
+history is preserved in Git, while Upcoming states the current zero-backlog
+result.
+
+</details>
+
 **Albanian** - activity history and workspace navigation.
 
 <details>
