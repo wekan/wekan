@@ -437,6 +437,16 @@ board, swimlane and list before writing. The modern sortable control sends the
 same previous/next boundary identifiers instead of writing a client-computed
 sort value directly.
 
+Card activity history is a read-only semantic table section for board
+administrators, matching the Jade card's administrator-only Activities section.
+Both renderers use one plain-text descriptor that selects the translation key
+and ordered interpolation values; Jade retains its richer safe links while the
+descriptor supplies its accessible name. HTML4 shows the actor, translated
+description and ISO timestamp. It queries only the newest 50 events, obeys the
+instance-wide activity-hiding setting and repeats visibility for a linked
+content board before reading any history. Unknown or partly orphaned legacy
+events degrade to escaped text rather than disappearing or becoming markup.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
@@ -475,6 +485,9 @@ It creates, renames and reorders subtasks through JavaScript-disabled HTML4,
 checks their database order and modern HTML5 rendering at the same card URL,
 then exercises the administrator-only two-step archive path. Paired screenshots
 compare the semantic HTML4 table and the Jade subtask list.
+The same regression seeds a card activity, verifies its translated text in
+HTML4 and its shared accessible name in Jade, captures the two views, then
+removes board administration and proves the HTML4 history is no longer emitted.
 The All Boards path toggles Star and Home in both directions, restores and
 confirm-archives a board, creates a public board with its default swimlane and
 duplicates it only after confirmation. Creation and duplication share the same

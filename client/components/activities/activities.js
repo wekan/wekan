@@ -7,6 +7,7 @@ import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { getSidebarInstance } from '/client/features/sidebar/service';
 import { activityCardLinkData } from '/models/lib/activityCardLink';
+const { cardActivityDescriptor } = require('/models/lib/cardActivityDescription');
 
 // #6480/#6481: 500 was far more than the sidebar/card activity feed ever shows
 // at once, and with FerretDB (no oplog) every live cursor is re-run on a timer —
@@ -139,6 +140,34 @@ Template.cardActivities.helpers({
 });
 
 Template.activity.helpers({
+  activityDescription() {
+    const activity = this.activity;
+    const card = activity.card();
+    const board = activity.board();
+    const checklist = activity.checklist();
+    const item = activity.checklistItem();
+    const member = activity.member();
+    const customField = activity.customField();
+    const label = board?.getLabelById?.(activity.labelId);
+    const descriptor = cardActivityDescriptor(activity, {
+      card: this.mode === 'card' ? TAPi18n.__('this-card') : card?.title || activity.cardTitle,
+      board: board?.title || activity.boardName,
+      oldBoard: activity.oldBoard()?.title || activity.oldBoardName,
+      list: activity.list()?.title || activity.listName,
+      oldList: activity.oldList()?.title || activity.oldListName,
+      attachment: activity.attachment()?.name || activity.attachmentName,
+      checklist: checklist?.title || activity.checklistTitle,
+      item: item?.title || activity.checklistItemTitle,
+      comment: activity.commentDisplayText(),
+      value: activity.value,
+      customField: customField?.name || activity.customFieldName,
+      label: label?.name || label?.color || activity.labelName,
+      member: member?.profile?.fullname || member?.username || activity.memberName,
+      source: activity.source?.system,
+    });
+    return TAPi18n.__(descriptor.key, { sprintf: descriptor.args });
+  },
+
   checkItem() {
     const checkItemId = this.activity.checklistItemId;
     const checkItem = ReactiveCache.getChecklistItem(checkItemId);

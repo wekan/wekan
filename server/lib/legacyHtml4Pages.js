@@ -10,6 +10,7 @@ import CardComments, { canEditComment } from '/models/cardComments';
 import CardCommentReactions from '/models/cardCommentReactions';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
+import Activities from '/models/activities';
 import Attachments from '/models/attachments';
 import CustomFields from '/models/customFields';
 import { CustomFieldStringTemplate } from '/imports/lib/customFields';
@@ -40,6 +41,7 @@ const {
   DEPENDENCY_TYPES, normalizeDependencies,
 } = require('/models/metadata/dependencies');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
+const { cardActivityDescriptor } = require('/models/lib/cardActivityDescription');
 const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
@@ -69,8 +71,8 @@ async function visibleBoard(boardId, userId) {
   return board && board.isVisibleBy(userId ? { _id: userId } : null) ? board : null;
 }
 
-function tr(translate, key, fallback) {
-  const value = typeof translate === 'function' ? translate(key) : '';
+function tr(translate, key, fallback, argumentsObject) {
+  const value = typeof translate === 'function' ? translate(key, argumentsObject) : '';
   return value && value !== key ? value : fallback;
 }
 
@@ -526,8 +528,15 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   const checklistIds = checklists.map(checklist => checklist._id);
   const dependencies = normalizeDependencies(contentCard?.cardDependencies);
   const dependencyIds = dependencies.map(dependency => dependency.cardId);
+  const activitySetting = await Settings.findOneAsync({}, {
+    fields: { hideBoardActivitiesOnAllBoards: 1 },
+  });
+  const activityBoardVisible = await canUserSeeBoard(userId, contentBoardId);
+  const showCardActivities = allowIsBoardAdmin(userId, board)
+    && activityBoardVisible
+    && activitySetting?.hideBoardActivitiesOnAllBoards !== true;
   const [comments, commentReactionDocs, checklistItems, attachments, customFieldDefinitions,
-    dependencyTargetCards, dependencyCandidateCards, candidateSubtasks] = await Promise.all([
+    dependencyTargetCards, dependencyCandidateCards, candidateSubtasks, activities] = await Promise.all([
     CardComments.find({ cardId: contentCardId, boardId: contentBoardId }, {
       fields: { text: 1, userId: 1, parentId: 1, createdAt: 1 },
       sort: { createdAt: 1 }, limit: 500,
@@ -556,6 +565,18 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { title: 1, boardId: 1, listId: 1, sort: 1 },
       sort: { sort: 1, _id: 1 }, limit: 10001,
     }).fetchAsync(),
+    showCardActivities ? Activities.find({ cardId: contentCardId }, {
+      fields: {
+        activityType: 1, userId: 1, memberId: 1, boardId: 1, oldBoardId: 1,
+        listId: 1, oldListId: 1, cardId: 1, cardTitle: 1, boardName: 1,
+        oldBoardName: 1, listName: 1, oldListName: 1, attachmentId: 1,
+        attachmentName: 1, checklistId: 1, checklistTitle: 1,
+        checklistItemId: 1, checklistItemTitle: 1, commentId: 1, commentText: 1,
+        customFieldId: 1, customFieldName: 1, labelId: 1, labelName: 1,
+        memberName: 1, source: 1, value: 1, createdAt: 1,
+      },
+      sort: { createdAt: -1 }, limit: 50,
+    }).fetchAsync() : [],
   ]);
   const allowedSubtaskBoardIds = await visibleBoardIds(
     userId,
@@ -575,6 +596,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   ]);
   const subtaskBoardById = new Map(subtaskBoards.map(item => [item._id, item]));
   const subtaskListById = new Map(subtaskLists.map(item => [item._id, item]));
+  const checklistById = new Map(checklists.map(item => [item._id, item]));
+  const checklistItemById = new Map(checklistItems.map(item => [item._id, item]));
+  const attachmentById = new Map(attachments.map(item => [item._id, item]));
+  const customFieldById = new Map(customFieldDefinitions.map(item => [item._id, item]));
   const personIds = [...new Set([
     card.userId, contentCard?.userId, ...(card.members || []), ...(card.assignees || []),
     ...(contentCard?.members || []), ...(contentCard?.assignees || []),
@@ -582,12 +607,15 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ...(contentCard?.requesters || []), ...(contentCard?.assigners || []),
     ...activeContentMemberIds,
     ...comments.map(comment => comment.userId),
+    ...activities.flatMap(activity => [activity.userId, activity.memberId]),
     ...commentReactionDocs.flatMap(doc => (doc.reactions || [])
       .flatMap(reaction => reaction.userIds || [])),
     ...(contentCard?.vote?.positive || []), ...(contentCard?.vote?.negative || []),
     ...POKER_STATES.flatMap(state => contentCard?.poker?.[state] || []),
   ].filter(Boolean))];
-  const [list, swimlane, people, activeLists, currentUser] = await Promise.all([
+  const activityListIds = [...new Set(activities
+    .flatMap(activity => [activity.listId, activity.oldListId]).filter(Boolean))];
+  const [list, swimlane, people, activeLists, currentUser, activityLists] = await Promise.all([
     Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
     Swimlanes.findOneAsync({ _id: card.swimlaneId, boardId: card.boardId }, { fields: { title: 1 } }),
     Meteor.users.find({ _id: { $in: personIds } }, {
@@ -599,9 +627,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     Meteor.users.findOneAsync(userId, {
       fields: { 'profile.moveAndCopyDialog': 1, 'profile.mapProvider': 1 },
     }),
+    Lists.find({ _id: { $in: activityListIds } }, {
+      fields: { title: 1 }, limit: 100,
+    }).fetchAsync(),
   ]);
   const personById = new Map(people.map(person => [person._id,
     person.profile?.fullname || person.username || person._id]));
+  const activityListById = new Map(activityLists.map(item => [item._id, item]));
   let parentCard = null;
   let parentBoard = null;
   if (contentCard?.parentId) {
@@ -1683,6 +1715,43 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         })] });
       }
     }
+  }
+  for (const activity of activities) {
+    const activityComment = commentById.get(activity.commentId);
+    const label = (contentBoard?.labels || []).find(item => item._id === activity.labelId);
+    const dateValue = activity.activityType === 'a-receivedAt' ? contentCard?.receivedAt
+      : activity.activityType === 'a-startAt' ? contentCard?.startAt
+        : activity.activityType === 'a-dueAt' ? contentCard?.dueAt
+          : activity.activityType === 'a-endAt' ? contentCard?.endAt : activity.value;
+    const descriptor = cardActivityDescriptor(activity, {
+      card: tr(translate, 'this-card', 'this card'),
+      board: contentBoard?.title || activity.boardName,
+      oldBoard: activity.oldBoardName,
+      list: activityListById.get(activity.listId)?.title || activity.listName,
+      oldList: activityListById.get(activity.oldListId)?.title || activity.oldListName,
+      attachment: attachmentById.get(activity.attachmentId)?.name || activity.attachmentName,
+      checklist: checklistById.get(activity.checklistId)?.title || activity.checklistTitle,
+      item: checklistItemById.get(activity.checklistItemId)?.title || activity.checklistItemTitle,
+      comment: activity.commentText || activityComment?.text,
+      value: dateValue instanceof Date ? isoDate(dateValue) : dateValue,
+      customField: customFieldById.get(activity.customFieldId)?.name || activity.customFieldName,
+      label: label?.name || label?.color || activity.labelName,
+      member: personById.get(activity.memberId) || activity.memberName,
+      source: activity.source?.system,
+    });
+    let description = tr(translate, descriptor.key, descriptor.activityType, {
+      sprintf: descriptor.args,
+    });
+    if (activity.activityType === 'addComment' && activityComment?.text) {
+      description += `: ${activityComment.text}`;
+    }
+    rows.push({
+      cells: [
+        `${tr(translate, 'activities', 'Activities')} - `
+          + `${personById.get(activity.userId) || activity.userId || ''}`,
+        `${description}${isoDate(activity.createdAt) ? ` (${isoDate(activity.createdAt)})` : ''}`,
+      ],
+    });
   }
   if (card.archived) rows.unshift({ cells: [tr(translate, 'status', 'Status'),
     tr(translate, 'card-archived', 'This card is moved to Archive.')] });
