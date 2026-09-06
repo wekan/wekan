@@ -310,6 +310,19 @@ styles.
 **Board rules** - bulk actions use the same themed button style as rule actions.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/aef1f02fe">Translate stored rule details on display</a>. Thanks to xet7.</summary>
+
+Rule Details now translates legacy trigger and action descriptions from their
+stored creation language into the current interface language. Whole action
+phrases use their natural translation before composable rule fragments are
+considered, while usernames and unknown imported prose remain unchanged. The
+Finnish actor fragment is corrected from `mennessä` to `tekijänä`. Regression
+coverage includes the archived-card trigger, moving a card to the top of its
+list, embedded username text, empty descriptions and unknown imported values.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a20728ed7">Theme Board Rules toolbar actions</a>. Thanks to xet7.</summary>
 
 Select all, unselect all, delete selected and export selected now use the same
