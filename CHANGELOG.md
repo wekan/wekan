@@ -8137,11 +8137,11 @@ two words runs them together. And when the ENGLISH source of a key is reworded,
 every other file keeps the old English, which is no longer equal to the source
 and so stops being offered — 290 values were hiding that way and were reset.
 
-**Current snapshot after the Albanian board-integrity batch:** all 198
+**Current snapshot after completing Albanian:** all 199
 near-complete locale files have zero actionable untranslated values. The only
-remaining work is **76,206 values across 36 second-tier languages**. Albanian
-now has 116 left after its first forty 50-value batches. Bosnian is also
-complete:
+remaining work is **76,090 values across 35 second-tier languages**. Albanian
+is complete after forty 50-value batches and one final 116-value batch. Bosnian
+is also complete:
 its final apparent gap, `Server`, is a normal Bosnian technical loanword and is
 now classified as invariant instead of being replaced with a Croatian form just
 to make the counter reach zero.
@@ -8254,8 +8254,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Albanian translations** now cover the first forty activity,
-board, security, storage, migration and integrity-repair batches;
+**In short:** **Albanian translations** are complete across activity, boards,
+security, storage, migration, integrity repair, monitoring and import;
 every near-complete locale is complete again, and the remaining counter excludes
 valid international technical and color loanwords.
 
@@ -8468,6 +8468,18 @@ job queues and filesystem migration. All one hundred values required
 translation. Tests retain database field names and technical storage terms.
 This leaves 76,206 actionable values across 36 languages, including 116 in
 Albanian.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15494a909">Complete Albanian translation backlog</a>. Thanks to xet7.</summary>
+
+The final 116 Albanian values add storage-migration controls, throttling and
+monitoring, repository accounts, login failures, Admin Panel problem fields,
+broken-card repairs and scoped imports. Albanian now has zero actionable
+English placeholders. Locale-wide tests retain every replaceable token and HTML
+tag, including repair counts and global-search examples. This leaves 76,090
+actionable values across 35 whole-file-sized languages.
 
 </details>
 
