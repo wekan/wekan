@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'st',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 174,
-  'the first thirty-nine Southern Sotho batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 124,
+  'the first forty Southern Sotho batches stay resolved');
 
 for (const [key, value] of Object.entries(sesotho)) {
   if (value !== english[key]) {
@@ -250,5 +250,11 @@ assert.match(sesotho['restore-all-archived-migration-description'],
 assert.match(sesotho['fix-avatar-urls-migration'], /URL/);
 assert.match(sesotho['run-restore-all-archived-migration-confirm'], /TSOHLE/);
 assert.equal(sesotho['lost-cards'], 'Dikarete tse lahlehileng');
+assert.match(sesotho['step-fix-avatar-urls'], /URL/);
+assert.match(sesotho['step-fix-missing-ids'], /ID/);
+assert.equal(sesotho['cpu-usage'], 'Tshebediso ya CPU');
+assert.equal(sesotho['every-10-minutes'],
+  'Metsotso e meng le e meng e 10');
+assert.match(sesotho['gridfs-attachments'], /GridFS/);
 
-console.log('southernSothoTranslationProgress: first thirty-nine batches passed');
+console.log('southernSothoTranslationProgress: first forty batches passed');
