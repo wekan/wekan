@@ -1,7 +1,9 @@
 'use strict';
 
+const fs = require('node:fs');
 const { test, expect } = require('@playwright/test');
 const db = require('../helpers/db');
+const { loginWithToken } = require('../helpers/auth');
 
 test('cookieless HTML4 card discovery pages show only the signed-in user data', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
@@ -37,7 +39,12 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     const cards = db.find('cards', { boardId: board.boardId });
     const due = cards.find(card => card.title === 'HTML4 Due');
     db.updateOne('cards', { _id: due._id }, {
-      $set: { dueAt: new Date('2030-01-02T12:00:00Z'), members: [user._id] },
+      $set: {
+        dueAt: new Date('2030-01-02T12:00:00Z'),
+        startAt: new Date('2029-12-31T12:00:00Z'),
+        members: [user._id],
+        description: 'Semantic HTML4 card description',
+      },
     });
     db.updateOne('users', { _id: user._id }, {
       $set: { 'profile.starredPages': [{ url: '/shortcuts', title: 'Saved shortcuts' }] },
@@ -60,6 +67,32 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     await expect(page.locator('h1')).toHaveText('My Cards');
     await expect(page.locator('tbody')).toContainText('HTML4 Due');
     await expect(page.locator('tbody')).not.toContainText('HTML4 Searchable Secret');
+
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator(`form[action$="/${due._id}"] input[type="submit"]`).click(),
+    ]);
+    await expect(page.locator('h1')).toHaveText('HTML4 Due');
+    await expect(page.locator('tbody')).toContainText('Semantic HTML4 card description');
+    await expect(page.locator('tbody')).toContainText('2030-01-02T12:00:00.000Z');
+    await expect(page.locator('tbody')).toContainText(username);
+
+    const modernContext = await browser.newContext();
+    const modern = await modernContext.newPage();
+    await loginWithToken(modern, user._id, db.addResumeToken(user._id));
+    await modern.goto(`${baseURL}/b/${board.boardId}/${board.slug}/${due._id}`);
+    await expect(modern.locator('.card-details-title')).toContainText('HTML4 Due');
+    await expect(modern.locator('.card-details')).toContainText('Semantic HTML4 card description');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      fs.mkdirSync(process.env.WEKAN_HTML4_SCREENSHOTS, { recursive: true });
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-card-details.png`, fullPage: true,
+      });
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-card-details.png`, fullPage: true,
+      });
+    }
+    await modernContext.close();
 
     await open('/due-cards');
     await expect(page.locator('h1')).toHaveText('Due Cards');

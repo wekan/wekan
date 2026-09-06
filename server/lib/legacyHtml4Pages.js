@@ -8,6 +8,7 @@ import AccessibilitySettings from '/models/accessibilitySettings';
 const { UI_ICONS, uiAction, uiLink, uiSearchForm } = require('/imports/lib/uiComponentLibrary');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
 const { starredPagesOf } = require('/models/lib/starredPages');
+const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 function segment(value) {
   try { return decodeURIComponent(String(value || '')); } catch (_) { return ''; }
@@ -66,6 +67,8 @@ async function boardPage(path, userId, requestFields = {}, translate) {
     columns: [tr(translate, 'status', 'Status'), tr(translate, 'action', 'Action')], rows: [],
     empty: 'Board not found or access denied.',
   };
+  const cardMatch = /^\/b\/[^/]+\/[^/]+\/([^/]+)$/.exec(path);
+  if (cardMatch) return cardDetailsPage(board, segment(cardMatch[1]), userId, translate);
   const swimlanes = await Swimlanes.find({ boardId: board._id, archived: { $ne: true } }, {
     fields: { title: 1, color: 1, sort: 1 }, sort: { sort: 1 },
   }).fetchAsync();
@@ -121,6 +124,74 @@ async function boardPage(path, userId, requestFields = {}, translate) {
     heading: board.title || 'Board', caption: `${board.title || 'Board'} — upper-left list`,
     columns: [tr(translate, 'board', 'Content'), tr(translate, 'action', 'Action')], rows,
     empty: 'The upper-left swimlane or list is empty.',
+  };
+}
+
+function isoDate(value) {
+  return value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : '';
+}
+
+async function cardDetailsPage(board, cardId, userId, translate) {
+  const assignedScope = assignedOnlyCardScope(board, userId);
+  const selector = {
+    _id: cardId,
+    ...boardCardScope(board),
+    // MongoDB equality to null also matches a missing optional field.
+    deletedAt: null,
+    ...(assignedScope || {}),
+  };
+  const card = await Cards.findOneAsync(selector, { fields: {
+    title: 1, description: 1, color: 1, archived: 1, boardId: 1,
+    listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
+    requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
+    receivedAt: 1, startAt: 1, dueAt: 1, endAt: 1, createdAt: 1, modifiedAt: 1,
+  } });
+  if (!card) return {
+    heading: tr(translate, 'card', 'Card'),
+    columns: [tr(translate, 'status', 'Status'), tr(translate, 'action', 'Action')],
+    rows: [], empty: 'Card not found or access denied.',
+  };
+  const personIds = [...new Set([
+    card.userId, ...(card.members || []), ...(card.assignees || []),
+    ...(card.requesters || []), ...(card.assigners || []),
+  ].filter(Boolean))];
+  const [list, swimlane, people] = await Promise.all([
+    Lists.findOneAsync({ _id: card.listId, boardId: card.boardId }, { fields: { title: 1 } }),
+    Swimlanes.findOneAsync({ _id: card.swimlaneId, boardId: card.boardId }, { fields: { title: 1 } }),
+    Meteor.users.find({ _id: { $in: personIds } }, {
+      fields: { username: 1, 'profile.fullname': 1 },
+    }).fetchAsync(),
+  ]);
+  const personById = new Map(people.map(person => [person._id,
+    person.profile?.fullname || person.username || person._id]));
+  const names = values => (values || []).map(id => personById.get(id) || id).join(', ');
+  const labels = (board.labels || []).filter(label => (card.labelIds || []).includes(label._id));
+  const rows = [
+    { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
+    { cells: [tr(translate, 'board', 'Board'), board.title || ''] },
+    { cells: [tr(translate, 'list', 'List'), list?.title || ''] },
+    { cells: ['Swimlane', swimlane?.title || ''] },
+    { cells: [tr(translate, 'description', 'Description'), card.description || ''] },
+    { cells: [tr(translate, 'labels', 'Labels'), labels.map(label => label.name || label.color).join(', ')] },
+    { cells: [tr(translate, 'members', 'Members'), names(card.members)] },
+    { cells: [tr(translate, 'assignee', 'Assignee'), names(card.assignees)] },
+    { cells: [tr(translate, 'requested-by', 'Requested By'), names(card.requesters) || card.requestedBy || ''] },
+    { cells: [tr(translate, 'assigned-by', 'Assigned By'), names(card.assigners) || card.assignedBy || ''] },
+    { cells: [tr(translate, 'creator', 'Creator'), personById.get(card.userId) || ''] },
+    { cells: [tr(translate, 'r-df-received-at', 'Received'), isoDate(card.receivedAt)] },
+    { cells: [tr(translate, 'r-df-start-at', 'Start'), isoDate(card.startAt)] },
+    { cells: [tr(translate, 'due-date', 'Due Date'), isoDate(card.dueAt)] },
+    { cells: [tr(translate, 'r-df-end-at', 'End'), isoDate(card.endAt)] },
+    { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(card.createdAt)] },
+    { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
+  ];
+  if (card.archived) rows.unshift({ cells: [tr(translate, 'status', 'Status'),
+    tr(translate, 'card-archived', 'This card is moved to Archive.')] });
+  return {
+    heading: card.title || tr(translate, 'card', 'Card'),
+    caption: `${board.title || ''} / ${swimlane?.title || ''} / ${list?.title || ''}`,
+    columns: [tr(translate, 'card', 'Card'), tr(translate, 'description', 'Description')],
+    rows,
   };
 }
 

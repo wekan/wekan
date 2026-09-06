@@ -121,7 +121,7 @@ the generic baseline. It is updated with every implementation batch.
 | --- | --- |
 | `/sign-in`, `/sign-up` | Complete cookieless account forms |
 | `/allboards/...`, `/templates`, `/remaining`, `/archive`, `/public` | Dedicated board-list reader; section filtering and mutations remain |
-| `/b/...` | Dedicated upper-left board reader; full card details and mutations remain |
+| `/b/...` | Dedicated upper-left board and semantic card-detail readers; mutations and child collections remain |
 | `/accessibility`, `/support` | Dedicated settings-backed plain-text readers |
 | `/shortcuts` | Dedicated reader sharing the HTML5 shortcut mapping |
 | `/accessibility/components` | Shared component demonstration page |

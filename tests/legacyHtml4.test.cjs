@@ -151,6 +151,17 @@ test('card discovery pages scope reads to the authenticated user boards', () => 
   assert.match(middleware, /if \(query\.has\('q'\)\) requestFields\.q = query\.get\('q'\)/);
 });
 
+test('card details repeat board and assigned-only authorization scopes', () => {
+  const pages = fs.readFileSync(path.join(__dirname, '..', 'server', 'lib',
+    'legacyHtml4Pages.js'), 'utf8');
+  assert.match(pages, /cardDetailsPage\(board, segment\(cardMatch\[1\]\), userId, translate\)/);
+  assert.match(pages, /const assignedScope = assignedOnlyCardScope\(board, userId\)/);
+  assert.match(pages, /\.\.\.boardCardScope\(board\)/);
+  assert.match(pages, /deletedAt: null/);
+  assert.match(pages, /Meteor\.users\.find\(\{ _id: \{ \$in: personIds \} \}/);
+  assert.match(pages, /fields: \{ username: 1, 'profile\.fullname': 1 \}/);
+});
+
 test('HTML4 global search is a labelled signed POST form', () => {
   const html = renderLegacyHtml4Page('/global-search', {
     authenticated: true,
@@ -171,6 +182,20 @@ test('HTML4 global search is a labelled signed POST form', () => {
   assert.match(html, /name="q"[^>]+value="&lt;query&gt;"/);
   assert.match(html, /name="authHash" value="b{64}"/);
   assert.doesNotMatch(html, /<th scope="row"><form method="post" action="\/global-search">/);
+});
+
+test('authenticated navigation gives every HTML4 destination its translated name', () => {
+  const html = renderLegacyHtml4Page('/my-cards', {
+    authenticated: true,
+    username: 'alice',
+    actionFields: action => ({ legacySession: 'a'.repeat(48), authAction: action,
+      authCounter: '1', authHash: 'b'.repeat(64) }),
+    page: { heading: 'My Cards', columns: ['Card', 'Board'], rows: [] },
+  });
+  for (const label of ['All Boards', 'My Cards', 'Due Cards', 'Search All Boards',
+    'Starred boards', 'Support', 'Accessibility', 'Keyboard shortcuts']) {
+    assert.match(html, new RegExp(`value="&gt; ${label}"`), label);
+  }
 });
 
 test('account forms retain semantic labels, grouping and keyboard order', () => {

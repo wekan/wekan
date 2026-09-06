@@ -61,7 +61,12 @@ function pageHeading(path, options) {
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
     [/^\/my-cards(?:\/|$)/, 'my-cards', 'My Cards'],
-    [/^\/search(?:\/|$)/, 'search', 'Search'],
+    [/^\/due-cards(?:\/|$)/, 'dueCards-title', 'Due Cards'],
+    [/^\/global-search(?:\/|$)/, 'globalSearch-title', 'Search All Boards'],
+    [/^\/bookmarks(?:\/|$)/, 'bookmarksPopup-title', 'Starred boards'],
+    [/^\/support(?:\/|$)/, 'support', 'Support'],
+    [/^\/accessibility(?:\/|$)/, 'accessibility', 'Accessibility'],
+    [/^\/shortcuts(?:\/|$)/, 'keyboard-shortcuts', 'Keyboard shortcuts'],
     [/^\/admin(?:\/|$)/, 'admin-panel', 'Admin Panel'],
     [/^\/b(?:\/|$)/, 'board', 'Board'],
   ];
