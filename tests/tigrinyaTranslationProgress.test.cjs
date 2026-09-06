@@ -22,8 +22,8 @@ const fillResult = spawnSync(process.execPath, [
   'ti',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1024,
-  'the first twenty-three Tigrinya batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 974,
+  'the first twenty-four Tigrinya batches stay resolved');
 
 for (const [key, value] of Object.entries(tigrinya)) {
   if (value !== english[key]) {
@@ -192,5 +192,12 @@ assert.match(tigrinya['r-checklist-note'], /ኮማ/);
 assert.match(tigrinya['custom-head-meta-tags'], /HTML/);
 assert.match(tigrinya['custom-head-manifest-content'], /JSON/);
 assert.match(tigrinya['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+assert.deepEqual(tags(tigrinya['add-custom-html-after-body-start']), ['<body>']);
+assert.deepEqual(tags(tigrinya['add-custom-html-before-body-end']), ['</body>']);
+assert.deepEqual(tokens(tigrinya['act-a-dueAt']),
+  ['__card__', '__timeOldValue__', '__timeValue__']);
+assert.deepEqual(tokens(tigrinya['act-atUserComment']),
+  ['__board__', '__card__', '__comment__', '__list__', '__swimlane__']);
+assert.match(tigrinya['delete-user-confirm-popup'], /ምምላስ የለን/);
 
-console.log('tigrinyaTranslationProgress: first twenty-three batches passed');
+console.log('tigrinyaTranslationProgress: first twenty-four batches passed');
