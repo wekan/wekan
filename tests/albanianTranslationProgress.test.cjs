@@ -20,8 +20,8 @@ const fillResult = spawnSync(process.execPath, [
   'sq',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1216,
-  'the first eighteen Albanian batches stay resolved');
+assert.equal(Object.keys(JSON.parse(fillResult.stdout)).length, 1116,
+  'the first twenty Albanian batches stay resolved');
 
 for (const [key, value] of Object.entries(albanian)) {
   if (value !== english[key]) {
@@ -225,6 +225,9 @@ assert.match(albanian.Reactivity_order, /METEOR_REACTIVITY_ORDER/);
 assert.match(albanian['org-domains-description'], /MULTITENANCY=true/);
 assert.deepEqual(tokens(albanian['default-subtasks-board']), ['__board__']);
 assert.deepEqual(tokens(albanian['activity-set-customfield']), ['%s', '%s', '%s']);
+assert.deepEqual(tokens(albanian['r-w-every-day-at']), ['__time__']);
+assert.deepEqual(tokens(albanian['r-import-done']), ['__count__']);
+assert.match(albanian['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
 assert.deepEqual(tokens(albanian['activity-checklist-completed-card']),
   ['__board__', '__card__', '__checklist__', '__list__', '__swimlane__']);
-console.log('albanianTranslationProgress: first eighteen Albanian batches passed');
+console.log('albanianTranslationProgress: first twenty Albanian batches passed');
