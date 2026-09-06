@@ -261,7 +261,8 @@ browser build to verify).
 
 # Upcoming WeKan ® release
 
-**In short:** **Meteor tests build again**, authentication forms have direct
+**In short:** **Meteor tests build again**, unsupported and no-JavaScript
+browsers receive a Legacy Omi HTML4 baseline, authentication forms have direct
 keyboard navigation, and installation examples explain the Admin Panel email
 options. Change-history checks retain synchronous SHA-256 on both architectures,
 and interrupted test runs clean up only once before returning to the shell.
@@ -278,6 +279,33 @@ and interrupted test runs clean up only once before returning to the shell.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 This release fixes the following bugs:
+
+**Legacy Omi** - every page starts with progressively enhanced HTML4 and images
+are converted to GIF on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/774878a46">Add the progressive Legacy Omi HTML4 baseline</a>. Thanks to xet7.</summary>
+
+Every WeKan page URL now first returns a usable HTML 4.01 document. A small
+external behavioral probe loads the Meteor representation at the same URL only
+after JavaScript, DOM networking and a drag-and-drop input path work; it never
+uses the browser name or User-Agent. NetSurf, an old browser, or a modern browser
+with JavaScript disabled therefore retains the server-rendered page instead of
+an empty client shell. API, DDP, websocket, attachment and static-resource
+routes are excluded from document interception.
+
+Legacy Omi image reads convert the original attachment to bounded GIF89a data
+on the server. The first authorized read stores a `legacyOmiGif` attachment
+version in Admin Panel / Attachments / Default Storage; later reads reuse it,
+while changed original version metadata invalidates it. Input-byte and decoded-
+pixel limits, existing board authorization, attachment transfer limits and
+storage write permissions protect the conversion. Sharp stays external to the
+Rspack server bundle so its correct native library remains available on each
+platform. Positive and negative regression tests cover route classification,
+same-URL enhancement, absence of User-Agent detection, escaping, bounded GIF
+conversion and selected default storage.
+
+</details>
 
 **Sign in and sign up** - keyboard navigation follows the writing fields.
 
