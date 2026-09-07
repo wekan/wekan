@@ -271,7 +271,7 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
-Email, Login, Roles and Shared templates share guarded HTML4 operations.
+Domains, Email, Login, Roles and Shared templates share guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -328,6 +328,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e8fdf8d3">Add accessible HTML4 domain report</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Domains now has an equivalent semantic Legacy HTML4
+table with literal search, total, ten-row pages and signed Previous/Next POST
+controls. Both renderers share one Global Admin-only aggregation service that
+reads primary e-mail fields and returns only normalized domain/count rows.
+Refused enumeration is denied and DomainBleed-reported.
+
+Source and pagination tests cover bounds, normalization and common wiring. A
+live same-URL Chromium test searches twelve seeded domains, traverses both pages,
+compares HTML4 and Jade, captures paired screenshots and proves anonymous
+isolation. The existing domain suite now also verifies the Security report for a
+non-admin method attempt.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a6612a25c">Add accessible HTML4 email administration</a>. Thanks to xet7.</summary>

@@ -860,6 +860,18 @@ checks the secret boundary, captures paired screenshots, restores global state
 and proves anonymous isolation. The pre-existing service test also verifies that
 non-admin DDP calls receive the intended authorization error.
 
+Admin Panel / People / Domains is the fifth dedicated People controller. It
+preserves the modern read-only domain and primary-account count columns, literal
+search, total, fixed ten-row window and clamped Previous/Next paging in one
+semantic table. Every navigation and search control is a signed POST that retains
+the current query without JavaScript or cookies. The Jade method and HTML4
+controller share one Global Admin service which reads only the primary e-mail
+field, normalizes the domain and returns only domain/count rows. Refused account
+enumeration is DomainBleed-reported. The same-URL browser fixture seeds twelve
+unique domains, verifies both pages and both renderers, captures paired
+screenshots and proves anonymous isolation; the existing board-domain suite also
+checks counts, non-admin denial and the resulting Security report.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
