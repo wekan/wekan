@@ -100,11 +100,11 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Limits | `limits` | [Limits](Limits.md) |
 | Attachments / MongoDB GridFS Storage | `gridfs` | [MongoDB GridFS Storage](MongoDB-GridFS-Storage.md) |
 | Attachments / Filesystem Storage | `filesystem` | [Filesystem Storage](Filesystem-Storage.md) |
-| Attachments / S3/MinIO Storage | `s3` | — |
-| Attachments / Azure Blob Storage | `azure` | — |
-| Attachments / Google Cloud Storage | `gcs` | — |
+| Attachments / S3/MinIO Storage | `s3` | [S3 and MinIO Storage](S3-MinIO-Storage.md) |
+| Attachments / Azure Blob Storage | `azure` | [Azure Blob Storage](Azure-Blob-Storage.md) |
+| Attachments / Google Cloud Storage | `gcs` | [Google Cloud Storage](Google-Cloud-Storage.md) |
 | Attachments / Database migration | `database-migration` | — |
 
-5 of these 10 panes have no page of their own yet. A dash is a
+2 of these 10 panes have no page of their own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

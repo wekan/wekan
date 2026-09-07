@@ -991,6 +991,20 @@ Read settings, calculates both reports, verifies Jade state and captures four
 same-URL screenshots; it deliberately verifies but does not execute the expensive
 compaction control.
 
+S3 / MinIO, Azure Blob and Google Cloud Storage are the sixth through eighth
+complete Attachments controllers. A shared fieldset component now supports two
+semantic submit actions, allowing Test Connection and Save to submit the same
+labelled current values without JavaScript. Every provider exposes its modern
+Enabled/Read state, non-secret fields, write-only secret fields, file counts and
+connection test; stored secrets are represented only by a translated set marker.
+One common provider schema bounds fields, rejects unknown fields and types, and
+requires GCS credential JSON to be an object before either HTML4, DDP or REST can
+save/test it. Blank secrets retain existing values. The route derives the provider
+and the methods repeat Global Admin authorization. The live test disables each
+backend before setting harmless test names, verifies Jade receives all three,
+captures six same-URL screenshots and restores the exact original configurations;
+it verifies but does not contact unconfigured external services.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

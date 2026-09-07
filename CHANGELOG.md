@@ -277,6 +277,7 @@ Attachments has shared navigation for all panes; Default Storage and Limits have
 complete guarded HTML4 operations, and Move Attachment shares persisted progress
 and repair controls.
 Filesystem and GridFS share Read state, server paths, file counts and compaction.
+S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -333,6 +334,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d394b5629">Add accessible HTML4 cloud attachment storage</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments / S3/MinIO, Azure Blob and Google Cloud Storage now
+work without JavaScript or cookies. Each exposes Enabled/Read, all modern
+configuration fields, write-only secret state, counts, Test Connection and Save.
+A shared fieldset can submit either action with the same labelled current values.
+
+One common provider schema now protects HTML4, DDP and REST settings: it trims
+and bounds strings, rejects unknown fields/types and validates GCS credential
+JSON as an object. Secrets remain masked and blank replacements preserve them.
+Unit, negative, renderer and source tests pass. The live same-URL test saves
+disabled test configurations, verifies Jade sees each, captures six screenshots
+and restores the original state without contacting external services.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3fb191499">Add accessible HTML4 local attachment storage</a>. Thanks to xet7.</summary>
