@@ -646,6 +646,15 @@ or cookies. The same-URL fixture searches twelve rules, verifies two pages and
 all resolved contexts in both renderers, captures both views and proves an
 anonymous request cannot read the instance-wide rule inventory.
 
+Problems / Performance has a dedicated Global Admin-only HTML4 controller for
+the same translated Card loading guidance as its Jade pane. The semantic Name
+and Description table retains the complete operator explanation, including the
+automatic large-board behavior and optional `CARDS_LOADING` environment
+override. Signed Problems navigation reaches it without JavaScript or cookies.
+The same-URL fixture compares the Finnish content in both renderers, captures
+both views and proves an anonymous request receives neither the pane data nor
+its deployment detail.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

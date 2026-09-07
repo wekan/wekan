@@ -329,6 +329,22 @@ performs acknowledgement and proves anonymous isolation.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2047f59b3">Add accessible HTML4 Performance pane</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Performance now renders its complete translated Card
+loading guidance in a semantic Legacy HTML4 Name and Description table. Signed
+Problems navigation works without JavaScript or cookies, while the Global Admin
+check prevents ordinary and anonymous readers from receiving deployment detail.
+
+The controller and Jade pane use the same translation keys, including automatic
+large-board behavior and the optional `CARDS_LOADING` override. Source tests
+lock authorization and shared content. A same-URL Chromium test compares the
+Finnish HTML4 and HTML5 panes, captures both views and proves anonymous
+isolation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1063c13">Add accessible HTML4 problem reports</a>. Thanks to xet7.</summary>
 
 Security, Speed, Tests, CPU usage, Database problems, Filesystem integrity and
