@@ -722,6 +722,18 @@ a signed native POST. Its same-URL test writes both values without JavaScript,
 observes them through Jade, captures both views, restores the prior global state
 and proves anonymous requests cannot read the announcement settings.
 
+Admin Panel / Settings / Accessibility shares its complete three-field service
+with Jade. The service reloads the Global Admin, strictly types the enabled
+state, trims title and body, and caps them at 500 and 10,000 characters. Both
+Accessibility and Announcement now deny all direct client collection updates,
+so a DDP caller cannot bypass those field boundaries; refused service writes
+are recorded as SettingsBleed with available request context. HTML4 uses a
+labelled Yes/No form plus one shared textarea-group component whose `fieldset`
+submits title and body atomically, matching Jade's Save operation. The same-URL
+test writes all fields without JavaScript, reads the result through Jade and the
+public `/accessibility` HTML4 controller, captures both admin views, restores
+the prior global state and proves anonymous settings isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

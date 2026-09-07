@@ -271,8 +271,8 @@ Global Search and Broken Cards share their guarded queries with HTML5; Board Rul
 shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
-acknowledgements and repairs between both views. Settings / Version and
-Announcement share system data and guarded operations between both views.
+acknowledgements and repairs between both views. Settings / Version,
+Announcement and Accessibility share data and guarded operations between views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -309,6 +309,25 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b4189740">Add accessible HTML4 Accessibility settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Accessibility now exposes its public-page link,
+translated active state, title and content in a semantic Legacy HTML4 table.
+The labelled Yes/No POST and one atomic title/content fieldset work without
+JavaScript or cookies and match the modern pane's two operations.
+
+Both views share one service that reloads the Global Admin, strictly types the
+active state, trims and bounds title and body, and reports refused writes as
+SettingsBleed. Accessibility and Announcement now deny direct DDP collection
+updates, closing the route around their field allowlists. Source tests cover the
+positive and negative boundaries, shared textarea-group component and common
+wiring. A live same-URL Chromium test writes all fields in HTML4, verifies Jade
+and the public HTML4 page, captures both admin views, restores global state and
+proves anonymous isolation. The complete Node suite passes 826/826.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b19cb2d63">Add accessible HTML4 Announcement settings</a>. Thanks to xet7.</summary>
