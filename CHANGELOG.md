@@ -283,6 +283,8 @@ All ten Attachments panes now have complete equivalent HTML4 operations.
 The complete public account and email-token lifecycle now has guarded Legacy HTML4
 forms. Member profile, language, password, settings, color, font, avatar,
 invitation and logout now have equivalent guarded HTML4 pages at their modern URLs.
+PDF and office attachments now have bounded, paged Legacy HTML4 previews with
+selectable text, safe tables and cached GIF images from Default Storage.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -298,6 +300,24 @@ invitation and logout now have equivalent guarded HTML4 pages at their modern UR
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/39671b13e">Add accessible HTML4 document previews</a>. Thanks to xet7.</summary>
+
+PDF and office attachments now use the shared server conversion pipeline in the
+Legacy HTML4 card view. A purpose-bound Preview POST repeats the exact board, card
+and attachment authorization, applies storage and size policy, and returns one
+bounded page at a time as selectable plain text, an allowlisted spreadsheet table
+and cached GIF images stored in Default Storage.
+
+Native Previous and Next controls work without JavaScript or cookies. Executable
+document markup, invalid pages, oversized responses and forged scopes are refused;
+the latter is attributed in Problems / Security. Relative `WRITABLE_PATH` values
+now resolve from the launch directory instead of Meteor's generated runtime tree.
+Focused positive and negative tests pass, and a live same-URL Chromium test on
+testi.wekan.fi verifies both views, two-page navigation and the reported refusal.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2e300f7f2">Add accessible member invitation and logout</a>. Thanks to xet7.</summary>
