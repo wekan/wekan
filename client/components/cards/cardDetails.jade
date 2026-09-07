@@ -28,18 +28,18 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.card-header-control.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
+          a.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
             if cardCollapsed
               i.fa.fa-caret-right
             else
               i.fa.fa-caret-down
-          a.card-header-control.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+          a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
           if cardMaximized
-            a.card-header-control.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
           else
-            a.card-header-control.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
-          a.card-header-control.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+          a.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             i.fa.fa-bars
           //- The handle appears only when drag handles are ON, like the
             minicard's. With them off the window is dragged by its own title bar
@@ -49,25 +49,25 @@ template(name="cardDetails")
             client/components/cards/minicard.jade
           if canModifyCard
             if isTouchScreenOrShowDesktopDragHandles
-              span.card-header-control.card-drag-handle.js-card-drag-handle(title="Drag card")
+              span.card-drag-handle.js-card-drag-handle(title="Drag card")
                 i.fa.fa-arrows
         else
-          a.card-header-control.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
+          a.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
             i.fa.fa-times-thin
-          a.card-header-control.card-zoom-out.js-card-zoom-out(title="{{_ 'zoom-out'}}")
+          a.card-zoom-out.js-card-zoom-out(title="{{_ 'zoom-out'}}")
             i.fa.fa-search-minus
-          a.card-header-control.card-zoom-in.js-card-zoom-in(title="{{_ 'zoom-in'}}")
+          a.card-zoom-in.js-card-zoom-in(title="{{_ 'zoom-in'}}")
             i.fa.fa-search-plus
-          a.card-header-control.card-mobile-desktop-toggle.js-card-mobile-desktop-toggle(title="{{_ 'mobile-desktop-toggle'}}")
+          a.card-mobile-desktop-toggle.js-card-mobile-desktop-toggle(title="{{_ 'mobile-desktop-toggle'}}")
             if mobileMode
               i.fa.fa-desktop
             else
               i.fa.fa-mobile
           if cardMaximized
-            a.card-header-control.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
+            a.fa.fa-window-minimize.minimize-card-details.js-minimize-card-details(title="{{_ 'minimize-card'}}")
           else
-            a.card-header-control.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
-          a.card-header-control.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
+            a.fa.fa-window-maximize.maximize-card-details.js-maximize-card-details(title="{{_ 'maximize-card'}}")
+          a.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             i.fa.fa-bars
         if canModifyCard
           if currentBoard.allowsDueComplete

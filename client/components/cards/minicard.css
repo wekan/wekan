@@ -72,29 +72,6 @@
   font-size: 0.875rem;
   padding-inline-start: 10px;
 }
-/* The minicard title and its chrome use the card's one computed text colour.
-   The global Font Awesome rules otherwise turn the menu and handle grey even
-   when the card palette says black or white. */
-.minicard .minicard-title,
-.minicard .minicard-details-menu,
-.minicard .minicard-details-menu-with-handle,
-.minicard .minicard-details-menu .fa,
-.minicard .minicard-details-menu-with-handle .fa,
-.minicard .handle,
-.minicard .handle .fa,
-.minicard .handle .drag-handle,
-.minicard .minicard-details-menu:hover .fa,
-.minicard .minicard-details-menu-with-handle:hover .fa,
-.minicard .handle:hover .fa,
-.minicard .handle:hover .drag-handle {
-  color: inherit;
-}
-.minicard .minicard-title .viewer,
-.minicard .minicard-title .viewer p,
-.minicard .minicard-title .viewer a,
-.minicard .minicard-title .viewer a:hover {
-  color: inherit;
-}
 @media print {
   .minicard-details-menu,
   .minicard-details-menu-with-handle {
@@ -626,10 +603,6 @@
   }
 }
 /* https://github.com/wekan/wekan/issues/4254#issuecomment-1037192960 */
-.minicard-white {
-  background-color: #fff !important;
-  color: #000 !important;
-}
 .minicard-green {
   background-color: #3cb500 !important;
   color: #fff !important;
@@ -644,7 +617,6 @@
 }
 .minicard-yellow {
   background-color: #fad900 !important;
-  color: #000 !important;
 }
 .minicard-yellow:hover:not(.minicard-composer),
 .is-selected .minicard-yellow,
@@ -656,7 +628,6 @@
 }
 .minicard-orange {
   background-color: #ff9f19 !important;
-  color: #000 !important;
 }
 .minicard-orange:hover:not(.minicard-composer),
 .is-selected .minicard-orange,
@@ -704,7 +675,6 @@
 }
 .minicard-pink {
   background-color: #ff78cb !important;
-  color: #000 !important;
 }
 .minicard-pink:hover:not(.minicard-composer),
 .is-selected .minicard-pink,
@@ -740,7 +710,6 @@
 }
 .minicard-lime {
   background-color: #51e898 !important;
-  color: #000 !important;
 }
 .minicard-lime:hover:not(.minicard-composer),
 .is-selected .minicard-lime,
@@ -752,7 +721,6 @@
 }
 .minicard-silver {
   background-color: #c0c0c0 !important;
-  color: #000 !important;
 }
 .minicard-silver:hover:not(.minicard-composer),
 .is-selected .minicard-silver,
@@ -764,7 +732,6 @@
 }
 .minicard-peachpuff {
   background-color: #ffdab9 !important;
-  color: #000 !important;
 }
 .minicard-peachpuff:hover:not(.minicard-composer),
 .is-selected .minicard-peachpuff,
@@ -788,7 +755,6 @@
 }
 .minicard-plum {
   background-color: #dda0dd !important;
-  color: #000 !important;
 }
 .minicard-plum:hover:not(.minicard-composer),
 .is-selected .minicard-plum,
@@ -836,7 +802,6 @@
 }
 .minicard-gold {
   background-color: #ffd700 !important;
-  color: #000 !important;
 }
 .minicard-gold:hover:not(.minicard-composer),
 .is-selected .minicard-gold,
@@ -884,7 +849,6 @@
 }
 .minicard-paleturquoise {
   background-color: #afeeee !important;
-  color: #000 !important;
 }
 .minicard-paleturquoise:hover:not(.minicard-composer),
 .is-selected .minicard-paleturquoise,
@@ -896,7 +860,6 @@
 }
 .minicard-mistyrose {
   background-color: #ffe4e1 !important;
-  color: #000 !important;
 }
 .minicard-mistyrose:hover:not(.minicard-composer),
 .is-selected .minicard-mistyrose,

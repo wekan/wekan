@@ -110,10 +110,7 @@
   padding: 5px;
   display: inline-block;
   margin-inline-start: 30px;
-  /* The controls belong to the coloured header. Inherit its computed text
-     colour so a dark/hex swimlane with a white title also has white controls,
-     while a light swimlane keeps the same dark title/control contrast. */
-  color: inherit;
+  color: #a6a6a6;
   vertical-align: middle;
   line-height: 1.2;
 }
@@ -126,7 +123,7 @@
   padding: 5px;
   margin-inline-start: 20px;
   font-size: calc(22px * var(--wekan-ui-font-scale, 1));
-  color: inherit;
+  color: #a6a6a6;
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu-icon {
   padding-inline-start: 5px;
@@ -145,7 +142,7 @@
 }
 /* Swimlane collapse button styling - matches list collapse button */
 .swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator {
-  color: inherit;
+  color: #a6a6a6;
   display: inline-block;
   vertical-align: middle;
   padding: 5px;
@@ -162,15 +159,15 @@
 }
 .swimlane .swimlane-header-wrap .swimlane-header-menu .swimlane-collapse-indicator:hover {
   background-color: transparent;
-  color: inherit;
+  color: #333;
 }
 
 .swimlane .swimlane-header-wrap .swimlane-header-menu .js-open-swimlane-menu:hover {
-  color: inherit;
+  color: #333;
 }
 
 .swimlane .swimlane-header-wrap .swimlane-header-plus-icon:hover {
-  color: inherit;
+  color: #333;
 }
 
 .swimlane .swimlane-header-wrap .swimlane-header-handle:hover {

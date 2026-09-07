@@ -22,41 +22,23 @@ const chrome = [
   'card-mobile-desktop-toggle',
   'card-details-menu-mobile-web',
 ];
+// Revert ebb35af50: every control remains present, but its color is no longer
+// coupled to the card title through the shared inheritance class.
 for (const name of chrome) {
-  assert.match(detailsJade, new RegExp(`card-header-control[^\\n]*${name}|${name}[^\\n]*card-header-control`),
-    `${name} is part of the title-coloured header chrome`);
+  assert.ok(detailsJade.includes(name), `${name} remains available`);
 }
-
-const controlRule = detailsCss.slice(
-  detailsCss.indexOf('.card-details .card-details-header .card-header-control,'),
-  detailsCss.indexOf('}', detailsCss.indexOf('.card-details .card-details-header .card-header-control,')) + 1,
-);
-assert.match(controlRule, /card-header-control:hover \.fa/);
-assert.match(controlRule, /card-header-control:focus \.fa/);
-assert.match(controlRule, /card-header-control:active \.fa/);
-assert.match(controlRule, /color:\s*inherit;/);
-assert.doesNotMatch(controlRule, /color:\s*#[0-9a-f]{3,8}/i,
-  'card header controls never hard-code black, white or grey');
-assert.match(detailsCss, /\.card-details-title \.viewer a:hover \{\s*color:\s*inherit;/,
-  'formatted title content cannot override the header contrast colour');
-
-assert.match(minicardCss, /\.minicard \.minicard-title,[\s\S]{0,700}\.minicard \.handle:hover \.drag-handle \{\s*color:\s*inherit;/,
-  'minicard title, menu and handle share the card text colour in every state');
-assert.match(minicardCss, /\.minicard-title \.viewer a:hover \{\s*color:\s*inherit;/,
-  'formatted minicard title content keeps the card contrast colour');
-
-const lightColors = [
-  'white', 'yellow', 'orange', 'pink', 'lime', 'silver', 'peachpuff',
-  'plum', 'gold', 'paleturquoise', 'mistyrose',
-];
-for (const color of lightColors) {
-  assert.match(minicardCss, new RegExp(`\\.minicard-${color} \\{[^}]*color: #000 !important;`, 's'),
-    `${color} minicard uses the same black title contrast as opened cards`);
-}
+assert.doesNotMatch(detailsJade, /card-header-control/);
+assert.doesNotMatch(detailsCss, /card-header-control/);
+assert.match(detailsCss, /\.card-collapse-toggle \{[^}]*color: #000;/s,
+  'the card collapse control retains its original black color');
+assert.doesNotMatch(minicardCss, /\.minicard \.minicard-title,[\s\S]{0,700}color:\s*inherit;/,
+  'minicard titles and controls no longer share a color override');
+assert.doesNotMatch(detailsCss, /\.card-details-title \.viewer a:hover \{\s*color:\s*inherit;/,
+  'formatted card titles retain their previous styling');
 
 for (const color of ['green', 'red', 'purple', 'blue', 'black', 'navy', 'indigo']) {
   assert.match(minicardCss, new RegExp(`\\.minicard-${color} \\{[^}]*color: #fff !important;`, 's'),
     `${color} minicard retains white title contrast`);
 }
 
-console.log('cardHeaderColorInheritance: opened and mini card colors passed');
+console.log('cardHeaderColorInheritance: independent controls and retained card palette passed');
