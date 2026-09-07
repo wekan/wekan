@@ -269,8 +269,9 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary now has the same admin-only status,
-acknowledgement and repair operations in both views.
+secure JSON/CSV transfers. Problems Summary and seven event-backed reports now
+have the same admin-only status, search, paging, acknowledgement and repair
+operations in both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -324,6 +325,25 @@ rejected, and refused HTML4 mutations are recorded in Problems / Security. Node
 regressions cover shared authorization, stream validation, semantic controls and
 translation keys; a same-URL Chromium test compares localized HTML4 and HTML5,
 performs acknowledgement and proves anonymous isolation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c1063c13">Add accessible HTML4 problem reports</a>. Thanks to xet7.</summary>
+
+Security, Speed, Tests, CPU usage, Database problems, Filesystem integrity and
+API now use one dedicated Legacy HTML4 report controller. It shares the modern
+EventLog readers, fixed stream allowlist, 500-character search and bounded
+10-row pages. Tables retain each pane's columns, including stored or legacy
+username, IPv4, IPv6, trusted country flag and city, repeat count and detail.
+
+CPU reports include current percentage, core count and load averages; API keeps
+call-count ordering and its endpoint and time-window fields. Signed Previous and
+Next controls preserve the search without cookies or JavaScript. The shared
+service rejects unknown streams before querying. Node tests cover bounds,
+database counts, indexes and specialized ordering, while same-URL Chromium
+screenshots compare a searched, attributed two-page Security report in HTML4 and
+HTML5.
 
 </details>
 
