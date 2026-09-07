@@ -271,7 +271,7 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
-Roles share guarded HTML4 operations.
+Roles and Shared templates share guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -328,6 +328,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2127b44e5">Add accessible HTML4 shared templates</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Shared templates now has equivalent semantic Legacy
+HTML4 filtering and board navigation for Organizations, Teams and Domains. Its
+labelled checkbox form uses signed POST without JavaScript or cookies, and one
+table preserves the same scope, group, user and template-board content as Jade.
+
+Both renderers now call one Global Admin discovery service and one shared scope
+grouping function. Only non-empty personal Templates containers are returned;
+refused readers receive no data and are TemplateBleed-reported with available
+request context. Source and live tests cover all filters, empty-container
+exclusion, signed links and anonymous isolation. Paired screenshots compare the
+same URL, and the existing six-case Jade suite remains green.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/48bf99220">Add accessible HTML4 People roles</a>. Thanks to xet7.</summary>

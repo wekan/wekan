@@ -811,6 +811,21 @@ all and empty states, checks the modern capability table, captures both views an
 proves anonymous isolation. The global HTML4 navigation now reaches all four Admin
 Panel page groups, and every People URL exposes the signed People pane menu.
 
+Admin Panel / People / Shared templates is the second dedicated People
+controller. A labelled checkbox fieldset preserves the modern Organizations,
+Teams and Domains filters as one signed POST that works without JavaScript or
+cookies. The single semantic table then renders scope, group, user and every
+template-board link in the same order as Jade; selecting no scope reveals no
+template row. Both renderers use one pure scope normalizer/grouping function and
+one Global Admin discovery service. The service reads only active linked-board
+cards from non-empty personal Templates containers and returns the minimum
+identity, group, domain and board fields required by the page. Refused readers
+receive no data and are TemplateBleed-reported with available request context.
+The live same-URL fixture covers all three scopes, excludes an empty container,
+checks signed board navigation, captures both views and proves anonymous
+isolation. The pre-existing six-case Jade suite also passes after the shared
+service extraction.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
