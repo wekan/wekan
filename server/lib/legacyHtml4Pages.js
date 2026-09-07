@@ -12,6 +12,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
+import TrelloImportJobs from '/models/trelloImportJobs';
 import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import EventLog from '/models/eventLog';
 import CustomFields from '/models/customFields';
@@ -3082,6 +3083,118 @@ async function importPage(path, userId, requestFields, translate) {
           legacyOperation: 'import-board-text' },
         submitLabel: tr(translate, 'import', 'Import'),
       }), ''] });
+    }
+    if (selected.key === 'trello') {
+      const trelloUser = await Meteor.users.findOneAsync(userId, {
+        fields: { 'profile.trelloApiSaved': 1, 'profile.boardWorkspacesTree': 1 },
+      });
+      const saved = trelloUser?.profile?.trelloApiSaved === true;
+      const trelloResult = requestFields.legacyTrelloResult;
+      rows.push({ cells: [tr(translate, 'trello-api-import', 'Trello API import'),
+        tr(translate, 'trello-api-import-desc',
+          'Import Trello workspaces and boards directly with the Trello API.')] });
+      if (trelloResult?.ok === false) rows.push({ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, trelloResult.errorKey, trelloResult.errorKey)] });
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: path, legend: tr(translate, 'trello-api-import', 'Trello API import'),
+        id: 'trello-api-credentials',
+        inputs: [
+          { type: 'text', name: 'trelloApiKey', maxlength: 500,
+            autocomplete: 'off', label: tr(translate, 'trello-api-key', 'Trello API key') },
+          { type: 'password', name: 'trelloApiToken', maxlength: 2000,
+            autocomplete: 'off', label: tr(translate, 'trello-api-token', 'Trello API token') },
+        ],
+        submitActions: [
+          { name: 'legacyOperation', value: 'trello-save-credentials',
+            label: tr(translate, 'save', 'Save') },
+          { name: 'legacyOperation', value: 'trello-delete-credentials', icon: 'remove',
+            label: tr(translate, 'delete', 'Delete') },
+        ],
+      }), saved ? tr(translate, 'trello-api-credentials-saved', 'Credentials saved') : ''] });
+      if (saved) rows.push({ cells: [tr(translate, 'trello-api-credentials-saved',
+        'Credentials saved'), uiAction({ action: path,
+        label: tr(translate, 'trello-list-workspaces', 'List Trello workspaces'),
+        fields: { legacyOperation: 'trello-list-workspaces' } })] });
+
+      const workspaces = Array.isArray(requestFields.trelloWorkspaces)
+        ? requestFields.trelloWorkspaces.slice(0, 100) : [];
+      if (workspaces.length) {
+        const localWorkspaceOptions = [{ value: '',
+          label: tr(translate, 'trello-parent-workspace-top', 'Top level') }];
+        const addWorkspaceOptions = (nodes, depth = 0) => {
+          for (const node of nodes || []) {
+            localWorkspaceOptions.push({ value: node.id,
+              label: `${'--'.repeat(depth)}${node.name || node.id}` });
+            addWorkspaceOptions(node.children, depth + 1);
+          }
+        };
+        addWorkspaceOptions(trelloUser?.profile?.boardWorkspacesTree);
+        const boardInputs = [];
+        for (const workspace of workspaces) {
+          for (const board of (Array.isArray(workspace.boards) ? workspace.boards : []).slice(0, 100)) {
+            boardInputs.push({ type: 'checkbox', name: 'trelloBoardIds', value: board.id,
+              checked: true, label: `${workspace.name || ''}: ${board.name || board.id}${board.closed
+                ? ` (${tr(translate, 'archived', 'Archived')})` : ''}` });
+          }
+        }
+        rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+          action: path, legend: tr(translate, 'trello-import-selected', 'Import selected boards'),
+          id: 'trello-api-board-selection',
+          inputs: [{ type: 'select', name: 'parentWorkspaceNodeId', value: '',
+            label: tr(translate, 'import-trello-parent-workspace', 'Parent workspace'),
+            options: localWorkspaceOptions }, ...boardInputs],
+          fields: { legacyOperation: 'trello-start-import' },
+          submitLabel: tr(translate, 'trello-import-selected', 'Import selected boards'),
+        }), ''] });
+      }
+
+      const job = await TrelloImportJobs.findOneAsync({ userId }, {
+        sort: { createdAt: -1 }, fields: { status: 1, currentIndex: 1, total: 1,
+          lastError: 1, results: 1, errorLog: 1, createdAt: 1 },
+      });
+      if (job) {
+        const jobFields = { legacyOperation: 'trello-cancel-import', trelloJobId: job._id };
+        const actions = [];
+        if (job.status === 'running') actions.push(uiAction({ action: path,
+          label: tr(translate, 'trello-cancel', 'Cancel'), fields: jobFields }));
+        if (['paused', 'error'].includes(job.status)) actions.push(uiAction({ action: path,
+          label: tr(translate, 'trello-resume', 'Resume'), fields: {
+            legacyOperation: 'trello-resume-import', trelloJobId: job._id,
+          } }));
+        if (job.status !== 'running') actions.push(uiAction({ action: path,
+          label: tr(translate, 'trello-clear-job', 'Clear job'), fields: {
+            legacyOperation: 'trello-clear-job', trelloJobId: job._id,
+          } }));
+        actions.push(uiAction({ action: path, icon: 'remove',
+          label: tr(translate, job.status === 'done' ? 'trello-delete-imported'
+            : 'trello-cancel-delete', 'Delete imported boards'), fields: {
+            legacyOperation: 'trello-request-cancel-delete', trelloJobId: job._id,
+          } }));
+        rows.push({ cells: [tr(translate, 'trello-import-progress', 'Import progress'),
+          [`${tr(translate, 'status', 'Status')}: ${tr(translate, job.status, job.status)} `
+            + `(${Number(job.currentIndex) || 0} / ${Number(job.total) || 0})`, ...actions]] });
+        if (job.lastError) rows.push({ cells: [tr(translate, 'error', 'Error'), job.lastError] });
+        for (const resultRow of (job.results || []).slice(-100)) rows.push({ cells: [
+          resultRow.success ? tr(translate, 'success', 'Success') : tr(translate, 'error', 'Error'),
+          resultRow.success
+            ? `${resultRow.title || resultRow.trelloBoardId || ''} - ${Number(
+              resultRow.attachmentsImported) || 0} ${tr(translate, 'attachments', 'Attachments')}`
+            : `${resultRow.trelloBoardId || ''}: ${resultRow.error || ''}`,
+        ] });
+        if (Array.isArray(job.errorLog) && job.errorLog.length) rows.push({ cells: [
+          tr(translate, 'trello-import-errors', 'Import errors'), job.errorLog.slice(-100).join('\n'),
+        ] });
+      }
+      if (job && requestFields.confirmTrelloDeleteJobId === job._id) rows.push({
+        rowHeader: false, cells: [uiFieldsetForm({
+          action: path, legend: tr(translate, 'trello-cancel-delete-confirm',
+            'Delete imported boards?'), id: 'trello-confirm-delete-imported',
+          inputs: [{ type: 'checkbox', name: 'confirmed', value: 'true', checked: false,
+            label: tr(translate, 'confirm', 'Confirm') }],
+          fields: { legacyOperation: 'trello-confirm-cancel-delete', trelloJobId: job._id },
+          submitLabel: tr(translate, 'delete', 'Delete'),
+        }), ''],
+      });
     }
   }
   return {

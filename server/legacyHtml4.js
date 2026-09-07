@@ -275,6 +275,18 @@ function binaryPurpose(body = {}) {
   return '';
 }
 
+function submittedValues(value) {
+  return (Array.isArray(value) ? value : [value])
+    .filter(item => typeof item === 'string' && item.length > 0);
+}
+
+async function callTrelloImportAs(session, method, ...args) {
+  return DDP._CurrentMethodInvocation.withValue({
+    userId: session.userId,
+    connection: { clientAddress: String(session.address || '') },
+  }, async () => Meteor.callAsync(method, ...args));
+}
+
 WebApp.handlers.use(async (req, res, next) => {
   const path = new URL(req.url, 'http://wekan.invalid').pathname;
   const canonicalAdminPath = req.method === 'GET' ? legacyAdminCanonicalPath(path) : '';
@@ -2201,6 +2213,61 @@ WebApp.handlers.use(async (req, res, next) => {
         clientAddress: session.address,
       })
       : { ok: false, errorKey: 'error-notAuthorized' };
+  }
+  if (session && path === '/import/trello' && /^trello-/.test(requestFields.legacyOperation || '')) {
+    try {
+      const operation = requestFields.legacyOperation;
+      if (operation === 'trello-save-credentials') {
+        await callTrelloImportAs(session, 'saveTrelloCredentials',
+          String(requestFields.trelloApiKey || ''), String(requestFields.trelloApiToken || ''));
+      } else if (operation === 'trello-delete-credentials') {
+        await callTrelloImportAs(session, 'deleteTrelloCredentials');
+      } else if (operation === 'trello-list-workspaces') {
+        requestFields.trelloWorkspaces = await callTrelloImportAs(
+          session, 'trelloListWorkspaces', '', '',
+        );
+      } else if (operation === 'trello-start-import') {
+        requestFields.trelloJobId = await callTrelloImportAs(session, 'trelloStartImport', '', '',
+          submittedValues(requestFields.trelloBoardIds).slice(0, 100),
+          String(requestFields.parentWorkspaceNodeId || '') || null);
+      } else if (operation === 'trello-resume-import') {
+        await callTrelloImportAs(session, 'trelloResumeImport',
+          String(requestFields.trelloJobId || ''), '', '');
+      } else if (operation === 'trello-cancel-import') {
+        await callTrelloImportAs(session, 'trelloCancelImport',
+          String(requestFields.trelloJobId || ''), false);
+      } else if (operation === 'trello-request-cancel-delete') {
+        requestFields.confirmTrelloDeleteJobId = String(requestFields.trelloJobId || '');
+      } else if (operation === 'trello-confirm-cancel-delete') {
+        if (requestFields.confirmed !== 'true') throw new Meteor.Error('confirmation-required');
+        await callTrelloImportAs(session, 'trelloCancelImport',
+          String(requestFields.trelloJobId || ''), true);
+      } else if (operation === 'trello-clear-job') {
+        await callTrelloImportAs(session, 'trelloClearImportJob',
+          String(requestFields.trelloJobId || ''), false);
+      } else {
+        throw new Meteor.Error('invalid-trello-operation');
+      }
+      requestFields.legacyTrelloResult = { ok: true, operation };
+    } catch (error) {
+      const errorKey = typeof error?.error === 'string' && /^[a-z0-9_-]{1,100}$/i.test(error.error)
+        ? error.error : 'trello-api-error';
+      requestFields.legacyTrelloResult = { ok: false, errorKey };
+      const protectedErrors = new Set(['error-notAuthorized', 'invalid-trello-operation',
+        'invalid-trello-board', 'invalid-workspace', 'trello-api-credentials-invalid',
+        'confirmation-required']);
+      if (protectedErrors.has(errorKey)) try {
+        const serious = ['error-notAuthorized', 'invalid-trello-operation',
+          'invalid-trello-board', 'invalid-workspace'].includes(errorKey);
+        require('/server/lib/securityLog').record({
+          category: errorKey === 'error-notAuthorized' ? 'authz' : 'validation',
+          bleed: 'ImportBleed', severity: serious ? 'high' : 'medium', action: 'blocked',
+          source: 'legacyHtml4:trello-api-import', req, userId: session.userId,
+          detail: `refused Legacy HTML4 Trello import operation ${String(
+            requestFields.legacyOperation || '').slice(0, 100)}: ${errorKey}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
   }
   if (session && requestFields.legacyOperation === 'import-board-text') {
     const source = /^\/import\/([^/]+)$/.exec(path)?.[1] || '';

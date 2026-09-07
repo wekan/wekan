@@ -655,6 +655,28 @@ Control characters, oversized names, fields injected into another import source
 and multipart fields outside the explicit allowlist are rejected. The browser
 never supplies a workspace id and cannot assign another user's board.
 
+Direct Trello API import has the same server-owned credential and persisted-job
+model in both representations. HTML4 renders labelled key and password-token
+fields, but never puts either secret back in a value, URL, hidden control or job
+document. Because a cookieless page cannot safely carry a secret across the
+workspace-listing POST, the user explicitly saves the credentials first; the
+page then lists the server-fetched Trello workspaces and boards as native checked
+choices and the user's existing local workspace tree as a labelled parent
+selector. The shared methods validate unique 24-hex-character Trello board IDs,
+at most 100 boards, a parent node from that exact user's tree and bounded
+control-character-free credentials before a job is created.
+
+The newest job for that user is rendered as text: translated state, current and
+total counts, bounded results, attachment counts, last error and error log.
+Resume, Cancel and Clear are signed POST controls. Deleting already imported
+boards is a separate request followed by an unchecked confirmation control;
+the common job method repeats ownership before deletion. A restarted server
+continues to reclaim the same persisted job as it does for Jade. Another user's
+job ID, a forged board/workspace ID, an unknown operation and a bypassed
+confirmation are refused and written with available request identity to Admin
+Panel / Problems / Security. Ordinary Trello network and rate-limit errors stay
+job errors rather than being misreported as attacks.
+
 Item-to-card conversion uses the shared card-destination component: title first,
 then one bounded board/swimlane/list/card insertion-point selector, relative
 above/below selection and submit. This is both its semantic reading order and

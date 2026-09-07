@@ -18,10 +18,24 @@ import { fetchSafe } from '/server/lib/ssrfGuard';
 // credentials never reach the browser — only the `profile.trelloApiSaved`
 // boolean is published as a "saved" indicator.
 const TrelloApiCredentials = new Mongo.Collection('trello_api_credentials');
+const MAX_TRELLO_KEY_LENGTH = 500;
+const MAX_TRELLO_TOKEN_LENGTH = 2000;
+const TRELLO_BOARD_ID = /^[a-f0-9]{24}$/i;
+
+function boundedCredential(value, maximum) {
+  const normalized = String(value || '').trim();
+  if (normalized.length > maximum || /[\u0000-\u001f\u007f]/.test(normalized)) {
+    throw new Meteor.Error('trello-api-credentials-invalid');
+  }
+  return normalized;
+}
 
 // Resolve credentials for a user: prefer the ones passed from the client
 // (when the user typed them), otherwise fall back to their saved credentials.
 export async function resolveCreds(userId, key, token) {
+  key = boundedCredential(key, MAX_TRELLO_KEY_LENGTH);
+  token = boundedCredential(token, MAX_TRELLO_TOKEN_LENGTH);
+  if (!!key !== !!token) throw new Meteor.Error('trello-api-credentials-required');
   if (key && token) {
     return { key, token };
   }
@@ -496,6 +510,15 @@ function findNodeByName(nodes, name) {
   return null;
 }
 
+function findNodeById(nodes, id) {
+  for (const node of nodes || []) {
+    if (node.id === id) return node;
+    const found = findNodeById(node.children, id);
+    if (found) return found;
+  }
+  return null;
+}
+
 // Ensure a workspace node named `name` exists for the user (under parentId if
 // given), creating it only if absent. Returns its id.
 async function ensureWorkspaceNode(userId, name, parentId) {
@@ -549,10 +572,12 @@ Meteor.methods({
     check(key, String);
     check(token, String);
     if (!this.userId) throw new Meteor.Error('error-notAuthorized');
-    if (!key.trim() || !token.trim()) {
+    key = boundedCredential(key, MAX_TRELLO_KEY_LENGTH);
+    token = boundedCredential(token, MAX_TRELLO_TOKEN_LENGTH);
+    if (!key || !token) {
       throw new Meteor.Error('trello-api-credentials-required');
     }
-    await storeCreds(this.userId, key.trim(), token.trim());
+    await storeCreds(this.userId, key, token);
     return true;
   },
 
@@ -883,6 +908,18 @@ Meteor.methods({
     }
     if (boardIds.length > 100) {
       throw new Meteor.Error('too-many-boards', 'At most 100 boards per import');
+    }
+    if (new Set(boardIds).size !== boardIds.length
+      || boardIds.some(boardId => !TRELLO_BOARD_ID.test(boardId))) {
+      throw new Meteor.Error('invalid-trello-board');
+    }
+    if (parentWorkspaceNodeId) {
+      const user = await Users.findOneAsync(this.userId, {
+        fields: { 'profile.boardWorkspacesTree': 1 },
+      });
+      if (!findNodeById(user?.profile?.boardWorkspacesTree, parentWorkspaceNodeId)) {
+        throw new Meteor.Error('invalid-workspace');
+      }
     }
 
     const provided = !!(key && token);
