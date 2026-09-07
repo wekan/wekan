@@ -380,6 +380,24 @@ restores it in HTML5, captures both views and proves anonymous isolation.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/25ac42075">Add accessible HTML4 Notifications settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Notifications now exposes Disable activities, Disable
+notifications and Disable watch with their complete translated descriptions in
+a semantic Legacy HTML4 table. Each setting has an explicit Kyllä/Ei state and
+labelled signed Save form that works without JavaScript or cookies.
+
+The generalized feature service keeps Security and Notifications in separate
+fixed allowlists, strictly validates pane, field and Boolean value, and repeats
+Global Admin authorization. Jade and HTML4 share the operation; unauthorized or
+cross-pane writes are reported as SettingsBleed with available actor, network
+and location data. A same-URL Chromium test changes the setting in HTML4,
+observes and restores it in HTML5, captures both views and proves anonymous
+isolation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1063c13">Add accessible HTML4 problem reports</a>. Thanks to xet7.</summary>
 
 Security, Speed, Tests, CPU usage, Database problems, Filesystem integrity and

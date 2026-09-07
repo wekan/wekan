@@ -667,6 +667,17 @@ Security with available identity, address and location. The same-URL fixture
 changes a setting in HTML4, observes it in HTML5, restores it through Jade,
 captures both views and proves anonymous isolation.
 
+Problems / Notifications exposes the same Disable activities, Disable
+notifications and Disable watch switches and translated explanations as Jade.
+Each is a labelled Kyllä/Ei select with a signed Save POST. The generalized
+feature-setting service keeps Security and Notifications in separate fixed
+allowlists, validates pane, field and Boolean value, reloads the Global Admin,
+and reports unauthorized or cross-pane writes as SettingsBleed with available
+identity, address and location. Jade and HTML4 call the same Meteor/server
+operation. The same-URL fixture changes Disable notifications in HTML4,
+observes and restores it in HTML5, captures both views and proves anonymous
+isolation.
+
 Problems / Delete exposes the same permanent-delete switch and complete Recovery
 warning as Jade. The warning is one shared component string used by Delete,
 Recovery, Files Report and both renderers. HTML4 uses a labelled Kyllä/Ei select
