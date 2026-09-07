@@ -1071,7 +1071,10 @@ function toggleSettingField(field) {
       });
       return;
     }
-    Meteor.call('setSecurityFeatureSetting', field, !setting[field], (err) => {
+    const notificationFields = ['disableActivities', 'disableNotifications',
+      'disableWatch'];
+    const pane = notificationFields.includes(field) ? 'notifications' : 'security';
+    Meteor.call('setProblemFeatureSetting', pane, field, !setting[field], (err) => {
       if (err) alert(err.reason || err.message || 'Failed to update security setting');
     });
   }

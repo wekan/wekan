@@ -22,15 +22,17 @@ for (const field of ['renderLinksAsPlainText', 'alwaysShowCodeAsText',
   assert.ok(pages.includes(`'${field}'`), `${field} must render in HTML4`);
 }
 assert.match(service, /fields: \{ isAdmin: 1, username: 1 \}/);
-assert.match(service, /SECURITY_FEATURE_FIELD_SET\.has\(field\)/);
+assert.match(service, /!allowed \|\| !allowed\.includes\(field\)/);
 assert.match(service, /check\(enabled, Boolean\)/);
 assert.match(service, /Settings\.updateAsync\(setting\._id, \{ \$set: \{ \[field\]: enabled \} \}\)/);
 assert.match(service, /bleed: 'SettingsBleed'/);
 assert.match(service, /non-allowlisted feature setting/);
-assert.match(method, /setSecurityFeatureSettingForAdmin\(this\.userId, field, enabled\)/);
-assert.match(client, /Meteor\.call\('setSecurityFeatureSetting', field, !setting\[field\]/);
+assert.match(method,
+  /setProblemFeatureSettingForAdmin\(this\.userId, pane, field, enabled\)/);
+assert.match(client,
+  /Meteor\.call\('setProblemFeatureSetting', pane, field, !setting\[field\]/);
 assert.doesNotMatch(client, /Settings\.update\(setting\._id, \{ \$set: \{ \[field\]/);
-assert.match(legacy, /setSecurityFeatureSettingForAdmin\(/);
+assert.match(legacy, /setProblemFeatureSettingForAdmin\(/);
 assert.match(legacy, /requestFields\.enabled !== 'true'/);
 assert.match(pages, /legacyOperation: 'set-security-feature'/);
 assert.match(pages, /error-notAuthorized/);

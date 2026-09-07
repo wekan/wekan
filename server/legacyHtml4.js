@@ -64,7 +64,7 @@ import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedEx
 import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
 import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
-import { setSecurityFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
+import { setProblemFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
 import {
   removeAccessibleAttachment,
@@ -219,8 +219,9 @@ WebApp.handlers.use(async (req, res, next) => {
       if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
         throw new Meteor.Error('invalid-setting-value');
       }
-      await setSecurityFeatureSettingForAdmin(
+      await setProblemFeatureSettingForAdmin(
         session.userId,
+        'security',
         String(requestFields.settingField || ''),
         requestFields.enabled === 'true',
         { req },
@@ -230,6 +231,28 @@ WebApp.handlers.use(async (req, res, next) => {
       );
     } catch (error) {
       requestFields.legacySecurityResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
+  if (session && path === '/admin/problems/notifications'
+    && requestFields.legacyOperation === 'set-notification-feature') {
+    try {
+      if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
+        throw new Meteor.Error('invalid-setting-value');
+      }
+      await setProblemFeatureSettingForAdmin(
+        session.userId,
+        'notifications',
+        String(requestFields.settingField || ''),
+        requestFields.enabled === 'true',
+        { req },
+      );
+      requestFields.legacyNotificationsResult = translatedOr(
+        translate, 'done', 'Done',
+      );
+    } catch (error) {
+      requestFields.legacyNotificationsResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
       );
     }

@@ -54,6 +54,7 @@ import {
   rulesReportForAdmin,
 } from '/server/lib/rulesReport';
 import {
+  notificationFeatureSettingsForAdmin,
   securityFeatureSettingsForAdmin,
 } from '/server/lib/problemFeatureSettings';
 import { permanentDeleteSettingForAdmin } from '/server/lib/permanentDeleteSetting';
@@ -2704,6 +2705,63 @@ async function adminProblemsDeletePage(path, userId, requestFields, translate) {
   };
 }
 
+const NOTIFICATION_FEATURE_ROWS = [
+  ['disableActivities', 'disable-activities', 'disable-activities-description'],
+  ['disableNotifications', 'disable-notifications',
+    'disable-notifications-description'],
+  ['disableWatch', 'disable-watch', 'disable-watch-description'],
+];
+
+async function adminProblemsNotificationsPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/notifications') return null;
+  let settings;
+  try {
+    settings = await notificationFeatureSettingsForAdmin(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'features-notifications', 'Notifications'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const columns = [tr(translate, 'settings', 'Settings'),
+    tr(translate, 'description', 'Description'), tr(translate, 'status', 'Status')];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+  ];
+  if (requestFields.legacyNotificationsResult) rows.push({
+    rowHeader: false, colspanLast: columns.length - 1,
+    cells: [tr(translate, 'status', 'Status'),
+      requestFields.legacyNotificationsResult],
+  });
+  for (const [field, labelKey, descriptionKey] of NOTIFICATION_FEATURE_ROWS) {
+    rows.push({ cells: [
+      tr(translate, labelKey, labelKey), tr(translate, descriptionKey, descriptionKey),
+      uiSelectForm({
+        action: path,
+        label: tr(translate, labelKey, labelKey),
+        name: 'enabled',
+        value: settings[field] ? 'true' : 'false',
+        options: [
+          { value: 'true', label: tr(translate, 'yes', 'Yes') },
+          { value: 'false', label: tr(translate, 'no', 'No') },
+        ],
+        fields: { legacyOperation: 'set-notification-feature', settingField: field },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }),
+    ] });
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'features-notifications', 'Notifications')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsEventPage(path, userId, requestFields, translate) {
   const match = /^\/admin\/problems\/([^/]+)$/.exec(path);
   const slug = match?.[1] || '';
@@ -3489,6 +3547,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsDelete) return adminProblemsDelete;
+  const adminProblemsNotifications = await adminProblemsNotificationsPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsNotifications) return adminProblemsNotifications;
   const adminProblemsEvent = await adminProblemsEventPage(
     path, userId, requestFields, translate,
   );

@@ -14,7 +14,16 @@ export const SECURITY_FEATURE_FIELDS = Object.freeze([
   'anonymizeExportUsers',
 ]);
 
-const SECURITY_FEATURE_FIELD_SET = new Set(SECURITY_FEATURE_FIELDS);
+export const NOTIFICATION_FEATURE_FIELDS = Object.freeze([
+  'disableActivities',
+  'disableNotifications',
+  'disableWatch',
+]);
+
+const FEATURE_FIELDS = Object.freeze({
+  security: SECURITY_FEATURE_FIELDS,
+  notifications: NOTIFICATION_FEATURE_FIELDS,
+});
 
 async function requireAdmin(userId, context = {}) {
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -35,25 +44,31 @@ async function requireAdmin(userId, context = {}) {
   throw new Meteor.Error('not-authorized', 'Admin only');
 }
 
-export async function securityFeatureSettingsForAdmin(userId) {
+export async function problemFeatureSettingsForAdmin(userId, pane) {
+  check(pane, String);
   await requireAdmin(userId);
-  const fields = Object.fromEntries(SECURITY_FEATURE_FIELDS.map(field => [field, 1]));
+  const allowed = FEATURE_FIELDS[pane];
+  if (!allowed) throw new Meteor.Error('invalid-settings-pane');
+  const fields = Object.fromEntries(allowed.map(field => [field, 1]));
   const setting = await Settings.findOneAsync({}, { fields });
-  return Object.fromEntries(SECURITY_FEATURE_FIELDS.map(field => [
+  return Object.fromEntries(allowed.map(field => [
     field, setting?.[field] === true,
   ]));
 }
 
-export async function setSecurityFeatureSettingForAdmin(
+export async function setProblemFeatureSettingForAdmin(
   userId,
+  pane,
   field,
   enabled,
   context = {},
 ) {
+  check(pane, String);
   check(field, String);
   check(enabled, Boolean);
   const user = await requireAdmin(userId, { ...context, reportAttempt: true });
-  if (!SECURITY_FEATURE_FIELD_SET.has(field)) {
+  const allowed = FEATURE_FIELDS[pane];
+  if (!allowed || !allowed.includes(field)) {
     securityLog.record({
       severity: 'high',
       category: 'authz',
@@ -74,3 +89,9 @@ export async function setSecurityFeatureSettingForAdmin(
   }
   return enabled;
 }
+
+export const securityFeatureSettingsForAdmin = userId =>
+  problemFeatureSettingsForAdmin(userId, 'security');
+
+export const notificationFeatureSettingsForAdmin = userId =>
+  problemFeatureSettingsForAdmin(userId, 'notifications');

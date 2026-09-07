@@ -56,6 +56,7 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   let settingsId;
   let previousPermanentDelete;
   let previousRenderLinksAsPlainText;
+  let previousDisableNotifications;
   const previousSecurityAck = db.findOne('eventlogAcks', {
     stream: 'security',
   });
@@ -75,8 +76,10 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     settingsId = settings?._id;
     previousPermanentDelete = settings?.enablePermanentDelete;
     previousRenderLinksAsPlainText = settings?.renderLinksAsPlainText;
+    previousDisableNotifications = settings?.disableNotifications;
     if (settingsId) db.updateOne('settings', { _id: settingsId }, {
-      $set: { enablePermanentDelete: false, renderLinksAsPlainText: false },
+      $set: { enablePermanentDelete: false, renderLinksAsPlainText: false,
+        disableNotifications: false },
     });
     db.updateOne(
       'users',
@@ -664,6 +667,33 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    const notificationSettingsNav = legacy
+      .locator('form[action="/admin/problems/notifications"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      notificationSettingsNav.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('h1')).toContainText('Ilmoitukset');
+    const disableNotificationsForm = legacy.locator(
+      'form:has(input[name="settingField"][value="disableNotifications"])',
+    );
+    await expect(disableNotificationsForm.locator('select[name="enabled"]'))
+      .toHaveValue('false');
+    await disableNotificationsForm.locator('select[name="enabled"]')
+      .selectOption('true');
+    await Promise.all([
+      legacy.waitForNavigation(),
+      disableNotificationsForm.locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('settings', {
+      _id: settingsId,
+    })?.disableNotifications).toBe(true);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-notifications-settings.png`,
+        fullPage: true,
+      });
+    }
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -848,6 +878,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/notifications');
+    await expect(modern.locator('h1').first()).toContainText('Ilmoitukset');
+    await expect(modern.locator(
+      '.js-toggle-disable-notifications .materialCheckBox',
+    )).toHaveClass(/is-checked/);
+    await modern.locator('.js-toggle-disable-notifications').click();
+    await expect.poll(() => db.findOne('settings', {
+      _id: settingsId,
+    })?.disableNotifications).toBe(false);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-notifications-settings.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -886,6 +931,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/delete`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText('Recovery logs');
+    await outsiderPage.goto(`${baseURL}/admin/problems/notifications`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText('disable-notifications');
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -930,6 +978,12 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       }, { $unset: { renderLinksAsPlainText: '' } });
       else db.updateOne('settings', { _id: settingsId }, {
         $set: { renderLinksAsPlainText: previousRenderLinksAsPlainText },
+      });
+      if (previousDisableNotifications === undefined) db.updateOne('settings', {
+        _id: settingsId,
+      }, { $unset: { disableNotifications: '' } });
+      else db.updateOne('settings', { _id: settingsId }, {
+        $set: { disableNotifications: previousDisableNotifications },
       });
     }
     if (user) {
