@@ -318,6 +318,24 @@ checks the profile and board view, and remains logged in beyond the poll window.
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5acea6fd">Protect linked-card content in Legacy HTML4</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 now reads only a linked source card's board identity before asking
+the shared board-visibility service for access. An authorized source supplies
+the same real title, number, description, color, people and dates as Jade. A
+private source is never fetched in full: the route renders only the link
+placement's stored snapshot and cannot query the source card's checklists,
+comments, attachments, subtasks or other child content.
+
+Positive and negative static coverage pins the read-before-fetch boundary and
+real-card field parity. A live same-URL Chromium regression verifies visible
+source content in both renderers, revokes source-board access, proves both fall
+back to the snapshot without either private marker and records all four paired
+screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/59e4f1fe2">Honor Card Settings in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 card details now derive one visibility map from the same Card
