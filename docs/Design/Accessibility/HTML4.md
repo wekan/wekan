@@ -197,6 +197,19 @@ submits them with JavaScript and cookies disabled, verifies their persisted sing
 effects, rejects a replay and captures HTML4/HTML5 screenshot pairs for all four
 public account-token routes.
 
+The signed-in Member Menu is being converted from popup-only controls to stable
+same-URL pages. `/account/profile` is the first complete page and reuses one guarded
+profile service from its Jade form and HTML4 form. It presents Full Name, Username,
+Initials and Email in their natural order. Admin Panel's username/email self-change
+switches decide whether those identity fields are editable; omitted controls are still
+rechecked at the write boundary, so changing a hidden field cannot bypass policy.
+Identity uniqueness is case-insensitive, a changed email becomes unverified, OAuth2
+identity changes are refused, and bypass attempts retain request identity/location in
+Problems / Security. The operation updates all accepted profile fields together rather
+than allowing four client calls to leave a partly updated identity. A same-URL browser
+test verifies the HTML4 write in MongoDB, the Jade view of the same values, the paired
+screenshots and a Security-reported forged disabled-field write.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject

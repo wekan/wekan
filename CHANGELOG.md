@@ -299,6 +299,22 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c36df39e">Add shared accessible member profile</a>. Thanks to xet7.</summary>
+
+Member Menu / Edit Profile now has a stable `/account/profile` page and equivalent
+semantic HTML4 form. Jade and HTML4 share one atomic service for Full Name, Username,
+Initials and Email, avoiding the previous sequence of independent client writes that
+could leave a partly changed identity.
+
+The service repeats Admin policy, OAuth2, bounds, syntax and case-insensitive uniqueness
+checks. A changed email becomes unverified; forged changes to disabled fields are
+blocked and attributed in Problems / Security. Static positive and negative tests pass.
+A live same-URL Chromium test verifies the HTML4 write in MongoDB, reads it through
+Jade, captures both views and proves a forged policy bypass is reported.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9fdb7d8a6">Add Legacy HTML4 account token flows</a>. Thanks to xet7.</summary>
 
 Password reset, account enrollment, email verification and verification-email resend
