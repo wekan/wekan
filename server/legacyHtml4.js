@@ -16,6 +16,12 @@ import { repairBrokenCardsForAdmin } from '/server/methods/repairBrokenCards';
 import { restoreListSwimlanesForAdmin } from '/server/methods/restoreListSwimlanes';
 import { startTextDatabaseMigrationForAdmin } from '/server/methods/migrateTextDatabase';
 import {
+  listBackupsForAdmin,
+  restoreBackupForAdmin,
+  runBackupForAdmin,
+  saveBackupScheduleForAdmin,
+} from '/server/methods/backup';
+import {
   importLegacyHtml4File,
   importLegacyHtml4ScopedFile,
   importLegacyHtml4Text,
@@ -1016,6 +1022,53 @@ WebApp.handlers.use(async (req, res, next) => {
         require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
           req, userId: session.userId,
           detail: `refused HTML4 database migration: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+  }
+  if (session && path === '/admin/attachments/backup'
+    && ['run-backup', 'save-backup-schedule', 'list-backups', 'restore-backup']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'run-backup') {
+        await runBackupForAdmin(session.userId, {
+          attachments: requestFields.backupAttachments === 'true',
+          avatars: requestFields.backupAvatars === 'true',
+          data: requestFields.backupData === 'true',
+        }, String(requestFields.backupStorage || ''),
+        requestFields.backupOrgId ? String(requestFields.backupOrgId) : null);
+      } else if (requestFields.legacyOperation === 'save-backup-schedule') {
+        const frequency = String(requestFields.backupFrequency || 'off');
+        await saveBackupScheduleForAdmin(session.userId, {
+          enabled: frequency !== 'off', frequency,
+          time: String(requestFields.backupTime || ''),
+          dayOfWeek: String(requestFields.backupDayOfWeek || ''),
+          dayOfMonth: Number(requestFields.backupDayOfMonth),
+          attachments: requestFields.backupAttachments === 'true',
+          avatars: requestFields.backupAvatars === 'true',
+          data: requestFields.backupData === 'true',
+          storage: String(requestFields.backupStorage || ''),
+        });
+      } else if (requestFields.legacyOperation === 'list-backups') {
+        requestFields.legacyBackupList = await listBackupsForAdmin(session.userId);
+      } else {
+        if (requestFields.confirmed !== 'true') throw new Meteor.Error('confirmation-required');
+        const listed = await listBackupsForAdmin(session.userId);
+        const backupPath = String(requestFields.backupPath || '');
+        if (!listed.some(backup => backup.path === backupPath)) {
+          throw new Meteor.Error('not-authorized');
+        }
+        await restoreBackupForAdmin(session.userId, backupPath,
+          String(requestFields.backupRestoreMode || ''));
+      }
+      requestFields.legacyAttachmentsResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
+          req, userId: session.userId,
+          detail: `refused HTML4 backup operation: ${String(error?.error || 'failed')}`,
         });
       } catch (_) { /* reporting must not weaken the refusal */ }
     }

@@ -31,10 +31,17 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
       legacy.locator('form[action="/allboards"] input[type="submit"]').first().click()]);
     await Promise.all([legacy.waitForNavigation(),
       legacy.locator('form[action="/admin/attachments/backup"] input[type="submit"]').click()]);
+    await expect(legacy.locator('form:has(input[name="legacyOperation"][value="run-backup"])'))
+      .toBeVisible();
+    await expect(legacy.locator('form:has(input[name="legacyOperation"][value="save-backup-schedule"])'))
+      .toBeVisible();
+    let form = legacy.locator('form:has(input[name="legacyOperation"][value="list-backups"])');
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-backup.png`, fullPage: true });
     await Promise.all([legacy.waitForNavigation(),
       legacy.locator('form[action="/admin/attachments/default-save-storage"] input[type="submit"]').click()]);
     await expect(legacy.locator('h1')).toContainText('Default');
-    let form = legacy.locator('form:has(input[name="legacyOperation"][value="set-default-attachment-storage"])');
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="set-default-attachment-storage"])');
     await form.locator('select[name="storageName"]').selectOption('gridfs');
     await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
     await expect.poll(() => db.findOne('attachmentStorageSettings', {})?.defaultStorage)
@@ -133,6 +140,12 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     modernContext = await browser.newContext({ locale: 'en-US' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
+    await navigateInApp(modern, '/admin/attachments/backup');
+    await waitForMeteor(modern);
+    await expect(modern.locator('.js-run-backup')).toBeVisible();
+    await expect(modern.locator('.js-save-backup-schedule')).toBeVisible();
+    await expect(modern.locator('.js-list-backups')).toBeVisible();
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-backup.png`, fullPage: true });
     await navigateInApp(modern, '/admin/attachments/limits');
     await waitForMeteor(modern);
     await expect(modern.locator('#attachment-limits-setting')).toBeVisible();

@@ -8,6 +8,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const page = read('server/lib/legacyHtml4Pages.js');
 const route = read('server/legacyHtml4.js');
 const jade = read('client/components/settings/attachments.js');
+const backup = read('server/methods/backup.js');
 
 assert.ok(page.includes('ADMIN_ATTACHMENT_PANES'));
 for (const slug of ['backup', 'move', 'default-save-storage', 'limits', 'gridfs',
@@ -60,8 +61,22 @@ assert.ok(route.includes("requestFields.legacyOperation === 'start-database-migr
 assert.ok(route.includes("['toFerretDB', 'toMongoDB'].includes(direction)"));
 assert.ok(route.includes('startTextDatabaseMigrationForAdmin(session.userId, direction)'));
 
+assert.ok(page.includes("path !== '/admin/attachments/backup'"));
+for (const operation of ['run-backup', 'save-backup-schedule', 'list-backups',
+  'restore-backup']) assert.ok(route.includes(operation) && page.includes(operation));
+for (const service of ['backupPageDataForAdmin', 'runBackupForAdmin',
+  'saveBackupScheduleForAdmin', 'listBackupsForAdmin', 'restoreBackupForAdmin']) {
+  assert.ok(page.includes(service) || route.includes(service));
+  assert.ok(backup.includes(`function ${service}`));
+}
+assert.ok(backup.includes("Object.freeze(['filesystem', 's3', 'azure', 'gcs'])"));
+assert.ok(backup.includes("Object.freeze(['off', 'daily', 'weekly', 'monthly'])"));
+assert.ok(backup.includes("dayOfMonth < 1 || dayOfMonth > 28"));
+assert.ok(route.includes("requestFields.confirmed !== 'true'"));
+assert.ok(route.includes('listed.some(backup => backup.path === backupPath)'));
+
 assert.ok(jade.includes("require('/models/lib/attachmentTransferLimits')"));
 assert.ok(!jade.includes('const LIMIT_UNIT_FACTORS ='));
 assert.ok(!jade.includes('function normalizeLimitSettings('));
 
-console.log('legacyHtml4AdminAttachmentsCore: 9 panes share guarded settings operations');
+console.log('legacyHtml4AdminAttachmentsCore: all 10 panes share guarded operations');

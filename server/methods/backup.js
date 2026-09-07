@@ -20,6 +20,7 @@ const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
 // (tests/tenantBackup.test.cjs) and cannot drift between the two directions.
 import * as tenantBackup from '/models/lib/tenantBackup';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+import Org from '/models/org';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Admin Panel / Attachments / Backup.
@@ -477,9 +478,12 @@ async function registerCron() {
 }
 Meteor.startup(async () => { try { await registerCron(); } catch (e) { console.error('[backup] cron init:', e); } });
 
-async function requireAdmin() {
-  const user = await ReactiveCache.getCurrentUser();
-  if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
+async function requireAdmin(userId) {
+  const user = userId
+    ? await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1, orgs: 1 } })
+    : null;
+  if (!tenantAdmin.isSiteAdmin(user)) throw new Meteor.Error('not-authorized');
+  return user;
 }
 
 // Multitenancy option D (D.8): the caller, and the scope they asked for. The scope
@@ -500,86 +504,155 @@ async function requireBackupScope(userId, orgId) {
   return { user, orgId: scope.orgId };
 }
 
+const BACKUP_STORAGES = Object.freeze(['filesystem', 's3', 'azure', 'gcs']);
+const BACKUP_FREQUENCIES = Object.freeze(['off', 'daily', 'weekly', 'monthly']);
+const BACKUP_DAYS = Object.freeze([
+  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
+]);
+
+function normalizeBackupOptions(opts, allowEmpty = false) {
+  check(opts, Object);
+  const keys = Object.keys(opts);
+  if (keys.some(key => !['attachments', 'avatars', 'data'].includes(key))
+    || keys.some(key => typeof opts[key] !== 'boolean')) {
+    throw new Meteor.Error('invalid-backup-options');
+  }
+  const normalized = {
+    attachments: opts.attachments === true,
+    avatars: opts.avatars === true,
+    data: opts.data === true,
+  };
+  if (!allowEmpty && !normalized.attachments && !normalized.avatars && !normalized.data) {
+    throw new Meteor.Error('nothing-selected', 'Select at least one of Attachments, Avatars, Data.');
+  }
+  return normalized;
+}
+
+function normalizeBackupStorage(storageName) {
+  const storage = storageName || 'filesystem';
+  if (!BACKUP_STORAGES.includes(storage)) throw new Meteor.Error('bad-storage');
+  return storage;
+}
+
+function normalizeBackupSchedule(schedule) {
+  check(schedule, Object);
+  const allowed = ['enabled', 'frequency', 'time', 'dayOfWeek', 'dayOfMonth',
+    'attachments', 'avatars', 'data', 'storage'];
+  if (Object.keys(schedule).some(key => !allowed.includes(key))) {
+    throw new Meteor.Error('invalid-backup-schedule');
+  }
+  const frequency = String(schedule.frequency || 'off');
+  const time = String(schedule.time || '04:00');
+  const dayOfWeek = String(schedule.dayOfWeek || 'Sunday');
+  const dayOfMonth = Number(schedule.dayOfMonth || 1);
+  if (!BACKUP_FREQUENCIES.includes(frequency)
+    || !/^([01]\d|2[0-3]):[0-5]\d$/.test(time)
+    || !BACKUP_DAYS.includes(dayOfWeek)
+    || !Number.isInteger(dayOfMonth) || dayOfMonth < 1 || dayOfMonth > 28) {
+    throw new Meteor.Error('invalid-backup-schedule');
+  }
+  const opts = normalizeBackupOptions({
+    attachments: schedule.attachments === true,
+    avatars: schedule.avatars === true,
+    data: schedule.data === true,
+  }, schedule.enabled !== true || frequency === 'off');
+  return {
+    _id: 'schedule', enabled: frequency !== 'off' && schedule.enabled === true,
+    frequency, time, dayOfWeek, dayOfMonth, ...opts,
+    storage: normalizeBackupStorage(schedule.storage), updatedAt: new Date(),
+  };
+}
+
+async function backupActor(userId) {
+  const user = userId
+    ? await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1, orgs: 1 } })
+    : null;
+  if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
+  return user;
+}
+
+export async function backupPageDataForAdmin(userId) {
+  const user = await backupActor(userId);
+  const ids = tenantAdmin.manageableOrgIds(user);
+  const selector = ids === null ? {} : { _id: { $in: ids } };
+  const orgs = await Org.find(selector, {
+    fields: { orgDisplayName: 1, orgShortName: 1 }, sort: { orgDisplayName: 1 },
+  }).fetchAsync();
+  return {
+    isSiteAdmin: tenantAdmin.isSiteAdmin(user),
+    scopes: orgs.map(org => ({ _id: org._id,
+      orgDisplayName: org.orgDisplayName || org.orgShortName || org._id })),
+    status: { ...progress },
+    schedule: tenantAdmin.isSiteAdmin(user)
+      ? await BackupSettings.findOneAsync({ _id: 'schedule' }) || null : null,
+  };
+}
+
+export async function runBackupForAdmin(userId, opts, storageName, orgId = null) {
+  check(orgId, Match.OneOf(String, null, undefined));
+  const scope = await requireBackupScope(userId, orgId);
+  if (progress.running) throw new Meteor.Error('already-running');
+  const normalized = normalizeBackupOptions(opts);
+  const storage = normalizeBackupStorage(storageName);
+  doBackup(normalized, storage, scope.orgId);
+  return { started: true, orgId: scope.orgId };
+}
+
+export async function listBackupsForAdmin(userId) {
+  const user = await backupActor(userId);
+  const isSiteAdmin = tenantAdmin.isSiteAdmin(user);
+  const adminOrgIds = tenantAdmin.adminOrgIds(user);
+  return findBackups(backupRoot(), [])
+    .filter(b => tenantBackup.canUseBackupPath({ isSiteAdmin, adminOrgIds,
+      backupPath: b.path }))
+    .map(b => ({ ...b, orgId: tenantBackup.orgIdOfBackupPath(b.path) }))
+    .sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+}
+
+export async function restoreBackupForAdmin(userId, zipPath, mode) {
+  check(zipPath, String);
+  check(mode, String);
+  const user = await backupActor(userId);
+  if (!tenantBackup.canUseBackupPath({
+    isSiteAdmin: tenantAdmin.isSiteAdmin(user),
+    adminOrgIds: tenantAdmin.adminOrgIds(user), backupPath: zipPath,
+  })) throw new Meteor.Error('not-authorized');
+  if (progress.running) throw new Meteor.Error('already-running');
+  if (!zipPath || !fs.existsSync(zipPath)) throw new Meteor.Error('not-found', 'Backup file not found.');
+  if (!['add-missing', 'replace-all'].includes(mode)) throw new Meteor.Error('bad-mode');
+  doRestore(zipPath, mode, tenantBackup.orgIdOfBackupPath(zipPath));
+  return { started: true };
+}
+
+export async function saveBackupScheduleForAdmin(userId, schedule) {
+  await requireAdmin(userId);
+  const doc = normalizeBackupSchedule(schedule);
+  await BackupSettings.upsertAsync({ _id: 'schedule' }, doc);
+  await registerCron();
+  return doc;
+}
+
 Meteor.methods({
   async backupStatus() {
-    const user = await ReactiveCache.getCurrentUser();
-    // A per-tenant admin polls the same progress: only one backup runs at a time,
-    // and the phase/file it reports is the one they started.
-    if (!tenantAdmin.canOpenAdminPanel(user)) return false;
-    return { ...progress };
+    try { return (await backupPageDataForAdmin(this.userId)).status; }
+    catch (error) { if (error?.error === 'not-authorized') return false; throw error; }
   },
   async runBackup(opts, storageName, orgId = null) {
-    check(opts, Object);
     check(storageName, Match.OneOf(String, null, undefined));
-    check(orgId, Match.OneOf(String, null, undefined));
-    const scope = await requireBackupScope(this.userId, orgId);
-    if (progress.running) throw new Meteor.Error('already-running');
-    if (!opts || (!opts.attachments && !opts.avatars && !opts.data)) throw new Meteor.Error('nothing-selected', 'Select at least one of Attachments, Avatars, Data.');
-    doBackup(opts, storageName, scope.orgId); // background; poll backupStatus
-    return { started: true, orgId: scope.orgId };
+    return runBackupForAdmin(this.userId, opts, storageName, orgId);
   },
   async restoreBackup(zipPath, mode) {
-    check(zipPath, String);
-    check(mode, String);
-    const user = this.userId
-      ? await ReactiveCache.getUser({ _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } })
-      : null;
-    if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
-    // Which archive is this, and may this admin restore it? A per-tenant admin may
-    // only restore their own tenant's archives - never an instance-wide one, which
-    // contains every tenant.
-    if (!tenantBackup.canUseBackupPath({
-      isSiteAdmin: tenantAdmin.isSiteAdmin(user),
-      adminOrgIds: tenantAdmin.adminOrgIds(user),
-      backupPath: zipPath,
-    })) throw new Meteor.Error('not-authorized');
-    if (progress.running) throw new Meteor.Error('already-running');
-    if (!zipPath || !fs.existsSync(zipPath)) throw new Meteor.Error('not-found', 'Backup file not found.');
-    if (mode !== 'add-missing' && mode !== 'replace-all') throw new Meteor.Error('bad-mode');
-    // The scope comes from the archive's own location, not from the caller: a
-    // tenant archive is always restored as that tenant, even by the site admin, so
-    // it can never write outside the Organization it was taken from.
-    doRestore(zipPath, mode, tenantBackup.orgIdOfBackupPath(zipPath));
-    return { started: true };
+    return restoreBackupForAdmin(this.userId, zipPath, mode);
   },
   async listBackups() {
-    const user = this.userId
-      ? await ReactiveCache.getUser({ _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } })
-      : null;
-    if (!tenantAdmin.canOpenAdminPanel(user)) throw new Meteor.Error('not-authorized');
-    const isSiteAdmin = tenantAdmin.isSiteAdmin(user);
-    const adminOrgIds = tenantAdmin.adminOrgIds(user);
-    return findBackups(backupRoot(), [])
-      // Everyone sees only the archives they may restore, so the list and the
-      // permission cannot disagree.
-      .filter(b => tenantBackup.canUseBackupPath({ isSiteAdmin, adminOrgIds, backupPath: b.path }))
-      .map(b => ({ ...b, orgId: tenantBackup.orgIdOfBackupPath(b.path) }))
-      .sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+    return listBackupsForAdmin(this.userId);
   },
   async getBackupSchedule() {
-    await requireAdmin();
-    return await BackupSettings.findOneAsync({ _id: 'schedule' }) || null;
+    return (await backupPageDataForAdmin(this.userId)).schedule;
   },
   // The schedule is instance-wide (one cron, one archive of everything), so it
   // stays site-admin only - a per-tenant admin backs up their tenant on demand.
   async saveBackupSchedule(schedule) {
-    check(schedule, Object);
-    await requireAdmin();
-    const doc = {
-      _id: 'schedule',
-      enabled: !!schedule.enabled,
-      frequency: schedule.frequency || 'off',
-      time: schedule.time || '04:00',
-      dayOfWeek: schedule.dayOfWeek || 'Sunday',
-      dayOfMonth: schedule.dayOfMonth || 1,
-      attachments: !!schedule.attachments,
-      avatars: !!schedule.avatars,
-      data: !!schedule.data,
-      storage: schedule.storage || 'filesystem',
-      updatedAt: new Date(),
-    };
-    await BackupSettings.upsertAsync({ _id: 'schedule' }, doc);
-    await registerCron();
-    return doc;
+    return saveBackupScheduleForAdmin(this.userId, schedule);
   },
 });

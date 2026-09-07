@@ -82,6 +82,7 @@ import { lockoutPageForAdmin } from '/server/lib/adminLockout';
 import { peoplePageForAdmin, personAvatarsForAdmin,
   personForAdmin } from '/server/lib/adminPeople';
 import { textDatabaseMigrationStatusForAdmin } from '/server/methods/migrateTextDatabase';
+import { backupPageDataForAdmin } from '/server/methods/backup';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -2637,12 +2638,159 @@ const ADMIN_ATTACHMENT_PANES = Object.freeze([
   ['database-migration', 'database-migration', 'Database migration'],
 ]);
 
-function adminAttachmentsNavigation(translate) {
-  return ADMIN_ATTACHMENT_PANES.map(([slug, key, fallback]) => uiAction({
+function adminAttachmentsNavigation(translate, backupOnly = false) {
+  return ADMIN_ATTACHMENT_PANES.filter(([slug]) => !backupOnly || slug === 'backup')
+    .map(([slug, key, fallback]) => uiAction({
     action: `/admin/attachments/${slug}`,
     label: tr(translate, key, fallback),
     fields: {},
+    }));
+}
+
+const BACKUP_STORAGE_OPTIONS = Object.freeze([
+  ['filesystem', 'filesystem-storage', 'Filesystem storage'],
+  ['s3', 's3-minio-storage', 'S3 / MinIO storage'],
+  ['azure', 'azure-blob-storage', 'Azure Blob storage'],
+  ['gcs', 'gcs-storage', 'Google Cloud storage'],
+]);
+const BACKUP_DAY_KEYS = Object.freeze([
+  ['Sunday', 'sunday'], ['Monday', 'monday'], ['Tuesday', 'tuesday'],
+  ['Wednesday', 'wednesday'], ['Thursday', 'thursday'], ['Friday', 'friday'],
+  ['Saturday', 'saturday'],
+]);
+
+async function adminAttachmentsBackupPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/attachments/backup') return null;
+  let data;
+  try {
+    data = await backupPageDataForAdmin(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'backup', 'Backup'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const storageOptions = BACKUP_STORAGE_OPTIONS.map(([value, key, fallback]) => ({
+    value, label: tr(translate, key, fallback),
   }));
+  const scopeOptions = [
+    ...(data.isSiteAdmin ? [{ value: '',
+      label: tr(translate, 'backup-scope-instance', 'Whole instance') }] : []),
+    ...data.scopes.map(scope => ({ value: scope._id, label: scope.orgDisplayName })),
+  ];
+  const defaultScope = data.isSiteAdmin ? '' : data.scopes[0]?._id || '';
+  const schedule = data.schedule || {};
+  const rows = [
+    { rowHeader: false, cells: [tr(translate, 'attachments', 'Attachments'),
+      adminAttachmentsNavigation(translate, !data.isSiteAdmin)] },
+    { cells: [tr(translate, 'backup-description', 'Create and restore backups'),
+      uiFieldsetForm({ action: path, legend: tr(translate, 'backup-now', 'Backup now'),
+        inputs: [
+          ...(scopeOptions.length > 1 || !data.isSiteAdmin ? [{ type: 'select',
+            name: 'backupOrgId', label: tr(translate, 'backup-scope', 'Backup scope'),
+            value: defaultScope, options: scopeOptions,
+            description: tr(translate, 'backup-scope-description', '') }] : []),
+          { type: 'checkbox', name: 'backupAttachments', value: 'true', checked: true,
+            label: tr(translate, 'attachments', 'Attachments') },
+          { type: 'checkbox', name: 'backupAvatars', value: 'true', checked: true,
+            label: tr(translate, 'avatars', 'Avatars') },
+          { type: 'checkbox', name: 'backupData', value: 'true', checked: true,
+            label: tr(translate, 'backup-data', 'Data') },
+          { type: 'select', name: 'backupStorage',
+            label: tr(translate, 'backup-storage', 'Backup storage'),
+            value: 'filesystem', options: storageOptions },
+        ], fields: { legacyOperation: 'run-backup' },
+        submitLabel: tr(translate, 'backup-now', 'Backup now'), id: 'legacy-backup-now' })] },
+  ];
+  if (requestFields.legacyAttachmentsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAttachmentsResult,
+  ] });
+  if (data.status) {
+    rows.push({ cells: [tr(translate, 'database-migration-phase', 'Phase'),
+      `${String(data.status.phase || 'idle')} ${String(data.status.detail || '')}`.trim()] });
+    if (data.status.file) rows.push({ cells: [tr(translate, 'backup-path', 'Backup path'),
+      String(data.status.file)] });
+    if (data.status.error) rows.push({ cells: [tr(translate, 'server-error', 'Server error'),
+      String(data.status.error).slice(0, 500)] });
+  }
+  if (data.isSiteAdmin) rows.push({ cells: [tr(translate, 'backup-schedule', 'Backup schedule'),
+    uiFieldsetForm({ action: path, legend: tr(translate, 'backup-schedule', 'Backup schedule'),
+      inputs: [
+        { type: 'select', name: 'backupFrequency',
+          label: tr(translate, 'backup-frequency', 'Frequency'),
+          value: schedule.frequency || 'off', options: [
+            ['off', 'backup-frequency-off', 'Off'], ['daily', 'backup-frequency-daily', 'Daily'],
+            ['weekly', 'backup-frequency-weekly', 'Weekly'],
+            ['monthly', 'backup-frequency-monthly', 'Monthly'],
+          ].map(([value, key, fallback]) => ({ value, label: tr(translate, key, fallback) })) },
+        { type: 'text', name: 'backupTime', label: tr(translate, 'backup-time', 'Time'),
+          value: schedule.time || '04:00', maxlength: 5 },
+        { type: 'select', name: 'backupDayOfWeek',
+          label: tr(translate, 'backup-day-of-week', 'Day of week'),
+          value: schedule.dayOfWeek || 'Sunday', options: BACKUP_DAY_KEYS.map(([value, key]) => ({
+            value, label: tr(translate, key, value),
+          })) },
+        { type: 'select', name: 'backupDayOfMonth',
+          label: tr(translate, 'backup-day-of-month', 'Day of month'),
+          value: String(schedule.dayOfMonth || 1),
+          options: Array.from({ length: 28 }, (_, index) => ({
+            value: String(index + 1), label: String(index + 1),
+          })) },
+        { type: 'checkbox', name: 'backupAttachments', value: 'true',
+          checked: schedule.attachments !== false, label: tr(translate, 'attachments', 'Attachments') },
+        { type: 'checkbox', name: 'backupAvatars', value: 'true',
+          checked: schedule.avatars !== false, label: tr(translate, 'avatars', 'Avatars') },
+        { type: 'checkbox', name: 'backupData', value: 'true',
+          checked: schedule.data !== false, label: tr(translate, 'backup-data', 'Data') },
+        { type: 'select', name: 'backupStorage',
+          label: tr(translate, 'backup-storage', 'Backup storage'),
+          value: schedule.storage || 'filesystem', options: storageOptions },
+      ], fields: { legacyOperation: 'save-backup-schedule' },
+      submitLabel: tr(translate, 'save', 'Save'), id: 'legacy-backup-schedule' })] });
+  rows.push({ cells: [tr(translate, 'backup-restore', 'Restore backup'), uiAction({
+    action: path, label: tr(translate, 'backup-list', 'List backups'),
+    fields: { legacyOperation: 'list-backups' },
+  })] });
+  const backups = requestFields.legacyBackupList;
+  if (Array.isArray(backups)) {
+    if (!backups.length) rows.push({ cells: [tr(translate, 'backup-list', 'Backups'),
+      tr(translate, 'no-results', 'No results')] });
+    else {
+      rows.push(...backups.map(backup => ({ cells: [
+        backup.orgId || tr(translate, 'backup-scope-instance', 'Whole instance'),
+        `${backup.datetime || ''} - ${backup.storage || ''} - ${backup.path || ''}`,
+      ] })));
+      rows.push({ cells: [tr(translate, 'backup-restore', 'Restore backup'),
+        uiFieldsetForm({ action: path, legend: tr(translate, 'backup-restore', 'Restore backup'),
+          inputs: [
+            { type: 'select', name: 'backupPath', label: tr(translate, 'backup-path', 'Backup path'),
+              value: '', options: backups.map(backup => ({ value: backup.path,
+                label: `${backup.datetime || ''} - ${backup.storage || ''} - ${backup.path || ''}` })) },
+            { type: 'select', name: 'backupRestoreMode',
+              label: tr(translate, 'backup-restore-mode', 'Restore mode'),
+              value: 'add-missing', options: [
+                { value: 'add-missing', label: tr(translate,
+                  'backup-restore-add-missing', 'Add missing') },
+                { value: 'replace-all', label: tr(translate,
+                  'backup-restore-replace-all', 'Replace all') },
+              ] },
+            { type: 'checkbox', name: 'confirmed', value: 'true', checked: false,
+              label: tr(translate, 'backup-restore-confirm', 'Confirm restore') },
+          ], fields: { legacyOperation: 'restore-backup' },
+          submitLabel: tr(translate, 'backup-restore', 'Restore backup'),
+          id: 'legacy-backup-restore' })] });
+    }
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${tr(translate, 'backup', 'Backup')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
 }
 
 async function attachmentSettingsForHtml4(userId) {
@@ -5566,6 +5714,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminAttachmentsDatabaseMigration) return adminAttachmentsDatabaseMigration;
+  const adminAttachmentsBackup = await adminAttachmentsBackupPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminAttachmentsBackup) return adminAttachmentsBackup;
   const adminAttachmentsBaseline = await adminAttachmentsBaselinePage(path, userId, translate);
   if (adminAttachmentsBaseline) return adminAttachmentsBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(
