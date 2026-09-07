@@ -795,6 +795,22 @@ fixture checks create, timestamps, edit, a literal `[x]` search, two pages,
 confirmation before deletion, anonymous isolation and paired screenshots. The
 comparison also guards that Jade and HTML4 calculate the same page count.
 
+Admin Panel / People / Roles is the first dedicated People controller. Its
+labelled checkbox fieldset exposes every invite-capable board role plus the Jade
+bulk-all behavior, a native clear-all alternative and Save. The following
+read-only table renders all nine roles and the same invitation, card visibility,
+comment, write and board-management capability matrix enforced by server policy.
+Search and every action remain keyboard reachable signed POST controls without
+JavaScript or cookies. Both views write through one Global Admin service which
+deduplicates and allowlists role keys in canonical order and targets the single
+settings ID. Direct DDP changes are denied and RolesBleed-reported. Its publication
+now refuses non-admin readers. A separate validated exact-language feed supplies
+public runtime translation overrides, fixing the old i18n loader's unsafe selector
+call and its visible 500 errors. The live same-URL fixture exercises selected,
+all and empty states, checks the modern capability table, captures both views and
+proves anonymous isolation. The global HTML4 navigation now reaches all four Admin
+Panel page groups, and every People URL exposes the signed People pane menu.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

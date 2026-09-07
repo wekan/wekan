@@ -270,8 +270,8 @@ Global Search and Broken Cards share their guarded queries with HTML5; Board Rul
 shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
-acknowledgements and repairs between both views. All seven Settings panes share
-guarded HTML4 operations.
+acknowledgements and repairs between both views. All Settings panes and People /
+Roles share guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -328,6 +328,24 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48bf99220">Add accessible HTML4 People roles</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Roles now has equivalent signed Legacy HTML4 controls for
+every invite-role choice, bulk selection, Save, search and the enforced nine-role
+capability matrix. Both views share one Global Admin service that canonicalizes a
+fixed role allowlist. The publication is admin-only; direct DDP writes are denied
+and RolesBleed-reported.
+
+HTML4 navigation now reaches every Admin Panel page and People pane. The work also
+fixed the Jade capability table's missing Rspack translation import and replaced
+the runtime translator's obsolete Mongo-selector subscription with a validated
+exact-language feed. A live same-URL test exercises selected, all and empty states,
+captures both views and proves anonymous isolation. The complete Node suite passes
+831/831.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bd0e7eb4c">Add accessible HTML4 Translation settings</a>. Thanks to xet7.</summary>
