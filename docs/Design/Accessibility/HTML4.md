@@ -734,6 +734,22 @@ test writes all fields without JavaScript, reads the result through Jade and the
 public `/accessibility` HTML4 controller, captures both admin views, restores
 the prior global state and proves anonymous settings isolation.
 
+Admin Panel / Settings / PWA shares all seven custom-head, manifest and
+assetlinks fields between HTML4 and Jade. Three labelled Boolean POSTs and two
+atomic textarea groups call one Global Admin service; direct DDP updates of
+these Settings fields are denied and forged field names are SettingsBleed
+events. The server accepts only parsed `meta` or `link` elements with fixed
+attribute allowlists and HTTP(S) link targets. Manifest input must be one JSON
+object and assetlinks one JSON array, both bounded and canonically formatted;
+trailing data and attempted recovery of malformed JSON are rejected. The same
+validator runs again for existing stored values at both HTML boilerplate sinks
+and both JSON routes, which carry `nosniff` and fall back to bundled defaults
+when old content is invalid. This also fixes the previously stored-but-unused
+custom meta field and brings custom head tags to the separately rendered HTML4
+document. The live same-URL test writes and reads every field, checks both head
+documents and JSON assets, captures both panes, restores global state and proves
+anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

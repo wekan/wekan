@@ -272,7 +272,7 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. Settings / Version,
-Announcement and Accessibility share data and guarded operations between views.
+Announcement, Accessibility and PWA share data and guarded operations between views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -288,6 +288,26 @@ Announcement and Accessibility share data and guarded operations between views.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31a4c2fdc">Add secure accessible HTML4 PWA settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / PWA now has semantic Legacy HTML4 controls for all
+seven custom-head, manifest and assetlinks fields. HTML4 and Jade call one
+Global Admin service, while direct DDP writes to those Settings fields are
+denied and forged field attempts are Security-reported.
+
+Only parsed meta/link elements with fixed attributes and safe URL protocols can
+reach either HTML boilerplate. Manifest and assetlinks require bounded JSON of
+the correct object/array shape; malformed or trailing data is rejected rather
+than repaired. Existing stored values are revalidated at every HTML and JSON
+sink, invalid legacy values fall back safely, and JSON responses use `nosniff`.
+The previously unused custom meta field now works, including in HTML4. Negative
+tests cover script/event injection, dangerous URLs and invalid JSON. A live
+same-URL Chromium test verifies all fields, both boilerplates, both JSON assets,
+screenshots and anonymous isolation. The complete Node suite passes 827/827.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c8e9c40ac">Add safe accessible HTML4 comment reactions</a>. Thanks to xet7.</summary>
