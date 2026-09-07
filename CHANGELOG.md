@@ -302,7 +302,7 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/915eec906">Add semantic Legacy HTML4 not found page</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/99b9a1879">Add semantic Legacy HTML4 not found page</a>. Thanks to xet7.</summary>
 
 Unknown URLs now match the modern router's Not Found contract in Legacy HTML4:
 they render a localized semantic table and carry HTTP 404 instead of claiming
