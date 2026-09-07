@@ -274,7 +274,8 @@ acknowledgements and repairs between both views. All Settings panes and People /
 Domains, Email, Locked Users, Login, Organizations, Roles, Shared templates and
 Teams and People share complete guarded HTML4 operations.
 Attachments has shared navigation for all panes; Default Storage and Limits have
-complete guarded HTML4 operations.
+complete guarded HTML4 operations, and Move Attachment shares persisted progress
+and repair controls.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -331,6 +332,22 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7ef4dd92">Add accessible HTML4 attachment movement</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments / Move Attachment now offers labelled scope, source
+and destination selectors plus Move, Repair, Pause/Resume and Cancel POST
+controls without JavaScript or cookies. It reads persisted progress and last-run
+state and calls the same Global Admin-only background-job methods as Jade.
+
+The server retains its exact scope/storage allowlists, configured read/write
+checks, unequal explicit endpoints and one-job invariant. Refused HTML4 requests
+are Security-reported. Source tests cover the operation boundary and existing
+move failure handling; the live same-URL Chromium test verifies both forms and
+captures paired screenshots without moving existing files.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/073379303">Add accessible HTML4 attachment storage controls</a>. Thanks to xet7.</summary>

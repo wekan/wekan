@@ -969,6 +969,16 @@ refused and Security-reported. A same-URL live Chromium fixture changes both
 panes, verifies Jade observes the resulting settings, captures both renderers,
 restores global state and proves a non-admin receives no fields.
 
+Move Attachment is the third complete Attachments controller. Its labelled
+scope, read-source and destination selectors submit the existing resumable
+server job; persisted progress and the last operation remain readable after
+navigation, and running jobs expose Pause/Resume and Cancel. Repair File
+Locations calls the same guarded scanner as Jade. Server allowlists reject an
+unknown scope/backend and equal explicit source/destination, while the HTML4
+route accepts only its five named operations and Security-reports refusals. The
+same-URL fixture verifies both forms and captures matching HTML4/Jade views
+without moving production files.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

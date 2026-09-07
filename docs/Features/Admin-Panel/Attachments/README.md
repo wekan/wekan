@@ -95,7 +95,7 @@ the address uses: `/admin/attachments/<slug>`.
 | Menu path | URL slug | Page |
 | --- | --- | --- |
 | Attachments / Backup | `backup` | — |
-| Attachments / Move Attachment | `move` | — |
+| Attachments / Move Attachment | `move` | [Move Attachment](Move-Attachment.md) |
 | Attachments / Default Save Storage | `default-save-storage` | [Default Save Storage](Default-Save-Storage.md) |
 | Attachments / Limits | `limits` | [Limits](Limits.md) |
 | Attachments / MongoDB GridFS Storage | `gridfs` | — |
@@ -105,6 +105,6 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Google Cloud Storage | `gcs` | — |
 | Attachments / Database migration | `database-migration` | — |
 
-8 of these 10 panes have no page of their own yet. A dash is a
+7 of these 10 panes have no page of their own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
