@@ -470,6 +470,24 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba2bb4af5">Add accessible external rules import</a>. Thanks to xet7.</summary>
+
+Trello Butler commands and n8n or Node-RED workflow JSON can now be imported
+from the same labelled Legacy HTML4 form as native Rules transfers. HTML4 and
+HTML5 send the raw source to one board-authorized server operation; clients no
+longer maintain a second permissive parser or construct trusted rule documents.
+
+Workflow JSON crosses the bounded structural and active-content boundary before
+its graph is traversed. Format auto-detection uses document shape, recognized
+edges become portable prevalidated rule tuples, and unknown edges are counted
+without becoming data. Pure parser tests cover recognized and unknown Trello,
+n8n and Node-RED input and strict format selection. The same-URL live browser
+test imports Trello and auto-detected n8n rules through cookieless HTML4 on
+`testi.wekan.fi`.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31dc055d4">Add safe accessible HTML4 rules import</a>. Thanks to xet7.</summary>
 
 Board Rules JSON and CSV import is now available as a labelled, cookieless
