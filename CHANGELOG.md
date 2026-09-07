@@ -281,12 +281,8 @@ when this release is made.
 
 # v11.58 2026-09-07 WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+Now that builds have been fixed, new release with those fixes included.
+Fixed are builds of FerretDB, node-patches, mongo-tools-patces and mongosh-patches.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
