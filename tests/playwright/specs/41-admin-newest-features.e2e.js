@@ -26,7 +26,7 @@ test.describe('Admin – newest features', () => {
   test('Boards Report filters All, Public and Private on the server', async ({ page, adminUser }) => {
     // Keep the visible title below the report's UI abbreviation boundary so
     // this test is about filtering, not abbreviated cell presentation.
-    const marker = `bf-${db.uniqueSuffix()}`;
+    const marker = `bf-${db.uniqueSuffix().slice(-16)}`;
     const privateBoard = await db.seedBoard({
       ownerId: adminUser.id, title: `${marker}-private`, cardTitlesPerList: [[]],
     });
@@ -67,13 +67,14 @@ test.describe('Admin – newest features', () => {
     // File display/download names are intentionally capped at 30 Amiga-visible
     // characters. Keep the per-run prefix short enough that each sanitized
     // suffix remains observable instead of being truncated away.
-    const marker = `f-${db.uniqueSuffix()}`;
+    const marker = `f-${db.uniqueSuffix().slice(-16)}`;
+    const versions = { original: {} }; // Valid metadata, intentionally no stored binary.
     await db.insertMany('attachments', [
-      { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta },
-      { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta }, // -> "Гp.png" after confusable folding
-      { _id: `${runId}-invisible`, name: `${marker}-evil${ZW}.png`, size: 30, type: 'image/png', meta },
-      { _id: `${runId}-homoglyph`, name: `${marker}-pаypal.png`, size: 40, type: 'image/png', meta }, // Cyrillic a
-      { _id: `${runId}-exploit`, name: `${marker}-<script>x</script>note.png`, size: 50, type: 'image/png', meta },
+      { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta, versions },
+      { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta, versions }, // -> "Гp.png" after confusable folding
+      { _id: `${runId}-invisible`, name: `${marker}-evil${ZW}.png`, size: 30, type: 'image/png', meta, versions },
+      { _id: `${runId}-homoglyph`, name: `${marker}-pаypal.png`, size: 40, type: 'image/png', meta, versions }, // Cyrillic a
+      { _id: `${runId}-exploit`, name: `${marker}-<script>x</script>note.png`, size: 50, type: 'image/png', meta, versions },
     ]);
 
     await loginWithToken(page, adminUser.id, adminUser.token);

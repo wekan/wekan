@@ -90,6 +90,7 @@ test('and Directory-Structure.md still describes the whole repository', () => {
     'node_modules', 'public', 'private', 'files', 'meta', 'stacksmith', 'secrets',
     'npm-packages', 'scripts', 'tools', 'snap', 'snap-src', 'snap-base-debian',
     'sandstorm-src', 'old-CHANGELOG', 'openapi', 'migrations', 'config',
+    'test-results', // Generated Playwright screenshots/traces, not source.
   ]);
   const dirs = fs.readdirSync(ROOT, { withFileTypes: true })
     .filter(e => e.isDirectory() && !e.name.startsWith('.') && !e.name.startsWith('_'))

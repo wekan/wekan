@@ -132,7 +132,12 @@ test.describe('Stability & connectivity', () => {
 
     await expect.poll(() => page.evaluate(() => localStorage.getItem('Meteor.loginToken'))).toBeNull();
     const cookies = await page.context().cookies();
-    expect(cookies.some(cookie => cookie.httpOnly && cookie.secure)).toBe(true);
+    const loginCookie = cookies.find(cookie => cookie.name === 'meteor_login_token');
+    expect(loginCookie).toMatchObject({ httpOnly: true });
+    // EVERYTHING runs against plain HTTP; live reverse-proxy validation uses
+    // HTTPS. Secure is required on the public HTTPS origin, not local HTTP.
+    if (new URL(BASE_URL).protocol === 'https:') expect(loginCookie.secure).toBe(true);
+    expect(await page.evaluate(() => document.cookie)).not.toContain('meteor_login_token=');
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(memberMenu).toContainText('Upgrade Display Name');
     await expect(page.locator('#header-quick-access')).toHaveClass(/board-color-pumpkin/);

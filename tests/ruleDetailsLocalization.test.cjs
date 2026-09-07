@@ -24,19 +24,25 @@ const moduleSource = read('models/lib/ruleDescriptionLocalization.js');
 
   assert.strictEqual(
     localizeStoredRuleDescription('Move card to top of its list', translations),
-    'Siirrä kortti listansa alkuun',
+    fi['r-d-move-to-top-gen'],
     'a whole action uses its natural Finnish sentence',
   );
+  assert.strictEqual(localizeStoredRuleDescription('by', translations), fi['r-by'],
+    'the current human translation remains authoritative');
+  // Pin the grammar used by the boundary examples independently of future
+  // Transifex wording; these assertions test replacement boundaries, not a
+  // translator's choice of the Finnish rendering of the ambiguous word 'by'.
+  const fragmentTranslations = [...translations, { source: 'by', translated: 'tekijänä' }];
   assert.strictEqual(
     localizeStoredRuleDescription(
       'when a card is moved to archive by *',
-      translations,
+      fragmentTranslations,
     ),
     'kun kortti on siirretty arkistoon tekijänä *',
     'an assembled legacy trigger is translated piece by piece',
   );
   assert.strictEqual(
-    localizeStoredRuleDescription('when a card is moved by byron', translations),
+    localizeStoredRuleDescription('when a card is moved by byron', fragmentTranslations),
     'kun kortti on siirretty tekijänä byron',
     'a short rule word is translated without changing a username containing it',
   );
