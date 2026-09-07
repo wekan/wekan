@@ -280,6 +280,7 @@ Filesystem and GridFS share Read state, server paths, file counts and compaction
 S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 Database Migration shares guarded direction controls and live progress.
 All ten Attachments panes now have complete equivalent HTML4 operations.
+Forgot Password has a uniform, rate-limited Legacy HTML4 form.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -295,6 +296,21 @@ All ten Attachments panes now have complete equivalent HTML4 operations.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16a99ec18">Add secure HTML4 password recovery</a>. Thanks to xet7.</summary>
+
+Forgot Password now works at the same `/forgot-password` URL without JavaScript or
+cookies. Its semantic email form calls Meteor's existing recovery method and renders
+the same result for existing, missing, malformed and mail-failed addresses, avoiding
+account-existence disclosure.
+
+The HTTP path has its own trusted-address five-request-per-minute throttle because it
+does not pass through DDP's limiter; blocked attempts appear in Problems / Security.
+Positive, negative and source tests pass. A live same-URL Chromium test submits a
+nonexistent address and captures HTML4/HTML5 screenshots without sending mail.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/31a4c2fdc">Add secure accessible HTML4 PWA settings</a>. Thanks to xet7.</summary>

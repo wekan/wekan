@@ -169,6 +169,15 @@ LDAP, two-factor, lockout and timing-normalization path; compatibility mode must
 not implement a weaker password checker. Sign-up uses the same registration
 setting, validation and rate limits as the normal application.
 
+Forgot Password is also a dedicated public baseline at `/forgot-password`. Its
+labelled email form posts to a bounded server endpoint which invokes Meteor's own
+password-recovery method. Existing, missing, malformed and mail-transport-failed
+addresses receive the same rendered result so account existence is not exposed.
+Because this HTTP path does not traverse the DDP dispatcher, it has its own equivalent
+five-requests-per-minute trusted-address throttle; blocked attempts are recorded in
+Problems / Security. A same-URL browser test submits a nonexistent address, verifies
+the uniform result and captures both HTML4 and HTML5 views without sending mail.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
