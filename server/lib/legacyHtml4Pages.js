@@ -68,6 +68,7 @@ import { visibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings'
 import { translationsPageForAdmin } from '/server/lib/adminTranslations';
 import { inviteRolesForAdmin } from '/server/lib/adminInviteRoles';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
+import { loginSettingsForAdmin } from '/server/lib/adminLoginSettings';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3152,6 +3153,69 @@ async function adminPeopleRolesPage(path, userId, requestFields, translate) {
       tr(translate, 'roles-status-manage', 'Board settings')], rows };
 }
 
+async function adminPeopleLoginPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/login') return null;
+  let setting;
+  try { setting = await loginSettingsForAdmin(userId, { req: requestFields.req }); } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'login', 'Login'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const labels = {
+    forgotPassword: ['forgot-password', 'Forgot password'],
+    registration: ['self-registration', 'Self-Registration'],
+    usernameChange: ['accounts-allowUserNameChange', 'Username Change'],
+    userDelete: ['accounts-allowUserDelete', 'Self delete user account'],
+    displayAuthenticationMethod: ['display-authentication-method',
+      'Display Authentication Method'],
+  };
+  const rows = [{ rowHeader: false, cells: [adminPeopleNavigation(translate), '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'login-allow', 'Login: Allow'), '', ''] }];
+  for (const key of Object.keys(labels)) rows.push({ cells: [
+    tr(translate, labels[key][0], labels[key][1]),
+    tr(translate, setting[key] ? 'yes' : 'no', setting[key] ? 'Yes' : 'No'),
+    uiAction({ action: path,
+      label: tr(translate, setting[key] ? 'disable' : 'enable',
+        setting[key] ? 'Disable' : 'Enable'),
+      fields: { legacyOperation: 'set-login-allow', loginAllowKey: key,
+        allowed: setting[key] ? 'false' : 'true' } }),
+  ] });
+  rows.push({ rowHeader: false, cells: [uiFieldsetForm({ action: path,
+    legend: tr(translate, 'login', 'Login'), id: 'login-identity', inputs: [
+      { type: 'select', name: 'defaultAuthenticationMethod',
+        label: tr(translate, 'default-authentication-method',
+          'Default Authentication Method'), value: setting.defaultAuthenticationMethod,
+        options: setting.authenticationMethods.map(method => ({ value: method,
+          label: tr(translate, method, method) })) },
+      { name: 'oidcBtnText', label: tr(translate, 'oidc-button-text', 'OIDC button text'),
+        value: setting.oidcBtnText, maxlength: 500 },
+    ], fields: { legacyOperation: 'save-login-identity' },
+    submitLabel: tr(translate, 'save', 'Save'),
+  }), '', ''] });
+  if (!setting.registration) {
+    const boards = await Boards.find({ archived: false, members: { $elemMatch: {
+      userId, isAdmin: true,
+    } } }, { fields: { title: 1 }, sort: { sort: 1 }, limit: 500 }).fetchAsync();
+    rows.push({ rowHeader: false, cells: [uiFieldsetForm({ action: path,
+      legend: tr(translate, 'invite-people', 'Invite people'), id: 'login-invite', inputs: [
+        { type: 'textarea', name: 'invitationEmails',
+          label: tr(translate, 'email-addresses', 'Email addresses'), maxlength: 10000,
+          rows: 5 },
+        ...boards.map(board => ({ type: 'checkbox', name: 'invitationBoards',
+          value: board._id, label: board.title || tr(translate, 'board', 'Board') })),
+      ], fields: { legacyOperation: 'send-login-invitations' },
+      submitLabel: tr(translate, 'invite', 'Invite'),
+    }), '', ''] });
+  }
+  if (requestFields.legacyLoginResult) rows.push({ rowHeader: false,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyLoginResult, ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'login', 'Login')}`,
+  columns: [tr(translate, 'name', 'Name'), tr(translate, 'status', 'Status'),
+    tr(translate, 'actions', 'Actions')], rows };
+}
+
 async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/shared-templates') return null;
   let templateRows;
@@ -4224,6 +4288,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminSettingsTranslation) return adminSettingsTranslation;
   const adminPeopleRoles = await adminPeopleRolesPage(path, userId, requestFields, translate);
   if (adminPeopleRoles) return adminPeopleRoles;
+  const adminPeopleLogin = await adminPeopleLoginPage(path, userId, requestFields, translate);
+  if (adminPeopleLogin) return adminPeopleLogin;
   const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
     path, userId, requestFields, translate,
   );

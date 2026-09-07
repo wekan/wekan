@@ -12,6 +12,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
+import { enabledLoginAuthenticationMethods } from '/server/lib/adminLoginSettings';
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
@@ -71,7 +72,6 @@ async function sendInvitationEmail(_id, { isNewInvitation = true } = {}) {
       'Invitation email not sent: the invitation code is missing or no longer valid',
     );
   }
-  const author = await getReactiveCache().getCurrentUser();
   try {
     const authorUser = await getReactiveCache().getUser(icode.authorId);
     const fullName = authorUser?.profile?.fullname || '';
@@ -88,7 +88,7 @@ async function sendInvitationEmail(_id, { isNewInvitation = true } = {}) {
       // generic link. The sign-up route is the static path '/sign-up'.
       url: Meteor.absoluteUrl('sign-up'),
     };
-    const lang = author.getLanguage();
+    const lang = authorUser.getLanguage();
     await EmailLocalization.sendEmail({
       to: icode.email,
       from: Accounts.emailTemplates.from,
@@ -125,6 +125,42 @@ async function isNonAdminAllowedToSendMail(currentUser) {
     }
   }
   return isAllowed;
+}
+
+// Shared by the Meteor method and the cookieless HTML4 Login pane. The actor is
+// explicit, so an HTTP request cannot inherit or spoof a DDP invocation.
+export async function sendInvitationsForUser(userId, emails, boards) {
+  check(emails, [String]);
+  check(boards, [String]);
+  const user = await getReactiveCache().getUser(userId);
+  if (!user || (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user)))) {
+    throw new Meteor.Error('not-allowed');
+  }
+  for (const rawEmail of emails) {
+    const email = normalizeInviteEmail(rawEmail);
+    if (!email || !SimpleSchema.RegEx.Email.test(email)) continue;
+    const userExist = await getReactiveCache().getUser({ email });
+    if (userExist) throw new Meteor.Error('user-exist',
+      `The user with the email ${email} has already an account.`);
+    const invitation = await getReactiveCache().getInvitationCode({ email });
+    if (invitation) {
+      const modifier = buildReinviteModifier(invitation, boards, generateInvitationCode);
+      if (!(await InvitationCodes.updateAsync(invitation._id, modifier))) {
+        throw new Meteor.Error('invitation-generated-fail',
+          'Failed to update invitation code');
+      }
+      await sendInvitationEmail(invitation._id, { isNewInvitation: false });
+    } else {
+      const _id = await InvitationCodes.insertAsync({
+        code: generateInvitationCode(), email, boardsToBeInvited: boards,
+        createdAt: new Date(), authorId: userId,
+      });
+      if (!_id) throw new Meteor.Error('invitation-generated-fail',
+        'Failed to create invitation code');
+      await sendInvitationEmail(_id);
+    }
+  }
+  return 0;
 }
 
 function isLdapEnabled() {
@@ -333,78 +369,7 @@ Meteor.methods({
   },
 
   async sendInvitation(emails, boards) {
-    let rc = 0;
-    check(emails, [String]);
-    check(boards, [String]);
-
-    const user = await getReactiveCache().getCurrentUser();
-    if (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user))) {
-      rc = -1;
-      throw new Meteor.Error('not-allowed');
-    }
-
-    for (const rawEmail of emails) {
-      // #4043: store the invitee address lowercase — the sign-up form
-      // lowercases the typed address and MongoDB string matching is case
-      // sensitive, so a mixed-case invitation document never matches at
-      // registration ("The invitation code doesn't exist").
-      const email = normalizeInviteEmail(rawEmail);
-      if (email && SimpleSchema.RegEx.Email.test(email)) {
-        const userExist = await getReactiveCache().getUser({ email });
-        if (userExist) {
-          rc = -1;
-          throw new Meteor.Error(
-            'user-exist',
-            `The user with the email ${email} has already an account.`,
-          );
-        }
-
-        const invitation = await getReactiveCache().getInvitationCode({ email });
-        if (invitation) {
-          // #4043: a re-invite must never re-send a stale code. When the
-          // stored invitation is no longer valid (or has no usable code), a
-          // fresh code overwrites it with valid restored to true, so the
-          // emailed code always passes the sign-up lookup
-          // { code, email, valid: true }.
-          const modifier = buildReinviteModifier(invitation, boards, () =>
-            generateInvitationCode(),
-          );
-          const updated = await InvitationCodes.updateAsync(
-            invitation._id,
-            modifier,
-          );
-          if (!updated) {
-            rc = -1;
-            throw new Meteor.Error(
-              'invitation-generated-fail',
-              'Failed to update invitation code',
-            );
-          }
-          await sendInvitationEmail(invitation._id, { isNewInvitation: false });
-        } else {
-          // String(...) so the stored code always matches the (string) code
-          // typed into the sign-up form, without relying on schema autoConvert.
-          const code = generateInvitationCode();
-          const _id = await InvitationCodes.insertAsync({
-            code,
-            email,
-            boardsToBeInvited: boards,
-            createdAt: new Date(),
-            authorId: this.userId,
-          });
-          if (_id) {
-            await sendInvitationEmail(_id);
-          } else {
-            rc = -1;
-            throw new Meteor.Error(
-              'invitation-generated-fail',
-              'Failed to create invitation code',
-            );
-          }
-        }
-      }
-    }
-    return rc;
+    return sendInvitationsForUser(this.userId, emails, boards);
   },
 
   async sendSMTPTestEmail() {
@@ -490,11 +455,9 @@ Meteor.methods({
   },
 
   getAuthenticationsEnabled() {
-    return {
-      ldap: isLdapEnabled(),
-      oauth2: isOauth2Enabled(),
-      cas: isCasEnabled(),
-    };
+    const enabled = enabledLoginAuthenticationMethods();
+    return { ldap: enabled.includes('ldap'), oauth2: enabled.includes('oauth2'),
+      cas: enabled.includes('cas') };
   },
 
   getOauthServerUrl() {

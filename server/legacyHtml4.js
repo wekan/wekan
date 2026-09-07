@@ -87,6 +87,11 @@ import {
   updateTranslationForAdmin,
 } from '/server/lib/adminTranslations';
 import { setInviteRolesForAdmin } from '/server/lib/adminInviteRoles';
+import {
+  setLoginAllowForAdmin,
+  setLoginIdentityForAdmin,
+} from '/server/lib/adminLoginSettings';
+import { sendInvitationsForUser } from '/server/models/settings';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -420,6 +425,38 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyRolesResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyRolesResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/login'
+    && ['set-login-allow', 'save-login-identity', 'send-login-invitations']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'set-login-allow') {
+        if (requestFields.allowed !== 'true' && requestFields.allowed !== 'false') {
+          throw new Meteor.Error('invalid-setting-value');
+        }
+        await setLoginAllowForAdmin(session.userId,
+          String(requestFields.loginAllowKey || ''), requestFields.allowed === 'true', { req });
+      } else if (requestFields.legacyOperation === 'save-login-identity') {
+        await setLoginIdentityForAdmin(session.userId, {
+          defaultAuthenticationMethod:
+            String(requestFields.defaultAuthenticationMethod || ''),
+          oidcBtnText: String(requestFields.oidcBtnText || ''),
+        }, { req });
+      } else {
+        const emails = String(requestFields.invitationEmails || '')
+          .toLowerCase().split(/[\n,]+/).map(value => value.trim()).filter(Boolean);
+        let boards = requestFields.invitationBoards || [];
+        if (!Array.isArray(boards)) boards = boards ? [boards] : [];
+        if (emails.length > 100 || boards.length > 500) {
+          throw new Meteor.Error('too-many-items');
+        }
+        await sendInvitationsForUser(session.userId, emails, boards.map(String));
+      }
+      requestFields.legacyLoginResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyLoginResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }

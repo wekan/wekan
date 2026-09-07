@@ -375,17 +375,17 @@ test('the moved settings still see their values, and are written on click', () =
   // it would silently show the wrong value. The helpers moved with the settings.
   assert.ok(/Template\.email\.helpers\(accountAccessHelpers\)/.test(js),
     'Email gets the helpers');
-  assert.ok(/Template\.setting\.helpers\(accountAccessHelpers\)/.test(js),
-    'the Settings template (which hosts the Login pane) gets them too');
+  assert.ok(/Template\.general\.onCreated[\s\S]*subscribe\('accountSettings'\)/.test(js),
+    'the Login template subscribes to the account settings it renders');
   // Username change and self delete are checkboxes in the "Login: Allow" group now,
   // written on click - a checkbox that needs a Save button below it is a checkbox
   // you think you have already set.
-  for (const [cls, id] of [['js-toggle-username-change', 'accounts-allowUserNameChange'],
-    ['js-toggle-user-delete', 'accounts-allowUserDelete']]) {
+  for (const [cls, key] of [['js-toggle-username-change', 'usernameChange'],
+    ['js-toggle-user-delete', 'userDelete']]) {
     const body = js.slice(js.indexOf(`'click a.${cls}'`));
     const handlerBody = body.slice(0, body.indexOf('\n  },') + 5);
-    assert.ok(handlerBody.includes(`AccountSettings.update('${id}'`),
-      `${cls} must write ${id}`);
+    assert.ok(handlerBody.includes(`saveLoginAllow(tpl, '${key}'`),
+      `${cls} must use the guarded ${key} service`);
     assert.ok(/!allowed/.test(handlerBody), 'and toggle it, from the stored value');
   }
   // The Save at the bottom keeps only what is still a FIELD.
@@ -395,7 +395,7 @@ test('the moved settings still see their values, and are written on click', () =
   assert.ok(/defaultAuthenticationMethod/.test(save) && /oidcBtnTextvalue/.test(save),
     'it writes the method dropdown and the OIDC button text');
   // The settings still live in AccountSettings; only where they are SHOWN changed.
-  assert.ok(/Meteor\.subscribe\('accountSettings'\)/.test(js),
+  assert.ok(/subscribe\('accountSettings'\)/.test(js),
     'the subscription must stay - the collection is unchanged');
 });
 
@@ -549,8 +549,8 @@ test('the Login save keeps the empty-value guard the Layout save had', () => {
   assert.ok(/if \(Object\.keys\(\$settings\)\.length\)/.test(body),
     'and nothing is written when neither is on screen');
   const js2 = read('client/components/settings/settingBody.js');
-  assert.ok(/displayAuthenticationMethod: !shown/.test(js2),
-    'the display toggle writes itself, from its own handler');
+  assert.ok(/saveLoginAllow\(tpl, 'displayAuthenticationMethod', shown !== true\)/.test(js2),
+    'the display toggle writes itself through the guarded service');
 });
 
 test('Wait Spinner moved to Visibility', () => {

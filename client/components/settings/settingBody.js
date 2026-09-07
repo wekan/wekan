@@ -506,8 +506,7 @@ Template.setting.helpers({
     const ret = ReactiveCache.getBoards(
       {
         archived: false,
-        'members.userId': Meteor.userId(),
-        'members.isAdmin': true,
+        members: { $elemMatch: { userId: Meteor.userId(), isAdmin: true } },
       },
       {
         sort: { sort: 1 /* boards default sorting */ },
@@ -1124,26 +1123,40 @@ Template.selectSpinnerName.events({
 // the handler is registered on: Blaze hands it THAT template's instance.
 Template.general.onCreated(function () {
   this.loading = new ReactiveVar(false);
+  // This pane is mounted by Template.people, not Template.setting. Subscribe
+  // here so the two account-policy checkboxes reflect the saved documents.
+  this.subscribe('accountSettings');
 });
+
+Template.general.helpers({
+  // Login now renders inside People, so it cannot inherit Template.setting's
+  // helper. Keep the modern invitation board selector complete after the move.
+  boards() {
+    return ReactiveCache.getBoards({ archived: false,
+      members: { $elemMatch: { userId: Meteor.userId(), isAdmin: true } } },
+    { sort: { sort: 1 } });
+  },
+});
+
+function saveLoginAllow(tpl, key, allowed) {
+  tpl.loading.set(true);
+  Meteor.call('setAdminLoginAllow', key, allowed, error => {
+    tpl.loading.set(false);
+    if (error) alert(error.reason || error.message);
+  });
+}
 
 Template.general.events({
   'click a.js-toggle-forgot-password'(event, tpl) {
-    tpl.loading.set(true);
-    const forgotPasswordClosed =
-      ReactiveCache.getCurrentSetting().disableForgotPassword;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { disableForgotPassword: !forgotPasswordClosed },
-    });
-    tpl.loading.set(false);
+    event.preventDefault();
+    saveLoginAllow(tpl, 'forgotPassword',
+      ReactiveCache.getCurrentSetting().disableForgotPassword === true);
   },
   'click a.js-toggle-registration'(event, tpl) {
-    tpl.loading.set(true);
+    event.preventDefault();
     const registrationClosed =
       ReactiveCache.getCurrentSetting().disableRegistration;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { disableRegistration: !registrationClosed },
-    });
-    tpl.loading.set(false);
+    saveLoginAllow(tpl, 'registration', registrationClosed === true);
     if (registrationClosed) {
       $('.invite-people').slideUp();
     } else {
@@ -1155,30 +1168,21 @@ Template.general.events({
   // that has to be confirmed by a Save button somewhere below it is a checkbox you
   // think you have already set - so each writes on click, like the two above.
   'click a.js-toggle-username-change'(event, tpl) {
-    tpl.loading.set(true);
+    event.preventDefault();
     const allowed =
       AccountSettings.findOne('accounts-allowUserNameChange')?.booleanValue || false;
-    AccountSettings.update('accounts-allowUserNameChange', {
-      $set: { booleanValue: !allowed },
-    });
-    tpl.loading.set(false);
+    saveLoginAllow(tpl, 'usernameChange', !allowed);
   },
   'click a.js-toggle-user-delete'(event, tpl) {
-    tpl.loading.set(true);
+    event.preventDefault();
     const allowed =
       AccountSettings.findOne('accounts-allowUserDelete')?.booleanValue || false;
-    AccountSettings.update('accounts-allowUserDelete', {
-      $set: { booleanValue: !allowed },
-    });
-    tpl.loading.set(false);
+    saveLoginAllow(tpl, 'userDelete', !allowed);
   },
   'click a.js-toggle-display-authentication-method'(event, tpl) {
-    tpl.loading.set(true);
+    event.preventDefault();
     const shown = ReactiveCache.getCurrentSetting().displayAuthenticationMethod;
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { displayAuthenticationMethod: !shown },
-    });
-    tpl.loading.set(false);
+    saveLoginAllow(tpl, 'displayAuthenticationMethod', shown !== true);
   },
   // #6116's "add board members from the same Org/Team only" is two settings now,
   // one per kind, each shown in the pane it is about - Admin Panel / People /
@@ -1223,7 +1227,8 @@ Template.general.events({
   // Login pane: the two FIELDS at the bottom - the default authentication method and
   // the OIDC button text. The five allow-toggles above save on click, so this button
   // no longer reads them: it used to read three Yes/No radios that no longer exist.
-  'click button.js-account-access-save'() {
+  'click button.js-account-access-save'(event) {
+    event.preventDefault();
     // Each is written only when its input is actually on screen.
     const $settings = {};
     if ($('#defaultAuthenticationMethod').length) {
@@ -1242,9 +1247,8 @@ Template.general.events({
     if ($('#oidcBtnTextvalue').length) {
       $settings.oidcBtnText = ($('#oidcBtnTextvalue').val() || '').trim();
     }
-    if (Object.keys($settings).length) {
-      Settings.update(ReactiveCache.getCurrentSetting()._id, { $set: $settings });
-    }
+    if (Object.keys($settings).length) Meteor.call('setAdminLoginIdentity', $settings,
+      error => { if (error) alert(error.reason || error.message); });
   },
 });
 // The E-mail pane's own behaviour. These handlers were registered on
