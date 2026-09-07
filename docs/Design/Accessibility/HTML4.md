@@ -698,6 +698,19 @@ Database problems and Filesystem integrity each have their own seeded report
 fixture and screenshot pair instead of relying on Security Report as a
 representative of their shared controller.
 
+Admin Panel / Settings / Version is the first dedicated Settings controller.
+It renders the same single semantic table as Jade, retaining the Platform, OS,
+Meteor, Database and Node category order and every conditionally available
+field. Both views call one Global Admin-gated statistics service, so package,
+runtime, reactivity, database and memory facts cannot diverge between delivery
+modes. The Check Version POST calls the same ten-second, fixed-origin,
+strict-manifest service as the Meteor method and renders only its validated plain
+text or the translated fixed failure message. Global navigation names Settings
+and Problems separately, and signed Settings navigation reaches all seven pane
+URLs. A same-URL browser test compares populated Finnish HTML4 and HTML5 tables,
+executes the cookieless check, captures both views and proves anonymous
+requests receive no system details.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

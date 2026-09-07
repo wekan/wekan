@@ -266,12 +266,13 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order, deployment examples explain email, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists, attachments, transfers and All Boards without JavaScript.
-Card parents, subtasks and activity history have matching scoped views. Advanced
+Card parents, subtasks and activity history have matching views.
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. All 20 Problems panes now have dedicated guarded
+secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
-acknowledgements and repairs between both views.
+acknowledgements and repairs between both views. Settings / Version shares system
+information and its guarded version check between both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -308,6 +309,24 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3916e4cad">Add accessible HTML4 Version settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Version now renders its complete Platform, OS, Meteor,
+Database and Node information in one semantic Legacy HTML4 table. Signed
+navigation names Settings and Problems distinctly and reaches all seven Settings
+pane URLs without JavaScript or cookies.
+
+Jade and HTML4 share one Global Admin-gated statistics service and one guarded
+Check Version service. The latter retains the fixed origin, ten-second timeout,
+strict manifest parser and plain-text result or translated fixed failure. Source
+tests cover every category and field, shared wiring, authorization and navigation.
+A live same-URL Chromium test compares populated Finnish HTML4 and HTML5 views,
+executes the POST operation, captures both views and proves anonymous isolation.
+The complete Node suite passes 824/824.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e112dc42">Verify complete HTML4 Problems coverage</a>. Thanks to xet7.</summary>
