@@ -70,18 +70,21 @@ import { Utils } from '/client/lib/utils';
 
 // Custom head tags
 
-// AccountsClient is constructed before application modules run. Preserve a
-// pre-upgrade local token before switching its storage to memory: config()
-// replaces the storage object immediately, while the already-started 3-second
-// token poll otherwise sees an empty store and logs the user out. That race
-// removed the reactive user document (name, avatar, theme and preferences),
-// caused repeated login redirects in some browsers and kept Tracker busy
-// (#6677). A successful one-time resume also creates the native HttpOnly cookie;
-// installations which already have that cookie use the ordinary cookie resume.
+// Accounts may already have resumed a legacy localStorage session before the
+// application module loads. Move its credentials to memory without a second
+// login: that login rebuilds subscriptions and can discard the current profile
+// (#6677). Keep the poller's token in sync and let the native endpoint validate
+// the token when creating the HttpOnly cookie. An in-flight initial login still
+// finishes through Accounts' normal callback.
 const legacyResumeToken = Accounts._storedLoginToken();
+const legacyUserId = Accounts._storedUserId();
+const legacyTokenExpires = Accounts._storedLoginTokenExpires();
+// Remove the old persistent copy; subsequent Accounts writes go to memory.
+if (legacyResumeToken) Accounts._unstoreLoginToken();
 Accounts.config({ clientStorage: 'none', useHttpOnlyCookies: true });
 if (legacyResumeToken) {
-  Accounts.loginWithToken(legacyResumeToken);
+  Accounts._storeLoginToken(legacyUserId, legacyResumeToken, legacyTokenExpires);
+  Accounts._setHttpOnlyCookie(legacyResumeToken, legacyTokenExpires);
 } else {
   Accounts.loginWithCookie();
 }

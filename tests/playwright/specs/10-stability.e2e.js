@@ -59,7 +59,9 @@ test.describe('Stability & connectivity', () => {
   });
 
   test('#6654: a private-board session survives a full page refresh', async ({ boardPage, user }) => {
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    // SockJS can keep requests active; the identity and canvas assertions below
+    // establish that the page is ready without waiting for network silence.
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     await expect.poll(() => boardPage.evaluate(() => Meteor.userId()), {
       timeout: 10_000,
@@ -68,7 +70,11 @@ test.describe('Stability & connectivity', () => {
     await expect(boardPage.locator('[name="username"]')).toHaveCount(0);
   });
 
-  test('#6677: an upgraded local-token session keeps its profile and preferences', async ({ page, user, board }) => {
+  test('#6677: an upgraded local-token session keeps its profile and preferences', async ({ page, user, board }, testInfo) => {
+    db.updateOne('users', { _id: user.id }, { $set: {
+      'profile.globalThemeColor': 'limegreen',
+      'profile.avatarUrl': '/wekan-logo.png',
+    } });
     // Recreate the exact upgrade boundary: v11.39 left the resume token in
     // localStorage and had no HttpOnly cookie yet.
     await page.context().clearCookies();
@@ -96,6 +102,47 @@ test.describe('Stability & connectivity', () => {
     await page.waitForTimeout(3_500);
     await expect.poll(() => page.evaluate(() => Meteor.userId())).toBe(user.id);
     await expect(page.locator('.board-canvas')).toBeVisible();
+
+    const memberMenu = page.locator('#header-user-bar .js-open-header-member-menu');
+    const avatar = page.locator('#header-user-bar img.avatar-image');
+    await expect(memberMenu).toContainText('E2E Test User');
+    await expect(page.locator('#header-quick-access')).toHaveClass(/board-color-limegreen/);
+    await expect(page.locator('#header-quick-access')).toHaveCSS('background-color', 'rgb(75, 191, 107)');
+    await expect(avatar).toBeVisible();
+    await expect.poll(() => avatar.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+
+    // Exercise the actual controls that the reporter could no longer change.
+    await memberMenu.click();
+    await page.locator('.js-edit-profile').click();
+    await page.locator('.js-profile-fullname').fill('Upgrade Display Name');
+    await page.locator('.js-profile-initials').fill('UD');
+    await page.locator('.pop-over input[type="submit"]').click();
+    await expect(memberMenu).toContainText('Upgrade Display Name');
+    // Saving returns to the member menu.
+    await page.locator('.js-change-color').click();
+    await page.locator('.js-select-theme[data-color="pumpkin"]').click();
+    await page.locator('.js-close-pop-over').click();
+    await expect(page.locator('#header-quick-access')).toHaveClass(/board-color-pumpkin/);
+
+    await page.locator('.js-star-board').click();
+    await expect.poll(() => page.evaluate(id => Meteor.user()?.profile?.starredBoards?.includes(id), board.boardId)).toBe(true);
+    await page.locator('.js-toggle-board-view').click();
+    await page.locator('.js-open-lists-view').click();
+    await expect.poll(() => page.evaluate(() => Meteor.user()?.profile?.boardView)).toBe('board-view-lists');
+
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('Meteor.loginToken'))).toBeNull();
+    const cookies = await page.context().cookies();
+    expect(cookies.some(cookie => cookie.httpOnly && cookie.secure)).toBe(true);
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(memberMenu).toContainText('Upgrade Display Name');
+    await expect(page.locator('#header-quick-access')).toHaveClass(/board-color-pumpkin/);
+    await expect(avatar).toBeVisible();
+    await expect.poll(() => avatar.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect.poll(() => page.evaluate(id => ({
+      view: Meteor.user()?.profile?.boardView,
+      starred: Meteor.user()?.profile?.starredBoards?.includes(id),
+    }), board.boardId)).toEqual({ view: 'board-view-lists', starred: true });
+    await page.screenshot({ path: testInfo.outputPath('upgraded-profile-preferences.png') });
   });
 
   test('login link is visible on 5 consecutive fresh page loads', async ({ page }) => {
