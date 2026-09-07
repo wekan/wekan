@@ -99,7 +99,7 @@ import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiDocumentPage, uiExportForm,
-  uiFileForm, uiImage, uiLink, uiSearchForm,
+  uiFileForm, uiImage, uiLink, uiSearchForm, uiStatus,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
   uiTextareaGroupForm,
 } = require('/imports/lib/uiComponentLibrary');
@@ -6210,6 +6210,7 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     statusCode: 404,
     heading: tr(translate, 'page-not-found', 'Page not found'),
     columns: [tr(translate, 'page', 'Page'), tr(translate, 'status', 'Status')],
-    rows: [{ cells: [path, tr(translate, 'page-not-found', 'Page not found')] }],
+    rows: [{ cells: [uiStatus({ subject: path,
+      status: tr(translate, 'page-not-found', 'Page not found') }), ''] }],
   };
 }

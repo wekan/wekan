@@ -293,6 +293,9 @@ function contentRows(path, options) {
   for (const row of options.page.rows || []) {
     const renderCell = cell => {
       if (Array.isArray(cell)) return cell.map(renderCell).join(' ');
+      if (cell && typeof cell === 'object' && cell.component === 'status') {
+        return `${escapeHtml(cell.subject)}: ${escapeHtml(cell.status)}`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'document-page') {
         const safeTable = safeDocumentTableHtml(cell.html);
         const content = safeTable || `<pre>${escapeHtml(cell.text || '')}</pre>`;
