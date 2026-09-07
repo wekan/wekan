@@ -35,8 +35,16 @@ allows only enabled authentication methods, preserves secondary e-mail addresses
 checks identity uniqueness case-insensitively, prevents disabling/demoting the
 current or last administrator, rolls back a failed creation, and propagates newly
 gained Team board membership through the same helper used by existing methods.
-Avatar upload, bulk Team membership, impersonation and deletion remain for the
-next delivery.
+The remaining controls are equivalent too. A bounded multipart avatar upload is
+decoded and stored as GIF; existing avatars can be selected or removed with
+confirmation, and initials can replace the image. A labelled bulk fieldset adds
+or removes one exact Team for selected page users and propagates gained Team
+boards. User deletion and impersonation are confirmed, site-administrator-only
+operations; deletion protects the current and last administrator, while
+impersonation rotates the same cookieless HTML4 session to the target identity and
+records the existing impersonation audit row. Attempts to select or remove
+another person's avatar are blocked, Security-reported and account-blocking like
+other high-severity protection events.
 
 ## Related
 

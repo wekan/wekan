@@ -943,7 +943,18 @@ preserves secondary addresses, protects the current and last administrator,
 rolls back incomplete creation and reuses Team-to-board membership propagation.
 A same-URL live test creates and edits an account and verifies persisted values;
 the existing modern suite verifies list, edit, active-state and password flows.
-Avatar, bulk Team membership, impersonation and deletion remain next.
+The third People delivery completes the route. Multipart avatar uploads are
+bounded, decoded and converted to GIF; the edit view lists existing avatars with
+signed select and confirmed-delete controls and can return to initials. Deleting
+an unused historical avatar no longer clears a different selected avatar. A
+labelled page-selection fieldset adds or removes one exact Team, with gained-board
+propagation. Confirmed account deletion protects the current and last
+administrator. Confirmed impersonation writes the normal audit document, changes
+the server-held cookieless session identity and renders the target's All Boards
+view. Jade active-state and Team bulk controls use the same services instead of
+direct client writes or one method per selected user. The live test covers all of
+these operations and forges a cross-user avatar selection to prove refusal,
+UserBleed Security reporting and automatic attacker-account blocking.
 
 ## Delivery order
 

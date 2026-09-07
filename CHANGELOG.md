@@ -272,8 +272,7 @@ secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
 Domains, Email, Locked Users, Login, Organizations, Roles, Shared templates and
-Teams share guarded HTML4 operations; People adds guarded discovery, location,
-active-state and unlock operations.
+Teams and People share complete guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -330,6 +329,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/552583412">Complete accessible HTML4 People operations</a>. Thanks to xet7.</summary>
+
+Admin Panel / People now also handles GIF avatar upload, existing-avatar
+selection and confirmed removal, initials, selected-user Team changes, confirmed
+account deletion and audited impersonation without JavaScript or cookies. Jade's
+active-state and bulk Team writes use the same guarded services.
+
+Exact user, Team and avatar ownership checks protect every mutation; current and
+last administrators cannot be deleted. Impersonation rotates the server-held
+cookieless identity and keeps the normal audit record. Cross-user avatar attempts
+are blocked, UserBleed-reported and automatically block the attacking account.
+The same-URL live test exercises every operation, the negative boundary and paired
+screenshots; source, tenant, Team-sync and avatar tests pass as well.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b6a1d635">Share secure People creation and editing across HTML4 and Jade</a>. Thanks to xet7.</summary>
