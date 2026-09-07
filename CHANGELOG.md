@@ -347,6 +347,23 @@ HTML5.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52f871da9">Add accessible HTML4 Offices report</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Offices now uses its existing person-first server
+service in Legacy HTML4. Each person's successful-login addresses stay adjacent
+and expose the same visible name, IPv4, IPv6, trusted country flag and city,
+per-person login count and first/last time window as the Jade table. The
+address-side legacy fallback continues to show pre-upgrade history.
+
+DDP and HTML4 share one Global Admin boundary, database count, escaped
+500-character search, 25-person page and bounded skip. Native signed search and
+Previous/Next controls need neither JavaScript nor cookies. Unit tests cover
+authorization, bounds, grouping, all seven columns and fallback data; paired
+same-URL Chromium screenshots search 26 people and verify two-page parity.
+
+</details>
+
 **Checklists** - core operations and transfers work in Legacy HTML4.
 
 <details>
