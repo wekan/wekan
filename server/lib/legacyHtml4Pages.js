@@ -973,7 +973,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     type: 1, linkedId: 1,
     listId: 1, swimlaneId: 1, labelIds: 1, members: 1, assignees: 1,
     requesters: 1, assigners: 1, requestedBy: 1, assignedBy: 1, userId: 1,
-    sort: 1, stickers: 1, customFields: 1, cardDependencies: 1, vote: 1, poker: 1,
+    sort: 1, cardNumber: 1, stickers: 1, customFields: 1, cardDependencies: 1,
+    vote: 1, poker: 1,
     dueComplete: 1, spentTime: 1, isOvertime: 1, watchers: 1, parentId: 1,
     locations: 1, locationName: 1, locationAddress: 1,
     locationLatitude: 1, locationLongitude: 1,
@@ -988,6 +989,9 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
   const contentCardId = contentCard?._id || card._id;
   const contentBoardId = contentCard?.boardId || card.boardId;
+  const cardNumberPrefix = board.allowsCardNumber === true
+    && Number.isFinite(contentCard?.cardNumber) ? `#${contentCard.cardNumber} ` : '';
+  const displayCardTitle = `${cardNumberPrefix}${card.title || ''}`;
   const contentBoard = contentBoardId === board._id
     ? board : await Boards.findOneAsync(contentBoardId);
   const activeContentMemberIds = (contentBoard?.members || [])
@@ -1711,7 +1715,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     submitLabel: tr(translate, 'add-subtask', 'Add subtask'),
   }), ''] });
   rows.push(
-    { color: card.color, cells: [tr(translate, 'title', 'Title'), card.title || ''] },
+    { color: card.color, cells: [tr(translate, 'title', 'Title'), displayCardTitle] },
     ...(parentCard && parentBoard ? [{ cells: [tr(translate, 'parent-card', 'Parent card'), uiLink({
       href: `${boardPath(parentBoard)}/${encodeURIComponent(parentCard._id)}`,
       label: `${parentBoard.title || parentBoard._id} / ${parentCard.title || parentCard._id}`,
@@ -2289,7 +2293,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   if (card.archived) rows.unshift({ cells: [tr(translate, 'status', 'Status'),
     tr(translate, 'card-archived', 'This card is moved to Archive.')] });
   return {
-    heading: card.title || tr(translate, 'card', 'Card'),
+    heading: displayCardTitle || tr(translate, 'card', 'Card'),
     caption: `${board.title || ''} / ${swimlane?.title || ''} / ${list?.title || ''}`,
     columns: [tr(translate, 'card', 'Card'), tr(translate, 'description', 'Description')],
     rows,

@@ -21,10 +21,15 @@ test('card date format is shared and guarded without cookies', async ({ browser,
     board = db.seedBoard({ ownerId: user._id, title: `Date board ${suffix}`,
       listCount: 1, cardTitlesPerList: [['Date card']] });
     card = db.findOne('cards', { boardId: board.boardId, title: 'Date card' });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { allowsCardNumber: true } });
+    db.updateOne('cards', { _id: card._id }, { $set: { cardNumber: 73 } });
     for (const target of ['/allboards', `/b/${board.boardId}/${board.slug}`,
       `/b/${board.boardId}/${board.slug}/${card._id}`]) {
       await Promise.all([legacy.waitForNavigation(), legacy.locator(`form[action="${target}"] input[type="submit"]`).first().click()]);
     }
+    await expect(legacy.locator('h1')).toHaveText('#73 Date card');
+    await expect(legacy.getByRole('row', { name: /^Title #73 Date card$/ }))
+      .toContainText('#73 Date card');
     const form = () => legacy.locator('form:has(input[value="set-card-date-format"])');
     await form().locator('select[name="dateFormat"]').selectOption('DD-MM-YYYY');
     await Promise.all([legacy.waitForNavigation(), form().locator('input[type="submit"]').click()]);
@@ -42,6 +47,7 @@ test('card date format is shared and guarded without cookies', async ({ browser,
     );
     await navigateInApp(modern, `/b/${board.boardId}/${board.slug}/${card._id}`);
     await waitForMeteor(modern);
+    await expect(modern.locator('h2.card-details-title')).toContainText('#73 Date card');
     await expect(modern.locator('.js-date-format-selector')).toHaveValue('DD-MM-YYYY');
     fs.mkdirSync(output, { recursive: true });
     await modern.screenshot({ path: `${output}/html5-date-format.png`, fullPage: true });
@@ -55,6 +61,7 @@ test('card date format is shared and guarded without cookies', async ({ browser,
     await expect.poll(() => db.findOne('eventlog', { stream: 'security', userId: user._id,
       source: 'memberDateFormat' })).not.toBeNull();
     await legacy.screenshot({ path: `${output}/html4-date-format.png`, fullPage: true });
+
   } finally {
     if (modernContext) await modernContext.close(); await legacyContext.close();
     if (board?.boardId) { db.deleteMany('cards', { boardId: board.boardId }); db.deleteMany('lists', { boardId: board.boardId }); db.deleteMany('swimlanes', { boardId: board.boardId }); db.deleteMany('boards', { _id: board.boardId }); }

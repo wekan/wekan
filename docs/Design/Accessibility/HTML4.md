@@ -403,6 +403,12 @@ decimal or exponent-form number within the bounded sort range; partial parses,
 server repeats route-board and card authorization and verifies that the card's
 current list and swimlane still belong to that board.
 
+Card Number is distinct from mutable sort order. When the route board enables
+Card Number, the HTML4 heading and read-only Title row prepend the real content
+card's `#number`, matching Jade's opened-card title. The number is queried only
+for the authorized route card (or its already-authorized linked content card),
+is never accepted from a form and remains absent when the board setting is off.
+
 Received, Start, Due and End use four naturally ordered labelled text forms with
 unambiguous ISO 8601 values; an empty value clears the date. Jade date pickers
 and HTML4 forms submit to the same acknowledged operation. It allowlists those
