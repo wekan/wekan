@@ -9,6 +9,9 @@ import {
   sessionFields,
 } from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
+import EventLog from '/models/eventLog';
+import { repairBrokenCardsForAdmin } from '/server/methods/repairBrokenCards';
+import { restoreListSwimlanesForAdmin } from '/server/methods/restoreListSwimlanes';
 import {
   importLegacyHtml4File,
   importLegacyHtml4ScopedFile,
@@ -126,6 +129,11 @@ function requestLanguage(req) {
   return 'en';
 }
 
+function translatedOr(translate, key, fallback, argumentsObject = {}) {
+  const value = translate(key, argumentsObject);
+  return value && value !== key ? value : fallback;
+}
+
 function binaryPurpose(body = {}) {
   if (body.legacyOperation === 'export-rules') {
     const boardId = String(body.boardId || '').replace(/[^A-Za-z0-9_-]/g, '');
@@ -188,11 +196,50 @@ WebApp.handlers.use(async (req, res, next) => {
   await TAPi18n.ensureLanguageLoaded(language);
   const translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
   const user = session ? await Meteor.users.findOneAsync(session.userId, {
-    fields: { username: 1 },
+    fields: { username: 1, isAdmin: 1 },
   }) : null;
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
+  if (session && path === '/admin/problems/summary'
+    && ['acknowledge-problems', 'repair-broken-cards', 'restore-list-swimlanes']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'acknowledge-problems') {
+        const streams = Array.isArray(requestFields.problemStreams)
+          ? requestFields.problemStreams : requestFields.problemStreams
+            ? [requestFields.problemStreams] : [];
+        if (streams.length) {
+          await EventLog.acknowledgeForAdmin(session.userId, streams);
+          requestFields.legacyProblemResult = translatedOr(
+            translate, 'acknowledge', 'Acknowledge',
+          );
+        }
+      } else if (requestFields.legacyOperation === 'repair-broken-cards') {
+        const result = await repairBrokenCardsForAdmin(session.userId);
+        const fixed = (result.cardsAssigned || 0) + (result.cardsRescued || 0)
+          + (result.archivedCardsFixed || 0) + (result.listsAssigned || 0)
+          + (result.swimlanesAssigned || 0);
+        requestFields.legacyProblemResult = result.unfixable > 0
+          ? translate('repair-broken-cards-done-unfixable', {
+            fixed, unfixable: result.unfixable,
+          }) : translate('repair-broken-cards-done', { fixed });
+      } else {
+        const result = await restoreListSwimlanesForAdmin(session.userId);
+        requestFields.legacyProblemResult = translate('restore-list-swimlanes-done', result);
+      }
+    } catch (error) {
+      requestFields.legacyProblemResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-problems', {
+          req, userId: session.userId,
+          detail: `refused HTML4 Problems Summary operation: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+  }
   if (session && rulesPath && requestFields.legacyOperation === 'export-rules') {
     try {
       const routeBoardId = decodeURIComponent(rulesPath[1]);
@@ -955,6 +1002,7 @@ WebApp.handlers.use(async (req, res, next) => {
     registrationFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('registration') === 'failed',
     authenticated: Boolean(session),
     username: user?.username || '',
+    isAdmin: user?.isAdmin === true,
     sessionFields: session ? sessionFields(session, '/allboards') : null,
     actionFields: (action, purpose) => session ? sessionFields(session, action, purpose) : null,
     page,

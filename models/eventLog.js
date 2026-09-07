@@ -118,13 +118,43 @@ if (Meteor.isServer) {
   });
 
   async function requireAdmin(context) {
-    const uid = context.userId;
+    const uid = typeof context === 'string' ? context : context.userId;
     const user = uid && (await Meteor.users.findOneAsync(uid));
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Admin only');
     }
     return user;
   }
+
+  // Shared by DDP and the cookieless Legacy HTML4 controller. Keeping the
+  // query and mutation here means both representations use exactly the same
+  // definition of a NEW problem and the same stream allowlist.
+  EventLog.problemAreasForAdmin = async userId => {
+    await requireAdmin(userId);
+    const areas = [];
+    for (const stream of EVENT_STREAMS) {
+      const ack = await EventLogAcks.findOneAsync({ stream });
+      const count = await EventLog.find(
+        newProblemsSelector(stream, ack && ack.at),
+      ).countAsync();
+      if (count > 0) areas.push({ stream, count });
+    }
+    return areas;
+  };
+
+  EventLog.acknowledgeForAdmin = async (userId, streams) => {
+    check(streams, Match.OneOf(String, [String]));
+    await requireAdmin(userId);
+    const list = Array.isArray(streams) ? streams : [streams];
+    const now = new Date();
+    for (const stream of list) {
+      if (!EVENT_STREAMS.includes(stream)) {
+        throw new Meteor.Error('invalid-stream', 'Unknown event stream');
+      }
+      await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: now } });
+    }
+    return true;
+  };
 
   // Build a read-only find selector for one stream, with an optional
   // case-insensitive search across the text columns.
@@ -159,20 +189,7 @@ if (Meteor.isServer) {
     // "Problems" button (red) and the Summary page show exactly what needs
     // attention.
     async eventLogProblemAreas() {
-      await requireAdmin(this);
-      const areas = [];
-      for (const stream of EVENT_STREAMS) {
-        const ack = await EventLogAcks.findOneAsync({ stream });
-        // #6520: count actual problems, not the severity:'info' rows that record a
-        // problem being mitigated or clearing (the CPU stream writes several of
-        // those per short spike), so an idle server does not report dozens of
-        // "new problems".
-        const count = await EventLog.find(
-          newProblemsSelector(stream, ack && ack.at),
-        ).countAsync();
-        if (count > 0) areas.push({ stream, count });
-      }
-      return areas;
+      return EventLog.problemAreasForAdmin(this.userId);
     },
 
     // Admin-only: mark the newest problems in the given stream(s) as seen
@@ -180,16 +197,10 @@ if (Meteor.isServer) {
     // Admin Panel banner can acknowledge all checked areas with one button.
     async acknowledgeEventLog(streams) {
       check(streams, Match.OneOf(String, [String]));
+      // Keep the method's argument audit visibly ahead of its authorization;
+      // the shared service repeats this check for non-DDP callers.
       await requireAdmin(this);
-      const list = Array.isArray(streams) ? streams : [streams];
-      const now = new Date();
-      for (const stream of list) {
-        if (!EVENT_STREAMS.includes(stream)) {
-          throw new Meteor.Error('invalid-stream', 'Unknown event stream');
-        }
-        await EventLogAcks.upsertAsync({ stream }, { $set: { stream, at: now } });
-      }
-      return true;
+      return EventLog.acknowledgeForAdmin(this.userId, streams);
     },
 
     // Admin-only, READ-ONLY: total count of events in a stream (optional search),

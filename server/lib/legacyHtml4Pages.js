@@ -12,6 +12,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
+import EventLog from '/models/eventLog';
 import CustomFields from '/models/customFields';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
@@ -33,6 +34,7 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { canUserSeeBoard, visibleBoardIds } from '/server/lib/visibleBoardIds';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { localizedStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
+import { getProblemsOverview } from '/server/lib/systemStatus';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -61,6 +63,7 @@ const {
   PARAMETERIZED_TRIGGERS,
 } = require('/models/lib/ruleParameterizedCatalog');
 const { CARD_COLORS } = require('/models/metadata/colors');
+const { ADMIN_PAGES, ADMIN_PANE_TITLES } = require('/models/lib/adminUrls');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
   'oneHundred', 'unsure',
@@ -2495,6 +2498,86 @@ async function importPage(path, userId, requestFields, translate) {
   };
 }
 
+const PROBLEM_STREAM_LABELS = {
+  security: 'securityReportTitle',
+  speed: 'speedReportTitle',
+  tests: 'testsReportTitle',
+  cpu: 'cpu-usage',
+  database: 'database-problems',
+  integrity: 'filesystem-integrity',
+};
+
+async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/summary') return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  if (!user?.isAdmin) return {
+    heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'problems', 'Problems'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'summary', 'Summary'),
+      tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+  };
+
+  const [overview, areas] = await Promise.all([
+    getProblemsOverview(),
+    EventLog.problemAreasForAdmin(userId),
+  ]);
+  const rows = [];
+  const panes = ADMIN_PAGES.problems.panes;
+  rows.push({ rowHeader: false, cells: [tr(translate, 'problems', 'Problems'),
+    Object.keys(panes).map(slug => {
+      const title = ADMIN_PANE_TITLES.problems[slug] || {};
+      return uiAction({ action: `/admin/problems/${slug}`,
+        label: title.title || tr(translate, title.titleKey || slug, slug) });
+    })] });
+
+  const inProgress = Array.isArray(overview?.inProgress) ? overview.inProgress : [];
+  rows.push({ cells: [tr(translate, 'problems-status-title', 'Status'),
+    inProgress.length
+      ? [tr(translate, 'problems-in-progress-help', 'Repairs are running.'),
+        ...inProgress.map(item => String(item.message || ''))]
+      : tr(translate, 'problems-none-in-progress', 'No migrations or repairs are in progress.')] });
+
+  for (const problem of Array.isArray(overview?.problems) ? overview.problems : []) {
+    const controls = [];
+    if (problem.id === 'broken-cards') controls.push(uiAction({
+      action: path, label: tr(translate, 'repair-broken-cards', 'Repair broken cards'),
+      icon: 'add', fields: { legacyOperation: 'repair-broken-cards' },
+    }));
+    if (problem.id === 'unbound-lists') controls.push(uiAction({
+      action: path, label: tr(translate, 'restore', 'Restore'), icon: 'add',
+      fields: { legacyOperation: 'restore-list-swimlanes' },
+    }));
+    rows.push({ cells: [`${problem.title || problem.id}${problem.count ? ` (${problem.count})` : ''}`,
+      [String(problem.detail || ''), ...controls]] });
+  }
+
+  if (requestFields.legacyProblemResult) rows.push({
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyProblemResult],
+  });
+  if (areas.length) {
+    rows.push({ rowHeader: false, cells: [tr(translate, 'problems', 'Problems'),
+      tr(translate, 'problems-summary-help', 'Select reviewed problem areas.') ] });
+    rows.push({ rowHeader: false, cells: ['', uiFieldsetForm({
+      action: path,
+      legend: tr(translate, 'acknowledge', 'Acknowledge'),
+      inputs: areas.map(area => ({ type: 'checkbox', name: 'problemStreams',
+        value: area.stream,
+        label: `${tr(translate, PROBLEM_STREAM_LABELS[area.stream] || area.stream, area.stream)}: ${area.count} ${tr(translate, 'new-problems', 'new problems')}` })),
+      fields: { legacyOperation: 'acknowledge-problems' },
+      submitLabel: tr(translate, 'acknowledge', 'Acknowledge'),
+    })] });
+  } else rows.push({ cells: [tr(translate, 'problems', 'Problems'),
+    tr(translate, 'no-new-problems', 'No new problems.')] });
+
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'summary', 'Summary')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
   if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
   if (path === '/public') return boardsPage(path, userId, true, requestFields, translate);
@@ -2504,6 +2587,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);
   if (importer) return importer;
+  const adminProblemsSummary = await adminProblemsSummaryPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsSummary) return adminProblemsSummary;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

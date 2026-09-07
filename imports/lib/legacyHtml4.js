@@ -198,7 +198,8 @@ function contentRows(path, options) {
     rows.push(tableRow([
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/broken-cards', '/bookmarks',
-        '/import', '/support', '/accessibility', '/shortcuts'].map(target => postForm(
+        '/import', '/support', '/accessibility', '/shortcuts']
+        .concat(options.isAdmin ? ['/admin/problems/summary'] : []).map(target => postForm(
         target, pageHeading(target, options), options.actionFields(target),
       )).join(' '),
     ]));
@@ -237,6 +238,10 @@ function contentRows(path, options) {
               return `<option value="${escapeHtml(value)}"${selected}>${escapeHtml(option.label)}</option>`;
             }).join('');
             return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><select id="${escapeHtml(id)}" name="${escapeHtml(name)}">${options}</select></p>`;
+          }
+          if (input.type === 'checkbox') {
+            const checked = input.checked ? ' checked' : '';
+            return `<p><label><input name="${escapeHtml(name)}" type="checkbox" value="${escapeHtml(input.value ?? '1')}"${checked}> ${escapeHtml(input.label)}</label></p>`;
           }
           const maximum = Number.isSafeInteger(input.maxlength) && input.maxlength > 0
             ? input.maxlength : 1000;

@@ -512,6 +512,19 @@ the trigger/action/rule tuple with cleanup on failure. Empty fields retain the
 modern builder's wildcard meaning. Controls remain in label-before-control DOM
 order; fields irrelevant to the selected kind are ignored by the builder.
 
+Admin Panel parity begins with `/admin/problems/summary`. A Global Admin reaches
+it through the cookieless signed navigation and receives the same aggregated
+in-progress work, detected data problems and unacknowledged event-stream counts
+as the Jade page. Each Problems pane is reachable with a signed POST; the
+summary's repeated, labelled native checkboxes submit one allowlisted batch to
+the acknowledgement service shared with DDP. Broken-card and missing-swimlane
+repair buttons call the same admin-gated services as Jade and render their
+result in the returned document. The admin check precedes every report query,
+anonymous and ordinary accounts receive no report content, and rejected writes
+enter the Security report. HTML4 and HTML5 screenshots at this exact URL compare
+the translated status, problems and available operations. The remaining Admin
+Panel panes still require their own controllers.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
