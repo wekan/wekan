@@ -75,6 +75,7 @@ import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedEx
 import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import {
   legacyHtml4DocumentPage,
+  legacyHtml4TextPreview,
   serveLegacyHtml4Attachment,
 } from '/server/lib/legacyHtml4AttachmentResponse';
 
@@ -1690,6 +1691,23 @@ WebApp.handlers.use(async (req, res, next) => {
         });
       } catch (_) { /* reporting must not weaken the refusal */ }
       requestFields.legacyDocumentPreviewError = error?.message || 'failed';
+    }
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'preview-attachment-text') {
+    try {
+      requestFields.legacyTextPreview = await legacyHtml4TextPreview({
+        userId: session.userId, boardId: requestFields.boardId,
+        cardId: requestFields.cardId, attachmentId: requestFields.attachmentId,
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-attachment', {
+          req, userId: session.userId,
+          detail: `refused HTML4 text preview: ${String(error?.message || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      requestFields.legacyTextPreviewError = error?.message || 'failed';
     }
   }
   if (session && /^\/b\/[^/]+/.test(path)

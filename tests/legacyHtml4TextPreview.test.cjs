@@ -1,0 +1,20 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.join(__dirname, '..');
+const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+const service = read('server/lib/legacyHtml4AttachmentResponse.js');
+const route = read('server/legacyHtml4.js');
+const page = read('server/lib/legacyHtml4Pages.js');
+
+assert.match(service, /legacyHtml4TextPreview/);
+assert.match(service, /exactAuthorizedAttachment\(\{ userId, boardId, cardId, attachmentId \}\)/);
+assert.match(service, /!kind\.isText && !kind\.isJSON/);
+assert.match(service, /boundedStreamBuffer\(stream, 2 \* 1024 \* 1024\)/);
+assert.match(service, /isStorageReadEnabled\(storageName\)/);
+assert.match(route, /legacyOperation === 'preview-attachment-text'/);
+assert.match(route, /tripCanary\('authz\.legacy-html4-attachment'/);
+assert.match(page, /kind\.isText \|\| kind\.isJSON/);
+assert.match(page, /uiDocumentPage\(textPreview\)/);
+console.log('legacyHtml4TextPreview: bounded scoped text and JSON preview passed');

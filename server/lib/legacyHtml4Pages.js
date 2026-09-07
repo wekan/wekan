@@ -2051,6 +2051,11 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...responseFields, legacyOperation: 'preview-attachment-document',
         documentPage: 1 },
     });
+    if (kind.isText || kind.isJSON) actions.push({
+      action: attachmentAction,
+      label: tr(translate, 'preview', 'Preview'), icon: 'caret-right',
+      fields: { ...responseFields, legacyOperation: 'preview-attachment-text' },
+    });
     actions.push({
       action: attachmentAction,
       label: tr(translate, 'download', 'Download'),
@@ -2095,6 +2100,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         ...preview, actions: pageActions,
       })] });
     }
+    const textPreview = requestFields.legacyTextPreview;
+    if (textPreview?.attachmentId === attachment._id) rows.push({
+      cells: [tr(translate, 'preview', 'Preview'), uiDocumentPage(textPreview)],
+    });
     if (canWrite) {
       rows.push({ rowHeader: false, cells: ['', uiTextForm({
         action: attachmentAction,
@@ -2123,6 +2132,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   if (requestFields.legacyDocumentPreviewError) rows.push({ cells: [
     tr(translate, 'preview', 'Preview'),
     tr(translate, 'error', 'Error'),
+  ] });
+  if (requestFields.legacyTextPreviewError) rows.push({ cells: [
+    tr(translate, 'preview', 'Preview'),
+    operationError(translate, requestFields.legacyTextPreviewError),
   ] });
   const commentById = new Map(comments.map(comment => [comment._id, comment]));
   const reactionsByComment = new Map(commentReactionDocs.map(doc => [doc.cardCommentId,

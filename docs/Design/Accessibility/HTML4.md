@@ -142,6 +142,14 @@ document markup. Page numbers and aggregate response bytes are bounded; a
 forged scope is refused and Security-reported. The separately stored unformatted
 text remains the common attachment-search source for both representations.
 
+Plain-text and JSON attachments have a distinct signed Preview operation. It
+repeats the exact content scope and storage-read policy, accepts only the shared
+text/JSON classification and buffers at most 2 MiB. The shared document-page
+component renders the result in escaped selectable text, so attachment content
+that resembles markup remains visible text. The original download stays a
+separate purpose. A same-URL regression compares both viewers and proves a
+foreign board substitution is refused and Security-reported.
+
 Filesystem reads resolve a relative `WRITABLE_PATH` against the launch directory
 recorded by the process environment, not Meteor's generated runtime directory.
 This keeps the containment boundary on the actual configured `files/` tree in

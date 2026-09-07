@@ -16,6 +16,7 @@ import { DocumentPreviews, documentAsStoredGifs } from '/server/lib/documentGif'
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
 const { safeDocumentTableHtml } = require('/models/lib/documentPreviewTable');
+const { attachmentKind } = require('/models/lib/attachmentKind');
 
 function safeDisposition(disposition, name) {
   const cleaned = sanitizeDownloadFileName(name);
@@ -201,4 +202,29 @@ export async function legacyHtml4DocumentPage({ userId, boardId, cardId,
     html: safeDocumentTableHtml(page.html),
     images,
   };
+}
+
+export async function legacyHtml4TextPreview({ userId, boardId, cardId, attachmentId }) {
+  const attachment = await exactAuthorizedAttachment({ userId, boardId, cardId, attachmentId });
+  const policy = await limits();
+  rejectLimit(attachment, policy);
+  const kind = attachmentKind(attachment);
+  if (!kind.isText && !kind.isJSON) {
+    const error = new Error('unsupported-preview'); error.statusCode = 415; throw error;
+  }
+  let stream;
+  let storageName = STORAGE_NAME_GRIDFS;
+  if (attachment.meta?.source === 'legacy') stream = await getOldAttachmentStream(attachment._id);
+  else {
+    const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, 'original');
+    storageName = strategy?.getStorageName?.();
+    stream = strategy?.getReadStream?.();
+  }
+  if (storageName && policy.settings && !policy.settings.isStorageReadEnabled(storageName)) {
+    const error = new Error('storage-disabled'); error.statusCode = 403; throw error;
+  }
+  if (!stream) { const error = new Error('missing'); error.statusCode = 404; throw error; }
+  const bytes = await boundedStreamBuffer(stream, 2 * 1024 * 1024);
+  return { attachmentId: attachment._id, name: attachment.name || '', number: 1,
+    pageCount: 1, text: bytes.toString('utf8'), html: '', images: [] };
 }
