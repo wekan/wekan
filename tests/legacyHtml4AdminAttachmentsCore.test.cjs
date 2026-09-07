@@ -36,8 +36,16 @@ assert.ok(route.includes("path === '/admin/attachments/move'"));
 assert.ok(route.includes("'start-attachment-move': 'startBulkAttachmentMove'"));
 assert.ok(route.includes("'repair-attachment-locations': 'repairAttachmentStorageLocations'"));
 
+assert.ok(page.includes("filesystem|gridfs"));
+for (const method of ['getAttachmentStoragePaths', 'getFilesystemStorageStats',
+  'getGridFsStorageStats', 'compactMongoGridFs']) assert.ok(route.includes(method)
+    || page.includes(method));
+for (const operation of ['set-local-storage-read', 'calculate-local-storage-stats',
+  'compact-gridfs']) assert.ok(route.includes(operation) && page.includes(operation));
+assert.ok(route.includes("requestFields.legacyOperation === 'compact-gridfs' && storage !== 'gridfs'"));
+
 assert.ok(jade.includes("require('/models/lib/attachmentTransferLimits')"));
 assert.ok(!jade.includes('const LIMIT_UNIT_FACTORS ='));
 assert.ok(!jade.includes('function normalizeLimitSettings('));
 
-console.log('legacyHtml4AdminAttachmentsCore: 3 panes share guarded settings operations');
+console.log('legacyHtml4AdminAttachmentsCore: 5 panes share guarded settings operations');

@@ -2841,6 +2841,87 @@ async function adminAttachmentsMovePage(path, userId, requestFields, translate) 
   };
 }
 
+async function adminAttachmentsLocalStoragePage(path, userId, requestFields, translate) {
+  const match = path.match(/^\/admin\/attachments\/(filesystem|gridfs)$/);
+  if (!match) return null;
+  let settings;
+  let paths;
+  try {
+    [settings, paths] = await Promise.all([
+      attachmentSettingsForHtml4(userId),
+      Meteor.server.method_handlers.getAttachmentStoragePaths.call({ userId }),
+    ]);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, match[1] === 'filesystem'
+        ? 'filesystem-storage' : 'mongodb-gridfs-storage', match[1]),
+      tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const storage = match[1];
+  const titleKey = storage === 'filesystem' ? 'filesystem-storage' : 'mongodb-gridfs-storage';
+  const readEnabled = settings.storageConfig?.[storage]?.read !== false;
+  const rows = [
+    { rowHeader: false, cells: [tr(translate, 'attachments', 'Attachments'),
+      adminAttachmentsNavigation(translate)] },
+    { cells: [tr(translate, 'storage-read', 'Read'), uiAction({
+      action: path,
+      label: tr(translate, readEnabled ? 'disable' : 'enable',
+        readEnabled ? 'Disable' : 'Enable'),
+      icon: readEnabled ? 'select-on' : 'select-off',
+      fields: { legacyOperation: 'set-local-storage-read', enabled: String(!readEnabled) },
+    })] },
+    { cells: [tr(translate, 'calculate-file-counts', 'Calculate file counts'), uiAction({
+      action: path, label: tr(translate, 'calculate-file-counts', 'Calculate file counts'),
+      fields: { legacyOperation: 'calculate-local-storage-stats' },
+    })] },
+  ];
+  if (requestFields.legacyAttachmentsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAttachmentsResult,
+  ] });
+  const stats = requestFields.legacyAttachmentStorageStats;
+  if (stats) {
+    rows.push({ cells: [tr(translate, 'attachments', 'Attachments'), storage === 'gridfs'
+      ? `${stats.attachments?.collectionFs || 0} CollectionFS / ${stats.attachments?.mongoFiles || 0} MongoDB`
+      : String(stats.attachments || 0)] });
+    rows.push({ cells: [tr(translate, 'avatars', 'Avatars'), storage === 'gridfs'
+      ? `${stats.avatars?.collectionFs || 0} CollectionFS / ${stats.avatars?.mongoFiles || 0} MongoDB`
+      : String(stats.avatars || 0)] });
+  }
+  if (storage === 'filesystem') {
+    rows.push({ cells: [tr(translate, 'writable-path', 'Writable path'), paths.writablePath || ''] });
+    rows.push({ cells: [tr(translate, 'attachments-path', 'Attachments path'),
+      paths.attachments || ''] });
+    rows.push({ cells: [tr(translate, 'avatars-path', 'Avatars path'), paths.avatars || ''] });
+  } else {
+    rows.push({ cells: [tr(translate, 'mongodb-compact', 'Compact MongoDB'), uiAction({
+      action: path, label: tr(translate, 'mongodb-compact-run', 'Run compact'),
+      fields: { legacyOperation: 'compact-gridfs' },
+    })] });
+    if (requestFields.legacyCompactResult) {
+      const lines = [];
+      for (const [node, nodeResult] of Object.entries(requestFields.legacyCompactResult)) {
+        if (nodeResult && typeof nodeResult === 'object') {
+          for (const [collection, state] of Object.entries(nodeResult)) {
+            lines.push(`${node}: ${collection}: ${String(state)}`);
+          }
+        } else lines.push(`${node}: ${String(nodeResult)}`);
+      }
+      rows.push({ cells: [tr(translate, 'mongodb-compact-success', 'Compact completed'), lines] });
+    }
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${tr(translate, titleKey, storage)}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminAttachmentsBaselinePage(path, userId, translate) {
   const match = path.match(/^\/admin\/attachments\/(backup|move|default-save-storage|limits|gridfs|filesystem|s3|azure|gcs|database-migration)$/);
   if (!match) return null;
@@ -5308,6 +5389,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminAttachmentsMove) return adminAttachmentsMove;
+  const adminAttachmentsLocalStorage = await adminAttachmentsLocalStoragePage(
+    path, userId, requestFields, translate,
+  );
+  if (adminAttachmentsLocalStorage) return adminAttachmentsLocalStorage;
   const adminAttachmentsBaseline = await adminAttachmentsBaselinePage(path, userId, translate);
   if (adminAttachmentsBaseline) return adminAttachmentsBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(

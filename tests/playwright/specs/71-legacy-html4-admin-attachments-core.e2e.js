@@ -11,6 +11,8 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
   const username = `html4attach${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const original = db.findOne('attachmentStorageSettings', {}) || null;
+  const originalFilesystemRead = original?.storageConfig?.filesystem?.read !== false;
+  const originalGridfsRead = original?.storageConfig?.gridfs?.read !== false;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });
   const legacy = await legacyContext.newPage();
   let user;
@@ -61,6 +63,28 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     await expect(legacy.locator('form:has(input[name="legacyOperation"][value="repair-attachment-locations"]) input[type="submit"]'))
       .toBeVisible();
     await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-move.png`, fullPage: true });
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/filesystem"] input[type="submit"]').first().click()]);
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="set-local-storage-read"])');
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})
+      ?.storageConfig?.filesystem?.read).toBe(!originalFilesystemRead);
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="calculate-local-storage-stats"])');
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect(legacy.locator('body')).toContainText(/writable path/i);
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-filesystem.png`, fullPage: true });
+
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/gridfs"] input[type="submit"]').first().click()]);
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="set-local-storage-read"])');
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})
+      ?.storageConfig?.gridfs?.read).toBe(!originalGridfsRead);
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="calculate-local-storage-stats"])');
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect(legacy.locator('form:has(input[name="legacyOperation"][value="compact-gridfs"]) input[type="submit"]'))
+      .toBeVisible();
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-gridfs.png`, fullPage: true });
 
     modernContext = await browser.newContext({ locale: 'en-US' });
     const modern = await modernContext.newPage();
@@ -75,6 +99,17 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     await navigateInApp(modern, '/admin/attachments/move');
     await expect(modern.locator('.move-storage-form')).toBeVisible();
     await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-move.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/filesystem');
+    await expect(modern.locator('#filesystem-read')).toHaveClass(
+      originalFilesystemRead ? /^(?!.*is-checked).*$/ : /is-checked/,
+    );
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-filesystem.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/gridfs');
+    await expect(modern.locator('#gridfs-read')).toHaveClass(
+      originalGridfsRead ? /^(?!.*is-checked).*$/ : /is-checked/,
+    );
+    await expect(modern.locator('.js-compact-mongodb-gridfs')).toBeVisible();
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-gridfs.png`, fullPage: true });
 
     db.updateOne('users', { _id: user._id }, { $set: { isAdmin: false } });
     await Promise.all([legacy.waitForNavigation(),

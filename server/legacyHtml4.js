@@ -886,6 +886,57 @@ WebApp.handlers.use(async (req, res, next) => {
       } catch (_) { /* reporting must not weaken the refusal */ }
     }
   }
+  const localStorageMatch = path.match(/^\/admin\/attachments\/(filesystem|gridfs)$/);
+  if (session && localStorageMatch
+    && ['set-local-storage-read', 'calculate-local-storage-stats', 'compact-gridfs']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      const storage = localStorageMatch[1];
+      if (requestFields.legacyOperation === 'compact-gridfs' && storage !== 'gridfs') {
+        throw new Meteor.Error('invalid-storage', 'Compact is available for GridFS only');
+      }
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        if (requestFields.legacyOperation === 'set-local-storage-read') {
+          if (!['true', 'false'].includes(requestFields.enabled)) {
+            throw new Meteor.Error('invalid-setting-value');
+          }
+          const current = await Meteor.server.method_handlers.getAttachmentStorageSettings
+            .call(invocation);
+          return Meteor.server.method_handlers.updateAttachmentStorageSettings.call(invocation, {
+            ...current,
+            storageConfig: {
+              ...(current.storageConfig || {}),
+              [storage]: {
+                ...(current.storageConfig?.[storage] || {}),
+                read: requestFields.enabled === 'true',
+              },
+            },
+          });
+        }
+        if (requestFields.legacyOperation === 'calculate-local-storage-stats') {
+          const method = storage === 'filesystem'
+            ? 'getFilesystemStorageStats' : 'getGridFsStorageStats';
+          requestFields.legacyAttachmentStorageStats =
+            await Meteor.server.method_handlers[method].call(invocation);
+          return;
+        }
+        requestFields.legacyCompactResult =
+          await Meteor.server.method_handlers.compactMongoGridFs.call(invocation);
+      });
+      requestFields.legacyAttachmentsResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
+          req, userId: session.userId,
+          detail: `refused HTML4 ${String(localStorageMatch[1])} operation: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+  }
   if (session && path === '/admin/settings/translation'
     && ['create-translation', 'update-translation', 'delete-translation']
       .includes(requestFields.legacyOperation)) {
