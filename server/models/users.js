@@ -31,6 +31,7 @@ import {
 } from '/server/lib/accessibleBoardListOperations';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
+import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin,
@@ -179,12 +180,7 @@ Meteor.methods({
 
   async setLanguage(language) {
     check(language, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    const TAPi18n = getTAPi18n();
-    if (!TAPi18n.isLanguageSupported(language)) {
-      throw new Meteor.Error('invalid-language', 'Language is not supported');
-    }
-    await Users.updateAsync(this.userId, { $set: { 'profile.language': language } });
+    return setMemberLanguage(this.userId, language, { connection: this.connection });
   },
 
   // Lazily create the per-user templates-container board on first use (#2339,

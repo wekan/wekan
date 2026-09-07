@@ -98,7 +98,7 @@ template(name="memberMenuPopup")
               i.fa.fa-key
               | {{_ 'changePasswordPopup-title'}}
       li
-        a.js-change-language
+        a.js-change-language(href="/account/language")
           i.fa.fa-flag
           | {{_ 'changeLanguagePopup-title'}}
       if isSupportPageEnabled
@@ -171,6 +171,9 @@ template(name="editProfilePopup")
 template(name="accountProfilePage")
   with currentUser
     +editProfilePopup
+
+template(name="accountLanguagePage")
+  +changeLanguagePopup
 
 
 template(name="supportPopup")

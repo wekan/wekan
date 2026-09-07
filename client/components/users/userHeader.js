@@ -261,6 +261,17 @@ Template.changeLanguagePopup.helpers({
   },
 });
 
+Template.accountLanguagePage.onCreated(function() {
+  this.autorun(() => {
+    const language = ReactiveCache.getCurrentUser()?.profile?.language;
+    if (language && language !== TAPi18n.getLanguage()) {
+      Promise.resolve(TAPi18n.setLanguage(language)).catch(error => {
+        if (process.env.DEBUG === 'true') console.error('Could not load member language:', error);
+      });
+    }
+  });
+});
+
 Template.changeLanguagePopup.events({
   'click .js-set-language'(event) {
     Meteor.call('setLanguage', this.tag, error => {

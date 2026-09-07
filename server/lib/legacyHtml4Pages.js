@@ -88,6 +88,7 @@ import {
 } from '/models/inviteToBoardRolesSettings';
 import { adminThemeForUser } from '/server/lib/adminThemeSettings';
 import { memberProfileForUser } from '/server/lib/memberProfile';
+import { memberLanguageChoices } from '/server/lib/memberLanguage';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
@@ -2324,6 +2325,38 @@ async function accountProfilePage(path, userId, requestFields, translate) {
   return {
     heading: tr(translate, 'edit-profile', 'Edit Profile'),
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
+async function accountLanguagePage(path, userId, requestFields, translate) {
+  if (path !== '/account/language') return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { 'profile.language': 1 },
+  });
+  if (!user) return {
+    heading: tr(translate, 'changeLanguagePopup-title', 'Change Language'),
+    columns: [tr(translate, 'language', 'Language'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'language', 'Language'),
+      tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+  };
+  const choices = memberLanguageChoices();
+  const rows = [{ rowHeader: false, cells: ['', uiSelectForm({
+    action: path,
+    label: tr(translate, 'language', 'Language'),
+    name: 'language',
+    value: user.profile?.language || 'en',
+    options: choices.map(item => ({ value: item.tag,
+      label: `${item.name}${item.rtl ? ' (RTL)' : ''}` })),
+    fields: { legacyOperation: 'set-member-language' },
+    submitLabel: tr(translate, 'save', 'Save'),
+  })] }];
+  if (requestFields.legacyLanguageResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyLanguageResult,
+  ] });
+  return {
+    heading: tr(translate, 'changeLanguagePopup-title', 'Change Language'),
+    columns: [tr(translate, 'language', 'Language'), tr(translate, 'description', 'Description')],
     rows,
   };
 }
@@ -5699,6 +5732,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (information) return information;
   const accountProfile = await accountProfilePage(path, userId, requestFields, translate);
   if (accountProfile) return accountProfile;
+  const accountLanguage = await accountLanguagePage(path, userId, requestFields, translate);
+  if (accountLanguage) return accountLanguage;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

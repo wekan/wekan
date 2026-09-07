@@ -142,6 +142,7 @@ import { clearPersonAvatarForAdmin, createPersonForAdmin, deletePersonAvatarForA
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
+import { setMemberLanguage } from '/server/lib/memberLanguage';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -280,12 +281,15 @@ WebApp.handlers.use(async (req, res, next) => {
   }
 
   const setting = (await Settings.findOneAsync({})) || {};
-  const language = requestLanguage(req);
-  await TAPi18n.ensureLanguageLoaded(language);
-  const translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
+  let language = requestLanguage(req);
   let user = session ? await Meteor.users.findOneAsync(session.userId, {
-    fields: { username: 1, isAdmin: 1 },
+    fields: { username: 1, isAdmin: 1, 'profile.language': 1 },
   }) : null;
+  if (user?.profile?.language && TAPi18n.isLanguageSupported(user.profile.language)) {
+    language = TAPi18n.resolveTag(user.profile.language);
+  }
+  await TAPi18n.ensureLanguageLoaded(language);
+  let translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
@@ -301,6 +305,20 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyProfileResult = translatedOr(translate, 'saved', 'Saved');
     } catch (error) {
       requestFields.legacyProfileResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
+  if (session && path === '/account/language'
+    && requestFields.legacyOperation === 'set-member-language') {
+    try {
+      language = await setMemberLanguage(session.userId, requestFields.language, { req });
+      await TAPi18n.ensureLanguageLoaded(language);
+      translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
+      user = { ...user, profile: { ...(user?.profile || {}), language } };
+      requestFields.legacyLanguageResult = translatedOr(translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyLanguageResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
       );
     }

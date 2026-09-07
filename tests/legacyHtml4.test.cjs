@@ -854,6 +854,26 @@ test('member profile route shares one guarded operation with Jade', () => {
   assert.doesNotMatch(service, /Users\.update\([^A]/);
 });
 
+test('member language route shares the supported language catalogue with Jade', () => {
+  const root = path.join(__dirname, '..');
+  const routes = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const handler = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  const service = fs.readFileSync(path.join(root, 'server/lib/memberLanguage.js'), 'utf8');
+  const methods = fs.readFileSync(path.join(root, 'server/models/users.js'), 'utf8');
+  assert.match(routes, /FlowRouter\.route\('\/account\/language'/);
+  assert.match(jade, /js-change-language\(href="\/account\/language"\)/);
+  assert.match(pages, /async function accountLanguagePage/);
+  assert.match(pages, /legacyOperation: 'set-member-language'/);
+  assert.match(handler, /setMemberLanguage\(session\.userId, requestFields\.language, \{ req \}\)/);
+  assert.match(handler, /user\?\.profile\?\.language/);
+  assert.match(service, /Object\.values\(languages\)/);
+  assert.match(service, /Meteor\.users\.updateAsync\(\{ _id: userId \}/);
+  assert.match(service, /source: 'memberLanguage'/);
+  assert.match(methods, /return setMemberLanguage\(this\.userId, language, \{ connection: this\.connection \}\)/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',
