@@ -302,6 +302,16 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/915eec906">Add semantic Legacy HTML4 not found page</a>. Thanks to xet7.</summary>
+
+Unknown URLs now match the modern router's Not Found contract in Legacy HTML4:
+they render a localized semantic table and carry HTTP 404 instead of claiming
+that an unfinished feature exists at the address. A regression covers the
+localized renderer and response status wiring.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/97f2570d4">Match Legacy HTML4 Admin redirects</a>. Thanks to xet7.</summary>
 
 Former and bare Admin Panel URLs now return the same canonical pane redirects
