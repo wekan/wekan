@@ -19,6 +19,9 @@ test('Rules JSON and CSV imports validate a bounded whole batch before writing',
   assert.match(service, /RULE_TRIGGER_TYPES\.has\(trigger\.activityType\)/);
   assert.match(service, /RULE_ACTION_TYPES\.has\(action\.actionType\)/);
   assert.match(service, /secureTransfer\(parsed, \{[\s\S]*direction: 'import'/);
+  assert.match(service, /secureTransfer\(JSON\.parse\(text\), \{[\s\S]*:workflow/);
+  assert.match(service, /parseTrelloButler\(text\)/);
+  assert.match(service, /parseWorkflowData\(workflow, input\.format\)/);
   const validation = service.indexOf('const entries = safe.map(importedRuleEntry)');
   const insertion = service.indexOf('for (const entry of entries)');
   assert.ok(validation > 0 && insertion > validation);
@@ -38,6 +41,9 @@ test('HTML4 and HTML5 submit Rules imports to the same server operation', () => 
   assert.match(legacy, /importAccessibleRules\(session\.userId/);
   assert.match(page, /legacyOperation: 'import-rules'/);
   assert.match(page, /maxlength: 1024 \* 1024/);
+  for (const format of ['trello', 'workflow-auto', 'n8n', 'nodered']) {
+    assert.match(page, new RegExp(`value: '${format}'`));
+  }
   assert.match(renderer, /input\.type === 'textarea'/);
   assert.match(methods, /'rules\.importRules'[\s\S]*importAccessibleRules\(this\.userId/);
 });

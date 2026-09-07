@@ -143,6 +143,10 @@ async function boardRulesPage(path, userId, requestFields, translate) {
             options: [
               { value: 'json', label: 'JSON' },
               { value: 'csv', label: 'CSV' },
+              { value: 'trello', label: 'Trello Butler' },
+              { value: 'workflow-auto', label: tr(translate, 'r-format-auto', 'Auto-detect') },
+              { value: 'n8n', label: 'n8n' },
+              { value: 'nodered', label: 'Node-RED' },
             ] },
           { type: 'textarea', name: 'ruleImportText',
             label: tr(translate, 'r-import-paste', 'Paste rules'),

@@ -259,6 +259,32 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
       boardId: board.boardId, title: `=Native workflow ${suffix}`,
     })).toBe(2);
 
+    const butlerLine = `when a card is added to list "Inbox ${suffix}", move the card to the top`;
+    await importForm().locator('select[name="ruleImportFormat"]').selectOption('trello');
+    await importForm().locator('textarea[name="ruleImportText"]').fill(butlerLine);
+    await submit(importForm());
+    await expect.poll(() => db.countDocuments('rules', {
+      boardId: board.boardId, title: butlerLine,
+    })).toBe(1);
+
+    const n8nTitle = `Daily ${suffix} → Archive ${suffix}`;
+    const n8n = {
+      nodes: [
+        { name: `Daily ${suffix}`, type: 'scheduleTrigger' },
+        { name: `Archive ${suffix}`, type: 'archive card' },
+      ],
+      connections: {
+        [`Daily ${suffix}`]: { main: [[{ node: `Archive ${suffix}` }]] },
+      },
+    };
+    await importForm().locator('select[name="ruleImportFormat"]')
+      .selectOption('workflow-auto');
+    await importForm().locator('textarea[name="ruleImportText"]').fill(JSON.stringify(n8n));
+    await submit(importForm());
+    await expect.poll(() => db.countDocuments('rules', {
+      boardId: board.boardId, title: n8nTitle,
+    })).toBe(1);
+
     await submit(legacy.locator(
       'form:has(input[name="rulesView"][value="list"])',
     ).first());

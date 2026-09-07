@@ -18,6 +18,11 @@ const {
   workflowSourceLabel,
   workflowTrigger,
 } = require('/models/lib/ruleWorkflowCatalog');
+const {
+  EXTERNAL_RULE_FORMATS,
+  parseTrelloButler,
+  parseWorkflowData,
+} = require('/models/lib/ruleExternalImport');
 
 const MAX_RULE_TITLE_LENGTH = 500;
 const MAX_RULE_IMPORT_BYTES = 1024 * 1024;
@@ -183,8 +188,20 @@ export async function importAccessibleRules(userId, input = {}) {
     throw new Meteor.Error('invalid-rule-import', 'Rules import must be 1 MiB or less');
   }
   let parsed;
+  let unmapped = [];
   try {
-    parsed = parseRuleTransferText(text, input.format);
+    if (input.format === 'trello') {
+      ({ rules: parsed, unmapped } = parseTrelloButler(text));
+    } else if (EXTERNAL_RULE_FORMATS.has(input.format)) {
+      const workflow = secureTransfer(JSON.parse(text), {
+        direction: 'import', source: `rules:${input.format}:workflow`, userId,
+        maxDepth: 20, maxNodes: 100000, maxArray: 10000,
+        maxString: 256 * 1024,
+      });
+      ({ rules: parsed, unmapped } = parseWorkflowData(workflow, input.format));
+    } else {
+      parsed = parseRuleTransferText(text, input.format);
+    }
   } catch (error) {
     throw new Meteor.Error('invalid-rule-import', error.message);
   }
@@ -200,7 +217,11 @@ export async function importAccessibleRules(userId, input = {}) {
   const entries = safe.map(importedRuleEntry);
   const inserted = [];
   for (const entry of entries) inserted.push(await insertRuleTuple(board._id, entry));
-  return { count: inserted.length, ruleIds: inserted.map(result => result._id) };
+  return {
+    count: inserted.length,
+    unmappedCount: unmapped.length,
+    ruleIds: inserted.map(result => result._id),
+  };
 }
 
 export {

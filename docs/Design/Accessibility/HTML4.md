@@ -495,6 +495,10 @@ sanitization and trigger/action type allowlists all complete before the first
 write. One board-admin-authorized server batch is shared by HTML4 and HTML5;
 each rule's trigger, action and rule documents either all insert or its partial
 documents are cleaned up. Submitted IDs, board IDs and timestamps are discarded.
+Trello Butler text and n8n or Node-RED workflow JSON use the same form and
+server batch. Workflow JSON crosses the structural boundary before graph edges
+are traversed; auto-detection is shape-based, unknown edges are counted for the
+result message, and recognized edges become the same portable rule tuples.
 
 ## Delivery order
 

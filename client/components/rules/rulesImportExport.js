@@ -1,7 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import {
-  RULES_FORMAT,
   collectRuleTransferEntries,
   ruleTransferDocument,
   rulesToCsv,
@@ -28,111 +27,6 @@ function download(filename, text, mime) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-// --- Best-effort Trello Butler parser ---------------------------------------
-export function parseTrelloButler(text) {
-  const rules = [];
-  const unmapped = [];
-  (text || '').split('\n').map(l => l.trim()).filter(Boolean).forEach(line => {
-    const added = line.toLowerCase().match(/when a card is added to list ["“](.+?)["”].*move the card to the (top|bottom)/);
-    if (added) {
-      rules.push({
-        title: line,
-        trigger: { activityType: 'createCard', listName: added[1], swimlaneName: '*', cardTitle: '*', userId: '*' },
-        action: { actionType: added[2] === 'top' ? 'moveCardToTop' : 'moveCardToBottom', listName: '*', swimlaneName: '*' },
-      });
-      return;
-    }
-    unmapped.push(line);
-  });
-  return { rules, unmapped };
-}
-
-// --- Best-effort visual-workflow parsers (n8n, Node-RED) --------------------
-// These map a workflow graph's trigger→action edges to WeKan rules by keyword.
-// n8n and Node-RED nodes are arbitrary integrations, so only recognized
-// trigger/action node types are mapped; unmapped edges are reported.
-function mapTriggerType(type = '', name = '') {
-  const s = `${type} ${name}`.toLowerCase();
-  if (/schedule|cron|interval|inject/.test(s)) {
-    return { activityType: 'scheduledTrigger', scheduleKind: 'calendar', scheduleType: 'daily', atTime: '09:00', listName: '*', swimlaneName: '*' };
-  }
-  if (/trigger|webhook|http in|http-in|start/.test(s)) {
-    return { activityType: 'createCard', listName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' };
-  }
-  return null;
-}
-
-function mapActionType(type = '', name = '') {
-  const s = `${type} ${name}`.toLowerCase();
-  if (/archive/.test(s)) return { actionType: 'archive' };
-  if (/move.*top|to top/.test(s)) return { actionType: 'moveCardToTop', listName: '*', swimlaneName: '*' };
-  if (/move.*bottom/.test(s)) return { actionType: 'moveCardToBottom', listName: '*', swimlaneName: '*' };
-  if (/complete|done/.test(s)) return { actionType: 'markCardComplete' };
-  if (/email|mail|smtp|gmail/.test(s)) return { actionType: 'sendEmail', emailTo: '', emailSubject: 'Imported workflow', emailMsg: '' };
-  if (/create.*card|wekan|card/.test(s)) return { actionType: 'createCard', cardName: name || 'Imported card', listName: '*', swimlaneName: '*' };
-  return null;
-}
-
-export function parseN8n(data) {
-  const nodes = data.nodes || [];
-  const byName = {};
-  nodes.forEach(n => { byName[n.name] = n; });
-  const rules = [];
-  const unmapped = [];
-  const conns = data.connections || {};
-  Object.keys(conns).forEach(srcName => {
-    const src = byName[srcName];
-    if (!src) return;
-    const trig = mapTriggerType(src.type, srcName);
-    const outs = (conns[srcName].main || []).flat();
-    outs.forEach(o => {
-      const tgt = o && byName[o.node];
-      if (!tgt) return;
-      const act = mapActionType(tgt.type, tgt.name);
-      if (trig && act) {
-        rules.push({ title: `${srcName} → ${tgt.name || o.node}`, trigger: trig, action: act });
-      } else {
-        unmapped.push(`${srcName} → ${o.node}`);
-      }
-    });
-  });
-  return { rules, unmapped };
-}
-
-export function parseNodeRed(data) {
-  const nodes = Array.isArray(data) ? data : (data.flows || []);
-  const byId = {};
-  nodes.forEach(n => { byId[n.id] = n; });
-  const rules = [];
-  const unmapped = [];
-  nodes.forEach(n => {
-    const trig = mapTriggerType(n.type, n.name);
-    if (!trig) return;
-    ((n.wires || []).flat()).forEach(tid => {
-      const tgt = byId[tid];
-      if (!tgt) return;
-      const act = mapActionType(tgt.type, tgt.name);
-      const label = `${n.name || n.type} → ${tgt.name || tgt.type}`;
-      if (act) rules.push({ title: label, trigger: trig, action: act });
-      else unmapped.push(label);
-    });
-  });
-  return { rules, unmapped };
-}
-
-function parseWorkflow(text, format) {
-  let data;
-  try { data = JSON.parse(text); } catch (e) { return { rules: [], unmapped: [], error: 'invalid JSON' }; }
-  let fmt = format;
-  if (!fmt || fmt === 'auto') {
-    if (data && data.nodes && data.connections) fmt = 'n8n';
-    else if (Array.isArray(data) || data.flows) fmt = 'nodered';
-  }
-  if (fmt === 'n8n') return parseN8n(data);
-  if (fmt === 'nodered') return parseNodeRed(data);
-  return { rules: [], unmapped: [], error: 'unknown format' };
 }
 
 // --- Workspace + board selection helpers ------------------------------------
@@ -180,21 +74,21 @@ function targetBoardId(tpl) {
   return tpl.selectedBoard.get() || Session.get('currentBoard');
 }
 
-function reportImport(tpl, count, unmapped) {
+function reportImport(tpl, count, unmappedCount = 0) {
   let msg = TAPi18n.__('r-import-done', { count });
-  if (unmapped && unmapped.length) {
-    msg += ` — ${TAPi18n.__('r-import-unmapped', { count: unmapped.length })}`;
+  if (unmappedCount) {
+    msg += ` — ${TAPi18n.__('r-import-unmapped', { count: unmappedCount })}`;
   }
   tpl.message.set(msg);
 }
 
-function submitRulesImport(tpl, boardId, format, text, unmapped = []) {
+function submitRulesImport(tpl, boardId, format, text) {
   Meteor.call('rules.importRules', boardId, format, text, (error, result) => {
     if (error) {
       tpl.message.set(String(error.reason || error.message || error));
       return;
     }
-    reportImport(tpl, result?.count || 0, unmapped);
+    reportImport(tpl, result?.count || 0, result?.unmappedCount || 0);
   });
 }
 
@@ -223,18 +117,13 @@ Template.rulesImportExportPopup.events({
     submitRulesImport(tpl, targetBoardId(tpl), 'csv', text);
   },
   'click .js-rules-import-trello'(event, tpl) {
-    const { rules, unmapped } = parseTrelloButler(tpl.find('.js-rules-import-text').value);
-    submitRulesImport(tpl, targetBoardId(tpl), 'json',
-      JSON.stringify({ _format: RULES_FORMAT, rules }), unmapped);
+    submitRulesImport(tpl, targetBoardId(tpl), 'trello',
+      tpl.find('.js-rules-import-text').value);
   },
   'click .js-rules-import-workflow'(event, tpl) {
     const format = tpl.find('.js-workflow-format').value;
-    const { rules, unmapped, error } = parseWorkflow(tpl.find('.js-rules-import-text').value, format);
-    if (error) {
-      tpl.message.set(error);
-      return;
-    }
-    submitRulesImport(tpl, targetBoardId(tpl), 'json',
-      JSON.stringify({ _format: RULES_FORMAT, rules }), unmapped);
+    submitRulesImport(tpl, targetBoardId(tpl),
+      format === 'auto' ? 'workflow-auto' : format,
+      tpl.find('.js-rules-import-text').value);
   },
 });
