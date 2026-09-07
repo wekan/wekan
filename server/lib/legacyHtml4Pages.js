@@ -17,6 +17,7 @@ import CustomFields from '/models/customFields';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import Integrations from '/models/integrations';
 import { CustomFieldStringTemplate } from '/imports/lib/customFields';
 import { TAPi18n } from '/imports/i18n';
 import { Query } from '/config/query-classes';
@@ -62,6 +63,7 @@ import { statisticsForAdmin } from '/server/statistics';
 import { announcementForAdmin } from '/server/lib/adminAnnouncement';
 import { accessibilityForAdmin } from '/server/lib/adminAccessibility';
 import { pwaSettingsForAdmin } from '/server/lib/adminPwaSettings';
+import { globalWebhooksForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
@@ -2850,6 +2852,47 @@ async function adminSettingsPwaPage(path, userId, requestFields, translate) {
   };
 }
 
+async function adminSettingsGlobalWebhooksPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/global-webhooks') return null;
+  let webhooks;
+  try { webhooks = await globalWebhooksForAdmin(userId); } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'global-webhook', 'Global Webhooks'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const types = Integrations.Const.WEBHOOK_TYPES.map(value => ({
+    value, label: tr(translate, value, value),
+  }));
+  const form = webhook => uiFieldsetForm({
+    action: path,
+    legend: webhook ? (webhook.title || webhook.url) : tr(translate, 'create', 'Create'),
+    id: webhook?._id || 'new-global-webhook',
+    inputs: [
+      { name: 'title', label: tr(translate, 'webhook-title', 'Webhook Name'),
+        value: webhook?.title || '', maxlength: 200 },
+      { name: 'url', label: tr(translate, 'settings-group-url', 'URL'),
+        value: webhook?.url || '', maxlength: 4096 },
+      { name: 'token', label: tr(translate, 'webhook-token', 'Token (Optional for Authentication)'),
+        value: '', maxlength: 4096 },
+      { name: 'type', type: 'select', label: tr(translate, 'type', 'Type'),
+        value: webhook?.type || Integrations.Const.ONEWAY, options: types },
+      { name: 'enabled', type: 'checkbox', label: tr(translate, 'active', 'Active'),
+        value: 'true', checked: !webhook || webhook.enabled !== false },
+    ],
+    fields: { legacyOperation: 'save-global-webhook', webhookId: webhook?._id || '' },
+    submitLabel: tr(translate, webhook ? 'save' : 'create', webhook ? 'Save' : 'Create'),
+  });
+  const rows = [{ rowHeader: false, cells: [adminSettingsNavigation(translate), ''] },
+    ...webhooks.map(webhook => ({ cells: [webhook.title || webhook.url, form(webhook)] })),
+    { cells: [tr(translate, 'create', 'Create'), form(null)] }];
+  if (requestFields.legacyGlobalWebhookResult) rows.push({
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyGlobalWebhookResult],
+  });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / ${tr(translate, 'global-webhook', 'Global Webhooks')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')], rows };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3837,6 +3880,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsPwa) return adminSettingsPwa;
+  const adminSettingsGlobalWebhooks = await adminSettingsGlobalWebhooksPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsGlobalWebhooks) return adminSettingsGlobalWebhooks;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );

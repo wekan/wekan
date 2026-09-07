@@ -938,20 +938,15 @@ Template.outgoingWebhooksPopup.events({
     }
 
     try {
-      if (remove && integration && integration._id) {
+      if (boardId === Integrations.Const.GLOBAL_WEBHOOK_ID) {
+        await Meteor.callAsync('saveAdminGlobalWebhook', id || '', values);
+      } else if (remove && integration && integration._id) {
         await Integrations.removeAsync(integration._id);
       } else if (integration && integration._id) {
-        await Integrations.updateAsync(integration._id, {
-          $set: values,
-        });
+        await Integrations.updateAsync(integration._id, { $set: values });
       } else if (url) {
-        await Integrations.insertAsync({
-          ...values,
-          userId: Meteor.userId(),
-          enabled,
-          boardId,
-          activities: ['all'],
-        });
+        await Integrations.insertAsync({ ...values, userId: Meteor.userId(),
+          enabled, boardId, activities: ['all'] });
       }
       Popup.back();
     } catch (error) {

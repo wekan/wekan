@@ -77,6 +77,7 @@ import {
   setPwaHeadContentForAdmin,
   setPwaToggleForAdmin,
 } from '/server/lib/adminPwaSettings';
+import { saveGlobalWebhookForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { customHeadMarkup } from '/server/lib/customHeadValidation';
 import {
   removeAccessibleAttachment,
@@ -310,6 +311,24 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyPwaResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyPwaResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
+  if (session && path === '/admin/settings/global-webhooks'
+    && requestFields.legacyOperation === 'save-global-webhook') {
+    try {
+      await saveGlobalWebhookForAdmin(session.userId,
+        String(requestFields.webhookId || ''), {
+          title: String(requestFields.title || ''),
+          url: String(requestFields.url || ''),
+          token: String(requestFields.token || ''),
+          type: String(requestFields.type || ''),
+          enabled: requestFields.enabled === 'true',
+        }, { req });
+      requestFields.legacyGlobalWebhookResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyGlobalWebhookResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed',
       );
     }
