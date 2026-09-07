@@ -25,6 +25,7 @@ import {
   normalizeDependencies,
 } from '/models/metadata/dependencies';
 const { subtaskCustomFields } = require('/imports/lib/subtaskHelpers');
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 const MAX_CARD_DESCRIPTION_LENGTH = 1024 * 1024;
 const CARD_DATE_FIELDS = ['receivedAt', 'startAt', 'dueAt', 'endAt'];
@@ -284,6 +285,86 @@ async function moveAccessibleCardToList(userId, input) {
   await card.move(boardId, card.swimlaneId, String(input.listId),
     computeSortForIndex(siblings, position));
   return true;
+}
+
+async function accessibleCardDestination(userId, input, excludedCardId = '') {
+  const boardId = String(input?.targetBoardId || '');
+  const swimlaneId = String(input?.targetSwimlaneId || '');
+  const listId = String(input?.targetListId || '');
+  const { board } = await editablePlacement(userId, boardId, listId, swimlaneId);
+  const siblings = await Cards.find({
+    boardId, listId, swimlaneId, archived: false, deletedAt: null,
+    ...(excludedCardId ? { _id: { $ne: excludedCardId } } : {}),
+  }, { fields: { sort: 1, assignees: 1 }, sort: { sort: 1, _id: 1 }, limit: 10001 })
+    .fetchAsync();
+  if (siblings.length > 10000) throw new Meteor.Error('card-list-too-large');
+  const positionName = String(input?.position || 'bottom');
+  if (!['top', 'bottom', 'above', 'below'].includes(positionName)) {
+    throw new Meteor.Error('invalid-card-position');
+  }
+  let position = positionName === 'top' ? 0 : siblings.length;
+  if (positionName === 'above' || positionName === 'below') {
+    const relativeCardId = String(input?.relativeCardId || '');
+    const relativeIndex = siblings.findIndex(card => card._id === relativeCardId);
+    const relativeCard = relativeIndex < 0 ? null : siblings[relativeIndex];
+    const assignedScope = assignedOnlyCardScope(board, userId);
+    if (!relativeCardId || !relativeCard
+      || (assignedScope && !(relativeCard.assignees || []).includes(userId))) {
+      refuseCardWrite(userId, 'relative card did not belong to the submitted destination');
+    }
+    position = relativeIndex + (positionName === 'below' ? 1 : 0);
+  }
+  return { boardId, swimlaneId, listId, sort: computeSortForIndex(siblings, position) };
+}
+
+async function relocateAccessibleCard(userId, input) {
+  const sourceBoardId = String(input?.boardId || '');
+  const card = await editableCard(userId, input?.cardId, sourceBoardId);
+  const submittedTitle = input?.title;
+  const normalizedTitle = submittedTitle === undefined ? undefined : String(submittedTitle).trim();
+  if (normalizedTitle !== undefined
+    && (normalizedTitle.length > 1000 || /[\u0000-\u001f\u007f]/.test(normalizedTitle))) {
+    throw new Meteor.Error('invalid-card-title');
+  }
+  const destination = await accessibleCardDestination(userId, input, card._id);
+  await card.move(destination.boardId, destination.swimlaneId,
+    destination.listId, destination.sort);
+  if (normalizedTitle !== undefined) {
+    if (normalizedTitle && normalizedTitle !== card.title) await card.setTitle(normalizedTitle);
+  }
+  return true;
+}
+
+async function copyAccessibleCard(userId, input) {
+  if (!userId) throw new Meteor.Error('not-authorized');
+  const sourceBoardId = String(input?.boardId || '');
+  const card = await Cards.findOneAsync({ _id: String(input?.cardId || ''), deletedAt: null });
+  if (!card) throw new Meteor.Error('not-found');
+  if (card.boardId !== sourceBoardId) {
+    refuseCardWrite(userId, 'source card did not belong to the submitted route board');
+  }
+  const sourceBoard = await Boards.findOneAsync(sourceBoardId);
+  if (!sourceBoard || !allowIsBoardMember(userId, sourceBoard)) {
+    refuseCardWrite(userId, 'source card board did not grant copy access');
+  }
+  if (assignedOnlyCardScope(sourceBoard, userId)
+    && !(card.assignees || []).includes(userId)) {
+    refuseCardWrite(userId, 'source card was outside the assigned-only card scope');
+  }
+  const title = String(input?.title || '').trim();
+  if (!title || title.length > 1000 || /[\u0000-\u001f\u007f]/.test(title)) {
+    throw new Meteor.Error('invalid-card-title');
+  }
+  const hasDescription = Object.prototype.hasOwnProperty.call(input || {}, 'description');
+  const description = hasDescription ? String(input.description ?? '') : undefined;
+  if (description !== undefined && description.length > MAX_CARD_DESCRIPTION_LENGTH) {
+    throw new Meteor.Error('description-too-long');
+  }
+  const destination = await accessibleCardDestination(userId, input);
+  card.title = title;
+  if (description !== undefined) card.description = description;
+  card.sort = destination.sort;
+  return card.copy(destination.boardId, destination.swimlaneId, destination.listId);
 }
 
 async function editableCard(userId, cardId, expectedBoardId) {
@@ -1109,11 +1190,13 @@ async function setAccessibleCardArchived(userId, input) {
 
 export {
   createAccessibleCard,
+  copyAccessibleCard,
   createAccessibleSubtask,
   editableCard,
   editablePlacement,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  relocateAccessibleCard,
   moveAccessibleSubtask,
   removeAccessibleCardLocation,
   removeAccessibleCardDependency,

@@ -28,6 +28,9 @@ test('card creation preserves common defaults and activity history', () => {
   assert.match(source, /await cardCreation\(userId, card\)/);
   assert.match(source, /relativeIndex = siblings\.findIndex\(card => card\._id === relativeCardId\)/);
   assert.match(source, /relative card did not belong to the submitted destination/);
+  assert.match(source, /assignedOnlyCardScope\(board, userId\)/);
+  assert.match(source, /source card did not belong to the submitted route board/);
+  assert.match(source, /source card was outside the assigned-only card scope/);
   assert.match(source, /relativeIndex \+ \(input\?\.position === 'below' \? 1 : 0\)/);
 });
 
@@ -57,6 +60,36 @@ test('list selection uses one server-authorized placement move', () => {
   assert.match(client, /Meteor\.callAsync\('moveAccessibleCardToList'/);
   assert.doesNotMatch(client, /getMinSort\(listId, card\.swimlaneId\)/);
   assert.match(legacy, /moveAccessibleCardToList\(session\.userId/);
+});
+
+test('card destination move and copy share one exact-scope placement boundary', () => {
+  const source = read('server/lib/accessibleCardOperations.js');
+  const methods = read('server/models/cards.js');
+  const client = read('client/components/cards/cardDetails.js');
+  const legacy = read('server/legacyHtml4.js');
+  const page = read('server/lib/legacyHtml4Pages.js');
+  assert.match(source, /async function accessibleCardDestination/);
+  assert.match(source, /await editablePlacement\(userId, boardId, listId, swimlaneId\)/);
+  assert.match(source, /\['top', 'bottom', 'above', 'below'\]\.includes\(positionName\)/);
+  assert.match(source, /relative card did not belong to the submitted destination/);
+  assert.match(source, /limit: 10001/);
+  assert.match(source, /async function relocateAccessibleCard/);
+  assert.match(source, /async function copyAccessibleCard/);
+  assert.ok(source.indexOf('await editablePlacement(userId, boardId, listId, swimlaneId)')
+    < source.indexOf('return card.copy(destination.boardId'),
+  'destination authorization must precede copying');
+  assert.match(methods, /async relocateAccessibleCard\(input\)/);
+  assert.match(methods, /async copyAccessibleCard\(input\)/);
+  assert.match(client, /Meteor\.callAsync\('relocateAccessibleCard'/);
+  assert.match(client, /Meteor\.callAsync\('copyAccessibleCard'/);
+  assert.doesNotMatch(client, /await card\.move\(options\.boardId/);
+  assert.doesNotMatch(client, /Meteor\.callAsync\('copyCard', card\._id/);
+  assert.doesNotMatch(methods, /Object\.assign\(card, mergeCardValues\)/);
+  assert.match(methods, /return copyAccessibleCard\(this\.userId/);
+  assert.match(legacy, /legacyOperation === 'move-card-to-destination'/);
+  assert.match(legacy, /legacyOperation === 'copy-card-to-destination'/);
+  assert.match(page, /uiCardDestinationForm\(/);
+  assert.match(page, /legacyOperation: 'move-card-to-position'/);
 });
 
 test('card sort uses one strictly parsed acknowledged boundary in HTML5 and HTML4', () => {

@@ -1563,6 +1563,45 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { ...commonFields, legacyOperation: 'move-card-to-list', position: 'top' },
       submitLabel: tr(translate, 'r-move-card-to', 'Move card to'),
     }), ''] });
+    rows.push({ rowHeader: false, cells: [[uiAction({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'move-card-to-top', 'Move card to top'), icon: 'move-up',
+      fields: {
+        ...commonFields, legacyOperation: 'move-card-to-position',
+        swimlaneId: card.swimlaneId, listId: card.listId, position: 'top',
+      },
+    }), uiAction({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'move-card-to-bottom', 'Move card to bottom'), icon: 'move-down',
+      fields: {
+        ...commonFields, legacyOperation: 'move-card-to-position',
+        swimlaneId: card.swimlaneId, listId: card.listId, position: 'bottom',
+      },
+    })], ''] });
+    if (destinations.cardPlacements.length > 0) {
+      const destinationValue = destinations.cardPlacements.some(
+        option => option.value === rememberedCardDestinationValue,
+      ) ? rememberedCardDestinationValue
+        : `${card.boardId}|${card.swimlaneId}|${card.listId}|`;
+      const positionOptions = [
+        { value: 'top', label: tr(translate, 'move-card-to-top', 'Move card to top') },
+        { value: 'bottom', label: tr(translate, 'move-card-to-bottom', 'Move card to bottom') },
+        { value: 'above', label: tr(translate, 'above-selected-card', 'Above selected card') },
+        { value: 'below', label: tr(translate, 'below-selected-card', 'Below selected card') },
+      ];
+      for (const [operation, submitKey, submitFallback] of [
+        ['move-card-to-destination', 'moveCardPopup-title', 'Move Card'],
+        ['copy-card-to-destination', 'copyCardPopup-title', 'Copy Card'],
+      ]) rows.push({ rowHeader: false, cells: [uiCardDestinationForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        titleLabel: tr(translate, 'title', 'Title'), titleValue: contentCard?.title || '',
+        destinationLabel: tr(translate, 'r-move-card-to', 'Move card to'),
+        destinationValue, destinations: destinations.cardPlacements,
+        positionLabel: tr(translate, 'sort', 'Sort'), positions: positionOptions,
+        positionValue: 'top', fields: { ...commonFields, legacyOperation: operation },
+        submitLabel: tr(translate, submitKey, submitFallback),
+      }), ''] });
+    }
     if (visible.sort) rows.push({ rowHeader: false, cells: [uiTextForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, 'card-sorting-by-number', 'Card sorting by number'),

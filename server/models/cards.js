@@ -38,10 +38,12 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import {
   createAccessibleCard,
   createAccessibleSubtask,
+  copyAccessibleCard,
   castAccessibleCardPoker,
   castAccessibleCardVote,
   moveAccessibleCard,
   moveAccessibleCardToList,
+  relocateAccessibleCard,
   moveAccessibleSubtask,
   removeAccessibleCardLocation,
   removeAccessibleCardDependency,
@@ -87,6 +89,16 @@ Meteor.methods({
   async moveAccessibleCardToList(input) {
     check(input, Object);
     return moveAccessibleCardToList(this.userId, input);
+  },
+
+  async relocateAccessibleCard(input) {
+    check(input, Object);
+    return relocateAccessibleCard(this.userId, input);
+  },
+
+  async copyAccessibleCard(input) {
+    check(input, Object);
+    return copyAccessibleCard(this.userId, input);
   },
 
   async updateAccessibleCardContent(input) {
@@ -719,25 +731,16 @@ Meteor.methods({
     check(insertAtTop, Boolean);
     check(mergeCardValues, Object);
 
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-    const card = await ReactiveCache.getCard(cardId);
+    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1, title: 1 } });
     if (!card) throw new Meteor.Error('not-found');
-    const sourceBoard = await Boards.findOneAsync(card.boardId);
-    if (!allowIsBoardMember(this.userId, sourceBoard))
-      throw new Meteor.Error('not-authorized');
-    const destBoard = await Boards.findOneAsync(boardId);
-    if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
-      throw new Meteor.Error('not-authorized');
-    Object.assign(card, mergeCardValues);
-
-    const sort = await card.getSort(listId, swimlaneId, insertAtTop);
-    if (insertAtTop) {
-      card.sort = sort - 1;
-    } else {
-      card.sort = sort + 1;
-    }
-
-    return await card.copy(boardId, swimlaneId, listId);
+    return copyAccessibleCard(this.userId, {
+      cardId, boardId: card.boardId,
+      targetBoardId: boardId, targetSwimlaneId: swimlaneId, targetListId: listId,
+      position: insertAtTop ? 'top' : 'bottom',
+      title: mergeCardValues.title ?? card.title,
+      ...(Object.prototype.hasOwnProperty.call(mergeCardValues, 'description')
+        ? { description: mergeCardValues.description } : {}),
+    });
   },
 });
 

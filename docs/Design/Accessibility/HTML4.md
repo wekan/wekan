@@ -395,6 +395,25 @@ The server repeats card and destination-board write checks, requires the active
 list and swimlane to belong to that board, excludes the moving card from sibling
 order calculation, and computes its new fractional position authoritatively.
 
+The full card destination dialog has the same semantic contract in Jade and
+Legacy HTML4. A user can move or copy a card to any active swimlane and list on a
+writable board, place it at the top or bottom, or place it immediately above or
+below a selected card. The HTML4 form uses labelled native selects and keeps the
+card title editable, while its quick ASCII controls move the current card directly
+to the top or bottom of its list without drag-and-drop.
+
+All of those controls call one acknowledged server boundary. It binds the source
+card to its submitted route board, independently authorizes the destination board,
+list and swimlane, bounds the sibling query, and derives sort from the persisted
+destination order. An above/below reference must be an active card in that exact
+destination; a forged board, placement or relative card trips `BoardBleed` for
+Admin Panel / Problems / Security before any write. Copy additionally requires
+membership on the source board, accepts only a bounded non-control title, and
+then uses the existing complete card copy implementation for attachments,
+checklists, subtasks, labels, custom fields and dependencies. The HTML5 popups and
+top/bottom menu commands use these same operations rather than direct client
+collection writes.
+
 Card sort order uses one labelled numeric-text form in HTML4 and the existing
 Jade controls in the card details and minicard popup. All three call the same
 acknowledged operation. It requires the complete submitted value to be a finite

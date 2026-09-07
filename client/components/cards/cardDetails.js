@@ -1651,16 +1651,22 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    const minOrder = await card.getMinSort() || 0;
-    await card.move(card.boardId, card.swimlaneId, card.listId, minOrder - 1);
+    await Meteor.callAsync('relocateAccessibleCard', {
+      cardId: card._id, boardId: card.boardId,
+      targetBoardId: card.boardId, targetSwimlaneId: card.swimlaneId,
+      targetListId: card.listId, position: 'top',
+    });
     Popup.back();
   },
   async 'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    const maxOrder = await card.getMaxSort() || 0;
-    await card.move(card.boardId, card.swimlaneId, card.listId, maxOrder + 1);
+    await Meteor.callAsync('relocateAccessibleCard', {
+      cardId: card._id, boardId: card.boardId,
+      targetBoardId: card.boardId, targetSwimlaneId: card.swimlaneId,
+      targetListId: card.listId, position: 'bottom',
+    });
     Popup.back();
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', async function () {
@@ -2121,27 +2127,12 @@ Template.moveCardPopup.onCreated(function () {
 
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
       const card = Template.currentData();
-      let sortIndex = 0;
-
-      if (cardId) {
-        const targetCard = ReactiveCache.getCard(cardId);
-        if (targetCard) {
-          const targetSort = targetCard.sort || 0;
-          if (position === 'above') {
-            sortIndex = targetSort - 0.5;
-          } else {
-            sortIndex = targetSort + 0.5;
-          }
-        }
-      } else {
-        const maxSort = await card.getMaxSort(options.listId, options.swimlaneId);
-        sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
-      }
-
-      await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
-      if (title && title !== card.title) {
-        await card.setTitle(title);
-      }
+      await Meteor.callAsync('relocateAccessibleCard', {
+        cardId: card._id, boardId: card.boardId,
+        targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
+        targetListId: options.listId, relativeCardId: cardId || '',
+        position: cardId ? position : 'bottom', title,
+      });
     },
   });
 });
@@ -2163,31 +2154,12 @@ Template.copyCardPopup.onCreated(function () {
       const card = Template.currentData();
 
       if (title) {
-        const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, true, {title: title});
-
-        if (newCardId) {
-          const newCard = ReactiveCache.getCard(newCardId);
-          if (newCard) {
-            let sortIndex = 0;
-
-            if (cardId) {
-              const targetCard = ReactiveCache.getCard(cardId);
-              if (targetCard) {
-                const targetSort = targetCard.sort || 0;
-                if (position === 'above') {
-                  sortIndex = targetSort - 0.5;
-                } else {
-                  sortIndex = targetSort + 0.5;
-                }
-              }
-            } else {
-              const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
-              sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
-            }
-
-            await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
-          }
-        }
+        const newCardId = await Meteor.callAsync('copyAccessibleCard', {
+          cardId: card._id, boardId: card.boardId,
+          targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
+          targetListId: options.listId, relativeCardId: cardId || '',
+          position: cardId ? position : 'bottom', title,
+        });
 
         // In case the filter is active we need to add the newly inserted card in
         // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -2252,29 +2224,13 @@ Template.copyManyCardsPopup.onCreated(function () {
       if (title) {
         const titleList = JSON.parse(title);
         for (const obj of titleList) {
-          const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, false, {title: obj.title, description: obj.description});
-
-          if (newCardId) {
-            const newCard = ReactiveCache.getCard(newCardId);
-            let sortIndex = 0;
-
-            if (cardId) {
-              const targetCard = ReactiveCache.getCard(cardId);
-              if (targetCard) {
-                const targetSort = targetCard.sort || 0;
-                if (position === 'above') {
-                  sortIndex = targetSort - 0.5;
-                } else {
-                  sortIndex = targetSort + 0.5;
-                }
-              }
-            } else {
-              const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
-              sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
-            }
-
-            await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
-          }
+          const newCardId = await Meteor.callAsync('copyAccessibleCard', {
+            cardId: card._id, boardId: card.boardId,
+            targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
+            targetListId: options.listId, relativeCardId: cardId || '',
+            position: cardId ? position : 'bottom',
+            title: obj.title, description: obj.description,
+          });
 
           // In case the filter is active we need to add the newly inserted card in
           // the list of exceptions -- cards that are not filtered. Otherwise the
