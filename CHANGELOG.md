@@ -345,6 +345,24 @@ isolation.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/13dd0a016">Add accessible HTML4 Security settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Security now exposes all eight modern security toggles
+in a semantic Legacy HTML4 table. Each setting has its translated description,
+explicit Kyllä/Ei state and a labelled signed Save form that works without
+JavaScript or cookies.
+
+Jade and HTML4 now share one server operation with a fixed field allowlist,
+strict Boolean input and repeated Global Admin authorization. Attempts to write
+without that role or name another Settings field are refused and recorded as
+SettingsBleed with available actor, network and location data. Source tests
+cover positive and negative boundaries. A same-URL Chromium test changes the
+setting in HTML4, observes and restores it in HTML5, captures both views and
+proves anonymous isolation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1063c13">Add accessible HTML4 problem reports</a>. Thanks to xet7.</summary>
 
 Security, Speed, Tests, CPU usage, Database problems, Filesystem integrity and

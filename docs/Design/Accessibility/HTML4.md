@@ -655,6 +655,18 @@ The same-URL fixture compares the Finnish content in both renderers, captures
 both views and proves an anonymous request receives neither the pane data nor
 its deployment detail.
 
+Problems / Security exposes all eight Jade security toggles in a dedicated
+semantic HTML4 table: plain-text links, always-visible source, global import and
+export disabling, avatar import/export disabling and imported/exported user
+anonymization. Each row uses the shared labelled select form with explicit
+Kyllä/Ei state and a signed Save POST. Both renderers call one server operation
+whose fixed field allowlist, strict Boolean input and repeated Global Admin
+check precede the Settings write. An unauthorized write or an attempt to name a
+different Settings field is refused and recorded as SettingsBleed in Problems /
+Security with available identity, address and location. The same-URL fixture
+changes a setting in HTML4, observes it in HTML5, restores it through Jade,
+captures both views and proves anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
