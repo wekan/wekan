@@ -11,7 +11,7 @@ assert.match(source, /hasCover = board\.allowsCoverAttachmentOnCard === true/,
   'the route board setting gates the HTML4 cover');
 assert.match(source, /contentCard\?\.coverId/,
   'linked cards resolve their real content cover');
-assert.match(source, /orderedAttachments = \[\.\.\.attachments\]\.sort/,
+assert.match(source, /orderedAttachments = \(visible\.attachments \? \[\.\.\.attachments\] : \[\]\)\.sort/,
   'the cover is ordered before ordinary attachment rows');
 assert.match(source, /isCover = hasCover && kind\.isImage/,
   'only an image attachment can be designated as the cover');
