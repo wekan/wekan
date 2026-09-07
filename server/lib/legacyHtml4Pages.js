@@ -53,6 +53,9 @@ import {
   rulesReportCountForAdmin,
   rulesReportForAdmin,
 } from '/server/lib/rulesReport';
+import {
+  securityFeatureSettingsForAdmin,
+} from '/server/lib/problemFeatureSettings';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -2579,6 +2582,75 @@ async function adminProblemsPerformancePage(path, userId, translate) {
   };
 }
 
+const SECURITY_FEATURE_ROWS = [
+  ['renderLinksAsPlainText', 'render-links-as-plain-text',
+    'render-links-as-plain-text-description'],
+  ['alwaysShowCodeAsText', 'always-show-code-as-text',
+    'always-show-code-as-text-description'],
+  ['disableAllImport', 'disable-all-import', 'disable-all-import-description'],
+  ['disableAllExport', 'disable-all-export', 'disable-all-export-description'],
+  ['disableImportAvatars', 'disable-import-avatars',
+    'disable-import-avatars-description'],
+  ['disableExportAvatars', 'disable-export-avatars',
+    'disable-export-avatars-description'],
+  ['anonymizeImportUsers', 'anonymize-import-users',
+    'anonymize-import-users-description'],
+  ['anonymizeExportUsers', 'anonymize-export-users',
+    'anonymize-export-users-description'],
+];
+
+async function adminProblemsSecurityPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/security') return null;
+  let settings;
+  try {
+    settings = await securityFeatureSettingsForAdmin(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'features-security', 'Security'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const columns = [tr(translate, 'settings', 'Settings'),
+    tr(translate, 'description', 'Description'), tr(translate, 'status', 'Status')];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+  ];
+  if (requestFields.legacySecurityResult) rows.push({
+    rowHeader: false, colspanLast: columns.length - 1,
+    cells: [tr(translate, 'status', 'Status'),
+      tr(translate, 'done', requestFields.legacySecurityResult)],
+  });
+  for (const [field, labelKey, descriptionKey] of SECURITY_FEATURE_ROWS) {
+    const enabled = settings[field] === true;
+    rows.push({ cells: [
+      tr(translate, labelKey, labelKey),
+      tr(translate, descriptionKey, descriptionKey),
+      uiSelectForm({
+        action: path,
+        label: tr(translate, labelKey, labelKey),
+        name: 'enabled',
+        value: enabled ? 'true' : 'false',
+        options: [
+          { value: 'true', label: tr(translate, 'yes', 'Yes') },
+          { value: 'false', label: tr(translate, 'no', 'No') },
+        ],
+        fields: { legacyOperation: 'set-security-feature', settingField: field },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }),
+    ] });
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'features-security', 'Security')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsEventPage(path, userId, requestFields, translate) {
   const match = /^\/admin\/problems\/([^/]+)$/.exec(path);
   const slug = match?.[1] || '';
@@ -3356,6 +3428,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, translate,
   );
   if (adminProblemsPerformance) return adminProblemsPerformance;
+  const adminProblemsSecurity = await adminProblemsSecurityPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsSecurity) return adminProblemsSecurity;
   const adminProblemsEvent = await adminProblemsEventPage(
     path, userId, requestFields, translate,
   );

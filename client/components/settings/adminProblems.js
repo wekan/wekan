@@ -18,7 +18,6 @@ const { officeLabel } = require('/models/lib/geoHeaders');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
 import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
-import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { attachmentKind } = require('/models/lib/attachmentKind');
 const { filesize } = require('filesize');
@@ -1073,7 +1072,9 @@ function toggleSettingField(field) {
       });
       return;
     }
-    Settings.update(setting._id, { $set: { [field]: !setting[field] } });
+    Meteor.call('setSecurityFeatureSetting', field, !setting[field], (err) => {
+      if (err) alert(err.reason || err.message || 'Failed to update security setting');
+    });
   }
 }
 

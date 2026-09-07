@@ -55,6 +55,7 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   let modernContext;
   let settingsId;
   let previousPermanentDelete;
+  let previousRenderLinksAsPlainText;
   const previousSecurityAck = db.findOne('eventlogAcks', {
     stream: 'security',
   });
@@ -73,8 +74,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     const settings = db.findOne('settings', {});
     settingsId = settings?._id;
     previousPermanentDelete = settings?.enablePermanentDelete;
+    previousRenderLinksAsPlainText = settings?.renderLinksAsPlainText;
     if (settingsId) db.updateOne('settings', { _id: settingsId }, {
-      $set: { enablePermanentDelete: false },
+      $set: { enablePermanentDelete: false, renderLinksAsPlainText: false },
     });
     db.updateOne(
       'users',
@@ -604,6 +606,33 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    const securitySettingsNav = legacy
+      .locator('form[action="/admin/problems/security"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      securitySettingsNav.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('h1')).toContainText('Turvallisuus');
+    const renderLinksForm = legacy.locator(
+      'form:has(input[name="settingField"][value="renderLinksAsPlainText"])',
+    );
+    await expect(renderLinksForm.locator('select[name="enabled"]')).toHaveValue('false');
+    await renderLinksForm.locator('select[name="enabled"]').selectOption('true');
+    await Promise.all([
+      legacy.waitForNavigation(), renderLinksForm.locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('settings', {
+      _id: settingsId,
+    })?.renderLinksAsPlainText).toBe(true);
+    await expect(legacy.locator(
+      'form:has(input[name="settingField"][value="renderLinksAsPlainText"]) select[name="enabled"]',
+    )).toHaveValue('true');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-security-settings.png`,
+        fullPage: true,
+      });
+    }
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -758,6 +787,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/security');
+    await expect(modern.locator('h1').first()).toContainText('Turvallisuus');
+    await expect(modern.locator(
+      '.js-toggle-render-links-as-plain-text .materialCheckBox',
+    )).toHaveClass(/is-checked/);
+    await modern.locator('.js-toggle-render-links-as-plain-text').click();
+    await expect.poll(() => db.findOne('settings', {
+      _id: settingsId,
+    })?.renderLinksAsPlainText).toBe(false);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-security-settings.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -790,6 +834,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/performance`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText('CARDS_LOADING');
+    await outsiderPage.goto(`${baseURL}/admin/problems/security`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText('disable-all-import');
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -825,6 +872,12 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       }, { $unset: { enablePermanentDelete: '' } });
       else db.updateOne('settings', { _id: settingsId }, {
         $set: { enablePermanentDelete: previousPermanentDelete },
+      });
+      if (previousRenderLinksAsPlainText === undefined) db.updateOne('settings', {
+        _id: settingsId,
+      }, { $unset: { renderLinksAsPlainText: '' } });
+      else db.updateOne('settings', { _id: settingsId }, {
+        $set: { renderLinksAsPlainText: previousRenderLinksAsPlainText },
       });
     }
     if (user) {

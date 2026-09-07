@@ -64,6 +64,7 @@ import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedEx
 import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
 import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
+import { setSecurityFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -211,6 +212,27 @@ WebApp.handlers.use(async (req, res, next) => {
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
+  if (session && path === '/admin/problems/security'
+    && requestFields.legacyOperation === 'set-security-feature') {
+    try {
+      if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
+        throw new Meteor.Error('invalid-setting-value');
+      }
+      await setSecurityFeatureSettingForAdmin(
+        session.userId,
+        String(requestFields.settingField || ''),
+        requestFields.enabled === 'true',
+        { req },
+      );
+      requestFields.legacySecurityResult = translatedOr(
+        translate, 'saved', 'Saved',
+      );
+    } catch (error) {
+      requestFields.legacySecurityResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
   if (session && path === '/admin/problems/summary'
     && ['acknowledge-problems', 'repair-broken-cards', 'restore-list-swimlanes']
       .includes(requestFields.legacyOperation)) {
