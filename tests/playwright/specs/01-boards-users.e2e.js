@@ -50,7 +50,10 @@ test.describe('Boards – user membership', () => {
 
     // Attempt direct navigation to the board URL — user2 is not a member.
     // WeKan should redirect away or show an error; the board canvas must not render.
-    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'networkidle' });
+    // SockJS polling can keep the dev server busy indefinitely. Wait for the
+    // rendered denial, so absence of a canvas cannot pass before routing settles.
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.big-message h1')).toHaveText('Board not found');
     // Note: no .catch() — if .board-canvas IS visible this test must fail.
     await expect(page.locator('.board-canvas')).not.toBeVisible({ timeout: 5_000 });
   });
