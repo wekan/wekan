@@ -35,6 +35,7 @@ import { canUserSeeBoard, visibleBoardIds } from '/server/lib/visibleBoardIds';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { localizedStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
 import { getProblemsOverview } from '/server/lib/systemStatus';
+import { getCurrentCpu } from '/server/lib/cpuMonitor';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -64,6 +65,8 @@ const {
 } = require('/models/lib/ruleParameterizedCatalog');
 const { CARD_COLORS } = require('/models/metadata/colors');
 const { ADMIN_PAGES, ADMIN_PANE_TITLES } = require('/models/lib/adminUrls');
+const { classifyAddress } = require('/models/lib/ipAddress');
+const { countryFlag, locationLabel } = require('/models/lib/geoHeaders');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
   'oneHundred', 'unsure',
@@ -2507,6 +2510,126 @@ const PROBLEM_STREAM_LABELS = {
   integrity: 'filesystem-integrity',
 };
 
+const PROBLEM_REPORT_STREAMS = {
+  'security-report': 'security',
+  speed: 'speed',
+  tests: 'tests',
+  cpu: 'cpu',
+  database: 'database',
+  integrity: 'integrity',
+  api: 'api',
+};
+
+function eventDate(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? String(value)
+    : date.toISOString().replace('T', ' ').slice(0, 19);
+}
+
+function adminProblemsNavigation(translate) {
+  return Object.keys(ADMIN_PAGES.problems.panes).map(slug => {
+    const title = ADMIN_PANE_TITLES.problems[slug] || {};
+    return uiAction({ action: `/admin/problems/${slug}`,
+      label: title.title || tr(translate, title.titleKey || slug, slug) });
+  });
+}
+
+async function adminProblemsEventPage(path, userId, requestFields, translate) {
+  const match = /^\/admin\/problems\/([^/]+)$/.exec(path);
+  const slug = match?.[1] || '';
+  const stream = PROBLEM_REPORT_STREAMS[slug];
+  if (!stream) return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  if (!user?.isAdmin) return {
+    heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'problems', 'Problems'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'error-notAuthorized', 'Not authorized'), ''] }],
+  };
+
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1, Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  const total = await EventLog.countForAdmin(userId, stream, search);
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  const events = await EventLog.pageForAdmin(
+    userId, stream, perPage, (page - 1) * perPage, search,
+  );
+  const oldUserIds = [...new Set(events.map(event => event.userId).filter(Boolean))];
+  const oldUsers = oldUserIds.length ? await Meteor.users.find(
+    { _id: { $in: oldUserIds } }, { fields: { username: 1 } },
+  ).fetchAsync() : [];
+  const usernames = new Map(oldUsers.map(item => [item._id, item.username || '']));
+  const normalColumns = [
+    ['event-datetime', 'Date and time'], ['event-category', 'Category'],
+    ['event-bleed', 'Name'], ['event-severity', 'Severity'],
+    ['event-action', 'Action'], ['event-source', 'Source'],
+    ['username', 'Username'], ['event-ipv4', 'IPv4 address'],
+    ['event-ipv6', 'IPv6 address'], ['location', 'Location'],
+    ['event-attempts', 'Attempts'], ['event-detail', 'Detail'],
+  ];
+  const apiColumns = [
+    ['username', 'Username'], ['api-endpoint', 'API'], ['api-calls', 'Calls'],
+    ['api-first-called', 'First called'], ['api-last-called', 'Last called'],
+    ['event-ipv4', 'IPv4 address'], ['event-ipv6', 'IPv6 address'],
+    ['location', 'Location'],
+  ];
+  const columnSpec = stream === 'api' ? apiColumns : normalColumns;
+  const columns = columnSpec.map(([key, fallback]) => tr(translate, key, fallback));
+  const rows = [{ rowHeader: false, colspanLast: columns.length - 1,
+    cells: [tr(translate, 'problems', 'Problems'), adminProblemsNavigation(translate)] }];
+  if (stream === 'cpu') {
+    const cpu = getCurrentCpu();
+    rows.push({ colspanLast: columns.length - 1, cells: [
+      tr(translate, 'cpu-usage-current', 'Current CPU usage'),
+      `${cpu.percent || 0}% / ${cpu.cores || 0} ${tr(translate, 'cpu-cores-suffix', 'cores')} / ${tr(translate, 'cpu-load-average', 'load average')} ${(cpu.loadAverage || []).join(' / ')}`,
+    ] });
+  }
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: search,
+    }),
+  ] });
+  const address = event => {
+    const fallback = classifyAddress(event.ip);
+    return [event.ipv4 || fallback.ipv4 || '', event.ipv6 || fallback.ipv6 || ''];
+  };
+  const location = event => [countryFlag(event.location?.country), locationLabel(event.location)]
+    .filter(Boolean).join(' ');
+  for (const event of events) {
+    const [ipv4, ipv6] = address(event);
+    const username = event.username || usernames.get(event.userId) || '';
+    rows.push({ cells: stream === 'api' ? [
+      username, event.api || '', event.count || 0, eventDate(event.firstAt),
+      eventDate(event.at), ipv4, ipv6, location(event),
+    ] : [
+      eventDate(event.at), event.db || event.category || '',
+      event.bleed || event.kind || '', event.severity || '',
+      event.action || event.type || '', event.source || '', username,
+      ipv4, ipv6, location(event), event.count > 1 ? String(event.count) : '',
+      [event.detail, event.message].filter(Boolean).join(' — '),
+    ] });
+  }
+  if (!events.length) rows.push({ rowHeader: false, colspanLast: columns.length,
+    cells: [tr(translate, stream === 'api' ? 'api-no-calls' : 'no-new-problems',
+      stream === 'api' ? 'No REST API calls have been recorded.' : 'No new problems.')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: search, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path, label: tr(translate, 'next-page', 'Next'),
+      icon: 'next', fields: { q: search, page: page + 1 } }) : ''],
+  ] });
+  const title = ADMIN_PANE_TITLES.problems[slug] || {};
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${title.title || tr(translate, title.titleKey || slug, slug)}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -2524,13 +2647,8 @@ async function adminProblemsSummaryPage(path, userId, requestFields, translate) 
     EventLog.problemAreasForAdmin(userId),
   ]);
   const rows = [];
-  const panes = ADMIN_PAGES.problems.panes;
   rows.push({ rowHeader: false, cells: [tr(translate, 'problems', 'Problems'),
-    Object.keys(panes).map(slug => {
-      const title = ADMIN_PANE_TITLES.problems[slug] || {};
-      return uiAction({ action: `/admin/problems/${slug}`,
-        label: title.title || tr(translate, title.titleKey || slug, slug) });
-    })] });
+    adminProblemsNavigation(translate)] });
 
   const inProgress = Array.isArray(overview?.inProgress) ? overview.inProgress : [];
   rows.push({ cells: [tr(translate, 'problems-status-title', 'Status'),
@@ -2591,6 +2709,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsSummary) return adminProblemsSummary;
+  const adminProblemsEvent = await adminProblemsEventPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsEvent) return adminProblemsEvent;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

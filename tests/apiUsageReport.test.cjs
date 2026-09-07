@@ -227,7 +227,7 @@ test('the pane reuses the shared report, with its own columns only', () => {
 
 test('and it sorts by how much, not by how recently', () => {
   const eventLog = read('models/eventLog.js');
-  assert.ok(/stream === 'api' \? \{ count: -1, at: -1 \}/.test(eventLog),
+  assert.ok(/(?:stream|selected) === 'api' \? \{ count: -1, at: -1 \}/.test(eventLog),
     'a usage report answers "what is used most"; a problem report answers "what happened last"');
 });
 

@@ -14,6 +14,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   const username = `html4admin${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const eventId = `html4-problem-${suffix}`;
+  const reportIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-report-${index}`);
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -103,6 +105,54 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       legacy.locator('input[name="problemStreams"][value="security"]'),
     ).toHaveCount(0);
 
+    db.insertMany('eventlog', reportIds.map((id, index) => ({
+      _id: id,
+      stream: 'security',
+      at: new Date(Date.now() + index),
+      severity: index % 2 ? 'high' : 'medium',
+      category: 'authz',
+      bleed: `PagedSummary${index}`,
+      action: 'blocked',
+      source: `html4-event-report-${suffix}`,
+      username,
+      ipv4: '192.0.2.10',
+      ipv6: '2001:db8::10',
+      location: { country: 'FI', city: 'Helsinki' },
+      count: index + 1,
+      detail: `Searchable report ${suffix} row ${index}`,
+    })));
+    const securityNav = legacy
+      .locator('form[action="/admin/problems/security-report"]')
+      .first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      securityNav.locator('input[type="submit"]').click(),
+    ]);
+    const reportSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await reportSearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      reportSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('IPv4-osoite');
+    await expect(legacy.locator('thead')).toContainText('IPv6-osoite');
+    await expect(legacy.locator('tbody')).toContainText('Helsinki');
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    const nextPage = legacy.locator(
+      'form:has(input[name="page"][value="2"])',
+    );
+    await Promise.all([
+      legacy.waitForNavigation(),
+      nextPage.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('tbody')).toContainText('2 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-security-report.png`,
+        fullPage: true,
+      });
+    }
+
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -128,6 +178,16 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/security-report');
+    await modern.locator('.js-table-page-search').fill(suffix);
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText('Helsinki');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-security-report.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -140,7 +200,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   } finally {
     if (modernContext) await modernContext.close();
     await legacyContext.close();
-    db.deleteMany('eventlog', { _id: { $in: [eventId, `${eventId}-modern`] } });
+    db.deleteMany('eventlog', {
+      _id: { $in: [eventId, `${eventId}-modern`, ...reportIds] },
+    });
     db.deleteMany('eventlogAcks', { stream: 'security' });
     if (previousSecurityAck) db.insertOne('eventlogAcks', previousSecurityAck);
     if (user) {

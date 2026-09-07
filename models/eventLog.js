@@ -105,6 +105,7 @@ EventLogAcks.attachSchema(
 // WeKan stored (server/lib/fileIntegrityScan.js), and whether this server
 // stopped cleanly last time (server/lib/uptimeWatch.js).
 export const EVENT_STREAMS = ['security', 'speed', 'tests', 'cpu', 'database', 'integrity'];
+export const REPORT_EVENT_STREAMS = [...EVENT_STREAMS, 'api'];
 
 if (Meteor.isServer) {
   // The Security/Speed/Tests report pages filter by `stream` and sort by `at`
@@ -183,6 +184,36 @@ if (Meteor.isServer) {
     return selector;
   }
 
+  function requireReportStream(stream) {
+    if (!REPORT_EVENT_STREAMS.includes(stream)) {
+      throw new Meteor.Error('invalid-stream', 'Unknown event stream');
+    }
+    return stream;
+  }
+
+  async function countForAdmin(userId, stream, search = '') {
+    await requireAdmin(userId);
+    const selected = requireReportStream(stream);
+    const boundedSearch = String(search || '').trim().slice(0, 500);
+    return EventLog.find(streamSelector(selected, boundedSearch)).countAsync();
+  }
+
+  async function pageForAdmin(userId, stream, limit, skip, search = '') {
+    await requireAdmin(userId);
+    const selected = requireReportStream(stream);
+    const boundedLimit = Math.max(1, Math.min(200, Number(limit) || 1));
+    const boundedSkip = Math.max(0, Math.min(1000000, Number(skip) || 0));
+    const boundedSearch = String(search || '').trim().slice(0, 500);
+    return EventLog.find(streamSelector(selected, boundedSearch), {
+      sort: selected === 'api' ? { count: -1, at: -1 } : { at: -1 },
+      limit: boundedLimit,
+      skip: boundedSkip,
+    }).fetchAsync();
+  }
+
+  EventLog.countForAdmin = countForAdmin;
+  EventLog.pageForAdmin = pageForAdmin;
+
   Meteor.methods({
     // Admin-only: for each stream, the count of events NEWER than its
     // acknowledgment. Returns only streams with count > 0, so the Admin Panel
@@ -212,7 +243,7 @@ if (Meteor.isServer) {
       check(stream, String);
       check(search, Match.Optional(String));
       await requireAdmin(this);
-      return EventLog.find(streamSelector(stream, search)).countAsync();
+      return EventLog.countForAdmin(this.userId, stream, search);
     },
 
     // Admin-only, READ-ONLY: one page of a stream's events, newest first.
@@ -223,15 +254,7 @@ if (Meteor.isServer) {
       check(skip, Number);
       check(search, Match.Optional(String));
       await requireAdmin(this);
-      return EventLog.find(streamSelector(stream, search), {
-        // Newest first for the problem streams, because a problem is news. The
-        // `api` stream is not news - it is a usage report, and its question is
-        // "what is used MOST", so it sorts by count and keeps `at` as the
-        // tie-break.
-        sort: stream === 'api' ? { count: -1, at: -1 } : { at: -1 },
-        limit: Math.max(1, Math.min(200, limit)),
-        skip: Math.max(0, skip),
-      }).fetchAsync();
+      return EventLog.pageForAdmin(this.userId, stream, limit, skip, search);
     },
   });
 }

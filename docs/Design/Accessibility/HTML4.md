@@ -525,6 +525,17 @@ enter the Security report. HTML4 and HTML5 screenshots at this exact URL compare
 the translated status, problems and available operations. The remaining Admin
 Panel panes still require their own controllers.
 
+The event-backed Problems panes share one second controller: Security, Speed,
+Tests, CPU usage, Database problems, Filesystem integrity and API. Its route map
+is a fixed stream allowlist; DDP and HTML4 then call the same Global Admin-gated,
+500-character-search and bounded page services. The table preserves the modern
+columns, including stored or legacy-resolved username, IPv4, IPv6, trusted
+country flag and city, repeat count and combined detail. Ten-row signed Previous
+and Next forms retain search state. CPU adds the monitor's current percent, core
+count and load averages; API keeps call-count ordering and its endpoint/window
+columns. A same-URL test searches twelve attributed Security rows, traverses the
+second page and compares both representations.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

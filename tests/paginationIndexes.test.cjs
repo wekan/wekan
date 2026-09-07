@@ -46,7 +46,7 @@ const COUNT_METHODS = [
   ['server/publications/attachments.js', 'getAttachmentsReportCount'],
   ['server/publications/impersonationReport.js', 'getImpersonationReportCount'],
   ['server/publications/recoveryReport.js', 'getRecoveryReportCount'],
-  ['models/eventLog.js', 'eventLogCount'],
+  ['models/eventLog.js', 'countForAdmin'],
 ];
 
 // An index is written as an object literal in an ensureIndex() call. Compare on
