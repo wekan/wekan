@@ -268,7 +268,7 @@ uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
-shares localized details and administrator rename and delete operations.
+shares localized details, administrator operations and secure JSON/CSV exports.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -468,6 +468,26 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c44f647e1">Add accessible HTML4 rules export</a>. Thanks to xet7.</summary>
+
+Board Rules JSON and CSV export is now available from cookieless HTML4 through
+separate format- and board-purpose-bound single-use POST controls. Immediately
+before sending bytes, the server repeats the export-enabled setting and the
+current user's board visibility, constrains trigger and action lookups to that
+board and emits hardened download headers.
+
+HTML4 and HTML5 now use one `wekan-rules-1.0.0` serializer. It retains every
+portable rule field while removing database identities, timestamps, prototype
+keys and secret-shaped fields; CSV output neutralizes spreadsheet formulas. A
+10,000-rule structural bound prevents an export from becoming an unbounded
+memory operation. Tests cover common serializer wiring, exact-route and purpose
+binding, foreign component exclusion and response hardening. A live same-URL
+test downloads both HTML4 formats, verifies sanitized contents and compares the
+HTML4 and HTML5 JSON rule sets.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9ec04d740">Add accessible HTML4 rules workflow</a>. Thanks to xet7.</summary>
