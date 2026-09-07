@@ -299,6 +299,22 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc182fb07">Add accessible member language page</a>. Thanks to xet7.</summary>
+
+Member Menu / Change Language now has a stable `/account/language` route and a
+semantic no-JavaScript select containing the same native names and RTL metadata as
+Jade. Both views use one exact supported-tag service. HTML4 immediately rerenders in
+the saved language, later cookieless pages prefer it over the browser header, and the
+direct Jade route no longer falls back to the browser default.
+
+Unknown injected tags are blocked and attributed in Problems / Security. Static
+positive and negative coverage passes. A live same-URL Chromium test selects Finnish,
+verifies the database plus both representations, captures paired screenshots and proves
+that an injected unsupported option changes nothing and creates a Security report.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8c36df39e">Add shared accessible member profile</a>. Thanks to xet7.</summary>
 
 Member Menu / Edit Profile now has a stable `/account/profile` page and equivalent

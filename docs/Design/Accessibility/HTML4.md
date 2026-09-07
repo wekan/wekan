@@ -210,6 +210,18 @@ than allowing four client calls to leave a partly updated identity. A same-URL b
 test verifies the HTML4 write in MongoDB, the Jade view of the same values, the paired
 screenshots and a Security-reported forged disabled-field write.
 
+`/account/language` is the second complete Member Menu page. Both representations use
+the same lazily loaded language metadata, including native names and RTL markers, and
+the same exact supported-tag write service. HTML4 renders the full catalogue as one
+labelled native select, persists the choice through a signed POST and immediately
+rerenders in the chosen language. The cookieless session's saved profile language takes
+precedence over `Accept-Language` on later pages. The direct Jade route also synchronizes
+from the saved profile rather than reverting to the browser default. Unknown tags are
+rejected and recorded with available actor/address/location details in Problems /
+Security. Live coverage selects Finnish without JavaScript, verifies the database and
+Finnish HTML4 response, verifies the selected Jade row, captures both views and submits
+an injected unsupported option as its negative case.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
