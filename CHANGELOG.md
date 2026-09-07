@@ -334,6 +334,23 @@ live Chromium Legacy HTML4 preference regression passes with the new helper.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/80dd9585d">Map imported members in Legacy HTML4</a>. Thanks to xet7.</summary>
+
+Whole-board JSON, CSV, Jira, Kanboard, Trello and WeKan imports now share one
+bounded member-discovery service between Jade and Legacy HTML4. The HTML4
+baseline stages sanitized import data in a short-lived cookieless session and
+offers source-ordered labelled username fields plus explicit mapped and
+unmapped outcomes before creating the board.
+
+Drafts are account-bound and atomically single-use. Unknown target accounts
+cannot enter a mapping, and missing, foreign or replayed draft attempts are
+refused and recorded in Admin Panel / Problems / Security. Static positive and
+negative coverage passes, while a live same-URL Chromium comparison verifies
+mapping, virtual-member wording, replay refusal and both renderers.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a5acea6fd">Protect linked-card content in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 now reads only a linked source card's board identity before asking
