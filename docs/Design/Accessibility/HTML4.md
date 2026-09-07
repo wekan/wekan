@@ -414,6 +414,18 @@ checklists, subtasks, labels, custom fields and dependencies. The HTML5 popups a
 top/bottom menu commands use these same operations rather than direct client
 collection writes.
 
+Copy Template to Many Cards is the batch form of that same destination
+component. Both renderers submit its JSON text to one server operation; neither
+parses or loops over caller-controlled entries in the browser. The common parser
+accepts a non-empty array of at most 200 objects and only the `title` and optional
+`description` string fields, caps the UTF-8 document at 256 KiB, applies the
+ordinary title/description limits and rejects control characters and unknown
+fields. Each copy then passes through the same source, assigned-only and
+destination authorization as a single copy. Top and below insertion reverse only
+the execution order so the resulting visual order still matches the JSON array;
+the returned identifiers remain in source order. HTML4 presents the example in a
+labelled native textarea before the existing destination and position selects.
+
 Card sort order uses one labelled numeric-text form in HTML4 and the existing
 Jade controls in the card details and minicard popup. All three call the same
 acknowledged operation. It requires the complete submitted value to be a finite

@@ -2221,24 +2221,16 @@ Template.copyManyCardsPopup.onCreated(function () {
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
       const card = Template.currentData();
 
-      if (title) {
-        const titleList = JSON.parse(title);
-        for (const obj of titleList) {
-          const newCardId = await Meteor.callAsync('copyAccessibleCard', {
-            cardId: card._id, boardId: card.boardId,
-            targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
-            targetListId: options.listId, relativeCardId: cardId || '',
-            position: cardId ? position : 'bottom',
-            title: obj.title, description: obj.description,
-          });
-
-          // In case the filter is active we need to add the newly inserted card in
-          // the list of exceptions -- cards that are not filtered. Otherwise the
-          // card will disappear instantly.
-          // See https://github.com/wekan/wekan/issues/80
-          Filter.addException(newCardId);
-        }
-      }
+      if (!title) return;
+      const newCardIds = await Meteor.callAsync('copyManyAccessibleCards', {
+        cardId: card._id, boardId: card.boardId,
+        targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
+        targetListId: options.listId, relativeCardId: cardId || '',
+        position: cardId ? position : 'bottom', copies: title,
+      });
+      // In case the filter is active we need to add the newly inserted cards in
+      // the list of exceptions. Otherwise they disappear instantly (#80).
+      for (const newCardId of newCardIds) Filter.addException(newCardId);
     },
   });
 });

@@ -1606,6 +1606,21 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         positionValue: 'top', fields: { ...commonFields, legacyOperation: operation },
         submitLabel: tr(translate, submitKey, submitFallback),
       }), ''] });
+      rows.push({ rowHeader: false, cells: [uiCardDestinationForm({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        titleLabel: tr(translate, 'copyManyCardsPopup-instructions',
+          'Destination Card Titles and Descriptions in this JSON format'),
+        titleName: 'cardCopies',
+        titleValue: tr(translate, 'copyManyCardsPopup-format',
+          '[{"title":"First card title","description":"First card description"}]'),
+        titleRows: 8,
+        destinationLabel: tr(translate, 'r-move-card-to', 'Move card to'),
+        destinationValue, destinations: destinations.cardPlacements,
+        positionLabel: tr(translate, 'sort', 'Sort'), positions: positionOptions,
+        positionValue: 'bottom',
+        fields: { ...commonFields, legacyOperation: 'copy-many-cards' },
+        submitLabel: tr(translate, 'copyManyCardsPopup-title', 'Copy Template to Many Cards'),
+      }), ''] });
     }
     if (visible.sort) rows.push({ rowHeader: false, cells: [uiTextForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,

@@ -76,7 +76,7 @@ so HTML4 auto-layout does not infer a false two-column grid for wider reports.
 | Choice | name, value, label, selected | native radio/checkbox plus label | themed HTML5 choice control |
 | Text field / fieldset | name, label, value, limits and bounded text/select inputs | associated `label`, native input/select and meaningful `legend` | existing form partial |
 | Select field | name, label, selected value, bounded options | associated `label`, native `select` and submit button | native select in the existing Jade form |
-| Card destination | title, board/swimlane/list/card insertion point, relative position | one labelled form in natural Tab order with native selects | shared card destination picker in the Jade popup |
+| Card destination | title or bounded batch JSON, board/swimlane/list/card insertion point, relative position | one labelled input/textarea form in natural Tab order with native selects | shared card destination picker in the Jade popup |
 | Scoped export | part selection, format, board/card/checklist identity | signed POST fieldset with native checkboxes and format select | shared reactive export popup and format catalogue |
 | Scoped file import | part selection, accepted formats, destination identity | bounded multipart fieldset with native checkboxes and one file input | shared import-mode popup with JSON/ZIP picker |
 | Change history | card scope, search, contributor, page, rows, restore permission | labelled search/filter controls, scoped headers, native row checkboxes and signed paging/Restore POSTs | the shared reactive `historyTable` popup and the same page/restore methods |

@@ -367,6 +367,24 @@ async function copyAccessibleCard(userId, input) {
   return card.copy(destination.boardId, destination.swimlaneId, destination.listId);
 }
 
+async function copyManyAccessibleCards(userId, input) {
+  let copies;
+  try {
+    copies = require('/models/lib/cardCopyBatch').normalizeCardCopyBatch(input?.copies);
+  } catch (error) {
+    throw new Meteor.Error(error?.message || 'invalid-card-copy-batch');
+  }
+  const position = String(input?.position || 'bottom');
+  const ordered = ['top', 'below'].includes(position) ? [...copies].reverse() : copies;
+  const ids = [];
+  for (const copy of ordered) {
+    const id = await copyAccessibleCard(userId, { ...input, ...copy });
+    ids.push(id);
+  }
+  if (ordered !== copies) ids.reverse();
+  return ids;
+}
+
 async function editableCard(userId, cardId, expectedBoardId) {
   if (!userId) throw new Meteor.Error('not-authorized');
   const card = await Cards.findOneAsync({ _id: String(cardId || ''), deletedAt: null });
@@ -1191,6 +1209,7 @@ async function setAccessibleCardArchived(userId, input) {
 export {
   createAccessibleCard,
   copyAccessibleCard,
+  copyManyAccessibleCards,
   createAccessibleSubtask,
   editableCard,
   editablePlacement,

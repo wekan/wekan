@@ -44,6 +44,7 @@ import {
   createAccessibleCard,
   createAccessibleSubtask,
   copyAccessibleCard,
+  copyManyAccessibleCards,
   moveAccessibleCard,
   moveAccessibleCardToList,
   relocateAccessibleCard,
@@ -1521,7 +1522,8 @@ WebApp.handlers.use(async (req, res, next) => {
   }
   const cardOperations = [
     'create-card', 'move-card-up', 'move-card-down', 'move-card-to-position',
-    'move-card-to-destination', 'copy-card-to-destination', 'edit-card-title',
+    'move-card-to-destination', 'copy-card-to-destination', 'copy-many-cards',
+    'edit-card-title',
     'edit-card-description', 'edit-card-date', 'edit-card-color', 'move-card-to-list',
     'toggle-card-label', 'toggle-card-person', 'toggle-card-identity',
     'edit-card-identity-text', 'edit-card-sort', 'save-card-location',
@@ -2040,6 +2042,15 @@ WebApp.handlers.use(async (req, res, next) => {
           return requestFields.legacyOperation === 'move-card-to-destination'
             ? relocateAccessibleCard(session.userId, input)
             : copyAccessibleCard(session.userId, input);
+        }
+        if (requestFields.legacyOperation === 'copy-many-cards') {
+          const [targetBoardId, targetSwimlaneId, targetListId, relativeCardId] =
+            String(requestFields.cardDestination || '').split('|');
+          return copyManyAccessibleCards(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+            targetBoardId, targetSwimlaneId, targetListId, relativeCardId,
+            position: requestFields.position, copies: requestFields.cardCopies,
+          });
         }
         if (requestFields.legacyOperation === 'edit-card-title'
           || requestFields.legacyOperation === 'edit-card-description') {

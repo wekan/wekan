@@ -39,6 +39,7 @@ import {
   createAccessibleCard,
   createAccessibleSubtask,
   copyAccessibleCard,
+  copyManyAccessibleCards,
   castAccessibleCardPoker,
   castAccessibleCardVote,
   moveAccessibleCard,
@@ -99,6 +100,11 @@ Meteor.methods({
   async copyAccessibleCard(input) {
     check(input, Object);
     return copyAccessibleCard(this.userId, input);
+  },
+
+  async copyManyAccessibleCards(input) {
+    check(input, Object);
+    return copyManyAccessibleCards(this.userId, input);
   },
 
   async updateAccessibleCardContent(input) {

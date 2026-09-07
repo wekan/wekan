@@ -103,11 +103,12 @@ function uiExportForm({ action, label, formats = [], sections = [], fields = {},
 }
 
 function uiCardDestinationForm({ action, titleLabel, titleName = 'cardTitle', titleValue = '',
+  titleRows = 0,
   destinationLabel, destinationName = 'cardDestination', destinationValue = '',
   destinations = [], positionLabel, positionName = 'position', positionValue = 'below',
   positions = [], fields = {}, submitLabel }) {
   return {
-    component: 'card-destination', action, titleLabel, titleName, titleValue,
+    component: 'card-destination', action, titleLabel, titleName, titleValue, titleRows,
     destinationLabel, destinationName, destinationValue, destinations,
     positionLabel, positionName, positionValue, positions, fields, submitLabel,
   };
