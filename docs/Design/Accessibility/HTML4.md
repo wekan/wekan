@@ -843,6 +843,23 @@ renderers, captures paired screenshots, restores global state and proves
 anonymous isolation; separate invitation tests retain success and SMTP-failure
 coverage.
 
+Admin Panel / People / Email is the fourth dedicated People controller. A
+labelled transport fieldset preserves the enabled state, fixed Nodemailer
+provider catalog, provider-specific identity, write-only password, From address
+and custom SMTP host, port and TLS fields. HTML4 keeps SMTP fields present even
+while another provider is selected, because it cannot reveal them after a
+selector change; the shared service ignores those fields for non-SMTP providers.
+Separate signed POST controls send the administrator a test message and save the
+invite-domain and account-email-change policy. Both views use one Global
+Admin-only service, bound and normalize every field and publish only a
+`passwordSet` indicator. A blank secret preserves the stored credential and no
+publication, response or browser store receives it. Direct collection writes are
+denied and refused methods are MailSettingsBleed-reported. The same-URL browser
+fixture writes both settings groups in HTML4, observes and changes them in Jade,
+checks the secret boundary, captures paired screenshots, restores global state
+and proves anonymous isolation. The pre-existing service test also verifies that
+non-admin DDP calls receive the intended authorization error.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

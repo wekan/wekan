@@ -271,7 +271,7 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
-Login, Roles and Shared templates share guarded HTML4 operations.
+Email, Login, Roles and Shared templates share guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -328,6 +328,26 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6612a25c">Add accessible HTML4 email administration</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Email now has equivalent semantic Legacy HTML4 controls
+for provider selection, write-only credentials, custom SMTP, test delivery,
+invite-domain and account-email-change settings. Labelled signed POST forms work
+without JavaScript or cookies. SMTP fields remain available while another
+provider is selected, so changing provider requires no client-side rerender.
+
+Both renderers share Global Admin-only services with fixed providers and bounded
+values. Blank passwords preserve stored credentials, while publications and
+responses expose only whether one exists. Direct collection writes and refused
+method calls are denied and Security-reported. The work also prevents the modern
+form from replacing its controls under an early click and preserves structured
+authorization errors under Meteor's argument audit. Source tests and a live
+same-URL Chromium test cover both views, writes, secret isolation, service
+switching, paired screenshots and anonymous access.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/83690596f">Add accessible HTML4 Login settings</a>. Thanks to xet7.</summary>
