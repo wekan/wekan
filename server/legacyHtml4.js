@@ -97,6 +97,16 @@ import {
   saveMailTransportForAdmin,
   sendSmtpTestForAdmin,
 } from '/server/lib/adminEmailSettings';
+import {
+  createOrganizationForAdmin,
+  deleteOrganizationForAdmin,
+  saveOrganizationTenantFieldsForAdmin,
+  setAllOrganizationsFeatureForAdmin,
+  setBoardMembersSameOrgForAdmin,
+  setOrganizationAdminForAdmin,
+  setOrganizationFeatureForAdmin,
+  updateOrganizationForAdmin,
+} from '/server/lib/adminOrganizations';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -497,6 +507,94 @@ WebApp.handlers.use(async (req, res, next) => {
       }
     } catch (error) {
       requestFields.legacyEmailResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/organizations') {
+    const operation = String(requestFields.legacyOperation || '');
+    try {
+      const orgId = String(requestFields.orgId || '');
+      if (operation === 'show-create-organization') {
+        requestFields.showCreateOrganization = true;
+      } else if (operation === 'show-edit-organization') {
+        requestFields.editOrgId = orgId;
+      } else if (operation === 'show-organization-admins') {
+        requestFields.adminsOrgId = orgId;
+      } else if (operation === 'create-organization') {
+        requestFields.editOrgId = await createOrganizationForAdmin(session.userId, {
+          orgDisplayName: String(requestFields.orgDisplayName || ''),
+          orgDesc: String(requestFields.orgDesc || ''),
+          orgShortName: String(requestFields.orgShortName || ''),
+          orgAutoAddUsersWithDomainName:
+            String(requestFields.orgAutoAddUsersWithDomainName || ''),
+          orgWebsite: String(requestFields.orgWebsite || ''),
+          orgIsActive: requestFields.orgIsActive === 'true',
+        }, { req });
+      } else if (operation === 'update-organization') {
+        await updateOrganizationForAdmin(session.userId, orgId, {
+          orgDisplayName: String(requestFields.orgDisplayName || ''),
+          orgDesc: String(requestFields.orgDesc || ''),
+          orgShortName: String(requestFields.orgShortName || ''),
+          orgAutoAddUsersWithDomainName:
+            String(requestFields.orgAutoAddUsersWithDomainName || ''),
+          orgWebsite: String(requestFields.orgWebsite || ''),
+          orgIsActive: requestFields.orgIsActive === 'true',
+        }, { req });
+        requestFields.editOrgId = orgId;
+      } else if (operation === 'save-organization-tenant') {
+        await saveOrganizationTenantFieldsForAdmin(session.userId, orgId, {
+          orgDomains: String(requestFields.orgDomains || ''),
+          orgProductName: String(requestFields.orgProductName || ''),
+          orgCustomLoginLogoLinkUrl: String(requestFields.orgCustomLoginLogoLinkUrl || ''),
+          orgTextBelowCustomLoginLogo: String(requestFields.orgTextBelowCustomLoginLogo || ''),
+          orgCustomTopLeftCornerLogoLinkUrl:
+            String(requestFields.orgCustomTopLeftCornerLogoLinkUrl || ''),
+          orgCustomHelpLinkUrl: String(requestFields.orgCustomHelpLinkUrl || ''),
+          orgLegalNotice: String(requestFields.orgLegalNotice || ''),
+        }, { req });
+        requestFields.editOrgId = orgId;
+      } else if (operation === 'set-organization-feature') {
+        await setOrganizationFeatureForAdmin(session.userId, orgId,
+          String(requestFields.organizationFeature || ''),
+          requestFields.enabled === 'true', { req });
+      } else if (operation === 'set-all-organizations-feature') {
+        await setAllOrganizationsFeatureForAdmin(session.userId,
+          String(requestFields.organizationFeature || ''),
+          requestFields.enabled === 'true', { req });
+      } else if (operation === 'set-board-members-same-org') {
+        await setBoardMembersSameOrgForAdmin(session.userId,
+          requestFields.enabled === 'true', { req });
+      } else if (operation === 'set-organization-admin') {
+        await setOrganizationAdminForAdmin(session.userId, orgId,
+          String(requestFields.targetUserId || ''),
+          requestFields.enabled === 'true', { req });
+        requestFields.adminsOrgId = orgId;
+      } else if (operation === 'request-delete-organization') {
+        requestFields.confirmOrgDelete = orgId;
+      } else if (operation === 'delete-organization') {
+        await deleteOrganizationForAdmin(session.userId, orgId, { req });
+      }
+      if (operation && !['show-create-organization', 'show-edit-organization',
+        'show-organization-admins', 'request-delete-organization'].includes(operation)) {
+        requestFields.legacyOrganizationResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.editOrgId ||= String(requestFields.orgId || '');
+      requestFields.legacyOrganizationResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/organizations' && multipartUpload
+    && requestFields.legacyOperation === 'upload-organization-logo') {
+    try {
+      const input = await fs.promises.readFile(multipartUpload.tempPath);
+      const orgId = String(requestFields.orgId || '');
+      await uploadBrandingImageForUser(session.userId, 'org', orgId,
+        String(requestFields.brandingSlot || ''), input);
+      requestFields.editOrgId = orgId;
+      requestFields.legacyOrganizationResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyOrganizationResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }

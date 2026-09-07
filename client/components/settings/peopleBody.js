@@ -933,9 +933,7 @@ Template.orgGeneral.events({
   'click a.js-toggle-board-members-same-org'() {
     const setting = ReactiveCache.getCurrentSetting();
     if (!setting) return;
-    Settings.update(setting._id, {
-      $set: { boardMembersFromSameOrgOnly: !setting.boardMembersFromSameOrgOnly },
-    });
+    Meteor.call('setBoardMembersSameOrg', !setting.boardMembersFromSameOrgOnly);
   },
 });
 
@@ -2433,8 +2431,13 @@ Template.settingsOrgPopup.events({
       }
       return;
     }
-    Org.remove(orgId);
-    Popup.back();
+    Meteor.call('deleteOrganization', orgId, error => {
+      if (error) {
+        document.getElementById('deleteOrgWarningMessage').classList.remove('hide');
+        return;
+      }
+      Popup.back();
+    });
   }
 });
 

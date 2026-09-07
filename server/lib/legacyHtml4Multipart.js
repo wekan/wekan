@@ -9,14 +9,15 @@ const MAX_MULTIPART_FILE_BYTES = 50 * 1024 * 1024;
 const ALLOWED_FIELDS = new Set([
   'legacySession', 'authAction', 'authCounter', 'authHash',
   'importFields', 'importField', 'legacyOperation',
-  'boardId', 'cardId', 'checklistId',
+  'boardId', 'cardId', 'checklistId', 'orgId',
   'visibilityGroup', 'brandingSlot',
 ]);
 
 function isLegacyHtml4Multipart(req, requestPath) {
   return req?.method === 'POST'
     && (/^\/import\/[^/]+$/.test(requestPath) || /^\/b\/[^/]+\/[^/]+\/[^/]+$/.test(requestPath)
-      || requestPath === '/admin/settings/visibility')
+      || requestPath === '/admin/settings/visibility'
+      || requestPath === '/admin/people/organizations')
     && /^multipart\/form-data\b/i.test(String(req.headers?.['content-type'] || ''));
 }
 

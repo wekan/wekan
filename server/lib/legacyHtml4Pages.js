@@ -72,6 +72,11 @@ import { loginSettingsForAdmin } from '/server/lib/adminLoginSettings';
 import { emailSettingsForAdmin } from '/server/lib/adminEmailSettings';
 import { domainsPageForAdmin } from '/server/lib/adminDomains';
 import {
+  organizationForAdmin,
+  organizationMembersForAdmin,
+  organizationsPageForAdmin,
+} from '/server/lib/adminOrganizations';
+import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
 import { adminThemeForUser } from '/server/lib/adminThemeSettings';
@@ -3326,6 +3331,194 @@ async function adminPeopleDomainsPage(path, userId, requestFields, translate) {
     tr(translate, 'actions', 'Actions')], rows };
 }
 
+function organizationBaseInputs(org, translate) {
+  return [
+    { name: 'orgDisplayName', label: tr(translate, 'displayName', 'Display name'),
+      value: org?.orgDisplayName || '', maxlength: 1000 },
+    { name: 'orgDesc', label: tr(translate, 'description', 'Description'),
+      value: org?.orgDesc || '', maxlength: 190 },
+    { name: 'orgShortName', label: tr(translate, 'shortName', 'Short name'),
+      value: org?.orgShortName || '', maxlength: 255 },
+    { name: 'orgAutoAddUsersWithDomainName',
+      label: tr(translate, 'autoAddUsersWithDomainName', 'Auto-add users with domain name'),
+      value: org?.orgAutoAddUsersWithDomainName || '', maxlength: 255 },
+    { name: 'orgWebsite', label: tr(translate, 'website', 'Website'),
+      value: org?.orgWebsite || '', maxlength: 255 },
+    { type: 'select', name: 'orgIsActive', label: tr(translate, 'active-org', 'Active'),
+      value: org?.orgIsActive === true ? 'true' : 'false', options: [
+        { value: 'false', label: tr(translate, 'no', 'No') },
+        { value: 'true', label: tr(translate, 'yes', 'Yes') },
+      ] },
+  ];
+}
+
+function organizationTenantInputs(org, translate) {
+  return [
+    { name: 'orgDomains', label: tr(translate, 'org-domains', 'Organization domains'),
+      value: org.orgDomains || '', maxlength: 1000 },
+    { name: 'orgProductName', label: tr(translate, 'custom-product-name', 'Product name'),
+      value: org.orgProductName || '', maxlength: 255 },
+    { name: 'orgCustomLoginLogoLinkUrl',
+      label: tr(translate, 'custom-login-logo-link-url', 'Login logo link URL'),
+      value: org.orgCustomLoginLogoLinkUrl || '', maxlength: 1000 },
+    { name: 'orgTextBelowCustomLoginLogo',
+      label: tr(translate, 'text-below-custom-login-logo', 'Text below login logo'),
+      value: org.orgTextBelowCustomLoginLogo || '', maxlength: 1000 },
+    { name: 'orgCustomTopLeftCornerLogoLinkUrl',
+      label: tr(translate, 'custom-top-left-corner-logo-link-url', 'Top-left logo link URL'),
+      value: org.orgCustomTopLeftCornerLogoLinkUrl || '', maxlength: 1000 },
+    { name: 'orgCustomHelpLinkUrl',
+      label: tr(translate, 'custom-help-link-url', 'Help link URL'),
+      value: org.orgCustomHelpLinkUrl || '', maxlength: 1000 },
+    { name: 'orgLegalNotice',
+      label: tr(translate, 'custom-legal-notice-link-url', 'Legal notice URL'),
+      value: org.orgLegalNotice || '', maxlength: 1000 },
+  ];
+}
+
+async function adminPeopleOrganizationsPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/organizations') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1, Number(requestFields.page) || 1);
+  let result;
+  try {
+    result = await organizationsPageForAdmin(userId, { search, page: requestedPage },
+      { req: requestFields.req });
+  } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'organizations', 'Organizations'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const pathFields = { q: result.search, page: result.page };
+  const yes = tr(translate, 'yes', 'Yes');
+  const no = tr(translate, 'no', 'No');
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', '', '', '', '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: result.search,
+      fields: { page: 1 },
+    }), `${result.total} ${tr(translate, 'org-number', 'Organizations')}`, '', '', '', '', '', '', ''] },
+  ];
+  if (result.canManageInstance) {
+    rows.push({ rowHeader: false, cells: [uiAction({ action: path,
+      label: tr(translate, 'new', 'New'), icon: 'add',
+      fields: { ...pathFields, legacyOperation: 'show-create-organization' } }),
+    uiAction({ action: path,
+      label: `${result.boardMembersFromSameOrgOnly ? '[x]' : '[ ]'} ${tr(translate,
+        'board-members-same-org-only', 'Only add board members from same Organization')}`,
+      fields: { ...pathFields, legacyOperation: 'set-board-members-same-org',
+        enabled: result.boardMembersFromSameOrgOnly ? 'false' : 'true' } }), '', '', '', '', '', '', '', ''] });
+    rows.push({ rowHeader: false, cells: [tr(translate, 'dueCardsViewChange-choice-all', 'All'),
+      '', '', '', '', '', '', ...[
+        ['orgSharedTemplates', 'org-shared-templates'],
+        ['orgPropagateMembersToBoards', 'org-propagate-members-to-boards'],
+        ['orgSyncMembersFromAuth', 'org-sync-members-from-auth'],
+      ].map(([field, key]) => [true, false].map(enabled => uiAction({ action: path,
+        label: `${enabled ? '[x]' : '[ ]'} ${tr(translate, key, field)}`,
+        fields: { ...pathFields, legacyOperation: 'set-all-organizations-feature',
+          organizationFeature: field, enabled: String(enabled) },
+      }))) ] });
+  }
+  const feature = (org, field, key) => result.canManageInstance ? uiAction({ action: path,
+    label: `${org[field] ? '[x]' : '[ ]'} ${tr(translate, key, field)}`,
+    fields: { ...pathFields, legacyOperation: 'set-organization-feature', orgId: org._id,
+      organizationFeature: field, enabled: String(!org[field]) },
+  }) : (org[field] ? yes : no);
+  for (const org of result.rows) {
+    const actions = [uiAction({ action: path, label: tr(translate, 'edit', 'Edit'),
+      fields: { ...pathFields, legacyOperation: 'show-edit-organization', orgId: org._id } }),
+    uiAction({ action: path, label: tr(translate, 'org-admins', 'Organization admins'),
+      fields: { ...pathFields, legacyOperation: 'show-organization-admins', orgId: org._id } })];
+    if (result.canManageInstance) actions.push(uiAction({ action: path,
+      label: tr(translate, 'delete', 'Delete'),
+      fields: { ...pathFields, legacyOperation: 'request-delete-organization', orgId: org._id } }));
+    rows.push({ rowHeader: false, cells: [actions, org.orgDisplayName || '', org.orgDesc || '',
+      org.orgShortName || '', org.orgWebsite || '', org.createdAt ? String(org.createdAt) : '',
+      org.orgIsActive ? yes : no,
+      feature(org, 'orgSharedTemplates', 'org-shared-templates'),
+      feature(org, 'orgPropagateMembersToBoards', 'org-propagate-members-to-boards'),
+      feature(org, 'orgSyncMembersFromAuth', 'org-sync-members-from-auth')] });
+  }
+  if (requestFields.showCreateOrganization && result.canManageInstance) {
+    rows.push({ rowHeader: false, cells: [uiFieldsetForm({ action: path,
+      legend: tr(translate, 'new', 'New'), id: 'create-organization',
+      inputs: organizationBaseInputs(null, translate),
+      fields: { ...pathFields, legacyOperation: 'create-organization' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), '', '', '', '', '', '', '', '', ''] });
+  }
+  const editOrgId = String(requestFields.editOrgId || '');
+  if (editOrgId) {
+    try {
+      const org = await organizationForAdmin(userId, editOrgId, { req: requestFields.req });
+      if (result.canManageInstance) rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: path, legend: tr(translate, 'edit', 'Edit'), id: `edit-org-${org._id}`,
+        inputs: organizationBaseInputs(org, translate),
+        fields: { ...pathFields, legacyOperation: 'update-organization', orgId: org._id },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), '', '', '', '', '', '', '', '', ''] });
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({ action: path,
+        legend: tr(translate, 'org-tenant', 'Organization tenant'), id: `tenant-org-${org._id}`,
+        inputs: organizationTenantInputs(org, translate),
+        fields: { ...pathFields, legacyOperation: 'save-organization-tenant', orgId: org._id },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), '', '', '', '', '', '', '', '', ''] });
+      const logo = (url, alt) => /^\/branding\/images\/[A-Za-z0-9_-]+\.gif$/.test(url || '')
+        ? uiImage({ src: url, alt, width: 160 }) : '';
+      for (const [slot, field, key] of [
+        ['login', 'orgCustomLoginLogoImageUrl', 'custom-login-logo-image-url'],
+        ['topLeft', 'orgCustomTopLeftCornerLogoImageUrl', 'custom-top-left-corner-logo-image-url'],
+      ]) rows.push({ rowHeader: false, cells: [logo(org[field], tr(translate, key, slot)),
+        uiFileForm({ action: path, label: tr(translate, 'upload', 'Upload'),
+          name: 'brandingImage', accept: 'image/*', fields: {
+            legacyOperation: 'upload-organization-logo', orgId: org._id, brandingSlot: slot },
+          submitLabel: tr(translate, 'upload', 'Upload') }), '', '', '', '', '', '', '', ''] });
+    } catch (_) { /* exact-scope service already reports refused reads */ }
+  }
+  const adminsOrgId = String(requestFields.adminsOrgId || '');
+  if (adminsOrgId) {
+    try {
+      const members = await organizationMembersForAdmin(userId, adminsOrgId,
+        { req: requestFields.req });
+      rows.push({ rowHeader: false, cells: [tr(translate, 'org-admins', 'Organization admins'),
+        ...Array(9).fill('')] });
+      for (const member of members) rows.push({ rowHeader: false, cells: [
+        member.username, member.fullname,
+        member.isSiteAdmin ? tr(translate, 'admin', 'Admin') : '',
+        uiAction({ action: path, label: `${member.isOrgAdmin ? '[x]' : '[ ]'} ${tr(translate,
+          'org-admins', 'Organization admin')}`, fields: { ...pathFields,
+          legacyOperation: 'set-organization-admin', orgId: adminsOrgId,
+          targetUserId: member._id, enabled: String(!member.isOrgAdmin) } }),
+        '', '', '', '', '', ''] });
+    } catch (_) { /* exact-scope service already reports refused reads */ }
+  }
+  if (requestFields.confirmOrgDelete) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'delete-org-confirm-popup', 'Delete this Organization?'),
+    uiAction({ action: path, label: tr(translate, 'delete', 'Delete'),
+      fields: { ...pathFields, legacyOperation: 'delete-organization',
+        orgId: String(requestFields.confirmOrgDelete) } }), '', '', '', '', '', '', '', ''] });
+  rows.push({ rowHeader: false, cells: [
+    `${tr(translate, 'page', 'Page')} ${result.page} / ${result.totalPages}`,
+    result.page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: result.search, page: result.page - 1 } }) : '',
+    result.page < result.totalPages ? uiAction({ action: path,
+      label: tr(translate, 'next-page', 'Next'), icon: 'next',
+      fields: { q: result.search, page: result.page + 1 } }) : '', '', '', '', '', '', '', ''] });
+  if (requestFields.legacyOrganizationResult) rows.push({ rowHeader: false,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyOrganizationResult,
+      '', '', '', '', '', '', '', ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'organizations', 'Organizations')}`,
+  columns: [tr(translate, 'actions', 'Actions'), tr(translate, 'displayName', 'Display name'),
+    tr(translate, 'description', 'Description'), tr(translate, 'shortName', 'Short name'),
+    tr(translate, 'website', 'Website'), tr(translate, 'createdAt', 'Created'),
+    tr(translate, 'active-org', 'Active'),
+    tr(translate, 'org-shared-templates', 'Shared templates'),
+    tr(translate, 'org-propagate-members-to-boards', 'Propagate members'),
+    tr(translate, 'org-sync-members-from-auth', 'Sync members')], rows };
+}
+
 async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/shared-templates') return null;
   let templateRows;
@@ -4404,6 +4597,9 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminPeopleEmail) return adminPeopleEmail;
   const adminPeopleDomains = await adminPeopleDomainsPage(path, userId, requestFields, translate);
   if (adminPeopleDomains) return adminPeopleDomains;
+  const adminPeopleOrganizations = await adminPeopleOrganizationsPage(
+    path, userId, requestFields, translate);
+  if (adminPeopleOrganizations) return adminPeopleOrganizations;
   const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
     path, userId, requestFields, translate,
   );

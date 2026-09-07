@@ -22,6 +22,11 @@ import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver'
 import * as tenants from '/models/lib/tenants';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
 import { adminThemeForUser, setAdminThemeForUser } from '/server/lib/adminThemeSettings';
+import {
+  organizationMembersForAdmin,
+  saveOrganizationTenantFieldsForAdmin,
+  setOrganizationAdminForAdmin,
+} from '/server/lib/adminOrganizations';
 
 // #5850's lesson: Meteor.user()/getCurrentUser() can return null inside an async
 // method after an await, so the caller is looked up by this.userId directly.
@@ -72,71 +77,14 @@ Meteor.methods({
   async setOrgTenantFields(orgId, fields) {
     check(orgId, String);
     check(fields, Object);
-    const user = await callerUser(this.userId);
-    if (!tenantAdmin.canManageOrg(user, orgId)) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const $set = {};
-
-    if (fields.orgDomains !== undefined) {
-      check(fields.orgDomains, String);
-      const hosts = tenants.parseHostList(fields.orgDomains);
-      // Two orgs claiming one host would silently give one of them the other's
-      // brand, so the save is refused and the offending host named.
-      const others = await Org.find(
-        { _id: { $ne: orgId }, orgDomains: { $exists: true, $ne: '' } },
-        { fields: { orgDomains: 1 } },
-      ).fetchAsync();
-      const clashes = tenants.conflictingHosts(others, orgId, hosts);
-      if (clashes.length) {
-        throw new Meteor.Error('tenant-domain-taken', clashes.join(', '));
-      }
-      // Stored normalised, so what the admin reads back is what is matched.
-      $set.orgDomains = hosts.join(', ');
-    }
-
-    // Image bytes use uploadBrandingImage, which validates and converts them on
-    // the server. Never restore the old arbitrary external-URL write path.
-    const imageFields = new Set([
-      'orgCustomLoginLogoImageUrl',
-      'orgCustomTopLeftCornerLogoImageUrl',
-    ]);
-    tenants.brandingOrgFields().filter(field => !imageFields.has(field)).forEach(field => {
-      if (fields[field] !== undefined) {
-        check(fields[field], String);
-        $set[field] = fields[field].trim();
-      }
-    });
-
-    if (Object.keys($set).length === 0) return { updated: 0 };
-    await Org.updateAsync(orgId, { $set });
-    return { updated: 1, orgDomains: $set.orgDomains };
+    return saveOrganizationTenantFieldsForAdmin(this.userId, orgId, fields);
   },
 
   // The members of one org, with the per-tenant admin flag - what the "Organization
   // admins" popup lists. Only someone who may administer that org may read it.
   async listOrgMembers(orgId) {
     check(orgId, String);
-    const user = await callerUser(this.userId);
-    if (!tenantAdmin.canManageOrg(user, orgId)) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const members = await ReactiveCache.getUsers(
-      { 'orgs.orgId': orgId },
-      {
-        sort: { username: 1 },
-        fields: { username: 1, 'profile.fullname': 1, isAdmin: 1, orgs: 1 },
-      },
-    );
-    return members.map(member => ({
-      _id: member._id,
-      username: member.username,
-      fullname: (member.profile && member.profile.fullname) || '',
-      // The site-wide flag is shown but never editable here: appointing an instance
-      // owner is not something a tenant does.
-      isSiteAdmin: !!member.isAdmin,
-      isOrgAdmin: tenantAdmin.isOrgAdmin(member, orgId),
-    }));
+    return organizationMembersForAdmin(this.userId, orgId);
   },
 
   // ── the site theme (Admin Panel / Settings / Visibility / Change color) ────
@@ -161,27 +109,6 @@ Meteor.methods({
     check(orgId, String);
     check(userId, String);
     check(value, Boolean);
-    const actor = await callerUser(this.userId);
-    if (!tenantAdmin.canSetOrgAdmin(actor, orgId)) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const target = await ReactiveCache.getUser(
-      { _id: userId },
-      { fields: { isAdmin: 1, orgs: 1 } },
-    );
-    if (!target) throw new Meteor.Error('user-not-found');
-    // A per-tenant admin may not touch a site admin at all (privilege escalation,
-    // not tenancy) - and nobody may appoint someone who is not a member of the org.
-    if (!tenantAdmin.canManageUser(actor, target)) {
-      throw new Meteor.Error('not-authorized');
-    }
-    if (!tenantAdmin.memberOrgIds(target).includes(orgId)) {
-      throw new Meteor.Error('not-a-member');
-    }
-    await Meteor.users.updateAsync(
-      { _id: userId, 'orgs.orgId': orgId },
-      { $set: { 'orgs.$.isAdmin': value } },
-    );
-    return { orgId, userId, isOrgAdmin: value };
+    return setOrganizationAdminForAdmin(this.userId, orgId, userId, value);
   },
 });
