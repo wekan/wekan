@@ -281,8 +281,8 @@ S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 Database Migration shares guarded direction controls and live progress.
 All ten Attachments panes now have complete equivalent HTML4 operations.
 The complete public account and email-token lifecycle now has guarded Legacy HTML4
-forms. Member profile, language, password, settings, color and font now have
-equivalent guarded HTML4 pages at their modern URLs.
+forms. Member profile, language, password, settings, color, font and avatar now
+have equivalent guarded HTML4 pages at their modern URLs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -298,6 +298,24 @@ equivalent guarded HTML4 pages at their modern URLs.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f2746358">Add accessible member avatar page</a>. Thanks to xet7.</summary>
+
+Member Menu / Change Avatar now has a stable `/account/avatar` route with the same
+initials fallback, uploaded images, selection, upload and confirmed deletion in
+semantic HTML4 and Jade. A common account-bound service scopes every avatar ID to
+its owner and clears the profile pointer when its selected file is deleted.
+
+HTML4 uploads use a bounded private temporary file, repeat the Admin Panel
+upload block and size limit, and store decoded images as GIF in Default Storage.
+Private GIF thumbnails are embedded only after the owner check, without URL
+credentials. Static positive and negative coverage passes. A live same-URL
+Chromium test uploads a PNG, verifies its GIF data and both views, rejects and
+reports a forged foreign ID, then verifies confirmed deletion removes both file
+and pointer.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b55df82f8">Add accessible member appearance pages</a>. Thanks to xet7.</summary>

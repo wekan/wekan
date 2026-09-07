@@ -270,6 +270,28 @@ live tests persist both HTML4 forms, verify their values in MongoDB and the dire
 routes, capture screenshot pairs, then prove injected select values cannot change the
 profile and do create attributed Security reports.
 
+`/account/avatar` is the seventh complete Member Menu page. It uses the same stable URL
+for the Jade popup and HTML4 table and exposes the same current uploaded avatars,
+initials fallback, upload, selection and confirmed deletion. The common self-service
+boundary never accepts a target user: every lookup includes both the submitted avatar
+ID and the authenticated user's ID. A foreign, missing or malformed ID therefore cannot
+select or delete another account's image and is attributed in Problems / Security.
+Deleting the selected file also clears its profile pointer after successful removal,
+so neither representation can leave a broken selected image.
+
+HTML4 multipart uploads use the shared bounded private temporary-file receiver, repeat
+the Admin Panel avatar-upload block and configured byte limit, decode the content and
+store a server-generated `avatar.gif` in Default Storage. Existing stored GIF avatars
+are read only after the owner check and embedded in the cookieless HTML4 response as
+bounded `data:image/gif` thumbnails. This avoids making private avatars public and does
+not put a session credential in an image URL. Jade retains its chunked Meteor-Files
+upload but shares the strict ID-based selection and deletion services. Its selected-row
+state is initialized from an explicit authenticated state read, so a direct route does
+not race Meteor's profile publication. Live coverage uploads a real PNG without
+JavaScript or cookies, verifies GIF metadata and the durable profile pointer, captures
+both views, rejects a forged foreign ID, confirms deletion and verifies both the stored
+file and selected pointer are gone.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
