@@ -69,7 +69,7 @@ so HTML4 auto-layout does not infer a false two-column grid for wider reports.
 | Public navigation | URL, label | ordinary link | ordinary link |
 | Disclosure | state, label | `v Label` / `> Label` POST button | caret icon and reactive content |
 | Kanban viewport | board, selected swimlane/list, cards | one selected swimlane and list, explicit navigation buttons | full reactive canvas |
-| Card | title, color, destination, Card Settings visibility map, operations | colored rows and textual buttons, omitting disabled sections and their forms | minicard/card-details Jade templates with the same `allows*` gates |
+| Card | placement/snapshot, visibility-authorized real content, destination, Card Settings visibility map, operations | colored rows and textual buttons, resolving linked content only after source-board visibility and omitting disabled sections/forms | minicard/card-details Jade templates with `getRealCard()` and the same `allows*` gates |
 | Checklist | title, progress, visibility settings, items, operations | ordered rows, `(done/total)`, `[x]`/`[ ]` and signed textual controls | card checklist templates and progress bar |
 | Comment reaction | catalog item, selected state, count, member names | `[x] smile (2)` signed toggle and labelled catalog select | emoji toggle and reaction popup |
 | Pager | previous/next availability | `< Previous` and `> Next` signed buttons | shared pager controls |

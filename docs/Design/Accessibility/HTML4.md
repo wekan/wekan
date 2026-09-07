@@ -425,6 +425,15 @@ section emits neither its stored content nor a mutation form, while unrelated
 sections remain available in natural Tab order. The same-URL regression tests
 an all-enabled card and a card whose switches are all disabled in both renderers.
 
+A linked-card route has two separate objects: its visible placement/snapshot and
+its source content. HTML4 first reads only the source card's board identity, then
+uses the shared board-visibility decision before fetching any source content.
+When visible, Title, Card Number, Description, Color, people, dates and other
+content fields come from that real card just as Jade's `getRealCard()` helpers do.
+When the source board is private, HTML4 retains only the linked-card snapshot;
+the source title, description, dates, labels, attachments and child collections
+must not enter the response. This is a read boundary, not only display cleanup.
+
 Received, Start, Due and End use four naturally ordered labelled text forms with
 unambiguous ISO 8601 values; an empty value clears the date. Jade date pickers
 and HTML4 forms submit to the same acknowledged operation. It allowlists those

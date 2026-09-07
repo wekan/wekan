@@ -985,13 +985,24 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     columns: [tr(translate, 'status', 'Status'), tr(translate, 'action', 'Action')],
     rows: [], empty: 'Card not found or access denied.',
   };
-  const contentCard = card.type === 'cardType-linkedCard' && card.linkedId
-    ? await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) : card;
+  let contentCard = card;
+  if (card.type === 'cardType-linkedCard' && card.linkedId) {
+    // A linked card is both a placement/snapshot on this board and a pointer to
+    // content on another board.  Read only the source board id until its ACL has
+    // been checked: fetching the whole source first would put private fields in
+    // this request even if rendering later tried to hide them.
+    const sourceRef = await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }, {
+      fields: { boardId: 1 },
+    });
+    if (sourceRef && await canUserSeeBoard(userId, sourceRef.boardId)) {
+      contentCard = await Cards.findOneAsync({ _id: card.linkedId, deletedAt: null }) || card;
+    }
+  }
   const contentCardId = contentCard?._id || card._id;
   const contentBoardId = contentCard?.boardId || card.boardId;
   const cardNumberPrefix = board.allowsCardNumber === true
     && Number.isFinite(contentCard?.cardNumber) ? `#${contentCard.cardNumber} ` : '';
-  const displayCardTitle = `${cardNumberPrefix}${card.title || ''}`;
+  const displayCardTitle = `${cardNumberPrefix}${contentCard?.title || ''}`;
   const contentBoard = contentBoardId === board._id
     ? board : await Boards.findOneAsync(contentBoardId);
   const activeContentMemberIds = (contentBoard?.members || [])
@@ -1197,7 +1208,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
   if (canWrite) {
     rows.push({ rowHeader: false, cells: [uiTextForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
-      label: tr(translate, 'title', 'Title'), name: 'cardTitle', value: card.title || '',
+      label: tr(translate, 'title', 'Title'), name: 'cardTitle', value: contentCard?.title || '',
       maxlength: 1000, fields: { ...commonFields, legacyOperation: 'edit-card-title' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
@@ -1511,14 +1522,14 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     if (visible.description) rows.push({ rowHeader: false, cells: [uiTextareaForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: tr(translate, 'description', 'Description'), name: 'cardDescription',
-      value: card.description || '',
+      value: contentCard?.description || '',
       fields: { ...commonFields, legacyOperation: 'edit-card-description' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
     rows.push({ rowHeader: false, cells: [uiTextForm({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
       label: `${tr(translate, 'setCardColorPopup-title', 'Set color')} (name or #rrggbb)`,
-      name: 'cardColor', value: card.color || 'white', maxlength: 20,
+      name: 'cardColor', value: contentCard?.color || 'white', maxlength: 20,
       fields: { ...commonFields, legacyOperation: 'edit-card-color' },
       submitLabel: tr(translate, 'save', 'Save'),
     }), ''] });
@@ -1737,7 +1748,7 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     submitLabel: tr(translate, 'add-subtask', 'Add subtask'),
   }), ''] });
   rows.push(
-    { color: card.color, cells: [tr(translate, 'title', 'Title'), displayCardTitle] },
+    { color: contentCard?.color, cells: [tr(translate, 'title', 'Title'), displayCardTitle] },
     ...(parentCard && parentBoard ? [{ cells: [tr(translate, 'parent-card', 'Parent card'), uiLink({
       href: `${boardPath(parentBoard)}/${encodeURIComponent(parentCard._id)}`,
       label: `${parentBoard.title || parentBoard._id} / ${parentCard.title || parentCard._id}`,
@@ -1746,13 +1757,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     ...(visible.list ? [{ cells: [tr(translate, 'list', 'List'), list?.title || ''] }] : []),
     { cells: ['Swimlane', swimlane?.title || ''] },
     ...(visible.description ? [{ cells: [tr(translate, 'description', 'Description'),
-      card.description || ''] }] : []),
+      contentCard?.description || ''] }] : []),
     ...(visible.labels ? [{ cells: [tr(translate, 'labels', 'Labels'),
       labels.map(label => label.name || label.color).join(', ')] }] : []),
     ...(visible.members ? [{ cells: [tr(translate, 'members', 'Members'),
-      names(card.members)] }] : []),
+      names(contentCard?.members)] }] : []),
     ...(visible.assignees ? [{ cells: [tr(translate, 'assignee', 'Assignee'),
-      names(card.assignees)] }] : []),
+      names(contentCard?.assignees)] }] : []),
     ...(visible.requestedBy ? [{ cells: [tr(translate, 'requested-by', 'Requested By'),
       names(contentCard?.requesters) || contentCard?.requestedBy || ''] }] : []),
     ...(visible.assignedBy ? [{ cells: [tr(translate, 'assigned-by', 'Assigned By'),
@@ -1810,15 +1821,15 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       return { cells: [tr(translate, 'location', 'Location'), locationText] };
     }),
     ...(visible.creator ? [{ cells: [tr(translate, 'creator', 'Creator'),
-      personById.get(card.userId) || ''] }] : []),
+      personById.get(contentCard?.userId) || ''] }] : []),
     ...(visible.receivedAt ? [{ cells: [tr(translate, 'r-df-received-at', 'Received'),
-      isoDate(card.receivedAt)] }] : []),
+      isoDate(contentCard?.receivedAt)] }] : []),
     ...(visible.startAt ? [{ cells: [tr(translate, 'r-df-start-at', 'Start'),
-      isoDate(card.startAt)] }] : []),
+      isoDate(contentCard?.startAt)] }] : []),
     ...(visible.dueAt ? [{ cells: [tr(translate, 'due-date', 'Due Date'),
-      isoDate(card.dueAt)] }] : []),
+      isoDate(contentCard?.dueAt)] }] : []),
     ...(visible.endAt ? [{ cells: [tr(translate, 'r-df-end-at', 'End'),
-      isoDate(card.endAt)] }] : []),
+      isoDate(contentCard?.endAt)] }] : []),
     ...(board.allowsDueComplete === true ? [{
       cells: [tr(translate, 'card-mark-complete', 'Complete'),
         contentCard?.dueComplete === true ? tr(translate, 'yes', 'Yes') : tr(translate, 'no', 'No')],
@@ -1826,8 +1837,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     { cells: [tr(translate, contentCard?.isOvertime ? 'overtime-hours' : 'spent-time-hours',
       contentCard?.isOvertime ? 'Overtime hours' : 'Spent time hours'),
       contentCard?.spentTime === undefined ? '' : String(contentCard.spentTime)] },
-    { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(card.createdAt)] },
-    { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(card.modifiedAt)] },
+    { cells: [tr(translate, 'createdAt', 'Created at'), isoDate(contentCard?.createdAt)] },
+    { cells: [tr(translate, 'modifiedAt', 'Modified at'), isoDate(contentCard?.modifiedAt)] },
     { cells: [tr(translate, 'watching', 'Watching'),
       isWatching ? tr(translate, 'yes', 'Yes') : tr(translate, 'no', 'No')] },
   );
