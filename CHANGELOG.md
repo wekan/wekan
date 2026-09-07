@@ -363,6 +363,23 @@ proves anonymous isolation.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a99511c94">Add accessible HTML4 Delete settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Delete now exposes its permanent-delete switch and
+complete Recovery warning in a semantic Legacy HTML4 table. A labelled Kyllä/Ei
+select and signed Save POST work without JavaScript or cookies. The warning is
+now one shared string across Jade, HTML4, Recovery and Files Report.
+
+One extracted service backs both renderers, strictly validates the Boolean,
+reloads the Global Admin, changes only `enablePermanentDelete`, and retains the
+successful and failed Recovery audits with available actor, trusted address and
+location. Source tests cover both outcomes and shared wiring. A same-URL
+Chromium test disables the setting in HTML4, verifies its audit, observes and
+restores it in HTML5, captures both views and proves anonymous isolation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c1063c13">Add accessible HTML4 problem reports</a>. Thanks to xet7.</summary>
 
 Security, Speed, Tests, CPU usage, Database problems, Filesystem integrity and

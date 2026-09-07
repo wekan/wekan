@@ -667,6 +667,16 @@ Security with available identity, address and location. The same-URL fixture
 changes a setting in HTML4, observes it in HTML5, restores it through Jade,
 captures both views and proves anonymous isolation.
 
+Problems / Delete exposes the same permanent-delete switch and complete Recovery
+warning as Jade. The warning is one shared component string used by Delete,
+Recovery, Files Report and both renderers. HTML4 uses a labelled Kyllä/Ei select
+and signed Save POST. One extracted server service now backs the Jade method and
+HTML4 handler; it strictly validates the Boolean, reloads the Global Admin,
+updates only `enablePermanentDelete`, and writes the existing successful or
+failed Recovery audit with username, trusted address and location. The same-URL
+fixture disables the setting in HTML4, verifies the Recovery row, observes and
+restores it in HTML5, captures both views and proves anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
