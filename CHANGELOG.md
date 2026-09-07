@@ -299,6 +299,22 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7bfd84374">Add accessible member settings page</a>. Thanks to xet7.</summary>
+
+Member Menu / Change Settings now has a stable `/account/settings` route and equivalent
+semantic HTML4 controls for all six desktop/card preferences. Jade's individual
+controls and the grouped HTML4 Save form use one fixed-field service with exact Boolean,
+card-count and weekday bounds plus worker-field restrictions.
+
+Unknown, out-of-range and worker-hidden writes are blocked and attributed in Problems /
+Security. Existing Open many cards tests and the HTML4 positive/negative suite pass. A
+live same-URL Chromium test saves all six values, verifies them in MongoDB and Jade,
+captures both views and proves an injected out-of-range threshold changes nothing and
+creates a Security report.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e8946c46">Add accessible member password page</a>. Thanks to xet7.</summary>
 
 Member Menu / Change Password now has a stable `/account/password` route and the same

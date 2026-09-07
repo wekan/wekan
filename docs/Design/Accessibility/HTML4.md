@@ -236,6 +236,19 @@ test captures both views, verifies that a wrong current password preserves the o
 secret, changes it with the correct current password, then proves the old login fails
 and the new login succeeds without JavaScript or cookies.
 
+`/account/settings` is the fourth complete Member Menu page. Both representations
+retain Show desktop drag handles, Submit editors with Enter, Open many cards at once,
+the card-count threshold, start day of week and unsaved-description rescue. HTML4
+groups them into one labelled fieldset and explicit Save POST; Jade's immediate
+toggles and Save controls delegate their individual desired values to the same shared
+service. That service accepts only the fixed field set, exact Booleans, a card threshold
+from `-1` through `100000` and a weekday from `0` through `6`. Worker-hidden fields are
+also forbidden at the service boundary. Thus removing, adding or changing submitted
+controls cannot create an arbitrary profile write. Refused unknown, out-of-range or
+worker-only values are attributed in Problems / Security. Live same-URL coverage saves
+all six HTML4 values, verifies them in MongoDB and Jade, captures both views, and proves
+an injected out-of-range threshold is reported without changing the persisted value.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
