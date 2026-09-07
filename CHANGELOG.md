@@ -304,6 +304,20 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/547356092">Show card numbers in Legacy HTML4 titles</a>. Thanks to xet7.</summary>
+
+When Card Number is enabled, Legacy HTML4 now prefixes the opened card heading
+and read-only Title row with the real content card's `#number`, matching the
+same card at the same URL in Jade. Card Number remains distinct from editable
+sort order, is never accepted from an HTML4 form and stays absent when disabled.
+
+Static positive and negative coverage verifies the scoped projection, setting
+gate and read-only contract. The live Chromium comparison verifies `#73` in
+both renderers and refreshes their paired screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f6ccb72f">Add Legacy HTML4 card date format parity</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 card details now expose the same three translated Date Format
