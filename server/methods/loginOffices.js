@@ -231,6 +231,15 @@ async function locationReports(users) {
   }));
 }
 
+export async function peopleLoginLocationsForAdmin(userId, userIds) {
+  if (!Array.isArray(userIds) || userIds.length > 200
+    || userIds.some(id => typeof id !== 'string')) {
+    throw new Meteor.Error('too-many-users', 'At most 200 valid users per page');
+  }
+  const users = await visiblePeople({ userId }, [...new Set(userIds)]);
+  return locationReports(users);
+}
+
 if (Meteor.isServer) {
   Meteor.methods({
     // Country counters for the current People page, and the rows behind each
@@ -240,8 +249,7 @@ if (Meteor.isServer) {
       if (userIds.length > 200) {
         throw new Meteor.Error('too-many-users', 'At most 200 users per page');
       }
-      const users = await visiblePeople(this, [...new Set(userIds)]);
-      return locationReports(users);
+      return peopleLoginLocationsForAdmin(this.userId, userIds);
     },
 
     // People first, with all of each person's addresses kept together.

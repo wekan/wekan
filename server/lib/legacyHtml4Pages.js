@@ -78,6 +78,7 @@ import {
 } from '/server/lib/adminOrganizations';
 import { teamForAdmin, teamsPageForAdmin } from '/server/lib/adminTeams';
 import { lockoutPageForAdmin } from '/server/lib/adminLockout';
+import { peoplePageForAdmin, personForAdmin } from '/server/lib/adminPeople';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3641,6 +3642,125 @@ async function adminPeopleTeamsPage(path, userId, requestFields, translate) {
     tr(translate, 'team-sync-members-from-auth', 'Sync members')], rows };
 }
 
+async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/people') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const filter = String(requestFields.filter || 'all');
+  const requestedPage = Math.max(1, Number(requestFields.page) || 1);
+  let result;
+  try {
+    result = await peoplePageForAdmin(userId, { search, filter, page: requestedPage },
+      { req: requestFields.req });
+  } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'people', 'People'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const pathFields = { q: result.search, filter: result.filter, page: result.page };
+  const yes = tr(translate, 'yes', 'Yes');
+  const no = tr(translate, 'no', 'No');
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', '', '', '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: result.search,
+      fields: { filter: result.filter, page: 1 },
+    }), uiSelectForm({ action: path, label: tr(translate, 'admin-people-filter-show', 'Show'),
+      name: 'filter', value: result.filter, fields: { q: result.search, page: 1 },
+      options: [
+        { value: 'all', label: tr(translate, 'admin-people-filter-all', 'All') },
+        { value: 'locked', label: tr(translate, 'admin-people-filter-locked', 'Locked') },
+        { value: 'active', label: tr(translate, 'admin-people-filter-active', 'Active') },
+        { value: 'inactive', label: tr(translate, 'admin-people-filter-inactive', 'Inactive') },
+        { value: 'admin', label: tr(translate, 'admin', 'Admin') },
+      ], submitLabel: tr(translate, 'filter', 'Filter') }),
+    `${result.total} ${tr(translate, 'people-number', 'People')}`, '', '', '', '', ''] },
+  ];
+  for (const person of result.rows) {
+    const countries = person.countries.map(country => uiAction({ action: path,
+      label: `${country.flag || ''} ${country.country} (${country.count})`,
+      fields: { ...pathFields, legacyOperation: 'show-login-country',
+        targetUserId: person._id, locationCountry: country.country },
+    }));
+    const actions = [uiAction({ action: path, label: tr(translate, 'edit', 'Edit'),
+      fields: { ...pathFields, legacyOperation: 'show-person', targetUserId: person._id } }),
+    uiAction({ action: path,
+      label: person.loginDisabled
+        ? tr(translate, 'admin-people-user-inactive', 'Activate user')
+        : tr(translate, 'admin-people-user-active', 'Deactivate user'),
+      fields: { ...pathFields, legacyOperation: 'set-person-active',
+        targetUserId: person._id, active: String(person.loginDisabled) } })];
+    if (person.lock.locked) actions.push(uiAction({ action: path,
+      label: tr(translate, 'accounts-lockout-click-to-unlock', 'Unlock'),
+      fields: { ...pathFields, legacyOperation: 'request-unlock-person',
+        targetUserId: person._id } }));
+    rows.push({ rowHeader: false, cells: [actions,
+      person.username, person.email, person.isAdmin ? yes : no,
+      person.loginDisabled ? no : yes, countries,
+      person.lock.locked
+        ? `${tr(translate, 'accounts-lockout-user-locked', 'Locked')} (${person.lock.failedAttempts})`
+        : tr(translate, 'accounts-lockout-user-unlocked', 'Unlocked'),
+      person.createdAt ? String(person.createdAt) : '', ''] });
+  }
+  const editPersonId = String(requestFields.editPersonId || '');
+  if (editPersonId) {
+    try {
+      const person = await personForAdmin(userId, editPersonId, { req: requestFields.req });
+      rows.push({ rowHeader: false, cells: [
+        `${person.username || ''} — ${person.profile?.fullname || ''}`,
+        person.emails?.[0]?.address || '',
+        `${tr(translate, 'verified', 'Verified')}: ${person.emails?.[0]?.verified ? yes : no}`,
+        `${tr(translate, 'admin', 'Admin')}: ${person.isAdmin ? yes : no}`,
+        `${tr(translate, 'authentication-type', 'Authentication')}: ${person.authenticationMethod || 'password'}`,
+        `${tr(translate, 'organizations', 'Organizations')}: ${(person.orgs || [])
+          .map(item => item.orgDisplayName).join(', ')}`,
+        `${tr(translate, 'teams', 'Teams')}: ${(person.teams || [])
+          .map(item => item.teamDisplayName).join(', ')}`,
+        `${tr(translate, 'import-usernames', 'Import usernames')}: ${(person.importUsernames || []).join(', ')}`,
+        person.profile?.avatarUrl || '',
+      ] });
+    } catch (_) { /* exact people scope already reports refused reads */ }
+  }
+  const locationUserId = String(requestFields.locationUserId || '');
+  const locationCountry = String(requestFields.locationCountry || '');
+  if (locationUserId && locationCountry) {
+    const person = result.rows.find(item => item._id === locationUserId);
+    const country = person?.countries.find(item => item.country === locationCountry);
+    if (person && country) for (const location of country.rows || []) rows.push({
+      rowHeader: false, cells: [
+        `${country.flag || ''} ${country.country}: ${location.city || ''}`,
+        location.ipv4 || '', location.ipv6 || '',
+        location.firstAt ? String(location.firstAt) : '',
+        location.at ? String(location.at) : '', '', '', '', '',
+      ],
+    });
+  }
+  if (requestFields.confirmUnlockPerson) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'accounts-lockout-confirm-unlock', 'Unlock this user?'),
+    uiAction({ action: path, label: tr(translate, 'accounts-lockout-click-to-unlock', 'Unlock'),
+      fields: { ...pathFields, legacyOperation: 'unlock-person',
+        targetUserId: String(requestFields.confirmUnlockPerson) } }), '', '', '', '', '', '', ''] });
+  rows.push({ rowHeader: false, cells: [
+    `${tr(translate, 'page', 'Page')} ${result.page} / ${result.totalPages}`,
+    result.page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: result.search, filter: result.filter,
+        page: result.page - 1 } }) : '',
+    result.page < result.totalPages ? uiAction({ action: path,
+      label: tr(translate, 'next-page', 'Next'), icon: 'next',
+      fields: { q: result.search, filter: result.filter, page: result.page + 1 } }) : '',
+    '', '', '', '', '', ''] });
+  if (requestFields.legacyPeopleResult) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyPeopleResult,
+    '', '', '', '', '', '', ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'people', 'People')}`,
+  columns: [tr(translate, 'actions', 'Actions'), tr(translate, 'username', 'Username'),
+    tr(translate, 'email', 'Email'), tr(translate, 'admin', 'Admin'),
+    tr(translate, 'active-person', 'Active'), tr(translate, 'location', 'Location'),
+    tr(translate, 'accounts-lockout-status', 'Lockout status'),
+    tr(translate, 'createdAt', 'Created'), tr(translate, 'select-all', 'Select')], rows };
+}
+
 async function adminPeopleLockedUsersPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/locked-users') return null;
   let result;
@@ -4805,6 +4925,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminPeopleOrganizations) return adminPeopleOrganizations;
   const adminPeopleTeams = await adminPeopleTeamsPage(path, userId, requestFields, translate);
   if (adminPeopleTeams) return adminPeopleTeams;
+  const adminPeoplePeople = await adminPeoplePeoplePage(path, userId, requestFields, translate);
+  if (adminPeoplePeople) return adminPeoplePeople;
   const adminPeopleLockedUsers = await adminPeopleLockedUsersPage(
     path, userId, requestFields, translate);
   if (adminPeopleLockedUsers) return adminPeopleLockedUsers;

@@ -117,6 +117,7 @@ import {
 } from '/server/lib/adminTeams';
 import { saveLockoutSettingsForAdmin, unlockAllUsersForAdmin,
   unlockUserForAdmin } from '/server/lib/adminLockout';
+import { setPersonActiveForAdmin } from '/server/lib/adminPeople';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -677,6 +678,32 @@ WebApp.handlers.use(async (req, res, next) => {
       }
     } catch (error) {
       requestFields.legacyLockoutResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/people') {
+    const operation = String(requestFields.legacyOperation || '');
+    try {
+      if (operation === 'show-person') {
+        requestFields.editPersonId = String(requestFields.targetUserId || '');
+      } else if (operation === 'set-person-active') {
+        await setPersonActiveForAdmin(session.userId,
+          String(requestFields.targetUserId || ''), requestFields.active === 'true', { req });
+      } else if (operation === 'request-unlock-person') {
+        requestFields.confirmUnlockPerson = String(requestFields.targetUserId || '');
+      } else if (operation === 'unlock-person') {
+        await unlockUserForAdmin(session.userId,
+          String(requestFields.targetUserId || ''), { req });
+      } else if (operation === 'show-login-country') {
+        requestFields.locationUserId = String(requestFields.targetUserId || '');
+        requestFields.locationCountry = String(requestFields.locationCountry || '');
+      }
+      if (operation && !['show-person', 'request-unlock-person',
+        'show-login-country'].includes(operation)) {
+        requestFields.legacyPeopleResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.legacyPeopleResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }
