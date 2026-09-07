@@ -1342,6 +1342,7 @@ WebApp.handlers.use(async (req, res, next) => {
   if (query.has('q')) requestFields.q = query.get('q');
   if (query.has('searchView')) requestFields.searchView = query.get('searchView');
   if (query.has('page')) requestFields.page = query.get('page');
+  requestFields.req = req;
   requestFields.requestHeaders = req.headers;
   const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
 

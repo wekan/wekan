@@ -29,6 +29,7 @@ import {
   toggleAccessibleDefaultBoard,
   setAccessibleBoardWorkspace,
 } from '/server/lib/accessibleBoardListOperations';
+import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
@@ -2622,98 +2623,7 @@ Meteor.methods({
   // we link to. See server/models/users.js Users.after.insert and
   // client/components/lists/listBody.js for how these are created.
   async adminSharedTemplates() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-
-    const currentUser = await ReactiveCache.getUser(
-      { _id: this.userId },
-      { fields: { isAdmin: 1 } },
-    );
-    if (!currentUser || !currentUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Admin access required');
-    }
-
-    const users = await ReactiveCache.getUsers(
-      { 'profile.templatesBoardId': { $exists: true, $nin: [null, ''] } },
-      {
-        fields: {
-          username: 1,
-          'profile.fullname': 1,
-          'profile.templatesBoardId': 1,
-          'profile.boardTemplatesSwimlaneId': 1,
-          orgs: 1,
-          teams: 1,
-          emails: 1,
-        },
-      },
-    );
-
-    const result = [];
-    for (const user of users) {
-      const profile = user.profile || {};
-      const templatesBoardId = profile.templatesBoardId;
-      if (!templatesBoardId) continue;
-
-      // Enumerate the user's shared template boards: linked-board cards in the
-      // Board Templates swimlane of their Templates container board.
-      const cardQuery = {
-        boardId: templatesBoardId,
-        type: 'cardType-linkedBoard',
-        archived: false,
-      };
-      if (profile.boardTemplatesSwimlaneId) {
-        cardQuery.swimlaneId = profile.boardTemplatesSwimlaneId;
-      }
-      const cards = await ReactiveCache.getCards(cardQuery, {
-        fields: { title: 1, linkedId: 1, sort: 1 },
-        sort: { sort: 1 },
-      });
-
-      if (!cards || cards.length === 0) continue; // empty Templates board -> exclude
-
-      const templateBoards = [];
-      for (const card of cards) {
-        let slug = '';
-        if (card.linkedId) {
-          const board = await ReactiveCache.getBoard(card.linkedId);
-          if (board) slug = board.slug || '';
-        }
-        templateBoards.push({
-          cardId: card._id,
-          title: card.title || '',
-          boardId: card.linkedId || '',
-          slug,
-        });
-      }
-
-      const emails = (user.emails || []).map(e => e.address).filter(Boolean);
-      const domains = [
-        ...new Set(
-          emails
-            .map(addr => (addr.indexOf('@') >= 0 ? addr.split('@')[1].toLowerCase() : ''))
-            .filter(Boolean),
-        ),
-      ];
-
-      result.push({
-        userId: user._id,
-        username: user.username || '',
-        fullname: (profile.fullname) || '',
-        orgs: (user.orgs || []).map(o => ({
-          orgId: o.orgId,
-          orgDisplayName: o.orgDisplayName,
-        })),
-        teams: (user.teams || []).map(t => ({
-          teamId: t.teamId,
-          teamDisplayName: t.teamDisplayName,
-        })),
-        domains,
-        templateBoards,
-      });
-    }
-
-    return result;
+    return sharedTemplatesForAdmin(this.userId);
   },
 
   async searchUsers(query, boardId) {

@@ -67,6 +67,7 @@ import { globalWebhooksForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { visibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings';
 import { translationsPageForAdmin } from '/server/lib/adminTranslations';
 import { inviteRolesForAdmin } from '/server/lib/adminInviteRoles';
+import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -104,6 +105,12 @@ const {
 } = require('/models/lib/ruleParameterizedCatalog');
 const { CARD_COLORS } = require('/models/metadata/colors');
 const { BOARD_ROLES, ROLE_CAPABILITIES } = require('/models/lib/boardRoleCapabilities');
+const {
+  SHARED_TEMPLATE_SCOPES,
+  SHARED_TEMPLATE_SCOPE_LABELS,
+  buildSharedTemplateScopeGroups,
+  normalizeSharedTemplateScopes,
+} = require('/models/lib/sharedTemplates');
 const { ADMIN_PAGES, ADMIN_PANE_TITLES } = require('/models/lib/adminUrls');
 const { PERMANENT_DELETE_RECOVERY_DESCRIPTION } =
   require('/models/lib/permanentDeleteDescription');
@@ -3145,6 +3152,57 @@ async function adminPeopleRolesPage(path, userId, requestFields, translate) {
       tr(translate, 'roles-status-manage', 'Board settings')], rows };
 }
 
+async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/shared-templates') return null;
+  let templateRows;
+  try {
+    templateRows = await sharedTemplatesForAdmin(userId, { req: requestFields.req });
+  } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'shared-templates', 'Shared templates'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const scopes = normalizeSharedTemplateScopes(requestFields.templateScopes);
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'shared-templates-info',
+      'Browse users shared template boards by scope.'), '', '', ''] },
+    { rowHeader: false, cells: [uiFieldsetForm({ action: path,
+      legend: tr(translate, 'shared-templates', 'Shared templates'),
+      id: 'shared-template-scopes',
+      inputs: SHARED_TEMPLATE_SCOPES.map(scope => ({ type: 'checkbox',
+        name: 'templateScopes', value: scope, checked: scopes.includes(scope),
+        label: tr(translate, SHARED_TEMPLATE_SCOPE_LABELS[scope], scope) })),
+      fields: { legacyOperation: 'filter-shared-templates' },
+      submitLabel: tr(translate, 'filter', 'Filter'),
+    }), '', '', ''] },
+  ];
+  if (!scopes.length) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'shared-templates-select-scope',
+      'Select a scope above to show shared templates.'), '', '', '',
+  ] });
+  for (const scope of scopes) {
+    const scopeLabel = tr(translate, SHARED_TEMPLATE_SCOPE_LABELS[scope], scope);
+    const groups = buildSharedTemplateScopeGroups(scope, templateRows);
+    if (!groups.length) rows.push({ cells: [scopeLabel,
+      tr(translate, 'no-shared-templates', 'No shared templates'), '', ''] });
+    for (const group of groups) for (const member of group.members) {
+      if (!member.templateBoards.length) rows.push({ cells: [scopeLabel,
+        group.groupName, member.label, tr(translate, 'no-shared-templates',
+          'No shared templates')] });
+      for (const board of member.templateBoards) rows.push({ cells: [scopeLabel,
+        group.groupName, member.label, board.url ? uiAction({ action: board.url,
+          label: board.title || tr(translate, 'board', 'Board') })
+          : board.title || tr(translate, 'board', 'Board')] });
+    }
+  }
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'shared-templates', 'Shared templates')}`,
+  columns: [tr(translate, 'type', 'Scope'), tr(translate, 'name', 'Group'),
+    tr(translate, 'username', 'User'), tr(translate, 'board', 'Board')], rows };
+}
+
 async function adminPeopleBaselinePage(path, userId, translate) {
   const match = /^\/admin\/people\/([^/]+)$/.exec(path);
   const slug = match?.[1] || '';
@@ -4166,6 +4224,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminSettingsTranslation) return adminSettingsTranslation;
   const adminPeopleRoles = await adminPeopleRolesPage(path, userId, requestFields, translate);
   if (adminPeopleRoles) return adminPeopleRoles;
+  const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminPeopleSharedTemplates) return adminPeopleSharedTemplates;
   const adminPeopleBaseline = await adminPeopleBaselinePage(path, userId, translate);
   if (adminPeopleBaseline) return adminPeopleBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(

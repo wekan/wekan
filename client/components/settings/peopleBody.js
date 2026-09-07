@@ -30,6 +30,10 @@ import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,
 } from '/models/inviteToBoardRolesSettings';
+import {
+  SHARED_TEMPLATE_SCOPE_LABELS,
+  buildSharedTemplateScopeGroups,
+} from '/models/lib/sharedTemplates';
 // The one capability table the server allow rules and the client's canModify*
 // helpers also read, so the Roles Status pane cannot show a permission that is
 // not enforced.
@@ -1280,54 +1284,6 @@ Template.templatesGeneral.onCreated(function () {
   this.loadSharedTemplates();
 });
 
-const SCOPE_LABELS = {
-  organizations: 'organizations',
-  teams: 'teams',
-  domains: 'domains',
-};
-
-// Build the grouped structure for a single scope dimension.
-function buildScopeGroups(scope, rows) {
-  // group key -> { groupName, members: [] }
-  const groups = {};
-
-  const addToGroup = (key, name, row) => {
-    if (!groups[key]) {
-      groups[key] = { groupKey: key, groupName: name, members: [] };
-    }
-    groups[key].members.push({
-      userId: row.userId,
-      label: row.fullname ? `${row.fullname} (${row.username})` : row.username,
-      templateBoards: row.templateBoards.map(b => ({
-        title: b.title,
-        boardId: b.boardId,
-        slug: b.slug,
-        url: b.boardId ? `/b/${b.boardId}/${b.slug || 'template'}` : '',
-      })),
-    });
-  };
-
-  rows.forEach(row => {
-    if (scope === 'organizations') {
-      (row.orgs || []).forEach(o => {
-        if (o.orgId) addToGroup(o.orgId, o.orgDisplayName || o.orgId, row);
-      });
-    } else if (scope === 'teams') {
-      (row.teams || []).forEach(t => {
-        if (t.teamId) addToGroup(t.teamId, t.teamDisplayName || t.teamId, row);
-      });
-    } else if (scope === 'domains') {
-      (row.domains || []).forEach(d => {
-        if (d) addToGroup(d, d, row);
-      });
-    }
-  });
-
-  return Object.values(groups).sort((a, b) =>
-    String(a.groupName).localeCompare(String(b.groupName)),
-  );
-}
-
 Template.templatesGeneral.helpers({
   loading() {
     return Template.instance().loading;
@@ -1344,8 +1300,8 @@ Template.templatesGeneral.helpers({
     const rows = tpl.sharedTemplates.get() || [];
     return scopes.map(scope => ({
       scope,
-      scopeLabel: SCOPE_LABELS[scope] || scope,
-      groups: buildScopeGroups(scope, rows),
+      scopeLabel: SHARED_TEMPLATE_SCOPE_LABELS[scope] || scope,
+      groups: buildSharedTemplateScopeGroups(scope, rows),
     }));
   },
 });
