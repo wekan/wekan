@@ -19,8 +19,6 @@ import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { BOARD_COLORS } from '/models/metadata/colors';
-import { isValidCustomColors } from '/models/lib/themeCategories';
-import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
@@ -34,6 +32,9 @@ import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { changeOwnMemberPassword } from '/server/lib/memberPassword';
 import { updateMemberSettings } from '/server/lib/memberSettings';
+import {
+  memberAppearanceForUser, setMemberFont, setMemberTheme,
+} from '/server/lib/memberAppearance';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin,
@@ -559,27 +560,12 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(color, Match.OneOf(String, null, undefined));
     check(customColors, Match.OneOf([String], null, undefined));
-
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    if (color) {
-      if (!BOARD_COLORS.includes(color)) {
-        throw new Meteor.Error('invalid-color', 'Unknown theme color');
-      }
-      const modifier = { $set: { 'profile.globalThemeColor': color } };
-      if (customColors && customColors.length && isValidCustomColors(color, customColors)) {
-        modifier.$set['profile.globalThemeCustomColors'] = customColors;
-      } else {
-        modifier.$unset = { 'profile.globalThemeCustomColors': '' };
-      }
-      await Users.updateAsync(this.userId, modifier);
-      return color;
-    }
-    await Users.updateAsync(this.userId, {
-      $unset: { 'profile.globalThemeColor': '', 'profile.globalThemeCustomColors': '' },
-    });
-    return null;
+    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
+    const result = await setMemberTheme(this.userId, {
+      color: color || '', customColors: customColors || [],
+      allBoardsThemeTiles: current.allBoardsThemeTiles,
+    }, { connection: this.connection });
+    return result.themeColor || null;
   },
 
   // #4759: set (or clear, when null/'') the caller's UI font. Validated against the
@@ -588,19 +574,11 @@ Meteor.methods({
   async setUiFont(font) {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(font, Match.OneOf(String, null, undefined));
-
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    if (font) {
-      if (!isKnownFont(font)) {
-        throw new Meteor.Error('invalid-font', 'Unknown font');
-      }
-      await Users.updateAsync(this.userId, { $set: { 'profile.uiFont': font } });
-      return font;
-    }
-    await Users.updateAsync(this.userId, { $unset: { 'profile.uiFont': '' } });
-    return null;
+    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
+    const result = await setMemberFont(this.userId, {
+      font: font || '', size: current.uiFontSize, textColor: current.uiTextColor,
+    }, { connection: this.connection });
+    return result.uiFont || null;
   },
 
   // #4759: set (or clear) the caller's UI font-size preset. Validated against the
@@ -608,19 +586,11 @@ Meteor.methods({
   async setUiFontSize(size) {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(size, Match.OneOf(String, null, undefined));
-
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    if (size && size !== 'default') {
-      if (!isKnownFontSize(size)) {
-        throw new Meteor.Error('invalid-font-size', 'Unknown font size');
-      }
-      await Users.updateAsync(this.userId, { $set: { 'profile.uiFontSize': size } });
-      return size;
-    }
-    await Users.updateAsync(this.userId, { $unset: { 'profile.uiFontSize': '' } });
-    return null;
+    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
+    const result = await setMemberFont(this.userId, {
+      font: current.uiFont, size: size || 'default', textColor: current.uiTextColor,
+    }, { connection: this.connection });
+    return result.uiFontSize === 'default' ? null : result.uiFontSize;
   },
 
   // #4759: set (or clear) the caller's custom UI text color. Validated as
@@ -637,22 +607,12 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(textColor, Match.OneOf(String, null, undefined));
     check(bgColor, Match.OneOf(String, null, undefined));
-
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-
-    const $set = {};
-    const $unset = {};
-    if (isHexColor6(textColor)) $set['profile.uiTextColor'] = textColor;
-    else $unset['profile.uiTextColor'] = '';
-    $unset['profile.uiTextBgColor'] = '';
-
-    const modifier = {};
-    if (Object.keys($set).length) modifier.$set = $set;
-    if (Object.keys($unset).length) modifier.$unset = $unset;
-    await Users.updateAsync(this.userId, modifier);
+    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
+    const result = await setMemberFont(this.userId, {
+      font: current.uiFont, size: current.uiFontSize, textColor: textColor || '',
+    }, { connection: this.connection });
     return {
-      textColor: $set['profile.uiTextColor'] || null,
+      textColor: result.uiTextColor || null,
       bgColor: null,
     };
   },
@@ -752,11 +712,12 @@ Meteor.methods({
   // toggleOpenManyCardsAtOnce is one - the row it sits in has no Save button.
   async toggleAllBoardsThemeTiles() {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    const user = await Users.findOneAsync(this.userId);
-    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
-    const current = !!((user.profile || {}).allBoardsThemeTiles);
-    await Users.updateAsync(this.userId, { $set: { 'profile.allBoardsThemeTiles': !current } });
-    return !current;
+    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
+    const result = await setMemberTheme(this.userId, {
+      color: current.themeColor, customColors: current.customThemeColors,
+      allBoardsThemeTiles: !current.allBoardsThemeTiles,
+    }, { connection: this.connection });
+    return result.allBoardsThemeTiles;
   },
 
   async createWorkspace(params) {

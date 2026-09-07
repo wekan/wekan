@@ -746,6 +746,26 @@ FlowRouter.route('/account/settings', {
   },
 });
 
+FlowRouter.route('/account/color', {
+  name: 'account-color',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    EscapeActions.executeAll();
+    this.render('defaultLayout', { content: 'changeColorPopup' });
+  },
+});
+
+FlowRouter.route('/account/font', {
+  name: 'account-font',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    EscapeActions.executeAll();
+    this.render('defaultLayout', { content: 'changeFontPopup' });
+  },
+});
+
 // #1173: the import page with no source chosen yet. The page picks the source
 // itself now, so the address does not have to carry one - but /import/:source
 // below still works, so every existing link, bookmark and back button does.

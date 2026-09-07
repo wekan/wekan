@@ -145,6 +145,8 @@ import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { changeOwnMemberPassword } from '/server/lib/memberPassword';
 import { updateMemberSettings } from '/server/lib/memberSettings';
+import { setMemberFont, setMemberTheme } from '/server/lib/memberAppearance';
+import { categoryOf, customColorCount } from '/models/lib/themeCategories';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -359,6 +361,36 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyMemberSettingsResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
       );
+    }
+  }
+  if (session && path === '/account/color'
+    && requestFields.legacyOperation === 'save-member-theme') {
+    try {
+      const color = String(requestFields.color || '');
+      const count = color ? customColorCount(categoryOf(color)) : 0;
+      const customColors = [requestFields.customColor1, requestFields.customColor2]
+        .slice(0, count).map(value => String(value || '').trim()).filter(Boolean);
+      await setMemberTheme(session.userId, {
+        color, customColors,
+        allBoardsThemeTiles: requestFields.allBoardsThemeTiles === 'true',
+      }, { req });
+      requestFields.legacyThemeResult = translatedOr(translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyThemeResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/account/font'
+    && requestFields.legacyOperation === 'save-member-font') {
+    try {
+      await setMemberFont(session.userId, {
+        font: String(requestFields.font || ''), size: String(requestFields.size || 'default'),
+        textColor: String(requestFields.textColor || '').trim(),
+      }, { req });
+      requestFields.legacyFontResult = translatedOr(translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyFontResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
     }
   }
   if (session && path === '/admin/settings/version'

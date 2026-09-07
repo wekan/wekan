@@ -57,15 +57,17 @@ test('user model: schema field + helpers + setter', () => {
 
 test('server method validates against BOARD_COLORS and is auth-guarded', () => {
   const s = read('server/models/users.js');
+  const service = read('server/lib/memberAppearance.js');
   const i = s.indexOf('setGlobalThemeColor(color');
   assert.ok(i !== -1, 'server method');
   const body = s.slice(i, i + 900);
-  assert.ok(/not-logged-in/.test(body), 'requires login');
+  assert.ok(/memberAppearanceForUser\(this\.userId/.test(body), 'requires the shared account boundary');
   // NEGATIVE guard: an unknown color must be rejected, not written as a CSS class.
-  assert.ok(/BOARD_COLORS\.includes\(color\)/.test(body), 'validates the color');
-  assert.ok(/invalid-color/.test(body), 'rejects unknown colors');
+  assert.ok(/BOARD_COLORS\.includes\(color\)/.test(service), 'validates the color');
+  assert.ok(/invalid-color/.test(service), 'rejects unknown colors');
   // custom colors are validated (flat/clear + hex) before storage.
-  assert.ok(/isValidCustomColors\(color, customColors\)/.test(body), 'validates custom colors');
+  assert.ok(/isValidCustomColors\(color, customColors\)/.test(service), 'validates custom colors');
+  assert.ok(/source: 'memberAppearance'/.test(service), 'reports rejected values');
 });
 
 test('member menu has Change Color, opening the shared theme picker (scope=global)', () => {

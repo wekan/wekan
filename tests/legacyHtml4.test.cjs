@@ -921,6 +921,34 @@ test('member settings route shares explicit bounded preferences with Jade', () =
   assert.match(methods, /updateMemberSettings\(this\.userId/);
 });
 
+test('member appearance routes share strict color and font boundaries with Jade', () => {
+  const root = path.join(__dirname, '..');
+  const routes = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const handler = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  const service = fs.readFileSync(path.join(root, 'server/lib/memberAppearance.js'), 'utf8');
+  const methods = fs.readFileSync(path.join(root, 'server/models/users.js'), 'utf8');
+  assert.match(routes, /FlowRouter\.route\('\/account\/color'/);
+  assert.match(routes, /FlowRouter\.route\('\/account\/font'/);
+  assert.match(jade, /js-change-color\(href="\/account\/color"\)/);
+  assert.match(jade, /js-change-font\(href="\/account\/font"\)/);
+  assert.match(pages, /async function accountAppearancePage/);
+  assert.match(pages, /legacyOperation: 'save-member-theme'/);
+  assert.match(pages, /legacyOperation: 'save-member-font'/);
+  assert.match(handler, /setMemberTheme\(session\.userId/);
+  assert.match(handler, /setMemberFont\(session\.userId/);
+  assert.match(service, /BOARD_COLORS\.includes\(color\)/);
+  assert.match(service, /isValidCustomColors\(color, customColors\)/);
+  assert.match(service, /isKnownFont\(font\)/);
+  assert.match(service, /isKnownFontSize\(size\)/);
+  assert.match(service, /isHexColor6\(textColor\)/);
+  assert.match(service, /source: 'memberAppearance'/);
+  assert.match(methods, /setMemberTheme\(this\.userId/);
+  assert.match(methods, /setMemberFont\(this\.userId/);
+  assert.doesNotMatch(service, /\$set\[[^\]]+input/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',

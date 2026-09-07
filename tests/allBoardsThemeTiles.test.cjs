@@ -70,6 +70,7 @@ test('only the USER has it (negative)', () => {
 });
 
 test('the preference is a per-user profile field with a method to flip it', () => {
+  const service = read('server/lib/memberAppearance.js');
   assert.ok(/'profile\.allBoardsThemeTiles': \{/.test(users), 'declared in the schema');
   assert.ok(/type: Boolean,\s*\n\s*optional: true,/.test(
     users.slice(users.indexOf("'profile.allBoardsThemeTiles'"), users.indexOf("'profile.globalThemeColor'"))),
@@ -77,9 +78,10 @@ test('the preference is a per-user profile field with a method to flip it', () =
   assert.ok(/hasAllBoardsThemeTiles\(\)/.test(users), 'with a reader');
   assert.ok(/async toggleAllBoardsThemeTiles\(\)/.test(serverUsers), 'and a server method');
   const method = serverUsers.slice(serverUsers.indexOf('async toggleAllBoardsThemeTiles'));
-  assert.ok(/if \(!this\.userId\) throw new Meteor\.Error\('not-logged-in'/.test(method.slice(0, 400)),
+  assert.ok(/memberAppearanceForUser\(this\.userId/.test(method.slice(0, 500)),
     'which refuses an anonymous caller');
-  assert.ok(/Users\.updateAsync\(this\.userId/.test(method.slice(0, 700)),
+  assert.ok(/setMemberTheme\(this\.userId/.test(method.slice(0, 800))
+      && /Meteor\.users\.updateAsync\(userId/.test(service),
     'and writes the CALLER, never an id from the client');
 });
 

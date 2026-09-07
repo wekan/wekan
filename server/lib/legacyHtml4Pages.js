@@ -90,6 +90,8 @@ import { adminThemeForUser } from '/server/lib/adminThemeSettings';
 import { memberProfileForUser } from '/server/lib/memberProfile';
 import { memberLanguageChoices } from '/server/lib/memberLanguage';
 import { memberSettingsForUser } from '/server/lib/memberSettings';
+import { memberAppearanceForUser } from '/server/lib/memberAppearance';
+import { categoryOf, customColorCount } from '/models/lib/themeCategories';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
@@ -2452,6 +2454,82 @@ async function accountSettingsPage(path, userId, requestFields, translate) {
     heading: tr(translate, 'changeSettingsPopup-title', 'Change Settings'),
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
     rows,
+  };
+}
+
+async function accountAppearancePage(path, userId, requestFields, translate) {
+  if (path !== '/account/color' && path !== '/account/font') return null;
+  let appearance;
+  try {
+    appearance = await memberAppearanceForUser(userId, { req: requestFields.req });
+  } catch (_) {
+    return {
+      heading: tr(translate, path === '/account/color' ? 'change-color' : 'change-font',
+        path === '/account/color' ? 'Change Color' : 'Change Font'),
+      columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+      rows: [{ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  let form;
+  if (path === '/account/color') {
+    const color = appearance.themeColor;
+    const customCount = color ? customColorCount(categoryOf(color)) : 0;
+    form = uiFieldsetForm({
+      action: path,
+      legend: tr(translate, 'change-color', 'Change Color'),
+      inputs: [
+        { name: 'color', type: 'select', label: tr(translate, 'change-color', 'Change Color'),
+          value: color, options: [
+            { value: '', label: tr(translate, 'theme-default', 'Default theme') },
+            ...appearance.themeColors.map(value => ({ value, label: value })),
+          ] },
+        { name: 'customColor1', type: 'text',
+          label: `${tr(translate, 'custom-color', 'Custom color')} 1`,
+          value: appearance.customThemeColors[0] || '', maxlength: 7,
+          description: `${tr(translate, 'theme-category-flat', 'Flat')}: 1; ${tr(translate,
+            'theme-category-clear', 'Clear')}: 2; ${tr(translate,
+            'theme-category-dark', 'Dark')} / ${tr(translate,
+            'theme-category-special', 'Special')}: 0` },
+        { name: 'customColor2', type: 'text',
+          label: `${tr(translate, 'custom-color', 'Custom color')} 2`,
+          value: customCount === 2 ? appearance.customThemeColors[1] || '' : '', maxlength: 7 },
+        { name: 'allBoardsThemeTiles', type: 'checkbox', value: 'true',
+          checked: appearance.allBoardsThemeTiles,
+          label: tr(translate, 'all-boards', 'All Boards') },
+      ],
+      fields: { legacyOperation: 'save-member-theme' },
+      submitLabel: tr(translate, 'save', 'Save'), id: 'member-theme',
+    });
+  } else {
+    form = uiFieldsetForm({
+      action: path,
+      legend: tr(translate, 'change-font', 'Change Font'),
+      inputs: [
+        { name: 'font', type: 'select', label: tr(translate, 'font', 'Font'),
+          value: appearance.uiFont, options: [
+            { value: '', label: tr(translate, 'font-default', 'Default font') },
+            ...appearance.fonts.map(value => ({ value, label: value })),
+          ] },
+        { name: 'size', type: 'select', label: tr(translate, 'font-size', 'Font size'),
+          value: appearance.uiFontSize, options: appearance.fontSizes.map(item => ({
+            value: item.key, label: tr(translate, `font-size-${item.key}`, `${item.percent}%`),
+          })) },
+        { name: 'textColor', type: 'text', label: tr(translate, 'text-color', 'Text color'),
+          value: appearance.uiTextColor, maxlength: 7 },
+      ],
+      fields: { legacyOperation: 'save-member-font' },
+      submitLabel: tr(translate, 'save', 'Save'), id: 'member-font',
+    });
+  }
+  const result = path === '/account/color'
+    ? requestFields.legacyThemeResult : requestFields.legacyFontResult;
+  const rows = [{ rowHeader: false, cells: ['', form] }];
+  if (result) rows.push({ cells: [tr(translate, 'status', 'Status'), result] });
+  return {
+    heading: tr(translate, path === '/account/color' ? 'change-color' : 'change-font',
+      path === '/account/color' ? 'Change Color' : 'Change Font'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')], rows,
   };
 }
 
@@ -5832,6 +5910,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (accountPassword) return accountPassword;
   const accountSettings = await accountSettingsPage(path, userId, requestFields, translate);
   if (accountSettings) return accountSettings;
+  const accountAppearance = await accountAppearancePage(path, userId, requestFields, translate);
+  if (accountAppearance) return accountAppearance;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

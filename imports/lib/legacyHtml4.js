@@ -75,6 +75,8 @@ function pageHeading(path, options) {
   if (path === '/account/settings') {
     return translated(options, 'changeSettingsPopup-title', 'Change Settings');
   }
+  if (path === '/account/color') return translated(options, 'change-color', 'Change Color');
+  if (path === '/account/font') return translated(options, 'change-font', 'Change Font');
   const routeTitles = [
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
@@ -270,6 +272,7 @@ function contentRows(path, options) {
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/broken-cards', '/bookmarks',
         '/account/profile', '/account/password', '/account/settings', '/account/language',
+        '/account/color', '/account/font',
         '/import', '/support', '/accessibility', '/shortcuts']
         .concat(options.isAdmin
           ? ['/admin/settings/version', '/admin/people/people',

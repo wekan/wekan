@@ -104,13 +104,14 @@ test('user model + server method: schema, getter, validated setter, unset', () =
   const m = read('models/users.js');
   assert.ok(/'profile\.uiFont'/.test(m) && /getUiFont\(\)/.test(m), 'schema + getter');
   const s = read('server/models/users.js');
+  const service = read('server/lib/memberAppearance.js');
   const i = s.indexOf('setUiFont(font)');
   assert.ok(i !== -1, 'server method');
-  const body = s.slice(i, i + 600);
-  assert.ok(/not-logged-in/.test(body), 'requires login');
+  const body = s.slice(i, i + 700);
+  assert.ok(/memberAppearanceForUser\(this\.userId/.test(body), 'requires the shared account boundary');
   // NEGATIVE guard: only whitelisted fonts are stored.
-  assert.ok(/isKnownFont\(font\)/.test(body) && /invalid-font/.test(body), 'validates the font');
-  assert.ok(/\$unset:\s*{\s*'profile\.uiFont'/.test(body), 'null/empty unsets the custom font');
+  assert.ok(/isKnownFont\(font\)/.test(service) && /invalid-font/.test(service), 'validates the font');
+  assert.ok(/\$unset\['profile\.uiFont'\]/.test(service), 'null/empty unsets the custom font');
 });
 
 test('member menu Font entry + font/size buttons that apply immediately', () => {
@@ -133,11 +134,13 @@ test('member menu Font entry + font/size buttons that apply immediately', () => 
 
 test('server setUiFontSize validates presets + supports unset', () => {
   const s = read('server/models/users.js');
+  const service = read('server/lib/memberAppearance.js');
   const i = s.indexOf('setUiFontSize(size)');
   assert.ok(i !== -1, 'server method');
   const body = s.slice(i, i + 900);
-  assert.ok(/isKnownFontSize\(size\)/.test(body) && /invalid-font-size/.test(body), 'validates preset');
-  assert.ok(/\$unset:\s*{\s*'profile\.uiFontSize'/.test(body), "default/null unsets size");
+  assert.ok(/setMemberFont\(this\.userId/.test(body), 'delegates to shared boundary');
+  assert.ok(/isKnownFontSize\(size\)/.test(service) && /invalid-font/.test(service), 'validates preset');
+  assert.ok(/\$unset\['profile\.uiFontSize'\]/.test(service), "default/null unsets size");
 });
 
 test('color schema custom() skips unset values (regression: user insert)', () => {
@@ -160,9 +163,11 @@ test('text color: schema, wheel+reset, validated setter, applied as a CSS var', 
   assert.ok(/Meteor\.call\('setUiColors', tpl\.textColor\.get\(\), null/.test(js), 'saves it');
   assert.ok(/textColor\.set\(null\)/.test(js), 'reset unsets');
   const s = read('server/models/users.js');
+  const appearance = read('server/lib/memberAppearance.js');
   const i = s.indexOf('setUiColors(textColor, bgColor)');
   assert.ok(i !== -1, 'server method');
-  assert.ok(/isHexColor6\(textColor\)/.test(s.slice(i, i + 900)), 'validates hex');
+  assert.ok(/setMemberFont\(this\.userId/.test(s.slice(i, i + 900)), 'uses shared boundary');
+  assert.ok(/isHexColor6\(textColor\)/.test(appearance), 'validates hex');
   const jj = read('client/components/main/uiFont.js');
   assert.ok(/--wekan-ui-text-color/.test(jj), 'applies the colour var');
   const css = read('client/components/main/uiFont.css');
@@ -188,10 +193,12 @@ test('"text background color" is gone, and a stored one is cleared (negative)', 
   // A profile that HAS one is cleaned rather than left dormant: the setter
   // unsets the field on every call, whatever it is passed.
   const s = read('server/models/users.js');
+  const appearance = read('server/lib/memberAppearance.js');
   const i = s.indexOf('setUiColors(textColor, bgColor)');
-  assert.ok(/\$unset\['profile\.uiTextBgColor'\] = '';/.test(s.slice(i, i + 900)),
+  assert.ok(/setMemberFont\(this\.userId/.test(s.slice(i, i + 900))
+      && /'profile\.uiTextBgColor': ''/.test(appearance),
     'the setter always unsets it');
-  assert.ok(!/\$set\['profile\.uiTextBgColor'\]/.test(s), 'and never sets it');
+  assert.ok(!/\$set\['profile\.uiTextBgColor'\]/.test(s + appearance), 'and never sets it');
   // The schema key stays: a modifier touching a key SimpleSchema does not know
   // is rejected, which would leave exactly those profiles uncleanable.
   const users = read('models/users.js');
