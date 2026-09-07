@@ -287,6 +287,8 @@ PDF and office attachments now have bounded, paged Legacy HTML4 previews with
 selectable text, safe tables and cached GIF images from Default Storage.
 Card Date Format now shares one guarded preference and remains available across
 route publication changes in both HTML4 and HTML5.
+Card History now shares its searchable, paged presentation and guarded Restore
+operation between HTML4 and HTML5.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -316,6 +318,23 @@ checks the profile and board view, and remains logged in beyond the poll window.
 </details>
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d27e22d12">Add card History and Restore to Legacy HTML4</a>. Thanks to xet7.</summary>
+
+Opened cards now expose the same searchable, contributor-filtered, paged History
+data in the cookieless HTML4 view as in the Jade popup. A shared presentation
+module supplies change labels and safe content summaries; the semantic HTML4
+component adds labelled filters, scoped table headers, native row checkboxes and
+signed Previous, Next and Restore controls.
+
+Restore delegates to the existing integrity-verifying history method, after an
+additional URL-bound boundary proves every selected row belongs to the exact
+card. Forged cross-card rows are refused and attributed in Problems / Security.
+Positive, negative and escaping tests pass, and a live same-URL Chromium test
+compares both views, restores a selected prior state and verifies the canary.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e83304d4">Use cryptographic randomness throughout Playwright tests</a>. Thanks to xet7.</summary>
