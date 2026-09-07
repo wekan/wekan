@@ -78,8 +78,11 @@ test('the preference is stored on the user, with a server method to flip it', ()
   const server = read('server/models/users.js');
   const method = server.slice(server.indexOf('async toggleOpenManyCardsAtOnce'));
   assert.ok(/not-logged-in/.test(method.slice(0, 400)), 'the method requires a user');
-  assert.ok(/\$set: \{ 'profile\.openManyCardsAtOnce': !current \}/.test(method),
-    'and toggles the stored value');
+  assert.ok(/updateMemberSettings\(this\.userId, \{ openManyCardsAtOnce: !current \}/.test(method),
+    'and delegates the desired value to the shared boundary');
+  const shared = read('server/lib/memberSettings.js');
+  assert.ok(/openManyCardsAtOnce: 'profile\.openManyCardsAtOnce'/.test(shared),
+    'the shared boundary stores that profile field');
 });
 
 test('Member Settings offers it, next to the other per-user toggles', () => {

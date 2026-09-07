@@ -33,6 +33,7 @@ import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { changeOwnMemberPassword } from '/server/lib/memberPassword';
+import { updateMemberSettings } from '/server/lib/memberSettings';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin,
@@ -720,9 +721,8 @@ Meteor.methods({
     const next = typeof show === 'boolean'
       ? show
       : !user.hasShowDesktopDragHandles();
-    await Users.updateAsync(this.userId, {
-      $set: { 'profile.showDesktopDragHandles': next },
-    });
+    return updateMemberSettings(this.userId, { showDesktopDragHandles: next },
+      { connection: this.connection });
   },
 
   // Per-user "submit editors on plain Enter" preference (Member Settings).
@@ -732,7 +732,8 @@ Meteor.methods({
     const user = await Users.findOneAsync(this.userId);
     if (!user) throw new Meteor.Error('user-not-found', 'User not found');
     const current = !!((user.profile || {}).submitOnEnter);
-    await Users.updateAsync(this.userId, { $set: { 'profile.submitOnEnter': !current } });
+    return updateMemberSettings(this.userId, { submitOnEnter: !current },
+      { connection: this.connection });
   },
 
   // #6531: "Open many cards at once" - a per-user preference, off by default.
@@ -741,7 +742,8 @@ Meteor.methods({
     const user = await Users.findOneAsync(this.userId);
     if (!user) throw new Meteor.Error('user-not-found', 'User not found');
     const current = !!((user.profile || {}).openManyCardsAtOnce);
-    await Users.updateAsync(this.userId, { $set: { 'profile.openManyCardsAtOnce': !current } });
+    return updateMemberSettings(this.userId, { openManyCardsAtOnce: !current },
+      { connection: this.connection });
   },
 
   // Member Settings / Change color, beside "Default (no override)": paint the All
@@ -876,17 +878,21 @@ Meteor.methods({
     if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
     if (!user) return;
-    user.toggleRescueCardDescription(user.hasRescuedCardDescription());
+    return updateMemberSettings(this.userId, {
+      rescueCardDescription: !user.hasRescuedCardDescription(),
+    }, { connection: this.connection });
   },
 
   async changeLimitToShowCardsCount(limit) {
     check(limit, Number);
-    (await ReactiveCache.getCurrentUser()).setShowCardsCountAt(limit);
+    return updateMemberSettings(this.userId, { showCardsCountAt: limit },
+      { connection: this.connection });
   },
 
   async changeStartDayOfWeek(startDay) {
     check(startDay, Number);
-    (await ReactiveCache.getCurrentUser()).setStartDayOfWeek(startDay);
+    return updateMemberSettings(this.userId, { startDayOfWeek: startDay },
+      { connection: this.connection });
   },
 
   async changeDateFormat(dateFormat) {

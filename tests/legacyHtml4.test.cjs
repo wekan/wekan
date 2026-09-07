@@ -898,6 +898,29 @@ test('member password route shares guarded verification with Jade', () => {
   assert.doesNotMatch(handler, /Location[^\n]+(?:currentPassword|newPassword|passwordAgain)/);
 });
 
+test('member settings route shares explicit bounded preferences with Jade', () => {
+  const root = path.join(__dirname, '..');
+  const routes = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const handler = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  const service = fs.readFileSync(path.join(root, 'server/lib/memberSettings.js'), 'utf8');
+  const methods = fs.readFileSync(path.join(root, 'server/models/users.js'), 'utf8');
+  assert.match(routes, /FlowRouter\.route\('\/account\/settings'/);
+  assert.match(jade, /js-change-settings\(href="\/account\/settings"\)/);
+  assert.match(pages, /legacyOperation: 'save-member-settings'/);
+  assert.match(handler, /updateMemberSettings\(session\.userId, input, \{ req \}\)/);
+  for (const field of ['showDesktopDragHandles', 'submitOnEnter',
+    'openManyCardsAtOnce', 'rescueCardDescription', 'showCardsCountAt', 'startDayOfWeek']) {
+    assert.match(service, new RegExp(field));
+  }
+  assert.match(service, /input\.showCardsCountAt < -1 \|\| input\.showCardsCountAt > 100000/);
+  assert.match(service, /input\.startDayOfWeek < 0 \|\| input\.startDayOfWeek > 6/);
+  assert.match(service, /refused worker-only hidden card setting/);
+  assert.match(service, /source: 'memberSettings'/);
+  assert.match(methods, /updateMemberSettings\(this\.userId/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',

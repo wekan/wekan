@@ -72,6 +72,9 @@ function pageHeading(path, options) {
   if (path === '/account/password') {
     return translated(options, 'changePasswordPopup-title', 'Change Password');
   }
+  if (path === '/account/settings') {
+    return translated(options, 'changeSettingsPopup-title', 'Change Settings');
+  }
   const routeTitles = [
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
@@ -266,7 +269,7 @@ function contentRows(path, options) {
     rows.push(tableRow([
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/broken-cards', '/bookmarks',
-        '/account/profile', '/account/password', '/account/language',
+        '/account/profile', '/account/password', '/account/settings', '/account/language',
         '/import', '/support', '/accessibility', '/shortcuts']
         .concat(options.isAdmin
           ? ['/admin/settings/version', '/admin/people/people',

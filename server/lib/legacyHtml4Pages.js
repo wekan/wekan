@@ -89,6 +89,7 @@ import {
 import { adminThemeForUser } from '/server/lib/adminThemeSettings';
 import { memberProfileForUser } from '/server/lib/memberProfile';
 import { memberLanguageChoices } from '/server/lib/memberLanguage';
+import { memberSettingsForUser } from '/server/lib/memberSettings';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
@@ -2393,6 +2394,62 @@ async function accountPasswordPage(path, userId, requestFields, translate) {
   ] });
   return {
     heading: tr(translate, 'changePasswordPopup-title', 'Change Password'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
+async function accountSettingsPage(path, userId, requestFields, translate) {
+  if (path !== '/account/settings') return null;
+  let settings;
+  try {
+    settings = await memberSettingsForUser(userId, { req: requestFields.req });
+  } catch (_) {
+    return {
+      heading: tr(translate, 'changeSettingsPopup-title', 'Change Settings'),
+      columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+      rows: [{ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const inputs = [
+    { name: 'showDesktopDragHandles', type: 'checkbox', value: 'true',
+      checked: settings.showDesktopDragHandles,
+      label: tr(translate, 'show-desktop-drag-handles', 'Show desktop drag handles') },
+    { name: 'submitOnEnter', type: 'checkbox', value: 'true',
+      checked: settings.submitOnEnter, label: tr(translate, 'submit-on-enter', 'Submit on Enter'),
+      description: tr(translate, 'submit-on-enter-description', '') },
+    { name: 'openManyCardsAtOnce', type: 'checkbox', value: 'true',
+      checked: settings.openManyCardsAtOnce,
+      label: tr(translate, 'open-many-cards-at-once', 'Open many cards at once'),
+      description: tr(translate, 'open-many-cards-at-once-description', '') },
+  ];
+  if (!settings.isWorker) inputs.push(
+    { name: 'showCardsCountAt', type: 'text',
+      label: tr(translate, 'show-cards-minimum-count', 'Show cards minimum count'),
+      value: String(settings.showCardsCountAt), maxlength: 6, required: true },
+    { name: 'startDayOfWeek', type: 'select',
+      label: tr(translate, 'start-day-of-week', 'Start day of week'),
+      value: String(settings.startDayOfWeek), options: [
+        'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+      ].map((key, value) => ({ value: String(value), label: tr(translate, key, key) })) },
+    { name: 'rescueCardDescription', type: 'checkbox', value: 'true',
+      checked: settings.rescueCardDescription,
+      label: tr(translate, 'rescue-card-description', 'Rescue card description') },
+  );
+  const rows = [{ rowHeader: false, cells: ['', uiFieldsetForm({
+    action: path,
+    legend: tr(translate, 'changeSettingsPopup-title', 'Change Settings'),
+    inputs,
+    fields: { legacyOperation: 'save-member-settings', isWorker: String(settings.isWorker) },
+    submitLabel: tr(translate, 'save', 'Save'),
+    id: 'member-settings',
+  })] }];
+  if (requestFields.legacyMemberSettingsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyMemberSettingsResult,
+  ] });
+  return {
+    heading: tr(translate, 'changeSettingsPopup-title', 'Change Settings'),
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
     rows,
   };
@@ -5773,6 +5830,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (accountLanguage) return accountLanguage;
   const accountPassword = await accountPasswordPage(path, userId, requestFields, translate);
   if (accountPassword) return accountPassword;
+  const accountSettings = await accountSettingsPage(path, userId, requestFields, translate);
+  if (accountSettings) return accountSettings;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

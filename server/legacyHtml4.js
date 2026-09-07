@@ -144,6 +144,7 @@ import { uploadBrandingImageForUser } from '/server/brandingImages';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { changeOwnMemberPassword } from '/server/lib/memberPassword';
+import { updateMemberSettings } from '/server/lib/memberSettings';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -337,6 +338,27 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyPasswordResult = translatedOr(translate,
         error?.error === 'password-mismatch' ? 'password-mismatch' : 'invalid-credentials',
         'Invalid username or password');
+    }
+  }
+  if (session && path === '/account/settings'
+    && requestFields.legacyOperation === 'save-member-settings') {
+    try {
+      const input = {
+        showDesktopDragHandles: requestFields.showDesktopDragHandles === 'true',
+        submitOnEnter: requestFields.submitOnEnter === 'true',
+        openManyCardsAtOnce: requestFields.openManyCardsAtOnce === 'true',
+      };
+      if (requestFields.isWorker !== 'true') {
+        input.showCardsCountAt = Number(requestFields.showCardsCountAt);
+        input.startDayOfWeek = Number(requestFields.startDayOfWeek);
+        input.rescueCardDescription = requestFields.rescueCardDescription === 'true';
+      }
+      await updateMemberSettings(session.userId, input, { req });
+      requestFields.legacyMemberSettingsResult = translatedOr(translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyMemberSettingsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
     }
   }
   if (session && path === '/admin/settings/version'
