@@ -26,8 +26,18 @@ assert.ok(route.includes('updateAttachmentStorageSettings.call'));
 assert.ok(route.includes("tripCanary('authz.legacy-html4-admin-attachments'"));
 assert.ok(route.includes('Object.values(LIMIT_MODES).includes(mode)'));
 
+for (const operation of ['start-attachment-move', 'repair-attachment-locations',
+  'pause-attachment-move', 'resume-attachment-move', 'cancel-attachment-move']) {
+  assert.ok(route.includes(operation));
+}
+assert.ok(page.includes('AttachmentBulkMoveStatus.findOneAsync'));
+assert.ok(page.includes("id: 'legacy-attachment-move'"));
+assert.ok(route.includes("path === '/admin/attachments/move'"));
+assert.ok(route.includes("'start-attachment-move': 'startBulkAttachmentMove'"));
+assert.ok(route.includes("'repair-attachment-locations': 'repairAttachmentStorageLocations'"));
+
 assert.ok(jade.includes("require('/models/lib/attachmentTransferLimits')"));
 assert.ok(!jade.includes('const LIMIT_UNIT_FACTORS ='));
 assert.ok(!jade.includes('function normalizeLimitSettings('));
 
-console.log('legacyHtml4AdminAttachmentsCore: 2 panes share guarded settings operations');
+console.log('legacyHtml4AdminAttachmentsCore: 3 panes share guarded settings operations');

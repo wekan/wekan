@@ -12,6 +12,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import Attachments from '/models/attachments';
+import AttachmentBulkMoveStatus from '/models/attachmentBulkMoveStatus';
 import EventLog from '/models/eventLog';
 import CustomFields from '/models/customFields';
 import Rules from '/models/rules';
@@ -2748,6 +2749,98 @@ async function adminAttachmentsCorePage(path, userId, requestFields, translate) 
   };
 }
 
+async function adminAttachmentsMovePage(path, userId, requestFields, translate) {
+  if (path !== '/admin/attachments/move') return null;
+  try {
+    await attachmentSettingsForHtml4(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'attachment-move', 'Move attachment'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const status = await AttachmentBulkMoveStatus.findOneAsync('bulk', {
+    fields: { running: 1, paused: 1, total: 1, done: 1, current: 1, name: 1,
+      size: 1, source: 1, dest: 1, scope: 1, interrupted: 1, lastMove: 1,
+      lastRepair: 1, updatedAt: 1 },
+  });
+  const storageOptions = [
+    ['collectionfs', 'move-storage-collectionfs', 'CollectionFS'],
+    ['gridfs', 'move-storage-gridfs', 'GridFS'],
+    ['fs', 'move-storage-fs', 'Filesystem'],
+    ['s3', 'move-storage-s3', 'S3 / MinIO'],
+    ['azure', 'move-storage-azure', 'Azure'],
+    ['gcs', 'move-storage-gcs', 'Google Cloud'],
+  ];
+  const rows = [
+    { rowHeader: false, cells: [tr(translate, 'attachments', 'Attachments'),
+      adminAttachmentsNavigation(translate)] },
+  ];
+  if (requestFields.legacyAttachmentsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAttachmentsResult,
+  ] });
+  rows.push({ cells: [tr(translate, 'attachment-move', 'Move attachment'),
+    uiFieldsetForm({
+      action: path,
+      legend: tr(translate, 'attachment-move', 'Move attachment'),
+      inputs: [
+        { type: 'select', name: 'moveScope', label: tr(translate, 'move-scope', 'Scope'),
+          value: 'attachments', options: [
+            { value: 'attachments', label: tr(translate, 'attachments', 'Attachments') },
+            { value: 'avatars', label: tr(translate, 'move-scope-avatars', 'Avatars') },
+            { value: 'both', label: tr(translate, 'move-scope-both', 'Both') },
+          ] },
+        { type: 'select', name: 'moveSource', label: tr(translate, 'move-source', 'Source'),
+          value: 'all', options: [
+            { value: 'all', label: tr(translate, 'move-storage-all', 'All') },
+            ...storageOptions.map(([value, key, fallback]) => ({
+              value, label: tr(translate, key, fallback),
+            })),
+          ] },
+        { type: 'select', name: 'moveDestination',
+          label: tr(translate, 'move-destination', 'Destination'), value: 'fs',
+          options: storageOptions.map(([value, key, fallback]) => ({
+            value, label: tr(translate, key, fallback),
+          })) },
+      ],
+      fields: { legacyOperation: 'start-attachment-move' },
+      submitLabel: tr(translate, 'move-all-attachments', 'Move all attachments'),
+      id: 'legacy-attachment-move',
+    })] });
+  rows.push({ cells: [tr(translate, 'attachment-repair-locations',
+    'Repair file locations'), uiAction({ action: path,
+    label: tr(translate, 'attachment-repair-locations', 'Repair file locations'),
+    fields: { legacyOperation: 'repair-attachment-locations' },
+  })] });
+  if (status) {
+    const summary = status.running
+      ? `${status.current || status.done || 0} / ${status.total || 0} - ${status.name || ''}`
+      : status.lastMove
+        ? `${status.lastMove.source || ''} > ${status.lastMove.dest || ''} (${status.lastMove.scope || ''})`
+        : status.interrupted ? 'Interrupted' : '';
+    rows.push({ cells: [tr(translate, 'status', 'Status'), summary] });
+    if (status.running) rows.push({ cells: [tr(translate, 'actions', 'Actions'), [
+      uiAction({ action: path,
+        label: tr(translate, status.paused ? 'move-progress-resume' : 'move-progress-pause',
+          status.paused ? 'Resume' : 'Pause'),
+        fields: { legacyOperation: status.paused
+          ? 'resume-attachment-move' : 'pause-attachment-move' } }),
+      uiAction({ action: path, label: tr(translate, 'move-progress-cancel', 'Cancel'),
+        icon: 'remove', fields: { legacyOperation: 'cancel-attachment-move' } }),
+    ]] });
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${tr(translate, 'attachment-move', 'Move attachment')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminAttachmentsBaselinePage(path, userId, translate) {
   const match = path.match(/^\/admin\/attachments\/(backup|move|default-save-storage|limits|gridfs|filesystem|s3|azure|gcs|database-migration)$/);
   if (!match) return null;
@@ -5211,6 +5304,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminAttachmentsCore) return adminAttachmentsCore;
+  const adminAttachmentsMove = await adminAttachmentsMovePage(
+    path, userId, requestFields, translate,
+  );
+  if (adminAttachmentsMove) return adminAttachmentsMove;
   const adminAttachmentsBaseline = await adminAttachmentsBaselinePage(path, userId, translate);
   if (adminAttachmentsBaseline) return adminAttachmentsBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(

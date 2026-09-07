@@ -54,6 +54,13 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
 
     fs.mkdirSync(`${process.cwd()}/../../.tools/html4-admin-attachments-core`, { recursive: true });
     await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-limits.png`, fullPage: true });
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/move"] input[type="submit"]').first().click()]);
+    await expect(legacy.locator('form:has(input[name="legacyOperation"][value="start-attachment-move"])'))
+      .toBeVisible();
+    await expect(legacy.locator('form:has(input[name="legacyOperation"][value="repair-attachment-locations"]) input[type="submit"]'))
+      .toBeVisible();
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-move.png`, fullPage: true });
 
     modernContext = await browser.newContext({ locale: 'en-US' });
     const modern = await modernContext.newPage();
@@ -65,6 +72,9 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     await expect(modern.locator('select.js-attachment-limit-mode[data-field="attachmentsDownloadMaxBytes"]'))
       .toHaveValue('blocked');
     await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-limits.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/move');
+    await expect(modern.locator('.move-storage-form')).toBeVisible();
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-move.png`, fullPage: true });
 
     db.updateOne('users', { _id: user._id }, { $set: { isAdmin: false } });
     await Promise.all([legacy.waitForNavigation(),

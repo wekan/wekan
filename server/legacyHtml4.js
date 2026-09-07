@@ -853,6 +853,39 @@ WebApp.handlers.use(async (req, res, next) => {
       } catch (_) { /* reporting must not weaken the refusal */ }
     }
   }
+  const attachmentMoveOperations = {
+    'start-attachment-move': 'startBulkAttachmentMove',
+    'repair-attachment-locations': 'repairAttachmentStorageLocations',
+    'pause-attachment-move': 'pauseBulkAttachmentMove',
+    'resume-attachment-move': 'resumeBulkAttachmentMove',
+    'cancel-attachment-move': 'cancelBulkAttachmentMove',
+  };
+  if (session && path === '/admin/attachments/move'
+    && attachmentMoveOperations[requestFields.legacyOperation]) {
+    try {
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      const method = attachmentMoveOperations[requestFields.legacyOperation];
+      await DDP._CurrentMethodInvocation.withValue(invocation, () => {
+        if (method === 'startBulkAttachmentMove') return Meteor.server.method_handlers[method]
+          .call(invocation, String(requestFields.moveSource || ''),
+            String(requestFields.moveDestination || ''),
+            String(requestFields.moveScope || ''));
+        return Meteor.server.method_handlers[method].call(invocation);
+      });
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
+          req, userId: session.userId,
+          detail: `refused HTML4 attachment move: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+  }
   if (session && path === '/admin/settings/translation'
     && ['create-translation', 'update-translation', 'delete-translation']
       .includes(requestFields.legacyOperation)) {
