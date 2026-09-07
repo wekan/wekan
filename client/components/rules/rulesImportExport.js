@@ -1,14 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import Papa from 'papaparse';
 import {
+  RULES_FORMAT,
   collectRuleTransferEntries,
   ruleTransferDocument,
   rulesToCsv,
-  stripRuleTransferDoc,
 } from '/models/lib/ruleTransfer';
-
-const stripDoc = stripRuleTransferDoc;
 
 // Build a portable, board-independent list of rules from the CURRENT board.
 function collectBoardRules(boardId) {
@@ -21,48 +18,6 @@ function collectBoardRules(boardId) {
   );
 }
 
-// #6472: the trigger matcher (server/rulesHelper.js buildMatchingFieldsMap)
-// queries every matching field of the trigger type with {$in: [value, '*']} —
-// a trigger DOCUMENT that lacks one of those fields can never match. Hand-
-// written or third-party JSON often omits fields like userId, so default every
-// known matching field to the '*' wildcard when absent. Extra fields on
-// trigger types that do not use them are harmless (never queried).
-const TRIGGER_MATCHING_FIELDS = [
-  'userId', 'username', 'cardTitle', 'listName', 'oldListName',
-  'swimlaneName', 'checklistName', 'checklistItemName', 'labelId',
-  'attachmentName',
-];
-
-function normalizeTrigger(trigger) {
-  const out = { ...trigger };
-  TRIGGER_MATCHING_FIELDS.forEach(f => {
-    if (out[f] === undefined || out[f] === null || out[f] === '') out[f] = '*';
-  });
-  return out;
-}
-
-// Insert an array of {title, trigger, action} onto the given target board.
-function importRules(rulesArray, boardId) {
-  let count = 0;
-  (rulesArray || []).forEach(entry => {
-    if (!entry || !entry.trigger || !entry.action) return;
-    // #6472: create via the rules.createRule server method (like the rules
-    // wizard since #5536) instead of three optimistic client inserts — those
-    // are rejected by the board-admin-only allow() rules for non-admins and
-    // land in minimongo limbo: the imported rule LOOKS created but never
-    // exists on the server, so it silently does nothing until it vanishes.
-    Meteor.call(
-      'rules.createRule',
-      boardId,
-      entry.title || 'Imported rule',
-      normalizeTrigger(stripDoc(entry.trigger)),
-      stripDoc(entry.action),
-    );
-    count += 1;
-  });
-  return count;
-}
-
 function download(filename, text, mime) {
   const blob = new Blob([text], { type: `${mime};charset=utf-8` });
   const url = URL.createObjectURL(blob);
@@ -73,25 +28,6 @@ function download(filename, text, mime) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-// --- CSV (round-trippable) --------------------------------------------------
-function csvToRules(text) {
-  const parsed = Papa.parse(text.trim(), { header: true, skipEmptyLines: true });
-  return (parsed.data || [])
-    .map(row => {
-      let triggerFields = {};
-      let actionFields = {};
-      try { triggerFields = row.triggerFields ? JSON.parse(row.triggerFields) : {}; } catch (e) { triggerFields = {}; }
-      try { actionFields = row.actionFields ? JSON.parse(row.actionFields) : {}; } catch (e) { actionFields = {}; }
-      if (!row.triggerType || !row.actionType) return null;
-      return {
-        title: row.title,
-        trigger: { activityType: row.triggerType, ...triggerFields },
-        action: { actionType: row.actionType, ...actionFields },
-      };
-    })
-    .filter(Boolean);
 }
 
 // --- Best-effort Trello Butler parser ---------------------------------------
@@ -252,6 +188,16 @@ function reportImport(tpl, count, unmapped) {
   tpl.message.set(msg);
 }
 
+function submitRulesImport(tpl, boardId, format, text, unmapped = []) {
+  Meteor.call('rules.importRules', boardId, format, text, (error, result) => {
+    if (error) {
+      tpl.message.set(String(error.reason || error.message || error));
+      return;
+    }
+    reportImport(tpl, result?.count || 0, unmapped);
+  });
+}
+
 Template.rulesImportExportPopup.events({
   'change .js-import-workspace'(event, tpl) {
     tpl.selectedWorkspace.set(event.currentTarget.value);
@@ -270,25 +216,16 @@ Template.rulesImportExportPopup.events({
   },
   'click .js-rules-import-json'(event, tpl) {
     const text = tpl.find('.js-rules-import-text').value;
-    try {
-      const parsed = JSON.parse(text);
-      const rulesArray = Array.isArray(parsed) ? parsed : parsed.rules;
-      reportImport(tpl, importRules(rulesArray, targetBoardId(tpl)));
-    } catch (e) {
-      tpl.message.set(String(e.message || e));
-    }
+    submitRulesImport(tpl, targetBoardId(tpl), 'json', text);
   },
   'click .js-rules-import-csv'(event, tpl) {
     const text = tpl.find('.js-rules-import-text').value;
-    try {
-      reportImport(tpl, importRules(csvToRules(text), targetBoardId(tpl)));
-    } catch (e) {
-      tpl.message.set(String(e.message || e));
-    }
+    submitRulesImport(tpl, targetBoardId(tpl), 'csv', text);
   },
   'click .js-rules-import-trello'(event, tpl) {
     const { rules, unmapped } = parseTrelloButler(tpl.find('.js-rules-import-text').value);
-    reportImport(tpl, importRules(rules, targetBoardId(tpl)), unmapped);
+    submitRulesImport(tpl, targetBoardId(tpl), 'json',
+      JSON.stringify({ _format: RULES_FORMAT, rules }), unmapped);
   },
   'click .js-rules-import-workflow'(event, tpl) {
     const format = tpl.find('.js-workflow-format').value;
@@ -297,6 +234,7 @@ Template.rulesImportExportPopup.events({
       tpl.message.set(error);
       return;
     }
-    reportImport(tpl, importRules(rules, targetBoardId(tpl)), unmapped);
+    submitRulesImport(tpl, targetBoardId(tpl), 'json',
+      JSON.stringify({ _format: RULES_FORMAT, rules }), unmapped);
   },
 });

@@ -132,6 +132,29 @@ async function boardRulesPage(path, userId, requestFields, translate) {
     const exportCells = [tr(translate, 'r-export', 'Export'), exports, ''];
     if (workflow) exportCells.push('');
     rows.push({ rowHeader: false, cells: exportCells });
+    if (canAdmin) {
+      const importForm = uiFieldsetForm({
+        action: path,
+        legend: tr(translate, 'r-import', 'Import'),
+        id: 'rules-import',
+        inputs: [
+          { type: 'select', name: 'ruleImportFormat',
+            label: tr(translate, 'r-workflow-format', 'Format'),
+            options: [
+              { value: 'json', label: 'JSON' },
+              { value: 'csv', label: 'CSV' },
+            ] },
+          { type: 'textarea', name: 'ruleImportText',
+            label: tr(translate, 'r-import-paste', 'Paste rules'),
+            maxlength: 1024 * 1024, rows: 10, cols: 70 },
+        ],
+        fields: { ...viewFields, legacyOperation: 'import-rules', boardId: board._id },
+        submitLabel: tr(translate, 'r-import', 'Import'),
+      });
+      const importCells = [tr(translate, 'r-import', 'Import'), importForm, ''];
+      if (workflow) importCells.push('');
+      rows.push({ rowHeader: false, cells: importCells });
+    }
   }
   if (requestFields.legacyRuleResult?.ok === true) rows.push({
     cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Saved'), '', ''],

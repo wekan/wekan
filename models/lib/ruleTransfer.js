@@ -64,10 +64,73 @@ function rulesToCsv(rulesArray) {
   });
 }
 
+function restoreSpreadsheetText(value) {
+  const text = String(value || '');
+  return /^'[=+\-@\t\r\n]/.test(text) ? text.slice(1) : text;
+}
+
+const RULE_TRIGGER_MATCHING_FIELDS = [
+  'userId', 'username', 'cardTitle', 'listName', 'oldListName',
+  'swimlaneName', 'checklistName', 'checklistItemName', 'labelId',
+  'attachmentName',
+];
+
+function normalizeRuleTrigger(trigger) {
+  const normalized = { ...trigger };
+  for (const field of RULE_TRIGGER_MATCHING_FIELDS) {
+    if (normalized[field] === undefined || normalized[field] === null
+      || normalized[field] === '') normalized[field] = '*';
+  }
+  return normalized;
+}
+
+function csvToRules(text) {
+  const parsed = Papa.parse(String(text || '').trim(), {
+    header: true, skipEmptyLines: true,
+  });
+  if (parsed.errors?.length) throw new Error(`Invalid Rules CSV: ${parsed.errors[0].message}`);
+  return (parsed.data || []).map((row, index) => {
+    if (!row.triggerType || !row.actionType) {
+      throw new Error(`Invalid Rules CSV row ${index + 2}`);
+    }
+    let triggerFields;
+    let actionFields;
+    try {
+      triggerFields = row.triggerFields ? JSON.parse(row.triggerFields) : {};
+      actionFields = row.actionFields ? JSON.parse(row.actionFields) : {};
+    } catch (_) {
+      throw new Error(`Invalid Rules CSV fields at row ${index + 2}`);
+    }
+    return {
+      title: restoreSpreadsheetText(row.title),
+      trigger: { activityType: restoreSpreadsheetText(row.triggerType), ...triggerFields },
+      action: { actionType: restoreSpreadsheetText(row.actionType), ...actionFields },
+    };
+  });
+}
+
+function parseRuleTransferText(text, format) {
+  if (format === 'csv') return csvToRules(text);
+  if (format !== 'json') throw new Error('Unknown Rules import format');
+  const parsed = JSON.parse(String(text || ''));
+  if (parsed && !Array.isArray(parsed) && parsed._format
+    && parsed._format !== RULES_FORMAT) {
+    throw new Error('Unsupported Rules JSON format');
+  }
+  const rules = Array.isArray(parsed) ? parsed : parsed?.rules;
+  if (!Array.isArray(rules)) throw new Error('Rules JSON must contain a rules array');
+  return rules;
+}
+
 export {
   RULES_FORMAT,
   collectRuleTransferEntries,
+  csvToRules,
+  normalizeRuleTrigger,
+  parseRuleTransferText,
   ruleTransferDocument,
+  restoreSpreadsheetText,
   rulesToCsv,
   stripRuleTransferDoc,
+  RULE_TRIGGER_MATCHING_FIELDS,
 };

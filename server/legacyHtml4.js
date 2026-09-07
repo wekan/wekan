@@ -92,6 +92,7 @@ import {
 } from '/server/lib/accessibleChecklistOperations';
 import {
   createAccessibleWorkflowRule,
+  importAccessibleRules,
   removeAccessibleRule,
   renameAccessibleRule,
   replaceAccessibleWorkflowAction,
@@ -223,7 +224,7 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.confirmRuleDelete = String(requestFields.ruleId || '');
   }
   if (session && rulesPath
-    && ['create-workflow-rule', 'replace-workflow-action',
+    && ['create-workflow-rule', 'replace-workflow-action', 'import-rules',
       'rename-rule', 'delete-rule']
       .includes(requestFields.legacyOperation)) {
     try {
@@ -245,6 +246,13 @@ WebApp.handlers.use(async (req, res, next) => {
         if (requestFields.legacyOperation === 'replace-workflow-action') {
           return replaceAccessibleWorkflowAction(session.userId, {
             ...input, actionIndex: requestFields.actionIndex,
+          });
+        }
+        if (requestFields.legacyOperation === 'import-rules') {
+          return importAccessibleRules(session.userId, {
+            boardId: input.boardId,
+            format: requestFields.ruleImportFormat,
+            text: requestFields.ruleImportText,
           });
         }
         return requestFields.legacyOperation === 'rename-rule'

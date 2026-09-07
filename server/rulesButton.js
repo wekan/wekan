@@ -9,6 +9,7 @@ import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import {
   createAccessibleWorkflowRule,
+  importAccessibleRules,
   removeAccessibleRule,
   renameAccessibleRule,
   replaceAccessibleWorkflowAction,
@@ -155,5 +156,12 @@ Meteor.methods({
     return replaceAccessibleWorkflowAction(this.userId, {
       boardId, ruleId, actionIndex,
     });
+  },
+
+  async 'rules.importRules'(boardId, format, text) {
+    check(boardId, String);
+    check(format, String);
+    check(text, String);
+    return importAccessibleRules(this.userId, { boardId, format, text });
   },
 });

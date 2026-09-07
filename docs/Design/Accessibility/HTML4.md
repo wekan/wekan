@@ -488,8 +488,13 @@ prototype keys and secret-shaped fields, and neutralize spreadsheet formulas.
 HTML4 exposes separate JSON and CSV download buttons. Each is a board- and
 format-purpose-bound, single-use signed POST; immediately before sending bytes,
 the server repeats authenticated board visibility and export-enabled checks.
-No login or reusable session token enters the URL. Import remains a later slice
-and must validate through the same structural boundary before creating anything.
+No login or reusable session token enters the URL. JSON and CSV import is the
+next slice: a labelled native form posts at most one
+MiB and 1,000 rules. Parsing, format/version checks, prototype/secret/active-text
+sanitization and trigger/action type allowlists all complete before the first
+write. One board-admin-authorized server batch is shared by HTML4 and HTML5;
+each rule's trigger, action and rule documents either all insert or its partial
+documents are cleaned up. Submitted IDs, board IDs and timestamps are discarded.
 
 ## Delivery order
 

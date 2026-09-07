@@ -1,4 +1,5 @@
 import DOMPurify from 'dompurify';
+import { serverHtmlToPlainText } from '/server/lib/serverHtmlText';
 
 // Server-side input sanitization to prevent CSS injection and XSS attacks
 export function sanitizeInput(input) {
@@ -7,7 +8,7 @@ export function sanitizeInput(input) {
   }
 
   // Remove any HTML tags and dangerous content
-  const sanitized = DOMPurify.sanitize(input, {
+  const config = {
     ALLOWED_TAGS: [],
     ALLOWED_ATTR: [],
     KEEP_CONTENT: true,
@@ -18,7 +19,14 @@ export function sanitizeInput(input) {
     KEEP_CONTENT: true,
     ADD_ATTR: [],
     ALLOW_DATA_ATTR: false
-  });
+  };
+  // DOMPurify exports a configured sanitizer in browsers and a factory on a
+  // DOM-less Node server. Calling the factory as if it were configured crashed
+  // imports in the Rspack server bundle. Use the parser-backed, text-only
+  // server boundary when no DOM-backed sanitize method exists.
+  const sanitized = typeof DOMPurify?.sanitize === 'function'
+    ? DOMPurify.sanitize(input, config)
+    : serverHtmlToPlainText(input);
 
   // Additional check for CSS injection patterns
   const cssInjectionPatterns = [

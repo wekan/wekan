@@ -236,6 +236,11 @@ function contentRows(path, options) {
           }
           const maximum = Number.isSafeInteger(input.maxlength) && input.maxlength > 0
             ? input.maxlength : 1000;
+          if (input.type === 'textarea') {
+            const rows = Number.isSafeInteger(input.rows) && input.rows > 0 ? input.rows : 12;
+            const cols = Number.isSafeInteger(input.cols) && input.cols > 0 ? input.cols : 80;
+            return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(name)}" maxlength="${maximum}" rows="${rows}" cols="${cols}">${escapeHtml(input.value || '')}</textarea></p>`;
+          }
           return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="text" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"></p>`;
         }).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${inputs}<p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}"></p></fieldset></form>`;

@@ -212,6 +212,53 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
     expect(denied).toBe('not-authorized');
     expect(db.findOne('rules', { _id: ids.ruleA }).title).toBe(`Localized rule ${suffix}`);
 
+    const importForm = () => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="import-rules"])',
+    );
+    const importDocument = {
+      _format: 'wekan-rules-1.0.0',
+      rules: [{
+        ...html4Json.rules[0],
+        title: `HTML4 JSON import ${suffix}`,
+        trigger: { ...html4Json.rules[0].trigger,
+          desc: '<b>safe</b><img src=x onerror=alert(1)>' },
+        action: { ...html4Json.rules[0].action, apiToken: 'must-not-survive' },
+      }],
+    };
+    const beforeInvalid = db.countDocuments('rules', { boardId: board.boardId });
+    const invalidDocument = structuredClone(importDocument);
+    invalidDocument.rules.push({
+      title: 'Invalid action must reject whole batch',
+      trigger: { activityType: 'createCard' },
+      action: { actionType: 'not-a-real-action' },
+    });
+    await importForm().locator('select[name="ruleImportFormat"]').selectOption('json');
+    await importForm().locator('textarea[name="ruleImportText"]')
+      .fill(JSON.stringify(invalidDocument));
+    await submit(importForm());
+    expect(db.countDocuments('rules', { boardId: board.boardId })).toBe(beforeInvalid);
+    await expect(legacy.locator('tbody')).toContainText('Virhe');
+
+    await importForm().locator('select[name="ruleImportFormat"]').selectOption('json');
+    await importForm().locator('textarea[name="ruleImportText"]')
+      .fill(JSON.stringify(importDocument));
+    await submit(importForm());
+    const importedJsonRule = db.findOne('rules', {
+      boardId: board.boardId, title: `HTML4 JSON import ${suffix}`,
+    });
+    expect(importedJsonRule).toBeTruthy();
+    const importedTrigger = db.findOne('triggers', { _id: importedJsonRule.triggerId });
+    const importedAction = db.findOne('actions', { _id: importedJsonRule.actionId });
+    expect(importedTrigger.desc).not.toContain('onerror');
+    expect(importedAction.apiToken).toBeUndefined();
+
+    await importForm().locator('select[name="ruleImportFormat"]').selectOption('csv');
+    await importForm().locator('textarea[name="ruleImportText"]').fill(html4Csv);
+    await submit(importForm());
+    await expect.poll(() => db.countDocuments('rules', {
+      boardId: board.boardId, title: `=Native workflow ${suffix}`,
+    })).toBe(2);
+
     await submit(legacy.locator(
       'form:has(input[name="rulesView"][value="list"])',
     ).first());

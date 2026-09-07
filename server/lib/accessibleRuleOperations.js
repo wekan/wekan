@@ -6,6 +6,13 @@ import Actions from '/models/actions';
 import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 import { tripCanary } from '/server/lib/canary';
 import { TAPi18n } from '/imports/i18n';
+import { secureTransfer } from '/server/lib/secureTransfer';
+import { TriggersDef } from '/server/triggersDef';
+import {
+  normalizeRuleTrigger,
+  parseRuleTransferText,
+  stripRuleTransferDoc,
+} from '/models/lib/ruleTransfer';
 const {
   workflowAction,
   workflowSourceLabel,
@@ -13,6 +20,20 @@ const {
 } = require('/models/lib/ruleWorkflowCatalog');
 
 const MAX_RULE_TITLE_LENGTH = 500;
+const MAX_RULE_IMPORT_BYTES = 1024 * 1024;
+const MAX_RULE_IMPORT_COUNT = 1000;
+const RULE_ACTION_TYPES = new Set([
+  'addChecklist', 'addChecklistWithItems', 'addLabel', 'addMember', 'addSwimlane',
+  'archive', 'checkAll', 'checkItem', 'createCard', 'linkCard',
+  'markCardComplete', 'markCardIncomplete', 'moveAllCardsInList',
+  'moveCardToBottom', 'moveCardToTop', 'removeChecklist', 'removeDate',
+  'removeLabel', 'removeMember', 'sendEmail', 'setColor', 'setDate',
+  'setDateRelative', 'sortList', 'unarchive', 'uncheckAll', 'uncheckItem',
+  'updateDate',
+]);
+const RULE_TRIGGER_TYPES = new Set([
+  ...Object.keys(TriggersDef), 'button', 'scheduledTrigger',
+]);
 
 function normalizedRuleTitle(value) {
   const title = typeof value === 'string' ? value.trim() : '';
@@ -60,6 +81,40 @@ async function editableBoard(userId, boardId) {
 
 function workflowDescription(entry) {
   return workflowSourceLabel(entry, TAPi18n.getDefaultTranslations('r-'));
+}
+
+function importedRuleEntry(entry, index) {
+  if (!entry || typeof entry !== 'object' || Array.isArray(entry)
+    || !entry.trigger || typeof entry.trigger !== 'object' || Array.isArray(entry.trigger)
+    || !entry.action || typeof entry.action !== 'object' || Array.isArray(entry.action)) {
+    throw new Meteor.Error('invalid-rule-import', `Invalid rule at index ${index}`);
+  }
+  const trigger = normalizeRuleTrigger(stripRuleTransferDoc(entry.trigger));
+  const action = stripRuleTransferDoc(entry.action);
+  if (!RULE_TRIGGER_TYPES.has(trigger.activityType)
+    || !RULE_ACTION_TYPES.has(action.actionType)) {
+    throw new Meteor.Error('invalid-rule-import', `Unknown rule type at index ${index}`);
+  }
+  return {
+    title: normalizedRuleTitle(entry.title || 'Imported rule'), trigger, action,
+  };
+}
+
+async function insertRuleTuple(boardId, entry) {
+  let triggerId;
+  let actionId;
+  try {
+    triggerId = await Triggers.insertAsync({ ...entry.trigger, boardId });
+    actionId = await Actions.insertAsync({ ...entry.action, boardId });
+    const ruleId = await Rules.insertAsync({
+      title: entry.title, triggerId, actionId, boardId,
+    });
+    return { _id: ruleId, triggerId, actionId };
+  } catch (error) {
+    if (triggerId) await Triggers.removeAsync(triggerId).catch(() => {});
+    if (actionId) await Actions.removeAsync(actionId).catch(() => {});
+    throw error;
+  }
 }
 
 export async function renameAccessibleRule(userId, input = {}) {
@@ -121,4 +176,36 @@ export async function replaceAccessibleWorkflowAction(userId, input = {}) {
   return { _id: rule._id, actionId };
 }
 
-export { MAX_RULE_TITLE_LENGTH, normalizedRuleTitle };
+export async function importAccessibleRules(userId, input = {}) {
+  const board = await editableBoard(userId, input.boardId);
+  const text = typeof input.text === 'string' ? input.text : '';
+  if (!text || Buffer.byteLength(text, 'utf8') > MAX_RULE_IMPORT_BYTES) {
+    throw new Meteor.Error('invalid-rule-import', 'Rules import must be 1 MiB or less');
+  }
+  let parsed;
+  try {
+    parsed = parseRuleTransferText(text, input.format);
+  } catch (error) {
+    throw new Meteor.Error('invalid-rule-import', error.message);
+  }
+  const safe = secureTransfer(parsed, {
+    direction: 'import', source: `rules:${input.format}`, userId,
+    maxDepth: 20, maxNodes: 100000, maxArray: MAX_RULE_IMPORT_COUNT,
+    maxString: 256 * 1024,
+  });
+  if (!Array.isArray(safe) || safe.length > MAX_RULE_IMPORT_COUNT) {
+    throw new Meteor.Error('invalid-rule-import', 'Too many rules');
+  }
+  // Validate and normalize the WHOLE batch before the first insert.
+  const entries = safe.map(importedRuleEntry);
+  const inserted = [];
+  for (const entry of entries) inserted.push(await insertRuleTuple(board._id, entry));
+  return { count: inserted.length, ruleIds: inserted.map(result => result._id) };
+}
+
+export {
+  MAX_RULE_IMPORT_BYTES,
+  MAX_RULE_IMPORT_COUNT,
+  MAX_RULE_TITLE_LENGTH,
+  normalizedRuleTitle,
+};
