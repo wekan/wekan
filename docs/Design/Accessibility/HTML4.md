@@ -826,6 +826,23 @@ checks signed board navigation, captures both views and proves anonymous
 isolation. The pre-existing six-case Jade suite also passes after the shared
 service extraction.
 
+Admin Panel / People / Login is the third dedicated People controller. Five
+signed desired-state POST controls expose Forgot password, Self-Registration,
+Username Change, Self delete and Display Authentication Method with one
+consistent allowed-state meaning. A labelled fieldset preserves the enabled
+authentication-method dropdown and bounded OIDC label. With registration
+disabled, another fieldset preserves multi-address invitations and the current
+administrator's board choices; the Meteor method and HTML4 route share the same
+explicit-actor invitation operation. Login reads and writes one Global Admin
+service with fixed keys and enabled-method validation. Direct Settings and
+AccountSettings writes are denied and LoginSettingsBleed-reported. The work also
+repairs the modern pane's subscription and invitation-board helper after its
+move from Settings to People, and binds a board's user/admin test to one member
+with `$elemMatch`. The live fixture changes all settings, exercises both
+renderers, captures paired screenshots, restores global state and proves
+anonymous isolation; separate invitation tests retain success and SMTP-failure
+coverage.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

@@ -271,7 +271,7 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
-Roles and Shared templates share guarded HTML4 operations.
+Login, Roles and Shared templates share guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -328,6 +328,25 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/83690596f">Add accessible HTML4 Login settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Login now has equivalent Legacy HTML4 controls for all
+five allow settings, the default authentication method, bounded OIDC text and
+board-scoped email invitations. Labelled signed POST forms work without
+JavaScript or cookies and retain natural Tab order. Both renderers share fixed
+Global Admin services; direct DDP writes and forged values are denied and
+LoginSettingsBleed-reported.
+
+The work also fixes two regressions from moving Login into People: its
+AccountSettings subscription and invitation-board helper now travel with the
+pane. One `$elemMatch` binds board user and admin status to the same member row.
+Source, invitation and live tests cover every setting, both modern and HTML4
+writes, invitation controls, global-state restoration, paired screenshots and
+anonymous isolation.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2127b44e5">Add accessible HTML4 shared templates</a>. Thanks to xet7.</summary>
