@@ -279,6 +279,7 @@ and repair controls.
 Filesystem and GridFS share Read state, server paths, file counts and compaction.
 S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 Database Migration shares guarded direction controls and live progress.
+All ten Attachments panes now have complete equivalent HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -335,6 +336,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/119c7f796">Complete accessible HTML4 attachment settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments / Backup now creates, schedules, lists and restores
+backups without JavaScript or cookies, completing guarded Legacy HTML4 operations
+for all ten Attachments panes. It preserves instance/Organization scope, content and
+storage choices, live status, the site-only schedule and both restore modes.
+
+HTML4 and Jade call common services with strict option, storage, schedule and path
+validation. Tenant administrators see only their own scopes and archives; restore
+requires confirmation and a freshly listed permitted path. Source, positive,
+negative, renderer, tenant and schedule tests pass. The live same-URL Chromium test
+verifies every control, lists archives and captures paired screenshots without
+starting a backup or restore.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdac604fc">Add accessible HTML4 database migration</a>. Thanks to xet7.</summary>

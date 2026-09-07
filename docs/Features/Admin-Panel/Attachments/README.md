@@ -95,7 +95,7 @@ the address uses: `/admin/attachments/<slug>`.
 
 | Menu path | URL slug | Page |
 | --- | --- | --- |
-| Attachments / Backup | `backup` | — |
+| Attachments / Backup | `backup` | [Backup](Backup.md) |
 | Attachments / Move Attachment | `move` | [Move Attachment](Move-Attachment.md) |
 | Attachments / Default Save Storage | `default-save-storage` | [Default Save Storage](Default-Save-Storage.md) |
 | Attachments / Limits | `limits` | [Limits](Limits.md) |
@@ -106,6 +106,4 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Google Cloud Storage | `gcs` | [Google Cloud Storage](Google-Cloud-Storage.md) |
 | Attachments / Database migration | `database-migration` | [Database Migration](Database-Migration.md) |
 
-1 of these 10 panes has no page of its own yet. A dash is a
-gap to fill, not a pane that does nothing - what the pane shows is described in
-this README until somebody writes it up.
+All 10 panes have a page of their own.

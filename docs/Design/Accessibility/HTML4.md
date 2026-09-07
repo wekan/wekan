@@ -1014,6 +1014,16 @@ same service instead of being invoked outside a DDP context. A same-URL live fix
 verifies both actions and status in HTML4 and Jade and captures paired screenshots
 without starting a destructive migration.
 
+Backup is the tenth complete Attachments controller, completing the Attachments tab.
+It exposes scope, three content choices, four storage targets, live background state,
+the site-wide schedule, scoped archive listing and confirmed add-missing/replace-all
+restore. Site administrators can select the instance or an Organization; tenant
+administrators see only their Organizations, no schedule and no links to instance
+storage panes. HTML4 and Jade share services that strictly validate every option and
+repeat tenant/archive authorization. Restore accepts only a path in the caller's
+fresh scoped list. The live same-URL test exercises listing, verifies all controls and
+captures paired screenshots without starting a backup or restore.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
