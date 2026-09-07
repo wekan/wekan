@@ -1203,7 +1203,9 @@ to the named current pane. The exact `/attachments` bookmark is distinguishable
 from `/attachments/...` file responses, which remain outside HTML rendering.
 The router wildcard likewise matches the modern Not Found contract: unknown
 paths render a localized semantic content table and return HTTP 404 rather than
-pretending an unfinished feature exists at that address.
+pretending an unfinished feature exists at that address. Its same-URL browser
+regression checks the status, heading and table with JavaScript disabled, then
+captures both Legacy HTML4 and modern Not Found representations.
 
 ## Tests
 

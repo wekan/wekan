@@ -219,7 +219,7 @@ import {
 // requests the normal Meteor document using a request header after the small
 // external probe succeeds. No browser name, cookie or URL mode flag is used.
 WebApp.handlers.get(CAPABILITY_SCRIPT_PATH, (req, res) => {
-  res.statusCode = page?.statusCode === 404 ? 404 : 200;
+  res.statusCode = 200;
   res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
   res.end(capabilityScript);

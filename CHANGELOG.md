@@ -308,6 +308,8 @@ Unknown URLs now match the modern router's Not Found contract in Legacy HTML4:
 they render a localized semantic table and carry HTTP 404 instead of claiming
 that an unfinished feature exists at the address. A regression covers the
 localized renderer and response status wiring.
+The live same-URL Chromium regression also proves the capability probe still
+upgrades a supporting browser and captures both HTML4 and HTML5 views.
 
 </details>
 
