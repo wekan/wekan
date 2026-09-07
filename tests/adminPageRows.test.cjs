@@ -129,7 +129,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     // opening a board's rules editor puts its rules there.
     assert.ok(/publishReportPage\(this, 'report-files', docs \|\| \[\]\)/
       .test(read('server/publications/attachments.js')));
-    assert.ok(/publishReportPage\(this, 'report-rules', rules\)/
+    assert.ok(/publishReportPage\(this, 'report-rules', report\.rules\)/
       .test(read('server/publications/rules.js')));
   });
 
@@ -175,8 +175,11 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       const delegatedFilesGuard = marker.includes('attachmentsList')
         && /attachmentsReportForAdmin/.test(head)
         && /isAdmin/.test(code('server/lib/attachmentsReport.js'));
+      const delegatedRulesGuard = marker.includes('rulesReport')
+        && /rulesReportForAdmin/.test(head)
+        && /isAdmin/.test(code('server/lib/rulesReport.js'));
       assert.ok(/isAdmin/.test(head) || delegatedBoardsGuard || delegatedCardsGuard
-        || delegatedBrokenGuard || delegatedFilesGuard,
+        || delegatedBrokenGuard || delegatedFilesGuard || delegatedRulesGuard,
         `${marker} must be admin-only`);
     }
     for (const [file, method] of [
@@ -244,9 +247,12 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
         const delegatedFilesGuard = file.endsWith('attachments.js')
           && /attachmentsReport(?:ForAdmin|CountForAdmin)/.test(head)
           && /isAdmin/.test(code('server/lib/attachmentsReport.js'));
+        const delegatedRulesGuard = file.endsWith('rules.js')
+          && /rulesReport(?:ForAdmin|CountForAdmin)/.test(head)
+          && /isAdmin/.test(code('server/lib/rulesReport.js'));
         assert.ok(/isAdmin/.test(head) || delegatedImpersonationGuard
           || delegatedRecoveryGuard || delegatedBoardsGuard || delegatedCardsGuard
-          || delegatedBrokenGuard || delegatedFilesGuard,
+          || delegatedBrokenGuard || delegatedFilesGuard || delegatedRulesGuard,
           `${marker} must ask for the site admin flag`);
         assert.ok(!/canOpenAdminPanel/.test(head),
           `${marker} must NOT accept a per-tenant admin: Problems is instance-wide`);

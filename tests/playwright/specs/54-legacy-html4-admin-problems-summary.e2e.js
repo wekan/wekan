@@ -39,6 +39,12 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     `${eventId}-broken-report-${index}`);
   const fileReportIds = Array.from({ length: 12 }, (_, index) =>
     `${eventId}-file-report-${index}`);
+  const ruleReportIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-rule-report-${index}`);
+  const ruleActionIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-rule-action-${index}`);
+  const ruleTriggerIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-rule-trigger-${index}`);
   const fileDeleteId = fileReportIds[0];
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
@@ -391,6 +397,23 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       versions: {},
       meta: { boardId: cardReportBoardId, cardId: cardReportIds[0] },
     })));
+    db.insertMany('actions', ruleActionIds.map((id, index) => ({
+      _id: id,
+      boardId: cardReportBoardId,
+      actionType: `moveCardToTop-${suffix}-${index}`,
+    })));
+    db.insertMany('triggers', ruleTriggerIds.map((id, index) => ({
+      _id: id,
+      boardId: cardReportBoardId,
+      activityType: `cardMoved-${suffix}-${index}`,
+    })));
+    db.insertMany('rules', ruleReportIds.map((id, index) => ({
+      _id: id,
+      title: `Searchable Rule Report ${suffix} ${index}`,
+      boardId: cardReportBoardId,
+      actionId: ruleActionIds[index],
+      triggerId: ruleTriggerIds[index],
+    })));
     const boardsReportNav = legacy
       .locator('form[action="/admin/problems/boards"]').first();
     await Promise.all([
@@ -540,6 +563,32 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    const rulesReportNav = legacy
+      .locator('form[action="/admin/problems/rules"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      rulesReportNav.locator('input[type="submit"]').click(),
+    ]);
+    const rulesSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await rulesSearch.locator('input[name="q"][type="text"]')
+      .fill(`Searchable Rule Report ${suffix}`);
+    await Promise.all([
+      legacy.waitForNavigation(), rulesSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('Rule Title');
+    await expect(legacy.locator('thead')).toContainText('Board Title');
+    await expect(legacy.locator('thead')).toContainText('actionType');
+    await expect(legacy.locator('thead')).toContainText('activityType');
+    await expect(legacy.locator('tbody')).toContainText(`Card Report Board ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`moveCardToTop-${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`cardMoved-${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-rules.png`,
+        fullPage: true,
+      });
+    }
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -669,6 +718,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/rules');
+    await modern.locator('.js-table-page-search')
+      .fill(`Searchable Rule Report ${suffix}`);
+    await modern.locator('.js-table-page-search').press('Enter');
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText('Searchable Rule Report');
+    await expect(modern.locator('tbody')).toContainText('Card Report Board');
+    await expect(modern.locator('tbody')).toContainText(`moveCardToTop-${suffix}`);
+    await expect(modern.locator('tbody')).toContainText(`cardMoved-${suffix}`);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-rules.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -695,6 +759,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/files`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Report File ${suffix}`);
+    await outsiderPage.goto(`${baseURL}/admin/problems/rules`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Rule Report ${suffix}`);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -710,6 +777,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('cards', { _id: { $in: cardReportIds } });
     db.deleteMany('cards', { _id: { $in: brokenReportIds } });
     db.deleteMany('attachments', { _id: { $in: fileReportIds } });
+    db.deleteMany('rules', { _id: { $in: ruleReportIds } });
+    db.deleteMany('actions', { _id: { $in: ruleActionIds } });
+    db.deleteMany('triggers', { _id: { $in: ruleTriggerIds } });
     db.deleteMany('recoveryEvents', {
       type: 'attachment-permanently-deleted',
       detail: { $regex: eventId },

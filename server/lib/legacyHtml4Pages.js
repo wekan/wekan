@@ -49,6 +49,10 @@ import {
   attachmentsReportCountForAdmin,
   attachmentsReportForAdmin,
 } from '/server/lib/attachmentsReport';
+import {
+  rulesReportCountForAdmin,
+  rulesReportForAdmin,
+} from '/server/lib/rulesReport';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -3173,6 +3177,76 @@ async function adminProblemsFilesPage(path, userId, requestFields, translate) {
   };
 }
 
+async function adminProblemsRulesPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/rules') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1,
+    Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  let report;
+  let total;
+  try {
+    [report, total] = await Promise.all([
+      rulesReportForAdmin(userId, {
+        search, limit: perPage, skip: (requestedPage - 1) * perPage,
+      }),
+      rulesReportCountForAdmin(userId, search),
+    ]);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'rulesReportTitle', 'Rules Report'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) report = await rulesReportForAdmin(userId, {
+    search, limit: perPage, skip: (page - 1) * perPage,
+  });
+  const named = (documents, field) => new Map(documents.map(document => [
+    document._id, document[field] || document._id,
+  ]));
+  const boards = named(report.boards, 'title');
+  const actions = named(report.actions, 'actionType');
+  const triggers = named(report.triggers, 'activityType');
+  const unknown = tr(translate, 'no-name', '(Unknown)');
+  const columns = ['Rule Title', 'Board Title', 'actionType', 'activityType'];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+        action: path, label: tr(translate, 'search', 'Search'), value: search,
+      })] },
+  ];
+  for (const rule of report.rules) rows.push({ cells: [
+    rule.title || '', boards.get(rule.boardId) || rule.boardId || unknown,
+    actions.get(rule.actionId) || rule.actionId || unknown,
+    triggers.get(rule.triggerId) || rule.triggerId || unknown,
+  ] });
+  if (!report.rules.length) rows.push({ rowHeader: false,
+    colspanLast: columns.length,
+    cells: [tr(translate, 'no-results', 'No results')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path,
+      label: tr(translate, 'previous-page', 'Previous'), icon: 'previous',
+      fields: { q: search, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path,
+      label: tr(translate, 'next-page', 'Next'), icon: 'next',
+      fields: { q: search, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'rulesReportTitle', 'Rules Report')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3284,6 +3358,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsFiles) return adminProblemsFiles;
+  const adminProblemsRules = await adminProblemsRulesPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsRules) return adminProblemsRules;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }
