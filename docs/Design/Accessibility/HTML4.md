@@ -711,6 +711,17 @@ URLs. A same-URL browser test compares populated Finnish HTML4 and HTML5 tables,
 executes the cookieless check, captures both views and proves anonymous
 requests receive no system details.
 
+Admin Panel / Settings / Announcement uses a second shared Global Admin service.
+It reads only the active state and body, and accepts only an exact Boolean
+`enabled` or a trimmed, 10,000-character-bounded `body`; attempts to write any
+other field or write without the role are refused and recorded as SettingsBleed
+with available request identity. The modern toggle and Save button no longer
+write the collection directly. HTML4 presents the same translated active state
+as a labelled Yes/No select and the same body as a labelled textarea, each with
+a signed native POST. Its same-URL test writes both values without JavaScript,
+observes them through Jade, captures both views, restores the prior global state
+and proves anonymous requests cannot read the announcement settings.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

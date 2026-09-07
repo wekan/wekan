@@ -271,8 +271,8 @@ Global Search and Broken Cards share their guarded queries with HTML5; Board Rul
 shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
-acknowledgements and repairs between both views. Settings / Version shares system
-information and its guarded version check between both views.
+acknowledgements and repairs between both views. Settings / Version and
+Announcement share system data and guarded operations between both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -309,6 +309,24 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b19cb2d63">Add accessible HTML4 Announcement settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Announcement now exposes its translated active state
+and message in a semantic Legacy HTML4 table with labelled Yes/No and textarea
+forms. Both signed POST operations work without JavaScript or cookies.
+
+Jade no longer writes Announcements directly. Both views use one service that
+reloads the Global Admin, accepts only the exact Boolean active field or trimmed
+10,000-character-bounded body, and reports unauthorized or non-allowlisted
+writes as SettingsBleed with available actor and request context. Source tests
+cover positive and negative boundaries and shared wiring. A live same-URL
+Chromium test writes both values in HTML4, observes them in HTML5, captures both
+views, restores global state and proves anonymous isolation. The complete Node
+suite passes 825/825.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3916e4cad">Add accessible HTML4 Version settings</a>. Thanks to xet7.</summary>
