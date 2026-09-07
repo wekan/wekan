@@ -633,6 +633,37 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    const deleteSettingsNav = legacy
+      .locator('form[action="/admin/problems/delete"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      deleteSettingsNav.locator('input[type="submit"]').click(),
+    ]);
+    const permanentDeleteForm = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="set-permanent-delete"])',
+    );
+    await expect(permanentDeleteForm.locator('select[name="enabled"]'))
+      .toHaveValue('true');
+    await permanentDeleteForm.locator('select[name="enabled"]').selectOption('false');
+    await Promise.all([
+      legacy.waitForNavigation(),
+      permanentDeleteForm.locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('settings', {
+      _id: settingsId,
+    })?.enablePermanentDelete).toBe(false);
+    await expect.poll(() => db.findOne('recoveryEvents', {
+      type: 'permanent-delete-setting-changed', userId: user._id, done: true,
+    })?.username).toBe(username);
+    await expect(legacy.locator(
+      'form:has(input[name="legacyOperation"][value="set-permanent-delete"]) select[name="enabled"]',
+    )).toHaveValue('false');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-delete-settings.png`,
+        fullPage: true,
+      });
+    }
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -802,6 +833,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/delete');
+    await expect(modern.locator('h1').first()).toContainText('Poista');
+    await expect(modern.locator(
+      '.js-toggle-enable-permanent-delete .materialCheckBox',
+    )).not.toHaveClass(/is-checked/);
+    await modern.locator('.js-toggle-enable-permanent-delete').click();
+    await expect.poll(() => db.findOne('settings', {
+      _id: settingsId,
+    })?.enablePermanentDelete).toBe(true);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-delete-settings.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -837,6 +883,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/security`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText('disable-all-import');
+    await outsiderPage.goto(`${baseURL}/admin/problems/delete`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText('Recovery logs');
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -858,6 +907,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('recoveryEvents', {
       type: 'attachment-permanently-deleted',
       detail: { $regex: eventId },
+    });
+    if (user) db.deleteMany('recoveryEvents', {
+      type: 'permanent-delete-setting-changed', userId: user._id,
     });
     db.deleteOne('lists', { _id: cardReportListId });
     db.deleteOne('swimlanes', { _id: cardReportSwimlaneId });

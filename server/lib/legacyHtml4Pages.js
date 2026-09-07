@@ -56,6 +56,7 @@ import {
 import {
   securityFeatureSettingsForAdmin,
 } from '/server/lib/problemFeatureSettings';
+import { permanentDeleteSettingForAdmin } from '/server/lib/permanentDeleteSetting';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -85,6 +86,8 @@ const {
 } = require('/models/lib/ruleParameterizedCatalog');
 const { CARD_COLORS } = require('/models/metadata/colors');
 const { ADMIN_PAGES, ADMIN_PANE_TITLES } = require('/models/lib/adminUrls');
+const { PERMANENT_DELETE_RECOVERY_DESCRIPTION } =
+  require('/models/lib/permanentDeleteDescription');
 const { classifyAddress } = require('/models/lib/ipAddress');
 const { countryFlag, locationLabel, officeLabel } = require('/models/lib/geoHeaders');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
@@ -2651,6 +2654,56 @@ async function adminProblemsSecurityPage(path, userId, requestFields, translate)
   };
 }
 
+async function adminProblemsDeletePage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/delete') return null;
+  let enabled;
+  try {
+    enabled = await permanentDeleteSettingForAdmin(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'delete', 'Delete'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const columns = [tr(translate, 'settings', 'Settings'),
+    tr(translate, 'description', 'Description'), tr(translate, 'status', 'Status')];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+  ];
+  if (requestFields.legacyDeleteResult) rows.push({
+    rowHeader: false, colspanLast: columns.length - 1,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyDeleteResult],
+  });
+  rows.push({ cells: [
+    tr(translate, 'enable-permanent-delete', 'Enable permanent delete'),
+    [tr(translate, 'enable-permanent-delete-description',
+      'Allow Global Admins to permanently delete soft-deleted data.'),
+    PERMANENT_DELETE_RECOVERY_DESCRIPTION],
+    uiSelectForm({
+      action: path,
+      label: tr(translate, 'enable-permanent-delete', 'Enable permanent delete'),
+      name: 'enabled',
+      value: enabled ? 'true' : 'false',
+      options: [
+        { value: 'true', label: tr(translate, 'yes', 'Yes') },
+        { value: 'false', label: tr(translate, 'no', 'No') },
+      ],
+      fields: { legacyOperation: 'set-permanent-delete' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }),
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'delete', 'Delete')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsEventPage(path, userId, requestFields, translate) {
   const match = /^\/admin\/problems\/([^/]+)$/.exec(path);
   const slug = match?.[1] || '';
@@ -3432,6 +3485,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsSecurity) return adminProblemsSecurity;
+  const adminProblemsDelete = await adminProblemsDeletePage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsDelete) return adminProblemsDelete;
   const adminProblemsEvent = await adminProblemsEventPage(
     path, userId, requestFields, translate,
   );

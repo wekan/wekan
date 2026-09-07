@@ -51,6 +51,7 @@ test('permanent delete is hidden by default and server-enforced when enabled', (
   const server = read('server/lib/permanentAttachmentDelete.js');
   const method = read('server/attachmentApi.js');
   const recovery = read('models/recoveryEvents.js');
+  const description = read('models/lib/permanentDeleteDescription.js');
   assert.match(reports,
     /canPermanentlyDelete:[\s\S]*isAdmin === true[\s\S]*enablePermanentDelete === true/);
   assert.match(jade,
@@ -72,10 +73,11 @@ test('permanent delete is hidden by default and server-enforced when enabled', (
   const files = tables.slice(tables.indexOf("'report-files':"),
     tables.indexOf("'report-rules':"));
   assert.match(files, /additionalDesc: PERMANENT_DELETE_RECOVERY_DESCRIPTION/);
-  assert.match(reports,
+  assert.match(description,
     /file deletion records the attachment ID, sanitized filename and card ID/);
-  assert.match(reports,
+  assert.match(description,
     /permanent-delete setting must be enabled before a delete icon is shown/);
+  assert.match(reports, /require\('\/models\/lib\/permanentDeleteDescription'\)/);
   assert.match(server, /JSON\.stringify\(cleanFileName\(attachment\.name \|\| ''\)\)/);
 });
 

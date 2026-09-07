@@ -8,6 +8,7 @@ const test = require('node:test');
 const root = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const settingsServer = read('server/models/settings.js');
+const settingService = read('server/lib/permanentDeleteSetting.js');
 const settingsClient = read('client/components/settings/adminProblems.js');
 const boardsServer = read('server/models/boards.js');
 const boardOperations = read('server/lib/accessibleBoardListOperations.js');
@@ -20,8 +21,10 @@ test('Admin Panel uses an audited server method for the permanent-delete toggle'
     /field === 'enablePermanentDelete'[\s\S]*?Meteor\.call\('setPermanentDeleteEnabled', !setting\[field\]/,
   );
   assert.match(settingsServer, /async setPermanentDeleteEnabled\(enabled\)/);
-  assert.match(settingsServer, /check\(enabled, Boolean\)/);
-  assert.match(settingsServer, /user\?\.isAdmin !== true/);
+  assert.match(settingsServer,
+    /setPermanentDeleteEnabledForAdmin\(this\.userId, enabled, this\.connection\)/);
+  assert.match(settingService, /check\(enabled, Boolean\)/);
+  assert.match(settingService, /user\?\.isAdmin !== true/);
 });
 
 test('Delete explains the Recovery audit trail below its existing guidance', () => {
@@ -41,8 +44,8 @@ test('Delete explains the Recovery audit trail below its existing guidance', () 
 });
 
 test('a changed setting logs the username and enabled or disabled state', () => {
-  const at = settingsServer.indexOf('async setPermanentDeleteEnabled(enabled)');
-  const body = settingsServer.slice(at, settingsServer.indexOf('\n  },', at));
+  const at = settingService.indexOf('export async function setPermanentDeleteEnabledForAdmin');
+  const body = settingService.slice(at);
 
   assert.ok(
     body.indexOf('Settings.updateAsync') < body.indexOf('recordRecoveryAudit({'),
@@ -87,9 +90,7 @@ test('unauthorized and failed attempts are logged with actor, address, and reque
   'argument validation precedes the async actor lookup');
   assert.match(boardOperations, /catch \(error\)[\s\S]*?done: false, boards: attemptedBoards/);
 
-  const settingAt = settingsServer.indexOf('async setPermanentDeleteEnabled(enabled)');
-  const settingBody = settingsServer.slice(settingAt, settingsServer.indexOf('\n  },', settingAt));
-  assert.match(settingBody, /catch \(error\)[\s\S]*?done: false/);
+  assert.match(settingService, /catch \(error\)[\s\S]*?done: false/);
 });
 
 test('Recovery stores Boolean Done and deleted-data state', () => {

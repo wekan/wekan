@@ -11,8 +11,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import RecoveryEvents from '/models/recoveryEvents';
-import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
+import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
@@ -330,41 +329,7 @@ Meteor.methods({
     return true;
   },
   async setPermanentDeleteEnabled(enabled) {
-    const user = await Meteor.userAsync();
-    const username = user?.username || user?._id || 'unknown';
-    try {
-      check(enabled, Boolean);
-      if (user?.isAdmin !== true) {
-        throw new Meteor.Error('not-authorized');
-      }
-
-      const setting = await Settings.findOneAsync({});
-      if (!setting) {
-        throw new Meteor.Error('settings-not-found');
-      }
-      if ((setting.enablePermanentDelete === true) === enabled) return enabled;
-
-      await Settings.updateAsync(setting._id, {
-        $set: { enablePermanentDelete: enabled },
-      });
-      await recordRecoveryAudit({
-        type: RecoveryEvents.types.PERMANENT_DELETE_SETTING_CHANGED,
-        user,
-        connection: this.connection,
-        done: true,
-        detail: `Global Admin ${username} (${user._id}) ${enabled ? 'enabled' : 'disabled'} permanent delete.`,
-      });
-      return enabled;
-    } catch (error) {
-      await recordRecoveryAudit({
-        type: RecoveryEvents.types.PERMANENT_DELETE_SETTING_CHANGED,
-        user,
-        connection: this.connection,
-        done: false,
-        detail: `User ${username} (${user?._id || 'not logged in'}) failed to ${enabled ? 'enable' : 'disable'} permanent delete: ${error.reason || error.message || 'unknown error'}.`,
-      });
-      throw error;
-    }
+    return setPermanentDeleteEnabledForAdmin(this.userId, enabled, this.connection);
   },
 
   async sendInvitation(emails, boards) {

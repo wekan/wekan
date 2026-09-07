@@ -65,6 +65,7 @@ import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
 import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
 import { setSecurityFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
+import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -229,6 +230,24 @@ WebApp.handlers.use(async (req, res, next) => {
       );
     } catch (error) {
       requestFields.legacySecurityResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
+  if (session && path === '/admin/problems/delete'
+    && requestFields.legacyOperation === 'set-permanent-delete') {
+    try {
+      if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
+        throw new Meteor.Error('invalid-setting-value');
+      }
+      await setPermanentDeleteEnabledForAdmin(
+        session.userId,
+        requestFields.enabled === 'true',
+        { httpHeaders: req.headers, clientAddress: req.socket?.remoteAddress },
+      );
+      requestFields.legacyDeleteResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyDeleteResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
       );
     }
