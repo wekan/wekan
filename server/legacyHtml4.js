@@ -69,6 +69,10 @@ import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSe
 import { checkNewestVersionsForAdmin } from '/server/statistics';
 import { setAnnouncementFieldForAdmin } from '/server/lib/adminAnnouncement';
 import {
+  setAccessibilityContentForAdmin,
+  setAccessibilityEnabledForAdmin,
+} from '/server/lib/adminAccessibility';
+import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
   setAccessibleAttachmentCover,
@@ -248,6 +252,32 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyAnnouncementResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyAnnouncementResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
+  if (session && path === '/admin/settings/accessibility'
+    && ['set-accessibility-enabled', 'set-accessibility-content']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'set-accessibility-enabled') {
+        if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
+          throw new Meteor.Error('invalid-setting-value');
+        }
+        await setAccessibilityEnabledForAdmin(
+          session.userId, requestFields.enabled === 'true', { req },
+        );
+      } else {
+        await setAccessibilityContentForAdmin(
+          session.userId,
+          String(requestFields.accessibilityTitle || ''),
+          String(requestFields.accessibilityBody || ''),
+          { req },
+        );
+      }
+      requestFields.legacyAccessibilityResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAccessibilityResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
       );
     }

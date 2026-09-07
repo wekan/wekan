@@ -304,6 +304,18 @@ function contentRows(path, options) {
           `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<p><label for="${escapeHtml(id)}">${escapeHtml(cell.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(cell.name)}" rows="20" cols="80">${escapeHtml(cell.value || '')}</textarea></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.label))}"></p></form>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'textarea-group') {
+        const suffix = String(cell.id || 'textareas').replace(/[^a-z0-9_-]/gi, '');
+        const extra = Object.entries(cell.fields || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const textareas = (cell.textareas || []).map((textarea, index) => {
+          const id = `legacy-${suffix}-${index}`;
+          const maximum = Number.isSafeInteger(textarea.maxlength) && textarea.maxlength > 0
+            ? ` maxlength="${textarea.maxlength}"` : '';
+          return `<p><label for="${escapeHtml(id)}">${escapeHtml(textarea.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(textarea.name)}" rows="${textarea.rows || 10}" cols="80"${maximum}>${escapeHtml(textarea.value || '')}</textarea></p>`;
+        }).join('');
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${textareas}<p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}"></p></fieldset></form>`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'file') {
         const id = `legacy-${String(cell.name || 'file').replace(/[^a-z0-9_-]/gi, '')}`;
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>

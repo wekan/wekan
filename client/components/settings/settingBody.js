@@ -1099,32 +1099,29 @@ Template.accessibilitySettings.helpers({
 });
 
 Template.accessibilitySettings.events({
-  'click a.js-toggle-accessibility'(event, tpl) {
+  async 'click a.js-toggle-accessibility'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const accessibilitySetting = AccessibilitySettings.findOne();
     const isActive = accessibilitySetting.enabled;
-    AccessibilitySettings.update(accessibilitySetting._id, {
-      $set: { enabled: !isActive },
-    });
-    tpl.loading.set(false);
-    if (isActive) {
-      $('.accessibility-content').slideUp();
-    } else {
-      $('.accessibility-content').slideDown();
+    try {
+      await Meteor.callAsync('setAdminAccessibilityEnabled', !isActive);
+      if (isActive) $('.accessibility-content').slideUp();
+      else $('.accessibility-content').slideDown();
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Failed to update Accessibility setting');
+    } finally {
+      tpl.loading.set(false);
     }
   },
-  'click button.js-accessibility-save'(event, tpl) {
+  async 'click button.js-accessibility-save'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const title = $('#admin-accessibility-title').val().trim();
     const content = $('#admin-accessibility-content').val().trim();
 
     try {
-      AccessibilitySettings.update(AccessibilitySettings.findOne()._id, {
-        $set: {
-          title: title,
-          body: content,
-        },
-      });
+      await Meteor.callAsync('setAdminAccessibilityContent', title, content);
     } catch (e) {
       console.error('Error saving accessibility settings:', e);
       return;

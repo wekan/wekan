@@ -60,10 +60,12 @@ import {
 import { permanentDeleteSettingForAdmin } from '/server/lib/permanentDeleteSetting';
 import { statisticsForAdmin } from '/server/statistics';
 import { announcementForAdmin } from '/server/lib/adminAnnouncement';
+import { accessibilityForAdmin } from '/server/lib/adminAccessibility';
 import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
+  uiTextareaGroupForm,
 } = require('/imports/lib/uiComponentLibrary');
 const { mapLinkFor } = require('/models/lib/mapLink');
 const { KEYBOARD_SHORTCUT_MAPPINGS } = require('/imports/lib/keyboardShortcutMappings');
@@ -2735,6 +2737,62 @@ async function adminSettingsAnnouncementPage(path, userId, requestFields, transl
   };
 }
 
+async function adminSettingsAccessibilityPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/accessibility') return null;
+  let setting;
+  try {
+    setting = await accessibilityForAdmin(userId);
+  } catch (_) {
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'accessibility', 'Accessibility'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [
+    { rowHeader: false, cells: [adminSettingsNavigation(translate), ''] },
+    { cells: [tr(translate, 'accessibility', 'Accessibility'), uiLink({
+      href: '/accessibility', label: tr(translate, 'accessibility', 'Accessibility'),
+    })] },
+    { cells: [tr(translate, 'accessibility-page-enabled',
+      'Accessibility page enabled'), uiSelectForm({
+      action: path,
+      label: tr(translate, 'accessibility-page-enabled',
+        'Accessibility page enabled'),
+      name: 'enabled',
+      value: String(setting.enabled),
+      options: [
+        { value: 'true', label: tr(translate, 'yes', 'Yes') },
+        { value: 'false', label: tr(translate, 'no', 'No') },
+      ],
+      fields: { legacyOperation: 'set-accessibility-enabled' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })] },
+    { cells: [tr(translate, 'accessibility-content', 'Accessibility content'),
+      uiTextareaGroupForm({
+        action: path,
+        legend: tr(translate, 'accessibility-content', 'Accessibility content'),
+        textareas: [
+          { label: tr(translate, 'accessibility-title', 'Accessibility title'),
+            name: 'accessibilityTitle', value: setting.title, maxlength: 500, rows: 4 },
+          { label: tr(translate, 'accessibility-content', 'Accessibility content'),
+            name: 'accessibilityBody', value: setting.body, maxlength: 10000, rows: 20 },
+        ],
+        fields: { legacyOperation: 'set-accessibility-content' },
+        submitLabel: tr(translate, 'save', 'Save'),
+      })] },
+  ];
+  if (requestFields.legacyAccessibilityResult) rows.push({
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyAccessibilityResult],
+  });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / ${tr(translate, 'accessibility', 'Accessibility')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3714,6 +3772,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsAnnouncement) return adminSettingsAnnouncement;
+  const adminSettingsAccessibility = await adminSettingsAccessibilityPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsAccessibility) return adminSettingsAccessibility;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );

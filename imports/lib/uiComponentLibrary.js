@@ -61,6 +61,11 @@ function uiTextareaForm({ action, label, name, value = '', fields = {}, submitLa
   return { component: 'textarea', action, label, name, value, fields, submitLabel, id };
 }
 
+function uiTextareaGroupForm({ action, legend, textareas = [], fields = {}, submitLabel,
+  id = '' }) {
+  return { component: 'textarea-group', action, legend, textareas, fields, submitLabel, id };
+}
+
 function uiFieldsetForm({ action, legend, inputs = [], fields = {}, submitLabel, id = '' }) {
   return { component: 'fieldset', action, legend, inputs, fields, submitLabel, id };
 }
@@ -95,5 +100,5 @@ function uiBoardCreateForm({ action, titleLabel, permissionLabel, permissions = 
 module.exports = {
   UI_ICONS, uiAction, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel,
   uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiLink, uiSearchForm, uiSelectForm,
-  uiTextForm, uiTextareaForm,
+  uiTextForm, uiTextareaForm, uiTextareaGroupForm,
 };
