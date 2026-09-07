@@ -979,6 +979,18 @@ route accepts only its five named operations and Security-reports refusals. The
 same-URL fixture verifies both forms and captures matching HTML4/Jade views
 without moving production files.
 
+Filesystem and MongoDB GridFS are the fourth and fifth complete Attachments
+controllers. Each exposes the desired Read state and server-calculated attachment
+and avatar counts. Filesystem additionally shows the actual server-resolved
+writable, attachment and avatar paths; no client-side environment guess is used.
+GridFS distinguishes legacy CollectionFS from current MongoDB file counts and
+offers the same compaction operation and result rows as Jade. The shared methods
+repeat Global Admin authorization, while the HTML4 dispatcher derives the storage
+from the route and permits compaction only on GridFS. The live test toggles both
+Read settings, calculates both reports, verifies Jade state and captures four
+same-URL screenshots; it deliberately verifies but does not execute the expensive
+compaction control.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

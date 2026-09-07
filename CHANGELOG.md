@@ -276,6 +276,7 @@ Teams and People share complete guarded HTML4 operations.
 Attachments has shared navigation for all panes; Default Storage and Limits have
 complete guarded HTML4 operations, and Move Attachment shares persisted progress
 and repair controls.
+Filesystem and GridFS share Read state, server paths, file counts and compaction.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -332,6 +333,22 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fb191499">Add accessible HTML4 local attachment storage</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments / Filesystem and MongoDB GridFS now work without
+JavaScript or cookies. Both expose Read state and server-calculated attachment
+and avatar counts; Filesystem shows real server-resolved paths, while GridFS
+separates CollectionFS/current counts and offers MongoDB compaction with results.
+
+HTML4 and Jade call the same Global Admin-only methods. The route, not a submitted
+field, selects the storage, and compaction is refused outside GridFS. Source and
+translation tests pass. The live same-URL Chromium test toggles both settings,
+calculates reports, verifies Jade state and captures four screenshots while
+intentionally not running expensive compaction.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b7ef4dd92">Add accessible HTML4 attachment movement</a>. Thanks to xet7.</summary>

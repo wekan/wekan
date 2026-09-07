@@ -98,13 +98,13 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Move Attachment | `move` | [Move Attachment](Move-Attachment.md) |
 | Attachments / Default Save Storage | `default-save-storage` | [Default Save Storage](Default-Save-Storage.md) |
 | Attachments / Limits | `limits` | [Limits](Limits.md) |
-| Attachments / MongoDB GridFS Storage | `gridfs` | — |
-| Attachments / Filesystem Storage | `filesystem` | — |
+| Attachments / MongoDB GridFS Storage | `gridfs` | [MongoDB GridFS Storage](MongoDB-GridFS-Storage.md) |
+| Attachments / Filesystem Storage | `filesystem` | [Filesystem Storage](Filesystem-Storage.md) |
 | Attachments / S3/MinIO Storage | `s3` | — |
 | Attachments / Azure Blob Storage | `azure` | — |
 | Attachments / Google Cloud Storage | `gcs` | — |
 | Attachments / Database migration | `database-migration` | — |
 
-7 of these 10 panes have no page of their own yet. A dash is a
+5 of these 10 panes have no page of their own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
