@@ -152,73 +152,69 @@ async function repairArchivedBoards() {
   return cardsFixed;
 }
 
-export async function repairBrokenCardsForAdmin(userId) {
-  if (!userId || !(await ReactiveCache.getUser(userId))?.isAdmin) {
-    throw new Meteor.Error('not-authorized', 'You must be an admin.');
-  }
-
-  await setBoardRepairStatus({
-    running: true,
-    phase: 'repairing',
-    kind: 'admin-broken-cards',
-    startedAt: new Date().toISOString(),
-    success: null,
-    error: '',
-  });
-
-  try {
-    // 1. The standard per-board repair (missing/orphaned swimlaneId on every
-    //    non-archived board), the same pass that runs on startup.
-    const boards = await repairAllBoards();
-    // 2. The gaps that pass does not cover.
-    const archivedCardsFixed = await repairArchivedBoards();
-    const { listsAssigned, swimlanesAssigned } = await repairCardsMissingListOrSwimlane();
-
-    // What is left: cards with no boardId cannot be placed on any board.
-    // `remaining` uses the SAME selector the Summary counts with, so the
-    // number reported back matches what the page shows after reloading.
-    const unfixable = await Cards.find(unfixableCardsSelector()).countAsync();
-    const remaining = await Cards.find(brokenCardsSelector()).countAsync();
-
-    const summary = {
-      boardsScanned: boards.boardsScanned,
-      cardsAssigned: boards.cardsAssigned,
-      cardsRescued: boards.cardsRescued,
-      archivedCardsFixed,
-      listsAssigned,
-      swimlanesAssigned,
-      unfixable,
-      remaining,
-    };
-
-    await setBoardRepairStatus({
-      running: false,
-      phase: 'completed',
-      kind: 'admin-broken-cards',
-      finishedAt: new Date().toISOString(),
-      success: true,
-      repaired: summary,
-    });
-    console.log('[repairBrokenCards] done', summary);
-    return summary;
-  } catch (error) {
-    await setBoardRepairStatus({
-      running: false,
-      phase: 'error',
-      kind: 'admin-broken-cards',
-      success: false,
-      error: String(error && error.message ? error.message : error).slice(0, 500),
-    });
-    console.error('[repairBrokenCards]', error);
-    throw new Meteor.Error('repair-failed', String(error && error.message ? error.message : error));
-  }
-}
-
 Meteor.methods({
   // Run every broken-card repair. Admin only. Returns what was fixed plus the
   // remaining count, so the Summary can show the result immediately.
   async repairBrokenCards() {
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'You must be an admin.');
+    }
     this.unblock();
-    return repairBrokenCardsForAdmin(this.userId);
+
+    await setBoardRepairStatus({
+      running: true,
+      phase: 'repairing',
+      kind: 'admin-broken-cards',
+      startedAt: new Date().toISOString(),
+      success: null,
+      error: '',
+    });
+
+    try {
+      // 1. The standard per-board repair (missing/orphaned swimlaneId on every
+      //    non-archived board), the same pass that runs on startup.
+      const boards = await repairAllBoards();
+      // 2. The gaps that pass does not cover.
+      const archivedCardsFixed = await repairArchivedBoards();
+      const { listsAssigned, swimlanesAssigned } = await repairCardsMissingListOrSwimlane();
+
+      // What is left: cards with no boardId cannot be placed on any board.
+      // `remaining` uses the SAME selector the Summary counts with, so the
+      // number reported back matches what the page shows after reloading.
+      const unfixable = await Cards.find(unfixableCardsSelector()).countAsync();
+      const remaining = await Cards.find(brokenCardsSelector()).countAsync();
+
+      const summary = {
+        boardsScanned: boards.boardsScanned,
+        cardsAssigned: boards.cardsAssigned,
+        cardsRescued: boards.cardsRescued,
+        archivedCardsFixed,
+        listsAssigned,
+        swimlanesAssigned,
+        unfixable,
+        remaining,
+      };
+
+      await setBoardRepairStatus({
+        running: false,
+        phase: 'completed',
+        kind: 'admin-broken-cards',
+        finishedAt: new Date().toISOString(),
+        success: true,
+        repaired: summary,
+      });
+      console.log('[repairBrokenCards] done', summary);
+      return summary;
+    } catch (error) {
+      await setBoardRepairStatus({
+        running: false,
+        phase: 'error',
+        kind: 'admin-broken-cards',
+        success: false,
+        error: String(error && error.message ? error.message : error).slice(0, 500),
+      });
+      console.error('[repairBrokenCards]', error);
+      throw new Meteor.Error('repair-failed', String(error && error.message ? error.message : error));
+    }
   },
 });

@@ -16,51 +16,47 @@ import { setBoardRepairStatus } from '/server/lib/systemStatus';
 // was recorded, exactly, and skips every list where the record is missing or the
 // swimlane is gone. Nothing is inferred; see /models/lib/listSwimlaneRestore.js.
 
-export async function restoreListSwimlanesForAdmin(userId) {
-  if (!userId || !(await ReactiveCache.getUser(userId))?.isAdmin) {
-    throw new Meteor.Error('not-authorized', 'You must be an admin.');
-  }
-
-  await setBoardRepairStatus({
-    running: true,
-    phase: 'repairing',
-    kind: 'admin-restore-list-swimlanes',
-    startedAt: new Date().toISOString(),
-    success: null,
-    error: '',
-  });
-
-  try {
-    const summary = await restoreListSwimlanes();
-    await setBoardRepairStatus({
-      running: false,
-      phase: 'completed',
-      kind: 'admin-restore-list-swimlanes',
-      finishedAt: new Date().toISOString(),
-      success: true,
-      repaired: summary,
-    });
-    console.log('[restoreListSwimlanes] done', summary);
-    return summary;
-  } catch (error) {
-    await setBoardRepairStatus({
-      running: false,
-      phase: 'error',
-      kind: 'admin-restore-list-swimlanes',
-      success: false,
-      error: String(error && error.message ? error.message : error).slice(0, 500),
-    });
-    console.error('[restoreListSwimlanes]', error);
-    throw new Meteor.Error(
-      'restore-failed',
-      String(error && error.message ? error.message : error),
-    );
-  }
-}
-
 Meteor.methods({
   async restoreListSwimlanes() {
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'You must be an admin.');
+    }
     this.unblock();
-    return restoreListSwimlanesForAdmin(this.userId);
+
+    await setBoardRepairStatus({
+      running: true,
+      phase: 'repairing',
+      kind: 'admin-restore-list-swimlanes',
+      startedAt: new Date().toISOString(),
+      success: null,
+      error: '',
+    });
+
+    try {
+      const summary = await restoreListSwimlanes();
+      await setBoardRepairStatus({
+        running: false,
+        phase: 'completed',
+        kind: 'admin-restore-list-swimlanes',
+        finishedAt: new Date().toISOString(),
+        success: true,
+        repaired: summary,
+      });
+      console.log('[restoreListSwimlanes] done', summary);
+      return summary;
+    } catch (error) {
+      await setBoardRepairStatus({
+        running: false,
+        phase: 'error',
+        kind: 'admin-restore-list-swimlanes',
+        success: false,
+        error: String(error && error.message ? error.message : error).slice(0, 500),
+      });
+      console.error('[restoreListSwimlanes]', error);
+      throw new Meteor.Error(
+        'restore-failed',
+        String(error && error.message ? error.message : error),
+      );
+    }
   },
 });

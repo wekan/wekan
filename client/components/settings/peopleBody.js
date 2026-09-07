@@ -1,5 +1,4 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { TAPi18n } from '/imports/i18n';
 import { Session } from 'meteor/session';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // buildFilters and buildActions are imported like the rest of them. The People
@@ -30,10 +29,6 @@ import InviteToBoardRolesSettings, {
   INVITE_TO_BOARD_ROLES,
   INVITE_TO_BOARD_ROLES_ID,
 } from '/models/inviteToBoardRolesSettings';
-import {
-  SHARED_TEMPLATE_SCOPE_LABELS,
-  buildSharedTemplateScopeGroups,
-} from '/models/lib/sharedTemplates';
 // The one capability table the server allow rules and the client's canModify*
 // helpers also read, so the Roles Status pane cannot show a permission that is
 // not enforced.
@@ -133,7 +128,6 @@ Template.people.onCreated(function () {
   // (domainGeneral) now owns its data via getDomainsWithUserCountsPage.
   this.domainSetting = new ReactiveVar(false);
   this.subscribe('inviteToBoardRolesSettings');
-  this.subscribe('lockoutSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
   this.findUsersOptions = new ReactiveVar({});
@@ -934,7 +928,9 @@ Template.orgGeneral.events({
   'click a.js-toggle-board-members-same-org'() {
     const setting = ReactiveCache.getCurrentSetting();
     if (!setting) return;
-    Meteor.call('setBoardMembersSameOrg', !setting.boardMembersFromSameOrgOnly);
+    Settings.update(setting._id, {
+      $set: { boardMembersFromSameOrgOnly: !setting.boardMembersFromSameOrgOnly },
+    });
   },
 });
 
@@ -942,7 +938,9 @@ Template.teamGeneral.events({
   'click a.js-toggle-board-members-same-team'() {
     const setting = ReactiveCache.getCurrentSetting();
     if (!setting) return;
-    Meteor.call('setBoardMembersSameTeam', !setting.boardMembersFromSameTeamOnly);
+    Settings.update(setting._id, {
+      $set: { boardMembersFromSameTeamOnly: !setting.boardMembersFromSameTeamOnly },
+    });
   },
 });
 
@@ -1207,7 +1205,9 @@ Template.rolesGeneral.events({
   },
   'click .js-roles-save'(event, tpl) {
     event.preventDefault();
-    Meteor.call('setInviteToBoardRoles', tpl.workingRoles.get() || []);
+    InviteToBoardRolesSettings.update(INVITE_TO_BOARD_ROLES_ID, {
+      $set: { allowedRoles: tpl.workingRoles.get() || [] },
+    });
   },
 
   // Roles Status controls. The table is read-only, so these are the only
@@ -1281,6 +1281,54 @@ Template.templatesGeneral.onCreated(function () {
   this.loadSharedTemplates();
 });
 
+const SCOPE_LABELS = {
+  organizations: 'organizations',
+  teams: 'teams',
+  domains: 'domains',
+};
+
+// Build the grouped structure for a single scope dimension.
+function buildScopeGroups(scope, rows) {
+  // group key -> { groupName, members: [] }
+  const groups = {};
+
+  const addToGroup = (key, name, row) => {
+    if (!groups[key]) {
+      groups[key] = { groupKey: key, groupName: name, members: [] };
+    }
+    groups[key].members.push({
+      userId: row.userId,
+      label: row.fullname ? `${row.fullname} (${row.username})` : row.username,
+      templateBoards: row.templateBoards.map(b => ({
+        title: b.title,
+        boardId: b.boardId,
+        slug: b.slug,
+        url: b.boardId ? `/b/${b.boardId}/${b.slug || 'template'}` : '',
+      })),
+    });
+  };
+
+  rows.forEach(row => {
+    if (scope === 'organizations') {
+      (row.orgs || []).forEach(o => {
+        if (o.orgId) addToGroup(o.orgId, o.orgDisplayName || o.orgId, row);
+      });
+    } else if (scope === 'teams') {
+      (row.teams || []).forEach(t => {
+        if (t.teamId) addToGroup(t.teamId, t.teamDisplayName || t.teamId, row);
+      });
+    } else if (scope === 'domains') {
+      (row.domains || []).forEach(d => {
+        if (d) addToGroup(d, d, row);
+      });
+    }
+  });
+
+  return Object.values(groups).sort((a, b) =>
+    String(a.groupName).localeCompare(String(b.groupName)),
+  );
+}
+
 Template.templatesGeneral.helpers({
   loading() {
     return Template.instance().loading;
@@ -1297,8 +1345,8 @@ Template.templatesGeneral.helpers({
     const rows = tpl.sharedTemplates.get() || [];
     return scopes.map(scope => ({
       scope,
-      scopeLabel: SHARED_TEMPLATE_SCOPE_LABELS[scope] || scope,
-      groups: buildSharedTemplateScopeGroups(scope, rows),
+      scopeLabel: SCOPE_LABELS[scope] || scope,
+      groups: buildScopeGroups(scope, rows),
     }));
   },
 });
@@ -1643,9 +1691,11 @@ Template.peopleRow.events({
       // Toggle loginDisabled status
       const isActive = !(user.loginDisabled === true);
 
-      Meteor.call('adminSetPersonActive', userId, !isActive, error => {
-        if (error) console.error('Error updating user active state:', error);
-        else peopleListChanged();
+      // Update the user's active status
+      Users.update(userId, {
+        $set: {
+          loginDisabled: isActive
+        }
       });
   },
   'click .js-toggle-lock-status': function(ev){
@@ -1698,14 +1748,63 @@ Template.modifyTeamsUsers.events({
     document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
   },
   'click #addTeamBtn': function(){
-    const selectedElt = document.getElementById('jsteamsUser');
-    const add = document.getElementById('addAction').checked;
-    Meteor.call('adminUpdatePeopleTeam', selectedUserChkBoxUserIds,
-      selectedElt.options[selectedElt.selectedIndex].value, add, error => {
-        if (error) console.error('Error updating user teams:', error);
-        else peopleListChanged();
-      });
-    document.getElementById('divAddOrRemoveTeamContainer').style.display = 'none';
+    let selectedElt;
+    let selectedEltValue;
+    let selectedEltValueId;
+    let userTms = [];
+    let currentUser;
+    let currUserTeamIndex;
+
+    selectedElt = document.getElementById("jsteamsUser");
+    selectedEltValue = selectedElt.options[selectedElt.selectedIndex].text;
+    selectedEltValueId = selectedElt.options[selectedElt.selectedIndex].value;
+
+    // #4593: `teams` is a forbidden field for direct client-side Users.update
+    // (see server/permissions/users.js: only the owner may update, and never
+    // `teams`), so the previous Users.update() calls here were silently denied
+    // by the server and the bulk team assignment never persisted — a user
+    // "added" to a team this way never saw the boards that team is assigned
+    // to. Use the admin-only `editUser` method instead, which persists the
+    // change and also grants the user membership of the boards the gained
+    // team is assigned to.
+    if(document.getElementById('addAction').checked){
+      for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
+        currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
+        // Copy, so the cached minimongo document is not mutated in place.
+        userTms = (currentUser.teams || []).slice();
+        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+        if(currUserTeamIndex == -1){
+          userTms.push({
+            "teamId": selectedEltValueId,
+            "teamDisplayName": selectedEltValue,
+          });
+        }
+
+        Meteor.call('editUser', selectedUserChkBoxUserIds[i], { teams: userTms }, (error) => {
+          if (error) {
+            console.error('Error updating user teams:', error);
+          }
+        });
+      }
+    }
+    else{
+      for(let i = 0; i < selectedUserChkBoxUserIds.length; i++){
+        currentUser = ReactiveCache.getUser(selectedUserChkBoxUserIds[i]);
+        userTms = (currentUser.teams || []).slice();
+        currUserTeamIndex = userTms.findIndex(function(t){ return t.teamId == selectedEltValueId});
+        if(currUserTeamIndex != -1){
+          userTms.splice(currUserTeamIndex, 1);
+        }
+
+        Meteor.call('editUser', selectedUserChkBoxUserIds[i], { teams: userTms }, (error) => {
+          if (error) {
+            console.error('Error updating user teams:', error);
+          }
+        });
+      }
+    }
+
+    document.getElementById("divAddOrRemoveTeamContainer").style.display = 'none';
   },
 });
 
@@ -1934,6 +2033,7 @@ Template.editTeamPopup.events({
 Template.editUserPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
+    const user = ReactiveCache.getUser(this.userId);
     const username = templateInstance.find('.js-profile-username').value.trim();
     const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const initials = templateInstance.find('.js-profile-initials').value.trim();
@@ -1948,6 +2048,24 @@ Template.editUserPopup.events({
     const userOrgsIds = templateInstance.find('.js-userOrgIds').value.trim();
     const userTeams = templateInstance.find('.js-userteams').value.trim();
     const userTeamsIds = templateInstance.find('.js-userteamIds').value.trim();
+
+    const isChangePassword = password.length > 0;
+    const isChangeUserName = username !== user.username;
+    const isChangeInitials = initials.length > 0;
+
+    // An imported (placeholder) user, and some SSO users, have NO `emails` array at
+    // all, so `user.emails[0]` threw "Cannot read properties of undefined (reading
+    // '0')" when an admin gave such a user an email in Admin Panel / People (#6508).
+    // Read the primary email defensively (missing array OR empty array).
+    const primaryEmail =
+      Array.isArray(user.emails) && user.emails.length ? user.emails[0] : null;
+    const isChangeEmailVerified =
+      verified !== (primaryEmail ? primaryEmail.verified : undefined);
+
+    // If no email was set before, allow adding one (compare against `false`).
+    const isChangeEmail =
+      email.toLowerCase() !==
+      (primaryEmail ? primaryEmail.address.toLowerCase() : false);
 
     // Build user teams list
     let userTeamsList = userTeams.split(",");
@@ -1975,30 +2093,92 @@ Template.editUserPopup.events({
       }
     }
 
-    Meteor.call('adminUpdatePerson', this.userId, {
-      username, fullname, initials, password,
-      email: email.toLowerCase(), emailVerified: verified === 'true',
-      isAdmin: isAdmin === 'true', loginDisabled: isActive === 'true',
+    // Update user via Meteor method (for admin to edit other users)
+    const updateData = {
+      fullname: fullname,
+      isAdmin: isAdmin === 'true',
+      loginDisabled: isActive === 'true',
       authenticationMethod: authentication,
       importUsernames: Users.parseImportUsernames(importUsernames),
-      orgIds: userOrganizations.map(org => org.orgId),
-      teamIds: userTms.map(team => team.teamId),
-    }, function(error) {
-      const usernameMessageElement = templateInstance.$('.username-taken');
-      const emailMessageElement = templateInstance.$('.email-taken');
+      teams: userTms,
+      orgs: userOrganizations,
+    };
+
+    Meteor.call('editUser', this.userId, updateData, (error) => {
       if (error) {
-        usernameMessageElement.toggle(error.error === 'username-already-taken');
-        emailMessageElement.toggle(error.error === 'email-already-taken');
-        if (!['username-already-taken', 'email-already-taken'].includes(error.error)) {
-          templateInstance.errorMessage.set(error.reason || error.error);
-        }
-      } else {
-        usernameMessageElement.hide();
-        emailMessageElement.hide();
-        peopleListChanged();
-        Popup.back();
+        console.error('Error updating user:', error);
       }
     });
+
+    if (isChangePassword) {
+      Meteor.call('setPassword', password, this.userId);
+    }
+
+    if (isChangeEmailVerified) {
+      Meteor.call('setEmailVerified', email, verified === 'true', this.userId);
+    }
+
+    if (isChangeInitials) {
+      Meteor.call('setInitials', initials, this.userId);
+    }
+
+    if (isChangeUserName && isChangeEmail) {
+      Meteor.call(
+        'setUsernameAndEmail',
+        username,
+        email.toLowerCase(),
+        this.userId,
+        function (error) {
+          const usernameMessageElement = templateInstance.$('.username-taken');
+          const emailMessageElement = templateInstance.$('.email-taken');
+          if (error) {
+            const errorElement = error.error;
+            if (errorElement === 'username-already-taken') {
+              usernameMessageElement.show();
+              emailMessageElement.hide();
+            } else if (errorElement === 'email-already-taken') {
+              usernameMessageElement.hide();
+              emailMessageElement.show();
+            }
+          } else {
+            usernameMessageElement.hide();
+            emailMessageElement.hide();
+            Popup.back();
+          }
+        },
+      );
+    } else if (isChangeUserName) {
+      Meteor.call('setUsername', username, this.userId, function (error) {
+        const usernameMessageElement = templateInstance.$('.username-taken');
+        if (error) {
+          const errorElement = error.error;
+          if (errorElement === 'username-already-taken') {
+            usernameMessageElement.show();
+          }
+        } else {
+          usernameMessageElement.hide();
+          Popup.back();
+        }
+      });
+    } else if (isChangeEmail) {
+      Meteor.call(
+        'setEmail',
+        email.toLowerCase(),
+        this.userId,
+        function (error) {
+          const emailMessageElement = templateInstance.$('.email-taken');
+          if (error) {
+            const errorElement = error.error;
+            if (errorElement === 'email-already-taken') {
+              emailMessageElement.show();
+            }
+          } else {
+            emailMessageElement.hide();
+            Popup.back();
+          }
+        },
+      );
+    } else Popup.back();
   },
   'click #addUserOrg'(event) {
     event.preventDefault();
@@ -2208,13 +2388,17 @@ Template.newUserPopup.events({
     }
 
     Meteor.call(
-      'adminCreatePerson',
-      { fullname, username, initials, password,
-        isAdmin: isAdmin === 'true', loginDisabled: isActive === 'true',
-        email: email.toLowerCase(), emailVerified: false,
-        authenticationMethod: templateInstance.find('.js-authenticationMethod').value.trim(),
-        importUsernames, orgIds: userOrganizations.map(org => org.orgId),
-        teamIds: userTms.map(team => team.teamId) },
+      'setCreateUser',
+      fullname,
+      username,
+      initials,
+      password,
+      isAdmin,
+      isActive,
+      email.toLowerCase(),
+      importUsernames,
+      userOrganizations,
+      userTms,
       function(error) {
         const usernameMessageElement = templateInstance.$('.username-taken');
         const emailMessageElement = templateInstance.$('.email-taken');
@@ -2294,13 +2478,8 @@ Template.settingsOrgPopup.events({
       }
       return;
     }
-    Meteor.call('deleteOrganization', orgId, error => {
-      if (error) {
-        document.getElementById('deleteOrgWarningMessage').classList.remove('hide');
-        return;
-      }
-      Popup.back();
-    });
+    Org.remove(orgId);
+    Popup.back();
   }
 });
 
@@ -2319,13 +2498,8 @@ Template.settingsTeamPopup.events({
       }
       return;
     }
-    Meteor.call('deleteTeam', teamId, error => {
-      if (error) {
-        document.getElementById('deleteTeamWarningMessage').classList.remove('hide');
-        return;
-      }
-      Popup.back();
-    });
+    Team.remove(teamId);
+    Popup.back();
   }
 });
 

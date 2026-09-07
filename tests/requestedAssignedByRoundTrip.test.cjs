@@ -40,8 +40,8 @@ test('the card sets them the way it sets Members and Assignee', () => {
   const js = read('client/components/cards/cardDetails.js');
   assert.ok(/Popup\.open\('cardRequestedBy', \{ titleKey: 'requested-by' \}\)/.test(js));
   assert.ok(/Popup\.open\('cardAssignedBy', \{ titleKey: 'assigned-by' \}\)/.test(js));
-  assert.ok(/Meteor\.callAsync\('setAccessibleCardIdentity'/.test(js));
-  assert.ok(/field === 'requesters' \? card\.getRequesters\(\) : card\.getAssigners\(\)/.test(js));
+  assert.ok(/toggleRequester\(user\._id\)/.test(js));
+  assert.ok(/toggleAssigner\(user\._id\)/.test(js));
 });
 
 test('selected members use arrays matching assignees while free text remains separate', () => {

@@ -196,14 +196,6 @@ const usersSrc = fs.readFileSync(
   path.join(__dirname, '..', 'server', 'models', 'users.js'),
   'utf8',
 );
-const membershipSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'server', 'lib', 'teamBoardMembership.js'),
-  'utf8',
-);
-const adminPeopleSrc = fs.readFileSync(
-  path.join(__dirname, '..', 'server', 'lib', 'adminPeople.js'),
-  'utf8',
-);
 
 test('#4593 wiring: editUser adds the user to their newly-gained teams\' boards', () => {
   const start = usersSrc.indexOf('async editUser(');
@@ -222,17 +214,11 @@ test('#4593 wiring: creating a user directly into team(s) also adds their boards
 });
 
 test('#4593 wiring: addUserToTeamBoards routes through the tested helper', () => {
-  const start = membershipSrc.indexOf('function addUserToTeamBoards(');
+  const start = usersSrc.indexOf('const addUserToTeamBoards =');
   assert.ok(start > -1, 'addUserToTeamBoards must be defined');
-  const body = membershipSrc.slice(start, start + 900);
+  const body = usersSrc.slice(start, start + 700);
   assert.ok(/boardsToAddMemberTo|gainedTeamIds|teamBoardMemberSync/.test(body),
     'addUserToTeamBoards must use the teamBoardMemberSync helper (the tested decision logic)');
-});
-
-test('#4593 wiring: the shared admin People editor propagates gained teams', () => {
-  assert.ok(/addUserToTeamBoards\(targetUserId, \[\], person\.teams\)/.test(adminPeopleSrc));
-  assert.ok(/addUserToTeamBoards\(targetUserId, target\.teams \|\| \[\], person\.teams\)/
-    .test(adminPeopleSrc));
 });
 
 console.log(`\n${passed} tests passed`);

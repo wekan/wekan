@@ -1,8 +1,7 @@
 'use strict';
 
 // #6644: a location row is the Blaze data context of its own X button. The
-// handler must resolve the surrounding card before invoking the acknowledged
-// server operation.
+// handler must resolve the surrounding card before invoking the model method.
 // Run: node tests/cardLocationRemoval.test.cjs
 
 const assert = require('assert');
@@ -21,10 +20,8 @@ assert.match(handler, /const card = getCurrentCardFromContext\(\)/,
   'the nested location row resolves its surrounding card');
 assert.doesNotMatch(handler, /const card = Template\.currentData\(\)/,
   'the location row itself is never mistaken for the card');
-assert.match(handler, /await Meteor\.callAsync\('removeAccessibleCardLocation'/,
-  'the acknowledged removal finishes inside the event boundary');
-assert.match(handler, /cardId: card\._id, boardId: card\.boardId, locationId/,
-  'the operation binds the nested location to its surrounding card and board');
+assert.match(handler, /await card\.removeLocation\(locationId\)/,
+  'the database removal finishes inside the event boundary');
 
 const methodAt = models.indexOf('async removeLocation(locationId)');
 assert.notStrictEqual(methodAt, -1, 'the card model exposes location removal');
@@ -34,4 +31,4 @@ assert.match(method, /\$pull: \{ locations: \{ _id: locationId \} \}/,
 assert.match(method, /locationId === 'legacy'/,
   'legacy flat-field locations retain their removal path');
 
-console.log('cardLocationRemoval: 6 tests passed');
+console.log('cardLocationRemoval: 5 tests passed');

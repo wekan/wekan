@@ -46,25 +46,12 @@ test('opened-card method calls send the source id', () => {
     details,
     /Meteor\.call\('cards\.(?:vote|pokerVote|setVote|unsetVote|setPoker|unsetPoker)[^\n]*card\._id/,
   );
+  assert.match(details, /Meteor\.call\('cards\.vote', card\.getRealId\(\)/);
   assert.match(customFields,
-    /setAccessibleCardCustomFieldAssigned'[\s\S]*cardId: card\._id/);
+    /setCardCustomFieldAssigned', card\.getRealId\(\)/);
   assert.match(customFields,
-    /updateAccessibleCardCustomField'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /saveAccessibleCardDependency'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /removeAccessibleCardDependency'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /castAccessibleCardVote'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /updateAccessibleCardVote'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /castAccessibleCardPoker'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /updateAccessibleCardPoker'[\s\S]*cardId: card\._id/);
-  assert.match(details,
-    /updateAccessibleCardParent'[\s\S]*cardId: card\._id/);
-  assert.match(details, /Meteor\.callAsync\('watch', 'card', currentCard\.getRealId\(\)/);
+    /setCardCustomFieldCheckbox', tpl\.card\.getRealId\(\)/);
+  assert.match(details, /Meteor\.call\('watch', 'card', currentCard\.getRealId\(\)/);
   assert.match(details, /Cards\.update\(currentCard\.getRealId\(\), \{ \$set: \{ showListOnMinicard/);
 });
 

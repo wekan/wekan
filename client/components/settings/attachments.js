@@ -74,17 +74,107 @@ function cloudConfigFromSettings(tpl, provider) {
 }
 const { filesize } = require('filesize');
 
-const {
-  DEFAULT_LIMIT_SETTINGS,
-  LIMIT_MODES,
-  getBlockedFieldName,
-  normalizeLimitSettings,
-  pickModeForLimit,
-  pickUnitForBytes,
-  toBytes,
-  toDisplayValue,
-  toNonNegativeInteger,
-} = require('/models/lib/attachmentTransferLimits');
+const LIMIT_UNIT_FACTORS = {
+  bytes: 1,
+  mb: 1024 * 1024,
+  gb: 1024 * 1024 * 1024,
+};
+
+const LIMIT_MODES = {
+  UNLIMITED: 'unlimited',
+  MAX_SIZE: 'max-size',
+  BLOCKED: 'blocked',
+};
+
+const LIMIT_BLOCKED_FIELDS = {
+  attachmentsUploadMaxBytes: 'attachmentsUploadBlocked',
+  attachmentsDownloadMaxBytes: 'attachmentsDownloadBlocked',
+  apiUploadMaxBytes: 'apiUploadBlocked',
+  apiDownloadMaxBytes: 'apiDownloadBlocked',
+};
+
+const DEFAULT_LIMIT_SETTINGS = {
+  attachmentsUploadMaxBytes: 0,
+  attachmentsDownloadMaxBytes: 0,
+  apiUploadMaxBytes: 0,
+  apiDownloadMaxBytes: 0,
+  avatarsUploadBlocked: false,
+};
+
+function toNonNegativeInteger(value, fallback = 0) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+function normalizeLimitSettings(settingsDoc) {
+  const fromDoc = settingsDoc?.limitSettings || {};
+  const legacyUpload = settingsDoc?.uploadSettings?.maxFileSize;
+
+  const attachmentsUploadMaxBytes = Number.isFinite(fromDoc.attachmentsUploadMaxBytes)
+    ? toNonNegativeInteger(fromDoc.attachmentsUploadMaxBytes, DEFAULT_LIMIT_SETTINGS.attachmentsUploadMaxBytes)
+    : (Number.isFinite(legacyUpload)
+      ? toNonNegativeInteger(legacyUpload, DEFAULT_LIMIT_SETTINGS.attachmentsUploadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.attachmentsUploadMaxBytes);
+
+  return {
+    attachmentsUploadMaxBytes,
+    attachmentsDownloadMaxBytes: Number.isFinite(fromDoc.attachmentsDownloadMaxBytes)
+      ? toNonNegativeInteger(fromDoc.attachmentsDownloadMaxBytes, DEFAULT_LIMIT_SETTINGS.attachmentsDownloadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.attachmentsDownloadMaxBytes,
+    apiUploadMaxBytes: Number.isFinite(fromDoc.apiUploadMaxBytes)
+      ? toNonNegativeInteger(fromDoc.apiUploadMaxBytes, DEFAULT_LIMIT_SETTINGS.apiUploadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.apiUploadMaxBytes,
+    apiDownloadMaxBytes: Number.isFinite(fromDoc.apiDownloadMaxBytes)
+      ? toNonNegativeInteger(fromDoc.apiDownloadMaxBytes, DEFAULT_LIMIT_SETTINGS.apiDownloadMaxBytes)
+      : DEFAULT_LIMIT_SETTINGS.apiDownloadMaxBytes,
+    attachmentsUploadBlocked: fromDoc.attachmentsUploadBlocked === true,
+    avatarsUploadBlocked: fromDoc.avatarsUploadBlocked === true,
+    attachmentsDownloadBlocked: fromDoc.attachmentsDownloadBlocked === true,
+    apiUploadBlocked: fromDoc.apiUploadBlocked === true,
+    apiDownloadBlocked: fromDoc.apiDownloadBlocked === true,
+  };
+}
+
+function getBlockedFieldName(fieldName) {
+  return LIMIT_BLOCKED_FIELDS[fieldName] || null;
+}
+
+function pickModeForLimit(fieldName, normalizedLimits) {
+  const blockedField = getBlockedFieldName(fieldName);
+  if (blockedField && normalizedLimits[blockedField] === true) {
+    return LIMIT_MODES.BLOCKED;
+  }
+  return normalizedLimits[fieldName] > 0 ? LIMIT_MODES.MAX_SIZE : LIMIT_MODES.UNLIMITED;
+}
+
+function pickUnitForBytes(bytes) {
+  const safeBytes = toNonNegativeInteger(bytes, 0);
+  if (safeBytes > 0 && safeBytes % LIMIT_UNIT_FACTORS.gb === 0) {
+    return 'gb';
+  }
+  if (safeBytes > 0 && safeBytes % LIMIT_UNIT_FACTORS.mb === 0) {
+    return 'mb';
+  }
+  return 'bytes';
+}
+
+function toDisplayValue(bytes, unit) {
+  const safeBytes = toNonNegativeInteger(bytes, 0);
+  const factor = LIMIT_UNIT_FACTORS[unit] || LIMIT_UNIT_FACTORS.bytes;
+  return safeBytes / factor;
+}
+
+function toBytes(value, unit) {
+  const numericValue = Number.parseFloat(value);
+  if (!Number.isFinite(numericValue) || numericValue < 0) {
+    return null;
+  }
+  const factor = LIMIT_UNIT_FACTORS[unit] || LIMIT_UNIT_FACTORS.bytes;
+  return Math.round(numericValue * factor);
+}
 
 function getLimitUnitOptions(selectedUnit) {
   return [

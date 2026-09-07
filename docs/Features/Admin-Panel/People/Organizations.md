@@ -76,22 +76,3 @@ else:
 A site admin may appoint them anywhere; an Organization's own admin may appoint others
 inside their Organization, which is what lets a tenant run itself. Someone who is not a
 member of the Organization cannot be appointed.
-
-## Legacy HTML4
-
-The same `/admin/people/organizations` URL has a semantic, accessible HTML4
-baseline when JavaScript drag and drop is unavailable. It retains the ten table
-columns, literal search, ten-row Previous/Next paging, creation and editing, tenant
-domains and branding, both GIF logo uploads, all three individual and bulk feature
-switches, the same-Organization restriction, Organization administrator controls
-and confirmed deletion. Every action is a labelled, CSRF-protected HTTP POST and
-works without JavaScript or cookies.
-
-The HTML4 and modern views call the same server operations. Those operations use
-fixed fields and bounds, normalize tenant hostnames, permit only HTTP(S) or local
-branding links, and repeat site- or Organization-administrator authorization.
-Tenant administrators see only Organizations they administer. An Organization
-with members cannot be deleted; this expected safety refusal appears in Problems
-at medium severity without disabling the administrator. Forged scope or privilege
-attempts are blocked and reported as high-severity TenantBleed events with the
-available identity, address and location context.

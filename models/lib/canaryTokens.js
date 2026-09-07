@@ -79,14 +79,6 @@ const CANARIES = {
     key: 'authz.file-path',
     what: 'tried to write a restricted attachment field',
   },
-  'attachment.cross-scope': {
-    key: 'authz.attachment',
-    what: 'tried to change an attachment outside its authorized card and board scope',
-  },
-  'board-list.cross-scope': {
-    key: 'authz.board',
-    what: 'tried to change All Boards state for a board outside their access',
-  },
   'avatar.restricted-field': {
     key: 'authz.file-path',
     what: 'tried to write a restricted avatar field',
@@ -102,14 +94,6 @@ const CANARIES = {
   'calendar.import-without-write': {
     key: 'authz.calendar',
     what: 'tried to import iCalendar events as cards without board write access',
-  },
-  'legacy-html4.import-draft': {
-    key: 'authz.import',
-    what: 'tried to finish a missing, foreign or already-consumed Legacy HTML4 import draft',
-  },
-  'legacy-html4.history-cross-scope': {
-    key: 'authz.position-history',
-    what: 'tried to restore a history row outside the card in the Legacy HTML4 URL',
   },
   'board.write-without-capability': {
     key: 'authz.assigned',

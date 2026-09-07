@@ -18,33 +18,34 @@ const datePicker = fs.readFileSync(
   'utf8',
 );
 
-for (const field of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {
+for (const method of ['setReceived', 'setStart', 'setDue', 'setEnd']) {
   assert.match(
     cardDate,
-    new RegExp(`return storeAccessibleCardDate\\('${field}', date, currentCard\\);`),
-    `${field} callback must return its acknowledged update promise`,
+    new RegExp(`return currentCard\\.${method}\\(date\\);`),
+    `${method} callback must return its update promise`,
   );
 }
 
-for (const field of ['receivedAt', 'startAt', 'dueAt', 'endAt']) {
+for (const method of ['unsetReceived', 'unsetStart', 'unsetDue', 'unsetEnd']) {
   assert.match(
     cardDate,
-    new RegExp(`return storeAccessibleCardDate\\('${field}', '', currentCard\\);`),
-    `${field} delete callback must return its acknowledged update promise`,
+    new RegExp(`return currentCard\\.${method}\\(\\);`),
+    `${method} callback must return its update promise`,
   );
 }
 
-assert.equal(
-  (cardDetails.match(/await Meteor\.callAsync\('updateAccessibleCardVote'/g) || []).length >= 2,
-  true,
-  'vote end save and clear callbacks must await the shared server method',
-);
-
-assert.equal(
-  (cardDetails.match(/await Meteor\.callAsync\('updateAccessibleCardPoker'/g) || []).length >= 2,
-  true,
-  'poker end save and clear callbacks must await the shared server method',
-);
+for (const method of [
+  'cards.setVoteEnd',
+  'cards.unsetVoteEnd',
+  'cards.setPokerEnd',
+  'cards.unsetPokerEnd',
+]) {
+  assert.match(
+    cardDetails,
+    new RegExp(`await Meteor\\.callAsync\\('${method.replace('.', '\\.')}'`),
+    `${method} callback must await the server method`,
+  );
+}
 
 assert.match(
   datePicker,

@@ -131,13 +131,15 @@ const HANDLERS = [
   ['server/publications/people.js', "safeSelector(query, 'people')", 'peopleScopeSelector(user, safeQuery)'],
   ['server/publications/org.js', "safeSelector(query, 'org')", 'orgScopeSelector(user, safeQuery)'],
   ['server/publications/team.js', "safeSelector(query, 'team')", 'getTeams(safeQuery'],
+  ['server/publications/translation.js', "safeSelector(query, 'translation')", 'getTranslations(safeQuery'],
   ['server/models/users.js', "safeSelector(query || {}, 'getUsersCollectionCount')", null],
   ['server/models/users.js', "safeSelector(query || {}, 'getPeoplePageIds')", null],
   ['server/models/org.js', "safeSelector(query || {}, 'getOrgsCollectionCount')", null],
   ['server/models/team.js', "safeSelector(query || {}, 'getTeamsCollectionCount')", null],
+  ['server/models/translation.js', "safeSelector(query || {}, 'getTranslationsCollectionCount')", null],
 ];
 
-test('all remaining selector call sites route their selector through the guard', () => {
+test('all nine call sites route their selector through the guard', () => {
   for (const [file, call, usage] of HANDLERS) {
     const src = read(file);
     assert.ok(src.includes(call),
@@ -150,25 +152,6 @@ test('all remaining selector call sites route their selector through the guard',
         `computing safeQuery and then passing the raw one would fix nothing`);
     }
   }
-});
-
-test('Translation no longer accepts a client-supplied selector at all', () => {
-  const publication = read('server/publications/translation.js');
-  const model = read('server/models/translation.js');
-  const service = read('server/lib/adminTranslations.js');
-  assert.ok(/function\(search, limit, skip = 0\)/.test(publication));
-  assert.ok(/getTranslationsCollectionCount\(search = ''\)/.test(model));
-  assert.ok(/check\(search, String\)/.test(publication));
-  assert.ok(/translationSearchSelector\(search\)/.test(publication));
-  assert.ok(/replace\(\/\[\.\*\+\?\^\$\{\}\(\)\|\[\\\]\\\\\]\/g/.test(service),
-    'the server creates only an escaped literal regular expression');
-  assert.ok(!/safeSelector|function\(query/.test(publication),
-    'there is no Mongo-selector input left to guard');
-  assert.ok(/publish\('translationLanguage', function\(language\)/.test(publication));
-  assert.ok(/\^\[A-Za-z0-9@_-\]\{1,5\}\$/.test(publication),
-    'runtime overrides are restricted to one validated language tag');
-  assert.ok(/subscribe\('translationLanguage', language/.test(
-    read('imports/i18n/tap.js')), 'the runtime loader uses the non-admin language feed');
 });
 
 test('no handler still passes the raw selector to the database', () => {

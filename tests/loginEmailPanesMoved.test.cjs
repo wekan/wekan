@@ -40,7 +40,7 @@ function handlerKeys(src, template) {
   let depth = 0;
   for (const line of lines) {
     if (depth === 1) {
-      const m = /^  (?:async )?'([^']+)'\(/.exec(line);
+      const m = /^  '([^']+)'\(/.exec(line);
       if (m) keys.push(m[1]);
     }
     for (const ch of line) { if (ch === '{') depth += 1; else if (ch === '}') depth -= 1; }

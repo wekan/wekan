@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import Rules from '/models/rules';
 
 function boardRuleIds() {
   const boardId = Session.get('currentBoard');
@@ -75,7 +76,7 @@ Template.rulesList.events({
   'keydown .js-edit-rule-input'(event, tpl) {
     if (event.key === 'Enter') {
       const title = event.currentTarget.value.trim();
-      if (title) Meteor.call('rules.renameRule', this._id, title);
+      if (title) Rules.update(this._id, { $set: { title } });
       tpl.editingRuleId.set(null);
     } else if (event.key === 'Escape') {
       tpl.editingRuleId.set(null);
@@ -83,7 +84,7 @@ Template.rulesList.events({
   },
   'blur .js-edit-rule-input'(event, tpl) {
     const title = event.currentTarget.value.trim();
-    if (title) Meteor.call('rules.renameRule', this._id, title);
+    if (title) Rules.update(this._id, { $set: { title } });
     tpl.editingRuleId.set(null);
   },
 });

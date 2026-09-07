@@ -123,12 +123,11 @@ test('the child form owns the event map and receives each popup state (#6607)', 
     'the child template handles its own events');
   assert.ok(/Template\.currentData\(\)\?\.datePicker/.test(picker),
     'the handlers use state passed by the popup');
-  for (const [popup, field] of [['editCardReceivedDatePopup', 'receivedAt'],
-    ['editCardStartDatePopup', 'startAt'], ['editCardDueDatePopup', 'dueAt'],
-    ['editCardEndDatePopup', 'endAt']]) {
+  for (const [popup, setter] of [['editCardReceivedDatePopup', 'setReceived'],
+    ['editCardStartDatePopup', 'setStart'], ['editCardDueDatePopup', 'setDue'],
+    ['editCardEndDatePopup', 'setEnd']]) {
     assert.ok(js.includes(`Template.${popup}.onCreated`), `${popup} still has its own state`);
-    assert.ok(js.includes(`storeAccessibleCardDate('${field}'`),
-      `${popup} stores its own field through the acknowledged boundary`);
+    assert.ok(js.includes(setter), `${popup} still stores its own field`);
   }
   assert.ok(!/\.events\(datePickerEvents/.test(js),
     'negative: no ineffective parent event map remains');

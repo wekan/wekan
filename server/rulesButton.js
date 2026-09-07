@@ -5,16 +5,9 @@ import { RulesHelper } from '/server/rulesHelper';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
-import {
-  createAccessibleWorkflowRule,
-  createAccessibleParameterizedRule,
-  importAccessibleRules,
-  removeAccessibleRule,
-  renameAccessibleRule,
-  replaceAccessibleWorkflowAction,
-} from '/server/lib/accessibleRuleOperations';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -131,49 +124,21 @@ Meteor.methods({
   // (which bypasses allow/deny) fixes that without loosening any permission.
   async 'rules.deleteRule'(ruleId) {
     check(ruleId, String);
-    return removeAccessibleRule(this.userId, { ruleId });
-  },
 
-  async 'rules.renameRule'(ruleId, title) {
-    check(ruleId, String);
-    check(title, String);
-    return renameAccessibleRule(this.userId, { ruleId, title });
-  },
+    const rule = await ReactiveCache.getRule(ruleId);
+    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
 
-  async 'rules.createWorkflowRule'(boardId, title, triggerIndex, actionIndex) {
-    check(boardId, String);
-    check(title, String);
-    check(triggerIndex, Number);
-    check(actionIndex, Number);
-    return createAccessibleWorkflowRule(this.userId, {
-      boardId, title, triggerIndex, actionIndex,
-    });
-  },
+    const board = await ReactiveCache.getBoard(rule.boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
 
-  async 'rules.createParameterizedRule'(boardId, title, triggerKind, actionKind, fields) {
-    check(boardId, String);
-    check(title, String);
-    check(triggerKind, String);
-    check(actionKind, String);
-    check(fields, Object);
-    return createAccessibleParameterizedRule(this.userId, {
-      boardId, title, triggerKind, actionKind, fields,
-    });
-  },
+    const user = await ReactiveCache.getUser(this.userId);
+    if (!canDeleteBoardRule(board, this.userId, { isSiteAdmin: !!(user && user.isAdmin) })) {
+      throw new Meteor.Error('not-authorized', 'Must be a board admin');
+    }
 
-  async 'rules.replaceWorkflowAction'(boardId, ruleId, actionIndex) {
-    check(boardId, String);
-    check(ruleId, String);
-    check(actionIndex, Number);
-    return replaceAccessibleWorkflowAction(this.userId, {
-      boardId, ruleId, actionIndex,
-    });
-  },
-
-  async 'rules.importRules'(boardId, format, text) {
-    check(boardId, String);
-    check(format, String);
-    check(text, String);
-    return importAccessibleRules(this.userId, { boardId, format, text });
+    await Rules.removeAsync(rule._id);
+    if (rule.triggerId) await Triggers.removeAsync(rule.triggerId);
+    if (rule.actionId) await Actions.removeAsync(rule.actionId);
+    return { _id: rule._id };
   },
 });

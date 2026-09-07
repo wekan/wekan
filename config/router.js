@@ -322,20 +322,6 @@ FlowRouter.route('/accessibility', {
   },
 });
 
-FlowRouter.route('/accessibility/components', {
-  name: 'ui-component-library',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    Session.set('currentList', null);
-    Session.set('currentCard', null);
-    Filter.reset();
-    EscapeActions.executeAll();
-    Utils.manageCustomUI();
-    this.render('defaultLayout', { content: 'uiComponentLibrary' });
-  },
-});
-
 FlowRouter.route('/support', {
   name: 'support',
   triggersEnter: [ensureSignedInUnlessSandstorm],
@@ -700,99 +686,6 @@ FlowRouter.route('/broken-cards', {
     this.render('defaultLayout', {
       content: brokenCardsTemplate,
     });
-  },
-});
-
-// Member Menu popups also have stable page URLs. The same Jade component is
-// used both as a popup and as the route content; HTML4 uses these URLs for its
-// cookieless POST navigation.
-FlowRouter.route('/account/profile', {
-  name: 'account-profile',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'accountProfilePage' });
-  },
-});
-
-FlowRouter.route('/account/language', {
-  name: 'account-language',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'accountLanguagePage' });
-  },
-});
-
-FlowRouter.route('/account/password', {
-  name: 'account-password',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'changePasswordPopup' });
-  },
-});
-
-FlowRouter.route('/account/settings', {
-  name: 'account-settings',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'changeSettingsPopup' });
-  },
-});
-
-FlowRouter.route('/account/color', {
-  name: 'account-color',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'changeColorPopup' });
-  },
-});
-
-FlowRouter.route('/account/font', {
-  name: 'account-font',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'changeFontPopup' });
-  },
-});
-
-FlowRouter.route('/account/avatar', {
-  name: 'account-avatar',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'changeAvatarPopup' });
-  },
-});
-
-FlowRouter.route('/account/invite', {
-  name: 'account-invite',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'invitePeoplePopup' });
-  },
-});
-
-FlowRouter.route('/account/logout', {
-  name: 'account-logout',
-  triggersEnter: [ensureSignedInUnlessSandstorm],
-  action() {
-    Session.set('currentBoard', null);
-    EscapeActions.executeAll();
-    this.render('defaultLayout', { content: 'accountLogoutPage' });
   },
 });
 

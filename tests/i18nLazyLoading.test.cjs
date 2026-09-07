@@ -154,10 +154,8 @@ test('the dynamic-import package that code-splits them is installed', () => {
 test('the custom-translation subscription asks for one language', () => {
   // The DB overrides an admin typed in Admin Panel / Translation are fetched per
   // language too, so switching language does not pull every override ever saved.
-  assert.ok(/Meteor\.subscribe\('translationLanguage',\s*language/.test(tap),
-    'loadTranslation must use the exact-language publication');
-  assert.ok(!/Meteor\.subscribe\('translation',\s*\{/.test(tap),
-    'runtime translation loading cannot submit a Mongo selector');
+  assert.ok(/Meteor\.subscribe\('translation',\s*\{language: language\}/.test(tap),
+    "loadTranslation must subscribe with {language: language}");
 });
 
 console.log(`\ni18nLazyLoading: ${passed} checks passed`);

@@ -9,12 +9,16 @@ import { sendJsonResult } from '/server/apiMiddleware';
 // Multitenancy option D: per-tenant Global Admin rules (shared with the client and
 // the publications) - docs/Design/Multitenancy/Multitenancy.md.
 import * as tenantAdmin from '/models/lib/tenantAdmin';
-import {
-  createOrganizationForAdmin,
-  setAllOrganizationsFeatureForAdmin,
-  setOrganizationFeatureForAdmin,
-  updateOrganizationForAdmin,
-} from '/server/lib/adminOrganizations';
+
+// #5850: reliable admin check from a method's this.userId. Meteor.user()/
+// getCurrentUser() can return null inside an async method after an await
+// (the DDP invocation context is not always preserved), so we look the caller
+// up directly by id.
+async function callerIsAdmin(userId) {
+  if (!userId) return false;
+  const u = await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1 } });
+  return !!(u && u.isAdmin);
+}
 
 Meteor.methods({
   async setCreateOrg(
@@ -25,11 +29,28 @@ Meteor.methods({
     orgWebsite,
     orgIsActive,
   ) {
-    check(orgDisplayName, String); check(orgDesc, String); check(orgShortName, String);
-    check(orgAutoAddUsersWithDomainName, String); check(orgWebsite, String);
-    check(orgIsActive, Boolean);
-    return createOrganizationForAdmin(this.userId, { orgDisplayName, orgDesc,
-      orgShortName, orgAutoAddUsersWithDomainName, orgWebsite, orgIsActive });
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(orgDisplayName, String);
+      check(orgDesc, String);
+      check(orgShortName, String);
+      check(orgAutoAddUsersWithDomainName, String);
+      check(orgWebsite, String);
+      check(orgIsActive, Boolean);
+
+      const nOrgNames = (await ReactiveCache.getOrgs({ orgShortName })).length;
+      if (nOrgNames > 0) {
+        throw new Meteor.Error('orgname-already-taken');
+      }
+
+      await Org.insertAsync({
+        orgDisplayName,
+        orgDesc,
+        orgShortName,
+        orgAutoAddUsersWithDomainName,
+        orgWebsite,
+        orgIsActive,
+      });
+    }
   },
 
   async setCreateOrgFromOidc(
@@ -133,32 +154,63 @@ Meteor.methods({
   async setOrgSharedTemplates(org, value) {
     check(org, Object);
     check(value, Boolean);
-    check(org._id, String);
-    return setOrganizationFeatureForAdmin(this.userId, org._id,
-      'orgSharedTemplates', value);
+    if (await callerIsAdmin(this.userId)) {
+      await Org.updateAsync(org, { $set: { orgSharedTemplates: value } });
+    }
   },
 
   async setOrgPropagateMembersToBoards(org, value) {
     check(org, Object);
     check(value, Boolean);
-    check(org._id, String);
-    return setOrganizationFeatureForAdmin(this.userId, org._id,
-      'orgPropagateMembersToBoards', value);
+    if (await callerIsAdmin(this.userId)) {
+      await Org.updateAsync(org, { $set: { orgPropagateMembersToBoards: value } });
+      // #4737/#5850: actually ACT on the flag. Turning it on adds this org's
+      // members to the boards that list the org (add-only). Previously the flag
+      // was stored but nothing ever propagated (the method had no caller).
+      //
+      // #6559: `org` is the SELECTOR the client sent - `{ _id: … }`, the same
+      // value handed to updateAsync above - not an id. Passing it whole made the
+      // member lookup compare `orgs.orgId` against an object, which matches
+      // nobody, so the checkbox stored the flag and silently added no one. The
+      // report was about the team column; the org column beside it was identical.
+      if (value === true) {
+        const { propagateGroupMembersToBoards } = require('/server/propagateOrgTeamMembers');
+        await propagateGroupMembersToBoards('org', org._id);
+      }
+    }
   },
 
   async setOrgSyncMembersFromAuth(org, value) {
     check(org, Object);
     check(value, Boolean);
-    check(org._id, String);
-    return setOrganizationFeatureForAdmin(this.userId, org._id,
-      'orgSyncMembersFromAuth', value);
+    if (await callerIsAdmin(this.userId)) {
+      await Org.updateAsync(org, { $set: { orgSyncMembersFromAuth: value } });
+    }
   },
 
   // Bulk select-all / unselect-all for one of the org feature columns.
   async setAllOrgsFeature(field, value) {
     check(field, String);
     check(value, Boolean);
-    return setAllOrganizationsFeatureForAdmin(this.userId, field, value);
+    if (await callerIsAdmin(this.userId)) {
+      const allowed = [
+        'orgSharedTemplates',
+        'orgPropagateMembersToBoards',
+        'orgSyncMembersFromAuth',
+      ];
+      if (!allowed.includes(field)) {
+        throw new Meteor.Error('invalid-field');
+      }
+      await Org.updateAsync({}, { $set: { [field]: value } }, { multi: true });
+      // #6559: the select-all header checkbox is the same promise as the per-row
+      // one - tick it and the members should be on the boards - and it did not
+      // propagate at all, not even wrongly. Orgs only: ticking the org column
+      // must not act on the team column beside it.
+      if (field === 'orgPropagateMembersToBoards' && value === true) {
+        const { propagateAllFlaggedGroupsToBoards } = require('/server/propagateOrgTeamMembers');
+        await propagateAllFlaggedGroupsToBoards('org');
+      }
+    }
   },
 
   async setOrgAllFieldsFromOidc(
@@ -207,12 +259,26 @@ Meteor.methods({
     orgWebsite,
     orgIsActive,
   ) {
-    check(org, Object); check(org._id, String); check(orgDisplayName, String);
-    check(orgDesc, String); check(orgShortName, String);
-    check(orgAutoAddUsersWithDomainName, String); check(orgWebsite, String);
-    check(orgIsActive, Boolean);
-    return updateOrganizationForAdmin(this.userId, org._id, { orgDisplayName,
-      orgDesc, orgShortName, orgAutoAddUsersWithDomainName, orgWebsite, orgIsActive });
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(org, Object);
+      check(orgDisplayName, String);
+      check(orgDesc, String);
+      check(orgShortName, String);
+      check(orgAutoAddUsersWithDomainName, String);
+      check(orgWebsite, String);
+      check(orgIsActive, Boolean);
+      await Org.updateAsync(org, {
+        $set: {
+          orgDisplayName,
+          orgDesc,
+          orgShortName,
+          orgAutoAddUsersWithDomainName,
+          orgWebsite,
+          orgIsActive,
+        },
+      });
+      await Meteor.callAsync('setUsersOrgsOrgDisplayName', org._id, orgDisplayName);
+    }
   },
 
   async getOrgsCollectionCount(query = {}) {

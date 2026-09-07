@@ -29,9 +29,6 @@ import '/server/modernBrowsers';
 // Registers the first Meteor.startup hook, so it runs before index-creating ones.
 import '/server/00waitForMongo';
 
-// Every page request starts as a usable HTML4 document. The capability probe
-// asks for the normal Meteor shell only after the browser proves it can run it.
-// Register before API/model routes and Meteor's final boilerplate handler.
 // ****IMPORTANT**** Initialize upload directories BEFORE models are loaded
 // This ensures ostrio:files can create necessary directories without permission errors
 import '/server/initializeDirs';
@@ -41,7 +38,6 @@ import '/server/initializeDirs';
 // ----------------------------------------------------------------------------
 import '/server/lib/requestReportContext';
 import '/server/apiMiddleware';
-import '/server/legacyHtml4';
 import '/server/apiAuthRoutes';
 
 // ----------------------------------------------------------------------------
@@ -240,17 +236,6 @@ import '/server/methods/restoreListSwimlanes';
 import '/server/methods/cleanupTemplateContainers';
 import '/server/methods/systemStatus';
 import '/server/methods/positionHistory';
-import '/server/methods/problemFeatureSettings';
-import '/server/methods/adminAnnouncement';
-import '/server/methods/adminAccessibility';
-import '/server/methods/adminPwaSettings';
-import '/server/methods/adminGlobalWebhooks';
-import '/server/methods/adminVisibilitySettings';
-import '/server/methods/adminInviteRoles';
-import '/server/methods/adminLoginSettings';
-import '/server/methods/adminEmailSettings';
-import '/server/methods/adminOrganizations';
-import '/server/methods/adminTeams';
 import '/server/methods/sandstormMigration';
 import '/server/methods/tenant';
 import '/server/startup/repairBoardsOnStartup';

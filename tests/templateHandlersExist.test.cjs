@@ -84,7 +84,7 @@ test('the pane removed from Admin Panel Settings left nothing behind', () => {
   assert.ok(!/Template\.accountSettings\.(events|helpers|onCreated|onRendered)/.test(js),
     'and nothing may still register on it');
   // Its save button moved to the template that renders the Login pane.
-  assert.ok(/Template\.general\.events\(\{[\s\S]*js-account-access-save/.test(js),
+  assert.ok(/Template\.setting\.events\(\{[\s\S]*js-account-access-save/.test(js),
     'the save handler belongs to the template that renders the pane');
 });
 

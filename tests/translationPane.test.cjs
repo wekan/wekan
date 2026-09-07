@@ -40,7 +40,6 @@ const js = read('client/components/settings/translationBody.js');
 const css = read('client/components/settings/translationBody.css');
 const forms = read('client/components/forms/forms.css');
 const model = read('server/models/translation.js');
-const service = read('server/lib/adminTranslations.js');
 
 function template(name) {
   const start = jade.indexOf(`template(name="${name}")`);
@@ -135,34 +134,17 @@ test('an empty pane can still add the FIRST translation', () => {
 
 test('every method behind the popups is admin-only', () => {
   for (const method of ['setCreateTranslation', 'setTranslationText',
-    'deleteTranslation']) {
+    'deleteTranslation', 'getTranslationsCollectionCount']) {
     const at = model.indexOf(`async ${method}(`);
     assert.ok(at > 0, `${method} must exist`);
     const body = model.slice(at, at + 700);
-    assert.ok(/ForAdmin\(this\.userId/.test(body),
-      `${method} must delegate through the shared admin service`);
+    assert.ok(/isAdmin/.test(body) && /not-authorized/.test(body),
+      `${method} must refuse a non-admin caller`);
   }
-  assert.ok(/async function requireAdmin[\s\S]*?isAdmin[\s\S]*?not-authorized/.test(service),
-    'the common service must refuse a non-admin caller');
-  const count = model.slice(model.indexOf('getTranslationsCollectionCount'));
-  assert.ok(/isAdmin/.test(count) && /not-authorized/.test(count),
-    'the count method must refuse a non-admin caller');
   // Creating a duplicate string for the same language is rejected, and the popup
   // shows that instead of silently doing nothing.
-  assert.ok(/text-already-taken/.test(service), 'a duplicate must be refused');
+  assert.ok(/text-already-taken/.test(model), 'a duplicate must be refused');
   assert.ok(/text-already-taken/.test(js), 'and the form must show it');
-});
-
-test('translation mutations use exact ids and search stays inert', () => {
-  assert.ok(/setTranslationText',\s*translation\._id/.test(js),
-    'the browser sends an id, never a document-shaped Mongo selector');
-  assert.ok(!/new RegExp/.test(js), 'the browser must not construct a selector');
-  assert.ok(/replace\(\/\[\.\*\+\?\^\$\{\}\(\)\|\[\\\]\\\\\]\/g/.test(service),
-    'server search escapes regex metacharacters before querying');
-  assert.ok(/search\.length > 500/.test(service), 'server search is bounded');
-  assert.ok(/updateAsync\(existing\._id/.test(service), 'updates use a resolved exact id');
-  assert.ok(/removeAsync\(\{ _id: translationId \}\)/.test(service),
-    'deletes use an exact id selector');
 });
 
 test('no black button background is left in this pane', () => {

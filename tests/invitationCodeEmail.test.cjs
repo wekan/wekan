@@ -174,11 +174,11 @@ test('server/models/settings.js is wired to the #4043 helpers', () => {
     'settings.js must require models/lib/invitationCodeEmail',
   );
   assert.ok(
-    src.includes('emails.map(normalizeInviteEmail)'),
+    src.includes('normalizeInviteEmail(rawEmail)'),
     'sendInvitation must normalize the invitee email',
   );
   assert.ok(
-    src.includes('buildReinviteModifier(invitation, uniqueBoards'),
+    src.includes('buildReinviteModifier(invitation, boards'),
     'the re-invite branch must build its modifier via buildReinviteModifier',
   );
   assert.ok(

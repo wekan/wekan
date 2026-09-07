@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import { createRequire } from 'module';
 import path from 'path';
+import { createRequire } from 'module';
 import { Mongo } from 'meteor/mongo';
-import { boundedStreamBuffer, convertImageBufferToGif, omiGifCacheKey, storeGeneratedGif } from './legacyHtml4Gif';
+import { boundedStreamBuffer, convertImageBufferToGif, gifCacheKey, storeGeneratedGif } from './imageGif';
 
 export const DOCUMENT_MAX_BYTES = 32 * 1024 * 1024;
 export const DOCUMENT_MAX_PAGES = 200;
@@ -188,7 +188,7 @@ async function renderPages(input, extension) {
 export async function documentAsStoredGifs(fileObj, options) {
   const extension = String(fileObj?.extension || fileObj?.name?.split('.').pop() || '').toLowerCase();
   if (!['pdf', 'docx', 'xlsx', 'pptx'].includes(extension)) throw new Error('Unsupported document type');
-  const cacheKey = omiGifCacheKey(fileObj);
+  const cacheKey = gifCacheKey(fileObj);
   const cached = await DocumentPreviews.findOneAsync({ attachmentId: fileObj._id, cacheKey });
   if (cached) return cached;
   const key = String(fileObj._id);

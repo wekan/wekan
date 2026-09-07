@@ -10,9 +10,6 @@
   cursor: pointer;
 }
 .reactions-popup .add-comment-reaction {
-  background: transparent;
-  border: 0;
-  color: inherit;
   display: inline-block;
   cursor: pointer;
   border-radius: 10px;

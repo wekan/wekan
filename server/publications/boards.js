@@ -16,8 +16,6 @@ import Cards from '/models/cards';
 import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
 import { collectAncestorIds } from '/server/lib/subtaskAncestors';
 import { visibleBoardIds } from '/server/lib/visibleBoardIds';
-import { copyAccessibleBoard } from '/server/lib/accessibleBoardListOperations';
-import { boardsReportCountForAdmin, boardsReportForAdmin } from '/server/lib/boardsReport';
 import {
   showsCardCounterList,
   countCardsByListId,
@@ -248,6 +246,17 @@ Meteor.methods({
   },
 });
 
+function boardsReportQuery(searchTerm = '', permission = 'all') {
+  const query = {};
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+  if (permission === 'public' || permission === 'private') {
+    query.permission = permission;
+  }
+  return query;
+}
+
 Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(permission, Match.OneOf('all', 'public', 'private'));
@@ -260,22 +269,66 @@ Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all
   // while the Cards report next to it listed cards from thousands of boards. That
   // also means the guard has to be `isAdmin` now, not merely "logged in": the
   // membership selector was what kept this publication honest before.
-  if (!this.userId) return this.ready();
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
+  }
+
+  const query = boardsReportQuery(searchTerm, permission);
 
   // Publish the page MANUALLY (fetch + this.added + this.ready): a returned sorted+
   // limited cursor triggers a LIMITED live observe that hangs on FerretDB's OpLog,
   // leaving the report stuck on the loading spinner (same as attachmentsList). The
   // report re-subscribes on every page/search change, so it needs no live cursor.
-  let report;
-  try {
-    report = await boardsReportForAdmin(this.userId, {
-      search: searchTerm || '', permission, limit, skip: skip || 0,
-    });
-  } catch (error) {
-    if (error?.error === 'not-authorized') return this.ready();
-    throw error;
-  }
-  const { boards, users, teams, orgs } = report;
+  const boards = await ReactiveCache.getBoards(
+    query,
+    {
+      fields: {
+        _id: 1,
+        boardId: 1,
+        archived: 1,
+        slug: 1,
+        title: 1,
+        description: 1,
+        color: 1,
+        backgroundImageURL: 1,
+        members: 1,
+        orgs: 1,
+        teams: 1,
+        permission: 1,
+        type: 1,
+        sort: 1,
+      },
+      sort: { sort: 1 /* boards default sorting */ },
+      limit,
+      skip: skip || 0,
+    },
+    false,
+  );
+
+  const userIds = [];
+  const orgIds = [];
+  const teamIds = [];
+  boards.forEach(board => {
+    if (board.members) {
+      board.members.forEach(member => {
+        userIds.push(member.userId);
+      });
+    }
+    if (board.orgs) {
+      board.orgs.forEach(org => {
+        orgIds.push(org.orgId);
+      });
+    }
+    if (board.teams) {
+      board.teams.forEach(team => {
+        teamIds.push(team.teamId);
+      });
+    }
+  })
+
+  const users = await ReactiveCache.getUsers({ _id: { $in: userIds } }, { fields: Users.safeFields }, false);
+  const teams = await ReactiveCache.getTeams({ _id: { $in: teamIds } }, {}, false);
+  const orgs = await ReactiveCache.getOrgs({ _id: { $in: orgIds } }, {}, false);
 
   for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
   for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
@@ -291,7 +344,14 @@ Meteor.methods({
   async getBoardsReportCount(searchTerm = '', permission = 'all') {
     check(searchTerm, Match.OneOf(String, null, undefined));
     check(permission, Match.OneOf('all', 'public', 'private'));
-    return boardsReportCountForAdmin(this.userId, searchTerm || '', permission);
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    // The same set the publication pages: every board on the instance, admin-only.
+    const query = boardsReportQuery(searchTerm, permission);
+    const cursor = await ReactiveCache.getBoards(query, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 
   // #5799: compute one page of the current user's All Boards grid on the server,
@@ -1197,7 +1257,20 @@ Meteor.methods({
     check(boardId, String);
     check(properties, Object);
 
-    return copyAccessibleBoard(this.userId, boardId, properties);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) throw new Meteor.Error('not-found');
+    // Require board admin, matching the REST endpoint
+    // POST /api/boards/:boardId/copy (checkAdminOrCondition with adminAccess).
+    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized');
+
+    // Strip fields the caller must not control on the copy
+    const { members, permission, ...safeProperties } = properties;
+    for (const key of Object.keys(safeProperties)) {
+      board[key] = safeProperties[key];
+    }
+
+    return board.copy();
   },
 
   // Board status for the sidebar Status popup: accurate counts computed on the

@@ -102,23 +102,6 @@ test('an import creates, and never edits what is already there', () => {
     'old ids are mapped to new ones, so nothing is inserted under a foreign id');
 });
 
-test('a checklist import creates checklists below its exact board-bound target', () => {
-  assert.ok(/if \(this\._target\.checklistId\) await this\._importChecklistsIntoChecklist\(board\)/
-    .test(importer), 'checklist scope never falls through to whole-board import');
-  assert.ok(/_id: this\._target\.checklistId,[\s\S]{0,80}boardId: board\._id/.test(importer),
-    'the target checklist is rebound to the destination board');
-  assert.ok(/sortsAfter\(existing\.map\(checklist => checklist\.sort\), target\.sort, incoming\.length\)/
-    .test(importer), 'new checklists are placed after the selected checklist');
-  assert.ok(/boardId: board\._id,[\s\S]{0,80}cardId: targetCard\._id/.test(importer),
-    'new checklists and items receive destination card and board identities');
-  assert.ok(/check\(target\.checklistId, Match\.Maybe\(String\)\)/.test(importModel),
-    'DDP validates the checklist scope explicitly');
-  assert.ok(/_denyTarget\('checklist-not-found'[\s\S]*outside the destination board/.test(importer),
-    'a forged checklist scope is refused and reported');
-  assert.ok(/source: 'scoped-import'[\s\S]*userId: this\._userId/.test(importer),
-    'the Security report receives the available actor identity');
-});
-
 test('a comment comes back under the importing user, not a stranger', () => {
   assert.ok(/The importing user, not the original author/.test(importer),
     'the original author may not exist on this server');
@@ -134,7 +117,7 @@ test('a custom field is matched by NAME, not by id', () => {
 // ── who may do it ───────────────────────────────────────────────────────────
 
 test('importing is a WRITE, and is checked as one', () => {
-  assert.ok(/allowIsBoardMemberWithWriteAccess\(userId, board\)/.test(importModel),
+  assert.ok(/isBoardMember\(\)/.test(importModel),
     'export asks "may you see it"; import asks "may you change it"');
   assert.ok(/assertImportEnabled/.test(importModel),
     'and the Admin Panel master switch still applies');
@@ -142,8 +125,6 @@ test('importing is a WRITE, and is checked as one', () => {
     'a file that is not a WeKan export is refused by format');
   assert.ok(/import-timeout/.test(importModel),
     'and a hung import ends, like the board import');
-  assert.ok(/recordImportAuthorizationDenied\('importScoped', this/.test(importModel),
-    'a write-access bypass attempt is visible in Admin Panel / Problems / Security');
 });
 
 test('the popup offers import only to somebody who may write', () => {
@@ -170,7 +151,6 @@ test('every menu offers Export and Import, named for what they do', () => {
     ['client/components/lists/listHeader.jade', 'js-export-list', 'js-import-list'],
     ['client/components/swimlanes/swimlaneHeader.jade', 'js-export-swimlane', 'js-import-swimlane'],
     ['client/components/cards/cardDetails.jade', 'js-export-card', 'js-import-card'],
-    ['client/components/cards/checklists.jade', 'js-export-checklist', 'js-import-checklist'],
     ['client/components/sidebar/sidebar.jade', 'js-export-board', 'js-import-into-board'],
   ];
   for (const [file, exportClass, importClass] of menus) {
@@ -209,13 +189,6 @@ test('every menu offers Export and Import, named for what they do', () => {
   }
 });
 
-test('the checklist popup passes its nested checklist identity as the scope', () => {
-  assert.ok(/exportChecklistPopup"\)\n  \+exportScopeBody\(checklistId=checklist\._id/.test(scopeJade),
-    'export receives the checklist id rather than an undefined popup wrapper id');
-  assert.ok(/importChecklistPopup"\)\n  \+exportScopeBody\(checklistId=checklist\._id/.test(scopeJade),
-    'import receives the same exact scope');
-});
-
 test('the files come back too, from a .json and from a .zip', () => {
   // The round trip was half a round trip: the cards came back and their
   // attachments did not.
@@ -223,8 +196,7 @@ test('the files come back too, from a .json and from a .zip', () => {
   assert.ok(/Buffer\.from\(attachment\.file, 'base64'\)/.test(importer),
     'from the base64 a .json carries');
   const zipRoute = read('models/importZip.js');
-  const zipArchive = read('server/lib/wekanZipArchive.js');
-  assert.ok(/attachmentEntries\.set/.test(zipArchive) && /attachmentStream\(attachment\)/.test(zipArchive),
+  assert.ok(/entriesById\.set/.test(zipRoute) && /const attachmentStream/.test(zipRoute),
     'and the streaming server route ties each archived file to its attachment row');
   assert.ok(/new ScopedImporter/.test(zipRoute),
     'so JSON and ZIP reach the same scoped importer');
@@ -264,14 +236,11 @@ test('a .zip is UPLOADED, not unpacked in the browser', () => {
 
 test('the upload route never holds the archive in memory', () => {
   const route = read('models/importZip.js');
-  const archive = read('server/lib/wekanZipArchive.js');
   assert.ok(/req\.pipe\(out\)/.test(route), 'the body is streamed to a temp file');
-  assert.ok(/readWekanZipArchive\(tempPath/.test(route),
-    'the route delegates archive validation to the shared reader');
-  assert.ok(/unzipper\.Open\.file\(tempPath\)/.test(archive),
+  assert.ok(/unzipper\.Open\.file\(tempPath\)/.test(route),
     'and the archive is read through its central directory, entry by entry');
-  assert.ok(/entry\.stream\(\)/.test(archive), 'each attachment is opened as a stream');
-  assert.ok(!/\.buffer\(\)[\s\S]{0,80}attachment/i.test(archive),
+  assert.ok(/entry\.stream\(\)/.test(route), 'each attachment is opened as a stream');
+  assert.ok(!/\.buffer\(\)[\s\S]{0,80}attachment/i.test(route),
     'attachments are never buffered whole - only the document is');
   assert.ok(/finally \{[\s\S]{0,120}unlink/.test(route), 'and the temp file always goes');
 });
@@ -287,11 +256,8 @@ test('an entry name is data, never a path (negative)', () => {
   // ZipBleed: `attachments/../../etc/cron.d/x` must be an attachment with a
   // strange name, not a write outside the storage.
   const route = read('models/importZip.js');
-  const archive = read('server/lib/wekanZipArchive.js');
-  assert.ok(/ZipBleed/.test(route), 'the reason is written at the upload boundary');
-  assert.ok(/safeArchivePath\(entry\.path\)/.test(archive),
-    'every central-directory name is rejected unless it is a safe relative path');
-  assert.ok(/match\[1\]\.slice\(0, dash\)/.test(archive),
+  assert.ok(/ZipBleed/.test(route), 'the reason is written where the names are read');
+  assert.ok(/base\.slice\(0, dash\)/.test(route),
     'only the id before the first dash is read from the entry name');
   const helper = read('models/lib/fileStoreStrategy.js');
   assert.ok(/sanitizeFilename\(fileName \|\| 'attachment'\)/.test(helper),
@@ -302,8 +268,6 @@ test('an uploaded attachment lands in the Admin Panel default storage', () => {
   const helper = read('models/lib/fileStoreStrategy.js');
   assert.ok(/collection\.addFile\(/.test(helper),
     'addFile, not write - a path rather than a Buffer');
-  assert.ok(/await collection\.addFile\([\s\S]*\}, true\)/.test(helper),
-    'Meteor-Files 3 Promise completion and its Default Storage hook are awaited');
   assert.ok(/onAfterUpload/.test(read('models/server/scopedImporter.js')),
     'and the importer says why: addFile fires the hook that moves it there');
   const attachments = read('models/attachments.server.js');

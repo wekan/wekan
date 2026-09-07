@@ -3,10 +3,8 @@ import { CardSearchPaged } from '../../lib/cardSearch';
 Template.brokenCards.onCreated(function () {
   const search = new CardSearchPaged(this);
   this.search = search;
-  search.searching.set(true);
-  search.subscriptionHandle = Meteor.subscribe(
-    'brokenCards', search.sessionId, search.subscriptionCallbacks,
-  );
+
+  Meteor.subscribe('brokenCards', search.sessionId);
 });
 
 Template.brokenCards.helpers({
@@ -35,9 +33,6 @@ Template.brokenCards.helpers({
   },
   results() {
     return Template.instance().search.results;
-  },
-  getSearchData() {
-    return Template.instance().search;
   },
   getSearchHref() {
     return Template.instance().search.getSearchHref();

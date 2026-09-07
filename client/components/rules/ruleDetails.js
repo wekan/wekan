@@ -1,13 +1,18 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { localizedStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
+import { localizeStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
 
 function localizedDescription(description) {
-  return localizedStoredRuleDescription(
-    description,
-    key => TAPi18n.__(key),
-    TAPi18n.getDefaultTranslations('r-'),
-  );
+  const sources = TAPi18n.getDefaultTranslations('r-');
+  const translations = Object.entries(sources).map(([key, source]) => ({
+    source,
+    translated: TAPi18n.__(key),
+  }));
+  return localizeStoredRuleDescription(description, translations);
+}
+
+function upperFirst(value) {
+  return value ? value.charAt(0).toUpperCase() + value.slice(1) : '';
 }
 
 Template.ruleDetails.onCreated(function () {
@@ -24,7 +29,7 @@ Template.ruleDetails.helpers({
     if (!rule) return '';
     const trigger = ReactiveCache.getTrigger(rule.triggerId);
     if (!trigger) return '';
-    return localizedDescription(trigger.description());
+    return upperFirst(localizedDescription(trigger.description()));
   },
   action() {
     const ruleId = Template.currentData().ruleId;
@@ -32,6 +37,6 @@ Template.ruleDetails.helpers({
     if (!rule) return '';
     const action = ReactiveCache.getAction(rule.actionId);
     if (!action) return '';
-    return localizedDescription(action.description());
+    return upperFirst(localizedDescription(action.description()));
   },
 });

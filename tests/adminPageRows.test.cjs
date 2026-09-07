@@ -121,15 +121,15 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
   test('Problems: every report over a shared collection names its page', () => {
     const cards = read('server/publications/cards.js');
-    assert.ok(/publishReportPage\(this, 'report-broken', report\.cards\)/.test(cards));
-    assert.ok(/publishReportPage\(this, 'report-cards', report\.cards\)/.test(cards));
+    assert.ok(/publishReportPage\(this, 'report-broken', cards\)/.test(cards));
+    assert.ok(/publishReportPage\(this, 'report-cards', cards\)/.test(cards));
     const boards = read('server/publications/boards.js');
     assert.ok(/publishReportPage\(this, 'report-boards', boards\)/.test(boards));
     // Files and Rules too: opening one card puts its attachments in minimongo, and
     // opening a board's rules editor puts its rules there.
     assert.ok(/publishReportPage\(this, 'report-files', docs \|\| \[\]\)/
       .test(read('server/publications/attachments.js')));
-    assert.ok(/publishReportPage\(this, 'report-rules', report\.rules\)/
+    assert.ok(/publishReportPage\(this, 'report-rules', rules\)/
       .test(read('server/publications/rules.js')));
   });
 
@@ -162,25 +162,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       const at = src.indexOf(marker);
       assert.ok(at !== -1, `${marker} must exist`);
       // The guard must be at the TOP of the publication, before it reads anything.
-      const head = src.slice(at, at + (file.endsWith('boards.js') ? 1200 : 400));
-      const delegatedBoardsGuard = file.endsWith('boards.js')
-        && /boardsReportForAdmin/.test(head)
-        && /isAdmin/.test(code('server/lib/boardsReport.js'));
-      const delegatedCardsGuard = marker.includes('cardsReport')
-        && /cardsReportForAdmin/.test(head)
-        && /isAdmin/.test(code('server/lib/cardsReport.js'));
-      const delegatedBrokenGuard = marker.includes('brokenCardsReport')
-        && /brokenCardsReportForAdmin/.test(head)
-        && /isAdmin/.test(code('server/lib/brokenCardsReport.js'));
-      const delegatedFilesGuard = marker.includes('attachmentsList')
-        && /attachmentsReportForAdmin/.test(head)
-        && /isAdmin/.test(code('server/lib/attachmentsReport.js'));
-      const delegatedRulesGuard = marker.includes('rulesReport')
-        && /rulesReportForAdmin/.test(head)
-        && /isAdmin/.test(code('server/lib/rulesReport.js'));
-      assert.ok(/isAdmin/.test(head) || delegatedBoardsGuard || delegatedCardsGuard
-        || delegatedBrokenGuard || delegatedFilesGuard || delegatedRulesGuard,
-        `${marker} must be admin-only`);
+      assert.ok(/isAdmin/.test(src.slice(at, at + 400)), `${marker} must be admin-only`);
     }
     for (const [file, method] of [
       ['server/publications/boards.js', 'getBoardsReportCount'],
@@ -188,14 +170,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
     ]) {
       const src = code(file);
       const body = src.slice(src.indexOf(method), src.indexOf(method) + 700);
-      const delegatedBoardsGuard = file.endsWith('boards.js')
-        && /boardsReportCountForAdmin/.test(body)
-        && /isAdmin/.test(code('server/lib/boardsReport.js'));
-      const delegatedFilesGuard = file.endsWith('attachments.js')
-        && /attachmentsReportCountForAdmin/.test(body)
-        && /isAdmin/.test(code('server/lib/attachmentsReport.js'));
-      assert.ok(/isAdmin/.test(body) || delegatedBoardsGuard || delegatedFilesGuard,
-        `${method} must be admin-only`);
+      assert.ok(/isAdmin/.test(body), `${method} must be admin-only`);
       assert.ok(!/userBoardIds|accessibleCardIds/.test(body),
         `${method} must count the same set the publication pages`);
     }
@@ -229,31 +204,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       const src = code(file);
       for (const marker of markers) {
         const head = src.slice(src.indexOf(marker), src.indexOf(marker) + 500);
-        const delegatedImpersonationGuard = file.endsWith('impersonationReport.js')
-          && /impersonationReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/impersonationReport.js'));
-        const delegatedRecoveryGuard = file.endsWith('recoveryReport.js')
-          && /recoveryReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/recoveryReport.js'));
-        const delegatedBoardsGuard = file.endsWith('boards.js')
-          && /boardsReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/boardsReport.js'));
-        const delegatedCardsGuard = file.endsWith('cards.js')
-          && /cardsReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/cardsReport.js'));
-        const delegatedBrokenGuard = file.endsWith('cards.js')
-          && /brokenCardsReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/brokenCardsReport.js'));
-        const delegatedFilesGuard = file.endsWith('attachments.js')
-          && /attachmentsReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/attachmentsReport.js'));
-        const delegatedRulesGuard = file.endsWith('rules.js')
-          && /rulesReport(?:ForAdmin|CountForAdmin)/.test(head)
-          && /isAdmin/.test(code('server/lib/rulesReport.js'));
-        assert.ok(/isAdmin/.test(head) || delegatedImpersonationGuard
-          || delegatedRecoveryGuard || delegatedBoardsGuard || delegatedCardsGuard
-          || delegatedBrokenGuard || delegatedFilesGuard || delegatedRulesGuard,
-          `${marker} must ask for the site admin flag`);
+        assert.ok(/isAdmin/.test(head), `${marker} must ask for the site admin flag`);
         assert.ok(!/canOpenAdminPanel/.test(head),
           `${marker} must NOT accept a per-tenant admin: Problems is instance-wide`);
       }

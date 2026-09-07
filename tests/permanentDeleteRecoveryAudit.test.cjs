@@ -8,10 +8,8 @@ const test = require('node:test');
 const root = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 const settingsServer = read('server/models/settings.js');
-const settingService = read('server/lib/permanentDeleteSetting.js');
 const settingsClient = read('client/components/settings/adminProblems.js');
 const boardsServer = read('server/models/boards.js');
-const boardOperations = read('server/lib/accessibleBoardListOperations.js');
 const recoveryModel = read('models/recoveryEvents.js');
 const settingsJade = read('client/components/settings/adminProblems.jade');
 
@@ -21,10 +19,8 @@ test('Admin Panel uses an audited server method for the permanent-delete toggle'
     /field === 'enablePermanentDelete'[\s\S]*?Meteor\.call\('setPermanentDeleteEnabled', !setting\[field\]/,
   );
   assert.match(settingsServer, /async setPermanentDeleteEnabled\(enabled\)/);
-  assert.match(settingsServer,
-    /setPermanentDeleteEnabledForAdmin\(this\.userId, enabled, this\.connection\)/);
-  assert.match(settingService, /check\(enabled, Boolean\)/);
-  assert.match(settingService, /user\?\.isAdmin !== true/);
+  assert.match(settingsServer, /check\(enabled, Boolean\)/);
+  assert.match(settingsServer, /user\?\.isAdmin !== true/);
 });
 
 test('Delete explains the Recovery audit trail below its existing guidance', () => {
@@ -44,8 +40,8 @@ test('Delete explains the Recovery audit trail below its existing guidance', () 
 });
 
 test('a changed setting logs the username and enabled or disabled state', () => {
-  const at = settingService.indexOf('export async function setPermanentDeleteEnabledForAdmin');
-  const body = settingService.slice(at);
+  const at = settingsServer.indexOf('async setPermanentDeleteEnabled(enabled)');
+  const body = settingsServer.slice(at, settingsServer.indexOf('\n  },', at));
 
   assert.ok(
     body.indexOf('Settings.updateAsync') < body.indexOf('recordRecoveryAudit({'),
@@ -60,9 +56,7 @@ test('a changed setting logs the username and enabled or disabled state', () => 
 
 test('each successfully deleted board logs actor, board ID and title', () => {
   const at = boardsServer.indexOf('async permanentlyDeleteArchivedBoards(boardIds)');
-  const method = boardsServer.slice(at, boardsServer.indexOf('\n  },', at));
-  const serviceAt = boardOperations.indexOf('async function permanentlyDeleteAccessibleArchivedBoards');
-  const body = boardOperations.slice(serviceAt);
+  const body = boardsServer.slice(at, boardsServer.indexOf('\n  },', at));
 
   assert.ok(
     body.indexOf('await Boards.removeAsync(board._id)') < body.indexOf('await recordRecoveryAudit({'),
@@ -71,7 +65,6 @@ test('each successfully deleted board logs actor, board ID and title', () => {
   assert.match(body, /user\?\.username \|\| user\?\._id/);
   assert.match(body, /BOARD_PERMANENTLY_DELETED/);
   assert.match(body, /board \$\{board\._id\} titled \$\{JSON\.stringify\(board\.title \|\| ''\)\}/);
-  assert.match(method, /permanentlyDeleteAccessibleArchivedBoards\(/);
 });
 
 test('unauthorized and failed attempts are logged with actor, address, and requested boards', () => {
@@ -86,11 +79,13 @@ test('unauthorized and failed attempts are logged with actor, address, and reque
   const boardAt = boardsServer.indexOf('async permanentlyDeleteArchivedBoards(boardIds)');
   const boardBody = boardsServer.slice(boardAt, boardsServer.indexOf('\n  },', boardAt));
   assert.ok(boardBody.indexOf('check(boardIds, [String])')
-    < boardBody.indexOf('permanentlyDeleteAccessibleArchivedBoards'),
+    < boardBody.indexOf('await ReactiveCache.getUser'),
   'argument validation precedes the async actor lookup');
-  assert.match(boardOperations, /catch \(error\)[\s\S]*?done: false, boards: attemptedBoards/);
+  assert.match(boardBody, /catch \(error\)[\s\S]*?done: false[\s\S]*?boards: attemptedBoards/);
 
-  assert.match(settingService, /catch \(error\)[\s\S]*?done: false/);
+  const settingAt = settingsServer.indexOf('async setPermanentDeleteEnabled(enabled)');
+  const settingBody = settingsServer.slice(settingAt, settingsServer.indexOf('\n  },', settingAt));
+  assert.match(settingBody, /catch \(error\)[\s\S]*?done: false/);
 });
 
 test('Recovery stores Boolean Done and deleted-data state', () => {

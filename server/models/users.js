@@ -19,30 +19,11 @@ import { boardMemberRoleToFlags, allowIsBoardAdmin } from '/server/lib/utils';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { BOARD_COLORS } from '/models/metadata/colors';
+import { isValidCustomColors } from '/models/lib/themeCategories';
+import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
-import {
-  toggleAccessibleBoardStar,
-  toggleAccessibleDefaultBoard,
-  setAccessibleBoardWorkspace,
-} from '/server/lib/accessibleBoardListOperations';
-import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
-import { updateOwnMemberProfile } from '/server/lib/memberProfile';
-import { setMemberLanguage } from '/server/lib/memberLanguage';
-import { changeOwnMemberPassword } from '/server/lib/memberPassword';
-import { updateMemberSettings } from '/server/lib/memberSettings';
-import { setMemberDateFormat } from '/server/lib/memberDateFormat';
-import {
-  memberAppearanceForUser, setMemberFont, setMemberTheme,
-} from '/server/lib/memberAppearance';
-import {
-  deleteMemberAvatar, memberAvatarState, selectMemberAvatar,
-} from '/server/lib/memberAvatar';
-import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
-import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
-  setPersonActiveForAdmin, updatePeopleTeamForAdmin,
-  updatePersonForAdmin } from '/server/lib/adminPeople';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
@@ -127,41 +108,53 @@ import {
   notificationCapFromEnv,
 } from '/models/lib/notificationCleanup';
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
+import { paginateDomains } from '/models/lib/domainTablePage';
 import { orgsToAutoAddForEmail } from '/models/lib/orgAutoAddByDomain';
-import { addUserToTeamBoards } from '/server/lib/teamBoardMembership';
+import {
+  gainedTeamIds,
+  newTeamBoardMemberEntry,
+  boardsToAddMemberTo,
+} from '/models/lib/teamBoardMemberSync';
+
+// #4593: when a team is assigned to a board (addBoardTeamPopup), every user in
+// the team at that moment is pushed into board.members as a normal member — but
+// a user added to the team afterwards never was, so they ended up with strictly
+// less authority than their teammates: the publications let them view the board
+// (teams.teamId match) while every interaction gate (board.hasMember,
+// allowIsBoardMember*, Attachments.protected, board.isVisibleBy for export)
+// only looks at board.members. This grants a user who just gained team(s) the
+// same normal membership on every board those teams are assigned to. Existing
+// member entries (even deactivated ones) are never touched, template boards are
+// skipped, and team REMOVAL intentionally does not remove board members (a
+// member may also have been invited individually; explicit cleanup remains the
+// board admin's removeBoardTeamPopup action). Failures are logged, never fatal
+// to the user update that triggered the sync.
+const addUserToTeamBoards = async (userId, oldTeams, newTeams) => {
+  try {
+    const gained = gainedTeamIds(oldTeams, newTeams);
+    if (!gained.length) return;
+    const boards = await ReactiveCache.getBoards(
+      { teams: { $elemMatch: { teamId: { $in: gained }, isActive: true } } },
+      { fields: { _id: 1, type: 1, teams: 1, members: 1 } },
+    );
+    for (const boardId of boardsToAddMemberTo(boards, userId, gained)) {
+      // Guarded push: never create a duplicate entry if the user became a
+      // member through another path between the read above and this write.
+      await Boards.updateAsync(
+        { _id: boardId, 'members.userId': { $ne: userId } },
+        { $push: { members: newTeamBoardMemberEntry(userId) } },
+      );
+    }
+  } catch (error) {
+    console.error('addUserToTeamBoards failed:', error);
+  }
+};
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 
 Meteor.methods({
-  async adminCreatePerson(input) {
-    check(input, Object);
-    return createPersonForAdmin(this.userId, input, { connection: this.connection });
-  },
-
-  async adminUpdatePerson(targetUserId, input) {
-    check(targetUserId, String);
-    check(input, Object);
-    return updatePersonForAdmin(this.userId, targetUserId, input,
-      { connection: this.connection });
-  },
-
-  async adminSetPersonActive(targetUserId, active) {
-    check(targetUserId, String);
-    check(active, Boolean);
-    return setPersonActiveForAdmin(this.userId, targetUserId, active,
-      { connection: this.connection });
-  },
-
-  async adminUpdatePeopleTeam(targetUserIds, teamId, add) {
-    check(targetUserIds, [String]);
-    check(teamId, String);
-    check(add, Boolean);
-    return updatePeopleTeamForAdmin(this.userId, targetUserIds, teamId, add,
-      { connection: this.connection });
-  },
-
   // Profile preferences are server writes. Direct client Users.update calls are
   // optimistic and Meteor rolls them back when the server rejects or cleans the
   // modifier, which made language/fullname/initials appear to change and then
@@ -178,23 +171,14 @@ Meteor.methods({
     });
   },
 
-  async updateOwnProfile(input) {
-    check(input, Object);
-    return updateOwnMemberProfile(this.userId, input, {
-      connection: this.connection,
-    });
-  },
-
-  async changeOwnPassword(input) {
-    check(input, Object);
-    return changeOwnMemberPassword(this.userId, input, {
-      connection: this.connection,
-    });
-  },
-
   async setLanguage(language) {
     check(language, String);
-    return setMemberLanguage(this.userId, language, { connection: this.connection });
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const TAPi18n = getTAPi18n();
+    if (!TAPi18n.isLanguageSupported(language)) {
+      throw new Meteor.Error('invalid-language', 'Language is not supported');
+    }
+    await Users.updateAsync(this.userId, { $set: { 'profile.language': language } });
   },
 
   // Lazily create the per-user templates-container board on first use (#2339,
@@ -385,8 +369,13 @@ Meteor.methods({
     if (!currentUser.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only administrators can delete other users');
     }
-    await deletePersonForAdmin(currentUserId, targetUserId,
-      { connection: this.connection });
+
+    const adminsNumber = (await ReactiveCache.getUsers({ isAdmin: true })).length;
+    if (adminsNumber === 1 && targetUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Cannot delete the last administrator');
+    }
+
+    await Users.removeAsync(targetUserId);
     return { success: true, message: 'User deleted successfully' };
   },
 
@@ -451,23 +440,6 @@ Meteor.methods({
     await Users.updateAsync(this.userId, { $set: { 'profile.avatarUrl': avatarUrl } });
   },
 
-  async selectOwnAvatar(avatarId) {
-    check(avatarId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    return selectMemberAvatar(this.userId, avatarId, { connection: this.connection });
-  },
-
-  async getOwnAvatarState() {
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    return memberAvatarState(this.userId, { connection: this.connection });
-  },
-
-  async deleteOwnAvatar(avatarId) {
-    check(avatarId, String);
-    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    return deleteMemberAvatar(this.userId, avatarId, { connection: this.connection });
-  },
-
   async adminSetAvatarUrl(targetUserId, avatarUrl) {
     check(targetUserId, String);
     check(avatarUrl, String);
@@ -484,13 +456,32 @@ Meteor.methods({
 
   async toggleBoardStar(boardId) {
     check(boardId, String);
-    return toggleAccessibleBoardStar(this.userId, boardId);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const starredBoards = (user.profile && user.profile.starredBoards) || [];
+    const isStarred = starredBoards.includes(boardId);
+    const updateObject = isStarred
+      ? { $pull: { 'profile.starredBoards': boardId } }
+      : { $addToSet: { 'profile.starredBoards': boardId } };
+
+    await Users.updateAsync(this.userId, updateObject);
   },
 
   // #2220: toggle the board that opens after login (the user's "home" board).
   async toggleDefaultBoard(boardId) {
     check(boardId, String);
-    return toggleAccessibleDefaultBoard(this.userId, boardId);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const isDefault = (user.profile && user.profile.defaultBoardId) === boardId;
+    const updateObject = isDefault
+      ? { $unset: { 'profile.defaultBoardId': '' } }
+      : { $set: { 'profile.defaultBoardId': boardId } };
+
+    await Users.updateAsync(this.userId, updateObject);
   },
 
   // Star the page the caller is on, or unstar it if it is already starred.
@@ -581,12 +572,27 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(color, Match.OneOf(String, null, undefined));
     check(customColors, Match.OneOf([String], null, undefined));
-    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
-    const result = await setMemberTheme(this.userId, {
-      color: color || '', customColors: customColors || [],
-      allBoardsThemeTiles: current.allBoardsThemeTiles,
-    }, { connection: this.connection });
-    return result.themeColor || null;
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    if (color) {
+      if (!BOARD_COLORS.includes(color)) {
+        throw new Meteor.Error('invalid-color', 'Unknown theme color');
+      }
+      const modifier = { $set: { 'profile.globalThemeColor': color } };
+      if (customColors && customColors.length && isValidCustomColors(color, customColors)) {
+        modifier.$set['profile.globalThemeCustomColors'] = customColors;
+      } else {
+        modifier.$unset = { 'profile.globalThemeCustomColors': '' };
+      }
+      await Users.updateAsync(this.userId, modifier);
+      return color;
+    }
+    await Users.updateAsync(this.userId, {
+      $unset: { 'profile.globalThemeColor': '', 'profile.globalThemeCustomColors': '' },
+    });
+    return null;
   },
 
   // #4759: set (or clear, when null/'') the caller's UI font. Validated against the
@@ -595,11 +601,19 @@ Meteor.methods({
   async setUiFont(font) {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(font, Match.OneOf(String, null, undefined));
-    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
-    const result = await setMemberFont(this.userId, {
-      font: font || '', size: current.uiFontSize, textColor: current.uiTextColor,
-    }, { connection: this.connection });
-    return result.uiFont || null;
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    if (font) {
+      if (!isKnownFont(font)) {
+        throw new Meteor.Error('invalid-font', 'Unknown font');
+      }
+      await Users.updateAsync(this.userId, { $set: { 'profile.uiFont': font } });
+      return font;
+    }
+    await Users.updateAsync(this.userId, { $unset: { 'profile.uiFont': '' } });
+    return null;
   },
 
   // #4759: set (or clear) the caller's UI font-size preset. Validated against the
@@ -607,11 +621,19 @@ Meteor.methods({
   async setUiFontSize(size) {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(size, Match.OneOf(String, null, undefined));
-    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
-    const result = await setMemberFont(this.userId, {
-      font: current.uiFont, size: size || 'default', textColor: current.uiTextColor,
-    }, { connection: this.connection });
-    return result.uiFontSize === 'default' ? null : result.uiFontSize;
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    if (size && size !== 'default') {
+      if (!isKnownFontSize(size)) {
+        throw new Meteor.Error('invalid-font-size', 'Unknown font size');
+      }
+      await Users.updateAsync(this.userId, { $set: { 'profile.uiFontSize': size } });
+      return size;
+    }
+    await Users.updateAsync(this.userId, { $unset: { 'profile.uiFontSize': '' } });
+    return null;
   },
 
   // #4759: set (or clear) the caller's custom UI text color. Validated as
@@ -628,12 +650,22 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     check(textColor, Match.OneOf(String, null, undefined));
     check(bgColor, Match.OneOf(String, null, undefined));
-    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
-    const result = await setMemberFont(this.userId, {
-      font: current.uiFont, size: current.uiFontSize, textColor: textColor || '',
-    }, { connection: this.connection });
+
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+
+    const $set = {};
+    const $unset = {};
+    if (isHexColor6(textColor)) $set['profile.uiTextColor'] = textColor;
+    else $unset['profile.uiTextColor'] = '';
+    $unset['profile.uiTextBgColor'] = '';
+
+    const modifier = {};
+    if (Object.keys($set).length) modifier.$set = $set;
+    if (Object.keys($unset).length) modifier.$unset = $unset;
+    await Users.updateAsync(this.userId, modifier);
     return {
-      textColor: result.uiTextColor || null,
+      textColor: $set['profile.uiTextColor'] || null,
       bgColor: null,
     };
   },
@@ -702,8 +734,9 @@ Meteor.methods({
     const next = typeof show === 'boolean'
       ? show
       : !user.hasShowDesktopDragHandles();
-    return updateMemberSettings(this.userId, { showDesktopDragHandles: next },
-      { connection: this.connection });
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.showDesktopDragHandles': next },
+    });
   },
 
   // Per-user "submit editors on plain Enter" preference (Member Settings).
@@ -713,8 +746,7 @@ Meteor.methods({
     const user = await Users.findOneAsync(this.userId);
     if (!user) throw new Meteor.Error('user-not-found', 'User not found');
     const current = !!((user.profile || {}).submitOnEnter);
-    return updateMemberSettings(this.userId, { submitOnEnter: !current },
-      { connection: this.connection });
+    await Users.updateAsync(this.userId, { $set: { 'profile.submitOnEnter': !current } });
   },
 
   // #6531: "Open many cards at once" - a per-user preference, off by default.
@@ -723,8 +755,7 @@ Meteor.methods({
     const user = await Users.findOneAsync(this.userId);
     if (!user) throw new Meteor.Error('user-not-found', 'User not found');
     const current = !!((user.profile || {}).openManyCardsAtOnce);
-    return updateMemberSettings(this.userId, { openManyCardsAtOnce: !current },
-      { connection: this.connection });
+    await Users.updateAsync(this.userId, { $set: { 'profile.openManyCardsAtOnce': !current } });
   },
 
   // Member Settings / Change color, beside "Default (no override)": paint the All
@@ -733,12 +764,11 @@ Meteor.methods({
   // toggleOpenManyCardsAtOnce is one - the row it sits in has no Save button.
   async toggleAllBoardsThemeTiles() {
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    const current = await memberAppearanceForUser(this.userId, { connection: this.connection });
-    const result = await setMemberTheme(this.userId, {
-      color: current.themeColor, customColors: current.customThemeColors,
-      allBoardsThemeTiles: !current.allBoardsThemeTiles,
-    }, { connection: this.connection });
-    return result.allBoardsThemeTiles;
+    const user = await Users.findOneAsync(this.userId);
+    if (!user) throw new Meteor.Error('user-not-found', 'User not found');
+    const current = !!((user.profile || {}).allBoardsThemeTiles);
+    await Users.updateAsync(this.userId, { $set: { 'profile.allBoardsThemeTiles': !current } });
+    return !current;
   },
 
   async createWorkspace(params) {
@@ -788,12 +818,30 @@ Meteor.methods({
   async assignBoardToWorkspace(boardId, spaceId) {
     check(boardId, String);
     check(spaceId, String);
-    return setAccessibleBoardWorkspace(this.userId, boardId, spaceId);
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+
+    const user = await Users.findOneAsync(this.userId, { fields: { 'profile.boardWorkspaceAssignments': 1 } });
+    const assignments = user.profile?.boardWorkspaceAssignments || {};
+    assignments[boardId] = spaceId;
+
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.boardWorkspaceAssignments': assignments },
+    });
+    return true;
   },
 
   async unassignBoardFromWorkspace(boardId) {
     check(boardId, String);
-    return setAccessibleBoardWorkspace(this.userId, boardId, '');
+    if (!this.userId) throw new Meteor.Error('not-logged-in');
+
+    const user = await Users.findOneAsync(this.userId, { fields: { 'profile.boardWorkspaceAssignments': 1 } });
+    const assignments = user.profile?.boardWorkspaceAssignments || {};
+    delete assignments[boardId];
+
+    await Users.updateAsync(this.userId, {
+      $set: { 'profile.boardWorkspaceAssignments': assignments },
+    });
+    return true;
   },
 
   async toggleHideCheckedItems() {
@@ -860,26 +908,24 @@ Meteor.methods({
     if (!this.userId) return;
     const user = await ReactiveCache.getCurrentUser();
     if (!user) return;
-    return updateMemberSettings(this.userId, {
-      rescueCardDescription: !user.hasRescuedCardDescription(),
-    }, { connection: this.connection });
+    user.toggleRescueCardDescription(user.hasRescuedCardDescription());
   },
 
   async changeLimitToShowCardsCount(limit) {
     check(limit, Number);
-    return updateMemberSettings(this.userId, { showCardsCountAt: limit },
-      { connection: this.connection });
+    (await ReactiveCache.getCurrentUser()).setShowCardsCountAt(limit);
   },
 
   async changeStartDayOfWeek(startDay) {
     check(startDay, Number);
-    return updateMemberSettings(this.userId, { startDayOfWeek: startDay },
-      { connection: this.connection });
+    (await ReactiveCache.getCurrentUser()).setStartDayOfWeek(startDay);
   },
 
   async changeDateFormat(dateFormat) {
     check(dateFormat, String);
-    return setMemberDateFormat(this.userId, dateFormat, { connection: this.connection });
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) return;
+    user.setDateFormat(dateFormat);
   },
 
   async applyListWidth(boardId, listId, width, constraint) {
@@ -1439,9 +1485,19 @@ Meteor.methods({
       throw new Meteor.Error(400, 'impersonate: a user id is required');
     }
 
-    const targetUserId = await impersonatePersonForAdmin(this.userId, userId,
-      { connection: this.connection });
-    this.setUserId(targetUserId);
+    if (!(await ReactiveCache.getUser(userId))) {
+      throw new Meteor.Error(404, 'User not found');
+    }
+    if (!(await ReactiveCache.getCurrentUser()).isAdmin) {
+      throw new Meteor.Error(403, 'Permission denied');
+    }
+
+    await ImpersonatedUsers.insertAsync({
+      adminId: (await ReactiveCache.getCurrentUser())._id,
+      userId,
+      reason: 'clickedImpersonate',
+    });
+    this.setUserId(userId);
   },
 
   async isImpersonated(userId) {
@@ -2513,7 +2569,30 @@ Meteor.methods({
   // counted once by their primary email's domain), sorted by count desc then
   // domain. Admin-only.
   async getDomainsWithUserCounts() {
-    return domainsForAdmin(this.userId);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1 } },
+    );
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
+    const counts = {};
+    for (const u of users) {
+      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
+      const at = addr.lastIndexOf('@');
+      if (at === -1) continue;
+      const domain = addr.slice(at + 1).toLowerCase().trim();
+      if (!domain) continue;
+      counts[domain] = (counts[domain] || 0) + 1;
+    }
+    return Object.keys(counts)
+      .map(domain => ({ domain, count: counts[domain] }))
+      .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
   },
 
   // Paginated / searchable / column-sortable variant of getDomainsWithUserCounts
@@ -2528,7 +2607,38 @@ Meteor.methods({
       page: Match.Optional(Number),
       perPage: Match.Optional(Number),
     }));
-    return domainsPageForAdmin(this.userId, params);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1 } },
+    );
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
+    const counts = {};
+    for (const u of users) {
+      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
+      const at = addr.lastIndexOf('@');
+      if (at === -1) continue;
+      const domain = addr.slice(at + 1).toLowerCase().trim();
+      if (!domain) continue;
+      counts[domain] = (counts[domain] || 0) + 1;
+    }
+    const rows = Object.keys(counts).map(domain => ({
+      domain,
+      count: counts[domain],
+    }));
+
+    // Fixed order (domain ascending) — column-header sorting was removed.
+    return paginateDomains(rows, {
+      search: params.search,
+      page: params.page,
+      perPage: params.perPage,
+    });
   },
 
   // Feature #3313 "Shared templates": admin-only.
@@ -2544,7 +2654,98 @@ Meteor.methods({
   // we link to. See server/models/users.js Users.after.insert and
   // client/components/lists/listBody.js for how these are created.
   async adminSharedTemplates() {
-    return sharedTemplatesForAdmin(this.userId);
+    if (!this.userId) {
+      throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    }
+
+    const currentUser = await ReactiveCache.getUser(
+      { _id: this.userId },
+      { fields: { isAdmin: 1 } },
+    );
+    if (!currentUser || !currentUser.isAdmin) {
+      throw new Meteor.Error('not-authorized', 'Admin access required');
+    }
+
+    const users = await ReactiveCache.getUsers(
+      { 'profile.templatesBoardId': { $exists: true, $nin: [null, ''] } },
+      {
+        fields: {
+          username: 1,
+          'profile.fullname': 1,
+          'profile.templatesBoardId': 1,
+          'profile.boardTemplatesSwimlaneId': 1,
+          orgs: 1,
+          teams: 1,
+          emails: 1,
+        },
+      },
+    );
+
+    const result = [];
+    for (const user of users) {
+      const profile = user.profile || {};
+      const templatesBoardId = profile.templatesBoardId;
+      if (!templatesBoardId) continue;
+
+      // Enumerate the user's shared template boards: linked-board cards in the
+      // Board Templates swimlane of their Templates container board.
+      const cardQuery = {
+        boardId: templatesBoardId,
+        type: 'cardType-linkedBoard',
+        archived: false,
+      };
+      if (profile.boardTemplatesSwimlaneId) {
+        cardQuery.swimlaneId = profile.boardTemplatesSwimlaneId;
+      }
+      const cards = await ReactiveCache.getCards(cardQuery, {
+        fields: { title: 1, linkedId: 1, sort: 1 },
+        sort: { sort: 1 },
+      });
+
+      if (!cards || cards.length === 0) continue; // empty Templates board -> exclude
+
+      const templateBoards = [];
+      for (const card of cards) {
+        let slug = '';
+        if (card.linkedId) {
+          const board = await ReactiveCache.getBoard(card.linkedId);
+          if (board) slug = board.slug || '';
+        }
+        templateBoards.push({
+          cardId: card._id,
+          title: card.title || '',
+          boardId: card.linkedId || '',
+          slug,
+        });
+      }
+
+      const emails = (user.emails || []).map(e => e.address).filter(Boolean);
+      const domains = [
+        ...new Set(
+          emails
+            .map(addr => (addr.indexOf('@') >= 0 ? addr.split('@')[1].toLowerCase() : ''))
+            .filter(Boolean),
+        ),
+      ];
+
+      result.push({
+        userId: user._id,
+        username: user.username || '',
+        fullname: (profile.fullname) || '',
+        orgs: (user.orgs || []).map(o => ({
+          orgId: o.orgId,
+          orgDisplayName: o.orgDisplayName,
+        })),
+        teams: (user.teams || []).map(t => ({
+          teamId: t.teamId,
+          teamDisplayName: t.teamDisplayName,
+        })),
+        domains,
+        templateBoards,
+      });
+    }
+
+    return result;
   },
 
   async searchUsers(query, boardId) {

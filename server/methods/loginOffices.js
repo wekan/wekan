@@ -156,53 +156,10 @@ async function legacyPeopleSummaries({ search = '', limit = 25, skip = 0 } = {})
 // behind a shared address off WeKan at once.
 
 async function requireAdmin(context) {
-  const userId = typeof context === 'string' ? context : context.userId;
-  const user = userId && await Meteor.users.findOneAsync(userId);
+  const user = context.userId && await Meteor.users.findOneAsync(context.userId);
   if (!user || !user.isAdmin) {
     throw new Meteor.Error('not-authorized', 'Admin only');
   }
-}
-
-export async function loginOfficesForAdmin(userId, options) {
-  check(options, Match.Optional({
-    limit: Match.Optional(Number),
-    skip: Match.Optional(Number),
-    search: Match.Optional(String),
-  }));
-  await requireAdmin(userId);
-  const opts = options || {};
-  const selector = { 'loginAddresses.entries': { $exists: true } };
-  if (opts.search) {
-    const boundedSearch = String(opts.search).trim().slice(0, 500);
-    const safe = boundedSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const rx = new RegExp(safe, 'i');
-    const matchingAddresses = await LoginAddresses.find(
-      { $or: [{ address: rx }, { locationLabel: rx }] },
-      { fields: { users: 1 } },
-    ).fetchAsync();
-    const names = new Set();
-    matchingAddresses.forEach(row => {
-      Object.values((row.users && row.users.entries) || {})
-        .forEach(entry => names.add(entry.value));
-    });
-    selector.$or = [
-      { username: rx },
-      { 'profile.fullname': rx },
-      ...(names.size ? [{ username: { $in: [...names] } }] : []),
-    ];
-  }
-  const limit = Math.min(Math.max(opts.limit || 25, 1), 200);
-  const skip = Math.min(Math.max(opts.skip || 0, 0), 1000000);
-
-  const total = await Meteor.users.find(selector).countAsync();
-  if (total === 0) {
-    return legacyPeopleSummaries({ search: opts.search, limit, skip });
-  }
-  const users = await Meteor.users.find(selector, {
-    fields: { username: 1, profile: 1, loginDisabled: 1, loginAddresses: 1 },
-    sort: { username: 1 }, limit, skip,
-  }).fetchAsync();
-  return { total, people: await peopleSummaries(users) };
 }
 
 async function visiblePeople(context, userIds) {
@@ -231,15 +188,6 @@ async function locationReports(users) {
   }));
 }
 
-export async function peopleLoginLocationsForAdmin(userId, userIds) {
-  if (!Array.isArray(userIds) || userIds.length > 200
-    || userIds.some(id => typeof id !== 'string')) {
-    throw new Meteor.Error('too-many-users', 'At most 200 valid users per page');
-  }
-  const users = await visiblePeople({ userId }, [...new Set(userIds)]);
-  return locationReports(users);
-}
-
 if (Meteor.isServer) {
   Meteor.methods({
     // Country counters for the current People page, and the rows behind each
@@ -249,7 +197,8 @@ if (Meteor.isServer) {
       if (userIds.length > 200) {
         throw new Meteor.Error('too-many-users', 'At most 200 users per page');
       }
-      return peopleLoginLocationsForAdmin(this.userId, userIds);
+      const users = await visiblePeople(this, [...new Set(userIds)]);
+      return locationReports(users);
     },
 
     // People first, with all of each person's addresses kept together.
@@ -260,7 +209,38 @@ if (Meteor.isServer) {
         search: Match.Optional(String),
       }));
       await requireAdmin(this);
-      return loginOfficesForAdmin(this.userId, options);
+      const opts = options || {};
+      const selector = { 'loginAddresses.entries': { $exists: true } };
+      if (opts.search) {
+        const safe = String(opts.search).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const rx = new RegExp(safe, 'i');
+        const matchingAddresses = await LoginAddresses.find(
+          { $or: [{ address: rx }, { locationLabel: rx }] },
+          { fields: { users: 1 } },
+        ).fetchAsync();
+        const names = new Set();
+        matchingAddresses.forEach(row => {
+          Object.values((row.users && row.users.entries) || {})
+            .forEach(entry => names.add(entry.value));
+        });
+        selector.$or = [
+          { username: rx },
+          { 'profile.fullname': rx },
+          ...(names.size ? [{ username: { $in: [...names] } }] : []),
+        ];
+      }
+      const limit = Math.min(Math.max(opts.limit || 25, 1), 200);
+      const skip = Math.max(opts.skip || 0, 0);
+
+      const total = await Meteor.users.find(selector).countAsync();
+      if (total === 0) {
+        return legacyPeopleSummaries({ search: opts.search, limit, skip });
+      }
+      const users = await Meteor.users.find(selector, {
+        fields: { username: 1, profile: 1, loginDisabled: 1, loginAddresses: 1 },
+        sort: { username: 1 }, limit, skip,
+      }).fetchAsync();
+      return { total, people: await peopleSummaries(users) };
     },
 
     // One address, in full: who logs in from it and how often.

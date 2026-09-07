@@ -1253,9 +1253,9 @@ template(name="cardMorePopup")
     label {{_ 'source-board'}}:
       select.js-field-parent-board
         if isTopLevel
-          option(value="none") {{_ 'custom-field-dropdown-none'}}
-        else
           option(value="none" selected) {{_ 'custom-field-dropdown-none'}}
+        else
+          option(value="none") {{_ 'custom-field-dropdown-none'}}
         each boards
           if isParentBoard
             option(value="{{_id}}" selected) {{title}}
@@ -1265,14 +1265,14 @@ template(name="cardMorePopup")
     label {{_ 'parent-card'}}:
       select.js-field-parent-card
         if isTopLevel
-          option(value="none") {{_ 'custom-field-dropdown-none'}}
-        else
           option(value="none" selected) {{_ 'custom-field-dropdown-none'}}
-        each cards
-          if isParentCard
-            option(value="{{_id}}" selected) {{title}}
-          else
-            option(value="{{_id}}") {{title}}
+        else
+          option(value="none") {{_ 'custom-field-dropdown-none'}}
+          each cards
+            if isParentCard
+              option(value="{{_id}}" selected) {{title}}
+            else
+              option(value="{{_id}}") {{title}}
     br
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ displayDate createdAt 'LLL' }}

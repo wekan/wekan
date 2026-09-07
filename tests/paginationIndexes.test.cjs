@@ -38,15 +38,15 @@ const COUNT_METHODS = [
   ['server/models/org.js', 'getOrgsCollectionCount'],
   ['server/models/team.js', 'getTeamsCollectionCount'],
   ['server/models/translation.js', 'getTranslationsCollectionCount'],
-  ['server/lib/cardsReport.js', 'cardsReportCountForAdmin'],
-  ['server/lib/brokenCardsReport.js', 'brokenCardsReportCountForAdmin'],
-  ['server/lib/boardsReport.js', 'boardsReportCountForAdmin'],
+  ['server/publications/cards.js', 'getCardsReportCount'],
+  ['server/publications/cards.js', 'getBrokenCardsReportCount'],
+  ['server/publications/boards.js', 'getBoardsReportCount'],
   ['server/publications/boards.js', 'getArchivedBoardsCount'],
-  ['server/lib/rulesReport.js', 'rulesReportCountForAdmin'],
-  ['server/lib/attachmentsReport.js', 'attachmentsReportCountForAdmin'],
-  ['server/lib/impersonationReport.js', 'impersonationReportCountForAdmin'],
-  ['server/lib/recoveryReport.js', 'recoveryReportCountForAdmin'],
-  ['models/eventLog.js', 'countForAdmin'],
+  ['server/publications/rules.js', 'getRulesReportCount'],
+  ['server/publications/attachments.js', 'getAttachmentsReportCount'],
+  ['server/publications/impersonationReport.js', 'getImpersonationReportCount'],
+  ['server/publications/recoveryReport.js', 'getRecoveryReportCount'],
+  ['models/eventLog.js', 'eventLogCount'],
 ];
 
 // An index is written as an object literal in an ensureIndex() call. Compare on
@@ -101,9 +101,9 @@ test('Broken cards can use an index for every branch of its $or', () => {
   // The report asks for cards with no board, no swimlane, no list, or an unknown
   // type. An $or uses an index only if EVERY branch has one, so one unindexed
   // field puts the whole count back to a collection scan.
-  const pub = read('server/lib/brokenCardsReport.js');
-  const selector = pub.slice(pub.indexOf('BROKEN_CARDS_SELECTOR'),
-    pub.indexOf('BROKEN_CARDS_SELECTOR') + 320);
+  const pub = read('server/publications/cards.js');
+  const selector = pub.slice(pub.indexOf('const BROKEN_CARDS_SELECTOR'),
+    pub.indexOf('const BROKEN_CARDS_SELECTOR') + 320);
   for (const field of ['boardId', 'swimlaneId', 'listId', 'type']) {
     assert.ok(selector.includes(field), `the selector still asks about ${field}`);
   }

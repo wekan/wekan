@@ -24,12 +24,6 @@ const {
 const {
   shouldRejectPasswordLogin,
 } = require('/server/lib/ldapPasswordLoginGuard');
-const { createLegacyHtml4Session } = require('/server/lib/legacyHtml4Session');
-const { renderLegacyHtml4Page } = require('/imports/lib/legacyHtml4');
-const {
-  consumePasswordTokenForHtml4,
-  consumeVerificationTokenForHtml4,
-} = require('/server/lib/legacyHtml4AccountTokens');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -49,23 +43,6 @@ const restLoginThrottle = new LoginAttemptThrottle({
   lockoutMs:
     (parseInt(process.env.REST_LOGIN_LOCKOUT_SECONDS, 10) || 0) * 1000 ||
     undefined,
-});
-
-// The DDP method has its own DDPRateLimiter rule. This HTTP form does not pass
-// through the DDP dispatcher, so it needs an equivalent per-address request
-// throttle of its own. Every request counts, including an existing address: a
-// password-reset endpoint is an email-amplification boundary, not a password
-// checker where success should clear the counter.
-const legacyRecoveryThrottle = new LoginAttemptThrottle({
-  maxFailures: 5,
-  windowMs: 60 * 1000,
-  lockoutMs: 60 * 1000,
-});
-const legacyResetThrottle = new LoginAttemptThrottle({
-  maxFailures: 5, windowMs: 60 * 1000, lockoutMs: 60 * 1000,
-});
-const legacyVerifyThrottle = new LoginAttemptThrottle({
-  maxFailures: 10, windowMs: 60 * 1000, lockoutMs: 60 * 1000,
 });
 
 // One uniform failure, thrown for BOTH "no such user" and "wrong password", so
@@ -90,166 +67,11 @@ function restLoginClientKey(req) {
   });
 }
 
-function recordLegacyAccountRefusal(req, source, detail) {
-  try {
-    require('/server/lib/securityLog').record({
-      category: 'authz', bleed: 'JamBleed', severity: 'high', action: 'blocked',
-      source, req, detail,
-    });
-  } catch (_) { /* reporting must not weaken the refusal */ }
-}
-
-async function renderLegacyAccountSuccess(res, req, result) {
-  // Modern Accounts deliberately does not log in a 2FA account from a mail token.
-  if (result.twoFactorEnabled) {
-    res.statusCode = 303;
-    res.setHeader('Location', '/sign-in');
-    res.end();
-    return;
-  }
-  const [setting, user, legacySession] = await Promise.all([
-    ReactiveCache.getCurrentSetting(),
-    Meteor.users.findOneAsync(result.userId, { fields: { username: 1 } }),
-    createLegacyHtml4Session(result.userId, req),
-  ]);
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
-  res.end(renderLegacyHtml4Page('/allboards', {
-    productName: setting?.productName || 'WeKan',
-    hideLogo: setting?.hideLogo === true,
-    customLoginLogoLinkUrl: setting?.customLoginLogoLinkUrl || '',
-    textBelowCustomLoginLogo: setting?.textBelowCustomLoginLogo || '',
-    legalNotice: setting?.legalNotice || '',
-    authenticated: true, username: user?.username || '', sessionFields: legacySession,
-  }));
-}
-
 // ---------------------------------------------------------------------------
 // POST /users/login
 // ---------------------------------------------------------------------------
 WebApp.handlers.options('/users/login', function (req, res) {
   sendJsonResult(res);
-});
-
-// Legacy HTML4 password recovery. The response is deliberately identical for an
-// existing, missing or malformed address, matching Meteor's ambiguous account
-// recovery semantics and preventing account enumeration in the rendered page.
-WebApp.handlers.post('/users/forgot-password', async function (req, res) {
-  const clientKey = restLoginClientKey(req);
-  const now = Number(new Date());
-  const gate = legacyRecoveryThrottle.check(clientKey, now);
-  if (!gate.blocked) {
-    legacyRecoveryThrottle.recordFailure(clientKey, now);
-    legacyRecoveryThrottle.prune(now);
-    const email = typeof req.body?.email === 'string'
-      ? req.body.email.trim().toLowerCase() : '';
-    if (email && email.length <= 320) {
-      try {
-        await Meteor.server.method_handlers.forgotPassword.call({
-          userId: null,
-          connection: { clientAddress: clientKey },
-        }, { email });
-      } catch (_) {
-        // A missing account and a mail transport failure have the same response.
-      }
-    }
-  } else {
-    try {
-      require('/server/lib/securityLog').record({
-        category: 'brute-force', bleed: 'JamBleed', severity: 'high',
-        action: 'blocked', source: 'Legacy HTML4 forgotPassword', req,
-        detail: 'rate-limited Legacy HTML4 password recovery request',
-      });
-    } catch (_) { /* reporting must not weaken the refusal */ }
-  }
-  res.statusCode = 303;
-  res.setHeader('Cache-Control', 'no-store');
-  if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
-  res.setHeader('Location', '/forgot-password?recovery=requested');
-  res.end();
-});
-
-WebApp.handlers.post('/users/reset-password', async function (req, res) {
-  const clientKey = restLoginClientKey(req);
-  const now = Number(new Date());
-  const kind = req.body?.tokenKind === 'enroll' ? 'enroll' : 'reset';
-  const token = typeof req.body?.token === 'string' ? req.body.token : '';
-  const returnPath = `/${kind === 'enroll' ? 'enroll-account' : 'reset-password'}/${encodeURIComponent(token)}`;
-  const gate = legacyResetThrottle.check(clientKey, now);
-  try {
-    if (gate.blocked) throw new Meteor.Error('too-many-requests');
-    legacyResetThrottle.recordFailure(clientKey, now);
-    legacyResetThrottle.prune(now);
-    if (req.body?.password !== req.body?.passwordAgain) {
-      throw new Meteor.Error('password-mismatch');
-    }
-    const result = await consumePasswordTokenForHtml4(
-      token, req.body?.password, kind,
-    );
-    // A valid high-entropy token is not an attack. Do not let successful
-    // account recovery consume this address's future retry allowance.
-    legacyResetThrottle.recordSuccess(clientKey);
-    await renderLegacyAccountSuccess(res, req, result);
-  } catch (error) {
-    recordLegacyAccountRefusal(req, 'Legacy HTML4 resetPassword',
-      `refused ${kind} token: ${String(error?.error || 'failed')}`);
-    res.statusCode = 303;
-    res.setHeader('Cache-Control', 'no-store');
-    if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
-    res.setHeader('Location', `${returnPath}?token=failed`);
-    res.end();
-  }
-});
-
-WebApp.handlers.post('/users/verify-email', async function (req, res) {
-  const clientKey = restLoginClientKey(req);
-  const now = Number(new Date());
-  const token = typeof req.body?.token === 'string' ? req.body.token : '';
-  const returnPath = `/verify-email/${encodeURIComponent(token)}`;
-  const gate = legacyVerifyThrottle.check(clientKey, now);
-  try {
-    if (gate.blocked) throw new Meteor.Error('too-many-requests');
-    legacyVerifyThrottle.recordFailure(clientKey, now);
-    legacyVerifyThrottle.prune(now);
-    const result = await consumeVerificationTokenForHtml4(token);
-    legacyVerifyThrottle.recordSuccess(clientKey);
-    await renderLegacyAccountSuccess(res, req, result);
-  } catch (error) {
-    recordLegacyAccountRefusal(req, 'Legacy HTML4 verifyEmail',
-      `refused verification token: ${String(error?.error || 'failed')}`);
-    res.statusCode = 303;
-    res.setHeader('Cache-Control', 'no-store');
-    if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
-    res.setHeader('Location', `${returnPath}?token=failed`);
-    res.end();
-  }
-});
-
-WebApp.handlers.post('/users/send-verification', async function (req, res) {
-  const clientKey = restLoginClientKey(req);
-  const now = Number(new Date());
-  const gate = legacyRecoveryThrottle.check(clientKey, now);
-  if (!gate.blocked) {
-    legacyRecoveryThrottle.recordFailure(clientKey, now);
-    legacyRecoveryThrottle.prune(now);
-    const email = typeof req.body?.email === 'string'
-      ? req.body.email.trim().toLowerCase() : '';
-    if (email && email.length <= 320) {
-      try {
-        const user = await Accounts.findUserByEmail(email, { fields: { emails: 1 } });
-        if (user) await Accounts.sendVerificationEmail(user._id, email);
-      } catch (_) { /* missing, verified and mail-failed addresses look identical */ }
-    }
-  } else {
-    recordLegacyAccountRefusal(req, 'Legacy HTML4 resendVerificationEmail',
-      'rate-limited verification email request');
-  }
-  res.statusCode = 303;
-  res.setHeader('Cache-Control', 'no-store');
-  if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
-  res.setHeader('Location', '/send-again?verification=requested');
-  res.end();
 });
 
 WebApp.handlers.post('/users/login', async function (req, res) {
@@ -282,25 +104,10 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       throw error;
     }
 
-    const legacyHtml4 = req.body?.legacyHtml4 === '1';
-    const submitted = { ...req.body };
-    delete submitted.legacyHtml4;
-    const options = submitted;
+    const options = req.body;
 
-    // The HTML5 field accepts either a username or an email address, and the
-    // HTML4 baseline must have the same contract without JavaScript.
     let user;
-    if (legacyHtml4 && options.username && !options.email) {
-      user = await Meteor.users.findOneAsync({
-        $or: [{ username: options.username }, { 'emails.address': options.username }],
-      });
-      if (user?.emails?.some(item => item?.address === options.username)) {
-        options.email = options.username;
-        delete options.username;
-      }
-    }
-
-    if (!user && options.email) {
+    if (options.email) {
       check(options, {
         email: String,
         password: String,
@@ -309,7 +116,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       user = await Meteor.users.findOneAsync({
         'emails.address': options.email,
       });
-    } else if (!user) {
+    } else {
       check(options, {
         username: String,
         password: String,
@@ -389,23 +196,6 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       }
     }
 
-    // HTML4 never creates a reusable Meteor login token. Its authenticated
-    // state travels only in signed, one-time POST fields.
-    if (legacyHtml4) {
-      restLoginThrottle.recordSuccess(clientKey);
-      restLoginThrottle.prune(now);
-      const legacySession = await createLegacyHtml4Session(result.userId, req);
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.setHeader('Cache-Control', 'no-store');
-      res.end(renderLegacyHtml4Page('/allboards', {
-        authenticated: true,
-        username: user.username || '',
-        sessionFields: legacySession,
-      }));
-      return;
-    }
-
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
 
@@ -426,15 +216,6 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       },
     });
   } catch (error) {
-    if (req.body?.legacyHtml4 === '1') {
-      res.statusCode = 303;
-      if (error.retryAfterSeconds) {
-        res.setHeader('Retry-After', String(error.retryAfterSeconds));
-      }
-      res.setHeader('Location', '/sign-in?login=failed');
-      res.end();
-      return;
-    }
     res.statusCode = error.statusCode || 401;
     if (error.retryAfterSeconds) {
       res.setHeader('Retry-After', String(error.retryAfterSeconds));
@@ -511,7 +292,6 @@ WebApp.handlers.options('/users/register', function (req, res) {
 });
 
 WebApp.handlers.post('/users/register', async function (req, res) {
-  const legacyHtml4 = req.body?.legacyHtml4 === '1';
   try {
     // SignupBleed: this asked `Accounts._options.forbidClientAccountCreation`,
     // which NOTHING IN WEKAN EVER SETS. The only `Accounts.config()` call
@@ -542,18 +322,11 @@ WebApp.handlers.post('/users/register', async function (req, res) {
       } catch (e) {
         /* logging must never break the guard */
       }
-      if (legacyHtml4) {
-        res.statusCode = 303;
-        res.setHeader('Location', '/sign-up?registration=failed');
-        res.end();
-      } else {
-        sendJsonResult(res, { code: 403 });
-      }
+      sendJsonResult(res, { code: 403 });
       return;
     }
 
-    const options = { ...req.body };
-    delete options.legacyHtml4;
+    const options = req.body;
     check(options, {
       username: Match.Optional(String),
       email: Match.Optional(String),
@@ -565,24 +338,6 @@ WebApp.handlers.post('/users/register', async function (req, res) {
     if (options.email) userOptions.email = options.email;
 
     const userId = await Accounts.createUserAsync(userOptions);
-
-    if (legacyHtml4) {
-      const legacySession = await createLegacyHtml4Session(userId, req);
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.setHeader('Cache-Control', 'no-store');
-      res.end(renderLegacyHtml4Page('/allboards', {
-        productName: setting?.productName || 'WeKan',
-        hideLogo: setting?.hideLogo === true,
-        customLoginLogoLinkUrl: setting?.customLoginLogoLinkUrl || '',
-        textBelowCustomLoginLogo: setting?.textBelowCustomLoginLogo || '',
-        legalNotice: setting?.legalNotice || '',
-        authenticated: true,
-        username: options.username || '',
-        sessionFields: legacySession,
-      }));
-      return;
-    }
 
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
@@ -600,12 +355,6 @@ WebApp.handlers.post('/users/register', async function (req, res) {
       },
     });
   } catch (error) {
-    if (legacyHtml4) {
-      res.statusCode = 303;
-      res.setHeader('Location', '/sign-up?registration=failed');
-      res.end();
-      return;
-    }
     res.statusCode = error.statusCode || 400;
     res.setHeader('Content-Type', 'application/json');
     res.end(

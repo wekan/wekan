@@ -58,7 +58,7 @@ test('the popup shows every board field, ticked when it is on the card', () => {
     'not a separate Font Awesome imitation');
   assert.ok(/js-select-field/.test(popup), 'and clicking the row toggles it');
   const toggle = fieldsJs.slice(fieldsJs.indexOf("'click .js-select-field'"));
-  assert.ok(/await Meteor\.callAsync\('setAccessibleCardCustomFieldAssigned'/.test(toggle.slice(0, 700)),
+  assert.ok(/await Meteor\.callAsync\([\s\S]*?'setCardCustomFieldAssigned'/.test(toggle.slice(0, 700)),
     'through an acknowledged server write');
 });
 

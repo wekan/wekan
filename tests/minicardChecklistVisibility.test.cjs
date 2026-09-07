@@ -121,13 +121,9 @@ test('the minicard and the popup ask the same question', () => {
   assert.ok(/shownAtMinicard\(\)/.test(checklistsJs),
     'the popup needs a helper for the effective value; reading the raw field is ' +
     'what made the switch read OFF beside a visible checklist');
-  assert.ok(/toggleAccessibleChecklistSetting[\s\S]*?setting: 'showChecklistAtMinicard'/
+  assert.ok(/toggleShowChecklistAtMinicard\(boardAllowsChecklistsOnMinicard\(checklist\)\)/
     .test(checklistsJs),
-    'the click must use the acknowledged common operation rather than a direct client write');
-  const checklistOperations = read('server/lib/accessibleChecklistOperations.js');
-  assert.ok(/toggledChecklistAtMinicard\([\s\S]*?board\?\.allowsChecklistsOnMinicard === true/
-    .test(checklistOperations),
-    'the server operation has to pass the board default, or the flip is of the field again');
+    'and the click has to pass the board default, or the flip is of the field again');
   const jade = read('client/components/cards/checklists.jade');
   assert.ok(/if shownAtMinicard/.test(jade) && !/if checklist\.showChecklistAtMinicard/.test(jade),
     'the template draws the effective value');

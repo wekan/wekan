@@ -61,14 +61,3 @@ export function localizeStoredRuleDescription(description, translations) {
   }
   return result;
 }
-
-export function localizedStoredRuleDescription(description, translate, sources) {
-  const translations = Object.entries(sources || {}).map(([key, source]) => ({
-    source,
-    translated: typeof translate === 'function' ? translate(key) : source,
-  }));
-  const localized = localizeStoredRuleDescription(description, translations);
-  return localized
-    ? localized.charAt(0).toUpperCase() + localized.slice(1)
-    : '';
-}

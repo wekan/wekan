@@ -18,6 +18,7 @@ const { officeLabel } = require('/models/lib/geoHeaders');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
 import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
+import Settings from '/models/settings';
 const { cleanFileName } = require('/imports/lib/fileNameDisplay');
 const { attachmentKind } = require('/models/lib/attachmentKind');
 const { filesize } = require('filesize');
@@ -47,9 +48,10 @@ function abbreviate(text) {
   return text;
 }
 
-// The same audit trail is relevant in HTML5, HTML4 and Recovery.
-const { PERMANENT_DELETE_RECOVERY_DESCRIPTION } =
-  require('/models/lib/permanentDeleteDescription');
+// The same audit trail is relevant where permanent deletion is enabled and where
+// its events are reviewed. Keep one sentence so the two panes cannot drift apart.
+const PERMANENT_DELETE_RECOVERY_DESCRIPTION =
+  'The permanent-delete setting must be enabled before a delete icon is shown. Recovery logs setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address and available location. Board deletion records IDs and titles; file deletion records the attachment ID, sanitized filename and card ID.';
 
 // The report publications already send only the current page (server-side
 // search + limit/skip, sorted). Display exactly what was published, applying
@@ -1071,12 +1073,7 @@ function toggleSettingField(field) {
       });
       return;
     }
-    const notificationFields = ['disableActivities', 'disableNotifications',
-      'disableWatch'];
-    const pane = notificationFields.includes(field) ? 'notifications' : 'security';
-    Meteor.call('setProblemFeatureSetting', pane, field, !setting[field], (err) => {
-      if (err) alert(err.reason || err.message || 'Failed to update security setting');
-    });
+    Settings.update(setting._id, { $set: { [field]: !setting[field] } });
   }
 }
 

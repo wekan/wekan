@@ -6,19 +6,13 @@ import { installAdminMailTransport, installMailTransport } from '/server/lib/mai
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import { WebApp } from 'meteor/webapp';
 import Settings from '/models/settings';
-import Boards from '/models/boards';
 import InvitationCodes from '/models/invitationCodes';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
-import { enabledLoginAuthenticationMethods } from '/server/lib/adminLoginSettings';
-import {
-  saveMailTransportForAdmin,
-  sendSmtpTestForAdmin,
-} from '/server/lib/adminEmailSettings';
-import securityLog from '/server/lib/securityLog';
+import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
@@ -30,7 +24,7 @@ const {
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { SimpleSchema } = require('/imports/simpleSchema');
-const { mailServiceStorageKey } = require('/models/lib/mailServices');
+const { isSupportedMailService, mailServiceStorageKey } = require('/models/lib/mailServices');
 const {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
@@ -78,6 +72,7 @@ async function sendInvitationEmail(_id, { isNewInvitation = true } = {}) {
       'Invitation email not sent: the invitation code is missing or no longer valid',
     );
   }
+  const author = await getReactiveCache().getCurrentUser();
   try {
     const authorUser = await getReactiveCache().getUser(icode.authorId);
     const fullName = authorUser?.profile?.fullname || '';
@@ -94,7 +89,7 @@ async function sendInvitationEmail(_id, { isNewInvitation = true } = {}) {
       // generic link. The sign-up route is the static path '/sign-up'.
       url: Meteor.absoluteUrl('sign-up'),
     };
-    const lang = authorUser.getLanguage();
+    const lang = author.getLanguage();
     await EmailLocalization.sendEmail({
       to: icode.email,
       from: Accounts.emailTemplates.from,
@@ -131,89 +126,6 @@ async function isNonAdminAllowedToSendMail(currentUser) {
     }
   }
   return isAllowed;
-}
-
-// Shared by the Meteor method and the cookieless HTML4 Login pane. The actor is
-// explicit, so an HTTP request cannot inherit or spoof a DDP invocation.
-async function invitationActor(userId, context = {}) {
-  const user = await getReactiveCache().getUser(userId);
-  if (!user || (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user)))) {
-    securityLog.record({ category: 'authz', bleed: 'InvitationBleed', severity: 'high',
-      action: 'blocked', source: 'memberInvitation', userId,
-      username: user?.username, req: context.req, connection: context.connection,
-      detail: 'refused invitation access without instance permission' });
-    throw new Meteor.Error('not-allowed');
-  }
-  return user;
-}
-
-function invitationBoardSelector(user) {
-  return { archived: false, members: { $elemMatch: {
-    userId: user._id, isActive: true, isAdmin: true,
-  } } };
-}
-
-export async function invitationChoicesForUser(userId, context = {}) {
-  const user = await invitationActor(userId, context);
-  const boards = await Boards.find(invitationBoardSelector(user), {
-    fields: { title: 1 }, sort: { sort: 1, title: 1 }, limit: 500,
-  }).fetchAsync();
-  return boards.map(board => ({ _id: board._id, title: board.title || '' }));
-}
-
-export async function sendInvitationsForUser(userId, emails, boards, context = {}) {
-  check(emails, [String]);
-  check(boards, [String]);
-  const user = await invitationActor(userId, context);
-  if (!emails.length || emails.length > 100 || boards.length > 500) {
-    securityLog.record({ category: 'validation', bleed: 'InvitationBleed', severity: 'high',
-      action: 'blocked', source: 'memberInvitation', userId, username: user.username,
-      req: context.req, connection: context.connection,
-      detail: `refused invitation list sizes emails=${emails.length} boards=${boards.length}` });
-    throw new Meteor.Error('invalid-invitation');
-  }
-  const normalizedEmails = [...new Set(emails.map(normalizeInviteEmail))];
-  if (normalizedEmails.some(email => !email || !SimpleSchema.RegEx.Email.test(email))) {
-    securityLog.record({ category: 'validation', bleed: 'InvitationBleed', severity: 'high',
-      action: 'blocked', source: 'memberInvitation', userId, username: user.username,
-      req: context.req, connection: context.connection,
-      detail: 'refused malformed invitation email address' });
-    throw new Meteor.Error('invalid-email');
-  }
-  const uniqueBoards = [...new Set(boards)];
-  const allowedBoards = uniqueBoards.length ? await Boards.find({
-    ...invitationBoardSelector(user), _id: { $in: uniqueBoards },
-  }, { fields: { _id: 1 }, limit: 500 }).fetchAsync() : [];
-  if (allowedBoards.length !== uniqueBoards.length) {
-    securityLog.record({ category: 'authz', bleed: 'InvitationBleed', severity: 'high',
-      action: 'blocked', source: 'memberInvitation', userId, username: user.username,
-      req: context.req, connection: context.connection,
-      detail: 'refused archived, missing or out-of-scope invitation board' });
-    throw new Meteor.Error('not-allowed');
-  }
-  for (const email of normalizedEmails) {
-    const userExist = await getReactiveCache().getUser({ email });
-    if (userExist) throw new Meteor.Error('user-exist',
-      `The user with the email ${email} has already an account.`);
-    const invitation = await getReactiveCache().getInvitationCode({ email });
-    if (invitation) {
-      const modifier = buildReinviteModifier(invitation, uniqueBoards, generateInvitationCode);
-      if (!(await InvitationCodes.updateAsync(invitation._id, modifier))) {
-        throw new Meteor.Error('invitation-generated-fail',
-          'Failed to update invitation code');
-      }
-      await sendInvitationEmail(invitation._id, { isNewInvitation: false });
-    } else {
-      const _id = await InvitationCodes.insertAsync({
-        code: generateInvitationCode(), email, boardsToBeInvited: uniqueBoards,
-        createdAt: new Date(), authorId: userId,
-      });
-      if (!_id) throw new Meteor.Error('invitation-generated-fail',
-        'Failed to create invitation code');
-      await sendInvitationEmail(_id);
-    }
-  }
-  return 0;
 }
 
 function isLdapEnabled() {
@@ -371,48 +283,198 @@ if (isSandstorm) {
 
 Meteor.methods({
   async saveAdminMailSettings(input) {
-    // Mark the complete method argument as checked before any authorization
-    // branch can return. Otherwise audit-argument-checks replaces the useful
-    // authorization error with an unrelated generic 500 for non-admins.
     check(input, Object);
-    const actor = this.userId && await Meteor.users.findOneAsync(this.userId, {
-      fields: { isAdmin: 1, username: 1 },
-    });
-    if (!actor?.isAdmin) {
-      securityLog.record({ severity: 'high', category: 'authz',
-        bleed: 'MailSettingsBleed', action: 'blocked',
-        source: 'saveAdminMailSettings', userId: this.userId,
-        username: actor?.username,
-        detail: 'refused direct method attempt to change instance email settings' });
-      throw new Meteor.Error('error-notAuthorized', 'Not authorized');
+    const user = await Meteor.userAsync();
+    if (!user?.isAdmin) throw new Meteor.Error('error-notAuthorized');
+
+    const service = String(input.service || 'SMTP');
+    if (!isSupportedMailService(service)) throw new Meteor.Error('mail-service-invalid');
+    const storageKey = mailServiceStorageKey(service);
+    const configuration = input.configuration || {};
+    check(configuration, Object);
+    const clean = {
+      username: String(configuration.username || '').trim(),
+      from: String(configuration.from || '').trim(),
+    };
+    if (service === 'SMTP') {
+      clean.host = String(configuration.host || '').trim();
+      clean.port = String(configuration.port || '').trim();
+      clean.secure = configuration.secure === true;
+      if (input.enabled && !clean.host) throw new Meteor.Error('mail-host-required');
     }
+    if (input.enabled && !clean.from) throw new Meteor.Error('mail-from-required');
+
+    const setting = await Settings.findOneAsync({});
+    const set = {
+      'mailServer.enabled': input.enabled === true,
+      'mailServer.service': service,
+      [`mailServer.configurations.${storageKey}`]: clean,
+      'mailServer.from': clean.from,
+    };
+    const password = String(input.password || '');
+    if (password) {
+      set[`mailServer.passwords.${storageKey}`] = password;
+      set[`mailServer.passwordSet.${storageKey}`] = true;
+    }
+    await Settings.updateAsync(setting._id, { $set: set });
+    const updated = await Settings.findOneAsync(setting._id);
+    Accounts.emailTemplates.from = updated.mailServer.enabled
+      ? clean.from
+      : process.env.MAIL_FROM;
+    if (updated.mailServer.enabled) {
+      installAdminMailTransport({ Email, EmailInternals, mailServer: updated.mailServer });
+    } else {
+      delete Email.customTransport;
+      installMailTransport({ Email, EmailInternals });
+    }
+    return true;
+  },
+  async setPermanentDeleteEnabled(enabled) {
+    const user = await Meteor.userAsync();
+    const username = user?.username || user?._id || 'unknown';
     try {
-      return await saveMailTransportForAdmin(this.userId, input);
+      check(enabled, Boolean);
+      if (user?.isAdmin !== true) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      const setting = await Settings.findOneAsync({});
+      if (!setting) {
+        throw new Meteor.Error('settings-not-found');
+      }
+      if ((setting.enablePermanentDelete === true) === enabled) return enabled;
+
+      await Settings.updateAsync(setting._id, {
+        $set: { enablePermanentDelete: enabled },
+      });
+      await recordRecoveryAudit({
+        type: RecoveryEvents.types.PERMANENT_DELETE_SETTING_CHANGED,
+        user,
+        connection: this.connection,
+        done: true,
+        detail: `Global Admin ${username} (${user._id}) ${enabled ? 'enabled' : 'disabled'} permanent delete.`,
+      });
+      return enabled;
     } catch (error) {
-      securityLog.record({ severity: 'high', category: 'validation',
-        bleed: 'MailSettingsBleed', action: 'blocked',
-        source: 'saveAdminMailSettings', userId: this.userId,
-        username: actor.username,
-        detail: `mail settings method failed: ${error?.message || error}` });
+      await recordRecoveryAudit({
+        type: RecoveryEvents.types.PERMANENT_DELETE_SETTING_CHANGED,
+        user,
+        connection: this.connection,
+        done: false,
+        detail: `User ${username} (${user?._id || 'not logged in'}) failed to ${enabled ? 'enable' : 'disable'} permanent delete: ${error.reason || error.message || 'unknown error'}.`,
+      });
       throw error;
     }
   },
-  async setPermanentDeleteEnabled(enabled) {
-    return setPermanentDeleteEnabledForAdmin(this.userId, enabled, this.connection);
-  },
 
   async sendInvitation(emails, boards) {
-    return sendInvitationsForUser(this.userId, emails, boards, { connection: this.connection });
+    let rc = 0;
+    check(emails, [String]);
+    check(boards, [String]);
+
+    const user = await getReactiveCache().getCurrentUser();
+    if (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user))) {
+      rc = -1;
+      throw new Meteor.Error('not-allowed');
+    }
+
+    for (const rawEmail of emails) {
+      // #4043: store the invitee address lowercase — the sign-up form
+      // lowercases the typed address and MongoDB string matching is case
+      // sensitive, so a mixed-case invitation document never matches at
+      // registration ("The invitation code doesn't exist").
+      const email = normalizeInviteEmail(rawEmail);
+      if (email && SimpleSchema.RegEx.Email.test(email)) {
+        const userExist = await getReactiveCache().getUser({ email });
+        if (userExist) {
+          rc = -1;
+          throw new Meteor.Error(
+            'user-exist',
+            `The user with the email ${email} has already an account.`,
+          );
+        }
+
+        const invitation = await getReactiveCache().getInvitationCode({ email });
+        if (invitation) {
+          // #4043: a re-invite must never re-send a stale code. When the
+          // stored invitation is no longer valid (or has no usable code), a
+          // fresh code overwrites it with valid restored to true, so the
+          // emailed code always passes the sign-up lookup
+          // { code, email, valid: true }.
+          const modifier = buildReinviteModifier(invitation, boards, () =>
+            generateInvitationCode(),
+          );
+          const updated = await InvitationCodes.updateAsync(
+            invitation._id,
+            modifier,
+          );
+          if (!updated) {
+            rc = -1;
+            throw new Meteor.Error(
+              'invitation-generated-fail',
+              'Failed to update invitation code',
+            );
+          }
+          await sendInvitationEmail(invitation._id, { isNewInvitation: false });
+        } else {
+          // String(...) so the stored code always matches the (string) code
+          // typed into the sign-up form, without relying on schema autoConvert.
+          const code = generateInvitationCode();
+          const _id = await InvitationCodes.insertAsync({
+            code,
+            email,
+            boardsToBeInvited: boards,
+            createdAt: new Date(),
+            authorId: this.userId,
+          });
+          if (_id) {
+            await sendInvitationEmail(_id);
+          } else {
+            rc = -1;
+            throw new Meteor.Error(
+              'invitation-generated-fail',
+              'Failed to create invitation code',
+            );
+          }
+        }
+      }
+    }
+    return rc;
   },
 
   async sendSMTPTestEmail() {
-    this.unblock();
-    try {
-      return await sendSmtpTestForAdmin(this.userId);
-    } catch (error) {
-      throw new Meteor.Error(error?.error || 'email-fail',
-        error?.reason || error?.message || 'Email test failed');
+    if (!this.userId) {
+      throw new Meteor.Error('invalid-user');
     }
+    const user = await getReactiveCache().getCurrentUser();
+    // Sending an SMTP test (and surfacing the server's SMTP error messages) is
+    // an admin-only diagnostic, matching the client gating (`unless currentUser.isAdmin`).
+    if (!user || !user.isAdmin) {
+      throw new Meteor.Error('error-notAuthorized');
+    }
+    if (!user.emails || !user.emails[0] || !user.emails[0].address) {
+      throw new Meteor.Error('email-invalid');
+    }
+    this.unblock();
+    const lang = user.getLanguage();
+    try {
+      await Email.sendAsync({
+        to: user.emails[0].address,
+        from: Accounts.emailTemplates.from,
+        subject: getTAPi18n().__('email-smtp-test-subject', { lng: lang }),
+        text: getTAPi18n().__('email-smtp-test-text', { lng: lang }),
+      });
+    } catch ({ message }) {
+      throw new Meteor.Error(
+        'email-fail',
+        `${getTAPi18n().__('email-fail-text', { lng: lang })}: ${message}`,
+        message,
+      );
+    }
+    return {
+      message: 'email-sent',
+      email: user.emails[0].address,
+    };
   },
 
   async getCustomUI() {
@@ -463,9 +525,11 @@ Meteor.methods({
   },
 
   getAuthenticationsEnabled() {
-    const enabled = enabledLoginAuthenticationMethods();
-    return { ldap: enabled.includes('ldap'), oauth2: enabled.includes('oauth2'),
-      cas: enabled.includes('cas') };
+    return {
+      ldap: isLdapEnabled(),
+      oauth2: isOauth2Enabled(),
+      cas: isCasEnabled(),
+    };
   },
 
   getOauthServerUrl() {

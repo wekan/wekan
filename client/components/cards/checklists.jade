@@ -173,13 +173,8 @@ template(name="checklistActionsPopup")
   ul.pop-over-list
     li
       a.js-export-checklist
-        i.fa.fa-upload
-        | {{_ 'export'}} ...
-    if canImportIntoBoard
-      li
-        a.js-import-checklist
-          i.fa.fa-download
-          | {{_ 'import'}} ...
+        i.fa.fa-exchange
+        | {{_ 'export'}} / {{_ 'import'}} ...
   hr
   ul.pop-over-list
     li

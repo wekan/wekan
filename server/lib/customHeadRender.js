@@ -1,7 +1,6 @@
 import { WebApp } from 'meteor/webapp';
 import { WebAppInternals } from 'meteor/webapp';
 import Settings from '/models/settings';
-import { customHeadMarkup } from '/server/lib/customHeadValidation';
 
 // Cache the setting since the boilerplate callback is synchronous
 let cachedSetting = null;
@@ -47,11 +46,27 @@ Meteor.startup(async () => {
         return data;
       }
 
-      const injection = customHeadMarkup(setting);
+      let injection = '';
+      // Add custom link tags (except manifest if custom manifest is enabled)
+      if (setting.customHeadLinkTags && setting.customHeadLinkTags.trim()) {
+        let linkTags = setting.customHeadLinkTags;
+        if (setting.customManifestEnabled) {
+          // Remove any manifest links from custom link tags to avoid duplicates
+          linkTags = linkTags.replace(/<link[^>]*rel=["\']?manifest["\']?[^>]*>/gi, '');
+        }
+        if (linkTags.trim()) {
+          injection += linkTags + '\n';
+        }
+      }
+
+      // Add manifest link if custom manifest is enabled
+      if (setting.customManifestEnabled) {
+        injection += '  <link rel="manifest" href="/site.webmanifest" crossorigin="use-credentials">\n';
+      }
 
       if (injection.trim()) {
         // Append custom head content to the existing head
-        data.head += `${injection}\n`;
+        data.head += injection;
       }
 
       return data;

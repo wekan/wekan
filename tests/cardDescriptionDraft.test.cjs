@@ -90,10 +90,7 @@ test('both sides of the _close comparison are normalized the same way', () => {
 test('successful description save clears the draft explicitly (cardDetails.js)', () => {
   const submit = cardDetails.match(/async 'submit \.js-card-description'[\s\S]*?\n  \},/);
   assert.ok(submit, 'submit handler found');
-  assert.ok(submit[0].includes("await Meteor.callAsync('updateAccessibleCardContent'"),
-    'save uses the shared authorized card-content operation');
-  assert.ok(submit[0].includes("field: 'description', value: description"),
-    'the operation receives the description draft');
+  assert.ok(submit[0].includes('await card.setDescription(description);'));
   assert.ok(
     submit[0].includes("UnsavedEdits.reset({ fieldName: 'cardDescription', docId: card._id })"),
     'submit must remove the unsaved-edits record after a successful save',

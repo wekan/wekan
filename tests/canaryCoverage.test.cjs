@@ -51,8 +51,6 @@ const WIRED = [
   ['avatar.not-owner',                 'server/permissions/avatars.js',               'PathBleed'],
   ['attachment.version-path',          'server/permissions/attachments.js',           'PathBleed'],
   ['attachment.restricted-field',      'server/permissions/attachments.js',           'PathBleed'],
-  ['attachment.cross-scope',           'server/lib/accessibleAttachmentOperations.js','AttachmentBleed'],
-  ['board-list.cross-scope',           'server/lib/accessibleBoardListOperations.js', 'BoardBleed'],
   ['reaction.foreign',                 'server/permissions/cardCommentReactions.js',  '-'],
   ['comment.foreign-delete',           'server/models/cardComments.js',               'CommentBleed'],
   ['calendar.import-without-write',    'server/methods/icsImport.js',                  'CalendarBleed'],

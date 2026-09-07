@@ -18,22 +18,6 @@ import { placeCardDetailsX, MARGIN } from '/client/lib/cardDetailsPlacement';
 // the source card + target id here when the picker is opened.
 let editingDependencyTargetId = null;
 let editingDependencyCard = null;
-
-function saveCardDependency(card, targetCardId, props = {}) {
-  if (!card || !targetCardId) return Promise.resolve();
-  const existing = (card.getDependencies ? card.getDependencies() : [])
-    .find(dependency => dependency.cardId === targetCardId);
-  return Meteor.callAsync('saveAccessibleCardDependency', {
-    cardId: card._id, boardId: card.boardId, targetCardId,
-    type: props.type ?? existing?.type ?? DEPENDENCY_TYPES[0].id,
-    color: props.color ?? existing?.color ?? DEFAULT_DEPENDENCY_COLOR,
-    icon: props.icon ?? existing?.icon ?? DEFAULT_DEPENDENCY_ICON,
-  });
-}
-
-function reportDependencyError(error) {
-  alert(error.reason || error.message || TAPi18n.__('server-error'));
-}
 import {
   setupDatePicker,
   datePickerRendered,
@@ -546,7 +530,7 @@ Template.cardDetails.onRendered(function () {
       ui.placeholder.height(ui.helper.height());
       EscapeActions.executeUpTo('popup-close');
     },
-    async stop(evt, ui) {
+    stop(evt, ui) {
       let prevSubtask = ui.item.prev('.js-subtasks').get(0);
       if (prevSubtask) {
         prevSubtask = Blaze.getData(prevSubtask).subtask;
@@ -555,16 +539,15 @@ Template.cardDetails.onRendered(function () {
       if (nextSubtask) {
         nextSubtask = Blaze.getData(nextSubtask).subtask;
       }
+      const sortIndex = calculateIndexData(prevSubtask, nextSubtask, 1);
+
       $subtasksDom.sortable('cancel');
       const subtask = Blaze.getData(ui.item.get(0)).subtask;
-      const parentCard = Utils.getCurrentCard();
-      if (!parentCard || !subtask) return;
-      await Meteor.callAsync('moveAccessibleSubtask', {
-        parentCardId: parentCard._id,
-        boardId: parentCard.boardId,
-        subtaskId: subtask._id,
-        previousSubtaskId: prevSubtask?._id || '',
-        nextSubtaskId: nextSubtask?._id || '',
+
+      Cards.updateAsync(subtask._id, {
+        $set: {
+          sort: sortIndex.base,
+        },
       });
     },
   });
@@ -1082,9 +1065,7 @@ Template.cardDetails.events({
     // a linked card whose target is on a board the user cannot write to gets a
     // permission denial that otherwise vanished with no feedback.
     try {
-      await Meteor.callAsync('updateAccessibleCardContent', {
-        cardId: card._id, boardId: card.boardId, field: 'description', value: description,
-      });
+      await card.setDescription(description);
       // #6455: a successful save means there is no unsaved draft anymore.
       // Clear the record explicitly instead of relying on the inlined form's
       // close-time draft/description comparison, which can run before the
@@ -1102,30 +1083,32 @@ Template.cardDetails.events({
     const card = Template.currentData();
     // #5809: surface a visible error instead of failing silently (see above).
     try {
-      await Meteor.callAsync('updateAccessibleCardContent', {
-        cardId: card._id, boardId: card.boardId, field: 'title', value: title || '',
-      });
+      await card.setTitle(title || '');
     } catch (error) {
       alert(error?.reason || error?.message || 'Failed to save title');
     }
   },
-  async 'submit .js-card-details-assigner'(event, tpl) {
+  'submit .js-card-details-assigner'(event, tpl) {
     event.preventDefault();
     const assignerInput = tpl.find('.js-edit-card-assigner');
     const assigner = assignerInput ? assignerInput.value.trim() : '';
     const card = Template.currentData();
-    await Meteor.callAsync('updateAccessibleCardIdentityText', {
-      cardId: card._id, boardId: card.boardId, field: 'assignedBy', value: assigner,
-    });
+    if (assigner) {
+      card.setAssignedBy(assigner);
+    } else {
+      card.setAssignedBy('');
+    }
   },
-  async 'submit .js-card-details-requester'(event, tpl) {
+  'submit .js-card-details-requester'(event, tpl) {
     event.preventDefault();
     const requesterInput = tpl.find('.js-edit-card-requester');
     const requester = requesterInput ? requesterInput.value.trim() : '';
     const card = Template.currentData();
-    await Meteor.callAsync('updateAccessibleCardIdentityText', {
-      cardId: card._id, boardId: card.boardId, field: 'requestedBy', value: requester,
-    });
+    if (requester) {
+      card.setRequestedBy(requester);
+    } else {
+      card.setRequestedBy('');
+    }
   },
   'keydown input.js-edit-card-sort'(evt, tpl) {
     // enter = save
@@ -1136,62 +1119,48 @@ Template.cardDetails.events({
   async 'submit .js-card-details-sort'(event, tpl) {
     event.preventDefault();
     const sortInput = tpl.find('.js-edit-card-sort');
-    const card = Template.currentData();
-    await Meteor.callAsync('updateAccessibleCardSort', {
-      cardId: card._id, boardId: card.boardId,
-      sort: sortInput ? sortInput.value.trim() : '',
-    });
+    const sort = parseFloat(sortInput ? sortInput.value.trim() : '');
+    if (!Number.isNaN(sort)) {
+      let card = Template.currentData();
+      await card.move(card.boardId, card.swimlaneId, card.listId, sort);
+    }
   },
   async 'change .js-select-card-details-lists'(event, tpl) {
     const listId = event.target.value;
     let card = Template.currentData();
-    await Meteor.callAsync('moveAccessibleCardToList', {
-      cardId: card._id, boardId: card.boardId, listId, position: 'top',
-    });
+
+    const minOrder = await card.getMinSort(listId, card.swimlaneId);
+    await card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
   },
   'click .js-go-to-linked-card'() {
     const card = Template.currentData();
     Utils.goCardId(card.linkedId);
   },
   'click .js-add-dependency': Popup.open('cardDependencies'),
-  async 'click .js-remove-dependency'(event) {
+  'click .js-remove-dependency'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const targetId = event.currentTarget.dataset.targetId;
-    const card = getCurrentCardFromContext();
+    const card = Template.currentData();
     if (card && targetId) {
-      try {
-        await Meteor.callAsync('removeAccessibleCardDependency', {
-          cardId: card._id, boardId: card.boardId, targetCardId: targetId,
-        });
-      } catch (error) {
-        reportDependencyError(error);
-      }
+      card.removeDependency(targetId);
     }
   },
-  async 'change .js-dependency-type'(event) {
+  'change .js-dependency-type'(event) {
     if (!Utils.canModifyCard()) return;
     const targetId = event.currentTarget.dataset.targetId;
-    const card = getCurrentCardFromContext();
+    const card = Template.currentData();
     if (card && targetId) {
-      try {
-        await saveCardDependency(card, targetId, { type: event.currentTarget.value });
-      } catch (error) {
-        reportDependencyError(error);
-      }
+      card.setDependencyProps(targetId, { type: event.currentTarget.value });
     }
   },
-  async 'change .js-dependency-color'(event) {
+  'change .js-dependency-color'(event) {
     if (!Utils.canModifyCard()) return;
     const targetId = event.currentTarget.dataset.targetId;
-    const card = getCurrentCardFromContext();
+    const card = Template.currentData();
     if (card && targetId) {
-      try {
-        await saveCardDependency(card, targetId, { color: event.currentTarget.value });
-      } catch (error) {
-        reportDependencyError(error);
-      }
+      card.setDependencyProps(targetId, { color: event.currentTarget.value });
     }
   },
   'click .js-dependency-icon'(event) {
@@ -1209,16 +1178,14 @@ Template.cardDetails.events({
   'click .js-add-assignees': Popup.open('cardAssignees'),
   'click .js-add-labels': Popup.open('cardLabels'),
   'click .js-add-stickers': Popup.open('cardStickers'),
-  async 'click .js-remove-sticker'(event) {
+  'click .js-remove-sticker'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const index = parseInt(event.currentTarget.dataset.index, 10);
     const card = Template.currentData();
     if (card && !Number.isNaN(index)) {
-      await Meteor.callAsync('removeAccessibleCardStickerAt', {
-        cardId: card._id, boardId: card.boardId, index,
-      });
+      card.removeStickerAt(index);
     }
   },
   'click .js-add-location'(event) {
@@ -1250,23 +1217,18 @@ Template.cardDetails.events({
     // is the location row, not the surrounding card (#6644).
     const card = getCurrentCardFromContext();
     if (card && locationId) {
-      await Meteor.callAsync('removeAccessibleCardLocation', {
-        cardId: card._id, boardId: card.boardId, locationId,
-      });
+      await card.removeLocation(locationId);
     }
   },
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
-  async 'click .js-toggle-due-complete'(event) {
+  'click .js-toggle-due-complete'(event) {
     event.preventDefault();
     event.stopPropagation();
     if (!Utils.canModifyCard()) return;
     const card = Template.currentData();
-    await Meteor.callAsync('updateAccessibleCardMetric', {
-      cardId: card._id, boardId: card.boardId, action: 'due-complete',
-      value: !card.getDueComplete(),
-    });
+    card.setDueComplete(!card.getDueComplete());
   },
   'click .js-end-date': Popup.open('editCardEndDate'),
   'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
@@ -1310,7 +1272,7 @@ Template.cardDetails.events({
     }
     autosize($('.card-details'));
   },
-  async 'click .js-vote'(e) {
+  'click .js-vote'(e) {
     const card = Template.currentData();
     const forIt = $(e.target).hasClass('js-vote-positive');
     let newState = null;
@@ -1321,62 +1283,82 @@ Template.cardDetails.events({
     ) {
       newState = forIt;
     }
-    try {
-      await Meteor.callAsync('castAccessibleCardVote', {
-        cardId: card._id, boardId: card.boardId, state: newState,
-      });
-    } catch (error) {
-      alert(error.reason || error.message || TAPi18n.__('server-error'));
-    }
+    // Use secure server method; direct client updates to vote are blocked
+    Meteor.call('cards.vote', card.getRealId(), newState);
   },
-  async 'click .js-poker'(e) {
+  'click .js-poker'(e) {
     const card = Template.currentData();
-    const choices = [
-      ['js-poker-vote-one', 'one'], ['js-poker-vote-two', 'two'],
-      ['js-poker-vote-three', 'three'], ['js-poker-vote-five', 'five'],
-      ['js-poker-vote-eight', 'eight'], ['js-poker-vote-thirteen', 'thirteen'],
-      ['js-poker-vote-twenty', 'twenty'], ['js-poker-vote-forty', 'forty'],
-      ['js-poker-vote-one-hundred', 'oneHundred'], ['js-poker-vote-unsure', 'unsure'],
-    ];
-    const newState = choices.find(([className]) => $(e.target).hasClass(className))?.[1];
-    if (!newState) return;
-    try {
-      await Meteor.callAsync('castAccessibleCardPoker', {
-        cardId: card._id, boardId: card.boardId, state: newState,
-      });
-    } catch (error) {
-      alert(error.reason || error.message || TAPi18n.__('server-error'));
+    let newState = null;
+    if ($(e.target).hasClass('js-poker-vote-one')) {
+      newState = 'one';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-two')) {
+      newState = 'two';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-three')) {
+      newState = 'three';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-five')) {
+      newState = 'five';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-eight')) {
+      newState = 'eight';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-thirteen')) {
+      newState = 'thirteen';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-twenty')) {
+      newState = 'twenty';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-forty')) {
+      newState = 'forty';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-one-hundred')) {
+      newState = 'oneHundred';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
+    }
+    if ($(e.target).hasClass('js-poker-vote-unsure')) {
+      newState = 'unsure';
+      Meteor.call('cards.pokerVote', card.getRealId(), newState);
     }
   },
-  async 'click .js-poker-finish'(e) {
+  'click .js-poker-finish'(e) {
     if ($(e.target).hasClass('js-poker-finish')) {
       e.preventDefault();
       const card = Template.currentData();
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: card._id, boardId: card.boardId, action: 'finish',
-      });
+      const now = new Date();
+      Meteor.call('cards.setPokerEnd', card.getRealId(), now);
     }
   },
-  async 'click .js-poker-replay'(e) {
+  'click .js-poker-replay'(e) {
     if ($(e.target).hasClass('js-poker-replay')) {
       e.preventDefault();
       const currentCard = Template.currentData();
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: currentCard._id, boardId: currentCard.boardId, action: 'replay',
-      });
+      Meteor.call('cards.replayPoker', currentCard.getRealId());
+      Meteor.call('cards.unsetPokerEnd', currentCard.getRealId());
+      Meteor.call('cards.unsetPokerEstimation', currentCard.getRealId());
     }
   },
-  async 'click .js-poker-estimation'(event, tpl) {
+  'click .js-poker-estimation'(event, tpl) {
     event.preventDefault();
     const card = Template.currentData();
     const ruleTitle = tpl.find('#pokerEstimation').value;
     if (ruleTitle !== undefined && ruleTitle !== '') {
       tpl.find('#pokerEstimation').value = '';
 
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: card._id, boardId: card.boardId, action: 'estimation',
-        estimation: ruleTitle,
-      });
+      if (ruleTitle) {
+        Meteor.call('cards.setPokerEstimation', card.getRealId(), parseInt(ruleTitle, 10));
+      } else {
+        Meteor.call('cards.unsetPokerEstimation', card.getRealId());
+      }
     }
   },
   // Drag and drop file upload handlers
@@ -1443,10 +1425,7 @@ Template.cardDetails.helpers({
     return ret;
   },
   isDateFormat(format) {
-    // Read Meteor.user() directly so Blaze tracks the Accounts publication.
-    // The shared cache can still contain the pre-login null during the first
-    // card render, leaving the native select permanently on its first option.
-    const currentUser = Meteor.user();
+    const currentUser = ReactiveCache.getCurrentUser();
     if (!currentUser) {
       const stored = window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
       return format === stored;
@@ -1651,22 +1630,16 @@ Template.cardDetailsActionsPopup.events({
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    await Meteor.callAsync('relocateAccessibleCard', {
-      cardId: card._id, boardId: card.boardId,
-      targetBoardId: card.boardId, targetSwimlaneId: card.swimlaneId,
-      targetListId: card.listId, position: 'top',
-    });
+    const minOrder = await card.getMinSort() || 0;
+    await card.move(card.boardId, card.swimlaneId, card.listId, minOrder - 1);
     Popup.back();
   },
   async 'click .js-move-card-to-bottom'(event) {
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    await Meteor.callAsync('relocateAccessibleCard', {
-      cardId: card._id, boardId: card.boardId,
-      targetBoardId: card.boardId, targetSwimlaneId: card.swimlaneId,
-      targetListId: card.listId, position: 'bottom',
-    });
+    const maxOrder = await card.getMaxSort() || 0;
+    await card.move(card.boardId, card.swimlaneId, card.listId, maxOrder + 1);
     Popup.back();
   },
   'click .js-archive': Popup.afterConfirm('cardArchive', async function () {
@@ -1674,9 +1647,7 @@ Template.cardDetailsActionsPopup.events({
     const card = Cards.findOne(getCardId());
     Popup.close();
     if (!card) return;
-    await Meteor.callAsync('setAccessibleCardArchived', {
-      cardId: card._id, boardId: card.boardId, archived: true,
-    });
+    await card.archive();
     // #6465 follow-up: archiving must also CLOSE the card's details window.
     // The card id stayed in the openCards session list, so the floating window
     // kept rendering above the board — and, docked to the right edge, exactly
@@ -1689,13 +1660,14 @@ Template.cardDetailsActionsPopup.events({
     Utils.goBoardId(card.boardId);
   }),
   'click .js-more': Popup.open('cardMore'),
-  async 'click .js-toggle-watch-card'() {
+  'click .js-toggle-watch-card'() {
     const currentCard = Cards.findOne(getCardId());
     if (!currentCard) return;
     const sourceCard = currentCard.getRealCard();
     const level = sourceCard.findWatcher(Meteor.userId()) ? null : 'watching';
-    await Meteor.callAsync('watch', 'card', currentCard.getRealId(), level);
-    Popup.close();
+    Meteor.call('watch', 'card', currentCard.getRealId(), level, (err, ret) => {
+      if (!err && ret) Popup.close();
+    });
   },
   'click .js-toggle-show-list-on-minicard'() {
     const currentCard = Cards.findOne(getCardId());
@@ -1741,16 +1713,12 @@ Template.cardMembersPopup.onCreated(function () {
 });
 
 Template.cardMembersPopup.events({
-  async 'click .js-select-member'(event) {
+  'click .js-select-member'(event) {
     const card = getCurrentCardFromContext();
     if (!card) return;
     const memberId = this.userId;
+    card.toggleMember(memberId);
     event.preventDefault();
-    await Meteor.callAsync('setAccessibleCardPerson', {
-      cardId: card._id, boardId: card.boardId, field: 'members',
-      targetUserId: memberId,
-      enabled: !(card.getMembers() || []).includes(memberId),
-    });
   },
   'keyup .card-members-filter'(event) {
     Template.instance().filterTerm.set(event.target.value);
@@ -1787,18 +1755,13 @@ Template.cardIdentityPicker.onCreated(function () {
 });
 
 Template.cardIdentityPicker.events({
-  async 'click .js-select-card-identity'(event, tpl) {
+  'click .js-select-card-identity'(event, tpl) {
     event.preventDefault();
     const card = getCurrentCardFromContext();
     const user = ReactiveCache.getUser(this.userId);
     if (!card || !user) return;
-    const field = tpl.data.field;
-    if (!['requesters', 'assigners'].includes(field)) return;
-    const selected = field === 'requesters' ? card.getRequesters() : card.getAssigners();
-    await Meteor.callAsync('setAccessibleCardIdentity', {
-      cardId: card._id, boardId: card.boardId, field, targetUserId: user._id,
-      enabled: !(selected || []).includes(user._id),
-    });
+    if (tpl.data.field === 'requesters') card.toggleRequester(user._id);
+    if (tpl.data.field === 'assigners') card.toggleAssigner(user._id);
   },
   'keyup .card-identity-filter'(event) {
     Template.instance().filterTerm.set(event.target.value);
@@ -1881,7 +1844,7 @@ Template.cardLocationsPopup.events({
       TAPi18n.__(filled ? 'location-detect-done' : 'location-detect-none'),
     );
   },
-  async 'submit .js-card-location-form'(event) {
+  'submit .js-card-location-form'(event) {
     event.preventDefault();
     const tpl = Template.instance();
     const card = ReactiveCache.getCard(tpl.cardId);
@@ -1893,22 +1856,24 @@ Template.cardLocationsPopup.events({
     const address = tpl.find('.js-location-address').value.trim();
     const latRaw = tpl.find('.js-location-latitude').value.trim();
     const lonRaw = tpl.find('.js-location-longitude').value.trim();
+    const latitude = latRaw === '' ? undefined : parseFloat(latRaw);
+    const longitude = lonRaw === '' ? undefined : parseFloat(lonRaw);
+    const data = { name, address, latitude, longitude };
     const id = editingLocationId.get();
-    await Meteor.callAsync('saveAccessibleCardLocation', {
-      cardId: card._id, boardId: card.boardId, locationId: id || '',
-      name, address, latitude: latRaw, longitude: lonRaw,
-    });
+    if (id) {
+      card.updateLocation(id, data);
+    } else {
+      card.addLocation(data);
+    }
     Popup.back();
   },
-  async 'click .js-delete-location'(event) {
+  'click .js-delete-location'(event) {
     event.preventDefault();
     const tpl = Template.instance();
     const card = ReactiveCache.getCard(tpl.cardId);
     const id = editingLocationId.get();
     if (card && id) {
-      await Meteor.callAsync('removeAccessibleCardLocation', {
-        cardId: card._id, boardId: card.boardId, locationId: id,
-      });
+      card.removeLocation(id);
     }
     Popup.back();
   },
@@ -2127,12 +2092,27 @@ Template.moveCardPopup.onCreated(function () {
 
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
       const card = Template.currentData();
-      await Meteor.callAsync('relocateAccessibleCard', {
-        cardId: card._id, boardId: card.boardId,
-        targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
-        targetListId: options.listId, relativeCardId: cardId || '',
-        position: cardId ? position : 'bottom', title,
-      });
+      let sortIndex = 0;
+
+      if (cardId) {
+        const targetCard = ReactiveCache.getCard(cardId);
+        if (targetCard) {
+          const targetSort = targetCard.sort || 0;
+          if (position === 'above') {
+            sortIndex = targetSort - 0.5;
+          } else {
+            sortIndex = targetSort + 0.5;
+          }
+        }
+      } else {
+        const maxSort = await card.getMaxSort(options.listId, options.swimlaneId);
+        sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
+      }
+
+      await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+      if (title && title !== card.title) {
+        await card.setTitle(title);
+      }
     },
   });
 });
@@ -2154,12 +2134,31 @@ Template.copyCardPopup.onCreated(function () {
       const card = Template.currentData();
 
       if (title) {
-        const newCardId = await Meteor.callAsync('copyAccessibleCard', {
-          cardId: card._id, boardId: card.boardId,
-          targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
-          targetListId: options.listId, relativeCardId: cardId || '',
-          position: cardId ? position : 'bottom', title,
-        });
+        const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, true, {title: title});
+
+        if (newCardId) {
+          const newCard = ReactiveCache.getCard(newCardId);
+          if (newCard) {
+            let sortIndex = 0;
+
+            if (cardId) {
+              const targetCard = ReactiveCache.getCard(cardId);
+              if (targetCard) {
+                const targetSort = targetCard.sort || 0;
+                if (position === 'above') {
+                  sortIndex = targetSort - 0.5;
+                } else {
+                  sortIndex = targetSort + 0.5;
+                }
+              }
+            } else {
+              const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
+              sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
+            }
+
+            await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+          }
+        }
 
         // In case the filter is active we need to add the newly inserted card in
         // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -2185,22 +2184,38 @@ Template.convertChecklistItemToCardPopup.onCreated(function () {
       const position = tpl.$('input[name="position"]:checked').val();
 
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
-      const data = Template.currentData() || {};
-      const routeCard = Utils.getCurrentCard() || data.card;
-      if (!title || !data.checklist?._id || !data.item?._id || !routeCard?._id) return;
-      const newCardId = await Meteor.callAsync('convertAccessibleChecklistItemToCard', {
-        boardId: routeCard.boardId,
-        cardId: routeCard._id,
-        checklistId: data.checklist._id,
-        itemId: data.item._id,
-        title,
-        targetBoardId: options.boardId,
-        targetSwimlaneId: options.swimlaneId,
-        targetListId: options.listId,
-        targetCardId: cardId || '',
-        position,
-      });
-      Filter.addException(newCardId);
+      const card = Template.currentData();
+
+      if (title) {
+        const _id = Cards.insert({
+          title: title,
+          listId: options.listId,
+          boardId: options.boardId,
+          swimlaneId: options.swimlaneId,
+          sort: 0,
+        });
+        const newCard = ReactiveCache.getCard(_id);
+
+        let sortIndex = 0;
+        if (cardId) {
+          const targetCard = ReactiveCache.getCard(cardId);
+          if (targetCard) {
+            const targetSort = targetCard.sort || 0;
+            if (position === 'above') {
+              sortIndex = targetSort - 0.5;
+            } else {
+              sortIndex = targetSort + 0.5;
+            }
+          }
+        } else {
+          const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
+          sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
+        }
+
+        await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+
+        Filter.addException(_id);
+      }
     },
   });
 });
@@ -2221,16 +2236,40 @@ Template.copyManyCardsPopup.onCreated(function () {
       ReactiveCache.getCurrentUser().setMoveAndCopyDialogOption(this.currentBoardId, options);
       const card = Template.currentData();
 
-      if (!title) return;
-      const newCardIds = await Meteor.callAsync('copyManyAccessibleCards', {
-        cardId: card._id, boardId: card.boardId,
-        targetBoardId: options.boardId, targetSwimlaneId: options.swimlaneId,
-        targetListId: options.listId, relativeCardId: cardId || '',
-        position: cardId ? position : 'bottom', copies: title,
-      });
-      // In case the filter is active we need to add the newly inserted cards in
-      // the list of exceptions. Otherwise they disappear instantly (#80).
-      for (const newCardId of newCardIds) Filter.addException(newCardId);
+      if (title) {
+        const titleList = JSON.parse(title);
+        for (const obj of titleList) {
+          const newCardId = await Meteor.callAsync('copyCard', card._id, options.boardId, options.swimlaneId, options.listId, false, {title: obj.title, description: obj.description});
+
+          if (newCardId) {
+            const newCard = ReactiveCache.getCard(newCardId);
+            let sortIndex = 0;
+
+            if (cardId) {
+              const targetCard = ReactiveCache.getCard(cardId);
+              if (targetCard) {
+                const targetSort = targetCard.sort || 0;
+                if (position === 'above') {
+                  sortIndex = targetSort - 0.5;
+                } else {
+                  sortIndex = targetSort + 0.5;
+                }
+              }
+            } else {
+              const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
+              sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
+            }
+
+            await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+          }
+
+          // In case the filter is active we need to add the newly inserted card in
+          // the list of exceptions -- cards that are not filtered. Otherwise the
+          // card will disappear instantly.
+          // See https://github.com/wekan/wekan/issues/80
+          Filter.addException(newCardId);
+        }
+      }
     },
   });
 });
@@ -2276,18 +2315,14 @@ Template.setCardColorPopup.events({
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    await Meteor.callAsync('updateAccessibleCardColor', {
-      cardId: card._id, boardId: card.boardId, color: tpl.currentColor.get(),
-    });
+    await card.setColor(tpl.currentColor.get());
     Popup.back();
   },
   async 'click .js-remove-color'(event) {
     event.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    await Meteor.callAsync('updateAccessibleCardColor', {
-      cardId: card._id, boardId: card.boardId, color: '',
-    });
+    await card.setColor(null);
     Popup.back();
   },
 });
@@ -2347,40 +2382,30 @@ Template.setSelectionColorPopup.events({
 
 Template.cardMorePopup.onCreated(function () {
   const cardId = getCardId();
-  this.currentCard = null;
+  this.currentCard = Cards.findOne(cardId);
   this.parentBoard = new ReactiveVar(null);
-  this.parentCardId = new ReactiveVar(null);
   // #3745: tracks whether the selected parent board's cards have finished
   // loading. The card list stays empty until the subscription is ready, so it
   // is no longer blank the first time another board is picked (the cards()
   // helper queries minimongo, which was empty before the subscription arrived).
   this.parentBoardReady = new ReactiveVar(true);
-  // The popup can be created before the board publication has delivered either
-  // the route card or its cross-board parent. Initialise once both documents
-  // exist instead of permanently presenting an existing parent as "None".
-  this.autorun(computation => {
-    const currentCard = Cards.findOne(cardId);
-    if (!currentCard) return;
-    this.currentCard = currentCard;
-    if (!currentCard.parentId) {
-      computation.stop();
-      return;
-    }
-    const parentCard = ReactiveCache.getCard(currentCard.parentId);
-    if (!parentCard) return;
-    this.parentCardId.set(parentCard._id);
-    this.parentBoard.set(parentCard.boardId);
-    computation.stop();
-  });
+  this.parentCard = this.currentCard?.parentCard();
+  if (this.parentCard) {
+    const list = $('.js-field-parent-card');
+    list.val(this.parentCard._id);
+    this.parentBoard.set(this.parentCard.board()._id);
+  } else {
+    this.parentBoard.set(null);
+  }
 
-  this.setParentCardId = async (parentCardId) => {
-    const normalizedParentId = parentCardId && parentCardId !== 'none' ? parentCardId : null;
+  this.setParentCardId = (cardId) => {
+    if (cardId) {
+      this.parentCard = ReactiveCache.getCard(cardId);
+    } else {
+      this.parentCard = null;
+    }
     const card = Cards.findOne(getCardId());
-    if (!card) return;
-    await Meteor.callAsync('updateAccessibleCardParent', {
-      cardId: card._id, boardId: card.boardId, parentCardId: normalizedParentId,
-    });
-    this.parentCardId.set(normalizedParentId);
+    if (card) card.setParentId(cardId);
   };
 });
 
@@ -2428,7 +2453,10 @@ Template.cardMorePopup.helpers({
   isParentCard() {
     const tpl = Template.instance();
     const card = Template.currentData();
-    return card._id === tpl.parentCardId.get();
+    if (tpl.parentCard) {
+      return card._id === tpl.parentCard;
+    }
+    return false;
   },
 });
 
@@ -2439,35 +2467,35 @@ Template.cardMorePopup.events({
     const $tooltip = tpl.$('.copied-tooltip');
     Utils.showCopied(promise, $tooltip);
   },
-  'click .js-delete': Popup.afterConfirm('cardDelete', async function () {
+  'click .js-delete': Popup.afterConfirm('cardDelete', function () {
     const card = Cards.findOne(getCardId());
     Popup.close();
     if (!card) return;
-    try {
-      await Meteor.callAsync('permanentlyDeleteAccessibleCard', {
-        cardId: card._id, boardId: card.boardId,
-      });
+    // verify that there are no linked cards
+    if (ReactiveCache.getCards({ linkedId: card._id }).length === 0) {
+      Cards.remove(card._id);
       // #6465 follow-up: like archiving, deleting must close the card's
       // details window (drop it from the openCards session list).
       Session.set('openCards', (Session.get('openCards') || []).filter((id) => id !== card._id));
       if (Session.get('currentCard') === card._id) {
         Session.set('currentCard', null);
       }
-    } catch (error) {
+    } else {
       // TODO: Maybe later we can list where the linked cards are.
       // Now here is popup with a hint that the card cannot be deleted
       // as there are linked cards.
       // Related:
       //   client/components/lists/listHeader.js about line 248
       //   https://github.com/wekan/wekan/issues/2785
-      const message = error?.error === 'delete-linked-card-before-this-card'
-        ? TAPi18n.__('delete-linked-card-before-this-card')
-        : (error?.reason || error?.message || TAPi18n.__('operation-failed'));
+      const message = `${TAPi18n.__(
+        'delete-linked-card-before-this-card',
+      )} linkedId: ${card._id
+        } at client/components/cards/cardDetails.js and https://github.com/wekan/wekan/issues/2785`;
       alert(message);
     }
     Utils.goBoardId(card.boardId);
   }),
-  async 'change .js-field-parent-board'(event, tpl) {
+  'change .js-field-parent-board'(event, tpl) {
     const selection = $(event.currentTarget).val();
     const list = $('.js-field-parent-card');
     if (selection === 'none') {
@@ -2484,11 +2512,11 @@ Template.cardMorePopup.events({
       tpl.parentBoard.set(selection);
       list.prop('disabled', false);
     }
-    await tpl.setParentCardId(null);
+    tpl.setParentCardId(null);
   },
-  async 'change .js-field-parent-card'(event, tpl) {
+  'change .js-field-parent-card'(event, tpl) {
     const selection = $(event.currentTarget).val();
-    await tpl.setParentCardId(selection);
+    tpl.setParentCardId(selection);
   },
 });
 
@@ -2519,7 +2547,7 @@ Template.cardStartVotingPopup.helpers({
 
 Template.cardStartVotingPopup.events({
   'click .js-end-date': Popup.open('editVoteEndDate'),
-  async 'submit .edit-vote-question'(evt) {
+  'submit .edit-vote-question'(evt) {
     evt.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
@@ -2529,29 +2557,16 @@ Template.cardStartVotingPopup.events({
       'is-checked',
     );
     const endString = card.getVoteEnd();
-    try {
-      await Meteor.callAsync('updateAccessibleCardVote', {
-        cardId: card._id, boardId: card.boardId, action: 'configure',
-        question: voteQuestion, public: publicVote, allowNonBoardMembers,
-        end: endString || '',
-      });
-    } catch (error) {
-      alert(error.reason || error.message || TAPi18n.__('server-error'));
-      return;
+    Meteor.call('cards.setVoteQuestion', card.getRealId(), voteQuestion, publicVote, allowNonBoardMembers);
+    if (endString) {
+      Meteor.call('cards.setVoteEnd', card.getRealId(), new Date(endString));
     }
     Popup.back();
   },
-  'click .js-remove-vote': Popup.afterConfirm('deleteVote', async function () {
+  'click .js-remove-vote': Popup.afterConfirm('deleteVote', function () {
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    try {
-      await Meteor.callAsync('updateAccessibleCardVote', {
-        cardId: card._id, boardId: card.boardId, action: 'remove',
-      });
-    } catch (error) {
-      alert(error.reason || error.message || TAPi18n.__('server-error'));
-      return;
-    }
+    Meteor.call('cards.unsetVote', card.getRealId());
     Popup.back();
   }),
   'click a.js-toggle-vote-public'(event) {
@@ -2599,14 +2614,10 @@ Template.editVoteEndDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getVoteEnd ? (card.getVoteEnd() || undefined) : undefined,
     async storeDate(date, currentCard) {
-      await Meteor.callAsync('updateAccessibleCardVote', {
-        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: date,
-      });
+      await Meteor.callAsync('cards.setVoteEnd', currentCard.getRealId(), date);
     },
     async deleteDate(currentCard) {
-      await Meteor.callAsync('updateAccessibleCardVote', {
-        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: '',
-      });
+      await Meteor.callAsync('cards.unsetVoteEnd', currentCard.getRealId());
     },
   });
 });
@@ -2640,7 +2651,7 @@ Template.cardStartPlanningPokerPopup.helpers({
 
 Template.cardStartPlanningPokerPopup.events({
   'click .js-end-date': Popup.open('editPokerEndDate'),
-  async 'submit .edit-poker-question'(evt) {
+  'submit .edit-poker-question'(evt) {
     evt.preventDefault();
     const card = Cards.findOne(getCardId());
     if (!card) return;
@@ -2650,28 +2661,16 @@ Template.cardStartPlanningPokerPopup.events({
     );
     const endString = card.getPokerEnd();
 
-    try {
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: card._id, boardId: card.boardId, action: 'configure',
-        question: pokerQuestion, allowNonBoardMembers, end: endString || '',
-      });
-    } catch (error) {
-      alert(error.reason || error.message || TAPi18n.__('server-error'));
-      return;
+    Meteor.call('cards.setPokerQuestion', card.getRealId(), pokerQuestion, allowNonBoardMembers);
+    if (endString) {
+      Meteor.call('cards.setPokerEnd', card.getRealId(), new Date(endString));
     }
     Popup.back();
   },
-  'click .js-remove-poker': Popup.afterConfirm('deletePoker', async function () {
+  'click .js-remove-poker': Popup.afterConfirm('deletePoker', function () {
     const card = Cards.findOne(getCardId());
     if (!card) return;
-    try {
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: card._id, boardId: card.boardId, action: 'remove',
-      });
-    } catch (error) {
-      alert(error.reason || error.message || TAPi18n.__('server-error'));
-      return;
-    }
+    Meteor.call('cards.unsetPoker', card.getRealId());
     Popup.back();
   }),
   'click a.js-toggle-poker-allow-non-members'(event) {
@@ -2687,14 +2686,10 @@ Template.editPokerEndDatePopup.onCreated(function () {
     defaultTime: formatDateTime(now()),
     initialDate: card?.getPokerEnd ? (card.getPokerEnd() || undefined) : undefined,
     async storeDate(date, currentCard) {
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: date,
-      });
+      await Meteor.callAsync('cards.setPokerEnd', currentCard.getRealId(), date);
     },
     async deleteDate(currentCard) {
-      await Meteor.callAsync('updateAccessibleCardPoker', {
-        cardId: currentCard._id, boardId: currentCard.boardId, action: 'end', end: '',
-      });
+      await Meteor.callAsync('cards.unsetPokerEnd', currentCard.getRealId());
     },
   });
 });
@@ -2766,16 +2761,12 @@ Template.cardAssigneesPopup.onCreated(function () {
 });
 
 Template.cardAssigneesPopup.events({
-  async 'click .js-select-assignee'(event) {
+  'click .js-select-assignee'(event) {
     const card = getCurrentCardFromContext();
     if (!card) return;
     const assigneeId = this.userId;
+    card.toggleAssignee(assigneeId);
     event.preventDefault();
-    await Meteor.callAsync('setAccessibleCardPerson', {
-      cardId: card._id, boardId: card.boardId, field: 'assignees',
-      targetUserId: assigneeId,
-      enabled: !(card.getAssignees() || []).includes(assigneeId),
-    });
   },
   'keyup .card-assignees-filter'(event) {
     const members = filterMembers(event.target.value);
@@ -2838,13 +2829,8 @@ Template.cardAssigneePopup.helpers({
 });
 
 Template.cardAssigneePopup.events({
-  async 'click .js-remove-assignee'() {
-    const card = ReactiveCache.getCard(this.cardId);
-    if (!card) return;
-    await Meteor.callAsync('setAccessibleCardPerson', {
-      cardId: card._id, boardId: card.boardId, field: 'assignees',
-      targetUserId: this.userId, enabled: false,
-    });
+  'click .js-remove-assignee'() {
+    ReactiveCache.getCard(this.cardId).unassignAssignee(this.userId);
     Popup.back();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
@@ -2902,21 +2888,16 @@ Template.cardDependenciesPopup.events({
   'change .js-new-dependency-color'(event) {
     Template.instance().newColor.set(event.currentTarget.value);
   },
-  async 'click .js-pick-dependency'(event) {
+  'click .js-pick-dependency'(event) {
     event.preventDefault();
     const tpl = Template.instance();
     const sourceCard = Template.currentData();
     const targetId = event.currentTarget.dataset.targetId;
     if (sourceCard && targetId) {
-      try {
-        await saveCardDependency(sourceCard, targetId, {
-          type: tpl.newType.get(), color: tpl.newColor.get(),
-          icon: DEFAULT_DEPENDENCY_ICON,
-        });
-      } catch (error) {
-        reportDependencyError(error);
-        return;
-      }
+      sourceCard.addDependency(targetId, {
+        type: tpl.newType.get(),
+        color: tpl.newColor.get(),
+      });
     }
     Popup.back();
   },
@@ -2932,19 +2913,14 @@ Template.cardDependencyIconPopup.helpers({
 });
 
 Template.cardDependencyIconPopup.events({
-  async 'click .js-pick-dependency-icon'(event) {
+  'click .js-pick-dependency-icon'(event) {
     event.preventDefault();
     // Use the source card captured when the picker was opened (the popup's own
     // data context is the dependency row, which has no setDependencyProps).
     const sourceCard = editingDependencyCard;
     const icon = event.currentTarget.dataset.icon || DEFAULT_DEPENDENCY_ICON;
     if (sourceCard && editingDependencyTargetId) {
-      try {
-        await saveCardDependency(sourceCard, editingDependencyTargetId, { icon });
-      } catch (error) {
-        reportDependencyError(error);
-        return;
-      }
+      sourceCard.setDependencyProps(editingDependencyTargetId, { icon });
     }
     editingDependencyTargetId = null;
     editingDependencyCard = null;

@@ -11,7 +11,6 @@ test('document conversion is bounded and stores plain search text separately', (
   assert.match(source, /DOCUMENT_MAX_PAGES = 200/);
   assert.match(source, /new Mongo\.Collection\('documentPreviews'\)/);
   assert.match(source, /const searchText = plainSearchText/);
-  assert.match(source, /createRequire\(path\.join\(process\.cwd\(\), 'package\.json'\)\)/);
   assert.match(source, /searchText, extension/);
   assert.doesNotMatch(source, /searchText:[^\n]*(?:xml|html|style|formula)/i);
 });

@@ -13,12 +13,10 @@ runOnServer(function () {
   const fs = Npm.require('fs');
   const os = Npm.require('os');
   const path = Npm.require('path');
-  const crypto = Npm.require('crypto');
   const { WebApp } = require('meteor/webapp');
   const { safeRoute } = require('/server/apiMiddleware');
   const { Authentication } = require('/server/authentication');
   const { assertImportEnabled } = require('./lib/importExportSecurity');
-  const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
 
   // A .zip import that does not hold the archive in memory (#1173).
   //
@@ -55,12 +53,12 @@ runOnServer(function () {
     // the check that proves it, and tests/fixedVulnerabilityClasses.test.cjs
     // asks every file that reads an archive to show one (ZipBleed).
     const tempPath = safeEntryPath(os.tmpdir(),
-      [`wekan-import-${Date.now()}-${crypto.randomBytes(12).toString('hex')}.zip`]);
+      [`wekan-import-${Date.now()}-${Math.random().toString(36).slice(2)}.zip`]);
     if (!tempPath) {
       reject(new Error('import-temp-path'));
       return;
     }
-    const out = fs.createWriteStream(tempPath, { flags: 'wx', mode: 0o600 });
+    const out = fs.createWriteStream(tempPath);
     let received = 0;
     let aborted = false;
 
@@ -135,12 +133,8 @@ runOnServer(function () {
     }
     // Importing WRITES, so this is "may you change it", not "may you see it" -
     // the same check the DDP import method makes.
-    if (!board.isVisibleBy(user) || !allowIsBoardMemberWithWriteAccess(user._id, board)) {
-      require('/server/lib/securityLog').record({
-        category: 'authz', bleed: 'ImportBleed', severity: 'high', action: 'blocked',
-        source: 'api:import-zip', req, userId: user._id,
-        detail: 'refused ZIP import without board write access',
-      });
+    if (!board.isVisibleBy(user) || !(board.members || [])
+      .some(member => member.userId === user._id && member.isActive)) {
       answer(403, { error: 'Forbidden' });
       return;
     }
@@ -157,14 +151,48 @@ runOnServer(function () {
       const received = await receiveToTempFile(req);
       tempPath = received.tempPath;
 
-      const { readWekanZipArchive } = require('/server/lib/wekanZipArchive');
-      const { doc, attachmentStream } = await readWekanZipArchive(tempPath, {
-        userId: user._id,
+      const unzipper = require('unzipper');
+      const directory = await unzipper.Open.file(tempPath);
+      const documentEntry = directory.files.find(entry =>
+        entry.type === 'File' && /(^|\/)wekan\.json$/.test(entry.path));
+      if (!documentEntry) {
+        answer(400, { error: 'import-not-wekan-export' });
+        return;
+      }
+
+      const parsedDoc = JSON.parse((await documentEntry.buffer()).toString('utf8'));
+      const doc = require('/server/lib/secureTransfer').secureTransfer(parsedDoc, {
+        direction: 'import', source: 'import:zip', userId: user._id,
         ip: req.connection && req.connection.remoteAddress,
       });
+      if (doc._format && doc._format !== 'wekan-board-1.0.0') {
+        answer(400, { error: 'invalid-format' });
+        return;
+      }
 
       const fields = parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS);
       pruneImportDocument(doc, fields);
+
+      // attachmentId -> the entry holding its bytes. The name is
+      // `attachments/<id>-<name>`, and only the id before the first dash is
+      // read: the rest is a filename from another machine and is not used as
+      // one here.
+      const entriesById = new Map();
+      for (const entry of directory.files) {
+        if (entry.type !== 'File') continue;
+        const match = /(?:^|\/)attachments\/([^/]+)$/.exec(entry.path);
+        if (!match) continue;
+        const base = match[1];
+        const dash = base.indexOf('-');
+        entriesById.set(dash === -1 ? base : base.slice(0, dash), entry);
+      }
+
+      // Each attachment as a fresh read stream, opened only when the importer
+      // asks for it - which is what keeps one attachment in flight at a time.
+      const attachmentStream = attachment => {
+        const entry = entriesById.get(attachment && attachment._id);
+        return entry ? entry.stream() : null;
+      };
 
       const scope = parseExportScope(req.query);
       const { ScopedImporter } = require('./server/scopedImporter');
@@ -176,11 +204,11 @@ runOnServer(function () {
       const counts = await importer.run();
       answer(200, { ok: true, counts });
     } catch (error) {
-      const known = /^import-(?:zip|not-wekan-export)|^invalid-format$|^error-json-malformed$/
-        .test(String(error?.message || ''));
-      const message = known ? error.message : 'import-failed';
+      const message = error && error.message === 'import-zip-too-large'
+        ? 'import-zip-too-large'
+        : 'import-failed';
       console.error('importZip failed', error);
-      answer(message.includes('too-large') ? 413 : (known ? 400 : 500), { error: message });
+      answer(message === 'import-zip-too-large' ? 413 : 500, { error: message });
     } finally {
       if (tempPath) fs.promises.unlink(tempPath).catch(() => {});
     }

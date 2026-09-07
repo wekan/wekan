@@ -67,38 +67,38 @@ template(name="memberMenuPopup")
       hr
       if isSameDomainNameSettingValue
         li
-          a.js-invite-people(href="/account/invite")
+          a.js-invite-people
             i.fa.fa-envelope
             | {{_ 'invite-people'}}
       if isNotOAuth2AuthenticationMethod
         li
-          a.js-edit-profile(href="/account/profile")
+          a.js-edit-profile
             i.fa.fa-user
             | {{_ 'edit-profile'}}
       li
-        a.js-change-settings(href="/account/settings")
+        a.js-change-settings
           i.fa.fa-cog
           | {{_ 'change-settings'}}
       li
-        a.js-change-color(href="/account/color")
+        a.js-change-color
           i.fa.fa-paint-brush
           | {{_ 'change-color'}}
       li
-        a.js-change-font(href="/account/font")
+        a.js-change-font
           i.fa.fa-font
           | {{_ 'change-font'}}
       li
-        a.js-change-avatar(href="/account/avatar")
+        a.js-change-avatar
           i.fa.fa-picture-o
           | {{_ 'change-avatar'}}
       unless isSandstorm
         if isNotOAuth2AuthenticationMethod
           li
-            a.js-change-password(href="/account/password")
+            a.js-change-password
               i.fa.fa-key
               | {{_ 'changePasswordPopup-title'}}
       li
-        a.js-change-language(href="/account/language")
+        a.js-change-language
           i.fa.fa-flag
           | {{_ 'changeLanguagePopup-title'}}
       if isSupportPageEnabled
@@ -110,7 +110,7 @@ template(name="memberMenuPopup")
     hr
     ul.pop-over-list
       li
-        a.js-logout(href="/account/logout")
+        a.js-logout
           i.fa.fa-sign-out
           | {{_ 'log-out'}}
 
@@ -121,29 +121,22 @@ template(name="invitePeoplePopup")
     li
       br
     li
-      if canInvitePeople
-        .invite-people
-          ul
-            li
-              .title {{_ 'invite-people'}}
-              textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
-            li
-              .title {{_ 'to-boards'}}
-              .bg-white
-                each boards
-                  a.option.flex.js-toggle-board-choose(id= _id)
-                    .materialCheckBox(data-id= _id)
-                    span= title
+      .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
+        ul
+          li
+            .title {{_ 'invite-people'}}
+            textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+          li
+            .title {{_ 'to-boards'}}
+            .bg-white
+              each boards
+                a.option.flex.js-toggle-board-choose(id= _id)
+                  .materialCheckBox(data-id= _id)
 
-            li
-              button.js-email-invite.primary {{_ 'invite'}}
-      else
-        p.error(role="alert") {{_ 'error-notAuthorized'}}
+                  span= title
 
-template(name="accountLogoutPage")
-  form.js-account-logout
-    p {{_ 'log-out'}}
-    input.primary.wide(type="submit" value="{{_ 'log-out'}}")
+          li
+            button.js-email-invite.primary {{_ 'invite'}}
 
 template(name="editProfilePopup")
   form
@@ -175,13 +168,6 @@ template(name="editProfilePopup")
         div
         input#deleteButton.primary.wide(type="button" value="{{_ 'delete'}}")
 
-template(name="accountProfilePage")
-  with currentUser
-    +editProfilePopup
-
-template(name="accountLanguagePage")
-  +changeLanguagePopup
-
 
 template(name="supportPopup")
   ul.pop-over-list
@@ -190,17 +176,7 @@ template(name="supportPopup")
         = currentSetting.supportPopupText
 
 template(name="changePasswordPopup")
-  form.js-change-own-password
-    label(for="member-current-password")
-      | {{_ 'current'}} {{_ 'password'}}
-    input#member-current-password.js-current-password(type="password" autocomplete="current-password" required)
-    label(for="member-new-password")
-      | {{_ 'new'}} {{_ 'password'}}
-    input#member-new-password.js-new-password(type="password" autocomplete="new-password" minlength="6" required)
-    label(for="member-password-again") {{_ 'password-again'}}
-    input#member-password-again.js-password-again(type="password" autocomplete="new-password" minlength="6" required)
-    p.error.js-password-error.hide(role="alert")
-    input.primary.wide(type="submit" value="{{_ 'change-password'}}")
+  +atForm(state='changePwd')
 
 template(name="changeLanguagePopup")
   ul.pop-over-list

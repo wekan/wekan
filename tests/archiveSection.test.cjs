@@ -130,7 +130,6 @@ test('dropping a board on Remaining brings it back', () => {
 
 test('and restoring is gated exactly as archiving is', () => {
   const server = read('server/models/boards.js');
-  const shared = read('server/lib/accessibleBoardListOperations.js');
   const restoreAt = server.indexOf('async restoreBoard(boardId) {');
   assert.notStrictEqual(restoreAt, -1, 'the method exists');
   const restore = server.slice(restoreAt, server.indexOf('\n  },', restoreAt));
@@ -141,19 +140,14 @@ test('and restoring is gated exactly as archiving is', () => {
   // one of them is the wrong way round.
   for (const [what, pattern] of [
     ['checks its argument', /check\(boardId, String\)/],
+    ['refuses an unknown board', /error-board-doesNotExist/],
+    ['requires board admin or a global admin', /!board\.hasAdmin\(userId\) && !\(user && user\.isAdmin\)/],
+    ['and says so', /error-board-notAdmin/],
   ]) {
     assert.ok(pattern.test(restore), `restoreBoard ${what}`);
     assert.ok(pattern.test(archive), `archiveBoard ${what} - the two must agree`);
   }
-  assert.ok(/setAccessibleBoardArchived\(this\.userId, boardId, false\)/.test(restore),
-    'restore delegates to the common boundary');
-  assert.ok(/setAccessibleBoardArchived\(this\.userId, boardId, true\)/.test(archive),
-    'archive delegates to the common boundary');
-  assert.ok(/error-board-doesNotExist/.test(shared), 'the shared boundary refuses an unknown board');
-  assert.ok(/!board\.hasAdmin\(userId\) && !user\?\.isAdmin/.test(shared),
-    'the shared boundary requires board admin or global admin');
-  assert.ok(/error-board-notAdmin/.test(shared), 'the shared boundary preserves the refusal');
-  assert.ok(/else await board\.restore\(\)/.test(shared), 'and it restores');
+  assert.ok(/await board\.restore\(\)/.test(restore), 'and it restores');
 });
 
 test('and a board in the Archive can be opened', () => {

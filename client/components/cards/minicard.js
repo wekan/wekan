@@ -1,6 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { CustomFieldStringTemplate } from '/imports/lib/customFields';
+import { CustomFieldStringTemplate } from '/client/lib/customFields';
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
@@ -267,12 +267,24 @@ Template.minicard.helpers({
 
 // #459: accessible reordering — keyboard/screen-reader users can move a card up
 // or down within its list via sr-only buttons (no drag-and-drop required). The
-// the acknowledged server operation computes a fresh fractional sort value and
-// repeats board write authorization. HTML4 uses the same operation via POST.
+// move swaps the card's sort value with its neighbour in the same list+swimlane.
 function moveCardBy(card, delta) {
-  Meteor.call(delta < 0 ? 'moveCardUp' : 'moveCardDown', card._id, error => {
-    if (error) console.error('Accessible card move failed', error);
-  });
+  const siblings = ReactiveCache.getCards(
+    { listId: card.listId, swimlaneId: card.swimlaneId, archived: false },
+    { sort: { sort: 1 } },
+  );
+  const idx = siblings.findIndex(c => c._id === card._id);
+  const target = siblings[idx + delta];
+  if (idx < 0 || !target) return;
+  // Capture both sort values before either update; the docs are reactive and
+  // card.sort would otherwise change after the first move.
+  const cardSort = card.sort;
+  const targetSort = target.sort;
+  // Persist through the card model's move() mutation — the canonical client
+  // path (e.g. editCardSortOrderPopup). A raw Cards.update of `sort` is the
+  // wrong path here and would be reverted.
+  card.move(card.boardId, card.swimlaneId, card.listId, targetSort);
+  target.move(target.boardId, target.swimlaneId, target.listId, cardSort);
 }
 
 Template.minicard.events({
@@ -595,14 +607,16 @@ Template.editCardSortOrderPopup.events({
       tpl.find('button[type=submit]').click();
     }
   },
-  async 'click button.js-submit-edit-card-sort-popup'(event, tpl) {
+  'click button.js-submit-edit-card-sort-popup'(event, tpl) {
     // save button pressed
     event.preventDefault();
-    const sort = tpl.$('.js-edit-card-sort-popup')[0].value.trim();
-    const card = this;
-    await Meteor.callAsync('updateAccessibleCardSort', {
-      cardId: card._id, boardId: card.boardId, sort,
-    });
-    Popup.back();
+    const sort = tpl.$('.js-edit-card-sort-popup')[0]
+      .value
+      .trim();
+    if (!Number.isNaN(sort)) {
+      let card = this;
+      card.move(card.boardId, card.swimlaneId, card.listId, sort);
+      Popup.back();
+    }
   },
 });

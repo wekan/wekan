@@ -13,8 +13,8 @@ import { getAttachmentWithBackwardCompatibility, getAttachmentsWithBackwardCompa
 import AttachmentStorageSettings from './attachmentStorageSettings';
 import Attachments, { normalizeRemovedFiles } from './attachments';
 import Boards from '/models/boards';
+import { allowIsBoardMember } from '/server/lib/utils';
 import { ensureIndex } from '/server/lib/mongoStartup';
-const { resolveWritablePath } = require('/models/lib/writablePath');
 
 // ---------------------------------------------------------------------------
 // Server-only configuration
@@ -59,7 +59,7 @@ const attachmentBucket = createBucket('attachments');
 // Compute storage path:
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
-const basePath = resolveWritablePath({ writablePath: process.env.WRITABLE_PATH });
+const basePath = process.env.WRITABLE_PATH || process.cwd();
 const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
 const storagePath = endsWithFiles
   ? path.join(basePath, 'attachments')
@@ -339,6 +339,35 @@ Meteor.methods({
     }
 
     moveToStorage(fileObj, storageDestination, fileStoreStrategyFactory);
+  },
+  async renameAttachment(fileObjId, newName) {
+    check(fileObjId, String);
+    check(newName, String);
+
+    const currentUserId = this.userId;
+    if (!currentUserId) {
+      throw new Meteor.Error('not-authorized', 'User must be logged in');
+    }
+
+    const fileObj = await ReactiveCache.getAttachment(fileObjId);
+    if (!fileObj) {
+      throw new Meteor.Error('file-not-found', 'Attachment not found');
+    }
+
+    // Verify the user has permission to modify this attachment
+    const board = await ReactiveCache.getBoard(fileObj.meta?.boardId);
+    if (!board) {
+      throw new Meteor.Error('board-not-found', 'Board not found');
+    }
+
+    if (!allowIsBoardMember(currentUserId, board)) {
+      if (process.env.DEBUG === 'true') {
+        console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.meta?.boardId}`);
+      }
+      throw new Meteor.Error('not-authorized', 'You do not have permission to modify this attachment');
+    }
+
+    rename(fileObj, newName, fileStoreStrategyFactory);
   },
   async validateAttachment(fileObjId) {
     check(fileObjId, String);

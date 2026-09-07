@@ -29,15 +29,11 @@ Template.cardStickersPopup.helpers({
 });
 
 Template.cardStickersPopup.events({
-  async 'click .js-select-sticker'(event) {
+  'click .js-select-sticker'(event) {
     event.preventDefault();
     const card = pickerCard(Template.instance());
     if (card) {
-      await Meteor.callAsync('setAccessibleCardSticker', {
-        cardId: card._id, boardId: card.boardId,
-        icon: this.icon, highlight: this.highlight || '',
-        enabled: !card.hasSticker(this.icon, this.highlight),
-      });
+      card.toggleSticker(this.icon, this.highlight, this.name);
     }
   },
 });

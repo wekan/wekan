@@ -1112,7 +1112,6 @@ Users.safeFields = {
   'profile.avatarUrl': 1,
   'profile.initials': 1,
   'profile.mobileMode': 1,
-  'profile.dateFormat': 1,
   orgs: 1,
   teams: 1,
   authenticationMethod: 1,

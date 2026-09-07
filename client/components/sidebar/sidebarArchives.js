@@ -240,17 +240,13 @@ Template.archivesSidebar.events({
     }
 
     if (typeof card.canBeRestored === 'function' && card.canBeRestored()) {
-      await Meteor.callAsync('setAccessibleCardArchived', {
-        cardId: card._id, boardId: card.boardId, archived: false,
-      });
+      await card.restore();
     }
   },
   async 'click .js-restore-all-cards'() {
     for (const card of getArchivedCards()) {
       if (card.canBeRestored()) {
-        await Meteor.callAsync('setAccessibleCardArchived', {
-          cardId: card._id, boardId: card.boardId, archived: false,
-        });
+        await card.restore();
       }
     }
   },
@@ -437,9 +433,7 @@ Template.restoreArchivedCardToListPopup.events({
       swimlaneId,
       listId,
     });
-    await Meteor.callAsync('setAccessibleCardArchived', {
-      cardId: card._id, boardId: card.boardId, archived: false,
-    });
+    await card.restore();
     Popup.back();
   },
 });

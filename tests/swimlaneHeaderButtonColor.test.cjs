@@ -34,9 +34,8 @@ for (const selector of controls) {
     `${selector} keeps the title colour while hovered`);
 }
 
-assert.match(jade,
-  /a\.swimlane-collapse-indicator[^\n]*\n[\s\S]{0,220}uiIconClass 'caret-(?:right|down)'/,
-  'the collapse selector belongs to the visible shared caret');
+assert.match(jade, /a\.swimlane-collapse-indicator[^\n]*\n[\s\S]{0,160}fa-caret-/,
+  'the collapse selector belongs to the visible caret');
 assert.match(jade, /a\.js-open-swimlane-menu[^\n]*\n\s+i\.fa\.fa-bars/,
   'the menu selector belongs to the visible hamburger');
 assert.match(jade, /a\.js-open-add-swimlane-menu\.swimlane-header-plus-icon[^\n]*\n\s+i\.fa\.fa-plus/,

@@ -49,16 +49,13 @@ function selectedFields() {
     .filter(field => selection.get(field));
 }
 
-// The scope a popup was opened with: {} for a board, or one of the named child
-// scopes. Keep this list aligned with parseExportScope; omitting checklistId
-// here made the checklist popup silently export the entire board.
+// The scope a popup was opened with: {} for a board, {swimlaneId} or {listId}
+// for the other two.
 function currentScope() {
   const data = Template.currentData() || {};
   const scope = {};
   if (data.swimlaneId) scope.swimlaneId = data.swimlaneId;
   if (data.listId) scope.listId = data.listId;
-  if (data.cardId) scope.cardId = data.cardId;
-  if (data.checklistId) scope.checklistId = data.checklistId;
   return scope;
 }
 
@@ -281,8 +278,8 @@ function resolvedFormatGroups() {
 // refuses to do anything.
 function canImportIntoBoard() {
   const user = ReactiveCache.getCurrentUser();
-  return Boolean(user && !user.isWorker() && !user.isCommentOnly()
-    && !user.isReadOnly() && !user.isReadAssignedOnly());
+  return Boolean(user && !user.isWorker && !user.isCommentOnly
+    && !user.isReadOnly && !user.isReadAssignedOnly);
 }
 Template.registerHelper('canImportIntoBoard', canImportIntoBoard);
 

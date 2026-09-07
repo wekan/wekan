@@ -1,9 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { buildHeader, pageInfo } from '/models/lib/tablePage';
-
-// Translation strings are compact and historically use a 25-row window, while
-// the wider Problems reports use the shared table helper's 10-row default.
-const TRANSLATION_PAGE_ROWS_PER_PAGE = 25;
+import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
 // Admin Panel / Settings / Translation, through the shared table page
 // (docs/Features/Page/Table.md). The pane differs from every other table page only
@@ -23,6 +19,7 @@ const TRANSLATION_COLUMNS = [
 
 Template.translationSettings.onCreated(function () {
   this.error = new ReactiveVar('');
+  this.findTranslationsOptions = new ReactiveVar({});
   this.numberTranslations = new ReactiveVar(0);
   // The search box belongs to the shared controls row, so the term is state here
   // rather than a DOM id read back out of another template.
@@ -34,15 +31,14 @@ Template.translationSettings.onCreated(function () {
   // another page cannot change the total, and recounting there would only add a
   // second round trip to every click.
   this.refreshCount = () => {
-    Meteor.call('getTranslationsCollectionCount', this.searchTerm.get(),
+    Meteor.call('getTranslationsCollectionCount', this.findTranslationsOptions.get(),
       (error, count) => {
         if (error) {
           console.error('Failed to load translations count:', error);
           return;
         }
         const total = count || 0;
-        const { totalPages } = pageInfo(total, this.page.get(),
-          TRANSLATION_PAGE_ROWS_PER_PAGE);
+        const { totalPages } = pageInfo(total, this.page.get());
         // Strings deleted while you were on the last page must land on a real page.
         if (this.page.get() > totalPages) {
           this.page.set(totalPages);
@@ -52,6 +48,19 @@ Template.translationSettings.onCreated(function () {
   };
 
   this.filterTranslations = () => {
+    const value = this.searchTerm.get();
+    if (value === '') {
+      this.findTranslationsOptions.set({});
+    } else {
+      const regex = new RegExp(value, 'i');
+      this.findTranslationsOptions.set({
+        $or: [
+          { language: regex },
+          { text: regex },
+          { translationText: regex },
+        ],
+      });
+    }
     this.page.set(1);
     this.refreshCount();
   };
@@ -63,8 +72,8 @@ Template.translationSettings.onCreated(function () {
     // infinite scroll instead (and before that subscribed with limit 0, which in
     // Mongo means no limit at all: every custom string of every language at once).
     const { limit, skip } = pageInfo(this.numberTranslations.get(), this.page.get(),
-      TRANSLATION_PAGE_ROWS_PER_PAGE);
-    this.subscribe('translation', this.searchTerm.get(), limit, skip);
+      TABLE_PAGE_ROWS_PER_PAGE);
+    this.subscribe('translation', this.findTranslationsOptions.get(), limit, skip);
   });
 
   this.refreshCount();
@@ -76,11 +85,11 @@ Template.translationSettings.helpers({
     // The publication already returns exactly this page (server-side limit/skip,
     // sorted modifiedAt:-1). Re-apply that same sort so the displayed order matches
     // the published one - and do NOT re-slice what the server already paginated.
-    const translations = ReactiveCache.getTranslations({}, {
+    const translations = ReactiveCache.getTranslations(tpl.findTranslationsOptions.get(), {
       sort: { modifiedAt: -1 },
     });
     const info = pageInfo(tpl.numberTranslations.get(), tpl.page.get(),
-      TRANSLATION_PAGE_ROWS_PER_PAGE);
+      TABLE_PAGE_ROWS_PER_PAGE);
     return {
       // No titleKey: the pane heading is rendered once for every Admin Panel pane
       // from the open menu entry (docs/Features/Page/Left-Menu.md), so a title here
@@ -121,7 +130,7 @@ Template.translationSettings.events({
   'click .js-table-page-next'(event, tpl) {
     event.preventDefault();
     const { totalPages } = pageInfo(tpl.numberTranslations.get(), tpl.page.get(),
-      TRANSLATION_PAGE_ROWS_PER_PAGE);
+      TABLE_PAGE_ROWS_PER_PAGE);
     if (tpl.page.get() < totalPages) {
       tpl.page.set(tpl.page.get() + 1);
     }
@@ -176,7 +185,7 @@ Template.editTranslationPopup.events({
 
     Meteor.call(
       'setTranslationText',
-      translation._id,
+      translation,
       translationText
     );
 

@@ -33,201 +33,11 @@ import Swimlanes from '/models/swimlanes';
 import CustomFields from '/models/customFields';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
+import { subtaskCustomFields } from '/imports/lib/subtaskHelpers';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
-import {
-  createAccessibleCard,
-  createAccessibleSubtask,
-  copyAccessibleCard,
-  copyManyAccessibleCards,
-  castAccessibleCardPoker,
-  castAccessibleCardVote,
-  moveAccessibleCard,
-  permanentlyDeleteAccessibleCard,
-  moveAccessibleCardToList,
-  relocateAccessibleCard,
-  moveAccessibleSubtask,
-  removeAccessibleCardLocation,
-  removeAccessibleCardDependency,
-  removeAccessibleCardStickerAt,
-  saveAccessibleCardLocation,
-  saveAccessibleCardDependency,
-  setAccessibleCardSticker,
-  setAccessibleCardCustomFieldAssigned,
-  setAccessibleCardLabel,
-  setAccessibleCardIdentity,
-  setAccessibleCardPerson,
-  setAccessibleCardArchived,
-  setAccessibleSubtaskArchived,
-  updateAccessibleCardColor,
-  updateAccessibleCardDate,
-  updateAccessibleCardIdentityText,
-  updateAccessibleCardMetric,
-  updateAccessibleCardParent,
-  updateAccessibleCardSort,
-  updateAccessibleCardCustomField,
-  updateAccessibleCardContent,
-  updateAccessibleCardPoker,
-  updateAccessibleCardVote,
-  updateAccessibleSubtaskTitle,
-} from '/server/lib/accessibleCardOperations';
 
 Meteor.methods({
-  async createAccessibleCard(input) {
-    check(input, Object);
-    return createAccessibleCard(this.userId, input);
-  },
-
-  async moveCardUp(cardId) {
-    check(cardId, String);
-    return moveAccessibleCard(this.userId, cardId, 'up');
-  },
-
-  async moveCardDown(cardId) {
-    check(cardId, String);
-    return moveAccessibleCard(this.userId, cardId, 'down');
-  },
-
-  async moveAccessibleCardToList(input) {
-    check(input, Object);
-    return moveAccessibleCardToList(this.userId, input);
-  },
-
-  async relocateAccessibleCard(input) {
-    check(input, Object);
-    return relocateAccessibleCard(this.userId, input);
-  },
-
-  async copyAccessibleCard(input) {
-    check(input, Object);
-    return copyAccessibleCard(this.userId, input);
-  },
-
-  async copyManyAccessibleCards(input) {
-    check(input, Object);
-    return copyManyAccessibleCards(this.userId, input);
-  },
-
-  async permanentlyDeleteAccessibleCard(input) {
-    check(input, Object);
-    return permanentlyDeleteAccessibleCard(this.userId, input, this.connection);
-  },
-
-  async updateAccessibleCardContent(input) {
-    check(input, Object);
-    return updateAccessibleCardContent(this.userId, input);
-  },
-
-  async updateAccessibleCardSort(input) {
-    check(input, Object);
-    return updateAccessibleCardSort(this.userId, input);
-  },
-
-  async saveAccessibleCardLocation(input) {
-    check(input, Object);
-    return saveAccessibleCardLocation(this.userId, input);
-  },
-
-  async removeAccessibleCardLocation(input) {
-    check(input, Object);
-    return removeAccessibleCardLocation(this.userId, input);
-  },
-
-  async setAccessibleCardSticker(input) {
-    check(input, Object);
-    return setAccessibleCardSticker(this.userId, input);
-  },
-
-  async removeAccessibleCardStickerAt(input) {
-    check(input, Object);
-    return removeAccessibleCardStickerAt(this.userId, input);
-  },
-
-  async setAccessibleCardCustomFieldAssigned(input) {
-    check(input, Object);
-    return setAccessibleCardCustomFieldAssigned(this.userId, input);
-  },
-
-  async saveAccessibleCardDependency(input) {
-    check(input, Object);
-    return saveAccessibleCardDependency(this.userId, input);
-  },
-
-  async castAccessibleCardVote(input) {
-    check(input, Object);
-    return castAccessibleCardVote(this.userId, input);
-  },
-
-  async castAccessibleCardPoker(input) {
-    check(input, Object);
-    return castAccessibleCardPoker(this.userId, input);
-  },
-
-  async updateAccessibleCardVote(input) {
-    check(input, Object);
-    return updateAccessibleCardVote(this.userId, input);
-  },
-
-  async updateAccessibleCardPoker(input) {
-    check(input, Object);
-    return updateAccessibleCardPoker(this.userId, input);
-  },
-
-  async updateAccessibleCardMetric(input) {
-    check(input, Object);
-    return updateAccessibleCardMetric(this.userId, input);
-  },
-
-  async updateAccessibleCardParent(input) {
-    check(input, Object);
-    return updateAccessibleCardParent(this.userId, input);
-  },
-
-  async removeAccessibleCardDependency(input) {
-    check(input, Object);
-    return removeAccessibleCardDependency(this.userId, input);
-  },
-
-  async updateAccessibleCardCustomField(input) {
-    check(input, Object);
-    return updateAccessibleCardCustomField(this.userId, input);
-  },
-
-  async updateAccessibleCardDate(input) {
-    check(input, Object);
-    return updateAccessibleCardDate(this.userId, input);
-  },
-
-  async updateAccessibleCardColor(input) {
-    check(input, Object);
-    return updateAccessibleCardColor(this.userId, input);
-  },
-
-  async setAccessibleCardLabel(input) {
-    check(input, Object);
-    return setAccessibleCardLabel(this.userId, input);
-  },
-
-  async setAccessibleCardPerson(input) {
-    check(input, Object);
-    return setAccessibleCardPerson(this.userId, input);
-  },
-
-  async updateAccessibleCardIdentityText(input) {
-    check(input, Object);
-    return updateAccessibleCardIdentityText(this.userId, input);
-  },
-
-  async setAccessibleCardIdentity(input) {
-    check(input, Object);
-    return setAccessibleCardIdentity(this.userId, input);
-  },
-
-  async setAccessibleCardArchived(input) {
-    check(input, Object);
-    return setAccessibleCardArchived(this.userId, input);
-  },
-
   // #6613: create cross-board card links as an acknowledged, authoritative
   // operation. A direct client insert could be rejected after the optimistic
   // write, leaving the Link popup open without creating anything.
@@ -321,71 +131,189 @@ Meteor.methods({
     return { archived: ids.length };
   },
 
-  // Compatibility wrappers for clients predating the object-shaped accessible
-  // methods. They resolve the route board, then cross the same authorization
-  // and definition-driven boundary as HTML4 and current Jade.
+  // #6611: custom-field selection and checkbox values are acknowledged server
+  // writes. Direct client collection writes could be refused silently, making
+  // a removed field immediately reappear and a checkbox appear inert.
   async setCardCustomFieldAssigned(cardId, customFieldId, assigned) {
     check(cardId, String);
     check(customFieldId, String);
     check(assigned, Boolean);
-    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1 } });
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    const card = await Cards.findOneAsync(cardId);
     if (!card) throw new Meteor.Error('not-found');
-    return setAccessibleCardCustomFieldAssigned(this.userId, {
-      cardId, boardId: card.boardId, customFieldId, assigned,
+    const board = await Boards.findOneAsync(card.boardId);
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const definition = await CustomFields.findOneAsync({
+      _id: customFieldId,
+      boardIds: card.boardId,
     });
+    if (!definition) throw new Meteor.Error('custom-field-not-found');
+
+    if (assigned) {
+      await Cards.updateAsync(cardId, {
+        $addToSet: { customFields: { _id: customFieldId, value: null } },
+      });
+    } else {
+      // #6611: MongoDB document conditions match fields within each array
+      // element. FerretDB must do the same here; exact document equality would
+      // not match an element that also contains its custom-field value.
+      await Cards.updateAsync(cardId, {
+        $pull: { customFields: { _id: customFieldId } },
+      });
+    }
+    return assigned;
   },
 
   async setCardCustomFieldCheckbox(cardId, customFieldId, value) {
     check(cardId, String);
     check(customFieldId, String);
     check(value, Boolean);
-    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1 } });
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+
+    const card = await Cards.findOneAsync(cardId);
     if (!card) throw new Meteor.Error('not-found');
-    return updateAccessibleCardCustomField(this.userId, {
-      cardId, boardId: card.boardId, customFieldId, value,
+    const board = await Boards.findOneAsync(card.boardId);
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const definition = await CustomFields.findOneAsync({
+      _id: customFieldId,
+      boardIds: card.boardId,
+      type: 'checkbox',
     });
+    if (!definition) throw new Meteor.Error('custom-field-not-found');
+
+    const index = (card.customFields || []).findIndex(field =>
+      field && field._id === customFieldId);
+    if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
+    await Cards.updateAsync(cardId, {
+      $set: { [`customFields.${index}.value`]: value },
+    });
+    return value;
   },
 
   async setCardCustomFieldCurrency(cardId, customFieldId, value) {
     check(cardId, String);
     check(customFieldId, String);
     check(value, Number);
-    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1 } });
-    if (!card) throw new Meteor.Error('not-found');
-    return updateAccessibleCardCustomField(this.userId, {
-      cardId, boardId: card.boardId, customFieldId, value,
-    });
-  },
-
-  async addSubtaskCard(input, legacyTitle) {
-    if (typeof input === 'string') {
-      check(input, String);
-      check(legacyTitle, String);
-      const parent = await Cards.findOneAsync(input, { fields: { boardId: 1 } });
-      if (!parent) throw new Meteor.Error('not-found');
-      return createAccessibleSubtask(this.userId, {
-        parentCardId: input,
-        boardId: parent.boardId,
-        title: legacyTitle,
-      });
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    if (!Number.isFinite(value)) {
+      throw new Meteor.Error('invalid-custom-field-value');
     }
-    check(input, Object);
-    return createAccessibleSubtask(this.userId, input);
+
+    const card = await Cards.findOneAsync(cardId);
+    if (!card) throw new Meteor.Error('not-found');
+    const board = await Boards.findOneAsync(card.boardId);
+    if (!(await canEditCardOrLinkedCard(this.userId, card, board))) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const definition = await CustomFields.findOneAsync({
+      _id: customFieldId,
+      boardIds: card.boardId,
+      type: 'currency',
+    });
+    if (!definition) throw new Meteor.Error('custom-field-not-found');
+
+    const index = (card.customFields || []).findIndex(field =>
+      field && field._id === customFieldId);
+    if (index < 0) throw new Meteor.Error('custom-field-not-on-card');
+    await Cards.updateAsync(cardId, {
+      $set: { [`customFields.${index}.value`]: value },
+    });
+    return value;
   },
 
-  async updateAccessibleSubtaskTitle(input) {
-    check(input, Object);
-    return updateAccessibleSubtaskTitle(this.userId, input);
-  },
+  // Server-authoritative subtask creation. Fixes:
+  //  - #3868 / #5788 / #2256 "extra swimlane / column on subtask creation" and
+  //    #4782 "can not create more than one subtask": the default subtasks
+  //    board/list/swimlane are resolved (and lazily created ONCE) here on the
+  //    server, so the client can no longer create duplicate helper boards.
+  //  - #4037 / #3562 "custom fields not assigned to subtask cards": the
+  //    destination board's automatic custom fields are applied to the subtask.
+  async addSubtaskCard(parentCardId, title) {
+    check(parentCardId, String);
+    check(title, String);
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const trimmed = title.trim();
+    if (!trimmed) return undefined;
 
-  async setAccessibleSubtaskArchived(input) {
-    check(input, Object);
-    return setAccessibleSubtaskArchived(this.userId, input);
-  },
+    const parentCard =
+      (await ReactiveCache.getCard(parentCardId)) ||
+      (await Cards.findOneAsync(parentCardId));
+    if (!parentCard) throw new Meteor.Error('not-found');
+    const parentBoard = await Boards.findOneAsync(parentCard.boardId);
+    if (!parentBoard) throw new Meteor.Error('not-found');
+    // The author must have write access to the parent card's board.
+    if (!(await canEditCardOrLinkedCard(this.userId, parentCard, parentBoard)))
+      throw new Meteor.Error('not-authorized');
 
-  async moveAccessibleSubtask(input) {
-    check(input, Object);
-    return moveAccessibleSubtask(this.userId, input);
+    // Resolve (and, on the server, lazily create ONCE) the default subtasks
+    // board + landing list. These getters never duplicate on the server.
+    const targetBoard = await parentBoard.getDefaultSubtasksBoardAsync();
+    if (!targetBoard) return undefined;
+    const targetList = await targetBoard.getDefaultSubtasksListAsync();
+    if (!targetList) return undefined;
+
+    // Reuse a swimlane on the destination board: prefer one whose title matches
+    // the parent card's swimlane, otherwise the destination board's default
+    // swimlane. Both branches reuse an existing swimlane (no insert here).
+    let swimlaneId;
+    const parentSwimlane = parentCard.swimlaneId
+      ? await Swimlanes.findOneAsync(parentCard.swimlaneId)
+      : null;
+    const targetSwimlane = parentSwimlane
+      ? await Swimlanes.findOneAsync({
+          boardId: targetBoard._id,
+          title: parentSwimlane.title,
+        })
+      : null;
+    if (targetSwimlane) {
+      swimlaneId = targetSwimlane._id;
+    } else {
+      const defaultSwimlane = await targetBoard.getDefaultSwimlineAsync();
+      swimlaneId = defaultSwimlane && defaultSwimlane._id;
+    }
+    if (!swimlaneId) return undefined;
+
+    // #4037 / #3562: apply the destination board's automatic custom fields.
+    const boardCustomFields = await CustomFields.find({
+      boardIds: targetBoard._id,
+    }).fetchAsync();
+    const customFields = subtaskCustomFields(boardCustomFields);
+
+    const cardNumber = await targetBoard.getNextCardNumber();
+    // #3826: a constant `sort: -1` made EVERY subtask card tie, so a list full
+    // of subtask cards could not be reordered by drag (no number lies strictly
+    // between two equal sorts; the computed index equalled the card's own sort
+    // and the move was discarded as a no-op). Append with a unique sort at the
+    // end of the target list instead — with the old all-ties data the cards
+    // effectively rendered in insertion order anyway, so the visible placement
+    // is unchanged while new subtasks no longer pile up duplicate sorts.
+    const lastCard = await Cards.findOneAsync(
+      { listId: targetList._id, archived: false },
+      { sort: { sort: -1 }, fields: { sort: 1 } },
+    );
+    const sort =
+      lastCard && Number.isFinite(lastCard.sort) ? lastCard.sort + 1 : 0;
+    const _id = await Cards.insertAsync({
+      title: trimmed,
+      parentId: parentCardId,
+      members: [],
+      assignees: [],
+      labelIds: [],
+      customFields,
+      listId: targetList._id,
+      boardId: targetBoard._id,
+      sort,
+      swimlaneId,
+      type: 'cardType-card',
+      cardNumber,
+      userId: this.userId,
+    });
+    return _id;
   },
 
   async createCardWithDueDate(boardId, listId, title, dueDate, swimlaneId) {
@@ -743,16 +671,25 @@ Meteor.methods({
     check(insertAtTop, Boolean);
     check(mergeCardValues, Object);
 
-    const card = await Cards.findOneAsync(cardId, { fields: { boardId: 1, title: 1 } });
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const card = await ReactiveCache.getCard(cardId);
     if (!card) throw new Meteor.Error('not-found');
-    return copyAccessibleCard(this.userId, {
-      cardId, boardId: card.boardId,
-      targetBoardId: boardId, targetSwimlaneId: swimlaneId, targetListId: listId,
-      position: insertAtTop ? 'top' : 'bottom',
-      title: mergeCardValues.title ?? card.title,
-      ...(Object.prototype.hasOwnProperty.call(mergeCardValues, 'description')
-        ? { description: mergeCardValues.description } : {}),
-    });
+    const sourceBoard = await Boards.findOneAsync(card.boardId);
+    if (!allowIsBoardMember(this.userId, sourceBoard))
+      throw new Meteor.Error('not-authorized');
+    const destBoard = await Boards.findOneAsync(boardId);
+    if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
+      throw new Meteor.Error('not-authorized');
+    Object.assign(card, mergeCardValues);
+
+    const sort = await card.getSort(listId, swimlaneId, insertAtTop);
+    if (insertAtTop) {
+      card.sort = sort - 1;
+    } else {
+      card.sort = sort + 1;
+    }
+
+    return await card.copy(boardId, swimlaneId, listId);
   },
 });
 

@@ -116,14 +116,11 @@
   margin-inline-start: 4px;
 }
 .comments .comment .comment-desc .reactions .reaction {
-  background: transparent;
-  color: inherit;
   cursor: pointer;
   border: 1px solid #808080;
   border-radius: 15px;
   display: flex;
   padding: 2px 5px;
-  font: inherit;
 }
 .comments .comment .comment-desc .reactions .reaction.selected {
   background-color: #b0c4de;

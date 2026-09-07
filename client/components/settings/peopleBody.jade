@@ -757,35 +757,6 @@ template(name="lockedUsersGeneral")
 
     button.js-lockout-save.primary {{_ 'save'}}
 
-    h4 {{_ 'accounts-lockout-locked-users'}}
-    p {{_ 'accounts-lockout-locked-users-info'}}
-    button.js-refresh-locked-users(type="button") {{_ 'refresh'}}
-    if isLoadingLockedUsers
-      +spinner
-    else if lockedUsers.length
-      table
-        thead
-          tr
-            th {{_ 'username'}}
-            th {{_ 'email'}}
-            th {{_ 'accounts-lockout-failed-attempts'}}
-            th {{_ 'location-address'}}
-            th {{_ 'accounts-lockout-remaining-time'}}
-            th {{_ 'actions'}}
-        tbody
-          each lockedUsers
-            tr
-              td {{username}}
-              td {{email}}
-              td {{failedAttempts}}
-              td {{lockedAddresses}}
-              td {{remainingTimeFormatted}}
-              td
-                button.js-unlock-user(type="button" data-user-id="{{_id}}") {{_ 'accounts-lockout-click-to-unlock'}}
-      button.js-unlock-all-users(type="button") {{_ 'accounts-lockout-unlock-all'}}
-    else
-      p {{_ 'accounts-lockout-no-locked-users'}}
-
 template(name="rolesGeneral")
   .roles-settings
     p.roles-description {{_ 'roles-info'}}

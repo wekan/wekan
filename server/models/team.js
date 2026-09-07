@@ -6,8 +6,14 @@ import Team from '/models/team';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
-import { createTeamForAdmin, setAllTeamsFeatureForAdmin,
-  setTeamFeatureForAdmin, updateTeamForAdmin } from '/server/lib/adminTeams';
+
+// #5850: reliable admin check from a method's this.userId (Meteor.user() can
+// return null inside an async method after an await).
+async function callerIsAdmin(userId) {
+  if (!userId) return false;
+  const u = await ReactiveCache.getUser({ _id: userId }, { fields: { isAdmin: 1 } });
+  return !!(u && u.isAdmin);
+}
 
 Meteor.methods({
   async setCreateTeam(
@@ -17,10 +23,26 @@ Meteor.methods({
     teamWebsite,
     teamIsActive,
   ) {
-    check(teamDisplayName, String); check(teamDesc, String); check(teamShortName, String);
-    check(teamWebsite, String); check(teamIsActive, Boolean);
-    return createTeamForAdmin(this.userId, { teamDisplayName, teamDesc,
-      teamShortName, teamWebsite, teamIsActive });
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(teamDisplayName, String);
+      check(teamDesc, String);
+      check(teamShortName, String);
+      check(teamWebsite, String);
+      check(teamIsActive, Boolean);
+
+      const nTeamNames = (await ReactiveCache.getTeams({ teamShortName })).length;
+      if (nTeamNames > 0) {
+        throw new Meteor.Error('teamname-already-taken');
+      }
+
+      await Team.insertAsync({
+        teamDisplayName,
+        teamDesc,
+        teamShortName,
+        teamWebsite,
+        teamIsActive,
+      });
+    }
   },
 
   async setCreateTeamFromOidc(
@@ -107,31 +129,63 @@ Meteor.methods({
   // People > Teams. All default off.
   async setTeamSharedTemplates(team, value) {
     check(team, Object);
-    check(team._id, String);
     check(value, Boolean);
-    return setTeamFeatureForAdmin(this.userId, team._id, 'teamSharedTemplates', value);
+    if (await callerIsAdmin(this.userId)) {
+      await Team.updateAsync(team, { $set: { teamSharedTemplates: value } });
+    }
   },
 
   async setTeamPropagateMembersToBoards(team, value) {
     check(team, Object);
-    check(team._id, String);
     check(value, Boolean);
-    return setTeamFeatureForAdmin(this.userId, team._id,
-      'teamPropagateMembersToBoards', value);
+    if (await callerIsAdmin(this.userId)) {
+      await Team.updateAsync(team, { $set: { teamPropagateMembersToBoards: value } });
+      // #4737/#5850: actually ACT on the flag. Turning it on adds this team's
+      // members to the boards that list the team (add-only). Previously the flag
+      // was stored but nothing ever propagated (the method had no caller).
+      //
+      // #6559: `team` is the SELECTOR the client sent - `{ _id: … }`, the same
+      // value handed to updateAsync above - not an id. Passing it whole made the
+      // member lookup compare `teams.teamId` against an object, which matches
+      // nobody, so the checkbox stored the flag and silently added no one.
+      if (value === true) {
+        const { propagateGroupMembersToBoards } = require('/server/propagateOrgTeamMembers');
+        await propagateGroupMembersToBoards('team', team._id);
+      }
+    }
   },
 
   async setTeamSyncMembersFromAuth(team, value) {
     check(team, Object);
-    check(team._id, String);
     check(value, Boolean);
-    return setTeamFeatureForAdmin(this.userId, team._id, 'teamSyncMembersFromAuth', value);
+    if (await callerIsAdmin(this.userId)) {
+      await Team.updateAsync(team, { $set: { teamSyncMembersFromAuth: value } });
+    }
   },
 
   // Bulk select-all / unselect-all for one of the team feature columns.
   async setAllTeamsFeature(field, value) {
     check(field, String);
     check(value, Boolean);
-    return setAllTeamsFeatureForAdmin(this.userId, field, value);
+    if (await callerIsAdmin(this.userId)) {
+      const allowed = [
+        'teamSharedTemplates',
+        'teamPropagateMembersToBoards',
+        'teamSyncMembersFromAuth',
+      ];
+      if (!allowed.includes(field)) {
+        throw new Meteor.Error('invalid-field');
+      }
+      await Team.updateAsync({}, { $set: { [field]: value } }, { multi: true });
+      // #6559: the select-all header checkbox is the same promise as the per-row
+      // one - tick it and the members should be on the boards - and it did not
+      // propagate at all, not even wrongly. Teams only: ticking the team column
+      // must not act on the org column beside it.
+      if (field === 'teamPropagateMembersToBoards' && value === true) {
+        const { propagateAllFlaggedGroupsToBoards } = require('/server/propagateOrgTeamMembers');
+        await propagateAllFlaggedGroupsToBoards('team');
+      }
+    }
   },
 
   async setTeamAllFieldsFromOidc(
@@ -176,11 +230,24 @@ Meteor.methods({
     teamWebsite,
     teamIsActive,
   ) {
-    check(team, Object); check(team._id, String); check(teamDisplayName, String);
-    check(teamDesc, String); check(teamShortName, String); check(teamWebsite, String);
-    check(teamIsActive, Boolean);
-    return updateTeamForAdmin(this.userId, team._id, { teamDisplayName, teamDesc,
-      teamShortName, teamWebsite, teamIsActive });
+    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
+      check(team, Object);
+      check(teamDisplayName, String);
+      check(teamDesc, String);
+      check(teamShortName, String);
+      check(teamWebsite, String);
+      check(teamIsActive, Boolean);
+      await Team.updateAsync(team, {
+        $set: {
+          teamDisplayName,
+          teamDesc,
+          teamShortName,
+          teamWebsite,
+          teamIsActive,
+        },
+      });
+      await Meteor.callAsync('setUsersTeamsTeamDisplayName', team._id, teamDisplayName);
+    }
   },
 
   async getTeamsCollectionCount(query = {}) {

@@ -30,7 +30,6 @@ export {
 // models/lib/filenameSanitizer.js (#6412).
 const { sanitizeFilename } = require('./filenameSanitizer');
 const { hasEnoughDiskSpace } = require('./diskSpace');
-const { resolveWritablePath } = require('./writablePath');
 
 // GHSA-4mxf-m8pq-xc9p: this containment check used to be written out here and
 // nowhere else, so the board exporter - which reads the very same stored paths -
@@ -494,7 +493,7 @@ export class FileStoreStrategyFilesystem extends FileStoreStrategy {
     const normalized = (originalPath || '').replace(/\\/g, '/');
     const isAvatar = normalized.includes('/avatars/') || (this.fileObj.collectionName === 'avatars');
     const baseDir = isAvatar ? 'avatars' : 'attachments';
-    const writableBase = resolveWritablePath({ writablePath: process.env.WRITABLE_PATH });
+    const writableBase = process.env.WRITABLE_PATH || process.cwd();
     const endsWithFiles = writableBase.endsWith('/files') || writableBase.endsWith('\\files');
     const storageRoot = endsWithFiles
       ? path.join(writableBase, baseDir)
@@ -1159,20 +1158,19 @@ export const addAttachmentFromStream = function(
 
     readStream.on('error', fail);
     writeStream.on('error', fail);
-    writeStream.on('finish', async () => {
-      try {
-        const fileRef = await collection.addFile(tempPath, {
+    writeStream.on('finish', () => {
+      collection.addFile(
+        tempPath,
+        {
           fileName: fileName || 'attachment',
           type: type || 'application/octet-stream',
           meta,
           userId,
           size,
           fileId: new ObjectId().toString(),
-        }, true);
-        resolve(fileRef);
-      } catch (error) {
-        fail(error);
-      }
+        },
+        (err, fileRef) => (err ? fail(err) : resolve(fileRef)),
+      );
     });
 
     readStream.pipe(writeStream);

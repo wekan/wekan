@@ -146,32 +146,6 @@ Template.invitePeoplePopup.events({
   },
 });
 
-Template.invitePeoplePopup.helpers({
-  canInvitePeople() {
-    const user = ReactiveCache.getCurrentUser();
-    if (user?.isAdmin) return true;
-    const setting = ReactiveCache.getCurrentSetting();
-    const domain = setting?.disableRegistration && String(setting.mailDomainName || '');
-    return Boolean(domain && (user?.emails || []).some(item =>
-      String(item?.address || '').endsWith(domain)));
-  },
-  boards() {
-    const userId = Meteor.userId();
-    if (!userId) return [];
-    return ReactiveCache.getBoards({
-      archived: false,
-      members: { $elemMatch: { userId, isActive: true, isAdmin: true } },
-    }, { sort: { sort: 1, title: 1 } });
-  },
-});
-
-Template.accountLogoutPage.events({
-  submit(event) {
-    event.preventDefault();
-    AccountsTemplates.logout();
-  },
-});
-
 Template.editProfilePopup.onCreated(function() {
   Meteor.subscribe('setting');
   this.subscribe('accountSettings');
@@ -199,15 +173,68 @@ Template.editProfilePopup.events({
     const username = templateInstance.find('.js-profile-username').value.trim();
     const initials = templateInstance.find('.js-profile-initials').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
-    Meteor.call('updateOwnProfile', { fullname, initials, username, email }, error => {
-      const usernameMessageElement = templateInstance.$('.username-taken');
-      const emailMessageElement = templateInstance.$('.email-taken');
-      usernameMessageElement.toggle(error?.error === 'username-already-taken');
-      emailMessageElement.toggle(error?.error === 'email-already-taken');
-      if (!error) Popup.back();
-      else if (!['username-already-taken', 'email-already-taken'].includes(error.error)
-        && process.env.DEBUG === 'true') console.error('Could not save profile:', error);
+    let isChangeUserName = false;
+    let isChangeEmail = false;
+    Meteor.call('setOwnProfile', fullname, initials, error => {
+      if (error) console.error('Could not save profile:', error);
     });
+    const currentUser = ReactiveCache.getCurrentUser();
+    const primaryEmail =
+      Array.isArray(currentUser.emails) && currentUser.emails.length
+        ? currentUser.emails[0]
+        : null;
+    isChangeUserName = username !== currentUser.username;
+    isChangeEmail =
+      email.toLowerCase() !==
+      (primaryEmail ? primaryEmail.address.toLowerCase() : '');
+    if (isChangeUserName && isChangeEmail) {
+      Meteor.call(
+        'setUsernameAndEmail',
+        username,
+        email.toLowerCase(),
+        Meteor.userId(),
+        function(error) {
+          const usernameMessageElement = templateInstance.$('.username-taken');
+          const emailMessageElement = templateInstance.$('.email-taken');
+          if (error) {
+            const errorElement = error.error;
+            if (errorElement === 'username-already-taken') {
+              usernameMessageElement.show();
+              emailMessageElement.hide();
+            } else if (errorElement === 'email-already-taken') {
+              usernameMessageElement.hide();
+              emailMessageElement.show();
+            }
+          } else {
+            usernameMessageElement.hide();
+            emailMessageElement.hide();
+            Popup.back();
+          }
+        },
+      );
+    } else if (isChangeUserName) {
+      Meteor.call('setUsername', username, Meteor.userId(), function(error) {
+        const messageElement = templateInstance.$('.username-taken');
+        if (error) {
+          messageElement.show();
+        } else {
+          messageElement.hide();
+          Popup.back();
+        }
+      });
+    } else if (isChangeEmail) {
+      Meteor.call('setEmail', email.toLowerCase(), Meteor.userId(), function(
+        error,
+      ) {
+        const messageElement = templateInstance.$('.email-taken');
+        if (error) {
+          messageElement.show();
+        } else {
+          messageElement.hide();
+          Popup.back();
+        }
+      });
+    } else Popup.back();
   },
   'click #deleteButton': Popup.afterConfirm('userDelete', function() {
     Popup.back();
@@ -232,26 +259,8 @@ Template.editProfilePopup.events({
 // XXX For some reason the useraccounts autofocus isnt working in this case.
 // See https://github.com/meteor-useraccounts/core/issues/384
 Template.changePasswordPopup.onRendered(function() {
-  this.find('#member-current-password').focus();
-});
-
-Template.changePasswordPopup.events({
-  'submit .js-change-own-password'(event, templateInstance) {
-    event.preventDefault();
-    const currentPassword = templateInstance.find('.js-current-password').value;
-    const newPassword = templateInstance.find('.js-new-password').value;
-    const passwordAgain = templateInstance.find('.js-password-again').value;
-    const errorElement = templateInstance.$('.js-password-error');
-    Meteor.call('changeOwnPassword', { currentPassword, newPassword, passwordAgain }, error => {
-      if (error) {
-        errorElement.text(TAPi18n.__(error.error === 'password-mismatch'
-          ? 'password-mismatch' : 'invalid-credentials')).show();
-      } else {
-        errorElement.hide();
-        Popup.back();
-      }
-    });
-  },
+  $('.at-pwd-form').show();
+  this.find('#at-field-current_password').focus();
 });
 
 Template.changeLanguagePopup.helpers({
@@ -303,17 +312,6 @@ Template.changeLanguagePopup.helpers({
     };
     return flagMap[this.tag] || '🌐';
   },
-});
-
-Template.accountLanguagePage.onCreated(function() {
-  this.autorun(() => {
-    const language = ReactiveCache.getCurrentUser()?.profile?.language;
-    if (language && language !== TAPi18n.getLanguage()) {
-      Promise.resolve(TAPi18n.setLanguage(language)).catch(error => {
-        if (process.env.DEBUG === 'true') console.error('Could not load member language:', error);
-      });
-    }
-  });
 });
 
 Template.changeLanguagePopup.events({

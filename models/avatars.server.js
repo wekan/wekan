@@ -172,7 +172,7 @@ Avatars.onBeforeRemove = async function (filesInput) {
   for (const fileObj of files) {
     if (fileObj && fileObj.userId) {
       const user = await ReactiveCache.getUser(fileObj.userId);
-      if (user?.profile?.avatarUrl === generateUniversalAvatarUrl(fileObj._id)) {
+      if (user) {
         await user.setAvatarUrl('');
       }
     }

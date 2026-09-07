@@ -78,14 +78,9 @@ test('server method toggleDefaultBoard exists and is auth-guarded', () => {
   const s = read('server/models/users.js');
   const i = s.indexOf('toggleDefaultBoard(boardId)');
   assert.ok(i !== -1, 'server method');
-  const body = s.slice(i, i + 300);
-  assert.ok(/toggleAccessibleDefaultBoard\(this\.userId, boardId\)/.test(body),
-    'delegates to the shared authenticated boundary');
-  const shared = read('server/lib/accessibleBoardListOperations.js');
-  assert.ok(/if \(!userId\) throw new Meteor\.Error\('not-logged-in'/.test(shared),
-    'shared boundary requires login');
-  assert.ok(/\$unset|\$set/.test(shared), 'shared boundary sets/unsets the field');
-  assert.ok(/board\.isVisibleBy\(user\)/.test(shared), 'target board must be visible');
+  const body = s.slice(i, i + 500);
+  assert.ok(/not-logged-in/.test(body), 'requires login');
+  assert.ok(/\$unset|\$set/.test(body), 'sets/unsets the field');
 });
 
 test('router redirects to the default board ONCE per session (login), not every visit', () => {

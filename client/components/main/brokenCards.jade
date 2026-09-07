@@ -1,14 +1,13 @@
 template(name="brokenCards")
   if currentUser
-    .wrapper.global-search-wrapper.board-color-belize
-      if searching.get
-        +spinner
-      else if hasResults.get
-        .global-search-results-list-wrapper.global-search-results-list
-          if hasQueryErrors.get
-            div
-              each msg in errorMessages
-                span.global-search-error-messages
-                  = msg
-          else
-            +resultsPaged getSearchData
+    if searching.get
+      +spinner
+    else if hasResults.get
+      .global-search-results-list-wrapper
+        if hasQueryErrors.get
+          div
+            each msg in errorMessages
+              span.global-search-error-messages
+                = msg
+        else
+          +resultsPaged(this)

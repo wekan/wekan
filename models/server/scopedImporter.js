@@ -33,7 +33,7 @@ const isPlainObject = value =>
   value !== null && typeof value === 'object' && !Array.isArray(value);
 
 class ScopedImporter {
-  // target: { boardId, swimlaneId?, listId?, cardId?, checklistId? } - what the menu was
+  // target: { boardId, swimlaneId?, listId?, cardId? } - what the menu was
   // opened on. The kind of target decides what is imported and where it goes.
   constructor(target, doc, options = {}) {
     this._target = target || {};
@@ -63,14 +63,6 @@ class ScopedImporter {
 
   _now() { return new Date(); }
 
-  _denyTarget(error, detail) {
-    require('/server/lib/securityLog').record({
-      category: 'authz', bleed: 'ImportBleed', severity: 'high', action: 'blocked',
-      source: 'scoped-import', userId: this._userId, detail,
-    });
-    throw new Meteor.Error(error, detail);
-  }
-
   // The document's arrays, defensively: a hand-edited file is a file somebody
   // will import, and an undefined `cards` should not be a stack trace.
   _rows(key) {
@@ -82,63 +74,12 @@ class ScopedImporter {
     const board = await ReactiveCache.getBoard(this._target.boardId);
     if (!board) throw new Meteor.Error('board-not-found', 'Board not found');
 
-    if (this._target.checklistId) await this._importChecklistsIntoChecklist(board);
-    else if (this._target.cardId) await this._importCards(board);
+    if (this._target.cardId) await this._importCards(board);
     else if (this._target.listId) await this._importLists(board);
     else if (this._target.swimlaneId) await this._importSwimlanes(board);
     else await this._importSwimlanes(board);
 
     return this._counts;
-  }
-
-  async _importChecklistsIntoChecklist(board) {
-    const target = await ReactiveCache.getChecklist({
-      _id: this._target.checklistId,
-      boardId: board._id,
-    });
-    if (!target) this._denyTarget('checklist-not-found',
-      'refused scoped import with a checklist outside the destination board');
-    const targetCard = await ReactiveCache.getCard({ _id: target.cardId, boardId: board._id });
-    if (!targetCard) this._denyTarget('card-not-found',
-      'refused scoped import with a checklist outside the destination card');
-    if (!this.hasField('checklists')) return;
-
-    const incoming = this._rows('checklists');
-    const incomingItems = this._rows('checklistItems');
-    const existing = await ReactiveCache.getChecklists({
-      cardId: targetCard._id,
-      boardId: board._id,
-    }, { sort: { sort: 1 } });
-    const sorts = sortsAfter(existing.map(checklist => checklist.sort), target.sort, incoming.length);
-    for (const [index, checklist] of incoming.entries()) {
-      const now = this._now();
-      const checklistId = await Checklists.direct.insertAsync({
-        boardId: board._id,
-        cardId: targetCard._id,
-        title: checklist.title || 'Checklist',
-        sort: sorts[index],
-        createdAt: now,
-        modifiedAt: now,
-        ...(typeof checklist.hideCheckedChecklistItems === 'boolean'
-          ? { hideCheckedChecklistItems: checklist.hideCheckedChecklistItems } : {}),
-        ...(typeof checklist.hideAllChecklistItems === 'boolean'
-          ? { hideAllChecklistItems: checklist.hideAllChecklistItems } : {}),
-        ...(typeof checklist.showChecklistAtMinicard === 'boolean'
-          ? { showChecklistAtMinicard: checklist.showChecklistAtMinicard } : {}),
-      });
-      const items = incomingItems.filter(item => item.checklistId === checklist._id);
-      for (const item of items) await ChecklistItems.direct.insertAsync({
-        boardId: board._id,
-        cardId: targetCard._id,
-        checklistId,
-        title: item.title || '',
-        isFinished: item.isFinished === true,
-        sort: typeof item.sort === 'number' ? item.sort : 0,
-        createdAt: now,
-        modifiedAt: now,
-      });
-      this._counts.checklists += 1;
-    }
   }
 
   // ── swimlanes ─────────────────────────────────────────────────────────────

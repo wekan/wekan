@@ -1243,7 +1243,7 @@ function run_all_tests(){
 
 	# WHICH PORT the test database is on. 3001 by default - that is what Meteor's
 	# own dev mongo used and what the E2E helpers default to - but it is not ours
-	# to insist on: on this machine 3001 turned out to belong to an "Legacy HTML4 Server"
+	# to insist on: on this machine 3001 turned out to belong to an "Omi Server"
 	# speaking HTTP, and every run either died on "Topology is closed" or stopped
 	# at the check below. So the port is a variable, the run moves to a free one
 	# when the default is taken by something that is not a database, and it tells

@@ -91,8 +91,7 @@ Template.commentForm.events({
   'input .js-new-comment-input'(evt) {
     scheduleCommentDraftSave(Utils.getCurrentCardId(), evt.currentTarget.value);
   },
-  async 'submit .js-new-comment-form'(evt, tpl) {
-    evt.preventDefault();
+  'submit .js-new-comment-form'(evt, tpl) {
     const input = tpl.$('.js-new-comment-input');
     const text = input.val().trim();
     const card = Template.currentData();
@@ -106,8 +105,11 @@ Template.commentForm.events({
     }
     if (text) {
       const parentId = replyToCommentId.get();
-      await Meteor.callAsync('createAccessibleComment', {
-        text, boardId, cardId, parentId: parentId || '',
+      CardComments.insert({
+        text,
+        boardId,
+        cardId,
+        parentId: parentId || '',
       });
       // #5547: the comment is saved — cancel any debounced draft save still in
       // flight and remove the stored draft so it does not resurface next open.
@@ -122,6 +124,7 @@ Template.commentForm.events({
       autosize.update(input);
       input.trigger('submitted');
     }
+    evt.preventDefault();
   },
   'click .js-cancel-reply'(evt) {
     evt.preventDefault();
@@ -173,27 +176,27 @@ Template.comment.events({
       $('.js-new-comment-input').focus();
     });
   },
-  'click .js-delete-comment': Popup.afterConfirm('deleteComment', async function () {
+  'click .js-delete-comment': Popup.afterConfirm('deleteComment', function () {
     const commentId = this._id;
     // #3252: only remove if the doc is still in the local cache. Under heavy
     // archive/delete churn the comment can already be evicted from Minimongo,
     // and CardComments.remove() of a missing _id throws "Removed nonexistent
     // document" on the client.
     if (commentId && CardComments.findOne(commentId)) {
-      await Meteor.callAsync('removeAccessibleComment', {
-        commentId, cardId: this.cardId, boardId: this.boardId,
-      });
+      CardComments.remove(commentId);
     }
     Popup.back();
   }),
-  async 'submit .js-edit-comment'(evt, tpl) {
+  'submit .js-edit-comment'(evt, tpl) {
     evt.preventDefault();
     const textarea = tpl.find('.js-edit-comment textarea,input[type=text]');
     const commentText = textarea && textarea.value ? textarea.value.trim() : '';
     const commentId = tpl.data._id;
     if (commentText) {
-      await Meteor.callAsync('updateAccessibleComment', {
-        commentId, cardId: tpl.data.cardId, boardId: tpl.data.boardId, text: commentText,
+      CardComments.update(commentId, {
+        $set: {
+          text: commentText,
+        },
       });
     }
   },

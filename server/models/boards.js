@@ -28,12 +28,10 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import Triggers from '/models/triggers';
 import Users from '/models/users';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import { getFeatureFlags } from '/models/lib/featureFlags';
+import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
-import {
-  createAccessibleBoardWithInitialSwimlanes,
-  permanentlyDeleteAccessibleArchivedBoards,
-  setAccessibleBoardArchived,
-} from '/server/lib/accessibleBoardListOperations';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 
@@ -136,9 +134,64 @@ Meteor.methods({
       check(swimlane.role, Match.Maybe(String));
     }
 
-    return createAccessibleBoardWithInitialSwimlanes(this.userId, {
-      title, slug, permission, type, migrationVersion, swimlanes,
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const boardId = await Boards.insertAsync({
+      title,
+      slug,
+      permission,
+      type,
+      migrationVersion,
+      members: [
+        {
+          userId: this.userId,
+          isAdmin: true,
+          isActive: true,
+          isNoComments: false,
+          isCommentOnly: false,
+          isWorker: false,
+        },
+      ],
     });
+
+    // #2339/#5850: when the user creates a Template Container board (via the
+    // "Add Template Container" button on All Boards / Templates), register it
+    // and its three swimlanes as the user's active templates board so that
+    // adding Card/List/Swimlane/Board templates to it actually works -- the
+    // swimlane.isCardTemplatesSwimlane()/... helpers compare against these
+    // profile pointers. Without this the container would look right but stay
+    // inert. We point the profile at this newly-created container (the most
+    // recently created one becomes the active one).
+    const templateRolePointers = {
+      card: 'profile.cardTemplatesSwimlaneId',
+      list: 'profile.listTemplatesSwimlaneId',
+      board: 'profile.boardTemplatesSwimlaneId',
+    };
+    const isTemplateContainer = type === 'template-container';
+    const profilePointerSet = {};
+    if (isTemplateContainer) {
+      profilePointerSet['profile.templatesBoardId'] = boardId;
+    }
+
+    for (const swimlane of swimlanes) {
+      const swimlaneId = await Swimlanes.insertAsync({
+        title: swimlane.title,
+        boardId,
+        sort: swimlane.sort,
+        type: swimlane.type,
+      });
+      if (isTemplateContainer && templateRolePointers[swimlane.role]) {
+        profilePointerSet[templateRolePointers[swimlane.role]] = swimlaneId;
+      }
+    }
+
+    if (Object.keys(profilePointerSet).length) {
+      await Users.updateAsync(this.userId, { $set: profilePointerSet });
+    }
+
+    return boardId;
   },
 
   async getBackgroundImageURL(boardId) {
@@ -259,7 +312,23 @@ Meteor.methods({
   // unreachable from the UI and its only effect was the destructive write.
   async archiveBoard(boardId) {
     check(boardId, String);
-    return setAccessibleBoardArchived(this.userId, boardId, true);
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('error-board-doesNotExist');
+    }
+
+    const userId = this.userId;
+    // Archiving a board hides it for everyone, so it is a board-admin action,
+    // matching the client gating (boardArchive.js `isBoardAdmin`) and the
+    // Boards.allow update/remove rules. Previously any member (incl. read-only)
+    // could archive a board over DDP. Global admins are also allowed.
+    const user = await ReactiveCache.getUser(userId);
+    if (!board.hasAdmin(userId) && !(user && user.isAdmin)) {
+      throw new Meteor.Error('error-board-notAdmin');
+    }
+
+    await board.archive();
+    return true;
   },
 
   // The other direction, and gated the same way. Restoring puts a board back in
@@ -274,7 +343,19 @@ Meteor.methods({
   // boards or say why it refused. docs/Features/Page/Archive.md
   async restoreBoard(boardId) {
     check(boardId, String);
-    return setAccessibleBoardArchived(this.userId, boardId, false);
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!board) {
+      throw new Meteor.Error('error-board-doesNotExist');
+    }
+
+    const userId = this.userId;
+    const user = await ReactiveCache.getUser(userId);
+    if (!board.hasAdmin(userId) && !(user && user.isAdmin)) {
+      throw new Meteor.Error('error-board-notAdmin');
+    }
+
+    await board.restore();
+    return true;
   },
 
   // Permanently remove archived boards selected in All Boards / Archive.
@@ -283,10 +364,76 @@ Meteor.methods({
   // Validate the whole selection before deleting the first board so one bad id
   // cannot leave a partially applied bulk action.
   async permanentlyDeleteArchivedBoards(boardIds) {
-    check(boardIds, [String]);
-    return permanentlyDeleteAccessibleArchivedBoards(
-      this.userId, boardIds, this.connection,
-    );
+    const attemptedIds = Array.isArray(boardIds)
+      ? [...new Set(boardIds.filter(id => typeof id === 'string'))].slice(0, 200)
+      : [];
+    let attemptedBoards = attemptedIds.map(_id => ({ _id, title: '' }));
+    let user;
+    let username = 'unknown';
+
+    try {
+      // audit-argument-checks must see the method argument before the first
+      // await. Otherwise the asynchronous user lookup can leave the audit
+      // context believing boardIds was never checked and mask the real result
+      // with "Did not check() all arguments".
+      check(boardIds, [String]);
+      user = this.userId && await ReactiveCache.getUser(this.userId);
+      username = user?.username || user?._id || 'unknown';
+      const ids = [...new Set(boardIds)];
+      if (!ids.length || ids.length > 200) {
+        throw new Meteor.Error('invalid-board-selection');
+      }
+
+      const foundBoards = await Boards.find(
+        { _id: { $in: ids } },
+        { fields: { _id: 1, title: 1, archived: 1 } },
+      ).fetchAsync();
+      const foundById = new Map(foundBoards.map(board => [board._id, board]));
+      attemptedBoards = ids.map(_id => foundById.get(_id) || { _id, title: '' });
+
+      if (user?.isAdmin !== true || !getFeatureFlags().enablePermanentDelete) {
+        throw new Meteor.Error('not-authorized', 'Permanent delete is disabled.');
+      }
+      if (foundBoards.length !== ids.length || foundBoards.some(board => !board.archived)) {
+        throw new Meteor.Error(
+          'not-archived',
+          'Only archived boards can be permanently deleted.',
+        );
+      }
+      for (const board of foundBoards) {
+        await Boards.removeAsync(board._id);
+        await recordRecoveryAudit({
+          type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+          user,
+          connection: this.connection,
+          done: true,
+          deletedData: true,
+          boards: [board],
+          detail: `Global Admin ${username} (${user._id}) permanently deleted board ${board._id} titled ${JSON.stringify(board.title || '')}.`,
+        });
+      }
+      return { deleted: foundBoards.length };
+    } catch (error) {
+      // A malformed argument still belongs in Recovery. Resolve the actor here
+      // only when validation failed before the ordinary lookup above.
+      if (!user && this.userId) {
+        try {
+          user = await ReactiveCache.getUser(this.userId);
+          username = user?.username || user?._id || 'unknown';
+        } catch {
+          // Best effort: the original deletion error is the one returned.
+        }
+      }
+      await recordRecoveryAudit({
+        type: RecoveryEvents.types.BOARD_PERMANENTLY_DELETED,
+        user,
+        connection: this.connection,
+        done: false,
+        boards: attemptedBoards,
+        detail: `User ${username} (${user?._id || 'not logged in'}) failed to permanently delete boards ${attemptedBoards.map(board => `${board._id} titled ${JSON.stringify(board.title || '')}`).join(', ') || '(none)'}: ${error.reason || error.message || 'unknown error'}.`,
+      });
+      throw error;
+    }
   },
 
   async setBoardOrgs(boardOrgsArray, currBoardId) {

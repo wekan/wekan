@@ -17,7 +17,7 @@ template(name="cardActivities")
     +activity(activity=activityData card=card mode=mode)
 
 template(name="activity")
-  .activity(data-id=activity._id aria-label=activityDescription)
+  .activity(data-id=activity._id)
     +userAvatar(userId=activity.user._id)
     p.activity-desc
       span.activity-member
@@ -79,9 +79,6 @@ template(name="activity")
           a.activity-checklist(href="{{ activity.card.originRelativeUrl }}")
             +viewer
               = activity.checklist.title
-
-      if($eq activity.activityType 'removeChecklist')
-        | {{{_ 'activity-checklist-removed' cardLink}}}.
 
       if($eq activity.activityType 'removedChecklist')
         | {{{_ 'activity-checklist-removed' cardLink}}}.

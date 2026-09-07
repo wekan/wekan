@@ -5,10 +5,6 @@ import { Query, QueryErrors } from '../../../config/query-classes';
 import { OPERATOR_USER } from '/config/search-const';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
-const {
-  GLOBAL_SEARCH_HELP_LINES,
-  GLOBAL_SEARCH_HELP_TAGS,
-} = require('/models/lib/globalSearchHelp');
 
 // const subManager = new SubsManager();
 
@@ -352,11 +348,94 @@ Template.globalSearch.helpers({
 
   searchInstructions() {
     try {
-      const tags = Object.fromEntries(Object.entries(GLOBAL_SEARCH_HELP_TAGS)
-        .map(([name, key]) => [name, TAPi18n.__(key)]));
+      const tags = {
+        operator_board: TAPi18n.__('operator-board'),
+        operator_list: TAPi18n.__('operator-list'),
+        operator_swimlane: TAPi18n.__('operator-swimlane'),
+        operator_comment: TAPi18n.__('operator-comment'),
+        operator_label: TAPi18n.__('operator-label'),
+        operator_label_abbrev: TAPi18n.__('operator-label-abbrev'),
+        operator_user: TAPi18n.__('operator-user'),
+        operator_user_abbrev: TAPi18n.__('operator-user-abbrev'),
+        operator_member: TAPi18n.__('operator-member'),
+        operator_member_abbrev: TAPi18n.__('operator-member-abbrev'),
+        operator_assignee: TAPi18n.__('operator-assignee'),
+        operator_assignee_abbrev: TAPi18n.__('operator-assignee-abbrev'),
+        operator_creator: TAPi18n.__('operator-creator'),
+        operator_due: TAPi18n.__('operator-due'),
+        operator_created: TAPi18n.__('operator-created'),
+        operator_modified: TAPi18n.__('operator-modified'),
+        operator_status: TAPi18n.__('operator-status'),
+        operator_has: TAPi18n.__('operator-has'),
+        operator_sort: TAPi18n.__('operator-sort'),
+        operator_limit: TAPi18n.__('operator-limit'),
+        operator_debug: TAPi18n.__('operator-debug'),
+        operator_org: TAPi18n.__('operator-org'),
+        operator_team: TAPi18n.__('operator-team'),
+        operator_number: TAPi18n.__('operator-number'),
+        predicate_overdue: TAPi18n.__('predicate-overdue'),
+        predicate_archived: TAPi18n.__('predicate-archived'),
+        predicate_all: TAPi18n.__('predicate-all'),
+        predicate_ended: TAPi18n.__('predicate-ended'),
+        predicate_week: TAPi18n.__('predicate-week'),
+        predicate_month: TAPi18n.__('predicate-month'),
+        predicate_quarter: TAPi18n.__('predicate-quarter'),
+        predicate_year: TAPi18n.__('predicate-year'),
+        predicate_attachment: TAPi18n.__('predicate-attachment'),
+        predicate_description: TAPi18n.__('predicate-description'),
+        predicate_checklist: TAPi18n.__('predicate-checklist'),
+        predicate_public: TAPi18n.__('predicate-public'),
+        predicate_private: TAPi18n.__('predicate-private'),
+        predicate_due: TAPi18n.__('predicate-due'),
+        predicate_created: TAPi18n.__('predicate-created'),
+        predicate_modified: TAPi18n.__('predicate-modified'),
+        predicate_start: TAPi18n.__('predicate-start'),
+        predicate_end: TAPi18n.__('predicate-end'),
+        predicate_assignee: TAPi18n.__('predicate-assignee'),
+        predicate_member: TAPi18n.__('predicate-member'),
+        predicate_selector: TAPi18n.__('predicate-selector'),
+        predicate_projection: TAPi18n.__('predicate-projection'),
+      };
 
       let text = '';
-      GLOBAL_SEARCH_HELP_LINES.forEach(([prefix, instruction]) => {
+      [
+        ['# ', 'globalSearch-instructions-heading'],
+        ['\n', 'globalSearch-instructions-description'],
+        ['\n\n', 'globalSearch-instructions-operators'],
+        ['\n- ', 'globalSearch-instructions-operator-board'],
+        ['\n- ', 'globalSearch-instructions-operator-list'],
+        ['\n- ', 'globalSearch-instructions-operator-swimlane'],
+        ['\n- ', 'globalSearch-instructions-operator-comment'],
+        ['\n- ', 'globalSearch-instructions-operator-label'],
+        ['\n- ', 'globalSearch-instructions-operator-hash'],
+        ['\n- ', 'globalSearch-instructions-operator-user'],
+        ['\n- ', 'globalSearch-instructions-operator-at'],
+        ['\n- ', 'globalSearch-instructions-operator-member'],
+        ['\n- ', 'globalSearch-instructions-operator-assignee'],
+        ['\n- ', 'globalSearch-instructions-operator-creator'],
+        ['\n- ', 'globalSearch-instructions-operator-org'],
+        ['\n- ', 'globalSearch-instructions-operator-team'],
+        ['\n- ', 'globalSearch-instructions-operator-number'],
+        ['\n- ', 'globalSearch-instructions-operator-due'],
+        ['\n- ', 'globalSearch-instructions-operator-created'],
+        ['\n- ', 'globalSearch-instructions-operator-modified'],
+        ['\n- ', 'globalSearch-instructions-operator-status'],
+        ['\n    - ', 'globalSearch-instructions-status-archived'],
+        ['\n    - ', 'globalSearch-instructions-status-public'],
+        ['\n    - ', 'globalSearch-instructions-status-private'],
+        ['\n    - ', 'globalSearch-instructions-status-all'],
+        ['\n    - ', 'globalSearch-instructions-status-ended'],
+        ['\n- ', 'globalSearch-instructions-operator-has'],
+        ['\n- ', 'globalSearch-instructions-operator-sort'],
+        ['\n- ', 'globalSearch-instructions-operator-limit'],
+        ['\n## ', 'heading-notes'],
+        ['\n- ', 'globalSearch-instructions-notes-1'],
+        ['\n- ', 'globalSearch-instructions-notes-2'],
+        ['\n- ', 'globalSearch-instructions-notes-3'],
+        ['\n- ', 'globalSearch-instructions-notes-3-2'],
+        ['\n- ', 'globalSearch-instructions-notes-4'],
+        ['\n- ', 'globalSearch-instructions-notes-5'],
+      ].forEach(([prefix, instruction]) => {
         text += `${prefix}${TAPi18n.__(instruction, tags)}`
           // Replace *<text>* with `<text>` so markdown shows correctly
           .replace(/\*\</, '`<')

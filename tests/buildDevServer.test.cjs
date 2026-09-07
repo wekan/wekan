@@ -97,7 +97,7 @@ test('the test server reuses a database only when it ANSWERS', () => {
   // 2026-08-14: a run took the "reuse" branch, started no mongod of its own, and
   // the test server died on its first query with "Topology is closed" - there
   // was no wekan-test-mongod.log, because none was started. A TCP connect proves
-  // only that something accepted the socket. Here it was an "Legacy HTML4 Server"
+  // only that something accepted the socket. Here it was an "Omi Server"
   // answering HTTP on 3001; a mongod that is shutting down would do the same.
   assert.ok(/&& mongo_answers "\$TEST_DB_PORT"; then/.test(sh),
     'the reuse branch asks the database, not just the port');

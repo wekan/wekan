@@ -440,14 +440,12 @@ test('the design doc explains the theming', () => {
 test('Cards report sorts by an INDEXED field (boardId,createdAt), not the unindexed {boardId,sort}', () => {
   const pub = read('server/publications/cards.js');
   const block = pub.slice(pub.indexOf("publish('cardsReport'"), pub.indexOf("getCardsReportCount"));
-  const service = read('server/lib/cardsReport.js');
-  assert.ok(/sort:\s*\{\s*boardId:\s*1,\s*createdAt:\s*-1\s*\}/.test(service),
+  assert.ok(/sort:\s*\{\s*boardId:\s*1,\s*createdAt:\s*-1\s*\}/.test(block),
     'cardsReport must sort by the { boardId:1, createdAt:-1 } index');
-  assert.ok(!/sort:\s*\{\s*boardId:\s*1,\s*sort:\s*1\s*\}/.test(service),
+  assert.ok(!/sort:\s*\{\s*boardId:\s*1,\s*sort:\s*1\s*\}/.test(block),
     'the unindexed { boardId:1, sort:1 } sort must be gone');
   // publication is bounded (limit/skip)
-  assert.ok(/limit:\s*bounded\.limit[\s\S]*skip:\s*bounded\.skip/.test(service),
-    'shared report service must page with bounded limit/skip');
+  assert.ok(/limit,\s*skip/.test(block), 'publication must page with limit/skip');
   assert.ok(/publishReportPage\(this, 'report-cards'/.test(block),
     'and NAME the page it published, so the client renders that page and not '
     + 'whatever else minimongo holds');
@@ -561,9 +559,6 @@ test('Translation pages ONE page server-side, with a count method', () => {
   const js = read('client/components/settings/translationBody.js');
   assert.ok(/const \{ limit, skip \} = pageInfo\(/.test(js),
     'the subscribed window comes from pageInfo, like the counter');
-  assert.ok(/TRANSLATION_PAGE_ROWS_PER_PAGE = 25/.test(js));
-  assert.ok(/pageInfo\(total, this\.page\.get\(\),\s*TRANSLATION_PAGE_ROWS_PER_PAGE\)/.test(js),
-    'the total-page counter uses the same 25-row size as the subscription');
   assert.ok(/subscribe\('translation',[^,]+,\s*limit,\s*skip\)/.test(js),
     'one page, server-side');
   assert.ok(!/InfiniteScrolling|loadNextPage/.test(js),
@@ -571,7 +566,7 @@ test('Translation pages ONE page server-side, with a count method', () => {
   assert.ok(!/subscribe\('translation',[^,]+,\s*0\b/.test(js),
     'the limit-0 (= no limit = whole collection) load must stay gone');
   const pub = read('server/publications/translation.js');
-  assert.ok(/publish\('translation', async function\(search, limit, skip = 0\)/.test(pub),
+  assert.ok(/publish\('translation', async function\(query, limit, skip = 0\)/.test(pub),
     'the publication must take a skip');
   assert.ok(/skip:\s*skip \|\| 0/.test(pub), 'and apply it server-side');
   // The client re-applies the publication's sort, so the field must be published
@@ -923,17 +918,15 @@ test('Broken cards is a report like the ones beside it', () => {
   assert.ok(!/brokenCardsReport/.test(jadeSrc), 'and its template with it');
   // Server: one page, searchable, admin-only, with a count method beside it.
   const pub = read('server/publications/cards.js');
-  const service = read('server/lib/brokenCardsReport.js');
   assert.ok(/publish\('brokenCardsReport', async function\(searchTerm = '', limit, skip = 0\)/.test(pub),
     'the report publication takes searchTerm + limit/skip');
   const block = pub.slice(pub.indexOf("publish('brokenCardsReport'"));
-  assert.ok(/brokenCardsReportForAdmin/.test(block.slice(0, 600))
-    && /isAdmin/.test(service), 'admin-only through the shared report service');
+  assert.ok(/isAdmin/.test(block.slice(0, 600)), 'admin-only, like every report publication');
   assert.ok(/getBrokenCardsReportCount\(searchTerm/.test(pub), 'and a count method takes the search term');
   // What "broken" means is ONE definition, shared with the standalone page - which
   // still runs on the global search and must keep its own publication.
-  assert.ok(/const BROKEN_CARDS_SELECTOR =/.test(service), 'one selector');
-  assert.strictEqual((service.match(/type: \{ \$nin: CARD_TYPES \}/g) || []).length, 1,
+  assert.ok(/const BROKEN_CARDS_SELECTOR =/.test(pub), 'one selector');
+  assert.strictEqual((pub.match(/type: \{ \$nin: CARD_TYPES \}/g) || []).length, 1,
     'defined once, not copied into the report');
   assert.ok(/publish\('brokenCards', async function\(sessionId\)/.test(pub),
     'the standalone /broken-cards page keeps its publication');

@@ -2,12 +2,12 @@
 
 This page evaluates Free Pascal as a possible implementation language for
 WeKan. It uses the dependencies and design choices already explored in the
-local server-rendered Free Pascal prototype and
+local [Omi](https://github.com/wekan/omi) and
 [Wami](https://github.com/wekan/wami)
 prototypes. It is a design exploration, not a commitment to replace the current
 Meteor application.
 
-the Free Pascal prototype demonstrates a maintained, standalone Free Pascal HTTP server using
+Omi demonstrates a maintained, standalone Free Pascal HTTP server using
 `fphttpapp`, `HTTPDefs`, `httproute`, `fpjson`, `jsonparser` and a statically
 linked SQLite amalgamation. Wami demonstrates server-rendered WeKan-shaped pages
 for modern, no-JavaScript and retro browsers, backed by a proposed SQLite schema.
@@ -45,11 +45,11 @@ with existing data, permissions, imports and integrations remains mandatory.
 
 ## Existing prototype decisions
 
-| Area | the Free Pascal prototype selection | Wami selection | Consequence for a Free Pascal WeKan |
+| Area | Omi selection | Wami selection | Consequence for a Free Pascal WeKan |
 | --- | --- | --- | --- |
 | Compiler | Free Pascal 3.x, native executable | Free Pascal, including AmigaOS/AROS/MorphOS targets | Keep the portable language subset small and test every promised target. |
 | HTTP server | FCL `fphttpapp`, `HTTPDefs`, `httproute` | The same lightweight server initially | This is the default scale-down stack. |
-| High-scale HTTP/realtime | Not required by the Free Pascal prototype | mORMot 2; Brook as an alternative | Add only after measurements show that `fphttpapp` is insufficient. |
+| High-scale HTTP/realtime | Not required by Omi | mORMot 2; Brook as an alternative | Add only after measurements show that `fphttpapp` is insufficient. |
 | TLS and public edge | Reverse proxy | Caddy 2 reverse proxy | Keep certificate automation, HTTP/2/3 and edge policy outside the minimal app binary. |
 | Data | SQLite amalgamation linked into the executable | SQLite schema modeled from WeKan data | One local database file is the primary offline/small-server design. |
 | JSON | `fpjson`, `jsonparser` | JSON fields and structure detection | Prefer FCL units at small scale; mORMot JSON is an optional modern-server optimization. |
@@ -59,14 +59,14 @@ with existing data, permissions, imports and integrations remains mandatory.
 | Assets and translations | Files beside the executable; WeKan JSON locale files | Existing WeKan CSS, images and locale files copied for experiments | Add a generated Pascal resource/embed step for a true single-file build. |
 | Attachments | Filesystem operations and streaming | Filesystem paths with metadata in SQLite | Stream large files and never load whole attachments into memory. |
 
-the Free Pascal prototype and Wami are prototypes, not proof that every production requirement is
+Omi and Wami are prototypes, not proof that every production requirement is
 complete. In particular, plaintext prototype password files must not become the
 production account store, and IP/User-Agent binding must account for trusted
 reverse proxies and mobile address changes.
 
 ## Dependency equivalents
 
-The entries below prefer dependencies already selected by the Free Pascal prototype and Wami. Other
+The entries below prefer dependencies already selected by Omi and Wami. Other
 libraries are mentioned only where those prototypes deliberately identify a
 scale-up option or where the current WeKan feature has no selected implementation.
 A **custom** entry means product behaviour must be designed and tested.
@@ -75,7 +75,7 @@ A **custom** entry means product behaviour must be designed and tested.
 
 | Current WeKan dependency or facility | Selected Free Pascal equivalent | Compatibility and migration notes |
 | --- | --- | --- |
-| Meteor application platform | FCL `fphttpapp` + `HTTPDefs` + `httproute`, with explicit application services | This is the Free Pascal prototype and Wami's small default. There is no single Meteor-equivalent Pascal package. |
+| Meteor application platform | FCL `fphttpapp` + `HTTPDefs` + `httproute`, with explicit application services | This is Omi and Wami's small default. There is no single Meteor-equivalent Pascal package. |
 | Node.js runtime | Free Pascal native executable | Removes the server JavaScript runtime. Optional browser tooling and assets remain separate. |
 | Meteor methods | Routed POST forms and JSON endpoints in `httproute` | Preserve validation, authorization, error results, idempotency and audit side effects. Wami prefers immediate form submission for core operations. |
 | DDP over SockJS | Custom compatibility service, or replace it with normal HTTP plus optional WebSockets | The Wami server-rendered design does not require DDP. Existing Meteor clients would require a tested DDP/SockJS bridge. |
@@ -83,7 +83,7 @@ A **custom** entry means product behaviour must be designed and tested.
 | Tracker | Server request/response state; optional browser enhancement state | Pascal server threads do not replace Tracker's browser dependency graph. The no-JS design avoids requiring that graph. |
 | ReactiveVar, ReactiveDict and Session | Signed form state, server session records and ordinary Pascal records/classes | Define ownership, expiry and concurrency explicitly. Never trust hidden fields merely because the server generated them. |
 | Minimongo | No client database in the minimal design | Render only visible data from SQLite. A rich offline modern client would need a separate browser store and reconciliation protocol. |
-| MongoDB Meteor driver | FerretDB as a separate compatibility service, or a custom database adapter | No MongoDB driver was selected in the Free Pascal prototype/Wami. Direct SQLite is the selected Wami path; Mongo compatibility needs its own adapter and conformance suite. |
+| MongoDB Meteor driver | FerretDB as a separate compatibility service, or a custom database adapter | No MongoDB driver was selected in Omi/Wami. Direct SQLite is the selected Wami path; Mongo compatibility needs its own adapter and conformance suite. |
 | FerretDB v1 | Keep as a separate process when existing MongoDB documents must remain authoritative | Both being native programs does not create an in-process API. SQLite mode should not depend on FerretDB internals. |
 | MongoDB collections | Wami's SQLite schema plus a repository/data-mapper layer | The current schema is exploratory and stores many values as text. Normalize types, indexes, foreign keys and JSON fields based on measured queries. |
 | `aldeed:collection2` and SimpleSchema | Pascal record/class types plus custom boundary validators | Compile-time types do not validate HTTP fields, JSON, imported data or old rows. |
@@ -97,7 +97,7 @@ A **custom** entry means product behaviour must be designed and tested.
 
 | Current WeKan dependency or facility | Selected Free Pascal equivalent | Compatibility and migration notes |
 | --- | --- | --- |
-| Jade templates | Pascal HTML rendering helpers, as used by the Free Pascal prototype/Wami | Pug is Jade's JavaScript successor, but it is not required by the selected server-rendered Pascal design. A template engine could be added later if helpers become unmanageable. |
+| Jade templates | Pascal HTML rendering helpers, as used by Omi/Wami | Pug is Jade's JavaScript successor, but it is not required by the selected server-rendered Pascal design. A template engine could be added later if helpers become unmanageable. |
 | Blaze | Server-rendered HTML pages and forms | Helpers, events and lifecycle code become route handlers and view helpers. Preserve names and selectors needed by accessibility tools and tests where practical. |
 | Flow Router | `httproute` server routes | Existing board, card, public and authentication URLs remain compatibility requirements. |
 | Tracker reactivity | Page reloads or targeted modern-browser updates | The core path must remain functional without JavaScript. Optional realtime enhancement must not create a second authorization model. |
@@ -109,25 +109,25 @@ A **custom** entry means product behaviour must be designed and tested.
 | Textcomplete | Full-page or form-based selection in the minimal UI; optional modern component | Mentions and emoji can work through explicit selection before a caret-aware enhancement exists. |
 | FullCalendar | Server-rendered table calendar | Wami specifically prefers one table for screen-reader compatibility. Rich interaction may progressively enhance that table. |
 | Font Awesome | Existing copied CSS/fonts for modern browsers; text labels for universal UI | Icons must not be the only accessible name or status indicator. |
-| DOMPurify | Avoid injecting untrusted HTML; escape output in Pascal and use a strict server sanitizer for allowed markup | the Free Pascal prototype's `HtmlEncode` pattern is the baseline. A new sanitizer requires adversarial fixtures; simple string replacement is insufficient. |
-| Markdown-it and plugins | the Free Pascal prototype's server-side Markdown subset, expanded behind a tested renderer interface | Exact compatibility, raw HTML handling and sanitization are more important than matching every plugin immediately. |
+| DOMPurify | Avoid injecting untrusted HTML; escape output in Pascal and use a strict server sanitizer for allowed markup | Omi's `HtmlEncode` pattern is the baseline. A new sanitizer requires adversarial fixtures; simple string replacement is insufficient. |
+| Markdown-it and plugins | Omi's server-side Markdown subset, expanded behind a tested renderer interface | Exact compatibility, raw HTML handling and sanitization are more important than matching every plugin immediately. |
 | Temml/math rendering | Retain an optional browser renderer | Basic browsers may show the source expression. Do not make math JavaScript block the rest of a card. |
-| i18next and sprintf | `fpjson` locale loading and an escaped Pascal `t()` helper | the Free Pascal prototype already consumes WeKan-style JSON locale files. Placeholder inventories and fallback rules must match English exactly. |
+| i18next and sprintf | `fpjson` locale loading and an escaped Pascal `t()` helper | Omi already consumes WeKan-style JSON locale files. Placeholder inventories and fallback rules must match English exactly. |
 | JSZip | Server-side archive implementation or retained optional browser asset | No archive unit is selected yet. Any choice needs traversal, expanded-size and entry-count limits. |
 
 ### Authentication, integrations and files
 
 | Current WeKan dependency or facility | Selected Free Pascal equivalent | Compatibility and migration notes |
 | --- | --- | --- |
-| Accounts Password | the Free Pascal prototype-style server sessions and brute-force lockout, upgraded with a maintained password KDF and secure random source | Do not retain plaintext password files. Support migration from current hashes, resume-token revocation and constant-time verification. |
-| Session cookies | the Free Pascal prototype's signed hidden POST fields and rotating one-use counter; cookies may remain an optional modern mode | the Free Pascal prototype deliberately avoids cookies. Bind tokens to the action and expiry; make IP binding configurable because mobile networks and proxies change addresses. |
+| Accounts Password | Omi-style server sessions and brute-force lockout, upgraded with a maintained password KDF and secure random source | Do not retain plaintext password files. Support migration from current hashes, resume-token revocation and constant-time verification. |
+| Session cookies | Omi's signed hidden POST fields and rotating one-use counter; cookies may remain an optional modern mode | Omi deliberately avoids cookies. Bind tokens to the action and expiry; make IP binding configurable because mobile networks and proxies change addresses. |
 | CSRF protection | Action-bound one-use form token checked on every state change | Token rotation is useful only with replay-safe server state and correct concurrent-tab behaviour. |
-| OIDC, OAuth, LDAP and CAS | Custom adapters over maintained Pascal HTTP/TLS and protocol libraries; none selected by the Free Pascal prototype/Wami yet | Treat these as prototype gates. Provider discovery, signatures, redirects, TLS and logout require integration tests before parity is claimed. |
+| OIDC, OAuth, LDAP and CAS | Custom adapters over maintained Pascal HTTP/TLS and protocol libraries; none selected by Omi/Wami yet | Treat these as prototype gates. Provider discovery, signatures, redirects, TLS and logout require integration tests before parity is claimed. |
 | Sandstorm | Custom header/capability adapter | Preserve identity, sharing and lifecycle semantics; it is independent of HTML rendering. |
 | Meteor Email | SMTP client selected after supported-platform testing | No mail dependency is selected yet. TLS availability on retro targets will differ from modern Linux and Windows. |
-| `ostrio:files` | the Free Pascal prototype-style filesystem storage with SQLite metadata and `TFileStream` responses | Canonicalize paths, authorize before opening, support ranges, and stream rather than buffering large files. |
+| `ostrio:files` | Omi-style filesystem storage with SQLite metadata and `TFileStream` responses | Canonicalize paths, authorize before opening, support ranges, and stream rather than buffering large files. |
 | Local attachments | Filesystem beside a writable data directory | Keep executables/assets read-only and data outside the install directory where platform conventions require it. |
-| AWS S3, Azure Blob and Google Cloud Storage | Storage interface plus provider adapters; no SDK selected by the Free Pascal prototype/Wami | Do not hand-code cloud signing casually. A helper service is acceptable when a maintained Pascal SDK is unavailable. |
+| AWS S3, Azure Blob and Google Cloud Storage | Storage interface plus provider adapters; no SDK selected by Omi/Wami | Do not hand-code cloud signing casually. A helper service is acceptable when a maintained Pascal SDK is unavailable. |
 | Webhooks | Pascal HTTP client with explicit TLS, timeout, redirect and SSRF policy | User-configured URLs must not reach loopback, metadata services or private networks unless explicitly allowed. |
 | PDFKit | Server-side PDF adapter or an external helper | No selected Pascal PDF library exists in the prototypes. Verify Unicode, fonts and pagination against fixtures. |
 | ExcelJS | Spreadsheet adapter or an external helper | No selected library exists. Preserve XLSX import/export behaviour before removing the current implementation. |
@@ -139,10 +139,10 @@ A **custom** entry means product behaviour must be designed and tested.
 
 | Current WeKan dependency or facility | Selected Free Pascal equivalent | Compatibility and migration notes |
 | --- | --- | --- |
-| Meteor build tool and Rspack | `fpc` build script plus an explicit asset-generation step | the Free Pascal prototype compiles SQLite C to an object and links it into the executable. CSS/JS/images/translations need their own reproducible resource step. |
+| Meteor build tool and Rspack | `fpc` build script plus an explicit asset-generation step | Omi compiles SQLite C to an object and links it into the executable. CSS/JS/images/translations need their own reproducible resource step. |
 | npm dependency download | Repository-owned minimal code and pinned source archives | Wami's goal is offline compilation. Vendored code still needs provenance, checksums, licenses and security update procedures. |
-| SQLite runtime | Pinned SQLite amalgamation statically linked, as in the Free Pascal prototype | This produces no separate SQLite runtime library, but the database file remains external writable data. |
-| Static web assets | FPC resources compiled into the binary, or files beside it during development | the Free Pascal prototype currently uses adjacent files. Embedding them is additional work required for a true one-file server. |
+| SQLite runtime | Pinned SQLite amalgamation statically linked, as in Omi | This produces no separate SQLite runtime library, but the database file remains external writable data. |
+| Static web assets | FPC resources compiled into the binary, or files beside it during development | Omi currently uses adjacent files. Embedding them is additional work required for a true one-file server. |
 | Mocha, Chai and Sinon | FPCUnit plus small unit executables and HTTP fixture tests | Keep existing JavaScript tests as behavioural specifications during migration. |
 | Playwright | Keep Playwright for modern Chromium, Firefox and WebKit | Add HTML-level tests with JavaScript disabled and selected retro-browser smoke tests. Free Pascal does not replace browser automation. |
 | Import tests | Shared fixtures run against Meteor and Pascal implementations | Round-trip existing board, user, permission, attachment and activity shapes. |
@@ -156,7 +156,7 @@ A **custom** entry means product behaviour must be designed and tested.
 
 ### Scale down first
 
-The the Free Pascal prototype/Wami stack can run without Node.js, npm or a client JavaScript runtime.
+The Omi/Wami stack can run without Node.js, npm or a client JavaScript runtime.
 Simple HTML, a native server and SQLite can substantially reduce startup, memory
 and disk needs. This also gives old, text-mode and accessibility-oriented browsers
 a useful core interface instead of an unsupported blank page.
@@ -177,7 +177,7 @@ navigation and provides a fallback when scripts fail or networks are unreliable.
 
 ### Native SQLite deployment
 
-the Free Pascal prototype demonstrates linking a pinned SQLite amalgamation into the executable. A
+Omi demonstrates linking a pinned SQLite amalgamation into the executable. A
 single database file is attractive for personal, offline and small-team WeKan
 installations, backups and transfers. Streaming attachments separately avoids
 inflating that file with large binary content.
@@ -242,11 +242,11 @@ tests; they do not make them unnecessary.
 Extend Wami rather than beginning a third unrelated Pascal experiment:
 
 1. Extract reusable HTML escaping, translation, routing, session and SQLite code
-   from the Free Pascal prototype into small reviewed Pascal units.
+   from Omi into small reviewed Pascal units.
 2. Normalize the Wami SQLite schema for users, boards, swimlanes, lists, cards,
    memberships and activities, with typed fields and required indexes.
 3. Implement login with a production password KDF, secure randomness, lockout,
-   revocation and the Free Pascal prototype-style one-use action tokens.
+   revocation and Omi-style one-use action tokens.
 4. Render one board using only visible cards, with keyboard-accessible forms to
    create, move and archive a card without JavaScript.
 5. Add `interact.js` as progressive enhancement while keeping the same server
@@ -262,7 +262,7 @@ Extend Wami rather than beginning a third unrelated Pascal experiment:
 
 ## Recommendation
 
-Use the Free Pascal prototype's maintained Free Pascal server as the implementation reference and
+Use Omi's maintained Free Pascal server as the implementation reference and
 Wami's scale-down, server-rendered design as the product reference. Start with
 FCL `fphttpapp`, `httproute`, `fpjson`, statically linked SQLite, server-rendered
 HTML and optional `interact.js`. Keep Caddy at the public TLS edge. Do not add

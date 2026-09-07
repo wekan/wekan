@@ -24,21 +24,6 @@ Use the **Save** button directly below the provider fields. **Send SMTP test
 email** sends one to your own address using the active transport and reports
 what happened.
 
-The same page URL has a semantic Legacy HTML4 form when JavaScript drag and
-drop is unavailable. It supports the transport, provider, test message, invite
-domain and account-email policy with ordinary signed HTTP POST forms. Because
-HTML4 cannot reveal conditional fields after a provider selector changes, its
-form keeps the custom SMTP host, port and TLS controls visible for every
-provider; they are ignored unless SMTP is selected. This permits changing from
-a built-in provider back to SMTP in one request without JavaScript.
-
-Both views use the same Global Admin-only server operations. Provider passwords
-are write-only: a non-empty value replaces the stored secret, while an empty
-field preserves it. Publications, HTML4 responses and method return values
-expose only whether a password exists, never its value. Direct client writes to
-the transport, invite domain or Allow Email Change setting are denied and the
-attempt is reported in Admin Panel / Problems / Security.
-
 ## Related
 
 - [E-mail troubleshooting](../../Email/Troubleshooting-Mail.md)

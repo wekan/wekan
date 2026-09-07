@@ -1,7 +1,9 @@
+import { Meteor } from 'meteor/meteor';
 import Announcements from '/models/announcements';
 
 Announcements.allow({
-  update() {
-    return false;
+  async update(userId) {
+    const user = await Meteor.users.findOneAsync(userId);
+    return user && user.isAdmin;
   },
 });

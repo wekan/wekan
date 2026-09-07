@@ -15,18 +15,10 @@ reclaim, bounded external requests and rate-limit-aware retries.
 ## Canonical WeKan format
 
 `wekan-board-1.0.0` JSON is the lossless canonical board format. Its ZIP form
-contains that document as `wekan.json` plus attachment bytes under
-`attachments/<attachment-id>-<sanitized-name>`; the JSON attachment rows are the
-manifest that associates those streams with cards and board backgrounds. The
-schema version is explicit; readers accept older additive documents, reject unknown
-incompatible major formats, preserve IDs only as source references, and validate
-every object, array, date, URL, filename and size before writing.
-
-Both whole-board and scoped ZIP imports use the same central-directory reader. It
-rejects non-portable or traversing paths, duplicate documents and attachment IDs,
-excessive entries and excessive declared or actual expanded bytes. Only
-`wekan.json` is buffered under its document limit; each attachment is streamed
-separately through the standard upload hook into the Admin Panel Default Storage.
+contains the same JSON plus attachment bytes and a manifest. The schema version
+is explicit; readers accept older additive documents, reject unknown incompatible
+major formats, preserve IDs only as source references, and validate every object,
+array, date, URL, filename and size before writing.
 
 The canonical field inventory is board metadata and settings; swimlanes and
 lists with order, archive and color state; cards with text, order, archive,

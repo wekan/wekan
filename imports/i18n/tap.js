@@ -160,7 +160,7 @@ export const TAPi18n = {
   loadTranslation(language) {
     return new Promise((resolve, reject) => {
       if (Meteor.isClient) {
-        const translationSubscription = Meteor.subscribe('translationLanguage', language, {
+        const translationSubscription = Meteor.subscribe('translation', {language: language},  0, {
           onReady() {
             resolve(translationSubscription);
           },

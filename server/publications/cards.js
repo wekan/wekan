@@ -1,12 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { publishReportPage } from '/models/lib/reportPageIndex';
-import { cardsReportCountForAdmin, cardsReportForAdmin } from '/server/lib/cardsReport';
-import {
-  BROKEN_CARDS_SELECTOR,
-  brokenCardsReportCountForAdmin,
-  brokenCardsReportForAdmin,
-} from '/server/lib/brokenCardsReport';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
@@ -83,6 +77,7 @@ import {
   PREDICATE_SYSTEM,
 } from '/config/search-const';
 import { QueryErrors, QueryParams, Query } from '/config/query-classes';
+import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
@@ -450,7 +445,6 @@ Meteor.publish('sessionData', async function(sessionId) {
 // YOUR boards. Someone who wants to look inside a public board can still open it
 // and search there.
 const SEARCH_BOARD_SCOPE = { includePublic: false };
-export const MAX_GLOBAL_SEARCH_RESULTS_PER_PAGE = 200;
 
 async function buildSelector(queryParams, userId) {
   const errors = new QueryErrors();
@@ -1007,7 +1001,6 @@ function buildProjection(query) {
   if (query.getQueryParams().hasOperator(OPERATOR_LIMIT)) {
     limit = query.getQueryParams().getPredicate(OPERATOR_LIMIT);
   }
-  limit = Math.min(limit, MAX_GLOBAL_SEARCH_RESULTS_PER_PAGE);
 
   const projection = {
     fields: {
@@ -1106,25 +1099,44 @@ async function buildQuery(queryParams, userId) {
 // and by the Admin Panel report below, so the two can never disagree about what
 // "broken" means. Unchanged from before the report was converted - only the way the
 // report FETCHES its rows changed.
-// The standalone HTML5 and HTML4 /broken-cards pages share this constructed
-// query and the guarded executor. Admin Panel / Problems / Broken cards remains
-// a separate, admin-only REPORT below.
-async function buildBrokenCardsSearch(userId) {
-  const params = new QueryParams();
-  params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
-  const query = await buildQuery(params, userId);
-  query.selector.$or = BROKEN_CARDS_SELECTOR.$or;
-  return query;
-}
+const BROKEN_CARDS_SELECTOR = {
+  $or: [
+    { boardId: { $in: [null, ''] } },
+    { swimlaneId: { $in: [null, ''] } },
+    { listId: { $in: [null, ''] } },
+    { type: { $nin: CARD_TYPES } },
+  ],
+};
 
+// The standalone /broken-cards PAGE (client/components/main/brokenCards.js) still
+// runs on the global-search machinery, so its publication stays exactly as it was.
+// Admin Panel / Problems / Broken cards is a separate, admin-only REPORT below.
 Meteor.publish('brokenCards', async function(sessionId) {
   check(sessionId, String);
 
-  const query = await buildBrokenCardsSearch(this.userId);
+  const params = new QueryParams();
+  params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
+  const query = await buildQuery(params, this.userId);
+  query.selector.$or = BROKEN_CARDS_SELECTOR.$or;
+
   const { cursors: brokenCursors, sessionData: brokenSessionData } = await findCards(sessionId, query, this.userId);
   if (brokenSessionData) this.added('sessiondata', brokenSessionData._id, brokenSessionData);
   return brokenCursors;
 });
+
+function brokenCardsQuery(searchTerm) {
+  if (!searchTerm) {
+    return { ...BROKEN_CARDS_SELECTOR };
+  }
+  // Both conditions, and both are an $or - so they are $and-ed explicitly rather
+  // than written as two $or keys, where the second would silently replace the first.
+  return {
+    $and: [
+      BROKEN_CARDS_SELECTOR,
+      { title: new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') },
+    ],
+  };
+}
 
 // Broken cards, as a REPORT: one page, server-side, searchable and counted - the
 // same shape as the Files / Rules / Boards / Cards reports beside it in Admin Panel
@@ -1135,31 +1147,65 @@ Meteor.publish('brokenCardsReport', async function(searchTerm = '', limit, skip 
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
-  let report;
-  try {
-    report = await brokenCardsReportForAdmin(this.userId, {
-      search: searchTerm || '', limit, skip: skip || 0,
-    });
-  } catch (error) {
-    if (error?.error === 'not-authorized') return this.ready();
-    throw error;
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
   }
 
-  for (const doc of report.cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
-  for (const doc of report.boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
-  for (const doc of report.lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
-  for (const doc of report.swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  // Published MANUALLY (fetch + this.added + this.ready) for the same reason as
+  // cardsReport above: a returned sorted+limited cursor triggers a limited live
+  // observe that hangs on FerretDB's OpLog and leaves the report on its spinner.
+  const cards = await ReactiveCache.getCards(
+    brokenCardsQuery(searchTerm),
+    {
+      fields: {
+        title: 1,
+        type: 1,
+        boardId: 1,
+        listId: 1,
+        swimlaneId: 1,
+        createdAt: 1,
+      },
+      sort: { boardId: 1, createdAt: -1 },
+      limit,
+      skip: skip || 0,
+    },
+    false,
+  );
+
+  // A broken card's board / swimlane / list is exactly what may be missing, so
+  // only the ids that ARE set are looked up; the rest render as an empty cell.
+  const boardIds = new Set();
+  const listIds = new Set();
+  const swimlaneIds = new Set();
+  cards.forEach(card => {
+    if (card.boardId) boardIds.add(card.boardId);
+    if (card.listId) listIds.add(card.listId);
+    if (card.swimlaneId) swimlaneIds.add(card.swimlaneId);
+  });
+
+  const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
+  const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
+  const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
+
+  for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
+  for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
   // WHICH cards this page is, in this order. Minimongo holds every card of every
   // board the admin has opened, so without this the pane rendered all of them -
   // hundreds of rows under a pager that correctly said "1 / 1".
-  publishReportPage(this, 'report-broken', report.cards);
+  publishReportPage(this, 'report-broken', cards);
   this.ready();
 });
 
 Meteor.methods({
   async getBrokenCardsReportCount(searchTerm = '') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    return brokenCardsReportCountForAdmin(this.userId, searchTerm || '');
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const cursor = await ReactiveCache.getCards(brokenCardsQuery(searchTerm), {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });
 
@@ -1201,7 +1247,7 @@ Meteor.publish('previousPage', async function(sessionId) {
   return prevCursors;
 });
 
-async function executeCardSearch(query, userId) {
+async function findCards(sessionId, query, userId) {
   // SessionData replays selectors for pagination. Scope again here so a session
   // written by an older vulnerable release cannot retain cross-board access,
   // and reject execution operators before either MongoDB or FerretDB sees them.
@@ -1221,8 +1267,8 @@ async function executeCardSearch(query, userId) {
     ? MATCH_NOTHING
     : { $and: [storedSelector, { boardId: { $in: authorizedBoardIds } }] };
 
-  const textMatches = query.getQueryParams().text;
-  const isTextSearch = !!textMatches;
+  let textMatches = query.getQueryParams().text;
+  let isTextSearch = !!textMatches;
   let dbProjection = query.projection;
   if (isTextSearch) {
     dbProjection = {
@@ -1234,12 +1280,7 @@ async function executeCardSearch(query, userId) {
   }
 
   let cards = await ReactiveCache.getCards(databaseSelector, dbProjection, true);
-  // A cursor count after skip/limit reports only the current page on MongoDB
-  // and FerretDB. Count the authorized selector independently so both the DDP
-  // and HTML4 pagers know that later pages exist.
-  const countCursor = Cards.find(databaseSelector, { fields: { _id: 1 } });
-  const totalCardsCount = typeof countCursor.countAsync === 'function'
-    ? await countCursor.countAsync() : countCursor.count();
+  let totalCardsCount = cards ? (typeof cards.countAsync === 'function' ? await cards.countAsync() : cards.count()) : 0;
   let orderedIds = [];
 
   if (isTextSearch && totalCardsCount > 0) {
@@ -1263,55 +1304,7 @@ async function executeCardSearch(query, userId) {
     cards = await ReactiveCache.getCards({ _id: { $in: orderedIds } }, { fields: query.projection.fields }, true);
   }
 
-  return { cards, totalCardsCount, orderedIds, storedSelector };
-}
 
-async function searchQueryPage(query, userId, requestedPage = 1) {
-  const limit = query.projection.limit || DEFAULT_LIMIT;
-  const numericPage = Math.floor(Number(requestedPage));
-  let page = Number.isSafeInteger(numericPage) && numericPage > 0
-    ? Math.min(numericPage, 10000) : 1;
-  query.projection.skip = (page - 1) * limit;
-  let result = await executeCardSearch(query, userId);
-  const totalPages = Math.max(1, Math.ceil(result.totalCardsCount / limit));
-  if (page > totalPages) {
-    page = totalPages;
-    query.projection.skip = (page - 1) * limit;
-    result = await executeCardSearch(query, userId);
-  }
-  const cards = result.cards
-    ? (typeof result.cards.fetchAsync === 'function'
-        ? await result.cards.fetchAsync() : result.cards.fetch())
-    : [];
-  if (result.orderedIds.length) {
-    const byId = new Map(cards.map(card => [card._id, card]));
-    return {
-      cards: result.orderedIds.map(id => byId.get(id)).filter(Boolean),
-      totalHits: result.totalCardsCount,
-      errors: query.errors(),
-      projection: query.projection, page, totalPages, limit,
-    };
-  }
-  return {
-    cards, totalHits: result.totalCardsCount, errors: query.errors(),
-    projection: query.projection, page, totalPages, limit,
-  };
-}
-
-export async function searchCardsPage(userId, params, text, requestedPage = 1) {
-  if (!userId) return { cards: [], totalHits: 0, errors: [] };
-  const query = await buildQuery(new QueryParams(params, text), userId);
-  return searchQueryPage(query, userId, requestedPage);
-}
-
-export async function searchBrokenCardsPage(userId, requestedPage = 1) {
-  if (!userId) return { cards: [], totalHits: 0, errors: [] };
-  return searchQueryPage(await buildBrokenCardsSearch(userId), userId, requestedPage);
-}
-
-async function findCards(sessionId, query, userId) {
-  const { cards, totalCardsCount, orderedIds, storedSelector } =
-    await executeCardSearch(query, userId);
 
   const update = {
     $set: {
@@ -1334,7 +1327,7 @@ async function findCards(sessionId, query, userId) {
         : totalCardsCount;
 
     // For text search preserve our sorted IDs, else grab from db order
-    if (query.getQueryParams().text) {
+    if (isTextSearch) {
       update.$set.cards = orderedIds;
     } else {
       const cardArray = typeof cards.fetchAsync === 'function' ? await cards.fetchAsync() : cards.fetch();
@@ -1438,29 +1431,84 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
-  let report;
-  try {
-    report = await cardsReportForAdmin(this.userId, {
-      search: searchTerm || '', limit, skip: skip || 0,
-    });
-  } catch (error) {
-    if (error?.error === 'not-authorized') return this.ready();
-    throw error;
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+    return this.ready();
   }
 
-  for (const doc of report.cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
-  for (const doc of report.boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
-  for (const doc of report.lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
-  for (const doc of report.swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
-  for (const doc of report.users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
+  const query = {};
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+
+  // Publish the page MANUALLY (fetch + this.added + this.ready): a returned sorted+
+  // limited cursor triggers a LIMITED live observe that hangs on FerretDB's OpLog,
+  // leaving the report stuck on the loading spinner (same as attachmentsList). The
+  // report re-subscribes on every page/search change, so it needs no live cursor.
+  const cards = await ReactiveCache.getCards(
+    query,
+    {
+      // Only the six columns the report table renders. Without this projection
+      // every page shipped WHOLE card documents — description, customFields,
+      // vote/poker sub-documents, date fields, the lot — so a 25-row page could
+      // be hundreds of kilobytes on boards with long descriptions. That, not the
+      // row count, is what made the report feel like it was loading everything.
+      fields: {
+        title: 1,
+        boardId: 1,
+        listId: 1,
+        swimlaneId: 1,
+        members: 1,
+        assignees: 1,
+      },
+      // Sort by the EXISTING { boardId:1, createdAt:-1 } index (see
+      // server/models/cards.js) so one page is a bounded index scan. The old
+      // { boardId:1, sort:1 } sort had no index, so every page load full-sorted all
+      // cards in memory — the Admin Panel → Problems → Cards spinner on big sites.
+      sort: { boardId: 1, createdAt: -1 },
+      limit,
+      skip: skip || 0,
+    },
+    false,
+  );
+
+  const boardIds = new Set();
+  const listIds = new Set();
+  const swimlaneIds = new Set();
+  const userIds = new Set();
+  cards.forEach(card => {
+    if (card.boardId) boardIds.add(card.boardId);
+    if (card.listId) listIds.add(card.listId);
+    if (card.swimlaneId) swimlaneIds.add(card.swimlaneId);
+    (card.members || []).forEach(userId => userIds.add(userId));
+    (card.assignees || []).forEach(userId => userIds.add(userId));
+  });
+
+  const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
+  const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
+  const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
+  const users = await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }, { fields: Users.safeFields }, false);
+
+  for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
+  for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
   // The page, named - see the note in brokenCardsReport above.
-  publishReportPage(this, 'report-cards', report.cards);
+  publishReportPage(this, 'report-cards', cards);
   this.ready();
 });
 
 Meteor.methods({
   async getCardsReportCount(searchTerm = '') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    return cardsReportCountForAdmin(this.userId, searchTerm || '');
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const query = {};
+    if (searchTerm) {
+      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    }
+    const cursor = await ReactiveCache.getCards(query, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });

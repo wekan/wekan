@@ -29,7 +29,6 @@ const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 const rulesHelper = read('server/rulesHelper.js');
 const boardActions = read('client/components/rules/actions/boardActions.js');
 const importExport = read('client/components/rules/rulesImportExport.js');
-const ruleTransfer = read('models/lib/ruleTransfer.js');
 const rulesButton = read('server/rulesButton.js');
 const lists = read('models/lists.js');
 
@@ -97,21 +96,20 @@ test('rule engine treats a MISSING listName like the * wildcard', () => {
 
 // --- Bug 4: JSON/CSV import ---------------------------------------------------
 
-test('import creates rules via the bounded rules.importRules server method', () => {
-  assert.ok(/Meteor\.call\('rules\.importRules'/.test(importExport));
-  assert.ok(!/Meteor\.call\(\s*\n?\s*'rules\.createRule',/.test(importExport));
+test('import creates rules via the rules.createRule server method', () => {
+  assert.ok(/Meteor\.call\(\s*\n?\s*'rules\.createRule',/.test(importExport));
   assert.ok(!/Triggers\.insert\(/.test(importExport), 'no raw client trigger inserts');
   assert.ok(!/Actions\.insert\(/.test(importExport), 'no raw client action inserts');
   assert.ok(!/Rules\.insert\(/.test(importExport), 'no raw client rule inserts');
 });
 
-// Extract and exercise the real shared server/client transfer normalization.
-const fieldsSrc = ruleTransfer.match(/const RULE_TRIGGER_MATCHING_FIELDS = \[[\s\S]*?\];/);
-const fnSrc = ruleTransfer.match(/function normalizeRuleTrigger\(trigger\) \{[\s\S]*?\n\}/);
-assert.ok(fieldsSrc && fnSrc, 'normalizeRuleTrigger and its field list found');
+// Extract and exercise the real normalizeTrigger from the import module.
+const fieldsSrc = importExport.match(/const TRIGGER_MATCHING_FIELDS = \[[\s\S]*?\];/);
+const fnSrc = importExport.match(/function normalizeTrigger\(trigger\) \{[\s\S]*?\n\}/);
+assert.ok(fieldsSrc && fnSrc, 'normalizeTrigger and its field list found');
 // eslint-disable-next-line no-new-func
 const normalizeTrigger = new Function(
-  `${fieldsSrc[0]}\n${fnSrc[0]}\nreturn normalizeRuleTrigger;`,
+  `${fieldsSrc[0]}\n${fnSrc[0]}\nreturn normalizeTrigger;`,
 )();
 
 test('import defaults missing trigger matching fields to the * wildcard', () => {

@@ -1,9 +1,9 @@
+import Boards from '/models/boards';
 import Actions from '/models/actions';
 import Triggers from '/models/triggers';
 import Rules from '/models/rules';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishReportPage } from '/models/lib/reportPageIndex';
-import { rulesReportCountForAdmin, rulesReportForAdmin } from '/server/lib/rulesReport';
 
 Meteor.publish('rules', async function(ruleId) {
   check(ruleId, String);
@@ -83,34 +83,59 @@ Meteor.publish('rulesReport', async function(searchTerm = '', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
+  if (!this.userId || !(await ReactiveCache.getUser(this.userId)).isAdmin) {
+    return this.ready();
+  }
+
+  const query = {};
+  if (searchTerm) {
+    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+  }
+
   // Publish the page MANUALLY (fetch + this.added + this.ready). Returning a sorted+
   // limited cursor makes Meteor set up a LIMITED live observe, which hangs on
   // FerretDB's OpLog for this query, so the subscription never becomes ready and the
   // report is stuck on the loading spinner forever (same as attachmentsList). This
   // admin report re-subscribes on every page/search change, so it needs no live cursor.
-  let report;
-  try {
-    report = await rulesReportForAdmin(this.userId, {
-      search: searchTerm || '', limit, skip: skip || 0,
-    });
-  } catch (error) {
-    if (error?.error === 'not-authorized') return this.ready();
-    throw error;
-  }
+  const rules = await ReactiveCache.getRules(
+    query,
+    { sort: { boardId: 1 }, limit, skip: skip || 0 },
+    false,
+  );
+  const actionIds = [];
+  const triggerIds = [];
+  const boardIds = [];
+  rules.forEach(rule => {
+    actionIds.push(rule.actionId);
+    triggerIds.push(rule.triggerId);
+    boardIds.push(rule.boardId);
+  });
 
-  for (const doc of report.rules) { const { _id, ...fields } = doc; this.added('rules', _id, fields); }
-  for (const doc of report.actions) { const { _id, ...fields } = doc; this.added('actions', _id, fields); }
-  for (const doc of report.triggers) { const { _id, ...fields } = doc; this.added('triggers', _id, fields); }
-  for (const doc of report.boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  const actions = await ReactiveCache.getActions({ _id: { $in: actionIds } }, {}, false);
+  const triggers = await ReactiveCache.getTriggers({ _id: { $in: triggerIds } }, {}, false);
+  const boards = await ReactiveCache.getBoards({ _id: { $in: boardIds } }, { fields: { title: 1 } }, false);
+
+  for (const doc of rules) { const { _id, ...fields } = doc; this.added('rules', _id, fields); }
+  for (const doc of actions) { const { _id, ...fields } = doc; this.added('actions', _id, fields); }
+  for (const doc of triggers) { const { _id, ...fields } = doc; this.added('triggers', _id, fields); }
+  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
   // WHICH rules this page is: a board's own rules are in minimongo whenever its
   // rules editor has been opened.
-  publishReportPage(this, 'report-rules', report.rules);
+  publishReportPage(this, 'report-rules', rules);
   this.ready();
 });
 
 Meteor.methods({
   async getRulesReportCount(searchTerm = '') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    return rulesReportCountForAdmin(this.userId, searchTerm || '');
+    if (!this.userId || !(await ReactiveCache.getUser(this.userId)).isAdmin) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const query = {};
+    if (searchTerm) {
+      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    }
+    const cursor = await ReactiveCache.getRules(query, {}, true);
+    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
   },
 });

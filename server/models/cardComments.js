@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
@@ -14,31 +13,6 @@ import CardComments, { assertCanMutateComment } from '/models/cardComments';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { tripCanary } from '/server/lib/canary';
 import { allowIsBoardMemberCommentOnly } from '/server/lib/utils';
-import {
-  createAccessibleComment,
-  removeAccessibleComment,
-  updateAccessibleComment,
-} from '/server/lib/accessibleCommentOperations';
-import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
-
-Meteor.methods({
-  async createAccessibleComment(input) {
-    check(input, Object);
-    return createAccessibleComment(this.userId, input);
-  },
-  async updateAccessibleComment(input) {
-    check(input, Object);
-    return updateAccessibleComment(this.userId, input);
-  },
-  async removeAccessibleComment(input) {
-    check(input, Object);
-    return removeAccessibleComment(this.userId, input);
-  },
-  async toggleAccessibleCommentReaction(input) {
-    check(input, Object);
-    return toggleAccessibleCommentReaction(this.userId, input);
-  },
-});
 
 async function commentCreation(userId, doc) {
   const card = await ReactiveCache.getCard(doc.cardId);

@@ -141,30 +141,22 @@ async function copyTextData(direction) {
   }
 }
 
-export async function textDatabaseMigrationStatusForAdmin(userId) {
-  const user = await ReactiveCache.getUser(userId);
-  if (!user || !user.isAdmin) return false;
-  return { ...progress };
-}
-
-export async function startTextDatabaseMigrationForAdmin(userId, direction) {
-  check(direction, String);
-  const user = await ReactiveCache.getUser(userId);
-  if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
-  if (progress.running) throw new Meteor.Error('already-running', 'A database migration is already in progress.');
-  // Validate direction up front (throws on bad value).
-  targetUrlFor(direction);
-  // Run in the background; the client polls migrateTextDatabaseStatus().
-  copyTextData(direction);
-  return { started: true, direction };
-}
-
 Meteor.methods({
   async migrateTextDatabaseStatus() {
-    return textDatabaseMigrationStatusForAdmin(this.userId);
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user || !user.isAdmin) return false;
+    return { ...progress };
   },
 
   async migrateTextDatabase(direction) {
-    return startTextDatabaseMigrationForAdmin(this.userId, direction);
+    check(direction, String);
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user || !user.isAdmin) throw new Meteor.Error('not-authorized');
+    if (progress.running) throw new Meteor.Error('already-running', 'A database migration is already in progress.');
+    // Validate direction up front (throws on bad value).
+    targetUrlFor(direction);
+    // Run in the background; the client polls migrateTextDatabaseStatus().
+    copyTextData(direction);
+    return { started: true, direction };
   },
 });

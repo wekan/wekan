@@ -15,10 +15,7 @@ const moduleSource = read('models/lib/ruleDescriptionLocalization.js');
 
 (async () => {
   const encoded = Buffer.from(moduleSource).toString('base64');
-  const {
-    localizeStoredRuleDescription,
-    localizedStoredRuleDescription,
-  } = await import(
+  const { localizeStoredRuleDescription } = await import(
     `data:text/javascript;base64,${encoded}`
   );
   const translations = Object.keys(en)
@@ -47,21 +44,12 @@ const moduleSource = read('models/lib/ruleDescriptionLocalization.js');
     'an absent legacy description remains harmless');
   assert.strictEqual(localizeStoredRuleDescription('Custom opaque value', []),
     'Custom opaque value', 'unknown imported prose is preserved');
-  assert.strictEqual(
-    localizedStoredRuleDescription(
-      'when a card is moved to archive by *',
-      key => fi[key],
-      Object.fromEntries(Object.entries(en).filter(([key]) => key.startsWith('r-'))),
-    ),
-    'Kun kortti on siirretty arkistoon tekijänä *',
-    'the shared server/client wrapper builds the catalogue and capitalizes it',
-  );
 
   const details = read('client/components/rules/ruleDetails.js');
   assert.match(details, /getDefaultTranslations\('r-'\)/,
     'rule details use the complete canonical rule vocabulary');
-  assert.match(details, /localizedStoredRuleDescription\(/,
-    'both trigger and action pass through the shared server/client wrapper');
+  assert.match(details, /localizeStoredRuleDescription\(description, translations\)/,
+    'both trigger and action pass through the common localizer');
 
   const tap = read('imports/i18n/tap.js');
   assert.match(tap, /getDefaultTranslations\(prefix = ''\)/,

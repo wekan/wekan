@@ -103,10 +103,6 @@ export class WekanCreator {
     this.triggers = {};
     // Map of actions Wekan ID => Wekan ID
     this.actions = {};
-    // ZIP imports provide archive entries as streams. JSON imports leave this
-    // unset and continue to consume their bounded base64 `file` values.
-    this.attachmentStream = typeof data.attachmentStream === 'function'
-      ? data.attachmentStream : null;
 
     // maps a wekanCardId to an array of wekanAttachments
     this.attachments = {};
@@ -608,19 +604,7 @@ export class WekanCreator {
             }
           };
           try {
-            const archiveStream = this.attachmentStream && this.attachmentStream(att);
-            if (archiveStream) {
-              const { addAttachmentFromStream } = require('/models/lib/fileStoreStrategy');
-              const { fileStoreStrategyFactory } = require('/models/attachments.server');
-              const fileRef = await addAttachmentFromStream(archiveStream, {
-                fileName: att.name || 'attachment',
-                type: att.type || 'application/octet-stream',
-                userId: this._user(att.userId),
-                size: att.size,
-                meta,
-              }, fileStoreStrategyFactory);
-              await setCover(fileRef && fileRef._id);
-            } else if (att.file) {
+            if (att.file) {
               // WeKan exports embed attachment bytes as base64. Insert them
               // with the server-side Meteor-Files API writeAsync (insertAsync
               // is client-only; the older Attachments.insert(..., cb, true) call
@@ -987,7 +971,7 @@ export class WekanCreator {
           })[0];
 
           if (typeof wekanAttachment !== 'undefined' && wekanAttachment) {
-            if (wekanAttachment.url || wekanAttachment.file || this.attachmentStream) {
+            if (wekanAttachment.url || wekanAttachment.file) {
               // we cannot actually create the Wekan attachment, because we don't yet
               // have the cards to attach it to, so we store it in the instance variable.
               const wekanCardId = activity.cardId;
@@ -1196,35 +1180,24 @@ export class WekanCreator {
   // background (backgroundImageId) to the new attachment id.
   async recreateBackgrounds(board, boardId) {
     if (!Meteor.isServer) return;
-    const backgrounds = (board.attachments || []).filter(att => att
-      && att.source === 'board-background' && (att.file || this.attachmentStream) && !att.cardId);
+    const backgrounds = (board.attachments || []).filter(
+      att => att && att.source === 'board-background' && att.file && !att.cardId,
+    );
     if (!backgrounds.length) return;
     const idMap = {};
     for (const bg of backgrounds) {
       try {
-        const archiveStream = this.attachmentStream && this.attachmentStream(bg);
-        let fileRef;
-        if (archiveStream) {
-          const { addAttachmentFromStream } = require('/models/lib/fileStoreStrategy');
-          const { fileStoreStrategyFactory } = require('/models/attachments.server');
-          fileRef = await addAttachmentFromStream(archiveStream, {
-            fileName: bg.name || 'background', type: bg.type || 'image/jpeg',
-            userId: this._user(), size: bg.size,
+        const buffer = Buffer.from(bg.file, 'base64');
+        const fileRef = await Attachments.writeAsync(
+          buffer,
+          {
+            fileName: bg.name || 'background',
+            type: bg.type || 'image/jpeg',
+            userId: this._user(),
             meta: { boardId, source: 'board-background' },
-          }, fileStoreStrategyFactory);
-        } else {
-          const buffer = Buffer.from(bg.file, 'base64');
-          fileRef = await Attachments.writeAsync(
-            buffer,
-            {
-              fileName: bg.name || 'background',
-              type: bg.type || 'image/jpeg',
-              userId: this._user(),
-              meta: { boardId, source: 'board-background' },
-            },
-            true,
-          );
-        }
+          },
+          true,
+        );
         if (fileRef && fileRef._id && bg._id) {
           idMap[bg._id] = fileRef._id;
         }

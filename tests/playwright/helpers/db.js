@@ -457,7 +457,6 @@ function cleanup({ boardIds = [], userIds = [] } = {}) {
       { collection: 'rules', method: 'deleteMany', filter: { boardId } },
       { collection: 'triggers', method: 'deleteMany', filter: { boardId } },
       { collection: 'actions', method: 'deleteMany', filter: { boardId } },
-      { collection: 'customFields', method: 'deleteMany', filter: { boardIds: boardId } },
     ]);
   }
   for (const userId of userIds) {

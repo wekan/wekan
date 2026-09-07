@@ -16,7 +16,6 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { refreshCloudStorageFromSettings, testCloudConnection } from '/models/lib/cloudStorage';
 import { computeStoragePaths } from '/models/lib/attachmentStoragePath';
-const { normalizeCloudConfig } = require('/models/lib/attachmentCloudConfig');
 
 // Secret fields per cloud provider — never published to the client and only
 // overwritten when a non-empty replacement value is supplied.
@@ -574,7 +573,7 @@ Meteor.methods({
           return;
         }
         // Drop client-only markers, then merge over the previous config.
-        const sanitizedIncoming = normalizeCloudConfig(provider, incomingCfg);
+        const sanitizedIncoming = { ...incomingCfg };
         (CLOUD_SECRET_FIELDS[provider] || []).forEach(field => {
           delete sanitizedIncoming[`${field}Set`];
         });
@@ -670,11 +669,10 @@ Meteor.methods({
 
     const existing = (await AttachmentStorageSettings.findOneAsync({})) || {};
     const prevCfg = (existing.storageConfig && existing.storageConfig[provider]) || {};
-    const normalizedConfig = normalizeCloudConfig(provider, config);
-    const effectiveCfg = { ...prevCfg, ...normalizedConfig };
+    const effectiveCfg = { ...prevCfg, ...config };
     (CLOUD_SECRET_FIELDS[provider] || []).forEach(field => {
       delete effectiveCfg[`${field}Set`];
-      if (!normalizedConfig[field]) {
+      if (!config[field]) {
         effectiveCfg[field] = prevCfg[field] || '';
       }
     });

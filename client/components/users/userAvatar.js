@@ -230,33 +230,18 @@ Template.boardDomainRow.events({
 // Avatar links may carry a ?boardId= query parameter (added so public-board viewers
 // can load them), which must not affect "is this the avatar in use?" comparisons.
 function normalizeAvatarUrl(url) {
-  const clean = url ? url.split('?')[0] : '';
-  const stored = /\/(?:cdn\/storage|cfs\/files)\/avatars\/([^/]+)/.exec(clean);
-  return stored ? `/avatars/${stored[1]}` : clean;
+  return url ? url.split('?')[0] : '';
 }
 
 Template.changeAvatarPopup.onCreated(function () {
   this.error = new ReactiveVar('');
   this.avatarUpdateCounter = new ReactiveVar(0);  // Trigger to force helper re-evaluation
-  this.currentAvatarUrl = new ReactiveVar('');
-  this.autorun(() => {
-    const profile = Meteor.user()?.profile;
-    if (profile && Object.prototype.hasOwnProperty.call(profile, 'avatarUrl')) {
-      this.currentAvatarUrl.set(profile.avatarUrl || '');
-    }
-  });
   // Whether an admin has blocked avatar uploads (Admin Panel > Attachments >
   // Transfer limits). Default false (avatars enabled); when true the upload
   // option is hidden and the upload is also rejected server-side.
   this.avatarUploadBlocked = new ReactiveVar(false);
   Meteor.call('isAvatarUploadBlocked', (err, blocked) => {
     if (!err) this.avatarUploadBlocked.set(blocked === true);
-  });
-  Meteor.call('getOwnAvatarState', (err, state) => {
-    if (!err && state) {
-      this.currentAvatarUrl.set(state.currentUrl || '');
-      this.avatarUploadBlocked.set(state.uploadBlocked === true);
-    }
   });
   Meteor.subscribe('my-avatars');
 });
@@ -281,18 +266,21 @@ Template.changeAvatarPopup.helpers({
   },
   isSelected() {
     Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter
-    const avatarUrl = Template.instance().currentAvatarUrl.get();
-    return Boolean(this?._id)
-      && normalizeAvatarUrl(avatarUrl) === `/avatars/${this._id}`;
+    const userProfile = ReactiveCache.getCurrentUser().profile;
+    const avatarUrl = userProfile && userProfile.avatarUrl;
+    const currentAvatarUrl = this.link && typeof this.link === 'function' ? this.link() : '';
+    return normalizeAvatarUrl(avatarUrl) === normalizeAvatarUrl(currentAvatarUrl);
   },
   noAvatarUrl() {
     Template.instance().avatarUpdateCounter.get();  // Create dependency on update counter
-    return !Template.instance().currentAvatarUrl.get();
+    const userProfile = ReactiveCache.getCurrentUser().profile;
+    const avatarUrl = userProfile && userProfile.avatarUrl;
+    return !avatarUrl;
   },
 });
 
-function changeAvatarSetAvatar(tpl, avatarId) {
-  Meteor.call('selectOwnAvatar', avatarId, (err) => {
+function changeAvatarSetAvatar(tpl, avatarUrl) {
+  Meteor.call('setAvatarUrl', avatarUrl, (err) => {
     if (err) {
       tpl.error.set(err.reason || 'Error setting avatar');
     } else {
@@ -341,7 +329,8 @@ Template.changeAvatarPopup.events({
     event.preventDefault();
     event.stopPropagation();
     if (this && typeof this.link === 'function') {
-      changeAvatarSetAvatar(tpl, this._id);
+      const avatarUrl = this.link();
+      changeAvatarSetAvatar(tpl, avatarUrl);
     }
   },
   'click .js-select-initials'(event, tpl) {
@@ -352,10 +341,17 @@ Template.changeAvatarPopup.events({
   'click .js-delete-avatar': Popup.afterConfirm('deleteAvatar', async function() {
     // Inside the each loop, 'this' is the avatar object
     const avatarId = this._id;
+    const deletedUrl = typeof this.link === 'function' ? this.link() : '';
     if (avatarId) {
-      await new Promise((resolve, reject) => {
-        Meteor.call('deleteOwnAvatar', avatarId, error => error ? reject(error) : resolve());
-      });
+      await Avatars.removeAsync(avatarId);
+    }
+    // Any uploaded avatar can be deleted now, including the one in use. Deleting
+    // the one in use would leave profile.avatarUrl pointing at a file that no
+    // longer exists (a broken image everywhere), so fall back to the initials.
+    const user = ReactiveCache.getCurrentUser();
+    const currentUrl = normalizeAvatarUrl(user && user.profile && user.profile.avatarUrl);
+    if (currentUrl && currentUrl === normalizeAvatarUrl(deletedUrl)) {
+      Meteor.call('setAvatarUrl', '');
     }
     avatarUpdateCounter.set(avatarUpdateCounter.get() + 1);
     Popup.back();

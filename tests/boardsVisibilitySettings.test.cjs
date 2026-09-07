@@ -105,14 +105,14 @@ test('the Layout save no longer writes them (this is the trap)', () => {
 test('the All Boards save writes them, and only what it found', () => {
   const body = handler('js-visibility-all-boards-save');
   assert.ok(/allowPrivateOnly/.test(body), 'it still saves its own setting');
-  assert.ok(/saveAdminVisibilitySettings/.test(js),
-    'the server service separates the boards-visibility collection write');
+  assert.ok(/TableVisibilityModeSettings\.update/.test(body),
+    'boards visibility lives in its own collection, so it is a separate write');
   // Guarded: a checkbox that is not on screen must not be written as false.
   assert.ok(/\$\(selector\)\.length/.test(body) && /\$\('#accounts-allowPrivateOnly'\)\.length/.test(body),
     'a missing checkbox must be skipped, never saved as false');
   assert.ok(/hasClass\('is-checked'\)/.test(body),
     'and what is saved is whether the box is ticked');
-  assert.ok(/saveVisibilitySettings\('allBoards', \$set\)/.test(body),
+  assert.ok(/saveVisibilitySettings\(\$set\)/.test(body),
     'and the Settings write goes through the helper that sends no empty update');
   assert.ok(/Object\.keys\(\$set\)\.length/.test(js), 'which is what that helper checks');
 });
@@ -321,9 +321,7 @@ test('hide board activities is ONE global setting, not a write per board', () =>
   const body = handler('js-visibility-all-boards-save');
   assert.ok(/hideBoardActivitiesOnAllBoards/.test(body), 'the section save writes it');
   assert.ok(/saveVisibilitySettings/.test(body)
-    && /Meteor\.call\('saveAdminVisibilitySettings'/.test(js)
-    && /Settings\.direct\.updateAsync\(setting\._id/.test(
-      read('server/lib/adminVisibilitySettings.js')),
+    && /Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(js),
     'it writes ONE global setting');
   assert.ok(!/Boards\.update/.test(body), 'and never touches board documents');
   // "Not on screen is left alone" is `if ($(selector).length)` now - the settings
@@ -377,17 +375,17 @@ test('the moved settings still see their values, and are written on click', () =
   // it would silently show the wrong value. The helpers moved with the settings.
   assert.ok(/Template\.email\.helpers\(accountAccessHelpers\)/.test(js),
     'Email gets the helpers');
-  assert.ok(/Template\.general\.onCreated[\s\S]*subscribe\('accountSettings'\)/.test(js),
-    'the Login template subscribes to the account settings it renders');
+  assert.ok(/Template\.setting\.helpers\(accountAccessHelpers\)/.test(js),
+    'the Settings template (which hosts the Login pane) gets them too');
   // Username change and self delete are checkboxes in the "Login: Allow" group now,
   // written on click - a checkbox that needs a Save button below it is a checkbox
   // you think you have already set.
-  for (const [cls, key] of [['js-toggle-username-change', 'usernameChange'],
-    ['js-toggle-user-delete', 'userDelete']]) {
+  for (const [cls, id] of [['js-toggle-username-change', 'accounts-allowUserNameChange'],
+    ['js-toggle-user-delete', 'accounts-allowUserDelete']]) {
     const body = js.slice(js.indexOf(`'click a.${cls}'`));
     const handlerBody = body.slice(0, body.indexOf('\n  },') + 5);
-    assert.ok(handlerBody.includes(`saveLoginAllow(tpl, '${key}'`),
-      `${cls} must use the guarded ${key} service`);
+    assert.ok(handlerBody.includes(`AccountSettings.update('${id}'`),
+      `${cls} must write ${id}`);
     assert.ok(/!allowed/.test(handlerBody), 'and toggle it, from the stored value');
   }
   // The Save at the bottom keeps only what is still a FIELD.
@@ -397,7 +395,7 @@ test('the moved settings still see their values, and are written on click', () =
   assert.ok(/defaultAuthenticationMethod/.test(save) && /oidcBtnTextvalue/.test(save),
     'it writes the method dropdown and the OIDC button text');
   // The settings still live in AccountSettings; only where they are SHOWN changed.
-  assert.ok(/subscribe\('accountSettings'\)/.test(js),
+  assert.ok(/Meteor\.subscribe\('accountSettings'\)/.test(js),
     'the subscription must stay - the collection is unchanged');
 });
 
@@ -462,10 +460,9 @@ test('the Layout save cannot wipe the two moved text fields', () => {
   // input reads as undefined, ('' || '').trim() is '', and saving Layout would
   // have written an EMPTY string over the stored value.
   assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
-  // Email owns its own template handler and sends both values through the
-  // validated admin-only boundary; no unrelated pane can invoke that handler.
-  assert.ok(/Meteor\.call\('saveAdminEmailAccess'/.test(js),
-    'the Email save uses its dedicated server boundary');
+  // Their new homes write them only when the input is actually present.
+  assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(js),
+    'the Email save guards on the input existing');
   // The Visibility saves go through visibilityTextFields(), which does the same
   // check once for every field it is given - `if ($(sel).length)` - instead of
   // repeating it per field at each call site.
@@ -492,16 +489,21 @@ test('the E-mail pane Save writes BOTH settings above it, and is below them', ()
   assert.ok(/a\.flex\.js-toggle-allow-email-change\s*\n\s*\.materialCheckBox#accounts-allowEmailChange/.test(email),
     'one materialCheckBox, the same markup as Announcement\'s active checkbox');
   assert.ok(!/name="allowEmailChange"/.test(email), 'the radio pair is gone');
-  const save = js.slice(js.indexOf("'click button.js-save'", js.indexOf('Template.email.events')));
+  const save = js.slice(js.indexOf("'click button.js-save'"));
   const body = save.slice(0, save.indexOf('\n  },') + 5);
-  assert.ok(/Meteor\.call\('saveAdminEmailAccess'/.test(body),
-    'both values cross the dedicated validated server boundary');
-  assert.ok(/mailDomainName:/.test(body), 'the invite domain is included');
-  assert.ok(/allowEmailChange:/.test(body), 'allow email change is included');
-  assert.ok(!/Settings\.update|AccountSettings\.update/.test(body),
-    'the client cannot perform either collection write directly');
+  assert.ok(/\$\('#mail-server-host'\)\.length/.test(body),
+    'the SMTP fields are written only when that block is rendered - checkField '
+    + 'throws on a missing input, and that throw is what swallowed the whole save');
+  assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(body),
+    'the invite domain is written when its input is on screen');
+  assert.ok(/AccountSettings\.update\('accounts-allowEmailChange'/.test(body),
+    'and allow email change is written too - it lives in AccountSettings, so it is '
+    + 'a second write');
+  assert.ok(/\$\('#accounts-allowEmailChange'\)\.length/.test(body),
+    'a checkbox that is not on screen is skipped, never saved as false');
   assert.ok(/hasClass\('is-checked'\)/.test(body),
     'and the value saved is whether the box is ticked');
+  assert.ok(/Object\.keys\(\$set\)\.length/.test(body), 'no empty update is sent');
 });
 
 test('the invite-domain label says what the setting does', () => {
@@ -547,8 +549,8 @@ test('the Login save keeps the empty-value guard the Layout save had', () => {
   assert.ok(/if \(Object\.keys\(\$settings\)\.length\)/.test(body),
     'and nothing is written when neither is on screen');
   const js2 = read('client/components/settings/settingBody.js');
-  assert.ok(/saveLoginAllow\(tpl, 'displayAuthenticationMethod', shown !== true\)/.test(js2),
-    'the display toggle writes itself through the guarded service');
+  assert.ok(/displayAuthenticationMethod: !shown/.test(js2),
+    'the display toggle writes itself, from its own handler');
 });
 
 test('Wait Spinner moved to Visibility', () => {

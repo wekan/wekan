@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
+import Settings from '/models/settings';
+import { BOARD_COLORS } from '/models/metadata/colors';
+import { isHexColor } from '/models/lib/contrastColor';
 import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver';
 
 // Multitenancy option D — the methods behind the Admin Panel
@@ -21,12 +24,6 @@ import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver'
 
 import * as tenants from '/models/lib/tenants';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
-import { adminThemeForUser, setAdminThemeForUser } from '/server/lib/adminThemeSettings';
-import {
-  organizationMembersForAdmin,
-  saveOrganizationTenantFieldsForAdmin,
-  setOrganizationAdminForAdmin,
-} from '/server/lib/adminOrganizations';
 
 // #5850's lesson: Meteor.user()/getCurrentUser() can return null inside an async
 // method after an await, so the caller is looked up by this.userId directly.
@@ -77,14 +74,71 @@ Meteor.methods({
   async setOrgTenantFields(orgId, fields) {
     check(orgId, String);
     check(fields, Object);
-    return saveOrganizationTenantFieldsForAdmin(this.userId, orgId, fields);
+    const user = await callerUser(this.userId);
+    if (!tenantAdmin.canManageOrg(user, orgId)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const $set = {};
+
+    if (fields.orgDomains !== undefined) {
+      check(fields.orgDomains, String);
+      const hosts = tenants.parseHostList(fields.orgDomains);
+      // Two orgs claiming one host would silently give one of them the other's
+      // brand, so the save is refused and the offending host named.
+      const others = await Org.find(
+        { _id: { $ne: orgId }, orgDomains: { $exists: true, $ne: '' } },
+        { fields: { orgDomains: 1 } },
+      ).fetchAsync();
+      const clashes = tenants.conflictingHosts(others, orgId, hosts);
+      if (clashes.length) {
+        throw new Meteor.Error('tenant-domain-taken', clashes.join(', '));
+      }
+      // Stored normalised, so what the admin reads back is what is matched.
+      $set.orgDomains = hosts.join(', ');
+    }
+
+    // Image bytes use uploadBrandingImage, which validates and converts them on
+    // the server. Never restore the old arbitrary external-URL write path.
+    const imageFields = new Set([
+      'orgCustomLoginLogoImageUrl',
+      'orgCustomTopLeftCornerLogoImageUrl',
+    ]);
+    tenants.brandingOrgFields().filter(field => !imageFields.has(field)).forEach(field => {
+      if (fields[field] !== undefined) {
+        check(fields[field], String);
+        $set[field] = fields[field].trim();
+      }
+    });
+
+    if (Object.keys($set).length === 0) return { updated: 0 };
+    await Org.updateAsync(orgId, { $set });
+    return { updated: 1, orgDomains: $set.orgDomains };
   },
 
   // The members of one org, with the per-tenant admin flag - what the "Organization
   // admins" popup lists. Only someone who may administer that org may read it.
   async listOrgMembers(orgId) {
     check(orgId, String);
-    return organizationMembersForAdmin(this.userId, orgId);
+    const user = await callerUser(this.userId);
+    if (!tenantAdmin.canManageOrg(user, orgId)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const members = await ReactiveCache.getUsers(
+      { 'orgs.orgId': orgId },
+      {
+        sort: { username: 1 },
+        fields: { username: 1, 'profile.fullname': 1, isAdmin: 1, orgs: 1 },
+      },
+    );
+    return members.map(member => ({
+      _id: member._id,
+      username: member.username,
+      fullname: (member.profile && member.profile.fullname) || '',
+      // The site-wide flag is shown but never editable here: appointing an instance
+      // owner is not something a tenant does.
+      isSiteAdmin: !!member.isAdmin,
+      isOrgAdmin: tenantAdmin.isOrgAdmin(member, orgId),
+    }));
   },
 
   // ── the site theme (Admin Panel / Settings / Visibility / Change color) ────
@@ -94,11 +148,52 @@ Meteor.methods({
   // admin sets that Organization's, which replaces it on the Organization's own
   // hosts. Where the write lands is decided by the shared rule, not by the client.
   async getAdminThemeColor() {
-    return adminThemeForUser(this.userId, this.connection?.httpHeaders);
+    const user = await callerUser(this.userId);
+    const org = tenantForConnection(this.connection);
+    const target = tenantAdmin.themeTarget(user, org && org._id);
+    if (!target) throw new Meteor.Error('not-authorized');
+    if (target.scope === 'instance') {
+      const setting = await Settings.findOneAsync({});
+      return {
+        scope: 'instance',
+        color: (setting && setting.themeColor) || null,
+        custom: (setting && setting.themeCustomColors) || [],
+      };
+    }
+    const doc = await Org.findOneAsync(target.orgId,
+      { fields: { orgThemeColor: 1, orgThemeCustomColors: 1, orgDisplayName: 1 } });
+    return {
+      scope: 'org',
+      orgId: target.orgId,
+      orgDisplayName: (doc && doc.orgDisplayName) || '',
+      color: (doc && doc.orgThemeColor) || null,
+      custom: (doc && doc.orgThemeCustomColors) || [],
+    };
   },
 
   async setAdminThemeColor(color, custom) {
-    return setAdminThemeForUser(this.userId, this.connection?.httpHeaders, color, custom);
+    check(color, Match.OneOf(String, null, undefined));
+    check(custom, Match.OneOf([String], null, undefined));
+    const user = await callerUser(this.userId);
+    const org = tenantForConnection(this.connection);
+    const target = tenantAdmin.themeTarget(user, org && org._id);
+    if (!target) throw new Meteor.Error('not-authorized');
+    // A colour is a theme NAME from the shared list, or a custom colour on top of
+    // one; anything else is refused rather than stored and rendered as a class.
+    if (color && !BOARD_COLORS.includes(color)) throw new Meteor.Error('invalid-color');
+    const colors = (custom || []).filter(c => isHexColor(c)).slice(0, 2);
+    if (target.scope === 'instance') {
+      const setting = await Settings.findOneAsync({});
+      if (!setting) throw new Meteor.Error('no-settings');
+      await Settings.updateAsync(setting._id, color
+        ? { $set: { themeColor: color, themeCustomColors: colors } }
+        : { $unset: { themeColor: '', themeCustomColors: '' } });
+      return { scope: 'instance', color: color || null };
+    }
+    await Org.updateAsync(target.orgId, color
+      ? { $set: { orgThemeColor: color, orgThemeCustomColors: colors } }
+      : { $unset: { orgThemeColor: '', orgThemeCustomColors: '' } });
+    return { scope: 'org', orgId: target.orgId, color: color || null };
   },
 
   // Appoint or dismiss a per-tenant Global Admin of one org. The site admin may do
@@ -109,6 +204,27 @@ Meteor.methods({
     check(orgId, String);
     check(userId, String);
     check(value, Boolean);
-    return setOrganizationAdminForAdmin(this.userId, orgId, userId, value);
+    const actor = await callerUser(this.userId);
+    if (!tenantAdmin.canSetOrgAdmin(actor, orgId)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    const target = await ReactiveCache.getUser(
+      { _id: userId },
+      { fields: { isAdmin: 1, orgs: 1 } },
+    );
+    if (!target) throw new Meteor.Error('user-not-found');
+    // A per-tenant admin may not touch a site admin at all (privilege escalation,
+    // not tenancy) - and nobody may appoint someone who is not a member of the org.
+    if (!tenantAdmin.canManageUser(actor, target)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    if (!tenantAdmin.memberOrgIds(target).includes(orgId)) {
+      throw new Meteor.Error('not-a-member');
+    }
+    await Meteor.users.updateAsync(
+      { _id: userId, 'orgs.orgId': orgId },
+      { $set: { 'orgs.$.isAdmin': value } },
+    );
+    return { orgId, userId, isOrgAdmin: value };
   },
 });
