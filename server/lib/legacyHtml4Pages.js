@@ -66,6 +66,10 @@ import { pwaSettingsForAdmin } from '/server/lib/adminPwaSettings';
 import { globalWebhooksForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { visibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings';
 import { translationsPageForAdmin } from '/server/lib/adminTranslations';
+import { inviteRolesForAdmin } from '/server/lib/adminInviteRoles';
+import {
+  INVITE_TO_BOARD_ROLES,
+} from '/models/inviteToBoardRolesSettings';
 import { adminThemeForUser } from '/server/lib/adminThemeSettings';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
@@ -99,6 +103,7 @@ const {
   PARAMETERIZED_TRIGGERS,
 } = require('/models/lib/ruleParameterizedCatalog');
 const { CARD_COLORS } = require('/models/metadata/colors');
+const { BOARD_ROLES, ROLE_CAPABILITIES } = require('/models/lib/boardRoleCapabilities');
 const { ADMIN_PAGES, ADMIN_PANE_TITLES } = require('/models/lib/adminUrls');
 const { PERMANENT_DELETE_RECOVERY_DESCRIPTION } =
   require('/models/lib/permanentDeleteDescription');
@@ -2581,6 +2586,14 @@ function adminSettingsNavigation(translate) {
   });
 }
 
+function adminPeopleNavigation(translate) {
+  return Object.keys(ADMIN_PAGES.people.panes).map(slug => {
+    const title = ADMIN_PANE_TITLES.people[slug] || {};
+    return uiAction({ action: `/admin/people/${slug}`,
+      label: title.title || tr(translate, title.titleKey || slug, slug) });
+  });
+}
+
 function statisticsDuration(seconds, translate) {
   let remaining = Math.max(0, Number(seconds) || 0);
   const parts = [];
@@ -3077,6 +3090,78 @@ async function adminSettingsTranslationPage(path, userId, requestFields, transla
     columns: [tr(translate, 'language', 'Language'), tr(translate, 'text', 'Text'),
       tr(translate, 'translation', 'Translation'), tr(translate, 'actions', 'Actions')],
     rows,
+  };
+}
+
+async function adminPeopleRolesPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/roles') return null;
+  let allowedRoles;
+  try { allowedRoles = await inviteRolesForAdmin(userId, { req: requestFields.req }); } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'roles', 'Roles'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const term = String(requestFields.q || '').trim().toLowerCase().slice(0, 500);
+  const statusRoles = BOARD_ROLES.filter(role =>
+    !term || String(tr(translate, role, role)).toLowerCase().includes(term));
+  const rows = [{ rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'roles-info', 'Roles'),
+      tr(translate, 'roles-info', 'Choose which board roles may perform each action.'),
+      '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'allow-invite-to-board', 'Allow Invite to Board'),
+      uiFieldsetForm({ action: path,
+        legend: tr(translate, 'allow-invite-to-board', 'Allow Invite to Board'),
+        id: 'invite-roles', inputs: INVITE_TO_BOARD_ROLES.map(role => ({
+          type: 'checkbox', name: 'allowedRoles', value: role,
+          checked: allowedRoles.includes(role), label: tr(translate, role, role),
+        })), fields: { legacyOperation: 'save-invite-roles' },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), [uiAction({ action: path, label: tr(translate, 'all-board-members', 'All Board Members'),
+        fields: { legacyOperation: 'all-invite-roles' } }),
+      uiAction({ action: path, label: tr(translate, 'select-none', 'Select none'),
+        fields: { legacyOperation: 'clear-invite-roles' } })], '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: term,
+      fields: { legacyOperation: 'search-roles' },
+    }), '', '', '', ''] }];
+  for (const role of statusRoles) {
+    const caps = ROLE_CAPABILITIES[role] || {};
+    const yesNo = value => tr(translate, value ? 'yes' : 'no', value ? 'Yes' : 'No');
+    rows.push({ cells: [tr(translate, role, role),
+      yesNo(INVITE_TO_BOARD_ROLES.includes(role) && allowedRoles.includes(role)),
+      tr(translate, caps.seesAllCards ? 'roles-status-sees-all' : 'roles-status-sees-assigned',
+        caps.seesAllCards ? 'All' : 'Assigned only'),
+      yesNo(caps.comment), yesNo(caps.write), yesNo(caps.manageBoard)] });
+  }
+  if (requestFields.legacyRolesResult) rows.push({ rowHeader: false,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyRolesResult, '', '', '', ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'people', 'People')} / ${tr(translate, 'roles', 'Roles')}`,
+    columns: [tr(translate, 'roles-status-role', 'Role'),
+      tr(translate, 'roles-status-invite', 'Invite to board'),
+      tr(translate, 'roles-status-sees', 'Sees cards'),
+      tr(translate, 'roles-status-comment', 'Comment'),
+      tr(translate, 'roles-status-write', 'Create and edit'),
+      tr(translate, 'roles-status-manage', 'Board settings')], rows };
+}
+
+async function adminPeopleBaselinePage(path, userId, translate) {
+  const match = /^\/admin\/people\/([^/]+)$/.exec(path);
+  const slug = match?.[1] || '';
+  if (!Object.prototype.hasOwnProperty.call(ADMIN_PAGES.people.panes, slug)) return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  if (!user?.isAdmin) return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'error-notAuthorized', 'Not authorized'), ''] }] };
+  const title = ADMIN_PANE_TITLES.people[slug] || {};
+  const label = title.title || tr(translate, title.titleKey || slug, slug);
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'people', 'People')} / ${label}`,
+    columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+    rows: [{ rowHeader: false, cells: [adminPeopleNavigation(translate), ''] },
+      { cells: [label, tr(translate, 'info', 'Info')] }],
   };
 }
 
@@ -4079,6 +4164,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsTranslation) return adminSettingsTranslation;
+  const adminPeopleRoles = await adminPeopleRolesPage(path, userId, requestFields, translate);
+  if (adminPeopleRoles) return adminPeopleRoles;
+  const adminPeopleBaseline = await adminPeopleBaselinePage(path, userId, translate);
+  if (adminPeopleBaseline) return adminPeopleBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );

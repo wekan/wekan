@@ -1,4 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { TAPi18n } from '/imports/i18n';
 import { Session } from 'meteor/session';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // buildFilters and buildActions are imported like the rest of them. The People
@@ -1205,9 +1206,7 @@ Template.rolesGeneral.events({
   },
   'click .js-roles-save'(event, tpl) {
     event.preventDefault();
-    InviteToBoardRolesSettings.update(INVITE_TO_BOARD_ROLES_ID, {
-      $set: { allowedRoles: tpl.workingRoles.get() || [] },
-    });
+    Meteor.call('setInviteToBoardRoles', tpl.workingRoles.get() || []);
   },
 
   // Roles Status controls. The table is read-only, so these are the only

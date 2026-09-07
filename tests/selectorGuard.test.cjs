@@ -164,6 +164,11 @@ test('Translation no longer accepts a client-supplied selector at all', () => {
     'the server creates only an escaped literal regular expression');
   assert.ok(!/safeSelector|function\(query/.test(publication),
     'there is no Mongo-selector input left to guard');
+  assert.ok(/publish\('translationLanguage', function\(language\)/.test(publication));
+  assert.ok(/\^\[A-Za-z0-9@_-\]\{1,5\}\$/.test(publication),
+    'runtime overrides are restricted to one validated language tag');
+  assert.ok(/subscribe\('translationLanguage', language/.test(
+    read('imports/i18n/tap.js')), 'the runtime loader uses the non-admin language feed');
 });
 
 test('no handler still passes the raw selector to the database', () => {

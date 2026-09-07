@@ -41,8 +41,11 @@ for (const key of ['info', 'package', 'OS_Type', 'OS_Platform', 'OS_Arch',
   assert.ok(body.includes(`'${key}'`), `${key} is rendered in HTML4`);
   assert.ok(jade.includes(key), `${key} remains rendered in HTML5`);
 }
-assert.match(shell, /'\/admin\/settings\/version', '\/admin\/problems\/summary'/,
-  'Global Admin navigation reaches Settings without JavaScript');
+for (const target of ['/admin/settings/version', '/admin/people/people',
+  '/admin/attachments/backup', '/admin/problems/summary']) {
+  assert.ok(shell.includes(`'${target}'`),
+    `Global Admin navigation reaches ${target} without JavaScript`);
+}
 assert.match(shell, /\/admin\\\/settings.*'settings'.*'Settings'/,
   'Settings navigation has a distinct accessible name');
 assert.match(shell, /\/admin\\\/problems.*'problems'.*'Problems'/,

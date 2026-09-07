@@ -86,6 +86,7 @@ import {
   deleteTranslationForAdmin,
   updateTranslationForAdmin,
 } from '/server/lib/adminTranslations';
+import { setInviteRolesForAdmin } from '/server/lib/adminInviteRoles';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -405,6 +406,22 @@ WebApp.handlers.use(async (req, res, next) => {
   if (session && path === '/admin/settings/translation'
     && requestFields.legacyOperation === 'request-delete-translation') {
     requestFields.confirmTranslationDelete = String(requestFields.translationId || '');
+  }
+  if (session && path === '/admin/people/roles'
+    && ['save-invite-roles', 'all-invite-roles', 'clear-invite-roles']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      let roles = requestFields.allowedRoles || [];
+      if (!Array.isArray(roles)) roles = roles ? [roles] : [];
+      if (requestFields.legacyOperation === 'all-invite-roles') {
+        roles = require('/models/inviteToBoardRolesSettings').INVITE_TO_BOARD_ROLES;
+      } else if (requestFields.legacyOperation === 'clear-invite-roles') roles = [];
+      await setInviteRolesForAdmin(session.userId, roles.map(String), { req });
+      requestFields.legacyRolesResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyRolesResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
   }
   if (session && path === '/admin/settings/translation'
     && ['create-translation', 'update-translation', 'delete-translation']

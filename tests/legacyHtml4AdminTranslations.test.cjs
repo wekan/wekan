@@ -57,6 +57,16 @@ test('search and mutation authority cannot carry executable selectors', () => {
     'direct inserts retain schema timestamps');
 });
 
+test('runtime translations use a separate exact-language publication', () => {
+  const publication = read('server/publications/translation.js');
+  const tap = read('imports/i18n/tap.js');
+  assert.ok(/publish\('translationLanguage', function\(language\)/.test(publication));
+  assert.ok(/Translation\.find\(\{ language \}/.test(publication));
+  assert.ok(/fields: \{ language: 1, text: 1, translationText: 1 \}/.test(publication));
+  assert.ok(/subscribe\('translationLanguage', language/.test(tap));
+  assert.ok(!/subscribe\('translation', \{language/.test(tap));
+});
+
 test('direct DDP writes are blocked and reported', () => {
   assert.ok(/Translation\.deny\(/.test(permissions));
   for (const verb of ['insert', 'update', 'remove']) {

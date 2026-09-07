@@ -3,6 +3,18 @@ import {
   ADMIN_TRANSLATIONS_PAGE_SIZE,
   translationSearchSelector,
 } from '/server/lib/adminTranslations';
+import Translation from '/models/translation';
+
+// Public runtime overrides are presentation strings, and are needed before
+// sign-in too. This separate publication accepts one validated language tag,
+// never a selector or caller-chosen window, and exposes no metadata.
+Meteor.publish('translationLanguage', function(language) {
+  check(language, String);
+  if (!/^[A-Za-z0-9@_-]{1,5}$/.test(language)) return [];
+  return Translation.find({ language }, {
+    fields: { language: 1, text: 1, translationText: 1 },
+  });
+});
 
 // ONE page of custom translation strings (docs/Features/Page/Table.md): the limit and
 // the skip are applied server-side, so only the rows that are displayed ever reach
