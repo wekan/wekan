@@ -10,6 +10,7 @@ import { TAPi18n } from '/imports/i18n';
 const { BOARD_EXPORT_FIELD_KEYS } = require('/models/lib/exportFields');
 const { attachmentDisposition, exportFilename } = require('/models/lib/exportFilename');
 const { assertExportEnabled } = require('/models/lib/importExportSecurity');
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 const FORMATS = new Set(['pdf', 'xlsx', 'json', 'json-no-attachments', 'zip']);
 
@@ -20,26 +21,32 @@ function selectedFields(value) {
   return selected.length ? selected : null;
 }
 
-async function serveLegacyHtml4ChecklistExport({
-  res, userId, boardId, cardId, checklistId, format, exportFields,
+async function serveLegacyHtml4ScopedExport({
+  res, userId, boardId, cardId, checklistId = '', format, exportFields,
 }) {
   if (!userId || !FORMATS.has(format)) throw new Meteor.Error('error-notAuthorized');
   await assertExportEnabled();
-  const [user, board, card, checklist] = await Promise.all([
+  const [user, board] = await Promise.all([
     Meteor.users.findOneAsync(userId, { fields: {
       'profile.language': 1, 'profile.dateFormat': 1,
     } }),
     Boards.findOneAsync(boardId),
-    Cards.findOneAsync({ _id: cardId, boardId }),
-    Checklists.findOneAsync({ _id: checklistId, boardId, cardId }),
   ]);
-  if (!user || !board || !board.isVisibleBy(user) || !card || !checklist) {
+  if (!user || !board || !board.isVisibleBy(user)) throw new Meteor.Error('forbidden');
+  const card = await Cards.findOneAsync({
+    _id: cardId, boardId, ...(assignedOnlyCardScope(board, userId) || {}),
+  });
+  const checklist = checklistId
+    ? await Checklists.findOneAsync({ _id: checklistId, boardId, cardId }) : null;
+  if (!card || (checklistId && !checklist)) {
     throw new Meteor.Error('forbidden');
   }
   const language = user.profile?.language || 'en';
   await TAPi18n.ensureLanguageLoaded(language);
   const fields = selectedFields(exportFields);
-  const scope = { checklistId };
+  const scope = checklistId ? { checklistId } : { cardId };
+  const kind = checklistId ? 'checklist' : 'card';
+  const title = checklistId ? checklist.title : card.title;
   if (format === 'pdf') {
     const exporter = new ExporterBoardPDF(
       boardId, language, '', user.profile?.dateFormat || 'YYYY-MM-DD', fields, scope,
@@ -56,8 +63,8 @@ async function serveLegacyHtml4ChecklistExport({
   }
   if (format === 'zip') {
     const exporter = new ExporterZip(boardId, { fields, scope, userLanguage: language });
-    await exporter.build(res, exportFilename('checklist', key => TAPi18n.__(key, '', language),
-      checklist.title || 1, 'zip'));
+    await exporter.build(res, exportFilename(kind, key => TAPi18n.__(key, '', language),
+      title || 1, 'zip'));
     return;
   }
   const exporter = new Exporter(boardId, undefined, {
@@ -66,8 +73,8 @@ async function serveLegacyHtml4ChecklistExport({
     scope,
     userLanguage: language,
   });
-  const filename = exportFilename('checklist', key => TAPi18n.__(key, '', language),
-    checklist.title || 1, 'json');
+  const filename = exportFilename(kind, key => TAPi18n.__(key, '', language),
+    title || 1, 'json');
   res.statusCode = 200;
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -76,4 +83,8 @@ async function serveLegacyHtml4ChecklistExport({
   res.end();
 }
 
-export { FORMATS, selectedFields, serveLegacyHtml4ChecklistExport };
+const serveLegacyHtml4ChecklistExport = serveLegacyHtml4ScopedExport;
+
+export {
+  FORMATS, selectedFields, serveLegacyHtml4ChecklistExport, serveLegacyHtml4ScopedExport,
+};

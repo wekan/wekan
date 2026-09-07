@@ -76,7 +76,10 @@ import {
   updateAccessibleComment,
 } from '/server/lib/accessibleCommentOperations';
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
-import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
+import {
+  serveLegacyHtml4ChecklistExport,
+  serveLegacyHtml4ScopedExport,
+} from '/server/lib/legacyHtml4ScopedExport';
 import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import {
   legacyHtml4DocumentPage,
@@ -257,6 +260,9 @@ function binaryPurpose(body = {}) {
   if (body.legacyOperation === 'export-checklist') {
     return `download:${String(body.checklistId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
   }
+  if (body.legacyOperation === 'export-card') {
+    return `download:${String(body.cardId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
   if (body.legacyOperation === 'preview-attachment-gif') {
     return `download:gif-${String(body.attachmentId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
   }
@@ -314,7 +320,7 @@ WebApp.handlers.use(async (req, res, next) => {
     }
   }
   if (req.method === 'POST' && req.body?.legacySession) {
-    session = ['export-rules', 'export-checklist', 'preview-attachment-gif',
+    session = ['export-rules', 'export-card', 'export-checklist', 'preview-attachment-gif',
       'preview-attachment-media',
       'download-attachment-original', 'preview-admin-attachment-gif',
       'download-admin-attachment-original'].includes(req.body?.legacyOperation)
@@ -1735,6 +1741,29 @@ WebApp.handlers.use(async (req, res, next) => {
     }
   }
   if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'export-card') {
+    try {
+      await serveLegacyHtml4ScopedExport({
+        res, userId: session.userId,
+        boardId: requestFields.boardId, cardId: requestFields.cardId,
+        format: requestFields.exportFormat, exportFields: requestFields.exportFields,
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-export', {
+          req, userId: session.userId,
+          detail: `refused HTML4 card export: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      if (!res.headersSent) {
+        res.statusCode = error?.error === 'forbidden' ? 403 : 400;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('Card export denied.');
+      } else res.end();
+    }
+    return;
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'export-checklist') {
     try {
       await serveLegacyHtml4ChecklistExport({
@@ -2314,13 +2343,14 @@ WebApp.handlers.use(async (req, res, next) => {
     }
   }
   if (session && multipartUpload && /^\/b\/[^/]+/.test(path)
-    && requestFields.legacyOperation === 'import-checklist-file') {
+    && ['import-card-file', 'import-checklist-file'].includes(requestFields.legacyOperation)) {
+    const checklistImport = requestFields.legacyOperation === 'import-checklist-file';
     requestFields.legacyImportResult = await importLegacyHtml4ScopedFile({
       userId: session.userId,
       target: {
         boardId: requestFields.boardId,
         cardId: requestFields.cardId,
-        checklistId: requestFields.checklistId,
+        ...(checklistImport ? { checklistId: requestFields.checklistId } : {}),
       },
       upload: multipartUpload,
       fields: requestFields.importField,
@@ -2331,9 +2361,12 @@ WebApp.handlers.use(async (req, res, next) => {
       try {
         require('/server/lib/securityLog').record({
           category: 'authz', bleed: 'ImportBleed', severity: 'high',
-          action: 'blocked', source: 'legacyHtml4:checklist-import', req,
+          action: 'blocked', source: checklistImport
+            ? 'legacyHtml4:checklist-import' : 'legacyHtml4:card-import', req,
           userId: session.userId,
-          detail: 'refused checklist import with mismatched board, card or checklist scope',
+          detail: checklistImport
+            ? 'refused checklist import with mismatched board, card or checklist scope'
+            : 'refused card import with mismatched board or card scope',
         });
       } catch (_) { /* reporting must not weaken the refusal */ }
     }

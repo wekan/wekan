@@ -10,6 +10,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Checklists from '/models/checklists';
 import { importZipBuffer } from '/server/routes/importTrelloZip';
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { importSourceByKey } = require('/models/lib/importSources');
 const { parseImportFields } = require('/models/lib/exportFields');
 const { detectedFileMime } = require('/models/lib/fileTypeCorrection');
@@ -227,16 +228,20 @@ export async function importLegacyHtml4ScopedFile({
   if (!upload?.tempPath) return { ok: false, errorKey: 'error-json-malformed' };
   try {
     await assertImportEnabled();
-    const [user, board, card, checklist] = await Promise.all([
+    const [user, board] = await Promise.all([
       Meteor.users.findOneAsync(userId, { fields: { _id: 1 } }),
       Boards.findOneAsync(target.boardId),
-      Cards.findOneAsync({ _id: target.cardId, boardId: target.boardId }),
-      Checklists.findOneAsync({
-        _id: target.checklistId, boardId: target.boardId, cardId: target.cardId,
-      }),
     ]);
+    const card = board ? await Cards.findOneAsync({
+      _id: target.cardId, boardId: target.boardId,
+      ...(assignedOnlyCardScope(board, userId) || {}),
+    }) : null;
+    const checklist = target.checklistId ? await Checklists.findOneAsync({
+      _id: target.checklistId, boardId: target.boardId, cardId: target.cardId,
+    }) : null;
     if (!user || !board || !board.isVisibleBy(user)
-      || !allowIsBoardMemberWithWriteAccess(userId, board) || !card || !checklist) {
+      || !allowIsBoardMemberWithWriteAccess(userId, board) || !card
+      || (target.checklistId && !checklist)) {
       throw new Meteor.Error('forbidden');
     }
     const selected = [...new Set((Array.isArray(fields) ? fields : [fields])

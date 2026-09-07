@@ -1882,6 +1882,37 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     { cells: [tr(translate, 'watching', 'Watching'),
       isWatching ? tr(translate, 'yes', 'Yes') : tr(translate, 'no', 'No')] },
   );
+  const cardTransferFields = { boardId: card.boardId, cardId: card._id };
+  rows.push({ rowHeader: false, cells: [uiExportForm({
+    action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+    label: tr(translate, 'export', 'Export'),
+    formats: [
+      { value: 'pdf', label: 'PDF' },
+      { value: 'xlsx', label: 'Excel' },
+      { value: 'json', label: 'JSON' },
+      { value: 'json-no-attachments', label: `JSON (${tr(translate,
+        'export-board-without-attachments', 'without attachments')})` },
+      { value: 'zip', label: `.zip (${tr(translate, 'attachments', 'Attachments')})` },
+    ],
+    sections: [
+      { value: 'card-details', label: tr(translate, 'export-card-details', 'Card details') },
+      ...BOARD_EXPORT_FIELDS.map(section => ({
+        value: section.field, label: tr(translate, section.label, section.label),
+      })),
+    ],
+    fields: { ...cardTransferFields, legacyOperation: 'export-card' },
+    submitLabel: tr(translate, 'export-card', 'Export card'),
+  }), ''] });
+  if (canWrite) rows.push({ rowHeader: false, cells: [uiFileForm({
+    action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+    label: tr(translate, 'import', 'Import'),
+    name: 'importFile', accept: '.json,application/json,.zip,application/zip',
+    sections: BOARD_EXPORT_FIELDS.map(section => ({
+      value: section.field, label: tr(translate, section.label, section.label),
+    })),
+    fields: { ...cardTransferFields, legacyOperation: 'import-card-file' },
+    submitLabel: tr(translate, 'importCardPopup-title', 'Import card'),
+  }), ''] });
   for (const checklist of visible.checklists ? checklists : []) {
     const items = checklistItems.filter(candidate => candidate.checklistId === checklist._id);
     const finished = items.filter(item => item.isFinished).length;

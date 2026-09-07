@@ -605,6 +605,22 @@ signed toggle with `[x]` or `[ ]`, count and member names, plus a labelled selec
 for adding one. Its catalog has printable ASCII names such as `+1`, `done` and
 `smile`, so an absent emoji font does not erase meaning.
 
+Card-level Import and Export use the same shared transfer document, part catalog
+and scoped importer/exporters as the Jade card menu. HTML4 exposes labelled PDF,
+Excel, JSON, JSON-without-attachments and ZIP choices plus a bounded JSON/ZIP
+upload. Export binds the requested card to the visible board and assigned-only
+scope; import additionally requires write access and creates a new card below
+the route card rather than editing existing content. The common transfer
+sanitizer, attachment storage policy and import deadline apply unchanged.
+
+An export response cannot carry a freshly rotated page of cookieless form
+tokens. Therefore card export uses a purpose-bound, one-use download signature
+whose purpose includes the exact card identifier. Replaying that download is
+refused, while downloading does not consume the page action counter or invalidate
+the Import and other controls already rendered beside it. A forged card or board
+scope is rejected before reading or writing content and is attributed in Admin
+Panel / Problems / Security.
+
 Checklist forms share authenticated server operations with the Jade card view.
 The visible route card and board are always submitted, while the server resolves
 a linked card's content target and repeats delegated-write authorization. Every
