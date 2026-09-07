@@ -601,6 +601,18 @@ same-URL fixture searches twelve cards, verifies two pages and every resolved
 name in both renderers, captures both views and proves an anonymous request
 cannot read the instance-wide card inventory.
 
+Admin Panel Broken Cards Report shares its broken-card definition and bounded
+Global Admin service between the Meteor publication and HTML4 controller. The
+definition covers a missing board, swimlane or list and an unsupported card
+type; a title search is escaped and capped at 500 characters. The page projects
+only Card Title, Id, Board, Swimlane, List, Type and Created at, sorts on the
+existing board/creation index, and resolves the three contexts in deduplicated
+page-local queries. A missing context is explicit Unknown text in HTML4 instead
+of a blank cell. Native search and ten-row Previous/Next controls retain state.
+The same-URL fixture searches twelve broken cards, verifies two pages, present
+and missing contexts in both renderers, captures both views and proves an
+anonymous request receives no instance repair inventory.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

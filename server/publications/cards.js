@@ -2,6 +2,11 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { publishReportPage } from '/models/lib/reportPageIndex';
 import { cardsReportCountForAdmin, cardsReportForAdmin } from '/server/lib/cardsReport';
+import {
+  BROKEN_CARDS_SELECTOR,
+  brokenCardsReportCountForAdmin,
+  brokenCardsReportForAdmin,
+} from '/server/lib/brokenCardsReport';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
@@ -78,7 +83,6 @@ import {
   PREDICATE_SYSTEM,
 } from '/config/search-const';
 import { QueryErrors, QueryParams, Query } from '/config/query-classes';
-import { CARD_TYPES } from '../../config/const';
 import Org from "../../models/org";
 import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
@@ -1102,15 +1106,6 @@ async function buildQuery(queryParams, userId) {
 // and by the Admin Panel report below, so the two can never disagree about what
 // "broken" means. Unchanged from before the report was converted - only the way the
 // report FETCHES its rows changed.
-const BROKEN_CARDS_SELECTOR = {
-  $or: [
-    { boardId: { $in: [null, ''] } },
-    { swimlaneId: { $in: [null, ''] } },
-    { listId: { $in: [null, ''] } },
-    { type: { $nin: CARD_TYPES } },
-  ],
-};
-
 // The standalone HTML5 and HTML4 /broken-cards pages share this constructed
 // query and the guarded executor. Admin Panel / Problems / Broken cards remains
 // a separate, admin-only REPORT below.
@@ -1131,20 +1126,6 @@ Meteor.publish('brokenCards', async function(sessionId) {
   return brokenCursors;
 });
 
-function brokenCardsQuery(searchTerm) {
-  if (!searchTerm) {
-    return { ...BROKEN_CARDS_SELECTOR };
-  }
-  // Both conditions, and both are an $or - so they are $and-ed explicitly rather
-  // than written as two $or keys, where the second would silently replace the first.
-  return {
-    $and: [
-      BROKEN_CARDS_SELECTOR,
-      { title: new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') },
-    ],
-  };
-}
-
 // Broken cards, as a REPORT: one page, server-side, searchable and counted - the
 // same shape as the Files / Rules / Boards / Cards reports beside it in Admin Panel
 // / Problems (docs/Features/Page/Table.md). It used to run on the global-search
@@ -1154,65 +1135,31 @@ Meteor.publish('brokenCardsReport', async function(searchTerm = '', limit, skip 
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
-  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
-    return this.ready();
+  let report;
+  try {
+    report = await brokenCardsReportForAdmin(this.userId, {
+      search: searchTerm || '', limit, skip: skip || 0,
+    });
+  } catch (error) {
+    if (error?.error === 'not-authorized') return this.ready();
+    throw error;
   }
 
-  // Published MANUALLY (fetch + this.added + this.ready) for the same reason as
-  // cardsReport above: a returned sorted+limited cursor triggers a limited live
-  // observe that hangs on FerretDB's OpLog and leaves the report on its spinner.
-  const cards = await ReactiveCache.getCards(
-    brokenCardsQuery(searchTerm),
-    {
-      fields: {
-        title: 1,
-        type: 1,
-        boardId: 1,
-        listId: 1,
-        swimlaneId: 1,
-        createdAt: 1,
-      },
-      sort: { boardId: 1, createdAt: -1 },
-      limit,
-      skip: skip || 0,
-    },
-    false,
-  );
-
-  // A broken card's board / swimlane / list is exactly what may be missing, so
-  // only the ids that ARE set are looked up; the rest render as an empty cell.
-  const boardIds = new Set();
-  const listIds = new Set();
-  const swimlaneIds = new Set();
-  cards.forEach(card => {
-    if (card.boardId) boardIds.add(card.boardId);
-    if (card.listId) listIds.add(card.listId);
-    if (card.swimlaneId) swimlaneIds.add(card.swimlaneId);
-  });
-
-  const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
-  const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
-  const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
-
-  for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
-  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
-  for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
-  for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  for (const doc of report.cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
+  for (const doc of report.boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of report.lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
+  for (const doc of report.swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
   // WHICH cards this page is, in this order. Minimongo holds every card of every
   // board the admin has opened, so without this the pane rendered all of them -
   // hundreds of rows under a pager that correctly said "1 / 1".
-  publishReportPage(this, 'report-broken', cards);
+  publishReportPage(this, 'report-broken', report.cards);
   this.ready();
 });
 
 Meteor.methods({
   async getBrokenCardsReportCount(searchTerm = '') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const cursor = await ReactiveCache.getCards(brokenCardsQuery(searchTerm), {}, true);
-    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+    return brokenCardsReportCountForAdmin(this.userId, searchTerm || '');
   },
 });
 

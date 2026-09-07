@@ -41,6 +41,10 @@ import { impersonationReportForAdmin } from '/server/lib/impersonationReport';
 import { recoveryReportCountForAdmin, recoveryReportForAdmin } from '/server/lib/recoveryReport';
 import { boardsReportCountForAdmin, boardsReportForAdmin } from '/server/lib/boardsReport';
 import { cardsReportCountForAdmin, cardsReportForAdmin } from '/server/lib/cardsReport';
+import {
+  brokenCardsReportCountForAdmin,
+  brokenCardsReportForAdmin,
+} from '/server/lib/brokenCardsReport';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -2990,6 +2994,79 @@ async function adminProblemsCardsPage(path, userId, requestFields, translate) {
   };
 }
 
+async function adminProblemsBrokenCardsPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/broken-cards') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1,
+    Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  let report;
+  let total;
+  try {
+    [report, total] = await Promise.all([
+      brokenCardsReportForAdmin(userId, {
+        search, limit: perPage, skip: (requestedPage - 1) * perPage,
+      }),
+      brokenCardsReportCountForAdmin(userId, search),
+    ]);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'broken-cards', 'Broken Cards'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) report = await brokenCardsReportForAdmin(userId, {
+    search, limit: perPage, skip: (page - 1) * perPage,
+  });
+  const named = documents => new Map(documents.map(document => [
+    document._id, document.title || document._id,
+  ]));
+  const boards = named(report.boards);
+  const swimlanes = named(report.swimlanes);
+  const lists = named(report.lists);
+  const unknown = tr(translate, 'no-name', '(Unknown)');
+  const columns = ['Card Title', 'Id', 'Board', 'Swimlane', 'List', 'Type',
+    tr(translate, 'createdAt', 'Created at')];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+        action: path, label: tr(translate, 'search', 'Search'), value: search,
+      })] },
+  ];
+  for (const card of report.cards) rows.push({ cells: [
+    card.title || '', card._id,
+    boards.get(card.boardId) || card.boardId || unknown,
+    swimlanes.get(card.swimlaneId) || card.swimlaneId || unknown,
+    lists.get(card.listId) || card.listId || unknown,
+    card.type || unknown, eventDate(card.createdAt),
+  ] });
+  if (!report.cards.length) rows.push({ rowHeader: false,
+    colspanLast: columns.length,
+    cells: [tr(translate, 'no-results', 'No results')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path,
+      label: tr(translate, 'previous-page', 'Previous'), icon: 'previous',
+      fields: { q: search, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path,
+      label: tr(translate, 'next-page', 'Next'), icon: 'next',
+      fields: { q: search, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'broken-cards', 'Broken Cards')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3093,6 +3170,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsCards) return adminProblemsCards;
+  const adminProblemsBrokenCards = await adminProblemsBrokenCardsPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsBrokenCards) return adminProblemsBrokenCards;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

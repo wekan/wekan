@@ -920,15 +920,17 @@ test('Broken cards is a report like the ones beside it', () => {
   assert.ok(!/brokenCardsReport/.test(jadeSrc), 'and its template with it');
   // Server: one page, searchable, admin-only, with a count method beside it.
   const pub = read('server/publications/cards.js');
+  const service = read('server/lib/brokenCardsReport.js');
   assert.ok(/publish\('brokenCardsReport', async function\(searchTerm = '', limit, skip = 0\)/.test(pub),
     'the report publication takes searchTerm + limit/skip');
   const block = pub.slice(pub.indexOf("publish('brokenCardsReport'"));
-  assert.ok(/isAdmin/.test(block.slice(0, 600)), 'admin-only, like every report publication');
+  assert.ok(/brokenCardsReportForAdmin/.test(block.slice(0, 600))
+    && /isAdmin/.test(service), 'admin-only through the shared report service');
   assert.ok(/getBrokenCardsReportCount\(searchTerm/.test(pub), 'and a count method takes the search term');
   // What "broken" means is ONE definition, shared with the standalone page - which
   // still runs on the global search and must keep its own publication.
-  assert.ok(/const BROKEN_CARDS_SELECTOR =/.test(pub), 'one selector');
-  assert.strictEqual((pub.match(/type: \{ \$nin: CARD_TYPES \}/g) || []).length, 1,
+  assert.ok(/const BROKEN_CARDS_SELECTOR =/.test(service), 'one selector');
+  assert.strictEqual((service.match(/type: \{ \$nin: CARD_TYPES \}/g) || []).length, 1,
     'defined once, not copied into the report');
   assert.ok(/publish\('brokenCards', async function\(sessionId\)/.test(pub),
     'the standalone /broken-cards page keeps its publication');

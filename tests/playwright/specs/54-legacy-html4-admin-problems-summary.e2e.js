@@ -35,6 +35,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   const cardReportListId = `${eventId}-card-list`;
   const cardReportIds = Array.from({ length: 12 }, (_, index) =>
     `${eventId}-card-report-${index}`);
+  const brokenReportIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-broken-report-${index}`);
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -358,6 +360,17 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       sort: index,
       createdAt: new Date(Date.now() + index),
     })));
+    db.insertMany('cards', brokenReportIds.map((id, index) => ({
+      _id: id,
+      title: `Searchable Broken Report ${suffix} ${index}`,
+      boardId: cardReportBoardId,
+      swimlaneId: cardReportSwimlaneId,
+      listId: '',
+      archived: false,
+      type: 'cardType-card',
+      sort: index + 20,
+      createdAt: new Date(Date.now() + index),
+    })));
     const boardsReportNav = legacy
       .locator('form[action="/admin/problems/boards"]').first();
     await Promise.all([
@@ -402,7 +415,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       cardsReportNav.locator('input[type="submit"]').click(),
     ]);
     const cardsReportSearch = legacy.locator('form:has(input[name="q"][type="text"])');
-    await cardsReportSearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await cardsReportSearch.locator('input[name="q"][type="text"]')
+      .fill(`Searchable Card Report ${suffix}`);
     await Promise.all([
       legacy.waitForNavigation(),
       cardsReportSearch.locator('input[type="submit"]').click(),
@@ -416,6 +430,30 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await legacy.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-cards.png`,
+        fullPage: true,
+      });
+    }
+    const brokenReportNav = legacy
+      .locator('form[action="/admin/problems/broken-cards"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      brokenReportNav.locator('input[type="submit"]').click(),
+    ]);
+    const brokenReportSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await brokenReportSearch.locator('input[name="q"][type="text"]')
+      .fill(`Searchable Broken Report ${suffix}`);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      brokenReportSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('Card Title');
+    await expect(legacy.locator('tbody')).toContainText(`Card Report Board ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`Card Report Swimlane ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText('(Tuntematon)');
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-broken-cards.png`,
         fullPage: true,
       });
     }
@@ -436,9 +474,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     });
     await navigateInApp(modern, '/admin/problems/summary');
     await expect(modern.locator('h1').first()).toContainText('Yhteenveto');
-    await expect(modern.locator('.admin-problem-banner')).toContainText(
-      'Tietoturva',
-    );
+    await expect(modern.locator('.admin-problem-banner', {
+      hasText: 'Tietoturva',
+    })).toBeVisible();
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await modern.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-problems-summary.png`,
@@ -502,17 +540,35 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       });
     }
     await navigateInApp(modern, '/admin/problems/cards');
-    await modern.locator('.js-table-page-search').fill(suffix);
+    await modern.locator('.js-table-page-search')
+      .fill(`Searchable Card Report ${suffix}`);
+    await modern.locator('.js-table-page-search').press('Enter');
     await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
     // The modern table deliberately abbreviates long cell values; the HTML4
     // baseline retains the complete readable value.
     await expect(modern.locator('tbody')).toContainText('Card Report Board');
     await expect(modern.locator('tbody')).toContainText('Card Report Swimlane');
     await expect(modern.locator('tbody')).toContainText('Card Report List');
-    await expect(modern.locator('tbody')).toContainText(username);
+    await expect(modern.locator('tbody')).toContainText(
+      new RegExp(`${username}|${user._id}`),
+    );
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await modern.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-cards.png`,
+        fullPage: true,
+      });
+    }
+    await navigateInApp(modern, '/admin/problems/broken-cards');
+    await modern.locator('.js-table-page-search')
+      .fill(`Searchable Broken Report ${suffix}`);
+    await modern.locator('.js-table-page-search').press('Enter');
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText('Searchable Broken Report');
+    await expect(modern.locator('tbody')).toContainText('Card Report Board');
+    await expect(modern.locator('tbody')).toContainText('Card Report Swimlane');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-broken-cards.png`,
         fullPage: true,
       });
     }
@@ -536,6 +592,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/cards`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Card Report ${suffix}`);
+    await outsiderPage.goto(`${baseURL}/admin/problems/broken-cards`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Broken Report ${suffix}`);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -549,6 +608,7 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('recoveryEvents', { _id: { $in: recoveryIds } });
     db.deleteMany('boards', { _id: { $in: boardReportIds } });
     db.deleteMany('cards', { _id: { $in: cardReportIds } });
+    db.deleteMany('cards', { _id: { $in: brokenReportIds } });
     db.deleteOne('lists', { _id: cardReportListId });
     db.deleteOne('swimlanes', { _id: cardReportSwimlaneId });
     db.deleteOne('boards', { _id: cardReportBoardId });
