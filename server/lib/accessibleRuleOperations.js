@@ -5,6 +5,12 @@ import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 import { tripCanary } from '/server/lib/canary';
+import { TAPi18n } from '/imports/i18n';
+const {
+  workflowAction,
+  workflowSourceLabel,
+  workflowTrigger,
+} = require('/models/lib/ruleWorkflowCatalog');
 
 const MAX_RULE_TITLE_LENGTH = 500;
 
@@ -37,6 +43,25 @@ async function editableRule(userId, ruleId, routeBoardId) {
   return rule;
 }
 
+async function editableBoard(userId, boardId) {
+  if (typeof userId !== 'string' || typeof boardId !== 'string') {
+    throw new Meteor.Error('not-authorized');
+  }
+  const [board, user] = await Promise.all([
+    ReactiveCache.getBoard(boardId),
+    ReactiveCache.getUser(userId),
+  ]);
+  if (!board) throw new Meteor.Error('not-found', 'Board not found');
+  if (!canDeleteBoardRule(board, userId, { isSiteAdmin: !!user?.isAdmin })) {
+    throw new Meteor.Error('not-authorized', 'Must be a board admin');
+  }
+  return board;
+}
+
+function workflowDescription(entry) {
+  return workflowSourceLabel(entry, TAPi18n.getDefaultTranslations('r-'));
+}
+
 export async function renameAccessibleRule(userId, input = {}) {
   const rule = await editableRule(userId, input.ruleId, input.boardId);
   const title = normalizedRuleTitle(input.title);
@@ -50,6 +75,50 @@ export async function removeAccessibleRule(userId, input = {}) {
   if (rule.triggerId) await Triggers.removeAsync(rule.triggerId);
   if (rule.actionId) await Actions.removeAsync(rule.actionId);
   return { _id: rule._id };
+}
+
+export async function createAccessibleWorkflowRule(userId, input = {}) {
+  const board = await editableBoard(userId, input.boardId);
+  const trigger = workflowTrigger(input.triggerIndex);
+  const action = workflowAction(input.actionIndex);
+  if (!trigger || !action) throw new Meteor.Error('invalid-workflow-entry');
+  const title = normalizedRuleTitle(input.title);
+  let triggerId;
+  let actionId;
+  try {
+    triggerId = await Triggers.insertAsync({
+      ...trigger.doc, boardId: board._id, desc: workflowDescription(trigger),
+    });
+    actionId = await Actions.insertAsync({
+      ...action.doc, boardId: board._id, desc: workflowDescription(action),
+    });
+    const ruleId = await Rules.insertAsync({
+      title, boardId: board._id, triggerId, actionId,
+    });
+    return { _id: ruleId, triggerId, actionId };
+  } catch (error) {
+    if (triggerId) await Triggers.removeAsync(triggerId).catch(() => {});
+    if (actionId) await Actions.removeAsync(actionId).catch(() => {});
+    throw error;
+  }
+}
+
+export async function replaceAccessibleWorkflowAction(userId, input = {}) {
+  const rule = await editableRule(userId, input.ruleId, input.boardId);
+  const action = workflowAction(input.actionIndex);
+  if (!action) throw new Meteor.Error('invalid-workflow-entry');
+  const oldActionId = rule.actionId;
+  const actionId = await Actions.insertAsync({
+    ...action.doc, boardId: rule.boardId, desc: workflowDescription(action),
+  });
+  try {
+    await Rules.updateAsync(rule._id, { $set: { actionId } });
+  } catch (error) {
+    await Actions.removeAsync(actionId).catch(() => {});
+    throw error;
+  }
+  if (oldActionId) await Actions.removeAsync(oldActionId);
+  return { _id: rule._id, actionId };
 }
 
 export { MAX_RULE_TITLE_LENGTH, normalizedRuleTitle };

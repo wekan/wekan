@@ -52,6 +52,10 @@ const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVis
 const { cardActivityDescriptor } = require('/models/lib/cardActivityDescription');
 const { GLOBAL_SEARCH_HELP_LINES, GLOBAL_SEARCH_HELP_TAGS } = require('/models/lib/globalSearchHelp');
 const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
+const {
+  WORKFLOW_ACTIONS,
+  WORKFLOW_TRIGGERS,
+} = require('/models/lib/ruleWorkflowCatalog');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
   'oneHundred', 'unsure',
@@ -97,13 +101,26 @@ async function boardRulesPage(path, userId, requestFields, translate) {
   const triggerById = new Map(triggers.map(trigger => [trigger._id, trigger]));
   const actionById = new Map(actions.map(action => [action._id, action]));
   const sources = TAPi18n.getDefaultTranslations('r-');
+  const workflow = requestFields.rulesView === 'workflow';
+  const viewFields = workflow ? { rulesView: 'workflow' } : {};
   const describe = value => localizedStoredRuleDescription(
     value, key => translate(key), sources,
   );
   const selected = rules.find(rule => rule._id === requestFields.viewRuleId);
-  const rows = [{ rowHeader: false, cells: [uiAction({
+  const navigationCells = [uiAction({
     action: boardPath(board), label: tr(translate, 'back', 'Back'), icon: 'previous',
-  }), board.title, ''] }];
+  }), uiAction({
+    action: path,
+    label: workflow
+      ? tr(translate, 'r-list-view', 'List view')
+      : tr(translate, 'r-workflow-view', 'Workflow view'),
+    fields: { rulesView: workflow ? 'list' : 'workflow' },
+  }), board.title];
+  if (workflow && !selected) navigationCells.push('');
+  const rows = [{ rowHeader: false, cells: navigationCells }];
+  if (requestFields.legacyRuleResult?.ok === true) rows.push({
+    cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Saved'), '', ''],
+  });
   if (requestFields.legacyRuleResult?.ok === false) rows.push({
     cells: [tr(translate, 'error', 'Error'),
       tr(translate, requestFields.legacyRuleResult.errorKey, 'Operation failed'), ''],
@@ -118,37 +135,80 @@ async function boardRulesPage(path, userId, requestFields, translate) {
       describe(action?.desc) || tr(translate, 'no-name', '(Unknown)'), ''] });
     rows.push({ rowHeader: false, cells: [uiAction({
       action: path, label: tr(translate, 'back', 'Back'), icon: 'previous',
+      fields: viewFields,
     }), '', ''] });
   } else {
+    if (workflow && canAdmin) rows.push({ rowHeader: false, cells: [
+      tr(translate, 'r-add-rule', 'Add rule'), '', '', uiFieldsetForm({
+        action: path,
+        legend: tr(translate, 'r-add-rule', 'Add rule'),
+        id: 'workflow-rule',
+        inputs: [
+          { name: 'ruleTitle', label: tr(translate, 'r-new-rule-name', 'Rule name'),
+            maxlength: 500 },
+          { type: 'select', name: 'triggerIndex',
+            label: tr(translate, 'r-trigger', 'Trigger'),
+            options: WORKFLOW_TRIGGERS.map((entry, index) => ({ value: index,
+              label: tr(translate, entry.labelKey, entry.labelKey, entry.labelParams) })) },
+          { type: 'select', name: 'actionIndex',
+            label: tr(translate, 'r-action', 'Action'),
+            options: WORKFLOW_ACTIONS.map((entry, index) => ({ value: index,
+              label: tr(translate, entry.labelKey, entry.labelKey, entry.labelParams) })) },
+        ],
+        fields: { rulesView: 'workflow', legacyOperation: 'create-workflow-rule',
+          boardId: board._id },
+        submitLabel: tr(translate, 'r-add-rule', 'Add rule'),
+      }),
+    ] });
     for (const rule of rules) {
       const controls = [uiAction({
         action: path, label: tr(translate, 'r-view-rule', 'View rule'),
-        fields: { viewRuleId: rule._id },
+        fields: { ...viewFields, viewRuleId: rule._id },
       })];
       if (canAdmin) {
+        if (workflow) controls.push(uiSelectForm({
+          action: path,
+          label: tr(translate, 'r-action', 'Action'),
+          name: 'actionIndex',
+          options: WORKFLOW_ACTIONS.map((entry, index) => ({ value: index,
+            label: tr(translate, entry.labelKey, entry.labelKey, entry.labelParams) })),
+          fields: { ...viewFields, legacyOperation: 'replace-workflow-action',
+            boardId: board._id, ruleId: rule._id },
+          submitLabel: tr(translate, 'save', 'Save'),
+        }));
         controls.push(uiTextForm({
           action: path, label: tr(translate, 'r-new-rule-name', 'Rule name'),
           name: 'ruleTitle', value: rule.title, maxlength: 500,
-          fields: { legacyOperation: 'rename-rule', boardId: board._id, ruleId: rule._id },
+          fields: { ...viewFields, legacyOperation: 'rename-rule',
+            boardId: board._id, ruleId: rule._id },
           submitLabel: tr(translate, 'r-edit-rule', 'Edit rule'),
         }));
         controls.push(requestFields.confirmRuleDelete === rule._id ? [
           uiAction({ action: path, label: tr(translate, 'r-delete-rule', 'Delete rule'),
-            icon: 'delete', fields: { legacyOperation: 'delete-rule',
+            icon: 'delete', fields: { ...viewFields, legacyOperation: 'delete-rule',
               boardId: board._id, ruleId: rule._id } }),
-          uiAction({ action: path, label: tr(translate, 'cancel', 'Cancel') }),
+          uiAction({ action: path, label: tr(translate, 'cancel', 'Cancel'),
+            fields: viewFields }),
         ] : uiAction({ action: path, label: tr(translate, 'r-delete-rule', 'Delete rule'),
-          icon: 'delete', fields: { legacyOperation: 'confirm-delete-rule',
+          icon: 'delete', fields: { ...viewFields, legacyOperation: 'confirm-delete-rule',
             boardId: board._id, ruleId: rule._id } }));
       }
-      rows.push({ cells: [rule.title, describe(triggerById.get(rule.triggerId)?.desc)
-        || tr(translate, 'no-name', '(Unknown)'), controls] });
+      const triggerText = describe(triggerById.get(rule.triggerId)?.desc)
+        || tr(translate, 'no-name', '(Unknown)');
+      rows.push({ cells: workflow
+        ? [rule.title, triggerText,
+          describe(actionById.get(rule.actionId)?.desc)
+            || tr(translate, 'no-name', '(Unknown)'), controls]
+        : [rule.title, triggerText, controls] });
     }
   }
   return {
     heading: `${board.title}: ${tr(translate, 'r-board-rules', 'Board Rules')}`,
-    columns: [tr(translate, 'title', 'Title'), tr(translate, 'r-trigger', 'Trigger'),
-      tr(translate, 'actions', 'Actions')],
+    columns: workflow && !selected
+      ? [tr(translate, 'title', 'Title'), tr(translate, 'r-when', 'When'),
+        tr(translate, 'r-action', 'Action'), tr(translate, 'actions', 'Actions')]
+      : [tr(translate, 'title', 'Title'), tr(translate, 'r-trigger', 'Trigger'),
+        tr(translate, 'actions', 'Actions')],
     rows, empty: tr(translate, 'r-no-rules', 'No rules'),
   };
 }

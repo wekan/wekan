@@ -475,8 +475,11 @@ the rule to the board named by the URL before writing, bounds the title, removes
 the rule/trigger/action tuple together, and reports cross-board attempts through
 the security canary. Native controls preserve natural title, details, rename,
 delete-confirmation and back-to-board Tab order. Later slices add the creation
-wizard, workflow graph and all import/export formats without weakening this
-baseline.
+wizard and all import/export formats without weakening this baseline. The
+workflow read slice presents each existing rule as When, then Action cells and
+uses signed List/Workflow POST controls instead of making drag-and-drop a
+condition for reading the graph. View, rename, confirmation and error states
+preserve the chosen representation.
 
 ## Delivery order
 

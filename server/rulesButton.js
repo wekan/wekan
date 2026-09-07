@@ -8,8 +8,10 @@ import Actions from '/models/actions';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import {
+  createAccessibleWorkflowRule,
   removeAccessibleRule,
   renameAccessibleRule,
+  replaceAccessibleWorkflowAction,
 } from '/server/lib/accessibleRuleOperations';
 
 // Button rules are manual: a user clicks a card/board button and we run the
@@ -134,5 +136,24 @@ Meteor.methods({
     check(ruleId, String);
     check(title, String);
     return renameAccessibleRule(this.userId, { ruleId, title });
+  },
+
+  async 'rules.createWorkflowRule'(boardId, title, triggerIndex, actionIndex) {
+    check(boardId, String);
+    check(title, String);
+    check(triggerIndex, Number);
+    check(actionIndex, Number);
+    return createAccessibleWorkflowRule(this.userId, {
+      boardId, title, triggerIndex, actionIndex,
+    });
+  },
+
+  async 'rules.replaceWorkflowAction'(boardId, ruleId, actionIndex) {
+    check(boardId, String);
+    check(ruleId, String);
+    check(actionIndex, Number);
+    return replaceAccessibleWorkflowAction(this.userId, {
+      boardId, ruleId, actionIndex,
+    });
   },
 });

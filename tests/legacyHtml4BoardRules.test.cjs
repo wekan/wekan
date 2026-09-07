@@ -49,6 +49,14 @@ test('HTML4 board rules expose localized read views and guarded native controls'
   assert.match(rules, /legacyOperation: 'confirm-delete-rule'/);
   assert.match(rules, /legacyOperation: 'delete-rule'/);
   assert.match(rules, /maxlength: 500/);
+  assert.match(rules, /requestFields\.rulesView === 'workflow'/);
+  assert.match(rules, /fields: \{ rulesView: workflow \? 'list' : 'workflow' \}/);
+  assert.match(rules, /\? \[rule\.title, triggerText,/);
+  assert.match(rules, /describe\(actionById\.get\(rule\.actionId\)\?\.desc\)/);
+  assert.match(rules, /WORKFLOW_TRIGGERS\.map\(/);
+  assert.match(rules, /WORKFLOW_ACTIONS\.map\(/);
+  assert.match(rules, /legacyOperation: 'create-workflow-rule'/);
+  assert.match(rules, /legacyOperation: 'replace-workflow-action'/);
   assert.match(page, /const rules = await boardRulesPage\(path, userId, requestFields, translate\)/);
   assert.match(page, /action: `\$\{boardPath\(board\)\}\/rules`/);
 });

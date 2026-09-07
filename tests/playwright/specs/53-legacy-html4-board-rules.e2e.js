@@ -87,6 +87,38 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-board-rules.png`, fullPage: true,
       });
     }
+    await submit(legacy.locator(`form[action="${rulesPath}"]`).last());
+    await submit(legacy.locator(
+      'form:has(input[name="rulesView"][value="workflow"])',
+    ).first());
+    await expect(legacy.locator('thead')).toContainText('Kun');
+    await expect(legacy.locator('tbody')).toContainText('Siirrä kortti listansa alkuun');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-board-rules-workflow.png`,
+        fullPage: true,
+      });
+    }
+    const createWorkflow = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="create-workflow-rule"])',
+    );
+    await createWorkflow.locator('input[name="ruleTitle"]').fill(`Native workflow ${suffix}`);
+    await createWorkflow.locator('select[name="triggerIndex"]').selectOption('0');
+    await createWorkflow.locator('select[name="actionIndex"]').selectOption('0');
+    await submit(createWorkflow);
+    await expect.poll(() => db.findOne('rules', {
+      boardId: board.boardId, title: `Native workflow ${suffix}`,
+    })).not.toBeNull();
+    await expect(legacy.locator('tbody')).toContainText(`Native workflow ${suffix}`);
+    const replaceAction = legacy.locator(
+      `form:has(input[name="legacyOperation"][value="replace-workflow-action"]):has(input[name="ruleId"][value="${ids.ruleB}"])`,
+    );
+    await replaceAction.locator('select[name="actionIndex"]').selectOption('2');
+    await submit(replaceAction);
+    await expect.poll(() => db.findOne('rules', { _id: ids.ruleB })?.actionId)
+      .not.toBe(ids.actionB);
+    expect(db.findOne('actions', { _id: ids.actionB })).toBeNull();
+    await expect(legacy.locator('tbody')).toContainText('Siirrä kortti arkistoon');
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -103,6 +135,28 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await modern.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-board-rules.png`, fullPage: true,
+      });
+    }
+    await modern.locator('button.js-goback').click();
+    const workflowToggle = modern.locator('.js-rules-toggle-view');
+    if (!(await workflowToggle.isVisible().catch(() => false))) {
+      await modern.locator('.js-toggle-page-sidebar').first().click();
+      await workflowToggle.waitFor();
+    }
+    await workflowToggle.click();
+    const localizedWorkflowRule = modern.locator(
+      `.workflow-rule[data-rule-id="${ids.ruleA}"]`,
+    );
+    await expect(localizedWorkflowRule).toContainText(
+      'Kun kortti on siirretty arkistoon tekijänä *',
+    );
+    await expect(localizedWorkflowRule).toContainText(
+      'Siirrä kortti listansa alkuun',
+    );
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-board-rules-workflow.png`,
+        fullPage: true,
       });
     }
 
@@ -126,7 +180,9 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
     expect(denied).toBe('not-authorized');
     expect(db.findOne('rules', { _id: ids.ruleA }).title).toBe(`Localized rule ${suffix}`);
 
-    await submit(legacy.locator(`form[action="${rulesPath}"]`).last());
+    await submit(legacy.locator(
+      'form:has(input[name="rulesView"][value="list"])',
+    ).first());
     const rename = legacy.locator(
       `form:has(input[name="legacyOperation"][value="rename-rule"]):has(input[name="ruleId"][value="${ids.ruleB}"])`,
     );

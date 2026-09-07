@@ -90,8 +90,10 @@ import {
   updateAccessibleChecklistTitle,
 } from '/server/lib/accessibleChecklistOperations';
 import {
+  createAccessibleWorkflowRule,
   removeAccessibleRule,
   renameAccessibleRule,
+  replaceAccessibleWorkflowAction,
 } from '/server/lib/accessibleRuleOperations';
 import {
   CAPABILITY_SCRIPT_PATH,
@@ -188,7 +190,9 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.confirmRuleDelete = String(requestFields.ruleId || '');
   }
   if (session && rulesPath
-    && ['rename-rule', 'delete-rule'].includes(requestFields.legacyOperation)) {
+    && ['create-workflow-rule', 'replace-workflow-action',
+      'rename-rule', 'delete-rule']
+      .includes(requestFields.legacyOperation)) {
     try {
       const invocation = { userId: session.userId,
         connection: { clientAddress: String(session.address || '') } };
@@ -197,6 +201,19 @@ WebApp.handlers.use(async (req, res, next) => {
           boardId: decodeURIComponent(rulesPath[1]),
           ruleId: String(requestFields.ruleId || ''),
         };
+        if (requestFields.legacyOperation === 'create-workflow-rule') {
+          return createAccessibleWorkflowRule(session.userId, {
+            boardId: input.boardId,
+            title: requestFields.ruleTitle,
+            triggerIndex: requestFields.triggerIndex,
+            actionIndex: requestFields.actionIndex,
+          });
+        }
+        if (requestFields.legacyOperation === 'replace-workflow-action') {
+          return replaceAccessibleWorkflowAction(session.userId, {
+            ...input, actionIndex: requestFields.actionIndex,
+          });
+        }
         return requestFields.legacyOperation === 'rename-rule'
           ? renameAccessibleRule(session.userId, {
               ...input, title: requestFields.ruleTitle,
