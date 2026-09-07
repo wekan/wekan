@@ -257,6 +257,9 @@ function binaryPurpose(body = {}) {
   if (body.legacyOperation === 'download-attachment-original') {
     return `download:original-${String(body.attachmentId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
   }
+  if (body.legacyOperation === 'preview-attachment-media') {
+    return `download:media-${String(body.attachmentId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
   if (body.legacyOperation === 'preview-admin-attachment-gif') {
     return `download:admin-gif-${String(body.attachmentId || '')
       .replace(/[^A-Za-z0-9_-]/g, '')}`;
@@ -294,6 +297,7 @@ WebApp.handlers.use(async (req, res, next) => {
   }
   if (req.method === 'POST' && req.body?.legacySession) {
     session = ['export-rules', 'export-checklist', 'preview-attachment-gif',
+      'preview-attachment-media',
       'download-attachment-original', 'preview-admin-attachment-gif',
       'download-admin-attachment-original'].includes(req.body?.legacyOperation)
       ? await consumeLegacyHtml4DownloadSession(req, path, binaryPurpose(req.body))
@@ -1647,7 +1651,7 @@ WebApp.handlers.use(async (req, res, next) => {
     return;
   }
   if (session && /^\/b\/[^/]+/.test(path)
-    && ['preview-attachment-gif', 'download-attachment-original']
+    && ['preview-attachment-gif', 'preview-attachment-media', 'download-attachment-original']
       .includes(requestFields.legacyOperation)) {
     try {
       await serveLegacyHtml4Attachment({
@@ -1656,7 +1660,8 @@ WebApp.handlers.use(async (req, res, next) => {
         cardId: requestFields.cardId,
         attachmentId: requestFields.attachmentId,
         representation: requestFields.legacyOperation === 'preview-attachment-gif'
-          ? 'gif' : 'original',
+          ? 'gif' : requestFields.legacyOperation === 'preview-attachment-media'
+            ? 'media' : 'original',
       });
     } catch (error) {
       try {

@@ -102,6 +102,7 @@ export async function serveLegacyHtml4Attachment({ res, userId, boardId, cardId,
   }
   const policy = await limits();
   rejectLimit(attachment, policy);
+  const kind = attachmentKind(attachment);
 
   if (representation === 'gif') {
     const defaultStorage = policy.settings?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
@@ -123,6 +124,10 @@ export async function serveLegacyHtml4Attachment({ res, userId, boardId, cardId,
     return;
   }
 
+  const inlineMedia = representation === 'media';
+  if (inlineMedia && !kind.isAudio && !kind.isVideo) {
+    const error = new Error('unsupported-preview'); error.statusCode = 415; throw error;
+  }
   await normalizeName(attachment);
   let stream;
   let storageName = STORAGE_NAME_GRIDFS;
@@ -136,11 +141,11 @@ export async function serveLegacyHtml4Attachment({ res, userId, boardId, cardId,
     const error = new Error('storage-disabled'); error.statusCode = 403; throw error;
   }
   if (!stream) { const error = new Error('missing'); error.statusCode = 404; throw error; }
-  const responsePolicy = fileResponsePolicy(attachment.type, true);
+  const responsePolicy = fileResponsePolicy(attachment.type, !inlineMedia);
   harden(res);
   res.statusCode = 200;
   res.setHeader('Content-Type', responsePolicy.contentType);
-  res.setHeader('Content-Disposition', safeDisposition('attachment', attachment.name));
+  res.setHeader('Content-Disposition', safeDisposition(inlineMedia ? 'inline' : 'attachment', attachment.name));
   if (attachment.size) res.setHeader('Content-Length', attachment.size);
   for (const [name, value] of Object.entries(responsePolicy.headers)) res.setHeader(name, value);
   stream.once('error', error => {

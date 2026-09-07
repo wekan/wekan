@@ -150,6 +150,13 @@ that resembles markup remains visible text. The original download stays a
 separate purpose. A same-URL regression compares both viewers and proves a
 foreign board substitution is refused and Security-reported.
 
+Audio and video use another purpose-bound POST control. HTML4 does not require
+a scripted media widget: the authorized response is `inline` with its validated
+audio/video MIME type, allowing either the browser's native player or an
+operating-system helper to handle it. Non-media types are rejected with 415;
+original downloads remain forced attachments. The response repeats the same
+scope, storage and configured-size checks as every other attachment read.
+
 Filesystem reads resolve a relative `WRITABLE_PATH` against the launch directory
 recorded by the process environment, not Meteor's generated runtime directory.
 This keeps the containment boundary on the actual configured `files/` tree in

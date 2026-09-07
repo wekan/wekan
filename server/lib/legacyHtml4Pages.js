@@ -2056,6 +2056,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       label: tr(translate, 'preview', 'Preview'), icon: 'caret-right',
       fields: { ...responseFields, legacyOperation: 'preview-attachment-text' },
     });
+    if (kind.isAudio || kind.isVideo) actions.push({
+      action: attachmentAction,
+      label: tr(translate, kind.isAudio ? 'play' : 'preview', kind.isAudio ? 'Play' : 'Preview'),
+      icon: 'caret-right', target: '_blank',
+      authPurpose: `download:media-${attachment._id}`,
+      fields: { ...responseFields, legacyOperation: 'preview-attachment-media' },
+    });
     actions.push({
       action: attachmentAction,
       label: tr(translate, 'download', 'Download'),
