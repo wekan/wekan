@@ -269,9 +269,9 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary and seven event-backed reports now
-have the same admin-only status, search, paging, acknowledgement and repair
-operations in both views.
+secure JSON/CSV transfers. Problems Summary and nine reports now share guarded
+status, search, paging, identity resolution, acknowledgements and repairs between
+both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -361,6 +361,24 @@ DDP and HTML4 share one Global Admin boundary, database count, escaped
 Previous/Next controls need neither JavaScript nor cookies. Unit tests cover
 authorization, bounds, grouping, all seven columns and fallback data; paired
 same-URL Chromium screenshots search 26 people and verify two-page parity.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e098c3a5">Add accessible HTML4 Impersonation Report</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Impersonation Report now has a dedicated semantic
+Legacy HTML4 table with the modern Date, Administrator, Impersonated user, Board
+and Reason columns. Signed search and Previous/Next controls retain state without
+JavaScript or cookies, deleted accounts remain identifiable by recorded id, and
+long usernames, initials, ids and reasons wrap inside their own cells.
+
+The Meteor publication and HTML4 controller share one Global Admin-only service,
+literal 500-character search, bounded ten-row window, database count and batched
+identity lookup. Positive and refusal tests cover the shared boundary, columns,
+paging and wrapping. A same-URL Chromium test searches twelve records, verifies
+two pages and a deliberately long username in both views, captures both
+representations and proves an anonymous request cannot read the audit trail.
 
 </details>
 
