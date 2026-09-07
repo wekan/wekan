@@ -553,9 +553,7 @@ Template.setting.events({
     ).hasClass('is-checked');
     $('.js-toggle-support .materialCheckBox').toggleClass('is-checked');
     $('.support-content').toggleClass('hide');
-    Settings.update(Settings.findOne()._id, {
-      $set: { supportPageEnabled },
-    });
+    Meteor.call('saveAdminVisibilitySettings', 'urls', { supportPageEnabled });
     tpl.loading.set(false);
   },
   'click a.js-toggle-support-public'(event, tpl) {
@@ -564,9 +562,7 @@ Template.setting.events({
       '.js-toggle-support-public .materialCheckBox',
     ).hasClass('is-checked');
     $('.js-toggle-support-public .materialCheckBox').toggleClass('is-checked');
-    Settings.update(Settings.findOne()._id, {
-      $set: { supportPagePublic },
-    });
+    Meteor.call('saveAdminVisibilitySettings', 'urls', { supportPagePublic });
     tpl.loading.set(false);
   },
   // The Support page's title and text are saved by the URL section's Save now
@@ -862,9 +858,11 @@ function visibilityTextFields(pairs) {
   return $set;
 }
 
-function saveVisibilitySettings($set) {
+function saveVisibilitySettings(group, $set) {
   if (Object.keys($set).length) {
-    Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
+    Meteor.call('saveAdminVisibilitySettings', group, $set, error => {
+      if (error) alert(error.reason || error.message);
+    });
   }
 }
 
@@ -902,12 +900,10 @@ Template.tableVisibilityModeSettings.events({
     // Each setting is one checkbox now: ticked = hidden. A checkbox that is not on
     // screen is left alone rather than written as false - the same guard the rest of
     // this pane uses, and the reason a pane that hid a field never blanked it.
-    if ($('#accounts-allowPrivateOnly').length) {
-      TableVisibilityModeSettings.update('tableVisibilityMode-allowPrivateOnly', {
-        $set: { booleanValue: $('#accounts-allowPrivateOnly').hasClass('is-checked') },
-      });
-    }
     const $set = {};
+    if ($('#accounts-allowPrivateOnly').length) {
+      $set.allowPrivateOnly = $('#accounts-allowPrivateOnly').hasClass('is-checked');
+    }
     for (const [selector, key] of [
       ['#hide-board-activities', 'hideBoardActivitiesOnAllBoards'],
       ['#hide-card-counter-list', 'hideCardCounterList'],
@@ -920,14 +916,14 @@ Template.tableVisibilityModeSettings.events({
     if ($('#spinnerName').length) {
       $set.spinnerName = visibilityText('#spinnerName');
     }
-    saveVisibilitySettings($set);
+    saveVisibilitySettings('allBoards', $set);
   },
 
   // ── URL ───────────────────────────────────────────────────────────────────
   // The Support page's title and text (its two checkboxes save on click, above),
   // the help link, the legal notice and the URL schemes that are auto-linked.
   'click button.js-visibility-url-save'() {
-    saveVisibilitySettings(visibilityTextFields([
+    saveVisibilitySettings('urls', visibilityTextFields([
       ['#support-title', 'supportTitle'],
       ['#support-page-text', 'supportPageText'],
       ['#custom-help-link-url', 'customHelpLinkUrl'],
@@ -945,7 +941,7 @@ Template.tableVisibilityModeSettings.events({
     // The browser tab says the product name, so it changes with the setting rather
     // than at the next full page load.
     document.title = productName;
-    saveVisibilitySettings({ productName });
+    saveVisibilitySettings('product', { productName });
   },
 
   // ── Logo ──────────────────────────────────────────────────────────────────
@@ -961,7 +957,7 @@ Template.tableVisibilityModeSettings.events({
     if ($('#hide-logo').length) {
       $set.hideLogo = $('#hide-logo').hasClass('is-checked');
     }
-    saveVisibilitySettings($set);
+    saveVisibilitySettings('logos', $set);
     uploadBrandingInput('#custom-login-logo-image-upload', 'login');
     uploadBrandingInput('#custom-top-left-corner-logo-image-upload', 'topLeft');
   },

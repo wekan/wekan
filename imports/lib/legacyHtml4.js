@@ -354,6 +354,11 @@ function contentRows(path, options) {
         )).join(' ');
         return `<strong>${escapeHtml(cell.name || '')}</strong>${details ? ` (${escapeHtml(details)})` : ''}${actions ? `<p>${actions}</p>` : ''}`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'image') {
+        const width = Number.isSafeInteger(cell.width) && cell.width > 0
+          ? Math.min(cell.width, 1000) : 160;
+        return `<img src="${escapeHtml(cell.src || '')}" alt="${escapeHtml(cell.alt || '')}" width="${width}">`;
+      }
       if (cell && typeof cell === 'object' && cell.action) {
         return postForm(cell.action, cell.label,
           options.actionFields(cell.action, cell.authPurpose), cell.fields, cell.icon, cell.target);

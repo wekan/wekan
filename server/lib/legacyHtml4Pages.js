@@ -64,9 +64,13 @@ import { announcementForAdmin } from '/server/lib/adminAnnouncement';
 import { accessibilityForAdmin } from '/server/lib/adminAccessibility';
 import { pwaSettingsForAdmin } from '/server/lib/adminPwaSettings';
 import { globalWebhooksForAdmin } from '/server/lib/adminGlobalWebhooks';
+import { visibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings';
+import { adminThemeForUser } from '/server/lib/adminThemeSettings';
+import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
 const {
-  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
+  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiImage, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
   uiTextareaGroupForm,
 } = require('/imports/lib/uiComponentLibrary');
@@ -2893,6 +2897,115 @@ async function adminSettingsGlobalWebhooksPage(path, userId, requestFields, tran
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')], rows };
 }
 
+async function adminSettingsVisibilityPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/visibility') return null;
+  let setting = null;
+  let theme = null;
+  try { setting = await visibilitySettingsForAdmin(userId); } catch (_) { /* tenant admin */ }
+  try { theme = await adminThemeForUser(userId, requestFields.requestHeaders || {}); } catch (_) {}
+  if (!setting && !theme) return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'visibility', 'Visibility'),
+      tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  const rows = [{ rowHeader: false, cells: [adminSettingsNavigation(translate), ''] }];
+  const save = tr(translate, 'save', 'Save');
+  if (setting) {
+    rows.push({ rowHeader: false, colspanLast: 2,
+      cells: [tr(translate, 'all-boards-hide', 'All Boards: Hide')] });
+    rows.push({ cells: [tr(translate, 'all-boards', 'All Boards'), uiFieldsetForm({
+      action: path, legend: tr(translate, 'all-boards-hide', 'All Boards: Hide'), id: 'visibility-allboards',
+      inputs: [
+        { name: 'allowPrivateOnly', type: 'checkbox', value: 'true', checked: setting.allowPrivateOnly,
+          label: tr(translate, 'public-boards', 'Public boards') },
+        { name: 'hideBoardActivitiesOnAllBoards', type: 'checkbox', value: 'true',
+          checked: setting.hideBoardActivitiesOnAllBoards === true,
+          label: tr(translate, 'board-activities', 'Board activities') },
+        { name: 'hideCardCounterList', type: 'checkbox', value: 'true',
+          checked: setting.hideCardCounterList === true,
+          label: tr(translate, 'card-counter-list', 'Card counter list') },
+        { name: 'hideBoardMemberList', type: 'checkbox', value: 'true',
+          checked: setting.hideBoardMemberList === true,
+          label: tr(translate, 'board-member-list', 'Board member list') },
+        { name: 'spinnerName', type: 'select', value: setting.spinnerName || ALLOWED_WAIT_SPINNERS[0],
+          label: tr(translate, 'wait-spinner', 'Wait Spinner'),
+          options: ALLOWED_WAIT_SPINNERS.map(value => ({ value,
+            label: tr(translate, value, value) })) },
+      ], fields: { legacyOperation: 'save-visibility-allboards' }, submitLabel: save,
+    })] });
+    rows.push({ rowHeader: false, colspanLast: 2,
+      cells: [tr(translate, 'settings-group-url', 'URL')] });
+    rows.push({ cells: [tr(translate, 'support', 'Support'), uiFieldsetForm({
+      action: path, legend: tr(translate, 'settings-group-url', 'URL'), id: 'visibility-urls',
+      inputs: [
+        { name: 'supportPageEnabled', type: 'checkbox', value: 'true',
+          checked: setting.supportPageEnabled === true,
+          label: tr(translate, 'support-page-enabled', 'Support page enabled') },
+        { name: 'supportPagePublic', type: 'checkbox', value: 'true',
+          checked: setting.supportPagePublic === true, label: tr(translate, 'public', 'Public') },
+        { name: 'supportTitle', label: tr(translate, 'support-title', 'Support title'),
+          value: setting.supportTitle || '', maxlength: 1000 },
+        { name: 'supportPageText', type: 'textarea', label: tr(translate, 'support-content', 'Support content'),
+          value: setting.supportPageText || '', maxlength: 20000 },
+        { name: 'customHelpLinkUrl', label: tr(translate, 'custom-help-link-url', 'Custom Help Link URL'),
+          value: setting.customHelpLinkUrl || '', maxlength: 4096 },
+        { name: 'legalNotice', label: tr(translate, 'custom-legal-notice-link-url', 'Custom legal notice page URL'),
+          value: setting.legalNotice || '', maxlength: 4096 },
+        { name: 'automaticLinkedUrlSchemes', type: 'textarea',
+          label: tr(translate, 'automatic-linked-url-schemes', 'Automatic URL schemes'),
+          value: setting.automaticLinkedUrlSchemes || '', maxlength: 1000 },
+      ], fields: { legacyOperation: 'save-visibility-urls' }, submitLabel: save,
+    })] });
+    rows.push({ cells: [tr(translate, 'custom-product-name', 'Custom Product Name'), uiTextForm({
+      action: path, label: tr(translate, 'custom-product-name', 'Custom Product Name'),
+      name: 'productName', value: setting.productName || '', maxlength: 1000,
+      fields: { legacyOperation: 'save-visibility-product' }, submitLabel: save,
+    })] });
+  }
+  if (theme) rows.push({ cells: [tr(translate, 'change-color', 'Change Color'), uiFieldsetForm({
+    action: path, legend: tr(translate, 'change-color', 'Change Color'), id: 'visibility-theme',
+    inputs: [
+      { name: 'themeColor', type: 'select', label: tr(translate, 'change-color', 'Change Color'),
+        value: theme.color || '', options: [{ value: '', label: tr(translate, 'theme-default', 'Default') },
+          ...BOARD_COLORS.map(value => ({ value, label: value }))] },
+      { name: 'themeCustomColor1', label: tr(translate, 'custom-color', 'Custom color'),
+        value: theme.custom?.[0] || '', maxlength: 7 },
+      { name: 'themeCustomColor2', label: tr(translate, 'custom-color', 'Custom color'),
+        value: theme.custom?.[1] || '', maxlength: 7 },
+    ], fields: { legacyOperation: 'save-visibility-theme' }, submitLabel: save,
+  })] });
+  if (setting) {
+    const image = (url, alt) => /^\/branding\/images\/[A-Za-z0-9_-]+\.gif$/.test(url || '')
+      ? uiImage({ src: url, alt, width: 160 }) : '';
+    rows.push({ rowHeader: false, colspanLast: 2,
+      cells: [tr(translate, 'settings-group-logo', 'Logo')] });
+    rows.push({ cells: [tr(translate, 'settings-group-logo', 'Logo'), uiFieldsetForm({
+      action: path, legend: tr(translate, 'settings-group-logo', 'Logo'), id: 'visibility-logos',
+      inputs: [
+        { name: 'hideLogo', type: 'checkbox', value: 'true', checked: setting.hideLogo === true,
+          label: tr(translate, 'hide-logo', 'Hide Logo') },
+        { name: 'customLoginLogoLinkUrl', label: tr(translate, 'custom-login-logo-link-url', 'Custom Login Logo Link URL'), value: setting.customLoginLogoLinkUrl || '', maxlength: 4096 },
+        { name: 'textBelowCustomLoginLogo', type: 'textarea', label: tr(translate, 'text-below-custom-login-logo', 'Text below Custom Login Logo'), value: setting.textBelowCustomLoginLogo || '', maxlength: 20000 },
+        { name: 'customTopLeftCornerLogoLinkUrl', label: tr(translate, 'custom-top-left-corner-logo-link-url', 'Custom Top Left Corner Logo Link URL'), value: setting.customTopLeftCornerLogoLinkUrl || '', maxlength: 4096 },
+        { name: 'customTopLeftCornerLogoHeight', label: tr(translate, 'custom-top-left-corner-logo-height', 'Custom Top Left Corner Logo Height'), value: setting.customTopLeftCornerLogoHeight || '', maxlength: 10 },
+      ], fields: { legacyOperation: 'save-visibility-logos' }, submitLabel: save,
+    })] });
+    rows.push({ cells: [image(setting.customLoginLogoImageUrl,
+      tr(translate, 'custom-login-logo-image-url', 'Custom login logo')), uiFileForm({ action: path,
+      label: tr(translate, 'upload', 'Upload'), name: 'brandingImage', accept: 'image/*',
+      fields: { legacyOperation: 'upload-visibility-logo', brandingSlot: 'login' },
+      submitLabel: tr(translate, 'upload', 'Upload') })] });
+    rows.push({ cells: [image(setting.customTopLeftCornerLogoImageUrl,
+      tr(translate, 'custom-top-left-corner-logo-image-url', 'Custom top left corner logo')), uiFileForm({
+      action: path, label: tr(translate, 'upload', 'Upload'), name: 'brandingImage', accept: 'image/*',
+      fields: { legacyOperation: 'upload-visibility-logo', brandingSlot: 'topLeft' },
+      submitLabel: tr(translate, 'upload', 'Upload') })] });
+  }
+  if (requestFields.legacyVisibilityResult) rows.push({ cells: [tr(translate, 'status', 'Status'),
+    requestFields.legacyVisibilityResult] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / ${tr(translate, 'visibility', 'Visibility')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')], rows };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3884,6 +3997,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsGlobalWebhooks) return adminSettingsGlobalWebhooks;
+  const adminSettingsVisibility = await adminSettingsVisibilityPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsVisibility) return adminSettingsVisibility;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );

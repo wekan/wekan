@@ -86,6 +86,32 @@ async function storeBrandingGif(input, scope, ownerId, slot, source) {
   return internalUrl(id);
 }
 
+export async function uploadBrandingImageForUser(
+  userId, scope, orgId, slot, input,
+) {
+  check(scope, Match.OneOf('global', 'org'));
+  check(orgId, Match.OneOf(String, null));
+  check(slot, Match.OneOf('login', 'topLeft'));
+  const user = await ReactiveCache.getUser(
+    { _id: userId }, { fields: { isAdmin: 1, orgs: 1 } },
+  );
+  if (scope === 'global' ? user?.isAdmin !== true
+    : !orgId || !tenantAdmin.canManageOrg(user, orgId)) {
+    throw new Meteor.Error('not-authorized');
+  }
+  if (!Buffer.isBuffer(input) || !input.length || input.length > MAX_UPLOAD_BYTES) {
+    throw new Meteor.Error('invalid-image-size');
+  }
+  let url;
+  try { url = await storeBrandingGif(input, scope, orgId, slot, 'admin-upload'); }
+  catch (error) { throw new Meteor.Error('invalid-image', error.message); }
+  const field = SLOT_FIELDS[slot][scope];
+  const collection = scope === 'global' ? Settings : Org;
+  const id = scope === 'global' ? (await Settings.findOneAsync({}))?._id : orgId;
+  await collection.direct.updateAsync(id, { $set: { [field]: url } });
+  return url;
+}
+
 async function importExternal(value, scope, ownerId, slot) {
   const response = await fetchSafe(value, { maxRedirects: 3 });
   const status = response.statusCode || response.status;
@@ -208,29 +234,13 @@ Meteor.methods({
     check(orgId, Match.OneOf(String, null));
     check(slot, Match.OneOf('login', 'topLeft'));
     check(base64, String);
-    const user = await ReactiveCache.getUser(
-      { _id: this.userId }, { fields: { isAdmin: 1, orgs: 1 } },
-    );
-    if (scope === 'global' ? user?.isAdmin !== true : !orgId || !tenantAdmin.canManageOrg(user, orgId)) {
-      throw new Meteor.Error('not-authorized');
-    }
     if (base64.length > Math.ceil(MAX_UPLOAD_BYTES * 4 / 3) + 4 ||
         !/^[A-Za-z0-9+/]*={0,2}$/.test(base64)) {
       throw new Meteor.Error('invalid-image');
     }
     const input = Buffer.from(base64, 'base64');
     if (!input.length || input.length > MAX_UPLOAD_BYTES) throw new Meteor.Error('invalid-image-size');
-    let url;
-    try {
-      url = await storeBrandingGif(input, scope, orgId, slot, 'admin-upload');
-    } catch (error) {
-      throw new Meteor.Error('invalid-image', error.message);
-    }
-    const field = SLOT_FIELDS[slot][scope];
-    const collection = scope === 'global' ? Settings : Org;
-    const id = scope === 'global' ? (await Settings.findOneAsync({}))?._id : orgId;
-    await collection.updateAsync(id, { $set: { [field]: url } });
-    return url;
+    return uploadBrandingImageForUser(this.userId, scope, orgId, slot, input);
   },
 
   async uploadBoardBackgroundImage(boardId, base64) {

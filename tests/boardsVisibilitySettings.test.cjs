@@ -105,14 +105,14 @@ test('the Layout save no longer writes them (this is the trap)', () => {
 test('the All Boards save writes them, and only what it found', () => {
   const body = handler('js-visibility-all-boards-save');
   assert.ok(/allowPrivateOnly/.test(body), 'it still saves its own setting');
-  assert.ok(/TableVisibilityModeSettings\.update/.test(body),
-    'boards visibility lives in its own collection, so it is a separate write');
+  assert.ok(/saveAdminVisibilitySettings/.test(js),
+    'the server service separates the boards-visibility collection write');
   // Guarded: a checkbox that is not on screen must not be written as false.
   assert.ok(/\$\(selector\)\.length/.test(body) && /\$\('#accounts-allowPrivateOnly'\)\.length/.test(body),
     'a missing checkbox must be skipped, never saved as false');
   assert.ok(/hasClass\('is-checked'\)/.test(body),
     'and what is saved is whether the box is ticked');
-  assert.ok(/saveVisibilitySettings\(\$set\)/.test(body),
+  assert.ok(/saveVisibilitySettings\('allBoards', \$set\)/.test(body),
     'and the Settings write goes through the helper that sends no empty update');
   assert.ok(/Object\.keys\(\$set\)\.length/.test(js), 'which is what that helper checks');
 });

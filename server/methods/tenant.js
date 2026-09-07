@@ -1,10 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { check, Match } from 'meteor/check';
+import { check } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Org from '/models/org';
-import Settings from '/models/settings';
-import { BOARD_COLORS } from '/models/metadata/colors';
-import { isHexColor } from '/models/lib/contrastColor';
 import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver';
 
 // Multitenancy option D — the methods behind the Admin Panel
@@ -24,6 +21,7 @@ import { tenantForConnection, tenancyEnabled } from '/server/lib/tenantResolver'
 
 import * as tenants from '/models/lib/tenants';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
+import { adminThemeForUser, setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 
 // #5850's lesson: Meteor.user()/getCurrentUser() can return null inside an async
 // method after an await, so the caller is looked up by this.userId directly.
@@ -148,52 +146,11 @@ Meteor.methods({
   // admin sets that Organization's, which replaces it on the Organization's own
   // hosts. Where the write lands is decided by the shared rule, not by the client.
   async getAdminThemeColor() {
-    const user = await callerUser(this.userId);
-    const org = tenantForConnection(this.connection);
-    const target = tenantAdmin.themeTarget(user, org && org._id);
-    if (!target) throw new Meteor.Error('not-authorized');
-    if (target.scope === 'instance') {
-      const setting = await Settings.findOneAsync({});
-      return {
-        scope: 'instance',
-        color: (setting && setting.themeColor) || null,
-        custom: (setting && setting.themeCustomColors) || [],
-      };
-    }
-    const doc = await Org.findOneAsync(target.orgId,
-      { fields: { orgThemeColor: 1, orgThemeCustomColors: 1, orgDisplayName: 1 } });
-    return {
-      scope: 'org',
-      orgId: target.orgId,
-      orgDisplayName: (doc && doc.orgDisplayName) || '',
-      color: (doc && doc.orgThemeColor) || null,
-      custom: (doc && doc.orgThemeCustomColors) || [],
-    };
+    return adminThemeForUser(this.userId, this.connection?.httpHeaders);
   },
 
   async setAdminThemeColor(color, custom) {
-    check(color, Match.OneOf(String, null, undefined));
-    check(custom, Match.OneOf([String], null, undefined));
-    const user = await callerUser(this.userId);
-    const org = tenantForConnection(this.connection);
-    const target = tenantAdmin.themeTarget(user, org && org._id);
-    if (!target) throw new Meteor.Error('not-authorized');
-    // A colour is a theme NAME from the shared list, or a custom colour on top of
-    // one; anything else is refused rather than stored and rendered as a class.
-    if (color && !BOARD_COLORS.includes(color)) throw new Meteor.Error('invalid-color');
-    const colors = (custom || []).filter(c => isHexColor(c)).slice(0, 2);
-    if (target.scope === 'instance') {
-      const setting = await Settings.findOneAsync({});
-      if (!setting) throw new Meteor.Error('no-settings');
-      await Settings.updateAsync(setting._id, color
-        ? { $set: { themeColor: color, themeCustomColors: colors } }
-        : { $unset: { themeColor: '', themeCustomColors: '' } });
-      return { scope: 'instance', color: color || null };
-    }
-    await Org.updateAsync(target.orgId, color
-      ? { $set: { orgThemeColor: color, orgThemeCustomColors: colors } }
-      : { $unset: { orgThemeColor: '', orgThemeCustomColors: '' } });
-    return { scope: 'org', orgId: target.orgId, color: color || null };
+    return setAdminThemeForUser(this.userId, this.connection?.httpHeaders, color, custom);
   },
 
   // Appoint or dismiss a per-tenant Global Admin of one org. The site admin may do

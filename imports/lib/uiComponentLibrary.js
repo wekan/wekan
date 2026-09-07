@@ -40,6 +40,10 @@ function uiAttachment({ name, type, size, actions = [] }) {
   return { component: 'attachment', name, type, size, actions };
 }
 
+function uiImage({ src, alt, width = 160 }) {
+  return { component: 'image', src, alt, width };
+}
+
 function uiLink({ href, label, icon = 'caret-right' }) {
   return { component: 'link', href, label, icon };
 }
@@ -99,6 +103,6 @@ function uiBoardCreateForm({ action, titleLabel, permissionLabel, permissions = 
 
 module.exports = {
   UI_ICONS, uiAction, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel,
-  uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiLink, uiSearchForm, uiSelectForm,
+  uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiImage, uiLink, uiSearchForm, uiSelectForm,
   uiTextForm, uiTextareaForm, uiTextareaGroupForm,
 };

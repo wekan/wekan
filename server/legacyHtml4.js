@@ -1,6 +1,7 @@
 import { WebApp } from 'meteor/webapp';
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
+import fs from 'fs';
 import Settings from '/models/settings';
 import { TAPi18n } from '/imports/i18n';
 import {
@@ -79,6 +80,9 @@ import {
 } from '/server/lib/adminPwaSettings';
 import { saveGlobalWebhookForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { customHeadMarkup } from '/server/lib/customHeadValidation';
+import { saveVisibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings';
+import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
+import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -331,6 +335,66 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyGlobalWebhookResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed',
       );
+    }
+  }
+  if (session && path === '/admin/settings/visibility'
+    && /^save-visibility-/.test(String(requestFields.legacyOperation || ''))) {
+    try {
+      const checked = name => requestFields[name] === 'true';
+      if (requestFields.legacyOperation === 'save-visibility-allboards') {
+        await saveVisibilitySettingsForAdmin(session.userId, 'allBoards', {
+          allowPrivateOnly: checked('allowPrivateOnly'),
+          hideBoardActivitiesOnAllBoards: checked('hideBoardActivitiesOnAllBoards'),
+          hideCardCounterList: checked('hideCardCounterList'),
+          hideBoardMemberList: checked('hideBoardMemberList'),
+          spinnerName: String(requestFields.spinnerName || ''),
+        }, { req });
+      } else if (requestFields.legacyOperation === 'save-visibility-urls') {
+        await saveVisibilitySettingsForAdmin(session.userId, 'urls', {
+          supportPageEnabled: checked('supportPageEnabled'),
+          supportPagePublic: checked('supportPagePublic'),
+          supportTitle: String(requestFields.supportTitle || ''),
+          supportPageText: String(requestFields.supportPageText || ''),
+          customHelpLinkUrl: String(requestFields.customHelpLinkUrl || ''),
+          legalNotice: String(requestFields.legalNotice || ''),
+          automaticLinkedUrlSchemes: String(requestFields.automaticLinkedUrlSchemes || ''),
+        }, { req });
+      } else if (requestFields.legacyOperation === 'save-visibility-product') {
+        await saveVisibilitySettingsForAdmin(session.userId, 'product', {
+          productName: String(requestFields.productName || ''),
+        }, { req });
+      } else if (requestFields.legacyOperation === 'save-visibility-logos') {
+        await saveVisibilitySettingsForAdmin(session.userId, 'logos', {
+          hideLogo: checked('hideLogo'),
+          customLoginLogoLinkUrl: String(requestFields.customLoginLogoLinkUrl || ''),
+          textBelowCustomLoginLogo: String(requestFields.textBelowCustomLoginLogo || ''),
+          customTopLeftCornerLogoLinkUrl:
+            String(requestFields.customTopLeftCornerLogoLinkUrl || ''),
+          customTopLeftCornerLogoHeight:
+            String(requestFields.customTopLeftCornerLogoHeight || ''),
+        }, { req });
+      } else if (requestFields.legacyOperation === 'save-visibility-theme') {
+        const custom = [requestFields.themeCustomColor1, requestFields.themeCustomColor2]
+          .map(value => String(value || '').trim()).filter(Boolean);
+        await setAdminThemeForUser(session.userId, req.headers,
+          String(requestFields.themeColor || '') || null, custom);
+      } else throw new Meteor.Error('invalid-setting-group');
+      requestFields.legacyVisibilityResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyVisibilityResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/settings/visibility' && multipartUpload
+    && requestFields.legacyOperation === 'upload-visibility-logo') {
+    try {
+      const input = await fs.promises.readFile(multipartUpload.tempPath);
+      await uploadBrandingImageForUser(session.userId, 'global', null,
+        String(requestFields.brandingSlot || ''), input);
+      requestFields.legacyVisibilityResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyVisibilityResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }
   if (session && path === '/admin/problems/security'
@@ -1230,6 +1294,7 @@ WebApp.handlers.use(async (req, res, next) => {
   if (query.has('q')) requestFields.q = query.get('q');
   if (query.has('searchView')) requestFields.searchView = query.get('searchView');
   if (query.has('page')) requestFields.page = query.get('page');
+  requestFields.requestHeaders = req.headers;
   const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
 
   res.statusCode = 200;

@@ -10,11 +10,13 @@ const ALLOWED_FIELDS = new Set([
   'legacySession', 'authAction', 'authCounter', 'authHash',
   'importFields', 'importField', 'legacyOperation',
   'boardId', 'cardId', 'checklistId',
+  'visibilityGroup', 'brandingSlot',
 ]);
 
 function isLegacyHtml4Multipart(req, requestPath) {
   return req?.method === 'POST'
-    && (/^\/import\/[^/]+$/.test(requestPath) || /^\/b\/[^/]+\/[^/]+\/[^/]+$/.test(requestPath))
+    && (/^\/import\/[^/]+$/.test(requestPath) || /^\/b\/[^/]+\/[^/]+\/[^/]+$/.test(requestPath)
+      || requestPath === '/admin/settings/visibility')
     && /^multipart\/form-data\b/i.test(String(req.headers?.['content-type'] || ''));
 }
 
@@ -56,14 +58,14 @@ function receiveLegacyHtml4Multipart(req) {
       } else fields[name] = value;
     });
     parser.on('file', (fieldName, stream, filename, encoding, mimeType) => {
-      if (failed || fieldName !== 'importFile' || upload) {
+      if (failed || !['importFile', 'brandingImage'].includes(fieldName) || upload) {
         stream.resume();
         fail(new Error('invalid-import-file-field'));
         return;
       }
       const tempPath = path.join(os.tmpdir(),
         `wekan-html4-import-${Date.now()}-${crypto.randomBytes(12).toString('hex')}`);
-      upload = { tempPath, filename: String(filename || '').slice(0, 300),
+      upload = { fieldName, tempPath, filename: String(filename || '').slice(0, 300),
         mimeType: String(mimeType || '').slice(0, 100), truncated: false };
       stream.on('limit', () => { upload.truncated = true; });
       fileWrite = pipeline(stream, fs.createWriteStream(tempPath, { flags: 'wx', mode: 0o600 }));

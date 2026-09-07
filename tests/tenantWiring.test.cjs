@@ -356,13 +356,16 @@ test('the picker knows three scopes, and the admin one writes through the server
 
 test('the server decides whose theme is written, and validates the colour', () => {
   const methods = read('server/methods/tenant.js');
-  const set = methods.slice(methods.indexOf('async setAdminThemeColor'));
-  assert.ok(/tenantAdmin\.themeTarget\(user, org && org\._id\)/.test(set),
+  const service = read('server/lib/adminThemeSettings.js');
+  const set = service.slice(service.indexOf('export async function setAdminThemeForUser'));
+  assert.ok(/tenantAdmin\.themeTarget\(user, org\?\._id\)/.test(service),
     'the shared rule, from the caller and the host they are on');
   assert.ok(/BOARD_COLORS\.includes\(color\)/.test(set), 'a theme name from the shared list');
   assert.ok(/isHexColor/.test(set), 'and custom colours are hex, or dropped');
   assert.ok(/themeColor: color/.test(set) && /orgThemeColor: color/.test(set),
     'the instance document or the Organization, never both');
+  assert.ok(/setAdminThemeForUser\(this\.userId/.test(methods),
+    'the DDP method and HTML4 handler share that service');
 });
 
 test('the order of themes is default -> site/Organization -> user, at runtime', () => {
