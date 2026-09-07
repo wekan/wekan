@@ -115,6 +115,8 @@ import {
   setTeamFeatureForAdmin,
   updateTeamForAdmin,
 } from '/server/lib/adminTeams';
+import { saveLockoutSettingsForAdmin, unlockAllUsersForAdmin,
+  unlockUserForAdmin } from '/server/lib/adminLockout';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -645,6 +647,36 @@ WebApp.handlers.use(async (req, res, next) => {
     } catch (error) {
       requestFields.editTeamId ||= String(requestFields.teamId || '');
       requestFields.legacyTeamResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/locked-users') {
+    const operation = String(requestFields.legacyOperation || '');
+    try {
+      if (operation === 'save-lockout-settings') {
+        await saveLockoutSettingsForAdmin(session.userId, {
+          knownFailuresBeforeLockout: Number(requestFields.knownFailuresBeforeLockout),
+          knownLockoutPeriod: Number(requestFields.knownLockoutPeriod),
+          knownFailureWindow: Number(requestFields.knownFailureWindow),
+          unknownFailuresBeforeLockout: Number(requestFields.unknownFailuresBeforeLockout),
+          unknownLockoutPeriod: Number(requestFields.unknownLockoutPeriod),
+          unknownFailureWindow: Number(requestFields.unknownFailureWindow),
+        }, { req });
+      } else if (operation === 'request-unlock-user') {
+        requestFields.confirmUnlockUser = String(requestFields.targetUserId || '');
+      } else if (operation === 'unlock-user') {
+        await unlockUserForAdmin(session.userId,
+          String(requestFields.targetUserId || ''), { req });
+      } else if (operation === 'request-unlock-all') {
+        requestFields.confirmUnlockAll = true;
+      } else if (operation === 'unlock-all-users') {
+        await unlockAllUsersForAdmin(session.userId, { req });
+      }
+      if (operation && !['request-unlock-user', 'request-unlock-all'].includes(operation)) {
+        requestFields.legacyLockoutResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.legacyLockoutResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }

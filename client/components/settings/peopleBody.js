@@ -133,6 +133,7 @@ Template.people.onCreated(function () {
   // (domainGeneral) now owns its data via getDomainsWithUserCountsPage.
   this.domainSetting = new ReactiveVar(false);
   this.subscribe('inviteToBoardRolesSettings');
+  this.subscribe('lockoutSettings');
   this.findOrgsOptions = new ReactiveVar({});
   this.findTeamsOptions = new ReactiveVar({});
   this.findUsersOptions = new ReactiveVar({});

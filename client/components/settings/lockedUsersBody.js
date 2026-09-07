@@ -41,9 +41,9 @@ Template.lockedUsersGeneral.onCreated(function () {
       this.isLoadingLockedUsers.set(false);
     });
   };
-
-  // Don't load immediately to prevent unnecessary spinner
-  // The data will be loaded when the tab is selected in peopleBody.js switchMenu
+  // Direct pane URLs render this child after the parent has already switched
+  // tabs, so relying on the parent's switch handler left the list empty.
+  Meteor.defer(() => this.refreshLockedUsers());
 });
 
 Template.lockedUsersGeneral.helpers({
@@ -134,29 +134,14 @@ Template.lockedUsersGeneral.events({
     const unknownLockoutPeriod = parseInt($('#unknown-lockout-period').val(), 10) || 60;
     const unknownFailureWindow = parseInt($('#unknown-failure-window').val(), 10) || 15;
 
-    // Update the database
-    LockoutSettings.update('known-failuresBeforeLockout', {
-      $set: { value: knownFailuresBeforeLockout },
-    });
-    LockoutSettings.update('known-lockoutPeriod', {
-      $set: { value: knownLockoutPeriod },
-    });
-    LockoutSettings.update('known-failureWindow', {
-      $set: { value: knownFailureWindow },
-    });
-
-    LockoutSettings.update('unknown-failuresBeforeLockout', {
-      $set: { value: unknownFailuresBeforeLockout },
-    });
-    LockoutSettings.update('unknown-lockoutPeriod', {
-      $set: { value: unknownLockoutPeriod },
-    });
-    LockoutSettings.update('unknown-failureWindow', {
-      $set: { value: unknownFailureWindow },
-    });
-
-    // Reload the AccountsLockout configuration
-    Meteor.call('reloadAccountsLockout', (err, ret) => {
+    Meteor.call('saveAccountsLockoutSettings', {
+      knownFailuresBeforeLockout,
+      knownLockoutPeriod,
+      knownFailureWindow,
+      unknownFailuresBeforeLockout,
+      unknownLockoutPeriod,
+      unknownFailureWindow,
+    }, (err, ret) => {
       if (!err && ret) {
         const message = TAPi18n.__('accounts-lockout-settings-updated');
         alert(message);

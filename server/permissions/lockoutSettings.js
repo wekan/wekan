@@ -1,8 +1,9 @@
 import LockoutSettings from '/models/lockoutSettings';
+import { allowSiteAdminCollectionMutation } from '/server/lib/adminCollectionPermission';
 
 LockoutSettings.allow({
   async update(userId) {
-    const user = await Meteor.users.findOneAsync(userId);
-    return user && user.isAdmin;
+    return allowSiteAdminCollectionMutation(userId);
   },
+  fetch: [],
 });

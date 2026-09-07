@@ -77,6 +77,7 @@ import {
   organizationsPageForAdmin,
 } from '/server/lib/adminOrganizations';
 import { teamForAdmin, teamsPageForAdmin } from '/server/lib/adminTeams';
+import { lockoutPageForAdmin } from '/server/lib/adminLockout';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3640,6 +3641,87 @@ async function adminPeopleTeamsPage(path, userId, requestFields, translate) {
     tr(translate, 'team-sync-members-from-auth', 'Sync members')], rows };
 }
 
+async function adminPeopleLockedUsersPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/locked-users') return null;
+  let result;
+  try {
+    result = await lockoutPageForAdmin(userId, { req: requestFields.req });
+  } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'accounts-lockout-locked-users', 'Locked users'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const settings = result.settings;
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'accounts-lockout-info',
+      'Configure failed-login protection and unlock affected users.'), '', '', '', '', ''] },
+    { rowHeader: false, cells: [uiFieldsetForm({ action: path,
+      legend: tr(translate, 'accounts-lockout-settings', 'Lockout settings'),
+      id: 'lockout-settings', inputs: [
+        { type: 'number', name: 'knownFailuresBeforeLockout',
+          label: `${tr(translate, 'accounts-lockout-known-users', 'Known users')} — ${tr(translate,
+            'accounts-lockout-failures-before', 'Failures before lockout')}`,
+          value: settings.knownFailuresBeforeLockout, min: 1, max: 10, required: true },
+        { type: 'number', name: 'knownLockoutPeriod',
+          label: `${tr(translate, 'accounts-lockout-known-users', 'Known users')} — ${tr(translate,
+            'accounts-lockout-period', 'Lockout period')}`,
+          value: settings.knownLockoutPeriod, min: 10, max: 600, required: true },
+        { type: 'number', name: 'knownFailureWindow',
+          label: `${tr(translate, 'accounts-lockout-known-users', 'Known users')} — ${tr(translate,
+            'accounts-lockout-failure-window', 'Failure window')}`,
+          value: settings.knownFailureWindow, min: 1, max: 60, required: true },
+        { type: 'number', name: 'unknownFailuresBeforeLockout',
+          label: `${tr(translate, 'accounts-lockout-unknown-users', 'Unknown users')} — ${tr(translate,
+            'accounts-lockout-failures-before', 'Failures before lockout')}`,
+          value: settings.unknownFailuresBeforeLockout, min: 1, max: 10, required: true },
+        { type: 'number', name: 'unknownLockoutPeriod',
+          label: `${tr(translate, 'accounts-lockout-unknown-users', 'Unknown users')} — ${tr(translate,
+            'accounts-lockout-period', 'Lockout period')}`,
+          value: settings.unknownLockoutPeriod, min: 10, max: 600, required: true },
+        { type: 'number', name: 'unknownFailureWindow',
+          label: `${tr(translate, 'accounts-lockout-unknown-users', 'Unknown users')} — ${tr(translate,
+            'accounts-lockout-failure-window', 'Failure window')}`,
+          value: settings.unknownFailureWindow, min: 1, max: 60, required: true },
+      ], fields: { legacyOperation: 'save-lockout-settings' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), '', '', '', '', ''] },
+  ];
+  if (!result.lockedUsers.length) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'accounts-lockout-no-locked-users', 'There are no locked users'),
+    '', '', '', '', ''] });
+  for (const user of result.lockedUsers) rows.push({ rowHeader: false, cells: [
+    user.username, user.email, String(user.failedAttempts), String(user.lockedAddresses),
+    `${user.remainingLockTime}s`, uiAction({ action: path,
+      label: tr(translate, 'accounts-lockout-click-to-unlock', 'Unlock'),
+      fields: { legacyOperation: 'request-unlock-user', targetUserId: user._id } }),
+  ] });
+  if (result.lockedUsers.length) rows.push({ rowHeader: false, cells: [
+    uiAction({ action: path, label: tr(translate, 'accounts-lockout-unlock-all', 'Unlock all'),
+      fields: { legacyOperation: 'request-unlock-all' } }), '', '', '', '', ''] });
+  if (requestFields.confirmUnlockUser) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'accounts-lockout-confirm-unlock', 'Unlock this user?'),
+    uiAction({ action: path,
+      label: tr(translate, 'accounts-lockout-click-to-unlock', 'Unlock'),
+      fields: { legacyOperation: 'unlock-user',
+        targetUserId: String(requestFields.confirmUnlockUser) } }), '', '', '', ''] });
+  if (requestFields.confirmUnlockAll) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'accounts-lockout-confirm-unlock-all', 'Unlock all users?'),
+    uiAction({ action: path,
+      label: tr(translate, 'accounts-lockout-unlock-all', 'Unlock all'),
+      fields: { legacyOperation: 'unlock-all-users' } }), '', '', '', ''] });
+  if (requestFields.legacyLockoutResult) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyLockoutResult, '', '', '', ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'accounts-lockout-locked-users', 'Locked users')}`,
+  columns: [tr(translate, 'username', 'Username'), tr(translate, 'email', 'Email'),
+    tr(translate, 'accounts-lockout-failed-attempts', 'Failed attempts'),
+    tr(translate, 'location-address', 'Addresses'),
+    tr(translate, 'accounts-lockout-remaining-time', 'Remaining time'),
+    tr(translate, 'actions', 'Actions')], rows };
+}
+
 async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/shared-templates') return null;
   let templateRows;
@@ -4723,6 +4805,9 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminPeopleOrganizations) return adminPeopleOrganizations;
   const adminPeopleTeams = await adminPeopleTeamsPage(path, userId, requestFields, translate);
   if (adminPeopleTeams) return adminPeopleTeams;
+  const adminPeopleLockedUsers = await adminPeopleLockedUsersPage(
+    path, userId, requestFields, translate);
+  if (adminPeopleLockedUsers) return adminPeopleLockedUsers;
   const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
     path, userId, requestFields, translate,
   );

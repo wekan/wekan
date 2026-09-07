@@ -369,11 +369,9 @@ test('the catalog names it, so the log and the hall of fame cannot drift', () =>
   assert.ok(/'brute\.lockout':\s*\{[^}]*cwe: 'CWE-307'/.test(cat), 'CWE-307');
 });
 
-test('EVERY construction of AccountsLockout passes the reporter (negative)', () => {
-  // The "and nowhere else" half. There are two construction sites - startup and
-  // the Admin Panel settings reload - and a reload that dropped the reporter
-  // would silently stop recording attempts on a running server, which is the
-  // worst version of this: the guard still works and nobody can see it working.
+test('the single AccountsLockout factory always passes the reporter (negative)', () => {
+  // Startup and Admin Panel reload deliberately share one factory. Keeping one
+  // construction site makes it impossible for either path to omit reporting.
   const fs = require('fs');
   const walk = (dir, out = []) => {
     for (const name of fs.readdirSync(dir)) {
@@ -390,7 +388,7 @@ test('EVERY construction of AccountsLockout passes the reporter (negative)', () 
       sites.push([path.relative(ROOT, f), m[0]]);
     }
   }
-  assert.ok(sites.length >= 2, `expected the construction sites, found ${sites.length}`);
+  assert.strictEqual(sites.length, 1, `expected one shared construction site, found ${sites.length}`);
   for (const [file, call] of sites) {
     assert.ok(/onLockout:/.test(call),
       `${file} constructs AccountsLockout without onLockout, so lockouts there are `
@@ -404,7 +402,7 @@ test('the reporter logs an attempt, not ordinary use (negative)', () => {
   // an attempt by construction - but the record must say `blocked`, since the
   // fix refused something, rather than `detected`.
   const fs = require('fs');
-  for (const f of ['server/accounts-lockout-config.js', 'server/methods/lockoutSettings.js']) {
+  for (const f of ['server/accounts-lockout-config.js']) {
     const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
     const fn = src.slice(src.indexOf('function reportLockout('));
     const body = fn.slice(0, fn.indexOf('\n}\n'));
