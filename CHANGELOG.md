@@ -352,6 +352,23 @@ reporting.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/88e6c3b59">Add card-level Import and Export to Legacy HTML4</a>. Thanks to xet7.</summary>
+
+The opened-card route now offers the same scoped PDF, Excel, JSON,
+JSON-without-attachments and ZIP exports plus JSON/ZIP import as its Jade menu.
+Both use the common part catalog, sanitizer, bounded importer/exporters and
+Default Storage attachment handling. Assigned-only scope is repeated for card
+and checklist transfers, and forged scopes reach Problems / Security.
+
+Card downloads now have their own exact-card, one-use signature. A download
+therefore cannot be replayed and does not rotate the cookieless page counter or
+invalidate the Import form beside it. Static transfer suites and a same-URL live
+Chromium test cover semantic controls, a JSON round trip, persisted placement
+and a forged private-board import refusal.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a4ce04e2">Add Legacy HTML4 Trello API imports</a>. Thanks to xet7.</summary>
 
 Direct Trello workspace import now has equivalent semantic controls without
