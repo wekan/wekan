@@ -318,6 +318,22 @@ checks the profile and board view, and remains logged in beyond the poll window.
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e83304d4">Use cryptographic randomness throughout Playwright tests</a>. Thanks to xet7.</summary>
+
+All Playwright fixture usernames, addresses, object identifiers and run markers
+now come from one Node `crypto.randomBytes` helper instead of `Math.random`.
+This resolves CodeQL alerts 450 through 522 and prevents predictable randomness
+from becoming normalized in tests that exercise authentication and authorization
+boundaries.
+
+A source regression scans every Playwright helper and specification, requires
+the shared helper to remain CSPRNG-backed and refuses any executable
+`Math.random()` call. All affected files pass JavaScript syntax checks, and a
+live Chromium Legacy HTML4 preference regression passes with the new helper.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a5acea6fd">Protect linked-card content in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 Legacy HTML4 now reads only a linked source card's board identity before asking
