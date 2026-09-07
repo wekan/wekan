@@ -65,6 +65,7 @@ import { accessibilityForAdmin } from '/server/lib/adminAccessibility';
 import { pwaSettingsForAdmin } from '/server/lib/adminPwaSettings';
 import { globalWebhooksForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { visibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings';
+import { translationsPageForAdmin } from '/server/lib/adminTranslations';
 import { adminThemeForUser } from '/server/lib/adminThemeSettings';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
@@ -3006,6 +3007,79 @@ async function adminSettingsVisibilityPage(path, userId, requestFields, translat
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')], rows };
 }
 
+async function adminSettingsTranslationPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/translation') return null;
+  const search = String(requestFields.q || '');
+  const requestedPage = Math.max(1,
+    Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  let result;
+  try {
+    result = await translationsPageForAdmin(userId, search, requestedPage);
+  } catch (_) {
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'translation', 'Translation'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [
+    { rowHeader: false, cells: [adminSettingsNavigation(translate), '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: result.search,
+      fields: { legacyOperation: 'search-translations' },
+    }), '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'new', 'New'),
+      uiFieldsetForm({
+        action: path, legend: tr(translate, 'new', 'New'),
+        id: 'new-translation', inputs: [
+          { name: 'language', label: tr(translate, 'language', 'Language'), maxlength: 5 },
+          { name: 'text', label: tr(translate, 'text', 'Text'), maxlength: 10000 },
+          { name: 'translationText', type: 'textarea',
+            label: tr(translate, 'translation', 'Translation'), maxlength: 20000, rows: 5 },
+        ], fields: { legacyOperation: 'create-translation', q: result.search,
+          page: result.page }, submitLabel: tr(translate, 'create', 'Create'),
+      }), '', ''] },
+  ];
+  for (const translation of result.rows) {
+    const deleting = requestFields.confirmTranslationDelete === translation._id;
+    const remove = deleting
+      ? uiAction({ action: path,
+        label: tr(translate, 'delete-translation-confirm-popup', 'Confirm delete'),
+        icon: 'remove', fields: { legacyOperation: 'delete-translation',
+          translationId: translation._id, q: result.search, page: result.page } })
+      : uiAction({ action: path, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { legacyOperation: 'request-delete-translation',
+          translationId: translation._id, q: result.search, page: result.page } });
+    rows.push({ cells: [translation.language || '', translation.text || '', uiTextForm({
+      action: path, label: tr(translate, 'translation', 'Translation'),
+      name: 'translationText', value: translation.translationText || '',
+      maxlength: 20000, id: `translation-${translation._id}`,
+      fields: { legacyOperation: 'update-translation', translationId: translation._id,
+        q: result.search, page: result.page }, submitLabel: tr(translate, 'save', 'Save'),
+    }), remove] });
+  }
+  const paging = [];
+  if (result.page > 1) paging.push(uiAction({ action: path,
+    label: tr(translate, 'previous-page', 'Previous page'), icon: 'previous',
+    fields: { legacyOperation: 'translation-page', q: result.search,
+      page: result.page - 1 } }));
+  paging.push(`${result.page} / ${result.totalPages}`);
+  if (result.page < result.totalPages) paging.push(uiAction({ action: path,
+    label: tr(translate, 'next-page', 'Next page'), icon: 'next',
+    fields: { legacyOperation: 'translation-page', q: result.search,
+      page: result.page + 1 } }));
+  rows.push({ rowHeader: false, cells: [tr(translate, 'page', 'Page'), paging, '', ''] });
+  if (requestFields.legacyTranslationResult) rows.push({ rowHeader: false,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyTranslationResult, '', ''] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / ${tr(translate, 'translation', 'Translation')}`,
+    columns: [tr(translate, 'language', 'Language'), tr(translate, 'text', 'Text'),
+      tr(translate, 'translation', 'Translation'), tr(translate, 'actions', 'Actions')],
+    rows,
+  };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -4001,6 +4075,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsVisibility) return adminSettingsVisibility;
+  const adminSettingsTranslation = await adminSettingsTranslationPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsTranslation) return adminSettingsTranslation;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );

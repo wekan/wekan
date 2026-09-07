@@ -561,6 +561,9 @@ test('Translation pages ONE page server-side, with a count method', () => {
   const js = read('client/components/settings/translationBody.js');
   assert.ok(/const \{ limit, skip \} = pageInfo\(/.test(js),
     'the subscribed window comes from pageInfo, like the counter');
+  assert.ok(/TRANSLATION_PAGE_ROWS_PER_PAGE = 25/.test(js));
+  assert.ok(/pageInfo\(total, this\.page\.get\(\),\s*TRANSLATION_PAGE_ROWS_PER_PAGE\)/.test(js),
+    'the total-page counter uses the same 25-row size as the subscription');
   assert.ok(/subscribe\('translation',[^,]+,\s*limit,\s*skip\)/.test(js),
     'one page, server-side');
   assert.ok(!/InfiniteScrolling|loadNextPage/.test(js),
@@ -568,7 +571,7 @@ test('Translation pages ONE page server-side, with a count method', () => {
   assert.ok(!/subscribe\('translation',[^,]+,\s*0\b/.test(js),
     'the limit-0 (= no limit = whole collection) load must stay gone');
   const pub = read('server/publications/translation.js');
-  assert.ok(/publish\('translation', async function\(query, limit, skip = 0\)/.test(pub),
+  assert.ok(/publish\('translation', async function\(search, limit, skip = 0\)/.test(pub),
     'the publication must take a skip');
   assert.ok(/skip:\s*skip \|\| 0/.test(pub), 'and apply it server-side');
   // The client re-applies the publication's sort, so the field must be published

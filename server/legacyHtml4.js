@@ -81,6 +81,11 @@ import {
 import { saveGlobalWebhookForAdmin } from '/server/lib/adminGlobalWebhooks';
 import { customHeadMarkup } from '/server/lib/customHeadValidation';
 import { saveVisibilitySettingsForAdmin } from '/server/lib/adminVisibilitySettings';
+import {
+  createTranslationForAdmin,
+  deleteTranslationForAdmin,
+  updateTranslationForAdmin,
+} from '/server/lib/adminTranslations';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -394,6 +399,32 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyVisibilityResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyVisibilityResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/settings/translation'
+    && requestFields.legacyOperation === 'request-delete-translation') {
+    requestFields.confirmTranslationDelete = String(requestFields.translationId || '');
+  }
+  if (session && path === '/admin/settings/translation'
+    && ['create-translation', 'update-translation', 'delete-translation']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'create-translation') {
+        await createTranslationForAdmin(session.userId,
+          String(requestFields.language || ''), String(requestFields.text || ''),
+          String(requestFields.translationText || ''), { req });
+      } else if (requestFields.legacyOperation === 'update-translation') {
+        await updateTranslationForAdmin(session.userId,
+          String(requestFields.translationId || ''),
+          String(requestFields.translationText || ''), { req });
+      } else {
+        await deleteTranslationForAdmin(session.userId,
+          String(requestFields.translationId || ''), { req });
+      }
+      requestFields.legacyTranslationResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyTranslationResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }
