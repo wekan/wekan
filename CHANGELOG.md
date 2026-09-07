@@ -289,6 +289,7 @@ Card Date Format now shares one guarded preference and remains available across
 route publication changes in both HTML4 and HTML5.
 Card History now shares its searchable, paged presentation and guarded Restore
 operation between HTML4 and HTML5.
+Copy Template to Many Cards now uses one bounded server operation in both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -318,6 +319,24 @@ checks the profile and board view, and remains logged in beyond the poll window.
 </details>
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d66ef0b37">Add Copy Many Cards to Legacy HTML4</a>. Thanks to xet7.</summary>
+
+The cookieless card route now provides the same Copy Template to Many Cards
+workflow as Jade: a labelled JSON textarea followed by native board, swimlane,
+list, card and relative-position choices. Both views now submit to one server
+operation instead of parsing and looping over caller-controlled JSON in the
+browser.
+
+The shared parser caps input at 256 KiB and 200 cards, accepts only bounded title
+and optional description strings, rejects control characters and unknown fields,
+and preserves source order at every insertion position. Every item repeats the
+single-copy authorization boundary. Unit tests cover valid and hostile documents;
+a live same-URL Chromium test compares both forms, checks persisted content and
+order, and verifies that a forged private destination is refused and reported.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d27e22d12">Add card History and Restore to Legacy HTML4</a>. Thanks to xet7.</summary>
