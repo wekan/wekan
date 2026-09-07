@@ -271,7 +271,8 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
-Domains, Email, Login, Roles and Shared templates share guarded HTML4 operations.
+Domains, Email, Login, Organizations, Roles and Shared templates share guarded
+HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -328,6 +329,24 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b494f429c">Add complete accessible HTML4 Organizations administration</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Organizations now preserves all ten columns, creation and
+editing, tenant fields and GIF branding, all three individual and bulk feature
+switches, the same-Organization member restriction, Organization administrator
+management and guarded deletion in semantic HTML4. Literal search, ten-row paging
+and every mutation use signed POST controls without JavaScript or cookies.
+
+HTML4 and Jade now share one service boundary with fixed projections, bounded
+fields, safe tenant links, normalized conflict-checked domains and explicit site-
+or Organization-administrator scope. Non-empty deletion is retained and reported
+at medium severity without disabling its administrator; forged authorization is
+blocked and TenantBleed-reported. Source tests and a same-URL Chromium regression
+exercise both renderers, operations, security boundaries and paired screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2e8fdf8d3">Add accessible HTML4 domain report</a>. Thanks to xet7.</summary>

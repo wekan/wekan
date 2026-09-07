@@ -872,6 +872,28 @@ unique domains, verifies both pages and both renderers, captures paired
 screenshots and proves anonymous isolation; the existing board-domain suite also
 checks counts, non-admin denial and the resulting Security report.
 
+Admin Panel / People / Organizations is the sixth dedicated People controller.
+Its single semantic table preserves the modern ten columns, literal search,
+total and ten-row paging. Signed controls retain New, Edit, all three row and
+bulk feature switches, the same-Organization member restriction, Organization
+administrator management and two-stage deletion without JavaScript or cookies.
+The edit view also retains the complete tenant domain, text and safe-link fields.
+The two tenant logos use the common bounded upload path: image bytes are detected,
+sanitized, converted to GIF and stored in Default Storage before the resulting
+local URL is written.
+
+Jade methods and HTML4 POSTs use one service boundary with fixed projections,
+field allowlists, size limits, literal escaped search and Organization scope for
+tenant administrators. Only a site administrator can create, edit, bulk-change
+or delete Organizations. A tenant administrator can view their Organizations,
+edit their tenant fields and appoint only members they are entitled to manage;
+they can never modify a site administrator. A non-empty Organization is retained
+and the expected constraint is reported at medium severity, while forged scope
+and authorization attempts are blocked and TenantBleed-reported at high severity.
+The same-URL Chromium fixture exercises the operations, denormalized display-name
+update, normalized domain, GIF logo, guarded deletion and both renderers, captures
+paired screenshots and proves anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
