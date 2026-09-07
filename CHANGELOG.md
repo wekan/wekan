@@ -302,6 +302,18 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/97f2570d4">Match Legacy HTML4 Admin redirects</a>. Thanks to xet7.</summary>
+
+Former and bare Admin Panel URLs now return the same canonical pane redirects
+for Legacy HTML4 as for the modern router. This includes Settings, People,
+Problems, Attachments, Information and Translation bookmarks. The exact old
+`/attachments` page is distinguished from attachment file paths, which remain
+outside HTML rendering. Source regressions and live GET checks on testi.wekan.fi
+verify all seven redirect families.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/39671b13e">Add accessible HTML4 document previews</a>. Thanks to xet7.</summary>
 
 PDF and office attachments now use the shared server conversion pipeline in the
