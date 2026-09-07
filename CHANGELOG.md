@@ -269,7 +269,7 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary and nine reports now share guarded
+secure JSON/CSV transfers. Problems Summary and ten reports now share guarded
 status, search, paging, identity resolution, acknowledgements and repairs between
 both views.
 
@@ -379,6 +379,25 @@ identity lookup. Positive and refusal tests cover the shared boundary, columns,
 paging and wrapping. A same-URL Chromium test searches twelve records, verifies
 two pages and a deliberately long username in both views, captures both
 representations and proves an anonymous request cannot read the audit trail.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd62c39f3">Add accessible HTML4 Recovery Report</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Recovery now renders the modern guidance and all nine
+audit fields in a semantic Legacy HTML4 table. Done, failed and deleted states
+are explicit text as well as modern icons. Search, All/Done/Failed/Deleted
+filtering and ten-row Previous/Next forms preserve each other's state without
+JavaScript or cookies; IPv4, IPv6 and trusted flag/city remain separate.
+
+Its Meteor publication and HTML4 controller share one Global Admin-only service,
+escaped bounded search, allowlisted filter, database count and capped window.
+The common HTML4 identity/navigation row now spans every remaining page column,
+preventing auto-layout browsers from creating a false wide second column. Tests
+cover both outcomes and refusal, every field, filter state and table structure.
+A same-URL Chromium test filters twelve failed events, verifies two pages and
+location parity, captures both views and proves anonymous isolation.
 
 </details>
 
