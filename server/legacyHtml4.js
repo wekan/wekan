@@ -14,6 +14,7 @@ import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
 import EventLog from '/models/eventLog';
 import { repairBrokenCardsForAdmin } from '/server/methods/repairBrokenCards';
 import { restoreListSwimlanesForAdmin } from '/server/methods/restoreListSwimlanes';
+import { startTextDatabaseMigrationForAdmin } from '/server/methods/migrateTextDatabase';
 import {
   importLegacyHtml4File,
   importLegacyHtml4ScopedFile,
@@ -992,6 +993,29 @@ WebApp.handlers.use(async (req, res, next) => {
         require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
           req, userId: session.userId,
           detail: `refused HTML4 ${String(cloudStorageMatch[1])} settings: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+  }
+  if (session && path === '/admin/attachments/database-migration'
+    && requestFields.legacyOperation === 'start-database-migration') {
+    try {
+      const direction = String(requestFields.direction || '');
+      if (!['toFerretDB', 'toMongoDB'].includes(direction)) {
+        throw new Meteor.Error('bad-direction');
+      }
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      await DDP._CurrentMethodInvocation.withValue(invocation, () =>
+        startTextDatabaseMigrationForAdmin(session.userId, direction));
+      requestFields.legacyAttachmentsResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
+          req, userId: session.userId,
+          detail: `refused HTML4 database migration: ${String(error?.error || 'failed')}`,
         });
       } catch (_) { /* reporting must not weaken the refusal */ }
     }

@@ -122,6 +122,13 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     await expect.poll(() => db.findOne('attachmentStorageSettings', {})
       ?.storageConfig?.gcs?.bucket).toBe(`html4-gcs-${suffix}`);
     await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-gcs.png`, fullPage: true });
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/database-migration"] input[type="submit"]').first().click()]);
+    await expect(legacy.locator('form:has(input[name="direction"][value="toFerretDB"]) input[type="submit"]'))
+      .toBeVisible();
+    await expect(legacy.locator('form:has(input[name="direction"][value="toMongoDB"]) input[type="submit"]'))
+      .toBeVisible();
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-database-migration.png`, fullPage: true });
 
     modernContext = await browser.newContext({ locale: 'en-US' });
     const modern = await modernContext.newPage();
@@ -156,6 +163,10 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     await navigateInApp(modern, '/admin/attachments/gcs');
     await expect(modern.locator('#gcs-bucket')).toHaveValue(`html4-gcs-${suffix}`);
     await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-gcs.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/database-migration');
+    await expect(modern.locator('.js-migrate-to-ferretdb')).toBeVisible();
+    await expect(modern.locator('.js-migrate-to-mongodb')).toBeVisible();
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-database-migration.png`, fullPage: true });
 
     db.updateOne('users', { _id: user._id }, { $set: { isAdmin: false } });
     await Promise.all([legacy.waitForNavigation(),

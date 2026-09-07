@@ -54,8 +54,14 @@ for (const method of ['getS3StorageStats', 'getAzureStorageStats', 'getGcsStorag
 assert.ok(route.includes('normalizeCloudConfig(provider, raw)'));
 assert.ok(jade.includes('CLOUD_FIELD_IDS'));
 
+assert.ok(page.includes("path !== '/admin/attachments/database-migration'"));
+assert.ok(page.includes('textDatabaseMigrationStatusForAdmin(userId)'));
+assert.ok(route.includes("requestFields.legacyOperation === 'start-database-migration'"));
+assert.ok(route.includes("['toFerretDB', 'toMongoDB'].includes(direction)"));
+assert.ok(route.includes('startTextDatabaseMigrationForAdmin(session.userId, direction)'));
+
 assert.ok(jade.includes("require('/models/lib/attachmentTransferLimits')"));
 assert.ok(!jade.includes('const LIMIT_UNIT_FACTORS ='));
 assert.ok(!jade.includes('function normalizeLimitSettings('));
 
-console.log('legacyHtml4AdminAttachmentsCore: 8 panes share guarded settings operations');
+console.log('legacyHtml4AdminAttachmentsCore: 9 panes share guarded settings operations');

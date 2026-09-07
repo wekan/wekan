@@ -81,6 +81,7 @@ import { teamForAdmin, teamsPageForAdmin } from '/server/lib/adminTeams';
 import { lockoutPageForAdmin } from '/server/lib/adminLockout';
 import { peoplePageForAdmin, personAvatarsForAdmin,
   personForAdmin } from '/server/lib/adminPeople';
+import { textDatabaseMigrationStatusForAdmin } from '/server/methods/migrateTextDatabase';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3038,6 +3039,54 @@ async function adminAttachmentsCloudPage(path, userId, requestFields, translate)
   };
 }
 
+async function adminAttachmentsDatabaseMigrationPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/attachments/database-migration') return null;
+  let status;
+  try {
+    await attachmentSettingsForHtml4(userId);
+    status = await textDatabaseMigrationStatusForAdmin(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'database-migration', 'Database migration'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [
+    { rowHeader: false, cells: [tr(translate, 'attachments', 'Attachments'),
+      adminAttachmentsNavigation(translate)] },
+    { cells: [tr(translate, 'database-migration-description', 'Migrate text data'), [
+      uiAction({ action: path,
+        label: tr(translate, 'database-migrate-to-ferretdb', 'Migrate to FerretDB'),
+        fields: { legacyOperation: 'start-database-migration', direction: 'toFerretDB' } }),
+      uiAction({ action: path,
+        label: tr(translate, 'database-migrate-to-mongodb', 'Migrate to MongoDB'),
+        fields: { legacyOperation: 'start-database-migration', direction: 'toMongoDB' } }),
+    ]] },
+  ];
+  if (requestFields.legacyAttachmentsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAttachmentsResult,
+  ] });
+  if (status) {
+    rows.push({ cells: [tr(translate, 'database-migration-phase', 'Phase'),
+      String(status.phase || 'idle')] });
+    rows.push({ cells: [tr(translate, 'database-migration', 'Database migration'),
+      `${status.collection || ''} ${status.collDone || 0}/${status.collTotal || 0}; ${status.collectionsDone || 0}/${status.collectionsTotal || 0}`] });
+    if (status.error) rows.push({ cells: [tr(translate, 'server-error', 'Server error'),
+      String(status.error).slice(0, 500)] });
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${tr(translate, 'database-migration',
+      'Database migration')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminAttachmentsBaselinePage(path, userId, translate) {
   const match = path.match(/^\/admin\/attachments\/(backup|move|default-save-storage|limits|gridfs|filesystem|s3|azure|gcs|database-migration)$/);
   if (!match) return null;
@@ -5513,6 +5562,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminAttachmentsCloud) return adminAttachmentsCloud;
+  const adminAttachmentsDatabaseMigration = await adminAttachmentsDatabaseMigrationPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminAttachmentsDatabaseMigration) return adminAttachmentsDatabaseMigration;
   const adminAttachmentsBaseline = await adminAttachmentsBaselinePage(path, userId, translate);
   if (adminAttachmentsBaseline) return adminAttachmentsBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(
