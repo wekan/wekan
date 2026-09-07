@@ -118,6 +118,12 @@ import {
 } from '/server/lib/adminTeams';
 import { saveLockoutSettingsForAdmin, unlockAllUsersForAdmin,
   unlockUserForAdmin } from '/server/lib/adminLockout';
+const {
+  LIMIT_FIELDS,
+  LIMIT_MODES,
+  getBlockedFieldName,
+  toBytes,
+} = require('/models/lib/attachmentTransferLimits');
 import { clearPersonAvatarForAdmin, createPersonForAdmin, deletePersonAvatarForAdmin,
   deletePersonForAdmin, impersonatePersonForAdmin, selectPersonAvatarForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin, updatePersonForAdmin,
@@ -787,6 +793,64 @@ WebApp.handlers.use(async (req, res, next) => {
     } catch (error) {
       requestFields.legacyPeopleResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  const isAttachmentSettingsOperation =
+    (path === '/admin/attachments/default-save-storage'
+      && requestFields.legacyOperation === 'set-default-attachment-storage')
+    || (path === '/admin/attachments/limits'
+      && requestFields.legacyOperation === 'save-attachment-transfer-limits');
+  if (session && isAttachmentSettingsOperation) {
+    try {
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        if (requestFields.legacyOperation === 'set-default-attachment-storage') {
+          return Meteor.server.method_handlers.setDefaultAttachmentStorage.call(
+            invocation, String(requestFields.storageName || ''),
+          );
+        }
+        const current = await Meteor.server.method_handlers.getAttachmentStorageSettings.call(
+          invocation,
+        );
+        const limitSettings = { ...(current.limitSettings || {}) };
+        for (const field of LIMIT_FIELDS) {
+          const mode = String(requestFields[`${field}Mode`] || '');
+          if (!Object.values(LIMIT_MODES).includes(mode)) {
+            throw new Meteor.Error('invalid-setting-value', 'Invalid limit mode');
+          }
+          const blockedField = getBlockedFieldName(field);
+          limitSettings[blockedField] = mode === LIMIT_MODES.BLOCKED;
+          if (mode !== LIMIT_MODES.MAX_SIZE) {
+            limitSettings[field] = 0;
+            continue;
+          }
+          const bytes = toBytes(requestFields[`${field}Value`],
+            String(requestFields[`${field}Unit`] || ''));
+          if (!bytes) throw new Meteor.Error(
+            'attachment-transfer-limits-invalid-value', 'Invalid transfer limit');
+          limitSettings[field] = bytes;
+        }
+        limitSettings.avatarsUploadBlocked = requestFields.avatarsUploadBlocked === 'true';
+        return Meteor.server.method_handlers.updateAttachmentStorageSettings.call(invocation, {
+          uploadSettings: {
+            ...(current.uploadSettings || {}),
+            maxFileSize: limitSettings.attachmentsUploadMaxBytes,
+          },
+          limitSettings,
+        });
+      });
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
+          req, userId: session.userId,
+          detail: `refused HTML4 Attachments operation: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
     }
   }
   if (session && path === '/admin/settings/translation'

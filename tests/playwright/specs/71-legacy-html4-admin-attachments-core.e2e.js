@@ -1,0 +1,83 @@
+'use strict';
+
+const fs = require('node:fs');
+const { test, expect } = require('@playwright/test');
+const db = require('../helpers/db');
+const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/auth');
+
+test('Default storage and limits match at the same Attachments URLs', async ({ browser, baseURL }) => {
+  test.setTimeout(180_000);
+  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const username = `html4attach${suffix}`;
+  const password = `Legacy-${suffix}-Pass!`;
+  const original = db.findOne('attachmentStorageSettings', {}) || null;
+  const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });
+  const legacy = await legacyContext.newPage();
+  let user;
+  let modernContext;
+  try {
+    await legacy.goto(`${baseURL}/sign-up`);
+    await legacy.locator('input[name="username"]').fill(username);
+    await legacy.locator('input[name="email"]').fill(`${username}@wekan-test.invalid`);
+    await legacy.locator('input[name="password"]').fill(password);
+    await Promise.all([legacy.waitForNavigation(), legacy.locator('input[type="submit"]').click()]);
+    user = db.findOne('users', { username });
+    db.updateOne('users', { _id: user._id }, { $set: { isAdmin: true,
+      loginDisabled: false, 'profile.language': 'en' } });
+
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/allboards"] input[type="submit"]').first().click()]);
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/backup"] input[type="submit"]').click()]);
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/default-save-storage"] input[type="submit"]').click()]);
+    await expect(legacy.locator('h1')).toContainText('Default');
+    let form = legacy.locator('form:has(input[name="legacyOperation"][value="set-default-attachment-storage"])');
+    await form.locator('select[name="storageName"]').selectOption('gridfs');
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})?.defaultStorage)
+      .toBe('gridfs');
+
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/limits"] input[type="submit"]').first().click()]);
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="save-attachment-transfer-limits"])');
+    await form.locator('select[name="attachmentsUploadMaxBytesMode"]').selectOption('max-size');
+    await form.locator('input[name="attachmentsUploadMaxBytesValue"]').fill('3');
+    await form.locator('select[name="attachmentsUploadMaxBytesUnit"]').selectOption('mb');
+    await form.locator('select[name="attachmentsDownloadMaxBytesMode"]').selectOption('blocked');
+    await form.locator('input[name="avatarsUploadBlocked"]').check();
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})?.limitSettings)
+      .toMatchObject({ attachmentsUploadMaxBytes: 3 * 1024 * 1024,
+        attachmentsUploadBlocked: false, attachmentsDownloadMaxBytes: 0,
+        attachmentsDownloadBlocked: true, avatarsUploadBlocked: true });
+
+    fs.mkdirSync(`${process.cwd()}/../../.tools/html4-admin-attachments-core`, { recursive: true });
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-limits.png`, fullPage: true });
+
+    modernContext = await browser.newContext({ locale: 'en-US' });
+    const modern = await modernContext.newPage();
+    await loginWithToken(modern, user._id, db.addResumeToken(user._id));
+    await navigateInApp(modern, '/admin/attachments/limits');
+    await waitForMeteor(modern);
+    await expect(modern.locator('#attachment-limits-setting')).toBeVisible();
+    await expect(modern.locator('.js-avatars-upload-blocked')).toHaveClass(/is-checked/);
+    await expect(modern.locator('select.js-attachment-limit-mode[data-field="attachmentsDownloadMaxBytes"]'))
+      .toHaveValue('blocked');
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-limits.png`, fullPage: true });
+
+    db.updateOne('users', { _id: user._id }, { $set: { isAdmin: false } });
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/limits"] input[type="submit"]').first().click()]);
+    await expect(legacy.locator('body')).toContainText(/not authorized/i);
+    await expect(legacy.locator('input[name="attachmentsUploadMaxBytesValue"]')).toHaveCount(0);
+  } finally {
+    if (original) {
+      const { _id, ...fields } = original;
+      db.updateOne('attachmentStorageSettings', { _id }, { $set: fields });
+    }
+    if (user) db.deleteOne('users', { _id: user._id });
+    if (modernContext) await modernContext.close();
+    await legacyContext.close();
+  }
+});

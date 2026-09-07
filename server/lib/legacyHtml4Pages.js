@@ -128,6 +128,14 @@ const { PERMANENT_DELETE_RECOVERY_DESCRIPTION } =
   require('/models/lib/permanentDeleteDescription');
 const { classifyAddress } = require('/models/lib/ipAddress');
 const { countryFlag, locationLabel, officeLabel } = require('/models/lib/geoHeaders');
+const {
+  LIMIT_FIELDS,
+  LIMIT_MODES,
+  normalizeLimitSettings,
+  pickModeForLimit,
+  pickUnitForBytes,
+  toDisplayValue,
+} = require('/models/lib/attachmentTransferLimits');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
@@ -2613,6 +2621,164 @@ function adminPeopleNavigation(translate) {
   });
 }
 
+const ADMIN_ATTACHMENT_PANES = Object.freeze([
+  ['backup', 'backup', 'Backup'],
+  ['move', 'attachment-move', 'Move attachment'],
+  ['default-save-storage', 'default-save-storage', 'Default save storage'],
+  ['limits', 'attachment-limits', 'Limits'],
+  ['gridfs', 'mongodb-gridfs-storage', 'MongoDB GridFS storage'],
+  ['filesystem', 'filesystem-storage', 'Filesystem storage'],
+  ['s3', 's3-minio-storage', 'S3 / MinIO storage'],
+  ['azure', 'azure-blob-storage', 'Azure Blob storage'],
+  ['gcs', 'gcs-storage', 'Google Cloud storage'],
+  ['database-migration', 'database-migration', 'Database migration'],
+]);
+
+function adminAttachmentsNavigation(translate) {
+  return ADMIN_ATTACHMENT_PANES.map(([slug, key, fallback]) => uiAction({
+    action: `/admin/attachments/${slug}`,
+    label: tr(translate, key, fallback),
+    fields: {},
+  }));
+}
+
+async function attachmentSettingsForHtml4(userId) {
+  return Meteor.server.method_handlers.getAttachmentStorageSettings.call({ userId });
+}
+
+function attachmentLimitInputs(settings, translate) {
+  const normalized = normalizeLimitSettings(settings);
+  const labels = {
+    attachmentsUploadMaxBytes: tr(translate, 'attachment-upload-limit-label',
+      'Attachment upload limit'),
+    attachmentsDownloadMaxBytes: tr(translate, 'attachment-download-limit-label',
+      'Attachment download limit'),
+    apiUploadMaxBytes: tr(translate, 'api-upload-limit-label', 'API upload limit'),
+    apiDownloadMaxBytes: tr(translate, 'api-download-limit-label', 'API download limit'),
+  };
+  const modeOptions = [
+    { value: LIMIT_MODES.UNLIMITED,
+      label: tr(translate, 'attachment-limit-mode-unlimited', 'Unlimited') },
+    { value: LIMIT_MODES.MAX_SIZE,
+      label: tr(translate, 'attachment-limit-mode-max-size', 'Maximum size') },
+    { value: LIMIT_MODES.BLOCKED,
+      label: tr(translate, 'attachment-limit-mode-blocked', 'Blocked') },
+  ];
+  const unitOptions = [
+    { value: 'bytes', label: tr(translate, 'attachment-limit-unit-bytes', 'Bytes') },
+    { value: 'mb', label: tr(translate, 'attachment-limit-unit-mb', 'MB') },
+    { value: 'gb', label: tr(translate, 'attachment-limit-unit-gb', 'GB') },
+  ];
+  const inputs = [];
+  for (const field of LIMIT_FIELDS) {
+    const unit = pickUnitForBytes(normalized[field]);
+    inputs.push({ type: 'select', name: `${field}Mode`,
+      label: labels[field],
+      value: pickModeForLimit(field, normalized), options: modeOptions });
+    inputs.push({ type: 'text', name: `${field}Value`,
+      label: `${labels[field]} - ${tr(translate, 'size', 'Size')}`,
+      value: String(toDisplayValue(normalized[field], unit)), maxlength: 30 });
+    inputs.push({ type: 'select', name: `${field}Unit`,
+      label: `${labels[field]} (${tr(translate, 'size', 'Size')})`,
+      value: unit, options: unitOptions });
+  }
+  inputs.push({ type: 'checkbox', name: 'avatarsUploadBlocked', value: 'true',
+    checked: normalized.avatarsUploadBlocked,
+    label: tr(translate, 'avatars-upload-blocked-description', 'Block avatar uploads') });
+  return inputs;
+}
+
+async function adminAttachmentsCorePage(path, userId, requestFields, translate) {
+  const match = path.match(/^\/admin\/attachments\/(default-save-storage|limits)$/);
+  if (!match) return null;
+  let settings;
+  try {
+    settings = await attachmentSettingsForHtml4(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, match[1], match[1]),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [{ rowHeader: false, cells: [
+    tr(translate, 'attachments', 'Attachments'), adminAttachmentsNavigation(translate),
+  ] }];
+  if (requestFields.legacyAttachmentsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAttachmentsResult,
+  ] });
+  if (match[1] === 'default-save-storage') {
+    rows.push({ cells: [tr(translate, 'default-save-storage-description',
+      'Choose where new files are stored.'), uiSelectForm({
+      action: path,
+      label: tr(translate, 'default-save-storage', 'Default save storage'),
+      name: 'storageName',
+      value: settings.defaultStorage || 'fs',
+      options: [
+        ['fs', 'filesystem-storage', 'Filesystem storage'],
+        ['gridfs', 'mongodb-gridfs-storage', 'MongoDB GridFS storage'],
+        ['s3', 's3-minio-storage', 'S3 / MinIO storage'],
+        ['azure', 'azure-blob-storage', 'Azure Blob storage'],
+        ['gcs', 'gcs-storage', 'Google Cloud storage'],
+      ].map(([value, key, fallback]) => ({ value, label: tr(translate, key, fallback) })),
+      fields: { legacyOperation: 'set-default-attachment-storage' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })] });
+  } else {
+    rows.push({ cells: [tr(translate, 'attachment-transfer-limits-description',
+      'Set upload and download limits.'), uiFieldsetForm({
+      action: path,
+      legend: tr(translate, 'attachment-transfer-limits-title', 'Transfer limits'),
+      inputs: attachmentLimitInputs(settings, translate),
+      fields: { legacyOperation: 'save-attachment-transfer-limits' },
+      submitLabel: tr(translate, 'save', 'Save'),
+      id: 'legacy-attachment-limits',
+    })] });
+  }
+  const titleKey = match[1] === 'limits' ? 'attachment-limits' : 'default-save-storage';
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${tr(translate, titleKey, match[1])}`,
+    columns: [tr(translate, 'name', 'Name'),
+      tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
+async function adminAttachmentsBaselinePage(path, userId, translate) {
+  const match = path.match(/^\/admin\/attachments\/(backup|move|default-save-storage|limits|gridfs|filesystem|s3|azure|gcs|database-migration)$/);
+  if (!match) return null;
+  const actor = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1, orgs: 1 },
+  });
+  const isOrgAdmin = Array.isArray(actor?.orgs)
+    && actor.orgs.some(membership => membership?.isAdmin === true);
+  if (!actor?.isAdmin && !(match[1] === 'backup' && isOrgAdmin)) {
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [match[1], tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const pane = ADMIN_ATTACHMENT_PANES.find(([slug]) => slug === match[1]);
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${tr(translate, pane[1], pane[2])}`,
+    columns: [tr(translate, 'attachments', 'Attachments'),
+      tr(translate, 'status', 'Status')],
+    rows: [
+      { rowHeader: false, cells: [tr(translate, 'attachments', 'Attachments'),
+        adminAttachmentsNavigation(translate)] },
+      { cells: [tr(translate, pane[1], pane[2]),
+        'This pane has a Legacy HTML4 baseline. Its controls are being completed route by route.'] },
+    ],
+  };
+}
+
 function statisticsDuration(seconds, translate) {
   let remaining = Math.max(0, Number(seconds) || 0);
   const parts = [];
@@ -5041,6 +5207,12 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminPeopleSharedTemplates) return adminPeopleSharedTemplates;
   const adminPeopleBaseline = await adminPeopleBaselinePage(path, userId, translate);
   if (adminPeopleBaseline) return adminPeopleBaseline;
+  const adminAttachmentsCore = await adminAttachmentsCorePage(
+    path, userId, requestFields, translate,
+  );
+  if (adminAttachmentsCore) return adminAttachmentsCore;
+  const adminAttachmentsBaseline = await adminAttachmentsBaselinePage(path, userId, translate);
+  if (adminAttachmentsBaseline) return adminAttachmentsBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );
