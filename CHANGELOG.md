@@ -470,6 +470,25 @@ the server reader for large streamed input.
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ec04d740">Add accessible HTML4 rules workflow</a>. Thanks to xet7.</summary>
+
+Board Rules now has a signed List/Workflow selector without JavaScript. The
+HTML4 workflow table presents each existing When and Action relationship and
+gives administrators a labelled native form to create a rule or replace its
+action from the same bounded palette as the modern drag-and-drop builder.
+
+The palette moved to one shared catalogue. Browsers submit only catalogue
+indices; the server chooses the stored fields, repeats exact-board and active
+administrator authorization, uses canonical descriptions and cleans up partial
+inserts. HTML5 no longer creates or replaces workflow documents through direct
+collection writes, and its existing workflow descriptions now use the shared
+localizer instead of remaining in English. Tests cover invalid indices, no
+direct writes, localization, creation, replacement, cleanup and paired Finnish
+HTML4/HTML5 workflow screenshots on `testi.wekan.fi`.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dab13dd20">Add accessible HTML4 board rules</a>. Thanks to xet7.</summary>
 
 Board Rules now has a dedicated cookieless HTML4 list and details view. Visible
