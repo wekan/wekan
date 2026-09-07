@@ -146,6 +146,32 @@ Template.invitePeoplePopup.events({
   },
 });
 
+Template.invitePeoplePopup.helpers({
+  canInvitePeople() {
+    const user = ReactiveCache.getCurrentUser();
+    if (user?.isAdmin) return true;
+    const setting = ReactiveCache.getCurrentSetting();
+    const domain = setting?.disableRegistration && String(setting.mailDomainName || '');
+    return Boolean(domain && (user?.emails || []).some(item =>
+      String(item?.address || '').endsWith(domain)));
+  },
+  boards() {
+    const userId = Meteor.userId();
+    if (!userId) return [];
+    return ReactiveCache.getBoards({
+      archived: false,
+      members: { $elemMatch: { userId, isActive: true, isAdmin: true } },
+    }, { sort: { sort: 1, title: 1 } });
+  },
+});
+
+Template.accountLogoutPage.events({
+  submit(event) {
+    event.preventDefault();
+    AccountsTemplates.logout();
+  },
+});
+
 Template.editProfilePopup.onCreated(function() {
   Meteor.subscribe('setting');
   this.subscribe('accountSettings');

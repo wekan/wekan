@@ -6,6 +6,7 @@ import { installAdminMailTransport, installMailTransport } from '/server/lib/mai
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import { WebApp } from 'meteor/webapp';
 import Settings from '/models/settings';
+import Boards from '/models/boards';
 import InvitationCodes from '/models/invitationCodes';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
@@ -134,22 +135,69 @@ async function isNonAdminAllowedToSendMail(currentUser) {
 
 // Shared by the Meteor method and the cookieless HTML4 Login pane. The actor is
 // explicit, so an HTTP request cannot inherit or spoof a DDP invocation.
-export async function sendInvitationsForUser(userId, emails, boards) {
-  check(emails, [String]);
-  check(boards, [String]);
+async function invitationActor(userId, context = {}) {
   const user = await getReactiveCache().getUser(userId);
   if (!user || (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user)))) {
+    securityLog.record({ category: 'authz', bleed: 'InvitationBleed', severity: 'high',
+      action: 'blocked', source: 'memberInvitation', userId,
+      username: user?.username, req: context.req, connection: context.connection,
+      detail: 'refused invitation access without instance permission' });
     throw new Meteor.Error('not-allowed');
   }
-  for (const rawEmail of emails) {
-    const email = normalizeInviteEmail(rawEmail);
-    if (!email || !SimpleSchema.RegEx.Email.test(email)) continue;
+  return user;
+}
+
+function invitationBoardSelector(user) {
+  return { archived: false, members: { $elemMatch: {
+    userId: user._id, isActive: true, isAdmin: true,
+  } } };
+}
+
+export async function invitationChoicesForUser(userId, context = {}) {
+  const user = await invitationActor(userId, context);
+  const boards = await Boards.find(invitationBoardSelector(user), {
+    fields: { title: 1 }, sort: { sort: 1, title: 1 }, limit: 500,
+  }).fetchAsync();
+  return boards.map(board => ({ _id: board._id, title: board.title || '' }));
+}
+
+export async function sendInvitationsForUser(userId, emails, boards, context = {}) {
+  check(emails, [String]);
+  check(boards, [String]);
+  const user = await invitationActor(userId, context);
+  if (!emails.length || emails.length > 100 || boards.length > 500) {
+    securityLog.record({ category: 'validation', bleed: 'InvitationBleed', severity: 'high',
+      action: 'blocked', source: 'memberInvitation', userId, username: user.username,
+      req: context.req, connection: context.connection,
+      detail: `refused invitation list sizes emails=${emails.length} boards=${boards.length}` });
+    throw new Meteor.Error('invalid-invitation');
+  }
+  const normalizedEmails = [...new Set(emails.map(normalizeInviteEmail))];
+  if (normalizedEmails.some(email => !email || !SimpleSchema.RegEx.Email.test(email))) {
+    securityLog.record({ category: 'validation', bleed: 'InvitationBleed', severity: 'high',
+      action: 'blocked', source: 'memberInvitation', userId, username: user.username,
+      req: context.req, connection: context.connection,
+      detail: 'refused malformed invitation email address' });
+    throw new Meteor.Error('invalid-email');
+  }
+  const uniqueBoards = [...new Set(boards)];
+  const allowedBoards = uniqueBoards.length ? await Boards.find({
+    ...invitationBoardSelector(user), _id: { $in: uniqueBoards },
+  }, { fields: { _id: 1 }, limit: 500 }).fetchAsync() : [];
+  if (allowedBoards.length !== uniqueBoards.length) {
+    securityLog.record({ category: 'authz', bleed: 'InvitationBleed', severity: 'high',
+      action: 'blocked', source: 'memberInvitation', userId, username: user.username,
+      req: context.req, connection: context.connection,
+      detail: 'refused archived, missing or out-of-scope invitation board' });
+    throw new Meteor.Error('not-allowed');
+  }
+  for (const email of normalizedEmails) {
     const userExist = await getReactiveCache().getUser({ email });
     if (userExist) throw new Meteor.Error('user-exist',
       `The user with the email ${email} has already an account.`);
     const invitation = await getReactiveCache().getInvitationCode({ email });
     if (invitation) {
-      const modifier = buildReinviteModifier(invitation, boards, generateInvitationCode);
+      const modifier = buildReinviteModifier(invitation, uniqueBoards, generateInvitationCode);
       if (!(await InvitationCodes.updateAsync(invitation._id, modifier))) {
         throw new Meteor.Error('invitation-generated-fail',
           'Failed to update invitation code');
@@ -157,7 +205,7 @@ export async function sendInvitationsForUser(userId, emails, boards) {
       await sendInvitationEmail(invitation._id, { isNewInvitation: false });
     } else {
       const _id = await InvitationCodes.insertAsync({
-        code: generateInvitationCode(), email, boardsToBeInvited: boards,
+        code: generateInvitationCode(), email, boardsToBeInvited: uniqueBoards,
         createdAt: new Date(), authorId: userId,
       });
       if (!_id) throw new Meteor.Error('invitation-generated-fail',
@@ -354,7 +402,7 @@ Meteor.methods({
   },
 
   async sendInvitation(emails, boards) {
-    return sendInvitationsForUser(this.userId, emails, boards);
+    return sendInvitationsForUser(this.userId, emails, boards, { connection: this.connection });
   },
 
   async sendSMTPTestEmail() {

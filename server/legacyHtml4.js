@@ -7,6 +7,7 @@ import { TAPi18n } from '/imports/i18n';
 import {
   consumeLegacyHtml4DownloadSession,
   consumeLegacyHtml4Session,
+  destroyLegacyHtml4Session,
   LegacyHtml4Sessions,
   sessionFields,
 } from '/server/lib/legacyHtml4Session';
@@ -299,6 +300,15 @@ WebApp.handlers.use(async (req, res, next) => {
   let translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
+  if (session && path === '/account/logout'
+    && requestFields.legacyOperation === 'logout-member') {
+    await destroyLegacyHtml4Session(session);
+    await removeLegacyHtml4Upload(multipartUpload);
+    res.statusCode = 303;
+    res.setHeader('Location', '/sign-in');
+    res.end();
+    return;
+  }
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
   if (session && path === '/account/profile'
     && requestFields.legacyOperation === 'update-own-profile') {
@@ -636,12 +646,27 @@ WebApp.handlers.use(async (req, res, next) => {
         if (emails.length > 100 || boards.length > 500) {
           throw new Meteor.Error('too-many-items');
         }
-        await sendInvitationsForUser(session.userId, emails, boards.map(String));
+        await sendInvitationsForUser(session.userId, emails, boards.map(String), { req });
       }
       requestFields.legacyLoginResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyLoginResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/account/invite'
+    && requestFields.legacyOperation === 'send-member-invitations') {
+    try {
+      const emails = String(requestFields.invitationEmails || '')
+        .toLowerCase().split(/[\n,]+/).map(value => value.trim()).filter(Boolean);
+      let boards = requestFields.invitationBoards || [];
+      if (!Array.isArray(boards)) boards = boards ? [boards] : [];
+      await sendInvitationsForUser(session.userId, emails, boards.map(String), { req });
+      requestFields.legacyInvitationResult = translatedOr(
+        translate, 'invite-people-success', 'Invitation sent');
+    } catch (error) {
+      requestFields.legacyInvitationResult = translatedOr(
+        translate, error?.error || 'invite-people-error', 'Could not send invitation');
     }
   }
   if (session && path === '/admin/people/email'

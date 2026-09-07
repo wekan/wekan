@@ -67,7 +67,7 @@ template(name="memberMenuPopup")
       hr
       if isSameDomainNameSettingValue
         li
-          a.js-invite-people
+          a.js-invite-people(href="/account/invite")
             i.fa.fa-envelope
             | {{_ 'invite-people'}}
       if isNotOAuth2AuthenticationMethod
@@ -110,7 +110,7 @@ template(name="memberMenuPopup")
     hr
     ul.pop-over-list
       li
-        a.js-logout
+        a.js-logout(href="/account/logout")
           i.fa.fa-sign-out
           | {{_ 'log-out'}}
 
@@ -121,22 +121,29 @@ template(name="invitePeoplePopup")
     li
       br
     li
-      .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
-        ul
-          li
-            .title {{_ 'invite-people'}}
-            textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
-          li
-            .title {{_ 'to-boards'}}
-            .bg-white
-              each boards
-                a.option.flex.js-toggle-board-choose(id= _id)
-                  .materialCheckBox(data-id= _id)
+      if canInvitePeople
+        .invite-people
+          ul
+            li
+              .title {{_ 'invite-people'}}
+              textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+            li
+              .title {{_ 'to-boards'}}
+              .bg-white
+                each boards
+                  a.option.flex.js-toggle-board-choose(id= _id)
+                    .materialCheckBox(data-id= _id)
+                    span= title
 
-                  span= title
+            li
+              button.js-email-invite.primary {{_ 'invite'}}
+      else
+        p.error(role="alert") {{_ 'error-notAuthorized'}}
 
-          li
-            button.js-email-invite.primary {{_ 'invite'}}
+template(name="accountLogoutPage")
+  form.js-account-logout
+    p {{_ 'log-out'}}
+    input.primary.wide(type="submit" value="{{_ 'log-out'}}")
 
 template(name="editProfilePopup")
   form

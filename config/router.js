@@ -776,6 +776,26 @@ FlowRouter.route('/account/avatar', {
   },
 });
 
+FlowRouter.route('/account/invite', {
+  name: 'account-invite',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    EscapeActions.executeAll();
+    this.render('defaultLayout', { content: 'invitePeoplePopup' });
+  },
+});
+
+FlowRouter.route('/account/logout', {
+  name: 'account-logout',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    EscapeActions.executeAll();
+    this.render('defaultLayout', { content: 'accountLogoutPage' });
+  },
+});
+
 // #1173: the import page with no source chosen yet. The page picks the source
 // itself now, so the address does not have to carry one - but /import/:source
 // below still works, so every existing link, bookmark and back button does.

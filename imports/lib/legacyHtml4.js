@@ -78,6 +78,8 @@ function pageHeading(path, options) {
   if (path === '/account/color') return translated(options, 'change-color', 'Change Color');
   if (path === '/account/font') return translated(options, 'change-font', 'Change Font');
   if (path === '/account/avatar') return translated(options, 'change-avatar', 'Change Avatar');
+  if (path === '/account/invite') return translated(options, 'invite-people', 'Invite People');
+  if (path === '/account/logout') return translated(options, 'log-out', 'Log Out');
   const routeTitles = [
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
@@ -274,6 +276,7 @@ function contentRows(path, options) {
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/broken-cards', '/bookmarks',
         '/account/profile', '/account/password', '/account/settings', '/account/language',
         '/account/color', '/account/font', '/account/avatar',
+        '/account/invite', '/account/logout',
         '/import', '/support', '/accessibility', '/shortcuts']
         .concat(options.isAdmin
           ? ['/admin/settings/version', '/admin/people/people',

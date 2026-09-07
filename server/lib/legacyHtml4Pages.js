@@ -92,6 +92,7 @@ import { memberLanguageChoices } from '/server/lib/memberLanguage';
 import { memberSettingsForUser } from '/server/lib/memberSettings';
 import { memberAppearanceForUser } from '/server/lib/memberAppearance';
 import { memberAvatarsForUser } from '/server/lib/memberAvatar';
+import { invitationChoicesForUser } from '/server/models/settings';
 import { categoryOf, customColorCount } from '/models/lib/themeCategories';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
@@ -2585,6 +2586,54 @@ async function accountAvatarPage(path, userId, requestFields, translate) {
     heading: tr(translate, 'change-avatar', 'Change Avatar'),
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
     rows,
+  };
+}
+
+async function accountInvitationPage(path, userId, requestFields, translate) {
+  if (path !== '/account/invite') return null;
+  let boards;
+  try {
+    boards = await invitationChoicesForUser(userId, { req: requestFields.req });
+  } catch (_) {
+    return {
+      heading: tr(translate, 'invite-people', 'Invite People'),
+      columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+      rows: [{ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const form = uiFieldsetForm({
+    action: path, legend: tr(translate, 'invite-people', 'Invite People'),
+    id: 'member-invitation', inputs: [
+      { type: 'textarea', name: 'invitationEmails',
+        label: tr(translate, 'email-addresses', 'Email Addresses'), maxlength: 10000,
+        rows: 5 },
+      ...boards.map(board => ({ type: 'checkbox', name: 'invitationBoards',
+        value: board._id, label: board.title || tr(translate, 'board', 'Board') })),
+    ],
+    fields: { legacyOperation: 'send-member-invitations' },
+    submitLabel: tr(translate, 'invite', 'Invite'),
+  });
+  const rows = [{ rowHeader: false, cells: [tr(translate, 'invite-people', 'Invite People'), form] }];
+  if (requestFields.legacyInvitationResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyInvitationResult,
+  ] });
+  return {
+    heading: tr(translate, 'invite-people', 'Invite People'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
+function accountLogoutPage(path, userId, translate) {
+  if (path !== '/account/logout') return null;
+  return {
+    heading: tr(translate, 'log-out', 'Log Out'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'actions', 'Actions')],
+    rows: [{ cells: [tr(translate, 'username', 'Username'), uiAction({
+      action: path, label: tr(translate, 'log-out', 'Log Out'),
+      fields: { legacyOperation: 'logout-member' },
+    })] }],
   };
 }
 
@@ -5969,6 +6018,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (accountAppearance) return accountAppearance;
   const accountAvatar = await accountAvatarPage(path, userId, requestFields, translate);
   if (accountAvatar) return accountAvatar;
+  const accountInvitation = await accountInvitationPage(path, userId, requestFields, translate);
+  if (accountInvitation) return accountInvitation;
+  const accountLogout = accountLogoutPage(path, userId, translate);
+  if (accountLogout) return accountLogout;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

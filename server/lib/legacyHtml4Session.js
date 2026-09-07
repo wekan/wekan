@@ -78,6 +78,14 @@ export async function consumeLegacyHtml4Session(req, action) {
   return consumed || null;
 }
 
+export async function destroyLegacyHtml4Session(session) {
+  if (!session?._id || !session?.userId) return false;
+  return (await LegacyHtml4Sessions.removeAsync({
+    _id: session._id,
+    userId: session.userId,
+  })) === 1;
+}
+
 // A download cannot return the next page of rotated form tokens. Give it a
 // purpose-bound one-use signature of its own: replay is still rejected, while
 // the other controls on the page keep their current session counter.

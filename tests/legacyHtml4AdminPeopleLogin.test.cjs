@@ -56,9 +56,9 @@ test('HTML4 retains all allow, identity and invitation operations', () => {
 
 test('Meteor and HTML4 invitations share one explicit-actor operation', () => {
   assert.ok(settingsModel.includes('export async function sendInvitationsForUser'));
-  assert.ok(settingsModel.includes('return sendInvitationsForUser(this.userId, emails, boards)'));
+  assert.ok(settingsModel.includes('return sendInvitationsForUser(this.userId, emails, boards,'));
   assert.ok(route.includes('sendInvitationsForUser(session.userId'));
-  assert.ok(/emails\.length > 100 \|\| boards\.length > 500/.test(route));
+  assert.ok(/emails\.length > 100 \|\| boards\.length > 500/.test(settingsModel));
 });
 
 console.log(`\nlegacyHtml4AdminPeopleLogin: ${passed} tests passed`);
