@@ -249,7 +249,8 @@ test('HTML4 file imports stream bounded multipart data to private temporary file
   assert.match(multipart, /files: 1, fields: 40, parts: 41/);
   assert.match(multipart, /fileSize: MAX_MULTIPART_FILE_BYTES/);
   assert.match(multipart, /createWriteStream\(tempPath, \{ flags: 'wx', mode: 0o600 \}\)/);
-  assert.match(multipart, /\['importFile', 'brandingImage'\]\.includes\(fieldName\) \|\| upload/);
+  assert.match(multipart,
+    /\['importFile', 'brandingImage', 'avatarImage'\]\.includes\(fieldName\) \|\| upload/);
   assert.match(multipart, /upload\.truncated/);
   assert.match(multipart, /Promise\.resolve\(fileWrite\)[\s\S]*then\(cleanup\)/);
   assert.match(multipart, /req\.on\('aborted'/);

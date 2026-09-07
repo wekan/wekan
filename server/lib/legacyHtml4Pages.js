@@ -78,7 +78,8 @@ import {
 } from '/server/lib/adminOrganizations';
 import { teamForAdmin, teamsPageForAdmin } from '/server/lib/adminTeams';
 import { lockoutPageForAdmin } from '/server/lib/adminLockout';
-import { peoplePageForAdmin, personForAdmin } from '/server/lib/adminPeople';
+import { peoplePageForAdmin, personAvatarsForAdmin,
+  personForAdmin } from '/server/lib/adminPeople';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3743,6 +3744,15 @@ async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
       label: tr(translate, 'accounts-lockout-click-to-unlock', 'Unlock'),
       fields: { ...pathFields, legacyOperation: 'request-unlock-person',
         targetUserId: person._id } }));
+    if (result.canManageInstance) {
+      actions.push(uiAction({ action: path,
+        label: tr(translate, 'impersonate-user', 'Impersonate user'),
+        fields: { ...pathFields, legacyOperation: 'request-impersonate-person',
+          targetUserId: person._id } }));
+      actions.push(uiAction({ action: path, label: tr(translate, 'delete', 'Delete'),
+        icon: 'remove', fields: { ...pathFields, legacyOperation: 'request-delete-person',
+          targetUserId: person._id } }));
+    }
     rows.push({ rowHeader: false, cells: [actions,
       person.username, person.email, person.isAdmin ? yes : no,
       person.loginDisabled ? no : yes, countries,
@@ -3751,11 +3761,57 @@ async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
         : tr(translate, 'accounts-lockout-user-unlocked', 'Unlocked'),
       person.createdAt ? String(person.createdAt) : '', ''] });
   }
+  if (result.canManageInstance && result.teams.length && result.rows.length) {
+    rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+      action: path, legend: tr(translate, 'teams', 'Teams'), id: 'people-bulk-team',
+      inputs: [
+        ...result.rows.map(person => ({ name: 'targetUserIds', type: 'checkbox',
+          value: person._id, label: person.username })),
+        { name: 'teamId', type: 'select', label: tr(translate, 'teams', 'Teams'),
+          options: result.teams.map(team => ({ value: team._id,
+            label: team.teamDisplayName || team._id })) },
+        { name: 'teamAction', type: 'select', label: tr(translate, 'r-action', 'Action'),
+          options: [{ value: 'add', label: tr(translate, 'add', 'Add') },
+            { value: 'remove', label: tr(translate, 'delete', 'Delete') }] },
+      ], fields: { ...pathFields, legacyOperation: 'update-people-team' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), '', '', '', '', '', '', '', ''] });
+  }
   const editPersonId = String(requestFields.editPersonId || '');
   if (editPersonId) {
     try {
       const person = await personForAdmin(userId, editPersonId, { req: requestFields.req });
-      rows.push({ rowHeader: false, cells: [personForm(person), '', '', '', '', '', '', '', ''] });
+      const avatars = await personAvatarsForAdmin(userId, editPersonId,
+        { req: requestFields.req });
+      rows.push({ rowHeader: false, cells: [personForm(person),
+        person.profile?.avatarUrl ? uiImage({ src: person.profile.avatarUrl,
+          alt: person.username || tr(translate, 'avatars', 'Avatars'), width: 96 }) : '',
+        uiFileForm({ action: path, label: tr(translate, 'adminChangeAvatarPopup-title',
+          'Change avatar'), name: 'avatarImage', accept: 'image/*',
+        fields: { legacyOperation: 'upload-person-avatar', targetUserId: person._id },
+        submitLabel: tr(translate, 'upload', 'Upload') }),
+        uiAction({ action: path, label: tr(translate, 'initials', 'Initials'),
+          fields: { ...pathFields, legacyOperation: 'clear-person-avatar',
+            targetUserId: person._id } }), '', '', '', '', ''] });
+      for (const avatar of avatars) {
+        const deleting = requestFields.confirmDeletePersonAvatar === avatar._id;
+        rows.push({ rowHeader: false, cells: [
+          uiImage({ src: `/cdn/storage/avatars/${avatar._id}`,
+            alt: avatar.name || person.username, width: 96 }),
+          `${avatar.name || ''} (${avatar.type || ''}, ${avatar.size || 0})`,
+          uiAction({ action: path, label: tr(translate, 'adminChangeAvatarPopup-title',
+            'Change avatar'),
+            fields: { ...pathFields, legacyOperation: 'select-person-avatar',
+              targetUserId: person._id, avatarId: avatar._id } }),
+          uiAction({ action: path,
+            label: deleting ? tr(translate, 'delete-avatar-confirm', 'Confirm delete')
+              : tr(translate, 'delete', 'Delete'), icon: 'remove',
+            fields: { ...pathFields,
+              legacyOperation: deleting ? 'delete-person-avatar'
+                : 'request-delete-person-avatar',
+              targetUserId: person._id, avatarId: avatar._id } }),
+          '', '', '', '', ''] });
+      }
     } catch (_) { /* exact people scope already reports refused reads */ }
   }
   const locationUserId = String(requestFields.locationUserId || '');
@@ -3777,6 +3833,18 @@ async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
     uiAction({ action: path, label: tr(translate, 'accounts-lockout-click-to-unlock', 'Unlock'),
       fields: { ...pathFields, legacyOperation: 'unlock-person',
         targetUserId: String(requestFields.confirmUnlockPerson) } }), '', '', '', '', '', '', ''] });
+  if (requestFields.confirmDeletePerson) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'delete-user-confirm-popup', 'Delete this user?'),
+    uiAction({ action: path, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+      fields: { ...pathFields, legacyOperation: 'delete-person',
+        targetUserId: String(requestFields.confirmDeletePerson) } }),
+    '', '', '', '', '', '', ''] });
+  if (requestFields.confirmImpersonatePerson) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'impersonate-user', 'Impersonate user'),
+    uiAction({ action: path, label: tr(translate, 'impersonate-user', 'Impersonate user'),
+      fields: { ...pathFields, legacyOperation: 'impersonate-person',
+        targetUserId: String(requestFields.confirmImpersonatePerson) } }),
+    '', '', '', '', '', '', ''] });
   rows.push({ rowHeader: false, cells: [
     `${tr(translate, 'page', 'Page')} ${result.page} / ${result.totalPages}`,
     result.page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),

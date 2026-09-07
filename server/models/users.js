@@ -31,7 +31,9 @@ import {
 } from '/server/lib/accessibleBoardListOperations';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
-import { createPersonForAdmin, updatePersonForAdmin } from '/server/lib/adminPeople';
+import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
+  setPersonActiveForAdmin, updatePeopleTeamForAdmin,
+  updatePersonForAdmin } from '/server/lib/adminPeople';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
@@ -133,6 +135,21 @@ Meteor.methods({
     check(targetUserId, String);
     check(input, Object);
     return updatePersonForAdmin(this.userId, targetUserId, input,
+      { connection: this.connection });
+  },
+
+  async adminSetPersonActive(targetUserId, active) {
+    check(targetUserId, String);
+    check(active, Boolean);
+    return setPersonActiveForAdmin(this.userId, targetUserId, active,
+      { connection: this.connection });
+  },
+
+  async adminUpdatePeopleTeam(targetUserIds, teamId, add) {
+    check(targetUserIds, [String]);
+    check(teamId, String);
+    check(add, Boolean);
+    return updatePeopleTeamForAdmin(this.userId, targetUserIds, teamId, add,
       { connection: this.connection });
   },
 
@@ -350,13 +367,8 @@ Meteor.methods({
     if (!currentUser.isAdmin) {
       throw new Meteor.Error('not-authorized', 'Only administrators can delete other users');
     }
-
-    const adminsNumber = (await ReactiveCache.getUsers({ isAdmin: true })).length;
-    if (adminsNumber === 1 && targetUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Cannot delete the last administrator');
-    }
-
-    await Users.removeAsync(targetUserId);
+    await deletePersonForAdmin(currentUserId, targetUserId,
+      { connection: this.connection });
     return { success: true, message: 'User deleted successfully' };
   },
 
@@ -1429,19 +1441,9 @@ Meteor.methods({
       throw new Meteor.Error(400, 'impersonate: a user id is required');
     }
 
-    if (!(await ReactiveCache.getUser(userId))) {
-      throw new Meteor.Error(404, 'User not found');
-    }
-    if (!(await ReactiveCache.getCurrentUser()).isAdmin) {
-      throw new Meteor.Error(403, 'Permission denied');
-    }
-
-    await ImpersonatedUsers.insertAsync({
-      adminId: (await ReactiveCache.getCurrentUser())._id,
-      userId,
-      reason: 'clickedImpersonate',
-    });
-    this.setUserId(userId);
+    const targetUserId = await impersonatePersonForAdmin(this.userId, userId,
+      { connection: this.connection });
+    this.setUserId(targetUserId);
   },
 
   async isImpersonated(userId) {

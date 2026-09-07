@@ -11,6 +11,8 @@ test('People list, filters, state and locations match at the same URL', async ({
   const username = `html4people${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const target = db.seedUser();
+  const removable = db.seedUser();
+  const teamId = `people-team-${suffix}`;
   const addressId = `people-address-${suffix}`;
   const address = '198.51.100.44';
   const at = new Date();
@@ -21,6 +23,11 @@ test('People list, filters, state and locations match at the same URL', async ({
       value: address, family: 'ipv4', count: 3, firstAt: at, at,
     } }, overflow: 0 },
   } });
+  db.updateOne('users', { _id: removable.id }, { $set: {
+    username: `removable_${suffix}`, loginDisabled: false,
+  } });
+  db.insertMany('team', [{ _id: teamId, teamDisplayName: `People Team ${suffix}`,
+    teamIsActive: true, createdAt: at, modifiedAt: at }]);
   db.insertMany('loginAddresses', [{ _id: addressId, address, ipv4: address,
     ipv6: '', location: { country: 'FI', city: `People City ${suffix}` },
     locationLabel: `People City ${suffix}` }]);
@@ -70,6 +77,49 @@ test('People list, filters, state and locations match at the same URL', async ({
     expect(updated.emails[0].verified).toBe(true);
     expect(updated.importUsernames).toEqual(['old-one', 'old-two']);
 
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="upload-person-avatar"]):has(input[name="targetUserId"][value="${created._id}"])`);
+    await form.locator('input[name="avatarImage"]').setInputFiles({
+      name: 'person.png', mimeType: 'image/png',
+      buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=', 'base64'),
+    });
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    const avatarUrl = db.findOne('users', { _id: created._id })?.profile?.avatarUrl;
+    expect(avatarUrl).toMatch(/^\/cdn\/storage\/avatars\//);
+    const avatarId = avatarUrl.split('/').pop();
+    expect(db.findOne('avatars', { _id: avatarId })?.type).toBe('image/gif');
+
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="upload-person-avatar"]):has(input[name="targetUserId"][value="${created._id}"])`);
+    await form.locator('input[name="avatarImage"]').setInputFiles({
+      name: 'person-second.png', mimeType: 'image/png',
+      buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=', 'base64'),
+    });
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    const secondAvatarId = db.findOne('users', { _id: created._id })
+      .profile.avatarUrl.split('/').pop();
+    expect(secondAvatarId).not.toBe(avatarId);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="select-person-avatar"]):has(input[name="avatarId"][value="${avatarId}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="request-delete-person-avatar"]):has(input[name="avatarId"][value="${secondAvatarId}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="delete-person-avatar"]):has(input[name="avatarId"][value="${secondAvatarId}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    expect(db.findOne('avatars', { _id: secondAvatarId })).toBeFalsy();
+    expect(db.findOne('users', { _id: created._id }).profile.avatarUrl)
+      .toBe(`/cdn/storage/avatars/${avatarId}`);
+
+    form = legacy.locator('form:has(input[name="legacyOperation"][value="update-people-team"])');
+    await form.locator(`input[name="targetUserIds"][value="${created._id}"]`).check();
+    await form.locator('select[name="teamId"]').selectOption(teamId);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('users', { _id: created._id })?.teams?.[0]?.teamId)
+      .toBe(teamId);
+
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="request-delete-person"]):has(input[name="targetUserId"][value="${removable.id}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="delete-person"]):has(input[name="targetUserId"][value="${removable.id}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect.poll(() => db.findOne('users', { _id: removable.id })).toBeFalsy();
+
     const search = legacy.locator('form:has(input[name="q"][type="text"])');
     await search.locator('input[name="q"]').fill(suffix);
     await Promise.all([legacy.waitForNavigation(), search.locator('input[type="submit"]').click()]);
@@ -110,11 +160,42 @@ test('People list, filters, state and locations match at the same URL', async ({
     if (process.env.WEKAN_HTML4_SCREENSHOTS) await modern.screenshot({
       path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-people-list.png`, fullPage: true,
     });
+
+    const impersonationFilter = legacy.locator('form:has(select[name="filter"])');
+    await impersonationFilter.locator('select[name="filter"]').selectOption('all');
+    await Promise.all([legacy.waitForNavigation(),
+      impersonationFilter.locator('input[type="submit"]').click()]);
+    const impersonationSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await impersonationSearch.locator('input[name="q"]').fill(`created_${suffix}`);
+    await Promise.all([legacy.waitForNavigation(),
+      impersonationSearch.locator('input[type="submit"]').click()]);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="show-person"]):has(input[name="targetUserId"][value="${created._id}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="select-person-avatar"]):has(input[name="avatarId"][value="${avatarId}"])`);
+    await form.locator('input[name="targetUserId"]').evaluate((node, value) => {
+      node.value = value;
+    }, target.id);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    expect(db.findOne('eventlog', { stream: 'security', bleed: 'UserBleed',
+      userId: admin._id, source: 'adminPeople' })).toBeTruthy();
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="request-impersonate-person"]):has(input[name="targetUserId"][value="${created._id}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    form = legacy.locator(`form:has(input[name="legacyOperation"][value="impersonate-person"]):has(input[name="targetUserId"][value="${created._id}"])`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
+    await expect(legacy.locator('body')).toContainText(`created_${suffix}`);
+    expect(db.findOne('impersonatedUsers', { adminId: admin._id,
+      userId: created._id, reason: 'clickedImpersonate' })).toBeTruthy();
   } finally {
     if (modernContext) await modernContext.close();
     await legacyContext.close();
     db.deleteMany('loginAddresses', { _id: addressId });
-    db.cleanup({ userIds: [target.id, ...(created?._id ? [created._id] : []),
+    db.deleteMany('team', { _id: teamId });
+    if (admin?._id) db.deleteMany('impersonatedUsers', { adminId: admin._id });
+    if (admin?._id) db.deleteMany('eventlog', { stream: 'security', userId: admin._id });
+    if (created?._id) {
+      db.deleteMany('avatars', { userId: created._id });
+    }
+    db.cleanup({ userIds: [target.id, removable.id, ...(created?._id ? [created._id] : []),
       ...(admin?._id ? [admin._id] : [])] });
   }
 });

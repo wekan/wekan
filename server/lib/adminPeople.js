@@ -8,6 +8,10 @@ import escapeForRegex from 'escape-string-regexp';
 import { peopleLoginLocationsForAdmin } from '/server/methods/loginOffices';
 import { addUserToTeamBoards } from '/server/lib/teamBoardMembership';
 import { enabledLoginAuthenticationMethods } from '/server/lib/adminLoginSettings';
+import ImpersonatedUsers from '/models/impersonatedUsers';
+import Avatars from '/models/avatars';
+import { convertImageBufferToGif } from '/server/lib/legacyHtml4Gif';
+import { generateUniversalAvatarUrl } from '/models/lib/universalUrlGenerator';
 const { lockSummary } = require('/models/lib/accountLockout');
 
 export const PEOPLE_FILTERS = Object.freeze(['all', 'locked', 'active', 'inactive', 'admin']);
@@ -225,7 +229,13 @@ export async function createPersonForAdmin(userId, input, context = {}) {
     report(actor, context, 'refused site-wide user creation');
     throw new Meteor.Error('not-authorized', 'Site admin required');
   }
-  const person = await normalizedPersonInput(actor, input, context, { creating: true });
+  let person;
+  try { person = await normalizedPersonInput(actor, input, context, { creating: true }); }
+  catch (error) {
+    report(actor, context, `refused invalid user creation: ${String(error.error || 'invalid')}`,
+      'validation');
+    throw error;
+  }
   await uniqueIdentity(person.username, person.email);
   const targetUserId = await Accounts.createUserAsync({ username: person.username,
     email: person.email, password: person.password });
@@ -252,7 +262,13 @@ export async function createPersonForAdmin(userId, input, context = {}) {
 export async function updatePersonForAdmin(userId, targetUserId, input, context = {}) {
   const actor = await peopleActor(userId, context);
   const target = await personForAdmin(userId, targetUserId, context);
-  const person = await normalizedPersonInput(actor, input, context, { target });
+  let person;
+  try { person = await normalizedPersonInput(actor, input, context, { target }); }
+  catch (error) {
+    report(actor, context, `refused invalid user update: ${String(error.error || 'invalid')}`,
+      'validation');
+    throw error;
+  }
   if (!actor.isAdmin && person.isAdmin !== (target.isAdmin === true)) {
     report(actor, context, 'refused site administrator flag change');
     throw new Meteor.Error('not-authorized');
@@ -284,5 +300,133 @@ export async function updatePersonForAdmin(userId, targetUserId, input, context 
   return true;
 }
 
+async function siteAdmin(userId, context = {}) {
+  const actor = await peopleActor(userId, context);
+  if (!actor.isAdmin) {
+    report(actor, context, 'refused site-wide People operation');
+    throw new Meteor.Error('not-authorized', 'Site admin required');
+  }
+  return actor;
+}
+
+export async function updatePeopleTeamForAdmin(
+  userId, targetUserIds, teamId, add, context = {},
+) {
+  const actor = await siteAdmin(userId, context);
+  const ids = stringList(targetUserIds, 'targetUserIds');
+  if (!ids.length || typeof add !== 'boolean') throw new Meteor.Error('invalid-user-selection');
+  const team = await Team.findOneAsync(teamId, { fields: { teamDisplayName: 1 } });
+  if (!team) throw new Meteor.Error('team-not-found');
+  const targets = await Meteor.users.find({ _id: { $in: ids } }, {
+    fields: { teams: 1 }, limit: 100,
+  }).fetchAsync();
+  if (targets.length !== ids.length) {
+    report(actor, context, 'refused bulk Team change containing an unknown user');
+    throw new Meteor.Error('user-not-found');
+  }
+  for (const target of targets) {
+    const oldTeams = Array.isArray(target.teams) ? target.teams : [];
+    const without = oldTeams.filter(item => item?.teamId !== teamId);
+    const teams = add ? [...without, { teamId, teamDisplayName: team.teamDisplayName || '' }]
+      : without;
+    await Meteor.users.updateAsync(target._id, { $set: { teams } });
+    if (add) await addUserToTeamBoards(target._id, oldTeams, teams);
+  }
+  return true;
+}
+
+export async function deletePersonForAdmin(userId, targetUserId, context = {}) {
+  const actor = await siteAdmin(userId, context);
+  const target = await personForAdmin(userId, targetUserId, context);
+  if (target._id === actor._id) throw new Meteor.Error('cannot-delete-current-admin');
+  if (target.isAdmin
+    && await Meteor.users.find({ isAdmin: true }).countAsync() === 1) {
+    throw new Meteor.Error('cannot-delete-last-admin');
+  }
+  await Meteor.users.removeAsync(target._id);
+  return true;
+}
+
+export async function impersonatePersonForAdmin(userId, targetUserId, context = {}) {
+  const actor = await siteAdmin(userId, context);
+  const target = await personForAdmin(userId, targetUserId, context);
+  await ImpersonatedUsers.insertAsync({ adminId: actor._id, userId: target._id,
+    reason: 'clickedImpersonate' });
+  return target._id;
+}
+
+export async function uploadPersonAvatarForAdmin(
+  userId, targetUserId, input, context = {},
+) {
+  await personForAdmin(userId, targetUserId, context);
+  if (!Buffer.isBuffer(input) || !input.length || input.length > 5 * 1024 * 1024) {
+    const actor = await peopleActor(userId, context);
+    report(actor, context, 'refused invalid avatar byte size', 'validation');
+    throw new Meteor.Error('invalid-image-size');
+  }
+  let gif;
+  try { gif = await convertImageBufferToGif(input); }
+  catch (error) {
+    const actor = await peopleActor(userId, context);
+    report(actor, context, 'refused undecodable avatar image', 'validation');
+    throw new Meteor.Error('invalid-image', error.message);
+  }
+  const file = await Avatars.writeAsync(gif, {
+    fileName: 'avatar.gif', type: 'image/gif', userId: targetUserId,
+    meta: { source: 'admin-people' },
+  }, true);
+  if (!file?._id) throw new Meteor.Error('avatar-upload-failed');
+  return `/cdn/storage/avatars/${file._id}`;
+}
+
+export async function clearPersonAvatarForAdmin(userId, targetUserId, context = {}) {
+  await personForAdmin(userId, targetUserId, context);
+  await Meteor.users.updateAsync(targetUserId, { $set: { 'profile.avatarUrl': '' } });
+  return true;
+}
+
+export async function personAvatarsForAdmin(userId, targetUserId, context = {}) {
+  await personForAdmin(userId, targetUserId, context);
+  return Avatars.collection.find({ userId: targetUserId }, {
+    fields: { name: 1, type: 1, size: 1, uploadedAt: 1 },
+    sort: { uploadedAt: -1 }, limit: 100,
+  }).fetchAsync();
+}
+
+export async function selectPersonAvatarForAdmin(
+  userId, targetUserId, avatarId, context = {},
+) {
+  await personForAdmin(userId, targetUserId, context);
+  const avatar = await Avatars.collection.findOneAsync({ _id: avatarId,
+    userId: targetUserId }, { fields: { _id: 1 } });
+  if (!avatar) {
+    const actor = await peopleActor(userId, context);
+    report(actor, context, 'refused selecting an avatar outside the target user', 'validation');
+    throw new Meteor.Error('avatar-not-found');
+  }
+  await Meteor.users.updateAsync(targetUserId, { $set: {
+    'profile.avatarUrl': generateUniversalAvatarUrl(avatar._id),
+  } });
+  return true;
+}
+
+export async function deletePersonAvatarForAdmin(
+  userId, targetUserId, avatarId, context = {},
+) {
+  await personForAdmin(userId, targetUserId, context);
+  const avatar = await Avatars.collection.findOneAsync({ _id: avatarId,
+    userId: targetUserId }, { fields: { _id: 1 } });
+  if (!avatar) {
+    const actor = await peopleActor(userId, context);
+    report(actor, context, 'refused deleting an avatar outside the target user', 'validation');
+    throw new Meteor.Error('avatar-not-found');
+  }
+  await Avatars.removeAsync(avatar._id);
+  return true;
+}
+
 export default { peoplePageForAdmin, personForAdmin, setPersonActiveForAdmin,
-  createPersonForAdmin, updatePersonForAdmin };
+  createPersonForAdmin, updatePersonForAdmin, updatePeopleTeamForAdmin,
+  deletePersonForAdmin, impersonatePersonForAdmin, uploadPersonAvatarForAdmin,
+  clearPersonAvatarForAdmin, personAvatarsForAdmin, selectPersonAvatarForAdmin,
+  deletePersonAvatarForAdmin };

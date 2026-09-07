@@ -10,6 +10,7 @@ const ALLOWED_FIELDS = new Set([
   'legacySession', 'authAction', 'authCounter', 'authHash',
   'importFields', 'importField', 'legacyOperation',
   'boardId', 'cardId', 'checklistId', 'orgId',
+  'targetUserId',
   'visibilityGroup', 'brandingSlot',
 ]);
 
@@ -17,7 +18,8 @@ function isLegacyHtml4Multipart(req, requestPath) {
   return req?.method === 'POST'
     && (/^\/import\/[^/]+$/.test(requestPath) || /^\/b\/[^/]+\/[^/]+\/[^/]+$/.test(requestPath)
       || requestPath === '/admin/settings/visibility'
-      || requestPath === '/admin/people/organizations')
+      || requestPath === '/admin/people/organizations'
+      || requestPath === '/admin/people/people')
     && /^multipart\/form-data\b/i.test(String(req.headers?.['content-type'] || ''));
 }
 
@@ -59,7 +61,7 @@ function receiveLegacyHtml4Multipart(req) {
       } else fields[name] = value;
     });
     parser.on('file', (fieldName, stream, filename, encoding, mimeType) => {
-      if (failed || !['importFile', 'brandingImage'].includes(fieldName) || upload) {
+      if (failed || !['importFile', 'brandingImage', 'avatarImage'].includes(fieldName) || upload) {
         stream.resume();
         fail(new Error('invalid-import-file-field'));
         return;

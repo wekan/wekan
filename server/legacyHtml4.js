@@ -7,6 +7,7 @@ import { TAPi18n } from '/imports/i18n';
 import {
   consumeLegacyHtml4DownloadSession,
   consumeLegacyHtml4Session,
+  LegacyHtml4Sessions,
   sessionFields,
 } from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
@@ -117,8 +118,10 @@ import {
 } from '/server/lib/adminTeams';
 import { saveLockoutSettingsForAdmin, unlockAllUsersForAdmin,
   unlockUserForAdmin } from '/server/lib/adminLockout';
-import { createPersonForAdmin, setPersonActiveForAdmin,
-  updatePersonForAdmin } from '/server/lib/adminPeople';
+import { clearPersonAvatarForAdmin, createPersonForAdmin, deletePersonAvatarForAdmin,
+  deletePersonForAdmin, impersonatePersonForAdmin, selectPersonAvatarForAdmin,
+  setPersonActiveForAdmin, updatePeopleTeamForAdmin, updatePersonForAdmin,
+  uploadPersonAvatarForAdmin } from '/server/lib/adminPeople';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -262,7 +265,7 @@ WebApp.handlers.use(async (req, res, next) => {
   const language = requestLanguage(req);
   await TAPi18n.ensureLanguageLoaded(language);
   const translate = (key, argumentsObject = {}) => TAPi18n.__(key, argumentsObject, language);
-  const user = session ? await Meteor.users.findOneAsync(session.userId, {
+  let user = session ? await Meteor.users.findOneAsync(session.userId, {
     fields: { username: 1, isAdmin: 1 },
   }) : null;
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
@@ -711,6 +714,43 @@ WebApp.handlers.use(async (req, res, next) => {
         const targetUserId = String(requestFields.targetUserId || '');
         await updatePersonForAdmin(session.userId, targetUserId, personInput(), { req });
         requestFields.editPersonId = targetUserId;
+      } else if (operation === 'update-people-team') {
+        await updatePeopleTeamForAdmin(session.userId,
+          values(requestFields.targetUserIds), String(requestFields.teamId || ''),
+          requestFields.teamAction === 'add', { req });
+      } else if (operation === 'request-delete-person') {
+        requestFields.confirmDeletePerson = String(requestFields.targetUserId || '');
+      } else if (operation === 'delete-person') {
+        await deletePersonForAdmin(session.userId,
+          String(requestFields.targetUserId || ''), { req });
+      } else if (operation === 'request-impersonate-person') {
+        requestFields.confirmImpersonatePerson = String(requestFields.targetUserId || '');
+      } else if (operation === 'impersonate-person') {
+        const targetUserId = await impersonatePersonForAdmin(session.userId,
+          String(requestFields.targetUserId || ''), { req });
+        await LegacyHtml4Sessions.updateAsync(session._id, { $set: { userId: targetUserId } });
+        session.userId = targetUserId;
+        user = await Meteor.users.findOneAsync(targetUserId, {
+          fields: { username: 1, isAdmin: 1, 'profile.language': 1 },
+        });
+        requestFields.legacyRedirectPath = '/allboards';
+      } else if (operation === 'clear-person-avatar') {
+        const targetUserId = String(requestFields.targetUserId || '');
+        await clearPersonAvatarForAdmin(session.userId, targetUserId, { req });
+        requestFields.editPersonId = targetUserId;
+      } else if (operation === 'select-person-avatar') {
+        const targetUserId = String(requestFields.targetUserId || '');
+        await selectPersonAvatarForAdmin(session.userId, targetUserId,
+          String(requestFields.avatarId || ''), { req });
+        requestFields.editPersonId = targetUserId;
+      } else if (operation === 'request-delete-person-avatar') {
+        requestFields.editPersonId = String(requestFields.targetUserId || '');
+        requestFields.confirmDeletePersonAvatar = String(requestFields.avatarId || '');
+      } else if (operation === 'delete-person-avatar') {
+        const targetUserId = String(requestFields.targetUserId || '');
+        await deletePersonAvatarForAdmin(session.userId, targetUserId,
+          String(requestFields.avatarId || ''), { req });
+        requestFields.editPersonId = targetUserId;
       } else if (operation === 'show-person') {
         requestFields.editPersonId = String(requestFields.targetUserId || '');
       } else if (operation === 'set-person-active') {
@@ -725,10 +765,25 @@ WebApp.handlers.use(async (req, res, next) => {
         requestFields.locationUserId = String(requestFields.targetUserId || '');
         requestFields.locationCountry = String(requestFields.locationCountry || '');
       }
-      if (operation && !['show-person', 'request-unlock-person',
-        'show-login-country'].includes(operation)) {
+      if (operation && !['show-create-person', 'show-person', 'request-unlock-person',
+        'request-delete-person', 'request-impersonate-person',
+        'request-delete-person-avatar',
+        'show-login-country', 'impersonate-person'].includes(operation)) {
         requestFields.legacyPeopleResult = translatedOr(translate, 'done', 'Done');
       }
+    } catch (error) {
+      requestFields.legacyPeopleResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/people' && multipartUpload
+    && requestFields.legacyOperation === 'upload-person-avatar') {
+    try {
+      const targetUserId = String(requestFields.targetUserId || '');
+      const input = await fs.promises.readFile(multipartUpload.tempPath);
+      await uploadPersonAvatarForAdmin(session.userId, targetUserId, input, { req });
+      requestFields.editPersonId = targetUserId;
+      requestFields.legacyPeopleResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyPeopleResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
@@ -1655,7 +1710,8 @@ WebApp.handlers.use(async (req, res, next) => {
   if (query.has('page')) requestFields.page = query.get('page');
   requestFields.req = req;
   requestFields.requestHeaders = req.headers;
-  const page = await legacyHtml4Page(path, session?.userId || null, requestFields, translate);
+  const page = await legacyHtml4Page(requestFields.legacyRedirectPath || path,
+    session?.userId || null, requestFields, translate);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');

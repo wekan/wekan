@@ -63,4 +63,31 @@ test('create and complete edit share one validated server boundary', () => {
   assert.ok(pages.includes("name: 'teamIds'"));
 });
 
+test('bulk Team, deletion and impersonation use guarded confirmed operations', () => {
+  for (const fn of ['updatePeopleTeamForAdmin', 'deletePersonForAdmin',
+    'impersonatePersonForAdmin']) assert.ok(service.includes(fn));
+  for (const operation of ['update-people-team', 'request-delete-person', 'delete-person',
+    'request-impersonate-person', 'impersonate-person']) {
+    assert.ok(route.includes(operation) || pages.includes(operation), `missing ${operation}`);
+  }
+  assert.ok(service.includes('cannot-delete-current-admin'));
+  assert.ok(service.includes('cannot-delete-last-admin'));
+  assert.ok(service.includes("reason: 'clickedImpersonate'"));
+  assert.ok(route.includes('LegacyHtml4Sessions.updateAsync'));
+  assert.ok(pages.includes("id: 'people-bulk-team'"));
+});
+
+test('avatar input is bounded, converted to GIF and shares the avatar store', () => {
+  assert.ok(service.includes('uploadPersonAvatarForAdmin'));
+  assert.ok(service.includes('convertImageBufferToGif'));
+  assert.ok(service.includes("type: 'image/gif'"));
+  assert.ok(route.includes("legacyOperation === 'upload-person-avatar'"));
+  assert.ok(route.includes('clearPersonAvatarForAdmin'));
+  assert.ok(service.includes('personAvatarsForAdmin'));
+  assert.ok(service.includes('selectPersonAvatarForAdmin'));
+  assert.ok(service.includes('deletePersonAvatarForAdmin'));
+  assert.ok(route.includes('request-delete-person-avatar'));
+  assert.ok(pages.includes("name: 'avatarImage'"));
+});
+
 console.log(`\nlegacyHtml4AdminPeoplePeople: ${passed} tests passed`);
