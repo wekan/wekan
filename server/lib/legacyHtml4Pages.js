@@ -95,8 +95,10 @@ async function boardRulesPage(path, userId, requestFields, translate) {
   const triggerIds = rules.map(rule => rule.triggerId).filter(Boolean);
   const actionIds = rules.map(rule => rule.actionId).filter(Boolean);
   const [triggers, actions] = await Promise.all([
-    Triggers.find({ _id: { $in: triggerIds } }).fetchAsync(),
-    Actions.find({ _id: { $in: actionIds } }).fetchAsync(),
+    Triggers.find({ _id: { $in: triggerIds },
+      $or: [{ boardId: board._id }, { boardId: { $exists: false } }] }).fetchAsync(),
+    Actions.find({ _id: { $in: actionIds },
+      $or: [{ boardId: board._id }, { boardId: { $exists: false } }] }).fetchAsync(),
   ]);
   const triggerById = new Map(triggers.map(trigger => [trigger._id, trigger]));
   const actionById = new Map(actions.map(action => [action._id, action]));
@@ -118,6 +120,19 @@ async function boardRulesPage(path, userId, requestFields, translate) {
   }), board.title];
   if (workflow && !selected) navigationCells.push('');
   const rows = [{ rowHeader: false, cells: navigationCells }];
+  if (!selected) {
+    const exports = ['json', 'csv'].map(format => uiAction({
+      action: path,
+      label: tr(translate, `r-export-${format}`, `Export ${format.toUpperCase()}`),
+      fields: { legacyOperation: 'export-rules', boardId: board._id,
+        ruleExportFormat: format },
+      authPurpose: `download:rules-${board._id}-${format}`,
+      target: '_blank',
+    }));
+    const exportCells = [tr(translate, 'r-export', 'Export'), exports, ''];
+    if (workflow) exportCells.push('');
+    rows.push({ rowHeader: false, cells: exportCells });
+  }
   if (requestFields.legacyRuleResult?.ok === true) rows.push({
     cells: [tr(translate, 'status', 'Status'), tr(translate, 'save', 'Saved'), '', ''],
   });

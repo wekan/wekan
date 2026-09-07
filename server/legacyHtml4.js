@@ -58,6 +58,7 @@ import {
 } from '/server/lib/accessibleCommentOperations';
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
+import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
 import {
   removeAccessibleAttachment,
@@ -124,6 +125,11 @@ function requestLanguage(req) {
 }
 
 function binaryPurpose(body = {}) {
+  if (body.legacyOperation === 'export-rules') {
+    const boardId = String(body.boardId || '').replace(/[^A-Za-z0-9_-]/g, '');
+    const format = String(body.ruleExportFormat || '').replace(/[^a-z]/g, '');
+    return `download:rules-${boardId}-${format}`;
+  }
   if (body.legacyOperation === 'export-checklist') {
     return `download:${String(body.checklistId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
   }
@@ -153,7 +159,7 @@ WebApp.handlers.use(async (req, res, next) => {
     }
   }
   if (req.method === 'POST' && req.body?.legacySession) {
-    session = ['export-checklist', 'preview-attachment-gif',
+    session = ['export-rules', 'export-checklist', 'preview-attachment-gif',
       'download-attachment-original'].includes(req.body?.legacyOperation)
       ? await consumeLegacyHtml4DownloadSession(req, path, binaryPurpose(req.body))
       : await consumeLegacyHtml4Session(req, path);
@@ -185,6 +191,33 @@ WebApp.handlers.use(async (req, res, next) => {
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
+  if (session && rulesPath && requestFields.legacyOperation === 'export-rules') {
+    try {
+      const routeBoardId = decodeURIComponent(rulesPath[1]);
+      if (requestFields.boardId !== routeBoardId) {
+        throw new Meteor.Error('forbidden', 'Rule export does not belong to route board');
+      }
+      await serveAccessibleRulesExport({
+        res,
+        userId: session.userId,
+        boardId: routeBoardId,
+        format: requestFields.ruleExportFormat,
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-export', {
+          req, userId: session.userId,
+          detail: `refused HTML4 rules export: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      if (!res.headersSent) {
+        res.statusCode = error?.error === 'forbidden' ? 403 : 400;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('Rules export denied.');
+      } else res.end();
+    }
+    return;
+  }
   if (session && rulesPath
     && requestFields.legacyOperation === 'confirm-delete-rule') {
     requestFields.confirmRuleDelete = String(requestFields.ruleId || '');

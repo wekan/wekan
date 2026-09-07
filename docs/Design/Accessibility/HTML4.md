@@ -481,6 +481,16 @@ uses signed List/Workflow POST controls instead of making drag-and-drop a
 condition for reading the graph. View, rename, confirmation and error states
 preserve the chosen representation.
 
+The Rules transfer slice starts with export. JSON and CSV use one portable
+`wekan-rules-1.0.0` serializer shared with HTML5, include every rule field that
+the current format already supports, remove database identity, timestamps,
+prototype keys and secret-shaped fields, and neutralize spreadsheet formulas.
+HTML4 exposes separate JSON and CSV download buttons. Each is a board- and
+format-purpose-bound, single-use signed POST; immediately before sending bytes,
+the server repeats authenticated board visibility and export-enabled checks.
+No login or reusable session token enters the URL. Import remains a later slice
+and must validate through the same structural boundary before creating anything.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

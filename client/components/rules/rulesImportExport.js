@@ -1,33 +1,24 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import Papa from 'papaparse';
+import {
+  collectRuleTransferEntries,
+  ruleTransferDocument,
+  rulesToCsv,
+  stripRuleTransferDoc,
+} from '/models/lib/ruleTransfer';
 
-const RULES_FORMAT = 'wekan-rules-1.0.0';
-const STRIP_FIELDS = ['_id', 'boardId', 'createdAt', 'modifiedAt', 'updatedAt'];
-
-function stripDoc(doc) {
-  const out = {};
-  Object.keys(doc || {}).forEach(key => {
-    if (!STRIP_FIELDS.includes(key)) out[key] = doc[key];
-  });
-  return out;
-}
+const stripDoc = stripRuleTransferDoc;
 
 // Build a portable, board-independent list of rules from the CURRENT board.
 function collectBoardRules(boardId) {
-  let rules = ReactiveCache.getRules({ boardId });
   const selected = Session.get('selectedRuleIds') || [];
-  if (selected.length) {
-    rules = rules.filter(r => selected.includes(r._id));
-  }
-  return rules
-    .map(rule => {
-      const trigger = ReactiveCache.getTrigger(rule.triggerId);
-      const action = ReactiveCache.getAction(rule.actionId);
-      if (!trigger || !action) return null;
-      return { title: rule.title, trigger: stripDoc(trigger), action: stripDoc(action) };
-    })
-    .filter(Boolean);
+  return collectRuleTransferEntries(
+    ReactiveCache.getRules({ boardId }),
+    triggerId => ReactiveCache.getTrigger(triggerId),
+    actionId => ReactiveCache.getAction(actionId),
+    selected,
+  );
 }
 
 // #6472: the trigger matcher (server/rulesHelper.js buildMatchingFieldsMap)
@@ -85,23 +76,6 @@ function download(filename, text, mime) {
 }
 
 // --- CSV (round-trippable) --------------------------------------------------
-function rulesToCsv(rulesArray) {
-  const rows = rulesArray.map(entry => {
-    const { activityType, ...triggerFields } = entry.trigger || {};
-    const { actionType, ...actionFields } = entry.action || {};
-    return {
-      title: entry.title || '',
-      triggerType: activityType || '',
-      triggerFields: JSON.stringify(triggerFields),
-      actionType: actionType || '',
-      actionFields: JSON.stringify(actionFields),
-    };
-  });
-  return Papa.unparse(rows, {
-    columns: ['title', 'triggerType', 'triggerFields', 'actionType', 'actionFields'],
-  });
-}
-
 function csvToRules(text) {
   const parsed = Papa.parse(text.trim(), { header: true, skipEmptyLines: true });
   return (parsed.data || [])
@@ -287,7 +261,7 @@ Template.rulesImportExportPopup.events({
   },
   'click .js-rules-export-json'() {
     const boardId = Session.get('currentBoard');
-    const data = { _format: RULES_FORMAT, boardId, rules: collectBoardRules(boardId) };
+    const data = ruleTransferDocument(boardId, collectBoardRules(boardId));
     download('wekan-rules.json', JSON.stringify(data, null, 2), 'application/json');
   },
   'click .js-rules-export-csv'() {

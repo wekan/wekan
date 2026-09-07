@@ -102,14 +102,14 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
     const createWorkflow = legacy.locator(
       'form:has(input[name="legacyOperation"][value="create-workflow-rule"])',
     );
-    await createWorkflow.locator('input[name="ruleTitle"]').fill(`Native workflow ${suffix}`);
+    await createWorkflow.locator('input[name="ruleTitle"]').fill(`=Native workflow ${suffix}`);
     await createWorkflow.locator('select[name="triggerIndex"]').selectOption('0');
     await createWorkflow.locator('select[name="actionIndex"]').selectOption('0');
     await submit(createWorkflow);
     await expect.poll(() => db.findOne('rules', {
-      boardId: board.boardId, title: `Native workflow ${suffix}`,
+      boardId: board.boardId, title: `=Native workflow ${suffix}`,
     })).not.toBeNull();
-    await expect(legacy.locator('tbody')).toContainText(`Native workflow ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`=Native workflow ${suffix}`);
     const replaceAction = legacy.locator(
       `form:has(input[name="legacyOperation"][value="replace-workflow-action"]):has(input[name="ruleId"][value="${ids.ruleB}"])`,
     );
@@ -119,6 +119,27 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
       .not.toBe(ids.actionB);
     expect(db.findOne('actions', { _id: ids.actionB })).toBeNull();
     await expect(legacy.locator('tbody')).toContainText('Siirrä kortti arkistoon');
+    const exportForm = format => legacy.locator(
+      'form:has(input[name="legacyOperation"][value="export-rules"])'
+      + `:has(input[name="ruleExportFormat"][value="${format}"])`,
+    );
+    const [html4JsonDownload] = await Promise.all([
+      legacy.waitForEvent('download'),
+      exportForm('json').locator('input[type="submit"]').click(),
+    ]);
+    const html4Json = JSON.parse(await fs.promises.readFile(
+      await html4JsonDownload.path(), 'utf8',
+    ));
+    expect(html4Json._format).toBe('wekan-rules-1.0.0');
+    expect(html4Json.rules).toHaveLength(3);
+    expect(html4Json.rules.every(rule => !rule._id && !rule.trigger._id && !rule.action._id))
+      .toBe(true);
+    const [html4CsvDownload] = await Promise.all([
+      legacy.waitForEvent('download'),
+      exportForm('csv').locator('input[type="submit"]').click(),
+    ]);
+    const html4Csv = await fs.promises.readFile(await html4CsvDownload.path(), 'utf8');
+    expect(html4Csv).toContain(`'=Native workflow ${suffix}`);
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -143,6 +164,17 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
       await modern.locator('.js-toggle-page-sidebar').first().click();
       await workflowToggle.waitFor();
     }
+    await modern.locator('.js-rules-import-export').click();
+    const [html5JsonDownload] = await Promise.all([
+      modern.waitForEvent('download'),
+      modern.locator('.js-rules-export-json').click(),
+    ]);
+    const html5Json = JSON.parse(await fs.promises.readFile(
+      await html5JsonDownload.path(), 'utf8',
+    ));
+    expect(html5Json.rules.map(rule => rule.title).sort())
+      .toEqual(html4Json.rules.map(rule => rule.title).sort());
+    await modern.keyboard.press('Escape');
     await workflowToggle.click();
     const localizedWorkflowRule = modern.locator(
       `.workflow-rule[data-rule-id="${ids.ruleA}"]`,
