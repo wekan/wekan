@@ -57,6 +57,24 @@ held only issues \#4774 and \#4055, and both are closed now.
 </details>
 
 <details>
+<summary>Paused Legacy HTML4 parity work - resume from the complete route and operation inventory.</summary>
+
+The latest completed slice is permanent card deletion: HTML4 and HTML5 now use
+the same guarded operation, linked-card protection, Security reporting and
+Recovery audit. When work resumes, first compare every remaining Jade route,
+menu and submit operation with the HTML4 dispatcher instead of starting a new
+isolated component. In particular, audit list and swimlane History/Restore,
+provide a semantic copyable card URL where clipboard JavaScript is unavailable,
+and finish the remaining card fields and list/swimlane menu operations. For each
+gap, keep one shared server boundary and presentation contract, add positive and
+negative tests plus a same-URL HTML4/HTML5 browser comparison, and update the
+HTML4 design/component documents. Do not repeat the already completed card
+History/Restore, Move/Copy, Import/Export, Copy Many, archive/restore, parent,
+watch, voting, poker, spent-time, color and permanent-delete slices.
+
+</details>
+
+<details>
 <summary>Designed and written down, not built - one feature across several places, where half of it would be worse than none.</summary>
 
 **Requested By and Assigned By become people.** They are free TEXT today, and
