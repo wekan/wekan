@@ -383,6 +383,16 @@ directly after the merge.
     `node-v<version>-linux-<arch>/` (the Node.js the test suites are run with),
     `go/` with `gopath/`, `gomodcache/` and `gocache/` (FerretDB's Go builds),
     `.meteor/` when `HOME` is pointed at `.tools`, and the `TSC*` AppImage.
+  - **Temporary files belong in `.tools/tmp`, never in `/tmp`.** At the start of
+    work that creates temporary files or runs tools which may create them, make
+    `.tools/tmp` if necessary and export its absolute path as `TMPDIR` before
+    invoking `mktemp`, npm, node-gyp, compilers, test runners or build scripts.
+    Keep task-specific subdirectories beneath it and remove only the exact
+    subdirectories the task created. The host `/tmp` may be a small tmpfs even
+    when the repository filesystem has ample space. On Windows, use
+    `.tools\\tmp` and set both `TEMP` and `TMP` to its absolute path for the
+    command or script. `.tools/` is already excluded by `.gitignore` and
+    `.meteorignore`, so these files cannot enter a commit or trigger Meteor.
   - **Do NOT add a `CLAUDE.md` or an `AGENTS.md` to any repository under
     `.tools/`.** node-patches and mongo-tools-patches each had a pair and they were
     REMOVED on purpose: the rules are the same for every one of these repositories,
