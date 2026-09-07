@@ -263,17 +263,12 @@ browser build to verify).
 
 **In short:** **Branding and board images are stored locally as GIF**, Meteor tests
 compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
-Authentication follows keyboard order and deployment examples explain email
-options. History SHA-256 stays synchronous, interrupted tests clean up once, and
+Authentication follows keyboard order, deployment examples explain email, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
-reactions, checklists, dates, colors, labels, people, identity, ballots and
-transfers. Attachments have stored GIF previews
-and secure downloads, rename, cover and confirmed-delete controls. All Boards
-can create, duplicate, organize and archive boards without JavaScript, including
-gated permanent deletion. Card parents, subtasks and activity history have
-matching, scoped HTML4/HTML5 views. Advanced Global Search shares parsing,
-scope, help and pagination across both views; Broken Cards shares its query and
-context too.
+reactions, checklists, attachments, transfers and All Boards without JavaScript.
+Card parents, subtasks and activity history have matching scoped views. Advanced
+Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
+shares localized details and administrator rename and delete operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -473,6 +468,25 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dab13dd20">Add accessible HTML4 board rules</a>. Thanks to xet7.</summary>
+
+Board Rules now has a dedicated cookieless HTML4 list and details view. Visible
+board members receive the same titles and localized stored trigger and action
+descriptions as the Jade view. Active board and site administrators additionally
+receive labelled rename controls and a two-step delete action in natural keyboard
+order.
+
+HTML4 and HTML5 writes use one server operation that binds a rule to the exact
+board in the route, checks the active administrator role, bounds titles and removes
+the associated trigger and action when deleting. Cross-board attempts are refused
+and reported through the Security canary. Node coverage includes the shared read,
+localization and mutation boundaries; a live same-URL Chromium test covers Finnish
+HTML4/HTML5 details, an administrator rename and confirmed delete, and refusal of a
+plain member's write.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0b25640b">Add accessible HTML4 broken cards view</a>. Thanks to xet7.</summary>
