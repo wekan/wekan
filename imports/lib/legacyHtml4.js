@@ -194,6 +194,7 @@ function authRows(path, options) {
 function contentRows(path, options) {
   if (!options.page) return authRows(path, options);
   const rows = [];
+  const columnCount = Math.max(2, (options.page.columns || []).length);
   if (options.authenticated) {
     rows.push(tableRow([
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
@@ -202,9 +203,10 @@ function contentRows(path, options) {
         .concat(options.isAdmin ? ['/admin/problems/summary'] : []).map(target => postForm(
         target, pageHeading(target, options), options.actionFields(target),
       )).join(' '),
-    ]));
+    ], { colspanLast: columnCount - 1 }));
   } else {
-    rows.push(tableRow([escapeHtml(options.productName), '<a href="/sign-in">Log In</a>']));
+    rows.push(tableRow([escapeHtml(options.productName), '<a href="/sign-in">Log In</a>'],
+      { colspanLast: columnCount - 1 }));
   }
   for (const row of options.page.rows || []) {
     const renderCell = cell => {

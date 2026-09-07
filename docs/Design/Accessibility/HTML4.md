@@ -559,6 +559,23 @@ id or reason cannot paint over adjacent report text. The same-URL browser test
 compares both representations, exercises two pages and a deliberately long
 username, and proves that an anonymous request receives no audit data.
 
+Recovery Report has the same shared-service boundary. The server accepts only
+All, Done, Failed or Deleted status, applies its escaped 500-character search,
+caps limit and skip, and counts through the database before either renderer
+draws a page. HTML4 preserves the modern textual guidance and all nine fields:
+Done/deleted outcome, Date, Event, User ID, Username, IPv4, IPv6, trusted
+Location and Detail. The visual success, failure and deletion icons have
+explicit text equivalents, so their meaning does not depend on color or an icon
+font. Search and status forms retain each other's values, and page forms retain
+both. The same-URL browser fixture filters twelve failed events, checks two
+pages, both address families and a trusted flag/city, captures both views and
+proves that an anonymous request receives no recovery history.
+
+Every authenticated page's identity/navigation row spans all columns after its
+row heading. This keeps the table structurally consistent when a report has more
+than two columns and prevents old auto-layout engines from assigning most of the
+width to a phantom second column.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

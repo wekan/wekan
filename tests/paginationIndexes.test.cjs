@@ -45,7 +45,7 @@ const COUNT_METHODS = [
   ['server/publications/rules.js', 'getRulesReportCount'],
   ['server/publications/attachments.js', 'getAttachmentsReportCount'],
   ['server/lib/impersonationReport.js', 'impersonationReportCountForAdmin'],
-  ['server/publications/recoveryReport.js', 'getRecoveryReportCount'],
+  ['server/lib/recoveryReport.js', 'recoveryReportCountForAdmin'],
   ['models/eventLog.js', 'countForAdmin'],
 ];
 

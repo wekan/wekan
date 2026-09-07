@@ -24,6 +24,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     `${eventId}-impersonation-${index}`);
   const impersonatedUserId = `${eventId}-impersonated-user`;
   const longImpersonatedUsername = `impersonated_${suffix}_${'long_name_'.repeat(8)}`;
+  const recoveryIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-recovery-${index}`);
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -244,6 +246,51 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       });
     }
 
+    db.insertMany('recoveryEvents', recoveryIds.map((id, index) => ({
+      _id: id,
+      type: `html4-recovery-${suffix}`,
+      detail: `Recovery searchable ${suffix} row ${index}`,
+      severity: 'error',
+      source: 'html4-admin-recovery-test',
+      done: false,
+      deletedData: index === 0,
+      userId: user._id,
+      username,
+      ipv4: '203.0.113.12',
+      ipv6: '2001:db8::12',
+      location: { country: 'FI', city: `Recovery City ${suffix}` },
+      createdAt: new Date(Date.now() + index),
+    })));
+    const recoveryNav = legacy
+      .locator('form[action="/admin/problems/recovery"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      recoveryNav.locator('input[type="submit"]').click(),
+    ]);
+    const recoverySearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await recoverySearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      recoverySearch.locator('input[type="submit"]').click(),
+    ]);
+    const recoveryFilter = legacy.locator('form:has(select[name="status"])');
+    await recoveryFilter.locator('select[name="status"]').selectOption('failed');
+    await Promise.all([
+      legacy.waitForNavigation(),
+      recoveryFilter.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('IPv4-osoite');
+    await expect(legacy.locator('thead')).toContainText('IPv6-osoite');
+    await expect(legacy.locator('tbody')).toContainText(`Recovery City ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText('Failed');
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-recovery.png`,
+        fullPage: true,
+      });
+    }
+
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -299,6 +346,17 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/recovery');
+    await modern.locator('.js-table-page-search').fill(suffix);
+    await modern.locator('.js-table-page-filter').selectOption('failed');
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText(`Recovery City ${suffix}`);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-recovery.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -310,6 +368,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/impersonation`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(longImpersonatedUsername);
+    await outsiderPage.goto(`${baseURL}/admin/problems/recovery`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(`Recovery City ${suffix}`);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -320,6 +381,7 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('eventlogAcks', { stream: 'security' });
     db.deleteMany('loginAddresses', { _id: { $in: officeAddressIds } });
     db.deleteMany('impersonatedUsers', { _id: { $in: impersonationIds } });
+    db.deleteMany('recoveryEvents', { _id: { $in: recoveryIds } });
     db.deleteMany('users', { _id: { $in: [...officeUserIds, impersonatedUserId] } });
     if (previousSecurityAck) db.insertOne('eventlogAcks', previousSecurityAck);
     if (user) {

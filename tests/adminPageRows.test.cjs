@@ -207,7 +207,10 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
         const delegatedImpersonationGuard = file.endsWith('impersonationReport.js')
           && /impersonationReport(?:ForAdmin|CountForAdmin)/.test(head)
           && /isAdmin/.test(code('server/lib/impersonationReport.js'));
-        assert.ok(/isAdmin/.test(head) || delegatedImpersonationGuard,
+        const delegatedRecoveryGuard = file.endsWith('recoveryReport.js')
+          && /recoveryReport(?:ForAdmin|CountForAdmin)/.test(head)
+          && /isAdmin/.test(code('server/lib/recoveryReport.js'));
+        assert.ok(/isAdmin/.test(head) || delegatedImpersonationGuard || delegatedRecoveryGuard,
           `${marker} must ask for the site admin flag`);
         assert.ok(!/canOpenAdminPanel/.test(head),
           `${marker} must NOT accept a per-tenant admin: Problems is instance-wide`);

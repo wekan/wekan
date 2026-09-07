@@ -38,6 +38,7 @@ import { getProblemsOverview } from '/server/lib/systemStatus';
 import { getCurrentCpu } from '/server/lib/cpuMonitor';
 import { loginOfficesForAdmin } from '/server/methods/loginOffices';
 import { impersonationReportForAdmin } from '/server/lib/impersonationReport';
+import { recoveryReportCountForAdmin, recoveryReportForAdmin } from '/server/lib/recoveryReport';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -2755,6 +2756,90 @@ async function adminProblemsImpersonationPage(path, userId, requestFields, trans
   };
 }
 
+async function adminProblemsRecoveryPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/recovery') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const status = ['all', 'done', 'failed', 'deleted'].includes(requestFields.status)
+    ? requestFields.status : 'all';
+  const requestedPage = Math.max(1, Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  let report;
+  let total;
+  try {
+    [report, total] = await Promise.all([
+      recoveryReportForAdmin(userId, {
+        search, status, limit: perPage, skip: (requestedPage - 1) * perPage,
+      }),
+      recoveryReportCountForAdmin(userId, search, status),
+    ]);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'recoveryReportTitle', 'Recovery'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) report = await recoveryReportForAdmin(userId, {
+    search, status, limit: perPage, skip: (page - 1) * perPage,
+  });
+  const columns = [
+    ['done', 'Done'], ['date', 'Date'], ['recovery-event', 'Event'],
+    [null, 'User ID'], ['username', 'Username'],
+    ['event-ipv4', 'IPv4 address'], ['event-ipv6', 'IPv6 address'],
+    ['location', 'Location'], ['recovery-detail', 'Detail'],
+  ].map(([key, fallback]) => key ? tr(translate, key, fallback) : fallback);
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'), adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'recoveryReportTitle', 'Recovery'), [
+        tr(translate, 'recovery-report-desc', 'Automatic recovery and remediation history.'),
+        'The permanent-delete setting must be enabled before a delete icon is shown. Recovery logs setting changes and every successful, failed, or unauthorized permanent-delete attempt, including Done status, user ID, username, trusted IPv4 or IPv6 address and available location. Board deletion records IDs and titles; file deletion records the attachment ID, sanitized filename and card ID.',
+      ]] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), [
+        uiSearchForm({ action: path, label: tr(translate, 'search', 'Search'),
+          value: search, fields: { status } }),
+        uiSelectForm({ action: path, label: 'Show',
+          name: 'status', value: status, fields: { q: search },
+          submitLabel: tr(translate, 'filter', 'Filter'), options: [
+            { value: 'all', label: 'All' },
+            { value: 'done', label: tr(translate, 'done', 'Done') },
+            { value: 'failed', label: 'Failed' },
+            { value: 'deleted', label: 'Deleted' },
+          ] }),
+      ]] },
+  ];
+  for (const item of report.rows) {
+    const place = [countryFlag(item.location?.country), locationLabel(item.location)]
+      .filter(Boolean).join(' ');
+    const state = [item.done === false
+      ? 'Failed' : tr(translate, 'done', 'Done'),
+    item.deletedData === true ? 'Deleted' : '']
+      .filter(Boolean).join(' / ');
+    rows.push({ cells: [state, eventDate(item.createdAt), item.type || '',
+      item.userId || '', item.username || '', item.ipv4 || '', item.ipv6 || '',
+      place, item.detail || ''] });
+  }
+  if (!report.rows.length) rows.push({ rowHeader: false, colspanLast: columns.length,
+    cells: [tr(translate, 'recovery-no-events', 'No recovery events.')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: search, status, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path, label: tr(translate, 'next-page', 'Next'),
+      icon: 'next', fields: { q: search, status, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'recoveryReportTitle', 'Recovery')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -2846,6 +2931,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsImpersonation) return adminProblemsImpersonation;
+  const adminProblemsRecovery = await adminProblemsRecoveryPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsRecovery) return adminProblemsRecovery;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

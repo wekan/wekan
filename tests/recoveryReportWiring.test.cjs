@@ -25,17 +25,22 @@ test('server publication is registered', () => {
 
 test('publication is admin-gated and readies up front', () => {
   const src = read('server/publications/recoveryReport.js');
+  const service = read('server/lib/recoveryReport.js');
   assert.ok(/Meteor\.publish\('recoveryReport'/.test(src), 'publishes recoveryReport');
   assert.ok(/this\.ready\(\)/.test(src), 'signals readiness up front');
-  assert.ok(/isAdmin/.test(src), 'checks isAdmin');
+  assert.ok(/recoveryReportForAdmin\(this\.userId/.test(src), 'uses shared report service');
+  assert.ok(/isAdmin/.test(service), 'shared service checks isAdmin');
   // Direct collection fetch (fetchAsync) rather than a live cursor.
-  assert.ok(/RecoveryEvents\.find\(/.test(src) && /fetchAsync/.test(src), 'direct paged fetch');
+  assert.ok(/RecoveryEvents\.find\(/.test(service) && /fetchAsync/.test(service),
+    'shared service performs direct paged fetch');
 });
 
 test('count method is admin-gated', () => {
   const src = read('server/publications/recoveryReport.js');
+  const service = read('server/lib/recoveryReport.js');
   assert.ok(/getRecoveryReportCount/.test(src), 'exposes count method');
-  assert.ok(/not-authorized/.test(src) && /isAdmin/.test(src), 'count is admin-only');
+  assert.ok(/recoveryReportCountForAdmin\(this\.userId/.test(src), 'uses shared count');
+  assert.ok(/not-authorized/.test(service) && /isAdmin/.test(service), 'count is admin-only');
 });
 
 test('record helper is best-effort server-only', () => {

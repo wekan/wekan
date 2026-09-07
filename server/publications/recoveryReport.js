@@ -1,5 +1,7 @@
-import RecoveryEvents from '/models/recoveryEvents';
-import { recoveryReportQuery } from '/models/lib/recoveryReportQuery';
+import {
+  recoveryReportCountForAdmin,
+  recoveryReportForAdmin,
+} from '/server/lib/recoveryReport';
 
 // Admin Panel / Problems / Recovery (#6492). Lists the recovery/remediation audit
 // events newest-first, with the same server-side search + pagination as the other
@@ -18,19 +20,9 @@ Meteor.publish('recoveryReport', async function recoveryReport(searchTerm = '', 
   this.ready();
 
   try {
-    const user = this.userId && (await Meteor.users.findOneAsync(this.userId));
-    if (!user || !user.isAdmin) {
-      return;
-    }
-
-    const cursor = RecoveryEvents.find(recoveryReportQuery(searchTerm, status), {
-      sort: { createdAt: -1 },
-      limit,
-      skip: skip || 0,
+    const { rows: docs } = await recoveryReportForAdmin(this.userId, {
+      search: searchTerm || '', status, limit, skip: skip || 0,
     });
-
-    const docs =
-      typeof cursor.fetchAsync === 'function' ? await cursor.fetchAsync() : cursor.fetch();
 
     for (const doc of docs || []) {
       const { _id, ...fields } = doc;
@@ -49,12 +41,6 @@ Meteor.methods({
     check(searchTerm, Match.OneOf(String, null, undefined));
     check(status, Match.Where(value => ['all', 'done', 'failed', 'deleted'].includes(value)));
 
-    const user = await Meteor.userAsync();
-    if (!user || !user.isAdmin) {
-      throw new Meteor.Error('not-authorized');
-    }
-
-    const cursor = RecoveryEvents.find(recoveryReportQuery(searchTerm, status));
-    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+    return recoveryReportCountForAdmin(this.userId, searchTerm || '', status);
   },
 });

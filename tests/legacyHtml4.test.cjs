@@ -652,6 +652,22 @@ test('HTML4 page actions are visible signed POST controls', () => {
   assert.match(html, /type="submit" value="&gt; Next list"/);
 });
 
+test('global identity navigation spans every remaining semantic page column', () => {
+  const html = renderLegacyHtml4Page('/admin/problems/recovery', {
+    authenticated: true,
+    username: 'administrator',
+    isAdmin: true,
+    actionFields: () => ({}),
+    page: {
+      heading: 'Recovery',
+      columns: ['Done', 'Date', 'Event', 'User', 'Detail'],
+      rows: [],
+    },
+  });
+  assert.match(html,
+    /<th scope="row">Username: administrator<\/th><td colspan="4">/);
+});
+
 test('HTML4 colors accept only the shared palette or a six-digit hex', () => {
   assert.equal(safeColor('green'), '#3cb500');
   assert.equal(safeColor('belize', true), '#2980b9');
