@@ -779,6 +779,27 @@ test('sign-up uses registration guards and starts the same cookieless session', 
     'HTML4 returns before a reusable Meteor token is generated');
 });
 
+test('forgot-password is semantic, uniform and separately rate limited', () => {
+  const html = renderLegacyHtml4Page('/forgot-password', { recoveryRequested: true });
+  assert.match(html, /<title>WeKan - Forgot password<\/title>/);
+  assert.match(html, /<form method="post" action="\/users\/forgot-password">/);
+  assert.match(html, /<label for="email">Email<\/label>/);
+  assert.match(html, /name="legacyHtml4" value="1"/);
+  assert.match(html, /<strong>Email sent<\/strong>/);
+  assert.match(html, /href="\/sign-in">Back<\/a>/);
+
+  const route = fs.readFileSync(path.join(__dirname, '..', 'server',
+    'apiAuthRoutes.js'), 'utf8');
+  const recovery = route.slice(route.indexOf("WebApp.handlers.post('/users/forgot-password'"),
+    route.indexOf("WebApp.handlers.post('/users/login'"));
+  assert.match(recovery, /email\.length <= 320/);
+  assert.match(recovery, /method_handlers\.forgotPassword\.call/);
+  assert.match(recovery, /Location', '\/forgot-password\?recovery=requested'/);
+  assert.match(recovery, /Legacy HTML4 forgotPassword/);
+  assert.doesNotMatch(recovery, /User not found|unknown email|no such user/i);
+  assert.match(route, /legacyRecoveryThrottle = new LoginAttemptThrottle\(\{[\s\S]*?maxFailures: 5/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',

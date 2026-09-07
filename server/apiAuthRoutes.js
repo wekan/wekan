@@ -47,6 +47,17 @@ const restLoginThrottle = new LoginAttemptThrottle({
     undefined,
 });
 
+// The DDP method has its own DDPRateLimiter rule. This HTTP form does not pass
+// through the DDP dispatcher, so it needs an equivalent per-address request
+// throttle of its own. Every request counts, including an existing address: a
+// password-reset endpoint is an email-amplification boundary, not a password
+// checker where success should clear the counter.
+const legacyRecoveryThrottle = new LoginAttemptThrottle({
+  maxFailures: 5,
+  windowMs: 60 * 1000,
+  lockoutMs: 60 * 1000,
+});
+
 // One uniform failure, thrown for BOTH "no such user" and "wrong password", so
 // neither the status code, the message NOR the timing reveals which accounts
 // exist (the old code threw a distinct 'not-found' message for missing users).
@@ -74,6 +85,44 @@ function restLoginClientKey(req) {
 // ---------------------------------------------------------------------------
 WebApp.handlers.options('/users/login', function (req, res) {
   sendJsonResult(res);
+});
+
+// Legacy HTML4 password recovery. The response is deliberately identical for an
+// existing, missing or malformed address, matching Meteor's ambiguous account
+// recovery semantics and preventing account enumeration in the rendered page.
+WebApp.handlers.post('/users/forgot-password', async function (req, res) {
+  const clientKey = restLoginClientKey(req);
+  const now = Number(new Date());
+  const gate = legacyRecoveryThrottle.check(clientKey, now);
+  if (!gate.blocked) {
+    legacyRecoveryThrottle.recordFailure(clientKey, now);
+    legacyRecoveryThrottle.prune(now);
+    const email = typeof req.body?.email === 'string'
+      ? req.body.email.trim().toLowerCase() : '';
+    if (email && email.length <= 320) {
+      try {
+        await Meteor.server.method_handlers.forgotPassword.call({
+          userId: null,
+          connection: { clientAddress: clientKey },
+        }, { email });
+      } catch (_) {
+        // A missing account and a mail transport failure have the same response.
+      }
+    }
+  } else {
+    try {
+      require('/server/lib/securityLog').record({
+        category: 'brute-force', bleed: 'JamBleed', severity: 'high',
+        action: 'blocked', source: 'Legacy HTML4 forgotPassword', req,
+        detail: 'rate-limited Legacy HTML4 password recovery request',
+      });
+    } catch (_) { /* reporting must not weaken the refusal */ }
+  }
+  res.statusCode = 303;
+  res.setHeader('Cache-Control', 'no-store');
+  if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
+  res.setHeader('Location', '/forgot-password?recovery=requested');
+  res.end();
 });
 
 WebApp.handlers.post('/users/login', async function (req, res) {

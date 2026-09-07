@@ -57,6 +57,9 @@ function pageHeading(path, options) {
   if (path === '/sign-up') {
     return translated(options, 'signupPopup-title', 'Create an Account');
   }
+  if (path === '/forgot-password') {
+    return translated(options, 'forgot-password', 'Forgot password');
+  }
   const routeTitles = [
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
@@ -176,6 +179,17 @@ function authRows(path, options) {
         options.disableForgotPassword ? '' : `<a href="/forgot-password">${escapeHtml(t('forgot-password', 'Forgot password'))}</a>`,
         options.disableRegistration ? '' : `<a href="/sign-up">${escapeHtml(t('signupPopup-title', 'Create an Account'))}</a>`,
       ]),
+    ];
+  }
+  if (path === '/forgot-password') {
+    return [
+      `<tr><td colspan="2"><form method="post" action="/users/forgot-password"><fieldset><legend>${escapeHtml(t('forgot-password', 'Forgot password'))}</legend><input type="hidden" name="legacyHtml4" value="1">`,
+      `<p><label for="email">${escapeHtml(t('email', 'Email'))}</label><br><input id="email" name="email" type="text" size="30"></p>`,
+      `<p><input type="submit" value="${escapeHtml(t('forgot-password', 'Forgot password'))}"></p></fieldset></form></td></tr>`,
+      options.recoveryRequested ? tableRow([
+        `<strong>${escapeHtml(t('email-sent', 'Email sent'))}</strong>`, '',
+      ]) : '',
+      tableRow([`<a href="/sign-in">${escapeHtml(t('back', 'Back'))}</a>`, '']),
     ];
   }
   if (path === '/sign-up') {

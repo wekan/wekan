@@ -2012,6 +2012,7 @@ WebApp.handlers.use(async (req, res, next) => {
     disableForgotPassword: setting.disableForgotPassword === true,
     loginFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('login') === 'failed',
     registrationFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('registration') === 'failed',
+    recoveryRequested: new URL(req.url, 'http://wekan.invalid').searchParams.get('recovery') === 'requested',
     authenticated: Boolean(session),
     username: user?.username || '',
     isAdmin: user?.isAdmin === true,

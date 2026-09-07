@@ -5634,7 +5634,7 @@ async function adminProblemsSummaryPage(path, userId, requestFields, translate) 
 }
 
 export async function legacyHtml4Page(path, userId, requestFields = {}, translate) {
-  if (path === '/' || path === '/sign-in' || path === '/sign-up') return null;
+  if (['/', '/sign-in', '/sign-up', '/forgot-password'].includes(path)) return null;
   if (path === '/public') return boardsPage(path, userId, true, requestFields, translate);
   const information = await informationPage(path, userId, translate);
   if (information) return information;
