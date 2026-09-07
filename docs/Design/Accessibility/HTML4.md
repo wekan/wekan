@@ -688,6 +688,16 @@ failed Recovery audit with username, trusted address and location. The same-URL
 fixture disables the setting in HTML4, verifies the Recovery row, observes and
 restores it in HTML5, captures both views and proves anonymous isolation.
 
+The Admin Panel Problems registry is also an executable completeness boundary.
+A source audit derives all 20 pane slugs from the shared menu definition and
+requires each one to resolve to a dedicated HTML4 controller, including every
+stream in the fixed event-report map; a newly added pane cannot silently fall
+back to the generic baseline. Same-URL browser coverage now captures both HTML4
+and HTML5 for every Problems pane. In particular, Speed, Tests, CPU usage, API,
+Database problems and Filesystem integrity each have their own seeded report
+fixture and screenshot pair instead of relying on Security Report as a
+representative of their shared controller.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

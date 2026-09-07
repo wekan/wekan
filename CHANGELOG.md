@@ -269,9 +269,9 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary and fifteen reports now share guarded
-status, search, paging, identity resolution, acknowledgements and repairs between
-both views.
+secure JSON/CSV transfers. All 20 Problems panes now have dedicated guarded
+HTML4 coverage with shared status, settings, search, paging, identity resolution,
+acknowledgements and repairs between both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -308,6 +308,22 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e112dc42">Verify complete HTML4 Problems coverage</a>. Thanks to xet7.</summary>
+
+An executable registry audit now derives every Admin Panel / Problems pane from
+the shared menu and verifies that all 20 resolve to dedicated Legacy HTML4
+controllers. A new pane or event-report stream therefore cannot silently fall
+back to the generic page.
+
+Same-URL browser coverage now seeds and captures separate HTML4 and HTML5 views
+for Speed, Tests, CPU usage, API, Database problems and Filesystem integrity.
+Together with the existing pane fixtures, every Problems route has direct UI
+coverage instead of relying on Security Report as a representative of the
+shared event controller. The complete Node suite passes 823/823.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/776886ceb">Add accessible HTML4 Problems Summary</a>. Thanks to xet7.</summary>
