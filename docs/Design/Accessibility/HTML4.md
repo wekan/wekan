@@ -576,6 +576,19 @@ row heading. This keeps the table structurally consistent when a report has more
 than two columns and prevents old auto-layout engines from assigning most of the
 width to a phantom second column.
 
+Boards Report uses an instance-wide Global Admin service shared by its Meteor
+publication and HTML4 controller. It accepts only All, Public or Private,
+escapes and caps title search at 500 characters, limits the page and skip, and
+counts the identical selector in the database. The current ten boards retain
+the modern Title, Id, Permission, Archived, Members, Organizations and Teams
+columns. Only active members are named; referenced users, Organizations and
+Teams are deduplicated and loaded in three bounded page-local queries, with ids
+as the durable fallback for deleted references. Search and permission forms
+retain each other's values and Previous/Next retains both. The same-URL test
+proves Public excludes Private, Private has two pages across twelve fixtures,
+relationship names appear in both renderers, and anonymous callers receive no
+instance inventory.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

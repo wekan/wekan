@@ -39,6 +39,7 @@ import { getCurrentCpu } from '/server/lib/cpuMonitor';
 import { loginOfficesForAdmin } from '/server/methods/loginOffices';
 import { impersonationReportForAdmin } from '/server/lib/impersonationReport';
 import { recoveryReportCountForAdmin, recoveryReportForAdmin } from '/server/lib/recoveryReport';
+import { boardsReportCountForAdmin, boardsReportForAdmin } from '/server/lib/boardsReport';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -2840,6 +2841,81 @@ async function adminProblemsRecoveryPage(path, userId, requestFields, translate)
   };
 }
 
+async function adminProblemsBoardsPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/boards') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const permission = ['all', 'public', 'private'].includes(requestFields.permission)
+    ? requestFields.permission : 'all';
+  const requestedPage = Math.max(1, Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  let report;
+  let total;
+  try {
+    [report, total] = await Promise.all([
+      boardsReportForAdmin(userId, {
+        search, permission, limit: perPage, skip: (requestedPage - 1) * perPage,
+      }),
+      boardsReportCountForAdmin(userId, search, permission),
+    ]);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'boardsReportTitle', 'Boards Report'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) report = await boardsReportForAdmin(userId, {
+    search, permission, limit: perPage, skip: (page - 1) * perPage,
+  });
+  const names = new Map(report.users.map(user => [user._id, user.username || user._id]));
+  const orgNames = new Map(report.orgs.map(org => [org._id, org.orgDisplayName || org._id]));
+  const teamNames = new Map(report.teams.map(team => [team._id,
+    team.teamDisplayName || team._id]));
+  const columns = ['Title', 'Id', 'Permission', 'Archived?', 'Members',
+    'Organizations', 'Teams'];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'), adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), [
+        uiSearchForm({ action: path, label: tr(translate, 'search', 'Search'),
+          value: search, fields: { permission } }),
+        uiSelectForm({ action: path, label: 'Permission', name: 'permission',
+          value: permission, fields: { q: search }, submitLabel: tr(translate, 'filter', 'Filter'),
+          options: [
+            { value: 'all', label: 'All' },
+            { value: 'public', label: tr(translate, 'public', 'Public') },
+            { value: 'private', label: tr(translate, 'private', 'Private') },
+          ] }),
+      ]] },
+  ];
+  for (const board of report.boards) rows.push({ cells: [
+    board.title || '', board._id, board.permission || '',
+    tr(translate, board.archived ? 'yes' : 'no', board.archived ? 'Yes' : 'No'),
+    (board.members || []).filter(member => member.isActive !== false)
+      .map(member => names.get(member.userId) || member.userId).join(', '),
+    (board.orgs || []).map(org => orgNames.get(org.orgId) || org.orgId).join(', '),
+    (board.teams || []).map(team => teamNames.get(team.teamId) || team.teamId).join(', '),
+  ] });
+  if (!report.boards.length) rows.push({ rowHeader: false, colspanLast: columns.length,
+    cells: [tr(translate, 'no-results', 'No results')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: search, permission, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path, label: tr(translate, 'next-page', 'Next'),
+      icon: 'next', fields: { q: search, permission, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'boardsReportTitle', 'Boards Report')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -2935,6 +3011,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsRecovery) return adminProblemsRecovery;
+  const adminProblemsBoards = await adminProblemsBoardsPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsBoards) return adminProblemsBoards;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

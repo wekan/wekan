@@ -26,6 +26,10 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   const longImpersonatedUsername = `impersonated_${suffix}_${'long_name_'.repeat(8)}`;
   const recoveryIds = Array.from({ length: 12 }, (_, index) =>
     `${eventId}-recovery-${index}`);
+  const boardReportIds = Array.from({ length: 13 }, (_, index) =>
+    `${eventId}-board-report-${index}`);
+  const boardReportOrgId = `${eventId}-board-org`;
+  const boardReportTeamId = `${eventId}-board-team`;
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -291,6 +295,63 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       });
     }
 
+    db.insertOne('org', {
+      _id: boardReportOrgId,
+      orgDisplayName: `Report Organization ${suffix}`,
+    });
+    db.insertOne('team', {
+      _id: boardReportTeamId,
+      teamDisplayName: `Report Team ${suffix}`,
+    });
+    db.insertMany('boards', boardReportIds.map((id, index) => ({
+      _id: id,
+      title: `${index === 0 ? 'Public' : 'Private'} Report Board ${suffix} ${index}`,
+      slug: `report-board-${suffix}-${index}`,
+      permission: index === 0 ? 'public' : 'private',
+      archived: index === 12,
+      type: 'board',
+      sort: index,
+      members: [{ userId: user._id, isActive: true, isAdmin: true }],
+      orgs: [{ orgId: boardReportOrgId, isActive: true }],
+      teams: [{ teamId: boardReportTeamId, isActive: true }],
+    })));
+    const boardsReportNav = legacy
+      .locator('form[action="/admin/problems/boards"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      boardsReportNav.locator('input[type="submit"]').click(),
+    ]);
+    const boardsReportSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await boardsReportSearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      boardsReportSearch.locator('input[type="submit"]').click(),
+    ]);
+    let boardsReportFilter = legacy.locator('form:has(select[name="permission"])');
+    await boardsReportFilter.locator('select[name="permission"]').selectOption('public');
+    await Promise.all([
+      legacy.waitForNavigation(),
+      boardsReportFilter.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('tbody')).toContainText(`Public Report Board ${suffix}`);
+    await expect(legacy.locator('tbody')).not.toContainText(`Private Report Board ${suffix}`);
+    boardsReportFilter = legacy.locator('form:has(select[name="permission"])');
+    await boardsReportFilter.locator('select[name="permission"]').selectOption('private');
+    await Promise.all([
+      legacy.waitForNavigation(),
+      boardsReportFilter.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('tbody')).toContainText(`Report Organization ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`Report Team ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(username);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-boards.png`,
+        fullPage: true,
+      });
+    }
+
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -357,6 +418,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/boards');
+    await modern.locator('.js-table-page-search').fill(suffix);
+    await modern.locator('.js-table-page-filter').selectOption('public');
+    await expect(modern.locator('tbody')).toContainText('Public Report Board');
+    await expect(modern.locator('tbody')).not.toContainText(`Private Report Board ${suffix}`);
+    await modern.locator('.js-table-page-filter').selectOption('private');
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText(`Report Organization ${suffix}`);
+    await expect(modern.locator('tbody')).toContainText(`Report Team ${suffix}`);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-boards.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -371,6 +447,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/recovery`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(`Recovery City ${suffix}`);
+    await outsiderPage.goto(`${baseURL}/admin/problems/boards`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(`Report Board ${suffix}`);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -382,6 +461,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('loginAddresses', { _id: { $in: officeAddressIds } });
     db.deleteMany('impersonatedUsers', { _id: { $in: impersonationIds } });
     db.deleteMany('recoveryEvents', { _id: { $in: recoveryIds } });
+    db.deleteMany('boards', { _id: { $in: boardReportIds } });
+    db.deleteOne('org', { _id: boardReportOrgId });
+    db.deleteOne('team', { _id: boardReportTeamId });
     db.deleteMany('users', { _id: { $in: [...officeUserIds, impersonatedUserId] } });
     if (previousSecurityAck) db.insertOne('eventlogAcks', previousSecurityAck);
     if (user) {
