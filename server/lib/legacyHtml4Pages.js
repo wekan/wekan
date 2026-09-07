@@ -2553,6 +2553,32 @@ function adminProblemsNavigation(translate) {
   });
 }
 
+async function adminProblemsPerformancePage(path, userId, translate) {
+  if (path !== '/admin/problems/performance') return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  if (!user?.isAdmin) return {
+    heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'problems', 'Problems'),
+      tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'features-performance', 'Performance'),
+      tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+  };
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'features-performance', 'Performance')}`,
+    columns: [tr(translate, 'name', 'Name'),
+      tr(translate, 'description', 'Description')],
+    rows: [
+      { rowHeader: false, cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+      { cells: [tr(translate, 'cards-loading', 'Card loading'),
+        tr(translate, 'cards-loading-description',
+          'WeKan loads board cards automatically according to board size.')] },
+    ],
+  };
+}
+
 async function adminProblemsEventPage(path, userId, requestFields, translate) {
   const match = /^\/admin\/problems\/([^/]+)$/.exec(path);
   const slug = match?.[1] || '';
@@ -3326,6 +3352,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsSummary) return adminProblemsSummary;
+  const adminProblemsPerformance = await adminProblemsPerformancePage(
+    path, userId, translate,
+  );
+  if (adminProblemsPerformance) return adminProblemsPerformance;
   const adminProblemsEvent = await adminProblemsEventPage(
     path, userId, requestFields, translate,
   );

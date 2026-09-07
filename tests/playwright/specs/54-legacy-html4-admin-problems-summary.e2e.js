@@ -589,6 +589,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    const performanceNav = legacy
+      .locator('form[action="/admin/problems/performance"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      performanceNav.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('h1')).toContainText('Suorituskyky');
+    await expect(legacy.locator('tbody')).toContainText('Korttien lataus');
+    await expect(legacy.locator('tbody')).toContainText('CARDS_LOADING');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-performance.png`,
+        fullPage: true,
+      });
+    }
 
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
@@ -733,6 +748,16 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/performance');
+    await expect(modern.locator('h1').first()).toContainText('Suorituskyky');
+    await expect(modern.locator('.main-body')).toContainText('Korttien lataus');
+    await expect(modern.locator('.main-body')).toContainText('CARDS_LOADING');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-performance.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -762,6 +787,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/rules`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Rule Report ${suffix}`);
+    await outsiderPage.goto(`${baseURL}/admin/problems/performance`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText('CARDS_LOADING');
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
