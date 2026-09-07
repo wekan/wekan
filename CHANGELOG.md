@@ -313,8 +313,7 @@ behavior is unchanged; all 790 Node suites and 15 targeted browser checks pass.
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/793f760ea">Fix
-alltests fixtures and HTTP cookie assertions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/793f760ea">Fix alltests fixtures and HTTP cookie assertions</a>. Thanks to xet7.</summary>
 
 The September 7 alltests run failed on generated Playwright artifacts, changed
 Finnish wording, long fixture labels and an HTTPS-only cookie expectation on
