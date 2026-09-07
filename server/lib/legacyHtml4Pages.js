@@ -36,6 +36,7 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 import { localizedStoredRuleDescription } from '/models/lib/ruleDescriptionLocalization';
 import { getProblemsOverview } from '/server/lib/systemStatus';
 import { getCurrentCpu } from '/server/lib/cpuMonitor';
+import { loginOfficesForAdmin } from '/server/methods/loginOffices';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -66,7 +67,8 @@ const {
 const { CARD_COLORS } = require('/models/metadata/colors');
 const { ADMIN_PAGES, ADMIN_PANE_TITLES } = require('/models/lib/adminUrls');
 const { classifyAddress } = require('/models/lib/ipAddress');
-const { countryFlag, locationLabel } = require('/models/lib/geoHeaders');
+const { countryFlag, locationLabel, officeLabel } = require('/models/lib/geoHeaders');
+const { officeRowsByPerson } = require('/models/lib/loginTally');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
   'oneHundred', 'unsure',
@@ -2630,6 +2632,70 @@ async function adminProblemsEventPage(path, userId, requestFields, translate) {
   };
 }
 
+async function adminProblemsOfficesPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/office') return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  if (!user?.isAdmin) return {
+    heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'problems', 'Problems'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'error-notAuthorized', 'Not authorized'), ''] }],
+  };
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1, Math.min(40000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 25;
+  let result = await loginOfficesForAdmin(userId, {
+    limit: perPage, skip: (requestedPage - 1) * perPage, search,
+  });
+  const totalPages = Math.max(1, Math.ceil((result.total || 0) / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) result = await loginOfficesForAdmin(userId, {
+    limit: perPage, skip: (page - 1) * perPage, search,
+  });
+  const columns = [
+    ['office-people', 'People'], ['event-ipv4', 'IPv4 address'],
+    ['event-ipv6', 'IPv6 address'], ['office-location', 'Location'],
+    ['office-logins', 'Logins'], ['office-first-seen', 'First seen'],
+    ['office-last-seen', 'Last seen'],
+  ].map(([key, fallback]) => tr(translate, key, fallback));
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'), adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'officeReportTitle', 'Offices'),
+        tr(translate, 'office-report-desc', 'Where people log in from, with IPv4 and IPv6 addresses.')] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+        action: path, label: tr(translate, 'search', 'Search'), value: search,
+      })] },
+  ];
+  for (const item of officeRowsByPerson(result.people || [])) {
+    const place = officeLabel(item.location);
+    rows.push({ cells: [
+      item.fullname ? `${item.fullname} (${item.username})` : item.username || '',
+      item.ipv4 || '', item.ipv6 || '',
+      [place.flag, place.text || item.locationLabel].filter(Boolean).join(' '),
+      item.logins || 0, eventDate(item.firstAt), eventDate(item.at),
+    ] });
+  }
+  if (!(result.people || []).length) rows.push({
+    rowHeader: false, colspanLast: columns.length,
+    cells: [tr(translate, 'office-no-results', 'No offices found.')],
+  });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: search, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path, label: tr(translate, 'next-page', 'Next'),
+      icon: 'next', fields: { q: search, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'officeReportTitle', 'Offices')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -2713,6 +2779,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsEvent) return adminProblemsEvent;
+  const adminProblemsOffices = await adminProblemsOfficesPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsOffices) return adminProblemsOffices;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

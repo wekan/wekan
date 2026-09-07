@@ -536,6 +536,16 @@ count and load averages; API keeps call-count ordering and its endpoint/window
 columns. A same-URL test searches twelve attributed Security rows, traverses the
 second page and compares both representations.
 
+Offices uses its existing person-first server service rather than reconstructing
+address history in the renderer. DDP and HTML4 share its Global Admin check,
+escaped 500-character search, database count, 25-person page and one-million-row
+skip ceiling. Each person's address rows stay adjacent and repeat a readable
+full name and username for screen readers. IPv4, IPv6, trusted country flag and
+city, that person's login count, and first/last timestamps remain separate
+columns. The pre-person-tally address-side fallback remains available after an
+upgrade. A paired test searches 26 people, proves two pages and compares the
+same `/admin/problems/office` URL with and without JavaScript.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

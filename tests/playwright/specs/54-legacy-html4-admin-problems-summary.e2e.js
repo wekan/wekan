@@ -16,6 +16,10 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   const eventId = `html4-problem-${suffix}`;
   const reportIds = Array.from({ length: 12 }, (_, index) =>
     `${eventId}-report-${index}`);
+  const officeUserIds = Array.from({ length: 26 }, (_, index) =>
+    `${eventId}-office-user-${index}`);
+  const officeAddressIds = Array.from({ length: 26 }, (_, index) =>
+    `${eventId}-office-address-${index}`);
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -153,6 +157,49 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       });
     }
 
+    const officeAt = new Date();
+    db.insertMany('users', officeUserIds.map((id, index) => {
+      const address = `198.51.100.${index + 1}`;
+      return {
+        _id: id,
+        username: `office_${suffix}_${String(index).padStart(2, '0')}`,
+        profile: { fullname: `Office Person ${suffix} ${index}` },
+        loginAddresses: { entries: { address: {
+          value: address, family: 'ipv4', count: index + 1,
+          firstAt: officeAt, at: officeAt,
+        } } },
+      };
+    }));
+    db.insertMany('loginAddresses', officeAddressIds.map((id, index) => ({
+      _id: id,
+      address: `198.51.100.${index + 1}`,
+      ipv4: `198.51.100.${index + 1}`,
+      ipv6: '',
+      location: { country: 'FI', city: `Office City ${suffix} ${index}` },
+      locationLabel: `Office City ${suffix} ${index}`,
+    })));
+    const officesNav = legacy.locator('form[action="/admin/problems/office"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      officesNav.locator('input[type="submit"]').click(),
+    ]);
+    const officesSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await officesSearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      officesSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('IPv4-osoite');
+    await expect(legacy.locator('thead')).toContainText('IPv6-osoite');
+    await expect(legacy.locator('tbody')).toContainText(`Office City ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-offices.png`,
+        fullPage: true,
+      });
+    }
+
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -188,6 +235,16 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/office');
+    await modern.locator('.js-table-page-search').fill(suffix);
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText(`Office City ${suffix}`);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-offices.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -204,6 +261,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       _id: { $in: [eventId, `${eventId}-modern`, ...reportIds] },
     });
     db.deleteMany('eventlogAcks', { stream: 'security' });
+    db.deleteMany('loginAddresses', { _id: { $in: officeAddressIds } });
+    db.deleteMany('users', { _id: { $in: officeUserIds } });
     if (previousSecurityAck) db.insertOne('eventlogAcks', previousSecurityAck);
     if (user) {
       db.deleteOne('users', { _id: user._id });
