@@ -750,6 +750,20 @@ document. The live same-URL test writes and reads every field, checks both head
 documents and JSON assets, captures both panes, restores global state and proves
 anonymous isolation.
 
+Admin Panel / Settings / Global Webhooks now has complete create, edit, disable
+and delete-equivalent behavior in one semantic HTML4 table. Each existing hook
+and the create row use the shared labelled fieldset component in natural title,
+URL, token, type and active-state tab order. An empty URL removes an existing
+hook, matching the Jade form; a blank token on edit preserves the stored secret.
+Both delivery modes call one Global Admin service which bounds every string,
+allowlists the two webhook types and performs the authoritative DNS-aware SSRF
+validation before storing the URL. Direct DDP writes to instance-wide hooks are
+denied, tokens are excluded from both readers, and refused authorization, type
+or network-target attempts are recorded in Problems / Security with available
+request context. The live same-URL test creates a two-way webhook without
+JavaScript, reads it in Jade, proves the token is absent in both documents,
+rejects a loopback target, captures both panes and proves anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

@@ -272,7 +272,8 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. Settings / Version,
-Announcement, Accessibility and PWA share data and guarded operations between views.
+Announcement, Accessibility, PWA and Global Webhooks share data and guarded
+operations between views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -329,6 +330,25 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51570b2c3">Add secure accessible HTML4 global webhooks</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Global Webhooks now has equivalent labelled Legacy
+HTML4 create, edit, active-state, type, secret and empty-URL removal controls.
+The native signed forms work without JavaScript or cookies, in natural keyboard
+order, and Jade uses the same new server operation.
+
+The common service reloads the Global Admin, bounds every input, allowlists the
+two webhook types and performs DNS-aware SSRF validation before storage. Direct
+DDP writes to global hooks are denied and secrets are write-only: neither
+renderer receives them. Refused authorization, type and unsafe network targets
+are Security-reported. Source and negative tests cover these boundaries. A live
+same-URL Chromium test creates a two-way webhook in HTML4, observes it in HTML5,
+rejects a loopback URL, captures both views and proves secret and anonymous
+isolation. The complete Node suite passes 828/828.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b4189740">Add accessible HTML4 Accessibility settings</a>. Thanks to xet7.</summary>
