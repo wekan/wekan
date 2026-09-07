@@ -269,7 +269,8 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers.
+secure JSON/CSV transfers. Problems Summary now has the same admin-only status,
+acknowledgement and repair operations in both views.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -302,6 +303,27 @@ keyboard buttons and render only escaped characters from the catalog, so corrupt
 legacy data cannot become markup. Tests cover valid toggles, unknown active markup,
 submitted user spoofing, cross-board comment IDs, direct collection writes,
 translation keys and same-URL HTML4/HTML5 reaction screenshots.
+
+</details>
+
+**Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/776886ceb">Add accessible HTML4 Problems Summary</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Summary now renders the shared in-progress status,
+detected data problems and unacknowledged event-stream counts in one semantic
+HTML4 table. Every Problems pane is reachable with signed navigation, and native
+labelled checkboxes acknowledge an allowlisted batch without JavaScript or
+cookies. Broken-card and list-swimlane repair controls call the same services as
+the Jade view.
+
+Every report read and write repeats the Global Admin check before accessing data.
+Anonymous and ordinary accounts receive no report content, unknown streams are
+rejected, and refused HTML4 mutations are recorded in Problems / Security. Node
+regressions cover shared authorization, stream validation, semantic controls and
+translation keys; a same-URL Chromium test compares localized HTML4 and HTML5,
+performs acknowledgement and proves anonymous isolation.
 
 </details>
 
