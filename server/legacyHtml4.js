@@ -2206,11 +2206,12 @@ WebApp.handlers.use(async (req, res, next) => {
   const page = await legacyHtml4Page(requestFields.legacyRedirectPath || path,
     session?.userId || null, requestFields, translate);
 
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
-  res.setHeader('Vary', 'X-Wekan-Progressive-Client, Accept');
-  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.writeHead(page?.statusCode === 404 ? 404 : 200, {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'no-store',
+    Vary: 'X-Wekan-Progressive-Client, Accept',
+    'X-Content-Type-Options': 'nosniff',
+  });
   res.end(renderLegacyHtml4Page(req.url, {
     productName: setting.productName || 'WeKan',
     hideLogo: setting.hideLogo === true,
