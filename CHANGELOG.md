@@ -281,7 +281,8 @@ S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 Database Migration shares guarded direction controls and live progress.
 All ten Attachments panes now have complete equivalent HTML4 operations.
 The complete public account and email-token lifecycle now has guarded Legacy HTML4
-forms.
+forms. Member profile, language, password, settings, color and font now have
+equivalent guarded HTML4 pages at their modern URLs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -297,6 +298,22 @@ forms.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b55df82f8">Add accessible member appearance pages</a>. Thanks to xet7.</summary>
+
+Member Menu / Change Color and Font now have stable `/account/color` and
+`/account/font` routes with equivalent semantic HTML4 forms. Both representations
+use one account-bound service for the complete theme and curated font catalogs,
+named font sizes, custom colors and the All Boards tile preference.
+
+Unknown themes, CSS font payloads and malformed hex colors are blocked and
+attributed in Problems / Security. Static positive and negative suites pass. Two
+live same-URL Chromium tests persist the HTML4 choices, verify MongoDB and Jade,
+capture paired screenshots, and prove injected select values neither change the
+profile nor evade the Security report.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7bfd84374">Add accessible member settings page</a>. Thanks to xet7.</summary>

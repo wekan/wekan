@@ -249,6 +249,27 @@ worker-only values are attributed in Problems / Security. Live same-URL coverage
 all six HTML4 values, verifies them in MongoDB and Jade, captures both views, and proves
 an injected out-of-range threshold is reported without changing the persisted value.
 
+`/account/color` and `/account/font` are the fifth and sixth complete Member Menu
+pages. The color page exposes the same default override, complete shared board-theme
+catalogue, flat/clear custom colors and All Boards tile preference as Jade. Because an
+HTML4 form cannot reveal fields in response to a select change, both custom-color text
+fields remain present with an accessible explanation: flat themes consume one, clear
+themes consume two and fixed dark/special themes consume none. The server derives the
+applicable count from the selected catalogued theme; each consumed value must be an
+exact six-digit hex color.
+
+The font page exposes the shared curated font catalogue, every named size preset and
+the optional six-digit text color. HTML5 narrows the same catalogue to fonts detected
+in that browser; HTML4 lists the safe catalogue because old browsers have no dependable
+font-detection API and unavailable fonts fall back normally. Blank selections restore
+the defaults. Both Jade's immediate controls and the two signed HTML4 Save forms use
+one account-bound service. It accepts only fixed object keys and shared catalog values,
+removes the retired text-background setting, and attributes unknown theme names, CSS
+font payloads, malformed colors and other refusals in Problems / Security. Same-URL
+live tests persist both HTML4 forms, verify their values in MongoDB and the direct Jade
+routes, capture screenshot pairs, then prove injected select values cannot change the
+profile and do create attributed Security reports.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
