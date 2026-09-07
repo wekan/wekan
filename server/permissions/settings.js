@@ -6,3 +6,15 @@ Settings.allow({
     return user && user.isAdmin;
   },
 });
+
+const GUARDED_PWA_FIELDS = new Set([
+  'customHeadEnabled', 'customHeadMetaTags', 'customHeadLinkTags',
+  'customManifestEnabled', 'customManifestContent',
+  'customAssetLinksEnabled', 'customAssetLinksContent',
+]);
+
+Settings.deny({
+  update(userId, doc, fields) {
+    return fields.some(field => GUARDED_PWA_FIELDS.has(field));
+  },
+});

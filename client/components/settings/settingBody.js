@@ -34,79 +34,11 @@ function cleanAndValidateJSON(content) {
   if (!content || !content.trim()) {
     return { json: content };
   }
-
   try {
-    // Try to parse as-is
     const parsed = JSON.parse(content);
     return { json: JSON.stringify(parsed, null, 2) };
   } catch (e) {
-    const errorMsg = e.message;
-
-    // If error is "unexpected non-whitespace character after JSON data"
-    if (
-      errorMsg.includes('unexpected non-whitespace character after JSON data')
-    ) {
-      try {
-        // Try to find and extract valid JSON by finding matching braces/brackets
-        const trimmed = content.trim();
-        let depth = 0;
-        let endPos = -1;
-        let inString = false;
-        let escapeNext = false;
-
-        for (let i = 0; i < trimmed.length; i++) {
-          const char = trimmed[i];
-
-          if (escapeNext) {
-            escapeNext = false;
-            continue;
-          }
-
-          if (char === '\\') {
-            escapeNext = true;
-            continue;
-          }
-
-          if (char === '"' && !escapeNext) {
-            inString = !inString;
-            continue;
-          }
-
-          if (inString) continue;
-
-          if (char === '{' || char === '[') {
-            depth++;
-          } else if (char === '}' || char === ']') {
-            depth--;
-            if (depth === 0) {
-              endPos = i + 1;
-              break;
-            }
-          }
-        }
-
-        if (endPos > 0) {
-          const cleanedContent = trimmed.substring(0, endPos);
-          const parsed = JSON.parse(cleanedContent);
-          return { json: JSON.stringify(parsed, null, 2) };
-        }
-      } catch (fixError) {
-        // If fix attempt fails, return original error
-      }
-    }
-
-    // Remove trailing commas (common error)
-    if (errorMsg.includes('Unexpected token')) {
-      try {
-        const fixed = content.replace(/,(\s*[}\]])/g, '$1');
-        const parsed = JSON.parse(fixed);
-        return { json: JSON.stringify(parsed, null, 2) };
-      } catch (fixError) {
-        // Continue to error return
-      }
-    }
-
-    return { error: errorMsg };
+    return { error: e.message };
   }
 }
 
@@ -641,31 +573,33 @@ Template.setting.events({
   // (Template.tableVisibilityModeSettings): every section of the Visibility pane
   // ends with one Save, and a second button inside a section was one of the three
   // that made the pane look like it saved in pieces.
-  'click a.js-toggle-custom-head'(event, tpl) {
+  async 'click a.js-toggle-custom-head'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const customHeadEnabled = !$(
       '.js-toggle-custom-head .materialCheckBox',
     ).hasClass('is-checked');
     $('.js-toggle-custom-head .materialCheckBox').toggleClass('is-checked');
     $('.custom-head-settings').toggleClass('hide');
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { customHeadEnabled },
-    });
-    tpl.loading.set(false);
+    try {
+      await Meteor.callAsync('setAdminPwaToggle', 'customHeadEnabled', customHeadEnabled);
+    } finally { tpl.loading.set(false); }
   },
-  'click a.js-toggle-custom-manifest'(event, tpl) {
+  async 'click a.js-toggle-custom-manifest'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const customManifestEnabled = !$(
       '.js-toggle-custom-manifest .materialCheckBox',
     ).hasClass('is-checked');
     $('.js-toggle-custom-manifest .materialCheckBox').toggleClass('is-checked');
     $('.custom-manifest-settings').toggleClass('hide');
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { customManifestEnabled },
-    });
-    tpl.loading.set(false);
+    try {
+      await Meteor.callAsync('setAdminPwaToggle',
+        'customManifestEnabled', customManifestEnabled);
+    } finally { tpl.loading.set(false); }
   },
-  'click button.js-custom-head-save'(event, tpl) {
+  async 'click button.js-custom-head-save'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const customHeadMetaTags = $('#custom-head-meta').val() || '';
     let customManifestContent = $('#custom-manifest-content').val() || '';
@@ -686,20 +620,16 @@ Template.setting.events({
     const customHeadLinkTags = $('#custom-head-links').val() || '';
 
     try {
-      Settings.update(ReactiveCache.getCurrentSetting()._id, {
-        $set: {
-          customHeadMetaTags,
-          customHeadLinkTags,
-          customManifestContent,
-        },
-      });
+      await Meteor.callAsync('setAdminPwaHeadContent', customHeadMetaTags,
+        customHeadLinkTags, customManifestContent);
     } catch (e) {
       return;
     } finally {
       tpl.loading.set(false);
     }
   },
-  'click a.js-toggle-custom-assetlinks'(event, tpl) {
+  async 'click a.js-toggle-custom-assetlinks'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     const customAssetLinksEnabled = !$(
       '.js-toggle-custom-assetlinks .materialCheckBox',
@@ -708,12 +638,13 @@ Template.setting.events({
       'is-checked',
     );
     $('.custom-assetlinks-settings').toggleClass('hide');
-    Settings.update(ReactiveCache.getCurrentSetting()._id, {
-      $set: { customAssetLinksEnabled },
-    });
-    tpl.loading.set(false);
+    try {
+      await Meteor.callAsync('setAdminPwaToggle',
+        'customAssetLinksEnabled', customAssetLinksEnabled);
+    } finally { tpl.loading.set(false); }
   },
-  'click button.js-custom-assetlinks-save'(event, tpl) {
+  async 'click button.js-custom-assetlinks-save'(event, tpl) {
+    event.preventDefault();
     tpl.loading.set(true);
     let customAssetLinksContent = $('#custom-assetlinks-content').val() || '';
 
@@ -731,11 +662,7 @@ Template.setting.events({
     }
 
     try {
-      Settings.update(ReactiveCache.getCurrentSetting()._id, {
-        $set: {
-          customAssetLinksContent,
-        },
-      });
+      await Meteor.callAsync('setAdminPwaAssetLinks', customAssetLinksContent);
     } catch (e) {
       return;
     } finally {

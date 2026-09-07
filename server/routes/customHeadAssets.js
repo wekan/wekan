@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import path from 'path';
 import Settings from '/models/settings';
+import { normalizePwaJson } from '/server/lib/customHeadValidation';
 
 const shouldServeContent = (value) =>
   typeof value === 'string' && value.trim().length > 0;
@@ -31,6 +32,7 @@ const respondWithText = (res, contentType, body) => {
   res.writeHead(200, {
     'Content-Type': `${contentType}; charset=utf-8`,
     'Access-Control-Allow-Origin': '*',
+    'X-Content-Type-Options': 'nosniff',
   });
   res.end(body);
 };
@@ -49,8 +51,12 @@ WebApp.handlers.use('/site.webmanifest', async (req, res, next) => {
   );
 
   // Serve custom content if enabled
-  if (setting && setting.customHeadEnabled && setting.customManifestEnabled && shouldServeContent(setting.customManifestContent)) {
-    return respondWithText(res, 'application/manifest+json', setting.customManifestContent);
+  if (setting && setting.customHeadEnabled && setting.customManifestEnabled
+    && shouldServeContent(setting.customManifestContent)) {
+    try {
+      return respondWithText(res, 'application/manifest+json',
+        normalizePwaJson(setting.customManifestContent, 'object'));
+    } catch (_) { /* Invalid legacy data falls through to the bundled default. */ }
   }
 
   // Fallback to default manifest file
@@ -75,8 +81,12 @@ WebApp.handlers.use('/.well-known/assetlinks.json', async (req, res, next) => {
   );
 
   // Serve custom content if enabled
-  if (setting && setting.customAssetLinksEnabled && shouldServeContent(setting.customAssetLinksContent)) {
-    return respondWithText(res, 'application/json', setting.customAssetLinksContent);
+  if (setting && setting.customAssetLinksEnabled
+    && shouldServeContent(setting.customAssetLinksContent)) {
+    try {
+      return respondWithText(res, 'application/json',
+        normalizePwaJson(setting.customAssetLinksContent, 'array'));
+    } catch (_) { /* Invalid legacy data falls through to the bundled default. */ }
   }
 
   // Fallback to default assetlinks file

@@ -398,6 +398,7 @@ function renderLegacyHtml4Page(requestUrl, pageOptions = {}) {
     '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
     `<title>${escapeHtml(options.productName)} - ${escapeHtml(heading)}</title>`,
     '<link rel="stylesheet" type="text/css" href="/legacy-html4.css">',
+    options.validatedCustomHeadTags || '',
     `<script type="text/javascript" src="${CAPABILITY_SCRIPT_PATH}"></script>`,
     '</head><body>',
     `<p class="skip-link"><a href="#content">${escapeHtml(translated(options, 'skip-to-content', 'Skip to main content'))}</a></p>`,

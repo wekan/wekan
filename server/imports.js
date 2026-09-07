@@ -243,6 +243,7 @@ import '/server/methods/positionHistory';
 import '/server/methods/problemFeatureSettings';
 import '/server/methods/adminAnnouncement';
 import '/server/methods/adminAccessibility';
+import '/server/methods/adminPwaSettings';
 import '/server/methods/sandstormMigration';
 import '/server/methods/tenant';
 import '/server/startup/repairBoardsOnStartup';

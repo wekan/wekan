@@ -61,6 +61,7 @@ import { permanentDeleteSettingForAdmin } from '/server/lib/permanentDeleteSetti
 import { statisticsForAdmin } from '/server/statistics';
 import { announcementForAdmin } from '/server/lib/adminAnnouncement';
 import { accessibilityForAdmin } from '/server/lib/adminAccessibility';
+import { pwaSettingsForAdmin } from '/server/lib/adminPwaSettings';
 import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
@@ -2793,6 +2794,62 @@ async function adminSettingsAccessibilityPage(path, userId, requestFields, trans
   };
 }
 
+async function adminSettingsPwaPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/pwa') return null;
+  let setting;
+  try { setting = await pwaSettingsForAdmin(userId); } catch (_) {
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: ['PWA', tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [{ rowHeader: false, cells: [adminSettingsNavigation(translate), ''] }];
+  const toggle = (field, labelKey, operation) => rows.push({
+    cells: [tr(translate, labelKey, labelKey), uiSelectForm({
+      action: path, label: tr(translate, labelKey, labelKey), name: 'enabled',
+      value: String(setting[field]), options: [
+        { value: 'true', label: tr(translate, 'yes', 'Yes') },
+        { value: 'false', label: tr(translate, 'no', 'No') },
+      ], fields: { legacyOperation: operation, settingField: field },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })],
+  });
+  toggle('customHeadEnabled', 'custom-head-tags-enabled', 'set-pwa-toggle');
+  toggle('customManifestEnabled', 'custom-manifest-enabled', 'set-pwa-toggle');
+  rows.push({ cells: [tr(translate, 'custom-head-meta-tags', 'Custom meta tags'),
+    uiTextareaGroupForm({
+      action: path, legend: tr(translate, 'custom-head-tags-enabled', 'Custom head tags'),
+      textareas: [
+        { label: tr(translate, 'custom-head-meta-tags', 'Custom meta tags'),
+          name: 'customHeadMetaTags', value: setting.customHeadMetaTags, maxlength: 20000 },
+        { label: tr(translate, 'custom-head-link-tags', 'Custom link tags'),
+          name: 'customHeadLinkTags', value: setting.customHeadLinkTags, maxlength: 20000 },
+        { label: tr(translate, 'custom-head-manifest-content', 'Manifest content'),
+          name: 'customManifestContent', value: setting.customManifestContent,
+          maxlength: 100000, rows: 20 },
+      ], fields: { legacyOperation: 'set-pwa-head-content' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })] });
+  toggle('customAssetLinksEnabled', 'custom-assetlinks-enabled', 'set-pwa-toggle');
+  rows.push({ cells: [tr(translate, 'custom-assetlinks-content', 'Asset links content'),
+    uiTextareaForm({
+      action: path, label: tr(translate, 'custom-assetlinks-content',
+        'Asset links content'), name: 'customAssetLinksContent',
+      value: setting.customAssetLinksContent,
+      fields: { legacyOperation: 'set-pwa-assetlinks' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })] });
+  if (requestFields.legacyPwaResult) rows.push({
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyPwaResult],
+  });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / PWA`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3776,6 +3833,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsAccessibility) return adminSettingsAccessibility;
+  const adminSettingsPwa = await adminSettingsPwaPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsPwa) return adminSettingsPwa;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );

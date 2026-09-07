@@ -73,6 +73,12 @@ import {
   setAccessibilityEnabledForAdmin,
 } from '/server/lib/adminAccessibility';
 import {
+  setPwaAssetLinksForAdmin,
+  setPwaHeadContentForAdmin,
+  setPwaToggleForAdmin,
+} from '/server/lib/adminPwaSettings';
+import { customHeadMarkup } from '/server/lib/customHeadValidation';
+import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
   setAccessibleAttachmentCover,
@@ -279,6 +285,32 @@ WebApp.handlers.use(async (req, res, next) => {
     } catch (error) {
       requestFields.legacyAccessibilityResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
+  if (session && path === '/admin/settings/pwa'
+    && ['set-pwa-toggle', 'set-pwa-head-content', 'set-pwa-assetlinks']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'set-pwa-toggle') {
+        if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
+          throw new Meteor.Error('invalid-setting-value');
+        }
+        await setPwaToggleForAdmin(session.userId,
+          String(requestFields.settingField || ''), requestFields.enabled === 'true', { req });
+      } else if (requestFields.legacyOperation === 'set-pwa-head-content') {
+        await setPwaHeadContentForAdmin(session.userId,
+          String(requestFields.customHeadMetaTags || ''),
+          String(requestFields.customHeadLinkTags || ''),
+          String(requestFields.customManifestContent || ''), { req });
+      } else {
+        await setPwaAssetLinksForAdmin(session.userId,
+          String(requestFields.customAssetLinksContent || ''), { req });
+      }
+      requestFields.legacyPwaResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyPwaResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed',
       );
     }
   }
@@ -1204,5 +1236,8 @@ WebApp.handlers.use(async (req, res, next) => {
     page,
     language,
     translate,
+    validatedCustomHeadTags: (() => {
+      try { return customHeadMarkup(setting); } catch (_) { return ''; }
+    })(),
   }));
 });
