@@ -178,6 +178,8 @@ test('People list, filters, state and locations match at the same URL', async ({
     await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
     expect(db.findOne('eventlog', { stream: 'security', bleed: 'UserBleed',
       userId: admin._id, source: 'adminPeople' })).toBeTruthy();
+    await expect.poll(() => db.findOne('users', { _id: admin._id })?.loginDisabled)
+      .toBe(true);
     form = legacy.locator(`form:has(input[name="legacyOperation"][value="request-impersonate-person"]):has(input[name="targetUserId"][value="${created._id}"])`);
     await Promise.all([legacy.waitForNavigation(), form.locator('input[type="submit"]').click()]);
     form = legacy.locator(`form:has(input[name="legacyOperation"][value="impersonate-person"]):has(input[name="targetUserId"][value="${created._id}"])`);
