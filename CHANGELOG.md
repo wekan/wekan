@@ -268,7 +268,7 @@ uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
-shares localized details, administrator operations and secure JSON/CSV exports.
+shares localized details, administrator operations and secure JSON/CSV transfers.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -468,6 +468,27 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31dc055d4">Add safe accessible HTML4 rules import</a>. Thanks to xet7.</summary>
+
+Board Rules JSON and CSV import is now available as a labelled, cookieless
+HTML4 form. HTML4 and HTML5 submit the same bounded server operation, which
+repeats exact-board administrator authorization, validates the whole batch
+before writing and removes partial trigger/action tuples after an insert error.
+Database identities, timestamps, prototype keys and secret-shaped fields cannot
+cross the portable transfer boundary.
+
+Imports are limited to one MiB and 1,000 rules. Unknown format versions and
+trigger/action types are refused, missing matcher fields receive their wildcard
+defaults, spreadsheet-neutralized CSV text round-trips correctly, and active
+markup is reduced to plain text. The server sanitizer now uses a small MIT
+HTML parser when DOMPurify is a DOM-less factory, fixing the Rspack server crash
+without adding a browser DOM. Tests cover valid JSON/CSV, whole-batch refusal,
+XSS and secret sanitization, malformed input, cross-board access and a live
+same-URL Finnish HTML4/HTML5 workflow on `testi.wekan.fi`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c44f647e1">Add accessible HTML4 rules export</a>. Thanks to xet7.</summary>
