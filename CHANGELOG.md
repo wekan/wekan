@@ -290,6 +290,7 @@ route publication changes in both HTML4 and HTML5.
 Card History now shares its searchable, paged presentation and guarded Restore
 operation between HTML4 and HTML5.
 Copy Template to Many Cards now uses one bounded server operation in both views.
+Permanent card deletion now shares one guarded, Recovery-audited operation.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -319,6 +320,24 @@ checks the profile and board view, and remains logged in beyond the poll window.
 </details>
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18fafa5b0">Add guarded card deletion to Legacy HTML4</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 board administrators now receive the same permanent card deletion
+flow as Jade through two separately signed confirmation submits. Both views call
+one acknowledged server operation instead of removing the client collection
+directly. It binds the card to its board, repeats administrator authorization
+and refuses a card that still has a live linked card before running the existing
+complete remover.
+
+Every successful or failed attempt is attributed in Problems / Recovery, while
+a forged card/board pair also reaches Problems / Security. Static coverage pins
+the shared boundary and audit fields. A live same-URL Chromium test compares both
+controls, verifies complete deletion, protects a linked source card, checks both
+Recovery outcomes and proves a forged private-board deletion cannot write.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d66ef0b37">Add Copy Many Cards to Legacy HTML4</a>. Thanks to xet7.</summary>
