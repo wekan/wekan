@@ -416,6 +416,15 @@ the original remains a separate Download. This is the semantic small-browser
 equivalent of Jade's visual cover at the top of the card and does not introduce
 a credential-bearing image URL. Read-only users see the cover designation too.
 
+Every Card Settings `allows*` switch is a renderer contract, not merely a Jade
+CSS choice. HTML4 derives one explicit visibility map from the route board and
+uses it for both editable controls and read-only rows: Labels, Members,
+Assignee, Creator, Requested By, Assigned By, List, Sort, each date, Date Format,
+Description text, Checklists, Subtasks, Attachments and Comments. A disabled
+section emits neither its stored content nor a mutation form, while unrelated
+sections remain available in natural Tab order. The same-URL regression tests
+an all-enabled card and a card whose switches are all disabled in both renderers.
+
 Received, Start, Due and End use four naturally ordered labelled text forms with
 unambiguous ISO 8601 values; an empty value clears the date. Jade date pickers
 and HTML4 forms submit to the same acknowledged operation. It allowlists those
