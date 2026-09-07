@@ -321,7 +321,9 @@ test('hide board activities is ONE global setting, not a write per board', () =>
   const body = handler('js-visibility-all-boards-save');
   assert.ok(/hideBoardActivitiesOnAllBoards/.test(body), 'the section save writes it');
   assert.ok(/saveVisibilitySettings/.test(body)
-    && /Settings\.update\(ReactiveCache\.getCurrentSetting\(\)\._id/.test(js),
+    && /Meteor\.call\('saveAdminVisibilitySettings'/.test(js)
+    && /Settings\.direct\.updateAsync\(setting\._id/.test(
+      read('server/lib/adminVisibilitySettings.js')),
     'it writes ONE global setting');
   assert.ok(!/Boards\.update/.test(body), 'and never touches board documents');
   // "Not on screen is left alone" is `if ($(selector).length)` now - the settings
@@ -460,9 +462,10 @@ test('the Layout save cannot wipe the two moved text fields', () => {
   // input reads as undefined, ('' || '').trim() is '', and saving Layout would
   // have written an EMPTY string over the stored value.
   assert.ok(!js.includes('js-save-layout'), 'the Layout save is gone');
-  // Their new homes write them only when the input is actually present.
-  assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(js),
-    'the Email save guards on the input existing');
+  // Email owns its own template handler and sends both values through the
+  // validated admin-only boundary; no unrelated pane can invoke that handler.
+  assert.ok(/Meteor\.call\('saveAdminEmailAccess'/.test(js),
+    'the Email save uses its dedicated server boundary');
   // The Visibility saves go through visibilityTextFields(), which does the same
   // check once for every field it is given - `if ($(sel).length)` - instead of
   // repeating it per field at each call site.
@@ -489,21 +492,16 @@ test('the E-mail pane Save writes BOTH settings above it, and is below them', ()
   assert.ok(/a\.flex\.js-toggle-allow-email-change\s*\n\s*\.materialCheckBox#accounts-allowEmailChange/.test(email),
     'one materialCheckBox, the same markup as Announcement\'s active checkbox');
   assert.ok(!/name="allowEmailChange"/.test(email), 'the radio pair is gone');
-  const save = js.slice(js.indexOf("'click button.js-save'"));
+  const save = js.slice(js.indexOf("'click button.js-save'", js.indexOf('Template.email.events')));
   const body = save.slice(0, save.indexOf('\n  },') + 5);
-  assert.ok(/\$\('#mail-server-host'\)\.length/.test(body),
-    'the SMTP fields are written only when that block is rendered - checkField '
-    + 'throws on a missing input, and that throw is what swallowed the whole save');
-  assert.ok(/\$\('#mailDomainNamevalue'\)\.length/.test(body),
-    'the invite domain is written when its input is on screen');
-  assert.ok(/AccountSettings\.update\('accounts-allowEmailChange'/.test(body),
-    'and allow email change is written too - it lives in AccountSettings, so it is '
-    + 'a second write');
-  assert.ok(/\$\('#accounts-allowEmailChange'\)\.length/.test(body),
-    'a checkbox that is not on screen is skipped, never saved as false');
+  assert.ok(/Meteor\.call\('saveAdminEmailAccess'/.test(body),
+    'both values cross the dedicated validated server boundary');
+  assert.ok(/mailDomainName:/.test(body), 'the invite domain is included');
+  assert.ok(/allowEmailChange:/.test(body), 'allow email change is included');
+  assert.ok(!/Settings\.update|AccountSettings\.update/.test(body),
+    'the client cannot perform either collection write directly');
   assert.ok(/hasClass\('is-checked'\)/.test(body),
     'and the value saved is whether the box is ticked');
-  assert.ok(/Object\.keys\(\$set\)\.length/.test(body), 'no empty update is sent');
 });
 
 test('the invite-domain label says what the setting does', () => {

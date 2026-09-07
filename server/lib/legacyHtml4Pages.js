@@ -69,6 +69,7 @@ import { translationsPageForAdmin } from '/server/lib/adminTranslations';
 import { inviteRolesForAdmin } from '/server/lib/adminInviteRoles';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import { loginSettingsForAdmin } from '/server/lib/adminLoginSettings';
+import { emailSettingsForAdmin } from '/server/lib/adminEmailSettings';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3216,6 +3217,75 @@ async function adminPeopleLoginPage(path, userId, requestFields, translate) {
     tr(translate, 'actions', 'Actions')], rows };
 }
 
+async function adminPeopleEmailPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/email') return null;
+  let setting;
+  try { setting = await emailSettingsForAdmin(userId, { req: requestFields.req }); } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'email', 'Email'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const inputs = [
+    { type: 'checkbox', name: 'mailEnabled', value: 'true', checked: setting.enabled,
+      label: 'Enable below email settings' },
+    { type: 'select', name: 'mailService', label: 'Email service',
+      value: setting.service,
+      options: setting.services.map(service => ({ value: service, label: service })) },
+  ];
+  // HTML4 has no client-side rerender when the service selector changes. Keep
+  // the SMTP-only inputs present for every selected service so switching from
+  // Gmail (or another provider) to SMTP remains possible in one POST. The
+  // shared service deliberately ignores these fields for non-SMTP providers.
+  inputs.push(
+    { name: 'mailHost', label: tr(translate, 'smtp-host', 'SMTP host'),
+      value: setting.configuration.host, maxlength: 1000 },
+    { name: 'mailPort', label: tr(translate, 'smtp-port', 'SMTP port'),
+      value: setting.configuration.port, maxlength: 20 },
+    { type: 'checkbox', name: 'mailSecure', value: 'true',
+      checked: setting.configuration.secure,
+      label: tr(translate, 'smtp-tls-description', 'Use TLS') },
+  );
+  inputs.push(
+    { name: 'mailUsername', label: tr(translate, 'smtp-username', 'Username'),
+      value: setting.configuration.username, maxlength: 1000 },
+    { type: 'password', name: 'mailPassword',
+      label: `${tr(translate, 'smtp-password', 'Password')} - ${setting.passwordSet
+        ? 'A password is saved. Leave blank to keep it.' : 'No password is saved.'}`,
+      value: '', maxlength: 10000, autocomplete: 'new-password' },
+    { name: 'mailFrom', label: tr(translate, 'send-from', 'Send from'),
+      value: setting.configuration.from, maxlength: 1000 },
+  );
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', ''] },
+    { rowHeader: false, cells: [uiAction({ action: path,
+      label: tr(translate, 'send-smtp-test', 'Send SMTP test email'),
+      fields: { legacyOperation: 'send-smtp-test-email' } }), '', ''] },
+    { rowHeader: false, cells: [uiFieldsetForm({ action: path,
+      legend: tr(translate, 'email', 'Email'), id: 'mail-transport', inputs,
+      fields: { legacyOperation: 'save-mail-transport' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), '', ''] },
+    { rowHeader: false, cells: [uiFieldsetForm({ action: path,
+      legend: tr(translate, 'email', 'Email'), id: 'email-access', inputs: [
+        { name: 'mailDomainName', label: tr(translate,
+          'email-domain-allowed-to-invite', 'Email domain allowed to invite people'),
+        value: setting.mailDomainName, maxlength: 500 },
+        { type: 'checkbox', name: 'allowEmailChange', value: 'true',
+          checked: setting.allowEmailChange,
+          label: tr(translate, 'accounts-allowEmailChange', 'Allow Email Change') },
+      ], fields: { legacyOperation: 'save-email-access' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), '', ''] },
+  ];
+  if (requestFields.legacyEmailResult) rows.push({ rowHeader: false,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyEmailResult, ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'email', 'Email')}`,
+  columns: [tr(translate, 'name', 'Name'), tr(translate, 'status', 'Status'),
+    tr(translate, 'actions', 'Actions')], rows };
+}
+
 async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/shared-templates') return null;
   let templateRows;
@@ -4290,6 +4360,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminPeopleRoles) return adminPeopleRoles;
   const adminPeopleLogin = await adminPeopleLoginPage(path, userId, requestFields, translate);
   if (adminPeopleLogin) return adminPeopleLogin;
+  const adminPeopleEmail = await adminPeopleEmailPage(path, userId, requestFields, translate);
+  if (adminPeopleEmail) return adminPeopleEmail;
   const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
     path, userId, requestFields, translate,
   );

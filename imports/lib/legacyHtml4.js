@@ -258,7 +258,11 @@ function contentRows(path, options) {
             const cols = Number.isSafeInteger(input.cols) && input.cols > 0 ? input.cols : 80;
             return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(name)}" maxlength="${maximum}" rows="${rows}" cols="${cols}">${escapeHtml(input.value || '')}</textarea></p>`;
           }
-          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="text" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"></p>`;
+          const type = ['email', 'password', 'text'].includes(input.type)
+            ? input.type : 'text';
+          const autocomplete = input.autocomplete
+            ? ` autocomplete="${escapeHtml(input.autocomplete)}"` : '';
+          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="${type}" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"${autocomplete}></p>`;
         }).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${inputs}<p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}"></p></fieldset></form>`;
       }

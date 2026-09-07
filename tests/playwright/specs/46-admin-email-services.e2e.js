@@ -12,8 +12,12 @@ test.describe('Admin email services', () => {
     try {
       await loginWithToken(page, adminUser.id, adminUser.token);
       await navigateInApp(page, '/admin/people/email');
+      await waitForMeteor(page);
+      await page.waitForFunction(() => window.Meteor.connection._stores.settings
+        ?._getCollection().find().fetch().some(doc => doc.mailServer));
 
       await page.locator('.js-toggle-admin-mail-settings').click();
+      await expect(page.locator('#mail-service')).toBeVisible();
       await page.locator('#mail-service').selectOption('Gmail');
       await page.locator('#mail-server-username').fill('wekan-test@gmail.com');
       await page.locator('#mail-server-password').fill('browser-must-not-receive-this');
@@ -51,6 +55,7 @@ test.describe('Admin email services', () => {
 
   test('non-admin cannot save mail settings', async ({ page, user }) => {
     await loginWithToken(page, user.id, user.token);
+    await waitForMeteor(page);
     const result = await page.evaluate(async () => {
       try {
         await window.Meteor.callAsync('saveAdminMailSettings', {
@@ -61,9 +66,9 @@ test.describe('Admin email services', () => {
         });
         return 'allowed';
       } catch (error) {
-        return error.error;
+        return { error: error.error, reason: error.reason, message: error.message };
       }
     });
-    expect(result).toBe('error-notAuthorized');
+    expect(result.error, JSON.stringify(result)).toBe('error-notAuthorized');
   });
 });

@@ -9,14 +9,17 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 console.log('adminMailSettings:');
 
 const model = read('server/models/settings.js');
+const serviceSource = read('server/lib/adminEmailSettings.js');
 const schema = read('models/settings.js');
 const publication = read('server/publications/settings.js');
 const client = read('client/components/settings/settingBody.js');
 const template = read('client/components/settings/settingBody.jade');
 
 assert.ok(/async saveAdminMailSettings\(input\)/.test(model));
-assert.ok(/if \(!user\?\.isAdmin\)/.test(model), 'saving is admin-only');
-assert.ok(/if \(password\)/.test(model), 'blank password preserves the stored secret');
+assert.ok(/requireGlobalAdmin[\s\S]*if \(user\?\.isAdmin\)/.test(serviceSource),
+  'saving is admin-only');
+assert.ok(/if \(password\)/.test(serviceSource),
+  'blank password preserves the stored secret');
 for (const field of ['enabled', 'service', 'configurations', 'passwords', 'passwordSet']) {
   assert.ok(schema.includes(`'mailServer.${field}'`),
     `Settings schema retains mailServer.${field}`);

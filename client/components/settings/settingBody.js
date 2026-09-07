@@ -19,17 +19,6 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { format } from '/imports/lib/dateUtils';
 const { ALL_MAIL_SERVICES, mailServiceStorageKey } = require('/models/lib/mailServices');
 
-// Helper functions shared across the template
-function checkField(selector) {
-  const value = $(selector).val();
-  if (!value || value.trim() === '') {
-    $(selector).parents('li.smtp-form').addClass('has-error');
-    throw Error('blank field');
-  } else {
-    return value;
-  }
-}
-
 function cleanAndValidateJSON(content) {
   if (!content || !content.trim()) {
     return { json: content };
@@ -1259,7 +1248,9 @@ Template.general.events({
 // Same for the E-mail pane: its Save reports progress through `loading`.
 Template.email.onCreated(function () {
   this.loading = new ReactiveVar(false);
+  this.mailSettingsReady = new ReactiveVar(false);
   this.subscribe('mailServer');
+  this.subscribe('accountSettings');
   this.mailSettingsEnabled = new ReactiveVar(false);
   this.selectedMailService = new ReactiveVar('SMTP');
   this.autorun(() => {
@@ -1268,11 +1259,17 @@ Template.email.onCreated(function () {
     this.mailSettingsEnabled.set(mailServer.enabled === true);
     this.selectedMailService.set(mailServer.service || 'SMTP');
     this.mailSettingsInitialized = true;
+    // Do not expose controls while the first publication result is still able
+    // to replace their reactive state and DOM nodes underneath a click.
+    this.mailSettingsReady.set(true);
   });
 });
 
 Template.email.helpers({
   ...accountAccessHelpers,
+  mailSettingsReady() {
+    return Template.instance().mailSettingsReady.get();
+  },
   mailSettingsEnabled() {
     return Template.instance().mailSettingsEnabled.get();
   },
@@ -1346,46 +1343,17 @@ Template.email.events({
   // The pane's one Save, below both settings it writes: the invite domain and the
   // allow-email-change Yes/No.
   //
-  // It wrote NEITHER before. The SMTP fields above are commented out of this pane's
-  // markup, `checkField()` THROWS on an input that is not there, and the throw was
-  // caught and swallowed - so the handler returned before its Settings.update and
-  // pressing Save silently did nothing at all. Each field is written only when its
-  // input is actually rendered, which is the same guard every other pane here uses.
+  // Both fields now cross one validated server boundary, so the two collections
+  // cannot be left half-updated by separate client writes.
   'click button.js-save'(event, tpl) {
     tpl.loading.set(true);
     $('li').removeClass('has-error');
 
     try {
-      const $set = {};
-      // Only when the SMTP block is rendered (it is commented out at the moment).
-      // checkField marks a blank required field and throws, which is what should
-      // abort the save - but only when the field is on screen to be blank.
-      if ($('#mail-server-host').length) {
-        $set['mailServer.host'] = checkField('#mail-server-host');
-        $set['mailServer.port'] = checkField('#mail-server-port');
-        $set['mailServer.from'] = checkField('#mail-server-from');
-        $set['mailServer.username'] = ($('#mail-server-username').val() || '').trim();
-        $set['mailServer.password'] = ($('#mail-server-password').val() || '').trim();
-        $set['mailServer.enableTLS'] = $('#mail-server-tls.is-checked').length > 0;
-      }
-      // Moved here with its input: the Layout save used to read
-      // #mailDomainNamevalue, which is not in that pane any more - so saving
-      // Layout would have written an empty domain over the stored one.
-      if ($('#mailDomainNamevalue').length) {
-        $set.mailDomainName = ($('#mailDomainNamevalue').val() || '').trim();
-      }
-      if (Object.keys($set).length) {
-        Settings.update(ReactiveCache.getCurrentSetting()._id, { $set });
-      }
-      // Allow e-mail change lives in AccountSettings, so it is a second write - and
-      // nothing wrote it at all until this pane took it over. It is one checkbox
-      // now, so the value is whether the box is ticked, and it is only written when
-      // the checkbox is actually on screen.
-      if ($('#accounts-allowEmailChange').length) {
-        AccountSettings.update('accounts-allowEmailChange', {
-          $set: { booleanValue: $('#accounts-allowEmailChange').hasClass('is-checked') },
-        });
-      }
+      Meteor.call('saveAdminEmailAccess', {
+        mailDomainName: ($('#mailDomainNamevalue').val() || '').trim(),
+        allowEmailChange: $('#accounts-allowEmailChange').hasClass('is-checked'),
+      }, error => { if (error) alert(error.reason || error.message); });
     } catch (e) {
       return;
     } finally {

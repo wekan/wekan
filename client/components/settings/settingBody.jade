@@ -113,47 +113,51 @@ template(name='email')
   ul#email-setting.setting-detail
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
-    li.smtp-form
-      a.flex.js-toggle-admin-mail-settings
-        .materialCheckBox#admin-mail-settings-enabled(class="{{#if mailSettingsEnabled}}is-checked{{/if}}")
-        span Enable below email settings
-    if mailSettingsEnabled
+    if mailSettingsReady
       li.smtp-form
-        .title Email service
-        .form-group
-          select.wekan-form-control#mail-service
-            each mailServices
-              option(value=value selected=selected)= label
-      if isCustomSmtp
+        a.flex.js-toggle-admin-mail-settings
+          .materialCheckBox#admin-mail-settings-enabled(class="{{#if mailSettingsEnabled}}is-checked{{/if}}")
+          span Enable below email settings
+      if mailSettingsEnabled
         li.smtp-form
-          .title {{_ 'smtp-host'}}
-          .description {{_ 'smtp-host-description'}}
+          .title Email service
           .form-group
-            input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{mailConfiguration.host}}")
+            select.wekan-form-control#mail-service
+              each mailServices
+                option(value=value selected=selected)= label
+        if isCustomSmtp
+          li.smtp-form
+            .title {{_ 'smtp-host'}}
+            .description {{_ 'smtp-host-description'}}
+            .form-group
+              input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{mailConfiguration.host}}")
+          li.smtp-form
+            .title {{_ 'smtp-port'}}
+            .description {{_ 'smtp-port-description'}}
+            .form-group
+              input.wekan-form-control#mail-server-port(type="text", placeholder="587" value="{{mailConfiguration.port}}")
+          li.smtp-form
+            a.flex.js-toggle-tls
+              .materialCheckBox#mail-server-tls(class="{{#if mailConfiguration.secure}}is-checked{{/if}}")
+              span {{_ 'smtp-tls-description'}}
         li.smtp-form
-          .title {{_ 'smtp-port'}}
-          .description {{_ 'smtp-port-description'}}
+          .title {{_ 'smtp-username'}}
           .form-group
-            input.wekan-form-control#mail-server-port(type="text", placeholder="587" value="{{mailConfiguration.port}}")
+            input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{mailConfiguration.username}}")
         li.smtp-form
-          a.flex.js-toggle-tls
-            .materialCheckBox#mail-server-tls(class="{{#if mailConfiguration.secure}}is-checked{{/if}}")
-            span {{_ 'smtp-tls-description'}}
-      li.smtp-form
-        .title {{_ 'smtp-username'}}
-        .form-group
-          input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{mailConfiguration.username}}")
-      li.smtp-form
-        .title {{_ 'smtp-password'}}
-        .description {{passwordDescription}}
-        .form-group
-          input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password")
-      li.smtp-form
-        .title {{_ 'send-from'}}
-        .form-group
-          input.wekan-form-control#mail-server-from(type="text", placeholder="WeKan <no-reply@domain.com>" value="{{mailConfiguration.from}}")
-    li
-      button.mail-settings-save.primary {{_ 'save'}}
+          .title {{_ 'smtp-password'}}
+          .description {{passwordDescription}}
+          .form-group
+            input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="" autocomplete="new-password")
+        li.smtp-form
+          .title {{_ 'send-from'}}
+          .form-group
+            input.wekan-form-control#mail-server-from(type="text", placeholder="WeKan <no-reply@domain.com>" value="{{mailConfiguration.from}}")
+      li
+        button.mail-settings-save.primary {{_ 'save'}}
+    else
+      li
+        +spinner
 
     li.smtp-form
       //- Not "Email domain name": the field decides who may INVITE. A non-admin

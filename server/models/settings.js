@@ -13,6 +13,11 @@ import { Authentication } from '/server/authentication';
 import { sendJsonResult } from '/server/apiMiddleware';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
 import { enabledLoginAuthenticationMethods } from '/server/lib/adminLoginSettings';
+import {
+  saveMailTransportForAdmin,
+  sendSmtpTestForAdmin,
+} from '/server/lib/adminEmailSettings';
+import securityLog from '/server/lib/securityLog';
 const { parseCardsLoadingEnv, cardsLoadingLazyThreshold } = require('/models/lib/cardsLoading');
 const {
   normalizeInviteEmail,
@@ -24,7 +29,7 @@ const {
 const getReactiveCache = () => require('/imports/reactiveCache').ReactiveCache;
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { SimpleSchema } = require('/imports/simpleSchema');
-const { isSupportedMailService, mailServiceStorageKey } = require('/models/lib/mailServices');
+const { mailServiceStorageKey } = require('/models/lib/mailServices');
 const {
   normalizeAuthenticationMethod,
   resolveDefaultAuthenticationMethod,
@@ -318,51 +323,31 @@ if (isSandstorm) {
 
 Meteor.methods({
   async saveAdminMailSettings(input) {
+    // Mark the complete method argument as checked before any authorization
+    // branch can return. Otherwise audit-argument-checks replaces the useful
+    // authorization error with an unrelated generic 500 for non-admins.
     check(input, Object);
-    const user = await Meteor.userAsync();
-    if (!user?.isAdmin) throw new Meteor.Error('error-notAuthorized');
-
-    const service = String(input.service || 'SMTP');
-    if (!isSupportedMailService(service)) throw new Meteor.Error('mail-service-invalid');
-    const storageKey = mailServiceStorageKey(service);
-    const configuration = input.configuration || {};
-    check(configuration, Object);
-    const clean = {
-      username: String(configuration.username || '').trim(),
-      from: String(configuration.from || '').trim(),
-    };
-    if (service === 'SMTP') {
-      clean.host = String(configuration.host || '').trim();
-      clean.port = String(configuration.port || '').trim();
-      clean.secure = configuration.secure === true;
-      if (input.enabled && !clean.host) throw new Meteor.Error('mail-host-required');
+    const actor = this.userId && await Meteor.users.findOneAsync(this.userId, {
+      fields: { isAdmin: 1, username: 1 },
+    });
+    if (!actor?.isAdmin) {
+      securityLog.record({ severity: 'high', category: 'authz',
+        bleed: 'MailSettingsBleed', action: 'blocked',
+        source: 'saveAdminMailSettings', userId: this.userId,
+        username: actor?.username,
+        detail: 'refused direct method attempt to change instance email settings' });
+      throw new Meteor.Error('error-notAuthorized', 'Not authorized');
     }
-    if (input.enabled && !clean.from) throw new Meteor.Error('mail-from-required');
-
-    const setting = await Settings.findOneAsync({});
-    const set = {
-      'mailServer.enabled': input.enabled === true,
-      'mailServer.service': service,
-      [`mailServer.configurations.${storageKey}`]: clean,
-      'mailServer.from': clean.from,
-    };
-    const password = String(input.password || '');
-    if (password) {
-      set[`mailServer.passwords.${storageKey}`] = password;
-      set[`mailServer.passwordSet.${storageKey}`] = true;
+    try {
+      return await saveMailTransportForAdmin(this.userId, input);
+    } catch (error) {
+      securityLog.record({ severity: 'high', category: 'validation',
+        bleed: 'MailSettingsBleed', action: 'blocked',
+        source: 'saveAdminMailSettings', userId: this.userId,
+        username: actor.username,
+        detail: `mail settings method failed: ${error?.message || error}` });
+      throw error;
     }
-    await Settings.updateAsync(setting._id, { $set: set });
-    const updated = await Settings.findOneAsync(setting._id);
-    Accounts.emailTemplates.from = updated.mailServer.enabled
-      ? clean.from
-      : process.env.MAIL_FROM;
-    if (updated.mailServer.enabled) {
-      installAdminMailTransport({ Email, EmailInternals, mailServer: updated.mailServer });
-    } else {
-      delete Email.customTransport;
-      installMailTransport({ Email, EmailInternals });
-    }
-    return true;
   },
   async setPermanentDeleteEnabled(enabled) {
     return setPermanentDeleteEnabledForAdmin(this.userId, enabled, this.connection);
@@ -373,38 +358,13 @@ Meteor.methods({
   },
 
   async sendSMTPTestEmail() {
-    if (!this.userId) {
-      throw new Meteor.Error('invalid-user');
-    }
-    const user = await getReactiveCache().getCurrentUser();
-    // Sending an SMTP test (and surfacing the server's SMTP error messages) is
-    // an admin-only diagnostic, matching the client gating (`unless currentUser.isAdmin`).
-    if (!user || !user.isAdmin) {
-      throw new Meteor.Error('error-notAuthorized');
-    }
-    if (!user.emails || !user.emails[0] || !user.emails[0].address) {
-      throw new Meteor.Error('email-invalid');
-    }
     this.unblock();
-    const lang = user.getLanguage();
     try {
-      await Email.sendAsync({
-        to: user.emails[0].address,
-        from: Accounts.emailTemplates.from,
-        subject: getTAPi18n().__('email-smtp-test-subject', { lng: lang }),
-        text: getTAPi18n().__('email-smtp-test-text', { lng: lang }),
-      });
-    } catch ({ message }) {
-      throw new Meteor.Error(
-        'email-fail',
-        `${getTAPi18n().__('email-fail-text', { lng: lang })}: ${message}`,
-        message,
-      );
+      return await sendSmtpTestForAdmin(this.userId);
+    } catch (error) {
+      throw new Meteor.Error(error?.error || 'email-fail',
+        error?.reason || error?.message || 'Email test failed');
     }
-    return {
-      message: 'email-sent',
-      email: user.emails[0].address,
-    };
   },
 
   async getCustomUI() {

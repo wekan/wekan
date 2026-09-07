@@ -10,7 +10,8 @@ AccountSettings.allow({
 
 AccountSettings.deny({
   async update(userId, doc) {
-    if (!['accounts-allowUserNameChange', 'accounts-allowUserDelete'].includes(doc?._id)) {
+    if (!['accounts-allowUserNameChange', 'accounts-allowUserDelete',
+      'accounts-allowEmailChange'].includes(doc?._id)) {
       return false;
     }
     const user = userId && await Meteor.users.findOneAsync(userId, {

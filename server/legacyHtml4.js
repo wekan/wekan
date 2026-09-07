@@ -92,6 +92,11 @@ import {
   setLoginIdentityForAdmin,
 } from '/server/lib/adminLoginSettings';
 import { sendInvitationsForUser } from '/server/models/settings';
+import {
+  saveEmailAccessForAdmin,
+  saveMailTransportForAdmin,
+  sendSmtpTestForAdmin,
+} from '/server/lib/adminEmailSettings';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -457,6 +462,41 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyLoginResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyLoginResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/email'
+    && ['save-mail-transport', 'save-email-access', 'send-smtp-test-email']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      if (requestFields.legacyOperation === 'save-mail-transport') {
+        await saveMailTransportForAdmin(session.userId, {
+          enabled: requestFields.mailEnabled === 'true',
+          service: String(requestFields.mailService || 'SMTP'),
+          configuration: {
+            host: String(requestFields.mailHost || ''),
+            port: String(requestFields.mailPort || ''),
+            secure: requestFields.mailSecure === 'true',
+            username: String(requestFields.mailUsername || ''),
+            from: String(requestFields.mailFrom || ''),
+          },
+          password: String(requestFields.mailPassword || ''),
+        }, { req });
+      } else if (requestFields.legacyOperation === 'save-email-access') {
+        await saveEmailAccessForAdmin(session.userId, {
+          mailDomainName: String(requestFields.mailDomainName || ''),
+          allowEmailChange: requestFields.allowEmailChange === 'true',
+        }, { req });
+      } else {
+        const result = await sendSmtpTestForAdmin(session.userId, { req });
+        requestFields.legacyEmailResult = `${translatedOr(translate,
+          result.message, 'Email sent')}: ${result.email}`;
+      }
+      if (!requestFields.legacyEmailResult) {
+        requestFields.legacyEmailResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.legacyEmailResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }

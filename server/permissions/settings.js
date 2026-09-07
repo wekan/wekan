@@ -18,6 +18,7 @@ const GUARDED_SETTINGS_FIELDS = new Set([
   ...GUARDED_PWA_FIELDS, ...GUARDED_VISIBILITY_SETTINGS_FIELDS,
   'disableForgotPassword', 'disableRegistration', 'displayAuthenticationMethod',
   'defaultAuthenticationMethod', 'oidcBtnText',
+  'mailServer', 'mailDomainName',
 ]);
 
 Settings.deny({
