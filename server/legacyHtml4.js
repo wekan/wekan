@@ -67,6 +67,7 @@ import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanen
 import { setProblemFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
 import { checkNewestVersionsForAdmin } from '/server/statistics';
+import { setAnnouncementFieldForAdmin } from '/server/lib/adminAnnouncement';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -223,6 +224,31 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyVersionResult = translatedOr(
         translate, error?.error || 'version-check-failed',
         'It was not possible to check the version number.',
+      );
+    }
+  }
+  if (session && path === '/admin/settings/announcement'
+    && ['set-announcement-enabled', 'set-announcement-body']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      const enabled = requestFields.legacyOperation === 'set-announcement-enabled';
+      let value = requestFields.announcementBody;
+      if (enabled) {
+        if (requestFields.enabled !== 'true' && requestFields.enabled !== 'false') {
+          throw new Meteor.Error('invalid-setting-value');
+        }
+        value = requestFields.enabled === 'true';
+      }
+      await setAnnouncementFieldForAdmin(
+        session.userId,
+        enabled ? 'enabled' : 'body',
+        value,
+        { req },
+      );
+      requestFields.legacyAnnouncementResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAnnouncementResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
       );
     }
   }

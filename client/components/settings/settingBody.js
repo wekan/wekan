@@ -1061,9 +1061,7 @@ Template.announcementSettings.events({
     }
     const isActive = announcements.enabled;
     try {
-      await Announcements.updateAsync(announcements._id, {
-        $set: { enabled: !isActive },
-      });
+      await Meteor.callAsync('setAdminAnnouncement', 'enabled', !isActive);
       if (isActive) {
         $('.admin-announcement').slideUp();
       } else {
@@ -1083,9 +1081,7 @@ Template.announcementSettings.events({
       return;
     }
     try {
-      await Announcements.updateAsync(announcement._id, {
-        $set: { body: message },
-      });
+      await Meteor.callAsync('setAdminAnnouncement', 'body', message);
     } catch (error) {
       alert(error?.reason || error?.message || 'Failed to save announcement');
     }

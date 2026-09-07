@@ -59,6 +59,7 @@ import {
 } from '/server/lib/problemFeatureSettings';
 import { permanentDeleteSettingForAdmin } from '/server/lib/permanentDeleteSetting';
 import { statisticsForAdmin } from '/server/statistics';
+import { announcementForAdmin } from '/server/lib/adminAnnouncement';
 import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
@@ -2683,6 +2684,57 @@ async function adminSettingsVersionPage(path, userId, requestFields, translate) 
   };
 }
 
+async function adminSettingsAnnouncementPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/announcement') return null;
+  let announcement;
+  try {
+    announcement = await announcementForAdmin(userId);
+  } catch (_) {
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'admin-announcement', 'Announcement'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [
+    { rowHeader: false, cells: [adminSettingsNavigation(translate), ''] },
+    { cells: [tr(translate, 'admin-announcement-active',
+      'Active System-Wide Announcement'), uiSelectForm({
+      action: path,
+      label: tr(translate, 'admin-announcement-active',
+        'Active System-Wide Announcement'),
+      name: 'enabled',
+      value: String(announcement.enabled),
+      options: [
+        { value: 'true', label: tr(translate, 'yes', 'Yes') },
+        { value: 'false', label: tr(translate, 'no', 'No') },
+      ],
+      fields: { legacyOperation: 'set-announcement-enabled' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })] },
+    { cells: [tr(translate, 'admin-announcement-title',
+      'Announcement from Administrator'), uiTextareaForm({
+      action: path,
+      label: tr(translate, 'admin-announcement-title',
+        'Announcement from Administrator'),
+      name: 'announcementBody',
+      value: announcement.body,
+      maxlength: 10000,
+      fields: { legacyOperation: 'set-announcement-body' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    })] },
+  ];
+  if (requestFields.legacyAnnouncementResult) rows.push({
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyAnnouncementResult],
+  });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / ${tr(translate, 'admin-announcement', 'Announcement')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3658,6 +3710,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminSettingsVersion) return adminSettingsVersion;
+  const adminSettingsAnnouncement = await adminSettingsAnnouncementPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsAnnouncement) return adminSettingsAnnouncement;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );
