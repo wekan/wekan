@@ -1665,6 +1665,25 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       icon: card.archived ? 'move-up' : 'remove',
       fields: { ...commonFields, legacyOperation: card.archived ? 'restore-card' : 'archive-card' },
     }), ''] });
+    if (allowIsBoardAdmin(userId, board)) {
+      const confirmingCardDelete = requestFields.confirmPermanentCardDelete === card._id;
+      rows.push({ rowHeader: false, cells: [confirmingCardDelete ? [
+        tr(translate, 'card-delete-pop', 'Delete this card permanently?'),
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+          fields: { ...commonFields, legacyOperation: 'permanently-delete-card' },
+        }),
+        uiAction({
+          action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+          label: tr(translate, 'cancel', 'Cancel'),
+        }),
+      ] : uiAction({
+        action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+        label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { ...commonFields, legacyOperation: 'confirm-permanently-delete-card' },
+      }), ''] });
+    }
   }
   if (!getFeatureFlags().disableWatch) rows.push({ rowHeader: false, cells: [uiAction({
     action: boardPath(board) + `/${encodeURIComponent(card._id)}`,

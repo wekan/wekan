@@ -15,6 +15,8 @@ import {
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { assertParentCardIsVisible, canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary } from '/server/lib/canary';
+import RecoveryEvents from '/models/recoveryEvents';
+import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { CARD_COLORS } from '/models/metadata/colors';
 import { STICKER_PICKER } from '/models/metadata/stickers';
 import {
@@ -383,6 +385,43 @@ async function copyManyAccessibleCards(userId, input) {
   }
   if (ordered !== copies) ids.reverse();
   return ids;
+}
+
+async function permanentlyDeleteAccessibleCard(userId, input, connection = null) {
+  let user;
+  let card;
+  try {
+    const boardId = String(input?.boardId || '');
+    const cardId = String(input?.cardId || '');
+    user = userId && await Meteor.users.findOneAsync(userId, {
+      fields: { _id: 1, username: 1 },
+    });
+    const board = await Boards.findOneAsync(boardId);
+    card = await Cards.findOneAsync({ _id: cardId, boardId, deletedAt: null }, {
+      fields: { _id: 1, title: 1, boardId: 1 },
+    });
+    if (!userId || !board || !card || !allowIsBoardAdmin(userId, board)) {
+      refuseCardWrite(userId, 'card permanent delete did not match an administered board');
+    }
+    const linked = await Cards.findOneAsync({ linkedId: card._id, deletedAt: null }, {
+      fields: { _id: 1 },
+    });
+    if (linked) throw new Meteor.Error('delete-linked-card-before-this-card');
+    await Cards.removeAsync(card._id);
+    await recordRecoveryAudit({
+      type: RecoveryEvents.types.CARD_PERMANENTLY_DELETED,
+      user, connection, done: true, deletedData: true,
+      detail: `Board administrator ${user?.username || userId} (${userId}) permanently deleted card ${card._id} titled ${JSON.stringify(card.title || '')} from board ${boardId}.`,
+    });
+    return true;
+  } catch (error) {
+    await recordRecoveryAudit({
+      type: RecoveryEvents.types.CARD_PERMANENTLY_DELETED,
+      user, connection, done: false,
+      detail: `User ${user?.username || userId || 'unknown'} (${userId || 'not logged in'}) failed to permanently delete card ${card?._id || String(input?.cardId || '').slice(0, 100)} from board ${card?.boardId || String(input?.boardId || '').slice(0, 100)}: ${error.reason || error.message || 'unknown error'}.`,
+    });
+    throw error;
+  }
 }
 
 async function editableCard(userId, cardId, expectedBoardId) {
@@ -1214,6 +1253,7 @@ export {
   editableCard,
   editablePlacement,
   moveAccessibleCard,
+  permanentlyDeleteAccessibleCard,
   moveAccessibleCardToList,
   relocateAccessibleCard,
   moveAccessibleSubtask,

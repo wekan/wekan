@@ -46,6 +46,7 @@ import {
   copyAccessibleCard,
   copyManyAccessibleCards,
   moveAccessibleCard,
+  permanentlyDeleteAccessibleCard,
   moveAccessibleCardToList,
   relocateAccessibleCard,
   moveAccessibleSubtask,
@@ -1538,7 +1539,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'set-card-watch', 'set-card-parent', 'add-subtask', 'edit-subtask-title',
     'move-subtask-up', 'move-subtask-down', 'archive-subtask',
     'set-card-date-format', 'archive-card', 'restore-card',
-    'restore-card-history',
+    'restore-card-history', 'permanently-delete-card',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -1829,6 +1830,10 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.confirmSubtaskArchive = String(requestFields.subtaskId || '');
   }
   if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'confirm-permanently-delete-card') {
+    requestFields.confirmPermanentCardDelete = String(requestFields.cardId || '');
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
     && [...cardOperations, ...commentOperations, ...checklistOperations, ...attachmentOperations]
       .includes(requestFields.legacyOperation)) {
     try {
@@ -2015,6 +2020,11 @@ WebApp.handlers.use(async (req, res, next) => {
           }
           return Meteor.server.method_handlers['changeHistory.restore']
             .call(invocation, selected);
+        }
+        if (requestFields.legacyOperation === 'permanently-delete-card') {
+          return permanentlyDeleteAccessibleCard(session.userId, {
+            cardId: requestFields.cardId, boardId: requestFields.boardId,
+          }, invocation.connection);
         }
         if (requestFields.legacyOperation === 'move-card-up'
           || requestFields.legacyOperation === 'move-card-down') {

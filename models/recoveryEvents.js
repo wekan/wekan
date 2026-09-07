@@ -29,6 +29,7 @@ RecoveryEvents.types = {
   PERMANENT_DELETE_SETTING_CHANGED: 'permanent-delete-setting-changed',
   BOARD_PERMANENTLY_DELETED: 'board-permanently-deleted',
   ATTACHMENT_PERMANENTLY_DELETED: 'attachment-permanently-deleted',
+  CARD_PERMANENTLY_DELETED: 'card-permanently-deleted',
 };
 
 RecoveryEvents.attachSchema(

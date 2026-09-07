@@ -2439,30 +2439,30 @@ Template.cardMorePopup.events({
     const $tooltip = tpl.$('.copied-tooltip');
     Utils.showCopied(promise, $tooltip);
   },
-  'click .js-delete': Popup.afterConfirm('cardDelete', function () {
+  'click .js-delete': Popup.afterConfirm('cardDelete', async function () {
     const card = Cards.findOne(getCardId());
     Popup.close();
     if (!card) return;
-    // verify that there are no linked cards
-    if (ReactiveCache.getCards({ linkedId: card._id }).length === 0) {
-      Cards.remove(card._id);
+    try {
+      await Meteor.callAsync('permanentlyDeleteAccessibleCard', {
+        cardId: card._id, boardId: card.boardId,
+      });
       // #6465 follow-up: like archiving, deleting must close the card's
       // details window (drop it from the openCards session list).
       Session.set('openCards', (Session.get('openCards') || []).filter((id) => id !== card._id));
       if (Session.get('currentCard') === card._id) {
         Session.set('currentCard', null);
       }
-    } else {
+    } catch (error) {
       // TODO: Maybe later we can list where the linked cards are.
       // Now here is popup with a hint that the card cannot be deleted
       // as there are linked cards.
       // Related:
       //   client/components/lists/listHeader.js about line 248
       //   https://github.com/wekan/wekan/issues/2785
-      const message = `${TAPi18n.__(
-        'delete-linked-card-before-this-card',
-      )} linkedId: ${card._id
-        } at client/components/cards/cardDetails.js and https://github.com/wekan/wekan/issues/2785`;
+      const message = error?.error === 'delete-linked-card-before-this-card'
+        ? TAPi18n.__('delete-linked-card-before-this-card')
+        : (error?.reason || error?.message || TAPi18n.__('operation-failed'));
       alert(message);
     }
     Utils.goBoardId(card.boardId);

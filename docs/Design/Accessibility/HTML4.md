@@ -426,6 +426,18 @@ the execution order so the resulting visual order still matches the JSON array;
 the returned identifiers remain in source order. HTML4 presents the example in a
 labelled native textarea before the existing destination and position selects.
 
+Permanent card deletion is a two-submit confirmation in HTML4 and the existing
+confirmation popup in Jade. Both call one acknowledged server operation instead
+of a direct client collection removal. The operation binds card and board, requires
+board administration, and refuses deletion while any live linked card points to
+the card; only then does the existing complete card remover delete descendants,
+attachments and related rows and emit the deletion activity. A forged card/board
+pair trips the authorization canary. Every successful, linked-card-refused or
+unauthorized attempt also appends an attributed `card-permanently-deleted` event
+to Admin Panel / Problems / Recovery, including success state, deleted-data state,
+username, IPv4/IPv6 and available location through the common Recovery audit
+helper. HTML4 never relies on JavaScript confirmation state or cookies.
+
 Card sort order uses one labelled numeric-text form in HTML4 and the existing
 Jade controls in the card details and minicard popup. All three call the same
 acknowledged operation. It requires the complete submitted value to be a finite
