@@ -32,6 +32,7 @@ import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { changeOwnMemberPassword } from '/server/lib/memberPassword';
 import { updateMemberSettings } from '/server/lib/memberSettings';
+import { setMemberDateFormat } from '/server/lib/memberDateFormat';
 import {
   memberAppearanceForUser, setMemberFont, setMemberTheme,
 } from '/server/lib/memberAppearance';
@@ -878,9 +879,7 @@ Meteor.methods({
 
   async changeDateFormat(dateFormat) {
     check(dateFormat, String);
-    const user = await ReactiveCache.getCurrentUser();
-    if (!user) return;
-    user.setDateFormat(dateFormat);
+    return setMemberDateFormat(this.userId, dateFormat, { connection: this.connection });
   },
 
   async applyListWidth(boardId, listId, width, constraint) {

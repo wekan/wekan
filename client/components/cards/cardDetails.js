@@ -1443,7 +1443,10 @@ Template.cardDetails.helpers({
     return ret;
   },
   isDateFormat(format) {
-    const currentUser = ReactiveCache.getCurrentUser();
+    // Read Meteor.user() directly so Blaze tracks the Accounts publication.
+    // The shared cache can still contain the pre-login null during the first
+    // card render, leaving the native select permanently on its first option.
+    const currentUser = Meteor.user();
     if (!currentUser) {
       const stored = window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
       return format === stored;

@@ -165,6 +165,7 @@ import { uploadBrandingImageForUser } from '/server/brandingImages';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
 import { changeOwnMemberPassword } from '/server/lib/memberPassword';
+import { setMemberDateFormat } from '/server/lib/memberDateFormat';
 import { updateMemberSettings } from '/server/lib/memberSettings';
 import { setMemberFont, setMemberTheme } from '/server/lib/memberAppearance';
 import { categoryOf, customColorCount } from '/models/lib/themeCategories';
@@ -1507,7 +1508,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'set-card-due-complete', 'set-card-spent-time', 'clear-card-spent-time',
     'set-card-watch', 'set-card-parent', 'add-subtask', 'edit-subtask-title',
     'move-subtask-up', 'move-subtask-down', 'archive-subtask',
-    'archive-card', 'restore-card',
+    'set-card-date-format', 'archive-card', 'restore-card',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -1928,6 +1929,9 @@ WebApp.handlers.use(async (req, res, next) => {
             cardId: requestFields.cardId, boardId: requestFields.boardId,
             field: requestFields.cardDateField, value: requestFields.cardDateValue,
           });
+        }
+        if (requestFields.legacyOperation === 'set-card-date-format') {
+          return setMemberDateFormat(session.userId, requestFields.dateFormat, { req });
         }
         if (requestFields.legacyOperation === 'edit-card-color') {
           return updateAccessibleCardColor(session.userId, {

@@ -409,6 +409,12 @@ and HTML4 forms submit to the same acknowledged operation. It allowlists those
 four fields, rejects ambiguous or invalid dates, repeats route-card and linked-
 target write authorization, and never accepts a caller-selected update path.
 
+The Date Format control is a member preference shared by every card rather than
+card content. HTML4 presents the same three translated choices as Jade before
+the date fields. Both renderers call one account-bound service that accepts only
+`YYYY-MM-DD`, `DD-MM-YYYY` or `MM-DD-YYYY`; a forged value leaves the preference
+unchanged and is attributed in Admin Panel / Problems / Security.
+
 Card color uses a labelled text form so both named palette values and the
 HTML5 color wheel's `#rrggbb` values remain representable in HTML4. `white` or
 an empty value removes the color. Both renderers call one acknowledged server
@@ -1255,6 +1261,10 @@ compare the semantic HTML4 table and the Jade subtask list.
 The same regression seeds a card activity, verifies its translated text in
 HTML4 and its shared accessible name in Jade, captures the two views, then
 removes board administration and proves the HTML4 history is no longer emitted.
+A focused same-URL card regression changes the Date Format through a labelled
+JavaScript-disabled form, verifies the persisted preference in the Jade selector,
+captures both representations, then submits an injected option and verifies
+non-mutation plus its attributed Security report.
 The All Boards path toggles Star and Home in both directions, restores and
 confirm-archives a board, creates a public board with its default swimlane and
 duplicates it only after confirmation. Creation and duplication share the same

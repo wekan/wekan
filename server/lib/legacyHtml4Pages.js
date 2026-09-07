@@ -1098,7 +1098,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       fields: { title: 1, sort: 1 }, sort: { sort: 1, _id: 1 }, limit: 500,
     }).fetchAsync(),
     Meteor.users.findOneAsync(userId, {
-      fields: { 'profile.moveAndCopyDialog': 1, 'profile.mapProvider': 1 },
+      fields: { 'profile.moveAndCopyDialog': 1, 'profile.mapProvider': 1,
+        'profile.dateFormat': 1 },
     }),
     Lists.find({ _id: { $in: activityListIds } }, {
       fields: { title: 1 }, limit: 100,
@@ -1538,6 +1539,17 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       ['dueAt', 'due-date', 'Due Date'],
       ['endAt', 'r-df-end-at', 'End'],
     ];
+    rows.push({ rowHeader: false, cells: [uiSelectForm({
+      action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
+      label: tr(translate, 'date-format', 'Date Format'), name: 'dateFormat',
+      value: currentUser?.profile?.dateFormat || 'YYYY-MM-DD', options: [
+        ['YYYY-MM-DD', 'date-format-yyyy-mm-dd'],
+        ['DD-MM-YYYY', 'date-format-dd-mm-yyyy'],
+        ['MM-DD-YYYY', 'date-format-mm-dd-yyyy'],
+      ].map(([value, key]) => ({ value, label: tr(translate, key, value) })),
+      fields: { ...commonFields, legacyOperation: 'set-card-date-format' },
+      submitLabel: tr(translate, 'save', 'Save'),
+    }), ''] });
     for (const [field, key, fallback] of dateFields) {
       rows.push({ rowHeader: false, cells: [uiTextForm({
         action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
