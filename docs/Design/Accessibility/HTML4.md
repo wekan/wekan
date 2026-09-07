@@ -781,6 +781,20 @@ all groups and uploads a logo without JavaScript, verifies their complete Jade
 state and screenshot, refuses a JavaScript URL, restores global state and proves
 anonymous settings isolation.
 
+Admin Panel / Settings / Translation completes the seven-pane Settings group.
+Its one semantic table exposes the same source language, source text, override
+text and actions as Jade. Labelled signed forms provide create, edit, literal
+search, 25-row Previous/Next paging and two-stage delete without JavaScript or
+cookies, in natural source and Tab order. Both views call one Global Admin
+service; clients submit inert search text rather than executable Mongo selectors,
+the server trims and caps it at 500 characters, escapes regular-expression
+metacharacters and fixes the maximum result window. Mutations accept bounded
+values and one exact persisted ID. Direct DDP writes are denied and recorded as
+TranslationBleed with available actor and request context. The same-URL browser
+fixture checks create, timestamps, edit, a literal `[x]` search, two pages,
+confirmation before deletion, anonymous isolation and paired screenshots. The
+comparison also guards that Jade and HTML4 calculate the same page count.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

@@ -266,14 +266,12 @@ compile, and unsupported or no-JavaScript browsers receive accessible HTML4.
 Authentication follows keyboard order, deployment examples explain email, and
 uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists, attachments, transfers and All Boards without JavaScript.
-Card parents, subtasks and activity history have matching views.
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
-acknowledgements and repairs between both views. Settings / Version,
-Announcement, Accessibility, PWA, Global Webhooks and Visibility share guarded
-HTML4 operations.
+acknowledgements and repairs between both views. All seven Settings panes share
+guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -330,6 +328,25 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd0e7eb4c">Add accessible HTML4 Translation settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Translation now has equivalent semantic Legacy HTML4
+create, edit, literal search, 25-row paging and confirmed-delete controls. The
+signed native forms work without JavaScript or cookies and retain natural Tab
+order. Both renderers share one Global Admin service with bounded inputs and
+exact-ID mutations. Search is inert text escaped into a server-owned selector;
+direct DDP writes and oversized subscriptions are denied, with mutation bypass
+attempts reported as TranslationBleed.
+
+Source and negative tests cover authorization, injection and paging boundaries.
+A live same-URL Chromium test exercises every operation, compares HTML4 and Jade,
+captures both views and proves anonymous isolation. It also found and fixed Jade
+using a 10-row count with a 25-row subscription. The complete Node suite passes
+830/830.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/174fb65c7">Add accessible HTML4 Visibility settings</a>. Thanks to xet7.</summary>
