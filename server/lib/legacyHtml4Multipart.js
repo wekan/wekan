@@ -19,7 +19,8 @@ function isLegacyHtml4Multipart(req, requestPath) {
     && (/^\/import\/[^/]+$/.test(requestPath) || /^\/b\/[^/]+\/[^/]+\/[^/]+$/.test(requestPath)
       || requestPath === '/admin/settings/visibility'
       || requestPath === '/admin/people/organizations'
-      || requestPath === '/admin/people/people')
+      || requestPath === '/admin/people/people'
+      || requestPath === '/account/avatar')
     && /^multipart\/form-data\b/i.test(String(req.headers?.['content-type'] || ''));
 }
 

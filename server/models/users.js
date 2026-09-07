@@ -35,6 +35,9 @@ import { updateMemberSettings } from '/server/lib/memberSettings';
 import {
   memberAppearanceForUser, setMemberFont, setMemberTheme,
 } from '/server/lib/memberAppearance';
+import {
+  deleteMemberAvatar, memberAvatarState, selectMemberAvatar,
+} from '/server/lib/memberAvatar';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin,
@@ -445,6 +448,23 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
     assertSafeAvatarUrl(avatarUrl);
     await Users.updateAsync(this.userId, { $set: { 'profile.avatarUrl': avatarUrl } });
+  },
+
+  async selectOwnAvatar(avatarId) {
+    check(avatarId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    return selectMemberAvatar(this.userId, avatarId, { connection: this.connection });
+  },
+
+  async getOwnAvatarState() {
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    return memberAvatarState(this.userId, { connection: this.connection });
+  },
+
+  async deleteOwnAvatar(avatarId) {
+    check(avatarId, String);
+    if (!this.userId) throw new Meteor.Error('not-logged-in', 'User must be logged in');
+    return deleteMemberAvatar(this.userId, avatarId, { connection: this.connection });
   },
 
   async adminSetAvatarUrl(targetUserId, avatarUrl) {

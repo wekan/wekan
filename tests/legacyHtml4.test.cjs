@@ -949,6 +949,39 @@ test('member appearance routes share strict color and font boundaries with Jade'
   assert.doesNotMatch(service, /\$set\[[^\]]+input/);
 });
 
+test('member avatar route shares account-scoped selection, deletion and GIF upload', () => {
+  const root = path.join(__dirname, '..');
+  const routes = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+  const client = fs.readFileSync(path.join(root, 'client/components/users/userAvatar.js'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const handler = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  const multipart = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Multipart.js'), 'utf8');
+  const service = fs.readFileSync(path.join(root, 'server/lib/memberAvatar.js'), 'utf8');
+  const methods = fs.readFileSync(path.join(root, 'server/models/users.js'), 'utf8');
+  assert.match(routes, /FlowRouter\.route\('\/account\/avatar'/);
+  assert.match(jade, /js-change-avatar\(href="\/account\/avatar"\)/);
+  assert.match(pages, /async function accountAvatarPage/);
+  for (const operation of ['upload-member-avatar', 'select-member-avatar',
+    'request-delete-member-avatar', 'delete-member-avatar']) {
+    assert.match(pages + handler, new RegExp(operation));
+  }
+  assert.match(handler, /fs\.promises\.readFile\(multipartUpload\.tempPath\)/);
+  assert.match(multipart, /requestPath === '\/account\/avatar'/);
+  assert.match(service, /convertImageBufferToGif\(input\)/);
+  assert.match(service, /data:image\/gif;base64/);
+  assert.match(service, /avatarsUploadBlocked === true/);
+  assert.match(service, /_id: avatarId, userId/);
+  assert.match(service, /currentId === avatar\._id/);
+  assert.match(service, /source: 'memberAvatar'/);
+  assert.match(methods, /selectMemberAvatar\(this\.userId/);
+  assert.match(methods, /deleteMemberAvatar\(this\.userId/);
+  assert.match(methods, /memberAvatarState\(this\.userId/);
+  assert.match(client, /Meteor\.call\('getOwnAvatarState'/);
+  assert.match(client, /Meteor\.call\('deleteOwnAvatar', avatarId/);
+  assert.doesNotMatch(service, /targetUserId/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',

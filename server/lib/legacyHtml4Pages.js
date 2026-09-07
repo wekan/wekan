@@ -91,6 +91,7 @@ import { memberProfileForUser } from '/server/lib/memberProfile';
 import { memberLanguageChoices } from '/server/lib/memberLanguage';
 import { memberSettingsForUser } from '/server/lib/memberSettings';
 import { memberAppearanceForUser } from '/server/lib/memberAppearance';
+import { memberAvatarsForUser } from '/server/lib/memberAvatar';
 import { categoryOf, customColorCount } from '/models/lib/themeCategories';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
@@ -2530,6 +2531,60 @@ async function accountAppearancePage(path, userId, requestFields, translate) {
     heading: tr(translate, path === '/account/color' ? 'change-color' : 'change-font',
       path === '/account/color' ? 'Change Color' : 'Change Font'),
     columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')], rows,
+  };
+}
+
+async function accountAvatarPage(path, userId, requestFields, translate) {
+  if (path !== '/account/avatar') return null;
+  let result;
+  try {
+    result = await memberAvatarsForUser(userId, { req: requestFields.req });
+  } catch (_) {
+    return {
+      heading: tr(translate, 'change-avatar', 'Change Avatar'),
+      columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+      rows: [{ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [{ rowHeader: false, cells: [
+    tr(translate, 'initials', 'Initials'),
+    uiAction({ action: path, label: tr(translate, 'default-avatar', 'Default avatar'),
+      fields: { legacyOperation: 'select-member-avatar', avatarId: '' } }),
+  ] }];
+  for (const avatar of result.avatars) {
+    const selected = result.currentUrl.split('?')[0]
+      === `/cdn/storage/avatars/${avatar._id}`;
+    const confirming = requestFields.confirmDeleteMemberAvatar === avatar._id;
+    rows.push({ rowHeader: false, cells: [
+      [uiImage({ src: avatar.dataUrl || `/cdn/storage/avatars/${avatar._id}`,
+        alt: avatar.name || tr(translate, 'change-avatar', 'Change Avatar'), width: 96 }),
+      `${avatar.name || ''} (${avatar.type || ''}, ${avatar.size || 0})${selected ? ' [x]' : ''}`],
+      [uiAction({ action: path, label: tr(translate, 'change-avatar', 'Change Avatar'),
+        fields: { legacyOperation: 'select-member-avatar', avatarId: avatar._id } }),
+      uiAction({ action: path,
+        label: confirming ? tr(translate, 'delete-avatar-confirm', 'Confirm delete')
+          : tr(translate, 'delete', 'Delete'), icon: 'remove',
+        fields: { legacyOperation: confirming ? 'delete-member-avatar'
+          : 'request-delete-member-avatar', avatarId: avatar._id } })],
+    ] });
+  }
+  if (!result.uploadBlocked) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'upload-avatar', 'Upload avatar'),
+    uiFileForm({ action: path, label: tr(translate, 'upload-avatar', 'Upload avatar'),
+      name: 'avatarImage', accept: 'image/*',
+      fields: { legacyOperation: 'upload-member-avatar' },
+      submitLabel: tr(translate, 'upload', 'Upload') }),
+  ] });
+  else rows.push({ cells: [tr(translate, 'upload-avatar', 'Upload avatar'),
+    tr(translate, 'avatars-upload-blocked-description', 'Avatar uploads are blocked')] });
+  if (requestFields.legacyAvatarResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAvatarResult,
+  ] });
+  return {
+    heading: tr(translate, 'change-avatar', 'Change Avatar'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
   };
 }
 
@@ -5912,6 +5967,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (accountSettings) return accountSettings;
   const accountAppearance = await accountAppearancePage(path, userId, requestFields, translate);
   if (accountAppearance) return accountAppearance;
+  const accountAvatar = await accountAvatarPage(path, userId, requestFields, translate);
+  if (accountAvatar) return accountAvatar;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

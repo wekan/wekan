@@ -148,6 +148,9 @@ import { updateMemberSettings } from '/server/lib/memberSettings';
 import { setMemberFont, setMemberTheme } from '/server/lib/memberAppearance';
 import { categoryOf, customColorCount } from '/models/lib/themeCategories';
 import {
+  deleteMemberAvatar, selectMemberAvatar, uploadMemberAvatar,
+} from '/server/lib/memberAvatar';
+import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
   setAccessibleAttachmentCover,
@@ -390,6 +393,35 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyFontResult = translatedOr(translate, 'saved', 'Saved');
     } catch (error) {
       requestFields.legacyFontResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/account/avatar' && !multipartUpload) {
+    const operation = requestFields.legacyOperation;
+    try {
+      if (operation === 'select-member-avatar') {
+        await selectMemberAvatar(session.userId, String(requestFields.avatarId || ''), { req });
+      } else if (operation === 'request-delete-member-avatar') {
+        requestFields.confirmDeleteMemberAvatar = String(requestFields.avatarId || '');
+      } else if (operation === 'delete-member-avatar') {
+        await deleteMemberAvatar(session.userId, String(requestFields.avatarId || ''), { req });
+      }
+      if (operation && operation !== 'request-delete-member-avatar') {
+        requestFields.legacyAvatarResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.legacyAvatarResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/account/avatar' && multipartUpload
+    && requestFields.legacyOperation === 'upload-member-avatar') {
+    try {
+      const input = await fs.promises.readFile(multipartUpload.tempPath);
+      await uploadMemberAvatar(session.userId, input, { req });
+      requestFields.legacyAvatarResult = translatedOr(translate, 'done', 'Done');
+    } catch (error) {
+      requestFields.legacyAvatarResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed');
     }
   }

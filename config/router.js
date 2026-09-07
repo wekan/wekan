@@ -766,6 +766,16 @@ FlowRouter.route('/account/font', {
   },
 });
 
+FlowRouter.route('/account/avatar', {
+  name: 'account-avatar',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    EscapeActions.executeAll();
+    this.render('defaultLayout', { content: 'changeAvatarPopup' });
+  },
+});
+
 // #1173: the import page with no source chosen yet. The page picks the source
 // itself now, so the address does not have to carry one - but /import/:source
 // below still works, so every existing link, bookmark and back button does.
