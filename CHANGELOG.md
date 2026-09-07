@@ -304,6 +304,23 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/59e4f1fe2">Honor Card Settings in Legacy HTML4</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 card details now derive one visibility map from the same Card
+Settings `allows*` switches as Jade. Labels, people roles, List, Sort, each
+date and Date Format, Description text, Checklists, Subtasks, Attachments,
+Comments and Activities emit neither stored content nor mutation controls when
+their section is disabled; independent sections remain in natural Tab order.
+
+Static coverage verifies every setting-to-section mapping. A live same-URL
+Chromium regression captures all-enabled and all-disabled HTML4/HTML5 pairs,
+checks the visible controls before the change and proves their forms and stored
+text are absent afterward. The Date Format and Cover regressions also pass
+together after the gating change.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/86bf8dca8">Identify card covers in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 When Cover on Card is enabled, Legacy HTML4 now moves the real content card's
