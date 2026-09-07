@@ -4,6 +4,13 @@ Four groups, each with its own **Save** directly above the rule that closes it. 
 Save writes only its own group's fields, so saving one cannot carry half-typed edits
 from another.
 
+The modern and Legacy HTML4 panes share the same server operations. The HTML4
+version uses labelled native POST forms in the same field and keyboard order and
+works without JavaScript or cookies. Instance fields are bounded and allowlisted;
+links accept only HTTP(S) or root-relative destinations, spinner names come from
+the built-in catalog, and the logo height is a positive decimal pixel count. Direct
+DDP writes around these checks are refused and reported in Problems / Security.
+
 ## All Boards: Hide
 
 Each row is ticked when the thing is **hidden**.
@@ -45,6 +52,10 @@ custom-colour wheels — described in
 [Design / Change color](../../../Features/Page/Theme.md). It applies as soon as you
 click a colour; there is no Save button.
 
+Without JavaScript, the HTML4 view applies the selected theme with its Save button.
+It uses the same host-derived instance/Organization target, theme catalog and custom
+hex-colour validation as the immediate modern picker.
+
 **The order of themes**, weakest first:
 
 1. WeKan's default theme.
@@ -73,6 +84,10 @@ Sizes: the top-left corner logo is 27 px high, the login logo 300 px wide, the o
 dimension automatic. Uploads are size- and pixel-limited, decoded on the server,
 resized when necessary and converted to GIF. The GIF is saved to the attachment
 backend selected by Admin Panel / Attachments / Default Storage.
+
+The same upload and stored GIF preview are available in the HTML4 pane through a
+bounded streamed multipart form; uploaded bytes are never held in a URL or exposed
+as an external image source.
 
 Older settings may contain an external `http` or `https` image URL. At startup WeKan
 fetches each one through its SSRF-protected downloader, converts it to GIF, stores it

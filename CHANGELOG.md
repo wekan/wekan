@@ -272,8 +272,8 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. Settings / Version,
-Announcement, Accessibility, PWA and Global Webhooks share data and guarded
-operations between views.
+Announcement, Accessibility, PWA, Global Webhooks and Visibility share guarded
+HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -330,6 +330,28 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/174fb65c7">Add accessible HTML4 Visibility settings</a>. Thanks to xet7.</summary>
+
+Admin Panel / Settings / Visibility now exposes every All Boards, URL/Support,
+product name, tenant-aware theme and logo operation in semantic Legacy HTML4.
+Labelled native forms preserve the modern grouping and tab order. Image uploads
+stream through a private temporary file, use the same server authorization,
+size/pixel checks and GIF conversion as Jade, save to Default Storage and render
+through the new shared image component.
+
+Both views now share fixed-field server services. They bound text, allowlist wait
+spinners and themes, restrict links to HTTP(S) or root-relative targets, validate
+logo height and custom hex colors, and derive the tenant theme target from the
+request host. Direct DDP writes around these checks are denied and
+Security-reported. Source and negative tests cover the boundaries. A live
+same-URL Chromium test writes all five groups and uploads a logo in HTML4,
+observes the complete state in HTML5, rejects a JavaScript URL, captures both
+views, restores global state and proves anonymous isolation. The complete Node
+suite passes 829/829.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/51570b2c3">Add secure accessible HTML4 global webhooks</a>. Thanks to xet7.</summary>

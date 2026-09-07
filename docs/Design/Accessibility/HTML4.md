@@ -764,6 +764,23 @@ request context. The live same-URL test creates a two-way webhook without
 JavaScript, reads it in Jade, proves the token is absent in both documents,
 rejects a loopback target, captures both panes and proves anonymous isolation.
 
+Admin Panel / Settings / Visibility exposes all five modern groups in HTML4:
+All Boards, URL and Support, Product name, Change color and Logo. Labelled
+fieldset forms retain the Jade order and atomic per-group Save behavior. Both
+views use one fixed-field Global Admin service for instance values, including
+the separate private-only collection; it bounds text, restricts spinner names,
+accepts only HTTP(S) or root-relative links and strictly parses logo height.
+Direct DDP writes to every covered field are denied and Security-reported. The
+theme reader/writer was extracted from the Meteor method so both views retain
+the same host-derived tenant target, shared theme catalog and hex validation.
+HTML4 image controls use the shared file and image components. Multipart image
+bytes stay in a private temporary file, repeat authorization, pass the same
+size/pixel decoder, convert server-side to GIF and enter the selected Default
+Storage through the same branding operation as Jade. A live same-URL test writes
+all groups and uploads a logo without JavaScript, verifies their complete Jade
+state and screenshot, refuses a JavaScript URL, restores global state and proves
+anonymous settings isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
