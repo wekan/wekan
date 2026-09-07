@@ -301,6 +301,21 @@ This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ccc0d020">Add accessible HTML4 text previews</a>. Thanks to xet7.</summary>
+
+Text and JSON card attachments now have a purpose-bound Preview control in
+Legacy HTML4. The server repeats exact board, card and attachment authorization,
+storage-read policy and attachment download limits, accepts only the shared
+text/JSON classification and buffers at most 2 MiB. Content is escaped as
+selectable text through the shared document-page component.
+
+Positive and negative source tests pass. A live same-URL Chromium regression
+compares HTML4 and HTML5 viewers, proves markup-like attachment text cannot
+execute, and verifies a forged board scope is refused and Security-reported.
+
+</details>
+
 - [Share the Legacy HTML4 status component](https://github.com/wekan/wekan/commit/9ec3723fe). Thanks to xet7.
 
 <details>
