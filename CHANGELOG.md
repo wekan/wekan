@@ -304,6 +304,22 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/86bf8dca8">Identify card covers in Legacy HTML4</a>. Thanks to xet7.</summary>
+
+When Cover on Card is enabled, Legacy HTML4 now moves the real content card's
+cover to the first attachment row and labels it Cover Image for every reader.
+Its purpose-bound Preview returns the server-stored GIF while Download remains
+a separate original-file operation, matching Jade's opened-card cover without
+putting cookieless credentials in an image URL.
+
+Static coverage verifies the board-setting gate, linked-content identity,
+image requirement, ordering and GIF purpose. A live same-URL Chromium test
+checks the semantic row, successful `image/gif` response and paired HTML4/HTML5
+screenshots.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/547356092">Show card numbers in Legacy HTML4 titles</a>. Thanks to xet7.</summary>
 
 When Card Number is enabled, Legacy HTML4 now prefixes the opened card heading
