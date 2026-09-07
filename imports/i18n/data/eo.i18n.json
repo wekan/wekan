@@ -1658,7 +1658,7 @@
   "move-swimlane": "Déplacer le couloir",
   "moveSwimlanePopup-title": "Déplacer le couloir",
   "custom-field-stringtemplate": "Plantilla de cadenas",
-  "custom-field-stringtemplate-format": "Format (utiliser %{value} pour marquer un emplacement)",
+  "custom-field-stringtemplate-format": "Format (utiliser %{valeur} pour marquer un emplacement)",
   "custom-field-stringtemplate-separator": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
   "custom-field-stringtemplate-item-placeholder": "Pulsa intro para añadir más elementos",
   "creator": "Creador",

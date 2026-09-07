@@ -1658,7 +1658,7 @@
   "move-swimlane": "Verplaats Swimlane",
   "moveSwimlanePopup-title": "Verplaats Swimlane",
   "custom-field-stringtemplate": "Tekstsjabloon",
-  "custom-field-stringtemplate-format": "Format (gebruik %{value} als tijdelijke aanduiding)",
+  "custom-field-stringtemplate-format": "Format (gebruik %{waarde} als tijdelijke aanduiding)",
   "custom-field-stringtemplate-separator": "Scheidingsteken (gebruik &#32; of &nbsp; voor een spatie)",
   "custom-field-stringtemplate-item-placeholder": "Druk op Enter om meer items toe te voegen",
   "creator": "Aangemaakt door",

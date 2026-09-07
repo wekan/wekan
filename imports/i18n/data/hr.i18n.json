@@ -1658,7 +1658,7 @@
   "move-swimlane": "Премести ток поступка",
   "moveSwimlanePopup-title": "Премештање тока поступка",
   "custom-field-stringtemplate": "Образац за словни низ",
-  "custom-field-stringtemplate-format": "Облик (користите %{value} као основу/носач)",
+  "custom-field-stringtemplate-format": "Облик (користите %{вредност} као основу/носач)",
   "custom-field-stringtemplate-separator": "Раздвајач (користите &#32; или &nbsp; за размак)",
   "custom-field-stringtemplate-item-placeholder": "Притисните ентер да додате још ставки",
   "creator": "Оснивач",

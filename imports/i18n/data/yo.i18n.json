@@ -1658,7 +1658,7 @@
   "move-swimlane": "Gbe Swimlane",
   "moveSwimlanePopup-title": "Gbe Swimlane",
   "custom-field-stringtemplate": "Awoṣe okun",
-  "custom-field-stringtemplate-format": "Ọna kika (lo %{value} bi oniduro)",
+  "custom-field-stringtemplate-format": "Ọna kika (lo %{iye} bi oniduro)",
   "custom-field-stringtemplate-separator": "Iyapa (lo tabi  fun aaye kan)",
   "custom-field-stringtemplate-item-placeholder": "Tẹ tẹ lati fi awọn ohun kan kun diẹ sii",
   "creator": "Eleda",

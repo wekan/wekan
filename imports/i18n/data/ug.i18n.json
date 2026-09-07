@@ -1658,7 +1658,7 @@
   "move-swimlane": "Swimlane نى يۆتكەڭ",
   "moveSwimlanePopup-title": "Swimlane نى يۆتكەڭ",
   "custom-field-stringtemplate": "تېكىست قېلىپى",
-  "custom-field-stringtemplate-format": "فورمات (%{value} place ئورۇن ئىگىسى سۈپىتىدە ئىشلىتىڭ)",
+  "custom-field-stringtemplate-format": "فورمات (% {قىممىتى place ئورۇن ئىگىسى سۈپىتىدە ئىشلىتىڭ)",
   "custom-field-stringtemplate-separator": "ئايرىغۇچ (بوشلۇق ئۈچۈن & # 32; ياكى & nbsp; ئىشلىتىڭ)",
   "custom-field-stringtemplate-item-placeholder": "تېخىمۇ كۆپ تۈرلەرنى قوشۇش ئۈچۈن Enter نى بېسىڭ",
   "creator": "ياراتقۇچى",
