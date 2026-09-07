@@ -546,6 +546,19 @@ columns. The pre-person-tally address-side fallback remains available after an
 upgrade. A paired test searches 26 people, proves two pages and compares the
 same `/admin/problems/office` URL with and without JavaScript.
 
+Impersonation Report likewise has one Global Admin-only page service shared by
+the Meteor publication and HTML4 controller. It applies the same literal,
+500-character search to recorded administrator, user, board, attachment and
+reason fields; caps the database window; counts without materialising rows; and
+sorts newest first. Its ten-row table retains the modern Date, Administrator,
+Impersonated user, Board and Reason columns. Referenced accounts are resolved in
+one bounded query, while a deleted account remains identifiable by its recorded
+id. Native search and Previous/Next forms preserve state. Table cells explicitly
+permit normal and long-word wrapping, so a username, initials fallback, object
+id or reason cannot paint over adjacent report text. The same-URL browser test
+compares both representations, exercises two pages and a deliberately long
+username, and proves that an anonymous request receives no audit data.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

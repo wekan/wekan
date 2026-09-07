@@ -20,6 +20,10 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     `${eventId}-office-user-${index}`);
   const officeAddressIds = Array.from({ length: 26 }, (_, index) =>
     `${eventId}-office-address-${index}`);
+  const impersonationIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-impersonation-${index}`);
+  const impersonatedUserId = `${eventId}-impersonated-user`;
+  const longImpersonatedUsername = `impersonated_${suffix}_${'long_name_'.repeat(8)}`;
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -200,6 +204,46 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       });
     }
 
+    db.insertOne('users', {
+      _id: impersonatedUserId,
+      username: longImpersonatedUsername,
+      profile: { initials: 'LONG', fullname: `Long Impersonated Person ${suffix}` },
+    });
+    db.insertMany('impersonatedUsers', impersonationIds.map((id, index) => ({
+      _id: id,
+      adminId: user._id,
+      userId: impersonatedUserId,
+      boardId: `board-${suffix}-${index}`,
+      reason: `Impersonation searchable ${suffix} row ${index}`,
+      createdAt: new Date(Date.now() + index),
+      modifiedAt: new Date(Date.now() + index),
+    })));
+    const impersonationNav = legacy
+      .locator('form[action="/admin/problems/impersonation"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      impersonationNav.locator('input[type="submit"]').click(),
+    ]);
+    const impersonationSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await impersonationSearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      impersonationSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('Ylläpitäjä');
+    await expect(legacy.locator('tbody')).toContainText(longImpersonatedUsername);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    const longNameCell = legacy.locator('td', { hasText: longImpersonatedUsername }).first();
+    await expect(longNameCell).toBeVisible();
+    expect(await longNameCell.evaluate(element =>
+      element.scrollWidth <= element.clientWidth + 1)).toBe(true);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-impersonation.png`,
+        fullPage: true,
+      });
+    }
+
     modernContext = await browser.newContext({ locale: 'fi-FI' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -245,6 +289,16 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/impersonation');
+    await modern.locator('.js-table-page-search').fill(suffix);
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText(longImpersonatedUsername);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-impersonation.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -253,6 +307,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await expect(outsiderPage.locator('body')).not.toContainText(
       'ModernSummaryTest',
     );
+    await outsiderPage.goto(`${baseURL}/admin/problems/impersonation`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(longImpersonatedUsername);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -262,7 +319,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     });
     db.deleteMany('eventlogAcks', { stream: 'security' });
     db.deleteMany('loginAddresses', { _id: { $in: officeAddressIds } });
-    db.deleteMany('users', { _id: { $in: officeUserIds } });
+    db.deleteMany('impersonatedUsers', { _id: { $in: impersonationIds } });
+    db.deleteMany('users', { _id: { $in: [...officeUserIds, impersonatedUserId] } });
     if (previousSecurityAck) db.insertOne('eventlogAcks', previousSecurityAck);
     if (user) {
       db.deleteOne('users', { _id: user._id });

@@ -43,6 +43,9 @@ table.legacy-content td {
   padding: 0.4em;
   text-align: left;
   vertical-align: top;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 fieldset {
   border: 1px solid #888;

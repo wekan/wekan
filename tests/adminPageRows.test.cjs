@@ -204,7 +204,11 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       const src = code(file);
       for (const marker of markers) {
         const head = src.slice(src.indexOf(marker), src.indexOf(marker) + 500);
-        assert.ok(/isAdmin/.test(head), `${marker} must ask for the site admin flag`);
+        const delegatedImpersonationGuard = file.endsWith('impersonationReport.js')
+          && /impersonationReport(?:ForAdmin|CountForAdmin)/.test(head)
+          && /isAdmin/.test(code('server/lib/impersonationReport.js'));
+        assert.ok(/isAdmin/.test(head) || delegatedImpersonationGuard,
+          `${marker} must ask for the site admin flag`);
         assert.ok(!/canOpenAdminPanel/.test(head),
           `${marker} must NOT accept a per-tenant admin: Problems is instance-wide`);
       }

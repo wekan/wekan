@@ -37,6 +37,7 @@ import { localizedStoredRuleDescription } from '/models/lib/ruleDescriptionLocal
 import { getProblemsOverview } from '/server/lib/systemStatus';
 import { getCurrentCpu } from '/server/lib/cpuMonitor';
 import { loginOfficesForAdmin } from '/server/methods/loginOffices';
+import { impersonationReportForAdmin } from '/server/lib/impersonationReport';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -2696,6 +2697,64 @@ async function adminProblemsOfficesPage(path, userId, requestFields, translate) 
   };
 }
 
+async function adminProblemsImpersonationPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/impersonation') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1, Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  let report;
+  try {
+    report = await impersonationReportForAdmin(userId, {
+      search, limit: perPage, skip: (requestedPage - 1) * perPage,
+    });
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'impersonationReportTitle', 'Impersonation Report'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const totalPages = Math.max(1, Math.ceil(report.total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) report = await impersonationReportForAdmin(userId, {
+    search, limit: perPage, skip: (page - 1) * perPage,
+  });
+  const names = new Map(report.users.map(user => [user._id,
+    user.username || user.profile?.fullname || user.profile?.initials || user._id]));
+  const columns = [
+    ['date', 'Date'], ['impersonation-admin', 'Administrator'],
+    ['impersonation-user', 'Impersonated user'], ['board', 'Board'],
+    ['reason', 'Reason'],
+  ].map(([key, fallback]) => tr(translate, key, fallback));
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'), adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+        action: path, label: tr(translate, 'search', 'Search'), value: search,
+      })] },
+  ];
+  for (const item of report.rows) rows.push({ cells: [
+    eventDate(item.createdAt), names.get(item.adminId) || item.adminId || '',
+    names.get(item.userId) || item.userId || '', item.boardId || '', item.reason || '',
+  ] });
+  if (!report.rows.length) rows.push({ rowHeader: false, colspanLast: columns.length,
+    cells: [tr(translate, 'no-results', 'No results')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: search, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path, label: tr(translate, 'next-page', 'Next'),
+      icon: 'next', fields: { q: search, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'impersonationReportTitle', 'Impersonation Report')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -2783,6 +2842,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsOffices) return adminProblemsOffices;
+  const adminProblemsImpersonation = await adminProblemsImpersonationPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsImpersonation) return adminProblemsImpersonation;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }
