@@ -98,7 +98,8 @@ import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
 const {
-  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiImage, uiLink, uiSearchForm,
+  UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiDocumentPage, uiExportForm,
+  uiFileForm, uiImage, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
   uiTextareaGroupForm,
 } = require('/imports/lib/uiComponentLibrary');
@@ -2043,6 +2044,13 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       authPurpose: `download:gif-${attachment._id}`,
       fields: { ...responseFields, legacyOperation: 'preview-attachment-gif' },
     });
+    if (kind.isPDF || kind.isOffice) actions.push({
+      action: attachmentAction,
+      label: tr(translate, 'preview', 'Preview'),
+      icon: 'caret-right',
+      fields: { ...responseFields, legacyOperation: 'preview-attachment-document',
+        documentPage: 1 },
+    });
     actions.push({
       action: attachmentAction,
       label: tr(translate, 'download', 'Download'),
@@ -2070,6 +2078,23 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       size: Number(attachment.size) || 0,
       actions,
     })] });
+    const preview = requestFields.legacyDocumentPreview;
+    if (preview?.attachmentId === attachment._id) {
+      const pageActions = [];
+      if (preview.number > 1) pageActions.push(uiAction({
+        action: attachmentAction, label: tr(translate, 'previous', 'Previous'), icon: 'previous',
+        fields: { ...responseFields, legacyOperation: 'preview-attachment-document',
+          documentPage: preview.number - 1 },
+      }));
+      if (preview.number < preview.pageCount) pageActions.push(uiAction({
+        action: attachmentAction, label: tr(translate, 'next', 'Next'), icon: 'next',
+        fields: { ...responseFields, legacyOperation: 'preview-attachment-document',
+          documentPage: preview.number + 1 },
+      }));
+      rows.push({ cells: [tr(translate, 'preview', 'Preview'), uiDocumentPage({
+        ...preview, actions: pageActions,
+      })] });
+    }
     if (canWrite) {
       rows.push({ rowHeader: false, cells: ['', uiTextForm({
         action: attachmentAction,
@@ -2095,6 +2120,10 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       })] });
     }
   }
+  if (requestFields.legacyDocumentPreviewError) rows.push({ cells: [
+    tr(translate, 'preview', 'Preview'),
+    tr(translate, 'error', 'Error'),
+  ] });
   const commentById = new Map(comments.map(comment => [comment._id, comment]));
   const reactionsByComment = new Map(commentReactionDocs.map(doc => [doc.cardCommentId,
     Array.isArray(doc.reactions) ? doc.reactions : []]));

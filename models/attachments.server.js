@@ -14,6 +14,7 @@ import AttachmentStorageSettings from './attachmentStorageSettings';
 import Attachments, { normalizeRemovedFiles } from './attachments';
 import Boards from '/models/boards';
 import { ensureIndex } from '/server/lib/mongoStartup';
+const { resolveWritablePath } = require('/models/lib/writablePath');
 
 // ---------------------------------------------------------------------------
 // Server-only configuration
@@ -58,7 +59,7 @@ const attachmentBucket = createBucket('attachments');
 // Compute storage path:
 // - Docker (WRITABLE_PATH=/data): /data/files/attachments
 // - Snap (WRITABLE_PATH=$SNAP_COMMON/files): $SNAP_COMMON/files/attachments
-const basePath = process.env.WRITABLE_PATH || process.cwd();
+const basePath = resolveWritablePath({ writablePath: process.env.WRITABLE_PATH });
 const endsWithFiles = basePath.endsWith('/files') || basePath.endsWith('\\files');
 const storagePath = endsWithFiles
   ? path.join(basePath, 'attachments')

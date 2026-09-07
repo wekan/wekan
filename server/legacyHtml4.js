@@ -72,7 +72,10 @@ import {
 import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentReactionOperations';
 import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
 import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
-import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
+import {
+  legacyHtml4DocumentPage,
+  serveLegacyHtml4Attachment,
+} from '/server/lib/legacyHtml4AttachmentResponse';
 import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
 import { setProblemFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
@@ -1644,6 +1647,26 @@ WebApp.handlers.use(async (req, res, next) => {
       } else res.end();
     }
     return;
+  }
+  if (session && /^\/b\/[^/]+/.test(path)
+    && requestFields.legacyOperation === 'preview-attachment-document') {
+    try {
+      requestFields.legacyDocumentPreview = await legacyHtml4DocumentPage({
+        userId: session.userId,
+        boardId: requestFields.boardId,
+        cardId: requestFields.cardId,
+        attachmentId: requestFields.attachmentId,
+        pageNumber: requestFields.documentPage,
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-attachment', {
+          req, userId: session.userId,
+          detail: `refused HTML4 document preview: ${String(error?.message || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      requestFields.legacyDocumentPreviewError = error?.message || 'failed';
+    }
   }
   if (session && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'export-checklist') {

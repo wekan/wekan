@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { createRequire } from 'module';
+import path from 'path';
 import { Mongo } from 'meteor/mongo';
 import { boundedStreamBuffer, convertImageBufferToGif, omiGifCacheKey, storeGeneratedGif } from './legacyHtml4Gif';
 
@@ -10,7 +11,7 @@ const inProgress = new Map();
 export const DocumentPreviews = new Mongo.Collection('documentPreviews');
 
 function runtimeRequire(name) {
-  return createRequire(import.meta.url)(name);
+  return createRequire(path.join(process.cwd(), 'package.json'))(name);
 }
 
 function decodeXml(value) {

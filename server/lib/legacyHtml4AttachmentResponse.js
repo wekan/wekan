@@ -7,9 +7,15 @@ import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileSt
 import { correctedNameForStoredFile } from '/models/lib/fileTypeCorrection';
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
-import { attachmentAsStoredGif } from '/server/lib/legacyHtml4Gif';
+import {
+  attachmentAsStoredGif,
+  boundedStreamBuffer,
+  omiGifCacheKey,
+} from '/server/lib/legacyHtml4Gif';
+import { DocumentPreviews, documentAsStoredGifs } from '/server/lib/documentGif';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 const { fileResponsePolicy } = require('/models/lib/fileResponseSafety');
+const { safeDocumentTableHtml } = require('/models/lib/documentPreviewTable');
 
 function safeDisposition(disposition, name) {
   const cleaned = sanitizeDownloadFileName(name);
@@ -141,4 +147,58 @@ export async function serveLegacyHtml4Attachment({ res, userId, boardId, cardId,
     else res.destroy(error);
   });
   stream.pipe(res);
+}
+
+export async function legacyHtml4DocumentPage({ userId, boardId, cardId,
+  attachmentId, pageNumber }) {
+  const attachment = await exactAuthorizedAttachment({
+    userId, boardId, cardId, attachmentId,
+  });
+  const policy = await limits();
+  rejectLimit(attachment, policy);
+  const defaultStorage = policy.settings?.getDefaultStorage?.() || STORAGE_NAME_FILESYSTEM;
+  const cached = await DocumentPreviews.findOneAsync({
+    attachmentId: attachment._id,
+    cacheKey: omiGifCacheKey(attachment),
+  }, { fields: { _id: 1 } });
+  if (!cached && policy.settings && !policy.settings.isStorageWriteEnabled(defaultStorage)) {
+    const error = new Error('storage-disabled'); error.statusCode = 403; throw error;
+  }
+  const manifest = await documentAsStoredGifs(attachment, {
+    factory: fileStoreStrategyFactory,
+    collection: Attachments.collection,
+    getDefaultStorage: async () => defaultStorage,
+  });
+  const number = Number(pageNumber);
+  if (!Number.isSafeInteger(number) || number < 1 || number > manifest.pageCount) {
+    const error = new Error('page-not-found'); error.statusCode = 404; throw error;
+  }
+  const page = manifest.pages.find(item => item.number === number);
+  if (!page) { const error = new Error('page-not-found'); error.statusCode = 404; throw error; }
+  const images = [];
+  let responseBytes = 0;
+  for (const item of page.images || []) {
+    const strategy = fileStoreStrategyFactory.getFileStrategy(attachment, item.version);
+    const storageName = strategy?.getStorageName?.();
+    if (!strategy || (storageName && policy.settings
+      && !policy.settings.isStorageReadEnabled(storageName))) {
+      const error = new Error('storage-disabled'); error.statusCode = 403; throw error;
+    }
+    const gif = await boundedStreamBuffer(strategy.getReadStream(), 8 * 1024 * 1024);
+    responseBytes += gif.length;
+    if (responseBytes > 16 * 1024 * 1024) {
+      const error = new Error('preview-too-large'); error.statusCode = 413; throw error;
+    }
+    images.push({ number: item.number,
+      dataUrl: `data:image/gif;base64,${gif.toString('base64')}` });
+  }
+  return {
+    attachmentId: attachment._id,
+    name: attachment.name || '',
+    number,
+    pageCount: manifest.pageCount,
+    text: String(page.text || ''),
+    html: safeDocumentTableHtml(page.html),
+    images,
+  };
 }

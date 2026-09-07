@@ -131,6 +131,22 @@ download filename on read, and emits no session value in a URL. Refusals are
 recorded in Admin Panel / Problems / Security with available actor and request
 context. All conversion and authorization remains server-side.
 
+PDF and office-document attachments use the same server conversion pipeline as
+the modern document viewer. A signed `Preview` POST resolves the exact
+board/card/attachment tuple again, applies attachment size and storage policy,
+and creates the cached plain-text, safe table and GIF-page representation in
+Default Storage on first use. HTML4 renders one page inside the card's semantic
+table, with selectable plain text (or the allowlisted Excel table), GIF images
+and translated Previous/Next POST controls. It never embeds PDF, OOXML or active
+document markup. Page numbers and aggregate response bytes are bounded; a
+forged scope is refused and Security-reported. The separately stored unformatted
+text remains the common attachment-search source for both representations.
+
+Filesystem reads resolve a relative `WRITABLE_PATH` against the launch directory
+recorded by the process environment, not Meteor's generated runtime directory.
+This keeps the containment boundary on the actual configured `files/` tree in
+development as well as on absolute Docker and Snap paths.
+
 Attachment mutations also cross one shared server boundary. Both the Jade view
 and HTML4 forms resolve the exact attachment, its content card and board, then
 apply direct or live-linked-card write permission. HTML4 additionally binds the
@@ -1192,6 +1208,13 @@ is absent; and escaped content cannot create markup. Browser tests also disable
 cookies and follow the route inventory. Security tests cover login throttling,
 CSRF, fixation, replay, body limits, open redirects and cross-board
 authorization.
+The document-preview regression creates a two-page OOXML document in the live
+Default Storage path, opens it at the same card URL with JavaScript/cookies
+disabled and with the modern viewer, verifies selectable page text and native
+HTML4 Previous/Next controls, and captures both representations. It also forges
+the route board while retaining the real attachment and verifies an attributed
+Security refusal. Unit coverage rejects executable generated-table markup,
+out-of-range pages, oversized responses and runtime-directory-relative storage.
 The card-detail browser regression additionally forges an unknown active-markup
 reaction, a submitted foreign user ID, a cross-board comment ID and a foreign
 checklist parent; each is refused. Valid reaction and checklist changes are

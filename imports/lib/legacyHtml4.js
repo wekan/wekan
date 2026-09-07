@@ -1,6 +1,7 @@
 const MODERN_REQUEST_HEADER = 'x-wekan-progressive-client';
 const CAPABILITY_SCRIPT_PATH = '/legacy-html4-capabilities.js';
 const { uiControlLabel } = require('./uiComponentLibrary');
+const { safeDocumentTableHtml } = require('../../models/lib/documentPreviewTable');
 
 function escapeHtml(value) {
   return String(value == null ? '' : value)
@@ -291,6 +292,14 @@ function contentRows(path, options) {
   for (const row of options.page.rows || []) {
     const renderCell = cell => {
       if (Array.isArray(cell)) return cell.map(renderCell).join(' ');
+      if (cell && typeof cell === 'object' && cell.component === 'document-page') {
+        const safeTable = safeDocumentTableHtml(cell.html);
+        const content = safeTable || `<pre>${escapeHtml(cell.text || '')}</pre>`;
+        const images = (cell.images || []).map(item =>
+          `<p><img src="${escapeHtml(item.dataUrl)}" alt="${escapeHtml(cell.name || '')}" width="640"></p>`).join('');
+        const actions = (cell.actions || []).map(renderCell).join(' ');
+        return `<div class="legacy-document-page"><p>${escapeHtml(cell.name || '')}: ${escapeHtml(cell.number)} / ${escapeHtml(cell.pageCount)}</p>${actions}${images}${content}</div>`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'search') {
         const id = 'legacy-search-query';
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>

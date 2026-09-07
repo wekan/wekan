@@ -44,6 +44,11 @@ function uiImage({ src, alt, width = 160 }) {
   return { component: 'image', src, alt, width };
 }
 
+function uiDocumentPage({ name, number, pageCount, text = '', html = '', images = [],
+  actions = [] }) {
+  return { component: 'document-page', name, number, pageCount, text, html, images, actions };
+}
+
 function uiLink({ href, label, icon = 'caret-right' }) {
   return { component: 'link', href, label, icon };
 }
@@ -105,6 +110,7 @@ function uiBoardCreateForm({ action, titleLabel, permissionLabel, permissions = 
 
 module.exports = {
   UI_ICONS, uiAction, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel,
-  uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiImage, uiLink, uiSearchForm, uiSelectForm,
+  uiDocumentPage, uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiImage, uiLink,
+  uiSearchForm, uiSelectForm,
   uiTextForm, uiTextareaForm, uiTextareaGroupForm,
 };
