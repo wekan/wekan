@@ -334,6 +334,24 @@ live Chromium Legacy HTML4 preference regression passes with the new helper.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d5866e84">Give Legacy HTML4 complete card move and copy controls</a>. Thanks to xet7.</summary>
+
+Opened cards now have semantic, cookieless controls to move or copy them to an
+active swimlane and list on any writable board. Native selects support top,
+bottom, above and below placement; quick ASCII buttons move within the current
+list. The corresponding Jade commands now use the same acknowledged operation.
+
+The server independently binds the source and destination, bounds order queries,
+enforces assigned-only visibility and derives sort from persisted cards. Forged
+placements are refused before writes and reported under Problems / Security. The
+old compatibility method no longer merges arbitrary caller-supplied card fields.
+Static positive and negative coverage plus a same-URL Chromium regression verify
+HTML4 and HTML5 controls, cross-board move/copy, exact order and Security
+reporting.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a4ce04e2">Add Legacy HTML4 Trello API imports</a>. Thanks to xet7.</summary>
 
 Direct Trello workspace import now has equivalent semantic controls without
