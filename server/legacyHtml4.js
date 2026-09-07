@@ -2210,12 +2210,13 @@ WebApp.handlers.use(async (req, res, next) => {
       text: requestFields.importText,
       fields: requestFields.importFields,
       clientAddress: session.address,
+      workspaceName: requestFields.importWorkspaceName,
     });
     if (requestFields.legacyImportResult?.pending) {
       const draft = requestFields.legacyImportResult.draft;
       if (await storeLegacyHtml4ImportDraft(session, draft)) {
         requestFields.legacyImportResult = { ok: true, pending: true, draft: {
-          id: draft.id, members: draft.members,
+          id: draft.id, members: draft.members, workspaceName: draft.workspaceName,
         } };
       } else requestFields.legacyImportResult = { ok: false, errorKey: 'operation-failed' };
     }
@@ -2254,12 +2255,13 @@ WebApp.handlers.use(async (req, res, next) => {
       upload: multipartUpload,
       fields: requestFields.importFields,
       clientAddress: session.address,
+      workspaceName: requestFields.importWorkspaceName,
     });
     if (requestFields.legacyImportResult?.pending) {
       const draft = requestFields.legacyImportResult.draft;
       if (await storeLegacyHtml4ImportDraft(session, draft)) {
         requestFields.legacyImportResult = { ok: true, pending: true, draft: {
-          id: draft.id, members: draft.members,
+          id: draft.id, members: draft.members, workspaceName: draft.workspaceName,
         } };
       } else requestFields.legacyImportResult = { ok: false, errorKey: 'operation-failed' };
     }

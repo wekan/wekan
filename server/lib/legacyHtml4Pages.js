@@ -2979,6 +2979,8 @@ async function importPage(path, userId, requestFields, translate) {
     const result = requestFields.legacyImportResult;
     const pending = result && typeof result === 'object' && result.ok === true
       && result.pending === true && result.draft;
+    const workspaceName = pending ? result.draft.workspaceName
+      : String(requestFields.importWorkspaceName || '').slice(0, 100);
     if (pending) {
       const members = Array.isArray(result.draft.members) ? result.draft.members : [];
       rows.push({ rowHeader: false, cells: [uiFieldsetForm({
@@ -3039,6 +3041,13 @@ async function importPage(path, userId, requestFields, translate) {
       const instruction = issue
         ? translate('import-board-instruction-issues', { sourceName: issue[0], endpoint: issue[1] })
         : tr(translate, `import-board-instruction-${selected.key}`, 'Paste the exported data here.');
+      if (selected.key === 'trello') rows.push({ rowHeader: false, cells: [uiTextForm({
+        action: `/import/${selected.key}`,
+        label: tr(translate, 'import-trello-workspace', 'Workspace'),
+        name: 'importWorkspaceName', value: workspaceName, maxlength: 100,
+        fields: { importFields },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), ''] });
       if (selected.key === 'wekan' || selected.key === 'trello') rows.push({
         rowHeader: false,
         cells: [uiFileForm({
@@ -3048,7 +3057,8 @@ async function importPage(path, userId, requestFields, translate) {
             : tr(translate, 'import-trello-json-file', 'Trello .json file'),
           name: 'importFile', accept: selected.key === 'wekan'
             ? '.json,.zip,application/json,application/zip' : '.json,application/json',
-          fields: { importFields, legacyOperation: 'import-board-file' },
+          fields: { importFields, importWorkspaceName: workspaceName,
+            legacyOperation: 'import-board-file' },
           submitLabel: tr(translate, 'import', 'Import'),
         }), ''],
       });
@@ -3058,7 +3068,8 @@ async function importPage(path, userId, requestFields, translate) {
           action: `/import/${selected.key}`,
           label: tr(translate, 'import-trello-zip-file', 'Trello .zip file'),
           name: 'importFile', accept: '.zip,application/zip',
-          fields: { importFields, legacyOperation: 'import-board-file' },
+          fields: { importFields, importWorkspaceName: workspaceName,
+            legacyOperation: 'import-board-file' },
           submitLabel: tr(translate, 'import', 'Import'),
         }), ''],
       });
@@ -3067,7 +3078,8 @@ async function importPage(path, userId, requestFields, translate) {
         label: `${instruction} ${tr(translate, 'import-board-instruction-about-errors', '')}`.trim(),
         name: 'importText',
         value: result?.ok === false ? String(requestFields.importText || '') : '',
-        fields: { importFields, legacyOperation: 'import-board-text' },
+        fields: { importFields, importWorkspaceName: workspaceName,
+          legacyOperation: 'import-board-text' },
         submitLabel: tr(translate, 'import', 'Import'),
       }), ''] });
     }

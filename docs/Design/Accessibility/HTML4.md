@@ -644,6 +644,17 @@ continue to use the Jade view's direct import-without-mapping behavior; WeKan
 ZIP attachments remain streamed into Default Storage rather than copied into a
 session document.
 
+Trello file imports also share the modern optional personal-workspace
+destination. In HTML4 the workspace name is a labelled, 100-character text
+field saved before the file is chosen, so a navigation cannot silently discard
+the selected upload. The normalized name travels inside the signed POST and,
+when member mapping is needed, inside the server-only single-use draft. Only
+after a successful JSON or ZIP import does the authenticated server operation
+find or create that exact workspace and assign every resulting board to it.
+Control characters, oversized names, fields injected into another import source
+and multipart fields outside the explicit allowlist are rejected. The browser
+never supplies a workspace id and cannot assign another user's board.
+
 Item-to-card conversion uses the shared card-destination component: title first,
 then one bounded board/swimlane/list/card insertion-point selector, relative
 above/below selection and submit. This is both its semantic reading order and

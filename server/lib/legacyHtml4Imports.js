@@ -19,6 +19,39 @@ const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
 const { membersFromImport } = require('/models/lib/importMembers');
 
 const MAX_IMPORT_TEXT_BYTES = 5 * 1024 * 1024;
+const MAX_WORKSPACE_NAME_LENGTH = 100;
+
+function normalizeWorkspaceName(source, value) {
+  if (source !== 'trello') return '';
+  const name = typeof value === 'string' ? value.trim() : '';
+  if (name.length > MAX_WORKSPACE_NAME_LENGTH || /[\u0000-\u001f\u007f]/.test(name)) {
+    throw new Meteor.Error('invalid-workspace-name');
+  }
+  return name;
+}
+
+function workspaceByName(nodes, name) {
+  for (const node of nodes || []) {
+    if (node?.name === name) return node;
+    const nested = workspaceByName(node?.children, name);
+    if (nested) return nested;
+  }
+  return null;
+}
+
+async function assignImportedBoardsToWorkspace(userId, boardIds, workspaceName) {
+  if (!workspaceName || !boardIds.length) return;
+  const user = await Meteor.users.findOneAsync(userId, {
+    fields: { 'profile.boardWorkspacesTree': 1 },
+  });
+  let workspace = workspaceByName(user?.profile?.boardWorkspacesTree, workspaceName);
+  if (!workspace) {
+    workspace = await Meteor.callAsync('createWorkspace', { parentId: null, name: workspaceName });
+  }
+  for (const boardId of boardIds) {
+    await Meteor.callAsync('assignBoardToWorkspace', boardId, workspace.id);
+  }
+}
 
 function parseImportText(source, text) {
   if (source === 'excel') throw new Meteor.Error('import-excel-file');
@@ -43,17 +76,20 @@ function publicImportError(error) {
   return { ok: false, errorKey: key };
 }
 
-async function invokeImport({ userId, source, document, fields, clientAddress }) {
+async function invokeImport({ userId, source, document, fields, clientAddress, workspaceName }) {
   const selected = parseImportFields(typeof fields === 'string' ? fields : undefined);
   const pruned = source === 'excel' ? document : pruneImportDocument(document, selected);
   const boardId = await DDP._CurrentMethodInvocation.withValue({
     userId,
     connection: { clientAddress: String(clientAddress || '') },
   }, async () => Meteor.callAsync('importBoard', pruned, { membersMapping: {} }, source, null));
+  await DDP._CurrentMethodInvocation.withValue({
+    userId, connection: { clientAddress: String(clientAddress || '') },
+  }, async () => assignImportedBoardsToWorkspace(userId, [boardId], workspaceName));
   return { ok: true, boardId };
 }
 
-async function importDraft({ userId, source, document, fields, clientAddress }) {
+async function importDraft({ userId, source, document, fields, clientAddress, workspaceName }) {
   const selected = parseImportFields(typeof fields === 'string' ? fields : undefined);
   const safeDocument = require('/server/lib/secureTransfer').secureTransfer(document, {
     direction: 'import', source: `import:${source}-html4-draft`, userId, ip: clientAddress,
@@ -61,7 +97,7 @@ async function importDraft({ userId, source, document, fields, clientAddress }) 
   const pruned = pruneImportDocument(safeDocument, selected);
   const members = membersFromImport(source, pruned);
   if (members.length === 0) {
-    return invokeImport({ userId, source, document: pruned, fields, clientAddress });
+    return invokeImport({ userId, source, document: pruned, fields, clientAddress, workspaceName });
   }
   const usernames = [...new Set(members.map(member => member.username).filter(Boolean))];
   const matches = await Meteor.users.find({ username: { $in: usernames } }, {
@@ -73,7 +109,7 @@ async function importDraft({ userId, source, document, fields, clientAddress }) 
     pending: true,
     draft: {
       id: crypto.randomBytes(16).toString('hex'), source, document: pruned,
-      fields: selected.join(','), createdAt: new Date(),
+      fields: selected.join(','), workspaceName, createdAt: new Date(),
       members: members.map(member => ({ ...member, suggestedUserId: exact.get(member.username) || '' })),
     },
   };
@@ -104,13 +140,18 @@ export async function finishLegacyHtml4Import({
       userId, connection: { clientAddress: String(clientAddress || '') },
     }, async () => Meteor.callAsync('importBoard', draft.document,
       { membersMapping }, draft.source, null));
+    await DDP._CurrentMethodInvocation.withValue({
+      userId, connection: { clientAddress: String(clientAddress || '') },
+    }, async () => assignImportedBoardsToWorkspace(userId, [boardId], draft.workspaceName));
     return { ok: true, boardId };
   } catch (error) {
     return publicImportError(error);
   }
 }
 
-export async function importLegacyHtml4Text({ userId, source, text, fields, clientAddress }) {
+export async function importLegacyHtml4Text({
+  userId, source, text, fields, clientAddress, workspaceName,
+}) {
   if (!userId) return { ok: false, errorKey: 'error-notAuthorized' };
   if (!importSourceByKey(source)) return { ok: false, errorKey: 'invalid-import-source' };
   const input = typeof text === 'string' ? text : '';
@@ -119,20 +160,22 @@ export async function importLegacyHtml4Text({ userId, source, text, fields, clie
     return { ok: false, errorKey: 'import-file-too-large' };
   }
   try {
+    const normalizedWorkspace = normalizeWorkspaceName(source, workspaceName);
     return await importDraft({ userId, source, document: parseImportText(source, input),
-      fields, clientAddress });
+      fields, clientAddress, workspaceName: normalizedWorkspace });
   } catch (error) {
     return publicImportError(error);
   }
 }
 
 export async function importLegacyHtml4File({
-  userId, source, upload, fields, clientAddress,
+  userId, source, upload, fields, clientAddress, workspaceName,
 }) {
   if (!userId) return { ok: false, errorKey: 'error-notAuthorized' };
   if (!importSourceByKey(source)) return { ok: false, errorKey: 'invalid-import-source' };
   if (!upload?.tempPath) return { ok: false, errorKey: 'error-json-malformed' };
   try {
+    const normalizedWorkspace = normalizeWorkspaceName(source, workspaceName);
     const detectedMime = await detectedFileMime(upload.tempPath);
     if (detectedMime === 'application/zip') {
       await assertImportEnabled();
@@ -144,7 +187,10 @@ export async function importLegacyHtml4File({
         const bytes = await fs.promises.readFile(upload.tempPath);
         const imported = await DDP._CurrentMethodInvocation.withValue(invocation,
           async () => importZipBuffer(bytes, userId));
-        return { ok: true, boardId: imported.boardIds?.[0], boardIds: imported.boardIds || [] };
+        const boardIds = imported.boardIds || [];
+        await DDP._CurrentMethodInvocation.withValue(invocation,
+          async () => assignImportedBoardsToWorkspace(userId, boardIds, normalizedWorkspace));
+        return { ok: true, boardId: boardIds[0], boardIds };
       }
       if (source === 'wekan') {
         const archive = await readWekanZipArchive(upload.tempPath, {
@@ -167,7 +213,8 @@ export async function importLegacyHtml4File({
     const document = source === 'excel'
       ? { excelBase64: bytes.toString('base64') }
       : parseImportText(source, bytes.toString('utf8'));
-    return await importDraft({ userId, source, document, fields, clientAddress });
+    return await importDraft({ userId, source, document, fields, clientAddress,
+      workspaceName: normalizedWorkspace });
   } catch (error) {
     return publicImportError(error);
   }
@@ -231,4 +278,5 @@ export async function importLegacyHtml4ScopedFile({
   }
 }
 
-export { MAX_IMPORT_TEXT_BYTES, importDraft, invokeImport, parseImportText, publicImportError };
+export { MAX_IMPORT_TEXT_BYTES, MAX_WORKSPACE_NAME_LENGTH, assignImportedBoardsToWorkspace,
+  importDraft, invokeImport, normalizeWorkspaceName, parseImportText, publicImportError };

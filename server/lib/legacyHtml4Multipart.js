@@ -8,7 +8,7 @@ const Busboy = require('@fastify/busboy');
 const MAX_MULTIPART_FILE_BYTES = 50 * 1024 * 1024;
 const ALLOWED_FIELDS = new Set([
   'legacySession', 'authAction', 'authCounter', 'authHash',
-  'importFields', 'importField', 'legacyOperation',
+  'importFields', 'importField', 'importWorkspaceName', 'legacyOperation',
   'boardId', 'cardId', 'checklistId', 'orgId',
   'targetUserId',
   'visibilityGroup', 'brandingSlot',
