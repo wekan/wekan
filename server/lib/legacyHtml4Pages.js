@@ -56,6 +56,11 @@ const {
   WORKFLOW_ACTIONS,
   WORKFLOW_TRIGGERS,
 } = require('/models/lib/ruleWorkflowCatalog');
+const {
+  PARAMETERIZED_ACTIONS,
+  PARAMETERIZED_TRIGGERS,
+} = require('/models/lib/ruleParameterizedCatalog');
+const { CARD_COLORS } = require('/models/metadata/colors');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
   'oneHundred', 'unsure',
@@ -84,6 +89,137 @@ async function visibleBoard(boardId, userId) {
   return board && board.isVisibleBy(userId ? { _id: userId } : null) ? board : null;
 }
 
+function parameterizedTriggerInputs(kind, translate, board) {
+  const catalog = {
+    triggerCardTitle: { name: 'triggerCardTitle',
+      label: tr(translate, 'boardCardTitlePopup-title', 'Card title filter'), maxlength: 500 },
+    triggerListName: { name: 'triggerListName',
+      label: tr(translate, 'r-list-name', 'List name'), maxlength: 500 },
+    triggerSwimlaneName: { name: 'triggerSwimlaneName',
+      label: tr(translate, 'r-swimlane-name', 'Swimlane name'), maxlength: 500 },
+    triggerUsername: { name: 'triggerUsername',
+      label: tr(translate, 'username', 'Username'), maxlength: 500 },
+    triggerLabelId: { type: 'select', name: 'triggerLabelId',
+      label: tr(translate, 'r-label', 'Label'), options: [{ value: '*', label: '*' }]
+        .concat((board.labels || []).map(label => ({ value: label._id,
+          label: label.name || tr(translate, `color-${label.color}`, label.color) }))) },
+    triggerChecklistName: { name: 'triggerChecklistName',
+      label: tr(translate, 'r-checklist', 'Checklist'), maxlength: 500 },
+    triggerChecklistItemName: { name: 'triggerChecklistItemName',
+      label: tr(translate, 'r-item', 'Item'), maxlength: 500 },
+    triggerScheduleType: { type: 'select', name: 'triggerScheduleType',
+      label: tr(translate, 'r-schedule-type', 'Repeat'),
+      options: ['once', 'daily', 'weekday', 'weekly', 'monthly'].map(value => ({ value,
+        label: tr(translate, `r-schedule-${value}`, value) })) },
+    triggerTime: { name: 'triggerTime', label: tr(translate, 'r-schedule-at-time', 'Time'),
+      value: '09:00', maxlength: 5 },
+    triggerWeekday: { type: 'select', name: 'triggerWeekday',
+      label: tr(translate, 'r-schedule-on-weekday', 'Weekday'),
+      options: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        .map((key, index) => ({ value: index === 6 ? 0 : index + 1,
+          label: tr(translate, key, key) })) },
+    triggerDayOfMonth: { name: 'triggerDayOfMonth',
+      label: tr(translate, 'r-schedule-on-day', 'Day of month'), value: '1', maxlength: 2 },
+    triggerDate: { name: 'triggerDate', label: tr(translate, 'r-schedule-on-date', 'Date'),
+      maxlength: 10 },
+    triggerDueCondition: { type: 'select', name: 'triggerDueCondition',
+      label: tr(translate, 'r-when-due', 'Due date'),
+      options: ['set', 'soon', 'overdue'].map(value => ({ value,
+        label: tr(translate, `r-due-${value === 'set' ? 'is-set' : value}`, value) })) },
+    triggerDays: { name: 'triggerDays', label: tr(translate, 'r-for-n-days', 'Days'),
+      value: '1', maxlength: 5 },
+    triggerButtonLabel: { name: 'triggerButtonLabel',
+      label: tr(translate, 'r-button-label', 'Button label'),
+      value: tr(translate, 'r-run', 'Run'), maxlength: 500 },
+  };
+  const card = ['triggerCardTitle', 'triggerListName', 'triggerSwimlaneName', 'triggerUsername'];
+  let names = [];
+  if (kind.startsWith('card-')) names = card;
+  else if (kind.startsWith('label-')) names = ['triggerLabelId', 'triggerUsername'];
+  else if (kind.startsWith('member-')) names = ['triggerUsername'];
+  else if (kind.startsWith('attachment-')) names = ['triggerUsername'];
+  else if (kind.startsWith('checklist-')) names = ['triggerChecklistName', 'triggerUsername'];
+  else if (kind.startsWith('item-')) names = ['triggerChecklistItemName', 'triggerUsername'];
+  else if (kind === 'scheduled-calendar') names = ['triggerScheduleType', 'triggerTime',
+    'triggerWeekday', 'triggerDayOfMonth', 'triggerDate', 'triggerListName'];
+  else if (kind === 'scheduled-due') names = ['triggerDueCondition', 'triggerDays', 'triggerTime'];
+  else if (kind === 'scheduled-aging') names = ['triggerListName', 'triggerDays', 'triggerTime'];
+  else if (kind.endsWith('-button')) names = ['triggerButtonLabel'];
+  return names.map(name => catalog[name]);
+}
+
+function parameterizedActionInputs(kind, translate, board, visibleBoards) {
+  const catalog = {
+    actionBoardId: { type: 'select', name: 'actionBoardId',
+      label: tr(translate, 'r-board', 'Board'), value: board._id,
+      options: visibleBoards.map(candidate => ({ value: candidate._id,
+        label: candidate._id === board._id ? tr(translate, 'current', 'Current') : candidate.title })) },
+    actionCardName: { name: 'actionCardName', label: tr(translate, 'r-card', 'Card'), maxlength: 500 },
+    actionListName: { name: 'actionListName', label: tr(translate, 'r-list-name', 'List name'), maxlength: 500 },
+    actionFromListName: { name: 'actionFromListName',
+      label: `${tr(translate, 'r-moved-from', 'From')} ${tr(translate, 'r-list', 'list')}`,
+      maxlength: 500 },
+    actionSwimlaneName: { name: 'actionSwimlaneName',
+      label: tr(translate, 'r-swimlane-name', 'Swimlane name'), maxlength: 500 },
+    actionLabelId: { type: 'select', name: 'actionLabelId',
+      label: tr(translate, 'r-label', 'Label'), options: (board.labels || []).map(label => ({
+        value: label._id, label: label.name || tr(translate, `color-${label.color}`, label.color),
+      })) },
+    actionUsername: { name: 'actionUsername', label: tr(translate, 'username', 'Username'), maxlength: 500 },
+    actionSortField: { type: 'select', name: 'actionSortField',
+      label: tr(translate, 'r-sort-by', 'Sort by'),
+      options: ['due', 'name', 'created', 'modified'].map(value => ({ value,
+        label: tr(translate, value === 'due' ? 'r-sort-due'
+          : value === 'name' ? 'r-sort-name' : `${value}At`, value) })) },
+    actionDateField: { type: 'select', name: 'actionDateField',
+      label: tr(translate, 'r-datefield', 'Date field'),
+      options: ['startAt', 'dueAt', 'endAt', 'receivedAt'].map(value => ({ value,
+        label: tr(translate, `r-df-${value.replace('At', '-at')}`, value) })) },
+    actionAmount: { name: 'actionAmount', label: tr(translate, 'r-for-n-days', 'Amount'),
+      value: '0', maxlength: 6 },
+    actionUnit: { type: 'select', name: 'actionUnit',
+      label: tr(translate, 'r-unit-days', 'Unit'),
+      options: ['minutes', 'hours', 'days', 'weeks', 'months'].map(value => ({ value,
+        label: tr(translate, `r-unit-${value}`, value) })) },
+    actionColor: { type: 'select', name: 'actionColor', label: tr(translate, 'r-set-color', 'Color'),
+      options: CARD_COLORS.map(value => ({ value,
+        label: tr(translate, `color-${value}`, value) })) },
+    actionChecklistName: { name: 'actionChecklistName',
+      label: tr(translate, 'r-checklist', 'Checklist'), maxlength: 500 },
+    actionChecklistItemName: { name: 'actionChecklistItemName',
+      label: tr(translate, 'r-item', 'Item'), maxlength: 500 },
+    actionChecklistItems: { name: 'actionChecklistItems',
+      label: tr(translate, 'r-items-list', 'Items'), maxlength: 10000 },
+    actionEmailTo: { name: 'actionEmailTo', label: tr(translate, 'r-to', 'To'), maxlength: 500 },
+    actionEmailSubject: { name: 'actionEmailSubject',
+      label: tr(translate, 'r-subject', 'Subject'), maxlength: 500 },
+    actionEmailMessage: { type: 'textarea', name: 'actionEmailMessage',
+      label: tr(translate, 'r-d-send-email-message', 'Message'), maxlength: 10000,
+      rows: 8, cols: 70 },
+  };
+  const placements = ['actionBoardId', 'actionListName', 'actionSwimlaneName'];
+  const byKind = {
+    'move-top': placements, 'move-bottom': placements,
+    'add-swimlane': ['actionSwimlaneName'],
+    'create-card': ['actionCardName', 'actionListName', 'actionSwimlaneName'],
+    'link-card': placements,
+    'sort-list': ['actionListName', 'actionSortField'],
+    'move-all-cards': ['actionFromListName', 'actionListName'],
+    'set-date': ['actionDateField'], 'update-date': ['actionDateField'],
+    'remove-date': ['actionDateField'], 'add-label': ['actionLabelId'],
+    'remove-label': ['actionLabelId'], 'add-member': ['actionUsername'],
+    'remove-member': ['actionUsername'], 'set-color': ['actionColor'],
+    'set-date-relative': ['actionDateField', 'actionAmount', 'actionUnit'],
+    'add-checklist': ['actionChecklistName'], 'remove-checklist': ['actionChecklistName'],
+    'check-all': ['actionChecklistName'], 'uncheck-all': ['actionChecklistName'],
+    'check-item': ['actionChecklistName', 'actionChecklistItemName'],
+    'uncheck-item': ['actionChecklistName', 'actionChecklistItemName'],
+    'add-checklist-items': ['actionChecklistName', 'actionChecklistItems'],
+    'send-email': ['actionEmailTo', 'actionEmailSubject', 'actionEmailMessage'],
+  };
+  return (byKind[kind] || []).map(name => catalog[name]);
+}
+
 async function boardRulesPage(path, userId, requestFields, translate) {
   const match = /^\/b\/([^/]+)\/([^/]+)\/rules$/.exec(path);
   if (!match || !userId) return null;
@@ -109,6 +245,8 @@ async function boardRulesPage(path, userId, requestFields, translate) {
     value, key => translate(key), sources,
   );
   const selected = rules.find(rule => rule._id === requestFields.viewRuleId);
+  const builderTriggerStage = requestFields.legacyOperation === 'select-parameterized-trigger';
+  const builderActionStage = requestFields.legacyOperation === 'select-parameterized-action';
   const navigationCells = [uiAction({
     action: boardPath(board), label: tr(translate, 'back', 'Back'), icon: 'previous',
   }), uiAction({
@@ -180,8 +318,8 @@ async function boardRulesPage(path, userId, requestFields, translate) {
       fields: viewFields,
     }), '', ''] });
   } else {
-    if (workflow && canAdmin) rows.push({ rowHeader: false, cells: [
-      tr(translate, 'r-add-rule', 'Add rule'), '', '', uiFieldsetForm({
+    if (workflow && canAdmin) rows.push({ rowHeader: false, colspanLast: 3, cells: [
+      tr(translate, 'r-add-rule', 'Add rule'), uiFieldsetForm({
         action: path,
         legend: tr(translate, 'r-add-rule', 'Add rule'),
         id: 'workflow-rule',
@@ -202,6 +340,66 @@ async function boardRulesPage(path, userId, requestFields, translate) {
         submitLabel: tr(translate, 'r-add-rule', 'Add rule'),
       }),
     ] });
+    if (workflow && canAdmin && !builderTriggerStage && !builderActionStage) rows.push({ rowHeader: false,
+      colspanLast: 3, cells: [
+      tr(translate, 'r-add-trigger', 'Add trigger'), uiFieldsetForm({
+        action: path,
+        legend: tr(translate, 'r-add-trigger', 'Add trigger'),
+        id: 'parameterized-trigger',
+        inputs: [
+          { name: 'ruleTitle', label: tr(translate, 'r-new-rule-name', 'Rule name'),
+            maxlength: 500 },
+          { type: 'select', name: 'triggerKind', label: tr(translate, 'r-trigger', 'Trigger'),
+            options: PARAMETERIZED_TRIGGERS.map(entry => ({ value: entry.value,
+              label: tr(translate, entry.labelKey, entry.fallback) })) },
+        ],
+        fields: { rulesView: 'workflow', legacyOperation: 'select-parameterized-trigger',
+          boardId: board._id },
+        submitLabel: tr(translate, 'r-add-action', 'Add action'),
+      }),
+    ] });
+    if (workflow && canAdmin && builderTriggerStage) {
+      const triggerFields = {};
+      for (const name of ['ruleTitle', 'triggerKind']) {
+        triggerFields[name] = String(requestFields[name] || '');
+      }
+      rows.push({ rowHeader: false, colspanLast: 3, cells: [
+        tr(translate, 'r-add-trigger', 'Add trigger'), uiFieldsetForm({
+          action: path,
+          legend: tr(translate, 'r-add-trigger', 'Add trigger'),
+          id: 'parameterized-trigger-fields',
+          inputs: parameterizedTriggerInputs(requestFields.triggerKind, translate, board).concat([
+            { type: 'select', name: 'actionKind', label: tr(translate, 'r-action', 'Action'),
+              options: PARAMETERIZED_ACTIONS.map(entry => ({ value: entry.value,
+                label: tr(translate, entry.labelKey, entry.fallback) })) },
+          ]),
+          fields: { rulesView: 'workflow', legacyOperation: 'select-parameterized-action',
+            boardId: board._id, ...triggerFields },
+          submitLabel: tr(translate, 'r-add-action', 'Add action'),
+        }),
+      ] });
+    }
+    if (workflow && canAdmin && builderActionStage) {
+      const visibleBoards = (await Boards.find({ archived: false }, { sort: { title: 1 } }).fetchAsync())
+        .filter(candidate => allowIsBoardMemberWithWriteAccess(userId, candidate));
+      const selectedFields = {};
+      for (const name of ['ruleTitle', 'triggerKind', 'triggerCardTitle', 'triggerListName',
+        'triggerSwimlaneName', 'triggerUsername', 'triggerLabelId', 'triggerChecklistName',
+        'triggerChecklistItemName', 'triggerScheduleType', 'triggerTime', 'triggerWeekday',
+        'triggerDayOfMonth', 'triggerDate', 'triggerDueCondition', 'triggerDays',
+        'triggerButtonLabel', 'actionKind']) selectedFields[name] = String(requestFields[name] || '');
+      rows.push({ rowHeader: false, colspanLast: 3, cells: [
+        tr(translate, 'r-add-action', 'Add action'), uiFieldsetForm({
+          action: path,
+          legend: tr(translate, 'r-add-action', 'Add action'),
+          id: 'parameterized-action',
+          inputs: parameterizedActionInputs(requestFields.actionKind, translate, board, visibleBoards),
+          fields: { rulesView: 'workflow', legacyOperation: 'create-parameterized-rule',
+            boardId: board._id, ...selectedFields },
+          submitLabel: tr(translate, 'r-add-rule', 'Add rule'),
+        }),
+      ] });
+    }
     for (const rule of rules) {
       const controls = [uiAction({
         action: path, label: tr(translate, 'r-view-rule', 'View rule'),

@@ -49,6 +49,8 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
   let modernContext;
   let member;
   let memberContext;
+  let foreign;
+  let foreignBoard;
   try {
     await legacy.goto(`${baseURL}/sign-up`);
     await legacy.locator('input[name="username"]').fill(username);
@@ -110,6 +112,46 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
       boardId: board.boardId, title: `=Native workflow ${suffix}`,
     })).not.toBeNull();
     await expect(legacy.locator('tbody')).toContainText(`=Native workflow ${suffix}`);
+    const triggerBuilder = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="select-parameterized-trigger"])',
+    );
+    await triggerBuilder.locator('input[name="ruleTitle"]')
+      .fill(`Parameterized rule ${suffix}`);
+    await triggerBuilder.locator('select[name="triggerKind"]').selectOption('card-created');
+    await submit(triggerBuilder);
+    const triggerFields = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="select-parameterized-action"])',
+    );
+    await triggerFields.locator('input[name="triggerListName"]').fill(`Inbox ${suffix}`);
+    await triggerFields.locator('select[name="actionKind"]').selectOption('create-card');
+    await submit(triggerFields);
+    const actionBuilder = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="create-parameterized-rule"])',
+    );
+    await expect(actionBuilder.locator('input[name="actionCardName"]')).toBeVisible();
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-board-rules-builder.png`,
+        fullPage: true,
+      });
+    }
+    await actionBuilder.locator('input[name="actionCardName"]')
+      .fill(`<b>Created by rule ${suffix}</b><img src=x onerror=alert(1)>`);
+    await actionBuilder.locator('input[name="actionListName"]').fill(`Done ${suffix}`);
+    await submit(actionBuilder);
+    const parameterized = db.findOne('rules', {
+      boardId: board.boardId, title: `Parameterized rule ${suffix}`,
+    });
+    expect(parameterized).toBeTruthy();
+    expect(db.findOne('triggers', { _id: parameterized.triggerId })).toMatchObject({
+      activityType: 'createCard', listName: `Inbox ${suffix}`, userId: '*',
+    });
+    expect(db.findOne('actions', { _id: parameterized.actionId })).toMatchObject({
+      actionType: 'createCard', cardName: `Created by rule ${suffix}`,
+      listName: `Done ${suffix}`,
+    });
+    foreign = db.seedUser();
+    foreignBoard = db.seedBoard({ ownerId: foreign.id, title: `Foreign ${suffix}` });
     const replaceAction = legacy.locator(
       `form:has(input[name="legacyOperation"][value="replace-workflow-action"]):has(input[name="ruleId"][value="${ids.ruleB}"])`,
     );
@@ -131,7 +173,7 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
       await html4JsonDownload.path(), 'utf8',
     ));
     expect(html4Json._format).toBe('wekan-rules-1.0.0');
-    expect(html4Json.rules).toHaveLength(3);
+    expect(html4Json.rules).toHaveLength(4);
     expect(html4Json.rules.every(rule => !rule._id && !rule.trigger._id && !rule.action._id))
       .toBe(true);
     const [html4CsvDownload] = await Promise.all([
@@ -146,6 +188,30 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
     await navigateInApp(modern, rulesPath);
     await expect(modern.locator('ul.rules-list')).toContainText(`Localized rule ${suffix}`);
+    const forgedParameterized = await modern.evaluate(async ({ boardId, foreignBoardId, title }) => {
+      try {
+        await Meteor.callAsync('rules.createParameterizedRule', boardId, title,
+          'card-created', 'move-top', { sourceBoardId: boardId,
+            actionBoardId: foreignBoardId });
+        return '';
+      } catch (error) {
+        return error.error || error.reason || error.message;
+      }
+    }, { boardId: board.boardId, foreignBoardId: foreignBoard.boardId,
+      title: `Forged parameterized ${suffix}` });
+    expect(forgedParameterized).toBe('not-authorized');
+    expect(db.findOne('rules', { boardId: board.boardId,
+      title: `Forged parameterized ${suffix}` })).toBeNull();
+    await modern.locator('#ruleTitle').fill(`Builder comparison ${suffix}`);
+    await modern.locator('.js-goto-trigger').click();
+    await expect(modern.locator('.triggers-content')).toBeVisible();
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-board-rules-builder.png`,
+        fullPage: true,
+      });
+    }
+    await modern.locator('.js-goback').click();
     await modern.locator(`button.js-goto-details[data-rule-id="${ids.ruleA}"]`).click();
     await expect(modern.locator('.triggers-content')).toContainText(
       'Kun kortti on siirretty arkistoon tekijänä *',
@@ -313,7 +379,8 @@ test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', asy
     await legacyContext.close();
     db.cleanup({
       boardIds: [board?.boardId].filter(Boolean),
-      userIds: [user?._id, member?.id].filter(Boolean),
+      userIds: [user?._id, member?.id, foreign?.id].filter(Boolean),
     });
+    if (foreignBoard) db.cleanup({ boardIds: [foreignBoard.boardId], userIds: [] });
   }
 });

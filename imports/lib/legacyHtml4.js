@@ -144,8 +144,12 @@ function tableRow(cells, options = {}) {
     ? ` style="background-color:${background};color:${textColor(background)}"` : '';
   const backgroundAttribute = background ? ` bgcolor="${background}"` : '';
   const colored = cell => background ? `<font color="${textColor(background)}">${cell}</font>` : cell;
-  return `<tr${backgroundAttribute}${style}>${cells.map((cell, index) => index === 0 && options.rowHeader !== false
-    ? `<th scope="row">${colored(cell)}</th>` : `<td>${colored(cell)}</td>`).join('')}</tr>`;
+  return `<tr${backgroundAttribute}${style}>${cells.map((cell, index) => {
+    if (index === 0 && options.rowHeader !== false) return `<th scope="row">${colored(cell)}</th>`;
+    const colspan = index === cells.length - 1 && Number.isSafeInteger(options.colspanLast)
+      && options.colspanLast > 1 ? ` colspan="${options.colspanLast}"` : '';
+    return `<td${colspan}>${colored(cell)}</td>`;
+  }).join('')}</tr>`;
 }
 
 function authRows(path, options) {
@@ -338,7 +342,8 @@ function contentRows(path, options) {
       return escapeHtml(cell);
     };
     const cells = (row.cells || []).map(renderCell);
-    rows.push(tableRow(cells, { color: row.color, boardTheme: row.boardTheme, rowHeader: row.rowHeader }));
+    rows.push(tableRow(cells, { color: row.color, boardTheme: row.boardTheme,
+      rowHeader: row.rowHeader, colspanLast: row.colspanLast }));
   }
   if (!(options.page.rows || []).length) {
     rows.push(tableRow([escapeHtml(options.page.empty || translated(options, 'no-results', 'No results')), '']));

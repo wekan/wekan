@@ -92,6 +92,7 @@ import {
 } from '/server/lib/accessibleChecklistOperations';
 import {
   createAccessibleWorkflowRule,
+  createAccessibleParameterizedRule,
   importAccessibleRules,
   removeAccessibleRule,
   renameAccessibleRule,
@@ -224,7 +225,8 @@ WebApp.handlers.use(async (req, res, next) => {
     requestFields.confirmRuleDelete = String(requestFields.ruleId || '');
   }
   if (session && rulesPath
-    && ['create-workflow-rule', 'replace-workflow-action', 'import-rules',
+    && ['create-workflow-rule', 'create-parameterized-rule',
+      'replace-workflow-action', 'import-rules',
       'rename-rule', 'delete-rule']
       .includes(requestFields.legacyOperation)) {
     try {
@@ -241,6 +243,29 @@ WebApp.handlers.use(async (req, res, next) => {
             title: requestFields.ruleTitle,
             triggerIndex: requestFields.triggerIndex,
             actionIndex: requestFields.actionIndex,
+          });
+        }
+        if (requestFields.legacyOperation === 'create-parameterized-rule') {
+          const fields = {};
+          for (const name of [
+            'triggerCardTitle', 'triggerListName', 'triggerSwimlaneName',
+            'triggerUsername', 'triggerLabelId', 'triggerChecklistName',
+            'triggerChecklistItemName', 'triggerScheduleType', 'triggerTime',
+            'triggerWeekday', 'triggerDayOfMonth', 'triggerDate',
+            'triggerDueCondition', 'triggerDays', 'triggerButtonLabel',
+            'actionBoardId', 'actionCardName', 'actionListName',
+            'actionFromListName', 'actionSwimlaneName', 'actionLabelId',
+            'actionUsername', 'actionSortField', 'actionDateField',
+            'actionAmount', 'actionUnit', 'actionColor', 'actionChecklistName',
+            'actionChecklistItemName', 'actionChecklistItems', 'actionEmailTo',
+            'actionEmailSubject', 'actionEmailMessage',
+          ]) fields[name] = requestFields[name];
+          return createAccessibleParameterizedRule(session.userId, {
+            boardId: input.boardId,
+            title: requestFields.ruleTitle,
+            triggerKind: requestFields.triggerKind,
+            actionKind: requestFields.actionKind,
+            fields,
           });
         }
         if (requestFields.legacyOperation === 'replace-workflow-action') {

@@ -500,6 +500,18 @@ server batch. Workflow JSON crosses the structural boundary before graph edges
 are traversed; auto-detection is shape-based, unknown edges are counted for the
 result message, and recognized edges become the same portable rule tuples.
 
+The full Rules builder is schema-driven rather than a free JSON editor. Its
+first native POST selects one of the board, label/member/attachment, checklist,
+scheduled or manual-button triggers. The next form asks only for that trigger's
+fields and selects an action; the third asks only for that action's board/card
+placement, date, label/member, color, checklist or email fields. The final
+server operation rebuilds both
+documents from the shared typed catalog, resolves usernames and labels against
+the source board, repeats destination-board write authorization, and inserts
+the trigger/action/rule tuple with cleanup on failure. Empty fields retain the
+modern builder's wildcard meaning. Controls remain in label-before-control DOM
+order; fields irrelevant to the selected kind are ignored by the builder.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

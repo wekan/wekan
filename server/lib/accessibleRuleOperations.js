@@ -8,6 +8,8 @@ import { tripCanary } from '/server/lib/canary';
 import { TAPi18n } from '/imports/i18n';
 import { secureTransfer } from '/server/lib/secureTransfer';
 import { TriggersDef } from '/server/triggersDef';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { CARD_COLORS } from '/models/metadata/colors';
 import {
   normalizeRuleTrigger,
   parseRuleTransferText,
@@ -23,6 +25,10 @@ const {
   parseTrelloButler,
   parseWorkflowData,
 } = require('/models/lib/ruleExternalImport');
+const {
+  buildParameterizedAction,
+  buildParameterizedTrigger,
+} = require('/models/lib/ruleParameterizedCatalog');
 
 const MAX_RULE_TITLE_LENGTH = 500;
 const MAX_RULE_IMPORT_BYTES = 1024 * 1024;
@@ -110,16 +116,93 @@ async function insertRuleTuple(boardId, entry) {
   let actionId;
   try {
     triggerId = await Triggers.insertAsync({ ...entry.trigger, boardId });
-    actionId = await Actions.insertAsync({ ...entry.action, boardId });
-    const ruleId = await Rules.insertAsync({
+    actionId = await Actions.insertAsync({ boardId, ...entry.action });
+    const ruleDoc = {
       title: entry.title, triggerId, actionId, boardId,
-    });
+    };
+    if (entry.trigger.activityType === 'button') {
+      ruleDoc.buttonType = entry.trigger.buttonType;
+      ruleDoc.buttonLabel = entry.trigger.buttonLabel;
+    }
+    const ruleId = await Rules.insertAsync(ruleDoc);
     return { _id: ruleId, triggerId, actionId };
   } catch (error) {
     if (triggerId) await Triggers.removeAsync(triggerId).catch(() => {});
     if (actionId) await Actions.removeAsync(actionId).catch(() => {});
     throw error;
   }
+}
+
+function boardHasLabel(board, labelId) {
+  return labelId === '*' || (Array.isArray(board.labels)
+    && board.labels.some(label => label?._id === labelId));
+}
+
+async function boardUsername(board, username, required) {
+  if (!username || username === '*') {
+    if (required) throw new Meteor.Error('invalid-rule-parameter', 'Member is required');
+    return null;
+  }
+  const user = await Meteor.users.findOneAsync({ username }, { fields: { _id: 1 } });
+  if (!user || !board.hasMember(user._id)) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Member must belong to this board');
+  }
+  return user;
+}
+
+export async function createAccessibleParameterizedRule(userId, input = {}) {
+  const board = await editableBoard(userId, input.boardId);
+  const safe = secureTransfer({ title: input.title, fields: input.fields || {} }, {
+    direction: 'import', source: 'rules:parameterized-builder', userId,
+    maxDepth: 3, maxNodes: 100, maxArray: 100, maxString: 10000,
+  });
+  const fields = { ...safe.fields, sourceBoardId: board._id };
+  if (fields.triggerUsername && fields.triggerUsername !== '*') {
+    const triggerUser = await boardUsername(board, fields.triggerUsername, true);
+    fields.triggerUserId = triggerUser._id;
+  }
+  const trigger = buildParameterizedTrigger(input.triggerKind, fields);
+  const action = buildParameterizedAction(input.actionKind, fields);
+  if (trigger.labelId && !boardHasLabel(board, trigger.labelId)) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Trigger label must belong to this board');
+  }
+  if (['addLabel', 'removeLabel'].includes(action.actionType)
+    && !boardHasLabel(board, action.labelId)) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Action label must belong to this board');
+  }
+  if (['addMember', 'removeMember'].includes(action.actionType)
+    && action.username !== '*') await boardUsername(board, action.username, true);
+  if (action.actionType === 'addSwimlane' && !action.swimlaneName) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Swimlane name is required');
+  }
+  if (action.actionType === 'setColor' && !CARD_COLORS.includes(action.selectedColor)) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Unknown card color');
+  }
+  if (action.actionType === 'createCard' && !action.cardName) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Card name is required');
+  }
+  if (['addChecklist', 'removeChecklist', 'checkAll', 'uncheckAll',
+    'checkItem', 'uncheckItem', 'addChecklistWithItems'].includes(action.actionType)
+    && !action.checklistName) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Checklist name is required');
+  }
+  if (['checkItem', 'uncheckItem'].includes(action.actionType)
+    && !action.checkItemName) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Checklist item name is required');
+  }
+  if (action.actionType === 'sendEmail' && !action.emailTo) {
+    throw new Meteor.Error('invalid-rule-parameter', 'Email recipient is required');
+  }
+  if (['moveCardToTop', 'moveCardToBottom', 'linkCard'].includes(action.actionType)) {
+    const destination = await ReactiveCache.getBoard(action.boardId);
+    if (!destination || !allowIsBoardMemberWithWriteAccess(userId, destination)) {
+      tripCanary('rule.cross-board-write', { userId });
+      throw new Meteor.Error('not-authorized', 'Must have write access to destination board');
+    }
+  }
+  return insertRuleTuple(board._id, {
+    title: normalizedRuleTitle(safe.title), trigger, action,
+  });
 }
 
 export async function renameAccessibleRule(userId, input = {}) {
