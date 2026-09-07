@@ -281,8 +281,8 @@ S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 Database Migration shares guarded direction controls and live progress.
 All ten Attachments panes now have complete equivalent HTML4 operations.
 The complete public account and email-token lifecycle now has guarded Legacy HTML4
-forms. Member profile, language, password, settings, color, font and avatar now
-have equivalent guarded HTML4 pages at their modern URLs.
+forms. Member profile, language, password, settings, color, font, avatar,
+invitation and logout now have equivalent guarded HTML4 pages at their modern URLs.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -298,6 +298,23 @@ have equivalent guarded HTML4 pages at their modern URLs.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e300f7f2">Add accessible member invitation and logout</a>. Thanks to xet7.</summary>
+
+Member Menu / Invite People and Log Out now have stable `/account/invite` and
+`/account/logout` routes with equivalent semantic HTML4 and Jade controls. One
+server boundary limits and normalizes invitation addresses and accepts only
+non-archived boards where the inviter is an active administrator.
+
+Forged private, archived, missing or out-of-scope board IDs are refused before an
+invitation code is written and attributed in Problems / Security. Cookieless logout
+deletes the exact rotated HTML4 session and returns POST/303 to Sign In without
+minting another authenticated action token. Static positive and negative suites
+pass; a live same-URL Chromium test captures both pairs, verifies forged-board
+refusal and reporting, and proves both HTML4 and HTML5 logout terminate sessions.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f2746358">Add accessible member avatar page</a>. Thanks to xet7.</summary>

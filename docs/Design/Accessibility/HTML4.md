@@ -292,6 +292,24 @@ JavaScript or cookies, verifies GIF metadata and the durable profile pointer, ca
 both views, rejects a forged foreign ID, confirms deletion and verifies both the stored
 file and selected pointer are gone.
 
+`/account/invite` and `/account/logout` complete the Member Menu conversion. The
+invitation page keeps the same email list and board choices in Jade and in one
+labelled HTML4 fieldset. Its shared server boundary normalizes and deduplicates at
+most 100 addresses, bounds the board list, and accepts only non-archived boards on
+which the actor is both active and an administrator. This check is repeated after
+submission: inserting a hidden private, archived or unknown board ID cannot add it
+to an invitation code. Refusals are attributed in Problems / Security with the
+available username, address and location context.
+
+The logout page provides an explicit submit control at the same URL in both views.
+HTML4 consumes its one-use signed action, deletes exactly that account-bound
+cookieless session and returns POST/303 to Sign In. It does not render another set
+of authenticated action tokens after deletion, and replaying an older signed form
+cannot restore the session. Live same-URL coverage compares both invitation and
+logout pages, proves a forged foreign board creates no invitation code and does
+create a Security report, and verifies logout removes the server session before the
+login form is shown.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
