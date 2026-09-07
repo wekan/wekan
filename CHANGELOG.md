@@ -269,7 +269,7 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary and thirteen reports now share guarded
+secure JSON/CSV transfers. Problems Summary and fourteen reports now share guarded
 status, search, paging, identity resolution, acknowledgements and repairs between
 both views.
 
@@ -452,6 +452,26 @@ deduplicated page-local context lookups. Tests cover every broken branch,
 projection, bounds, columns and refusal. A same-URL Chromium test searches
 twelve broken cards, verifies two pages and context in both views, captures both
 representations and proves anonymous isolation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d4e377dd">Add accessible HTML4 Files Report</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Files Report now renders Preview, Filename, Size, MIME
+Type, Attachment ID, Board ID and Card ID in a semantic Legacy HTML4 table.
+Image GIF preview and every original download use separate purpose-bound POST
+controls. Signed search and ten-row paging retain state without JavaScript or
+cookies.
+
+HTML5 and HTML4 share one Global Admin-only plain-collection metadata service,
+escaped bounded filename search, indexed ordering, database count and capped
+window. Permanent delete is absent until enabled, then uses the same two-step
+audited service in both views. Its success and refusal paths record available
+identity, network/location data, attachment id, sanitized name and card id in
+Recovery. Tests cover controls, setting enforcement, deletion and authorization.
+A same-URL Chromium test verifies twelve files, both setting states, an actual
+deletion and Recovery event, two pages, screenshots and anonymous isolation.
 
 </details>
 
