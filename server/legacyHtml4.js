@@ -124,6 +124,10 @@ const {
   getBlockedFieldName,
   toBytes,
 } = require('/models/lib/attachmentTransferLimits');
+const {
+  CLOUD_CONFIG_FIELDS,
+  normalizeCloudConfig,
+} = require('/models/lib/attachmentCloudConfig');
 import { clearPersonAvatarForAdmin, createPersonForAdmin, deletePersonAvatarForAdmin,
   deletePersonForAdmin, impersonatePersonForAdmin, selectPersonAvatarForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin, updatePersonForAdmin,
@@ -933,6 +937,61 @@ WebApp.handlers.use(async (req, res, next) => {
         require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
           req, userId: session.userId,
           detail: `refused HTML4 ${String(localStorageMatch[1])} operation: ${String(error?.error || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+  }
+  const cloudStorageMatch = path.match(/^\/admin\/attachments\/(s3|azure|gcs)$/);
+  if (session && cloudStorageMatch
+    && ['save-cloud-storage', 'test-cloud-storage', 'calculate-cloud-storage-stats']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      const provider = cloudStorageMatch[1];
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      await DDP._CurrentMethodInvocation.withValue(invocation, async () => {
+        if (requestFields.legacyOperation === 'calculate-cloud-storage-stats') {
+          const methods = { s3: 'getS3StorageStats', azure: 'getAzureStorageStats',
+            gcs: 'getGcsStorageStats' };
+          requestFields.legacyAttachmentStorageStats =
+            await Meteor.server.method_handlers[methods[provider]].call(invocation);
+          return;
+        }
+        const raw = {};
+        for (const [field, definition] of Object.entries(CLOUD_CONFIG_FIELDS[provider])) {
+          if (definition.hidden) continue;
+          raw[field] = definition.type === 'boolean'
+            ? requestFields[field] === 'true' : String(requestFields[field] || '');
+        }
+        const config = normalizeCloudConfig(provider, raw);
+        if (requestFields.legacyOperation === 'save-cloud-storage') {
+          return Meteor.server.method_handlers.updateAttachmentStorageSettings.call(invocation, {
+            storageConfig: { [provider]: config },
+          });
+        }
+        try {
+          const result = await Meteor.server.method_handlers.testAttachmentCloudConnection
+            .call(invocation, provider, config);
+          requestFields.legacyCloudTestResult = result?.ok
+            ? { ok: true } : { ok: false, error: result?.error || 'failed' };
+        } catch (error) {
+          if (error?.error === 'invalid-storage-settings'
+            || error?.error === 'not-authorized') throw error;
+          requestFields.legacyCloudTestResult = {
+            ok: false, error: String(error?.reason || error?.message || 'failed').slice(0, 500),
+          };
+        }
+      });
+      if (requestFields.legacyOperation !== 'test-cloud-storage') {
+        requestFields.legacyAttachmentsResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.legacyAttachmentsResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed');
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachments', {
+          req, userId: session.userId,
+          detail: `refused HTML4 ${String(cloudStorageMatch[1])} settings: ${String(error?.error || 'failed')}`,
         });
       } catch (_) { /* reporting must not weaken the refusal */ }
     }

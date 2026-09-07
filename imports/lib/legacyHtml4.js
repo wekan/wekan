@@ -239,33 +239,38 @@ function contentRows(path, options) {
         const inputs = (cell.inputs || []).map((input, index) => {
           const name = String(input.name || 'field');
           const id = `legacy-${name.replace(/[^a-z0-9_-]/gi, '')}-${suffix}-${index}`;
+          const description = input.description
+            ? `<br><small>${escapeHtml(input.description)}</small>` : '';
           if (input.type === 'select') {
             const options = (input.options || []).map(option => {
               const value = String(option.value ?? '');
               const selected = value === String(input.value ?? '') ? ' selected' : '';
               return `<option value="${escapeHtml(value)}"${selected}>${escapeHtml(option.label)}</option>`;
             }).join('');
-            return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><select id="${escapeHtml(id)}" name="${escapeHtml(name)}">${options}</select></p>`;
+            return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><select id="${escapeHtml(id)}" name="${escapeHtml(name)}">${options}</select>${description}</p>`;
           }
           if (input.type === 'checkbox') {
             const checked = input.checked ? ' checked' : '';
-            return `<p><label><input name="${escapeHtml(name)}" type="checkbox" value="${escapeHtml(input.value ?? '1')}"${checked}> ${escapeHtml(input.label)}</label></p>`;
+            return `<p><label><input name="${escapeHtml(name)}" type="checkbox" value="${escapeHtml(input.value ?? '1')}"${checked}> ${escapeHtml(input.label)}</label>${description}</p>`;
           }
           const maximum = Number.isSafeInteger(input.maxlength) && input.maxlength > 0
             ? input.maxlength : 1000;
           if (input.type === 'textarea') {
             const rows = Number.isSafeInteger(input.rows) && input.rows > 0 ? input.rows : 12;
             const cols = Number.isSafeInteger(input.cols) && input.cols > 0 ? input.cols : 80;
-            return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(name)}" maxlength="${maximum}" rows="${rows}" cols="${cols}">${escapeHtml(input.value || '')}</textarea></p>`;
+            return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><textarea id="${escapeHtml(id)}" name="${escapeHtml(name)}" maxlength="${maximum}" rows="${rows}" cols="${cols}">${escapeHtml(input.value || '')}</textarea>${description}</p>`;
           }
           const type = ['email', 'password', 'text'].includes(input.type)
             ? input.type : 'text';
           const autocomplete = input.autocomplete
             ? ` autocomplete="${escapeHtml(input.autocomplete)}"` : '';
           const required = input.required ? ' required' : '';
-          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="${type}" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"${autocomplete}${required}></p>`;
+          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="${type}" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"${autocomplete}${required}>${description}</p>`;
         }).join('');
-        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${inputs}<p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}"></p></fieldset></form>`;
+        const submits = Array.isArray(cell.submitActions) && cell.submitActions.length
+          ? cell.submitActions.map(submit => `<button type="submit" name="${escapeHtml(submit.name || 'legacyOperation')}" value="${escapeHtml(submit.value || '')}">${escapeHtml(uiControlLabel(submit.icon || 'caret-right', submit.label || cell.legend))}</button>`).join(' ')
+          : `<input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}">`;
+        return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${inputs}<p>${submits}</p></fieldset></form>`;
       }
       if (cell && typeof cell === 'object' && cell.component === 'select') {
         const id = `legacy-${String(cell.name || 'select').replace(/[^a-z0-9_-]/gi, '')}`;

@@ -70,8 +70,10 @@ function uiTextareaGroupForm({ action, legend, textareas = [], fields = {}, subm
   return { component: 'textarea-group', action, legend, textareas, fields, submitLabel, id };
 }
 
-function uiFieldsetForm({ action, legend, inputs = [], fields = {}, submitLabel, id = '' }) {
-  return { component: 'fieldset', action, legend, inputs, fields, submitLabel, id };
+function uiFieldsetForm({ action, legend, inputs = [], fields = {}, submitLabel,
+  submitActions = [], id = '' }) {
+  return { component: 'fieldset', action, legend, inputs, fields, submitLabel,
+    submitActions, id };
 }
 
 function uiFileForm({ action, label, name, accept = '', sections = [], fields = {}, submitLabel }) {

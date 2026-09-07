@@ -86,6 +86,43 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
       .toBeVisible();
     await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-gridfs.png`, fullPage: true });
 
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/s3"] input[type="submit"]').first().click()]);
+    form = legacy.locator('fieldset:has(button[value="save-cloud-storage"])').locator('..');
+    await form.locator('input[name="enabled"]').uncheck();
+    await form.locator('input[name="read"]').check();
+    await form.locator('input[name="region"]').fill('html4-region');
+    await form.locator('input[name="bucket"]').fill(`html4-s3-${suffix}`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('button[value="save-cloud-storage"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})
+      ?.storageConfig?.s3?.bucket).toBe(`html4-s3-${suffix}`);
+    await expect(legacy.locator('button[value="test-cloud-storage"]')).toBeVisible();
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-s3.png`, fullPage: true });
+
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/azure"] input[type="submit"]').first().click()]);
+    form = legacy.locator('fieldset:has(button[value="save-cloud-storage"])').locator('..');
+    await form.locator('input[name="enabled"]').uncheck();
+    await form.locator('input[name="read"]').check();
+    await form.locator('input[name="accountName"]').fill(`html4azure${suffix}`);
+    await form.locator('input[name="bucket"]').fill(`html4-azure-${suffix}`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('button[value="save-cloud-storage"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})
+      ?.storageConfig?.azure?.bucket).toBe(`html4-azure-${suffix}`);
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-azure.png`, fullPage: true });
+
+    await Promise.all([legacy.waitForNavigation(),
+      legacy.locator('form[action="/admin/attachments/gcs"] input[type="submit"]').first().click()]);
+    form = legacy.locator('fieldset:has(button[value="save-cloud-storage"])').locator('..');
+    await form.locator('input[name="enabled"]').uncheck();
+    await form.locator('input[name="read"]').check();
+    await form.locator('input[name="projectId"]').fill(`html4-project-${suffix}`);
+    await form.locator('input[name="bucket"]').fill(`html4-gcs-${suffix}`);
+    await Promise.all([legacy.waitForNavigation(), form.locator('button[value="save-cloud-storage"]').click()]);
+    await expect.poll(() => db.findOne('attachmentStorageSettings', {})
+      ?.storageConfig?.gcs?.bucket).toBe(`html4-gcs-${suffix}`);
+    await legacy.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html4-gcs.png`, fullPage: true });
+
     modernContext = await browser.newContext({ locale: 'en-US' });
     const modern = await modernContext.newPage();
     await loginWithToken(modern, user._id, db.addResumeToken(user._id));
@@ -110,6 +147,15 @@ test('Default storage and limits match at the same Attachments URLs', async ({ b
     );
     await expect(modern.locator('.js-compact-mongodb-gridfs')).toBeVisible();
     await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-gridfs.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/s3');
+    await expect(modern.locator('#s3-bucket')).toHaveValue(`html4-s3-${suffix}`);
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-s3.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/azure');
+    await expect(modern.locator('#azure-bucket')).toHaveValue(`html4-azure-${suffix}`);
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-azure.png`, fullPage: true });
+    await navigateInApp(modern, '/admin/attachments/gcs');
+    await expect(modern.locator('#gcs-bucket')).toHaveValue(`html4-gcs-${suffix}`);
+    await modern.screenshot({ path: `${process.cwd()}/../../.tools/html4-admin-attachments-core/html5-gcs.png`, fullPage: true });
 
     db.updateOne('users', { _id: user._id }, { $set: { isAdmin: false } });
     await Promise.all([legacy.waitForNavigation(),

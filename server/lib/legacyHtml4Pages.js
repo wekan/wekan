@@ -137,6 +137,7 @@ const {
   pickUnitForBytes,
   toDisplayValue,
 } = require('/models/lib/attachmentTransferLimits');
+const { CLOUD_CONFIG_FIELDS } = require('/models/lib/attachmentCloudConfig');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
 const POKER_STATES = [
   'one', 'two', 'three', 'five', 'eight', 'thirteen', 'twenty', 'forty',
@@ -2922,6 +2923,121 @@ async function adminAttachmentsLocalStoragePage(path, userId, requestFields, tra
   };
 }
 
+const CLOUD_FIELD_LABELS = Object.freeze({
+  s3: {
+    enabled: ['storage-enabled', 'Enabled'], read: ['storage-read', 'Read'],
+    endpoint: ['s3-endpoint', 'Endpoint', 's3-endpoint-description'],
+    region: ['s3-region', 'Region', 's3-region-description'],
+    bucket: ['s3-bucket', 'Bucket', 's3-bucket-description'],
+    accessKeyId: ['s3-access-key', 'Access key ID', 's3-access-key-description'],
+    secretAccessKey: ['s3-secret-key', 'Secret access key', 'cloud-secret-keep-blank'],
+    forcePathStyle: ['s3-force-path-style', 'Force path style',
+      's3-force-path-style-description'],
+  },
+  azure: {
+    enabled: ['storage-enabled', 'Enabled'], read: ['storage-read', 'Read'],
+    accountName: ['azure-account-name', 'Storage account name',
+      'azure-account-name-description'],
+    accountKey: ['azure-account-key', 'Storage account key', 'cloud-secret-keep-blank'],
+    connectionString: ['azure-connection-string', 'Connection string',
+      'azure-connection-string-description'],
+    bucket: ['azure-container', 'Container name', 'azure-container-description'],
+  },
+  gcs: {
+    enabled: ['storage-enabled', 'Enabled'], read: ['storage-read', 'Read'],
+    projectId: ['gcs-project-id', 'Project ID', 'gcs-project-id-description'],
+    bucket: ['gcs-bucket', 'Bucket', 'gcs-bucket-description'],
+    keyFilename: ['gcs-key-filename', 'Service account key file path',
+      'gcs-key-filename-description'],
+    credentials: ['gcs-credentials', 'Service account key JSON',
+      'gcs-credentials-description'],
+  },
+});
+
+async function adminAttachmentsCloudPage(path, userId, requestFields, translate) {
+  const match = path.match(/^\/admin\/attachments\/(s3|azure|gcs)$/);
+  if (!match) return null;
+  const provider = match[1];
+  let settings;
+  try {
+    settings = await attachmentSettingsForHtml4(userId);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'attachments', 'Attachments'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [provider, tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const title = provider === 's3'
+    ? tr(translate, 's3-minio-storage', 'S3 / MinIO storage')
+    : provider === 'azure'
+      ? tr(translate, 'azure-blob-storage', 'Azure Blob storage')
+      : tr(translate, 'gcs-storage', 'Google Cloud storage');
+  const config = settings.storageConfig?.[provider] || {};
+  const inputs = Object.entries(CLOUD_CONFIG_FIELDS[provider])
+    .filter(([, definition]) => !definition.hidden)
+    .map(([field, definition]) => {
+    const [key, fallback, descriptionKey] = CLOUD_FIELD_LABELS[provider][field];
+    if (definition.type === 'boolean') return {
+      type: 'checkbox', name: field, value: 'true', checked: config[field] === true,
+      label: tr(translate, key, fallback),
+    };
+    return {
+      type: definition.type, name: field,
+      value: definition.secret ? '' : String(config[field] || ''),
+      label: `${tr(translate, key, fallback)}${definition.secret && config[`${field}Set`]
+        ? ` (${tr(translate, 'cloud-secret-set', 'secret is set')})` : ''}`,
+      description: descriptionKey ? tr(translate, descriptionKey, '') : '',
+      maxlength: definition.max,
+      rows: definition.type === 'textarea' ? 8 : undefined,
+      autocomplete: definition.type === 'password' ? 'new-password' : undefined,
+    };
+    });
+  const rows = [
+    { rowHeader: false, cells: [tr(translate, 'attachments', 'Attachments'),
+      adminAttachmentsNavigation(translate)] },
+    ...(provider === 's3' ? [{ cells: [title,
+      tr(translate, 's3-minio-storage-description', '')] }]
+      : provider === 'gcs' ? [{ cells: [title, tr(translate, 'gcs-permissions-note', '')] }]
+        : []),
+    { cells: [title, uiFieldsetForm({ action: path, legend: title, inputs,
+      submitActions: [
+        { value: 'test-cloud-storage',
+          label: tr(translate, 'test-cloud-connection', 'Test cloud connection') },
+        { value: 'save-cloud-storage', label: tr(translate, 'save', 'Save') },
+      ], id: `legacy-${provider}-storage`,
+    })] },
+    { cells: [tr(translate, 'calculate-file-counts', 'Calculate file counts'), uiAction({
+      action: path, label: tr(translate, 'calculate-file-counts', 'Calculate file counts'),
+      fields: { legacyOperation: 'calculate-cloud-storage-stats' },
+    })] },
+  ];
+  if (requestFields.legacyAttachmentsResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyAttachmentsResult,
+  ] });
+  if (requestFields.legacyCloudTestResult) rows.push({ cells: [
+    tr(translate, 'test-cloud-connection', 'Test cloud connection'),
+    requestFields.legacyCloudTestResult.ok
+      ? tr(translate, 'cloud-connection-success', 'Connection succeeded')
+      : `${tr(translate, 'cloud-connection-failed', 'Connection failed')}: ${String(
+        requestFields.legacyCloudTestResult.error || '')}`,
+  ] });
+  if (requestFields.legacyAttachmentStorageStats) {
+    rows.push({ cells: [tr(translate, 'attachments', 'Attachments'),
+      String(requestFields.legacyAttachmentStorageStats.attachments || 0)] });
+    rows.push({ cells: [tr(translate, 'avatars', 'Avatars'),
+      String(requestFields.legacyAttachmentStorageStats.avatars || 0)] });
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+      'attachments', 'Attachments')} / ${title}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminAttachmentsBaselinePage(path, userId, translate) {
   const match = path.match(/^\/admin\/attachments\/(backup|move|default-save-storage|limits|gridfs|filesystem|s3|azure|gcs|database-migration)$/);
   if (!match) return null;
@@ -5393,6 +5509,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminAttachmentsLocalStorage) return adminAttachmentsLocalStorage;
+  const adminAttachmentsCloud = await adminAttachmentsCloudPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminAttachmentsCloud) return adminAttachmentsCloud;
   const adminAttachmentsBaseline = await adminAttachmentsBaselinePage(path, userId, translate);
   if (adminAttachmentsBaseline) return adminAttachmentsBaseline;
   const adminProblemsSummary = await adminProblemsSummaryPage(

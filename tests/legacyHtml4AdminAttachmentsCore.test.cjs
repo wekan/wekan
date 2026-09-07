@@ -44,8 +44,18 @@ for (const operation of ['set-local-storage-read', 'calculate-local-storage-stat
   'compact-gridfs']) assert.ok(route.includes(operation) && page.includes(operation));
 assert.ok(route.includes("requestFields.legacyOperation === 'compact-gridfs' && storage !== 'gridfs'"));
 
+assert.ok(page.includes("s3|azure|gcs"));
+assert.ok(page.includes('CLOUD_CONFIG_FIELDS[provider]'));
+assert.ok(page.includes('submitActions:'));
+for (const operation of ['save-cloud-storage', 'test-cloud-storage',
+  'calculate-cloud-storage-stats']) assert.ok(route.includes(operation) && page.includes(operation));
+for (const method of ['getS3StorageStats', 'getAzureStorageStats', 'getGcsStorageStats',
+  'testAttachmentCloudConnection']) assert.ok(route.includes(method));
+assert.ok(route.includes('normalizeCloudConfig(provider, raw)'));
+assert.ok(jade.includes('CLOUD_FIELD_IDS'));
+
 assert.ok(jade.includes("require('/models/lib/attachmentTransferLimits')"));
 assert.ok(!jade.includes('const LIMIT_UNIT_FACTORS ='));
 assert.ok(!jade.includes('function normalizeLimitSettings('));
 
-console.log('legacyHtml4AdminAttachmentsCore: 5 panes share guarded settings operations');
+console.log('legacyHtml4AdminAttachmentsCore: 8 panes share guarded settings operations');

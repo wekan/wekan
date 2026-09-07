@@ -63,6 +63,24 @@ test('shared fieldset component keeps related labelled fields in one form', () =
   assert.equal((html.match(/name="locationLatitude"/g) || []).length, 1);
 });
 
+test('shared fieldset component supports distinct semantic submit actions', () => {
+  const component = uiFieldsetForm({
+    action: '/admin/attachments/s3', legend: 'S3',
+    inputs: [{ label: 'Bucket', name: 'bucket', value: 'files' }],
+    submitActions: [
+      { value: 'test-cloud-storage', label: 'Test' },
+      { value: 'save-cloud-storage', label: 'Save' },
+    ],
+  });
+  const html = renderLegacyHtml4Page('/admin/attachments/s3', {
+    authenticated: true, username: 'alice', actionFields: () => ({}),
+    page: { heading: 'S3', columns: ['Field', 'Value'], rows: [{ cells: [component, ''] }] },
+  });
+  assert.match(html, /<button type="submit" name="legacyOperation" value="test-cloud-storage">&gt; Test<\/button>/);
+  assert.match(html, /<button type="submit" name="legacyOperation" value="save-cloud-storage">&gt; Save<\/button>/);
+  assert.equal((html.match(/name="bucket"/g) || []).length, 1);
+});
+
 test('every Legacy HTML4 translation key exists in the source catalogue', () => {
   const root = path.join(__dirname, '..');
   const english = JSON.parse(fs.readFileSync(path.join(root, 'imports', 'i18n', 'data',
