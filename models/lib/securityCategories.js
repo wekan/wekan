@@ -19,6 +19,7 @@ const CATALOG = {
   'spoofing.xff':    { category: 'spoofing', bleed: 'MetricsBleed', severity: 'medium', cwe: 'CWE-290' },
   'authz.export':    { category: 'authz', bleed: 'ImpersonateBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.import':    { category: 'authn', bleed: 'ImportBleed', severity: 'critical', cwe: 'CWE-306' },
+  'authz.import':    { category: 'authz', bleed: 'ImportBleed', severity: 'high', cwe: 'CWE-639' },
   'authn.miniprofile': { category: 'authn', bleed: 'MiniProfileBleed', severity: 'medium', cwe: 'CWE-306' },
   'authz.board':     { category: 'authz', bleed: 'BoardBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.position-history': { category: 'authz', bleed: 'PositionHistoryBleed', severity: 'high', cwe: 'CWE-639' },

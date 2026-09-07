@@ -280,7 +280,7 @@ test('HTML4 file imports stream bounded multipart data to private temporary file
   assert.match(operations, /readWekanZipArchive\(upload\.tempPath/);
   assert.match(operations, /new WekanCreator\(\{ membersMapping: \{\},[\s\S]*attachmentStream/);
   assert.match(operations, /withDeadline\(creator\.create\(document, null\)/);
-  assert.match(operations, /return await invokeImport/);
+  assert.match(operations, /return await importDraft/);
   assert.ok(middleware.indexOf('receiveLegacyHtml4Multipart(req)')
     < middleware.indexOf('consumeLegacyHtml4Session(req, path)'),
   'multipart fields are parsed before their signature is checked');

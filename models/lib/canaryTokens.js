@@ -103,6 +103,10 @@ const CANARIES = {
     key: 'authz.calendar',
     what: 'tried to import iCalendar events as cards without board write access',
   },
+  'legacy-html4.import-draft': {
+    key: 'authz.import',
+    what: 'tried to finish a missing, foreign or already-consumed Legacy HTML4 import draft',
+  },
   'board.write-without-capability': {
     key: 'authz.assigned',
     what: 'tried to mutate board content without the board write capability',

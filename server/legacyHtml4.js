@@ -11,6 +11,8 @@ import {
   destroyLegacyHtml4Session,
   LegacyHtml4Sessions,
   sessionFields,
+  storeLegacyHtml4ImportDraft,
+  consumeLegacyHtml4ImportDraft,
 } from '/server/lib/legacyHtml4Session';
 import { legacyHtml4Page } from '/server/lib/legacyHtml4Pages';
 import EventLog from '/models/eventLog';
@@ -27,6 +29,7 @@ import {
   importLegacyHtml4File,
   importLegacyHtml4ScopedFile,
   importLegacyHtml4Text,
+  finishLegacyHtml4Import,
 } from '/server/lib/legacyHtml4Imports';
 import {
   isLegacyHtml4Multipart,
@@ -2178,6 +2181,27 @@ WebApp.handlers.use(async (req, res, next) => {
       };
     }
   }
+  if (session && ['finish-board-import', 'finish-board-import-without-mapping']
+    .includes(requestFields.legacyOperation)) {
+    const draft = await consumeLegacyHtml4ImportDraft(session, requestFields.importDraftId);
+    if (!draft) {
+      try {
+        require('/server/lib/canary').tripCanary('legacy-html4.import-draft', {
+          req, userId: session.userId,
+          detail: 'refused missing, foreign or replayed HTML4 import draft',
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+    }
+    const mapped = draft?.members?.map((member, index) =>
+      requestFields.legacyOperation === 'finish-board-import'
+        ? requestFields[`memberMap${index}`] : '') || [];
+    requestFields.legacyImportResult = draft
+      ? await finishLegacyHtml4Import({
+        userId: session.userId, draft, memberUsernames: mapped,
+        clientAddress: session.address,
+      })
+      : { ok: false, errorKey: 'error-notAuthorized' };
+  }
   if (session && requestFields.legacyOperation === 'import-board-text') {
     const source = /^\/import\/([^/]+)$/.exec(path)?.[1] || '';
     requestFields.legacyImportResult = await importLegacyHtml4Text({
@@ -2187,6 +2211,14 @@ WebApp.handlers.use(async (req, res, next) => {
       fields: requestFields.importFields,
       clientAddress: session.address,
     });
+    if (requestFields.legacyImportResult?.pending) {
+      const draft = requestFields.legacyImportResult.draft;
+      if (await storeLegacyHtml4ImportDraft(session, draft)) {
+        requestFields.legacyImportResult = { ok: true, pending: true, draft: {
+          id: draft.id, members: draft.members,
+        } };
+      } else requestFields.legacyImportResult = { ok: false, errorKey: 'operation-failed' };
+    }
   }
   if (session && multipartUpload && /^\/b\/[^/]+/.test(path)
     && requestFields.legacyOperation === 'import-checklist-file') {
@@ -2223,6 +2255,14 @@ WebApp.handlers.use(async (req, res, next) => {
       fields: requestFields.importFields,
       clientAddress: session.address,
     });
+    if (requestFields.legacyImportResult?.pending) {
+      const draft = requestFields.legacyImportResult.draft;
+      if (await storeLegacyHtml4ImportDraft(session, draft)) {
+        requestFields.legacyImportResult = { ok: true, pending: true, draft: {
+          id: draft.id, members: draft.members,
+        } };
+      } else requestFields.legacyImportResult = { ok: false, errorKey: 'operation-failed' };
+    }
   }
   await removeLegacyHtml4Upload(multipartUpload);
   if (query.has('q')) requestFields.q = query.get('q');

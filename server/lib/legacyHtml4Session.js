@@ -86,6 +86,30 @@ export async function destroyLegacyHtml4Session(session) {
   })) === 1;
 }
 
+export async function storeLegacyHtml4ImportDraft(session, draft) {
+  if (!session?._id || !session?.userId || !draft?.id) return false;
+  const changed = await LegacyHtml4Sessions.updateAsync({
+    _id: session._id, userId: session.userId, counter: session.counter,
+    expiresAt: { $gt: new Date() },
+  }, { $set: { importDraft: draft, touchedAt: new Date() } });
+  if (changed === 1) session.importDraft = draft;
+  return changed === 1;
+}
+
+export async function consumeLegacyHtml4ImportDraft(session, draftId) {
+  if (!session?._id || !session?.userId || !/^[0-9a-f]{32}$/.test(String(draftId || ''))) {
+    return null;
+  }
+  const consumed = await LegacyHtml4Sessions.rawCollection().findOneAndUpdate({
+    _id: session._id, userId: session.userId, counter: session.counter,
+    expiresAt: { $gt: new Date() }, 'importDraft.id': draftId,
+  }, { $unset: { importDraft: '' }, $set: { touchedAt: new Date() } }, {
+    returnDocument: 'before',
+  });
+  delete session.importDraft;
+  return consumed?.importDraft || null;
+}
+
 // A download cannot return the next page of rotated form tokens. Give it a
 // purpose-bound one-use signature of its own: replay is still rejected, while
 // the other controls on the page keep their current session counter.

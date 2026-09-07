@@ -624,6 +624,26 @@ whole-board transfer. Missing write permission and mismatched board, card or
 checklist identities are recorded with the available account, address and
 request context in Admin Panel / Problems / Security.
 
+Whole-board JSON, CSV, Jira and Kanboard imports retain the Jade member-mapping
+step in the cookieless baseline. Parsing and the common transfer sanitizer run
+before a short-lived import draft is written into the authenticated HTML4
+session; the browser receives only its random identifier and the bounded public
+member labels. Each source member has a labelled native username field in source
+order, followed by Map and Import without mapping controls. This is also the
+semantic reading and Tab order. Exact username matches are selected initially,
+while an explicit empty choice preserves the existing virtual-member behavior.
+
+The final signed POST binds the draft identifier to the same session, account,
+address and user agent. The server accepts mapping keys only from the staged
+source-member set, resolves every submitted target to a currently existing
+account, and atomically removes the draft before invoking an importer, so a
+replayed form cannot create a second board. Cancellation, replacement, expiry
+and successful use remove the draft. Raw import text and mappings are never
+placed in a URL or returned as hidden fields. Excel and multi-board ZIP imports
+continue to use the Jade view's direct import-without-mapping behavior; WeKan
+ZIP attachments remain streamed into Default Storage rather than copied into a
+session document.
+
 Item-to-card conversion uses the shared card-destination component: title first,
 then one bounded board/swimlane/list/card insertion-point selector, relative
 above/below selection and submit. This is both its semantic reading order and

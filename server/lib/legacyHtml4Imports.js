@@ -1,6 +1,7 @@
 import { DDP } from 'meteor/ddp';
 import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
+import crypto from 'crypto';
 import { pruneImportDocument } from '/models/lib/importParts';
 import { assertImportEnabled } from '/models/lib/importExportSecurity';
 import { withDeadline } from '/models/lib/withDeadline';
@@ -15,6 +16,7 @@ const { detectedFileMime } = require('/models/lib/fileTypeCorrection');
 const { readWekanZipArchive } = require('/server/lib/wekanZipArchive');
 const { BOARD_EXPORT_FIELD_KEYS } = require('/models/lib/exportFields');
 const { allowIsBoardMemberWithWriteAccess } = require('/server/lib/utils');
+const { membersFromImport } = require('/models/lib/importMembers');
 
 const MAX_IMPORT_TEXT_BYTES = 5 * 1024 * 1024;
 
@@ -51,6 +53,63 @@ async function invokeImport({ userId, source, document, fields, clientAddress })
   return { ok: true, boardId };
 }
 
+async function importDraft({ userId, source, document, fields, clientAddress }) {
+  const selected = parseImportFields(typeof fields === 'string' ? fields : undefined);
+  const safeDocument = require('/server/lib/secureTransfer').secureTransfer(document, {
+    direction: 'import', source: `import:${source}-html4-draft`, userId, ip: clientAddress,
+  });
+  const pruned = pruneImportDocument(safeDocument, selected);
+  const members = membersFromImport(source, pruned);
+  if (members.length === 0) {
+    return invokeImport({ userId, source, document: pruned, fields, clientAddress });
+  }
+  const usernames = [...new Set(members.map(member => member.username).filter(Boolean))];
+  const matches = await Meteor.users.find({ username: { $in: usernames } }, {
+    fields: { _id: 1, username: 1 }, limit: 2000,
+  }).fetchAsync();
+  const exact = new Map(matches.map(user => [user.username, user._id]));
+  return {
+    ok: true,
+    pending: true,
+    draft: {
+      id: crypto.randomBytes(16).toString('hex'), source, document: pruned,
+      fields: selected.join(','), createdAt: new Date(),
+      members: members.map(member => ({ ...member, suggestedUserId: exact.get(member.username) || '' })),
+    },
+  };
+}
+
+export async function finishLegacyHtml4Import({
+  userId, draft, memberUsernames = [], clientAddress,
+}) {
+  if (!userId || !draft || !Array.isArray(draft.members) || !draft.document) {
+    return { ok: false, errorKey: 'error-notAuthorized' };
+  }
+  try {
+    const wanted = memberUsernames.map(value => String(value || '').trim().slice(0, 500));
+    const unique = [...new Set(wanted.filter(Boolean))];
+    const targets = unique.length ? await Meteor.users.find({ username: { $in: unique } }, {
+      fields: { _id: 1, username: 1 }, limit: 2000,
+    }).fetchAsync() : [];
+    const byUsername = new Map(targets.map(user => [user.username, user._id]));
+    if (unique.some(username => !byUsername.has(username))) {
+      throw new Meteor.Error('user-not-found');
+    }
+    const membersMapping = Object.create(null);
+    draft.members.forEach((member, index) => {
+      const username = wanted[index];
+      if (username) membersMapping[member.id] = byUsername.get(username);
+    });
+    const boardId = await DDP._CurrentMethodInvocation.withValue({
+      userId, connection: { clientAddress: String(clientAddress || '') },
+    }, async () => Meteor.callAsync('importBoard', draft.document,
+      { membersMapping }, draft.source, null));
+    return { ok: true, boardId };
+  } catch (error) {
+    return publicImportError(error);
+  }
+}
+
 export async function importLegacyHtml4Text({ userId, source, text, fields, clientAddress }) {
   if (!userId) return { ok: false, errorKey: 'error-notAuthorized' };
   if (!importSourceByKey(source)) return { ok: false, errorKey: 'invalid-import-source' };
@@ -60,7 +119,7 @@ export async function importLegacyHtml4Text({ userId, source, text, fields, clie
     return { ok: false, errorKey: 'import-file-too-large' };
   }
   try {
-    return await invokeImport({ userId, source, document: parseImportText(source, input),
+    return await importDraft({ userId, source, document: parseImportText(source, input),
       fields, clientAddress });
   } catch (error) {
     return publicImportError(error);
@@ -108,7 +167,7 @@ export async function importLegacyHtml4File({
     const document = source === 'excel'
       ? { excelBase64: bytes.toString('base64') }
       : parseImportText(source, bytes.toString('utf8'));
-    return await invokeImport({ userId, source, document, fields, clientAddress });
+    return await importDraft({ userId, source, document, fields, clientAddress });
   } catch (error) {
     return publicImportError(error);
   }
@@ -172,4 +231,4 @@ export async function importLegacyHtml4ScopedFile({
   }
 }
 
-export { MAX_IMPORT_TEXT_BYTES, invokeImport, parseImportText, publicImportError };
+export { MAX_IMPORT_TEXT_BYTES, importDraft, invokeImport, parseImportText, publicImportError };

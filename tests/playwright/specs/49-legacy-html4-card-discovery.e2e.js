@@ -30,6 +30,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   let html4CreatedBoardId;
   let html4CopiedBoardId;
   let importedBoardId;
+  let importedMappedBoardId;
   let importedFileBoardId;
   let importedWekanZipBoardId;
   let importedWekanZipAttachmentId;
@@ -419,7 +420,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
       });
     }
     await open('/import');
-    for (const source of ['WeKan', 'Trello', 'CSV / TSV', 'Excel', 'Jira', 'GitHub', 'Asana']) {
+    for (const source of ['JSON, .zip', 'Trello', 'CSV / TSV', 'Excel', 'Jira', 'GitHub', 'Asana']) {
       await expect(page.locator('tbody')).toContainText(source);
     }
     await open('/import/trello');
@@ -460,6 +461,62 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     expect(importedCard && importedCard.boardId).toBeTruthy();
     importedBoardId = importedCard.boardId;
     await expect(page.locator('tbody')).toContainText('Imported:');
+
+    await open('/import/csv');
+    const mappedTitle = `HTML4 Mapped ${suffix}`;
+    await page.locator('textarea[name="importText"]')
+      .fill(`title,status,members\n${mappedTitle},Mapped List,${outsider.username}`);
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator('form:has(input[name="legacyOperation"][value="import-board-text"]) input[type="submit"]')
+        .click(),
+    ]);
+    const mappingForm = page.locator('form:has(button[value="finish-board-import"])');
+    await expect(mappingForm.locator('legend')).toContainText('Map members');
+    await expect(mappingForm.locator('label[for^="legacy-memberMap0"]'))
+      .toContainText(outsider.username);
+    await expect(mappingForm.locator('input[name="memberMap0"]')).toHaveValue(outsider.username);
+    const draftId = await mappingForm.locator('input[name="importDraftId"]').inputValue();
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await page.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-import-member-map.png`, fullPage: true,
+      });
+    }
+    await Promise.all([
+      page.waitForNavigation(), mappingForm.locator('button[value="finish-board-import"]').click(),
+    ]);
+    const mappedCard = db.findOne('cards', { title: mappedTitle });
+    expect(mappedCard?.members).toContain(outsider.id);
+    importedMappedBoardId = mappedCard.boardId;
+
+    // A consumed draft cannot be replayed even with the session's next valid
+    // one-use signature. The refused protection probe is Security-reported.
+    await open('/import/csv');
+    const replayForm = page.locator(
+      'form:has(input[name="legacyOperation"][value="import-board-text"])',
+    );
+    await replayForm.evaluate((form, consumedDraftId) => {
+      form.querySelector('input[name="legacyOperation"]').value = 'finish-board-import';
+      const draft = document.createElement('input');
+      draft.type = 'hidden';
+      draft.name = 'importDraftId';
+      draft.value = consumedDraftId;
+      form.appendChild(draft);
+    }, draftId);
+    const beforeReplay = db.countDocuments('cards', { title: mappedTitle });
+    await Promise.all([
+      page.waitForNavigation(),
+      page.locator(`form:has(input[name="importDraftId"][value="${draftId}"]) input[type="submit"]`)
+        .click(),
+    ]);
+    expect(db.countDocuments('cards', { title: mappedTitle })).toBe(beforeReplay);
+    await expect.poll(() => db.findOne('eventlog', {
+      stream: 'security', userId: user._id, category: 'authz', bleed: 'ImportBleed',
+      source: 'canary:legacy-html4.import-draft', action: 'detected',
+    })).not.toBeNull();
+
+    await open('/allboards');
+    await open('/allboards/remaining');
     await Promise.all([
       page.waitForNavigation(),
       page.locator(`form[action^="/b/${importedBoardId}/"] input[type="submit"]`).click(),
@@ -2346,6 +2403,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
     if (html4CopiedBoardId) db.cleanup({ boardIds: [html4CopiedBoardId] });
     if (html4CreatedBoardId) db.cleanup({ boardIds: [html4CreatedBoardId] });
     if (importedBoardId) db.cleanup({ boardIds: [importedBoardId] });
+    if (importedMappedBoardId) db.cleanup({ boardIds: [importedMappedBoardId] });
     if (importedFileBoardId) db.cleanup({ boardIds: [importedFileBoardId] });
     if (importedWekanZipAttachmentId) {
       db.deleteOne('attachments', { _id: importedWekanZipAttachmentId });

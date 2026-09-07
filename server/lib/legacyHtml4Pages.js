@@ -2977,7 +2977,32 @@ async function importPage(path, userId, requestFields, translate) {
       }),
     ] });
     const result = requestFields.legacyImportResult;
-    if (result && typeof result === 'object' && result.ok === true && result.boardId) {
+    const pending = result && typeof result === 'object' && result.ok === true
+      && result.pending === true && result.draft;
+    if (pending) {
+      const members = Array.isArray(result.draft.members) ? result.draft.members : [];
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+        action: `/import/${selected.key}`,
+        legend: tr(translate, 'import-map-members', 'Map members'),
+        id: 'import-member-map',
+        fields: { importDraftId: result.draft.id },
+        inputs: members.map((member, index) => ({
+          type: 'text', name: `memberMap${index}`,
+          label: `${member.fullName || member.username} (${member.username}) — ${tr(translate,
+            'import-user-select', 'Pick your existing user you want to use as this member')}`,
+          value: member.suggestedUserId ? member.username : '', maxlength: 500,
+          description: tr(translate, 'import-members-map-note',
+            'Unmapped members remain virtual members and can be mapped later.'),
+        })),
+        submitActions: [
+          { name: 'legacyOperation', value: 'finish-board-import',
+            label: tr(translate, 'done', 'Done') },
+          { name: 'legacyOperation', value: 'finish-board-import-without-mapping',
+            label: tr(translate, 'import-without-mapping-members',
+              'Import without mapping members (map later)') },
+        ],
+      }), ''] });
+    } else if (result && typeof result === 'object' && result.ok === true && result.boardId) {
       const importedBoard = await Boards.findOneAsync({ _id: result.boardId }, {
         fields: { title: 1, slug: 1 },
       });
@@ -2994,7 +3019,7 @@ async function importPage(path, userId, requestFields, translate) {
       rows.push({ cells: [tr(translate, 'status', 'Status'),
         tr(translate, result.errorKey, fallbacks[result.errorKey] || 'Import failed')] });
     }
-    if (selected.key === 'excel') {
+    if (!pending && selected.key === 'excel') {
       rows.push({ rowHeader: false, cells: [uiFileForm({
         action: `/import/${selected.key}`,
         label: tr(translate, 'import-excel-file', 'Excel file (.xlsx)'),
@@ -3003,7 +3028,7 @@ async function importPage(path, userId, requestFields, translate) {
         fields: { importFields, legacyOperation: 'import-board-file' },
         submitLabel: tr(translate, 'import', 'Import'),
       }), ''] });
-    } else {
+    } else if (!pending) {
       const issueSources = {
         github: ['GitHub', 'GET /repos/OWNER/REPO/issues'],
         gitlab: ['GitLab', 'GET /projects/ID/issues'],
