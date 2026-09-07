@@ -1201,6 +1201,9 @@ router. Bare and former Settings, People, Problems and Attachments addresses,
 including `/setting`, `/information` and `/translation`, return a no-cache 303
 to the named current pane. The exact `/attachments` bookmark is distinguishable
 from `/attachments/...` file responses, which remain outside HTML rendering.
+The router wildcard likewise matches the modern Not Found contract: unknown
+paths render a localized semantic content table and return HTTP 404 rather than
+pretending an unfinished feature exists at that address.
 
 ## Tests
 

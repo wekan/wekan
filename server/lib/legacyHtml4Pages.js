@@ -6207,8 +6207,9 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     ],
   };
   return {
-    heading: path.split('/').filter(Boolean).join(' / ') || 'WeKan',
-    columns: ['Page', 'Status'],
-    rows: [{ cells: [path, 'This page has a Legacy HTML4 baseline. More controls will appear as its server controller is completed.'] }],
+    statusCode: 404,
+    heading: tr(translate, 'page-not-found', 'Page not found'),
+    columns: [tr(translate, 'page', 'Page'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [path, tr(translate, 'page-not-found', 'Page not found')] }],
   };
 }
