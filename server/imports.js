@@ -250,6 +250,7 @@ import '/server/methods/adminInviteRoles';
 import '/server/methods/adminLoginSettings';
 import '/server/methods/adminEmailSettings';
 import '/server/methods/adminOrganizations';
+import '/server/methods/adminTeams';
 import '/server/methods/sandstormMigration';
 import '/server/methods/tenant';
 import '/server/startup/repairBoardsOnStartup';

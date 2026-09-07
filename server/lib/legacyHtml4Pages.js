@@ -76,6 +76,7 @@ import {
   organizationMembersForAdmin,
   organizationsPageForAdmin,
 } from '/server/lib/adminOrganizations';
+import { teamForAdmin, teamsPageForAdmin } from '/server/lib/adminTeams';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3519,6 +3520,126 @@ async function adminPeopleOrganizationsPage(path, userId, requestFields, transla
     tr(translate, 'org-sync-members-from-auth', 'Sync members')], rows };
 }
 
+function teamInputs(team, translate) {
+  return [
+    { name: 'teamDisplayName', label: tr(translate, 'displayName', 'Display name'),
+      value: team?.teamDisplayName || '', maxlength: 1000, required: true },
+    { name: 'teamDesc', label: tr(translate, 'description', 'Description'),
+      value: team?.teamDesc || '', maxlength: 190, required: true },
+    { name: 'teamShortName', label: tr(translate, 'shortName', 'Short name'),
+      value: team?.teamShortName || '', maxlength: 255, required: true },
+    { name: 'teamWebsite', label: tr(translate, 'website', 'Website'),
+      value: team?.teamWebsite || '', maxlength: 255 },
+    { type: 'select', name: 'teamIsActive', label: tr(translate, 'active-team', 'Active'),
+      value: team?.teamIsActive === true ? 'true' : 'false', options: [
+        { value: 'false', label: tr(translate, 'no', 'No') },
+        { value: 'true', label: tr(translate, 'yes', 'Yes') },
+      ] },
+  ];
+}
+
+async function adminPeopleTeamsPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/teams') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1, Number(requestFields.page) || 1);
+  let result;
+  try {
+    result = await teamsPageForAdmin(userId, { search, page: requestedPage },
+      { req: requestFields.req });
+  } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'teams', 'Teams'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const pathFields = { q: result.search, page: result.page };
+  const yes = tr(translate, 'yes', 'Yes');
+  const no = tr(translate, 'no', 'No');
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', '', '', '', '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: result.search,
+      fields: { page: 1 },
+    }), `${result.total} ${tr(translate, 'team-number', 'Teams')}`, '', '', '', '', '', '', ''] },
+    { rowHeader: false, cells: [uiAction({ action: path,
+      label: tr(translate, 'new', 'New'), icon: 'add',
+      fields: { ...pathFields, legacyOperation: 'show-create-team' } }),
+    uiAction({ action: path,
+      label: `${result.boardMembersFromSameTeamOnly ? '[x]' : '[ ]'} ${tr(translate,
+        'board-members-same-team-only', 'Only add board members from same Team')}`,
+      fields: { ...pathFields, legacyOperation: 'set-board-members-same-team',
+        enabled: result.boardMembersFromSameTeamOnly ? 'false' : 'true' } }), '', '', '', '', '', '', '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'dueCardsViewChange-choice-all', 'All'),
+      '', '', '', '', '', '', ...[
+        ['teamSharedTemplates', 'team-shared-templates'],
+        ['teamPropagateMembersToBoards', 'team-propagate-members-to-boards'],
+        ['teamSyncMembersFromAuth', 'team-sync-members-from-auth'],
+      ].map(([field, key]) => [true, false].map(enabled => uiAction({ action: path,
+        label: `${enabled ? '[x]' : '[ ]'} ${tr(translate, key, field)}`,
+        fields: { ...pathFields, legacyOperation: 'set-all-teams-feature',
+          teamFeature: field, enabled: String(enabled) },
+      }))) ] },
+  ];
+  const feature = (team, field, key) => uiAction({ action: path,
+    label: `${team[field] ? '[x]' : '[ ]'} ${tr(translate, key, field)}`,
+    fields: { ...pathFields, legacyOperation: 'set-team-feature', teamId: team._id,
+      teamFeature: field, enabled: String(!team[field]) },
+  });
+  for (const team of result.rows) rows.push({ rowHeader: false, cells: [[
+    uiAction({ action: path, label: tr(translate, 'edit', 'Edit'),
+      fields: { ...pathFields, legacyOperation: 'show-edit-team', teamId: team._id } }),
+    uiAction({ action: path, label: tr(translate, 'delete', 'Delete'),
+      fields: { ...pathFields, legacyOperation: 'request-delete-team', teamId: team._id } }),
+  ], team.teamDisplayName || '', team.teamDesc || '', team.teamShortName || '',
+  team.teamWebsite || '', team.createdAt ? String(team.createdAt) : '',
+  team.teamIsActive ? yes : no,
+  feature(team, 'teamSharedTemplates', 'team-shared-templates'),
+  feature(team, 'teamPropagateMembersToBoards', 'team-propagate-members-to-boards'),
+  feature(team, 'teamSyncMembersFromAuth', 'team-sync-members-from-auth')] });
+  if (requestFields.showCreateTeam) rows.push({ rowHeader: false, cells: [uiFieldsetForm({
+    action: path, legend: tr(translate, 'new', 'New'), id: 'create-team',
+    inputs: teamInputs(null, translate),
+    fields: { ...pathFields, legacyOperation: 'create-team' },
+    submitLabel: tr(translate, 'save', 'Save'),
+  }), '', '', '', '', '', '', '', '', ''] });
+  const editTeamId = String(requestFields.editTeamId || '');
+  if (editTeamId) {
+    try {
+      const team = await teamForAdmin(userId, editTeamId, { req: requestFields.req });
+      rows.push({ rowHeader: false, cells: [uiFieldsetForm({ action: path,
+        legend: tr(translate, 'edit', 'Edit'), id: `edit-team-${team._id}`,
+        inputs: teamInputs(team, translate), fields: { ...pathFields,
+          legacyOperation: 'update-team', teamId: team._id },
+        submitLabel: tr(translate, 'save', 'Save'),
+      }), '', '', '', '', '', '', '', '', ''] });
+    } catch (_) { /* exact Global Admin service already reports refused reads */ }
+  }
+  if (requestFields.confirmTeamDelete) rows.push({ rowHeader: false, cells: [
+    tr(translate, 'delete-team-confirm-popup', 'Delete this Team?'),
+    uiAction({ action: path, label: tr(translate, 'delete', 'Delete'),
+      fields: { ...pathFields, legacyOperation: 'delete-team',
+        teamId: String(requestFields.confirmTeamDelete) } }), '', '', '', '', '', '', '', ''] });
+  rows.push({ rowHeader: false, cells: [
+    `${tr(translate, 'page', 'Page')} ${result.page} / ${result.totalPages}`,
+    result.page > 1 ? uiAction({ action: path, label: tr(translate, 'previous-page', 'Previous'),
+      icon: 'previous', fields: { q: result.search, page: result.page - 1 } }) : '',
+    result.page < result.totalPages ? uiAction({ action: path,
+      label: tr(translate, 'next-page', 'Next'), icon: 'next',
+      fields: { q: result.search, page: result.page + 1 } }) : '', '', '', '', '', '', '', ''] });
+  if (requestFields.legacyTeamResult) rows.push({ rowHeader: false,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyTeamResult,
+      '', '', '', '', '', '', '', ''] });
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'teams', 'Teams')}`,
+  columns: [tr(translate, 'actions', 'Actions'), tr(translate, 'displayName', 'Display name'),
+    tr(translate, 'description', 'Description'), tr(translate, 'shortName', 'Short name'),
+    tr(translate, 'website', 'Website'), tr(translate, 'createdAt', 'Created'),
+    tr(translate, 'active-team', 'Active'),
+    tr(translate, 'team-shared-templates', 'Shared templates'),
+    tr(translate, 'team-propagate-members-to-boards', 'Propagate members'),
+    tr(translate, 'team-sync-members-from-auth', 'Sync members')], rows };
+}
+
 async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/shared-templates') return null;
   let templateRows;
@@ -4600,6 +4721,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   const adminPeopleOrganizations = await adminPeopleOrganizationsPage(
     path, userId, requestFields, translate);
   if (adminPeopleOrganizations) return adminPeopleOrganizations;
+  const adminPeopleTeams = await adminPeopleTeamsPage(path, userId, requestFields, translate);
+  if (adminPeopleTeams) return adminPeopleTeams;
   const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
     path, userId, requestFields, translate,
   );

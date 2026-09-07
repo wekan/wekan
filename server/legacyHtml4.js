@@ -107,6 +107,14 @@ import {
   setOrganizationFeatureForAdmin,
   updateOrganizationForAdmin,
 } from '/server/lib/adminOrganizations';
+import {
+  createTeamForAdmin,
+  deleteTeamForAdmin,
+  setAllTeamsFeatureForAdmin,
+  setBoardMembersSameTeamForAdmin,
+  setTeamFeatureForAdmin,
+  updateTeamForAdmin,
+} from '/server/lib/adminTeams';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -595,6 +603,48 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyOrganizationResult = translatedOr(translate, 'done', 'Done');
     } catch (error) {
       requestFields.legacyOrganizationResult = translatedOr(
+        translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
+    }
+  }
+  if (session && path === '/admin/people/teams') {
+    const operation = String(requestFields.legacyOperation || '');
+    try {
+      const teamId = String(requestFields.teamId || '');
+      const input = {
+        teamDisplayName: String(requestFields.teamDisplayName || ''),
+        teamDesc: String(requestFields.teamDesc || ''),
+        teamShortName: String(requestFields.teamShortName || ''),
+        teamWebsite: String(requestFields.teamWebsite || ''),
+        teamIsActive: requestFields.teamIsActive === 'true',
+      };
+      if (operation === 'show-create-team') requestFields.showCreateTeam = true;
+      else if (operation === 'show-edit-team') requestFields.editTeamId = teamId;
+      else if (operation === 'create-team') {
+        requestFields.editTeamId = await createTeamForAdmin(session.userId, input, { req });
+      } else if (operation === 'update-team') {
+        await updateTeamForAdmin(session.userId, teamId, input, { req });
+        requestFields.editTeamId = teamId;
+      } else if (operation === 'set-team-feature') {
+        await setTeamFeatureForAdmin(session.userId, teamId,
+          String(requestFields.teamFeature || ''), requestFields.enabled === 'true', { req });
+      } else if (operation === 'set-all-teams-feature') {
+        await setAllTeamsFeatureForAdmin(session.userId,
+          String(requestFields.teamFeature || ''), requestFields.enabled === 'true', { req });
+      } else if (operation === 'set-board-members-same-team') {
+        await setBoardMembersSameTeamForAdmin(session.userId,
+          requestFields.enabled === 'true', { req });
+      } else if (operation === 'request-delete-team') {
+        requestFields.confirmTeamDelete = teamId;
+      } else if (operation === 'delete-team') {
+        await deleteTeamForAdmin(session.userId, teamId, { req });
+      }
+      if (operation && !['show-create-team', 'show-edit-team',
+        'request-delete-team'].includes(operation)) {
+        requestFields.legacyTeamResult = translatedOr(translate, 'done', 'Done');
+      }
+    } catch (error) {
+      requestFields.editTeamId ||= String(requestFields.teamId || '');
+      requestFields.legacyTeamResult = translatedOr(
         translate, error?.error || error?.message || 'operation-failed', 'Operation failed');
     }
   }

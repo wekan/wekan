@@ -941,9 +941,7 @@ Template.teamGeneral.events({
   'click a.js-toggle-board-members-same-team'() {
     const setting = ReactiveCache.getCurrentSetting();
     if (!setting) return;
-    Settings.update(setting._id, {
-      $set: { boardMembersFromSameTeamOnly: !setting.boardMembersFromSameTeamOnly },
-    });
+    Meteor.call('setBoardMembersSameTeam', !setting.boardMembersFromSameTeamOnly);
   },
 });
 
@@ -2456,8 +2454,13 @@ Template.settingsTeamPopup.events({
       }
       return;
     }
-    Team.remove(teamId);
-    Popup.back();
+    Meteor.call('deleteTeam', teamId, error => {
+      if (error) {
+        document.getElementById('deleteTeamWarningMessage').classList.remove('hide');
+        return;
+      }
+      Popup.back();
+    });
   }
 });
 
