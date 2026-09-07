@@ -334,6 +334,20 @@ live Chromium Legacy HTML4 preference regression passes with the new helper.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0492e13d">Preserve Trello workspaces in Legacy HTML4 imports</a>. Thanks to xet7.</summary>
+
+Trello JSON and multi-board ZIP imports now expose the same optional named
+personal-workspace destination in the cookieless HTML4 view as in Jade. The
+bounded name survives member mapping only in the session-bound single-use
+draft; after a successful import, authenticated shared operations find or
+create the workspace and assign every imported board. Unknown multipart fields,
+control characters and oversized names are refused. Positive, negative and
+live Chromium coverage verifies the signed form, persisted assignment and
+same-URL semantic view.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/80dd9585d">Map imported members in Legacy HTML4</a>. Thanks to xet7.</summary>
 
 Whole-board JSON, CSV, Jira, Kanboard, Trello and WeKan imports now share one
