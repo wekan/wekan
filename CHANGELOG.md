@@ -271,8 +271,8 @@ shares localized details, administrator operations, parameterized creation and
 secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
-Domains, Email, Login, Organizations, Roles, Shared templates and Teams share
-guarded HTML4 operations.
+Domains, Email, Locked Users, Login, Organizations, Roles, Shared templates and
+Teams share guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -329,6 +329,24 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/059a4dd10">Add complete accessible HTML4 locked-user administration</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / Locked Users now shows all six protection settings and
+current account lock details in both modern and semantic HTML4 views. Signed
+HTML4 POST controls save the fixed bounded setting set and confirm individual or
+all-user unlocks without JavaScript or cookies.
+
+Both renderers share one Global Admin service that stores and activates settings,
+derives counts from per-address lock state and clears only the intended state.
+Modern writes no longer bypass the boundary through client collections, the
+settings publication is admin-only, and refused calls are JamBleed-reported. The
+work also restores the previously absent modern locked-user table and its direct-
+URL data load. Source tests and a same-URL Chromium regression cover both views,
+all mutations, state restoration, anonymous isolation and paired screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc32e6313">Add complete accessible HTML4 Teams administration</a>. Thanks to xet7.</summary>

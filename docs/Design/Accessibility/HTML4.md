@@ -906,6 +906,19 @@ and TeamBleed-reported at high severity. The live same-URL Chromium fixture
 exercises the operations and guarded deletion, captures both renderers and proves
 anonymous isolation.
 
+Admin Panel / People / Locked Users is the eighth dedicated People controller.
+Both renderers now show the six known/unknown-user protection settings and the
+current locked-user rows: username, primary e-mail, failed-attempt count, locked
+address count, remaining time and actions. Labelled HTML4 fields and signed POST
+controls save the complete fixed integer setting set and provide confirmed single
+or all-user unlock without JavaScript or cookies. A single Global Admin service
+validates the bounds, writes and activates the configuration, derives summaries
+from per-address lock state and performs unlocks. Modern writes no longer bypass
+that service through client collections, and the admin-only publication no longer
+exposes settings anonymously. Unauthorized calls are JamBleed-reported. The live
+same-URL fixture changes every setting, unlocks one then all seeded accounts,
+captures paired screenshots, restores global state and proves anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
