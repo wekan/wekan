@@ -68,6 +68,36 @@ test.describe('Stability & connectivity', () => {
     await expect(boardPage.locator('[name="username"]')).toHaveCount(0);
   });
 
+  test('#6677: an upgraded local-token session keeps its profile and preferences', async ({ page, user, board }) => {
+    // Recreate the exact upgrade boundary: v11.39 left the resume token in
+    // localStorage and had no HttpOnly cookie yet.
+    await page.context().clearCookies();
+    await page.goto(BASE_URL);
+    await page.evaluate(({ userId, token }) => {
+      localStorage.setItem('Meteor.userId', userId);
+      localStorage.setItem('Meteor.loginToken', token);
+      localStorage.setItem('Meteor.loginTokenExpires', new Date(Date.now() + 86400000).toISOString());
+    }, { userId: user.id, token: user.token });
+
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`);
+    await page.waitForFunction(() => typeof Meteor !== 'undefined', null, { timeout: 10_000 });
+    await expect.poll(() => page.evaluate(() => ({
+      id: Meteor.userId(),
+      fullname: Meteor.user()?.profile?.fullname,
+      view: Meteor.user()?.profile?.boardView,
+    })), { timeout: 10_000 }).toEqual({
+      id: user.id,
+      fullname: 'E2E Test User',
+      view: 'board-view-swimlanes',
+    });
+
+    // The old poll fired every three seconds; waiting beyond it is the negative
+    // assertion that the empty in-memory store no longer logs the user out.
+    await page.waitForTimeout(3_500);
+    await expect.poll(() => page.evaluate(() => Meteor.userId())).toBe(user.id);
+    await expect(page.locator('.board-canvas')).toBeVisible();
+  });
+
   test('login link is visible on 5 consecutive fresh page loads', async ({ page }) => {
     for (let i = 0; i < 5; i++) {
       await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });

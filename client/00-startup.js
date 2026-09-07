@@ -70,16 +70,21 @@ import { Utils } from '/client/lib/utils';
 
 // Custom head tags
 
-// Meteor 3's native session flow keeps the persistent resume token in an
-// HttpOnly cookie and only the active tab's credential in memory. Configure it
-// before Accounts startup; the server has the same options in accounts-common.
+// AccountsClient is constructed before application modules run. Preserve a
+// pre-upgrade local token before switching its storage to memory: config()
+// replaces the storage object immediately, while the already-started 3-second
+// token poll otherwise sees an empty store and logs the user out. That race
+// removed the reactive user document (name, avatar, theme and preferences),
+// caused repeated login redirects in some browsers and kept Tracker busy
+// (#6677). A successful one-time resume also creates the native HttpOnly cookie;
+// installations which already have that cookie use the ordinary cookie resume.
+const legacyResumeToken = Accounts._storedLoginToken();
 Accounts.config({ clientStorage: 'none', useHttpOnlyCookies: true });
-// AccountsClient is constructed before this application startup module runs.
-// Its constructor therefore cannot see the option above and skips its one-time
-// cookie resume. Start that public resume path now, after enabling it, so a
-// reload or board-view navigation restores the session from the HttpOnly
-// cookie instead of returning a private-board user to Sign In (#6654).
-Accounts.loginWithCookie();
+if (legacyResumeToken) {
+  Accounts.loginWithToken(legacyResumeToken);
+} else {
+  Accounts.loginWithCookie();
+}
 
 // Subscribe to per-user small publications
 Meteor.startup(() => {
