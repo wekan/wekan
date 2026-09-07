@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import fs from 'fs';
 import Settings from '/models/settings';
+import Cards from '/models/cards';
+import ChangeHistory from '/models/changeHistory';
 const { ADMIN_PAGES } = require('/models/lib/adminUrls');
 import { TAPi18n } from '/imports/i18n';
 import {
@@ -195,6 +197,7 @@ import {
   toggleAccessibleDefaultBoard,
 } from '/server/lib/accessibleBoardListOperations';
 import { updateAccessibleWatch } from '/server/notifications/watch';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import {
   copyAccessibleChecklist,
   convertAccessibleChecklistItemToCard,
@@ -1533,6 +1536,7 @@ WebApp.handlers.use(async (req, res, next) => {
     'set-card-watch', 'set-card-parent', 'add-subtask', 'edit-subtask-title',
     'move-subtask-up', 'move-subtask-down', 'archive-subtask',
     'set-card-date-format', 'archive-card', 'restore-card',
+    'restore-card-history',
   ];
   const commentOperations = [
     'add-comment', 'edit-comment', 'delete-comment', 'toggle-comment-reaction',
@@ -1956,6 +1960,59 @@ WebApp.handlers.use(async (req, res, next) => {
             swimlaneId: requestFields.swimlaneId, title: requestFields.cardTitle,
             position: requestFields.position,
           });
+        }
+        if (requestFields.legacyOperation === 'restore-card-history') {
+          const route = /^\/b\/([^/]+)\/[^/]+\/([^/]+)$/.exec(path);
+          let routeBoardId = '';
+          let routeCardId = '';
+          try {
+            routeBoardId = decodeURIComponent(route?.[1] || '');
+            routeCardId = decodeURIComponent(route?.[2] || '');
+          } catch (_) {
+            throw new Meteor.Error('invalid-history-scope');
+          }
+          const routeCard = await Cards.findOneAsync({
+            _id: routeCardId, boardId: routeBoardId, deletedAt: null,
+          }, { fields: { boardId: 1, type: 1, linkedId: 1 } });
+          if (!routeCard || !(await canEditCardOrLinkedCard(session.userId, routeCard))) {
+            try {
+              require('/server/lib/canary').tripCanary('legacy-html4.history-cross-scope', {
+                req, userId: session.userId,
+                detail: `refused HTML4 history restore for inaccessible URL card ${routeCardId}`,
+              });
+            } catch (_) { /* reporting must not weaken the refusal */ }
+            throw new Meteor.Error('not-authorized');
+          }
+          const historyCardId = routeCard.type === 'cardType-linkedCard' && routeCard.linkedId
+            ? routeCard.linkedId : routeCard._id;
+          if (String(requestFields.historyCardId || '') !== historyCardId) {
+            try {
+              require('/server/lib/canary').tripCanary('legacy-html4.history-cross-scope', {
+                req, userId: session.userId,
+                detail: `refused HTML4 history restore with changed card scope ${historyCardId}`,
+              });
+            } catch (_) { /* reporting must not weaken the refusal */ }
+            throw new Meteor.Error('invalid-history-scope');
+          }
+          const selected = [...new Set(submittedValues(requestFields.historyRowId))];
+          if (selected.length === 0 || selected.length > 200
+            || selected.some(id => !/^[A-Za-z0-9_-]{1,100}$/.test(id))) {
+            throw new Meteor.Error('invalid-history-selection');
+          }
+          const matching = await ChangeHistory.find({
+            _id: { $in: selected }, cardId: historyCardId,
+          }, { fields: { _id: 1 }, limit: 201 }).fetchAsync();
+          if (matching.length !== selected.length) {
+            try {
+              require('/server/lib/canary').tripCanary('legacy-html4.history-cross-scope', {
+                req, userId: session.userId,
+                detail: `refused HTML4 history restore outside card ${historyCardId}`,
+              });
+            } catch (_) { /* reporting must not weaken the refusal */ }
+            throw new Meteor.Error('invalid-history-scope');
+          }
+          return Meteor.server.method_handlers['changeHistory.restore']
+            .call(invocation, selected);
         }
         if (requestFields.legacyOperation === 'move-card-up'
           || requestFields.legacyOperation === 'move-card-down') {

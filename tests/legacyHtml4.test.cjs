@@ -541,7 +541,8 @@ test('HTML4 checklist export is a signed POST with the same formats and sections
   const handler = fs.readFileSync(path.join(root, 'server', 'lib',
     'legacyHtml4ScopedExport.js'), 'utf8');
   assert.match(handler, /Checklists\.findOneAsync\(\{ _id: checklistId, boardId, cardId \}\)/);
-  assert.match(handler, /!board\.isVisibleBy\(user\) \|\| !card \|\| !checklist/);
+  assert.match(handler, /!user \|\| !board \|\| !board\.isVisibleBy\(user\)/);
+  assert.match(handler, /!card \|\| \(checklistId && !checklist\)/);
   assert.match(handler, /new ExporterBoardPDF/);
   assert.match(handler, /new ExporterExcelBoard/);
   assert.match(handler, /new ExporterZip/);

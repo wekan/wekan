@@ -621,6 +621,26 @@ the Import and other controls already rendered beside it. A forged card or board
 scope is rejected before reading or writing content and is attributed in Admin
 Panel / Problems / Security.
 
+Card History is one shared presentation and one pair of shared Meteor operations
+in both renderers. The HTML4 card route opens a semantic nested history table with
+column headers, native row checkboxes, a labelled search field, contributor
+selector and signed Previous/Next and Restore POST controls. The table uses the
+same `changeHistory.page` scope, 25-row paging, content summarizer and translated
+change/group labels as the Jade popup. This is distinct from the read-only recent
+Activities section: History is searchable, contributor-filtered and can restore a
+selected stored state.
+
+Restore keeps the existing history-integrity verification and append-only
+provenance behavior. Before invoking it, the HTML4 boundary resolves the card from
+the board and card identifiers in the current URL, resolves the real content card
+for an editable linked card, caps a submission at 200 unique row identifiers and
+requires every selected row to belong to that exact card. Changing a hidden card
+or row identifier therefore cannot restore another card even when the same person
+can edit both boards. Such a cross-scope attempt is refused and enters Admin Panel
+/ Problems / Security as `PositionHistoryBleed`, with the available account,
+address and location context. Stored content is always escaped by the HTML4
+renderer; it never becomes markup.
+
 Checklist forms share authenticated server operations with the Jade card view.
 The visible route card and board are always submitted, while the server resolves
 a linked card's content target and repeats delegated-write authorization. Every

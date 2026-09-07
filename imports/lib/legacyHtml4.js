@@ -304,6 +304,43 @@ function contentRows(path, options) {
         const actions = (cell.actions || []).map(renderCell).join(' ');
         return `<div class="legacy-document-page"><p>${escapeHtml(cell.name || '')}: ${escapeHtml(cell.number)} / ${escapeHtml(cell.pageCount)}</p>${actions}${images}${content}</div>`;
       }
+      if (cell && typeof cell === 'object' && cell.component === 'history-table') {
+        const hidden = values => Object.entries(values || {}).map(([name, value]) =>
+          `<input type="hidden" name="${escapeHtml(name)}" value="${escapeHtml(value)}">`).join('');
+        const auth = () => sessionHiddenFields(options.actionFields(cell.action));
+        const base = hidden(cell.fields);
+        const state = hidden({
+          historySearch: cell.search || '', historyUserId: cell.contributorId || '',
+          historyPage: cell.page || 1,
+        });
+        const labels = cell.labels || {};
+        const contributorOptions = [
+          `<option value="">${escapeHtml(labels.all || cell.title || 'History')}</option>`,
+          ...(cell.contributors || []).map(item => {
+            const selected = String(item.userId) === String(cell.contributorId || '')
+              ? ' selected' : '';
+            return `<option value="${escapeHtml(item.userId)}"${selected}>${escapeHtml(item.name)} (${escapeHtml(item.count)})</option>`;
+          }),
+        ].join('');
+        const controls = `<form method="post" action="${escapeHtml(cell.action)}">${auth()}${base}<input type="hidden" name="legacyOperation" value="show-card-history"><fieldset><legend>${escapeHtml(cell.title)}</legend><p><label for="legacy-history-search">${escapeHtml(labels.search || 'Search')}</label><br><input id="legacy-history-search" name="historySearch" type="text" maxlength="500" size="30" value="${escapeHtml(cell.search || '')}"></p><p><label for="legacy-history-contributor">${escapeHtml(labels.contributor || 'Contributor')}</label><br><select id="legacy-history-contributor" name="historyUserId">${contributorOptions}</select></p><p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', labels.filter || 'Filter'))}"></p></fieldset></form>`;
+        const body = (cell.rows || []).map((item, index) => {
+          const select = cell.canRestore
+            ? `<input id="legacy-history-row-${index}" name="historyRowId" type="checkbox" value="${escapeHtml(item._id)}"><label for="legacy-history-row-${index}">${escapeHtml(labels.select || 'Select')}</label>` : '';
+          return `<tr><td>${select}</td><td>${escapeHtml(item.change)}</td><td>${escapeHtml(item.content)}</td><td>${escapeHtml(item.contributor)}</td><td>${escapeHtml(item.when)}</td></tr>`;
+        }).join('');
+        const table = body
+          ? `<table border="1" cellspacing="0" cellpadding="4"><thead><tr><th scope="col">${escapeHtml(labels.select || 'Select')}</th><th scope="col">${escapeHtml(labels.action || 'Action')}</th><th scope="col">${escapeHtml(labels.details || 'Details')}</th><th scope="col">${escapeHtml(labels.contributor || 'Contributor')}</th><th scope="col">${escapeHtml(labels.date || 'Date')}</th></tr></thead><tbody>${body}</tbody></table>`
+          : `<p>${escapeHtml(labels.noResults || 'No results')}</p>`;
+        const restore = cell.canRestore && body
+          ? `<p><button type="submit" name="legacyOperation" value="restore-card-history">${escapeHtml(uiControlLabel('previous', labels.restore || 'Restore'))}</button></p>` : '';
+        const historyForm = `<form method="post" action="${escapeHtml(cell.action)}">${auth()}${base}${state}${table}${restore}</form>`;
+        const navigation = [
+          Number(cell.page) > 1 ? postForm(cell.action, uiControlLabel('previous', labels.previous || 'Previous'), options.actionFields(cell.action), { ...cell.fields, legacyOperation: 'show-card-history', historySearch: cell.search || '', historyUserId: cell.contributorId || '', historyPage: Number(cell.page) - 1 }) : '',
+          `${escapeHtml(cell.page)} / ${escapeHtml(cell.totalPages)} (${escapeHtml(cell.total)})`,
+          Number(cell.page) < Number(cell.totalPages) ? postForm(cell.action, uiControlLabel('next', labels.next || 'Next'), options.actionFields(cell.action), { ...cell.fields, legacyOperation: 'show-card-history', historySearch: cell.search || '', historyUserId: cell.contributorId || '', historyPage: Number(cell.page) + 1 }) : '',
+        ].filter(Boolean).join(' ');
+        return `<div class="legacy-history-table">${controls}${historyForm}<p>${navigation}</p></div>`;
+      }
       if (cell && typeof cell === 'object' && cell.component === 'search') {
         const id = 'legacy-search-query';
         const extra = Object.entries(cell.fields || {}).map(([name, value]) =>

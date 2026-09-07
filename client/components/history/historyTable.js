@@ -7,6 +7,11 @@ import { Meteor } from 'meteor/meteor';
 // dependency at all, so nothing resolved it. No source-reading test could have
 // caught that; the build did, first time.
 import { formatDateTime } from '/imports/lib/dateUtils';
+const {
+  GROUP_KEYS,
+  changeTypeKey,
+  summariseChangeHistory,
+} = require('/models/lib/changeHistoryPresentation');
 
 // THE History view — one implementation for every scope
 // (docs/Features/Reports/History/History.md §7a). The card-group menu, the whole
@@ -27,26 +32,6 @@ const PAGE_SIZE = 25;
  * (a position change, a create/delete) shows no label rather than an untranslated
  * key: the change type beside it already says what happened.
  */
-const GROUP_KEYS = {
-  title: 'title',
-  description: 'description',
-  labels: 'labels',
-  members: 'members',
-  assignees: 'assignees',
-  dates: 'date',
-  checklists: 'checklists',
-  subtasks: 'subtasks',
-  attachments: 'attachments',
-  comments: 'comments',
-  customFields: 'custom-fields',
-  position: 'sort',
-};
-
-/* 'Added' the app already had; the other four were added for this. */
-function changeTypeKey(changeType) {
-  return changeType === 'added' ? 'added' : `history-change-${changeType}`;
-}
-
 Template.historyTable.onCreated(function () {
   const data = Template.currentData() || {};
   this.state = new ReactiveDict();
@@ -96,30 +81,6 @@ Template.historyTable.onCreated(function () {
  * position from a move, a whole document from a create/delete - and falls back
  * to something readable rather than "[object Object]" for anything else.
  */
-function summarise(row) {
-  const content = row.newContent || row.previousContent;
-  if (!content) return '';
-  if (typeof content.value === 'string') return content.value;
-  // An emptied field has no text to show; an em dash reads as "nothing here" in
-  // every language, which a translated word would have needed 197 files to do.
-  if (content.value === null) return '—';
-  if (Array.isArray(content.value)) return content.value.join(', ');
-  if (content.isDate) return formatDateTime(content.value);
-  if (typeof content.value === 'number' || typeof content.value === 'boolean') {
-    return String(content.value);
-  }
-  if (content.document && content.document.title) return content.document.title;
-  if (content.document && content.document.text) return content.document.text;
-  if (content.deleted !== undefined) {
-    return TAPi18n.__(content.deleted ? 'history-change-removed' : 'history-change-restored');
-  }
-  try {
-    return JSON.stringify(content.value !== undefined ? content.value : content);
-  } catch {
-    return '';
-  }
-}
-
 Template.historyTable.helpers({
   loading() { return Template.instance().state.get('loading'); },
   searchTerm() { return Template.instance().state.get('search'); },
@@ -132,7 +93,7 @@ Template.historyTable.helpers({
       ...row,
       changeTypeKey: changeTypeKey(row.changeType),
       groupKey: GROUP_KEYS[row.group] || null,
-      contentSummary: summarise(row),
+      contentSummary: summariseChangeHistory(row, key => TAPi18n.__(key), formatDateTime),
       prettyWhen: formatDateTime(row.createdAt),
       isSelected: selected.includes(row._id),
     }));

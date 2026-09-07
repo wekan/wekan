@@ -53,6 +53,15 @@ function uiDocumentPage({ name, number, pageCount, text = '', html = '', images 
   return { component: 'document-page', name, number, pageCount, text, html, images, actions };
 }
 
+function uiHistoryTable({ action, title, rows = [], contributors = [], search = '',
+  contributorId = '', page = 1, totalPages = 1, total = 0, fields = {}, canRestore = false,
+  labels = {} }) {
+  return {
+    component: 'history-table', action, title, rows, contributors, search,
+    contributorId, page, totalPages, total, fields, canRestore, labels,
+  };
+}
+
 function uiLink({ href, label, icon = 'caret-right' }) {
   return { component: 'link', href, label, icon };
 }
@@ -114,7 +123,8 @@ function uiBoardCreateForm({ action, titleLabel, permissionLabel, permissions = 
 
 module.exports = {
   UI_ICONS, uiAction, uiAttachment, uiBoardCreateForm, uiCardDestinationForm, uiControlLabel,
-  uiDocumentPage, uiExportForm, uiFieldsetForm, uiFileForm, uiIcon, uiImage, uiLink, uiStatus,
+  uiDocumentPage, uiExportForm, uiFieldsetForm, uiFileForm, uiHistoryTable, uiIcon, uiImage,
+  uiLink, uiStatus,
   uiSearchForm, uiSelectForm,
   uiTextForm, uiTextareaForm, uiTextareaGroupForm,
 };

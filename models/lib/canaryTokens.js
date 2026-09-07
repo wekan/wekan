@@ -107,6 +107,10 @@ const CANARIES = {
     key: 'authz.import',
     what: 'tried to finish a missing, foreign or already-consumed Legacy HTML4 import draft',
   },
+  'legacy-html4.history-cross-scope': {
+    key: 'authz.position-history',
+    what: 'tried to restore a history row outside the card in the Legacy HTML4 URL',
+  },
   'board.write-without-capability': {
     key: 'authz.assigned',
     what: 'tried to mutate board content without the board write capability',

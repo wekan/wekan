@@ -100,7 +100,7 @@ import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiDocumentPage, uiExportForm,
-  uiFileForm, uiImage, uiLink, uiSearchForm, uiStatus,
+  uiFileForm, uiHistoryTable, uiImage, uiLink, uiSearchForm, uiStatus,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
   uiTextareaGroupForm,
 } = require('/imports/lib/uiComponentLibrary');
@@ -117,6 +117,11 @@ const {
 } = require('/models/metadata/dependencies');
 const { isChecklistShownAtMinicard } = require('/models/lib/minicardChecklistVisibility');
 const { cardActivityDescriptor } = require('/models/lib/cardActivityDescription');
+const {
+  GROUP_KEYS: HISTORY_GROUP_KEYS,
+  changeTypeKey,
+  summariseChangeHistory,
+} = require('/models/lib/changeHistoryPresentation');
 const { GLOBAL_SEARCH_HELP_LINES, GLOBAL_SEARCH_HELP_TAGS } = require('/models/lib/globalSearchHelp');
 const { buildCustomFieldsWD } = require('/models/lib/customFieldsWD');
 const {
@@ -1565,14 +1570,14 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     }), ''] });
     rows.push({ rowHeader: false, cells: [[uiAction({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
-      label: tr(translate, 'move-card-to-top', 'Move card to top'), icon: 'move-up',
+      label: tr(translate, 'r-d-move-to-top-gen', 'Move card to top'), icon: 'move-up',
       fields: {
         ...commonFields, legacyOperation: 'move-card-to-position',
         swimlaneId: card.swimlaneId, listId: card.listId, position: 'top',
       },
     }), uiAction({
       action: boardPath(board) + `/${encodeURIComponent(card._id)}`,
-      label: tr(translate, 'move-card-to-bottom', 'Move card to bottom'), icon: 'move-down',
+      label: tr(translate, 'r-d-move-to-bottom-gen', 'Move card to bottom'), icon: 'move-down',
       fields: {
         ...commonFields, legacyOperation: 'move-card-to-position',
         swimlaneId: card.swimlaneId, listId: card.listId, position: 'bottom',
@@ -1584,8 +1589,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
       ) ? rememberedCardDestinationValue
         : `${card.boardId}|${card.swimlaneId}|${card.listId}|`;
       const positionOptions = [
-        { value: 'top', label: tr(translate, 'move-card-to-top', 'Move card to top') },
-        { value: 'bottom', label: tr(translate, 'move-card-to-bottom', 'Move card to bottom') },
+        { value: 'top', label: tr(translate, 'r-d-move-to-top-gen', 'Move card to top') },
+        { value: 'bottom', label: tr(translate, 'r-d-move-to-bottom-gen', 'Move card to bottom') },
         { value: 'above', label: tr(translate, 'above-selected-card', 'Above selected card') },
         { value: 'below', label: tr(translate, 'below-selected-card', 'Below selected card') },
       ];
@@ -1913,6 +1918,87 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     fields: { ...cardTransferFields, legacyOperation: 'import-card-file' },
     submitLabel: tr(translate, 'importCardPopup-title', 'Import card'),
   }), ''] });
+  const historyVisible = ['show-card-history', 'restore-card-history']
+    .includes(String(requestFields.legacyOperation || ''));
+  const cardActionPath = boardPath(board) + `/${encodeURIComponent(card._id)}`;
+  if (!historyVisible) {
+    rows.push({ rowHeader: false, cells: [uiAction({
+      action: cardActionPath,
+      label: tr(translate, 'history', 'History'),
+      fields: {
+        boardId: card.boardId,
+        cardId: card._id,
+        historyCardId: contentCardId,
+        legacyOperation: 'show-card-history',
+      },
+    }), ''] });
+  } else {
+    const historySearch = String(requestFields.historySearch || '').slice(0, 500);
+    const historyUserId = String(requestFields.historyUserId || '').slice(0, 100);
+    const historyPage = Math.max(1, Math.min(100000,
+      Number.parseInt(requestFields.historyPage, 10) || 1));
+    let history = { rows: [], total: 0, page: 1, pageSize: 25, contributors: [] };
+    try {
+      history = await Meteor.server.method_handlers['changeHistory.page'].call({ userId }, {
+        scope: 'card', scopeId: contentCardId, group: null,
+        userId: historyUserId || null, search: historySearch,
+        page: historyPage, pageSize: 25,
+      });
+    } catch (_) { /* the containing card ACL already gives a safe empty view */ }
+    const historyPersonIds = [...new Set([
+      ...history.rows.map(item => item.userId),
+      ...history.contributors.map(item => item.userId),
+    ].filter(Boolean))];
+    const historyPeople = historyPersonIds.length ? await Meteor.users.find({
+      _id: { $in: historyPersonIds },
+    }, { fields: { username: 1, 'profile.fullname': 1 }, limit: 10000 }).fetchAsync() : [];
+    const historyPersonById = new Map(historyPeople.map(person => [person._id,
+      person.profile?.fullname || person.username || person._id]));
+    const totalPages = Math.max(1, Math.ceil(history.total / history.pageSize));
+    rows.push({ rowHeader: false, cells: [uiHistoryTable({
+      action: cardActionPath,
+      title: tr(translate, 'history', 'History'),
+      rows: history.rows.map(item => ({
+        _id: item._id,
+        change: [tr(translate, changeTypeKey(item.changeType), item.changeType || ''),
+          HISTORY_GROUP_KEYS[item.group]
+            ? tr(translate, HISTORY_GROUP_KEYS[item.group], item.group) : '']
+          .filter(Boolean).join(' - '),
+        content: summariseChangeHistory(item,
+          key => tr(translate, key, key), value => isoDate(value)),
+        contributor: historyPersonById.get(item.userId) || item.userId || '',
+        when: isoDate(item.createdAt),
+      })),
+      contributors: history.contributors.map(item => ({
+        ...item, name: historyPersonById.get(item.userId) || item.userId || '',
+      })),
+      search: historySearch,
+      contributorId: historyUserId,
+      page: history.page,
+      totalPages,
+      total: history.total,
+      canRestore: canWrite,
+      fields: {
+        boardId: card.boardId,
+        cardId: card._id,
+        historyCardId: contentCardId,
+      },
+      labels: {
+        all: tr(translate, 'roles-status-sees-all', 'All'),
+        search: tr(translate, 'search', 'Search'),
+        contributor: tr(translate, 'members', 'Contributor'),
+        filter: tr(translate, 'filter', 'Filter'),
+        select: tr(translate, 'selected-label', 'Select'),
+        action: tr(translate, 'action', 'Action'),
+        details: tr(translate, 'details', 'Details'),
+        date: tr(translate, 'date', 'Date'),
+        restore: tr(translate, 'restore', 'Restore'),
+        previous: tr(translate, 'previous', 'Previous'),
+        next: tr(translate, 'next', 'Next'),
+        noResults: tr(translate, 'no-results', 'No results'),
+      },
+    }), ''] });
+  }
   for (const checklist of visible.checklists ? checklists : []) {
     const items = checklistItems.filter(candidate => candidate.checklistId === checklist._id);
     const finished = items.filter(item => item.isFinished).length;
@@ -3245,7 +3331,7 @@ async function importPage(path, userId, requestFields, translate) {
             + `(${Number(job.currentIndex) || 0} / ${Number(job.total) || 0})`, ...actions]] });
         if (job.lastError) rows.push({ cells: [tr(translate, 'error', 'Error'), job.lastError] });
         for (const resultRow of (job.results || []).slice(-100)) rows.push({ cells: [
-          resultRow.success ? tr(translate, 'success', 'Success') : tr(translate, 'error', 'Error'),
+          resultRow.success ? tr(translate, 'done', 'Success') : tr(translate, 'error', 'Error'),
           resultRow.success
             ? `${resultRow.title || resultRow.trelloBoardId || ''} - ${Number(
               resultRow.attachmentsImported) || 0} ${tr(translate, 'attachments', 'Attachments')}`
