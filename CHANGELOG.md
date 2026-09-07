@@ -285,6 +285,8 @@ forms. Member profile, language, password, settings, color, font, avatar,
 invitation and logout now have equivalent guarded HTML4 pages at their modern URLs.
 PDF and office attachments now have bounded, paged Legacy HTML4 previews with
 selectable text, safe tables and cached GIF images from Default Storage.
+Card Date Format now shares one guarded preference and remains available across
+route publication changes in both HTML4 and HTML5.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -300,6 +302,23 @@ selectable text, safe tables and cached GIF images from Default Storage.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f6ccb72f">Add Legacy HTML4 card date format parity</a>. Thanks to xet7.</summary>
+
+Legacy HTML4 card details now expose the same three translated Date Format
+choices as Jade through a labelled native form. Both views call one strict
+account-bound service; injected choices are rejected without mutation and
+reported in Admin Panel / Problems / Security.
+
+The always-active member-preference publication now retains Date Format while
+route-scoped publications change, fixing the HTML5 selector reverting to its
+first option after All Boards-to-card navigation. Static positive and refusal
+coverage passes, and a live same-URL Chromium regression verifies persistence,
+the forged-value report and paired HTML4/HTML5 screenshots. Firefox and WebKit
+are registered but skipped locally because their host libraries are missing.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cde8d53f4">Add accessible HTML4 media previews</a>. Thanks to xet7.</summary>
