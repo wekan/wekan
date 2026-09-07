@@ -894,6 +894,18 @@ The same-URL Chromium fixture exercises the operations, denormalized display-nam
 update, normalized domain, GIF logo, guarded deletion and both renderers, captures
 paired screenshots and proves anonymous isolation.
 
+Admin Panel / People / Teams is the seventh dedicated People controller. It
+preserves the modern ten columns, literal search, total and ten-row paging in one
+semantic table. Signed POST controls retain creation, editing, the three per-row
+and bulk feature switches, the same-Team board-member restriction and confirmed
+deletion without JavaScript or cookies. Jade and HTML4 call one Global Admin-only
+service with fixed projections, bounded fields, escaped search, exact identifiers
+and denormalized member-display-name updates. Non-empty deletion is retained and
+reported at medium severity; authorization and allowlist violations are blocked
+and TeamBleed-reported at high severity. The live same-URL Chromium fixture
+exercises the operations and guarded deletion, captures both renderers and proves
+anonymous isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

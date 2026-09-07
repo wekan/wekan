@@ -18,3 +18,20 @@ Display name, description, short name, website, created date, active state, and 
 per-team switches — **Shared Templates**, **Propagate Members To Boards** and **Sync
 Members From Auth Provider** — which work exactly as the organization ones do
 (`LDAP_SYNC_TEAMS` for the last). The **New** link is the first column's header.
+
+## Legacy HTML4
+
+The same `/admin/people/teams` URL has a semantic, accessible HTML4 baseline when
+JavaScript drag and drop is unavailable. It retains all ten columns, literal
+search, ten-row Previous/Next paging, creation and editing, each individual and
+bulk feature switch, the same-Team restriction and confirmed deletion. Every
+action is a labelled, CSRF-protected HTTP POST and works without JavaScript or
+cookies.
+
+HTML4 and the modern view call the same Global Admin-only operations. The common
+service fixes the readable fields, bounds input, treats search as literal text,
+propagates display-name changes to memberships and refuses duplicate short names.
+A Team with members cannot be deleted; this expected safety refusal is reported
+at medium severity without disabling the administrator. Forged access or feature
+names are blocked and reported as high-severity TeamBleed events with available
+identity, address and location context.
