@@ -268,7 +268,8 @@ uncommon browser code loads on demand. HTML4 boards manage cards, comments,
 reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
-shares localized details, administrator operations and secure JSON/CSV transfers.
+shares localized details, administrator operations, parameterized creation and
+secure JSON/CSV transfers.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -468,6 +469,28 @@ the server reader for large streamed input.
 </details>
 
 **Legacy HTML4** - progressively enhanced pages use server-side GIF images.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac21ba534">Add accessible parameterized rules builder</a>. Thanks to xet7.</summary>
+
+Every trigger and action family in the modern Rules wizard is now available in
+cookieless HTML4. Staged native forms first select a trigger, then show only its
+applicable filters and select an action, and finally show only that action's
+placement, date, label/member, color, checklist or email fields. A shared table
+component can span these larger fieldsets across the content columns while the
+page remains one semantic table with natural label/control Tab order.
+
+The browser submits catalog kinds and bounded fields rather than database
+documents. One server operation rebuilds the trigger and action from the typed
+catalog, resolves users and labels against the source board, verifies writable
+destination boards, allowlists colors and enums, strips active markup, and
+cleans partial tuple inserts after failure. Tests exercise every advertised
+catalog entry, invalid kinds and bounds, exact resource checks, XSS input and a
+forged cross-board destination. A live Finnish same-URL test creates the rule
+through HTML4 and captures matching HTML4/HTML5 builder screenshots on
+`testi.wekan.fi`.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba2bb4af5">Add accessible external rules import</a>. Thanks to xet7.</summary>
