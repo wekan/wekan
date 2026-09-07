@@ -919,6 +919,19 @@ exposes settings anonymously. Unauthorized calls are JamBleed-reported. The live
 same-URL fixture changes every setting, unlocks one then all seeded accounts,
 captures paired screenshots, restores global state and proves anonymous isolation.
 
+Admin Panel / People / People is the ninth dedicated People controller. Its first
+delivery preserves the nine-column account list, literal search, all/locked/
+active/inactive/admin filters, total and fixed 25-row paging. Signed controls show
+the account detail, change the desired active state, confirm an individual unlock
+and disclose grouped country rows containing city, IPv4, IPv6 and timestamps.
+The shared reader uses a fixed projection and combines the existing tenant People
+scope with the requested query, so crafted search or filter input cannot widen an
+Organization administrator's scope. Refused access is UserBleed-reported. A live
+same-URL Chromium fixture verifies filtering, location disclosure, state changes,
+modern parity, anonymous isolation and paired screenshots. Creation, complete
+editing, avatar, bulk Team membership, impersonation and deletion remain the next
+People delivery and are not represented by inert HTML4 controls meanwhile.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

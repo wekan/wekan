@@ -272,7 +272,8 @@ secure JSON/CSV transfers. All 20 Problems panes have guarded
 HTML4 coverage with shared status, settings, search, paging, identity resolution,
 acknowledgements and repairs between both views. All Settings panes and People /
 Domains, Email, Locked Users, Login, Organizations, Roles, Shared templates and
-Teams share guarded HTML4 operations.
+Teams share guarded HTML4 operations; People adds guarded discovery, location,
+active-state and unlock operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -329,6 +330,22 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e1f3cc16">Add accessible HTML4 People discovery and account state</a>. Thanks to xet7.</summary>
+
+Admin Panel / People / People now retains the nine-column account list, literal
+search, all five filters, result count and fixed paging in semantic HTML4. Signed
+POST controls show account and IPv4/IPv6 location details, change the desired
+active state and confirm individual unlock without JavaScript or cookies.
+
+Both renderers use one fixed-field, tenant-aware reader. Organization
+administrators remain restricted to members of Organizations they administer and
+cannot manage site administrators; forged scope attempts are UserBleed-reported.
+Source tests and a live same-URL Chromium regression cover filters, location,
+state changes, anonymous isolation and paired HTML4/HTML5 screenshots.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/059a4dd10">Add complete accessible HTML4 locked-user administration</a>. Thanks to xet7.</summary>
