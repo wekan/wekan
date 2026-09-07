@@ -10,7 +10,7 @@ test('Settings Version has equivalent admin-only HTML4 data and version check', 
   baseURL,
 }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4version${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const legacyContext = await browser.newContext({

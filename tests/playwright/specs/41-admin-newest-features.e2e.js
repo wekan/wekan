@@ -26,7 +26,7 @@ test.describe('Admin – newest features', () => {
   test('Boards Report filters All, Public and Private on the server', async ({ page, adminUser }) => {
     // Keep the visible title below the report's UI abbreviation boundary so
     // this test is about filtering, not abbreviated cell presentation.
-    const marker = `bf-${Math.random().toString(36).slice(2, 10)}`;
+    const marker = `bf-${db.uniqueSuffix()}`;
     const privateBoard = await db.seedBoard({
       ownerId: adminUser.id, title: `${marker}-private`, cardTitlesPerList: [[]],
     });
@@ -63,11 +63,11 @@ test.describe('Admin – newest features', () => {
     // could never match them, so fail here with a clear message instead of "no table".
     expect(cardId, 'seed: findCardIdByTitle must return the seeded card id').toBeTruthy();
     const meta = { boardId: board.boardId, cardId };
-    const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const runId = db.uniqueSuffix();
     // File display/download names are intentionally capped at 30 Amiga-visible
     // characters. Keep the per-run prefix short enough that each sanitized
     // suffix remains observable instead of being truncated away.
-    const marker = `f-${Math.random().toString(36).slice(2, 8)}`;
+    const marker = `f-${db.uniqueSuffix()}`;
     await db.insertMany('attachments', [
       { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta },
       { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta }, // -> "Гp.png" after confusable folding

@@ -17,7 +17,7 @@ async function html4Login(browser, baseURL, username, password) {
 
 test('member password has equivalent HTML4 and HTML5 views and verifies the old secret', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4password${suffix}`;
   const oldPassword = `Old-${suffix}!`;
   const newPassword = `New-${suffix}!`;

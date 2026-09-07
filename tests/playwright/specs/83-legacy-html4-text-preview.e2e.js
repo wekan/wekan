@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('text attachment preview is scoped and equivalent without cookies', async ({ browser, baseURL }) => {
   test.setTimeout(120000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4text${suffix}`;
   const attachmentId = `text${suffix}`;
   const audioId = `audio${suffix}`;

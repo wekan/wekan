@@ -60,7 +60,7 @@ test('Send verification again has equivalent HTML4 and HTML5 views at the same U
 
 test('HTML4 reset, enrollment and verification tokens are single-use', async ({ browser, baseURL }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4token${suffix}`;
   const email = `${username}@wekan-test.invalid`;
   const resetToken = `reset-${suffix}`;

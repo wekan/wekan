@@ -8,7 +8,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('member avatar has equivalent guarded HTML4 and HTML5 operations', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4avatar${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-member-avatar`;
   const storageSettings = db.findOne('attachmentStorageSettings', {});

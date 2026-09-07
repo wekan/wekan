@@ -9,7 +9,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('card document preview is paged, scoped and equivalent without cookies', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4document${suffix}`;
   const attachmentId = `document${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-document-preview`;

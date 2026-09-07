@@ -177,7 +177,7 @@ test.describe('Admin – user management', () => {
   });
 
   test('sign-up tabs only through fields and Enter in the bottom field submits', async ({ page }) => {
-    const suffix = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    const suffix = db.uniqueSuffix();
     const username = `keyboard_${suffix}`;
     await page.goto(`${BASE_URL}/sign-up`, { waitUntil: 'networkidle' });
 

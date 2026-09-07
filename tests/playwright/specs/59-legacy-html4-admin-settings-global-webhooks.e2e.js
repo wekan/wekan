@@ -9,7 +9,7 @@ test('Global Webhooks has equivalent secure HTML4 and HTML5 views', async ({
   browser, baseURL,
 }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4hook${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const title = `Webhook ${suffix}`;

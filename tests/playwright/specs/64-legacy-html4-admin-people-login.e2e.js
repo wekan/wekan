@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('People Login has equivalent complete HTML4 operations', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4login${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const oidcText = `HTML4 OIDC ${suffix}`;

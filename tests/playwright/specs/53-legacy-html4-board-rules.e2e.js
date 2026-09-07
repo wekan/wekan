@@ -38,7 +38,7 @@ function seedRules(boardId, suffix) {
 
 test('HTML4 and HTML5 share localized Board Rules reads and guarded writes', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4rules${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'fi-FI' });

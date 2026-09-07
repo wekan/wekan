@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('member language has equivalent HTML4 and HTML5 views and rejects unknown tags', async ({ browser, baseURL }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4language${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-member-language`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });

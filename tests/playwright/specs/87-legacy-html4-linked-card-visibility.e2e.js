@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('linked cards share visible real content but retain only their snapshot when private',
   async ({ browser, baseURL }) => {
-    const suffix = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
+    const suffix = db.uniqueSuffix();
     const username = `html4linked${suffix}`;
     const output = `${process.cwd()}/../../.tools/html4-linked-card`;
     const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });

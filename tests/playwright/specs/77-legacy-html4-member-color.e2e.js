@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('member theme has equivalent guarded HTML4 and HTML5 controls', async ({ browser, baseURL }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4color${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-member-color`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });

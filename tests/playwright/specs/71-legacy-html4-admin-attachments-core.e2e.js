@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('Default storage and limits match at the same Attachments URLs', async ({ browser, baseURL }) => {
   test.setTimeout(180_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4attach${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const original = db.findOne('attachmentStorageSettings', {}) || null;

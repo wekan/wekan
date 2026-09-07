@@ -5,7 +5,7 @@ const db = require('../helpers/db');
 const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/auth');
 
 test('card date format is shared and guarded without cookies', async ({ browser, baseURL }) => {
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4date${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-card-date-format`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });

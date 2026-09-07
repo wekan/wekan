@@ -9,7 +9,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 test('card cover is identified and previewable without JavaScript or cookies', async ({
   browser, baseURL,
 }) => {
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4cover${suffix}`;
   const attachmentId = `cover${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-card-cover`;

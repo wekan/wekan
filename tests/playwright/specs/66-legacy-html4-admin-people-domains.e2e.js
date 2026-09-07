@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('People Domains has equivalent searchable paged HTML4 content', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const prefix = `html4domain${suffix}`.toLowerCase();
   const username = `html4domains${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;

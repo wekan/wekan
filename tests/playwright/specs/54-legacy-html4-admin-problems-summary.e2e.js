@@ -10,7 +10,7 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   baseURL,
 }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4admin${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const eventId = `html4-problem-${suffix}`;

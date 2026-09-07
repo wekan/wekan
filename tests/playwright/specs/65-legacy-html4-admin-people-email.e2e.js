@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('People Email has equivalent secret-safe HTML4 operations', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4email${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const secret = `must-not-reach-browser-${suffix}`;

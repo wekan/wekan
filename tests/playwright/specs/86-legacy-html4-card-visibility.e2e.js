@@ -12,7 +12,7 @@ const hiddenOperations = [
 ];
 
 test('Card Settings gate the same sections in HTML4 and HTML5', async ({ browser, baseURL }) => {
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4gates${suffix}`;
   const output = `${process.cwd()}/../../.tools/html4-card-visibility`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });

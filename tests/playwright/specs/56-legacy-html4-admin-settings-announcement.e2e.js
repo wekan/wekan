@@ -10,7 +10,7 @@ test('Settings Announcement has equivalent admin-only HTML4 writes', async ({
   baseURL,
 }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4announce${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const message = `Saavutettava ilmoitus ${suffix}`;

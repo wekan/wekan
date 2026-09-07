@@ -10,7 +10,7 @@ test('Settings PWA has equivalent validated HTML4 writes and assets', async ({
   baseURL,
 }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4pwa${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const manifestName = `PWA ${suffix}`;

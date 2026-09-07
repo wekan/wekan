@@ -61,6 +61,14 @@ function uid(prefix = 'e2e') {
   return `${prefix}${crypto.randomBytes(6).toString('hex')}`;
 }
 
+// A collision-resistant printable suffix for test usernames, emails and
+// markers. Keeping this in the database helper prevents every spec from
+// inventing a predictable Math.random-based identifier that security scanners
+// cannot distinguish from an authentication token.
+function uniqueSuffix() {
+  return `${Date.now()}${crypto.randomBytes(8).toString('hex')}`;
+}
+
 function createResumeToken() {
   const raw = crypto.randomBytes(24).toString('base64url');
   const hashed = crypto.createHash('sha256').update(raw).digest('base64');
@@ -486,7 +494,7 @@ module.exports = {
   seedUser, seedBoard, addBoardMember, setUserGroups, seedTemplatesBoard,
   findCardIdByTitle, setCardDependencies, setBoardShowDependencies, cleanup,
   addResumeToken,
-  getCard, getBoard, uid,
+  getCard, getBoard, uid, uniqueSuffix,
   // generic collection helpers (replace ad-hoc mongosh `mongoEval` scripts)
   find, findOne, insertOne, insertMany, updateOne, updateMany, deleteOne,
   deleteMany, countDocuments, collectionNames, runOps,

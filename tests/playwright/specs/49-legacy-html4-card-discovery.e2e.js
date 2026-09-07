@@ -13,7 +13,7 @@ test('cookieless HTML4 card discovery pages show only the signed-in user data', 
   test.setTimeout(180_000);
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4discover${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   let user;

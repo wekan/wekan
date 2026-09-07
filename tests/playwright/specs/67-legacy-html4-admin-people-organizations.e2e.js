@@ -9,7 +9,7 @@ const GIF = Buffer.from('R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==', 'bas
 
 test('People Organizations has equivalent complete HTML4 operations', async ({ browser, baseURL }) => {
   test.setTimeout(180_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4org${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const shortName = `org-${suffix}`;

@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('People list, filters, state and locations match at the same URL', async ({ browser, baseURL }) => {
   test.setTimeout(180_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4people${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const target = db.seedUser();

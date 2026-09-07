@@ -9,7 +9,7 @@ const SETTING_ID = 'inviteToBoardRoles';
 
 test('People Roles has equivalent complete HTML4 operations', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4roles${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false, locale: 'en-US' });

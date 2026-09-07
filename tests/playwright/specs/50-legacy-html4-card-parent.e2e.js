@@ -7,7 +7,7 @@ const { loginWithToken } = require('../helpers/auth');
 
 test('HTML4 and HTML5 expose the same parent-card state at the same URL', async ({ browser, baseURL }) => {
   test.setTimeout(90_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4parent${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const legacyContext = await browser.newContext({ javaScriptEnabled: false });

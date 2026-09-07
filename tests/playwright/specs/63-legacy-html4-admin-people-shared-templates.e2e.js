@@ -7,7 +7,7 @@ const { loginWithToken, navigateInApp, waitForMeteor } = require('../helpers/aut
 
 test('People Shared templates has equivalent scoped HTML4 discovery', async ({ browser, baseURL }) => {
   test.setTimeout(120_000);
-  const suffix = `${Date.now()}${Math.floor(Math.random() * 10000)}`;
+  const suffix = db.uniqueSuffix();
   const username = `html4templates${suffix}`;
   const password = `Legacy-${suffix}-Pass!`;
   const groupUser = db.seedUser();
