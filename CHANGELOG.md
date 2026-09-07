@@ -278,6 +278,7 @@ complete guarded HTML4 operations, and Move Attachment shares persisted progress
 and repair controls.
 Filesystem and GridFS share Read state, server paths, file counts and compaction.
 S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
+Database Migration shares guarded direction controls and live progress.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -334,6 +335,22 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fdac604fc">Add accessible HTML4 database migration</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments / Database Migration now shows live phase and
+collection progress and offers both MongoDB/FerretDB migration directions without
+JavaScript or cookies. Signed POST controls call the same Global Admin-only service
+as Meteor, with a fixed direction allowlist, concurrent-run protection and Security
+reporting for refused HTML4 requests.
+
+The shared status service also avoids invoking a Meteor method outside its DDP
+context. Source, renderer and translation tests pass. A live same-URL Chromium test
+verifies both controls and status and captures paired screenshots without starting a
+destructive migration.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d394b5629">Add accessible HTML4 cloud attachment storage</a>. Thanks to xet7.</summary>

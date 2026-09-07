@@ -67,7 +67,8 @@ which environment variable or console path each field corresponds to.
 ## Database migration
 
 The MongoDB ↔ FerretDB v1 (SQLite) text-data migration, with the progress dashboard.
-See [Problems / Migrations](../Problems/Migrations.md).
+See [Database Migration](Database-Migration.md) and
+[Problems / Migrations](../Problems/Migrations.md).
 
 ## Sandstorm — removed from the menu
 
@@ -103,8 +104,8 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / S3/MinIO Storage | `s3` | [S3 and MinIO Storage](S3-MinIO-Storage.md) |
 | Attachments / Azure Blob Storage | `azure` | [Azure Blob Storage](Azure-Blob-Storage.md) |
 | Attachments / Google Cloud Storage | `gcs` | [Google Cloud Storage](Google-Cloud-Storage.md) |
-| Attachments / Database migration | `database-migration` | — |
+| Attachments / Database migration | `database-migration` | [Database Migration](Database-Migration.md) |
 
-2 of these 10 panes have no page of their own yet. A dash is a
+1 of these 10 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

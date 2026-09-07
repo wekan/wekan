@@ -1005,6 +1005,15 @@ backend before setting harmless test names, verifies Jade receives all three,
 captures six same-URL screenshots and restores the exact original configurations;
 it verifies but does not contact unconfigured external services.
 
+Database Migration is the ninth complete Attachments controller. It reads phase,
+per-collection and total progress and exposes the two modern migration directions as
+signed POST buttons. The HTML4 request and shared service both enforce the fixed
+direction allowlist, repeat Global Admin authorization and refuse a second concurrent
+migration; denied requests are Security-reported. The Meteor methods delegate to the
+same service instead of being invoked outside a DDP context. A same-URL live fixture
+verifies both actions and status in HTML4 and Jade and captures paired screenshots
+without starting a destructive migration.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
