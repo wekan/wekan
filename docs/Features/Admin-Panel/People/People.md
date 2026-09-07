@@ -25,10 +25,18 @@ field projection. A site administrator sees the instance; an Organization
 administrator sees only users in Organizations they administer and can never
 manage a site administrator. Search text is bounded and escaped before it becomes
 a literal regular expression, and refused reads or writes are recorded in Admin
-Panel / Problems / Security with available request identity. The first delivery
-keeps account creation, full profile editing, avatar upload, bulk Team membership,
-impersonation and deletion in the modern view; those mutations move together in
-the next delivery so they can share one validated service boundary.
+Panel / Problems / Security with available request identity. Creation and
+complete account editing also use that boundary in both views.
+The labelled HTML4 fieldset retains full name, username, initials, primary e-mail
+and verification, import usernames, administrator and active state,
+authentication method, Organization and Team membership, and password. The
+server derives Organization and Team display names from exact submitted IDs,
+allows only enabled authentication methods, preserves secondary e-mail addresses,
+checks identity uniqueness case-insensitively, prevents disabling/demoting the
+current or last administrator, rolls back a failed creation, and propagates newly
+gained Team board membership through the same helper used by existing methods.
+Avatar upload, bulk Team membership, impersonation and deletion remain for the
+next delivery.
 
 ## Related
 

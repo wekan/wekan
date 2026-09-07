@@ -332,6 +332,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b6a1d635">Share secure People creation and editing across HTML4 and Jade</a>. Thanks to xet7.</summary>
+
+Admin Panel / People now creates and completely edits accounts through one
+validated server operation in both semantic HTML4 and Jade. The HTML4 fieldset
+retains identity, profile, verification, role, active, authentication, import,
+Organization, Team and password fields in natural keyboard order.
+
+The service bounds all input, resolves group names from exact IDs, restricts
+authentication methods, checks identities case-insensitively, preserves secondary
+addresses, protects the current and last administrator, rolls back failed
+creation and shares Team-to-board propagation. The live same-URL regression
+creates and edits an account; source, tenant, Team-sync and existing modern user
+tests cover validation and compatibility.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e1f3cc16">Add accessible HTML4 People discovery and account state</a>. Thanks to xet7.</summary>
 
 Admin Panel / People / People now retains the nine-column account list, literal

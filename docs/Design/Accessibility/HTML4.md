@@ -929,8 +929,21 @@ scope with the requested query, so crafted search or filter input cannot widen a
 Organization administrator's scope. Refused access is UserBleed-reported. A live
 same-URL Chromium fixture verifies filtering, location disclosure, state changes,
 modern parity, anonymous isolation and paired screenshots. Creation, complete
-editing, avatar, bulk Team membership, impersonation and deletion remain the next
-People delivery and are not represented by inert HTML4 controls meanwhile.
+editing, avatar, bulk Team membership, impersonation and deletion were originally
+left for the next People delivery rather than represented by inert controls.
+
+The second People delivery adds creation and complete account editing. One
+labelled fieldset preserves the modern identity, profile, verification, role,
+active, authentication, import-alias, Organization, Team and optional password
+fields in natural Tab order. HTML4 and Jade now submit one operation instead of a
+race among profile, username, e-mail and password methods. The shared service
+bounds every value, resolves membership display names from exact scoped IDs,
+allows enabled authentication methods, enforces case-insensitive uniqueness,
+preserves secondary addresses, protects the current and last administrator,
+rolls back incomplete creation and reuses Team-to-board membership propagation.
+A same-URL live test creates and edits an account and verifies persisted values;
+the existing modern suite verifies list, edit, active-state and password flows.
+Avatar, bulk Team membership, impersonation and deletion remain next.
 
 ## Delivery order
 
