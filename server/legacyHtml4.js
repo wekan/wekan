@@ -143,6 +143,7 @@ import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
+import { changeOwnMemberPassword } from '/server/lib/memberPassword';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -321,6 +322,21 @@ WebApp.handlers.use(async (req, res, next) => {
       requestFields.legacyLanguageResult = translatedOr(
         translate, error?.error || 'operation-failed', 'Operation failed',
       );
+    }
+  }
+  if (session && path === '/account/password'
+    && requestFields.legacyOperation === 'change-own-password') {
+    try {
+      await changeOwnMemberPassword(session.userId, {
+        currentPassword: requestFields.currentPassword,
+        newPassword: requestFields.newPassword,
+        passwordAgain: requestFields.passwordAgain,
+      }, { req });
+      requestFields.legacyPasswordResult = translatedOr(translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyPasswordResult = translatedOr(translate,
+        error?.error === 'password-mismatch' ? 'password-mismatch' : 'invalid-credentials',
+        'Invalid username or password');
     }
   }
   if (session && path === '/admin/settings/version'

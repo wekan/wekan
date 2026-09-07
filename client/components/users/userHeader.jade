@@ -94,7 +94,7 @@ template(name="memberMenuPopup")
       unless isSandstorm
         if isNotOAuth2AuthenticationMethod
           li
-            a.js-change-password
+            a.js-change-password(href="/account/password")
               i.fa.fa-key
               | {{_ 'changePasswordPopup-title'}}
       li
@@ -183,7 +183,17 @@ template(name="supportPopup")
         = currentSetting.supportPopupText
 
 template(name="changePasswordPopup")
-  +atForm(state='changePwd')
+  form.js-change-own-password
+    label(for="member-current-password")
+      | {{_ 'current'}} {{_ 'password'}}
+    input#member-current-password.js-current-password(type="password" autocomplete="current-password" required)
+    label(for="member-new-password")
+      | {{_ 'new'}} {{_ 'password'}}
+    input#member-new-password.js-new-password(type="password" autocomplete="new-password" minlength="6" required)
+    label(for="member-password-again") {{_ 'password-again'}}
+    input#member-password-again.js-password-again(type="password" autocomplete="new-password" minlength="6" required)
+    p.error.js-password-error.hide(role="alert")
+    input.primary.wide(type="submit" value="{{_ 'change-password'}}")
 
 template(name="changeLanguagePopup")
   ul.pop-over-list

@@ -206,8 +206,26 @@ Template.editProfilePopup.events({
 // XXX For some reason the useraccounts autofocus isnt working in this case.
 // See https://github.com/meteor-useraccounts/core/issues/384
 Template.changePasswordPopup.onRendered(function() {
-  $('.at-pwd-form').show();
-  this.find('#at-field-current_password').focus();
+  this.find('#member-current-password').focus();
+});
+
+Template.changePasswordPopup.events({
+  'submit .js-change-own-password'(event, templateInstance) {
+    event.preventDefault();
+    const currentPassword = templateInstance.find('.js-current-password').value;
+    const newPassword = templateInstance.find('.js-new-password').value;
+    const passwordAgain = templateInstance.find('.js-password-again').value;
+    const errorElement = templateInstance.$('.js-password-error');
+    Meteor.call('changeOwnPassword', { currentPassword, newPassword, passwordAgain }, error => {
+      if (error) {
+        errorElement.text(TAPi18n.__(error.error === 'password-mismatch'
+          ? 'password-mismatch' : 'invalid-credentials')).show();
+      } else {
+        errorElement.hide();
+        Popup.back();
+      }
+    });
+  },
 });
 
 Template.changeLanguagePopup.helpers({

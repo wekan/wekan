@@ -32,6 +32,7 @@ import {
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { setMemberLanguage } from '/server/lib/memberLanguage';
+import { changeOwnMemberPassword } from '/server/lib/memberPassword';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin,
@@ -174,6 +175,13 @@ Meteor.methods({
   async updateOwnProfile(input) {
     check(input, Object);
     return updateOwnMemberProfile(this.userId, input, {
+      connection: this.connection,
+    });
+  },
+
+  async changeOwnPassword(input) {
+    check(input, Object);
+    return changeOwnMemberPassword(this.userId, input, {
       connection: this.connection,
     });
   },

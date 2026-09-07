@@ -2361,6 +2361,43 @@ async function accountLanguagePage(path, userId, requestFields, translate) {
   };
 }
 
+async function accountPasswordPage(path, userId, requestFields, translate) {
+  if (path !== '/account/password') return null;
+  const user = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { authenticationMethod: 1 },
+  });
+  const allowed = user && (user.authenticationMethod || '').toLowerCase() !== 'oauth2';
+  const rows = [];
+  if (allowed) rows.push({ rowHeader: false, cells: ['', uiFieldsetForm({
+    action: path,
+    legend: tr(translate, 'changePasswordPopup-title', 'Change Password'),
+    inputs: [
+      { name: 'currentPassword', type: 'password',
+        label: `${tr(translate, 'current', 'Current')} ${tr(translate, 'password', 'Password')}`,
+        maxlength: 256, autocomplete: 'current-password', required: true },
+      { name: 'newPassword', type: 'password',
+        label: `${tr(translate, 'new', 'New')} ${tr(translate, 'password', 'Password')}`,
+        maxlength: 256, autocomplete: 'new-password', required: true },
+      { name: 'passwordAgain', type: 'password',
+        label: tr(translate, 'password-again', 'Password (again)'), maxlength: 256,
+        autocomplete: 'new-password', required: true },
+    ],
+    fields: { legacyOperation: 'change-own-password' },
+    submitLabel: tr(translate, 'change-password', 'Change Password'),
+    id: 'member-password',
+  })] });
+  else rows.push({ cells: [tr(translate, 'status', 'Status'),
+    tr(translate, 'error-notAuthorized', 'Not authorized')] });
+  if (requestFields.legacyPasswordResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyPasswordResult,
+  ] });
+  return {
+    heading: tr(translate, 'changePasswordPopup-title', 'Change Password'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function cardRows(cards, userId, translate) {
   const boardIds = [...new Set(cards.map(card => card.boardId))];
   const listIds = [...new Set(cards.map(card => card.listId))];
@@ -5734,6 +5771,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (accountProfile) return accountProfile;
   const accountLanguage = await accountLanguagePage(path, userId, requestFields, translate);
   if (accountLanguage) return accountLanguage;
+  const accountPassword = await accountPasswordPage(path, userId, requestFields, translate);
+  if (accountPassword) return accountPassword;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

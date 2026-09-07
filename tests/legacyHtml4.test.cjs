@@ -874,6 +874,30 @@ test('member language route shares the supported language catalogue with Jade', 
   assert.match(methods, /return setMemberLanguage\(this\.userId, language, \{ connection: this\.connection \}\)/);
 });
 
+test('member password route shares guarded verification with Jade', () => {
+  const root = path.join(__dirname, '..');
+  const routes = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+  const client = fs.readFileSync(path.join(root, 'client/components/users/userHeader.js'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const handler = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  const service = fs.readFileSync(path.join(root, 'server/lib/memberPassword.js'), 'utf8');
+  const methods = fs.readFileSync(path.join(root, 'server/models/users.js'), 'utf8');
+  assert.match(routes, /FlowRouter\.route\('\/account\/password'/);
+  assert.match(jade, /js-change-password\(href="\/account\/password"\)/);
+  assert.ok(jade.indexOf('js-current-password') < jade.indexOf('js-new-password'));
+  assert.ok(jade.indexOf('js-new-password') < jade.indexOf('js-password-again'));
+  assert.match(client, /Meteor\.call\('changeOwnPassword'/);
+  assert.match(pages, /legacyOperation: 'change-own-password'/);
+  assert.match(handler, /changeOwnMemberPassword\(session\.userId/);
+  assert.match(service, /Accounts\._checkPasswordAsync\(user, currentPassword\)/);
+  assert.match(service, /Accounts\.setPasswordAsync\(userId, newPassword, \{ logout: true \}\)/);
+  assert.match(service, /maxFailures: 5/);
+  assert.match(service, /source: 'memberPassword'/);
+  assert.match(methods, /return changeOwnMemberPassword\(this\.userId, input/);
+  assert.doesNotMatch(handler, /Location[^\n]+(?:currentPassword|newPassword|passwordAgain)/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',
