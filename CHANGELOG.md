@@ -269,7 +269,7 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary and twelve reports now share guarded
+secure JSON/CSV transfers. Problems Summary and thirteen reports now share guarded
 status, search, paging, identity resolution, acknowledgements and repairs between
 both views.
 
@@ -434,6 +434,24 @@ four deduplicated page-local context lookups. Tests cover projection, indexed
 ordering, bounds, columns and authorization. A same-URL Chromium test searches
 twelve cards, verifies two pages and every related name in both renderers,
 captures both views and proves anonymous isolation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31f788b45">Add accessible HTML4 Broken Cards Report</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Broken Cards now renders Card Title, Id, Board,
+Swimlane, List, Type and Created at in a semantic Legacy HTML4 table. Missing
+context is explicit translated Unknown text. Signed search and ten-row
+Previous/Next controls work without JavaScript or cookies.
+
+The standalone reader, Meteor report and HTML4 controller share one four-branch
+broken-card definition. Report reads use one Global Admin service, escaped
+bounded title search, database count, capped window, indexed ordering and three
+deduplicated page-local context lookups. Tests cover every broken branch,
+projection, bounds, columns and refusal. A same-URL Chromium test searches
+twelve broken cards, verifies two pages and context in both views, captures both
+representations and proves anonymous isolation.
 
 </details>
 
