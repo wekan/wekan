@@ -956,6 +956,19 @@ direct client writes or one method per selected user. The live test covers all o
 these operations and forges a cross-user avatar selection to prove refusal,
 UserBleed Security reporting and automatic attacker-account blocking.
 
+Admin Panel / Attachments starts with one signed navigation covering all ten
+modern pane URLs, so an HTML4 browser can move between them before each pane's
+controls are complete. Default Save Storage and Limits are the first two complete
+controllers. Both read and write through the same Global Admin-only Meteor
+services as Jade. Default Storage accepts only the five supported backends.
+Limits preserves all four upload/download and API modes, positive byte/MB/GB
+values and the avatar-upload block in one labelled fieldset and natural Tab
+order. Limit normalization and safe-integer conversion live in one common module
+used by both renderers; unknown modes, units, non-positive values and overflow are
+refused and Security-reported. A same-URL live Chromium fixture changes both
+panes, verifies Jade observes the resulting settings, captures both renderers,
+restores global state and proves a non-admin receives no fields.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:

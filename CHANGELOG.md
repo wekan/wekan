@@ -273,6 +273,8 @@ HTML4 coverage with shared status, settings, search, paging, identity resolution
 acknowledgements and repairs between both views. All Settings panes and People /
 Domains, Email, Locked Users, Login, Organizations, Roles, Shared templates and
 Teams and People share complete guarded HTML4 operations.
+Attachments has shared navigation for all panes; Default Storage and Limits have
+complete guarded HTML4 operations.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -329,6 +331,23 @@ translation keys and same-URL HTML4/HTML5 reaction screenshots.
 </details>
 
 **Admin Panel** - Problems Summary works without JavaScript or cookies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/073379303">Add accessible HTML4 attachment storage controls</a>. Thanks to xet7.</summary>
+
+Admin Panel / Attachments now has signed navigation across all ten pane URLs.
+Default Save Storage and Limits work without JavaScript or cookies and call the
+same Global Admin-only services as Jade. The limit form retains all attachment
+and API upload/download modes, byte/MB/GB values and avatar upload blocking.
+
+Both renderers now share limit normalization and safe-integer conversion.
+Unknown storage names, modes, units, non-positive limits and overflow are
+refused; rejected HTML4 writes are Security-reported. Unit and source tests cover
+positive and negative cases. A live same-URL Chromium test changes both settings,
+proves Jade receives them, captures paired screenshots, restores global state and
+proves non-admin isolation.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/552583412">Complete accessible HTML4 People operations</a>. Thanks to xet7.</summary>
