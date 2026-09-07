@@ -222,6 +222,20 @@ Security. Live coverage selects Finnish without JavaScript, verifies the databas
 Finnish HTML4 response, verifies the selected Jade row, captures both views and submits
 an injected unsupported option as its negative case.
 
+`/account/password` is the third complete Member Menu page. Its Jade and HTML4
+forms use the same three naturally ordered labelled controls: current password,
+new password and repeated new password. One shared service bounds the secrets,
+requires the repeated value to match, verifies the existing bcrypt password and
+only then replaces it through Meteor Accounts while revoking reusable Meteor login
+tokens. The HTML4 session remains an independent short-lived, address/user-agent-bound
+session and receives freshly rotated action signatures with the response. OAuth2
+accounts cannot create a local-password path through this endpoint. Current-password
+checks have a five-failure-per-minute account-and-address throttle; reaching the limit
+is attributed in Problems / Security without logging any password. A same-URL live
+test captures both views, verifies that a wrong current password preserves the old
+secret, changes it with the correct current password, then proves the old login fails
+and the new login succeeds without JavaScript or cookies.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject

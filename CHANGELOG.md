@@ -299,6 +299,22 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e8946c46">Add accessible member password page</a>. Thanks to xet7.</summary>
+
+Member Menu / Change Password now has a stable `/account/password` route and the same
+semantic current/new/repeated-password fields in Jade and HTML4. Both forms use one
+bounded service that verifies the current bcrypt secret before changing it, rejects a
+mismatch, refuses OAuth2 accounts and revokes reusable Meteor login tokens.
+
+Current-password verification is account-and-address throttled at five failures per
+minute; reaching the limit is attributed in Problems / Security without recording any
+password. Static positive and negative tests pass. A live same-URL Chromium test
+captures both representations, proves a wrong current password preserves the old
+secret, then proves the correct change makes the old login fail and new login succeed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc182fb07">Add accessible member language page</a>. Thanks to xet7.</summary>
 
 Member Menu / Change Language now has a stable `/account/language` route and a
