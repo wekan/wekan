@@ -2040,8 +2040,12 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
     }
   }
   const attachmentAction = boardPath(board) + `/${encodeURIComponent(card._id)}`;
-  for (const attachment of attachments) {
+  const hasCover = board.allowsCoverAttachmentOnCard === true && Boolean(contentCard?.coverId);
+  const orderedAttachments = [...attachments].sort((left, right) =>
+    Number(right._id === contentCard?.coverId) - Number(left._id === contentCard?.coverId));
+  for (const attachment of orderedAttachments) {
     const kind = attachmentKind(attachment);
+    const isCover = hasCover && kind.isImage && contentCard.coverId === attachment._id;
     const responseFields = {
       boardId: contentBoardId, cardId: contentCardId, attachmentId: attachment._id,
     };
@@ -2100,7 +2104,8 @@ async function cardDetailsPage(board, cardId, userId, requestFields, translate) 
         },
       });
     }
-    rows.push({ cells: [tr(translate, 'attachment', 'Attachment'), uiAttachment({
+    rows.push({ cells: [tr(translate, isCover ? 'cover-image' : 'attachment',
+      isCover ? 'Cover image' : 'Attachment'), uiAttachment({
       name: cleanFileName(attachment.name),
       type: attachment.type || 'application/octet-stream',
       size: Number(attachment.size) || 0,

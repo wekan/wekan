@@ -409,6 +409,13 @@ card's `#number`, matching Jade's opened-card title. The number is queried only
 for the authorized route card (or its already-authorized linked content card),
 is never accepted from a form and remains absent when the board setting is off.
 
+When Cover on Card is enabled and the real content card has an image cover,
+HTML4 moves that attachment to the first attachment row and labels it Cover
+Image. Its purpose-bound Preview opens the server-stored GIF representation;
+the original remains a separate Download. This is the semantic small-browser
+equivalent of Jade's visual cover at the top of the card and does not introduce
+a credential-bearing image URL. Read-only users see the cover designation too.
+
 Received, Start, Due and End use four naturally ordered labelled text forms with
 unambiguous ISO 8601 values; an empty value clears the date. Jade date pickers
 and HTML4 forms submit to the same acknowledged operation. It allowlists those

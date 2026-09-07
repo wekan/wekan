@@ -79,7 +79,7 @@ so HTML4 auto-layout does not infer a false two-column grid for wider reports.
 | Card destination | title, board/swimlane/list/card insertion point, relative position | one labelled form in natural Tab order with native selects | shared card destination picker in the Jade popup |
 | Scoped export | part selection, format, board/card/checklist identity | signed POST fieldset with native checkboxes and format select | shared reactive export popup and format catalogue |
 | Scoped file import | part selection, accepted formats, destination identity | bounded multipart fieldset with native checkboxes and one file input | shared import-mode popup with JSON/ZIP picker |
-| Attachment | safe name, detected type, byte size, content/route scope, cover state and available representations | text metadata, purpose-signed `Preview`/`Download`, labelled rename, image-only cover toggle and confirmed delete POST controls | attachment thumbnail, slideshow and the same shared rename, cover, download and delete operations |
+| Attachment | safe name, detected type, byte size, content/route scope, cover state and available representations | text metadata, setting-gated Cover Image designation ordered first, purpose-signed `Preview`/`Download`, labelled rename, image-only cover toggle and confirmed delete POST controls | opened-card cover, attachment thumbnail, slideshow and the same shared rename, cover, download and delete operations |
 | Status | severity and text | textual prefix and table row | themed status component |
 
 ## Color contract
