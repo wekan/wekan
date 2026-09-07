@@ -301,6 +301,20 @@ route publication changes in both HTML4 and HTML5.
 
 This release fixes the following bugs:
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f47f00cf">Keep profiles and preferences through session upgrades</a>. Thanks to Alishara and xet7.</summary>
+
+Upgrading from v11.39 no longer replaces the browser's existing resume-token
+store before that token has migrated to the new HttpOnly cookie flow. The
+three-second Accounts token poll therefore cannot log out the restored user and
+remove their reactive name, avatar, theme, favorites and board-view settings.
+
+Static positive and negative coverage pins the migration order and forbids
+direct token writes. A Chromium regression recreates the old local-token state,
+checks the profile and board view, and remains logged in beyond the poll window.
+
+</details>
+
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
