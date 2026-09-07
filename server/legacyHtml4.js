@@ -66,6 +66,7 @@ import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentRes
 import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
 import { setProblemFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
+import { checkNewestVersionsForAdmin } from '/server/statistics';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -213,6 +214,18 @@ WebApp.handlers.use(async (req, res, next) => {
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
+  if (session && path === '/admin/settings/version'
+    && requestFields.legacyOperation === 'check-newest-versions') {
+    try {
+      const result = await checkNewestVersionsForAdmin(session.userId);
+      requestFields.legacyVersionResult = result.text;
+    } catch (error) {
+      requestFields.legacyVersionResult = translatedOr(
+        translate, error?.error || 'version-check-failed',
+        'It was not possible to check the version number.',
+      );
+    }
+  }
   if (session && path === '/admin/problems/security'
     && requestFields.legacyOperation === 'set-security-feature') {
     try {

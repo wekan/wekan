@@ -10,9 +10,7 @@ import { parseVersionManifest } from '/models/lib/versionCheck';
 const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 
-Meteor.methods({
-  async checkNewestVersions() {
-    const currentUser = await ReactiveCache.getCurrentUser();
+async function checkNewestVersionsForCurrentUser(currentUser) {
     if (!currentUser?.isAdmin) throw new Meteor.Error('not-authorized');
 
     try {
@@ -27,10 +25,16 @@ Meteor.methods({
     } catch {
       throw new Meteor.Error('version-check-failed');
     }
-  },
+}
 
-  async getStatistics() {
-    const currentUser = await ReactiveCache.getCurrentUser();
+export async function checkNewestVersionsForAdmin(userId) {
+  const currentUser = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  return checkNewestVersionsForCurrentUser(currentUser);
+}
+
+async function statisticsForCurrentUser(currentUser) {
     if (currentUser?.isAdmin) {
       const os = require('os');
       const pjson = require('/package.json');
@@ -232,5 +236,23 @@ Meteor.methods({
     } else {
       return false;
     }
+}
+
+export async function statisticsForAdmin(userId) {
+  const currentUser = userId && await Meteor.users.findOneAsync(userId, {
+    fields: { isAdmin: 1 },
+  });
+  return statisticsForCurrentUser(currentUser);
+}
+
+Meteor.methods({
+  async checkNewestVersions() {
+    const currentUser = await ReactiveCache.getCurrentUser();
+    return checkNewestVersionsForCurrentUser(currentUser);
+  },
+
+  async getStatistics() {
+    const currentUser = await ReactiveCache.getCurrentUser();
+    return statisticsForCurrentUser(currentUser);
   },
 });

@@ -69,6 +69,8 @@ function pageHeading(path, options) {
     [/^\/support(?:\/|$)/, 'support', 'Support'],
     [/^\/accessibility(?:\/|$)/, 'accessibility', 'Accessibility'],
     [/^\/shortcuts(?:\/|$)/, 'keyboard-shortcuts', 'Keyboard shortcuts'],
+    [/^\/admin\/settings(?:\/|$)/, 'settings', 'Settings'],
+    [/^\/admin\/problems(?:\/|$)/, 'problems', 'Problems'],
     [/^\/admin(?:\/|$)/, 'admin-panel', 'Admin Panel'],
     [/^\/b(?:\/|$)/, 'board', 'Board'],
   ];
@@ -200,7 +202,8 @@ function contentRows(path, options) {
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/broken-cards', '/bookmarks',
         '/import', '/support', '/accessibility', '/shortcuts']
-        .concat(options.isAdmin ? ['/admin/problems/summary'] : []).map(target => postForm(
+        .concat(options.isAdmin
+          ? ['/admin/settings/version', '/admin/problems/summary'] : []).map(target => postForm(
         target, pageHeading(target, options), options.actionFields(target),
       )).join(' '),
     ], { colspanLast: columnCount - 1 }));

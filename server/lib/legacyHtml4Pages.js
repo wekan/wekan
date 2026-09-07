@@ -58,6 +58,8 @@ import {
   securityFeatureSettingsForAdmin,
 } from '/server/lib/problemFeatureSettings';
 import { permanentDeleteSettingForAdmin } from '/server/lib/permanentDeleteSetting';
+import { statisticsForAdmin } from '/server/statistics';
+import { filesize } from 'filesize';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -2560,6 +2562,127 @@ function adminProblemsNavigation(translate) {
   });
 }
 
+function adminSettingsNavigation(translate) {
+  return Object.keys(ADMIN_PAGES.settings.panes).map(slug => {
+    const title = ADMIN_PANE_TITLES.settings[slug] || {};
+    return uiAction({ action: `/admin/settings/${slug}`,
+      label: title.title || tr(translate, title.titleKey || slug, slug) });
+  });
+}
+
+function statisticsDuration(seconds, translate) {
+  let remaining = Math.max(0, Number(seconds) || 0);
+  const parts = [];
+  for (const [unit, divisor] of [
+    ['days', 86400], ['hours', 3600], ['minutes', 60], ['seconds', 1],
+  ]) {
+    const value = Math.floor(remaining / divisor);
+    remaining %= divisor;
+    if (value > 0 || (unit === 'seconds' && !parts.length)) {
+      parts.push(`${value} ${tr(translate, unit, unit)}`);
+    }
+  }
+  return parts.join(', ');
+}
+
+function statisticsSize(value) {
+  return typeof value === 'number' ? filesize(value) : '';
+}
+
+async function adminSettingsVersionPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/settings/version') return null;
+  const statistics = await statisticsForAdmin(userId);
+  if (!statistics) return {
+    heading: tr(translate, 'admin-panel', 'Admin Panel'),
+    columns: [tr(translate, 'settings', 'Settings'), tr(translate, 'status', 'Status')],
+    rows: [{ cells: [tr(translate, 'info', 'Info'),
+      tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+  };
+
+  const rows = [{ rowHeader: false, cells: [adminSettingsNavigation(translate), ''] }];
+  rows.push({ rowHeader: false, cells: [uiAction({
+    action: path,
+    label: tr(translate, 'check-version', 'Check Version'),
+    fields: { legacyOperation: 'check-newest-versions' },
+  }), requestFields.legacyVersionResult || ''] });
+  const category = key => rows.push({ rowHeader: false, colspanLast: 2,
+    cells: [tr(translate, key, key)] });
+  const field = (key, value, fallback) => rows.push({
+    cells: [tr(translate, key, fallback || key), value ?? ''],
+  });
+
+  category('Platform');
+  field('info', statistics.version, 'WeKan version');
+  field('package', statistics.platform?.packaging, 'Package');
+  category('OS');
+  field('OS_Type', statistics.os?.type);
+  field('OS_Platform', statistics.os?.platform);
+  field('OS_Arch', statistics.os?.arch);
+  field('OS_Release', statistics.os?.release);
+  field('OS_Uptime', statisticsDuration(statistics.os?.uptime, translate));
+  field('OS_Loadavg', (statistics.os?.loadavg || []).map(value =>
+    Number(value).toFixed(2)).join(', '));
+  field('OS_Totalmem', statisticsSize(statistics.os?.totalmem));
+  field('OS_Freemem', statisticsSize(statistics.os?.freemem));
+  field('OS_Cpus', statistics.os?.cpus?.length ?? 0);
+  category('Meteor');
+  field('Meteor_version', statistics.meteor?.meteorVersion);
+  field('Reactivity_mode', statistics.mongo?.reactivity);
+  field('Reactivity_order', statistics.mongo?.reactivityOrder);
+  field('DDP_transport', statistics.mongo?.ddpTransport);
+  category('Database');
+  field('Database_type', statistics.mongo?.databaseType);
+  field('MongoDB_version', statistics.mongo?.mongoVersion);
+  field('Database_commit', statistics.mongo?.databaseCommit);
+  if (statistics.mongo?.ferretdbVersion) {
+    field('FerretDB_version', statistics.mongo.ferretdbVersion);
+    field('FerretDB_commit', statistics.mongo.ferretdbCommit);
+  }
+  field('MongoDB_storage_engine', statistics.mongo?.mongoStorageEngine);
+  field('MongoDB_Oplog_enabled', statistics.mongo?.mongoOplogEnabled
+    ? tr(translate, 'yes', 'Yes') : tr(translate, 'no', 'No'));
+  if (statistics.session?.sessionsCount !== undefined) {
+    field('Mongo_sessions_count', statistics.session.sessionsCount);
+  }
+  category('Node');
+  field('Node_version', statistics.process?.nodeVersion);
+  const heapFields = [
+    ['Node_heap_total_heap_size', 'totalHeapSize'],
+    ['Node_heap_total_heap_size_executable', 'totalHeapSizeExecutable'],
+    ['Node_heap_total_physical_size', 'totalPhysicalSize'],
+    ['Node_heap_total_available_size', 'totalAvailableSize'],
+    ['Node_heap_used_heap_size', 'usedHeapSize'],
+    ['Node_heap_heap_size_limit', 'heapSizeLimit'],
+    ['Node_heap_malloced_memory', 'mallocedMemory'],
+    ['Node_heap_peak_malloced_memory', 'peakMallocedMemory'],
+  ];
+  for (const [label, key] of heapFields) {
+    if (statistics.nodeHeapStats?.[key] !== undefined) {
+      field(label, statisticsSize(statistics.nodeHeapStats[key]));
+    }
+  }
+  for (const [label, key] of [
+    ['Node_heap_does_zap_garbage', 'doesZapGarbage'],
+    ['Node_heap_number_of_native_contexts', 'numberOfNativeContexts'],
+    ['Node_heap_number_of_detached_contexts', 'numberOfDetachedContexts'],
+  ]) {
+    if (statistics.nodeHeapStats?.[key] !== undefined) field(label, statistics.nodeHeapStats[key]);
+  }
+  for (const [label, key] of [
+    ['Node_memory_usage_rss', 'rss'], ['Node_memory_usage_heap_total', 'heapTotal'],
+    ['Node_memory_usage_heap_used', 'heapUsed'], ['Node_memory_usage_external', 'external'],
+  ]) {
+    if (statistics.nodeMemoryUsage?.[key] !== undefined) {
+      field(label, statisticsSize(statistics.nodeMemoryUsage[key]));
+    }
+  }
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'settings', 'Settings')} / ${tr(translate, 'info', 'Info')}`,
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
+}
+
 async function adminProblemsPerformancePage(path, userId, translate) {
   if (path !== '/admin/problems/performance') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3531,6 +3654,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);
   if (importer) return importer;
+  const adminSettingsVersion = await adminSettingsVersionPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminSettingsVersion) return adminSettingsVersion;
   const adminProblemsSummary = await adminProblemsSummaryPage(
     path, userId, requestFields, translate,
   );
