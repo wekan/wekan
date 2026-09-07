@@ -301,6 +301,8 @@ This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
+- [Share the Legacy HTML4 status component](https://github.com/wekan/wekan/commit/9ec3723fe). Thanks to xet7.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99b9a1879">Add semantic Legacy HTML4 not found page</a>. Thanks to xet7.</summary>
 
