@@ -440,12 +440,14 @@ test('the design doc explains the theming', () => {
 test('Cards report sorts by an INDEXED field (boardId,createdAt), not the unindexed {boardId,sort}', () => {
   const pub = read('server/publications/cards.js');
   const block = pub.slice(pub.indexOf("publish('cardsReport'"), pub.indexOf("getCardsReportCount"));
-  assert.ok(/sort:\s*\{\s*boardId:\s*1,\s*createdAt:\s*-1\s*\}/.test(block),
+  const service = read('server/lib/cardsReport.js');
+  assert.ok(/sort:\s*\{\s*boardId:\s*1,\s*createdAt:\s*-1\s*\}/.test(service),
     'cardsReport must sort by the { boardId:1, createdAt:-1 } index');
-  assert.ok(!/sort:\s*\{\s*boardId:\s*1,\s*sort:\s*1\s*\}/.test(block),
+  assert.ok(!/sort:\s*\{\s*boardId:\s*1,\s*sort:\s*1\s*\}/.test(service),
     'the unindexed { boardId:1, sort:1 } sort must be gone');
   // publication is bounded (limit/skip)
-  assert.ok(/limit,\s*skip/.test(block), 'publication must page with limit/skip');
+  assert.ok(/limit:\s*bounded\.limit[\s\S]*skip:\s*bounded\.skip/.test(service),
+    'shared report service must page with bounded limit/skip');
   assert.ok(/publishReportPage\(this, 'report-cards'/.test(block),
     'and NAME the page it published, so the client renders that page and not '
     + 'whatever else minimongo holds');

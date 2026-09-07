@@ -38,7 +38,7 @@ const COUNT_METHODS = [
   ['server/models/org.js', 'getOrgsCollectionCount'],
   ['server/models/team.js', 'getTeamsCollectionCount'],
   ['server/models/translation.js', 'getTranslationsCollectionCount'],
-  ['server/publications/cards.js', 'getCardsReportCount'],
+  ['server/lib/cardsReport.js', 'cardsReportCountForAdmin'],
   ['server/publications/cards.js', 'getBrokenCardsReportCount'],
   ['server/lib/boardsReport.js', 'boardsReportCountForAdmin'],
   ['server/publications/boards.js', 'getArchivedBoardsCount'],

@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishComposite } from 'meteor/reywood:publish-composite';
 import { publishReportPage } from '/models/lib/reportPageIndex';
+import { cardsReportCountForAdmin, cardsReportForAdmin } from '/server/lib/cardsReport';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import escapeForRegex from 'escape-string-regexp';
 import Users from '../../models/users';
@@ -1490,84 +1491,29 @@ Meteor.publish('cardsReport', async function(searchTerm = '', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
-  if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
-    return this.ready();
+  let report;
+  try {
+    report = await cardsReportForAdmin(this.userId, {
+      search: searchTerm || '', limit, skip: skip || 0,
+    });
+  } catch (error) {
+    if (error?.error === 'not-authorized') return this.ready();
+    throw error;
   }
 
-  const query = {};
-  if (searchTerm) {
-    query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-  }
-
-  // Publish the page MANUALLY (fetch + this.added + this.ready): a returned sorted+
-  // limited cursor triggers a LIMITED live observe that hangs on FerretDB's OpLog,
-  // leaving the report stuck on the loading spinner (same as attachmentsList). The
-  // report re-subscribes on every page/search change, so it needs no live cursor.
-  const cards = await ReactiveCache.getCards(
-    query,
-    {
-      // Only the six columns the report table renders. Without this projection
-      // every page shipped WHOLE card documents — description, customFields,
-      // vote/poker sub-documents, date fields, the lot — so a 25-row page could
-      // be hundreds of kilobytes on boards with long descriptions. That, not the
-      // row count, is what made the report feel like it was loading everything.
-      fields: {
-        title: 1,
-        boardId: 1,
-        listId: 1,
-        swimlaneId: 1,
-        members: 1,
-        assignees: 1,
-      },
-      // Sort by the EXISTING { boardId:1, createdAt:-1 } index (see
-      // server/models/cards.js) so one page is a bounded index scan. The old
-      // { boardId:1, sort:1 } sort had no index, so every page load full-sorted all
-      // cards in memory — the Admin Panel → Problems → Cards spinner on big sites.
-      sort: { boardId: 1, createdAt: -1 },
-      limit,
-      skip: skip || 0,
-    },
-    false,
-  );
-
-  const boardIds = new Set();
-  const listIds = new Set();
-  const swimlaneIds = new Set();
-  const userIds = new Set();
-  cards.forEach(card => {
-    if (card.boardId) boardIds.add(card.boardId);
-    if (card.listId) listIds.add(card.listId);
-    if (card.swimlaneId) swimlaneIds.add(card.swimlaneId);
-    (card.members || []).forEach(userId => userIds.add(userId));
-    (card.assignees || []).forEach(userId => userIds.add(userId));
-  });
-
-  const boards = await ReactiveCache.getBoards({ _id: { $in: [...boardIds] } }, { fields: { title: 1 } }, false);
-  const lists = await ReactiveCache.getLists({ _id: { $in: [...listIds] } }, { fields: { title: 1 } }, false);
-  const swimlanes = await ReactiveCache.getSwimlanes({ _id: { $in: [...swimlaneIds] } }, { fields: { title: 1 } }, false);
-  const users = await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }, { fields: Users.safeFields }, false);
-
-  for (const doc of cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
-  for (const doc of boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
-  for (const doc of lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
-  for (const doc of swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
-  for (const doc of users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
+  for (const doc of report.cards) { const { _id, ...fields } = doc; this.added('cards', _id, fields); }
+  for (const doc of report.boards) { const { _id, ...fields } = doc; this.added('boards', _id, fields); }
+  for (const doc of report.lists) { const { _id, ...fields } = doc; this.added('lists', _id, fields); }
+  for (const doc of report.swimlanes) { const { _id, ...fields } = doc; this.added('swimlanes', _id, fields); }
+  for (const doc of report.users) { const { _id, ...fields } = doc; this.added('users', _id, fields); }
   // The page, named - see the note in brokenCardsReport above.
-  publishReportPage(this, 'report-cards', cards);
+  publishReportPage(this, 'report-cards', report.cards);
   this.ready();
 });
 
 Meteor.methods({
   async getCardsReportCount(searchTerm = '') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    if (!this.userId || !(await ReactiveCache.getUser(this.userId))?.isAdmin) {
-      throw new Meteor.Error('not-authorized');
-    }
-    const query = {};
-    if (searchTerm) {
-      query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-    }
-    const cursor = await ReactiveCache.getCards(query, {}, true);
-    return typeof cursor.countAsync === 'function' ? await cursor.countAsync() : cursor.count();
+    return cardsReportCountForAdmin(this.userId, searchTerm || '');
   },
 });

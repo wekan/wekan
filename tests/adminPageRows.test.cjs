@@ -122,7 +122,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
   test('Problems: every report over a shared collection names its page', () => {
     const cards = read('server/publications/cards.js');
     assert.ok(/publishReportPage\(this, 'report-broken', cards\)/.test(cards));
-    assert.ok(/publishReportPage\(this, 'report-cards', cards\)/.test(cards));
+    assert.ok(/publishReportPage\(this, 'report-cards', report\.cards\)/.test(cards));
     const boards = read('server/publications/boards.js');
     assert.ok(/publishReportPage\(this, 'report-boards', boards\)/.test(boards));
     // Files and Rules too: opening one card puts its attachments in minimongo, and
@@ -166,7 +166,10 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       const delegatedBoardsGuard = file.endsWith('boards.js')
         && /boardsReportForAdmin/.test(head)
         && /isAdmin/.test(code('server/lib/boardsReport.js'));
-      assert.ok(/isAdmin/.test(head) || delegatedBoardsGuard,
+      const delegatedCardsGuard = marker.includes('cardsReport')
+        && /cardsReportForAdmin/.test(head)
+        && /isAdmin/.test(code('server/lib/cardsReport.js'));
+      assert.ok(/isAdmin/.test(head) || delegatedBoardsGuard || delegatedCardsGuard,
         `${marker} must be admin-only`);
     }
     for (const [file, method] of [
@@ -222,8 +225,11 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
         const delegatedBoardsGuard = file.endsWith('boards.js')
           && /boardsReport(?:ForAdmin|CountForAdmin)/.test(head)
           && /isAdmin/.test(code('server/lib/boardsReport.js'));
+        const delegatedCardsGuard = file.endsWith('cards.js')
+          && /cardsReport(?:ForAdmin|CountForAdmin)/.test(head)
+          && /isAdmin/.test(code('server/lib/cardsReport.js'));
         assert.ok(/isAdmin/.test(head) || delegatedImpersonationGuard
-          || delegatedRecoveryGuard || delegatedBoardsGuard,
+          || delegatedRecoveryGuard || delegatedBoardsGuard || delegatedCardsGuard,
           `${marker} must ask for the site admin flag`);
         assert.ok(!/canOpenAdminPanel/.test(head),
           `${marker} must NOT accept a per-tenant admin: Problems is instance-wide`);

@@ -30,6 +30,11 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     `${eventId}-board-report-${index}`);
   const boardReportOrgId = `${eventId}-board-org`;
   const boardReportTeamId = `${eventId}-board-team`;
+  const cardReportBoardId = `${eventId}-card-board`;
+  const cardReportSwimlaneId = `${eventId}-card-swimlane`;
+  const cardReportListId = `${eventId}-card-list`;
+  const cardReportIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-card-report-${index}`);
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -315,6 +320,44 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       orgs: [{ orgId: boardReportOrgId, isActive: true }],
       teams: [{ teamId: boardReportTeamId, isActive: true }],
     })));
+    db.insertOne('boards', {
+      _id: cardReportBoardId,
+      title: `Card Report Board ${suffix}`,
+      slug: `card-report-board-${suffix}`,
+      permission: 'private',
+      archived: false,
+      type: 'board',
+      sort: 100,
+      members: [{ userId: user._id, isActive: true, isAdmin: true }],
+    });
+    db.insertOne('swimlanes', {
+      _id: cardReportSwimlaneId,
+      boardId: cardReportBoardId,
+      title: `Card Report Swimlane ${suffix}`,
+      type: 'swimlane',
+      sort: 0,
+    });
+    db.insertOne('lists', {
+      _id: cardReportListId,
+      boardId: cardReportBoardId,
+      swimlaneId: cardReportSwimlaneId,
+      title: `Card Report List ${suffix}`,
+      archived: false,
+      sort: 0,
+    });
+    db.insertMany('cards', cardReportIds.map((id, index) => ({
+      _id: id,
+      title: `Searchable Card Report ${suffix} ${index}`,
+      boardId: cardReportBoardId,
+      swimlaneId: cardReportSwimlaneId,
+      listId: cardReportListId,
+      members: [user._id],
+      assignees: [user._id],
+      archived: false,
+      type: 'cardType-card',
+      sort: index,
+      createdAt: new Date(Date.now() + index),
+    })));
     const boardsReportNav = legacy
       .locator('form[action="/admin/problems/boards"]').first();
     await Promise.all([
@@ -348,6 +391,31 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await legacy.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-boards.png`,
+        fullPage: true,
+      });
+    }
+
+    const cardsReportNav = legacy
+      .locator('form[action="/admin/problems/cards"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      cardsReportNav.locator('input[type="submit"]').click(),
+    ]);
+    const cardsReportSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await cardsReportSearch.locator('input[name="q"][type="text"]').fill(suffix);
+    await Promise.all([
+      legacy.waitForNavigation(),
+      cardsReportSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('Card Title');
+    await expect(legacy.locator('tbody')).toContainText(`Card Report Board ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`Card Report Swimlane ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(`Card Report List ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText(username);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-cards.png`,
         fullPage: true,
       });
     }
@@ -433,6 +501,21 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/cards');
+    await modern.locator('.js-table-page-search').fill(suffix);
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    // The modern table deliberately abbreviates long cell values; the HTML4
+    // baseline retains the complete readable value.
+    await expect(modern.locator('tbody')).toContainText('Card Report Board');
+    await expect(modern.locator('tbody')).toContainText('Card Report Swimlane');
+    await expect(modern.locator('tbody')).toContainText('Card Report List');
+    await expect(modern.locator('tbody')).toContainText(username);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-cards.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -450,6 +533,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/boards`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(`Report Board ${suffix}`);
+    await outsiderPage.goto(`${baseURL}/admin/problems/cards`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Card Report ${suffix}`);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -462,6 +548,10 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('impersonatedUsers', { _id: { $in: impersonationIds } });
     db.deleteMany('recoveryEvents', { _id: { $in: recoveryIds } });
     db.deleteMany('boards', { _id: { $in: boardReportIds } });
+    db.deleteMany('cards', { _id: { $in: cardReportIds } });
+    db.deleteOne('lists', { _id: cardReportListId });
+    db.deleteOne('swimlanes', { _id: cardReportSwimlaneId });
+    db.deleteOne('boards', { _id: cardReportBoardId });
     db.deleteOne('org', { _id: boardReportOrgId });
     db.deleteOne('team', { _id: boardReportTeamId });
     db.deleteMany('users', { _id: { $in: [...officeUserIds, impersonatedUserId] } });

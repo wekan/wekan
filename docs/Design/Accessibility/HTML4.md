@@ -589,6 +589,18 @@ proves Public excludes Private, Private has two pages across twelve fixtures,
 relationship names appear in both renderers, and anonymous callers receive no
 instance inventory.
 
+Cards Report likewise uses one instance-wide Global Admin service from its
+Meteor publication and HTML4 controller. Its escaped title search is capped at
+500 characters, limit and skip are bounded, and the database counts the same
+selector used for the page. Only Title, Board, Swimlane, List, Members and
+Assignees are loaded. Referenced context and user names are deduplicated and
+resolved in four page-local queries, with the stored id remaining visible after
+a referenced document is deleted. HTML4 preserves all six modern columns,
+complete text, a native search field and ten-row Previous/Next controls. The
+same-URL fixture searches twelve cards, verifies two pages and every resolved
+name in both renderers, captures both views and proves an anonymous request
+cannot read the instance-wide card inventory.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
