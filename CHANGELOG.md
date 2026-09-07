@@ -334,6 +334,22 @@ live Chromium Legacy HTML4 preference regression passes with the new helper.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a4ce04e2">Add Legacy HTML4 Trello API imports</a>. Thanks to xet7.</summary>
+
+Direct Trello workspace import now has equivalent semantic controls without
+JavaScript or cookies. Write-only credentials, server-fetched board choices,
+the local parent-workspace selector and owner-scoped persisted jobs call the
+same Meteor operations as Jade. HTML4 renders progress, bounded results and
+errors plus Resume, Cancel, confirmed Delete Imported and Clear controls.
+Shared validation rejects duplicate or malformed Trello IDs, forged local
+workspaces, oversized credentials and foreign jobs; protected refusals reach
+Admin Panel / Problems / Security. Focused tests and same-URL Chromium
+screenshots compare the HTML4 and HTML5 job views and exercise recovery and
+destructive confirmation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c0492e13d">Preserve Trello workspaces in Legacy HTML4 imports</a>. Thanks to xet7.</summary>
 
 Trello JSON and multi-board ZIP imports now expose the same optional named
