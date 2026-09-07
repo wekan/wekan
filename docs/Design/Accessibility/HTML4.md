@@ -634,6 +634,18 @@ control, original controls, the disabled and enabled delete states, actual
 deletion and its Recovery record, two-page parity, screenshots and anonymous
 isolation.
 
+Rules Report uses one bounded Global Admin service in its Meteor publication
+and HTML4 controller. A literal title search is escaped and capped at 500
+characters; the report sorts on the indexed board id, counts in the database
+and reads ten rows at a time. Rule Title, Board Title, actionType and
+activityType match the modern table. Board, Action and Trigger documents are
+resolved with three deduplicated page-local queries, and a missing relation
+retains its id or explicit Unknown text instead of producing a blank cell.
+Signed search and Previous/Next controls retain their state without JavaScript
+or cookies. The same-URL fixture searches twelve rules, verifies two pages and
+all resolved contexts in both renderers, captures both views and proves an
+anonymous request cannot read the instance-wide rule inventory.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
