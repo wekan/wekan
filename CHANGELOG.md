@@ -280,7 +280,8 @@ Filesystem and GridFS share Read state, server paths, file counts and compaction
 S3/MinIO, Azure and GCS share bounded, write-only-secret cloud configuration.
 Database Migration shares guarded direction controls and live progress.
 All ten Attachments panes now have complete equivalent HTML4 operations.
-Forgot Password has a uniform, rate-limited Legacy HTML4 form.
+The complete public account and email-token lifecycle now has guarded Legacy HTML4
+forms.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -296,6 +297,23 @@ Forgot Password has a uniform, rate-limited Legacy HTML4 form.
 This release fixes the following bugs:
 
 **Security** - HTML4 comment reactions are attributable without JavaScript.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fdb7d8a6">Add Legacy HTML4 account token flows</a>. Thanks to xet7.</summary>
+
+Password reset, account enrollment, email verification and verification-email resend
+now work at their existing URLs without JavaScript or cookies. Password and email
+tokens are bounded and atomically consumed once; expired, mismatched, concurrent and
+replayed tokens cannot change an account. Two-factor accounts return to Sign In rather
+than receiving a bypass session.
+
+The HTTP routes have independent trusted-address throttles, successful real tokens do
+not consume later retry allowance, resend responses do not disclose whether an account
+exists, and refusals appear in Problems / Security. Static positive and negative tests
+pass, and three live same-URL Chromium tests exercise persisted token consumption,
+replay refusal and HTML4/HTML5 screenshot pairs for every public mail-token route.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/16a99ec18">Add secure HTML4 password recovery</a>. Thanks to xet7.</summary>

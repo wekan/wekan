@@ -178,6 +178,25 @@ five-requests-per-minute trusted-address throttle; blocked attempts are recorded
 Problems / Security. A same-URL browser test submits a nonexistent address, verifies
 the uniform result and captures both HTML4 and HTML5 views without sending mail.
 
+The rest of the public mail-token lifecycle is also available at its normal URLs.
+`/reset-password/:token` and `/enroll-account/:token` expose two naturally ordered,
+labelled password fields; `/verify-email/:token` exposes an explicit verification
+POST; and `/send-again` exposes a labelled email form with the same non-enumerating
+result for absent, malformed, already verified and mail-transport-failed addresses.
+Password and verification tokens are bounded, expiration-checked where Meteor's
+account token has a lifetime, tied back to the recorded account address and claimed
+with a token-valued atomic update before password hashing or verification. Successful
+consumption removes the token, so concurrent requests and replay cannot apply a
+second change. Reset/enrollment and verification HTTP routes have independent
+trusted-address throttles; valid tokens clear their retry counter, while refusals are
+attributed in Problems / Security. A two-factor-enabled account returns to Sign In
+instead of creating a session, matching the modern account-token boundary.
+
+Same-URL browser coverage creates real reset, enrollment and verification records,
+submits them with JavaScript and cookies disabled, verifies their persisted single-use
+effects, rejects a replay and captures HTML4/HTML5 screenshot pairs for all four
+public account-token routes.
+
 Authorization is checked again on every request with the same board roles and
 global-admin rules used by Meteor methods and REST endpoints. Hidden fields are
 untrusted input. POSTs use bounded URL-encoded or multipart bodies, reject
