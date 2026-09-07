@@ -302,6 +302,21 @@ This release fixes the following bugs:
 **Security** - HTML4 comment reactions are attributable without JavaScript.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cde8d53f4">Add accessible HTML4 media previews</a>. Thanks to xet7.</summary>
+
+Audio and video card attachments now expose a purpose-bound Play or Preview
+POST in Legacy HTML4. After exact scope, storage, configured-size and media-type
+checks, the server returns an inline response for a native browser player or an
+operating-system helper; original Download remains forced attachment content.
+
+Source tests cover allowed and refused types and purpose separation. The live
+same-URL Chromium attachment regression verifies the HTML4 WAV response MIME,
+inline disposition and bytes, the HTML5 audio viewer, paired screenshots and
+the existing attributed forged-scope refusal.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ccc0d020">Add accessible HTML4 text previews</a>. Thanks to xet7.</summary>
 
 Text and JSON card attachments now have a purpose-bound Preview control in
