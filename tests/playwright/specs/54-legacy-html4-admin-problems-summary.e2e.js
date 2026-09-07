@@ -16,6 +16,10 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   const eventId = `html4-problem-${suffix}`;
   const reportIds = Array.from({ length: 12 }, (_, index) =>
     `${eventId}-report-${index}`);
+  const auxiliaryReportSlugs = ['speed', 'tests', 'cpu', 'api', 'database',
+    'integrity'];
+  const auxiliaryReportIds = auxiliaryReportSlugs.map(slug =>
+    `${eventId}-auxiliary-${slug}`);
   const officeUserIds = Array.from({ length: 26 }, (_, index) =>
     `${eventId}-office-user-${index}`);
   const officeAddressIds = Array.from({ length: 26 }, (_, index) =>
@@ -164,6 +168,20 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       count: index + 1,
       detail: `Searchable report ${suffix} row ${index}`,
     })));
+    db.insertMany('eventlog', auxiliaryReportSlugs.map((slug, index) => ({
+      _id: auxiliaryReportIds[index],
+      stream: slug,
+      at: new Date(Date.now() + index),
+      firstAt: new Date(Date.now() - 1000),
+      severity: 'info',
+      category: `${slug}-category`,
+      bleed: `${slug}-name`,
+      action: 'observed',
+      source: `html4-${slug}-${suffix}`,
+      ...(slug === 'api' ? { api: `GET /api/${suffix}` } : {}),
+      count: index + 1,
+      detail: `Auxiliary ${slug} report ${suffix}`,
+    })));
     const securityNav = legacy
       .locator('form[action="/admin/problems/security-report"]')
       .first();
@@ -194,6 +212,25 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-security-report.png`,
         fullPage: true,
       });
+    }
+    for (const slug of auxiliaryReportSlugs) {
+      const nav = legacy.locator(`form[action="/admin/problems/${slug}"]`).first();
+      await Promise.all([
+        legacy.waitForNavigation(), nav.locator('input[type="submit"]').click(),
+      ]);
+      const search = legacy.locator('form:has(input[name="q"][type="text"])');
+      await search.locator('input[name="q"][type="text"]').fill(suffix);
+      await Promise.all([
+        legacy.waitForNavigation(), search.locator('input[type="submit"]').click(),
+      ]);
+      await expect(legacy.locator('tbody')).toContainText(slug === 'api'
+        ? `GET /api/${suffix}` : `Auxiliary ${slug} report ${suffix}`);
+      if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+        await legacy.screenshot({
+          path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-${slug}-report.png`,
+          fullPage: true,
+        });
+      }
     }
 
     const officeAt = new Date();
@@ -730,6 +767,18 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    for (const slug of auxiliaryReportSlugs) {
+      await navigateInApp(modern, `/admin/problems/${slug}`);
+      await modern.locator('.js-table-page-search').fill(suffix);
+      await expect(modern.locator('tbody')).toContainText(slug === 'api'
+        ? `GET /api/${suffix}` : `Auxiliary ${slug} report ${suffix}`);
+      if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+        await modern.screenshot({
+          path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-${slug}-report.png`,
+          fullPage: true,
+        });
+      }
+    }
     await navigateInApp(modern, '/admin/problems/office');
     await modern.locator('.js-table-page-search').fill(suffix);
     await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
@@ -939,7 +988,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     if (modernContext) await modernContext.close();
     await legacyContext.close();
     db.deleteMany('eventlog', {
-      _id: { $in: [eventId, `${eventId}-modern`, ...reportIds] },
+      _id: { $in: [eventId, `${eventId}-modern`, ...reportIds,
+        ...auxiliaryReportIds] },
     });
     db.deleteMany('eventlogAcks', { stream: 'security' });
     db.deleteMany('loginAddresses', { _id: { $in: officeAddressIds } });
