@@ -35,7 +35,8 @@ function isDocumentRequest(req) {
 
   const path = normalizedPath(req.url);
   if (path === CAPABILITY_SCRIPT_PATH) return false;
-  if (/^\/(?:api|users|sockjs|websocket|cdn|cfs|attachments|avatars)(?:\/|$)/.test(path)) {
+  if (/^\/(?:api|users|sockjs|websocket|cdn|cfs|avatars)(?:\/|$)/.test(path)
+    || /^\/attachments\//.test(path)) {
     return false;
   }
   if (/^\/(?:_meteor|__cordova|favicon\.ico|robots\.txt)(?:\/|$)/.test(path)) return false;

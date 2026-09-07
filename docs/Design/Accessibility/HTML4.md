@@ -1196,6 +1196,12 @@ external integrations. A route inventory test compares `config/router.js` with
 the HTML4 controller registry so a newly added WeKan URL cannot silently return
 the Meteor shell to an affected browser.
 
+Legacy Admin Panel bookmarks have the same canonicalization as the modern
+router. Bare and former Settings, People, Problems and Attachments addresses,
+including `/setting`, `/information` and `/translation`, return a no-cache 303
+to the named current pane. The exact `/attachments` bookmark is distinguishable
+from `/attachments/...` file responses, which remain outside HTML rendering.
+
 ## Tests
 
 Positive tests cover the capability probe, HTML4 markup, same-path forms,

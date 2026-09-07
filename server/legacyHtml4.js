@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import fs from 'fs';
 import Settings from '/models/settings';
+const { ADMIN_PAGES } = require('/models/lib/adminUrls');
 import { TAPi18n } from '/imports/i18n';
 import {
   consumeLegacyHtml4DownloadSession,
@@ -76,6 +77,21 @@ import {
   legacyHtml4DocumentPage,
   serveLegacyHtml4Attachment,
 } from '/server/lib/legacyHtml4AttachmentResponse';
+
+function legacyAdminCanonicalPath(path) {
+  if (path === '/setting' || path === '/information') return '/admin/settings/version';
+  if (path === '/translation') return '/admin/settings/translation';
+  for (const config of Object.values(ADMIN_PAGES)) {
+    if (path === config.base || path === config.legacyBase) {
+      return `${config.base}/${config.defaultSlug}`;
+    }
+    if (path.startsWith(`${config.legacyBase}/`)) {
+      const slug = path.slice(config.legacyBase.length + 1);
+      return `${config.base}/${Object.hasOwn(config.panes, slug) ? slug : config.defaultSlug}`;
+    }
+  }
+  return '';
+}
 import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
 import { setProblemFeatureSettingForAdmin } from '/server/lib/problemFeatureSettings';
 import { setPermanentDeleteEnabledForAdmin } from '/server/lib/permanentDeleteSetting';
@@ -253,6 +269,14 @@ function binaryPurpose(body = {}) {
 
 WebApp.handlers.use(async (req, res, next) => {
   const path = new URL(req.url, 'http://wekan.invalid').pathname;
+  const canonicalAdminPath = req.method === 'GET' ? legacyAdminCanonicalPath(path) : '';
+  if (canonicalAdminPath) {
+    res.statusCode = 303;
+    res.setHeader('Location', canonicalAdminPath);
+    res.setHeader('Cache-Control', 'no-store');
+    res.end();
+    return;
+  }
   let session = null;
   let multipartUpload = null;
   if (isLegacyHtml4Multipart(req, path)) {
