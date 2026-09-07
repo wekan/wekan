@@ -262,7 +262,8 @@ function contentRows(path, options) {
             ? input.type : 'text';
           const autocomplete = input.autocomplete
             ? ` autocomplete="${escapeHtml(input.autocomplete)}"` : '';
-          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="${type}" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"${autocomplete}></p>`;
+          const required = input.required ? ' required' : '';
+          return `<p><label for="${escapeHtml(id)}">${escapeHtml(input.label)}</label><br><input id="${escapeHtml(id)}" name="${escapeHtml(name)}" type="${type}" maxlength="${maximum}" size="40" value="${escapeHtml(input.value || '')}"${autocomplete}${required}></p>`;
         }).join('');
         return `<form method="post" action="${escapeHtml(cell.action)}">${sessionHiddenFields(options.actionFields(cell.action))}${extra}<fieldset><legend>${escapeHtml(cell.legend)}</legend>${inputs}<p><input type="submit" value="${escapeHtml(uiControlLabel('caret-right', cell.submitLabel || cell.legend))}"></p></fieldset></form>`;
       }

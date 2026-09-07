@@ -49,4 +49,18 @@ test('active, unlock, detail and IPv4/IPv6 location paths are signed and scoped'
   assert.ok(/adminPeoplePeoplePage[\s\S]*adminPeopleBaselinePage/.test(pages));
 });
 
+test('create and complete edit share one validated server boundary', () => {
+  for (const operation of ['show-create-person', 'create-person', 'update-person']) {
+    assert.ok(route.includes(operation) || pages.includes(operation), `missing ${operation}`);
+  }
+  for (const fn of ['createPersonForAdmin', 'updatePersonForAdmin',
+    'normalizedPersonInput', 'uniqueIdentity', 'memberships']) assert.ok(service.includes(fn));
+  assert.ok(service.includes('Accounts.createUserAsync'));
+  assert.ok(service.includes('Accounts.setPasswordAsync'));
+  assert.ok(service.includes('cannot-demote-last-admin'));
+  assert.ok(service.includes('invalid-user-membership'));
+  assert.ok(pages.includes("name: 'orgIds'"));
+  assert.ok(pages.includes("name: 'teamIds'"));
+});
+
 console.log(`\nlegacyHtml4AdminPeoplePeople: ${passed} tests passed`);

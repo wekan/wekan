@@ -1985,7 +1985,6 @@ Template.editTeamPopup.events({
 Template.editUserPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const user = ReactiveCache.getUser(this.userId);
     const username = templateInstance.find('.js-profile-username').value.trim();
     const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const initials = templateInstance.find('.js-profile-initials').value.trim();
@@ -2000,24 +1999,6 @@ Template.editUserPopup.events({
     const userOrgsIds = templateInstance.find('.js-userOrgIds').value.trim();
     const userTeams = templateInstance.find('.js-userteams').value.trim();
     const userTeamsIds = templateInstance.find('.js-userteamIds').value.trim();
-
-    const isChangePassword = password.length > 0;
-    const isChangeUserName = username !== user.username;
-    const isChangeInitials = initials.length > 0;
-
-    // An imported (placeholder) user, and some SSO users, have NO `emails` array at
-    // all, so `user.emails[0]` threw "Cannot read properties of undefined (reading
-    // '0')" when an admin gave such a user an email in Admin Panel / People (#6508).
-    // Read the primary email defensively (missing array OR empty array).
-    const primaryEmail =
-      Array.isArray(user.emails) && user.emails.length ? user.emails[0] : null;
-    const isChangeEmailVerified =
-      verified !== (primaryEmail ? primaryEmail.verified : undefined);
-
-    // If no email was set before, allow adding one (compare against `false`).
-    const isChangeEmail =
-      email.toLowerCase() !==
-      (primaryEmail ? primaryEmail.address.toLowerCase() : false);
 
     // Build user teams list
     let userTeamsList = userTeams.split(",");
@@ -2045,92 +2026,30 @@ Template.editUserPopup.events({
       }
     }
 
-    // Update user via Meteor method (for admin to edit other users)
-    const updateData = {
-      fullname: fullname,
-      isAdmin: isAdmin === 'true',
-      loginDisabled: isActive === 'true',
+    Meteor.call('adminUpdatePerson', this.userId, {
+      username, fullname, initials, password,
+      email: email.toLowerCase(), emailVerified: verified === 'true',
+      isAdmin: isAdmin === 'true', loginDisabled: isActive === 'true',
       authenticationMethod: authentication,
       importUsernames: Users.parseImportUsernames(importUsernames),
-      teams: userTms,
-      orgs: userOrganizations,
-    };
-
-    Meteor.call('editUser', this.userId, updateData, (error) => {
+      orgIds: userOrganizations.map(org => org.orgId),
+      teamIds: userTms.map(team => team.teamId),
+    }, function(error) {
+      const usernameMessageElement = templateInstance.$('.username-taken');
+      const emailMessageElement = templateInstance.$('.email-taken');
       if (error) {
-        console.error('Error updating user:', error);
+        usernameMessageElement.toggle(error.error === 'username-already-taken');
+        emailMessageElement.toggle(error.error === 'email-already-taken');
+        if (!['username-already-taken', 'email-already-taken'].includes(error.error)) {
+          templateInstance.errorMessage.set(error.reason || error.error);
+        }
+      } else {
+        usernameMessageElement.hide();
+        emailMessageElement.hide();
+        peopleListChanged();
+        Popup.back();
       }
     });
-
-    if (isChangePassword) {
-      Meteor.call('setPassword', password, this.userId);
-    }
-
-    if (isChangeEmailVerified) {
-      Meteor.call('setEmailVerified', email, verified === 'true', this.userId);
-    }
-
-    if (isChangeInitials) {
-      Meteor.call('setInitials', initials, this.userId);
-    }
-
-    if (isChangeUserName && isChangeEmail) {
-      Meteor.call(
-        'setUsernameAndEmail',
-        username,
-        email.toLowerCase(),
-        this.userId,
-        function (error) {
-          const usernameMessageElement = templateInstance.$('.username-taken');
-          const emailMessageElement = templateInstance.$('.email-taken');
-          if (error) {
-            const errorElement = error.error;
-            if (errorElement === 'username-already-taken') {
-              usernameMessageElement.show();
-              emailMessageElement.hide();
-            } else if (errorElement === 'email-already-taken') {
-              usernameMessageElement.hide();
-              emailMessageElement.show();
-            }
-          } else {
-            usernameMessageElement.hide();
-            emailMessageElement.hide();
-            Popup.back();
-          }
-        },
-      );
-    } else if (isChangeUserName) {
-      Meteor.call('setUsername', username, this.userId, function (error) {
-        const usernameMessageElement = templateInstance.$('.username-taken');
-        if (error) {
-          const errorElement = error.error;
-          if (errorElement === 'username-already-taken') {
-            usernameMessageElement.show();
-          }
-        } else {
-          usernameMessageElement.hide();
-          Popup.back();
-        }
-      });
-    } else if (isChangeEmail) {
-      Meteor.call(
-        'setEmail',
-        email.toLowerCase(),
-        this.userId,
-        function (error) {
-          const emailMessageElement = templateInstance.$('.email-taken');
-          if (error) {
-            const errorElement = error.error;
-            if (errorElement === 'email-already-taken') {
-              emailMessageElement.show();
-            }
-          } else {
-            emailMessageElement.hide();
-            Popup.back();
-          }
-        },
-      );
-    } else Popup.back();
   },
   'click #addUserOrg'(event) {
     event.preventDefault();
@@ -2340,17 +2259,13 @@ Template.newUserPopup.events({
     }
 
     Meteor.call(
-      'setCreateUser',
-      fullname,
-      username,
-      initials,
-      password,
-      isAdmin,
-      isActive,
-      email.toLowerCase(),
-      importUsernames,
-      userOrganizations,
-      userTms,
+      'adminCreatePerson',
+      { fullname, username, initials, password,
+        isAdmin: isAdmin === 'true', loginDisabled: isActive === 'true',
+        email: email.toLowerCase(), emailVerified: false,
+        authenticationMethod: templateInstance.find('.js-authenticationMethod').value.trim(),
+        importUsernames, orgIds: userOrganizations.map(org => org.orgId),
+        teamIds: userTms.map(team => team.teamId) },
       function(error) {
         const usernameMessageElement = templateInstance.$('.username-taken');
         const emailMessageElement = templateInstance.$('.email-taken');

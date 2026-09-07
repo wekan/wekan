@@ -117,7 +117,8 @@ import {
 } from '/server/lib/adminTeams';
 import { saveLockoutSettingsForAdmin, unlockAllUsersForAdmin,
   unlockUserForAdmin } from '/server/lib/adminLockout';
-import { setPersonActiveForAdmin } from '/server/lib/adminPeople';
+import { createPersonForAdmin, setPersonActiveForAdmin,
+  updatePersonForAdmin } from '/server/lib/adminPeople';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
 import {
@@ -683,8 +684,34 @@ WebApp.handlers.use(async (req, res, next) => {
   }
   if (session && path === '/admin/people/people') {
     const operation = String(requestFields.legacyOperation || '');
+    const values = value => (Array.isArray(value) ? value : value ? [value] : [])
+      .map(String);
+    const personInput = () => ({
+      username: String(requestFields.username || ''),
+      fullname: String(requestFields.fullname || ''),
+      initials: String(requestFields.initials || ''),
+      password: String(requestFields.password || ''),
+      email: String(requestFields.email || ''),
+      emailVerified: requestFields.emailVerified === 'true',
+      isAdmin: requestFields.isAdmin === 'true',
+      loginDisabled: requestFields.loginDisabled === 'true',
+      authenticationMethod: String(requestFields.authenticationMethod || 'password'),
+      importUsernames: String(requestFields.importUsernames || '')
+        .split(/\s*[,;]\s*/).filter(Boolean),
+      orgIds: values(requestFields.orgIds),
+      teamIds: values(requestFields.teamIds),
+    });
     try {
-      if (operation === 'show-person') {
+      if (operation === 'show-create-person') {
+        requestFields.showCreatePerson = true;
+      } else if (operation === 'create-person') {
+        requestFields.editPersonId = await createPersonForAdmin(
+          session.userId, personInput(), { req });
+      } else if (operation === 'update-person') {
+        const targetUserId = String(requestFields.targetUserId || '');
+        await updatePersonForAdmin(session.userId, targetUserId, personInput(), { req });
+        requestFields.editPersonId = targetUserId;
+      } else if (operation === 'show-person') {
         requestFields.editPersonId = String(requestFields.targetUserId || '');
       } else if (operation === 'set-person-active') {
         await setPersonActiveForAdmin(session.userId,

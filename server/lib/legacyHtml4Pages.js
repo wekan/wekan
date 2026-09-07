@@ -3660,6 +3660,50 @@ async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
   const pathFields = { q: result.search, filter: result.filter, page: result.page };
   const yes = tr(translate, 'yes', 'Yes');
   const no = tr(translate, 'no', 'No');
+  const personForm = (person = null) => uiFieldsetForm({
+    action: path,
+    legend: person ? tr(translate, 'edit', 'Edit') : tr(translate, 'new', 'New'),
+    id: person ? `person-${person._id}` : 'new-person',
+    inputs: [
+      { name: 'fullname', label: tr(translate, 'fullname', 'Full name'),
+        value: person?.profile?.fullname || '', maxlength: 256, required: true },
+      { name: 'username', label: tr(translate, 'username', 'Username'),
+        value: person?.username || '', maxlength: 255, required: true },
+      { name: 'initials', label: tr(translate, 'initials', 'Initials'),
+        value: person?.profile?.initials || '', maxlength: 20 },
+      { name: 'email', type: 'email', label: tr(translate, 'email', 'Email'),
+        value: person?.emails?.[0]?.address || '', maxlength: 320, required: true },
+      { name: 'emailVerified', type: 'select', label: tr(translate, 'verified', 'Verified'),
+        value: String(person?.emails?.[0]?.verified === true),
+        options: [{ value: 'false', label: no }, { value: 'true', label: yes }] },
+      { name: 'importUsernames', label: tr(translate, 'import-usernames', 'Import usernames'),
+        value: (person?.importUsernames || []).join(', '), maxlength: 10000 },
+      ...(result.canManageInstance ? [{ name: 'isAdmin', type: 'select',
+        label: tr(translate, 'admin', 'Admin'), value: String(person?.isAdmin === true),
+        options: [{ value: 'false', label: no }, { value: 'true', label: yes }] }] : []),
+      { name: 'loginDisabled', type: 'select', label: tr(translate, 'active-person', 'Active'),
+        value: String(person?.loginDisabled === true),
+        options: [{ value: 'false', label: yes }, { value: 'true', label: no }] },
+      { name: 'authenticationMethod', type: 'select',
+        label: tr(translate, 'authentication-type', 'Authentication'),
+        value: person?.authenticationMethod || 'password',
+        options: [...new Set([...result.authenticationMethods,
+          ...(person?.authenticationMethod ? [person.authenticationMethod] : [])])]
+          .map(value => ({ value, label: tr(translate, value, value) })) },
+      ...result.orgs.map(org => ({ name: 'orgIds', type: 'checkbox', value: org._id,
+        checked: (person?.orgs || []).some(item => item.orgId === org._id),
+        label: `${tr(translate, 'organizations', 'Organizations')}: ${org.orgDisplayName || ''}` })),
+      ...result.teams.map(team => ({ name: 'teamIds', type: 'checkbox', value: team._id,
+        checked: (person?.teams || []).some(item => item.teamId === team._id),
+        label: `${tr(translate, 'teams', 'Teams')}: ${team.teamDisplayName || ''}` })),
+      { name: 'password', type: 'password', label: tr(translate, 'password', 'Password'),
+        autocomplete: 'new-password', maxlength: 1000, required: !person },
+    ],
+    fields: { ...pathFields,
+      legacyOperation: person ? 'update-person' : 'create-person',
+      ...(person ? { targetUserId: person._id } : {}) },
+    submitLabel: person ? tr(translate, 'save', 'Save') : tr(translate, 'create', 'Create'),
+  });
   const rows = [
     { rowHeader: false, cells: [adminPeopleNavigation(translate), '', '', '', '', '', '', '', ''] },
     { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
@@ -3676,6 +3720,11 @@ async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
       ], submitLabel: tr(translate, 'filter', 'Filter') }),
     `${result.total} ${tr(translate, 'people-number', 'People')}`, '', '', '', '', ''] },
   ];
+  if (result.canManageInstance) rows.push({ rowHeader: false, cells: [
+    requestFields.showCreatePerson ? personForm() : uiAction({ action: path,
+      label: tr(translate, 'new', 'New'), icon: 'add',
+      fields: { ...pathFields, legacyOperation: 'show-create-person' } }),
+    '', '', '', '', '', '', '', ''] });
   for (const person of result.rows) {
     const countries = person.countries.map(country => uiAction({ action: path,
       label: `${country.flag || ''} ${country.country} (${country.count})`,
@@ -3706,19 +3755,7 @@ async function adminPeoplePeoplePage(path, userId, requestFields, translate) {
   if (editPersonId) {
     try {
       const person = await personForAdmin(userId, editPersonId, { req: requestFields.req });
-      rows.push({ rowHeader: false, cells: [
-        `${person.username || ''} — ${person.profile?.fullname || ''}`,
-        person.emails?.[0]?.address || '',
-        `${tr(translate, 'verified', 'Verified')}: ${person.emails?.[0]?.verified ? yes : no}`,
-        `${tr(translate, 'admin', 'Admin')}: ${person.isAdmin ? yes : no}`,
-        `${tr(translate, 'authentication-type', 'Authentication')}: ${person.authenticationMethod || 'password'}`,
-        `${tr(translate, 'organizations', 'Organizations')}: ${(person.orgs || [])
-          .map(item => item.orgDisplayName).join(', ')}`,
-        `${tr(translate, 'teams', 'Teams')}: ${(person.teams || [])
-          .map(item => item.teamDisplayName).join(', ')}`,
-        `${tr(translate, 'import-usernames', 'Import usernames')}: ${(person.importUsernames || []).join(', ')}`,
-        person.profile?.avatarUrl || '',
-      ] });
+      rows.push({ rowHeader: false, cells: [personForm(person), '', '', '', '', '', '', '', ''] });
     } catch (_) { /* exact people scope already reports refused reads */ }
   }
   const locationUserId = String(requestFields.locationUserId || '');
