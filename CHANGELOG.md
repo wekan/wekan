@@ -269,7 +269,7 @@ reactions, checklists, attachments, transfers and All Boards without JavaScript.
 Card parents, subtasks and activity history have matching scoped views. Advanced
 Global Search and Broken Cards share their guarded queries with HTML5; Board Rules
 shares localized details, administrator operations, parameterized creation and
-secure JSON/CSV transfers. Problems Summary and ten reports now share guarded
+secure JSON/CSV transfers. Problems Summary and eleven reports now share guarded
 status, search, paging, identity resolution, acknowledgements and repairs between
 both views.
 
@@ -398,6 +398,25 @@ preventing auto-layout browsers from creating a false wide second column. Tests
 cover both outcomes and refusal, every field, filter state and table structure.
 A same-URL Chromium test filters twelve failed events, verifies two pages and
 location parity, captures both views and proves anonymous isolation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/348a6e0e4">Add accessible HTML4 Boards Report</a>. Thanks to xet7.</summary>
+
+Admin Panel / Problems / Boards Report now renders all seven modern columns in a
+semantic Legacy HTML4 table. Signed search, All/Public/Private filtering and
+ten-row Previous/Next controls preserve state without JavaScript or cookies.
+Active member, Organization and Team names remain visible, with durable id
+fallbacks for deleted references.
+
+The Meteor publication and HTML4 controller share one instance-wide Global
+Admin service, escaped bounded title search, allowlisted permission, database
+count, capped window and page-local relationship lookups. Tests cover both
+permission branches, bounds, all columns and authorization. A same-URL Chromium
+test compares thirteen boards, verifies Public exclusion and a two-page Private
+result with relationship names, captures both views and proves anonymous
+isolation.
 
 </details>
 
