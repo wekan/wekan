@@ -298,9 +298,11 @@ The Node suite run and targeted reruns pass apart from two failures reproduced
 with the previous code: an undocumented existing test-results directory and a
 Finnish rule-description expectation. Five new interface and image checks pass;
 121 changed application modules parse and their 1,001 local imports resolve.
-Two browser regressions are syntax-checked and registered, but cannot run without
-a WeKan server in this environment. Existing suites cover the retained Upcoming
-features, session repair, build fix, keyboard navigation and email documentation.
+Live validation at [testi.wekan.fi](https://testi.wekan.fi) passes eight checks in Chromium and
+Firefox: standard sign-in, JavaScript-disabled responses, member board loading
+and non-member denial. WebKit cannot launch with the available system libraries.
+Existing suites cover the retained Upcoming features, session repair, build fix,
+keyboard navigation and email documentation.
 
 </details>
 
@@ -404,6 +406,16 @@ and import behavior.
 </details>
 
 **Tests and build** - compilation and secure test identifiers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/713ac69ace550f6a0d696a2f3e67d4c924cdc3d5">Verify the restored browser interface over HTTPS</a>. Thanks to xet7.</summary>
+
+Playwright readiness selects HTTPS for a public HTTPS test URL. The board
+non-member regression waits for the rendered denial and absence of the canvas,
+so the development server's persistent SockJS polling cannot cause a false
+network-idle timeout. The HTTPS guard and eight live Chromium/Firefox checks pass.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e83304d4">Use cryptographic randomness throughout Playwright tests</a>. Thanks to xet7.</summary>
