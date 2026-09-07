@@ -43,7 +43,7 @@ const COUNT_METHODS = [
   ['server/lib/boardsReport.js', 'boardsReportCountForAdmin'],
   ['server/publications/boards.js', 'getArchivedBoardsCount'],
   ['server/publications/rules.js', 'getRulesReportCount'],
-  ['server/publications/attachments.js', 'getAttachmentsReportCount'],
+  ['server/lib/attachmentsReport.js', 'attachmentsReportCountForAdmin'],
   ['server/lib/impersonationReport.js', 'impersonationReportCountForAdmin'],
   ['server/lib/recoveryReport.js', 'recoveryReportCountForAdmin'],
   ['models/eventLog.js', 'countForAdmin'],

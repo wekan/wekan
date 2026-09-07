@@ -63,6 +63,7 @@ import { toggleAccessibleCommentReaction } from '/server/lib/accessibleCommentRe
 import { serveLegacyHtml4ChecklistExport } from '/server/lib/legacyHtml4ScopedExport';
 import { serveAccessibleRulesExport } from '/server/lib/accessibleRuleExport';
 import { serveLegacyHtml4Attachment } from '/server/lib/legacyHtml4AttachmentResponse';
+import { permanentlyDeleteAttachmentFromFilesReport } from '/server/lib/permanentAttachmentDelete';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -149,6 +150,14 @@ function binaryPurpose(body = {}) {
   if (body.legacyOperation === 'download-attachment-original') {
     return `download:original-${String(body.attachmentId || '').replace(/[^A-Za-z0-9_-]/g, '')}`;
   }
+  if (body.legacyOperation === 'preview-admin-attachment-gif') {
+    return `download:admin-gif-${String(body.attachmentId || '')
+      .replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
+  if (body.legacyOperation === 'download-admin-attachment-original') {
+    return `download:admin-original-${String(body.attachmentId || '')
+      .replace(/[^A-Za-z0-9_-]/g, '')}`;
+  }
   return '';
 }
 
@@ -170,7 +179,8 @@ WebApp.handlers.use(async (req, res, next) => {
   }
   if (req.method === 'POST' && req.body?.legacySession) {
     session = ['export-rules', 'export-checklist', 'preview-attachment-gif',
-      'download-attachment-original'].includes(req.body?.legacyOperation)
+      'download-attachment-original', 'preview-admin-attachment-gif',
+      'download-admin-attachment-original'].includes(req.body?.legacyOperation)
       ? await consumeLegacyHtml4DownloadSession(req, path, binaryPurpose(req.body))
       : await consumeLegacyHtml4Session(req, path);
     if (!session) {
@@ -446,6 +456,59 @@ WebApp.handlers.use(async (req, res, next) => {
           ? error.error : 'operation-failed',
       };
     }
+  }
+  const isFilesReportPath = path === '/admin/problems/files';
+  if (session && isFilesReportPath
+    && requestFields.legacyOperation === 'confirm-permanently-delete-admin-attachment') {
+    requestFields.confirmPermanentAttachmentDelete = String(
+      requestFields.attachmentId || '',
+    );
+  }
+  if (session && isFilesReportPath
+    && requestFields.legacyOperation === 'permanently-delete-admin-attachment') {
+    try {
+      const invocation = { userId: session.userId,
+        connection: { clientAddress: String(session.address || '') } };
+      await DDP._CurrentMethodInvocation.withValue(invocation, () =>
+        permanentlyDeleteAttachmentFromFilesReport(
+          session.userId, String(requestFields.attachmentId || ''),
+          invocation.connection,
+        ));
+      requestFields.legacyFilesResult = { ok: true };
+    } catch (error) {
+      requestFields.legacyFilesResult = {
+        ok: false,
+        errorKey: typeof error?.error === 'string'
+          && /^[a-z0-9_-]{1,100}$/i.test(error.error)
+          ? error.error : 'operation-failed',
+      };
+    }
+  }
+  if (session && isFilesReportPath
+    && ['preview-admin-attachment-gif', 'download-admin-attachment-original']
+      .includes(requestFields.legacyOperation)) {
+    try {
+      await serveLegacyHtml4Attachment({
+        res, userId: session.userId,
+        attachmentId: requestFields.attachmentId,
+        representation: requestFields.legacyOperation === 'preview-admin-attachment-gif'
+          ? 'gif' : 'original',
+        adminOnly: true,
+      });
+    } catch (error) {
+      try {
+        require('/server/lib/canary').tripCanary('authz.legacy-html4-admin-attachment', {
+          req, userId: session.userId,
+          detail: `refused HTML4 Admin attachment response: ${String(error?.message || 'failed')}`,
+        });
+      } catch (_) { /* reporting must not weaken the refusal */ }
+      if (!res.headersSent) {
+        res.statusCode = error?.statusCode || (error?.message === 'forbidden' ? 403 : 415);
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('Attachment response denied.');
+      } else res.end();
+    }
+    return;
   }
   if (session && /^\/b\/[^/]+/.test(path)
     && ['preview-attachment-gif', 'download-attachment-original']

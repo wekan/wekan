@@ -45,6 +45,10 @@ import {
   brokenCardsReportCountForAdmin,
   brokenCardsReportForAdmin,
 } from '/server/lib/brokenCardsReport';
+import {
+  attachmentsReportCountForAdmin,
+  attachmentsReportForAdmin,
+} from '/server/lib/attachmentsReport';
 const {
   UI_ICONS, uiAction, uiAttachment, uiCardDestinationForm, uiExportForm, uiFileForm, uiLink, uiSearchForm,
   uiBoardCreateForm, uiFieldsetForm, uiSelectForm, uiTextForm, uiTextareaForm,
@@ -3067,6 +3071,108 @@ async function adminProblemsBrokenCardsPage(path, userId, requestFields, transla
   };
 }
 
+async function adminProblemsFilesPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/problems/files') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1,
+    Math.min(100000, parseInt(requestFields.page, 10) || 1));
+  const perPage = 10;
+  let report;
+  let total;
+  try {
+    [report, total] = await Promise.all([
+      attachmentsReportForAdmin(userId, {
+        search, limit: perPage, skip: (requestedPage - 1) * perPage,
+      }),
+      attachmentsReportCountForAdmin(userId, search),
+    ]);
+  } catch (error) {
+    if (error?.error !== 'not-authorized') throw error;
+    return {
+      heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'problems', 'Problems'),
+        tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'filesReportTitle', 'Files Report'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(requestedPage, totalPages);
+  if (page !== requestedPage) report = await attachmentsReportForAdmin(userId, {
+    search, limit: perPage, skip: (page - 1) * perPage,
+  });
+  const permanentDelete = getFeatureFlags().enablePermanentDelete === true;
+  const columns = [tr(translate, 'preview', 'Preview'), 'Filename', 'Size (kB)',
+    'MIME Type', 'Attachment ID', 'Board ID', 'Card ID'];
+  const rows = [
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'problems', 'Problems'),
+        adminProblemsNavigation(translate)] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'filesReportTitle', 'Files Report'),
+        'The permanent-delete setting must be enabled before a delete control is shown. Recovery logs setting changes and every successful, failed, or unauthorized permanent-delete attempt, including available identity, network address and location.'] },
+    { rowHeader: false, colspanLast: columns.length - 1,
+      cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+        action: path, label: tr(translate, 'search', 'Search'), value: search,
+      })] },
+  ];
+  if (requestFields.legacyFilesResult) rows.push({
+    rowHeader: false, colspanLast: columns.length - 1,
+    cells: [tr(translate, 'status', 'Status'), requestFields.legacyFilesResult.ok
+      ? tr(translate, 'done', 'Done')
+      : tr(translate, requestFields.legacyFilesResult.errorKey, 'Operation failed')],
+  });
+  for (const attachment of report.attachments) {
+    const name = cleanFileName(attachment.name);
+    const kind = attachmentKind(attachment);
+    const responseFields = { attachmentId: attachment._id };
+    const actions = [];
+    if (kind.isImage) actions.push({
+      action: path, label: tr(translate, 'preview', 'Preview'),
+      icon: 'caret-right', target: '_blank',
+      authPurpose: `download:admin-gif-${attachment._id}`,
+      fields: { ...responseFields, legacyOperation: 'preview-admin-attachment-gif' },
+    });
+    actions.push({
+      action: path, label: tr(translate, 'download', 'Download'),
+      icon: 'move-down', target: '_blank',
+      authPurpose: `download:admin-original-${attachment._id}`,
+      fields: { ...responseFields, legacyOperation: 'download-admin-attachment-original' },
+    });
+    const confirming = requestFields.confirmPermanentAttachmentDelete === attachment._id;
+    if (permanentDelete) actions.push(confirming ? {
+      action: path, label: tr(translate, 'delete', 'Delete'), icon: 'remove',
+      fields: { attachmentId: attachment._id, q: search, page,
+        legacyOperation: 'permanently-delete-admin-attachment' },
+    } : {
+      action: path, label: `${tr(translate, 'delete', 'Delete')}?`, icon: 'remove',
+      fields: { attachmentId: attachment._id, q: search, page,
+        legacyOperation: 'confirm-permanently-delete-admin-attachment' },
+    });
+    rows.push({ cells: [uiAttachment({
+      name, type: attachment.type || 'application/octet-stream',
+      size: Number(attachment.size) || 0, actions,
+    }), name, (Number(attachment.size) / 1024).toFixed(1), attachment.type || '',
+    attachment._id, attachment.meta?.boardId || '', attachment.meta?.cardId || ''] });
+  }
+  if (!report.attachments.length) rows.push({ rowHeader: false,
+    colspanLast: columns.length,
+    cells: [tr(translate, 'no-results', 'No results')] });
+  rows.push({ rowHeader: false, colspanLast: columns.length - 1, cells: [
+    `${page} / ${totalPages}`,
+    [page > 1 ? uiAction({ action: path,
+      label: tr(translate, 'previous-page', 'Previous'), icon: 'previous',
+      fields: { q: search, page: page - 1 } }) : '',
+    page < totalPages ? uiAction({ action: path,
+      label: tr(translate, 'next-page', 'Next'), icon: 'next',
+      fields: { q: search, page: page + 1 } }) : ''],
+  ] });
+  return {
+    heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate, 'problems', 'Problems')} / ${tr(translate, 'filesReportTitle', 'Files Report')}`,
+    columns, rows,
+  };
+}
+
 async function adminProblemsSummaryPage(path, userId, requestFields, translate) {
   if (path !== '/admin/problems/summary') return null;
   const user = userId && await Meteor.users.findOneAsync(userId, {
@@ -3174,6 +3280,10 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
     path, userId, requestFields, translate,
   );
   if (adminProblemsBrokenCards) return adminProblemsBrokenCards;
+  const adminProblemsFiles = await adminProblemsFilesPage(
+    path, userId, requestFields, translate,
+  );
+  if (adminProblemsFiles) return adminProblemsFiles;
   if (/^\/(?:allboards|templates|remaining|archive)(?:\/|$)/.test(path)) {
     return boardsPage(path, userId, false, requestFields, translate);
   }

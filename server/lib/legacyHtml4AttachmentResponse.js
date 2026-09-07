@@ -1,4 +1,5 @@
 import Attachments from '/models/attachments';
+import { Meteor } from 'meteor/meteor';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import Boards from '/models/boards';
 import { fileStoreStrategyFactory } from '/models/attachments.server';
@@ -80,8 +81,18 @@ function harden(res) {
 }
 
 export async function serveLegacyHtml4Attachment({ res, userId, boardId, cardId,
-  attachmentId, representation }) {
-  const attachment = await exactAuthorizedAttachment({ userId, boardId, cardId, attachmentId });
+  attachmentId, representation, adminOnly = false }) {
+  let attachment;
+  if (adminOnly) {
+    const user = userId && await Meteor.users.findOneAsync(userId, {
+      fields: { isAdmin: 1 },
+    });
+    if (!user?.isAdmin) throw new Error('forbidden');
+    attachment = await getAttachmentWithBackwardCompatibility(String(attachmentId || ''));
+    if (!attachment) { const error = new Error('missing'); error.statusCode = 404; throw error; }
+  } else {
+    attachment = await exactAuthorizedAttachment({ userId, boardId, cardId, attachmentId });
+  }
   const policy = await limits();
   rejectLimit(attachment, policy);
 

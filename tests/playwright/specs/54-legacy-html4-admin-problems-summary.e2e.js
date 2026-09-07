@@ -37,6 +37,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     `${eventId}-card-report-${index}`);
   const brokenReportIds = Array.from({ length: 12 }, (_, index) =>
     `${eventId}-broken-report-${index}`);
+  const fileReportIds = Array.from({ length: 12 }, (_, index) =>
+    `${eventId}-file-report-${index}`);
+  const fileDeleteId = fileReportIds[0];
   const legacyContext = await browser.newContext({
     javaScriptEnabled: false,
     locale: 'fi-FI',
@@ -44,6 +47,8 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
   const legacy = await legacyContext.newPage();
   let user;
   let modernContext;
+  let settingsId;
+  let previousPermanentDelete;
   const previousSecurityAck = db.findOne('eventlogAcks', {
     stream: 'security',
   });
@@ -59,6 +64,12 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       legacy.locator('input[type="submit"]').click(),
     ]);
     user = db.findOne('users', { username });
+    const settings = db.findOne('settings', {});
+    settingsId = settings?._id;
+    previousPermanentDelete = settings?.enablePermanentDelete;
+    if (settingsId) db.updateOne('settings', { _id: settingsId }, {
+      $set: { enablePermanentDelete: false },
+    });
     db.updateOne(
       'users',
       { _id: user._id },
@@ -371,6 +382,15 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
       sort: index + 20,
       createdAt: new Date(Date.now() + index),
     })));
+    db.insertMany('attachments', fileReportIds.map((id, index) => ({
+      _id: id,
+      name: `Searchable Report File ${suffix} ${String(index).padStart(2, '0')}${index === 1 ? '.gif' : '.txt'}`,
+      type: index === 1 ? 'image/gif' : 'text/plain',
+      size: index * 1024,
+      uploadedAt: new Date(Date.now() + index),
+      versions: {},
+      meta: { boardId: cardReportBoardId, cardId: cardReportIds[0] },
+    })));
     const boardsReportNav = legacy
       .locator('form[action="/admin/problems/boards"]').first();
     await Promise.all([
@@ -454,6 +474,69 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     if (process.env.WEKAN_HTML4_SCREENSHOTS) {
       await legacy.screenshot({
         path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-broken-cards.png`,
+        fullPage: true,
+      });
+    }
+    const filesReportNav = legacy
+      .locator('form[action="/admin/problems/files"]').first();
+    await Promise.all([
+      legacy.waitForNavigation(),
+      filesReportNav.locator('input[type="submit"]').click(),
+    ]);
+    const filesSearch = legacy.locator('form:has(input[name="q"][type="text"])');
+    await filesSearch.locator('input[name="q"][type="text"]')
+      .fill(`Searchable Report File ${suffix}`);
+    await Promise.all([
+      legacy.waitForNavigation(), filesSearch.locator('input[type="submit"]').click(),
+    ]);
+    await expect(legacy.locator('thead')).toContainText('Filename');
+    await expect(legacy.locator('thead')).toContainText('Attachment ID');
+    await expect(legacy.locator('tbody')).toContainText(cardReportBoardId);
+    await expect(legacy.locator('tbody')).toContainText(cardReportIds[0]);
+    await expect(legacy.locator(
+      'form:has(input[name="legacyOperation"][value="preview-admin-attachment-gif"])',
+    )).toHaveCount(1);
+    await expect(legacy.locator(
+      'form:has(input[name="legacyOperation"][value="download-admin-attachment-original"])',
+    )).toHaveCount(10);
+    await expect(legacy.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-permanently-delete-admin-attachment"])',
+    )).toHaveCount(0);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (settingsId) db.updateOne('settings', { _id: settingsId }, {
+      $set: { enablePermanentDelete: true },
+    });
+    await legacy.waitForTimeout(500);
+    await Promise.all([
+      legacy.waitForNavigation(), filesSearch.locator('input[type="submit"]').click(),
+    ]);
+    const requestFileDelete = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="confirm-permanently-delete-admin-attachment"])'
+      + `:has(input[name="attachmentId"][value="${fileDeleteId}"])`,
+    );
+    await expect(requestFileDelete).toHaveCount(1);
+    await Promise.all([
+      legacy.waitForNavigation(), requestFileDelete.locator('input[type="submit"]').click(),
+    ]);
+    const confirmFileDelete = legacy.locator(
+      'form:has(input[name="legacyOperation"][value="permanently-delete-admin-attachment"])'
+      + `:has(input[name="attachmentId"][value="${fileDeleteId}"])`,
+    );
+    await expect(confirmFileDelete).toHaveCount(1);
+    await Promise.all([
+      legacy.waitForNavigation(), confirmFileDelete.locator('input[type="submit"]').click(),
+    ]);
+    await expect.poll(() => db.findOne('attachments', { _id: fileDeleteId })).toBeNull();
+    await expect.poll(() => db.findOne('recoveryEvents', {
+      type: 'attachment-permanently-deleted', userId: user._id, done: true,
+      detail: { $regex: fileDeleteId },
+    })?.username).toBe(username);
+    await expect(legacy.locator('input[name="q"][type="text"]'))
+      .toHaveValue(`Searchable Report File ${suffix}`);
+    await expect(legacy.locator('tbody')).toContainText('1 / 2');
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await legacy.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html4-admin-files.png`,
         fullPage: true,
       });
     }
@@ -572,6 +655,20 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
         fullPage: true,
       });
     }
+    await navigateInApp(modern, '/admin/problems/files');
+    await modern.locator('.js-table-page-search')
+      .fill(`Searchable Report File ${suffix}`);
+    await modern.locator('.js-table-page-search').press('Enter');
+    await expect(modern.locator('.table-page-page-info')).toContainText('1 / 2');
+    await expect(modern.locator('tbody')).toContainText('Searchable Report File');
+    await expect(modern.locator('tbody')).toContainText(cardReportBoardId);
+    await expect(modern.locator('.table-page-attachment')).toHaveCount(10);
+    if (process.env.WEKAN_HTML4_SCREENSHOTS) {
+      await modern.screenshot({
+        path: `${process.env.WEKAN_HTML4_SCREENSHOTS}/html5-admin-files.png`,
+        fullPage: true,
+      });
+    }
 
     const outsider = await browser.newContext({ javaScriptEnabled: false });
     const outsiderPage = await outsider.newPage();
@@ -595,6 +692,9 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     await outsiderPage.goto(`${baseURL}/admin/problems/broken-cards`);
     await expect(outsiderPage.locator('body')).toContainText('not authorized');
     await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Broken Report ${suffix}`);
+    await outsiderPage.goto(`${baseURL}/admin/problems/files`);
+    await expect(outsiderPage.locator('body')).toContainText('not authorized');
+    await expect(outsiderPage.locator('body')).not.toContainText(`Searchable Report File ${suffix}`);
     await outsider.close();
   } finally {
     if (modernContext) await modernContext.close();
@@ -609,6 +709,11 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteMany('boards', { _id: { $in: boardReportIds } });
     db.deleteMany('cards', { _id: { $in: cardReportIds } });
     db.deleteMany('cards', { _id: { $in: brokenReportIds } });
+    db.deleteMany('attachments', { _id: { $in: fileReportIds } });
+    db.deleteMany('recoveryEvents', {
+      type: 'attachment-permanently-deleted',
+      detail: { $regex: eventId },
+    });
     db.deleteOne('lists', { _id: cardReportListId });
     db.deleteOne('swimlanes', { _id: cardReportSwimlaneId });
     db.deleteOne('boards', { _id: cardReportBoardId });
@@ -616,6 +721,14 @@ test('Problems Summary has equivalent admin-only HTML4 reads and acknowledgement
     db.deleteOne('team', { _id: boardReportTeamId });
     db.deleteMany('users', { _id: { $in: [...officeUserIds, impersonatedUserId] } });
     if (previousSecurityAck) db.insertOne('eventlogAcks', previousSecurityAck);
+    if (settingsId) {
+      if (previousPermanentDelete === undefined) db.updateOne('settings', {
+        _id: settingsId,
+      }, { $unset: { enablePermanentDelete: '' } });
+      else db.updateOne('settings', { _id: settingsId }, {
+        $set: { enablePermanentDelete: previousPermanentDelete },
+      });
+    }
     if (user) {
       db.deleteOne('users', { _id: user._id });
     }

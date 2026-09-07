@@ -613,6 +613,27 @@ The same-URL fixture searches twelve broken cards, verifies two pages, present
 and missing contexts in both renderers, captures both views and proves an
 anonymous request receives no instance repair inventory.
 
+Files Report uses one bounded Global Admin metadata service in its Meteor
+publication and HTML4 controller. The service reads the plain attachments
+collection so legacy CFS compatibility lookup cannot block the report, escapes
+and caps filename search at 500 characters, sorts on the indexed filename, and
+counts the identical selector in the database. HTML4 retains Preview, Filename,
+Size, MIME Type, Attachment ID, Board ID and Card ID. Its shared attachment
+component exposes an image's server-stored GIF representation and every
+original through separate purpose-bound POST controls, without placing a
+cookieless session secret in an image URL. Search and ten-row paging retain
+state.
+
+Permanent delete is absent unless the Global Admin setting is enabled. When it
+is enabled, the Files Report uses the same two-step confirmation and deletion
+service in HTML4 and HTML5. The service repeats the Global Admin and setting
+checks, and Recovery records every successful or refused attempt with the
+available user, network/location metadata, attachment id, sanitized filename
+and card id. The same-URL fixture verifies twelve files, an image preview
+control, original controls, the disabled and enabled delete states, actual
+deletion and its Recovery record, two-page parity, screenshots and anonymous
+isolation.
+
 ## Delivery order
 
 The compatibility layer is complete only when every client route has one of:
