@@ -703,6 +703,19 @@ FlowRouter.route('/broken-cards', {
   },
 });
 
+// Member Menu popups also have stable page URLs. The same Jade component is
+// used both as a popup and as the route content; HTML4 uses these URLs for its
+// cookieless POST navigation.
+FlowRouter.route('/account/profile', {
+  name: 'account-profile',
+  triggersEnter: [ensureSignedInUnlessSandstorm],
+  action() {
+    Session.set('currentBoard', null);
+    EscapeActions.executeAll();
+    this.render('defaultLayout', { content: 'accountProfilePage' });
+  },
+});
+
 // #1173: the import page with no source chosen yet. The page picks the source
 // itself now, so the address does not have to carry one - but /import/:source
 // below still works, so every existing link, bookmark and back button does.

@@ -30,6 +30,7 @@ import {
   setAccessibleBoardWorkspace,
 } from '/server/lib/accessibleBoardListOperations';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
+import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 import { createPersonForAdmin, deletePersonForAdmin, impersonatePersonForAdmin,
   setPersonActiveForAdmin, updatePeopleTeamForAdmin,
@@ -166,6 +167,13 @@ Meteor.methods({
     }
     await Users.updateAsync(this.userId, {
       $set: { 'profile.fullname': fullname, 'profile.initials': initials },
+    });
+  },
+
+  async updateOwnProfile(input) {
+    check(input, Object);
+    return updateOwnMemberProfile(this.userId, input, {
+      connection: this.connection,
     });
   },
 

@@ -87,6 +87,7 @@ import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
 import { adminThemeForUser } from '/server/lib/adminThemeSettings';
+import { memberProfileForUser } from '/server/lib/memberProfile';
 import { ALLOWED_WAIT_SPINNERS } from '/config/const';
 import { BOARD_COLORS } from '/models/metadata/colors';
 import { filesize } from 'filesize';
@@ -2268,6 +2269,63 @@ async function informationPage(path, userId, translate) {
     };
   }
   return null;
+}
+
+async function accountProfilePage(path, userId, requestFields, translate) {
+  if (path !== '/account/profile') return null;
+  let profile;
+  try {
+    profile = await memberProfileForUser(userId, { req: requestFields.req });
+  } catch (_) {
+    return {
+      heading: tr(translate, 'edit-profile', 'Edit Profile'),
+      columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+      rows: [{ cells: [tr(translate, 'status', 'Status'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }],
+    };
+  }
+  const rows = [];
+  const inputs = [
+    { name: 'fullname', type: 'text', label: tr(translate, 'fullname', 'Full Name'),
+      value: profile.fullname, maxlength: 256 },
+    { name: 'initials', type: 'text', label: tr(translate, 'initials', 'Initials'),
+      value: profile.initials, maxlength: 20 },
+  ];
+  const hidden = {
+    legacyOperation: 'update-own-profile',
+  };
+  if (profile.allowUsernameChange) inputs.splice(1, 0, {
+    name: 'username', type: 'text', label: tr(translate, 'username', 'Username'),
+    value: profile.username, maxlength: 255, required: true,
+  });
+  else {
+    hidden.username = profile.username;
+    rows.push({ cells: [tr(translate, 'username', 'Username'), profile.username] });
+  }
+  if (profile.allowEmailChange) inputs.push({
+    name: 'email', type: 'email', label: tr(translate, 'email', 'Email'),
+    value: profile.email, maxlength: 320, required: true,
+  });
+  else {
+    hidden.email = profile.email;
+    rows.push({ cells: [tr(translate, 'email', 'Email'), profile.email] });
+  }
+  rows.push({ rowHeader: false, cells: ['', uiFieldsetForm({
+    action: path,
+    legend: tr(translate, 'edit-profile', 'Edit Profile'),
+    inputs,
+    fields: hidden,
+    submitLabel: tr(translate, 'save', 'Save'),
+    id: 'member-profile',
+  })] });
+  if (requestFields.legacyProfileResult) rows.push({ cells: [
+    tr(translate, 'status', 'Status'), requestFields.legacyProfileResult,
+  ] });
+  return {
+    heading: tr(translate, 'edit-profile', 'Edit Profile'),
+    columns: [tr(translate, 'name', 'Name'), tr(translate, 'description', 'Description')],
+    rows,
+  };
 }
 
 async function cardRows(cards, userId, translate) {
@@ -5639,6 +5697,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (path === '/public') return boardsPage(path, userId, true, requestFields, translate);
   const information = await informationPage(path, userId, translate);
   if (information) return information;
+  const accountProfile = await accountProfilePage(path, userId, requestFields, translate);
+  if (accountProfile) return accountProfile;
   const discovery = await cardDiscoveryPage(path, userId, requestFields, translate);
   if (discovery) return discovery;
   const importer = await importPage(path, userId, requestFields, translate);

@@ -141,6 +141,7 @@ import { clearPersonAvatarForAdmin, createPersonForAdmin, deletePersonAvatarForA
   uploadPersonAvatarForAdmin } from '/server/lib/adminPeople';
 import { setAdminThemeForUser } from '/server/lib/adminThemeSettings';
 import { uploadBrandingImageForUser } from '/server/brandingImages';
+import { updateOwnMemberProfile } from '/server/lib/memberProfile';
 import {
   removeAccessibleAttachment,
   renameAccessibleAttachment,
@@ -288,6 +289,22 @@ WebApp.handlers.use(async (req, res, next) => {
   const query = new URL(req.url, 'http://wekan.invalid').searchParams;
   const requestFields = { ...(req.body || {}) };
   const rulesPath = /^\/b\/([^/]+)\/[^/]+\/rules$/.exec(path);
+  if (session && path === '/account/profile'
+    && requestFields.legacyOperation === 'update-own-profile') {
+    try {
+      await updateOwnMemberProfile(session.userId, {
+        fullname: String(requestFields.fullname || ''),
+        username: String(requestFields.username || ''),
+        initials: String(requestFields.initials || ''),
+        email: String(requestFields.email || ''),
+      }, { req });
+      requestFields.legacyProfileResult = translatedOr(translate, 'saved', 'Saved');
+    } catch (error) {
+      requestFields.legacyProfileResult = translatedOr(
+        translate, error?.error || 'operation-failed', 'Operation failed',
+      );
+    }
+  }
   if (session && path === '/admin/settings/version'
     && requestFields.legacyOperation === 'check-newest-versions') {
     try {

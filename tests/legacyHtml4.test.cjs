@@ -832,6 +832,28 @@ test('account mail tokens use semantic POST forms and atomic server consumption'
   assert.doesNotMatch(routes, /Location[^\n]+password=/);
 });
 
+test('member profile route shares one guarded operation with Jade', () => {
+  const root = path.join(__dirname, '..');
+  const routes = fs.readFileSync(path.join(root, 'config/router.js'), 'utf8');
+  const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+  const client = fs.readFileSync(path.join(root, 'client/components/users/userHeader.js'), 'utf8');
+  const pages = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4Pages.js'), 'utf8');
+  const handler = fs.readFileSync(path.join(root, 'server/legacyHtml4.js'), 'utf8');
+  const service = fs.readFileSync(path.join(root, 'server/lib/memberProfile.js'), 'utf8');
+  assert.match(routes, /FlowRouter\.route\('\/account\/profile'/);
+  assert.match(jade, /js-edit-profile\(href="\/account\/profile"\)/);
+  assert.match(client, /Meteor\.call\('updateOwnProfile', \{ fullname, initials, username, email \}/);
+  assert.match(pages, /async function accountProfilePage/);
+  assert.match(pages, /legacyOperation: 'update-own-profile'/);
+  assert.match(handler, /updateOwnMemberProfile\(session\.userId/);
+  assert.match(service, /accounts-allowUserNameChange/);
+  assert.match(service, /accounts-allowEmailChange/);
+  assert.match(service, /_id: \{ \$ne: userId \}, username: new RegExp/);
+  assert.match(service, /'emails\.address': new RegExp/);
+  assert.match(service, /source: 'memberProfile'/);
+  assert.doesNotMatch(service, /Users\.update\([^A]/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',

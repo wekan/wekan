@@ -65,6 +65,7 @@ function pageHeading(path, options) {
   }
   if (/^\/verify-email\//.test(path)) return translated(options, 'email', 'Email');
   if (path === '/send-again') return translated(options, 'email-sent', 'Email sent');
+  if (path === '/account/profile') return translated(options, 'edit-profile', 'Edit Profile');
   const routeTitles = [
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
@@ -259,6 +260,7 @@ function contentRows(path, options) {
     rows.push(tableRow([
       `${escapeHtml(translated(options, 'username', 'Username'))}: ${escapeHtml(options.username || '')}`,
       ['/allboards', '/my-cards', '/due-cards', '/global-search', '/broken-cards', '/bookmarks',
+        '/account/profile',
         '/import', '/support', '/accessibility', '/shortcuts']
         .concat(options.isAdmin
           ? ['/admin/settings/version', '/admin/people/people',

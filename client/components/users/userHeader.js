@@ -173,68 +173,15 @@ Template.editProfilePopup.events({
     const username = templateInstance.find('.js-profile-username').value.trim();
     const initials = templateInstance.find('.js-profile-initials').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
-    let isChangeUserName = false;
-    let isChangeEmail = false;
-    Meteor.call('setOwnProfile', fullname, initials, error => {
-      if (error) console.error('Could not save profile:', error);
+    Meteor.call('updateOwnProfile', { fullname, initials, username, email }, error => {
+      const usernameMessageElement = templateInstance.$('.username-taken');
+      const emailMessageElement = templateInstance.$('.email-taken');
+      usernameMessageElement.toggle(error?.error === 'username-already-taken');
+      emailMessageElement.toggle(error?.error === 'email-already-taken');
+      if (!error) Popup.back();
+      else if (!['username-already-taken', 'email-already-taken'].includes(error.error)
+        && process.env.DEBUG === 'true') console.error('Could not save profile:', error);
     });
-    const currentUser = ReactiveCache.getCurrentUser();
-    const primaryEmail =
-      Array.isArray(currentUser.emails) && currentUser.emails.length
-        ? currentUser.emails[0]
-        : null;
-    isChangeUserName = username !== currentUser.username;
-    isChangeEmail =
-      email.toLowerCase() !==
-      (primaryEmail ? primaryEmail.address.toLowerCase() : '');
-    if (isChangeUserName && isChangeEmail) {
-      Meteor.call(
-        'setUsernameAndEmail',
-        username,
-        email.toLowerCase(),
-        Meteor.userId(),
-        function(error) {
-          const usernameMessageElement = templateInstance.$('.username-taken');
-          const emailMessageElement = templateInstance.$('.email-taken');
-          if (error) {
-            const errorElement = error.error;
-            if (errorElement === 'username-already-taken') {
-              usernameMessageElement.show();
-              emailMessageElement.hide();
-            } else if (errorElement === 'email-already-taken') {
-              usernameMessageElement.hide();
-              emailMessageElement.show();
-            }
-          } else {
-            usernameMessageElement.hide();
-            emailMessageElement.hide();
-            Popup.back();
-          }
-        },
-      );
-    } else if (isChangeUserName) {
-      Meteor.call('setUsername', username, Meteor.userId(), function(error) {
-        const messageElement = templateInstance.$('.username-taken');
-        if (error) {
-          messageElement.show();
-        } else {
-          messageElement.hide();
-          Popup.back();
-        }
-      });
-    } else if (isChangeEmail) {
-      Meteor.call('setEmail', email.toLowerCase(), Meteor.userId(), function(
-        error,
-      ) {
-        const messageElement = templateInstance.$('.email-taken');
-        if (error) {
-          messageElement.show();
-        } else {
-          messageElement.hide();
-          Popup.back();
-        }
-      });
-    } else Popup.back();
   },
   'click #deleteButton': Popup.afterConfirm('userDelete', function() {
     Popup.back();

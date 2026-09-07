@@ -72,7 +72,7 @@ template(name="memberMenuPopup")
             | {{_ 'invite-people'}}
       if isNotOAuth2AuthenticationMethod
         li
-          a.js-edit-profile
+          a.js-edit-profile(href="/account/profile")
             i.fa.fa-user
             | {{_ 'edit-profile'}}
       li
@@ -167,6 +167,10 @@ template(name="editProfilePopup")
       if allowUserDelete
         div
         input#deleteButton.primary.wide(type="button" value="{{_ 'delete'}}")
+
+template(name="accountProfilePage")
+  with currentUser
+    +editProfilePopup
 
 
 template(name="supportPopup")
