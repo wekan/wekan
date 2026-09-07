@@ -99,7 +99,12 @@ test.describe('#5850 domain-based board sharing', () => {
       await loginWithToken(page, nonAdmin.id, nonAdmin.token);
       const denied = await callMethod(page, 'getDomainsWithUserCounts');
       expect(denied.error).toBeTruthy();
+      await expect.poll(() => db.findOne('eventlog', {
+        stream: 'security', bleed: 'DomainBleed', userId: nonAdmin.id,
+      })).not.toBeNull();
     } finally {
+      db.deleteMany('eventlog', { stream: 'security', bleed: 'DomainBleed',
+        userId: nonAdmin.id });
       db.cleanup({ userIds: [u1.id, u2.id, u3.id, nonAdmin.id] });
     }
   });

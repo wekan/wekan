@@ -30,6 +30,7 @@ import {
   setAccessibleBoardWorkspace,
 } from '/server/lib/accessibleBoardListOperations';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
+import { domainsForAdmin, domainsPageForAdmin } from '/server/lib/adminDomains';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 
 // Security (reported by meifukun): defence-in-depth throttle on account creation
@@ -114,7 +115,6 @@ import {
   notificationCapFromEnv,
 } from '/models/lib/notificationCleanup';
 import { chooseInviteEmailLanguage } from '/models/lib/inviteEmailLanguage';
-import { paginateDomains } from '/models/lib/domainTablePage';
 import { orgsToAutoAddForEmail } from '/models/lib/orgAutoAddByDomain';
 import {
   gainedTeamIds,
@@ -2538,30 +2538,7 @@ Meteor.methods({
   // counted once by their primary email's domain), sorted by count desc then
   // domain. Admin-only.
   async getDomainsWithUserCounts() {
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    const currentUser = await ReactiveCache.getUser(
-      { _id: this.userId },
-      { fields: { isAdmin: 1 } },
-    );
-    if (!currentUser || !currentUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Admin access required');
-    }
-
-    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
-    const counts = {};
-    for (const u of users) {
-      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
-      const at = addr.lastIndexOf('@');
-      if (at === -1) continue;
-      const domain = addr.slice(at + 1).toLowerCase().trim();
-      if (!domain) continue;
-      counts[domain] = (counts[domain] || 0) + 1;
-    }
-    return Object.keys(counts)
-      .map(domain => ({ domain, count: counts[domain] }))
-      .sort((a, b) => b.count - a.count || a.domain.localeCompare(b.domain));
+    return domainsForAdmin(this.userId);
   },
 
   // Paginated / searchable / column-sortable variant of getDomainsWithUserCounts
@@ -2576,38 +2553,7 @@ Meteor.methods({
       page: Match.Optional(Number),
       perPage: Match.Optional(Number),
     }));
-    if (!this.userId) {
-      throw new Meteor.Error('not-logged-in', 'User must be logged in');
-    }
-    const currentUser = await ReactiveCache.getUser(
-      { _id: this.userId },
-      { fields: { isAdmin: 1 } },
-    );
-    if (!currentUser || !currentUser.isAdmin) {
-      throw new Meteor.Error('not-authorized', 'Admin access required');
-    }
-
-    const users = await Users.find({}, { fields: { emails: 1 } }).fetchAsync();
-    const counts = {};
-    for (const u of users) {
-      const addr = (u.emails && u.emails[0] && u.emails[0].address) || '';
-      const at = addr.lastIndexOf('@');
-      if (at === -1) continue;
-      const domain = addr.slice(at + 1).toLowerCase().trim();
-      if (!domain) continue;
-      counts[domain] = (counts[domain] || 0) + 1;
-    }
-    const rows = Object.keys(counts).map(domain => ({
-      domain,
-      count: counts[domain],
-    }));
-
-    // Fixed order (domain ascending) — column-header sorting was removed.
-    return paginateDomains(rows, {
-      search: params.search,
-      page: params.page,
-      perPage: params.perPage,
-    });
+    return domainsPageForAdmin(this.userId, params);
   },
 
   // Feature #3313 "Shared templates": admin-only.

@@ -70,6 +70,7 @@ import { inviteRolesForAdmin } from '/server/lib/adminInviteRoles';
 import { sharedTemplatesForAdmin } from '/server/lib/adminSharedTemplates';
 import { loginSettingsForAdmin } from '/server/lib/adminLoginSettings';
 import { emailSettingsForAdmin } from '/server/lib/adminEmailSettings';
+import { domainsPageForAdmin } from '/server/lib/adminDomains';
 import {
   INVITE_TO_BOARD_ROLES,
 } from '/models/inviteToBoardRolesSettings';
@@ -3286,6 +3287,45 @@ async function adminPeopleEmailPage(path, userId, requestFields, translate) {
     tr(translate, 'actions', 'Actions')], rows };
 }
 
+async function adminPeopleDomainsPage(path, userId, requestFields, translate) {
+  if (path !== '/admin/people/domains') return null;
+  const search = String(requestFields.q || '').trim().slice(0, 500);
+  const requestedPage = Math.max(1, Number(requestFields.page) || 1);
+  let result;
+  try {
+    result = await domainsPageForAdmin(userId, {
+      search, page: requestedPage, perPage: 10,
+    }, { req: requestFields.req });
+  } catch (_) {
+    return { heading: tr(translate, 'admin-panel', 'Admin Panel'),
+      columns: [tr(translate, 'people', 'People'), tr(translate, 'status', 'Status')],
+      rows: [{ cells: [tr(translate, 'domains', 'Domains'),
+        tr(translate, 'error-notAuthorized', 'Not authorized')] }] };
+  }
+  const rows = [
+    { rowHeader: false, cells: [adminPeopleNavigation(translate), '', ''] },
+    { rowHeader: false, cells: [tr(translate, 'search', 'Search'), uiSearchForm({
+      action: path, label: tr(translate, 'search', 'Search'), value: search,
+      fields: { page: 1 },
+    }), `${result.total} ${tr(translate, 'domains', 'Domains')}`] },
+    ...result.rows.map(row => ({ cells: [row.domain, String(row.count), ''] })),
+    { rowHeader: false, cells: [
+      `${tr(translate, 'page', 'Page')} ${result.page} / ${result.totalPages}`,
+      result.page > 1 ? uiAction({ action: path,
+        label: tr(translate, 'previous-page', 'Previous'), icon: 'previous',
+        fields: { q: search, page: result.page - 1 } }) : '',
+      result.page < result.totalPages ? uiAction({ action: path,
+        label: tr(translate, 'next-page', 'Next'), icon: 'next',
+        fields: { q: search, page: result.page + 1 } }) : '',
+    ] },
+  ];
+  return { heading: `${tr(translate, 'admin-panel', 'Admin Panel')} / ${tr(translate,
+    'people', 'People')} / ${tr(translate, 'domains', 'Domains')}`,
+  columns: [tr(translate, 'domain', 'Domain'),
+    tr(translate, 'domain-user-count', 'User count'),
+    tr(translate, 'actions', 'Actions')], rows };
+}
+
 async function adminPeopleSharedTemplatesPage(path, userId, requestFields, translate) {
   if (path !== '/admin/people/shared-templates') return null;
   let templateRows;
@@ -4362,6 +4402,8 @@ export async function legacyHtml4Page(path, userId, requestFields = {}, translat
   if (adminPeopleLogin) return adminPeopleLogin;
   const adminPeopleEmail = await adminPeopleEmailPage(path, userId, requestFields, translate);
   if (adminPeopleEmail) return adminPeopleEmail;
+  const adminPeopleDomains = await adminPeopleDomainsPage(path, userId, requestFields, translate);
+  if (adminPeopleDomains) return adminPeopleDomains;
   const adminPeopleSharedTemplates = await adminPeopleSharedTemplatesPage(
     path, userId, requestFields, translate,
   );
