@@ -800,6 +800,38 @@ test('forgot-password is semantic, uniform and separately rate limited', () => {
   assert.match(route, /legacyRecoveryThrottle = new LoginAttemptThrottle\(\{[\s\S]*?maxFailures: 5/);
 });
 
+test('account mail tokens use semantic POST forms and atomic server consumption', () => {
+  const reset = renderLegacyHtml4Page('/reset-password/reset-token');
+  assert.match(reset, /action="\/users\/reset-password"/);
+  assert.match(reset, /name="tokenKind" value="reset"/);
+  assert.match(reset, /name="token" value="reset-token"/);
+  assert.ok(reset.indexOf('name="password"') < reset.indexOf('name="passwordAgain"'));
+  const enroll = renderLegacyHtml4Page('/enroll-account/enroll-token');
+  assert.match(enroll, /name="tokenKind" value="enroll"/);
+  const verify = renderLegacyHtml4Page('/verify-email/verify-token');
+  assert.match(verify, /action="\/users\/verify-email"/);
+  assert.match(verify, /name="token" value="verify-token"/);
+  const resend = renderLegacyHtml4Page('/send-again', { verificationRequested: true });
+  assert.match(resend, /action="\/users\/send-verification"/);
+  assert.match(resend, /<strong>Email sent<\/strong>/);
+
+  const root = path.join(__dirname, '..');
+  const tokens = fs.readFileSync(path.join(root, 'server/lib/legacyHtml4AccountTokens.js'), 'utf8');
+  const routes = fs.readFileSync(path.join(root, 'server/apiAuthRoutes.js'), 'utf8');
+  assert.match(tokens, /\[tokenPath\]: originalToken[\s\S]*\$set: \{ \[tokenPath\]: claim \}/);
+  assert.match(tokens, /claimed !== 1/);
+  assert.match(tokens, /Accounts\.setPasswordAsync\(user\._id, newPassword, \{ logout: true \}\)/);
+  assert.match(tokens, /'emails\.\$\.verified': true/);
+  assert.match(tokens, /verificationTokens': \{ \$elemMatch/);
+  assert.match(tokens, /\$pull: \{ 'services\.email\.verificationTokens'/);
+  assert.match(routes, /password !== req\.body\?\.passwordAgain/);
+  assert.match(routes, /legacyResetThrottle = new LoginAttemptThrottle\([\s\S]*?maxFailures: 5/);
+  assert.match(routes, /legacyVerifyThrottle = new LoginAttemptThrottle\([\s\S]*?maxFailures: 10/);
+  assert.match(routes, /legacyResetThrottle\.recordSuccess\(clientKey\)/);
+  assert.match(routes, /legacyVerifyThrottle\.recordSuccess\(clientKey\)/);
+  assert.doesNotMatch(routes, /Location[^\n]+password=/);
+});
+
 test('sign-in uses the HTML5 view branding, settings and translations', () => {
   const values = {
     'loginPopup-title': 'Kirjaudu sisään', username: 'Käyttäjänimi',

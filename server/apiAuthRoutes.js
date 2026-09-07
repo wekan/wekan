@@ -26,6 +26,10 @@ const {
 } = require('/server/lib/ldapPasswordLoginGuard');
 const { createLegacyHtml4Session } = require('/server/lib/legacyHtml4Session');
 const { renderLegacyHtml4Page } = require('/imports/lib/legacyHtml4');
+const {
+  consumePasswordTokenForHtml4,
+  consumeVerificationTokenForHtml4,
+} = require('/server/lib/legacyHtml4AccountTokens');
 
 const NonEmptyString = Match.Where(function (x) {
   check(x, String);
@@ -57,6 +61,12 @@ const legacyRecoveryThrottle = new LoginAttemptThrottle({
   windowMs: 60 * 1000,
   lockoutMs: 60 * 1000,
 });
+const legacyResetThrottle = new LoginAttemptThrottle({
+  maxFailures: 5, windowMs: 60 * 1000, lockoutMs: 60 * 1000,
+});
+const legacyVerifyThrottle = new LoginAttemptThrottle({
+  maxFailures: 10, windowMs: 60 * 1000, lockoutMs: 60 * 1000,
+});
 
 // One uniform failure, thrown for BOTH "no such user" and "wrong password", so
 // neither the status code, the message NOR the timing reveals which accounts
@@ -78,6 +88,41 @@ function restLoginClientKey(req) {
       (req.connection && req.connection.remoteAddress),
     forwardedCount: process.env.HTTP_FORWARDED_COUNT,
   });
+}
+
+function recordLegacyAccountRefusal(req, source, detail) {
+  try {
+    require('/server/lib/securityLog').record({
+      category: 'authz', bleed: 'JamBleed', severity: 'high', action: 'blocked',
+      source, req, detail,
+    });
+  } catch (_) { /* reporting must not weaken the refusal */ }
+}
+
+async function renderLegacyAccountSuccess(res, req, result) {
+  // Modern Accounts deliberately does not log in a 2FA account from a mail token.
+  if (result.twoFactorEnabled) {
+    res.statusCode = 303;
+    res.setHeader('Location', '/sign-in');
+    res.end();
+    return;
+  }
+  const [setting, user, legacySession] = await Promise.all([
+    ReactiveCache.getCurrentSetting(),
+    Meteor.users.findOneAsync(result.userId, { fields: { username: 1 } }),
+    createLegacyHtml4Session(result.userId, req),
+  ]);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.end(renderLegacyHtml4Page('/allboards', {
+    productName: setting?.productName || 'WeKan',
+    hideLogo: setting?.hideLogo === true,
+    customLoginLogoLinkUrl: setting?.customLoginLogoLinkUrl || '',
+    textBelowCustomLoginLogo: setting?.textBelowCustomLoginLogo || '',
+    legalNotice: setting?.legalNotice || '',
+    authenticated: true, username: user?.username || '', sessionFields: legacySession,
+  }));
 }
 
 // ---------------------------------------------------------------------------
@@ -122,6 +167,88 @@ WebApp.handlers.post('/users/forgot-password', async function (req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
   res.setHeader('Location', '/forgot-password?recovery=requested');
+  res.end();
+});
+
+WebApp.handlers.post('/users/reset-password', async function (req, res) {
+  const clientKey = restLoginClientKey(req);
+  const now = Number(new Date());
+  const kind = req.body?.tokenKind === 'enroll' ? 'enroll' : 'reset';
+  const token = typeof req.body?.token === 'string' ? req.body.token : '';
+  const returnPath = `/${kind === 'enroll' ? 'enroll-account' : 'reset-password'}/${encodeURIComponent(token)}`;
+  const gate = legacyResetThrottle.check(clientKey, now);
+  try {
+    if (gate.blocked) throw new Meteor.Error('too-many-requests');
+    legacyResetThrottle.recordFailure(clientKey, now);
+    legacyResetThrottle.prune(now);
+    if (req.body?.password !== req.body?.passwordAgain) {
+      throw new Meteor.Error('password-mismatch');
+    }
+    const result = await consumePasswordTokenForHtml4(
+      token, req.body?.password, kind,
+    );
+    // A valid high-entropy token is not an attack. Do not let successful
+    // account recovery consume this address's future retry allowance.
+    legacyResetThrottle.recordSuccess(clientKey);
+    await renderLegacyAccountSuccess(res, req, result);
+  } catch (error) {
+    recordLegacyAccountRefusal(req, 'Legacy HTML4 resetPassword',
+      `refused ${kind} token: ${String(error?.error || 'failed')}`);
+    res.statusCode = 303;
+    res.setHeader('Cache-Control', 'no-store');
+    if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
+    res.setHeader('Location', `${returnPath}?token=failed`);
+    res.end();
+  }
+});
+
+WebApp.handlers.post('/users/verify-email', async function (req, res) {
+  const clientKey = restLoginClientKey(req);
+  const now = Number(new Date());
+  const token = typeof req.body?.token === 'string' ? req.body.token : '';
+  const returnPath = `/verify-email/${encodeURIComponent(token)}`;
+  const gate = legacyVerifyThrottle.check(clientKey, now);
+  try {
+    if (gate.blocked) throw new Meteor.Error('too-many-requests');
+    legacyVerifyThrottle.recordFailure(clientKey, now);
+    legacyVerifyThrottle.prune(now);
+    const result = await consumeVerificationTokenForHtml4(token);
+    legacyVerifyThrottle.recordSuccess(clientKey);
+    await renderLegacyAccountSuccess(res, req, result);
+  } catch (error) {
+    recordLegacyAccountRefusal(req, 'Legacy HTML4 verifyEmail',
+      `refused verification token: ${String(error?.error || 'failed')}`);
+    res.statusCode = 303;
+    res.setHeader('Cache-Control', 'no-store');
+    if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
+    res.setHeader('Location', `${returnPath}?token=failed`);
+    res.end();
+  }
+});
+
+WebApp.handlers.post('/users/send-verification', async function (req, res) {
+  const clientKey = restLoginClientKey(req);
+  const now = Number(new Date());
+  const gate = legacyRecoveryThrottle.check(clientKey, now);
+  if (!gate.blocked) {
+    legacyRecoveryThrottle.recordFailure(clientKey, now);
+    legacyRecoveryThrottle.prune(now);
+    const email = typeof req.body?.email === 'string'
+      ? req.body.email.trim().toLowerCase() : '';
+    if (email && email.length <= 320) {
+      try {
+        const user = await Accounts.findUserByEmail(email, { fields: { emails: 1 } });
+        if (user) await Accounts.sendVerificationEmail(user._id, email);
+      } catch (_) { /* missing, verified and mail-failed addresses look identical */ }
+    }
+  } else {
+    recordLegacyAccountRefusal(req, 'Legacy HTML4 resendVerificationEmail',
+      'rate-limited verification email request');
+  }
+  res.statusCode = 303;
+  res.setHeader('Cache-Control', 'no-store');
+  if (gate.blocked) res.setHeader('Retry-After', String(Math.ceil(gate.retryAfterMs / 1000)));
+  res.setHeader('Location', '/send-again?verification=requested');
   res.end();
 });
 

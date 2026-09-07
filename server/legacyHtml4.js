@@ -2013,6 +2013,8 @@ WebApp.handlers.use(async (req, res, next) => {
     loginFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('login') === 'failed',
     registrationFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('registration') === 'failed',
     recoveryRequested: new URL(req.url, 'http://wekan.invalid').searchParams.get('recovery') === 'requested',
+    tokenFailed: new URL(req.url, 'http://wekan.invalid').searchParams.get('token') === 'failed',
+    verificationRequested: new URL(req.url, 'http://wekan.invalid').searchParams.get('verification') === 'requested',
     authenticated: Boolean(session),
     username: user?.username || '',
     isAdmin: user?.isAdmin === true,

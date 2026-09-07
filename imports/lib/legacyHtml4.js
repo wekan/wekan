@@ -60,6 +60,11 @@ function pageHeading(path, options) {
   if (path === '/forgot-password') {
     return translated(options, 'forgot-password', 'Forgot password');
   }
+  if (/^\/(?:reset-password|enroll-account)\//.test(path)) {
+    return translated(options, 'changePasswordPopup-title', 'Change Password');
+  }
+  if (/^\/verify-email\//.test(path)) return translated(options, 'email', 'Email');
+  if (path === '/send-again') return translated(options, 'email-sent', 'Email sent');
   const routeTitles = [
     [/^\/allboards(?:\/|$)/, 'all-boards', 'All Boards'],
     [/^\/public(?:\/|$)/, 'public', 'Public'],
@@ -187,6 +192,43 @@ function authRows(path, options) {
       `<p><label for="email">${escapeHtml(t('email', 'Email'))}</label><br><input id="email" name="email" type="text" size="30"></p>`,
       `<p><input type="submit" value="${escapeHtml(t('forgot-password', 'Forgot password'))}"></p></fieldset></form></td></tr>`,
       options.recoveryRequested ? tableRow([
+        `<strong>${escapeHtml(t('email-sent', 'Email sent'))}</strong>`, '',
+      ]) : '',
+      tableRow([`<a href="/sign-in">${escapeHtml(t('back', 'Back'))}</a>`, '']),
+    ];
+  }
+  const passwordTokenMatch = /^\/(reset-password|enroll-account)\/([^/]+)$/.exec(path);
+  if (passwordTokenMatch) {
+    const token = passwordTokenMatch[2];
+    const operation = passwordTokenMatch[1] === 'enroll-account' ? 'enroll' : 'reset';
+    return [
+      `<tr><td colspan="2"><form method="post" action="/users/reset-password"><fieldset><legend>${escapeHtml(t('changePasswordPopup-title', 'Change Password'))}</legend><input type="hidden" name="legacyHtml4" value="1"><input type="hidden" name="tokenKind" value="${operation}"><input type="hidden" name="token" value="${escapeHtml(token)}">`,
+      `<p><label for="password">${escapeHtml(t('password', 'Password'))}</label><br><input id="password" name="password" type="password" size="30"></p>`,
+      `<p><label for="password-again">${escapeHtml(t('password-again', 'Password again'))}</label><br><input id="password-again" name="passwordAgain" type="password" size="30"></p>`,
+      `<p><input type="submit" value="${escapeHtml(t('changePasswordPopup-title', 'Change Password'))}"></p></fieldset></form></td></tr>`,
+      options.tokenFailed ? tableRow([
+        `<strong>${escapeHtml(t('error', 'Error'))}</strong>`, '',
+      ]) : '',
+      tableRow([`<a href="/sign-in">${escapeHtml(t('back', 'Back'))}</a>`, '']),
+    ];
+  }
+  const verifyTokenMatch = /^\/verify-email\/([^/]+)$/.exec(path);
+  if (verifyTokenMatch) {
+    return [
+      tableRow([escapeHtml(t('email', 'Email')), postForm('/users/verify-email',
+        t('email', 'Email'), null, { legacyHtml4: '1', token: verifyTokenMatch[1] })]),
+      options.tokenFailed ? tableRow([
+        `<strong>${escapeHtml(t('error', 'Error'))}</strong>`, '',
+      ]) : '',
+      tableRow([`<a href="/sign-in">${escapeHtml(t('back', 'Back'))}</a>`, '']),
+    ];
+  }
+  if (path === '/send-again') {
+    return [
+      `<tr><td colspan="2"><form method="post" action="/users/send-verification"><fieldset><legend>${escapeHtml(t('email', 'Email'))}</legend><input type="hidden" name="legacyHtml4" value="1">`,
+      `<p><label for="email">${escapeHtml(t('email', 'Email'))}</label><br><input id="email" name="email" type="text" size="30"></p>`,
+      `<p><input type="submit" value="${escapeHtml(t('email-sent', 'Email sent'))}"></p></fieldset></form></td></tr>`,
+      options.verificationRequested ? tableRow([
         `<strong>${escapeHtml(t('email-sent', 'Email sent'))}</strong>`, '',
       ]) : '',
       tableRow([`<a href="/sign-in">${escapeHtml(t('back', 'Back'))}</a>`, '']),
