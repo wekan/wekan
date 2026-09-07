@@ -264,7 +264,9 @@ browser build to verify).
 **In short:** **Legacy HTML4 is reverted**, restoring the standard Meteor browser
 interface. Local branding images, searchable document previews, browser lazy
 loading, translation updates and the session-upgrade fix remain. Meteor tests
-compile, and authentication forms follow keyboard order.
+compile, and authentication forms follow keyboard order. Swimlane and card
+controls regain their previous colors, and upgraded sessions retain their profile
+without a duplicate login.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -280,6 +282,47 @@ compile, and authentication forms follow keyboard order.
 This release reverts Legacy HTML4 and retains the following changes:
 
 **Browser interface** - standard Meteor pages and deferred browser code.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f8990bcc">Restore independent swimlane and card control colors</a>. Thanks to Alishara and xet7.</summary>
+
+Revert the client styling from the swimlane title-color matching change and the
+card title-color matching change. Swimlane controls again use neutral gray and
+darker hover colors, and card controls regain their previous styling. Remove the
+shared card-control class and the added light-card title overrides.
+
+Updated source guards cover the restored colors and retained card palette.
+Four live checks in Chromium and Firefox verify swimlane normal/hover colors and
+card controls on colored backgrounds at [testi.wekan.fi](https://testi.wekan.fi).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f82d985e">Keep upgraded session profiles without a duplicate login</a>. Thanks to Alishara and xet7.</summary>
+
+The earlier session-upgrade repair repeated a token login that Accounts had
+already started. Live DDP diagnostics reproduced the remaining symptoms of
+[#6677](https://github.com/wekan/wekan/issues/6677): the user ID remained logged
+in, but rebuilding subscriptions cleared the published profile. The saved
+profile in the database was unchanged. This is separate from control CSS.
+
+Move the existing credential and expiry into Accounts' memory store, remove its
+old persistent copy, synchronize the token poll and let the native validated
+endpoint set the HttpOnly cookie. Do not repeat the initial login. Cookie-only
+clients continue using the native cookie resume.
+
+Unit scenarios cover completed and pending initial logins and cookie-only
+startup. The extended live regression checks the name, loaded avatar and theme
+past the three-second poll, edits the name and theme, favorites the board,
+switches to list view and verifies persistence after a cookie-only reload.
+Both Chromium and Firefox pass this regression and the private-board refresh
+check. Native Edge, AD authentication and WebKit were not exercised.
+
+The Upcoming coverage audit ran all Node suites: 858 checks passed, with the
+same two pre-existing failures for an undocumented test-results directory and
+Finnish rule-description wording. All three targeted color/session suites pass.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/828fc2d7186f485ce3df056849442f9cdcf5828d">Revert Legacy HTML4</a>. Thanks to xet7.</summary>
