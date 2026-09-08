@@ -312,7 +312,7 @@ This release reverts the following change:
 **List and swimlane resizing** - restoring the popups and drag handles v11.62 removed.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6c84eff51">Revert "Hardcode list width to 240px and remove the width/height set-value popups"</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/59bed92f3">Revert "Hardcode list width to 240px and remove the width/height set-value popups"</a>. Thanks to xet7.</summary>
 
 This reverts commit 8614949580a8824be8c189ab3c7e5869d36f6e9b in full: the
 per-user/per-list resizable list width (drag-resize handle, the "Set
