@@ -306,7 +306,9 @@ gap forever, silently skipping v11.57, v11.59 and v11.61 (and, earlier,
 v11.33 and v11.54). **CHANGELOG.md** no longer carries an empty Upcoming
 placeholder between releases, and each release's binaries table moves from
 right under the summary to its own **Binaries in these bundles** section at
-the end.
+the end. The **Docker Hub/Quay.io registry-overview sync** added earlier is
+removed again: it needed rights the release credentials do not have, and
+the maintainer updates both overviews manually now.
 
 This release fixes the following developer-tooling bug:
 
@@ -366,38 +368,19 @@ sees.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/36c4b921e">Exempt registry-overview PATCH/PUT calls from the retry-download guard</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b4cfe5fdc">Remove the Docker Hub/Quay.io registry-overview sync</a>. Thanks to xet7.</summary>
 
-`tests/releaseDownloads.test.cjs` requires every curl in the release
-workflows to go through `fetch.sh`'s retry/backoff, since an unretried
-download has lost a release to a transient outage before. The Docker
-Hub/Quay.io overview-sync step uses `curl -X PATCH`/`-X PUT` directly, the
-same as the adjacent `-X POST` login call already exempted: failing to
-update a repository description does not lose a release the way a failed
-binary download does, and the step already reports and isolates its own
-failure. Extended the existing `-X POST` exemption to also cover PATCH and
-PUT.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/37211bb55">Never let a Docker registry overview sync fail a release</a>. Thanks to xet7.</summary>
-
-v11.62's `release-all.yml` run failed the whole "docker" job with 403 from
-both Docker Hub and Quay.io on the repository-overview PATCH/PUT calls,
-even though the image itself had already been built, pushed and verified
-pullable by the steps before it (confirmed from the run's own logs:
-`.tools/wekan11`). `DOCKERHUB_AUTH`/`QUAY_AUTH` are scoped for `docker
-login`/image push, and neither registry grants a push-scoped token the
-broader (account-owner / repo-admin) rights a description write needs - so
-the sync step's own `exit 1` failed a job that had, in fact, already
-published, which blocked every downstream job gated on
-`needs.docker.result == 'success'` (the Helm chart update). A stale
-repository description is not worth failing a release over: the step now
-reports each registry's failure as `::warning::` rather than `::error::`,
-drops the shared `fail` flag, and always exits 0. The identical fix went
-into the companion FerretDB fork's `docker.yml` before it could hit the
-same 403.
+v11.62's `release-all.yml` run had already shown this step to be a
+liability rather than a convenience: `DOCKERHUB_AUTH`/`QUAY_AUTH` are
+scoped for `docker login`/image push, and neither registry grants a
+push-scoped token the rights a repository-description write needs, so the
+step failed with 403 even though the image itself published fine (fixed to
+a `::warning::` rather than a job failure in the previous commit, still in
+this same Upcoming section). The maintainer now updates both registries'
+overviews by hand, so the step - and its
+`tests/dockerRegistryOverviewSync.test.cjs` - are removed entirely rather
+than kept working. The identical step is removed from the companion
+FerretDB fork's `docker.yml` in the same commit round.
 
 </details>
 
