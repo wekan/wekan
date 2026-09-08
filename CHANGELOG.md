@@ -348,7 +348,8 @@ and adds the following feature:
 <summary><a href="https://github.com/wekan/wekan/commit/5c48be8e6">Add board-wide list-width/swimlane-height resize locks (#6680)</a>. Thanks to Hallsie and xet7.</summary>
 
 Three independent toggles, right of the drag-handles toggle, board admins
-only: a list-width resize lock (left-right arrow plus a lock/unlock icon),
+only: a list-width resize lock (left-right arrow plus the same allowed/
+denied check/ban icon pair `.js-toggle-desktop-drag-handles` already uses),
 a swimlane-height resize lock (up-down arrow, same shape), and a
 board-wide "same width for all lists" - the existing per-user Set Width
 popup's fixed-width mode, now settable for the whole board so it applies
