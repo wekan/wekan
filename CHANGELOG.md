@@ -297,9 +297,10 @@ loss-reporting instead of silently dropping fields. The **Board View menu**
 is reordered and gains placeholder pages for ten not-yet-built views plus a
 new **Time** view. Several bugs are fixed: dependency lines and collapsed
 lists bleeding past a resized swimlane, a list's collapse caret sitting in
-the wrong place, and **list width is now a single hardcoded 240px** for
-every list on every board, with the redundant "Set width" and "Set
-swimlane height" popups removed.
+the wrong place, an **OIDC redirect-style login loop** that could get an
+admin's identity provider rate-limiting them, and **list width is now a
+single hardcoded 240px** for every list on every board, with the
+redundant "Set width" and "Set swimlane height" popups removed.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -390,6 +391,25 @@ and fixes the following bugs:
 A `<summary>` line must be on one line - a wrapped one renders its second
 line as literal text instead of part of the link. changelogFormat.test.cjs
 already checked this; it was failing before this fix.
+
+</details>
+
+**Login** - OIDC redirect-style auto-login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89682c251">Fix OIDC auto-redirect looping until the provider rate-limits it</a>. Thanks to Alishara and xet7.</summary>
+
+With `oauth2-login-style: redirect` and `OIDC_REDIRECTION_ENABLED`, the
+browser looped between WeKan and the identity provider until the provider
+started rate-limiting the repeated `/authorize` requests. The auto-redirect
+fired unconditionally on every render of the sign-in page; Meteor's
+redirect-style OAuth has no dedicated callback route, so the identity
+provider's callback bounces the browser back to that same page, racing the
+asynchronous login completion - and a bounce-back render that still looked
+"not logged in yet" fired a brand new redirect straight back to the
+provider, forever. Fixed with a one-shot flag that survives the round trip
+and is cleared on login success/failure, so a later logout can still
+auto-redirect again.
 
 </details>
 
