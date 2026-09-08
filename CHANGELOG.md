@@ -456,6 +456,17 @@ validation on any import; fixed as part of the same change.
 
 </details>
 
+**Board Table view** - the pagination buttons.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d2c6a109">Theme Board Table view's pagination buttons like the Search button</a>. Thanks to xet7.</summary>
+
+The prev/next page buttons were plain white with a grey border, unlike
+the blue "Search" button right next to them in the same control row - the
+two read as different UI families instead of one toolbar.
+
+</details>
+
 and adds the following import/export improvements:
 
 **Import/export formats** - see docs/Features/ImportExport/Format-Coverage.md.
