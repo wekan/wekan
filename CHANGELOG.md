@@ -369,6 +369,31 @@ each resize handle actually checks (and hides for) its lock.
 
 </details>
 
+and fixes the following bug:
+
+**Collapsed lists** - the rotated title sat near the top instead of centered.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/385f36e91">Center a collapsed list's rotated title in its column</a>. Thanks to xet7.</summary>
+
+The title used to sit near the TOP of a tall (540px) collapsed list, with
+empty space below it. The desktop rule that actually wins
+(`.list.list-collapsed:not(.mobile-view) ...`, more specific than the
+plain one) explicitly pinned it with `flex: 0 0 auto` and `align-self:
+flex-start`; the plain (mobile-view) rule had the opposite bug - `flex: 1`
+fighting its own explicit `height: auto !important`. Both now grow to fill
+the space left after the collapse-toggle/drag-handle and center the
+title. Centering the title text itself needed one more fix, verified with
+a Playwright screenshot of a minimal reproduction: shrinking the `<h2>` to
+its own content rendered NO TEXT AT ALL for a vertical writing-mode block
+box with `width`/`height: auto` in a real browser, so it stays 100%/100%
+of its parent and centers its own text run with flex instead.
+`tests/collapsedListTitleCentered.test.cjs` pins the fixed values, with
+comment text stripped first so an old value quoted in a "this used to be
+X" explanatory comment cannot pass as evidence X is gone.
+
+</details>
+
 # v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
