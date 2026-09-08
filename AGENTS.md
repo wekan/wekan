@@ -545,18 +545,24 @@ directly after the merge.
   `<details>` blocks below carry that information. Keep the paragraph current as
   topics change, and shorten it when added commits make it grow. A finished release
   keeps the paragraph it was written with.
-- **Under the summary comes the BINARIES TABLE: what each platform ships.** So the
-  top of a release section is, in order, (1) the `**In short:**` paragraph and
-  (2) this table, and only then the `This release …:` subsections. A WeKan bundle
-  is not only WeKan — it carries a Node.js, a FerretDB and the MongoDB Database
-  Tools that other projects publish, and WHICH source has a given CPU changes
-  from release to release: nodejs.org builds some architectures,
+- **A release section's order, top to bottom, is: (1) the `**In short:**`
+  paragraph, (2) every `This release …:` subsection, and only THEN (3) the
+  BINARIES TABLE, under its own `**Binaries in these bundles:**` label.** The
+  table is the LAST thing in the section, right before the closing `Thanks to
+  above GitHub users …` line — not right under the summary. A reader opens a
+  release to find out what changed; the platform/SHA256 table is reference
+  material for whoever needs it, not the second thing anyone reads. A WeKan
+  bundle is not only WeKan — it carries a Node.js, a FerretDB and the MongoDB
+  Database Tools that other projects publish, and WHICH source has a given CPU
+  changes from release to release: nodejs.org builds some architectures,
   unofficial-builds others, and [wekan/node-patches](https://github.com/wekan/node-patches)
   the ones neither of them does. "Which Node.js is in the arm64 bundle of 10.69,
   and was it checked" must be answerable from the CHANGELOG, not from a build log
   that expires.
 
   ```
+  **Binaries in these bundles:**
+
   | Platform | Binary | From | Version | SHA256 |
   | --- | --- | --- | --- | --- |
   | amd64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz) | v24.19.0 | `a1b2…` |
@@ -712,16 +718,25 @@ to reason about; it is what always happens, and anything that only works when
 releases are rare is broken here. Two consequences worth stating, because both
 have cost a released section its accuracy:
 
-- **Work continues immediately after a release**, so `release-all.sh` renames
-  `# Upcoming WeKan ® release` to `# v<NEW> …` and then OPENS A NEW EMPTY
-  `# Upcoming` (`releases/changelog-open-next.mjs`), so the next entry has
-  somewhere correct to go. Without it an entry appended above the closing
-  `Thanks to above GitHub users …` line lands INSIDE the release just published.
-  The new section carries an `**In short:** nothing here yet.` placeholder and
-  the binaries table, so the file stays valid; replace the placeholder as entries
-  are added. `tests/changelogEntriesBelongToTheirRelease.test.cjs` checks the
-  newest few releases against git and fails when a section links a commit that
-  release does not contain.
+- **Work continues immediately after a release**, so an entry written right
+  after one has to go somewhere. `release-all.sh` renames `# Upcoming WeKan ®
+  release` to `# v<NEW> …` and stops there — it does **not** create a new,
+  empty `# Upcoming` section. CHANGELOG.md never carries an
+  `**In short:** nothing here yet.` placeholder sitting between releases; it
+  used to (via a now-deleted `releases/changelog-open-next.mjs`), and that
+  meant the file always had a section saying nothing, from the moment a
+  release was cut until the first real entry replaced it. Instead: **add `#
+  Upcoming WeKan ® release` yourself, by hand, the moment you have a real
+  entry for it** — not before — using the skeleton at
+  [docs/DeveloperDocs/Changelog-Upcoming-Template.md](docs/DeveloperDocs/Changelog-Upcoming-Template.md).
+  An entry appended above the closing `Thanks to above GitHub users …` line
+  with no Upcoming section yet lands INSIDE the release just published — the
+  same mistake the auto-created section used to prevent — but it is caught
+  regardless: `tests/changelogEntriesBelongToTheirRelease.test.cjs` asks git
+  which commits a release actually contains and fails when a section links
+  one that is not an ancestor of that release, whether or not an Upcoming
+  heading existed first. Run that test (or `build.sh`'s node-suite option)
+  before committing a CHANGELOG entry written right after a release.
 - **A released section is a RECORD, not a draft.** When a release turns out to be
   broken, its section keeps saying what it shipped — including the part that was
   wrong — and the fix goes in a new `# Upcoming` above it. Do NOT edit a

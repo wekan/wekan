@@ -16,10 +16,17 @@
 // smaller, tidier change than the one that shipped - and the one that shipped was
 // the one that stopped the bundle starting.
 //
-// releases/release-all.sh now opens the next Upcoming as soon as it names a
-// release, so entries have a home. This is the check that the home was used: git
-// knows exactly which commits a release contains, so an entry linking a commit
-// that is NOT an ancestor of its release is an entry in the wrong section.
+// release-all.sh used to paper over this by auto-opening a new, empty "#
+// Upcoming WeKan ® release" (with an "In short: nothing here yet." placeholder)
+// right after naming a release, so there was always somewhere to write. That
+// left the file carrying a section that said nothing between releases; see
+// docs/DeveloperDocs/Changelog-Upcoming-Template.md for what replaced it -
+// add the Upcoming section yourself, by hand, the moment there is a real entry
+// for it. This test is what makes that safe without the auto-created section:
+// git knows exactly which commits a release actually contains, so an entry
+// linking a commit that is NOT an ancestor of its release is an entry that
+// landed in the wrong section, whether or not an Upcoming heading existed to
+// catch it first.
 //
 // Everything here degrades to a skip rather than a false alarm - a shallow clone,
 // a rewritten hash, a release with no tag yet - because a CHANGELOG guard that
@@ -120,41 +127,18 @@ test('no released section links a commit that came after it', () => {
     + misplaced.join('\\n'));
 });
 
-test('release-all.sh opens the next Upcoming when it names a release', () => {
-  // The other half: this guard reports the mistake, and that one removes the
-  // opportunity to make it.
+test('release-all.sh no longer auto-opens an empty Upcoming section', () => {
+  // The opposite of what this test used to check: release-all.sh must NOT
+  // create a new "# Upcoming WeKan ® release" after renaming one to a
+  // version, and the script that used to do that is gone rather than
+  // orphaned. See docs/DeveloperDocs/Changelog-Upcoming-Template.md.
   const sh = fs.readFileSync(path.join(ROOT, 'releases', 'release-all.sh'), 'utf8');
-  const renameAt = sh.indexOf('# v$NEW $DATE WeKan ® release|');
-  assert.notStrictEqual(renameAt, -1, 'release-all.sh no longer renames the Upcoming heading');
-  const openAt = sh.indexOf('changelog-open-next.mjs');
-  assert.notStrictEqual(openAt, -1,
-    'release-all.sh must open the next Upcoming, or the next entry written has nowhere '
-    + 'to go but inside the release just published');
-  assert.ok(openAt > renameAt, 'and it has to happen after the rename, not before');
-});
-
-test('opening it twice does not give the file two Upcoming sections', () => {
-  const src = fs.readFileSync(path.join(ROOT, 'releases', 'changelog-open-next.mjs'), 'utf8');
-  assert.ok(/an Upcoming section is already there; nothing to do/.test(src),
-    'a re-run must be a no-op: release-all.sh can be run again after a failure');
-});
-
-test('the version is never built into a regular expression (negative)', () => {
-  // GitHub CodeQL flagged one line of changelog-open-next.mjs twice:
-  // js/incomplete-sanitization (#433), because `.replace(/\./g, '\\.')` escapes
-  // dots and not backslashes, and js/regex-injection (#432), because the version
-  // is an argv value reaching `new RegExp` as a pattern. Neither is exploitable
-  // with a version release-all.sh computed - but a matcher built by string
-  // concatenation is the thing to not have, so there is none.
-  const src = fs.readFileSync(path.join(ROOT, 'releases', 'changelog-open-next.mjs'), 'utf8');
-  const code = src.split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n');
-  assert.ok(!/new RegExp\(/.test(code),
-    'changelog-open-next.mjs builds a RegExp again. Match the heading with '
-    + 'startsWith on the exact text instead - it needs no escaping and cannot be '
-    + 'injected into.');
-  assert.ok(/startsWith\(needle\)/.test(code),
-    'the heading is found by a literal prefix, which is what makes the escaping '
-    + 'question go away rather than answering it');
+  assert.ok(!sh.includes('changelog-open-next'),
+    'release-all.sh must not call the removed changelog-open-next.mjs');
+  assert.ok(!fs.existsSync(path.join(ROOT, 'releases', 'changelog-open-next.mjs')),
+    'changelog-open-next.mjs should be deleted, not left unused');
+  assert.ok(fs.existsSync(path.join(ROOT, 'docs', 'DeveloperDocs', 'Changelog-Upcoming-Template.md')),
+    'the skeleton it used to write must live on as a docs template instead');
 });
 
 console.log(`\nchangelogEntriesBelongToTheirRelease: ${passed} tests passed`);

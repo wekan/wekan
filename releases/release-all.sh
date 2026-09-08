@@ -9,11 +9,14 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 # published on your machine — GitHub Actions does it all, in parallel.
 #
 # Usage:
-#   1. Add your changes under a "# Upcoming WeKan ® release" section in CHANGELOG.md.
+#   1. Add your changes under a "# Upcoming WeKan ® release" section in
+#      CHANGELOG.md - there isn't one lying around empty between releases,
+#      so create it yourself from docs/DeveloperDocs/Changelog-Upcoming-Template.md
+#      the moment you have a real entry for it.
 #   2. Run (NO version number needed):
 #        ./releases/release-all.sh
-#      The script renames "# Upcoming ..." to the next version (the same increment as
-#      the last release) dated today. You can still override explicitly:
+#      The script renames "# Upcoming ..." to the next version (always +1 minor)
+#      dated today. You can still override explicitly:
 #        ./releases/release-all.sh 9.35 9.36       # PREVIOUS NEW
 #
 # What this script does locally (the only local steps):
@@ -108,13 +111,16 @@ elif grep -qE '^# Upcoming WeKan' CHANGELOG.md; then
   _tmp="$(mktemp)"
   sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
 
-  # AND OPEN THE NEXT ONE, while it is still unambiguous which release is which.
-  # Releases here are frequent and work continues straight after one, so the
-  # rename above has just taken away the section that work belongs in. Twice that
-  # has put entries inside a section that was already published; see the script's
-  # own header for what repairing that costs.
-  echo "--- Opening the next '# Upcoming WeKan ® release' ---"
-  node "$(dirname "$0")/changelog-open-next.mjs" "$NEW" CHANGELOG.md
+  # NO NEW EMPTY "# Upcoming" IS OPENED HERE ON PURPOSE. It used to be, with an
+  # "**In short:** nothing here yet." placeholder, so the file always had
+  # somewhere for the next entry to go and never carried a section saying
+  # nothing. Add "# Upcoming WeKan ® release" yourself, by hand, the moment
+  # there is a real entry for it - see
+  # docs/DeveloperDocs/Changelog-Upcoming-Template.md for the skeleton and why
+  # this is safe: tests/changelogEntriesBelongToTheirRelease.test.cjs is what
+  # actually catches an entry landing in the wrong (already-published)
+  # section, by asking git which commits a release contains, and it does that
+  # regardless of whether an empty Upcoming section existed first.
 else
   NEW="${RELEASED[0]:-}"
   OLD="${RELEASED[1]:-}"

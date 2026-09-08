@@ -233,14 +233,16 @@ test('the Upcoming section, when there is one, follows the same rules', () => {
   // bump into a <details> whose body repeats its summary would be noise added
   // to satisfy a guard.
   const bullets = lines.slice(start, end).filter(l => /^- \*\*/.test(l));
-  // EMPTY IS ALLOWED, but only when it says so. releases/release-all.sh opens the
-  // next Upcoming as soon as it names a release, because releases here are
-  // frequent and the work that follows one needs somewhere to go the moment it
-  // starts - without that, entries land in the section just published and a
-  // released record has to be repaired from memory (v10.96 and v10.97 both did).
-  // So a section carrying the placeholder paragraph is a section nobody has
-  // written in yet; a section with real prose and no entries is one somebody
-  // meant to write in and did not.
+  // EMPTY IS ALLOWED, but only when it says so. An Upcoming section is added by
+  // hand, using docs/DeveloperDocs/Changelog-Upcoming-Template.md, the moment
+  // there is a real entry for it - it does not sit in the file beforehand, so
+  // this placeholder case is mostly historical. It is kept anyway: someone can
+  // still paste the template's own "nothing here yet" wording before filling
+  // it in, and that half-done state should read as "written but not yet
+  // filled", not "has entries but forgot the summary". A section carrying the
+  // placeholder paragraph is a section nobody has written in yet; a section
+  // with real prose and no entries is one somebody meant to write in and did
+  // not.
   const placeholder = lines.slice(start, end)
     .some(l => l.startsWith('**In short:** nothing here yet.'));
   if (placeholder) {
@@ -272,48 +274,59 @@ test('Upcoming opens with a short summary of the whole release', () => {
   // thing a reader sees, and a release this size is otherwise forty collapsed
   // blocks with no way to tell what it amounts to.
   //
-  // TWO things live there now, in this order: the **In short:** paragraph, and
-  // then the binaries table - what each platform's bundle ships, where it came
-  // from and what it hashes to. The table is FULL of links by design, so the
-  // "links nothing" rule below applies to the PARAGRAPH, which is what it was
-  // ever about: a summary that quietly turns into a second list of entries.
+  // Just the **In short:** paragraph lives there now - the binaries table moved
+  // to its own "Binaries in these bundles" section at the END of the release
+  // (checked below), after every content subsection, so a reader reaches the
+  // release's actual changes before a five-row platform table.
   const firstHeader = lines.findIndex((l, i) => i > start && /^This release .*:$/.test(l));
   assert.ok(firstHeader > start, 'the first subsection header follows it');
-  const head = lines.slice(start + 1, firstHeader);
-  const tableAt = head.findIndex(l => /^\| Platform \| Binary \|/.test(l));
-  const intro = (tableAt === -1 ? head : head.slice(0, tableAt)).join('\n').trim();
+  const intro = lines.slice(start + 1, firstHeader).join('\n').trim();
   assert.ok(intro.startsWith('**In short:**'),
     'the Upcoming section opens with an **In short:** paragraph');
   // A compact release-level summary, not a second list or progress ledger.
   assert.ok(!/<details>|<summary>/.test(intro), 'prose, not entries');
   assert.ok(!/https?:\/\//.test(intro), 'and it links nothing - the entries do that');
+  assert.ok(!/^\| Platform \| Binary \|/m.test(intro),
+    'the binaries table no longer sits under the summary - it moved to the end');
   assert.ok(intro.length > 200, 'and it actually summarises the release');
   const introWords = intro.replace(/^\*\*In short:\*\*\s*/, '').trim().split(/\s+/);
   assert.ok(introWords.length <= 120,
     `and stays high-level rather than becoming a ${introWords.length}-word ledger`);
 });
 
-test('Upcoming then says which binaries each platform ships', () => {
+test('Upcoming ends by saying which binaries each platform ships', () => {
   // A WeKan bundle is not only WeKan: it carries a Node.js and a FerretDB that
   // other projects publish, and WHICH source has a given CPU changes from
   // release to release. "Which Node.js is in the arm64 bundle of 10.69, and was
   // it checked" must be answerable from the CHANGELOG rather than from a build
   // log that expires - so the same table the release notes carry is here too,
-  // right under the summary. See CLAUDE.md.
+  // now as the LAST thing in the release, under its own "**Binaries in these
+  // bundles:**" label, after every content subsection. See CLAUDE.md.
   const start = lines.indexOf('# Upcoming WeKan ® release');
   if (start === -1) {
     console.log('    (no Upcoming section right now - nothing to check)');
     return;
   }
-  const firstHeader = lines.findIndex((l, i) => i > start && /^This release .*:$/.test(l));
-  const head = lines.slice(start + 1, firstHeader);
-  const at = head.findIndex(l => /^\| Platform \| Binary \| From \| Version \| SHA256 \|$/.test(l));
+  const end = lines.findIndex((l, i) => i > start && /^# v\d/.test(l));
+  const tail = lines.slice(start + 1, end);
+  const labelAt = tail.findIndex(l => l === '**Binaries in these bundles:**');
+  assert.ok(labelAt !== -1,
+    'the release ends with a "**Binaries in these bundles:**" label');
+  const at = tail.findIndex((l, i) => i > labelAt && /^\| Platform \| Binary \| From \| Version \| SHA256 \|$/.test(l));
   assert.ok(at !== -1,
-    'the binaries table follows the summary: | Platform | Binary | From | Version | SHA256 |');
-  assert.ok(/^\|( ---+ \|)+$/.test(head[at + 1]), 'with its separator row');
+    'the binaries table follows that label: | Platform | Binary | From | Version | SHA256 |');
+  assert.ok(/^\|( ---+ \|)+$/.test(tail[at + 1]), 'with its separator row');
 
+  const head = tail.slice(at);
   const rows = [];
-  for (let i = at + 2; i < head.length && head[i].startsWith('|'); i++) rows.push(head[i]);
+  for (let i = 2; i < head.length && head[i].startsWith('|'); i++) rows.push(head[i]);
+
+  // Nothing but the closing "Thanks to above GitHub users …" line (if the
+  // section has been carried that far) may follow the table - a subsection
+  // after the binaries table would mean it was not really last.
+  const trailing = head.slice(2 + rows.length).map(l => l.trim()).filter(Boolean);
+  assert.ok(trailing.every(l => l.startsWith('Thanks to above GitHub users')),
+    'nothing but the closing "Thanks to …" line may follow the binaries table');
   assert.ok(rows.length >= 2, 'and at least one platform in it');
   const seen = [];
   for (const r of rows) {
