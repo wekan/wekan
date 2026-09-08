@@ -317,7 +317,7 @@ This release adds the following developer-tooling feature:
 **Feature testing** - one menu to run and verify WeKan's own features.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/efc6abebe">Add test-menu.sh and checked-in example inputs for docs/Features</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1218cd281">Add test-menu.sh and checked-in example inputs for docs/Features</a>. Thanks to xet7.</summary>
 
 test-menu.sh mirrors the docs/Features menu structure and runs the actual
 WeKan code for each feature: a dedicated runner for Login (a real REST
@@ -337,7 +337,7 @@ and adds the following Board View feature:
 **Board View menu** - its order, icons and the views it opens.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c11c1e17f">Reorder the Board View menu and add its not-yet-built views</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/876b0a2c1">Reorder the Board View menu and add its not-yet-built views</a>. Thanks to xet7.</summary>
 
 New order top to bottom: Swimlanes, Lists, Table, Calendar, Time,
 Statistics, Dashboard, Burndown, Burnup, Cumulative Flow, Control, Cycle
@@ -354,7 +354,7 @@ checks the menu, the schema and the tooltip map against the same view list.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/28005a8ce">Group the Board View menu with separators and mark unfinished views</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/14136a5b0">Group the Board View menu with separators and mark unfinished views</a>. Thanks to xet7.</summary>
 
 `<hr>` separators, matching the right sidebar's own hr-separated groups:
 one between Table and Calendar, one between Time and Statistics. The nine
@@ -369,7 +369,7 @@ it is not on the maintainer's list of nine.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/212d19ca5">Move Gantt between Statistics and Dashboard, mark Dashboard unfinished</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/02449c0d0">Move Gantt between Statistics and Dashboard, mark Dashboard unfinished</a>. Thanks to xet7.</summary>
 
 Gantt moves next to Dashboard, with its own `<hr>` separator, matching the
 menu's existing grouping. Dashboard now carries the same hardcoded,
@@ -385,7 +385,7 @@ and fixes the following bugs:
 **CHANGELOG.md formatting.**
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c3fb59dd7">Fix a wrapped changelog summary line</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4f35d5225">Fix a wrapped changelog summary line</a>. Thanks to xet7.</summary>
 
 A `<summary>` line must be on one line - a wrapped one renders its second
 line as literal text instead of part of the link. changelogFormat.test.cjs
@@ -396,7 +396,7 @@ already checked this; it was failing before this fix.
 **Swimlanes** - resizing one shorter.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4e3a59bd3">Fix dependency lines and collapsed lists bleeding past a resized swimlane</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/24199bb1d">Fix dependency lines and collapsed lists bleeding past a resized swimlane</a>. Thanks to xet7.</summary>
 
 Two independent causes: `.swimlane.swimlane-resizing` forced
 `overflow: visible !important` for the whole drag, so a collapsed list (a
@@ -415,7 +415,7 @@ different, still-visible swimlane is unaffected.
 **Lists** - the collapse caret, list width, and swimlane height.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/09d892a8c">Move an expanded list's collapse caret to its header's top corner</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0f56a3344">Move an expanded list's collapse caret to its header's top corner</a>. Thanks to xet7.</summary>
 
 The caret rendered as a plain in-flow sibling before the title, on the row
 with the card count and the +/menu icons - visually unrelated to either.
@@ -429,7 +429,7 @@ header's top corner - the left edge for LTR, the right for RTL.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a7a6140cd">Stack "Same width for all lists" below "Auto list width"</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/04d909b7a">Stack "Same width for all lists" below "Auto list width"</a>. Thanks to xet7.</summary>
 
 Both are `a` toggles in the "Set width" popup with no display rule of
 their own, so the browser default (inline) put them side by side on one
@@ -438,7 +438,7 @@ crowded line instead of stacked rows like the rest of the popup.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f6daeaf7e">Hardcode list width to 240px and remove the width/height set-value popups</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/861494958">Hardcode list width to 240px and remove the width/height set-value popups</a>. Thanks to xet7.</summary>
 
 List width is now a single hardcoded constant (240px) applied to every
 list on every board for every viewer. This replaces the model built up
@@ -459,7 +459,7 @@ validation on any import; fixed as part of the same change.
 **Board Table view** - the pagination buttons.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1d2c6a109">Theme Board Table view's pagination buttons like the Search button</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2d89c086a">Theme Board Table view's pagination buttons like the Search button</a>. Thanks to xet7.</summary>
 
 The prev/next page buttons were plain white with a grey border, unlike
 the blue "Search" button right next to them in the same control row - the
@@ -472,7 +472,7 @@ and adds the following import/export improvements:
 **Import/export formats** - see docs/Features/ImportExport/Format-Coverage.md.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/86f5e7b90">Add Markdown import/export and give GitHub-style import loss reporting</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/237b4f3f8">Add Markdown import/export and give GitHub-style import loss reporting</a>. Thanks to xet7.</summary>
 
 The GitHub/Gitea/Forgejo issue importer mapped only a title, description,
 one assignee and a due date, silently dropping everything else. It now also
