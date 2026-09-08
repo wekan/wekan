@@ -137,13 +137,10 @@ test('every release download goes through it', () => {
     read(file).split('\n').forEach((line, i) => {
       if (/^\s*#/.test(line)) return;
       if (!/\bcurl\b/.test(line)) return;
-      // Not downloads: apt package lists; a POST/PATCH/PUT that publishes
-      // something (a login, or a registry overview sync - failing to update a
-      // description does not lose a release the way a failed binary download
-      // does); the registry API calls that read an HTTP code out of
-      // `-w '%{http_code}'` and act on it themselves; and prose that happens
-      // to name curl.
-      if (/apt-get|apt-install\.sh|%\{http_code\}|-X (POST|PATCH|PUT)|install\.sandstorm|githubcli/.test(line)) return;
+      // Not downloads: apt package lists; a POST that publishes something; the
+      // registry API calls that read an HTTP code out of `-w '%{http_code}'`
+      // and act on it themselves; and prose that happens to name curl.
+      if (/apt-get|apt-install\.sh|%\{http_code\}|-X POST|install\.sandstorm|githubcli/.test(line)) return;
       // Registry API calls that ask for a token and read the answer: they are
       // not downloads of a file, and their failure is handled where they are.
       if (/token_url|\/token\?service=|v2\/auth\?service=/.test(line)) return;
