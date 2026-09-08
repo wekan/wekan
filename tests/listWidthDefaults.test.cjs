@@ -1,24 +1,13 @@
 'use strict';
 (async () => {
 
-// Plain-Node regression test (no Meteor) for issue #5659:
-// "Bug: List Width settings do not affect Public Board".
-//
-// Root cause: the default list width was duplicated across the resolution
-// paths and DISAGREED — models/users.js fell back to 270 (getListWidth and the
-// anonymous/public-board getListWidthFromStorage path) while the client and
-// the lists schema used 272 — so lists whose width resolved through different
-// paths could render at different "defaults" on the same (public) board.
-//
-// The fix is models/lib/listWidth.js: ONE Meteor-free module holding the
-// default/minimum width and the resolution order, imported by
-// client/components/lists/list.js, client/components/lists/listHeader.js and
-// models/users.js. This test pins:
-//   - with NO customization, every list resolves to the SAME default width,
-//     for members and for logged-out visitors of public boards alike;
-//   - a valid customized width (shared, personal, or fixed mode) still wins;
-//   - invalid / below-minimum values can NOT make one list differ;
-//   - the consumers really import the shared module (no local re-definitions).
+// List width is now a single hardcoded constant (models/lib/listWidth.js) -
+// every list on every board renders at this width, for every viewer, with
+// no per-board, per-list, personal or auto-width customization and no
+// drag-resize handle. This replaces the #5659/#5729/#6409 model (personal
+// per-user widths, a per-list shared width, a viewer-toggled "same width for
+// all lists" mode, a viewer-toggled auto-width mode) at the maintainer's
+// request: list width is simply fixed at 240px.
 //
 // Run: ELECTRON_RUN_AS_NODE=1 <node> tests/listWidthDefaults.test.cjs
 
@@ -26,13 +15,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const {
-  DEFAULT_LIST_WIDTH,
-  MIN_LIST_WIDTH,
-  isValidListWidth,
-  normalizeListWidth,
-  resolveListWidth,
-} = await import('../models/lib/listWidth.js');
+const { DEFAULT_LIST_WIDTH } = await import('../models/lib/listWidth.js');
 
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
@@ -44,168 +27,60 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-// --- The one default ---------------------------------------------------------
-
-test('there is a single sane default width (>= minimum)', () => {
+test('the hardcoded width is 240px', () => {
   assert.strictEqual(typeof DEFAULT_LIST_WIDTH, 'number');
-  assert.strictEqual(typeof MIN_LIST_WIDTH, 'number');
-  // #6465: narrowed defaults so more lists fit on screen.
-  assert.strictEqual(DEFAULT_LIST_WIDTH, 220);
-  assert.strictEqual(MIN_LIST_WIDTH, 200);
-  assert.ok(DEFAULT_LIST_WIDTH >= MIN_LIST_WIDTH);
+  assert.strictEqual(DEFAULT_LIST_WIDTH, 240);
 });
 
-test('with no customization, EVERY list gets the same width (public-board default)', () => {
-  // A logged-out visitor of a public board: no fixed mode, shared mode
-  // (allowsPersonalListWidth=false), no stored widths anywhere. Simulate a
-  // whole board of lists in every "empty" shape a list doc can have.
-  const uncustomizedLists = [
-    {}, // no width field at all (pre-6409 list)
-    { width: undefined },
-    { width: null },
+test('there is no per-board, per-list or per-user customization left to export (negative)', () => {
+  // Every one of these names belonged to the old model: a personal width per
+  // user/list, a per-board "fixed"/"same width for all lists" toggle and
+  // value, and a per-board/per-user auto-width toggle.
+  const removedNames = [
+    'isPersonalListWidth', 'allowsPersonalListWidth',
+    'isFixedListWidth', 'getFixedListWidth', 'setFixedListWidth',
+    'isAutoWidth', 'toggleAutoWidth', 'effectiveAutoWidth', 'autoWidth',
+    'getListWidths', 'setListWidthToStorage', 'getListWidthFromStorage',
   ];
-  const widths = uncustomizedLists.map(l =>
-    resolveListWidth({ sharedWidth: l.width, personalMode: false }),
-  );
-  widths.forEach(w => assert.strictEqual(w, DEFAULT_LIST_WIDTH));
-  // ... and the same holds in personal mode with nothing stored (anon
-  // localStorage empty / logged-in profile empty).
-  const personal = uncustomizedLists.map(l =>
-    resolveListWidth({
-      sharedWidth: l.width,
-      personalMode: true,
-      personalWidth: null,
-    }),
-  );
-  personal.forEach(w => assert.strictEqual(w, DEFAULT_LIST_WIDTH));
-  // ... and with no options at all.
-  assert.strictEqual(resolveListWidth(), DEFAULT_LIST_WIDTH);
-  assert.strictEqual(resolveListWidth({}), DEFAULT_LIST_WIDTH);
+  for (const file of [
+    'models/users.js', 'models/boards.js',
+    'client/components/lists/list.js', 'client/components/lists/listHeader.js',
+  ]) {
+    const src = read(file);
+    for (const name of removedNames) {
+      assert.ok(!src.includes(name), `${file} must not reference ${name}`);
+    }
+  }
 });
 
-// --- Customized widths still win ---------------------------------------------
-
-test('a customized shared width (lists.width) still wins for every viewer', () => {
-  assert.strictEqual(resolveListWidth({ sharedWidth: 400 }), 400);
-  // Shared widths apply in shared mode regardless of viewer login state — the
-  // resolver has no user input in shared mode at all.
-  assert.strictEqual(
-    resolveListWidth({ sharedWidth: 400, personalMode: false, personalWidth: 999 }),
-    400,
-  );
+test('there is no drag-resize handle for lists any more (negative)', () => {
+  const jade = read('client/components/lists/list.jade');
+  const js = read('client/components/lists/list.js');
+  assert.ok(!/list-resize-handle/.test(jade), 'list.jade has no resize handle element');
+  assert.ok(!/initializeListResize|canResizeList/.test(js), 'list.js has no resize wiring');
 });
 
-test('a personal width wins over the shared width in personal mode only', () => {
-  assert.strictEqual(
-    resolveListWidth({ sharedWidth: 400, personalMode: true, personalWidth: 350 }),
-    350,
-  );
-  // negative: personal width must NOT leak into shared mode
-  assert.strictEqual(
-    resolveListWidth({ sharedWidth: 400, personalMode: false, personalWidth: 350 }),
-    400,
-  );
-  // personal mode with no personal width falls back to the shared width
-  assert.strictEqual(
-    resolveListWidth({ sharedWidth: 400, personalMode: true, personalWidth: null }),
-    400,
-  );
+test('the "Set width" list-menu option and its popup are gone (negative)', () => {
+  const jade = read('client/components/lists/listHeader.jade');
+  const js = read('client/components/lists/listHeader.js');
+  assert.ok(!/js-set-list-width/.test(jade), 'no menu item opens it');
+  assert.ok(!/setListWidthPopup|listWidthErrorPopup/.test(jade), 'no popup templates remain');
+  assert.ok(!/setListWidthPopup/.test(js), 'no popup helpers/events remain');
 });
 
-test('fixed ("same width for all lists") mode overrides everything (#5729)', () => {
-  assert.strictEqual(
-    resolveListWidth({
-      fixedEnabled: true,
-      fixedWidth: 500,
-      sharedWidth: 400,
-      personalMode: true,
-      personalWidth: 350,
-    }),
-    500,
-  );
-  // negative: fixed width is ignored while the mode is off
-  assert.strictEqual(
-    resolveListWidth({ fixedEnabled: false, fixedWidth: 500, sharedWidth: 400 }),
-    400,
-  );
-  // fixed mode without a stored value uses the same single default
-  assert.strictEqual(
-    resolveListWidth({ fixedEnabled: true, fixedWidth: null, sharedWidth: 400 }),
-    DEFAULT_LIST_WIDTH,
-  );
+test('the "Set swimlane height" menu option and its popup are gone (negative)', () => {
+  const jade = read('client/components/swimlanes/swimlaneHeader.jade');
+  const js = read('client/components/swimlanes/swimlaneHeader.js');
+  assert.ok(!/js-set-swimlane-height/.test(jade), 'no menu item opens it');
+  assert.ok(!/setSwimlaneHeightPopup|swimlaneHeightErrorPopup/.test(jade), 'no popup templates remain');
+  assert.ok(!/setSwimlaneHeightPopup/.test(js), 'no popup helpers/events remain');
 });
 
-// --- Invalid values can never make one list differ ---------------------------
-
-test('below-minimum / bogus stored widths fall back to the default (negative)', () => {
-  // the lists schema historically allowed 100-1000, but the render minimum is
-  // 270; anything below must not make one list narrower than the rest.
-  [100, 0, -5, NaN, Infinity, '400', {}, [], true].forEach(bad => {
-    assert.strictEqual(isValidListWidth(bad), false, `isValidListWidth(${String(bad)})`);
-    assert.strictEqual(normalizeListWidth(bad), DEFAULT_LIST_WIDTH);
-    assert.strictEqual(resolveListWidth({ sharedWidth: bad }), DEFAULT_LIST_WIDTH);
-    assert.strictEqual(
-      resolveListWidth({ fixedEnabled: true, fixedWidth: bad }),
-      DEFAULT_LIST_WIDTH,
-    );
-  });
-  // an invalid personal width falls back to the (valid) shared width
-  assert.strictEqual(
-    resolveListWidth({ sharedWidth: 400, personalMode: true, personalWidth: 100 }),
-    400,
-  );
-});
-
-test('boundary widths behave (negative + positive)', () => {
-  assert.strictEqual(isValidListWidth(MIN_LIST_WIDTH), true);
-  assert.strictEqual(isValidListWidth(MIN_LIST_WIDTH - 1), false);
-  assert.strictEqual(resolveListWidth({ sharedWidth: MIN_LIST_WIDTH }), MIN_LIST_WIDTH);
-  assert.strictEqual(
-    resolveListWidth({ sharedWidth: MIN_LIST_WIDTH - 1 }),
-    DEFAULT_LIST_WIDTH,
-  );
-});
-
-test('normalizeListWidth honors an explicit fallback', () => {
-  assert.strictEqual(normalizeListWidth(300, 400), 300);
-  assert.strictEqual(normalizeListWidth(null, 400), 400);
-});
-
-// --- The consumers really use the shared module ------------------------------
-
-test('client list.js imports the shared module and defines no local default', () => {
+test('client list.js renders every list at the one hardcoded width', () => {
   const src = read('client/components/lists/list.js');
   assert.ok(src.includes("from '/models/lib/listWidth'"), 'imports /models/lib/listWidth');
-  assert.ok(src.includes('resolveListWidth('), 'resolves widths via resolveListWidth');
-  // negative: the old duplicated constants must not come back
-  assert.ok(!/const\s+DEFAULT_LIST_WIDTH\s*=/.test(src), 'no local DEFAULT_LIST_WIDTH');
-  assert.ok(!/const\s+MIN_LIST_WIDTH\s*=/.test(src), 'no local MIN_LIST_WIDTH');
-});
-
-test('client listHeader.js imports the shared module and hardcodes no default', () => {
-  const src = read('client/components/lists/listHeader.js');
-  assert.ok(src.includes("from '/models/lib/listWidth'"), 'imports /models/lib/listWidth');
-  // negative: the old "?: 272" / ">= 270" literals must not come back
-  assert.ok(!/\breturn 272\b/.test(src), 'no hardcoded 272 default');
-  assert.ok(!/>=\s*270\b/.test(src), 'no hardcoded 270 minimum');
-});
-
-test('models/users.js no longer falls back to a DIFFERENT default (270)', () => {
-  const src = read('models/users.js');
-  assert.ok(src.includes("from '/models/lib/listWidth'"), 'imports /models/lib/listWidth');
-  // negative: these exact lines were the #5659 root cause
-  assert.ok(!/return 270;?\s*\/\/\s*TODO/.test(src), 'old getListWidth 270 default gone');
-  assert.ok(!/return 270;?\s*\/\/\s*Return default width/.test(src), 'old storage 270 default gone');
-  assert.ok(!/\breturn 270\b/.test(src), 'no width helper returns 270 anymore');
-  assert.ok(/getListWidth\(boardId, listId\) \{[\s\S]*?DEFAULT_LIST_WIDTH/.test(src),
-    'getListWidth falls back to the shared DEFAULT_LIST_WIDTH');
-});
-
-test('the lists schema default matches the shared default', () => {
-  const src = read('models/lists.js');
-  const m = src.match(/width:\s*\{[\s\S]*?defaultValue:\s*(\d+)/);
-  assert.ok(m, 'lists.width schema has a defaultValue');
-  assert.strictEqual(Number(m[1]), DEFAULT_LIST_WIDTH);
+  assert.match(src, /listWidth\(\)\s*\{\s*return DEFAULT_LIST_WIDTH;/,
+    'the listWidth() helper returns the constant directly, unconditionally');
 });
 
 console.log(`\n${passed} tests passed`);

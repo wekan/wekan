@@ -255,13 +255,6 @@ template(name="boardInfoOnMyBoardsPopup")
           span
             i.fa.fa-hourglass
             | {{_ 'show-board_members-avatar'}}
-    div.check-div
-      a.flex.js-field-has-personal-list-width(title="{{_ 'personal-list-width-description'}}" class="{{#if allowsPersonalListWidth}}is-checked{{/if}}")
-        i.fa(class="{{#if allowsPersonalListWidth}}fa-check{{else}}fa-square-o{{/if}}")
-        span
-          i.fa.fa-arrows-h
-          | {{_ 'personal-list-width'}}
-
 //- The Card Settings, from the CARD's own menu: the same popup with the
   "Show on Minicard" column hidden, because the card menu is opened while
   looking at a card. One list of settings, one set of handlers, one place a new

@@ -103,9 +103,13 @@ function matchesInListsViewDuringDrag(selector) {
 }
 
 test('no list-width rule depends on .dragscroll alone', () => {
+  // Drag-resizing a list (and the .list-resizing width-pinning rules that
+  // went with it) is gone - list width is a hardcoded constant now
+  // (models/lib/listWidth.js) - so the rule below (the inline --list-width
+  // custom property) is the only width-pinning rule left to check.
   const rules = widthRuleSelectors();
-  assert.ok(rules.length >= 3,
-    `expected the width-pinning rules to be found, got ${rules.length}`);
+  assert.ok(rules.length >= 1,
+    `expected the width-pinning rule to be found, got ${rules.length}`);
 
   for (const selectors of rules) {
     assert.ok(selectors.some(matchesInListsViewDuringDrag),
@@ -127,10 +131,12 @@ test('the rule that turns --list-width into a width says .js-lists', () => {
     assert.ok(selectors.some(s => /\.js-lists\b/.test(s)),
       `no .js-lists selector on the rule that applies the width:\n      ${selectors.join(',\n      ')}`);
   }
-  // The .list-resizing rules have the same three-ancestor shape and had the same
-  // hole: a resize started while the board is not pannable would jump the same way.
-  const resizing = css.match(/^[^{}]*\.list\.list-resizing[^{}]*\{/gm) || [];
-  assert.ok(resizing.some(r => r.includes('.js-lists')), 'the resizing rules need it too');
+  // The .list-resizing rules this used to also check are gone along with
+  // drag-resizing itself (models/lib/listWidth.js: width is a hardcoded
+  // constant now, no handle, no per-list customization) - negative check
+  // that they have not come back.
+  assert.ok(!/\.list\.list-resizing\b/.test(css),
+    'no .list-resizing rule exists any more (negative)');
 });
 
 console.log(`\n${passed} tests passed`);

@@ -1,12 +1,10 @@
 template(name='list')
   .list.js-list(id="js-list-{{_id}}"
-                style="{{#unless collapsed}}{{#unless autoWidth}}--list-width:{{listWidth}}px;{{/unless}}{{/unless}}"
-                class="{{#if collapsed}}list-collapsed{{/if}} {{#if autoWidth}}list-auto-width{{/if}} {{#if isMiniScreen}}mobile-view{{/if}}")
+                style="{{#unless collapsed}}--list-width:{{listWidth}}px;{{/unless}}"
+                class="{{#if collapsed}}list-collapsed{{/if}} {{#if isMiniScreen}}mobile-view{{/if}}")
     +listHeader
     unless collapsed
       +listBody
-      if canResizeList
-        .list-resize-handle.js-list-resize-handle.nodragscroll
 
 template(name='miniList')
   a.mini-list.js-select-list.js-list(id="js-list-{{_id}}" class="{{#if isMiniScreen}}mobile-view{{/if}}")

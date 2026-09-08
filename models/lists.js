@@ -266,13 +266,14 @@ Lists.attachSchema(
     },
     width: {
       /**
-       * The width of the list in pixels (100-1000).
-       * #6465: default width is 220 pixels (was 272) so more lists fit on
-       * screen; kept in sync with DEFAULT_LIST_WIDTH in models/lib/listWidth.js.
+       * Legacy per-list width (pixels), kept only for old export/import data
+       * shapes. List width is a single board-wide value now
+       * (board.listWidth, models/lib/listWidth.js) - this field is no longer
+       * read when rendering a list.
        */
       type: Number,
       optional: true,
-      defaultValue: 220,
+      defaultValue: 240,
       custom() {
         const w = this.value;
         if (w < 100 || w > 1000) {
