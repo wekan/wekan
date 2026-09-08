@@ -295,8 +295,8 @@ the Markdown commit as the template.
 import/export format, and gives the **GitHub/Gitea/Forgejo issue importer**
 loss-reporting instead of silently dropping fields. The **Board View menu**
 is reordered and gains placeholder pages for ten not-yet-built views plus a
-new **Time** view, and the **Board Table view** toolbar is rethemed,
-properly centered and gains new tooltips. Several bugs are fixed:
+new **Time** view. The **Board Table** and **Calendar** view toolbars are
+rethemed, regrouped and properly centered. Several bugs are fixed:
 dependency lines and collapsed lists bleeding past a resized swimlane, a
 list's collapse caret sitting in the wrong place, an **OIDC redirect-style
 login loop** that could get an admin's identity provider rate-limiting
@@ -393,6 +393,20 @@ and fixes the following bugs:
 A `<summary>` line must be on one line - a wrapped one renders its second
 line as literal text instead of part of the link. changelogFormat.test.cjs
 already checked this; it was failing before this fix.
+
+</details>
+
+**Calendar view** - the toolbar.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0e03e200">Move all Calendar view toolbar buttons to the right of the title</a>. Thanks to xet7.</summary>
+
+Today/Previous/Next were their own group under the title, with the
+Day/Week/Month view toggles in a third, CENTER group that pushed
+everything onto a second row. All the buttons now sit together in one
+group on the right of the title, which stays alone on the left and is
+vertically centered against them - WeKan's global heading margin
+otherwise offset the title from that row.
 
 </details>
 
