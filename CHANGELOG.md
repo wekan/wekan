@@ -355,6 +355,21 @@ checks the menu, the schema and the tooltip map against the same view list.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/28005a8ce">Group the Board View menu with separators and mark unfinished views</a>. Thanks to xet7.</summary>
+
+`<hr>` separators, matching the right sidebar's own hr-separated groups:
+one between Table and Calendar, one between Time and Statistics. The nine
+views with no implementation behind them yet (Burndown, Burnup, Cumulative
+Flow, Control, Cycle Time, Flow Efficiency, Lead Time, Throughput
+Histogram, WIP Run) show a hardcoded "(Name)" label instead of a
+translated one - translating them as if they were finished feature names,
+like every other entry, would not say in any language that the view
+behind them is just a grey placeholder page. Dashboard is left translated;
+it is not on the maintainer's list of nine.
+
+</details>
+
 and fixes the following bugs:
 
 **CHANGELOG.md formatting.**
