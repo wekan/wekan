@@ -303,7 +303,10 @@ the Markdown commit as the template.
 version step is now a fixed **+1**, fixing a bug where a single unpublished,
 deleted release heading made the script measure and re-apply the resulting
 gap forever, silently skipping v11.57, v11.59 and v11.61 (and, earlier,
-v11.33 and v11.54).
+v11.33 and v11.54). **CHANGELOG.md** no longer carries an empty Upcoming
+placeholder between releases, and each release's binaries table moves from
+right under the summary to its own **Binaries in these bundles** section at
+the end.
 
 This release fixes the following developer-tooling bug:
 
@@ -332,6 +335,48 @@ newest heading is not exactly +1 from the previous one, so a future gap is
 caught before it can be built on rather than silently accepted and
 repeated. `tests/releaseAllVersionStep.test.cjs` pins the fixed +1 step
 and the hard failure.
+
+</details>
+
+and the following developer-tooling changes:
+
+**CHANGELOG.md** - the empty Upcoming placeholder, and where the binaries table sits.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a2942dae">Stop leaving an empty Upcoming placeholder, move the binaries table to the end</a>. Thanks to xet7.</summary>
+
+CHANGELOG.md no longer carries an empty `# Upcoming WeKan ® release` section
+with an `**In short:** nothing here yet.` placeholder between releases.
+`release-all.sh` used to auto-create one immediately after renaming a
+release (via the now-deleted `releases/changelog-open-next.mjs`), so the
+file always had a section that said nothing until the first real entry
+replaced it. Add the section yourself, by hand, the moment there is a real
+entry for it, using the skeleton at
+`docs/DeveloperDocs/Changelog-Upcoming-Template.md`. What actually prevents
+an entry from landing inside an already-published release -
+`tests/changelogEntriesBelongToTheirRelease.test.cjs` asking git which
+commits a release contains - never depended on the placeholder existing
+first, so removing it costs nothing. Also reorders each release section:
+the binaries table used to sit right under the `**In short:**` summary; it
+now comes LAST, under its own `**Binaries in these bundles:**` label, after
+every content subsection and right before the closing "Thanks to above
+GitHub users" line - reference material, not the second thing a reader
+sees.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36c4b921e">Exempt registry-overview PATCH/PUT calls from the retry-download guard</a>. Thanks to xet7.</summary>
+
+`tests/releaseDownloads.test.cjs` requires every curl in the release
+workflows to go through `fetch.sh`'s retry/backoff, since an unretried
+download has lost a release to a transient outage before. The Docker
+Hub/Quay.io overview-sync step uses `curl -X PATCH`/`-X PUT` directly, the
+same as the adjacent `-X POST` login call already exempted: failing to
+update a repository description does not lose a release the way a failed
+binary download does, and the step already reports and isolates its own
+failure. Extended the existing `-X POST` exemption to also cover PATCH and
+PUT.
 
 </details>
 
