@@ -420,6 +420,35 @@ async function main() {
       'release completeness must include the EXE and its checksum');
   });
 
+  check('a trailing taskkill cannot fail the smoke-test step with no error message', () => {
+    // taskkill.exe (unlike a PowerShell cmdlet) sets $LASTEXITCODE, which
+    // $ErrorActionPreference does not touch - and `pwsh -Command` exits with
+    // whatever $LASTEXITCODE last was when the script itself never calls
+    // `exit`. taskkill /IM ferretdb.exe (no matching process is a normal,
+    // harmless outcome on the "second" run) was the LAST thing the whole
+    // step ran, so that alone failed the step - "second run: WeKan answered
+    // ... on its first attempt." printed, then exit code 1, with no thrown
+    // error anywhere in between. Every taskkill whose exit code this
+    // workflow does not care about must reset it.
+    const killFerretdb = workflow.indexOf('taskkill /IM ferretdb.exe');
+    assert.ok(killFerretdb !== -1, 'the ferretdb cleanup call exists');
+    const afterKillFerretdb = workflow.slice(killFerretdb, killFerretdb + 300);
+    assert.match(afterKillFerretdb, /\$global:LASTEXITCODE = 0/,
+      'the ferretdb cleanup resets $LASTEXITCODE afterwards');
+
+    const killByPid = workflow.indexOf('taskkill /PID $process.Id /T /F');
+    assert.ok(killByPid !== -1, 'the leftover-process cleanup call exists');
+    const afterKillByPid = workflow.slice(killByPid, killByPid + 1000);
+    assert.match(afterKillByPid, /\$global:LASTEXITCODE = 0/,
+      'the leftover-process cleanup resets $LASTEXITCODE afterwards too');
+
+    const killByPort = workflow.indexOf('taskkill /PID $owner /F');
+    assert.ok(killByPort !== -1, 'the free-ports cleanup call exists');
+    const afterKillByPort = workflow.slice(killByPort, killByPort + 800);
+    assert.match(afterKillByPort, /\$global:LASTEXITCODE = 0/,
+      'the free-ports step (a separate step, its own trailing exit code) resets it too');
+  });
+
   check('the packer documents every mode the workflow uses', () => {
     assert.match(packer, /--manifest <zip> --header <file\.h>/);
     assert.match(packer, /--launcher <exe> --payload <zip> --output <exe> --version <v>/);

@@ -210,6 +210,14 @@ jobs:
               taskkill /PID $owner /F 2>$null | Out-Null
             }
           }
+          # taskkill.exe (unlike a PowerShell cmdlet) sets $LASTEXITCODE, and
+          # pwsh -Command exits with whatever it last was when the script
+          # never calls `exit` itself. This foreach's taskkill is the LAST
+          # thing this step runs, so if the very last PID it tried had
+          # already exited between netstat and taskkill (a real, harmless
+          # race - the port is free either way), this whole step failed with
+          # no error message at all.
+          $global:LASTEXITCODE = 0
 
       - name: Check that the single EXE starts, twice, without ever restarting
         shell: pwsh
@@ -251,10 +259,22 @@ jobs:
               }
             } finally {
               if (-not $process.HasExited) { taskkill /PID $process.Id /T /F | Out-Null }
+              # taskkill.exe sets $LASTEXITCODE, which $ErrorActionPreference
+              # does not touch (that only governs PowerShell errors, not a
+              # plain exe's own exit code) - and pwsh -Command exits with
+              # whatever $LASTEXITCODE last was when the script itself never
+              # calls `exit`. 'second' is the LAST thing this whole step
+              # runs, so a nonzero code surviving past HERE fails the step
+              # with no error message at all: exactly what happened when
+              # taskkill found nothing to kill (0 is "killed it", 128 is
+              # "no such process" - both harmless, this step does not care
+              # which).
+              $global:LASTEXITCODE = 0
             }
             # start-wekan.bat starts ferretdb.exe with `start /b`; make sure
             # 27017 and 8080 are free again before the next run reuses them.
             taskkill /IM ferretdb.exe /F 2>$null | Out-Null
+            $global:LASTEXITCODE = 0
             Start-Sleep -Seconds 5
             $log = (Get-Content $out, $err -ErrorAction SilentlyContinue) -join "`n"
             if (-not $ready) {
