@@ -259,14 +259,44 @@ browser build to verify).
 
 </details>
 
+<details>
+<summary>Import/export: more formats, and the six existing ones brought up to full field fidelity.</summary>
+
+docs/Features/ImportExport/Format-Coverage.md is the design contract for every
+import/export format. Trello, the canonical WeKan zip, CSV/TSV, XLSX and PDF/
+HTML/SVG already meet it, each with real code and tests. GitHub/Gitea/Forgejo
+was brought up to it this round (second assignee, milestone, state reason,
+comments, an `unsupported` loss report). Six formats in
+models/lib/externalParsers.js / externalExporters.js are still the thin,
+intentionally best-effort stub each got when the shared import/export
+plumbing (validation boundary, checkpoints, one import page) landed: Jira
+(no ADF description, no custom fields, no pagination), Kanboard (no
+subtasks/comments), NextCloud Deck (no ACL/attachments/comments), OpenProject
+(no hierarchy/relations/watchers/custom fields), Asana (no
+subtasks/dependencies/stories/custom-field values) and Zenkit (no hierarchy/
+members/item-level custom fields, no loss report). Each needs its own
+fixture/spec pass, the way GitHub just got one - not a shared shallow bump.
+
+Additional formats named but not yet researched or built: the Leo literate
+editor's `.leo` outline format, and whatever else other kanban/outline tools
+use for import/export that WeKan does not read or write yet. Each new format
+costs roughly what Markdown (this round's new format) cost: a parser, a
+formatter, tests, UI wiring in the import picker and export menu, and - since
+every user-visible string needs one - a new translated string across all 234
+locale files, not just an English placeholder (tests/allTranslationCompleteness.test.cjs
+enforces that). Not attempted as a batch; take them one at a time, following
+the Markdown commit as the template.
+
+</details>
+
 # Upcoming WeKan ® release
 
-**In short:** nothing here yet. This paragraph is the first thing a reader sees,
-so replace it as entries are added: say what the release amounts to, which areas
-changed and what changed about them, with the notable names in **bold**, and
-account for the rest in a closing clause. The table below is carried over from
-the release under this one, and is refilled from each build's provenance.tsv
-when this release is made.
+**In short:** this release adds **test-menu.sh**, an interactive menu that
+mirrors docs/Features and runs the actual WeKan code behind each feature, plus
+a checked-in example input file for most features. It also adds a **Markdown**
+import/export format (the task-list convention markdown-kanban tools such as
+Obsidian Kanban use) and gives the **GitHub/Gitea/Forgejo issue importer**
+loss-reporting for fields it cannot map instead of silently dropping them.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -278,6 +308,62 @@ when this release is made.
 | mac-arm64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-arm64) | v1.53.0 | `cb14ffe93e285903e5a8a9c1821687ddb5b8a979a11c584bf4af534b272c6d3e` |
 | mac-x64 | Node.js | [nodejs.org](https://nodejs.org/dist/v24.19.0/node-v24.19.0-darwin-x64.tar.xz) | v24.19.0 | `d35e95230f46f6f0751df497c56622c6735e05d5e1fb1630996a005b9d328fe4` |
 | mac-x64 | FerretDB | [wekan/FerretDB](https://github.com/wekan/FerretDB/releases/download/v1.53.0/ferretdb-mac-x64) | v1.53.0 | `d97dfa9afa60aa05f25384327de82efe7b71d958ed24c1f66618284294a65cd3` |
+
+This release adds the following developer-tooling feature:
+
+**Feature testing** - one menu to run and verify WeKan's own features.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efc6abebe">Add test-menu.sh and checked-in example inputs for docs/Features</a>. Thanks to xet7.</summary>
+
+test-menu.sh mirrors the docs/Features menu structure and runs the actual
+WeKan code for each feature: a dedicated runner for Login (a real REST
+username/password round trip) and ImportExport/PDF (create a board, export
+it, check the PDF header), and a generic fallback that matches a feature
+against this repo's own automated tests by filename. Every feature run
+writes output.txt/result.txt/run.log under .tools/test-menu/&lt;timestamp&gt;/,
+mirroring the docs/Features path, and never leaves an empty or missing
+result. The example INPUT for a feature is checked into the repository next
+to its documentation instead - docs/Features/&lt;path&gt;/example-input.txt - so
+test-menu.sh only ever reads it, never writes into docs/Features.
+
+</details>
+
+and fixes the following bug:
+
+**CHANGELOG.md formatting.**
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3fb59dd7">Fix a wrapped changelog summary line</a>. Thanks to xet7.</summary>
+
+A `<summary>` line must be on one line - a wrapped one renders its second
+line as literal text instead of part of the link. changelogFormat.test.cjs
+already checked this; it was failing before this fix.
+
+</details>
+
+and adds the following import/export improvements:
+
+**Import/export formats** - see docs/Features/ImportExport/Format-Coverage.md.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86f5e7b90">Add Markdown import/export and give GitHub-style import loss reporting</a>. Thanks to xet7.</summary>
+
+The GitHub/Gitea/Forgejo issue importer mapped only a title, description,
+one assignee and a due date, silently dropping everything else. It now also
+carries a second-and-later assignee, a milestone title, a non-"completed"
+state reason and embedded comments, and returns an `unsupported` list of
+what it genuinely could not place. Markdown is a new import/export format:
+the "## List name" / "- [ ]"/"- [x]" task-list convention several
+markdown-kanban tools use (Obsidian Kanban and similar) - a plain bulleted
+list with no checkboxes still imports as open cards. The export route
+serves plain `text/markdown` rather than JSON, since the point is a file
+readable/editable directly or opened by another markdown-kanban tool.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for
+their translations.
 
 # v11.60 2026-09-08 WeKan ® release
 
