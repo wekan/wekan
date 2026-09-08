@@ -371,26 +371,23 @@ each resize handle actually checks (and hides for) its lock.
 
 and fixes the following bug:
 
-**Collapsed lists** - the rotated title sat near the top instead of centered.
+**Collapsed lists** - the rotated title was not centered across the column width.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/385f36e91">Center a collapsed list's rotated title in its column</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c543a3909">Keep a collapsed list's title near the caret, only centered horizontally</a>. Thanks to xet7.</summary>
 
-The title used to sit near the TOP of a tall (540px) collapsed list, with
-empty space below it. The desktop rule that actually wins
-(`.list.list-collapsed:not(.mobile-view) ...`, more specific than the
-plain one) explicitly pinned it with `flex: 0 0 auto` and `align-self:
-flex-start`; the plain (mobile-view) rule had the opposite bug - `flex: 1`
-fighting its own explicit `height: auto !important`. Both now grow to fill
-the space left after the collapse-toggle/drag-handle and center the
-title. Centering the title text itself needed one more fix, verified with
-a Playwright screenshot of a minimal reproduction: shrinking the `<h2>` to
-its own content rendered NO TEXT AT ALL for a vertical writing-mode block
-box with `width`/`height: auto` in a real browser, so it stays 100%/100%
-of its parent and centers its own text run with flex instead.
-`tests/collapsedListTitleCentered.test.cjs` pins the fixed values, with
-comment text stripped first so an old value quoted in a "this used to be
-X" explanatory comment cannot pass as evidence X is gone.
+The desktop rule that actually wins (`.list.list-collapsed:not(.mobile-view)
+...`, more specific than the plain one) had `text-align: start`, leaving
+the vertical text flush to one edge of the 30px column instead of centered
+across it - the plain/mobile-view rule already had `text-align: center`
+and was never broken. An earlier attempt at this fix also made both rule
+sets grow to fill and center across the WHOLE (often 540px) collapsed
+column, which moved the title far from the collapse-toggle/drag-handle at
+the top (.tools/collapse2.png) - that was reverted back to how it shipped;
+"centered" meant horizontally, not down the whole column.
+`tests/collapsedListTitleCentered.test.cjs` pins the `text-align` fix and
+negatively pins that neither rule set grows/centers across the full column
+height.
 
 </details>
 
