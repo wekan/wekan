@@ -89,9 +89,12 @@ template(name="header")
           // #6680: board-wide "same width for all lists" - the same mode the
           // per-list "Set width" popup already offers per user, exposed here
           // as one board setting that applies to every viewer.
-          a.board-header-btn.js-toggle-same-width-for-all-lists(title="{{_ 'same-width-for-all-lists'}}" class="{{#if isSameWidthForAllLists}}active{{/if}}")
-            i.fa.fa-arrows-h
+          a.board-header-btn.js-toggle-same-width-for-all-lists(title="{{_ 'same-width-for-all-lists'}}")
             i.fa.fa-columns
+            if isSameWidthForAllLists
+              i.fa.fa-check
+            else
+              i.fa.fa-ban
           a.board-header-btn.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}")
             i.fa.fa-arrows-v
             if isSwimlaneHeightResizeLocked

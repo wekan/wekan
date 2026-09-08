@@ -72,6 +72,15 @@ test('the header shows all three toggles only on a board page, admins only', () 
     'the same-width-for-all-lists button exists');
 });
 
+test('the same-width-for-all-lists toggle also uses the drag-handles check/ban pair', () => {
+  const block = headerJade.slice(headerJade.indexOf('js-toggle-same-width-for-all-lists'),
+    headerJade.indexOf('js-toggle-swimlane-height-resize-lock'));
+  assert.ok(block.includes('fa-columns'), 'the base icon is still there');
+  assert.ok(block.includes('fa-check') && block.includes('fa-ban'),
+    'both the enabled (check) and disabled (ban) icon states are drawn');
+  assert.ok(/if isSameWidthForAllLists/.test(block), 'icon swap is reactive');
+});
+
 test('the list-width toggle uses a left-right arrow icon and the drag-handles check/ban pair', () => {
   const block = headerJade.slice(headerJade.indexOf('js-toggle-list-width-resize-lock'),
     headerJade.indexOf('js-toggle-same-width-for-all-lists'));
