@@ -582,6 +582,34 @@ whose own exit code the workflow does not check.
 
 </details>
 
+and adds the following developer-tooling feature:
+
+**Docker releases** - keeping the registry overview pages in sync.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/395aa2b40">Sync the Docker Hub and Quay.io repository overviews from README.md on release</a>. Thanks to xet7.</summary>
+
+Docker Hub and Quay.io each show a long-form "overview"/description on the
+repository page, separate from the image tags, and neither registry updates
+it on its own - it silently drifts from what README.md actually documents
+unless something pushes it. release-all.yml's docker job now adds a step,
+after the multi-arch image is built, pushed and verified, that reads
+README.md and syncs it: to Docker Hub via its login-for-JWT-then-PATCH
+`full_description` API, and to Quay.io via its `PUT
+/api/v1/repository/{repo}` `description` API, reusing the same
+DOCKERHUB_AUTH/QUAY_AUTH secrets already decoded for `docker login`. GHCR
+needs no such call: a package linked to a GitHub repository (as
+ghcr.io/wekan/wekan is) already shows that repository's own README
+automatically. Each registry is synced independently, the same way the
+image push already tolerates one registry failing without blocking the
+others, and no token or JWT is ever echoed. The companion FerretDB fork's
+own `docker.yml` gained the identical step for wekanteam/ferretdb and
+quay.io/wekan/ferretdb. tests/dockerRegistryOverviewSync.test.cjs pins the
+new step's endpoints, request bodies, ordering and the
+no-plaintext-secrets rule.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for
 their translations.
 
