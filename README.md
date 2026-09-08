@@ -6,11 +6,6 @@ https://wekan.fi/install/
 
 ## Docker Containers
 
-- [GitHub](https://github.com/wekan/wekan/pkgs/container/wekan)
-- [Quay](https://quay.io/repository/wekan/wekan)
-- [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
-
-
 - [GitHub](https://ghcr.io/wekan/wekan)
 ```
 image: ghcr.io/wekan/wekan:latest
@@ -83,7 +78,7 @@ that by providing one-click installation on various platforms.
 - WeKan ® largest user has 30k users using WeKan ® in their company.
 - WeKan ® has been [translated](https://app.transifex.com/wekan/) to 234 languages,
   234 of them essentially complete.
-- [Features][features]: WeKan ® has real-time user interface.
+- [Features][https://github.com/wekan/wekan/tree/main/docs/Features]: WeKan ® has real-time user interface.
 - [Platforms](https://wekan.fi/install/): WeKan ® supports many platforms.
   WeKan ® is critical part of new platforms Wekan is currently being integrated to.
 
@@ -134,22 +129,6 @@ Before building WeKan from source, ensure you have:
 - **Git** - for cloning the repository
 - **Node.js 24.x** - WeKan requires Node.js 24.x
 - **Meteor** - the JavaScript framework WeKan is built with
-
-### Installing Node.js 24.x
-
-```bash
-# Using nvm (recommended)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-source ~/.zshrc  # or ~/.bashrc
-nvm install 24
-nvm use 24
-```
-
-### Installing Meteor
-
-```bash
-curl https://install.meteor.com/ | sh
-```
 
 ### Building WeKan
 
@@ -205,13 +184,3 @@ The development server will start at http://localhost:3000. Any changes you make
 
 WeKan ® is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
-
-[dev_docs]: https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Developer-Documentation.md
-[screenshot_wekan]: https://wekan.fi/wekan-dark-mode.png
-[features]: https://github.com/wekan/wekan/wiki/Features
-[roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
-[wekan_issues]: https://github.com/wekan/wekan/issues
-[docker_image]: https://hub.docker.com/r/wekanteam/wekan/
-[translate_wekan]: https://app.transifex.com/wekan/wekan/
-[open_source]: https://en.wikipedia.org/wiki/Open-source_software
-[free_software]: https://en.wikipedia.org/wiki/Free_software
