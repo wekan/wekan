@@ -263,7 +263,8 @@ browser build to verify).
 
 **In short:** **Logos and board backgrounds accept an external image URL again**,
 reverting the previous release's switch to upload-only, server-converted GIF
-storage.
+storage, and a new **`test-menu.sh`** gives the repository an interactive test
+menu shaped exactly like `docs/Features`.
 
 | Platform | Binary | From | Version | SHA256 |
 | --- | --- | --- | --- | --- |
@@ -288,6 +289,27 @@ branding fields, and the board Change Background Image popup, accept a direct
 external image URL again, alongside the existing upload option. Trello and
 WeKan JSON imports may again carry an external background URL onto the
 imported board. Tests updated to match the restored fields and behavior.
+
+</details>
+
+and has the following developer-tooling addition:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3085e32fe">Add test-menu.sh, a docs/Features-shaped interactive test menu</a>. Thanks to xet7.</summary>
+
+`./test-menu.sh` builds its menu and submenus live from `docs/Features`, so
+they can never drift from it: a folder is a submenu, a folder with no
+subfolders of its own is a runnable leaf, menu 1 always runs every feature at
+once, and 0 goes back (or exits, at the top). Login and ImportExport/PDF are
+wired to real WeKan server code from this checkout - a REST username/password
+login round trip and a board create-then-export-PDF call - reusing an
+already-running WeKan or starting the precompiled `.build/bundle` if one
+exists. Every other leaf falls back to running this repository's own matching
+`tests/*.test.cjs`, a real, working way to exercise a feature that has no
+dedicated runner yet. Each run's starting command, log and any produced files
+(the exported PDF, login/board API responses) are saved under
+`.tools/test-menu/YYYY-MM-DD_HH-MM-SS/`, mirrored into the same subfolders as
+`docs/Features`.
 
 </details>
 
