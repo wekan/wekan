@@ -10,6 +10,20 @@ https://wekan.fi/install/
 - [Quay](https://quay.io/repository/wekan/wekan)
 - [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
 
+
+- [GitHub](https://ghcr.io/wekan/wekan)
+```
+image: ghcr.io/wekan/wekan:latest
+```
+- [Docker Hub](https://hub.docker.com/r/wekanteam/wekan)
+```
+image: wekanteam/wekan:latest
+```
+- [RedHat Quay.io](https://quay.io/wekan/wekan)
+```
+image: quay.io/wekan/wekan:latest
+```
+
 docker-compose.yml at https://github.com/wekan/wekan/blob/main/docker-compose.yml
 
 ## Standards
