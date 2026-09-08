@@ -297,7 +297,7 @@ the Markdown commit as the template.
 
 </details>
 
-# Upcoming WeKan ® release
+# v11.63 2026-09-08 WeKan ® release
 
 **In short:** `releases/release-all.sh` no longer skips version numbers: its
 version step is now a fixed **+1**, fixing a bug where a single unpublished,
