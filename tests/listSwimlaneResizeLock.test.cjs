@@ -72,20 +72,26 @@ test('the header shows all three toggles only on a board page, admins only', () 
     'the same-width-for-all-lists button exists');
 });
 
-test('the list-width toggle uses a left-right arrow icon and swaps lock/unlock', () => {
+test('the list-width toggle uses a left-right arrow icon and the drag-handles check/ban pair', () => {
   const block = headerJade.slice(headerJade.indexOf('js-toggle-list-width-resize-lock'),
     headerJade.indexOf('js-toggle-same-width-for-all-lists'));
   assert.ok(block.includes('fa-arrows-h'), 'left-right arrow icon (fa-arrows-h)');
-  assert.ok(block.includes('fa-lock') && block.includes('fa-unlock'),
-    'both the locked and unlocked icon states are drawn');
+  // Same allowed/denied icon pair as .js-toggle-desktop-drag-handles - fa-check
+  // when resizing is allowed, fa-ban when this lock has denied it.
+  assert.ok(block.includes('fa-check') && block.includes('fa-ban'),
+    'both the allowed (check) and denied (ban) icon states are drawn');
+  assert.ok(!block.includes('fa-lock') && !block.includes('fa-unlock'),
+    'the old lock/unlock icons are gone');
   assert.ok(/if isListWidthResizeLocked/.test(block), 'icon swap is reactive');
 });
 
-test('the swimlane-height toggle uses an up-down arrow icon and swaps lock/unlock', () => {
+test('the swimlane-height toggle uses an up-down arrow icon and the drag-handles check/ban pair', () => {
   const block = headerJade.slice(headerJade.indexOf('js-toggle-swimlane-height-resize-lock'));
   assert.ok(block.includes('fa-arrows-v'), 'up-down arrow icon (fa-arrows-v)');
-  assert.ok(block.includes('fa-lock') && block.includes('fa-unlock'),
-    'both the locked and unlocked icon states are drawn');
+  assert.ok(block.includes('fa-check') && block.includes('fa-ban'),
+    'both the allowed (check) and denied (ban) icon states are drawn');
+  assert.ok(!block.includes('fa-lock') && !block.includes('fa-unlock'),
+    'the old lock/unlock icons are gone');
   assert.ok(/if isSwimlaneHeightResizeLocked/.test(block), 'icon swap is reactive');
 });
 

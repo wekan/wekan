@@ -83,9 +83,9 @@ template(name="header")
           a.board-header-btn.js-toggle-list-width-resize-lock(title="{{_ 'lock-list-width-resize'}}")
             i.fa.fa-arrows-h
             if isListWidthResizeLocked
-              i.fa.fa-lock
+              i.fa.fa-ban
             else
-              i.fa.fa-unlock
+              i.fa.fa-check
           // #6680: board-wide "same width for all lists" - the same mode the
           // per-list "Set width" popup already offers per user, exposed here
           // as one board setting that applies to every viewer.
@@ -95,9 +95,9 @@ template(name="header")
           a.board-header-btn.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}")
             i.fa.fa-arrows-v
             if isSwimlaneHeightResizeLocked
-              i.fa.fa-lock
+              i.fa.fa-ban
             else
-              i.fa.fa-unlock
+              i.fa.fa-check
 
       //- Everything from here on hugs the END of the bar - the right edge in a
         left-to-right language, the LEFT edge in a right-to-left one. It is one
