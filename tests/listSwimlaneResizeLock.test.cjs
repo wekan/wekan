@@ -135,6 +135,21 @@ test('the swimlane resize-handle drag start refuses when the board is locked', (
     'startResize checks the board lock before setting isResizing');
 });
 
+test('the swimlane resize-handle is hidden while locked, like the list one', () => {
+  // Refusing to start a drag is not enough on its own: the blue drag-height
+  // line still showed on hover, which read as broken rather than locked.
+  // Hide the handle itself, the same way list.js hides .js-list-resize-handle.
+  const at = swimlanesJs.indexOf('function initializeSwimlaneResize(');
+  assert.ok(at !== -1, 'initializeSwimlaneResize exists');
+  const body = swimlanesJs.slice(at, swimlanesJs.indexOf('const startResize = (e) => {', at));
+  assert.ok(/getSwimlaneHeightResizeLocked\(\)\)\s*\{\s*\$resizeHandle\.hide\(\);/.test(body),
+    'the handle is hidden when the board lock is on');
+  assert.ok(/\$resizeHandle\.show\(\);/.test(body),
+    'and shown again when it is not');
+  assert.ok(/tpl\.autorun\(/.test(body),
+    'wrapped in an autorun, so toggling the lock updates it live');
+});
+
 test('board-wide same-width mode overrides personal fixed-width, and any board member with write access may drag it', () => {
   assert.ok(listJs.includes('isBoardWideFixedListWidth'), 'a board-wide check exists');
   const effAt = listJs.indexOf('function effectiveListWidth(list)');

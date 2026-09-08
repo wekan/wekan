@@ -533,6 +533,20 @@ function initializeSwimlaneResize(tpl, retryCount = 0) {
     return;
   }
 
+  // #6680: hide the handle entirely while the board-wide lock is on, the
+  // same way client/components/lists/list.js hides its own resize handle -
+  // otherwise the blue drag-height line still shows on hover even though
+  // startResize() below refuses to act on it, which reads as broken rather
+  // than locked.
+  tpl.autorun(() => {
+    const board = ReactiveCache.getBoard(swimlane.boardId);
+    if (board && board.getSwimlaneHeightResizeLocked()) {
+      $resizeHandle.hide();
+    } else {
+      $resizeHandle.show();
+    }
+  });
+
   let isResizing = false;
   let startY = 0;
   let startHeight = 0;
